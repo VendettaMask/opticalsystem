@@ -223,10 +223,10 @@ public sealed class ManufacturingDrawingTests
     {
         var templates = OpticalDrawingTemplateCatalog.All;
 
-        Assert.Equal(Enum.GetValues<OpticalDrawingStandard>().Length, templates.Count);
+        Assert.Equal(2, templates.Count);
+        Assert.Equal(2, Enum.GetValues<OpticalDrawingStandard>().Length);
         Assert.Contains(templates, template => template.Standard == OpticalDrawingStandard.Iso10110);
         Assert.Contains(templates, template => template.Standard == OpticalDrawingStandard.GbT13323_1991);
-        Assert.Contains(templates, template => template.Standard == OpticalDrawingStandard.GbT13323_2009);
         Assert.All(templates, template =>
         {
             Assert.True(template.Page.OuterMargin > 0);
@@ -252,9 +252,8 @@ public sealed class ManufacturingDrawingTests
 
         Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(single));
         Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(single with { Standard = OpticalDrawingStandard.GbT13323_1991 }));
-        Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(single with { Standard = OpticalDrawingStandard.GbT13323_2009 }));
         Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(cemented));
-        Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(cemented with { Standard = OpticalDrawingStandard.GbT13323_2009 }));
+        Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(cemented with { Standard = OpticalDrawingStandard.GbT13323_1991 }));
     }
 
     [Fact]
@@ -395,7 +394,7 @@ public sealed class ManufacturingDrawingTests
             element.FrontSurface,
             isFront: true);
         var gbLines = OpticalDrawingRendererCore.SurfaceSpecificationLines(
-            sheet with { Standard = OpticalDrawingStandard.GbT13323_2009 },
+            sheet with { Standard = OpticalDrawingStandard.GbT13323_1991 },
             element.FrontSurface,
             isFront: true);
 
@@ -433,42 +432,33 @@ public sealed class ManufacturingDrawingTests
     }
 
     [Fact]
-    public void OpticalDrawingSupportsCurrentAndLegacyChineseNationalStandardLayouts()
+    public void OpticalDrawingSupportsIsoAndLegacyChineseNationalStandardLayouts()
     {
         using var application = WorkbenchApplication.Create("cooke");
         var element = OpticalManufacturingModel.BuildElements(
             application.Prescription.GetSurfaces())[0];
         var isoSheet = Sheet(element);
         var gb1991Sheet = isoSheet with { Standard = OpticalDrawingStandard.GbT13323_1991 };
-        var gb2009Sheet = isoSheet with { Standard = OpticalDrawingStandard.GbT13323_2009 };
 
         var isoPreview = OpticalDrawingRenderer.RenderPreview(isoSheet, 800);
         var gb1991Preview = OpticalDrawingRenderer.RenderPreview(gb1991Sheet, 800);
-        var gb2009Preview = OpticalDrawingRenderer.RenderPreview(gb2009Sheet, 800);
 
         Assert.Equal("ISO 10110-1:2019 表格式", OpticalDrawingRenderer.StandardDesignation(isoSheet.Standard));
         Assert.Equal("GB/T 13323—1991 光学制图", OpticalDrawingRenderer.StandardDesignation(gb1991Sheet.Standard));
-        Assert.Equal("GB/T 13323—2009 光学制图", OpticalDrawingRenderer.StandardDesignation(gb2009Sheet.Standard));
         Assert.False(isoPreview.SequenceEqual(gb1991Preview));
-        Assert.False(isoPreview.SequenceEqual(gb2009Preview));
-        Assert.False(gb1991Preview.SequenceEqual(gb2009Preview));
         Assert.True(gb1991Preview.Length > 10_000);
-        Assert.True(gb2009Preview.Length > 10_000);
     }
 
     [Fact]
-    public void OpticalGlassMarksSeparateCurrentAndLegacyGbPatterns()
+    public void OpticalGlassMarksSeparateIsoAndLegacyGbPatterns()
     {
         var iso = OpticalDrawingRenderer.OpticalGlassHatchHalfLengths(
             OpticalDrawingStandard.Iso10110);
         var gb1991 = OpticalDrawingRenderer.OpticalGlassHatchHalfLengths(
             OpticalDrawingStandard.GbT13323_1991);
-        var gb2009 = OpticalDrawingRenderer.OpticalGlassHatchHalfLengths(
-            OpticalDrawingStandard.GbT13323_2009);
 
         Assert.Equal(iso[0], iso[2]);
         Assert.True(iso[1] > iso[0]);
-        Assert.Equal(iso, gb2009);
         Assert.Equal(gb1991[0], gb1991[1]);
         Assert.Equal(gb1991[1], gb1991[2]);
         Assert.Equal("R50 ±0.1", OpticalDrawingRenderer.RadiusDimensionText(50, 0.1));

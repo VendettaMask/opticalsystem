@@ -1,0 +1,19 @@
+{
+  "TransmissionFirst": true,
+  "TransmissionPolicyVersion": 3,
+  "RequireDescent": true,
+  "MaximumUpdates": 99,
+  "MaximumFunctionEvaluations": 100,
+  "MaximumGradientEvaluations": 100,
+  "TimeLimit": "00:00:46.7384553",
+  "LearningRate": 0.01,
+  "ComputeMode": "cpu",
+  "Sampling": {
+    "IncludeBoundaryClearance": true,
+    "FieldsPerDirection": 3,
+    "PupilRings": 4,
+    "PupilArms": 16,
+    "ProfileRadialSamples": 8
+  },
+  "PerformFinalAssessment": false
+}

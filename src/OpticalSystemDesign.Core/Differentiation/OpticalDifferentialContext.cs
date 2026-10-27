@@ -189,6 +189,34 @@ internal sealed class OpticalDifferentialContext
         return _paraxial.Value;
     }
 
+    internal (DifferentialScalar A, DifferentialScalar B, DifferentialScalar C, DifferentialScalar D) TransferMatrix(int first, int last, double wavelength)
+    {
+        DifferentialScalar a = 1, b = 0, c = 0, d = 1;
+        var before = Index(first - 1, wavelength);
+        for (var index = first; index <= last; index++)
+        {
+            var surface = _optic.SurfaceGroup.Items[index];
+            var profile = OpticalDesignParameters.Profile(surface.Geometry);
+            if (profile.Coefficients.Length > 0 && profile.Coefficients[0] != 0
+                || _parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.EvenAsphereCoefficient && parameter.CoefficientIndex == 0))
+                throw new NotSupportedException("Fixed-plane transfer derivatives require the quadratic asphere coefficient to be zero.");
+            var after = Index(index, wavelength);
+            var curvature = Parameter(index, OpticalDesignParameterKind.Curvature, profile.Curvature);
+            var power = -(after - before) * curvature / after;
+            c = power * a + before / after * c;
+            d = power * b + before / after * d;
+            if (index < last)
+            {
+                var thickness = _hasAbsolutePositions ? Position(index + 1) - Position(index)
+                    : Parameter(index, OpticalDesignParameterKind.Thickness, surface.Thickness);
+                a += thickness * c;
+                b += thickness * d;
+            }
+            before = after;
+        }
+        return (a, b, c, d);
+    }
+
     internal static void Verify(DifferentialScalar result, double formal, string quantity)
     {
         if (!result.IsFinite || !double.IsFinite(formal) || Math.Abs(result.Value - formal) > 1e-7 * Math.Max(1, Math.Abs(formal)))

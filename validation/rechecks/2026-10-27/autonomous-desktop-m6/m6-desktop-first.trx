@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6cd03280-1762-4262-99d0-3156cf782d42" name="optics@LAPTOP-G4BBBCS0 2026-10-27 09:29:53" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T09:29:53.1216017+08:00" queuing="2026-10-27T09:29:53.1216020+08:00" start="2026-10-27T09:29:09.1461858+08:00" finish="2026-10-27T09:29:53.3037243+08:00" />
+  <TestSettings name="default" id="d2563036-adea-469e-ba43-b3ac074fd470">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-27_09_29_53" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="174b7d21-39d7-493c-b3df-cff8b9c5a296" testId="7323f82a-bf98-097d-f0da-732d43d6f15a" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.PlanChecksumReadOnlyLoadFiniteImportAndCoreExportAreVerified" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0046329" startTime="2026-10-27T09:29:53.1027385+08:00" endTime="2026-10-27T09:29:53.1028803+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="174b7d21-39d7-493c-b3df-cff8b9c5a296">
+      <Output>
+        <ErrorInfo>
+          <Message>OpticalSystemDesign.InitialStructure.Contracts.TopologyValidationException : The fixed sampling protocol exceeds its supported bounds.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Engine.TopologyValidation.Require(Boolean condition, TopologyFailureCode code, String message) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyValidation.cs:line 157&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.TopologyEvaluationPlan.Validate(TopologyTargets targets, TopologyTrainingSampling sampling) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyEvaluationPlan.cs:line 26&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.ValidatePlan(AutonomousSearchPlan plan) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs:line 459&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.Create(String runId, AutonomousSearchPlan plan) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs:line 17&#xD;
+   at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignFiles.SavePlanAsync(AutonomousSearchPlan plan, String path, CancellationToken token) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignFiles.cs:line 22&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.PlanChecksumReadOnlyLoadFiniteImportAndCoreExportAreVerified() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs:line 30&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4b5d99e4-fae7-48fa-8021-d2cd3f2b5fb0" testId="f9607b5c-1824-6b06-f8f4-b68ac6f1c285" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ComparisonPoliciesKeepBackwardIdentityAndDistinctDispatch" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0719478" startTime="2026-10-27T09:29:53.1048036+08:00" endTime="2026-10-27T09:29:53.1675518+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b5d99e4-fae7-48fa-8021-d2cd3f2b5fb0">
+      <Output>
+        <ErrorInfo>
+          <Message>OpticalSystemDesign.InitialStructure.Contracts.TopologyValidationException : The fixed sampling protocol exceeds its supported bounds.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Engine.TopologyValidation.Require(Boolean condition, TopologyFailureCode code, String message) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyValidation.cs:line 157&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.TopologyEvaluationPlan.Validate(TopologyTargets targets, TopologyTrainingSampling sampling) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyEvaluationPlan.cs:line 26&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.ValidatePlan(AutonomousSearchPlan plan) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs:line 459&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.Create(String runId, AutonomousSearchPlan plan) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs:line 17&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ComparisonPoliciesKeepBackwardIdentityAndDistinctDispatch() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs:line 170&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b02bb8f3-fcf7-4c44-8bf5-be08125e38c1" testId="e4c64f4f-7e95-95a4-3f72-bd728a4c8895" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint" computerName="LAPTOP-G4BBBCS0" duration="00:00:40.1231905" startTime="2026-10-27T09:29:12.9482442+08:00" endTime="2026-10-27T09:29:53.0652324+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b02bb8f3-fcf7-4c44-8bf5-be08125e38c1">
+      <Output>
+        <ErrorInfo>
+          <Message>Desktop workflow timed out.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.Until(Func`1 condition)&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.&lt;&gt;c__DisplayClass3_0.&lt;&lt;DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs:line 124&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.&lt;&gt;c__DisplayClass3_0.&lt;&lt;DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs:line 160&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs:line 114&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="34650fdc-ff0a-44ca-8615-aa565975d977" testId="20f3f8f8-84e8-f36b-666e-c445af3be07b" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopLoadsWithoutRunningPreservesPlanIdentityLocalizesAndRejectsUnsupportedInput" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0041637" startTime="2026-10-27T09:29:53.1000297+08:00" endTime="2026-10-27T09:29:53.1003229+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34650fdc-ff0a-44ca-8615-aa565975d977">
+      <Output>
+        <ErrorInfo>
+          <Message>OpticalSystemDesign.InitialStructure.Contracts.TopologyValidationException : The fixed sampling protocol exceeds its supported bounds.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Engine.TopologyValidation.Require(Boolean condition, TopologyFailureCode code, String message) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyValidation.cs:line 157&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.TopologyEvaluationPlan.Validate(TopologyTargets targets, TopologyTrainingSampling sampling) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyEvaluationPlan.cs:line 26&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.ValidatePlan(AutonomousSearchPlan plan) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs:line 459&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.Create(String runId, AutonomousSearchPlan plan) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs:line 17&#xD;
+   at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignFiles.SavePlanAsync(AutonomousSearchPlan plan, String path, CancellationToken token) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignFiles.cs:line 22&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopLoadsWithoutRunningPreservesPlanIdentityLocalizesAndRejectsUnsupportedInput() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopLoadsWithoutRunningPreservesPlanIdentityLocalizesAndRejectsUnsupportedInput" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="20f3f8f8-84e8-f36b-666e-c445af3be07b">
+      <Execution id="34650fdc-ff0a-44ca-8615-aa565975d977" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="DesktopLoadsWithoutRunningPreservesPlanIdentityLocalizesAndRejectsUnsupportedInput" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ComparisonPoliciesKeepBackwardIdentityAndDistinctDispatch" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="f9607b5c-1824-6b06-f8f4-b68ac6f1c285">
+      <Execution id="4b5d99e4-fae7-48fa-8021-d2cd3f2b5fb0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="ComparisonPoliciesKeepBackwardIdentityAndDistinctDispatch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="e4c64f4f-7e95-95a4-3f72-bd728a4c8895">
+      <Execution id="b02bb8f3-fcf7-4c44-8bf5-be08125e38c1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.PlanChecksumReadOnlyLoadFiniteImportAndCoreExportAreVerified" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="7323f82a-bf98-097d-f0da-732d43d6f15a">
+      <Execution id="174b7d21-39d7-493c-b3df-cff8b9c5a296" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="PlanChecksumReadOnlyLoadFiniteImportAndCoreExportAreVerified" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7323f82a-bf98-097d-f0da-732d43d6f15a" executionId="174b7d21-39d7-493c-b3df-cff8b9c5a296" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f9607b5c-1824-6b06-f8f4-b68ac6f1c285" executionId="4b5d99e4-fae7-48fa-8021-d2cd3f2b5fb0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4c64f4f-7e95-95a4-3f72-bd728a4c8895" executionId="b02bb8f3-fcf7-4c44-8bf5-be08125e38c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="20f3f8f8-84e8-f36b-666e-c445af3be07b" executionId="34650fdc-ff0a-44ca-8615-aa565975d977" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="0" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.37]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.64]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.68]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:41.88]       Desktop workflow timed out.&#xD;
+[xUnit.net 00:00:41.88]       Stack Trace:&#xD;
+[xUnit.net 00:00:41.88]            at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.Until(Func`1 condition)&#xD;
+[xUnit.net 00:00:41.88]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs(124,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.&lt;&gt;c__DisplayClass3_0.&lt;&lt;DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:41.88]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:41.88]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs(160,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.&lt;&gt;c__DisplayClass3_0.&lt;&lt;DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:41.88]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:41.88]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:41.88]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:41.88]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs(114,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint()&#xD;
+[xUnit.net 00:00:41.88]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:41.91]       OpticalSystemDesign.InitialStructure.Contracts.TopologyValidationException : The fixed sampling protocol exceeds its supported bounds.&#xD;
+[xUnit.net 00:00:41.91]       Stack Trace:&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyValidation.cs(157,0): at OpticalSystemDesign.InitialStructure.Engine.TopologyValidation.Require(Boolean condition, TopologyFailureCode code, String message)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyEvaluationPlan.cs(26,0): at OpticalSystemDesign.InitialStructure.Engine.TopologyEvaluationPlan.Validate(TopologyTargets targets, TopologyTrainingSampling sampling)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs(459,0): at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.ValidatePlan(AutonomousSearchPlan plan)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs(17,0): at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.Create(String runId, AutonomousSearchPlan plan)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignFiles.cs(22,0): at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignFiles.SavePlanAsync(AutonomousSearchPlan plan, String path, CancellationToken token)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs(60,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopLoadsWithoutRunningPreservesPlanIdentityLocalizesAndRejectsUnsupportedInput()&#xD;
+[xUnit.net 00:00:41.91]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:41.91]       OpticalSystemDesign.InitialStructure.Contracts.TopologyValidationException : The fixed sampling protocol exceeds its supported bounds.&#xD;
+[xUnit.net 00:00:41.91]       Stack Trace:&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyValidation.cs(157,0): at OpticalSystemDesign.InitialStructure.Engine.TopologyValidation.Require(Boolean condition, TopologyFailureCode code, String message)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyEvaluationPlan.cs(26,0): at OpticalSystemDesign.InitialStructure.Engine.TopologyEvaluationPlan.Validate(TopologyTargets targets, TopologyTrainingSampling sampling)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs(459,0): at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.ValidatePlan(AutonomousSearchPlan plan)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs(17,0): at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.Create(String runId, AutonomousSearchPlan plan)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignFiles.cs(22,0): at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignFiles.SavePlanAsync(AutonomousSearchPlan plan, String path, CancellationToken token)&#xD;
+[xUnit.net 00:00:41.91]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs(30,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.PlanChecksumReadOnlyLoadFiniteImportAndCoreExportAreVerified()&#xD;
+[xUnit.net 00:00:41.91]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:41.98]       OpticalSystemDesign.InitialStructure.Contracts.TopologyValidationException : The fixed sampling protocol exceeds its supported bounds.&#xD;
+[xUnit.net 00:00:41.98]       Stack Trace:&#xD;
+[xUnit.net 00:00:41.98]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyValidation.cs(157,0): at OpticalSystemDesign.InitialStructure.Engine.TopologyValidation.Require(Boolean condition, TopologyFailureCode code, String message)&#xD;
+[xUnit.net 00:00:41.98]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyEvaluationPlan.cs(26,0): at OpticalSystemDesign.InitialStructure.Engine.TopologyEvaluationPlan.Validate(TopologyTargets targets, TopologyTrainingSampling sampling)&#xD;
+[xUnit.net 00:00:41.98]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs(459,0): at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.ValidatePlan(AutonomousSearchPlan plan)&#xD;
+[xUnit.net 00:00:41.98]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutonomousSearchService.cs(17,0): at OpticalSystemDesign.InitialStructure.Engine.AutonomousSearchService.Create(String runId, AutonomousSearchPlan plan)&#xD;
+[xUnit.net 00:00:41.98]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.cs(170,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ComparisonPoliciesKeepBackwardIdentityAndDistinctDispatch()&#xD;
+[xUnit.net 00:00:41.98]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:41.98]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:41.98]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:41.99]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T09:29:53.0695684+08:00">
+        <Text>[xUnit.net 00:00:41.88]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T09:29:53.1343301+08:00">
+        <Text>[xUnit.net 00:00:41.91]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopLoadsWithoutRunningPreservesPlanIdentityLocalizesAndRejectsUnsupportedInput [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T09:29:53.1344486+08:00">
+        <Text>[xUnit.net 00:00:41.91]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.PlanChecksumReadOnlyLoadFiniteImportAndCoreExportAreVerified [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T09:29:53.1681133+08:00">
+        <Text>[xUnit.net 00:00:41.98]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ComparisonPoliciesKeepBackwardIdentityAndDistinctDispatch [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

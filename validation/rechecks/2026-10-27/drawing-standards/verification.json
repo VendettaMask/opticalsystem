@@ -1,0 +1,154 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-27",
+  "BaseCommit": "4bad6dd0cef00802f86df58ed52625a9a07f9935",
+  "WorkingTreeDirty": true,
+  "Scope": "Remove GB/T 13323-2009; retain ISO 10110 and legacy GB/T 13323-1991 drawing modes.",
+  "Build": {
+    "Configuration": "Release",
+    "DefaultOutput": true,
+    "NoRestore": true,
+    "SingleNode": true,
+    "DisableBuildServers": true,
+    "ProcessorCount": 2,
+    "Priority": "BelowNormal"
+  },
+  "NativeDesktopInteraction": false,
+  "FullSuiteRun": false,
+  "NumericalCertification": false,
+  "Published": false,
+  "TestRuns": [
+    {
+      "File": "iso-and-legacy-verified.trx",
+      "Total": 35,
+      "Passed": 35,
+      "Failed": 0,
+      "Sha256": "283c0cbf7e20dbf5f2ef58189fbe529802f19eb368030da5ae6af7a16335de4d"
+    },
+    {
+      "File": "guide-images-verified.trx",
+      "Total": 3,
+      "Passed": 3,
+      "Failed": 0,
+      "Sha256": "69691e2853af471dfb7710653010c952a921b9ccec63c1003b750c52bc389db6"
+    },
+    {
+      "File": "guide-reader-verified.trx",
+      "Total": 9,
+      "Passed": 9,
+      "Failed": 0,
+      "Sha256": "5f6d0c17f9e21f9d35bbbd15073e27b61b9121da3e9e88af68e90894fb4159b5"
+    }
+  ],
+  "DistinctPassingCases": 44,
+  "RepeatedCaptureCases": 3,
+  "InitialAbortedRun": {
+    "File": "connection-aborted.trx",
+    "Executed": 0,
+    "Reason": "testhost connection timeout in restricted run; not counted as passing"
+  },
+  "RemovedResource": "src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-2009.xml",
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Manufacturing/OpticalDrawingModel.cs",
+      "Sha256": "48337f2685f907f124f39f7eb24ab8f54942845b3a37d535dd02ab128f2034bc"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Manufacturing/OpticalDrawingTemplate.cs",
+      "Sha256": "5eafbdffb79b17ae91d180a29b1b320cef5e219badc88427a2344094d9e9008d"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Specifications.cs",
+      "Sha256": "58646f79b5fc35d76d1dbcdac203eb9cdff585f310458f24c4bbf8bccf1fbec9"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Text.cs",
+      "Sha256": "028efeaab2bbbfcece750ff2b69b7d252993bf2f203b6bd88588f12f93eb475b"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs",
+      "Sha256": "d597ddff4ef0d13346ef2078ba6d07a10f58cb02b8c41cb596dd57f5c7931f48"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "Sha256": "13c0e523464a505d49630425f57ff762f4a35f4b7da47f3a69d57275b9322202"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/PanelManager.cs",
+      "Sha256": "feb6f1ace98e1767fb483259d4e229f8b75a7dfacaa40acf5b5234cafef7fcd4"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs",
+      "Sha256": "5ced1c0182712ea83946fb40094bd863d86160f49bd2342603bf1973aecc54d2"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Shell/MainWindow.Actions.cs",
+      "Sha256": "94d8ce52916ec5fd5d3221a82505857e0ef108323392544e172e1c532fb2f01f"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs",
+      "Sha256": "ade0b72982b942194907ffa00cec0fd317bb79ea2511d556d18197f8e81bf7a5"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Assets/DrawingTemplates/iso-10110.xml",
+      "Sha256": "b3abb503a36a2644321c41b613b6f2e3c749c002a2cd9688b8e81ff784be5a3b"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-1991.xml",
+      "Sha256": "74d34b7a60a131f7b3d739221a09e7857bd77b71c4bb0f4bd275f1137fe84a50"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/ManufacturingDrawingTests.cs",
+      "Sha256": "a8cc301de8ca44cb4028f2b52fc89401ce8f37852ae13ce75e70debde7336603"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/PanelContentLayoutTests.cs",
+      "Sha256": "0cbd5d2ac0e7ae82da334703fda2c480997b8f8fa674632c7e2f2fb5b248ab6f"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/WorkspaceDockModelTests.cs",
+      "Sha256": "f1de3340b1ef1e85b608c44e41fc10be05b6d19940329a82ad91a5c255a49821"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/UserGuideCaptureTests.cs",
+      "Sha256": "9302912420f50ad723a7366f7a374af733756829c84b1366c2c4d39cbbbba8b9"
+    },
+    {
+      "Path": "docs/assets/user-guide/manifest.json",
+      "Sha256": "187c690222e13715313c8ec2da94c9d842fc366f4fceedb3e5096d8bdff0c457"
+    }
+  ],
+  "Captures": [
+    {
+      "Path": "en-US/drawing.png",
+      "Bytes": 181369,
+      "Sha256": "980591a462a3f005c29bf314043d77060d6b8c67432750db2f8eb2cd7923735c"
+    },
+    {
+      "Path": "en-US/lens-library.png",
+      "Bytes": 288524,
+      "Sha256": "c0a49d3272f04db7efd93b7bdff1d6fc06681effeed631e9c4200ce1ef9d43ab"
+    },
+    {
+      "Path": "ja-JP/drawing.png",
+      "Bytes": 172606,
+      "Sha256": "0b2a86b1211f0ff4cbdd805aa542cf82e9e353ea27b88f355a462454c9609f39"
+    },
+    {
+      "Path": "ja-JP/lens-library.png",
+      "Bytes": 280767,
+      "Sha256": "d42641d9564499a3d84da5ec1c291e2a6dd1ca9a73845fdc5b1f901cfd66d7fe"
+    },
+    {
+      "Path": "zh-CN/drawing.png",
+      "Bytes": 169750,
+      "Sha256": "93d8a34ed4fc06d12c58a9adffce8e4fbedd2926c4bca57fbea4289241c3b85d"
+    },
+    {
+      "Path": "zh-CN/lens-library.png",
+      "Bytes": 278698,
+      "Sha256": "740d3067689c4956df25922dc1de831391dea90000f9f64d1a5cc103cfeb7517"
+    }
+  ],
+  "CapturesZipSha256": "19a1797d8b1ca7c6acc9f61b768d4a52985900a96035fd837b38135efad00f95"
+}

@@ -9,7 +9,6 @@ using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Controls;
-using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
@@ -93,20 +92,10 @@ public sealed partial class MainWindow
             () => _panels.ShowMaterialAnalysis(MaterialAnalysisKind.DispersionVsWavelength));
         _actions.Register("show-manufacturability", "可加工性评估", "加工与图纸", _panels.ShowManufacturability);
         _actions.Register(
-            "show-optical-drawing-iso",
-            "ISO 10110 光学制图",
+            "show-optical-drawing",
+            "光学制图",
             "加工与图纸",
-            () => _panels.ShowOpticalDrawing(OpticalDrawingStandard.Iso10110));
-        _actions.Register(
-            "show-optical-drawing-gb",
-            "GB/T 13323—2009 光学制图",
-            "加工与图纸",
-            () => _panels.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_2009));
-        _actions.Register(
-            "show-optical-drawing-gb-1991",
-            "GB/T 13323—1991 光学制图",
-            "加工与图纸",
-            () => _panels.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_1991));
+            _panels.ShowOpticalDrawing);
         _actions.Register("show-analysis", "显示分析面板", "面板", () => _panels.Show(WorkspacePanelId.Analysis));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => _panels.Show(WorkspacePanelId.Optimization));
         _actions.Register("quick-focus", "快速聚焦", "优化", QuickFocusAsync);

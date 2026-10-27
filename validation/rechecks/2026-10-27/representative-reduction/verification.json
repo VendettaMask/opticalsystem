@@ -1,0 +1,392 @@
+{
+  "RunCount": 72,
+  "Primary": 40,
+  "AllocationControl": 24,
+  "QualifiedSourceControl": 8,
+  "CompletedSearches": 68,
+  "BudgetExhaustedSearches": 4,
+  "QualifiedReducedResults": 0,
+  "PairedPlanSettingsMatchApartFromDeclaredPolicies": true,
+  "AllocationUsesIdenticalSourcesAndTotalCaps": true,
+  "AllWorkLedgersMatch": true,
+  "AllSourceNativeBytesUnchanged": true,
+  "AllSearchesExplicitCpu": true,
+  "CpuProcessors": 2,
+  "Priority": "BelowNormal",
+  "MaximumActualSearchSeconds": 14.3048426,
+  "TotalActualSearchRays": 43105800,
+  "AdditionalNativeAuditRays": 825296,
+  "OpticalBinariesIdenticalAcrossDatasets": {
+    "OpticalSystemDesign.InitialStructure.Engine": "f4a850422b0d0970eca85fd87cff2b6c37a026cd3fadd02976f5810d832c98c6",
+    "OpticalSystemDesign.InitialStructure.Contracts": "58035bc73abafd3a6ff663767df69a880f5e56bd5c92b22d45cb0729fc702bb8",
+    "OpticalSystemDesign.Core": "ede8fc25329a4862e755386769c2f22ab8c576378a8756ed2a181ee638b8cc60"
+  },
+  "NativeQualifiedAndFailureReimportReproduced": true,
+  "CheckpointFileFingerprints": [
+    {
+      "Run": "repr-compact4-42-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "11afcbbe35436c7546d845743f4f0f10b102dba07a030e7627cc1162c19d42e2"
+    },
+    {
+      "Run": "repr-compact4-42-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "131b8314b8b90212122ec780ee6d3caa14b631fbbee174788d14129143ede6cd"
+    },
+    {
+      "Run": "repr-compact4-42-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "0311b2ee62de77c5b670dc24741f5f9c8408c3f7de1b4e81b36c6da0f00e1221"
+    },
+    {
+      "Run": "repr-compact4-42-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "489db6b1345aabf536c1913ccf171f5244742cbb2c2e7f335ef8c9606769d7b1"
+    },
+    {
+      "Run": "repr-compact4-101-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "93b844d120d2bf019c6976b0df45df8ec7f0fffcc863e4a90035d97c682d1c6a"
+    },
+    {
+      "Run": "repr-compact4-101-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "ad4ce85c1d54a8f20362e709fc3f752952aa877210ba971c4db9d4a138585ce9"
+    },
+    {
+      "Run": "repr-compact4-101-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "b7b615b8eec596e81f241c756bf4e2d2eb617912102e313dc643ae51f2ffc9a1"
+    },
+    {
+      "Run": "repr-compact4-101-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "cf04aa6100c036e1f2aa243caaa44fe42aab49e099051eedeb87d2cbb15abc04"
+    },
+    {
+      "Run": "repr-fast6-42-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "b21810c39d002cba82abfc220cd9a0d5c8116b4e9c7df02f1c1aeba831e6deca"
+    },
+    {
+      "Run": "repr-fast6-42-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "3ff083d62e8afe1727a1aaa0ae5c8afcc2eda5dc41cdb2ffeb3976b98fa4db79"
+    },
+    {
+      "Run": "repr-fast6-42-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "92c3799b5fb0988b941db9b046e366ddfe525abaf2826f4a86a30ff1c6dcddca"
+    },
+    {
+      "Run": "repr-fast6-42-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "932252f4ba34e8b275f88767a4143db8f2767f40ccbfd86d72ef48842a75dc81"
+    },
+    {
+      "Run": "repr-fast6-101-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "0a55ceeb84a422815363b56a6df3d4b6fd5d2daaf205f709350988313abde1c4"
+    },
+    {
+      "Run": "repr-fast6-101-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "00cb743396f16d2fa04addd680632c3eadcb7f606ee7789bce74084cd813eb6c"
+    },
+    {
+      "Run": "repr-fast6-101-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "c45e5e3b8649fc18b9b232b6c5c7a465a49d19d0b509eeb515039eed3590127f"
+    },
+    {
+      "Run": "repr-fast6-101-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "49ed99d1636af97febab5910fe27e697ec450fdbb5db58b082161537f5016dd9"
+    },
+    {
+      "Run": "repr-wide4-42-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "cfb7461345a48d8ef179119a3b4b20b58c2e73ac4fdb34e471067414921d2e01"
+    },
+    {
+      "Run": "repr-wide4-42-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "172836915027528dde92be35b6cf9d27d501ca8780b4d6b92bad8daee2c5aa28"
+    },
+    {
+      "Run": "repr-wide4-42-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "f2d40535048de33e700190d0cc9ace93bf96ee5f91b60afbbc3755365df30ecb"
+    },
+    {
+      "Run": "repr-wide4-42-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "d8f39918516d9f148133193dd096845d106dd4eb00623656c652708ef1c196c8"
+    },
+    {
+      "Run": "repr-wide4-101-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "969f092b0845e8a4648a3db770e1e3be34a7f088ac082760178d482ef7ecf865"
+    },
+    {
+      "Run": "repr-wide4-101-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "3df354f654bfc7994ecb89086d4cab131552f0d1d2d9280e92114c8e062d42a3"
+    },
+    {
+      "Run": "repr-wide4-101-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "efa5d0885e3ddf6932301b030aab74dccb6506c8fc2fde116ef2643c110ea0fc"
+    },
+    {
+      "Run": "repr-wide4-101-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "4044ad95f1108e3630f573bc08990fe842464c833602ba368c3c8889c08631d4"
+    },
+    {
+      "Run": "repr-imager3-18-42-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "ff07c77d6a4a57c6e4aebe12c937281ad5ddf68f5e35ec3e85fd4020068bc26d"
+    },
+    {
+      "Run": "repr-imager3-18-42-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "a94c943c692e9a9812c54753ae75ffbff7b341c82173bc0086f167aa9ead1fbf"
+    },
+    {
+      "Run": "repr-imager3-18-42-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "5d05a07faa9fecaa03ac847de8d75d3cc747090e0621eaafd0eafad31cbba4a1"
+    },
+    {
+      "Run": "repr-imager3-18-42-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "39dec2549c082c10b44db16f05011c37850fb6f46d9beb344ab1456e335766c2"
+    },
+    {
+      "Run": "repr-imager3-18-101-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "130a0885f35da3672159d0cb87298acd0c464b4b33540ebd6f29a98531fc8888"
+    },
+    {
+      "Run": "repr-imager3-18-101-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "899fc30e089b5c927c53185270b0c2873bc2da76ef19dd02ce4772ebfa92a486"
+    },
+    {
+      "Run": "repr-imager3-18-101-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "5f07302243644dd487779f865d9ec18a60bc3b3b3adbfd5e0f23c97a95abb6ef"
+    },
+    {
+      "Run": "repr-imager3-18-101-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "10bada2a112e13327a61993ea6655612e789431422a0987015f8c37a030c2e6f"
+    },
+    {
+      "Run": "repr-imager3-21-42-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "b3c75c2741c30179ba3d533fef64ebc5949eac523737136e6332d4c75958aa70"
+    },
+    {
+      "Run": "repr-imager3-21-42-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "240a8215a11abba22610d2f282158e0c39d0be1485e71774266fbea7c009350a"
+    },
+    {
+      "Run": "repr-imager3-21-42-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "080b852d79a30b6e4257e92b2853b2d9953bf3b7c4f58d638ba1eff062fa6fd6"
+    },
+    {
+      "Run": "repr-imager3-21-42-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "a67d951caaff71bcc71e0cad285d336cd9041f420e0ea2477c608184bf20dcf9"
+    },
+    {
+      "Run": "repr-imager3-21-101-C-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "e65af2dc651553f89e198f29b95cdb6b9eaf75ea29d8c47b9aabdb537b475e8c"
+    },
+    {
+      "Run": "repr-imager3-21-101-C-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "868d9029978cca0e25eebc02e45ea8d61ad55801fe4c0fdb2ab94b77c1d7105c"
+    },
+    {
+      "Run": "repr-imager3-21-101-D-legacy",
+      "Dataset": "primary",
+      "CheckpointSha256": "faccf92148bceeb226223fe24ce62e1341aa80b721a0065897f18c8ba8c4268d"
+    },
+    {
+      "Run": "repr-imager3-21-101-D-fixed",
+      "Dataset": "primary",
+      "CheckpointSha256": "86c69e8d7bb2079bc8771dc09d58778822c4c8685d607113fd9bd453885626bd"
+    },
+    {
+      "Run": "repr-compact4-42-C-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "4fb0afde441d64c51740ec15483016cfaa679d83df3ad4475c05dee65a964a6c"
+    },
+    {
+      "Run": "repr-compact4-42-C-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "7048bbc6b9eb59979860c6dfc5879a322118ca234b9703c12dc8aa1493714ce0"
+    },
+    {
+      "Run": "repr-compact4-42-D-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "1fac14fb59fcd9184989da9814eeebee9b6e092ac7832980dbc77ae3e5ae95d9"
+    },
+    {
+      "Run": "repr-compact4-42-D-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "e014c17f01a33988c462cc574d4b22b1ffbee870447d8bfd19d75991809864d6"
+    },
+    {
+      "Run": "repr-compact4-101-C-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "c35dc4031a127f4fe66a5861f4ebc2afb3c2da5f693cd568a98a535bd8956923"
+    },
+    {
+      "Run": "repr-compact4-101-C-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "866b517cc3d40e3faff0a9c578151a21e97892b4ba753a87249b7ca4d6a6cb40"
+    },
+    {
+      "Run": "repr-compact4-101-D-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "b53f37b4b3e3073f52c65c58f2d20fcb5ed6daa4f3e0af5039aef389aae3fa56"
+    },
+    {
+      "Run": "repr-compact4-101-D-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "19731aedc11af847a9e84f1da06f1132b765eb2c72fc4b44805eca12da6682dc"
+    },
+    {
+      "Run": "repr-imager3-18-42-C-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "8af04a003719484af4b7f30ab226b998582411c81917c7474117584b78be1e3d"
+    },
+    {
+      "Run": "repr-imager3-18-42-C-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "cf0527528ca244d8ef854b398962f6851aeb649442a344841cefcf29378923a4"
+    },
+    {
+      "Run": "repr-imager3-18-42-D-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "70294dd8920186e947202435aa459d63a8a980524d94ca58618f8785fd3fc2c3"
+    },
+    {
+      "Run": "repr-imager3-18-42-D-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "f0c13e20496dcaba9f888382ec3d7c93b7d251c3379c57137686e87c07f34871"
+    },
+    {
+      "Run": "repr-imager3-18-101-C-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "8c7ef138bcfb5495ede2cd30d516decb46750d49f090879337a82711be961e62"
+    },
+    {
+      "Run": "repr-imager3-18-101-C-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "c6d313f05dd13f475b54dcb6b625ed118f27b484b69f1f00c77315e9302a65e5"
+    },
+    {
+      "Run": "repr-imager3-18-101-D-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "9d2a9fd248821ff196af1e94db922d88feac303525b05cabb0547f41976efadc"
+    },
+    {
+      "Run": "repr-imager3-18-101-D-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "d6a15a5d31a8e54a4f6d50288f7d44fa8023dd779580f8cb3525bcc6dca68f01"
+    },
+    {
+      "Run": "repr-imager3-21-42-C-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "7e4a6321c8c6487c5f4560759baa607b1968f5ea3df1de65d2f52fea540ff2f4"
+    },
+    {
+      "Run": "repr-imager3-21-42-C-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "f3e0e3b20093d1ebd4df43cef0ad9ae37c6d37688014ae65e2603d29b3434303"
+    },
+    {
+      "Run": "repr-imager3-21-42-D-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "03746b66d97011fd2ee2c50f6c4939b6040b3d57a63e07e4c44fca0c64d01d16"
+    },
+    {
+      "Run": "repr-imager3-21-42-D-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "c181968648dbd40f16a62c83e149d4c6fae2157fd2b9bdfbe03cae49badc1656"
+    },
+    {
+      "Run": "repr-imager3-21-101-C-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "e023caeaccfd7b7f1103c1ca3a538460d77b8dcd54dd4c3d592c3f6497daa185"
+    },
+    {
+      "Run": "repr-imager3-21-101-C-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "6a45200914ea3a9cba8f188634770b78ad41449fdf907b8cf92ed5957cb4310b"
+    },
+    {
+      "Run": "repr-imager3-21-101-D-legacy",
+      "Dataset": "allocation",
+      "CheckpointSha256": "690cc7bca532e7d67b00c48a7d7d9bf2e14419e93b6b4add06720ac01c23cdd3"
+    },
+    {
+      "Run": "repr-imager3-21-101-D-fixed",
+      "Dataset": "allocation",
+      "CheckpointSha256": "41d8f4f37b2aa2686dd52b35eca14c9842233cd40408c75097fc8529e5f351ce"
+    },
+    {
+      "Run": "repr-qualified4-wide21-42-C-legacy",
+      "Dataset": "qualified",
+      "CheckpointSha256": "86e952c06ae747ffa0d434aa589e88911550334c212ce9989252c95bad202a6d"
+    },
+    {
+      "Run": "repr-qualified4-wide21-42-C-fixed",
+      "Dataset": "qualified",
+      "CheckpointSha256": "00c8f45e44dff652dc3da875fcab419982e0004ff5cc75ac8e4070292248d56a"
+    },
+    {
+      "Run": "repr-qualified4-wide21-42-D-legacy",
+      "Dataset": "qualified",
+      "CheckpointSha256": "3cc94257a3fc6a131e921e7679375e37dd0ee279e3814b792e142457624ce04b"
+    },
+    {
+      "Run": "repr-qualified4-wide21-42-D-fixed",
+      "Dataset": "qualified",
+      "CheckpointSha256": "3f62966f8983776740cac88270d669edd802c13e96ac351be14bf215caa4bbb2"
+    },
+    {
+      "Run": "repr-qualified4-wide21-101-C-legacy",
+      "Dataset": "qualified",
+      "CheckpointSha256": "0b5b7b0dc9f0eab5ec37cdb56df155f0ab379a4c53917280db7211ac7eb63ea2"
+    },
+    {
+      "Run": "repr-qualified4-wide21-101-C-fixed",
+      "Dataset": "qualified",
+      "CheckpointSha256": "28e44af9a0e12e75fa62de9768c563f08b63b882ecbc8b2ac4581604ca164ada"
+    },
+    {
+      "Run": "repr-qualified4-wide21-101-D-legacy",
+      "Dataset": "qualified",
+      "CheckpointSha256": "218952ed446e474f28ee1cbd5da61fa03f828ed888acd3819e485367b0b44b44"
+    },
+    {
+      "Run": "repr-qualified4-wide21-101-D-fixed",
+      "Dataset": "qualified",
+      "CheckpointSha256": "c9b3c6d313a4741043c431b9777d71f82666c762312066934b9e6ed8448d9e85"
+    }
+  ],
+  "ProductionOpticalCodeChangedThisTask": false,
+  "NativeWindowsOrInputOperatedThisTask": false,
+  "CommittedPushedOrPublishedThisTask": false,
+  "RunnerBuild": "Release build passed, zero warnings/errors",
+  "OriginalLongTrainingResumed": false
+}

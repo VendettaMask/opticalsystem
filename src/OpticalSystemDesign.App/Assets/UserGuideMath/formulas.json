@@ -1,0 +1,158 @@
+[
+  {
+    "id": "dispersion",
+    "latex": "\\begin{aligned}n^2(\\lambda)&=1+\\sum_j\\frac{B_j\\lambda^2}{\\lambda^2-C_j}\\\\1\\,\\mathrm{mm}&=10^3\\,\\mu\\mathrm{m}=10^6\\,\\mathrm{nm}\\end{aligned}"
+  },
+  {
+    "id": "optical-path",
+    "latex": "\\begin{aligned}\\mathbf p(t)&=\\mathbf o+t\\mathbf d\\\\\\mathrm{OPL}&=\\sum_j n_j(\\lambda)L_j\\end{aligned}"
+  },
+  {
+    "id": "snell-reflection",
+    "latex": "\\begin{aligned}n_1\\sin\\theta_1&=n_2\\sin\\theta_2\\\\\\mathbf d_r&=\\mathbf d-2(\\mathbf d\\cdot\\mathbf N)\\mathbf N,\\quad |\\mathbf d|=|\\mathbf N|=1\\end{aligned}"
+  },
+  {
+    "id": "paraxial",
+    "latex": "\\begin{gathered}\\begin{pmatrix}y_2\\\\u_2\\end{pmatrix}=\\begin{pmatrix}A&B\\\\C&D\\end{pmatrix}\\begin{pmatrix}y_1\\\\u_1\\end{pmatrix},\\quad u=\\frac{dy}{dz}\\\\T(d)=\\begin{pmatrix}1&d\\\\0&1\\end{pmatrix}\\\\R=\\begin{pmatrix}1&0\\\\-\\dfrac{n_2-n_1}{n_2R_s}&\\dfrac{n_1}{n_2}\\end{pmatrix}\\\\\\mathrm{EFL}=-\\frac1C\\quad\\text{(air to air)}\\end{gathered}"
+  },
+  {
+    "id": "spot-rms",
+    "latex": "\\begin{aligned}\\bar x&=\\frac{\\sum_iw_ix_i}{\\sum_iw_i},\\quad\\bar y=\\frac{\\sum_iw_iy_i}{\\sum_iw_i}\\\\\\mathrm{RMS}&=\\sqrt{\\frac{\\sum_iw_i[(x_i-\\bar x)^2+(y_i-\\bar y)^2]}{\\sum_iw_i}}\\end{aligned}"
+  },
+  {
+    "id": "pupil-phase",
+    "latex": "\\begin{aligned}\\varphi&=-\\frac{2\\pi\\,\\mathrm{OPD}}{\\lambda}\\\\P(\\xi,\\eta)&=A(\\xi,\\eta)\\exp[i\\varphi(\\xi,\\eta)]\\end{aligned}"
+  },
+  {
+    "id": "psf",
+    "latex": "\\begin{aligned}I_{\\mathrm{FFT}}&\\propto|\\mathcal F\\{P\\}|^2\\\\I_{\\mathrm{Huygens}}&\\propto\\left|\\sum_j a_j e^{ik\\,\\mathrm{OPL}_j}\\right|^2\\\\I_{\\mathrm{poly}}(x,y)&=\\frac{\\sum_\\lambda w_\\lambda I_\\lambda(x,y)}{\\sum_\\lambda w_\\lambda}\\end{aligned}"
+  },
+  {
+    "id": "mtf",
+    "latex": "\\begin{aligned}\\mathrm{OTF}(f_x,f_y)&=\\mathcal F\\{I(x,y)\\}\\\\\\mathrm{MTF}(f_x,f_y)&=\\frac{|\\mathrm{OTF}(f_x,f_y)|}{|\\mathrm{OTF}(0,0)|}\\end{aligned}"
+  },
+  {
+    "id": "encircled-energy",
+    "latex": "\\mathrm{EE}(r)=\\frac{\\displaystyle\\iint_{(x-x_c)^2+(y-y_c)^2\\le r^2}I(x,y)\\,dx\\,dy}{\\displaystyle\\iint I(x,y)\\,dx\\,dy}"
+  },
+  {
+    "id": "film-energy",
+    "latex": "\\begin{aligned}R&=|r|^2\\\\R+T+A&=1\\end{aligned}"
+  },
+  {
+    "id": "merit",
+    "latex": "\\begin{aligned}r_i&=\\sqrt{\\frac{w_i}{\\sum_j|w_j|}}(v_i-t_i),\\quad w_i>0\\\\\\mathrm{merit}&=\\sum_{i:w_i>0}r_i^2\\end{aligned}"
+  },
+  {
+    "id": "yield",
+    "latex": "\\widehat Y=\\frac{N_{\\mathrm{pass}}}{N_{\\mathrm{trials}}}"
+  },
+  {
+    "id": "power-accounting",
+    "latex": "P_{\\mathrm{source}}=P_{\\mathrm{detector}}+P_{\\mathrm{absorbed}}+P_{\\mathrm{escaped}}+P_{\\mathrm{truncated}}"
+  },
+  {
+    "id": "detector-pixel",
+    "latex": "\\begin{aligned}P_{\\mathrm{pixel}}&=\\sum_iP_i\\\\E_{\\mathrm{pixel}}&=\\frac{P_{\\mathrm{pixel}}}{A_{\\mathrm{pixel}}}\\end{aligned}"
+  },
+  {
+    "id": "camera-electrons",
+    "latex": "N_e=E_{\\mathrm{ref}}\\,L\\,A\\,t\\,\\frac{\\lambda}{hc}\\,\\mathrm{QE}"
+  },
+  {
+    "id": "conic-sag",
+    "latex": "z(r)=\\frac{cr^2}{1+\\sqrt{1-(1+k)c^2r^2}}+\\sum_{m=2}^{M}A_{2m}r^{2m},\\quad c=\\frac1R"
+  },
+  {
+    "id": "grin",
+    "latex": "\\frac{d}{ds}\\left(n\\frac{d\\mathbf r}{ds}\\right)=\\nabla n"
+  },
+  {
+    "id": "pupil-quadrature",
+    "latex": "\\langle g\\rangle\\approx\\frac{\\sum_iw_i g_i}{\\sum_iw_i},\\quad\\sum_i w_i\\longrightarrow\\int_{\\mathcal P}dA"
+  },
+  {
+    "id": "distortion",
+    "latex": "D=100\\,\\frac{h_{\\mathrm{real}}-h_{\\mathrm{reference}}}{h_{\\mathrm{reference}}}\\,\\%,\\quad h_{\\mathrm{reference}}\\ne0"
+  },
+  {
+    "id": "zernike-fit",
+    "latex": "\\begin{aligned}W(\\rho,\\theta)&\\approx\\sum_{j=1}^{K}a_j Z_j(\\rho,\\theta)\\\\\\mathbf a&=\\underset{\\mathbf a}{\\operatorname{argmin}}\\,\\|Z\\mathbf a-\\mathbf W\\|_2^2\\end{aligned}"
+  },
+  {
+    "id": "interferogram",
+    "latex": "\\begin{aligned}q&=s\\left(W_1-W_2+\\frac{\\mathrm{OPL}_2-\\mathrm{OPL}_1}{\\lambda}\\right)+\\frac{t_xx+t_yy}{2}\\\\I&=\\frac{1+\\cos(2\\pi q)}2\\end{aligned}"
+  },
+  {
+    "id": "foucault",
+    "latex": "\\begin{aligned}U_{\\mathrm{out}}&=\\mathcal F^{-1}\\{M\\,\\mathcal F[P]\\}\\\\I&=\\sum_c|U_{\\mathrm{out},c}|^2,\\quad\\tau=\\frac{P_{\\mathrm{out}}}{P_{\\mathrm{in}}}\\end{aligned}"
+  },
+  {
+    "id": "angular-spectrum",
+    "latex": "U(z)=\\mathcal F^{-1}\\!\\left[\\mathcal F[U(0)]\\exp\\!\\left(iz\\sqrt{k^2-k_x^2-k_y^2}\\right)\\right]"
+  },
+  {
+    "id": "relative-illumination",
+    "latex": "\\mathrm{RI}(H)=\\frac{Q(H)}{\\displaystyle\\max_{H'\\in\\mathcal H_{\\mathrm{sampled}}}Q(H')}"
+  },
+  {
+    "id": "radiometry",
+    "latex": "\\begin{aligned}E_{ij}&=\\frac{\\Phi_{ij}}{\\Delta A_{ij}}\\quad[\\mathrm{W/mm^2}]\\\\J_{ij}&=\\frac{\\Phi_{ij}}{\\Delta\\Omega_{ij}}\\quad[\\mathrm{W/sr}]\\end{aligned}"
+  },
+  {
+    "id": "line-edge",
+    "latex": "\\begin{aligned}\\mathrm{LSF}(x)&=\\int\\mathrm{PSF}(x,y)\\,dy\\\\\\mathrm{ESF}(x)&=\\frac{\\displaystyle\\int_{-\\infty}^{x}\\mathrm{LSF}(u)\\,du}{\\displaystyle\\int_{-\\infty}^{\\infty}\\mathrm{LSF}(u)\\,du}\\end{aligned}"
+  },
+  {
+    "id": "extended-imaging",
+    "latex": "\\begin{aligned}I_{\\mathrm{incoherent}}(\\mathbf x)&=\\int I_o(\\mathbf u)h_I(\\mathbf x;\\mathbf u)\\,d\\mathbf u\\\\U_{\\mathrm{coherent}}(\\mathbf x)&=\\int U_o(\\mathbf u)h_U(\\mathbf x;\\mathbf u)\\,d\\mathbf u\\\\I_{\\mathrm{coherent}}(\\mathbf x)&=|U_{\\mathrm{coherent}}(\\mathbf x)|^2\\end{aligned}"
+  },
+  {
+    "id": "mutual-intensity",
+    "latex": "\\begin{aligned}I(\\mathbf x)&=\\iint J_o(\\mathbf u_1,\\mathbf u_2)h_U(\\mathbf x;\\mathbf u_1)h_U^*(\\mathbf x;\\mathbf u_2)\\,d\\mathbf u_1\\,d\\mathbf u_2\\\\J_{ij}&=(1-\\gamma)I_i\\delta_{ij}+\\gamma a_i a_j^*,\\quad 0\\le\\gamma\\le1\\end{aligned}"
+  },
+  {
+    "id": "scan-grid",
+    "latex": "H_i=\\frac{i}{N}H_{\\max},\\quad i=0,1,\\ldots,N"
+  },
+  {
+    "id": "dls-step",
+    "latex": "(J^{\\mathsf T}J+\\mu D)\\,\\Delta\\mathbf x=-J^{\\mathsf T}\\mathbf r"
+  },
+  {
+    "id": "finite-difference",
+    "latex": "\\frac{\\partial r_i}{\\partial x_j}\\approx\\frac{r_i(\\mathbf x+h_j\\mathbf e_j)-r_i(\\mathbf x-h_j\\mathbf e_j)}{2h_j}"
+  },
+  {
+    "id": "thin-film-matrix",
+    "latex": "\\begin{aligned}\\delta_j&=\\frac{2\\pi}{\\lambda}\\widetilde n_jd_j\\cos\\theta_j\\\\r_j&=\\frac{r_{j,j+1}+r_{j+1}e^{2i\\delta_j}}{1+r_{j,j+1}r_{j+1}e^{2i\\delta_j}}\\end{aligned}"
+  },
+  {
+    "id": "seidel-wavefront",
+    "latex": "W(\\rho,\\theta;H)=W_{040}\\rho^4+W_{131}H\\rho^3\\cos\\theta+W_{222}H^2\\rho^2\\cos^2\\theta+W_{220}H^2\\rho^2+W_{311}H^3\\rho\\cos\\theta"
+  },
+  {
+    "id": "assembly-conjugate",
+    "latex": "\\begin{aligned}A&=\\frac{\\partial f}{\\partial h},\\quad B=\\frac{\\partial f}{\\partial u}\\\\D_{\\rm ext}&=\\frac{4D(h/2)-D(h)}{3}\\\\z_{\\rm image}&=z_{\\rm launch}+\\sigma\\frac{B}{A}-z_{\\rm datum}\\end{aligned}"
+  },
+  {
+    "id": "adam",
+    "latex": "\\begin{aligned}m_t&=\\beta_1m_{t-1}+(1-\\beta_1)g_t\\\\v_t&=\\beta_2v_{t-1}+(1-\\beta_2)g_t^2\\\\\\widehat m_t&=\\frac{m_t}{1-\\beta_1^t},\\quad\\widehat v_t=\\frac{v_t}{1-\\beta_2^t}\\\\x_{t+1}&=x_t-\\alpha_t\\frac{\\widehat m_t}{\\sqrt{\\widehat v_t}+\\epsilon}\\end{aligned}"
+  },
+  {
+    "id": "ray-otf",
+    "latex": "\\begin{aligned}\\mathrm{OTF}_{\\rm geometric}(\\mathbf f)&=\\frac{\\sum_jw_j\\exp[-2\\pi i\\,\\mathbf f\\cdot\\mathbf x_j]}{\\sum_jw_j}\\\\Q(\\Delta)&=\\sum_{p\\in\\mathcal P\\cap(\\mathcal P+\\Delta)}I_p e^{2\\pi i[W(p)-W(p-\\Delta)]}\\\\\\mathrm{OTF}_{\\rm sampled}(\\Delta)&=\\frac{Q(\\Delta)}{Q(0)}\\end{aligned}"
+  },
+  {
+    "id": "yybar",
+    "latex": "\\bar y_j^{\\rm scaled}=\\bar y_j\\frac{h_{\\rm selected}}{\\bar y_{\\rm image}},\\quad\\bar y_{\\rm image}\\ne0"
+  },
+  {
+    "id": "contrast-loss",
+    "latex": "L(p)=\\frac{1-\\cos(2\\pi\\Delta W(p))}{2}"
+  },
+  {
+    "id": "jones-matrix",
+    "latex": "\\begin{pmatrix}E_x^{\\rm out}\\\\E_y^{\\rm out}\\end{pmatrix}=\\begin{pmatrix}J_{xx}&J_{xy}\\\\J_{yx}&J_{yy}\\end{pmatrix}\\begin{pmatrix}E_x^{\\rm in}\\\\E_y^{\\rm in}\\end{pmatrix}"
+  }
+]

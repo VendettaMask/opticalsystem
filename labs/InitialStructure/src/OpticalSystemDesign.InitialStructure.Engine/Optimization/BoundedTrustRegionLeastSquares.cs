@@ -15,7 +15,8 @@ internal static class BoundedTrustRegionLeastSquares
         Func<bool>? stopRequested = null,
         Action<IReadOnlyList<double>, LeastSquaresEvaluation>? acceptedStep = null,
         Action<bool>? evaluationStarted = null, Action? jacobianBuilt = null,
-        Action<LeastSquaresTrial>? trialEvaluated = null)
+        Action<LeastSquaresTrial>? trialEvaluated = null,
+        Func<IReadOnlyList<double>, double[,]>? analyticJacobian = null)
     {
         options ??= new();
         Validate(initial, lowerBounds, upperBounds, options);
@@ -197,6 +198,15 @@ internal static class BoundedTrustRegionLeastSquares
 
         double[,]? BuildJacobian()
         {
+            if (analyticJacobian is not null)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                var supplied = analyticJacobian(vector);
+                if (supplied.GetLength(0) != evaluation.Residuals.Count || supplied.GetLength(1) != vector.Length
+                    || supplied.Cast<double>().Any(value => !double.IsFinite(value)))
+                { interrupted = LeastSquaresTermination.NonFiniteModel; return null; }
+                return supplied;
+            }
             var jacobian = new double[evaluation.Residuals.Count, vector.Length];
             for (var column = 0; column < vector.Length; column++)
             {

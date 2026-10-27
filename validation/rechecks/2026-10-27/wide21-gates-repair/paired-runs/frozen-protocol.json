@@ -1,0 +1,353 @@
+{
+  "Version": 1,
+  "Purpose": "F/3.3416 half-field21: isolate common-integration-centroid boundary maximum correction, then joint fractional restoration with per-row no-regression filter. Actual autonomous pipeline from identical original perturbed seeds under original caps; all failures retained.",
+  "Seeds": [
+    42,
+    101
+  ],
+  "Groups": [
+    "C",
+    "D"
+  ],
+  "Modes": [
+    "v3",
+    "maximum",
+    "joint"
+  ],
+  "SeedPerturbation": "Identical deterministic +/-0.1% curvature perturbations for both modes; seeds42/101. C direct deletion; D adds gradual deletion.",
+  "Budget": {
+    "MaximumTrials": 6,
+    "MaximumFunctionEvaluations": 600,
+    "MaximumGradientEvaluations": 100,
+    "MaximumTracedRays": 2000000,
+    "MaximumStageTracedRays": 400000,
+    "FinalValidationRayReserve": 800000,
+    "TimeLimitSeconds": 60
+  },
+  "Training": {
+    "FieldsPerDirection": 3,
+    "PupilRings": 4,
+    "PupilArms": 16,
+    "ProfileRadialSamples": 8,
+    "LocalUpdates": 4,
+    "FullUpdates": 8,
+    "RecoveryFunctions": 150
+  },
+  "Targets": {
+    "FocalLengthRelativeTolerance": 0.02,
+    "FNumberRelativeTolerance": 0.02,
+    "MaximumRmsRadiusMillimeters": 0.05,
+    "MaximumSpotRadiusMillimeters": 0.15,
+    "MaximumDistortionFraction": 0.03,
+    "MinimumValidRayFraction": 0.98,
+    "MinimumEdgeThicknessMillimeters": 0.1,
+    "MinimumEdgeAirGapMillimeters": 0.01,
+    "MaximumOpticalTrackMillimeters": 10000,
+    "MaximumAbsoluteSurfaceSlope": 10
+  },
+  "FinalValidation": "Unmodified Core-backed TopologyValidator: 21 positions per defined field direction with union/deduplication, 10x32 Gaussian pupil, boundary+center33, profile64, all source positive-weight wavelengths (RGB for all chosen cases).",
+  "Permissions": "All three modes identical original16 curvature/axial permissions and per-trial0.25mm window, stop/image/reference/radii/materials fixed. v3 original; maximum adds common-centroid check maximum only; joint adds version4 fractional restoration of all violated constraints and individual no-regression guard. Sampling/training updates/final gates unchanged.",
+  "Preparation": "Explicit physical air-spaced variants; editor merit/variable/solve and OPD-reference state frozen; original radii/materials/environment/coordinates/fields/spectrum retained before seed perturbation. Stop radius calibrated by shared Core to preserve original first-order F number, physical circular face apertures from original semi-diameters, aiming enabled. Not unmodified native imports. Original native bytes retained and hashed.",
+  "SuccessDefinition": "Archive original-task-qualified candidate with fewer elements than the initial source. Starting point failures, no deletion attempted, recovery failure, optical/manufacturing gates, unavailable endpoints and budget exhaustion classified separately.",
+  "Cases": [
+    {
+      "Id": "new-wide4-3",
+      "Source": {
+        "Id": "dan-reiley-lens-design-exchange-photographic-lenses-prime-fa4053586be1",
+        "Name": "US02432387-1",
+        "Category": "Public Zemax Designs",
+        "SourceName": "photographic-lenses-prime",
+        "SourceUrl": "https://sites.google.com/site/danreiley/photographic-lenses-prime",
+        "License": "Public domain",
+        "SourceFormat": "ZMX",
+        "ImportStatus": "可用",
+        "ImportMessage": null,
+        "EffectiveFocalLength": 25.462945191529624,
+        "FNumber": 3.3415938571561186,
+        "ApertureKind": "EntrancePupilDiameter",
+        "ApertureValue": 7.62,
+        "TotalTrack": 35.50469404012648,
+        "SurfaceCount": 11,
+        "FieldDefinition": "Angle",
+        "MaximumField": 21,
+        "FieldCount": 3,
+        "WavelengthCount": 3,
+        "MinimumWavelengthNanometers": 486.1327,
+        "MaximumWavelengthNanometers": 656.2725,
+        "NativePath": "projects/dan-reiley-lens-design-exchange-photographic-lenses-prime-fa4053586be1.staropt",
+        "SourcePath": "US02432387-1.zmx",
+        "NumericalAperture": 0.14798179072283765,
+        "NumericalApertureBasis": "像方空气近轴估算",
+        "WorkingDistance": 16.048294040126482,
+        "WorkingDistanceBasis": "像方后工作距离",
+        "LensElementCount": 4,
+        "MaximumClearAperture": 20,
+        "LensType": "未分类光学系统",
+        "Application": "公开研究与教学",
+        "DesignOrganization": "未注明",
+        "ImportedAt": null,
+        "ImporterVersion": "历史版本（未记录）",
+        "RepositoryPath": "src/OpticalSystemDesign.App/Assets/LensLibrary/projects/dan-reiley-lens-design-exchange-photographic-lenses-prime-fa4053586be1.staropt"
+      },
+      "OriginalSha256": "0a43baa914b35cfceb195198632711cd1a8a139304f737d88d883f84949c300b",
+      "SourceTopology": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Imported Zemax ZMX",
+        "Conjugate": "infinite",
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 12.547600000000001,
+          "ClearSemiDiameterMillimeters": 2.4880530821461484,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 35.50469404012648,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "element-001",
+            "FrontSurfaceId": "element-001:front",
+            "BackSurfaceId": "element-001:back",
+            "FrontZMillimeters": 0,
+            "ThicknessMillimeters": 3.1242,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "standard",
+                "CurvaturePerMillimeter": 0.054834645704692576,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "standard",
+                "CurvaturePerMillimeter": 0.006007874015358722,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-002",
+            "FrontSurfaceId": "element-002:front",
+            "BackSurfaceId": "element-002:back",
+            "FrontZMillimeters": 3.302,
+            "ThicknessMillimeters": 2.6924000000000006,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "standard",
+                "CurvaturePerMillimeter": 0.08430314967448359,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "standard",
+                "CurvaturePerMillimeter": 0.06370472438106199,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 6.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-003",
+            "FrontSurfaceId": "element-003:front",
+            "BackSurfaceId": "element-003:back",
+            "FrontZMillimeters": 9.271,
+            "ThicknessMillimeters": 0.9398,
+            "Material": "SF18",
+            "Front": {
+              "Profile": {
+                "Kind": "standard",
+                "CurvaturePerMillimeter": -0.01958661417572564,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 4,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "standard",
+                "CurvaturePerMillimeter": 0.11121653533110755,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-004",
+            "FrontSurfaceId": "element-004:front",
+            "BackSurfaceId": "element-004:back",
+            "FrontZMillimeters": 13.563600000000001,
+            "ThicknessMillimeters": 5.892800000000001,
+            "Material": "LAK09",
+            "Front": {
+              "Profile": {
+                "Kind": "standard",
+                "CurvaturePerMillimeter": 0.047263779512056535,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "standard",
+                "CurvaturePerMillimeter": -0.06161023618515746,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "On axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 2",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 14,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 3",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 21,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "W1",
+            "Nanometers": 486.1327,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "W2",
+            "Nanometers": 587.5618000000001,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "W3",
+            "Nanometers": 656.2725,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [
+          "SCHOTT",
+          "HIKARI",
+          "SUMITA"
+        ],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "FocalTargetMillimeters": 25.462945191529624,
+      "FNumberTarget": 3.3415938571561186,
+      "CurvatureBoundPerMillimeter": 0.2224330706622151,
+      "HalfFieldDegrees": 21
+    }
+  ],
+  "AllocationControl": {
+    "PrimaryProtocolSha256": "990d22de80f0d24e53d9a390581243df0acb0de76e9b4e2fe1fa4cb44c95240d",
+    "Reason": "Primary 200000-ray per-validation reserve ended before all dense fields for compact4/imager3-18/imager3-21. Reallocate within unchanged 2000000 total rays; no extra training updates or time.",
+    "OriginalFinalValidationReserve": 200000,
+    "NewFinalValidationReserve": 800000,
+    "KnownNonQuotaFailuresNotRerun": [
+      "fast6",
+      "wide4"
+    ]
+  },
+  "ApplyCurvaturePerturbation": true,
+  "QualifiedSourceControl": {
+    "ParentRun": "validation/rechecks/2026-10-27/representative-reduction/allocation-control/repr-imager3-21-42-C-fixed/run.autonomous.json",
+    "ParentRunSha256": "f3e0e3b20093d1ebd4df43cef0ad9ae37c6d37688014ae65e2603d29b3434303",
+    "ParentConsumed": {
+      "functionEvaluations": 49,
+      "gradientEvaluations": 10,
+      "validationEvaluations": 4,
+      "matrixEvaluations": 35,
+      "differenceEvaluations": 30,
+      "jacobianBuilds": 3,
+      "tracedRays": 1615080,
+      "geometryProbes": 9895,
+      "elapsed": "00:00:04.4612186"
+    },
+    "ParentSourceElements": 3,
+    "PreparationResultElements": 4,
+    "ParentTaskTargets": {
+      "effectiveFocalLengthMillimeters": 26.29893046465161,
+      "fNumber": 4.93043315797743,
+      "focalLengthRelativeTolerance": 0.02,
+      "fNumberRelativeTolerance": 0.02,
+      "maximumRmsRadiusMillimeters": 0.05,
+      "maximumSpotRadiusMillimeters": 0.15,
+      "maximumDistortionFraction": 0.03,
+      "minimumValidRayFraction": 0.98,
+      "minimumEdgeThicknessMillimeters": 0.1,
+      "minimumEdgeAirGapMillimeters": 0.01,
+      "maximumOpticalTrackMillimeters": 10000,
+      "maximumAbsoluteSurfaceSlope": 10
+    },
+    "Reason": "All five original physical variants failed or could not complete the original dense gates; this additional source was genuinely qualified within a recorded short run. It is a distinct starting prescription, not evidence that the original three-element lens was reduced."
+  },
+  "BoundaryPolicy": "boundary adds independent 33 center/boundary minimum-clearance residuals at the existing training fields, with 0.01mm constraint scale. Gaussian sampling/statistics, all physical apertures, targets, variables, fixed/descent guards and dense final validation unchanged. Extra actual work is charged inside the same caps.",
+  "CompensationBudgetPolicy": "Both modes enable ProtectCompensationRayBudget. A post-local optional dense check is deferred with zero optical work if the remaining non-final ray allocation cannot reserve its configured full quota; full compensation and the independent final gate keep original limits. Recovery feasibility check remains. Previous eight runs are retained separately.",
+  "TransmissionPolicy": "Transmission v3: fixed unit coordinate model box, actual step fraction halves on rejection and doubles after acceptance up to one, so smaller radii cannot re-evaluate the same rejected point. Model anchors 0.9 vs actual protection 0.95; satisfied signed inequalities retain 10% linear slack. RMS training headroom 2%, all original independent acceptance gates unchanged. Both uses two independent local columns; control retains prior Adam.",
+  "TransmissionPolicyVersion": 3,
+  "AxialCompensation": {
+    "MaximumDisplacementMillimeters": 0.25,
+    "CoordinateScaleMillimeters": 0.1,
+    "ElementIds": []
+  },
+  "Selection": "One previously frozen new-wide4-3; no new prescription or aperture/field/gate selection.",
+  "JointTransmissionPolicyVersion": 4
+}

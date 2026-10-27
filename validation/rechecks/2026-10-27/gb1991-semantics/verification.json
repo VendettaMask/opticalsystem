@@ -1,0 +1,784 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-27",
+  "baseCommit": "4bad6dd0cef00802f86df58ed52625a9a07f9935",
+  "workingTreeDirty": true,
+  "scope": "Complete review of textbook optical-part-drawing section for currently supported rotational single/cemented lenses; fix legacy annotation semantics and input applicability while preserving ISO layout and shared controls.",
+  "primarySources": [
+    {
+      "url": "https://www.zstp.edu.cn/__local/A/9D/24/BF8073E52E207CD6BDF69B01710_DEEC166A_124C5DB.pdf",
+      "sha256": "8461e4b13645cd662a30fea0713ba13182f92ff5aee3e2d0e25e89ea21219cae",
+      "printedPages": [
+        41,
+        59
+      ],
+      "pdfPagesOneBased": [
+        49,
+        67
+      ],
+      "coverage": "Complete relevant section including cross-version distinctions and figures; not whole book.",
+      "copyrightedSourceArchived": false
+    },
+    {
+      "url": "https://ncstatic.clewm.net/rsrc/2022/0928/18/a8e91b473f322a6f24ebec07b5068cc5.pdf",
+      "sha256": "5aced774745ecb2729debde435dec271299c5a11617bc876b1531067c07b5ea9",
+      "clauses": [
+        "3",
+        "4.2",
+        "4.3"
+      ],
+      "tables": [
+        2,
+        3
+      ],
+      "appendixFigures": [
+        "A2",
+        "A3",
+        "A4"
+      ],
+      "copyrightedSourceArchived": false
+    }
+  ],
+  "build": {
+    "configuration": "Release",
+    "defaultOutput": true,
+    "noRestore": true,
+    "disableBuildServers": true,
+    "singleNode": true,
+    "processorCount": 2,
+    "priority": "BelowNormal"
+  },
+  "testRuns": [
+    {
+      "file": "before-semantics.trx",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "sha256": "40ddf47f5b91c9d9e3b0ca2b0b7ef9cbb62c93ab77bbd4cbfdcb1e7d9d7db013"
+    },
+    {
+      "file": "semantics-first-pass.trx",
+      "total": 8,
+      "passed": 8,
+      "failed": 0,
+      "sha256": "056ded05b5cfbacf759c0da8d7ea6f81c77ee952728972a185d632e65e3b3400"
+    },
+    {
+      "file": "semantics-verified.trx",
+      "total": 58,
+      "passed": 58,
+      "failed": 0,
+      "sha256": "72ca1c7d1946e2ea6686c64bd8a9ef4294b856c0c6a187fcb4e8c846872ce6eb"
+    },
+    {
+      "file": "semantics-final.trx",
+      "total": 61,
+      "passed": 61,
+      "failed": 0,
+      "sha256": "c9d179e2cb36da679846a6dc041f2f6e22b1539b2624e54c5461c4312f25ad8c"
+    },
+    {
+      "file": "semantics-guide-and-final-aspheres.trx",
+      "total": 13,
+      "passed": 13,
+      "failed": 0,
+      "sha256": "8ad541f5a7fe0f649980b94500806ce0828c81fb1ac5606ae6021b598263311c"
+    },
+    {
+      "file": "semantics-embedded-guide.trx",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "sha256": "1f3bc726868b318f2ce077050e7aab34345f366546ebffa50f68b109ae018979"
+    }
+  ],
+  "distinctPassingCases": 70,
+  "nativeDesktopInteraction": false,
+  "fullSuiteRun": false,
+  "numericalCertification": false,
+  "published": false,
+  "coreOpticalFormulasChangedByThisTask": false,
+  "iso": {
+    "xmlMatchesHead": true,
+    "pngByteIdentical": 4,
+    "pdfPixelIdentical": 4,
+    "pdfRasterDpi": 96,
+    "pdfBytesEqualityClaimed": false
+  },
+  "legacyOutput": {
+    "pdfsIndependentlyInspected": 11,
+    "allElevenPagesVisuallyInspected": true,
+    "explicitRaAnnotationsAndVectorSymbolsChecked": 10,
+    "asphericDefinitionsChecked": 4,
+    "rasterImagesInDefaultPdf": 0,
+    "inspectionReport": "pdf-semantic-inspection.json",
+    "textExtractionLimitations": {
+      "unicode": "NFKC",
+      "glyphAliases": {
+        "㬵": "胶",
+        "⻆": "角",
+        "⻓": "长",
+        "⻚": "页",
+        "‒": "–"
+      },
+      "scope": "Extraction comparison only; visible glyphs reviewed separately. Shared PDF font/text code unchanged."
+    },
+    "mediaBoxNotes": "Skia rounds MediaBox to integer points; geometry is measured in nominal physical page coordinates.",
+    "parserNotes": "pdfminer logs missing FontBBox for existing embedded CFF subsets; vector dimensions do not use font bounding boxes. Glyph extraction comparisons use the declared normalization; no searchable-Unicode repair is claimed."
+  },
+  "guide": {
+    "languages": [
+      "zh-CN",
+      "en-US",
+      "ja-JP"
+    ],
+    "capturedImages": 9,
+    "assetsSynchronized": 6,
+    "pngAssetsChanged": 4,
+    "pngAssetsByteUnchanged": 2,
+    "allImageManifestEntriesVerified": 54,
+    "resourcesRebuiltAfterCompleteSynchronization": true
+  },
+  "limits": [
+    "Only coaxial rotational single/cemented lenses; no prism/freeform or special-aperture CAD added.",
+    "Large chamfer geometry and full corporate title-block clauses are outside current renderer; separate controlled mechanical details required.",
+    "No automatic legacy material-grade, surface-fringe or Ra/Rq conversion.",
+    "Requirement fixture numbers are explicit presentation inputs, not calculated focal lengths or measured grade results.",
+    "No external real-optic numerical or full standards compliance certification."
+  ],
+  "scopedDiffCheckPassed": true,
+  "sourceHashes": [
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-1991.xml",
+      "sha256": "4f3de2d953c573a8fdc0a4739739ea31f502f07c75000303fb901c05515946f3"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/DrawingTemplates/iso-10110.xml",
+      "sha256": "b3abb503a36a2644321c41b613b6f2e3c749c002a2cd9688b8e81ff784be5a3b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Brand/CompanyLogo.svg",
+      "sha256": "dfbf5bd1655003410292f89df6cc23a1a9bf1bd55568cd5c12582d6589db90b0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/OpticalDrawingModel.cs",
+      "sha256": "46a8dc1c4bf0d17ef19b74689d6c517e291ddd22c9a0df5bdc5587edd50c3fa1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/OpticalDrawingTemplate.cs",
+      "sha256": "5ea74402c3dc4ae0b5c8126e97c8c1f796bbb3f7fac413fa7160f996a988fe6a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Gb1991.cs",
+      "sha256": "c0f8a09984277ac86575ed463e1656eb65be87617b607141f9e40aa253999ab4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Gb1991Annotations.cs",
+      "sha256": "aa1f8b80eda1513282cb08235aeca4c0ea4ee64fb1524e0ea632c59eee7322e9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Element.cs",
+      "sha256": "386b10d43a49334a515b5ec5cd12cffa8cc8078d9f2f5c0e5fc81e74a06ea3f6"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Dimensions.cs",
+      "sha256": "8969bb44332a79471a9e41524b9e11d13088c9348acebfdfc88ced68324f2b3e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Specifications.cs",
+      "sha256": "5a9f685b7e92aa798d08e2e3fc1aa15d6652c7638c82221988aa410c487dd5ac"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs",
+      "sha256": "6d7e2e00c04bd371da86985a202c07d003c5f425ad7a664a65aab2b978fb3c67"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "sha256": "f705438ffc4a15411925e5da841f8a77ff603a259bb09a2eb7f6188a4e334fdd"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "fa5e96ff8d1424cd06efe73357f46e1948ea10edb2663629feaca7e63362c0da"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/Mapping/WorkbenchMapper.cs",
+      "sha256": "976e2e0eb665e1fca93e9060f0a9e0ad2e47bf02842363f7062b28965b1a1d38"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Geometries/GeometryModels.cs",
+      "sha256": "5d0833014bb86483ea208302a15923925d556467a188f78a24e1e5ad48cb188e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/ComponentSnapshot.cs",
+      "sha256": "25e54805629fcd3db13f37c39188b1954481dea0eed6933acec12e1e89d0df61"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LegacyGb1991DrawingTests.cs",
+      "sha256": "999f63633686a05ffc08953c30b849b53e2ea7132dac335ff787f5edd7364122"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LegacyGb1991AnnotationTests.cs",
+      "sha256": "b3bd3d5615e10f1fa1945dea9731802ab58948f4d59c8d72c4d1f31c58c23665"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/OpticalDrawingStandardSelectionTests.cs",
+      "sha256": "6f32c8cc8c016576bb2a2a9b769ac6b2d836bfd57d1f8b9e92c189c7cb400129"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/PanelContentLayoutTests.cs",
+      "sha256": "fee0b81ce2334e01adfd2478f85dc2760af6a48c9da99e57a6a7ffbdf4ed9eba"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ManufacturingDrawingTests.cs",
+      "sha256": "a8cc301de8ca44cb4028f2b52fc89401ce8f37852ae13ce75e70debde7336603"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/UserGuidePanelTests.cs",
+      "sha256": "35754ebc571a75d872a18be5eae91905925d7c2b3edbd3ccf4792ae7b0e36a55"
+    },
+    {
+      "path": "docs/MANUFACTURING_DRAWINGS.md",
+      "sha256": "79d16efc24522705a71b13b12097144f834b863c0db449ad1017c56c2c22c83c"
+    },
+    {
+      "path": "docs/LEGACY_GB1991_OPTICAL_PARTS_REVIEW.md",
+      "sha256": "646134e4e106800e1da6c2ea3142a352c699084873f1664373b59990706afa1d"
+    },
+    {
+      "path": "docs/CODE_READING_MAP.md",
+      "sha256": "148694ebfc753d21357d8e04a0b6a9d1fce4ce7f053c8c9cb7561957b9c4d3ae"
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "24cdc801ba3edb0722e7d7de12e07c792f0841f2791541bcfb68bae4b5e2b523"
+    },
+    {
+      "path": "docs/assets/user-guide/manifest.json",
+      "sha256": "449ece9231c8c63cad3e2781b6ce9772796ed86c5a22534ce02ebf93c8e465aa"
+    },
+    {
+      "path": "docs/assets/user-guide/README.md",
+      "sha256": "bb4843df959f57644681113af8d4598120da8d48e26352b2bf6b36bd7e9508a8"
+    },
+    {
+      "path": "validation/rechecks/2026-10-27/gb1991-semantics/README.md",
+      "sha256": "d639d67c3855ec73ab2fb85aaca4be5034bce24ddd61bb3ea36d723f61d035ba"
+    }
+  ],
+  "buildOutputHashes": [
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "a5eb57a6cff87a6b0a5b3bd9db1b3fdac97aa2327ecca63a91c93fadb5dd1bde"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll",
+      "sha256": "e4bbef5504aa7140627645a7077c45935ebab05b14dc634137bbb7a5c4e1ba54"
+    }
+  ],
+  "archives": [
+    {
+      "file": "product-drawings.zip",
+      "bytes": 20955285,
+      "sha256": "0af2813ec65cab1b436afa61689378ae7cb5cab7150fb019b85a429b56bf833e",
+      "files": [
+        {
+          "path": "drawings/gb1991-A3-cemented-extracted.txt",
+          "bytes": 1326,
+          "sha256": "153aaf2ed0100831b163c54dc1ecaef693b26b192a5d94958b1275fb993c4382"
+        },
+        {
+          "path": "drawings/gb1991-A3-cemented-pdf.png",
+          "bytes": 77427,
+          "sha256": "aa1e85428b1e4c08aed70bf5e7ac23fbe96cac9987456d2c346acdb0acfeac6d"
+        },
+        {
+          "path": "drawings/gb1991-A3-cemented.json",
+          "bytes": 4098,
+          "sha256": "96314fa2a855c57785a7ea1136198b904da7b92bf1408bdb2237bdfda857d1ac"
+        },
+        {
+          "path": "drawings/gb1991-A3-cemented.pdf",
+          "bytes": 1614314,
+          "sha256": "4d463aac09957d11b0148992329ee680950d083992b950925e9d7155157d3a68"
+        },
+        {
+          "path": "drawings/gb1991-A3-cemented.png",
+          "bytes": 138285,
+          "sha256": "387c9156f2b9413f3690348c5241f2909eebf3c4c02f0e4226f08aa245b42d44"
+        },
+        {
+          "path": "drawings/gb1991-A3-single-extracted.txt",
+          "bytes": 1359,
+          "sha256": "7a0ff78c36b6b7619e0d41864f0eded621de33bde80a1098da59d0c7f9efbe0b"
+        },
+        {
+          "path": "drawings/gb1991-A3-single-pdf.png",
+          "bytes": 78301,
+          "sha256": "ccf8bce4fb46244c1dbe7ea56fd2125062f4a96b90d42e75e45ae9c2f55c66d9"
+        },
+        {
+          "path": "drawings/gb1991-A3-single.json",
+          "bytes": 4151,
+          "sha256": "7fa5f58dcd94bd58d02498463302f914079e131d43381d85e36b3b2866e91a0d"
+        },
+        {
+          "path": "drawings/gb1991-A3-single.pdf",
+          "bytes": 1636549,
+          "sha256": "93b72808b2c1cfea16405eafba7206079b791a6b8855760921a34ecf1c48e193"
+        },
+        {
+          "path": "drawings/gb1991-A3-single.png",
+          "bytes": 140330,
+          "sha256": "f63aa1c9a6361f04a934a480472b16a5bae4ee746569488285d3620e49643626"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented-extracted.txt",
+          "bytes": 1325,
+          "sha256": "2437592205aa385929e0907d12991211ac67e16c70eac1fcb4b929caaa4df0d4"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented-pdf.png",
+          "bytes": 66669,
+          "sha256": "fe35eac10355e499a066954187a9346765da7b211ea7ff44125e161c9332b818"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented.json",
+          "bytes": 4097,
+          "sha256": "0851a76ae009d145341b27305a455f2e04fd62487a9567153c2b154efa676af7"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented.pdf",
+          "bytes": 1611409,
+          "sha256": "e20f45aa0317e52b1df596ccc9b412d485b5a498e9598012ba4e36a7f9525398"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented.png",
+          "bytes": 181441,
+          "sha256": "82cc493560a8b78e5ade21a5e3aebe0094620db1ae9fb9de82763b6317191bd8"
+        },
+        {
+          "path": "drawings/gb1991-A4-single-extracted.txt",
+          "bytes": 1358,
+          "sha256": "510580b6df76f9686d4c53dbaa5b7dadc2b1993ab6ac542a13fcfaaae6221448"
+        },
+        {
+          "path": "drawings/gb1991-A4-single-pdf.png",
+          "bytes": 69354,
+          "sha256": "73cf1cd241badae7c12c82e6678acf75da9b70fb533bac04ca81c462e9a85139"
+        },
+        {
+          "path": "drawings/gb1991-A4-single.json",
+          "bytes": 4150,
+          "sha256": "05579d85031f2f11511528b56e1d62e5b6a59869ab4ba524ad23f9f2410ada4b"
+        },
+        {
+          "path": "drawings/gb1991-A4-single.pdf",
+          "bytes": 1633822,
+          "sha256": "f1fa9e13cb4dd3926d4e8de12fe665f0d2977a70ac54990b56fce3fdaa4b6f1e"
+        },
+        {
+          "path": "drawings/gb1991-A4-single.png",
+          "bytes": 182380,
+          "sha256": "b8ea5cee01a77dc6faa6cc3e95ba0020c3834cb6d0eb04a8ca22e74118666b63"
+        },
+        {
+          "path": "annotations/annotation-asphere-even_asphere-extracted.txt",
+          "bytes": 1633,
+          "sha256": "e9c1d245e712cdcacb8bbd3eeb5132b007da46c7245e16c73b23c60341e79c0d"
+        },
+        {
+          "path": "annotations/annotation-asphere-even_asphere-pdf.png",
+          "bytes": 84122,
+          "sha256": "7c6732f02b6428118a14f8d042e9a9714165a11fa578ad97424d4adeaed5a862"
+        },
+        {
+          "path": "annotations/annotation-asphere-even_asphere.json",
+          "bytes": 18001,
+          "sha256": "907c846255e935c19ca54676d828bcf0cc5a020026e87f149e50dc79acb11623"
+        },
+        {
+          "path": "annotations/annotation-asphere-even_asphere.pdf",
+          "bytes": 1649897,
+          "sha256": "d08d7e21f24a83879bad0d52a6493e22ebcbded860006630146073f60a4671fb"
+        },
+        {
+          "path": "annotations/annotation-asphere-even_asphere.png",
+          "bytes": 149889,
+          "sha256": "492045809c9fa58611250c9549bf46a47f81aae0f91dde10735923fef89c51a5"
+        },
+        {
+          "path": "annotations/annotation-asphere-forbes_q-extracted.txt",
+          "bytes": 1665,
+          "sha256": "1e79a42617d186ae50756f010aacf2025a064e6c019834da1734d82bc6bb19f5"
+        },
+        {
+          "path": "annotations/annotation-asphere-forbes_q-pdf.png",
+          "bytes": 85294,
+          "sha256": "805f14bb8c92dcd0aba42a72b2987089591b36cb8ed36fd116c718e823c7cc08"
+        },
+        {
+          "path": "annotations/annotation-asphere-forbes_q.json",
+          "bytes": 19073,
+          "sha256": "2f3113a074c9d824a91b255c952da5085d19d4f98815ddaa7152043193bc7921"
+        },
+        {
+          "path": "annotations/annotation-asphere-forbes_q.pdf",
+          "bytes": 1650296,
+          "sha256": "4e7c78c25841fa91a167e029c26d50d5a4a6e5d29f78624fab56676a5b684c36"
+        },
+        {
+          "path": "annotations/annotation-asphere-forbes_q.png",
+          "bytes": 151438,
+          "sha256": "9b0e04a619f3d3e3cfc6e345d3355c9934ef74e65b60b7a8236d97bf6a4146ff"
+        },
+        {
+          "path": "annotations/annotation-asphere-odd_asphere-extracted.txt",
+          "bytes": 1631,
+          "sha256": "7d0f6078ad076a366b4354917d73855963c8617986328196cf33e24ec725be70"
+        },
+        {
+          "path": "annotations/annotation-asphere-odd_asphere-pdf.png",
+          "bytes": 84124,
+          "sha256": "1339c7ae032ec26b86c5452808e4d220febf3d93aa9c409ea651aab0a2742b10"
+        },
+        {
+          "path": "annotations/annotation-asphere-odd_asphere.json",
+          "bytes": 17994,
+          "sha256": "db9243898abaf1a49c6cb0ea9fe4930d9b9ea8185570d9093bddee7332e1f85a"
+        },
+        {
+          "path": "annotations/annotation-asphere-odd_asphere.pdf",
+          "bytes": 1649864,
+          "sha256": "cffb342a97ddbdca3d50c98060b44acce4631421a02c9bf37ff2c4f396aafb85"
+        },
+        {
+          "path": "annotations/annotation-asphere-odd_asphere.png",
+          "bytes": 149728,
+          "sha256": "06d08764ded54f7b9cf721d9752c7bbb88612b761e679ac022c1b50bdfe5a230"
+        },
+        {
+          "path": "annotations/annotation-asphere-standard-extracted.txt",
+          "bytes": 1581,
+          "sha256": "75b327166956dc0dbd628139f7259228f829ab010997b5808ca55aaa30ed5b73"
+        },
+        {
+          "path": "annotations/annotation-asphere-standard-pdf.png",
+          "bytes": 83061,
+          "sha256": "aa707917a07f7ed0139224882615d731e898c334482666263c2bfb6d245a11e0"
+        },
+        {
+          "path": "annotations/annotation-asphere-standard.json",
+          "bytes": 17636,
+          "sha256": "569cfd2e8684d88df97cea45412615f794d7068b359f8d018c1f877c172d651d"
+        },
+        {
+          "path": "annotations/annotation-asphere-standard.pdf",
+          "bytes": 1648607,
+          "sha256": "e7336763462f29ead3ac36afc0d95fbb111526858c908cd97166d7e1a08a471c"
+        },
+        {
+          "path": "annotations/annotation-asphere-standard.png",
+          "bytes": 147956,
+          "sha256": "352112931be23436fcfa9659c99c272d722d2d4e7ad938e2663abb1003e450ac"
+        },
+        {
+          "path": "annotations/annotation-mechanical-diameter-12-clear-aperture-8-extracted.txt",
+          "bytes": 1397,
+          "sha256": "a57ab4bbd55050733461871cfdb60c123e38f08c8d9e758236a136f63dd187f3"
+        },
+        {
+          "path": "annotations/annotation-mechanical-diameter-12-clear-aperture-8-pdf.png",
+          "bytes": 67925,
+          "sha256": "f1d19093443993a600e5ce27c977ff02bb30e7848a22812a228886c5b52e09cf"
+        },
+        {
+          "path": "annotations/annotation-mechanical-diameter-12-clear-aperture-8.json",
+          "bytes": 16978,
+          "sha256": "94add7cae503cc52ecd915595ff416bf3f56b451a4198317d13af1578d9f2609"
+        },
+        {
+          "path": "annotations/annotation-mechanical-diameter-12-clear-aperture-8.pdf",
+          "bytes": 1633233,
+          "sha256": "ff83012cf9bfe20abd5091eb90911507a87ab8ec619890bfe2cfb48500074717"
+        },
+        {
+          "path": "annotations/annotation-mechanical-diameter-12-clear-aperture-8.png",
+          "bytes": 173746,
+          "sha256": "596f27656a91855585d06aff118b71cccf65b2e643d92458df32cb2fb52c5e08"
+        },
+        {
+          "path": "annotations/annotation-physical-circle-6-mechanical-12-extracted.txt",
+          "bytes": 1397,
+          "sha256": "a2be62925a675d0364e1ef4c3bdea58e627457aa3eec164ce34c553011ceb565"
+        },
+        {
+          "path": "annotations/annotation-physical-circle-6-mechanical-12-pdf.png",
+          "bytes": 67899,
+          "sha256": "8a668f1ace385f0088e9ef9388d058b7d466035e1d9576a9bb6fd224a74b2d9a"
+        },
+        {
+          "path": "annotations/annotation-physical-circle-6-mechanical-12.json",
+          "bytes": 17062,
+          "sha256": "cc4d4c30b76a43be8450511a0736a795103892e08b04c4c100962b65063080db"
+        },
+        {
+          "path": "annotations/annotation-physical-circle-6-mechanical-12.pdf",
+          "bytes": 1633233,
+          "sha256": "a9918a976e1adb52a955c1295924f366873a20f42e322a326c62ba0c0cedbd29"
+        },
+        {
+          "path": "annotations/annotation-physical-circle-6-mechanical-12.png",
+          "bytes": 173730,
+          "sha256": "3c2dcb60e516984fc3b619a4e17c705df4e6a89cbf9ba6cf25d69eeb9bdef886"
+        },
+        {
+          "path": "annotations/annotation-ra-rq-and-scoped-requirements-extracted.txt",
+          "bytes": 1448,
+          "sha256": "4c0c2eae71564894cfa031b5a6dee21ddee70e3206364f18cb0d9a752542b1f1"
+        },
+        {
+          "path": "annotations/annotation-ra-rq-and-scoped-requirements-pdf.png",
+          "bytes": 70770,
+          "sha256": "c7091b0a8c4c5134e260f34837cb097602a7c055b92aa7f36893a2ff4375351a"
+        },
+        {
+          "path": "annotations/annotation-ra-rq-and-scoped-requirements.json",
+          "bytes": 18028,
+          "sha256": "c50870a0a7d6ee6b907d909b661918cd6f7f929f4e93d84182b3fdaa57237bde"
+        },
+        {
+          "path": "annotations/annotation-ra-rq-and-scoped-requirements.pdf",
+          "bytes": 1635388,
+          "sha256": "c84cdd4f2d22178db85ad9c4b2c5efead6106198b93633b5b1212247d0a1e22b"
+        },
+        {
+          "path": "annotations/annotation-ra-rq-and-scoped-requirements.png",
+          "bytes": 181783,
+          "sha256": "a4ff458f93307882a2d80828f6987ddbc2df38e4c5d803326c4e547d478089ca"
+        },
+        {
+          "path": "captures/en-US/drawing-capture.json",
+          "bytes": 239,
+          "sha256": "aaf8894ddbec95484c4637c302b77b1a5c23d5da7301d9b28fc736bb3bda916c"
+        },
+        {
+          "path": "captures/en-US/drawing-legacy.png",
+          "bytes": 201431,
+          "sha256": "51dc0c2d40b2df45573e53bb39e6000e484e8f93ae1ca3cb9a6dcecf73ac8629"
+        },
+        {
+          "path": "captures/en-US/drawing.png",
+          "bytes": 186061,
+          "sha256": "1a488a711f419c64cfbe1c9d0d8cb2a3dd7a893635c6912e439b4b3dff2f00ec"
+        },
+        {
+          "path": "captures/en-US/lens-library.png",
+          "bytes": 286615,
+          "sha256": "ed23ed82b52df054c58032bea3b3b02653db93c0c0d49ab5550007231098446e"
+        },
+        {
+          "path": "captures/en-US/progress.log",
+          "bytes": 542,
+          "sha256": "77ab1c1a976a9019d11c4224a801107e591cf9fa79fb723d7c80b5028693887c"
+        },
+        {
+          "path": "captures/ja-JP/drawing-capture.json",
+          "bytes": 239,
+          "sha256": "3360414877e01b5112ad23d3c7538c2b1fadef17bf17af06f352b4048f938250"
+        },
+        {
+          "path": "captures/ja-JP/drawing-legacy.png",
+          "bytes": 197097,
+          "sha256": "89d0c850addc94306ff20fba3c034e19707d82d4e31484d2ca8aebdea1013f88"
+        },
+        {
+          "path": "captures/ja-JP/drawing.png",
+          "bytes": 178148,
+          "sha256": "517014d70fa387ced0a4ade40792ca74a254dbbf268217aec2ac696ae7a41e2a"
+        },
+        {
+          "path": "captures/ja-JP/lens-library.png",
+          "bytes": 278582,
+          "sha256": "9837a5e796bd8ab2754a1b368ec4044c09b95793e239e8cdfbaf87a18b04e6db"
+        },
+        {
+          "path": "captures/ja-JP/progress.log",
+          "bytes": 542,
+          "sha256": "781e0878deebc28f75fba3d2007bfb9638db3785e127561d0434325efed7cfcb"
+        },
+        {
+          "path": "captures/zh-CN/drawing-capture.json",
+          "bytes": 239,
+          "sha256": "80279537ee0557e8376c6ae8a6c6ab2f132e2a44b8400a73d7dd0101a36be842"
+        },
+        {
+          "path": "captures/zh-CN/drawing-legacy.png",
+          "bytes": 193980,
+          "sha256": "8fbd91268d39398e2a87e64814423e43bd6790077ac1bebcb7adb5a4a2c5ee4d"
+        },
+        {
+          "path": "captures/zh-CN/drawing.png",
+          "bytes": 175241,
+          "sha256": "7336f14ce0746efa3e099496355f486348c7e343620091b5f01c0ebc12d4851e"
+        },
+        {
+          "path": "captures/zh-CN/lens-library.png",
+          "bytes": 275033,
+          "sha256": "9bface4d19b13560df932cbcf713e67579b38c184473a8fb082e8997db85bfca"
+        },
+        {
+          "path": "captures/zh-CN/progress.log",
+          "bytes": 542,
+          "sha256": "f285424bd320db5807ee943eb1b3fa764deac03c98be1af1a6683c7493f787e3"
+        }
+      ]
+    },
+    {
+      "file": "iso-preservation.zip",
+      "bytes": 12690970,
+      "sha256": "092d8acc3b98b895b29a5f458e487ae5b96d7ca4306c89352cbab7b089f6ad98",
+      "files": [
+        {
+          "path": "before/Iso10110-cemented-default-pdf.png",
+          "bytes": 47194,
+          "sha256": "ab423b238db951e6d887514d0b321874381b66259decbaa81df919c7ab278137"
+        },
+        {
+          "path": "before/Iso10110-cemented-default.pdf",
+          "bytes": 1507200,
+          "sha256": "fe875c34b91e108e93110a0acb59e027006f20282ab52ce26f863d07ba2d912b"
+        },
+        {
+          "path": "before/Iso10110-cemented-default.png",
+          "bytes": 117664,
+          "sha256": "4c47547c13607c8bf0ace80cc974cbb744e81a82672321e3882bf7f2b35585fd"
+        },
+        {
+          "path": "before/Iso10110-cemented-edited-pdf.png",
+          "bytes": 47430,
+          "sha256": "de5e0dcb408ac377d69444c28d071c9e8639dfe6c8479cf9714f41b6f8e02265"
+        },
+        {
+          "path": "before/Iso10110-cemented-edited.pdf",
+          "bytes": 1507223,
+          "sha256": "23e1155e60116757d9cfd235f189f64c8fac503dd1bc589e37c636b211223bc7"
+        },
+        {
+          "path": "before/Iso10110-cemented-edited.png",
+          "bytes": 117970,
+          "sha256": "c3af6d15b12ebfb520e3570e0e6468386924c48a1c5ec80302d10aaac32cd7fe"
+        },
+        {
+          "path": "before/Iso10110-cemented.json",
+          "bytes": 3153,
+          "sha256": "b1ecb1b5be73a8453b06fb7337cbb6f0711715d66532bbd8884080be80f940b2"
+        },
+        {
+          "path": "before/Iso10110-F2-default-pdf.png",
+          "bytes": 44514,
+          "sha256": "73c1e91101d64f85cb9c455e9901e8228868bb47f5d31f81b8a3e377b8b61a56"
+        },
+        {
+          "path": "before/Iso10110-F2-default.pdf",
+          "bytes": 1527451,
+          "sha256": "9ba032dc819701b59fd20d3739b62ca5e1dd2145c4c804668bc5a53355b25fe6"
+        },
+        {
+          "path": "before/Iso10110-F2-default.png",
+          "bytes": 111417,
+          "sha256": "070a28ac1409fa73df1ab1db974784f85d0448ecdf8dae4cc5cd6b558952f767"
+        },
+        {
+          "path": "before/Iso10110-F2-edited-pdf.png",
+          "bytes": 44301,
+          "sha256": "df7fb4b01ef12fbed38f1e0122d4ce9676d385bb54ac2ad7774118f2626bf2cf"
+        },
+        {
+          "path": "before/Iso10110-F2-edited.pdf",
+          "bytes": 1527459,
+          "sha256": "cd760feb57cee2e2d9dea67c160dd24c37ff1215d6acac3c76e667cdd8946dc5"
+        },
+        {
+          "path": "before/Iso10110-F2-edited.png",
+          "bytes": 111312,
+          "sha256": "31891e838b27383463632b4ac58d87bb96a7a5c88cb6bb10a74d141172e1589d"
+        },
+        {
+          "path": "before/Iso10110-F2.json",
+          "bytes": 2145,
+          "sha256": "aee279813ccb2240f12c4a089f527af2c7a7fc7b3e5487de596ff27e7d44e204"
+        },
+        {
+          "path": "after/Iso10110-cemented-default-pdf.png",
+          "bytes": 47194,
+          "sha256": "ab423b238db951e6d887514d0b321874381b66259decbaa81df919c7ab278137"
+        },
+        {
+          "path": "after/Iso10110-cemented-default.pdf",
+          "bytes": 1507200,
+          "sha256": "fe875c34b91e108e93110a0acb59e027006f20282ab52ce26f863d07ba2d912b"
+        },
+        {
+          "path": "after/Iso10110-cemented-default.png",
+          "bytes": 117664,
+          "sha256": "4c47547c13607c8bf0ace80cc974cbb744e81a82672321e3882bf7f2b35585fd"
+        },
+        {
+          "path": "after/Iso10110-cemented-edited-pdf.png",
+          "bytes": 47430,
+          "sha256": "de5e0dcb408ac377d69444c28d071c9e8639dfe6c8479cf9714f41b6f8e02265"
+        },
+        {
+          "path": "after/Iso10110-cemented-edited.pdf",
+          "bytes": 1507223,
+          "sha256": "23e1155e60116757d9cfd235f189f64c8fac503dd1bc589e37c636b211223bc7"
+        },
+        {
+          "path": "after/Iso10110-cemented-edited.png",
+          "bytes": 117970,
+          "sha256": "c3af6d15b12ebfb520e3570e0e6468386924c48a1c5ec80302d10aaac32cd7fe"
+        },
+        {
+          "path": "after/Iso10110-cemented.json",
+          "bytes": 3153,
+          "sha256": "b1ecb1b5be73a8453b06fb7337cbb6f0711715d66532bbd8884080be80f940b2"
+        },
+        {
+          "path": "after/Iso10110-F2-default-pdf.png",
+          "bytes": 44514,
+          "sha256": "73c1e91101d64f85cb9c455e9901e8228868bb47f5d31f81b8a3e377b8b61a56"
+        },
+        {
+          "path": "after/Iso10110-F2-default.pdf",
+          "bytes": 1527451,
+          "sha256": "9ba032dc819701b59fd20d3739b62ca5e1dd2145c4c804668bc5a53355b25fe6"
+        },
+        {
+          "path": "after/Iso10110-F2-default.png",
+          "bytes": 111417,
+          "sha256": "070a28ac1409fa73df1ab1db974784f85d0448ecdf8dae4cc5cd6b558952f767"
+        },
+        {
+          "path": "after/Iso10110-F2-edited-pdf.png",
+          "bytes": 44301,
+          "sha256": "df7fb4b01ef12fbed38f1e0122d4ce9676d385bb54ac2ad7774118f2626bf2cf"
+        },
+        {
+          "path": "after/Iso10110-F2-edited.pdf",
+          "bytes": 1527459,
+          "sha256": "cd760feb57cee2e2d9dea67c160dd24c37ff1215d6acac3c76e667cdd8946dc5"
+        },
+        {
+          "path": "after/Iso10110-F2-edited.png",
+          "bytes": 111312,
+          "sha256": "31891e838b27383463632b4ac58d87bb96a7a5c88cb6bb10a74d141172e1589d"
+        },
+        {
+          "path": "after/Iso10110-F2.json",
+          "bytes": 2145,
+          "sha256": "aee279813ccb2240f12c4a089f527af2c7a7fc7b3e5487de596ff27e7d44e204"
+        }
+      ]
+    }
+  ]
+}

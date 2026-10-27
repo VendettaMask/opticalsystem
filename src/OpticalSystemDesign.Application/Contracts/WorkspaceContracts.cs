@@ -742,7 +742,12 @@ public sealed record SurfaceRowDto(
     SemiDiameterSolveDto? SemiDiameterSolve = null,
     double? ThermalExpansionPpmPerC = null,
     double? ChipZone = null,
-    SurfaceGeometryDefinitionDto? GeometryDefinition = null);
+    SurfaceGeometryDefinitionDto? GeometryDefinition = null,
+    SurfaceDrawingApertureDto? DrawingAperture = null);
+
+/// <summary>Non-localized physical aperture identity; only centered circular dimensions
+/// are projected here. Other shapes must never be inferred from a displayed name.</summary>
+public sealed record SurfaceDrawingApertureDto(string Kind, double? CircularRadius = null);
 
 public enum RadiusSolveKind { Fixed, Variable, Pickup }
 

@@ -42,6 +42,9 @@ public sealed partial class MainWindow : Window
     private readonly Button _compareAButton = Command("设为 A", "CompareA");
     private readonly Button _compareBButton = Command("设为 B", "CompareB");
     private readonly Button _clearComparisonButton = Command("清除比较", "ClearComparison");
+    private readonly Button _autonomousButton = Command("自主拓扑设计", "OpenAutonomousTopology");
+    private AutonomousTopologyWindow? _autonomousWindow;
+    private bool _autonomousClosePending;
     private readonly DataGrid _candidateGrid;
     private readonly TextBlock _searchPlan = Named(Text("预检查可查看正负形式覆盖范围和每个起始试验的预算。"), "SearchPlan", "形式搜索计划");
     private readonly DataGrid _searchHistory = GridTable("SearchHistory", ("试验", "Trial", 92), ("起始形式", "Form", 95), ("步骤", "Operation", 180), ("状态", "State", 90), ("评价次数", "Evaluations", 85));
@@ -65,6 +68,23 @@ public sealed partial class MainWindow : Window
         _runButton.Classes.Add("accent");
         _refineButton.Classes.Add("accent");
         WireEvents();
+        _autonomousButton.Click += (_, _) =>
+        {
+            if (_autonomousWindow is { } existing) { existing.Activate(); return; }
+            var window = new AutonomousTopologyWindow();
+            _autonomousWindow = window;
+            window.Closed += (_, _) => _autonomousWindow = null;
+            window.Show(this);
+        };
+        Closing += (_, args) =>
+        {
+            if (_autonomousWindow is not { IsBusy: true } child) return;
+            args.Cancel = true;
+            if (_autonomousClosePending) return;
+            _autonomousClosePending = true;
+            child.RequestSafeClose();
+            _ = CloseAfterAutonomousAsync(child);
+        };
         if (settings.InitialSpecification is { } specification) ApplySpecification(specification, settings.InitialOptions ?? new());
         else
         {
@@ -91,7 +111,7 @@ public sealed partial class MainWindow : Window
         header.Children.Add(SectionHeading("自动初始结构", "scan-line", DisplayTypography.PageTitle));
         header.Children.Add(Hint("定义系统与目标 → 正负形式搜索 → 比较候选 → 继续优化"));
         root.Children.Add(header);
-        var commands = Buttons(_runButton, _validateButton, _cancelButton, _resumeButton, _openButton);
+        var commands = Buttons(_runButton, _validateButton, _cancelButton, _resumeButton, _openButton, _autonomousButton);
         commands.Margin = new Thickness(18, 0, 12, 0);
         Grid.SetRow(commands, 1); root.Children.Add(commands);
 
@@ -158,6 +178,12 @@ public sealed partial class MainWindow : Window
         footer.Children.Add(_operationStatus);
         Grid.SetRow(footer, 3); root.Children.Add(footer);
         return root;
+    }
+
+    private async Task CloseAfterAutonomousAsync(AutonomousTopologyWindow child)
+    {
+        try { await child.PendingOperation; }
+        finally { _autonomousClosePending = false; if (!_closed && !child.IsVisible) Close(); }
     }
 
     private void ApplyResponsiveLayout(double width)

@@ -1,0 +1,3114 @@
+{
+  "ProtocolSha256": "5930462b856499003b73ceacaf78f5c70577de1f033fa8866cd5c5f4c845807d",
+  "Binaries": {
+    "OpticalSystemDesign.InitialStructure.Engine": "f4a850422b0d0970eca85fd87cff2b6c37a026cd3fadd02976f5810d832c98c6",
+    "OpticalSystemDesign.InitialStructure.Contracts": "58035bc73abafd3a6ff663767df69a880f5e56bd5c92b22d45cb0729fc702bb8",
+    "OpticalSystemDesign.Core": "ede8fc25329a4862e755386769c2f22ab8c576378a8756ed2a181ee638b8cc60",
+    "OpticalSystemDesign.InitialStructure.Benchmarks": "aad08276d825023af1cbc824fc72900c262be06ecc7d06e5b4beed75cc0d12f2"
+  },
+  "CpuProcessors": 2,
+  "Priority": "BelowNormal",
+  "PairedInputsVerified": true,
+  "Runs": [
+    {
+      "Task": "compact4",
+      "SourceName": "Symmetric Double Gauss 50 mm",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "legacy",
+      "Id": "repr-compact4-42-C-legacy",
+      "SourceElements": 4,
+      "OriginalHalfField": 14,
+      "SourceFingerprint": "63f2266894a4a355aef7538631b03fea16f8f1193783805a77435ca69db50c51",
+      "PairedTaskFingerprint": "e87bb1070cc6968602a55e8f823721d2a443db1074c045ed410e175762ebc5c1",
+      "PlanFingerprint": "0152dd9cf12cf917bbd4680e285e71555231c64d3441d62a34e89dd4ec9f02e6",
+      "Status": "Completed",
+      "TrialCursor": 0,
+      "Consumed": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 800000,
+        "GeometryProbes": 1099,
+        "Elapsed": "00:00:06.9085157"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": null,
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": null,
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {},
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "compact4",
+      "SourceName": "Symmetric Double Gauss 50 mm",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "fixed",
+      "Id": "repr-compact4-42-C-fixed",
+      "SourceElements": 4,
+      "OriginalHalfField": 14,
+      "SourceFingerprint": "63f2266894a4a355aef7538631b03fea16f8f1193783805a77435ca69db50c51",
+      "PairedTaskFingerprint": "e87bb1070cc6968602a55e8f823721d2a443db1074c045ed410e175762ebc5c1",
+      "PlanFingerprint": "8bc1bbcd3ab796775b78078df2b685688873120a6a162b2176840d37106da3f8",
+      "Status": "Completed",
+      "TrialCursor": 0,
+      "Consumed": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 800000,
+        "GeometryProbes": 1099,
+        "Elapsed": "00:00:03.9126317"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": null,
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": null,
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {},
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "compact4",
+      "SourceName": "Symmetric Double Gauss 50 mm",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "legacy",
+      "Id": "repr-compact4-42-D-legacy",
+      "SourceElements": 4,
+      "OriginalHalfField": 14,
+      "SourceFingerprint": "63f2266894a4a355aef7538631b03fea16f8f1193783805a77435ca69db50c51",
+      "PairedTaskFingerprint": "e87bb1070cc6968602a55e8f823721d2a443db1074c045ed410e175762ebc5c1",
+      "PlanFingerprint": "f5ac5b3ffe8eeef09d17a19b007d5abba6536e3c79e280e26b41ee2e7e705f54",
+      "Status": "Completed",
+      "TrialCursor": 0,
+      "Consumed": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 800000,
+        "GeometryProbes": 1099,
+        "Elapsed": "00:00:03.7456716"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": null,
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": null,
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {},
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "compact4",
+      "SourceName": "Symmetric Double Gauss 50 mm",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "fixed",
+      "Id": "repr-compact4-42-D-fixed",
+      "SourceElements": 4,
+      "OriginalHalfField": 14,
+      "SourceFingerprint": "63f2266894a4a355aef7538631b03fea16f8f1193783805a77435ca69db50c51",
+      "PairedTaskFingerprint": "e87bb1070cc6968602a55e8f823721d2a443db1074c045ed410e175762ebc5c1",
+      "PlanFingerprint": "743b127b54e85f150770087b93e12ddf6238934132bab3c57d1363a5b459e618",
+      "Status": "Completed",
+      "TrialCursor": 0,
+      "Consumed": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 800000,
+        "GeometryProbes": 1099,
+        "Elapsed": "00:00:03.8916344"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": null,
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": null,
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {},
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "compact4",
+      "SourceName": "Symmetric Double Gauss 50 mm",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "legacy",
+      "Id": "repr-compact4-101-C-legacy",
+      "SourceElements": 4,
+      "OriginalHalfField": 14,
+      "SourceFingerprint": "057d3e53c5d5d6f7b583325950dbff04de308f3e2103442018e034d64bd67bd2",
+      "PairedTaskFingerprint": "b2c10aeac192ba71b8591c819bd96d8a72dafc0f338ffd4cbd1b0ef8ae282b39",
+      "PlanFingerprint": "45b91338607a90bc0d61d4b8c30134d0ddc6ae53cf875bac166745e366aa86a6",
+      "Status": "Completed",
+      "TrialCursor": 0,
+      "Consumed": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 800000,
+        "GeometryProbes": 1099,
+        "Elapsed": "00:00:03.8234589"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": null,
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": null,
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {},
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "compact4",
+      "SourceName": "Symmetric Double Gauss 50 mm",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "fixed",
+      "Id": "repr-compact4-101-C-fixed",
+      "SourceElements": 4,
+      "OriginalHalfField": 14,
+      "SourceFingerprint": "057d3e53c5d5d6f7b583325950dbff04de308f3e2103442018e034d64bd67bd2",
+      "PairedTaskFingerprint": "b2c10aeac192ba71b8591c819bd96d8a72dafc0f338ffd4cbd1b0ef8ae282b39",
+      "PlanFingerprint": "f55f911432c225d0355fbd3b78a8d54b562719eb38e78e28c4ebfabd873fb8ea",
+      "Status": "Completed",
+      "TrialCursor": 0,
+      "Consumed": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 800000,
+        "GeometryProbes": 1099,
+        "Elapsed": "00:00:03.9387416"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": null,
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": null,
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {},
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "compact4",
+      "SourceName": "Symmetric Double Gauss 50 mm",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "legacy",
+      "Id": "repr-compact4-101-D-legacy",
+      "SourceElements": 4,
+      "OriginalHalfField": 14,
+      "SourceFingerprint": "057d3e53c5d5d6f7b583325950dbff04de308f3e2103442018e034d64bd67bd2",
+      "PairedTaskFingerprint": "b2c10aeac192ba71b8591c819bd96d8a72dafc0f338ffd4cbd1b0ef8ae282b39",
+      "PlanFingerprint": "6806c3dfa355aa7e44906790faa485716829ab2f1d2e9ff8ebb74413fd010ac1",
+      "Status": "Completed",
+      "TrialCursor": 0,
+      "Consumed": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 800000,
+        "GeometryProbes": 1099,
+        "Elapsed": "00:00:03.8821442"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": null,
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": null,
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {},
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "compact4",
+      "SourceName": "Symmetric Double Gauss 50 mm",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "fixed",
+      "Id": "repr-compact4-101-D-fixed",
+      "SourceElements": 4,
+      "OriginalHalfField": 14,
+      "SourceFingerprint": "057d3e53c5d5d6f7b583325950dbff04de308f3e2103442018e034d64bd67bd2",
+      "PairedTaskFingerprint": "b2c10aeac192ba71b8591c819bd96d8a72dafc0f338ffd4cbd1b0ef8ae282b39",
+      "PlanFingerprint": "149ec8931039915dcaeb219d38d86250de3e187af796a01269bd47d05a7a3967",
+      "Status": "Completed",
+      "TrialCursor": 0,
+      "Consumed": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 800000,
+        "GeometryProbes": 1099,
+        "Elapsed": "00:00:03.0902746"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": null,
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": null,
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {},
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-18",
+      "SourceName": "US02270234-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "legacy",
+      "Id": "repr-imager3-18-42-C-legacy",
+      "SourceElements": 3,
+      "OriginalHalfField": 18,
+      "SourceFingerprint": "1dd3b5b7666ad84677d3ed2763fa5c1bda6ba05b90e021b71a9e4b78c7fd4a50",
+      "PairedTaskFingerprint": "bb37ec80b142ca3dd9e7867655ba03ac8ae1b25afb0bf1d025ff5170daa0dc47",
+      "PlanFingerprint": "304f4adfe901285ad6418de6468b558532a53a4cb9f5c60bbe199e7ef2af06f5",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 17,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 3,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 861642,
+        "GeometryProbes": 3046,
+        "Elapsed": "00:00:02.8940684"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.90838054352423,
+        "FNumber": 4.639653845323553,
+        "WorstRmsMillimeters": 0.04646531899868031,
+        "WorstMaximumMillimeters": 0.22379358133509442,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22379358133509442,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "76937b22d113d140bb849fc999314fe8891e4c55cdf385f305d3d1d339eea0c2"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.993479236157828,
+        "FNumber": 4.660273754022761,
+        "WorstRmsMillimeters": 0.035928368925807426,
+        "WorstMaximumMillimeters": 0.19093316042474306,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.19093316042474306,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "d43e3ca2cfb5bc1458ce84bfbb8b9d50d2b2578c22859e56d61df48d0590e361"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 3
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:5"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-18",
+      "SourceName": "US02270234-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "fixed",
+      "Id": "repr-imager3-18-42-C-fixed",
+      "SourceElements": 3,
+      "OriginalHalfField": 18,
+      "SourceFingerprint": "1dd3b5b7666ad84677d3ed2763fa5c1bda6ba05b90e021b71a9e4b78c7fd4a50",
+      "PairedTaskFingerprint": "bb37ec80b142ca3dd9e7867655ba03ac8ae1b25afb0bf1d025ff5170daa0dc47",
+      "PlanFingerprint": "3d4c654fbe0bf29f642593ea554be6310950758f32c34d82eafeef05b24b470b",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 17,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 3,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 861606,
+        "GeometryProbes": 3046,
+        "Elapsed": "00:00:03.3135683"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.90838054352423,
+        "FNumber": 4.639653845323553,
+        "WorstRmsMillimeters": 0.04646531899868031,
+        "WorstMaximumMillimeters": 0.22379358133509442,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22379358133509442,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "76937b22d113d140bb849fc999314fe8891e4c55cdf385f305d3d1d339eea0c2"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.909675612313738,
+        "FNumber": 4.640953978704307,
+        "WorstRmsMillimeters": 0.04466983597332931,
+        "WorstMaximumMillimeters": 0.21618339708266632,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.21618339708266632,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "91c7e8df7f6cbbed09f71d80fd02acf34021734203e0a8884df84e3f101f331a"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 3
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:5"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-18",
+      "SourceName": "US02270234-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "legacy",
+      "Id": "repr-imager3-18-42-D-legacy",
+      "SourceElements": 3,
+      "OriginalHalfField": 18,
+      "SourceFingerprint": "1dd3b5b7666ad84677d3ed2763fa5c1bda6ba05b90e021b71a9e4b78c7fd4a50",
+      "PairedTaskFingerprint": "bb37ec80b142ca3dd9e7867655ba03ac8ae1b25afb0bf1d025ff5170daa0dc47",
+      "PlanFingerprint": "8143e0f3c1f37d1c868e6cde1b29788c7d576f1d89c2571c3b36cd4b4a59f2ee",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 17,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 3,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 861642,
+        "GeometryProbes": 3046,
+        "Elapsed": "00:00:03.0500012"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.90838054352423,
+        "FNumber": 4.639653845323553,
+        "WorstRmsMillimeters": 0.04646531899868031,
+        "WorstMaximumMillimeters": 0.22379358133509442,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22379358133509442,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "76937b22d113d140bb849fc999314fe8891e4c55cdf385f305d3d1d339eea0c2"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.993479236157828,
+        "FNumber": 4.660273754022761,
+        "WorstRmsMillimeters": 0.035928368925807426,
+        "WorstMaximumMillimeters": 0.19093316042474306,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.19093316042474306,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "d43e3ca2cfb5bc1458ce84bfbb8b9d50d2b2578c22859e56d61df48d0590e361"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 3
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:5"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-18",
+      "SourceName": "US02270234-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "fixed",
+      "Id": "repr-imager3-18-42-D-fixed",
+      "SourceElements": 3,
+      "OriginalHalfField": 18,
+      "SourceFingerprint": "1dd3b5b7666ad84677d3ed2763fa5c1bda6ba05b90e021b71a9e4b78c7fd4a50",
+      "PairedTaskFingerprint": "bb37ec80b142ca3dd9e7867655ba03ac8ae1b25afb0bf1d025ff5170daa0dc47",
+      "PlanFingerprint": "07651e371d7baa1a4ef74be4ba54728d4af9ad5dd2b4aa7edca61e03083927f4",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 17,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 3,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 861606,
+        "GeometryProbes": 3046,
+        "Elapsed": "00:00:03.0806521"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.90838054352423,
+        "FNumber": 4.639653845323553,
+        "WorstRmsMillimeters": 0.04646531899868031,
+        "WorstMaximumMillimeters": 0.22379358133509442,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22379358133509442,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "76937b22d113d140bb849fc999314fe8891e4c55cdf385f305d3d1d339eea0c2"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.909675612313738,
+        "FNumber": 4.640953978704307,
+        "WorstRmsMillimeters": 0.04466983597332931,
+        "WorstMaximumMillimeters": 0.21618339708266632,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.21618339708266632,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "91c7e8df7f6cbbed09f71d80fd02acf34021734203e0a8884df84e3f101f331a"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 3
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:5"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-18",
+      "SourceName": "US02270234-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "legacy",
+      "Id": "repr-imager3-18-101-C-legacy",
+      "SourceElements": 3,
+      "OriginalHalfField": 18,
+      "SourceFingerprint": "f896fb4405325d311dd88b4f2c6c24dd42a2883e7dca8c1eac032d0160dc6b69",
+      "PairedTaskFingerprint": "d9757c958fbbe4a23c8da64763650e656c3b769130281a2436490b0f117a16f2",
+      "PlanFingerprint": "d13179b489ce952349ccb6e531b5c22d116ae3fc3ced984ef67aff115d2a8bc8",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 17,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 3,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 861434,
+        "GeometryProbes": 3048,
+        "Elapsed": "00:00:02.9554243"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.937962668176013,
+        "FNumber": 4.645837611851268,
+        "WorstRmsMillimeters": 0.0444725062696743,
+        "WorstMaximumMillimeters": 0.22019264841392605,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22019264841392605,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "d1dcadeb29451895b395e49d0e38fbbdb5723dfc71f7a3285abce7324b7ba21a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.937962668176013,
+        "FNumber": 4.645837611851268,
+        "WorstRmsMillimeters": 0.0444725062696743,
+        "WorstMaximumMillimeters": 0.22019264841392605,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22019264841392605,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "d1dcadeb29451895b395e49d0e38fbbdb5723dfc71f7a3285abce7324b7ba21a"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 3
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:5"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:8"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-18",
+      "SourceName": "US02270234-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "fixed",
+      "Id": "repr-imager3-18-101-C-fixed",
+      "SourceElements": 3,
+      "OriginalHalfField": 18,
+      "SourceFingerprint": "f896fb4405325d311dd88b4f2c6c24dd42a2883e7dca8c1eac032d0160dc6b69",
+      "PairedTaskFingerprint": "d9757c958fbbe4a23c8da64763650e656c3b769130281a2436490b0f117a16f2",
+      "PlanFingerprint": "726b15f8ea5fc9f14c041eef63fffaf35ba84b4097d6039f8a2c95503f02bf35",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 17,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 3,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 861326,
+        "GeometryProbes": 3048,
+        "Elapsed": "00:00:02.9428753"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.937962668176013,
+        "FNumber": 4.645837611851268,
+        "WorstRmsMillimeters": 0.0444725062696743,
+        "WorstMaximumMillimeters": 0.22019264841392605,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22019264841392605,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "d1dcadeb29451895b395e49d0e38fbbdb5723dfc71f7a3285abce7324b7ba21a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.924727329541398,
+        "FNumber": 4.644055691081564,
+        "WorstRmsMillimeters": 0.04412837395268655,
+        "WorstMaximumMillimeters": 0.21679778946428918,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.21679778946428918,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "eeb939e61b72c304ea2e49e9a5af3adfd579417fd0726bb042eb96269648af81"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 3
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:5"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:8"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-18",
+      "SourceName": "US02270234-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "legacy",
+      "Id": "repr-imager3-18-101-D-legacy",
+      "SourceElements": 3,
+      "OriginalHalfField": 18,
+      "SourceFingerprint": "f896fb4405325d311dd88b4f2c6c24dd42a2883e7dca8c1eac032d0160dc6b69",
+      "PairedTaskFingerprint": "d9757c958fbbe4a23c8da64763650e656c3b769130281a2436490b0f117a16f2",
+      "PlanFingerprint": "674c41d3a4bebb2c95c1085ef9f225cbb6e5deade40425c036a67399a4e3da85",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 17,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 3,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 861434,
+        "GeometryProbes": 3048,
+        "Elapsed": "00:00:03.0538768"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.937962668176013,
+        "FNumber": 4.645837611851268,
+        "WorstRmsMillimeters": 0.0444725062696743,
+        "WorstMaximumMillimeters": 0.22019264841392605,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22019264841392605,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "d1dcadeb29451895b395e49d0e38fbbdb5723dfc71f7a3285abce7324b7ba21a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.937962668176013,
+        "FNumber": 4.645837611851268,
+        "WorstRmsMillimeters": 0.0444725062696743,
+        "WorstMaximumMillimeters": 0.22019264841392605,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22019264841392605,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "d1dcadeb29451895b395e49d0e38fbbdb5723dfc71f7a3285abce7324b7ba21a"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 3
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:5"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:8"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-18",
+      "SourceName": "US02270234-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "fixed",
+      "Id": "repr-imager3-18-101-D-fixed",
+      "SourceElements": 3,
+      "OriginalHalfField": 18,
+      "SourceFingerprint": "f896fb4405325d311dd88b4f2c6c24dd42a2883e7dca8c1eac032d0160dc6b69",
+      "PairedTaskFingerprint": "d9757c958fbbe4a23c8da64763650e656c3b769130281a2436490b0f117a16f2",
+      "PlanFingerprint": "1134312346c6e1be85c0206517459e257d5ea57da1ba1c9696055e74b52306e1",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 17,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 3,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 861326,
+        "GeometryProbes": 3048,
+        "Elapsed": "00:00:03.1273325"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.937962668176013,
+        "FNumber": 4.645837611851268,
+        "WorstRmsMillimeters": 0.0444725062696743,
+        "WorstMaximumMillimeters": 0.22019264841392605,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.22019264841392605,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "d1dcadeb29451895b395e49d0e38fbbdb5723dfc71f7a3285abce7324b7ba21a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.924727329541398,
+        "FNumber": 4.644055691081564,
+        "WorstRmsMillimeters": 0.04412837395268655,
+        "WorstMaximumMillimeters": 0.21679778946428918,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.21679778946428918,
+            "Limit": 0.15
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "eeb939e61b72c304ea2e49e9a5af3adfd579417fd0726bb042eb96269648af81"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 3
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:5"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:8"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-21",
+      "SourceName": "US02298090-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "legacy",
+      "Id": "repr-imager3-21-42-C-legacy",
+      "SourceElements": 3,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "ba249f6930ad5559b882957769fa675737d964b808b715918e41ad7912d10ffe",
+      "PairedTaskFingerprint": "88c96041b658ff01c4c7101e98e8ad1eb56c1897bf140055959d8c62fa59eac5",
+      "PlanFingerprint": "a6588d7f926859543e0597397f4cf7f4b9230e3b41698fce2e28cd147e7ad980",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 61,
+        "GradientEvaluations": 23,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 35,
+        "DifferenceEvaluations": 30,
+        "JacobianBuilds": 3,
+        "TracedRays": 1265738,
+        "GeometryProbes": 10854,
+        "Elapsed": "00:00:04.0833248"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 26.320482919847713,
+        "FNumber": 4.935359292612338,
+        "WorstRmsMillimeters": 0.03576325497173412,
+        "WorstMaximumMillimeters": 0.09652132582088946,
+        "MinimumValidFraction": 0.9864583333333333,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 15,
+            "Limit": 0
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "84bec203079b900fad4ce8e46e9da08e90a6752204d262a47e7af29954d2565f"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.41855375598487,
+          "FNumber": 4.930216200795432,
+          "WorstRmsMillimeters": 0.04226784719547059,
+          "WorstMaximumMillimeters": 0.14389043978157545,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "47850e13751fea1113db4f9aae4e1db9d56eac138bd7cba0211d54b7de84750a"
+        }
+      ],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-5",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.41855375598487,
+        "FNumber": 4.930216200795432,
+        "WorstRmsMillimeters": 0.04226784719547059,
+        "WorstMaximumMillimeters": 0.14389043978157545,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "47850e13751fea1113db4f9aae4e1db9d56eac138bd7cba0211d54b7de84750a"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-21",
+      "SourceName": "US02298090-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "fixed",
+      "Id": "repr-imager3-21-42-C-fixed",
+      "SourceElements": 3,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "ba249f6930ad5559b882957769fa675737d964b808b715918e41ad7912d10ffe",
+      "PairedTaskFingerprint": "88c96041b658ff01c4c7101e98e8ad1eb56c1897bf140055959d8c62fa59eac5",
+      "PlanFingerprint": "4ca5fc6afddd96df99b730b15900ecd15c4aee03a029849965018948641cb945",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 49,
+        "GradientEvaluations": 10,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 35,
+        "DifferenceEvaluations": 30,
+        "JacobianBuilds": 3,
+        "TracedRays": 1615080,
+        "GeometryProbes": 9895,
+        "Elapsed": "00:00:04.4612186"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 26.320482919847713,
+        "FNumber": 4.935359292612338,
+        "WorstRmsMillimeters": 0.03576325497173412,
+        "WorstMaximumMillimeters": 0.09652132582088946,
+        "MinimumValidFraction": 0.9864583333333333,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 15,
+            "Limit": 0
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "84bec203079b900fad4ce8e46e9da08e90a6752204d262a47e7af29954d2565f"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-5",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-5",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-5",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "The CPU sequential trace quota cannot reserve this submission."
+          ]
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-21",
+      "SourceName": "US02298090-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "legacy",
+      "Id": "repr-imager3-21-42-D-legacy",
+      "SourceElements": 3,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "ba249f6930ad5559b882957769fa675737d964b808b715918e41ad7912d10ffe",
+      "PairedTaskFingerprint": "88c96041b658ff01c4c7101e98e8ad1eb56c1897bf140055959d8c62fa59eac5",
+      "PlanFingerprint": "c63a82e17ba4cbadc050b643e1ee0beb920874b9f163d12e0f2bd1fb7c1569d8",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 61,
+        "GradientEvaluations": 23,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 35,
+        "DifferenceEvaluations": 30,
+        "JacobianBuilds": 3,
+        "TracedRays": 1265738,
+        "GeometryProbes": 10854,
+        "Elapsed": "00:00:03.4529143"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 26.320482919847713,
+        "FNumber": 4.935359292612338,
+        "WorstRmsMillimeters": 0.03576325497173412,
+        "WorstMaximumMillimeters": 0.09652132582088946,
+        "MinimumValidFraction": 0.9864583333333333,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 15,
+            "Limit": 0
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "84bec203079b900fad4ce8e46e9da08e90a6752204d262a47e7af29954d2565f"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.41855375598487,
+          "FNumber": 4.930216200795432,
+          "WorstRmsMillimeters": 0.04226784719547059,
+          "WorstMaximumMillimeters": 0.14389043978157545,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "47850e13751fea1113db4f9aae4e1db9d56eac138bd7cba0211d54b7de84750a"
+        }
+      ],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-5",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.41855375598487,
+        "FNumber": 4.930216200795432,
+        "WorstRmsMillimeters": 0.04226784719547059,
+        "WorstMaximumMillimeters": 0.14389043978157545,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "47850e13751fea1113db4f9aae4e1db9d56eac138bd7cba0211d54b7de84750a"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-21",
+      "SourceName": "US02298090-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "fixed",
+      "Id": "repr-imager3-21-42-D-fixed",
+      "SourceElements": 3,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "ba249f6930ad5559b882957769fa675737d964b808b715918e41ad7912d10ffe",
+      "PairedTaskFingerprint": "88c96041b658ff01c4c7101e98e8ad1eb56c1897bf140055959d8c62fa59eac5",
+      "PlanFingerprint": "b01aabdb94e398346f0f3918aa30cbe6b43eba1857f8bcc974c85926825943c9",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 49,
+        "GradientEvaluations": 10,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 35,
+        "DifferenceEvaluations": 30,
+        "JacobianBuilds": 3,
+        "TracedRays": 1615080,
+        "GeometryProbes": 9895,
+        "Elapsed": "00:00:03.8539784"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 26.320482919847713,
+        "FNumber": 4.935359292612338,
+        "WorstRmsMillimeters": 0.03576325497173412,
+        "WorstMaximumMillimeters": 0.09652132582088946,
+        "MinimumValidFraction": 0.9864583333333333,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 15,
+            "Limit": 0
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "84bec203079b900fad4ce8e46e9da08e90a6752204d262a47e7af29954d2565f"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-5",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-5",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-5",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "The CPU sequential trace quota cannot reserve this submission."
+          ]
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-21",
+      "SourceName": "US02298090-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "legacy",
+      "Id": "repr-imager3-21-101-C-legacy",
+      "SourceElements": 3,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "3238d77b98b995eace1cc1d792af7c644cfefb09100d5c56df85ee06f07c6ca3",
+      "PairedTaskFingerprint": "88b1828723b32195eaead4c683a7819f51c37d6cd977f9faf1c24ac3cfd51d8f",
+      "PlanFingerprint": "c1cc7098a7d3abd75729df7a437291e764c374e8d02fa96077b8cb25ccd05058",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 61,
+        "GradientEvaluations": 23,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 35,
+        "DifferenceEvaluations": 30,
+        "JacobianBuilds": 3,
+        "TracedRays": 1266034,
+        "GeometryProbes": 10854,
+        "Elapsed": "00:00:04.0611219"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 26.347632386465733,
+        "FNumber": 4.940450094806556,
+        "WorstRmsMillimeters": 0.03604713889911864,
+        "WorstMaximumMillimeters": 0.10061202832486948,
+        "MinimumValidFraction": 0.9864583333333333,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 15,
+            "Limit": 0
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "8d2530ff047f9044be25c72f2b3cca7ee8f7733f607b4d87a66d82bf655773a0"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-5",
+          "ParentId": "trial-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.24725983206918,
+          "FNumber": 4.896761371768252,
+          "WorstRmsMillimeters": 0.03596191693139732,
+          "WorstMaximumMillimeters": 0.12984624118887034,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "534baa60af8724a71e695c09675ad0588d5ae1aa8e2801590499119005d6ca26"
+        }
+      ],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-5",
+        "ParentId": "trial-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.24725983206918,
+        "FNumber": 4.896761371768252,
+        "WorstRmsMillimeters": 0.03596191693139732,
+        "WorstMaximumMillimeters": 0.12984624118887034,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "534baa60af8724a71e695c09675ad0588d5ae1aa8e2801590499119005d6ca26"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-21",
+      "SourceName": "US02298090-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "fixed",
+      "Id": "repr-imager3-21-101-C-fixed",
+      "SourceElements": 3,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "3238d77b98b995eace1cc1d792af7c644cfefb09100d5c56df85ee06f07c6ca3",
+      "PairedTaskFingerprint": "88b1828723b32195eaead4c683a7819f51c37d6cd977f9faf1c24ac3cfd51d8f",
+      "PlanFingerprint": "cb87f9f9782e69ed3681c5b1c62810f7214cb1ca5c44c3874e511e571327d527",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 49,
+        "GradientEvaluations": 10,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 35,
+        "DifferenceEvaluations": 30,
+        "JacobianBuilds": 3,
+        "TracedRays": 1615568,
+        "GeometryProbes": 9895,
+        "Elapsed": "00:00:04.5389762"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 26.347632386465733,
+        "FNumber": 4.940450094806556,
+        "WorstRmsMillimeters": 0.03604713889911864,
+        "WorstMaximumMillimeters": 0.10061202832486948,
+        "MinimumValidFraction": 0.9864583333333333,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 15,
+            "Limit": 0
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "8d2530ff047f9044be25c72f2b3cca7ee8f7733f607b4d87a66d82bf655773a0"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-5",
+          "ParentId": "trial-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.309374420801962,
+          "FNumber": 4.90737129053589,
+          "WorstRmsMillimeters": 0.039255325855184243,
+          "WorstMaximumMillimeters": 0.1374847679919764,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "4a18ad8db3b5aabf04d2be042062fa1c29f41d95a939b3d1b12730b68fd70e45"
+        }
+      ],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-5",
+        "ParentId": "trial-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.309374420801962,
+        "FNumber": 4.90737129053589,
+        "WorstRmsMillimeters": 0.039255325855184243,
+        "WorstMaximumMillimeters": 0.1374847679919764,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "4a18ad8db3b5aabf04d2be042062fa1c29f41d95a939b3d1b12730b68fd70e45"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "The CPU sequential trace quota cannot reserve this submission."
+          ]
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-21",
+      "SourceName": "US02298090-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "legacy",
+      "Id": "repr-imager3-21-101-D-legacy",
+      "SourceElements": 3,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "3238d77b98b995eace1cc1d792af7c644cfefb09100d5c56df85ee06f07c6ca3",
+      "PairedTaskFingerprint": "88b1828723b32195eaead4c683a7819f51c37d6cd977f9faf1c24ac3cfd51d8f",
+      "PlanFingerprint": "07502416c2a4e31854c36ad791c674219f9f21e7592bb43f0384314e1925e824",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 61,
+        "GradientEvaluations": 23,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 35,
+        "DifferenceEvaluations": 30,
+        "JacobianBuilds": 3,
+        "TracedRays": 1266034,
+        "GeometryProbes": 10854,
+        "Elapsed": "00:00:04.0129698"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 26.347632386465733,
+        "FNumber": 4.940450094806556,
+        "WorstRmsMillimeters": 0.03604713889911864,
+        "WorstMaximumMillimeters": 0.10061202832486948,
+        "MinimumValidFraction": 0.9864583333333333,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 15,
+            "Limit": 0
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "8d2530ff047f9044be25c72f2b3cca7ee8f7733f607b4d87a66d82bf655773a0"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-5",
+          "ParentId": "trial-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.24725983206918,
+          "FNumber": 4.896761371768252,
+          "WorstRmsMillimeters": 0.03596191693139732,
+          "WorstMaximumMillimeters": 0.12984624118887034,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "534baa60af8724a71e695c09675ad0588d5ae1aa8e2801590499119005d6ca26"
+        }
+      ],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-5",
+        "ParentId": "trial-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.24725983206918,
+        "FNumber": 4.896761371768252,
+        "WorstRmsMillimeters": 0.03596191693139732,
+        "WorstMaximumMillimeters": 0.12984624118887034,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "534baa60af8724a71e695c09675ad0588d5ae1aa8e2801590499119005d6ca26"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "imager3-21",
+      "SourceName": "US02298090-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "fixed",
+      "Id": "repr-imager3-21-101-D-fixed",
+      "SourceElements": 3,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "3238d77b98b995eace1cc1d792af7c644cfefb09100d5c56df85ee06f07c6ca3",
+      "PairedTaskFingerprint": "88b1828723b32195eaead4c683a7819f51c37d6cd977f9faf1c24ac3cfd51d8f",
+      "PlanFingerprint": "801ca1ec31faca70c94a008591469235ef5f6fffe76b98914891f2434785ac18",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 49,
+        "GradientEvaluations": 10,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 35,
+        "DifferenceEvaluations": 30,
+        "JacobianBuilds": 3,
+        "TracedRays": 1615568,
+        "GeometryProbes": 9895,
+        "Elapsed": "00:00:04.4443328"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 3,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 26.347632386465733,
+        "FNumber": 4.940450094806556,
+        "WorstRmsMillimeters": 0.03604713889911864,
+        "WorstMaximumMillimeters": 0.10061202832486948,
+        "MinimumValidFraction": 0.9864583333333333,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 15,
+            "Limit": 0
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "8d2530ff047f9044be25c72f2b3cca7ee8f7733f607b4d87a66d82bf655773a0"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-5",
+          "ParentId": "trial-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.309374420801962,
+          "FNumber": 4.90737129053589,
+          "WorstRmsMillimeters": 0.039255325855184243,
+          "WorstMaximumMillimeters": 0.1374847679919764,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "4a18ad8db3b5aabf04d2be042062fa1c29f41d95a939b3d1b12730b68fd70e45"
+        }
+      ],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-5",
+        "ParentId": "trial-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.309374420801962,
+        "FNumber": 4.90737129053589,
+        "WorstRmsMillimeters": 0.039255325855184243,
+        "WorstMaximumMillimeters": 0.1374847679919764,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "4a18ad8db3b5aabf04d2be042062fa1c29f41d95a939b3d1b12730b68fd70e45"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "The CPU sequential trace quota cannot reserve this submission."
+          ]
+        }
+      ],
+      "ExportAuditRays": 0
+    }
+  ]
+}

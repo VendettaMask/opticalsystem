@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.Core.Raytrace;
 
@@ -23,6 +24,12 @@ public sealed record TopologyTargets
 /// <summary>Immutable within an objective. Final acceptance always uses the separate 21/10/32 protocol.</summary>
 public sealed record TopologyTrainingSampling
 {
+    /// <summary>Add independent center/boundary clearance residuals; never mix them into Gaussian spot statistics.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? IncludeBoundaryClearance { get; init; }
+    /// <summary>Include independent checks about the integration centroid in the maximum-radius constraint.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? IncludeBoundaryMaximum { get; init; }
     public int FieldsPerDirection { get; init; } = 3;
     public int PupilRings { get; init; } = 3;
     public int PupilArms { get; init; } = 12;
@@ -31,6 +38,16 @@ public sealed record TopologyTrainingSampling
 
 public sealed record FixedTopologyOptions
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? TransmissionFirst { get; init; }
+    /// <summary>Choose up to this many independent boundary/constraint sensitivity columns per proposal.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? ActiveParameterLimit { get; init; }
+    /// <summary>Explicit strategy identity; unversioned development records remain readable but cannot execute this policy.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? TransmissionPolicyVersion { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? RequireDescent { get; init; }
     public int MaximumUpdates { get; init; } = 80;
     public int MaximumFunctionEvaluations { get; init; } = 82;
     public int MaximumGradientEvaluations { get; init; } = 81;
@@ -66,6 +83,8 @@ public sealed record TopologyAssessment
 
 public sealed record TopologyObjectiveEvaluation
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ImmutableArray<TopologyConstraintTangent>? ConstraintTangents { get; init; }
     public required string LayoutFingerprint { get; init; }
     public required string OpticFingerprint { get; init; }
     public ImmutableArray<double> Residuals { get; init; } = [];
@@ -79,11 +98,20 @@ public sealed record TopologyObjectiveEvaluation
     public DesignComputeExecution? Execution { get; init; }
     public SequentialGpuExecution? PropagationExecution { get; init; }
 }
+public sealed record TopologyConstraintTangent(int Row, double Value, ImmutableArray<double> Derivatives);
 
 public enum FixedTopologyTermination { UpdateLimit, Converged, BudgetExhausted, TimeLimit, Cancelled, DomainFailure, Unsupported, Stalled }
 public sealed record FixedTopologyWork(int FunctionEvaluations, int GradientEvaluations, int ValidationEvaluations,
     long TracedRays, long GeometryProbes, long? GpuDerivativeRays, long? GpuBatches, TimeSpan Elapsed, int CompletedGradientEvaluations);
-public sealed record FixedTopologyStep(int Attempt, bool Accepted, double? Objective, string? Failure);
+public sealed record FixedTopologyStep(int Attempt, bool Accepted, double? Objective, string? Failure)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ImmutableArray<int>? ActiveParameters { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TopologyTransmissionStep? Transmission { get; init; }
+}
+public sealed record TopologyTransmissionStep(double BeforeClearance, double AfterClearance,
+    double BeforeOtherGates, double AfterOtherGates, int ModelRank);
 
 /// <summary>Same-template continuation only. Structural/variable/protocol changes require a fresh phase.</summary>
 public sealed record FixedTopologyContinuation

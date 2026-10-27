@@ -8,7 +8,7 @@ using static OpticalSystemDesign.InitialStructure.Engine.TopologyValidation;
 
 namespace OpticalSystemDesign.InitialStructure.Engine;
 
-/// <summary>Bounded fixed-topology Adam. No fixed-family indexing or UpstreamE58 state is reused.</summary>
+/// <summary>Bounded fixed-topology compensation with opt-in constraint restoration. No UpstreamE58 state is reused.</summary>
 public static class FixedTopologyOptimizer
 {
     public static FixedTopologyResult Run(CompiledTopology source, BoundTopologyParameters binding, TopologyTargets targets,
@@ -20,6 +20,12 @@ public static class FixedTopologyOptimizer
             && options.MaximumGradientEvaluations is >= 0 and <= 10000 && options.TimeLimit > TimeSpan.Zero && options.TimeLimit <= TimeSpan.FromHours(1)
             && double.IsFinite(options.LearningRate) && options.LearningRate is > 0 and <= 1 && Enum.IsDefined(options.ComputeMode),
             TopologyFailureCode.InvalidInput, "Invalid fixed-topology stage budget or learning rate.");
+        var transmissionFirst = options.TransmissionFirst == true;
+        var needsJacobian = transmissionFirst || options.ActiveParameterLimit is not null;
+        Require((options.ActiveParameterLimit is null or >= 1 and <= 512) && (!needsJacobian || options.Sampling.IncludeBoundaryClearance == true),
+            TopologyFailureCode.InvalidInput, "Transmission compensation/selection requires explicit boundary sampling and a bounded active parameter count.");
+        Require(!needsJacobian || options.TransmissionPolicyVersion is 3 or 4, TopologyFailureCode.IdentityMismatch,
+            "An explicit transmission policy version 3 or 4 is required. Unversioned prototype records are read-only; create a fresh versioned plan.");
         var timer = Stopwatch.StartNew();
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         var elapsedBefore = continuation?.Work.Elapsed ?? TimeSpan.Zero;
@@ -41,7 +47,7 @@ public static class FixedTopologyOptimizer
         FixedTopologyObjective? objective = null;
         var state = continuation?.Adam ?? DifferentiableAdam.Initialize(binding.InitialCoordinates);
         var rate = continuation?.LearningRate ?? options.LearningRate;
-        var phaseFingerprint = ContentFingerprint.Compute(new { Identity = "fixed-topology-continuation-v1", source.BindingFingerprint, binding.Fingerprint, targets, options });
+        var phaseFingerprint = ContentFingerprint.Compute(new { Identity = needsJacobian ? "fixed-topology-transmission-v" + options.TransmissionPolicyVersion : "fixed-topology-continuation-v1", source.BindingFingerprint, binding.Fingerprint, targets, options });
         if (continuation is not null)
         {
             DifferentiableAdam.Validate(state);
@@ -60,10 +66,18 @@ public static class FixedTopologyOptimizer
             termination = FixedTopologyTermination.Unsupported;
             diagnostics.Add(error.Message);
         }
+        var transmission = objective is null ? null : new TopologyTransmissionCompensation(objective.ResidualIds, options.TransmissionPolicyVersion ?? 3);
         if (continuation is not null && endpoint is not null)
             Require(endpoint.Available && endpoint.LayoutFingerprint == objective?.Fingerprint
                 && endpoint.OpticFingerprint == current.OpticFingerprint && endpoint.Gradient.Length == binding.Slots.Length
-                && endpoint.Gradient.All(double.IsFinite), TopologyFailureCode.IdentityMismatch, "Continuation residuals do not match the accepted point and layout.");
+                && endpoint.Gradient.All(double.IsFinite)
+                && (!needsJacobian || endpoint.Jacobian.Length == objective.ResidualIds.Length && endpoint.Jacobian.All(row => row.Length == binding.Slots.Length && row.All(double.IsFinite))
+                    && transmission!.ValidTangents(endpoint, binding.Slots.Length)
+                    && steps.All(step => step.ActiveParameters is { Length: > 0 } selected
+                        && selected.Length <= Math.Min(options.ActiveParameterLimit ?? binding.Slots.Length, binding.Slots.Length)
+                        && selected.Distinct().Count() == selected.Length && selected.All(index => index >= 0 && index < binding.Slots.Length)
+                        && (step.Transmission is not null) == transmissionFirst)),
+                TopologyFailureCode.IdentityMismatch, "Continuation residuals do not match the accepted point and layout.");
         if (objective is not null && !StopRequested())
         {
             if (endpoint is null && !CanDifferentiate()) termination = FixedTopologyTermination.BudgetExhausted;
@@ -84,24 +98,50 @@ public static class FixedTopologyOptimizer
                     {
                         if (StopRequested()) break;
                         if (!CanDifferentiate()) { termination = FixedTopologyTermination.BudgetExhausted; break; }
-                        if (endpoint.Gradient.All(value => Math.Abs(value) < 1e-10)) { termination = FixedTopologyTermination.Converged; break; }
-                        DifferentialScalar tangent = 0;
-                        for (var index = 0; index < binding.Slots.Length; index++)
-                            tangent += DifferentialScalar.Variable(0, binding.Slots.Length, index) * endpoint.Gradient[index];
-                        var proposed = DifferentiableAdam.Propose(state, tangent, Enumerable.Repeat(rate, binding.Slots.Length).ToArray());
-                        var coordinates = proposed.Coordinates.Select((value, index) => Math.Clamp(value,
-                            binding.Slots[index].LowerCoordinate, binding.Slots[index].UpperCoordinate)).ToArray();
+                        if (transmissionFirst ? transmission!.Feasible(endpoint) : endpoint.Gradient.All(value => Math.Abs(value) < 1e-10))
+                        { termination = FixedTopologyTermination.Converged; break; }
+                        var active = options.ActiveParameterLimit is { } limit ? transmission!.Select(endpoint, limit) : Enumerable.Range(0, binding.Slots.Length).ToArray();
+                        AutoLensAdamState proposed;
+                        double[] coordinates;
+                        var modelRank = 0;
+                        if (transmissionFirst)
+                        {
+                            try { (coordinates, modelRank) = transmission!.Propose(endpoint, state.Coordinates, binding, active, rate / options.LearningRate, token); }
+                            catch (OperationCanceledException) when (token.IsCancellationRequested) { break; }
+                            catch (ArithmeticException error) { diagnostics.Add(error.Message); termination = FixedTopologyTermination.Stalled; break; }
+                            proposed = DifferentiableAdam.Initialize(coordinates) with { Iteration = state.Iteration + 1 };
+                        }
+                        else
+                        {
+                            DifferentialScalar tangent = 0;
+                            for (var index = 0; index < binding.Slots.Length; index++)
+                                tangent += DifferentialScalar.Variable(0, binding.Slots.Length, index) * (active.Contains(index) ? endpoint.Gradient[index] : 0);
+                            proposed = DifferentiableAdam.Propose(state, tangent, Enumerable.Repeat(rate, binding.Slots.Length).ToArray());
+                            coordinates = proposed.Coordinates.Select((value, index) => active.Contains(index) ? Math.Clamp(value,
+                                binding.Slots[index].LowerCoordinate, binding.Slots[index].UpperCoordinate) : state.Coordinates[index]).ToArray();
+                            if (options.ActiveParameterLimit is not null)
+                                proposed = proposed with
+                                {
+                                    FirstMoment = proposed.FirstMoment.Select((value, index) => active.Contains(index) ? value : 0).ToArray(),
+                                    SecondMoment = proposed.SecondMoment.Select((value, index) => active.Contains(index) ? value : 0).ToArray()
+                                };
+                        }
                         if (coordinates.SequenceEqual(state.Coordinates)) { termination = FixedTopologyTermination.Stalled; break; }
                         var trial = Evaluate(coordinates);
                         if (SequentialTraceMeasurement.CpuBudgetReached) { termination = FixedTopologyTermination.BudgetExhausted; break; }
                         // Cancellation is not a rejected numerical update: preserve moments and rate.
                         if (StopRequested()) break;
-                        if (trial.Available)
+                        var beforeMerit = transmissionFirst ? transmission!.Merit(endpoint) : default;
+                        var afterMerit = transmissionFirst && trial.Available ? transmission!.Merit(trial) : (double.PositiveInfinity, double.PositiveInfinity);
+                        var accepted = transmissionFirst ? transmission!.Accept(endpoint, trial)
+                            : trial.Available && (options.RequireDescent != true || trial.Objective <= endpoint.Objective);
+                        if (accepted)
                         {
                             current = TopologyParameterBinder.Apply(source, binding, coordinates);
                             state = proposed with { Coordinates = coordinates };
                             endpoint = trial;
                             updates++;
+                            if (transmissionFirst) rate = Math.Min(options.LearningRate, rate * 2);
                         }
                         else
                         {
@@ -109,7 +149,12 @@ public static class FixedTopologyOptimizer
                             state = DifferentiableAdam.Initialize(state.Coordinates);
                             rate *= .5;
                         }
-                        var step = new FixedTopologyStep(attempt, trial.Available, trial.Objective, trial.Failure);
+                        var step = new FixedTopologyStep(attempt, accepted, trial.Objective,
+                            trial.Available && !accepted ? transmissionFirst ? "Transmission/gate filter rejected the proposal." : "Non-descending proposal rejected under the fixed phase objective." : trial.Failure)
+                        {
+                            ActiveParameters = needsJacobian ? active.ToImmutableArray() : null,
+                            Transmission = transmissionFirst ? new(beforeMerit.Clearance, afterMerit.Item1, beforeMerit.Other, afterMerit.Item2, modelRank) : null
+                        };
                         steps.Add(step); progress?.Invoke(step);
                         if (!trial.Available && rate < 1e-10) { termination = FixedTopologyTermination.DomainFailure; break; }
                     }
@@ -170,7 +215,7 @@ public static class FixedTopologyOptimizer
         TopologyObjectiveEvaluation Evaluate(IReadOnlyList<double> coordinates)
         {
             functions++; gradients++;
-            var value = objective!.Evaluate(coordinates, options.ComputeMode, cancellationToken: token);
+            var value = objective!.Evaluate(coordinates, options.ComputeMode, includeJacobian: needsJacobian, cancellationToken: token, includeConstraintTangents: needsJacobian);
             rays += value.TracedRayCount; probes += value.GeometryProbes;
             if (value.Available) completedGradients++;
             gpuRays += value.Execution?.GpuRays ?? 0; gpuBatches += value.Execution?.GpuBatches ?? 0;

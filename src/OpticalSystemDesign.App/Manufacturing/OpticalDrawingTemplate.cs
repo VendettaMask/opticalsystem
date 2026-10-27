@@ -40,36 +40,33 @@ internal sealed record OpticalDrawingTitleBlockTemplate(
 internal sealed record OpticalDrawingSpecificationTemplate(
     string Kind,
     float HeaderHeight,
-    float SubheaderHeight,
-    float MaterialWidthRatio,
-    float SurfaceWidth,
-    float ApertureWidth,
-    string? Title,
-    float TitleHeight,
-    float SectionWidth,
-    float ItemWidth,
-    float MaterialHeight,
-    float PartHeaderHeight,
     IReadOnlyList<OpticalDrawingColumnTemplate> Columns,
     IReadOnlyList<string> SurfaceFields,
     IReadOnlyList<string> MaterialFields,
     IReadOnlyList<string> ComponentMaterialFields,
-    IReadOnlyList<string> Gb2009MaterialFields,
-    IReadOnlyList<string> Gb2009SurfaceRequirementFields,
-    IReadOnlyList<OpticalDrawingMaterialRowTemplate> Gb1991MaterialRows,
-    IReadOnlyList<string> Gb1991PartRequirementFields)
+    OpticalDrawingGb1991Template? Gb1991)
 {
     public IReadOnlyList<string> FieldBindings =>
         Columns.SelectMany(column => column.Fields)
             .Concat(SurfaceFields)
             .Concat(MaterialFields)
             .Concat(ComponentMaterialFields)
-            .Concat(Gb2009MaterialFields)
-            .Concat(Gb2009SurfaceRequirementFields)
-            .Concat(Gb1991MaterialRows.Select(row => row.ValueBinding))
-            .Concat(Gb1991PartRequirementFields)
+            .Concat(Gb1991?.AllRows.Select(row => row.ValueBinding) ?? Array.Empty<string>())
             .Distinct(StringComparer.Ordinal)
             .ToArray();
+}
+
+internal sealed record OpticalDrawingGb1991Template(
+    float TableWidthMillimeters,
+    float MaterialLabelWidthMillimeters,
+    float PartLabelWidthMillimeters,
+    float HeaderHeightMillimeters,
+    float RowHeightMillimeters,
+    IReadOnlyList<OpticalDrawingMaterialRowTemplate> MaterialRows,
+    IReadOnlyList<OpticalDrawingMaterialRowTemplate> PartRows,
+    IReadOnlyList<OpticalDrawingMaterialRowTemplate> AssemblyRows)
+{
+    public IEnumerable<OpticalDrawingMaterialRowTemplate> AllRows => MaterialRows.Concat(PartRows).Concat(AssemblyRows);
 }
 
 internal sealed record OpticalDrawingColumnTemplate(
@@ -87,8 +84,7 @@ internal static class OpticalDrawingTemplateCatalog
     private static readonly string[] TemplateResourceNames =
     {
         "OpticalSystemDesign.App.Assets.DrawingTemplates.iso-10110.xml",
-        "OpticalSystemDesign.App.Assets.DrawingTemplates.gb-13323-1991.xml",
-        "OpticalSystemDesign.App.Assets.DrawingTemplates.gb-13323-2009.xml"
+        "OpticalSystemDesign.App.Assets.DrawingTemplates.gb-13323-1991.xml"
     };
 
     private static readonly Lazy<IReadOnlyDictionary<OpticalDrawingStandard, OpticalDrawingTemplate>> Templates =
@@ -179,28 +175,22 @@ internal static class OpticalDrawingTemplateCatalog
     {
         var kind = Required(element, "kind");
         var gb1991 = element.Element("gb1991");
-        var gb2009 = element.Element("gb2009");
         return new OpticalDrawingSpecificationTemplate(
             kind,
             Float(element, "headerHeight", 24),
-            Float(gb2009, "subheaderHeight", 19),
-            Float(gb2009, "materialWidthRatio", 0.34f),
-            Float(gb2009, "surfaceWidth", 42),
-            Float(gb2009, "apertureWidth", 80),
-            String(gb1991, "title"),
-            Float(gb1991, "titleHeight", 22),
-            Float(gb1991, "sectionWidth", 66),
-            Float(gb1991, "itemWidth", 82),
-            Float(gb1991, "materialHeight", 66),
-            Float(gb1991, "partHeaderHeight", 17),
             ParseColumns(element.Element("columns")),
             ReadFields(element.Element("surfaceFields")),
             ReadFields(element.Element("materialFields")),
             ReadFields(element.Element("componentMaterialFields")),
-            ReadFields(gb2009?.Element("materialFields")),
-            ReadFields(gb2009?.Element("surfaceRequirementFields")),
-            ParseMaterialRows(gb1991?.Element("materialRows")),
-            ReadFields(gb1991?.Element("partRequirementFields")));
+            gb1991 is null ? null : new OpticalDrawingGb1991Template(
+                Float(gb1991, "tableWidthMm", 40),
+                Float(gb1991, "materialLabelWidthMm", 25),
+                Float(gb1991, "partLabelWidthMm", 15),
+                Float(gb1991, "headerHeightMm", 8),
+                Float(gb1991, "rowHeightMm", 6),
+                ParseMaterialRows(gb1991.Element("materialRows")),
+                ParseMaterialRows(gb1991.Element("partRows")),
+                ParseMaterialRows(gb1991.Element("assemblyRows"))));
     }
 
     private static IReadOnlyList<OpticalDrawingColumnTemplate> ParseColumns(XElement? element) =>

@@ -16,7 +16,7 @@ namespace OpticalSystemDesign.App.Panels;
 /// generated command and analysis reference guarantees that every registered feature remains
 /// discoverable as the application grows.
 /// </summary>
-public sealed class UserGuidePanel : UserControl
+public sealed partial class UserGuidePanel : UserControl
 {
     private readonly IReadOnlyList<GuideChapter> _chapters;
     private readonly HashSet<string> _coveredCommandIds;
@@ -67,48 +67,10 @@ public sealed class UserGuidePanel : UserControl
     internal IReadOnlySet<string> CoveredCommandIds => _coveredCommandIds;
     internal int ChapterCount => _chapters.Count;
     internal int IllustratedChapterCount => _chapters.Count(chapter => Enum.IsDefined(chapter.Figure));
+    internal int CalculationChapterCount => _chapters.Count(chapter => chapter.Id.StartsWith("calculation-", StringComparison.Ordinal));
+    internal int TutorialChapterCount => _chapters.Count(chapter => chapter.Id.StartsWith("tutorial-", StringComparison.Ordinal));
 
-    private Control BuildContent()
-    {
-        _resultCount.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
-        _path.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
-        _summary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
-
-        var navigation = new Grid
-        {
-            RowDefinitions = new RowDefinitions("Auto,Auto,*"),
-            RowSpacing = 8,
-            Margin = new Thickness(10),
-            Children = { _search, _resultCount, _contents }
-        };
-        Grid.SetRow(_resultCount, 1);
-        Grid.SetRow(_contents, 2);
-
-        var navigationBorder = new Border
-        {
-            Child = navigation,
-            BorderThickness = new Thickness(0, 0, 1, 0)
-        };
-        navigationBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-
-        var detail = new StackPanel
-        {
-            Margin = new Thickness(24, 18, 28, 28),
-            Spacing = 8,
-            Children = { _path, _title, _summary, new Border { Height = 8 }, _sections }
-        };
-        _detailScroller.Content = detail;
-
-        var root = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("280,*"),
-            Children = { navigationBorder, _detailScroller }
-        };
-        Grid.SetColumn(_detailScroller, 1);
-        AutomationProperties.SetName(_contents, "用户指南目录");
-        AutomationProperties.SetHelpText(_contents, "按章节浏览；使用方向键展开、折叠和选择。");
-        return root;
-    }
+    private Control BuildContent() => BuildReaderLayout();
 
     private void OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs args)
     {
@@ -137,18 +99,19 @@ public sealed class UserGuidePanel : UserControl
     private void RefreshLanguage()
     {
         _search.PlaceholderText = Current(
-            T("搜索章节、命令、分析或关键词", "Search chapters, commands, analyses, or keywords", "章、コマンド、解析、キーワードを検索"));
+            T("搜索指南…", "Search the guide…", "ガイドを検索…"));
+        ToolTip.SetTip(_search, Current(T("搜索章节、命令、分析或关键词", "Search chapters, commands, analyses, or keywords", "章、コマンド、解析、キーワードを検索")));
         AutomationProperties.SetName(_search, Current(T("搜索用户指南", "Search the user guide", "ユーザーガイドを検索")));
         AutomationProperties.SetName(this, Current(T("用户指南", "User Guide", "ユーザーガイド")));
+        RefreshReaderLanguage();
         RebuildContents();
     }
 
     private void RebuildContents()
     {
         var query = _search.Text?.Trim();
-        var visible = string.IsNullOrEmpty(query)
-            ? _chapters
-            : _chapters.Where(chapter => Matches(chapter, query)).ToArray();
+        var visible = _chapters.Where(chapter => MatchesKind(chapter)
+            && (string.IsNullOrEmpty(query) || Matches(chapter, query))).ToArray();
         var previous = _selectedChapterId;
         _updatingTree = true;
         try
@@ -160,7 +123,7 @@ public sealed class UserGuidePanel : UserControl
             {
                 var root = new TreeViewItem
                 {
-                    Header = group.Key,
+                    Header = NavigationLabel(group.Key, true),
                     IsExpanded = true,
                     ItemsSource = group.Select(CreateChapterItem).ToArray()
                 };
@@ -184,16 +147,16 @@ public sealed class UserGuidePanel : UserControl
 
         _resultCount.Text = CurrentLanguage() switch
         {
-            UiLocalization.English => $"{visible.Count} of {_chapters.Count} chapters",
-            UiLocalization.Japanese => $"{visible.Count} / {_chapters.Count} 章",
-            _ => $"显示 {visible.Count} / {_chapters.Count} 章"
+            UiLocalization.English => $"{visible.Length} of {_chapters.Count} chapters",
+            UiLocalization.Japanese => $"{visible.Length} / {_chapters.Count} 章",
+            _ => $"显示 {visible.Length} / {_chapters.Count} 章"
         };
         ShowSelectedChapter();
     }
 
     private TreeViewItem CreateChapterItem(GuideChapter chapter)
     {
-        var item = new TreeViewItem { Header = Current(chapter.Title), Tag = chapter };
+        var item = new TreeViewItem { Header = NavigationLabel(Current(chapter.Title), false), Tag = chapter };
         AutomationProperties.SetName(item, Current(chapter.Title));
         ToolTip.SetTip(item, Current(chapter.Summary));
         _chapterItems[chapter.Id] = item;
@@ -207,8 +170,13 @@ public sealed class UserGuidePanel : UserControl
             _selectedChapterId = null;
             _path.Text = string.Empty;
             _title.Text = Current(T("没有匹配的章节", "No matching chapters", "一致する章はありません"));
-            _summary.Text = Current(T("请清除或更改搜索条件。", "Clear or change the search query.", "検索条件をクリアまたは変更してください。"));
+            _summary.Text = Current(T("请更改搜索条件或内容分类。", "Change the search query or content category.", "検索条件またはコンテンツ分類を変更してください。"));
             _sections.Children.Clear();
+            _sectionJump.Children.Clear();
+            _chapterKind.Text = string.Empty;
+            _previousChapter.IsEnabled = false;
+            _nextChapter.IsEnabled = false;
+            UpdateReaderColumns();
             return;
         }
 
@@ -218,25 +186,81 @@ public sealed class UserGuidePanel : UserControl
         _title.Text = Current(chapter.Title);
         _summary.Text = Current(chapter.Summary);
         _sections.Children.Clear();
-        _sections.Children.Add(UserGuideIllustration.Build(chapter.Figure, CurrentLanguage()));
+        _sectionJump.Children.Clear();
+        _chapterKind.Text = Current(ChapterKind(chapter));
         foreach (var section in chapter.Sections)
         {
-            var block = new StackPanel { Spacing = 6 };
-            block.Children.Add(new TextBlock
+            var block = new StackPanel { Spacing = 12 };
+            block.Children.Add(new SelectableTextBlock
             {
                 Text = Current(section.Title),
-                FontSize = DisplayTypography.SectionTitle,
+                FontSize = 18,
                 FontWeight = FontWeight.SemiBold,
                 TextWrapping = TextWrapping.Wrap
             });
-            block.Children.Add(new TextBlock
+            block.Children.Add(new SelectableTextBlock
             {
                 Text = Current(section.Body),
+                FontSize = 15,
                 TextWrapping = TextWrapping.Wrap,
-                LineHeight = 22
+                LineHeight = 27
             });
+            if (section.Formula is { } formula) block.Children.Add(FormulaBlock(formula));
+            if (section.Screenshot is { } screenshot)
+                block.Children.Add(new UserGuideScreenshot(screenshot, CurrentLanguage()));
+            if (section.RelatedChapter is { } related && _chapters.FirstOrDefault(c => c.Id == related) is { } target)
+            {
+                var link = new Button
+                {
+                    Name = "UserGuideCalculationLink",
+                    Content = new TextBlock
+                    {
+                        Text = Current(T("计算方法：", "How it is calculated: ", "計算方法：")) + Current(target.Title),
+                        TextWrapping = TextWrapping.Wrap
+                    },
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    HorizontalContentAlignment = HorizontalAlignment.Left
+                };
+                link.Classes.Add("guideQuiet");
+                link.Click += (_, _) => NavigateToChapter(related);
+                block.Children.Add(link);
+            }
             _sections.Children.Add(block);
+            AddSectionLink(Current(section.Title), block);
         }
+        if (UserGuideScreenshots.ForChapter(chapter.Id) is { Count: > 0 } screens)
+        {
+            var gallery = new StackPanel { Spacing = 24 };
+            var galleryTitle = Current(T("界面示例", "Interface examples", "画面例"));
+            gallery.Children.Add(new TextBlock { Text = galleryTitle, FontSize = 18, FontWeight = FontWeight.SemiBold });
+            foreach (var screen in screens) gallery.Children.Add(new UserGuideScreenshot(screen, CurrentLanguage()));
+            _sections.Children.Add(gallery);
+            AddSectionLink(galleryTitle, gallery);
+        }
+        _sections.Children.Add(new Expander
+        {
+            Name = "UserGuideWorkflowDiagram",
+            Header = Current(T("查看流程示意", "View the workflow diagram", "フロー図を表示")),
+            IsExpanded = false,
+            Content = UserGuideIllustration.Build(chapter.Figure, CurrentLanguage())
+        });
+        UpdateReadingNavigation(chapter);
+    }
+
+    private static TextBlock NavigationLabel(string text, bool group)
+    {
+        var label = new TextBlock
+        {
+            Text = text,
+            TextWrapping = TextWrapping.Wrap,
+            MaxWidth = group ? 144 : 128,
+            FontSize = group ? 11.5 : 12.5,
+            LineHeight = 19,
+            FontWeight = group ? FontWeight.SemiBold : FontWeight.Normal,
+            Margin = group ? new Thickness(0, 6, 0, 2) : new Thickness(0, 1)
+        };
+        label.BindThemeResource(TextBlock.ForegroundProperty, group ? ThemeResourceBindings.TextMuted : ThemeResourceBindings.TextPrimary);
+        return label;
     }
 
     private static bool Matches(GuideChapter chapter, string query)
@@ -251,7 +275,7 @@ public sealed class UserGuidePanel : UserControl
 
     private static IReadOnlyList<GuideChapter> BuildChapters(IReadOnlyList<AppAction> actions)
     {
-        var chapters = CoreChapters().ToList();
+        var chapters = CoreChapters().Concat(TutorialChapters()).Concat(ComputationChapters()).Concat(DetailedComputationChapters()).ToList();
         var analysisById = WorkbenchAnalysisCatalog.AllRibbonCommands.ToDictionary(item => item.Id, StringComparer.Ordinal);
         foreach (var group in actions.Where(action => !analysisById.ContainsKey(action.Id)).GroupBy(action => action.Category))
         {
@@ -276,7 +300,7 @@ public sealed class UserGuidePanel : UserControl
         {
             var sections = group.Select(command => new GuideSection(
                 new GuideText(command.Label),
-                AnalysisDescription(command)))
+                AnalysisDescription(command), RelatedChapter: CalculationChapterForCommand(command)))
             .ToArray();
             chapters.Add(new GuideChapter(
                 $"analyses-{Slug(group.Key)}",
@@ -324,9 +348,9 @@ public sealed class UserGuidePanel : UserControl
                 "Choose a lens by its original folder under File → Samples, or search for its name. The 14 categories contain 95 Zemax Sequential ZMX files, replacing the former generated sample entries. Files ship with the application and do not require a Zemax installation. They use the same importer; listing a sample does not certify all surface types, analyses, or numerical accuracy. Save edits as your own STAROPT project.",
                 "ファイル → サンプルから元のフォルダー別にレンズを選択するか、名前で検索します。従来の生成サンプルに代わり、Zemax Sequential の 14 分類・95 個の ZMX を同梱しており、Zemax のインストールは不要です。通常と同じインポーターを使用し、掲載は全ての面型・解析・数値精度への対応を保証しません。編集後は自分の STAROPT プロジェクトとして保存してください。"),
             S("原生工程", "Native projects", "ネイティブプロジェクト",
-                "STAROPT 工程保存处方、系统设置、配置、分析设置以及内置模块数据。保存前检查当前路径和修改状态；源码更新不会自动替换已安装程序或用户工程。",
-                "STAROPT projects store prescriptions, system settings, configurations, analysis settings, and built-in module data. Check the path and modified state before saving; source updates do not replace installed applications or user projects automatically.",
-                "STAROPT プロジェクトは処方、システム設定、構成、解析設定、内蔵モジュールデータを保存します。保存前にパスと変更状態を確認してください。ソース更新はインストール済みアプリやユーザープロジェクトを自動置換しません。"),
+                "STAROPT 工程保存处方、系统设置、配置及工程所包含的分析设置；内置实验室的独立实验记录需要分别保存。保存前检查当前路径和修改状态；源码更新不会自动替换已安装程序或用户工程。",
+                "STAROPT projects store prescriptions, system settings, configurations, and included analysis settings; save independent laboratory experiment records separately. Check the path and modified state before saving; source updates do not replace installed applications or user projects automatically.",
+                "STAROPT は処方、システム設定、構成、含まれる解析設定を保存します。内蔵ラボの独立実験記録は別に保存します。保存前にパスと変更状態を確認してください。ソース更新はインストール済みアプリやユーザープロジェクトを自動置換しません。"),
             S("导入与导出", "Import and export", "インポートとエクスポート",
                 "可导入受支持范围内的 ZMX、SEQ、LEN 和文本处方；不受支持的数据会保留兼容信息或给出明确提示。STEP 导出面向机械交换，不等同于保存完整光学工程。异常退出后可在帮助页使用恢复未保存工程。",
                 "Supported subsets of ZMX, SEQ, LEN, and text prescriptions can be imported. Unsupported data is retained with compatibility information or reported explicitly. STEP export is for mechanical exchange and is not a complete optical-project save. Use Recover Unsaved Project from Help after an abnormal exit.",
@@ -373,9 +397,9 @@ public sealed class UserGuidePanel : UserControl
                 "Choose an analysis from the ribbon to create a page using the current project snapshot. Set field, wavelength, sampling, reference, polarization, and other parameters, then run it. Old results become stale or clear after a project revision. Page lock controls updating, not calculation definitions.",
                 "リボンから解析を選ぶと現在のプロジェクトスナップショットを使用するページが作成されます。視野、波長、サンプリング、基準、偏光などを設定して実行します。プロジェクト変更後、古い結果は無効化または消去されます。ロックは更新のみを制御します。"),
             S("分析结构选择", "Analysis configuration selection", "解析の構成選択",
-                "顺序分析的设置在多结构文件中显示“结构”，单结构时整项隐藏。“当前的”跟随活动结构，“1 / N、2 / N…”固定计算指定结构，不切换镜头数据。支持比较的分析还提供“所有”：点列、光线像差、MTF、RMS、能量等按结构叠加，结构矩阵按视场行、结构列显示。图例可独立开关；多结构结果的 CSV 保留独立结构号列。Huygens 相干求和尚未接入，其结构选项为当前或单个结构。结构或文件变化后选项会更新，旧结果标记过期或清除。",
-                "Sequential analysis settings show Configuration only for documents with multiple configurations. Current follows the active configuration; 1 / N, 2 / N, etc. pin the analysis to a configuration without switching Lens Data. Supported comparisons also offer All: spot, ray-fan, MTF, RMS and energy results are overlaid, while Configuration Matrix uses field rows and configuration columns. Legends toggle independently and multi-configuration CSV results include a configuration-number column. Coherent Huygens summation is not connected; Huygens analyses offer Current or a single configuration. Options update when configurations or files change, and old results become stale or clear.",
-                "順次解析では構成が複数ある場合のみ設定に構成が表示されます。現在の構成はアクティブな構成に追従し、1 / N、2 / N などはレンズデータを切り替えずに指定構成を計算します。対応する比較では、すべてを選ぶとスポット、光線収差、MTF、RMS、エネルギーを重ね合わせ、構成マトリクスは視野行・構成列で表示します。凡例を個別に切り替え、CSV に構成番号を保持します。Huygens のコヒーレント加算は未接続のため、現在または単一構成を選択します。構成やファイルの変更で選択肢を更新し、古い結果を無効化または消去します。"),
+                "顺序分析的设置在多结构文件中显示“结构”，单结构时整项隐藏。“当前的”跟随活动结构，“1 / N、2 / N…”固定计算指定结构，不切换镜头数据。支持比较的分析还提供“所有”：点列、光线像差、MTF、RMS、能量等按结构叠加，结构矩阵按视场行、结构列显示。图例可独立开关；多结构结果的 CSV 保留独立结构号列。相干、偏振及多结构组合的实际支持范围以该分析的设置和提示为准；普通多波长强度叠加不等于相干电场叠加。结构或文件变化后选项会更新，旧结果标记过期或清除。",
+                "Sequential analysis settings show Configuration only for documents with multiple configurations. Current follows the active configuration; 1 / N, 2 / N, etc. pin the analysis to a configuration without switching Lens Data. Supported comparisons also offer All: spot, ray-fan, MTF, RMS and energy results are overlaid, while Configuration Matrix uses field rows and configuration columns. Legends toggle independently and multi-configuration CSV results include a configuration-number column. Check the settings and scope notes for supported coherent, polarization, and multi-configuration combinations; ordinary polychromatic intensity addition is not coherent field summation. Options update when configurations or files change, and old results become stale or clear.",
+                "順次解析では構成が複数ある場合のみ設定に構成が表示されます。現在の構成はアクティブな構成に追従し、1 / N、2 / N などはレンズデータを切り替えずに指定構成を計算します。対応する比較では、すべてを選ぶとスポット、光線収差、MTF、RMS、エネルギーを重ね合わせ、構成マトリクスは視野行・構成列で表示します。凡例を個別に切り替え、CSV に構成番号を保持します。コヒーレンス・偏光・複数構成の組合せは解析ごとの設定と制限を確認します。多波長の強度加算は電場のコヒーレント加算とは異なります。構成やファイルの変更で選択肢を更新し、古い結果を無効化または消去します。"),
             S("单位与导出", "Units and export", "単位とエクスポート",
                 "以坐标轴和结果元数据给出的物理量与单位为准，不从标题文字猜测单位。导出数据前确认活动配置、结果修订、归一化、参考波长和采样密度。完整分析命令见本指南的“完整分析参考”。",
                 "Use the quantities and units published by axes and result metadata; do not infer units from titles. Before export, confirm active configuration, result revision, normalization, reference wavelength, and sampling density. See Complete Analysis Reference for every analysis command.",
@@ -399,9 +423,9 @@ public sealed class UserGuidePanel : UserControl
                 "Define parameters, distributions, limits, compensators, and metrics in the Tolerance Data Editor, save, then run. Data Viewer, Report, Histogram, and Yield provide trial details, text summaries, distributions, and overall yield requiring simultaneous passage of all limits.",
                 "公差データエディターでパラメーター、分布、限界、補償量、評価指標を定義して保存後に実行します。データ表示、レポート、ヒストグラム、歩留まりは試行詳細、要約、分布、全限界同時合格率を示します。"),
             S("制造输出", "Manufacturing output", "製造出力",
-                "可加工性评估检查曲面域、边厚、材料和其他制造约束。ISO 10110 与 GB/T 图纸使用当前处方和公差数据；生成图纸或 STEP 前必须复核单位、口径、材料、膜层、基准和标准版本。",
-                "Manufacturability Assessment checks surface domains, edge thickness, materials, and other constraints. ISO 10110 and GB/T drawings use the current prescription and tolerance data. Verify units, apertures, materials, coatings, datums, and standard version before drawings or STEP export.",
-                "製造性評価は曲面領域、縁厚、材料などを確認します。ISO 10110 と GB/T 図面は現在の処方と公差データを使用します。図面または STEP 前に単位、開口、材料、コーティング、基準、規格版を確認します。"));
+                "可加工性评估检查曲面域、边厚、材料和其他制造约束。打开“光学制图”，在页面内选择 ISO 10110 或老国标 GB/T 13323—1991；切换标准共用当前元件、尺寸和公差参数，并更新图纸。生成图纸或 STEP 前必须复核单位、口径、材料、膜层、基准和标准版本。",
+                "Manufacturability Assessment checks surface domains, edge thickness, materials, and other constraints. Open Optical Drawings and select ISO 10110 or legacy GB/T 13323—1991 inside the page. Switching standards preserves the element, dimensions, and tolerances and updates the drawing. Verify units, apertures, materials, coatings, datums, and standard version before drawings or STEP export.",
+                "製造性評価は曲面領域、縁厚、材料などを確認します。光学製図を開き、ページ内で ISO 10110 または旧規格 GB/T 13323—1991 を選択します。規格の切替時も素子、寸法、公差を維持し、図面を更新します。図面または STEP 前に単位、開口、材料、コーティング、基準、規格版を確認します。"));
 
         yield return Chapter("libraries", "资源与模块", "Resources and Modules", "リソースとモジュール", "材料库、镜头库与内置模块", "Libraries and Built-in Modules", "ライブラリと内蔵モジュール",
             "使用材料、商业镜头、初始结构、镀膜和装调功能。", "Use materials, commercial lenses, initial structure, coating, and alignment features.", "材料、商用レンズ、初期構成、コーティング、組立調整機能を使用します。",
@@ -523,6 +547,22 @@ public sealed class UserGuidePanel : UserControl
 
     private static GuideText AnalysisDescription(AnalysisRibbonCommand command)
     {
+        if (command.Kind == AnalysisRibbonCommandKind.NonSequentialClearDetectors)
+            return T("清空当前会话的探测器结果与功率统计，为独立追迹准备。它不计算新的光路，也不改变实体和光源定义。",
+                "Clear detector results and session power totals for an independent trace. This creates no new ray paths and does not change scene objects or sources.",
+                "検出結果とセッションのパワー集計を消去します。新しい光路計算や物体・光源の変更は行いません。");
+        if (command.Kind is AnalysisRibbonCommandKind.NonSequentialRayDatabaseViewer or AnalysisRibbonCommandKind.NonSequentialPathAnalysis)
+            return T("读取已有光线数据库，按已记录的对象交互与路径筛选并统计。它不重新发射光线；先检查数据库与场景、材料及探测器几何的身份是否一致。",
+                "Read stored ray interactions, filter paths and aggregate recorded data without launching new rays. First check database identity against scene, materials and detector geometry.",
+                "保存済み相互作用を読み、経路を絞り込んで集計します。再発射はしません。シーン、材料、検出器形状との一致を確認します。");
+        if (command.Kind == AnalysisRibbonCommandKind.NonSequentialLayout)
+            return T("显示当前非序列几何及已有追迹光线；转动、缩放和配色不重新定义光学功率。需要新结果时使用追迹控制。",
+                "Display scene geometry and existing traced rays. Rotation, zoom and colors do not redefine optical power; use Trace Control for new results.",
+                "シーン形状と既存追跡光線を表示します。回転、拡大、配色は光学パワーを変更しません。新結果には追跡操作を使います。");
+        if (command.Kind is AnalysisRibbonCommandKind.ImaBimViewer or AnalysisRibbonCommandKind.BitmapViewer)
+            return T("此入口读取并显示图片文件，不执行光学计算。像素值和文件单位不自动成为当前工程的预测或实测结果。",
+                "This viewer reads image files without calculating optics. File pixels and units are not automatically predictions or measurements of the current project.",
+                "画像ファイルを表示する入口で、光学計算を行いません。画素と単位が現在の設計の予測や実測になるわけではありません。");
         var group = AnalysisGroupName(command.Group);
         return T(
             $"“{command.Label}”属于“{group.Chinese}”组。打开后设置页面参数并运行；它使用当前工程快照，且不会自动修改原处方。命令标识：{command.Id}。",
@@ -605,9 +645,7 @@ public sealed class UserGuidePanel : UserControl
             ["show-material-transmission"] = T("内部透过率 vs. 波长", "Internal Transmittance vs. Wavelength", "内部透過率 vs. 波長"),
             ["show-material-dispersion-wavelength"] = T("色散 vs. 波长", "Dispersion vs. Wavelength", "分散 vs. 波長"),
             ["show-manufacturability"] = T("可加工性评估", "Manufacturability Assessment", "製造性評価"),
-            ["show-optical-drawing-iso"] = T("ISO 10110 光学制图", "ISO 10110 Optical Drawing", "ISO 10110 光学図面"),
-            ["show-optical-drawing-gb"] = T("GB/T 13323—2009 光学制图", "GB/T 13323—2009 Optical Drawing", "GB/T 13323—2009 光学図面"),
-            ["show-optical-drawing-gb-1991"] = T("GB/T 13323—1991 光学制图", "GB/T 13323—1991 Optical Drawing", "GB/T 13323—1991 光学図面"),
+            ["show-optical-drawing"] = T("光学制图", "Optical Drawings", "光学製図"),
             ["show-analysis"] = T("分析面板", "Analysis Panel", "解析パネル"),
             ["show-optimization"] = T("优化面板", "Optimization Panel", "最適化パネル"),
             ["quick-focus"] = T("快速聚焦", "Quick Focus", "クイックフォーカス"),
@@ -666,7 +704,7 @@ public sealed class UserGuidePanel : UserControl
         };
     }
 
-    internal sealed record GuideSection(GuideText Title, GuideText Body);
+    internal sealed record GuideSection(GuideText Title, GuideText Body, string? Screenshot = null, string? Formula = null, string? RelatedChapter = null);
     internal sealed record GuideChapter(
         string Id,
         GuideText Group,

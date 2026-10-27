@@ -1,0 +1,634 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-27",
+  "baseCommit": "4bad6dd0cef00802f86df58ed52625a9a07f9935",
+  "workingTreeDirty": true,
+  "scope": "GB/T 13323-1991 original upper-right Tables 2/3 for A4/A3 single and cemented lenses; ISO, unified entry and shared inputs retained.",
+  "sourceStandard": {
+    "url": "https://ncstatic.clewm.net/rsrc/2022/0928/18/a8e91b473f322a6f24ebec07b5068cc5.pdf",
+    "sha256": "5aced774745ecb2729debde435dec271299c5a11617bc876b1531067c07b5ea9",
+    "printedPages": [
+      5,
+      6,
+      9,
+      10,
+      11
+    ],
+    "pdfPagesOneBased": [
+      7,
+      8,
+      11,
+      12,
+      13
+    ],
+    "clauses": [
+      "4.2.2",
+      "4.3.1"
+    ],
+    "tables": [
+      2,
+      3
+    ],
+    "copyrightedSourceArchived": false
+  },
+  "build": {
+    "configuration": "Release",
+    "defaultOutput": true,
+    "noRestore": true,
+    "disableBuildServers": true,
+    "maxCpuCount": 1,
+    "processorCount": 2,
+    "priority": "BelowNormal"
+  },
+  "testRuns": [
+    {
+      "file": "before-layout.trx",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "sha256": "58e98183f879e215ec8484fe043bb3c8facda94084eddba35ec8f7466089c89f"
+    },
+    {
+      "file": "gb1991-first-pass.trx",
+      "total": 31,
+      "passed": 31,
+      "failed": 0,
+      "sha256": "8b3ac18d544182ede67196b841d9860e1b20634c7919c39ba29a10c37705cdb1"
+    },
+    {
+      "file": "gb1991-layout-verified.trx",
+      "total": 40,
+      "passed": 40,
+      "failed": 0,
+      "sha256": "2c5f7d1b549a4f20f0fff20001413a70701f155deb3018e2788d80fd41367d88"
+    },
+    {
+      "file": "gb1991-guide-and-overflow.trx",
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "sha256": "90d3fd28c69bdbd4fdd2114857a8ce7a29b2665eda18ec91404d6bbf8308b056"
+    }
+  ],
+  "distinctPassingCases": 49,
+  "iso": {
+    "templateMatchesHead": true,
+    "previewFilesByteIdentical": 4,
+    "pdfRendersPixelIdentical": 4,
+    "pdfRasterDpi": 96,
+    "pdfByteEqualityClaimed": false
+  },
+  "gb1991Pdf": {
+    "filesInspected": 4,
+    "allFourPagesVisuallyInspected": true,
+    "tableWidthMm": 40,
+    "materialLabelWidthMm": 25,
+    "partLabelWidthMm": 15,
+    "headerHeightMm": 8,
+    "dataRowHeightMm": 6,
+    "singleRows": {
+      "material": 7,
+      "part": 14
+    },
+    "assemblyRows": 11,
+    "rasterImages": 0,
+    "inspectionReport": "pdf-layout-inspection.json",
+    "mediaBoxRounding": "Skia rounds MediaBox point dimensions; geometry checked against nominal physical page dimensions.",
+    "textExtraction": "NFKC + aliases 㬵→胶 and ⻆→角 only for extraction comparison; visible glyphs reviewed; shared PDF font/text code unchanged."
+  },
+  "guide": {
+    "languages": [
+      "zh-CN",
+      "en-US",
+      "ja-JP"
+    ],
+    "capturedImages": 9,
+    "embeddedImagesUpdated": 6,
+    "allManifestImagesHashVerified": 54
+  },
+  "manualPresentationValues": "GB grade/fringe/focal examples are supplied requirement text; focal values are not calculated values of the demo prescription.",
+  "limitations": [
+    "Rotationally symmetric single/cemented lenses; prism-specific rows not applicable.",
+    "No automatic ISO-to-legacy grade/fringe conversion.",
+    "Table layout/field verification, not full standard clause certification.",
+    "Background CPU/offscreen only; no native desktop input, full suite, publication or numerical certification."
+  ],
+  "scopedDiffCheckPassed": true,
+  "sourceHashes": [
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-1991.xml",
+      "sha256": "3bff5d5d561566b8475a5314ab584fb11e07904fe1f6e1b2d21470a73da4ad5c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/DrawingTemplates/iso-10110.xml",
+      "sha256": "b3abb503a36a2644321c41b613b6f2e3c749c002a2cd9688b8e81ff784be5a3b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Brand/CompanyLogo.svg",
+      "sha256": "dfbf5bd1655003410292f89df6cc23a1a9bf1bd55568cd5c12582d6589db90b0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/OpticalDrawingModel.cs",
+      "sha256": "ec1a13c8bb227075658a6486441576ee1fd189186f1b0a8a25e839cd5096fa97"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/OpticalDrawingTemplate.cs",
+      "sha256": "5ea74402c3dc4ae0b5c8126e97c8c1f796bbb3f7fac413fa7160f996a988fe6a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Gb1991.cs",
+      "sha256": "f99a25208321456bdcb3d855aff5f0f870195ffa37c1cad3ccf602ddb536989f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Element.cs",
+      "sha256": "75d7daebcbae78fb9cf054aa621cee6256541fbad30337b5ae89b6a281ff4806"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Specifications.cs",
+      "sha256": "5a9f685b7e92aa798d08e2e3fc1aa15d6652c7638c82221988aa410c487dd5ac"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs",
+      "sha256": "ae5eabdf36c9d42587663d90c72dc1c346f7a2bf953f1c7bda63a46f63b1b038"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "sha256": "51b03326f9db53db1a7c69d7d9af4dc73f30097758e469c958a8d795d7f108b1"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LegacyGb1991DrawingTests.cs",
+      "sha256": "284086f29ad601b3f22606dc346d48fed9bc41307c64708cda6ec32b1a055c10"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/OpticalDrawingStandardSelectionTests.cs",
+      "sha256": "4e3af6992589706ce7414d865922262297072451fa40a6ce28f3ab83b06ebdfd"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/PanelContentLayoutTests.cs",
+      "sha256": "a59b1c11703ecbc976f4b0582ef20e14e07d3cfecae5ea17004cb7f27030bdd2"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ManufacturingDrawingTests.cs",
+      "sha256": "a8cc301de8ca44cb4028f2b52fc89401ce8f37852ae13ce75e70debde7336603"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/UserGuideCaptureTests.cs",
+      "sha256": "34817d7f952e37e20a0d899ee53c4037942dc34cb6eb3fc8df65fee50a883e8c"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/UserGuidePanelTests.cs",
+      "sha256": "8d969ca341eccd4352be17ddf2332c119ba328bbe6095a4c1e410f1fef0e0d34"
+    },
+    {
+      "path": "docs/MANUFACTURING_DRAWINGS.md",
+      "sha256": "943437e8d4a40f6076f8939e9f161ff5ae3cc3c07b9c8a32d3e3efd519c862b1"
+    },
+    {
+      "path": "docs/CODE_READING_MAP.md",
+      "sha256": "17c0b5c8b5500215e4af187cd2997b99b8943be9d9999e0bd8140656f475e5ef"
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "876ea5182ea2184b145ae5b654fa249d872ee9e2c8e6baa59874c6b49367789e"
+    },
+    {
+      "path": "docs/assets/user-guide/README.md",
+      "sha256": "4902981df2ddf7529ae153a725da14d6db3061f553722fc9cb4db7fd4256b170"
+    },
+    {
+      "path": "docs/assets/user-guide/manifest.json",
+      "sha256": "f9b2e62242a259fc7c14f46c0538cf737da90ed1b250772db5612d252193f714"
+    }
+  ],
+  "archives": [
+    {
+      "file": "gb1991-drawings-and-ui.zip",
+      "bytes": 8438609,
+      "sha256": "6acd82cc86ba5e59bf5890bbff9f346edd9055a3d5757f8a59ab7a958a34ac27",
+      "files": [
+        {
+          "path": "drawings/gb1991-A3-cemented-extracted.txt",
+          "bytes": 735,
+          "sha256": "926763551d624bccacbc2eeb8679d4cb4d74e61a8ce6701ebea21ad4d6d39a9c"
+        },
+        {
+          "path": "drawings/gb1991-A3-cemented-pdf.png",
+          "bytes": 54565,
+          "sha256": "cfb5e879f2714ce6524b916fda10ead97dfabae87b1ba39b5b8018cdb88fbb5e"
+        },
+        {
+          "path": "drawings/gb1991-A3-cemented.json",
+          "bytes": 2500,
+          "sha256": "3a388bdd11c26fb52daf8200f5f13a52089eed629d2aa2817201beb0a4900561"
+        },
+        {
+          "path": "drawings/gb1991-A3-cemented.pdf",
+          "bytes": 1558695,
+          "sha256": "4443feff55feff81ee3b65445fdee47ee0881c0cdc921adfdd71cd39beddb312"
+        },
+        {
+          "path": "drawings/gb1991-A3-cemented.png",
+          "bytes": 100898,
+          "sha256": "37f02b8d103c4738399fce6bedcca6fba6cf9533e0dbc5602dda3deeefdfc32f"
+        },
+        {
+          "path": "drawings/gb1991-A3-single-extracted.txt",
+          "bytes": 841,
+          "sha256": "57fe5d16a395f52814d13938101838f32e33c2ccf00bce5617036c3c5c3aec22"
+        },
+        {
+          "path": "drawings/gb1991-A3-single-pdf.png",
+          "bytes": 58009,
+          "sha256": "9ad817af73d611aeb2c2b18467a74e2c95c2b94d09f75d161d42cb64a3d0ff30"
+        },
+        {
+          "path": "drawings/gb1991-A3-single.json",
+          "bytes": 2678,
+          "sha256": "96571a4e53ff9a69038ecbace9b21cf54a2742ed8af07eb313197642121eb8b4"
+        },
+        {
+          "path": "drawings/gb1991-A3-single.pdf",
+          "bytes": 1587998,
+          "sha256": "4fad274e97db591c098ed147e2be2a3b23629294f0e097286e709fe993e74ef6"
+        },
+        {
+          "path": "drawings/gb1991-A3-single.png",
+          "bytes": 107082,
+          "sha256": "6a95e3d64d46700e58b22188bf44d25e6f9069d10ac8ca67ae812f55106a503a"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented-extracted.txt",
+          "bytes": 732,
+          "sha256": "7e89a4e68471e7c94f056220951a19a3230a1f57f88dcdade8349be4d5cd3d10"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented-pdf.png",
+          "bytes": 47430,
+          "sha256": "01a810e93ace87c17198cdfc7e07579a0cca4a577ba81a7314059858881c3787"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented.json",
+          "bytes": 2499,
+          "sha256": "2f550bb8352c527d2fdd179d5c3ee3cf455f033378fbab4b32e2ddccb6051066"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented.pdf",
+          "bytes": 1555910,
+          "sha256": "c9174cbe15533ce4c7925b00c3a18b251c9377562db983d6848a798b5b3948a4"
+        },
+        {
+          "path": "drawings/gb1991-A4-cemented.png",
+          "bytes": 128379,
+          "sha256": "f71d7313de93082d1a5b6465865ba7bdaa35a5e058bf6811917651efb68ac549"
+        },
+        {
+          "path": "drawings/gb1991-A4-single-extracted.txt",
+          "bytes": 838,
+          "sha256": "d8da8434f06dcbb39abd39e9663284e8d6422a756784bda99f97ecbde2beab2e"
+        },
+        {
+          "path": "drawings/gb1991-A4-single-pdf.png",
+          "bytes": 51543,
+          "sha256": "3342835dedebd2797cabce3fc16b8ad033120d9e466bb0339b26aaa2d63b9d32"
+        },
+        {
+          "path": "drawings/gb1991-A4-single.json",
+          "bytes": 2677,
+          "sha256": "4869fed43e4374f4bc28122238f28745cfc5f005ce7633b6a91fff93088bf9b1"
+        },
+        {
+          "path": "drawings/gb1991-A4-single.pdf",
+          "bytes": 1585390,
+          "sha256": "92a801ddff935df63ca17b7a9f573ab843a3d186c307cb03d91fc454e0357dd6"
+        },
+        {
+          "path": "drawings/gb1991-A4-single.png",
+          "bytes": 136264,
+          "sha256": "09ebf2e042a2d4c982bd694a1b0914cf9ea553f4107820434b1a521fe8ea8369"
+        },
+        {
+          "path": "captures/en-US/drawing-capture.json",
+          "bytes": 239,
+          "sha256": "aaf8894ddbec95484c4637c302b77b1a5c23d5da7301d9b28fc736bb3bda916c"
+        },
+        {
+          "path": "captures/en-US/drawing-legacy.png",
+          "bytes": 192351,
+          "sha256": "7f9dde31defd4b043ef87f94029d45b607178d746b5ddf7853e097af7c54bf31"
+        },
+        {
+          "path": "captures/en-US/drawing.png",
+          "bytes": 185948,
+          "sha256": "7cd1296754e3b0336945f2ff1de712eb4cde320938b2c249485cfe85620052a0"
+        },
+        {
+          "path": "captures/en-US/lens-library.png",
+          "bytes": 286764,
+          "sha256": "f66b703a914fb23d98e4be38094848d7eaeb030dc1af43d6ed02d2a76ba062b6"
+        },
+        {
+          "path": "captures/en-US/progress.log",
+          "bytes": 271,
+          "sha256": "5f7518da9d7d1493c970f32d171a6ee9bbb654711063d26c2fc24ce417be96c2"
+        },
+        {
+          "path": "captures/ja-JP/drawing-capture.json",
+          "bytes": 239,
+          "sha256": "3360414877e01b5112ad23d3c7538c2b1fadef17bf17af06f352b4048f938250"
+        },
+        {
+          "path": "captures/ja-JP/drawing-legacy.png",
+          "bytes": 185429,
+          "sha256": "7e0f6183fd3685acca48b220457623076f667ce507805782d015191b1660e0a2"
+        },
+        {
+          "path": "captures/ja-JP/drawing.png",
+          "bytes": 178148,
+          "sha256": "517014d70fa387ced0a4ade40792ca74a254dbbf268217aec2ac696ae7a41e2a"
+        },
+        {
+          "path": "captures/ja-JP/lens-library.png",
+          "bytes": 278582,
+          "sha256": "9837a5e796bd8ab2754a1b368ec4044c09b95793e239e8cdfbaf87a18b04e6db"
+        },
+        {
+          "path": "captures/ja-JP/progress.log",
+          "bytes": 271,
+          "sha256": "d35499a67afe7e353de8353c36f1651096f96fd47b0e1bea86ac22ddbef0ad2c"
+        },
+        {
+          "path": "captures/zh-CN/drawing-capture.json",
+          "bytes": 239,
+          "sha256": "80279537ee0557e8376c6ae8a6c6ab2f132e2a44b8400a73d7dd0101a36be842"
+        },
+        {
+          "path": "captures/zh-CN/drawing-legacy.png",
+          "bytes": 182469,
+          "sha256": "5792c64acb0291f6aaa21843e547d084d9ecc53dff064b960d6da763f9a95073"
+        },
+        {
+          "path": "captures/zh-CN/drawing.png",
+          "bytes": 175207,
+          "sha256": "5ee1900da2162d4fe8d9cc3c28b8e00546ce107a714b3f017c96d3d1360b2bf7"
+        },
+        {
+          "path": "captures/zh-CN/lens-library.png",
+          "bytes": 276684,
+          "sha256": "66b07565dea7eafbdacf0c33a6ec159e7b44e8801c2f58e1bc113128d11147f7"
+        },
+        {
+          "path": "captures/zh-CN/progress.log",
+          "bytes": 271,
+          "sha256": "0accd1c1d4b021debd0a38f1b9182e067fdd5de6a82d36bf5c76c8d0d1e4dd30"
+        }
+      ]
+    },
+    {
+      "file": "iso-before-after.zip",
+      "bytes": 25955588,
+      "sha256": "8b9a98caae2d563a8dcc7c044f9f8eb4d22269dee6df7958e71af39788ff06c1",
+      "files": [
+        {
+          "path": "before/GbT13323_1991-cemented-default.pdf",
+          "bytes": 1695529,
+          "sha256": "ddf87fdf7c5472e57c31ece79b8b0c2ca0828a54f249029c71b526680b1008aa"
+        },
+        {
+          "path": "before/GbT13323_1991-cemented-default.png",
+          "bytes": 156786,
+          "sha256": "19e4f3a6ae9ab773500f246a1a6a65f1d05fbf1a8aa09bc1a297db2250597128"
+        },
+        {
+          "path": "before/GbT13323_1991-cemented-edited.pdf",
+          "bytes": 1695559,
+          "sha256": "2d00b272a533777f6e6526c3a55f7999163322aa4341eb46d5b1654cf03884bb"
+        },
+        {
+          "path": "before/GbT13323_1991-cemented-edited.png",
+          "bytes": 157026,
+          "sha256": "a99939ffd840384dba696e385160f4fe01aaeb7bf37d7491354758a95722101a"
+        },
+        {
+          "path": "before/GbT13323_1991-cemented.json",
+          "bytes": 3153,
+          "sha256": "b1ecb1b5be73a8453b06fb7337cbb6f0711715d66532bbd8884080be80f940b2"
+        },
+        {
+          "path": "before/GbT13323_1991-F2-default.pdf",
+          "bytes": 1655081,
+          "sha256": "01dfccbf6c9e6d06c718917d770d93e2b3d4eaae70807f39c8c51adba1e7b3ef"
+        },
+        {
+          "path": "before/GbT13323_1991-F2-default.png",
+          "bytes": 131140,
+          "sha256": "71070cbeb578c90b50f88d563da8298a5113b77d92fb95b0a430c462f6b381d1"
+        },
+        {
+          "path": "before/GbT13323_1991-F2-edited.pdf",
+          "bytes": 1655093,
+          "sha256": "33b331c36627ffca6a9abf486ee646cb8f2ed3e94d32674f53b96ed8a4d2e475"
+        },
+        {
+          "path": "before/GbT13323_1991-F2-edited.png",
+          "bytes": 131166,
+          "sha256": "3655c40c4efbd588f31d0a765beef44631fd5b415e8851f58aefada7dbd2dbb4"
+        },
+        {
+          "path": "before/GbT13323_1991-F2.json",
+          "bytes": 2145,
+          "sha256": "aee279813ccb2240f12c4a089f527af2c7a7fc7b3e5487de596ff27e7d44e204"
+        },
+        {
+          "path": "before/Iso10110-cemented-default-pdf.png",
+          "bytes": 47194,
+          "sha256": "ab423b238db951e6d887514d0b321874381b66259decbaa81df919c7ab278137"
+        },
+        {
+          "path": "before/Iso10110-cemented-default.pdf",
+          "bytes": 1507200,
+          "sha256": "fe875c34b91e108e93110a0acb59e027006f20282ab52ce26f863d07ba2d912b"
+        },
+        {
+          "path": "before/Iso10110-cemented-default.png",
+          "bytes": 117664,
+          "sha256": "4c47547c13607c8bf0ace80cc974cbb744e81a82672321e3882bf7f2b35585fd"
+        },
+        {
+          "path": "before/Iso10110-cemented-edited-pdf.png",
+          "bytes": 47430,
+          "sha256": "de5e0dcb408ac377d69444c28d071c9e8639dfe6c8479cf9714f41b6f8e02265"
+        },
+        {
+          "path": "before/Iso10110-cemented-edited.pdf",
+          "bytes": 1507223,
+          "sha256": "23e1155e60116757d9cfd235f189f64c8fac503dd1bc589e37c636b211223bc7"
+        },
+        {
+          "path": "before/Iso10110-cemented-edited.png",
+          "bytes": 117970,
+          "sha256": "c3af6d15b12ebfb520e3570e0e6468386924c48a1c5ec80302d10aaac32cd7fe"
+        },
+        {
+          "path": "before/Iso10110-cemented.json",
+          "bytes": 3153,
+          "sha256": "b1ecb1b5be73a8453b06fb7337cbb6f0711715d66532bbd8884080be80f940b2"
+        },
+        {
+          "path": "before/Iso10110-F2-default-pdf.png",
+          "bytes": 44514,
+          "sha256": "73c1e91101d64f85cb9c455e9901e8228868bb47f5d31f81b8a3e377b8b61a56"
+        },
+        {
+          "path": "before/Iso10110-F2-default.pdf",
+          "bytes": 1527451,
+          "sha256": "9ba032dc819701b59fd20d3739b62ca5e1dd2145c4c804668bc5a53355b25fe6"
+        },
+        {
+          "path": "before/Iso10110-F2-default.png",
+          "bytes": 111417,
+          "sha256": "070a28ac1409fa73df1ab1db974784f85d0448ecdf8dae4cc5cd6b558952f767"
+        },
+        {
+          "path": "before/Iso10110-F2-edited-pdf.png",
+          "bytes": 44301,
+          "sha256": "df7fb4b01ef12fbed38f1e0122d4ce9676d385bb54ac2ad7774118f2626bf2cf"
+        },
+        {
+          "path": "before/Iso10110-F2-edited.pdf",
+          "bytes": 1527459,
+          "sha256": "cd760feb57cee2e2d9dea67c160dd24c37ff1215d6acac3c76e667cdd8946dc5"
+        },
+        {
+          "path": "before/Iso10110-F2-edited.png",
+          "bytes": 111312,
+          "sha256": "31891e838b27383463632b4ac58d87bb96a7a5c88cb6bb10a74d141172e1589d"
+        },
+        {
+          "path": "before/Iso10110-F2.json",
+          "bytes": 2145,
+          "sha256": "aee279813ccb2240f12c4a089f527af2c7a7fc7b3e5487de596ff27e7d44e204"
+        },
+        {
+          "path": "after/GbT13323_1991-cemented-default.pdf",
+          "bytes": 1553992,
+          "sha256": "12766c5ec5cc569fa67a489b26aeb38e0a612f39c5f27e14266f1b16871b238f"
+        },
+        {
+          "path": "after/GbT13323_1991-cemented-default.png",
+          "bytes": 136824,
+          "sha256": "2743ca8e1d543d9d8f5925b231777f14c25bb29cc9f2db534befb7b57bb736c7"
+        },
+        {
+          "path": "after/GbT13323_1991-cemented-edited.pdf",
+          "bytes": 1554014,
+          "sha256": "501085e5662c0b7828ff2cf6ede1206a4ec17ba2dae09435be1424ae302769f6"
+        },
+        {
+          "path": "after/GbT13323_1991-cemented-edited.png",
+          "bytes": 137013,
+          "sha256": "0947c80b4c38ee766bd651cfb509b23f101ba0d4891e614214a0220c65464eb8"
+        },
+        {
+          "path": "after/GbT13323_1991-cemented.json",
+          "bytes": 3153,
+          "sha256": "b1ecb1b5be73a8453b06fb7337cbb6f0711715d66532bbd8884080be80f940b2"
+        },
+        {
+          "path": "after/GbT13323_1991-F2-default.pdf",
+          "bytes": 1574315,
+          "sha256": "604ab64bf1f763c17f6f7ba1b39d8980d96024152eb6ec4c7ccc02f672a63f69"
+        },
+        {
+          "path": "after/GbT13323_1991-F2-default.png",
+          "bytes": 150536,
+          "sha256": "a6b0b011448cd6ed983955f1309f48e2cf1567be6415410bf223903a0db09eda"
+        },
+        {
+          "path": "after/GbT13323_1991-F2-edited.pdf",
+          "bytes": 1574330,
+          "sha256": "b7cd643de690b48b51ecbf747a4ff9015e69f8b1fd5604304bad5d525e36fd10"
+        },
+        {
+          "path": "after/GbT13323_1991-F2-edited.png",
+          "bytes": 150684,
+          "sha256": "2cbd742db1216987b2226b33d3f134a0920f40c9aea7345c85e0396978c96d3e"
+        },
+        {
+          "path": "after/GbT13323_1991-F2.json",
+          "bytes": 2145,
+          "sha256": "aee279813ccb2240f12c4a089f527af2c7a7fc7b3e5487de596ff27e7d44e204"
+        },
+        {
+          "path": "after/Iso10110-cemented-default-pdf.png",
+          "bytes": 47194,
+          "sha256": "ab423b238db951e6d887514d0b321874381b66259decbaa81df919c7ab278137"
+        },
+        {
+          "path": "after/Iso10110-cemented-default.pdf",
+          "bytes": 1507200,
+          "sha256": "fe875c34b91e108e93110a0acb59e027006f20282ab52ce26f863d07ba2d912b"
+        },
+        {
+          "path": "after/Iso10110-cemented-default.png",
+          "bytes": 117664,
+          "sha256": "4c47547c13607c8bf0ace80cc974cbb744e81a82672321e3882bf7f2b35585fd"
+        },
+        {
+          "path": "after/Iso10110-cemented-edited-pdf.png",
+          "bytes": 47430,
+          "sha256": "de5e0dcb408ac377d69444c28d071c9e8639dfe6c8479cf9714f41b6f8e02265"
+        },
+        {
+          "path": "after/Iso10110-cemented-edited.pdf",
+          "bytes": 1507223,
+          "sha256": "23e1155e60116757d9cfd235f189f64c8fac503dd1bc589e37c636b211223bc7"
+        },
+        {
+          "path": "after/Iso10110-cemented-edited.png",
+          "bytes": 117970,
+          "sha256": "c3af6d15b12ebfb520e3570e0e6468386924c48a1c5ec80302d10aaac32cd7fe"
+        },
+        {
+          "path": "after/Iso10110-cemented.json",
+          "bytes": 3153,
+          "sha256": "b1ecb1b5be73a8453b06fb7337cbb6f0711715d66532bbd8884080be80f940b2"
+        },
+        {
+          "path": "after/Iso10110-F2-default-pdf.png",
+          "bytes": 44514,
+          "sha256": "73c1e91101d64f85cb9c455e9901e8228868bb47f5d31f81b8a3e377b8b61a56"
+        },
+        {
+          "path": "after/Iso10110-F2-default.pdf",
+          "bytes": 1527451,
+          "sha256": "9ba032dc819701b59fd20d3739b62ca5e1dd2145c4c804668bc5a53355b25fe6"
+        },
+        {
+          "path": "after/Iso10110-F2-default.png",
+          "bytes": 111417,
+          "sha256": "070a28ac1409fa73df1ab1db974784f85d0448ecdf8dae4cc5cd6b558952f767"
+        },
+        {
+          "path": "after/Iso10110-F2-edited-pdf.png",
+          "bytes": 44301,
+          "sha256": "df7fb4b01ef12fbed38f1e0122d4ce9676d385bb54ac2ad7774118f2626bf2cf"
+        },
+        {
+          "path": "after/Iso10110-F2-edited.pdf",
+          "bytes": 1527459,
+          "sha256": "cd760feb57cee2e2d9dea67c160dd24c37ff1215d6acac3c76e667cdd8946dc5"
+        },
+        {
+          "path": "after/Iso10110-F2-edited.png",
+          "bytes": 111312,
+          "sha256": "31891e838b27383463632b4ac58d87bb96a7a5c88cb6bb10a74d141172e1589d"
+        },
+        {
+          "path": "after/Iso10110-F2.json",
+          "bytes": 2145,
+          "sha256": "aee279813ccb2240f12c4a089f527af2c7a7fc7b3e5487de596ff27e7d44e204"
+        }
+      ]
+    }
+  ]
+}

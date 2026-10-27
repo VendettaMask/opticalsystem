@@ -5,7 +5,6 @@ using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
 using OpticalSystemDesign.App.Controls;
-using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
@@ -247,32 +246,14 @@ public sealed class PanelManager : IDisposable
             "可加工性评估");
     }
 
-    public void ShowOpticalDrawing(OpticalDrawingStandard standard)
+    public void ShowOpticalDrawing()
     {
-        var document = OpticalDrawingDocument(standard);
-        Factory.OpenDocument(new WorkspaceDocumentDescriptor(
-            document.Id,
+        var existing = Factory.Descriptors.FirstOrDefault(item => item.TypeId == WorkspaceDocumentTypes.OpticalDrawing);
+        Factory.OpenDocument(existing ?? new WorkspaceDocumentDescriptor(
+            "document:optical-drawing",
             WorkspaceDocumentTypes.OpticalDrawing,
-            document.Title,
-            Settings: new Dictionary<string, string>
-            {
-                ["standard"] = standard.ToString()
-            }));
+            "光学制图"));
     }
-
-    private static (string Id, string Title) OpticalDrawingDocument(OpticalDrawingStandard standard) =>
-        standard switch
-        {
-            OpticalDrawingStandard.GbT13323_1991 => (
-                "document:optical-drawing-gb-1991",
-                "光学制图 · GB/T 13323—1991"),
-            OpticalDrawingStandard.GbT13323_2009 => (
-                "document:optical-drawing-gb",
-                "光学制图 · GB/T 13323—2009"),
-            _ => (
-                "document:optical-drawing-iso",
-                "光学制图 · ISO 10110")
-        };
 
     public void ShowAnalysis(string analysisName)
     {
@@ -663,7 +644,7 @@ public sealed class PanelManager : IDisposable
                 return false;
             }
 
-            Factory.RegisterDescriptors(descriptors);
+            Factory.RegisterDescriptors(descriptors, session.ActiveDocumentId);
             completeContent = Factory.BeginContentReplacement();
             ReplaceLayout(restored, disposePrevious: false);
             var active = session.ActiveDocumentId is null
@@ -674,6 +655,12 @@ public sealed class PanelManager : IDisposable
             {
                 active = Factory.OpenDocuments().FirstOrDefault(document =>
                     Factory.Descriptor(document.Id)?.TypeId == WorkspaceDocumentTypes.MaterialLibrary);
+            }
+            if (active is null && descriptors.Any(descriptor => descriptor.Id == session.ActiveDocumentId
+                    && descriptor.TypeId == WorkspaceDocumentTypes.OpticalDrawing))
+            {
+                active = Factory.OpenDocuments().FirstOrDefault(document =>
+                    Factory.Descriptor(document.Id)?.TypeId == WorkspaceDocumentTypes.OpticalDrawing);
             }
             if (active is not null)
             {

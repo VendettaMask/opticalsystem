@@ -1,0 +1,709 @@
+{
+  "Verified": true,
+  "RunCount": 16,
+  "BackgroundOnly": true,
+  "CpuProcessors": 2,
+  "PairedInputsVerified": true,
+  "FrozenSourceHashVerified": true,
+  "FinalTargetsAndSamplingUnchanged": true,
+  "LedgerAndCapsVerified": true,
+  "SuccessfulReductions": 0,
+  "RunRayTotal": 23270816.0,
+  "AdditionalNativeAuditRays": 1650588.0,
+  "AdditionalDiagnosticRays": 93800,
+  "TestsPassed": 60,
+  "Runs": [
+    {
+      "Batch": "paired-runs",
+      "Id": "repr-qualified4-wide21-42-C-fixed",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 195,
+        "gradientEvaluations": 6,
+        "validationEvaluations": 4,
+        "matrixEvaluations": 175,
+        "differenceEvaluations": 158,
+        "jacobianBuilds": 13,
+        "tracedRays": 1610216,
+        "geometryProbes": 24466,
+        "elapsed": "00:00:14.5283369"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.306430798728638,
+          "FNumber": 4.932802535503315,
+          "WorstRmsMillimeters": 0.03564180344659143,
+          "WorstMaximumMillimeters": 0.09434663944023391,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "10c50646f94557070250f69dbc86d2f813477d052516096d68ab2134ec7d2407"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "repr-qualified4-wide21-42-C-boundary",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 195,
+        "gradientEvaluations": 6,
+        "validationEvaluations": 4,
+        "matrixEvaluations": 175,
+        "differenceEvaluations": 158,
+        "jacobianBuilds": 13,
+        "tracedRays": 1610308,
+        "geometryProbes": 24466,
+        "elapsed": "00:00:09.6497660"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.29077188223445,
+          "FNumber": 4.929477594837809,
+          "WorstRmsMillimeters": 0.03565862430245814,
+          "WorstMaximumMillimeters": 0.09175357794400796,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "ef8f8c51b1cfa2e3e98600bb7d476ccd639327fd9a99dab23dac156ce3190465"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "repr-qualified4-wide21-42-D-fixed",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 345,
+        "gradientEvaluations": 6,
+        "validationEvaluations": 4,
+        "matrixEvaluations": 319,
+        "differenceEvaluations": 290,
+        "jacobianBuilds": 24,
+        "tracedRays": 1610216,
+        "geometryProbes": 45775,
+        "elapsed": "00:00:08.6683129"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.306430798728638,
+          "FNumber": 4.932802535503315,
+          "WorstRmsMillimeters": 0.03564180344659143,
+          "WorstMaximumMillimeters": 0.09434663944023391,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "10c50646f94557070250f69dbc86d2f813477d052516096d68ab2134ec7d2407"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "repr-qualified4-wide21-42-D-boundary",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 345,
+        "gradientEvaluations": 6,
+        "validationEvaluations": 4,
+        "matrixEvaluations": 319,
+        "differenceEvaluations": 290,
+        "jacobianBuilds": 24,
+        "tracedRays": 1610308,
+        "geometryProbes": 45775,
+        "elapsed": "00:00:10.5749582"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.29077188223445,
+          "FNumber": 4.929477594837809,
+          "WorstRmsMillimeters": 0.03565862430245814,
+          "WorstMaximumMillimeters": 0.09175357794400796,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "ef8f8c51b1cfa2e3e98600bb7d476ccd639327fd9a99dab23dac156ce3190465"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "repr-qualified4-wide21-101-C-fixed",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 195,
+        "gradientEvaluations": 6,
+        "validationEvaluations": 4,
+        "matrixEvaluations": 175,
+        "differenceEvaluations": 158,
+        "jacobianBuilds": 13,
+        "tracedRays": 1610216,
+        "geometryProbes": 24466,
+        "elapsed": "00:00:08.9807607"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.306430798728638,
+          "FNumber": 4.932802535503315,
+          "WorstRmsMillimeters": 0.03564180344659143,
+          "WorstMaximumMillimeters": 0.09434663944023391,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "10c50646f94557070250f69dbc86d2f813477d052516096d68ab2134ec7d2407"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "repr-qualified4-wide21-101-C-boundary",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 195,
+        "gradientEvaluations": 6,
+        "validationEvaluations": 4,
+        "matrixEvaluations": 175,
+        "differenceEvaluations": 158,
+        "jacobianBuilds": 13,
+        "tracedRays": 1610308,
+        "geometryProbes": 24466,
+        "elapsed": "00:00:07.6583521"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.29077188223445,
+          "FNumber": 4.929477594837809,
+          "WorstRmsMillimeters": 0.03565862430245814,
+          "WorstMaximumMillimeters": 0.09175357794400796,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "ef8f8c51b1cfa2e3e98600bb7d476ccd639327fd9a99dab23dac156ce3190465"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "repr-qualified4-wide21-101-D-fixed",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 345,
+        "gradientEvaluations": 6,
+        "validationEvaluations": 4,
+        "matrixEvaluations": 319,
+        "differenceEvaluations": 290,
+        "jacobianBuilds": 24,
+        "tracedRays": 1610216,
+        "geometryProbes": 45775,
+        "elapsed": "00:00:09.5649765"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.306430798728638,
+          "FNumber": 4.932802535503315,
+          "WorstRmsMillimeters": 0.03564180344659143,
+          "WorstMaximumMillimeters": 0.09434663944023391,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "10c50646f94557070250f69dbc86d2f813477d052516096d68ab2134ec7d2407"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "repr-qualified4-wide21-101-D-boundary",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 345,
+        "gradientEvaluations": 6,
+        "validationEvaluations": 4,
+        "matrixEvaluations": 319,
+        "differenceEvaluations": 290,
+        "jacobianBuilds": 24,
+        "tracedRays": 1610308,
+        "geometryProbes": 45775,
+        "elapsed": "00:00:09.8243940"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.29077188223445,
+          "FNumber": 4.929477594837809,
+          "WorstRmsMillimeters": 0.03565862430245814,
+          "WorstMaximumMillimeters": 0.09175357794400796,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "ef8f8c51b1cfa2e3e98600bb7d476ccd639327fd9a99dab23dac156ce3190465"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "budget-control",
+      "Id": "repr-qualified4-wide21-42-C-budget",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 202,
+        "gradientEvaluations": 14,
+        "validationEvaluations": 3,
+        "matrixEvaluations": 175,
+        "differenceEvaluations": 158,
+        "jacobianBuilds": 13,
+        "tracedRays": 1253584,
+        "geometryProbes": 24642,
+        "elapsed": "00:00:12.3309894"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.296693352878552,
+          "FNumber": 4.931802782847911,
+          "WorstRmsMillimeters": 0.03532657560055978,
+          "WorstMaximumMillimeters": 0.09557159380895541,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:33:check-lost",
+              "Actual": 1,
+              "Limit": 0
+            },
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "68602f5ab2caa9950f44f571a964db311da352f234c4b8d6a186a89da5d9041d"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "budget-control",
+      "Id": "repr-qualified4-wide21-42-C-boundary-budget",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 202,
+        "gradientEvaluations": 14,
+        "validationEvaluations": 3,
+        "matrixEvaluations": 175,
+        "differenceEvaluations": 158,
+        "jacobianBuilds": 13,
+        "tracedRays": 1343596,
+        "geometryProbes": 24642,
+        "elapsed": "00:00:09.1600840"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.30014981502326,
+          "FNumber": 4.931021763188169,
+          "WorstRmsMillimeters": 0.03550366642900219,
+          "WorstMaximumMillimeters": 0.0926781992109742,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "12afd5442d71f85c883bc6eff17fd88d4edc17106b4f6f7ee87c9397fa8bed7a"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "budget-control",
+      "Id": "repr-qualified4-wide21-42-D-budget",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 352,
+        "gradientEvaluations": 14,
+        "validationEvaluations": 3,
+        "matrixEvaluations": 319,
+        "differenceEvaluations": 290,
+        "jacobianBuilds": 24,
+        "tracedRays": 1253584,
+        "geometryProbes": 45951,
+        "elapsed": "00:00:08.4028913"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.296693352878552,
+          "FNumber": 4.931802782847911,
+          "WorstRmsMillimeters": 0.03532657560055978,
+          "WorstMaximumMillimeters": 0.09557159380895541,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:33:check-lost",
+              "Actual": 1,
+              "Limit": 0
+            },
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "68602f5ab2caa9950f44f571a964db311da352f234c4b8d6a186a89da5d9041d"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "budget-control",
+      "Id": "repr-qualified4-wide21-42-D-boundary-budget",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 352,
+        "gradientEvaluations": 14,
+        "validationEvaluations": 3,
+        "matrixEvaluations": 319,
+        "differenceEvaluations": 290,
+        "jacobianBuilds": 24,
+        "tracedRays": 1343596,
+        "geometryProbes": 45951,
+        "elapsed": "00:00:10.2205581"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.30014981502326,
+          "FNumber": 4.931021763188169,
+          "WorstRmsMillimeters": 0.03550366642900219,
+          "WorstMaximumMillimeters": 0.0926781992109742,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "12afd5442d71f85c883bc6eff17fd88d4edc17106b4f6f7ee87c9397fa8bed7a"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "budget-control",
+      "Id": "repr-qualified4-wide21-101-C-budget",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 202,
+        "gradientEvaluations": 14,
+        "validationEvaluations": 3,
+        "matrixEvaluations": 175,
+        "differenceEvaluations": 158,
+        "jacobianBuilds": 13,
+        "tracedRays": 1253584,
+        "geometryProbes": 24642,
+        "elapsed": "00:00:08.2116166"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.296693352878552,
+          "FNumber": 4.931802782847911,
+          "WorstRmsMillimeters": 0.03532657560055978,
+          "WorstMaximumMillimeters": 0.09557159380895541,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:33:check-lost",
+              "Actual": 1,
+              "Limit": 0
+            },
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "68602f5ab2caa9950f44f571a964db311da352f234c4b8d6a186a89da5d9041d"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "budget-control",
+      "Id": "repr-qualified4-wide21-101-C-boundary-budget",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 202,
+        "gradientEvaluations": 14,
+        "validationEvaluations": 3,
+        "matrixEvaluations": 175,
+        "differenceEvaluations": 158,
+        "jacobianBuilds": 13,
+        "tracedRays": 1343596,
+        "geometryProbes": 24642,
+        "elapsed": "00:00:09.3034321"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.30014981502326,
+          "FNumber": 4.931021763188169,
+          "WorstRmsMillimeters": 0.03550366642900219,
+          "WorstMaximumMillimeters": 0.0926781992109742,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "12afd5442d71f85c883bc6eff17fd88d4edc17106b4f6f7ee87c9397fa8bed7a"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "budget-control",
+      "Id": "repr-qualified4-wide21-101-D-budget",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 352,
+        "gradientEvaluations": 14,
+        "validationEvaluations": 3,
+        "matrixEvaluations": 319,
+        "differenceEvaluations": 290,
+        "jacobianBuilds": 24,
+        "tracedRays": 1253584,
+        "geometryProbes": 45951,
+        "elapsed": "00:00:07.9914225"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.296693352878552,
+          "FNumber": 4.931802782847911,
+          "WorstRmsMillimeters": 0.03532657560055978,
+          "WorstMaximumMillimeters": 0.09557159380895541,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:33:check-lost",
+              "Actual": 1,
+              "Limit": 0
+            },
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "68602f5ab2caa9950f44f571a964db311da352f234c4b8d6a186a89da5d9041d"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    },
+    {
+      "Batch": "budget-control",
+      "Id": "repr-qualified4-wide21-101-D-boundary-budget",
+      "Status": "budgetExhausted",
+      "Consumed": {
+        "functionEvaluations": 352,
+        "gradientEvaluations": 14,
+        "validationEvaluations": 3,
+        "matrixEvaluations": 319,
+        "differenceEvaluations": 290,
+        "jacobianBuilds": 24,
+        "tracedRays": 1343596,
+        "geometryProbes": 45951,
+        "elapsed": "00:00:09.8493573"
+      },
+      "Pending": "recovery",
+      "Reduced": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.30014981502326,
+          "FNumber": 4.931021763188169,
+          "WorstRmsMillimeters": 0.03550366642900219,
+          "WorstMaximumMillimeters": 0.0926781992109742,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "12afd5442d71f85c883bc6eff17fd88d4edc17106b4f6f7ee87c9397fa8bed7a"
+        }
+      ],
+      "FinalProtocol": "a58d3c1abea49f9f1cc881fcbef3162d91ac4e663494766b3a6ffb91d85f6392"
+    }
+  ]
+}

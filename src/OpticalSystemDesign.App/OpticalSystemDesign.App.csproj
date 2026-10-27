@@ -27,8 +27,8 @@
     <AvaloniaResource Include="Assets/Author.jpg" />
     <AvaloniaResource Include="Assets/Brand/AppIcon.png" />
     <AvaloniaResource Include="Assets/Brand/Splash.png" />
-    <AvaloniaResource Include="../../docs/assets/readme/workbench-light.png"
-                      Link="Assets/UserGuide/workbench-light.png" />
+    <AvaloniaResource Include="../../docs/assets/user-guide/**/*.png"
+                      Link="Assets/UserGuide/%(RecursiveDir)%(Filename)%(Extension)" />
     <Content Include="Assets/Brand/AppIcon.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Brand/Splash.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Brand/AppIcon.ico" CopyToOutputDirectory="PreserveNewest" />
@@ -47,6 +47,10 @@
                       LogicalName="OpticalSystemDesign.App.Updates.PublicKey" />
     <EmbeddedResource Include="Assets/Brand/CompanyLogo.svg"
                       LogicalName="OpticalSystemDesign.App.Assets.Brand.CompanyLogo.svg" />
+    <EmbeddedResource Include="Assets/UserGuideMath/*.json;Assets/UserGuideMath/*.svg">
+      <LogicalName>OpticalSystemDesign.App.Assets.UserGuideMath.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <Content Include="Assets/UserGuideMath/MATHJAX-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="Assets/Brand/CompanyLogo.svg" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <EmbeddedResource Include="Assets/DrawingTemplates/*.xml">
       <LogicalName>OpticalSystemDesign.App.Assets.DrawingTemplates.%(Filename)%(Extension)</LogicalName>

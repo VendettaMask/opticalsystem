@@ -73,6 +73,9 @@ try {
         $category = Get-Category $path
         $inventory.Add([pscustomobject]@{ Path=$path; Category=$category; Bytes=(Get-Item -LiteralPath $path).Length; Sha256=(Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() })
         if ($category -in @('ThirdParty', 'Evidence')) { continue }
+        # Binary documents belong in the inventory, but Markdown parsing of
+        # compressed PDF/Office bytes can cause false links and unbounded regex work.
+        if ($path -match '\.(pdf|docx|odt)$') { continue }
         $content = [IO.File]::ReadAllText((Join-Path $root $path))
         $prose = Get-MarkdownProse $content
         foreach ($match in [regex]::Matches($prose.Text, '(?s)\S.*?(?=\n\s*\n|\z)')) {
@@ -120,7 +123,7 @@ try {
         Documents=$inventory.Count; Categories=@($inventory | Group-Object Category | ForEach-Object { [pscustomobject]@{ Category=$_.Name; Count=$_.Count } })
         BrokenLinks=$broken; MarkdownFenceIssues=@($fenceIssues); LocalOnlyLinks=@($links | Where-Object Issue -eq 'LocalOnlyArtifact'); RepeatedParagraphs=$duplicates; GuideRepeatedParagraphs=$guideDuplicates; Inventory=$inventory
         RepetitionPolicy=[ordered]@{ MinimumCharacters=100; MinimumDocuments=2; WhitespaceNormalized=$true; CodeAndTablesExcluded=$true; StrictRejects='Repeated prose in at least two current guides; historical/mixed groups remain reported.' }
-        Limitations=@('Local paths and Markdown inline links/headings checked; remote URLs not fetched.', 'Exact normalized paragraphs only; thematic/near-duplicate content still needs editorial review.', 'Historical test results are preserved, not rerun or promoted to current acceptance.', 'Evidence and third-party source prose is immutable; only inventory and hashes are checked.')
+        Limitations=@('Local paths and Markdown inline links/headings checked; remote URLs not fetched.', 'Binary PDF/Word/ODT documents are inventoried and hashed, not decoded as UTF-8 or scanned for Markdown syntax.', 'Exact normalized paragraphs only; thematic/near-duplicate content still needs editorial review.', 'Historical test results are preserved, not rerun or promoted to current acceptance.', 'Evidence and third-party source prose is immutable; only inventory and hashes are checked.')
     }
     if ($OutputPath) {
         $outputAbsolute = [IO.Path]::GetFullPath($OutputPath, $root)

@@ -1,0 +1,149 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-27",
+  "BaseCommit": "4bad6dd0cef00802f86df58ed52625a9a07f9935",
+  "WorkingTreeDirty": true,
+  "Scope": "One Optical Drawings entry with internal ISO 10110 / legacy GB/T 13323-1991 selection and shared parameter controls.",
+  "Build": {
+    "Configuration": "Release",
+    "DefaultOutput": true,
+    "NoRestore": true,
+    "SingleNode": true,
+    "DisableBuildServers": true,
+    "ProcessorCount": 2,
+    "Priority": "BelowNormal"
+  },
+  "NativeDesktopInteraction": false,
+  "FullSuiteRun": false,
+  "NumericalCertification": false,
+  "Published": false,
+  "TestRuns": [
+    {
+      "File": "unified-drawing.trx",
+      "Total": 45,
+      "Passed": 45,
+      "Failed": 0,
+      "Sha256": "3fb37454bf29742cdaea3f85d37b93145481e8a5bbb9ca7476c995d06697a150"
+    },
+    {
+      "File": "unified-guide-and-restored-visibility.trx",
+      "Total": 12,
+      "Passed": 11,
+      "Failed": 1,
+      "Sha256": "98a5ebceda73bd86802eca1690ba10fa51090f40c0e896aeb091a3fb7108bb4b"
+    },
+    {
+      "File": "unified-drawing-final-restore.trx",
+      "Total": 11,
+      "Passed": 11,
+      "Failed": 0,
+      "Sha256": "5ecacfd1d871b79cd728e13610886dd83967c5681c2de83431189180440d8f04"
+    }
+  ],
+  "DistinctPassingCases": 54,
+  "RetainedFailure": "Hidden restored page remained hidden on reopen; corrected and all 11 affected final cases passed.",
+  "FinalSourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs",
+      "Sha256": "af916b8798a72d1465cba240beeba413c65f458f477e6dd821c74732ebc0b670"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "Sha256": "2b016a824cf539d970b3c84a47d1d981685e20b360c88193bc831d4c0431a736"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/PanelManager.cs",
+      "Sha256": "1212e875d82c0082c54a8095c1dfd7bd23e655a4403840eb552397919ba052ca"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs",
+      "Sha256": "be4a1eb614b34bfb949ce53ba193318aa241ac1168f467b998c0054dc243c8df"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "f33c7d811a0a6714d4c7064b273c5b4c23cadbf372df327732d56b86e86e0b73"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Shell/MainWindow.Actions.cs",
+      "Sha256": "fde6a58014bcc1626c7215f0bdac0a9d6ea2ba60207e26f579f383c7f4c92181"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs",
+      "Sha256": "443799eecbf55ecaea3ef59a4c40959fef70dab6a253d31e3d5c3677f2b2eb3c"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OpticalDrawingStandardSelectionTests.cs",
+      "Sha256": "ba4253c5e5f5961edcfb82fc2ae103f89524e506928f8e177d28cb1708f630be"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/WorkspaceDockModelTests.cs",
+      "Sha256": "f67814f08a96bb0f56a1e222647d8b3c8899f6f42f40eafb67386729e0477c73"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/PanelContentLayoutTests.cs",
+      "Sha256": "0c344eda7bf316647de8ab9fa1762f0dce961c81d6d6508382d77f26d438eee4"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/UserGuideCaptureTests.cs",
+      "Sha256": "34817d7f952e37e20a0d899ee53c4037942dc34cb6eb3fc8df65fee50a883e8c"
+    },
+    {
+      "Path": "docs/MANUFACTURING_DRAWINGS.md",
+      "Sha256": "e3db4d7c659b7db782059d5b5b31de1cae1e25c2586bfb5fd6187c04493ac605"
+    },
+    {
+      "Path": "docs/assets/user-guide/manifest.json",
+      "Sha256": "70976bba41ce5e8c2722f598b944bc0e9e315d3391e47e26b1894f079511b3af"
+    }
+  ],
+  "RunScopeNote": "First 45 cases precede the added visibility assertion. Guide cases passed in the 12-case run with one retained hidden-page failure. Final 11 cases cover the subsequent visibility fix and switching/restoration. Repeated cases are not counted twice.",
+  "Captures": [
+    {
+      "Path": "en-US/drawing-legacy.png",
+      "Bytes": 186191,
+      "Sha256": "f592281270c0f1f26e99431566649acf9416d71541b5862e683744cb5a92e8e7"
+    },
+    {
+      "Path": "en-US/drawing.png",
+      "Bytes": 186061,
+      "Sha256": "1a488a711f419c64cfbe1c9d0d8cb2a3dd7a893635c6912e439b4b3dff2f00ec"
+    },
+    {
+      "Path": "en-US/lens-library.png",
+      "Bytes": 286575,
+      "Sha256": "eda17b09ef7eac57c99c6f9303164ab494ac13298f4b808b6303886b0cec5082"
+    },
+    {
+      "Path": "ja-JP/drawing-legacy.png",
+      "Bytes": 180411,
+      "Sha256": "87898a44f3584c0431d87fe729ef473e1e45057b25735c4bebd40e6ec50bc6d4"
+    },
+    {
+      "Path": "ja-JP/drawing.png",
+      "Bytes": 178349,
+      "Sha256": "a1a504f0525cc06b02e0ec22f4eb7cff68c327e6f01e0d9c92c1a4d97c67de63"
+    },
+    {
+      "Path": "ja-JP/lens-library.png",
+      "Bytes": 278582,
+      "Sha256": "9837a5e796bd8ab2754a1b368ec4044c09b95793e239e8cdfbaf87a18b04e6db"
+    },
+    {
+      "Path": "zh-CN/drawing-legacy.png",
+      "Bytes": 177420,
+      "Sha256": "962277cdec0450dc158c8484bfed733bd088415f9f70d388a7da7c893ebba64a"
+    },
+    {
+      "Path": "zh-CN/drawing.png",
+      "Bytes": 175241,
+      "Sha256": "7336f14ce0746efa3e099496355f486348c7e343620091b5f01c0ebc12d4851e"
+    },
+    {
+      "Path": "zh-CN/lens-library.png",
+      "Bytes": 276684,
+      "Sha256": "66b07565dea7eafbdacf0c33a6ec159e7b44e8801c2f58e1bc113128d11147f7"
+    }
+  ],
+  "EmbeddedGuideImageUpdates": 6,
+  "CapturesZipSha256": "0ce7478e73ac1355430e3c61ad32f8a2d6badd08b9e0efe4172acdd81a1926fa"
+}

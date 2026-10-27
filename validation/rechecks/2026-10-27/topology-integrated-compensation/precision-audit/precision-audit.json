@@ -1,0 +1,169 @@
+{
+  "Complete": true,
+  "MaximumDiagnosticRays": 2000000,
+  "ActualDiagnosticRays": 697591,
+  "Rows": [
+    {
+      "Id": "repr-new-wide4-1-42-C-curvature:source",
+      "TopologyFingerprint": "6412998e8de01551cb1c072493975e992e6100a11a1450f50aa338fdcee8a939",
+      "Available": true,
+      "Failure": null,
+      "DifferenceUm": [
+        1.775413149829319E-10,
+        2.5393021019226586E-10,
+        9.548362100986196E-10,
+        5.75617331577405E-10,
+        1.226135859511146E-07
+      ],
+      "MaximumDifferenceUm": 1.226135859511146E-07,
+      "AccuracyWithinPointZeroFiveUm": true,
+      "DiagnosticRays": 13540
+    },
+    {
+      "Id": "repr-new-wide4-1-42-C-curvature:best-physical-endpoint",
+      "Reuses": "repr-new-wide4-1-42-C-curvature:source",
+      "TopologyFingerprint": "6412998e8de01551cb1c072493975e992e6100a11a1450f50aa338fdcee8a939"
+    },
+    {
+      "Id": "repr-new-wide4-1-42-C-axial:source",
+      "Reuses": "repr-new-wide4-1-42-C-curvature:source",
+      "TopologyFingerprint": "6412998e8de01551cb1c072493975e992e6100a11a1450f50aa338fdcee8a939"
+    },
+    {
+      "Id": "repr-new-wide4-1-42-C-axial:best-physical-endpoint",
+      "Reuses": "repr-new-wide4-1-42-C-curvature:source",
+      "TopologyFingerprint": "6412998e8de01551cb1c072493975e992e6100a11a1450f50aa338fdcee8a939"
+    },
+    {
+      "Id": "repr-new-wide4-2-42-C-curvature:source",
+      "TopologyFingerprint": "dd1c0d781469bb17d413be5a34e5620bb4493b7726b914aacbaa92e9e42fcb74",
+      "Available": false,
+      "Failure": "Formal Core could not aim a differentiable pupil ray.",
+      "DifferenceUm": null,
+      "MaximumDifferenceUm": null,
+      "AccuracyWithinPointZeroFiveUm": false,
+      "DiagnosticRays": 391383
+    },
+    {
+      "Id": "repr-new-wide4-2-42-C-curvature:best-physical-endpoint",
+      "Available": false,
+      "Failure": "No completed physical candidate within original search quota."
+    },
+    {
+      "Id": "repr-new-wide4-2-42-C-axial:source",
+      "Reuses": "repr-new-wide4-2-42-C-curvature:source",
+      "TopologyFingerprint": "dd1c0d781469bb17d413be5a34e5620bb4493b7726b914aacbaa92e9e42fcb74"
+    },
+    {
+      "Id": "repr-new-wide4-2-42-C-axial:best-physical-endpoint",
+      "Available": false,
+      "Failure": "No completed physical candidate within original search quota."
+    },
+    {
+      "Id": "repr-new-wide4-3-42-C-curvature:source",
+      "TopologyFingerprint": "6f3195faa5037012a801a1dac5c467c3654a968f099e0d8e8d724cff4b2b309a",
+      "Available": true,
+      "Failure": null,
+      "DifferenceUm": [
+        1.947000727309245E-07,
+        1.9926883476628632E-07,
+        7.599582074746536E-08,
+        1.4015894000962703E-07,
+        1.4968853101482438E-06
+      ],
+      "MaximumDifferenceUm": 1.4968853101482438E-06,
+      "AccuracyWithinPointZeroFiveUm": true,
+      "DiagnosticRays": 84084
+    },
+    {
+      "Id": "repr-new-wide4-3-42-C-curvature:best-physical-endpoint",
+      "TopologyFingerprint": "b1491ea262949228b58d857ec48b5b4922c381ab8e2580a26cca81427910deb0",
+      "Available": true,
+      "Failure": null,
+      "DifferenceUm": [
+        3.6371061717943576E-08,
+        3.0460806099696924E-08,
+        1.8808121726721083E-08,
+        2.129961207408826E-08,
+        9.56315060474111E-07
+      ],
+      "MaximumDifferenceUm": 9.56315060474111E-07,
+      "AccuracyWithinPointZeroFiveUm": true,
+      "DiagnosticRays": 84344
+    },
+    {
+      "Id": "repr-new-wide4-3-42-C-axial:source",
+      "Reuses": "repr-new-wide4-3-42-C-curvature:source",
+      "TopologyFingerprint": "6f3195faa5037012a801a1dac5c467c3654a968f099e0d8e8d724cff4b2b309a"
+    },
+    {
+      "Id": "repr-new-wide4-3-42-C-axial:best-physical-endpoint",
+      "TopologyFingerprint": "a3f379267e2cbeaa06146e254de6cb73e5697b1a383414c51f0617c7906c469f",
+      "Available": true,
+      "Failure": null,
+      "DifferenceUm": [
+        6.307504518687779E-08,
+        6.06342698272755E-08,
+        2.877512117471781E-08,
+        4.8836595878398725E-08,
+        1.3519462382927117E-06
+      ],
+      "MaximumDifferenceUm": 1.3519462382927117E-06,
+      "AccuracyWithinPointZeroFiveUm": true,
+      "DiagnosticRays": 83620
+    },
+    {
+      "Id": "repr-new-wide4-4-42-C-curvature:source",
+      "TopologyFingerprint": "2b5d4e2d06eb5a7bdc5fde4c6431b7849c11a9486049708ade3fe603eeece2ad",
+      "Available": true,
+      "Failure": null,
+      "DifferenceUm": [
+        0.006590228196240444,
+        2.8001817042877523E-05,
+        0.0001295501602327498,
+        0.00019030368919037421,
+        5.325842300507589E-06
+      ],
+      "MaximumDifferenceUm": 0.006590228196240444,
+      "AccuracyWithinPointZeroFiveUm": true,
+      "DiagnosticRays": 13540
+    },
+    {
+      "Id": "repr-new-wide4-4-42-C-curvature:best-physical-endpoint",
+      "TopologyFingerprint": "be18da0403afc345cfd900bd44a3871ca1ee574b14105cb17157fda9c4298e66",
+      "Available": true,
+      "Failure": null,
+      "DifferenceUm": [
+        0.008722204271111034,
+        0.0003977218804851468,
+        3.0462585609569718E-05,
+        0.00012545725865953372,
+        2.689125477850496E-06
+      ],
+      "MaximumDifferenceUm": 0.008722204271111034,
+      "AccuracyWithinPointZeroFiveUm": true,
+      "DiagnosticRays": 13540
+    },
+    {
+      "Id": "repr-new-wide4-4-42-C-axial:source",
+      "Reuses": "repr-new-wide4-4-42-C-curvature:source",
+      "TopologyFingerprint": "2b5d4e2d06eb5a7bdc5fde4c6431b7849c11a9486049708ade3fe603eeece2ad"
+    },
+    {
+      "Id": "repr-new-wide4-4-42-C-axial:best-physical-endpoint",
+      "TopologyFingerprint": "714d24d7dbde181e526fc3ba2fb4f02b174396c3be1f5027a276229461ef2591",
+      "Available": true,
+      "Failure": null,
+      "DifferenceUm": [
+        0.0027556445762189075,
+        0.00018160347976525773,
+        2.4111248542180164E-05,
+        0.0001215175086111131,
+        3.036827234126349E-06
+      ],
+      "MaximumDifferenceUm": 0.0027556445762189075,
+      "AccuracyWithinPointZeroFiveUm": true,
+      "DiagnosticRays": 13540
+    }
+  ]
+}

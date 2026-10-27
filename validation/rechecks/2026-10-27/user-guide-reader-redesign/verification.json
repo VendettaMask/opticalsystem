@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-27",
+  "scope": "User guide reader layout only",
+  "build": "Default Release output",
+  "tests": {
+    "filter": "FullyQualifiedName~UserGuidePanelTests",
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "result": "reader-final.trx"
+  },
+  "renderer": "Real Skia on Avalonia.Headless",
+  "nativeDesktopInteraction": false,
+  "fullSuite": false,
+  "formulaDefinitionsChanged": false,
+  "opticalAlgorithmsChanged": false,
+  "pdfExporterChanged": false,
+  "whitespaceVerification": "Passed for three changed app files and UserGuidePanelTests.cs",
+  "frozen": {
+    "count": 2668,
+    "matched": 2668,
+    "unchanged": true
+  },
+  "previewHashes": [
+    {
+      "file": "guide-calculation.png",
+      "sha256": "67d973b60c4382f3f097bff475ebc1749a01646cbf2749cbb9494f9201c7b3b1"
+    },
+    {
+      "file": "guide-en-US-Light-1200.png",
+      "sha256": "fad4c36118731fa277dc4805af05bf282439e6f77ffe65074a806fa25e20f07f"
+    },
+    {
+      "file": "guide-ja-JP-Light-1200.png",
+      "sha256": "a7ba50a47917e981cd963952a98ae4eeb175d011061b8f8ae05c75ae05c46d03"
+    },
+    {
+      "file": "guide-resources.png",
+      "sha256": "5d952d1ebf95d6ceb7c993ea0bf0d7905423bfd981f4efdf0dba5833f6b25373"
+    },
+    {
+      "file": "guide-zh-CN-Dark-1200.png",
+      "sha256": "30ab27cdc1068de8f7785b88381984f664391feec015c65ecad0abf3e5ec86ea"
+    },
+    {
+      "file": "guide-zh-CN-Light-1440.png",
+      "sha256": "ae7d4b6fd855f677b6b5537cd1d669e157de3c421b3d435662973a4bb30c6ad9"
+    },
+    {
+      "file": "guide-zh-CN-Light-520.png",
+      "sha256": "afb1c516eb5c0fed29f878f2f9173527a92d622c755594a5a21b57f457271b53"
+    }
+  ]
+}

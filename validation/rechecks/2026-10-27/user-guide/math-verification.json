@@ -1,0 +1,197 @@
+{
+  "date": "2026-10-27",
+  "analysesCovered": 76,
+  "calculationChapters": 27,
+  "formulaGroups": 39,
+  "mathematicsAndReaderTestsPassed": 14,
+  "subsequentReaderRetestPassed": 9,
+  "documentationRegressionCasesPassed": 18,
+  "frozenReferencesMatched": 2668,
+  "nativeDesktopInteraction": false,
+  "fullSuiteRun": false,
+  "coreNumericalChangesByThisTask": false,
+  "pdfs": [
+    {
+      "language": "zh-CN",
+      "pages": 33,
+      "chapters": 27,
+      "missing_headings": [],
+      "sha256": "49f1734fdd6a237cee4f76283fd7c42e28862e91b21331db76f7c6ec54992ff8",
+      "bytes": 3558398,
+      "text_characters": 9863,
+      "extraction_normalization": "Unicode NFKC; same-glyph CJK horn radical and middle-dot aliases",
+      "chapter_pages": {
+        "pipeline": [
+          1,
+          2
+        ],
+        "units-materials": [
+          1,
+          3
+        ],
+        "ray-tracing": [
+          1,
+          4
+        ],
+        "paraxial": [
+          1,
+          5
+        ],
+        "spot-aberrations": [
+          1,
+          7
+        ],
+        "wavefront-psf": [
+          1,
+          8
+        ],
+        "mtf-energy": [
+          1,
+          10
+        ],
+        "polarization-coatings": [
+          1,
+          12
+        ],
+        "optimization": [
+          1,
+          14
+        ],
+        "tolerance": [
+          1,
+          15
+        ],
+        "non-sequential": [
+          1,
+          17
+        ],
+        "laboratories": [
+          1,
+          18
+        ],
+        "verification": [
+          1,
+          19
+        ],
+        "surface-grin": [
+          1,
+          20
+        ],
+        "pupil-sampling": [
+          1,
+          21
+        ],
+        "seidel-field": [
+          1,
+          22
+        ],
+        "zernike": [
+          1,
+          23
+        ],
+        "interferogram": [
+          1,
+          24
+        ],
+        "foucault": [
+          1,
+          25
+        ],
+        "illumination": [
+          1,
+          26
+        ],
+        "line-edge": [
+          1,
+          27
+        ],
+        "extended-imaging": [
+          1,
+          28
+        ],
+        "scans-configurations": [
+          1,
+          29
+        ],
+        "derivatives": [
+          1,
+          30
+        ],
+        "coating-solver": [
+          1,
+          31
+        ],
+        "initial-search": [
+          1,
+          32
+        ],
+        "assembly": [
+          1,
+          33
+        ]
+      }
+    },
+    {
+      "language": "en-US",
+      "pages": 36,
+      "chapters": 27,
+      "missing_headings": [],
+      "sha256": "f343af6f2539bd6743e6c983c050241950b6258af4db136534af2929685c0787",
+      "bytes": 3323496,
+      "text_characters": 25014,
+      "extraction_normalization": "Unicode NFKC; same-glyph CJK horn radical and middle-dot aliases"
+    },
+    {
+      "language": "ja-JP",
+      "pages": 34,
+      "chapters": 27,
+      "missing_headings": [],
+      "sha256": "81af8fd28c1d90a15d095acf467dd4f72e53076f7011b9fb5e552acecc1f1581",
+      "bytes": 3541800,
+      "text_characters": 9744,
+      "extraction_normalization": "Unicode NFKC; same-glyph CJK horn radical and middle-dot aliases"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.CalculationCoverage.cs",
+      "sha256": "4529b3313e41dcb174b5c0c7f8501c690491fba192dcdb83e976b703ee95dcb9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.Computation.cs",
+      "sha256": "e385394943e5034a2396020b3ba50e854c037881fbfd38f6065484697c1e2bf8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.Computation.Details.cs",
+      "sha256": "c18f2e5f8bcd5eef8cf3a331221c297edb0285c30fa5d5558bb644230069cf07"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.Pdf.cs",
+      "sha256": "e068387c9ccdd018416522ab1c3717fc6233301f23795125a5c1491850d90f60"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuideMath.cs",
+      "sha256": "be5114e211c0ba4b31e42ec54778b9ebc5fec4e92c6a2071a303f2b633d51b57"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePdfExporter.cs",
+      "sha256": "549f501a44078f4b547d66278f65625ec48d4f418d09c34f7a18332865b50417"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/UserGuideMath/formulas.json",
+      "sha256": "b47a767c6b7d1e52220d564a30fcca8ca6b4a05197ea10080cfa2d1a49ccf9f1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/UserGuideMath/manifest.json",
+      "sha256": "9da481a6c7420940c9de827ad923f87930e573bd6c15126077a7f02022b3a2ac"
+    },
+    {
+      "path": "scripts/verify-documentation.ps1",
+      "sha256": "22e9de701521435d0992c25e684f7b54a27d2d55e896ae80588e62f41587043c"
+    },
+    {
+      "path": "scripts/tests/verify-documentation.tests.ps1",
+      "sha256": "363eede8c8d07bde6e1d77b0cbee5e41158765179bb73b7f4aeeec89eb33a002"
+    }
+  ]
+}

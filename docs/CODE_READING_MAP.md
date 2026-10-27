@@ -231,7 +231,8 @@ rg --files src labs tools tests -g *.cs -g *.csproj
 | [labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj](../labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj) | 主程序、Contracts、Engine、Persistence；与根解决方案统一构建 |
 | [OpticalSystemDesign.slnx](../OpticalSystemDesign.slnx) | 解决方案项目集合 |
 | [src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-1991.xml](../src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-1991.xml) | 内置图纸布局、规格与字段绑定 |
-| [src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-2009.xml](../src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-2009.xml) | 内置图纸布局、规格与字段绑定 |
+| [src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Gb1991.cs](../src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Gb1991.cs) | 老国标表2/表3右上角布局、物理尺寸、字段及技术说明 |
+| [src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Gb1991Annotations.cs](../src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Gb1991Annotations.cs) | 老国标名义半径、机械/有效孔径、Ra符号及非球面定义；逐项依据见[核对表](LEGACY_GB1991_OPTICAL_PARTS_REVIEW.md) |
 | [src/OpticalSystemDesign.App/Assets/DrawingTemplates/iso-10110.xml](../src/OpticalSystemDesign.App/Assets/DrawingTemplates/iso-10110.xml) | 内置图纸布局、规格与字段绑定 |
 | [src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj](../src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj) | Application、Modules、InitialStructure.Engine/Persistence、CoatingDesign.Engine；App 无直接 Core 引用 |
 | [src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj](../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj) | OpticalSystemDesign.Core |

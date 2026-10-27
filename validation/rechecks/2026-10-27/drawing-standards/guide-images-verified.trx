@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a2d5a740-e7f5-4dad-b614-032c30342b52" name="optics@LAPTOP-G4BBBCS0 2026-10-27 14:10:30" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T14:10:30.4987267+08:00" queuing="2026-10-27T14:10:30.4987269+08:00" start="2026-10-27T14:10:15.6493406+08:00" finish="2026-10-27T14:10:41.0959725+08:00" />
+  <TestSettings name="default" id="08794d0f-e5b3-4669-ab5a-43978b53e925">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-27_14_10_30" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="bc8007e1-5391-40ad-a206-5f1f337b2251" testId="bc263455-e7c8-62da-ffbd-3fcf3e45db48" testName="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;zh-CN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.3006041" startTime="2026-10-27T14:10:35.6656486+08:00" endTime="2026-10-27T14:10:40.9646012+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc8007e1-5391-40ad-a206-5f1f337b2251" />
+    <UnitTestResult executionId="25298e21-f33b-4cb9-b16e-a6aa7e0c3539" testId="b7d934e8-6cb9-8408-c94c-177ed84384fa" testName="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;en-US&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.1993736" startTime="2026-10-27T14:10:30.4842307+08:00" endTime="2026-10-27T14:10:35.6636795+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="25298e21-f33b-4cb9-b16e-a6aa7e0c3539" />
+    <UnitTestResult executionId="2f9bab53-da66-4b4e-b378-340ee01831c8" testId="c2243577-fbc4-d5bd-1a35-b51cc30cae46" testName="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;ja-JP&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.9503904" startTime="2026-10-27T14:10:18.5292655+08:00" endTime="2026-10-27T14:10:30.4632790+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2f9bab53-da66-4b4e-b378-340ee01831c8" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;en-US&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b7d934e8-6cb9-8408-c94c-177ed84384fa">
+      <Execution id="25298e21-f33b-4cb9-b16e-a6aa7e0c3539" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UserGuideCaptureTests" name="CaptureCurrentProductWithoutDesktopOrUserProfileChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;ja-JP&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c2243577-fbc4-d5bd-1a35-b51cc30cae46">
+      <Execution id="2f9bab53-da66-4b4e-b378-340ee01831c8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UserGuideCaptureTests" name="CaptureCurrentProductWithoutDesktopOrUserProfileChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;zh-CN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bc263455-e7c8-62da-ffbd-3fcf3e45db48">
+      <Execution id="bc8007e1-5391-40ad-a206-5f1f337b2251" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UserGuideCaptureTests" name="CaptureCurrentProductWithoutDesktopOrUserProfileChanges" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="bc263455-e7c8-62da-ffbd-3fcf3e45db48" executionId="bc8007e1-5391-40ad-a206-5f1f337b2251" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b7d934e8-6cb9-8408-c94c-177ed84384fa" executionId="25298e21-f33b-4cb9-b16e-a6aa7e0c3539" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2243577-fbc4-d5bd-1a35-b51cc30cae46" executionId="2f9bab53-da66-4b4e-b378-340ee01831c8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.19]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.31]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.34]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:24.84]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

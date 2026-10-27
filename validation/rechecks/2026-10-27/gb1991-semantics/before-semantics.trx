@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="335ddb05-c918-4297-a0a7-8bd6ac4cca17" name="optics@LAPTOP-G4BBBCS0 2026-10-27 15:53:40" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T15:53:40.4150641+08:00" queuing="2026-10-27T15:53:40.4150645+08:00" start="2026-10-27T15:53:31.5196096+08:00" finish="2026-10-27T15:53:45.5446961+08:00" />
+  <TestSettings name="default" id="1cf16de7-74b8-413d-9e0d-7ef32b1bd568">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-27_15_53_40" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="38805755-a770-4781-a2c9-e70a07aa930b" testId="4d11a9e8-54a7-fe27-e992-7970d0150843" testName="OpticalSystemDesign.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: GbT13323_1991, cemented: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3193687" startTime="2026-10-27T15:53:44.1280841+08:00" endTime="2026-10-27T15:53:45.4476910+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="38805755-a770-4781-a2c9-e70a07aa930b" />
+    <UnitTestResult executionId="b4b817b1-72ca-46ce-ae4e-10c77a8fb467" testId="a4b963e0-8659-24de-c4b2-8b845aeeeeea" testName="OpticalSystemDesign.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: Iso10110, cemented: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3290971" startTime="2026-10-27T15:53:42.8001612+08:00" endTime="2026-10-27T15:53:44.1279502+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4b817b1-72ca-46ce-ae4e-10c77a8fb467" />
+    <UnitTestResult executionId="8be21f7a-529a-4a58-9843-432d50bc84c4" testId="a2dcb575-00c6-c7e5-3f28-797a50a06ac9" testName="OpticalSystemDesign.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: Iso10110, cemented: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.4136570" startTime="2026-10-27T15:53:40.4003173+08:00" endTime="2026-10-27T15:53:42.7985414+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8be21f7a-529a-4a58-9843-432d50bc84c4" />
+    <UnitTestResult executionId="5bee8a66-1253-47e2-be75-51ff0b72738f" testId="2f6c9c33-82cf-a716-eda4-f21ee82481e6" testName="OpticalSystemDesign.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: GbT13323_1991, cemented: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.1803486" startTime="2026-10-27T15:53:34.2183995+08:00" endTime="2026-10-27T15:53:40.3840151+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5bee8a66-1253-47e2-be75-51ff0b72738f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: Iso10110, cemented: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a2dcb575-00c6-c7e5-3f28-797a50a06ac9">
+      <Execution id="8be21f7a-529a-4a58-9843-432d50bc84c4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PanelContentLayoutTests" name="DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: GbT13323_1991, cemented: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4d11a9e8-54a7-fe27-e992-7970d0150843">
+      <Execution id="38805755-a770-4781-a2c9-e70a07aa930b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PanelContentLayoutTests" name="DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: GbT13323_1991, cemented: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2f6c9c33-82cf-a716-eda4-f21ee82481e6">
+      <Execution id="5bee8a66-1253-47e2-be75-51ff0b72738f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PanelContentLayoutTests" name="DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: Iso10110, cemented: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a4b963e0-8659-24de-c4b2-8b845aeeeeea">
+      <Execution id="b4b817b1-72ca-46ce-ae4e-10c77a8fb467" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PanelContentLayoutTests" name="DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4d11a9e8-54a7-fe27-e992-7970d0150843" executionId="38805755-a770-4781-a2c9-e70a07aa930b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a4b963e0-8659-24de-c4b2-8b845aeeeeea" executionId="b4b817b1-72ca-46ce-ae4e-10c77a8fb467" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a2dcb575-00c6-c7e5-3f28-797a50a06ac9" executionId="8be21f7a-529a-4a58-9843-432d50bc84c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2f6c9c33-82cf-a716-eda4-f21ee82481e6" executionId="5bee8a66-1253-47e2-be75-51ff0b72738f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.56]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.11]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.14]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:13.43]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

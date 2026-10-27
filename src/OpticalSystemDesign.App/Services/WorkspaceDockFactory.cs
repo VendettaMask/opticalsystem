@@ -37,6 +37,7 @@ public sealed class WorkspaceDockFactory : Factory
     private readonly Func<IReadOnlyList<AppAction>> _userGuideActions;
     private readonly SurfaceSelectionService _surfaceSelection = new();
     private readonly Dictionary<string, WorkspaceDocumentDescriptor> _descriptors = new(StringComparer.Ordinal);
+    private string? _restoredActiveDocumentId;
     private readonly Dictionary<string, Control> _content = new(StringComparer.Ordinal);
 
     public WorkspaceDockFactory(
@@ -145,6 +146,7 @@ public sealed class WorkspaceDockFactory : Factory
     public override IRootDock CreateLayout()
     {
         _descriptors.Clear();
+        _restoredActiveDocumentId = null;
         DisposeContent();
         var primaryDescriptor = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
             ? new WorkspaceDocumentDescriptor(
@@ -234,7 +236,8 @@ public sealed class WorkspaceDockFactory : Factory
 
     public override void InitLayout(IDockable layout)
     {
-        ConsolidateMaterialLibraries(layout);
+        ConsolidateSinglePageDocuments(layout, WorkspaceDocumentTypes.MaterialLibrary, "材料库", "document:material-library");
+        ConsolidateSinglePageDocuments(layout, WorkspaceDocumentTypes.OpticalDrawing, "光学制图", "document:optical-drawing");
         ContextLocator = EnumerateDockables(layout)
             .Where(dockable => !string.IsNullOrWhiteSpace(dockable.Id))
             .GroupBy(dockable => dockable.Id, StringComparer.Ordinal)
@@ -271,16 +274,17 @@ public sealed class WorkspaceDockFactory : Factory
             if (dockable.Id == SystemToolId || _descriptors.ContainsKey(dockable.Id))
             {
                 if (dockable is Document && _descriptors.TryGetValue(dockable.Id, out var descriptor)
-                    && descriptor.TypeId == WorkspaceDocumentTypes.Analysis)
+                    && descriptor.TypeId is WorkspaceDocumentTypes.Analysis or WorkspaceDocumentTypes.OpticalDrawing)
                     dockable.Title = descriptor.Title;
                 dockable.Context = ResolveContent(dockable.Id);
             }
         }
     }
 
-    public void RegisterDescriptors(IEnumerable<WorkspaceDocumentDescriptor> descriptors)
+    public void RegisterDescriptors(IEnumerable<WorkspaceDocumentDescriptor> descriptors, string? activeDocumentId = null)
     {
         _descriptors.Clear();
+        _restoredActiveDocumentId = activeDocumentId;
         foreach (var descriptor in descriptors)
         {
             _descriptors[descriptor.Id] = NormalizeDocumentDescriptor(descriptor);
@@ -310,11 +314,20 @@ public sealed class WorkspaceDockFactory : Factory
             ? null
             : EnumerateDockables(RootLayout).OfType<Document>()
                 .FirstOrDefault(document => document.Id == descriptor.Id
-                    || (descriptor.TypeId == WorkspaceDocumentTypes.MaterialLibrary
-                        && Descriptor(document.Id)?.TypeId == WorkspaceDocumentTypes.MaterialLibrary));
+                    || (descriptor.TypeId is WorkspaceDocumentTypes.MaterialLibrary or WorkspaceDocumentTypes.OpticalDrawing
+                        && Descriptor(document.Id)?.TypeId == descriptor.TypeId));
         if (existing is not null)
         {
-            if (existing.Id == descriptor.Id)
+            if (descriptor.TypeId == WorkspaceDocumentTypes.OpticalDrawing
+                && existing.Owner is IRootDock hiddenRoot && hiddenRoot.HiddenDockables?.Contains(existing) == true)
+            {
+                var restoredDock = ActiveDocumentDock() ?? PrimaryDocumentDock
+                    ?? throw new InvalidOperationException("工作区中没有文档停靠区域。");
+                hiddenRoot.HiddenDockables.Remove(existing);
+                AddDockable(restoredDock, existing);
+                RaiseLayoutChanged();
+            }
+            if (existing.Id == descriptor.Id && descriptor.TypeId != WorkspaceDocumentTypes.OpticalDrawing)
             {
                 _descriptors[descriptor.Id] = descriptor;
                 if (descriptor.TypeId == WorkspaceDocumentTypes.Analysis) existing.Title = descriptor.Title;
@@ -349,6 +362,18 @@ public sealed class WorkspaceDockFactory : Factory
     private WorkspaceDocumentDescriptor NormalizeDocumentDescriptor(WorkspaceDocumentDescriptor descriptor)
     {
         descriptor = NormalizeMaterialLibrary(descriptor);
+        if (descriptor.TypeId == WorkspaceDocumentTypes.OpticalDrawing)
+        {
+            // Saved pages retain their dock IDs and standard; all use the same drawing editor.
+            var settings = descriptor.Settings is null
+                ? new Dictionary<string, string>()
+                : new Dictionary<string, string>(descriptor.Settings);
+            var standard = !settings.ContainsKey("standard") && descriptor.Id == "document:optical-drawing-gb-1991"
+                ? OpticalDrawingStandard.GbT13323_1991
+                : OpticalDrawingStandardFrom(settings);
+            settings["standard"] = standard.ToString();
+            return descriptor with { Title = "光学制图", Settings = settings };
+        }
         if (descriptor.TypeId != WorkspaceDocumentTypes.Analysis) return descriptor;
         var canonical = _application.Analyses.CanonicalKey(descriptor.AnalysisName ?? descriptor.Title);
         var displayName = WorkbenchAnalysisCatalog.DisplayName(canonical);
@@ -365,12 +390,16 @@ public sealed class WorkspaceDockFactory : Factory
         return descriptor;
     }
 
-    private void ConsolidateMaterialLibraries(IDockable layout)
+    private void ConsolidateSinglePageDocuments(IDockable layout, string typeId, string title, string preferredId)
     {
         var dockables = EnumerateDockables(layout).ToArray();
         var libraries = dockables.OfType<Document>()
-            .Where(document => Descriptor(document.Id)?.TypeId == WorkspaceDocumentTypes.MaterialLibrary)
-            .OrderByDescending(document => document.Id == "document:material-library")
+            .Where(document => Descriptor(document.Id)?.TypeId == typeId)
+            .OrderByDescending(document => typeId == WorkspaceDocumentTypes.OpticalDrawing
+                && document.Id == _restoredActiveDocumentId)
+            .ThenByDescending(document => typeId == WorkspaceDocumentTypes.OpticalDrawing
+                && document.Owner is IDock owner && ReferenceEquals(owner.ActiveDockable, document))
+            .ThenByDescending(document => document.Id == preferredId)
             .ToArray();
         if (libraries.Length == 0)
         {
@@ -378,7 +407,7 @@ public sealed class WorkspaceDockFactory : Factory
         }
 
         // Preserve the retained page's saved position and ID, including legacy-only layouts.
-        libraries[0].Title = "材料库";
+        libraries[0].Title = title;
         var duplicateIds = libraries.Skip(1).Select(document => document.Id).ToHashSet(StringComparer.Ordinal);
         if (duplicateIds.Count == 0)
         {
@@ -481,6 +510,13 @@ public sealed class WorkspaceDockFactory : Factory
                     IsLocked = analysis.IsLocked
                 },
                 ViewerPanel viewer => descriptor with { IsLocked = viewer.IsLocked },
+                OpticalDrawingPanel drawing => descriptor with
+                {
+                    Settings = new Dictionary<string, string>(descriptor.Settings ?? new Dictionary<string, string>())
+                    {
+                        ["standard"] = drawing.DrawingStandard.ToString()
+                    }
+                },
                 _ => descriptor
             };
         }).ToArray();
@@ -748,6 +784,21 @@ public sealed class WorkspaceDockFactory : Factory
             DisplayTypography.Apply(templated);
         }
         _content[id] = control;
+        if (control is OpticalDrawingPanel drawing)
+        {
+            drawing.DrawingStandardChanged += (_, _) =>
+            {
+                if (!_descriptors.TryGetValue(id, out var current)) return;
+                _descriptors[id] = current with
+                {
+                    Settings = new Dictionary<string, string>(current.Settings ?? new Dictionary<string, string>())
+                    {
+                        ["standard"] = drawing.DrawingStandard.ToString()
+                    }
+                };
+                RaiseLayoutChanged();
+            };
+        }
         return control;
     }
 
@@ -979,7 +1030,8 @@ public sealed class WorkspaceDockFactory : Factory
             return OpticalDrawingStandard.Iso10110;
         }
 
-        if (Enum.TryParse<OpticalDrawingStandard>(value, out var standard))
+        if (Enum.TryParse<OpticalDrawingStandard>(value, out var standard)
+            && Enum.IsDefined(standard))
         {
             return standard;
         }
@@ -987,8 +1039,8 @@ public sealed class WorkspaceDockFactory : Factory
         return value switch
         {
             "GB/T 13323—1991" or "GB/T 13323-1991" => OpticalDrawingStandard.GbT13323_1991,
-            "GB/T 13323—2009" or "GB/T 13323-2009" or "GbT13323" => OpticalDrawingStandard.GbT13323_2009,
             _ => OpticalDrawingStandard.Iso10110
         };
     }
+
 }

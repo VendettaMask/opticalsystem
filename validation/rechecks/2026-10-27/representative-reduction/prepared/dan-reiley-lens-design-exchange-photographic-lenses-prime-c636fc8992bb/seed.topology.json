@@ -1,0 +1,168 @@
+{
+  "SchemaVersion": 1,
+  "Algorithm": "AutonomousTopologyV1",
+  "Name": "Imported Zemax ZMX",
+  "Conjugate": 0,
+  "Reference": {
+    "Id": "reference",
+    "ZMillimeters": 0
+  },
+  "Stop": {
+    "Id": "stop",
+    "ZMillimeters": 6.39318,
+    "ClearSemiDiameterMillimeters": 1.8084065031374326,
+    "MechanicalSemiDiameterMillimeters": null
+  },
+  "Image": {
+    "Id": "image",
+    "ZMillimeters": 30.16924892302471,
+    "Protected": true
+  },
+  "Elements": [
+    {
+      "Id": "element-001",
+      "FrontSurfaceId": "element-001:front",
+      "BackSurfaceId": "element-001:back",
+      "FrontZMillimeters": 0,
+      "ThicknessMillimeters": 1.53924,
+      "Material": "LAFN3",
+      "Front": {
+        "Profile": {
+          "Kind": 1,
+          "CurvaturePerMillimeter": 0.09136614183391917,
+          "Conic": 0,
+          "MaximumEvenPower": 0,
+          "Terms": []
+        },
+        "ClearSemiDiameterMillimeters": 5.5,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Back": {
+        "Profile": {
+          "Kind": 1,
+          "CurvaturePerMillimeter": 0.0011456692912847361,
+          "Conic": 0,
+          "MaximumEvenPower": 0,
+          "Terms": []
+        },
+        "ClearSemiDiameterMillimeters": 5.5,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Protected": false,
+      "Transition": false
+    },
+    {
+      "Id": "element-002",
+      "FrontSurfaceId": "element-002:front",
+      "BackSurfaceId": "element-002:back",
+      "FrontZMillimeters": 4.43992,
+      "ThicknessMillimeters": 0.4089400000000003,
+      "Material": "SFN1",
+      "Front": {
+        "Profile": {
+          "Kind": 1,
+          "CurvaturePerMillimeter": -0.07372834646411736,
+          "Conic": 0,
+          "MaximumEvenPower": 0,
+          "Terms": []
+        },
+        "ClearSemiDiameterMillimeters": 2.8,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Back": {
+        "Profile": {
+          "Kind": 1,
+          "CurvaturePerMillimeter": 0.08729527553294504,
+          "Conic": 0,
+          "MaximumEvenPower": 0,
+          "Terms": []
+        },
+        "ClearSemiDiameterMillimeters": 2.4,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Protected": false,
+      "Transition": false
+    },
+    {
+      "Id": "element-003",
+      "FrontSurfaceId": "element-003:front",
+      "BackSurfaceId": "element-003:back",
+      "FrontZMillimeters": 7.40918,
+      "ThicknessMillimeters": 1.4859,
+      "Material": "HIKARI:LAF3",
+      "Front": {
+        "Profile": {
+          "Kind": 1,
+          "CurvaturePerMillimeter": 0.013460629922043253,
+          "Conic": 0,
+          "MaximumEvenPower": 0,
+          "Terms": []
+        },
+        "ClearSemiDiameterMillimeters": 2.6,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Back": {
+        "Profile": {
+          "Kind": 1,
+          "CurvaturePerMillimeter": -0.0935157479650157,
+          "Conic": 0,
+          "MaximumEvenPower": 0,
+          "Terms": []
+        },
+        "ClearSemiDiameterMillimeters": 3,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Protected": false,
+      "Transition": false
+    }
+  ],
+  "Fields": [
+    {
+      "Label": "On axis",
+      "XAngleDegrees": 0,
+      "YAngleDegrees": 0,
+      "Weight": 1
+    },
+    {
+      "Label": "Field 2",
+      "XAngleDegrees": 0,
+      "YAngleDegrees": 14,
+      "Weight": 1
+    },
+    {
+      "Label": "Field 3",
+      "XAngleDegrees": 0,
+      "YAngleDegrees": 22,
+      "Weight": 1
+    }
+  ],
+  "Wavelengths": [
+    {
+      "Label": "W1",
+      "Nanometers": 486.1327,
+      "Weight": 1,
+      "IsPrimary": false
+    },
+    {
+      "Label": "W2",
+      "Nanometers": 587.5618000000001,
+      "Weight": 1,
+      "IsPrimary": true
+    },
+    {
+      "Label": "W3",
+      "Nanometers": 656.2725,
+      "Weight": 1,
+      "IsPrimary": false
+    }
+  ],
+  "GlassCatalogs": [
+    "SCHOTT",
+    "HIKARI",
+    "SUMITA"
+  ],
+  "RayAimingEnabled": true,
+  "MatchRefractiveIndexData": true,
+  "TemperatureCelsius": 20,
+  "PressureAtmospheres": 1
+}

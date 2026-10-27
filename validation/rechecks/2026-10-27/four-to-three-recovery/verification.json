@@ -1,0 +1,806 @@
+{
+  "Verified": true,
+  "Runs": 28,
+  "ReducedQualifiedRuns": [
+    "four-to-three-42-C-allocated",
+    "four-to-three-101-C-allocated"
+  ],
+  "SourceNativeSha256": "a84d87ad8b5a2e2b640c4e7b5bca2e4e98383070e9eab6cdd638a3665573b546",
+  "SourceFourElement": {
+    "Qualified": true,
+    "FocalMillimeters": 25.12309299403972,
+    "FNumber": 3.402414748082625,
+    "RmsMicrometers": 47.41433566353566,
+    "MaximumMicrometers": 149.8936200527794,
+    "DistortionPercent": 2.9998539374068907,
+    "LostIntegrationRays": 0,
+    "LostCheckRays": 0
+  },
+  "QualifiedThreeElement": {
+    "Qualified": true,
+    "FocalMillimeters": 25.012716195783153,
+    "FNumber": 3.4028450695876655,
+    "RmsMicrometers": 49.29257176225859,
+    "MaximumMicrometers": 136.48802777710335,
+    "DistortionPercent": 1.4720274828050226,
+    "LostIntegrationRays": 0,
+    "LostCheckRays": 0
+  },
+  "QualifiedPrescription": [
+    {
+      "Element": "element-001",
+      "Material": "SK4",
+      "FrontZMillimeters": 4.9352324111432355e-06,
+      "ThicknessMillimeters": 3.1114766308814295,
+      "FrontCurvature": 0.06184025903036124,
+      "BackCurvature": 0.01323797979419628,
+      "FrontConic": 0.0995756599812612,
+      "BackConic": -0.00961266441930442
+    },
+    {
+      "Element": "element-002",
+      "Material": "SK4",
+      "FrontZMillimeters": 3.2840331631571424,
+      "ThicknessMillimeters": 2.7498247326519976,
+      "FrontCurvature": 0.06527742348786483,
+      "BackCurvature": 0.09560049919440974,
+      "FrontConic": -0.06329259639999026,
+      "BackConic": 0.5756186222718881
+    },
+    {
+      "Element": "element-004",
+      "Material": "LAK09",
+      "FrontZMillimeters": 13.40591348123793,
+      "ThicknessMillimeters": 6.278056565995103,
+      "FrontCurvature": -0.04021646860558148,
+      "BackCurvature": -0.08176205381558782,
+      "FrontConic": 0.029693938932638907,
+      "BackConic": 0.17005593203846747
+    }
+  ],
+  "TargetFocalRelativeErrorPercent": -1.7681732900883818,
+  "TargetFNumberRelativeErrorPercent": 1.8329939259487116,
+  "SearchRaysAcross28SeparateRuns": 37367812,
+  "AdditionalPreparationRays": 446064,
+  "AdditionalFilterDiagnosticRays": 136604,
+  "AdditionalNativeAuditRays": 2473788,
+  "WallTimeOverruns": [],
+  "MatrixDerivativeColumnsChecked": 48,
+  "MatrixAndPupilDerivativeValuesChecked": 240,
+  "MaximumMatrixAndPupilDerivativeAbsoluteError": 6.726361910600748e-09,
+  "MaximumConicSpotGradientAbsoluteError": 3.273125770419938e-09,
+  "FocusedTests": {
+    "focused.trx": 92,
+    "core-metric.trx": 2
+  },
+  "Cells": [
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-42-C-control",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 397,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 360,
+        "DifferenceEvaluations": 329,
+        "JacobianBuilds": 26,
+        "TracedRays": 1479264,
+        "GeometryProbes": 45164,
+        "Elapsed": "00:00:30.1693616"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 24.992030918908018,
+        "FNumber": 3.809471732199364,
+        "RmsMicrometers": 237.668035328157,
+        "MaximumMicrometers": 645.4830081040441,
+        "DistortionPercent": 0.8675438216874705,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-42-C-budget",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 546,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 499,
+        "DifferenceEvaluations": 456,
+        "JacobianBuilds": 36,
+        "TracedRays": 1075560,
+        "GeometryProbes": 60170,
+        "Elapsed": "00:00:22.2162242"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 24.992030918908018,
+        "FNumber": 3.809471732199364,
+        "RmsMicrometers": 237.668035328157,
+        "MaximumMicrometers": 645.4830081040441,
+        "DistortionPercent": 0.8675438216874705,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-42-C-automatic",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 186,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 82,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 78,
+        "TracedRays": 1075588,
+        "GeometryProbes": 14360,
+        "Elapsed": "00:00:20.7601422"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 24.99203091891552,
+        "FNumber": 3.8094717322002416,
+        "RmsMicrometers": 237.66803531776944,
+        "MaximumMicrometers": 645.4830080772531,
+        "DistortionPercent": 0.8675438213761504,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-42-C-axial",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 168,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 74,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 70,
+        "TracedRays": 1075560,
+        "GeometryProbes": 13203,
+        "Elapsed": "00:00:19.5780036"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 24.99208563608819,
+        "FNumber": 3.8094431474531487,
+        "RmsMicrometers": 237.59411673060237,
+        "MaximumMicrometers": 645.396008464715,
+        "DistortionPercent": 0.8631295370290051,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-42-D-control",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 599,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 552,
+        "DifferenceEvaluations": 504,
+        "JacobianBuilds": 39,
+        "TracedRays": 1199920,
+        "GeometryProbes": 74384,
+        "Elapsed": "00:00:25.7127145"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": null
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-42-D-budget",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 599,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 553,
+        "DifferenceEvaluations": 505,
+        "JacobianBuilds": 40,
+        "TracedRays": 1150720,
+        "GeometryProbes": 73398,
+        "Elapsed": "00:00:25.6530941"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": null
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-42-D-automatic",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 204,
+        "GradientEvaluations": 18,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 93,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 88,
+        "TracedRays": 1603688,
+        "GeometryProbes": 18504,
+        "Elapsed": "00:00:35.1707690"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.12307429817997,
+        "FNumber": 3.822460912726346,
+        "RmsMicrometers": 264.47192359848447,
+        "MaximumMicrometers": 705.3002934209971,
+        "DistortionPercent": 1.28541213385357,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-42-D-axial",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 191,
+        "GradientEvaluations": 18,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 90,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 84,
+        "TracedRays": 1603656,
+        "GeometryProbes": 18932,
+        "Elapsed": "00:00:51.5358163"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.123070582695508,
+        "FNumber": 3.822436080466757,
+        "RmsMicrometers": 264.3796861752682,
+        "MaximumMicrometers": 705.1574941405239,
+        "DistortionPercent": 1.2805685456424576,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-101-C-control",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 397,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 360,
+        "DifferenceEvaluations": 329,
+        "JacobianBuilds": 26,
+        "TracedRays": 1479264,
+        "GeometryProbes": 45164,
+        "Elapsed": "00:00:20.8557161"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 24.992030918908018,
+        "FNumber": 3.809471732199364,
+        "RmsMicrometers": 237.668035328157,
+        "MaximumMicrometers": 645.4830081040441,
+        "DistortionPercent": 0.8675438216874705,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-101-C-budget",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 546,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 499,
+        "DifferenceEvaluations": 456,
+        "JacobianBuilds": 36,
+        "TracedRays": 1075560,
+        "GeometryProbes": 60170,
+        "Elapsed": "00:00:16.9013300"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 24.992030918908018,
+        "FNumber": 3.809471732199364,
+        "RmsMicrometers": 237.668035328157,
+        "MaximumMicrometers": 645.4830081040441,
+        "DistortionPercent": 0.8675438216874705,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-101-C-automatic",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 186,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 82,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 78,
+        "TracedRays": 1075588,
+        "GeometryProbes": 14360,
+        "Elapsed": "00:00:11.2776879"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 24.99203091891552,
+        "FNumber": 3.8094717322002416,
+        "RmsMicrometers": 237.66803531776944,
+        "MaximumMicrometers": 645.4830080772531,
+        "DistortionPercent": 0.8675438213761504,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-101-C-axial",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 168,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 74,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 70,
+        "TracedRays": 1075560,
+        "GeometryProbes": 13203,
+        "Elapsed": "00:00:11.1727960"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 24.99208563608819,
+        "FNumber": 3.8094431474531487,
+        "RmsMicrometers": 237.59411673060237,
+        "MaximumMicrometers": 645.396008464715,
+        "DistortionPercent": 0.8631295370290051,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-101-D-control",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 599,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 552,
+        "DifferenceEvaluations": 504,
+        "JacobianBuilds": 39,
+        "TracedRays": 1199920,
+        "GeometryProbes": 74384,
+        "Elapsed": "00:00:14.5518153"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": null
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-101-D-budget",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 599,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 553,
+        "DifferenceEvaluations": 505,
+        "JacobianBuilds": 40,
+        "TracedRays": 1150720,
+        "GeometryProbes": 73398,
+        "Elapsed": "00:00:14.5418282"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": null
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-101-D-automatic",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 204,
+        "GradientEvaluations": 18,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 93,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 88,
+        "TracedRays": 1603688,
+        "GeometryProbes": 18504,
+        "Elapsed": "00:00:18.7152674"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.12307429817997,
+        "FNumber": 3.822460912726346,
+        "RmsMicrometers": 264.47192359848447,
+        "MaximumMicrometers": 705.3002934209971,
+        "DistortionPercent": 1.28541213385357,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "paired-runs",
+      "Id": "four-to-three-101-D-axial",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 191,
+        "GradientEvaluations": 18,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 90,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 84,
+        "TracedRays": 1603656,
+        "GeometryProbes": 18932,
+        "Elapsed": "00:00:28.2203490"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.123070582695508,
+        "FNumber": 3.822436080466757,
+        "RmsMicrometers": 264.3796861752682,
+        "MaximumMicrometers": 705.1574941405239,
+        "DistortionPercent": 1.2805685456424576,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "pupil-runs",
+      "Id": "four-to-three-42-C-pupil",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 148,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 73,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 69,
+        "TracedRays": 1099400,
+        "GeometryProbes": 12673,
+        "Elapsed": "00:00:16.6575343"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.03582964033486,
+        "FNumber": 3.402473348834541,
+        "RmsMicrometers": 78.8282413012874,
+        "MaximumMicrometers": 226.11179535039346,
+        "DistortionPercent": 0.09199858098139974,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "pupil-runs",
+      "Id": "four-to-three-42-D-pupil",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 203,
+        "GradientEvaluations": 17,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 99,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 94,
+        "TracedRays": 1618084,
+        "GeometryProbes": 18758,
+        "Elapsed": "00:00:18.1257210"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.05847596850795,
+        "FNumber": 3.40258511525993,
+        "RmsMicrometers": 123.56943763096373,
+        "MaximumMicrometers": 368.71756523157865,
+        "DistortionPercent": 1.8618685707969356,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "pupil-runs",
+      "Id": "four-to-three-101-C-pupil",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 148,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 73,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 69,
+        "TracedRays": 1099400,
+        "GeometryProbes": 12673,
+        "Elapsed": "00:00:10.5968353"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.03582964033486,
+        "FNumber": 3.402473348834541,
+        "RmsMicrometers": 78.8282413012874,
+        "MaximumMicrometers": 226.11179535039346,
+        "DistortionPercent": 0.09199858098139974,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "pupil-runs",
+      "Id": "four-to-three-101-D-pupil",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 203,
+        "GradientEvaluations": 17,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 99,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 94,
+        "TracedRays": 1618084,
+        "GeometryProbes": 18758,
+        "Elapsed": "00:00:17.4340500"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.05847596850795,
+        "FNumber": 3.40258511525993,
+        "RmsMicrometers": 123.56943763096373,
+        "MaximumMicrometers": 368.71756523157865,
+        "DistortionPercent": 1.8618685707969356,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "conic-runs",
+      "Id": "four-to-three-42-C-conic",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 148,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 73,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 69,
+        "TracedRays": 1109424,
+        "GeometryProbes": 12673,
+        "Elapsed": "00:00:21.9796968"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.012256996243185,
+        "FNumber": 3.4027750424746004,
+        "RmsMicrometers": 50.47285301213809,
+        "MaximumMicrometers": 145.0473257470568,
+        "DistortionPercent": 1.437746520597117,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "conic-runs",
+      "Id": "four-to-three-42-D-conic",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 204,
+        "GradientEvaluations": 18,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 99,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 94,
+        "TracedRays": 1620740,
+        "GeometryProbes": 18871,
+        "Elapsed": "00:00:22.4406360"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.122884140254737,
+        "FNumber": 3.4023655289310724,
+        "RmsMicrometers": 67.66040332678472,
+        "MaximumMicrometers": 210.6528346683996,
+        "DistortionPercent": 1.218761023133711,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "conic-runs",
+      "Id": "four-to-three-101-C-conic",
+      "Status": "Completed",
+      "Work": {
+        "FunctionEvaluations": 148,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 73,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 69,
+        "TracedRays": 1109424,
+        "GeometryProbes": 12673,
+        "Elapsed": "00:00:12.1157307"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.012256996243185,
+        "FNumber": 3.4027750424746004,
+        "RmsMicrometers": 50.47285301213809,
+        "MaximumMicrometers": 145.0473257470568,
+        "DistortionPercent": 1.437746520597117,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "conic-runs",
+      "Id": "four-to-three-101-D-conic",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 204,
+        "GradientEvaluations": 18,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 99,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 94,
+        "TracedRays": 1620740,
+        "GeometryProbes": 18871,
+        "Elapsed": "00:00:24.8881793"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.122884140254737,
+        "FNumber": 3.4023655289310724,
+        "RmsMicrometers": 67.66040332678472,
+        "MaximumMicrometers": 210.6528346683996,
+        "DistortionPercent": 1.218761023133711,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "allocation-runs",
+      "Id": "four-to-three-42-C-allocated",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 161,
+        "GradientEvaluations": 29,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 71,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 68,
+        "TracedRays": 1356386,
+        "GeometryProbes": 14142,
+        "Elapsed": "00:00:31.7697860"
+      },
+      "ReducedSuccess": true,
+      "ThreeElement": {
+        "Qualified": true,
+        "FocalMillimeters": 25.012716195783153,
+        "FNumber": 3.4028450695876655,
+        "RmsMicrometers": 49.29257176225859,
+        "MaximumMicrometers": 136.48802777710335,
+        "DistortionPercent": 1.4720274828050226,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "allocation-runs",
+      "Id": "four-to-three-42-D-allocated",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 215,
+        "GradientEvaluations": 29,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 99,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 94,
+        "TracedRays": 1615916,
+        "GeometryProbes": 20443,
+        "Elapsed": "00:00:36.6878896"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.122884140254737,
+        "FNumber": 3.4023655289310724,
+        "RmsMicrometers": 155.7259346318772,
+        "MaximumMicrometers": 467.71661612574,
+        "DistortionPercent": 2.4815363323394317,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "allocation-runs",
+      "Id": "four-to-three-101-C-allocated",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 161,
+        "GradientEvaluations": 29,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 71,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 68,
+        "TracedRays": 1356386,
+        "GeometryProbes": 14142,
+        "Elapsed": "00:00:16.1106571"
+      },
+      "ReducedSuccess": true,
+      "ThreeElement": {
+        "Qualified": true,
+        "FocalMillimeters": 25.012716195783153,
+        "FNumber": 3.4028450695876655,
+        "RmsMicrometers": 49.29257176225859,
+        "MaximumMicrometers": 136.48802777710335,
+        "DistortionPercent": 1.4720274828050226,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    },
+    {
+      "Batch": "allocation-runs",
+      "Id": "four-to-three-101-D-allocated",
+      "Status": "BudgetExhausted",
+      "Work": {
+        "FunctionEvaluations": 215,
+        "GradientEvaluations": 29,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 99,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 94,
+        "TracedRays": 1615916,
+        "GeometryProbes": 20443,
+        "Elapsed": "00:00:24.8034322"
+      },
+      "ReducedSuccess": false,
+      "ThreeElement": {
+        "Qualified": false,
+        "FocalMillimeters": 25.122884140254737,
+        "FNumber": 3.4023655289310724,
+        "RmsMicrometers": 155.7259346318772,
+        "MaximumMicrometers": 467.71661612574,
+        "DistortionPercent": 2.4815363323394317,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      }
+    }
+  ],
+  "Limitations": [
+    "One unchanged source prescription; two search seeds are not independent lens designs.",
+    "Six conics add compensation freedom; original curvature and axial bounds remain fixed.",
+    "Allocated Full ceiling 99 differs from old 8 updates, within original stage/global quotas.",
+    "First-order rank rejection is not a proof of physical infeasibility.",
+    "Timing on a shared computer is not an isolated speed benchmark.",
+    "Preparation, separate experiments, diagnostics and native audits are not one pooled successful-run budget."
+  ]
+}

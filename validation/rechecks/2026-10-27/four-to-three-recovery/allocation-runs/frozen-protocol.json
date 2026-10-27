@@ -1,0 +1,43 @@
+{
+  "Version": 1,
+  "Purpose": "Final predeclared allocation comparison: retained conic-control endpointRMS50.473 has acceptable quarter-size v4 proposals, but8 Full updates ended. Allow up to99 Full proposals only inside original400k phase quota,100 total objective gradients,2m total rays and60sec, unchanged Local4. No tighter or looser physical gate, no extra overall budget.",
+  "SourcePlan": "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/baseline.topology-plan.json",
+  "SourcePlanSha256": "81740f31ffacff913cdb77623f232d7da6ab43866466acb21ccb9ff9547db7f8",
+  "SourceNative": "validation/rechecks/2026-10-27/wide21-gates-repair/fixed-repair/joint/qualified.staropt",
+  "SourceNativeSha256": "a84d87ad8b5a2e2b640c4e7b5bca2e4e98383070e9eab6cdd638a3665573b546",
+  "Seeds": [
+    42,
+    101
+  ],
+  "Groups": [
+    "C",
+    "D"
+  ],
+  "Modes": [
+    "allocated"
+  ],
+  "Budget": {
+    "MaximumTrials": 6,
+    "MaximumFunctionEvaluations": 600,
+    "MaximumGradientEvaluations": 100,
+    "MaximumTracedRays": 2000000,
+    "MaximumStageTracedRays": 400000,
+    "FinalValidationRayReserve": 800000,
+    "TimeLimitSeconds": 60,
+    "MaximumRecoveryFunctions": 150,
+    "LocalUpdates": 4,
+    "FullUpdates": 99,
+    "FullFunctionCeiling": 100,
+    "FullGradientCeiling": 100
+  },
+  "Accounting": "Recovery matrix derivatives count as function/matrix/Jacobian work, replacing finite differences. The existing100-gradient counter covers fixed optical-objective gradients; all recovery derivative builds remain separately disclosed. No real ray is used by recovery. Source qualification/preparation costs are separate. Pupil requests are additionally counted in PupilEvaluations; the physical stop never changes.",
+  "Restrictions": "Same qualified seed for both seeds (search random streams only), same global curvature range and per-trial axial0.25mm bounds, same apertures/stop/image/reference/fields/spectrum/acceptance. Insertion/split/merge/material/profile disabled equally to focus deletion. All failures retained; no combined-budget success claim.",
+  "ControlProtocol": "labs/InitialStructure/benchmarks/autonomous-topology-v1/four-to-three-conic-recovery-20261027.json",
+  "ControlDirectory": "validation/rechecks/2026-10-27/four-to-three-recovery/conic-runs",
+  "ConicBounds": [
+    -2,
+    2
+  ],
+  "NoStructuralProfileBranches": true,
+  "FullUpdateCeiling": 99
+}

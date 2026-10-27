@@ -292,7 +292,8 @@ internal static partial class OpticalDrawingRendererCore
         float xScale,
         SKRect area,
         SKPaint paint,
-        bool upperSurface)
+        bool upperSurface,
+        string? indication = null)
     {
         var surfacePoint = surfacePoints[upperSurface ? 8 : 56];
         var isPlane = Math.Abs(radius) < 1e-12 || !double.IsFinite(radius);
@@ -362,7 +363,7 @@ internal static partial class OpticalDrawingRendererCore
         canvas.RotateDegrees(angle, labelX, labelY);
         DrawText(
             canvas,
-            RadiusDimensionText(radius, tolerance),
+            indication ?? RadiusDimensionText(radius, tolerance),
             labelX,
             labelY - 4.5f,
             7.2f,

@@ -31,6 +31,9 @@ public static partial class AutonomousSearchService
         Action<AutonomousSearchPending, FixedTopologyStep>? progress = null)
     {
         Validate(checkpoint);
+        if (new[] { checkpoint.Plan.Options.Local, checkpoint.Plan.Options.Full }.Any(stage =>
+            (stage.TransmissionFirst == true || stage.ActiveParameterLimit is not null) && stage.TransmissionPolicyVersion is not (3 or 4)))
+            throw new NotSupportedException("Unversioned transmission prototype records are read-only. Create a fresh plan with explicit policy version 3 or 4.");
         if (!Running.TryAdd(checkpoint.RunId, 0)) throw new InvalidOperationException("This autonomous run is already executing.");
         try { return Execute(checkpoint, save, cancellationToken, progress); }
         finally { Running.TryRemove(checkpoint.RunId, out _); }
@@ -62,6 +65,18 @@ public static partial class AutonomousSearchService
             if (state.Pending is null) continue; // A rejected edit is an audited, zero-optical-work decision.
             var pending = Prepare(state.Pending);
             state = state with { Pending = pending };
+            if (pending.Phase == AutonomousSearchPhase.Feasibility
+                && (policy.ProtectCompensationRayBudget == true && pending.AfterFeasibility == AutonomousSearchPhase.Full
+                    || policy.ProtectPostRecoveryRayBudget == true && pending.AfterFeasibility == AutonomousSearchPhase.Local)
+                && policy.MaximumTracedRays - state.Consumed.TracedRays - policy.FinalValidationRayReserve < policy.FinalValidationRayReserve)
+            {
+                // This optional check cannot reserve its configured full allowance. Preserve the
+                // remaining training work and the independent final check, without accepting anything here.
+                state = state with { Pending = Next(pending, pending.Template, pending.AfterFeasibility!.Value) };
+                Log(pending, "StageValidationDeferred", "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.", new());
+                Save();
+                continue;
+            }
             var maximum = Reserve(pending);
             if (maximum is null) return Finish(AutonomousSearchStatus.BudgetExhausted);
             state = state with { Reservation = new($"{pending.TrialId}:{pending.Phase}:{state.Revision + 1}", pending.Phase, maximum) };
@@ -98,7 +113,7 @@ public static partial class AutonomousSearchService
                         state = state with
                         {
                             Pending = recovery.Termination == ParaxialRecoveryTermination.Recovered
-                                ? Next(pending, recovery.Topology, AutonomousSearchPhase.Local) : null
+                                ? AfterCompensation(pending, recovery.Topology, AutonomousSearchPhase.Local) : null
                         };
                         Log(pending, recovery.Termination.ToString(), recovery.Termination == ParaxialRecoveryTermination.Cancelled
                             ? "Recovery attempt abandoned at its safe endpoint; resume schedules a new decision, preserving its original charge." : null,
@@ -139,7 +154,7 @@ public static partial class AutonomousSearchService
                             {
                                 Continuation = optimized.Continuation,
                                 PhaseConsumed = Add(pending.PhaseConsumed, work with { TracedRays = rays.RayCount, Elapsed = phaseTimer.Elapsed })
-                            } : Next(pending, optimized.Topology, pending.Phase == AutonomousSearchPhase.Local
+                            } : AfterCompensation(pending, optimized.Topology, pending.Phase == AutonomousSearchPhase.Local
                                 && optimized.Termination is FixedTopologyTermination.Converged or FixedTopologyTermination.Stalled or FixedTopologyTermination.UpdateLimit
                                 ? AutonomousSearchPhase.Full : pending.Template.HasTransitionElements
                                     ? AutonomousSearchPhase.TransitionValidation : AutonomousSearchPhase.Validation)
@@ -148,6 +163,7 @@ public static partial class AutonomousSearchService
                             paused ? "Same-template Adam coordinates, moments, learning rate and residuals retained." : null,
                             work, optimized.Topology, optimization: optimized);
                         break;
+                    case AutonomousSearchPhase.Feasibility:
                     case AutonomousSearchPhase.Validation:
                     case AutonomousSearchPhase.TransitionValidation:
                         invoked = true;
@@ -156,7 +172,10 @@ public static partial class AutonomousSearchService
                         state = state with { Pending = token.IsCancellationRequested ? pending : null };
                         var outcome = assessment.Completed ? assessment.MeetsTargets ? "Accepted" : "UnmetTargets" : "ValidationUnavailable";
                         var detail = assessment.Failure;
-                        if (pending.Phase == AutonomousSearchPhase.TransitionValidation)
+                        var intermediate = pending.Phase == AutonomousSearchPhase.Feasibility;
+                        if (intermediate && !token.IsCancellationRequested)
+                            state = state with { Pending = Next(pending, source.Topology, pending.AfterFeasibility!.Value) };
+                        if (pending.Phase == AutonomousSearchPhase.TransitionValidation || intermediate && source.Topology.HasTransitionElements)
                         {
                             if (assessment.Completed && assessment.Violations.All(violation => violation.Code == "transition-element"))
                             {
@@ -165,9 +184,9 @@ public static partial class AutonomousSearchService
                                 outcome = next.Pending is null ? "TransitionRejected" : "TransitionFeasible";
                                 detail = next.Detail;
                             }
-                            else if (assessment.Completed) outcome = "TransitionRejected";
+                            else if (assessment.Completed) outcome = intermediate ? "UnmetTargets" : "TransitionRejected";
                         }
-                        else if (assessment.Completed && !source.Topology.HasTransitionElements)
+                        else if (assessment.Completed && !source.Topology.HasTransitionElements && (!intermediate || assessment.MeetsTargets))
                         {
                             var candidate = new AutonomousSearchCandidate(pending.TrialId, pending.ParentId, source.Topology, assessment, Score(assessment),
                                 pending.Operation != "seed" && !assessment.MeetsTargets ? 1 : 0);
@@ -176,7 +195,7 @@ public static partial class AutonomousSearchService
                                 state = state with { AcceptedArchive = state.AcceptedArchive.Add(candidate) };
                             RebuildPool();
                         }
-                        Log(pending, outcome, detail, work, source.Topology);
+                        Log(pending, outcome, detail, work, source.Topology, assessment: assessment);
                         break;
                 }
             }
@@ -212,12 +231,12 @@ public static partial class AutonomousSearchService
             return state;
         }
         void Log(AutonomousSearchPending pending, string outcome, string? detail, AutonomousSearchWork work,
-            DesignTopology? endpoint = null, ParaxialRecoveryResult? recovery = null, FixedTopologyResult? optimization = null)
+            DesignTopology? endpoint = null, ParaxialRecoveryResult? recovery = null, FixedTopologyResult? optimization = null, TopologyAssessment? assessment = null)
             => state = state with
             {
                 Events = state.Events.Add(new(state.Events.Length + 1, pending.TrialId, pending.ParentId,
                 pending.Operation, pending.Phase, outcome, detail, work, endpoint, recovery, optimization)
-                { Change = pending.Change, GradualDeletion = pending.GradualDeletion })
+                { Change = pending.Change, GradualDeletion = pending.GradualDeletion, Assessment = policy.CheckStageFeasibility == true ? assessment : null })
             };
         void RebuildPool() => state = state with
         {
@@ -253,7 +272,7 @@ public static partial class AutonomousSearchService
                 RandomState = random.State,
                 Candidates = state.Candidates.SetItem(state.Candidates.IndexOf(parent), parent with { OperationCursor = cursor + 1 })
             };
-            if (cursor == 0 && !parent.Assessment.MeetsTargets)
+            if (policy.FixedTopologyOnly == true || cursor == 0 && !parent.Assessment.MeetsTargets)
             {
                 state = state with { Pending = new() { TrialId = id, ParentId = parent.Id, Operation = "optimize", Template = parent.Topology, Phase = AutonomousSearchPhase.Full } };
                 return true;
@@ -264,7 +283,16 @@ public static partial class AutonomousSearchService
             var pending = new AutonomousSearchPending { TrialId = id, ParentId = parent.Id, Operation = selected.Operation, Template = parent.Topology, Phase = AutonomousSearchPhase.Recovery };
             var edit = selected.Edit;
             if (!edit.Succeeded) Log(pending, "EditRejected", edit.Failure?.Code + ": " + edit.Failure?.Message, new());
-            else state = state with { Pending = pending with { Template = edit.Topology!, Change = policy.Expansion is null ? null : edit.Change } };
+            else
+            {
+                var edited = pending with { Template = edit.Topology!, Change = policy.Expansion is null ? null : edit.Change };
+                if (policy.SkipParaxialRecovery == true)
+                {
+                    Log(edited, "RecoverySkipped", "First-order recovery is disabled by the original comparison policy.", new(), edited.Template);
+                    edited = edited with { Phase = AutonomousSearchPhase.Local };
+                }
+                state = state with { Pending = edited };
+            }
             return true;
         }
         TopologyEditResult Edit(AutonomousSearchCandidate parent, int branch, string id, double position)
@@ -295,10 +323,14 @@ public static partial class AutonomousSearchService
         }
         TopologyEditResult Rejected(string message) => new(null, null, new(TopologyFailureCode.ElementLimit, message));
         AutonomousSearchPending Next(AutonomousSearchPending pending, DesignTopology topology, AutonomousSearchPhase phase)
-            => pending with { Template = topology, Phase = phase, StageOptions = null, Continuation = null, Variables = [], PhaseConsumed = new() };
+            => pending with { Template = topology, Phase = phase, AfterFeasibility = null, StageOptions = null, Continuation = null, Variables = [], PhaseConsumed = new() };
+        AutonomousSearchPending AfterCompensation(AutonomousSearchPending pending, DesignTopology topology, AutonomousSearchPhase phase)
+            => policy.CheckStageFeasibility == true && phase is AutonomousSearchPhase.Local or AutonomousSearchPhase.Full
+                ? Next(pending, topology, AutonomousSearchPhase.Feasibility) with { AfterFeasibility = phase } : Next(pending, topology, phase);
         AutonomousSearchPending Prepare(AutonomousSearchPending pending)
         {
-            if (pending.Phase is AutonomousSearchPhase.Validation or AutonomousSearchPhase.TransitionValidation || pending.StageOptions is not null) return pending;
+            if (pending.Phase is AutonomousSearchPhase.Validation or AutonomousSearchPhase.TransitionValidation or AutonomousSearchPhase.Feasibility || pending.StageOptions is not null) return pending;
+            pending = AnchorAxialCompensation(pending, policy);
             var requests = ExpansionVariables(pending, policy);
             if (pending.Phase == AutonomousSearchPhase.Recovery)
             {
@@ -308,7 +340,8 @@ public static partial class AutonomousSearchService
                 return pending with
                 {
                     Variables = requests.Where(request => surfaces.Contains(request.SurfaceId)
-                    && request.Kind is OpticalDesignParameterKind.Curvature or OpticalDesignParameterKind.AxialPosition).ToImmutableArray()
+                    && (request.Kind == OpticalDesignParameterKind.Curvature
+                        || policy.UseAxialVariablesInRecovery == true && request.Kind == OpticalDesignParameterKind.AxialPosition)).ToImmutableArray()
                 };
             }
             var stage = pending.Phase == AutonomousSearchPhase.Local ? policy.Local : policy.Full;
@@ -316,14 +349,14 @@ public static partial class AutonomousSearchService
             var gradients = Math.Max(0, Math.Min(stage.MaximumGradientEvaluations, policy.MaximumGradientEvaluations - state.Consumed.GradientEvaluations));
             return pending with
             {
-                Variables = pending.Phase == AutonomousSearchPhase.Local ? requests.Take(2).ToImmutableArray() : requests,
+                Variables = pending.Phase == AutonomousSearchPhase.Local && stage.ActiveParameterLimit is null ? requests.Take(2).ToImmutableArray() : requests,
                 StageOptions = stage with { MaximumFunctionEvaluations = functions, MaximumGradientEvaluations = gradients }
             };
         }
         AutonomousSearchWork? Reserve(AutonomousSearchPending pending)
         {
             var final = pending.Phase == AutonomousSearchPhase.Validation;
-            var validation = final || pending.Phase == AutonomousSearchPhase.TransitionValidation;
+            var validation = final || pending.Phase is AutonomousSearchPhase.TransitionValidation or AutonomousSearchPhase.Feasibility;
             var functions = policy.MaximumFunctionEvaluations - state.Consumed.FunctionEvaluations - (final ? 0 : 1);
             var gradients = policy.MaximumGradientEvaluations - state.Consumed.GradientEvaluations;
             var availableRays = policy.MaximumTracedRays - state.Consumed.TracedRays - (final ? 0 : policy.FinalValidationRayReserve);
@@ -424,15 +457,24 @@ public static partial class AutonomousSearchService
         if (state.Pending is { } active)
         {
             CheckWork(active.PhaseConsumed);
+            if (active.Phase == AutonomousSearchPhase.Feasibility
+                ? state.Plan.Options.CheckStageFeasibility != true || active.AfterFeasibility is not (AutonomousSearchPhase.Local or AutonomousSearchPhase.Full)
+                    || active.Continuation is not null || active.StageOptions is not null || !active.Variables.IsEmpty
+                : active.AfterFeasibility is not null)
+                throw new InvalidDataException("Invalid independent stage feasibility continuation.");
             if (TaskIdentity(active.Template) != TaskIdentity(state.Plan.Seeds[0])) throw new InvalidDataException("Pending task metadata changed.");
         }
         ValidateExpansionCheckpoint(state);
+        ValidateAxialCheckpoint(state);
     }
 
     private static void ValidatePlan(AutonomousSearchPlan plan)
     {
         ArgumentNullException.ThrowIfNull(plan);
         var options = plan.Options;
+        if (options.FixedTopologyOnly == true && options.SkipParaxialRecovery == true
+            || options.SkipParaxialRecovery == true && options.Expansion?.EnableGradualDeletion == true)
+            throw new ArgumentException("Recovery-free comparison cannot enable progressive recovery or the fixed-topology policy.");
         if (plan.Seeds.Length is < 1 or > 8 || options.MaximumTrials is < 1 or > 128
             || options.CandidatesPerElementCount is < 1 or > 8 || options.BranchesPerParent is < 1 or > 12
             || options.MaximumFunctionEvaluations is < 2 or > 100_000 || options.MaximumGradientEvaluations is < 0 or > 100_000
@@ -448,11 +490,14 @@ public static partial class AutonomousSearchService
             if (stage.ComputeMode != DesignComputeMode.Cpu || stage.PerformFinalAssessment || stage.MaximumUpdates is < 0 or > 400
                 || stage.MaximumFunctionEvaluations is < 1 or > 10000 || stage.MaximumGradientEvaluations is < 0 or > 10000
                 || stage.TimeLimit <= TimeSpan.Zero || stage.TimeLimit > TimeSpan.FromHours(1)
+                || stage.ActiveParameterLimit is < 1 or > 512
+                || (stage.TransmissionFirst == true || stage.ActiveParameterLimit is not null) && stage.Sampling.IncludeBoundaryClearance != true
                 || !double.IsFinite(stage.LearningRate) || stage.LearningRate is <= 0 or > 1)
                 throw new ArgumentException("Autonomous hard-quota stages require bounded explicit CPU training and separate final assessment.");
         }
         ParaxialRestorer.ValidateOptions(options.Recovery);
         if (options.Expansion is { } expansion) ValidateExpansion(expansion, plan);
+        if (options.AxialCompensation is { } axial) ValidateAxialPolicy(axial, plan);
         foreach (var seed in plan.Seeds)
         {
             TopologyValidation.Validate(seed, plan.Constraints);

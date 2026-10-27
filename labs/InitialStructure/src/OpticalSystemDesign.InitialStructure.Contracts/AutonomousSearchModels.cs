@@ -7,7 +7,25 @@ namespace OpticalSystemDesign.InitialStructure.Contracts;
 public sealed record AutonomousSearchOptions
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? CheckStageFeasibility { get; init; }
+    /// <summary>Defer optional post-local dense checks when their full quota would consume the full-compensation allowance.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? ProtectCompensationRayBudget { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? ProtectPostRecoveryRayBudget { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? UseAxialVariablesInRecovery { get; init; }
+    /// <summary>Release conic coordinates during compensation without enabling structural/profile branches.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? CompensateConic { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? FixedTopologyOnly { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? SkipParaxialRecovery { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public TopologyExpansionOptions? Expansion { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TopologyAxialCompensationOptions? AxialCompensation { get; init; }
     public int MaximumTrials { get; init; } = 32;
     public int CandidatesPerElementCount { get; init; } = 4;
     public int BranchesPerParent { get; init; } = 6;
@@ -32,6 +50,17 @@ public sealed record AutonomousSearchOptions
     };
 }
 
+/// <summary>Per-trial physical bounds, anchored before recovery and retained across stages and resume.</summary>
+public sealed record TopologyAxialCompensationOptions
+{
+    public double MaximumDisplacementMillimeters { get; init; } = .25;
+    public double CoordinateScaleMillimeters { get; init; } = .1;
+    /// <summary>Empty selects all unprotected retained elements. Reference, stop and image remain fixed.</summary>
+    public ImmutableArray<string> ElementIds { get; init; } = [];
+}
+
+public sealed record TopologyAxialAnchor(string SurfaceId, double ZMillimeters);
+
 public sealed record AutonomousSearchPlan
 {
     public required ImmutableArray<DesignTopology> Seeds { get; init; }
@@ -54,7 +83,7 @@ public sealed record AutonomousSearchWork
     public TimeSpan Elapsed { get; init; }
 }
 
-public enum AutonomousSearchPhase { Recovery, Local, Full, Validation, TransitionValidation }
+public enum AutonomousSearchPhase { Recovery, Local, Full, Validation, TransitionValidation, Feasibility }
 public enum AutonomousSearchStatus { Ready, Running, Cancelled, BudgetExhausted, Completed }
 
 public sealed record AutonomousSearchCandidate(string Id, string? ParentId, DesignTopology Topology,
@@ -62,6 +91,10 @@ public sealed record AutonomousSearchCandidate(string Id, string? ParentId, Desi
 
 public sealed record AutonomousSearchPending
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ImmutableArray<TopologyAxialAnchor>? AxialAnchors { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public AutonomousSearchPhase? AfterFeasibility { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public GradualDeletionState? GradualDeletion { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -82,6 +115,8 @@ public sealed record AutonomousSearchEvent(int Sequence, string TrialId, string?
     AutonomousSearchPhase? Phase, string Outcome, string? Detail, AutonomousSearchWork Work,
     DesignTopology? Endpoint = null, ParaxialRecoveryResult? Recovery = null, FixedTopologyResult? Optimization = null)
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TopologyAssessment? Assessment { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public TopologyChange? Change { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

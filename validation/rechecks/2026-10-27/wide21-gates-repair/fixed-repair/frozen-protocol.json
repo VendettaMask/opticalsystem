@@ -1,0 +1,30 @@
+{
+  "Version": 1,
+  "Purpose": "Separately costed fresh fixed-four-element repair of retained10-loss endpoint, not combined with source preparation or claimed end-to-end reduction. Preserve original16 physical bounds including original axial origins; no reanchoring.",
+  "Checkpoint": "validation/rechecks/2026-10-27/topology-integrated-compensation/paired-runs/repr-new-wide4-3-42-C-axial/run.autonomous.json",
+  "Sha256": "e94b3650e9db4bd2d75107df87d5cd1b9f150a5978e3c15616394b68ba04f698",
+  "Budget": {
+    "MaximumTrials": 6,
+    "MaximumFunctionEvaluations": 600,
+    "MaximumGradientEvaluations": 100,
+    "MaximumTracedRays": 2000000,
+    "MaximumStageTracedRays": 400000,
+    "FinalValidationRayReserve": 800000,
+    "TimeLimitSeconds": 60
+  },
+  "MaximumUpdates": 8,
+  "Modes": [
+    "v3",
+    "maximum",
+    "joint"
+  ],
+  "Sampling": {
+    "FieldsPerDirection": 3,
+    "PupilRings": 4,
+    "PupilArms": 16,
+    "ProfileRadialSamples": 8,
+    "LocalUpdates": 4,
+    "FullUpdates": 8,
+    "RecoveryFunctions": 150
+  }
+}

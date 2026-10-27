@@ -26,6 +26,8 @@ internal static class TopologyEvaluationPlan
         Require(sampling.FieldsPerDirection is >= 2 and <= 21 && sampling.PupilRings is >= 1 and <= 10
             && sampling.PupilArms is >= 4 and <= 32 && sampling.ProfileRadialSamples is >= 4 and <= 64,
             TopologyFailureCode.InvalidInput, "The fixed sampling protocol exceeds its supported bounds.");
+        Require(sampling.IncludeBoundaryMaximum != true || sampling.IncludeBoundaryClearance == true,
+            TopologyFailureCode.InvalidInput, "Common-centroid check maximum requires explicit independent check rays.");
     }
 
     internal static ImmutableArray<TopologyFieldCoordinate> Fields(CompiledTopology source, int samples)

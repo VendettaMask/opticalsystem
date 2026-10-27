@@ -9,6 +9,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
@@ -21,7 +22,15 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly IVisualizationService _visualization;
     private readonly ComboBox _elementPicker = new() { MinWidth = 160, MaxWidth = 260 };
     private readonly ComboBox _pageSize = new() { MinWidth = 110 };
-    private readonly OpticalDrawingStandard _drawingStandard;
+    private readonly ComboBox _standardPicker = new() { Name = "DrawingStandardPicker", MinWidth = 150 };
+    private readonly List<Control> _isoOnlyControls = new();
+    private readonly List<Control> _legacyOnlyControls = new();
+    private readonly TextBlock _standardNote = new()
+    {
+        TextWrapping = TextWrapping.Wrap,
+        Margin = new Thickness(0, 12, 0, 8)
+    };
+    private OpticalDrawingStandard _drawingStandard;
     private readonly TextBox _drawingNumber = Text("OPT-001");
     private readonly TextBox _partName = Text("光学元件");
     private readonly TextBox _designer = Text("设计");
@@ -39,6 +48,11 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly NumericUpDown _backForm = Number(100, 0, 10000, 10);
     private readonly NumericUpDown _centering = Number(1, 0, 120, 0.1m);
     private readonly NumericUpDown _texture = Number(1, 0, 1000, 0.1m);
+    private readonly NumericUpDown _opticalRa = OptionalNumber(1000, 0.001m);
+    private readonly NumericUpDown _otherRa = OptionalNumber(1000, 0.1m);
+    private readonly NumericUpDown _opticalRaSample = OptionalNumber(1000, 0.01m);
+    private readonly NumericUpDown _otherRaSample = OptionalNumber(1000, 0.01m);
+    private readonly NumericUpDown _fringeWavelength = OptionalNumber(1000000, 0.01m);
     private readonly TextBox _imperfection = Text("2 × 0.16；L 0.4");
     private readonly TextBox _coating = Text("按设计膜系；有效口径内均匀");
     private readonly TextBox _edgeTreatment = Text("倒边 0.2 × 45°；不允许崩边进入净口径");
@@ -46,6 +60,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly TextBox _bubbles = Text("2 × 0.1");
     private readonly TextBox _homogeneity = Text("2；2");
     private readonly TextBox _laserDamageThreshold = Text("-");
+    private readonly Dictionary<string, TextBox> _legacyGbEditors = new(StringComparer.Ordinal);
     private readonly TextBlock _logoStatus = new()
     {
         Text = "内置 S.T.A.R.Labs",
@@ -77,6 +92,9 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private bool _disposed;
     private bool _updating;
 
+    public OpticalDrawingStandard DrawingStandard => _drawingStandard;
+    public event EventHandler? DrawingStandardChanged;
+
     public OpticalDrawingPanel(
         IPrescriptionService prescription,
         IMaterialCatalogService materials,
@@ -88,7 +106,20 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         _materials = materials;
         _events = events;
         _visualization = visualization;
-        _drawingStandard = drawingStandard;
+        _drawingStandard = Enum.IsDefined(drawingStandard) ? drawingStandard : OpticalDrawingStandard.Iso10110;
+        var standards = new[]
+        {
+            new StandardChoice(OpticalDrawingStandard.Iso10110, "ISO 10110"),
+            new StandardChoice(OpticalDrawingStandard.GbT13323_1991, "GB/T 13323—1991（老国标）")
+        };
+        _standardPicker.ItemsSource = standards;
+        _standardPicker.ItemTemplate = new FuncDataTemplate<StandardChoice>((choice, _) => new TextBlock
+        {
+            Text = UiLocalization.Text(choice?.DisplayName ?? string.Empty),
+            VerticalAlignment = VerticalAlignment.Center
+        });
+        _standardPicker.SelectedItem = standards.Single(choice => choice.Standard == _drawingStandard);
+        Avalonia.Automation.AutomationProperties.SetName(_standardPicker, "制图标准");
         _logoStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
         _zoomStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
         _status.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
@@ -125,6 +156,8 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                 LineSpacing = 6,
                 Children =
                 {
+                    new TextBlock { Text = "制图标准", VerticalAlignment = VerticalAlignment.Center },
+                    _standardPicker,
                     new TextBlock
                     {
                         Text = "图纸",
@@ -185,6 +218,17 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
 
         Content = new ScrollableHeaderGrid(toolbar, workspace);
 
+        UpdateStandardControls();
+        _standardPicker.SelectionChanged += (_, _) =>
+        {
+            if (_disposed || _standardPicker.SelectedItem is not StandardChoice choice
+                || choice.Standard == _drawingStandard)
+                return;
+            _drawingStandard = choice.Standard;
+            UpdateStandardControls();
+            UpdatePreview();
+            DrawingStandardChanged?.Invoke(this, EventArgs.Empty);
+        };
         _events.Changed += OnWorkspaceChanged;
         RefreshElements(preserveSelection: false);
     }
@@ -242,8 +286,8 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         AddRow("直径下偏差", _diameterLowerDeviation, ref row, unit: "mm");
         AddRow("厚度上偏差", _thicknessUpperDeviation, ref row, "中心厚度上偏差 (mm)", "mm");
         AddRow("厚度下偏差", _thicknessLowerDeviation, ref row, "中心厚度下偏差 (mm)", "mm");
-        AddRow("S1 半径公差", _frontRadiusTolerance, ref row, "S1 曲率半径公差 (mm)", "mm");
-        AddRow("S2 半径公差", _backRadiusTolerance, ref row, "S2 曲率半径公差 (mm)", "mm");
+        AddRow("S1 半径公差", _frontRadiusTolerance, ref row, "S1 曲率半径公差 (mm)", "mm", OpticalDrawingStandard.Iso10110);
+        AddRow("S2 半径公差", _backRadiusTolerance, ref row, "S2 曲率半径公差 (mm)", "mm", OpticalDrawingStandard.Iso10110);
         AddSection("材料公差", ref row);
         AddRow("n[d] 公差", _refractiveIndexTolerance, ref row);
         AddRow("V[d] 公差", _abbeNumberTolerance, ref row);
@@ -251,35 +295,57 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         AddRow("S1 面形偏差", _frontForm, ref row, unit: "nm");
         AddRow("S2 面形偏差", _backForm, ref row, unit: "nm");
         AddRow("偏心/倾斜", _centering, ref row, unit: "′");
-        if (_drawingStandard != OpticalDrawingStandard.Iso10110)
-        {
-            AddRow("纹理 Rq", _texture, ref row, "表面纹理 Rq (nm)", "nm");
-        }
+        AddRow("补充 Rq", _texture, ref row, "补充表面纹理 Rq (nm)，不换算为Ra", "nm", OpticalDrawingStandard.GbT13323_1991);
 
-        AddRow("表面缺陷", _imperfection, ref row);
-        AddRow("应力双折射", _stress, ref row);
-        AddRow("气泡和夹杂", _bubbles, ref row);
-        AddRow("均匀性和条纹", _homogeneity, ref row);
-        if (_drawingStandard == OpticalDrawingStandard.Iso10110)
-        {
-            AddRow("6/ 激光损伤阈值", _laserDamageThreshold, ref row);
-        }
+        AddRow("表面缺陷", _imperfection, ref row, standard: OpticalDrawingStandard.Iso10110);
+        AddRow("应力双折射", _stress, ref row, standard: OpticalDrawingStandard.Iso10110);
+        AddRow("气泡和夹杂", _bubbles, ref row, standard: OpticalDrawingStandard.Iso10110);
+        AddRow("均匀性和条纹", _homogeneity, ref row, standard: OpticalDrawingStandard.Iso10110);
+        AddRow("6/ 激光损伤阈值", _laserDamageThreshold, ref row, standard: OpticalDrawingStandard.Iso10110);
+
+        AddSection("老国标材料等级", ref row, OpticalDrawingStandard.GbT13323_1991);
+        AddLegacyRow("材料等级依据", nameof(LegacyGb1991Requirements.MaterialQualityStandard), ref row);
+        AddLegacyRow("Δn[d] 等级", nameof(LegacyGb1991Requirements.RefractiveIndexGrade), ref row,
+            "按材料标准填写类别及批差等级，如1B；留空未规定，数值公差保留在技术要求中，不自动换算等级");
+        AddLegacyRow("Δν[d] 等级", nameof(LegacyGb1991Requirements.AbbeNumberGrade), ref row,
+            "按材料标准填写类别及批差等级；留空未规定，V[d]绝对数值公差不自动换算为百分比或等级");
+        AddLegacyRow("光学均匀性", nameof(LegacyGb1991Requirements.HomogeneityGrade), ref row);
+        AddLegacyRow("光吸收系数", nameof(LegacyGb1991Requirements.AbsorptionGrade), ref row);
+        AddLegacyRow("应力双折射等级", nameof(LegacyGb1991Requirements.StressGrade), ref row);
+        AddLegacyRow("条纹度", nameof(LegacyGb1991Requirements.StriaeGrade), ref row);
+        AddLegacyRow("气泡度", nameof(LegacyGb1991Requirements.BubbleGrade), ref row);
+        AddSection("老国标零件要求", ref row, OpticalDrawingStandard.GbT13323_1991);
+        AddLegacyRow("N 光圈数", nameof(LegacyGb1991Requirements.PowerFringes), ref row,
+            "光圈数；半径仅标名义值，精度由样板和检验要求表达；分面要求用S1/S2注明，不由波前或nm限值推定");
+        AddLegacyRow("ΔN 光圈数", nameof(LegacyGb1991Requirements.IrregularityFringes), ref row,
+            "最大像散光圈数和局部光圈数；适用于D0内工作面，分面要求用S1/S2注明，不由nm限值推定");
+        AddLegacyRow("ΔR 光学样板", nameof(LegacyGb1991Requirements.TestPlateGrade), ref row,
+            "标准样板等级A或B；分面可填S1:A；S2:B；不是以mm表示的半径公差");
+        AddRow("检验波长 λ", _fringeWavelength, ref row, unit: "nm", standard: OpticalDrawingStandard.GbT13323_1991);
+        AddLegacyRow("B 表面疵病", nameof(LegacyGb1991Requirements.SurfaceImperfection), ref row);
+        AddLegacyRow("χ 定心基准", nameof(LegacyGb1991Requirements.CenteringDatum), ref row,
+            "χ表示光学表面面倾角，使用共用角分公差；请明确检验基准，不自动换算为偏心距离或边厚差");
+        AddLegacyRow("f′ 要求 (mm)", nameof(LegacyGb1991Requirements.FocalLength), ref row);
+        AddLegacyRow("Lf 要求 (mm)", nameof(LegacyGb1991Requirements.FrontFocalDistance), ref row);
+        AddLegacyRow("L′f 要求 (mm)", nameof(LegacyGb1991Requirements.BackFocalDistance), ref row);
+        AddSection("老国标表面粗糙度", ref row, OpticalDrawingStandard.GbT13323_1991);
+        AddRow("光学面 Ra", _opticalRa, ref row, "光学工作面轮廓算术平均偏差 Ra (μm)，未规定时留空", "μm", OpticalDrawingStandard.GbT13323_1991);
+        AddRow("光学面取样长度", _opticalRaSample, ref row, "光学面 Ra 取样长度 l (mm)，未规定时留空", "mm", OpticalDrawingStandard.GbT13323_1991);
+        AddRow("其余表面 Ra", _otherRa, ref row, "其余表面轮廓算术平均偏差 Ra (μm)，未规定时留空", "μm", OpticalDrawingStandard.GbT13323_1991);
+        AddRow("其余面取样长度", _otherRaSample, ref row, "其余表面 Ra 取样长度 l (mm)，未规定时留空", "mm", OpticalDrawingStandard.GbT13323_1991);
+        AddLegacyRow("面型定义引用", nameof(LegacyGb1991Requirements.AsphericDefinitionReference), ref row,
+            "Forbes Q须填写完整面型定义或受控图纸引用；偶次、奇次和圆锥非球面自动列出表达式及处方系数");
+        AddLegacyRow("补充技术要求", nameof(LegacyGb1991Requirements.TechnicalRequirements), ref row);
 
         AddSection("工艺说明", ref row);
         AddRow("膜层", _coating, ref row);
         AddRow("边缘处理", _edgeTreatment, ref row);
 
-        var note = new TextBlock
-        {
-            Text = StandardNote(_drawingStandard),
-            TextWrapping = TextWrapping.Wrap,
-            Margin = new Thickness(0, 12, 0, 8)
-        };
-        note.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
-        AddControl(note, row++, 0, 2);
+        _standardNote.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
+        AddControl(_standardNote, row++, 0, 2);
         return grid;
 
-        void AddSection(string title, ref int currentRow)
+        void AddSection(string title, ref int currentRow, OpticalDrawingStandard? standard = null)
         {
             var heading = new TextBlock
             {
@@ -288,15 +354,44 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                 Margin = new Thickness(0, currentRow == 0 ? 0 : 12, 0, 5)
             };
             AddControl(heading, currentRow++, 0, 2);
+            if (standard == OpticalDrawingStandard.GbT13323_1991) _legacyOnlyControls.Add(heading);
         }
 
-        void AddRow(string label, Control control, ref int currentRow, string? fullText = null, string? unit = null)
+        void AddLegacyRow(string label, string property, ref int currentRow, string? fullText = null)
+        {
+            var editor = Text(property switch
+            {
+                nameof(LegacyGb1991Requirements.MaterialQualityStandard) => "GB 903—1987",
+                nameof(LegacyGb1991Requirements.CenteringDatum) => "机械外圆轴",
+                _ => ""
+            });
+            editor.Name = "Gb1991" + property;
+            editor.PlaceholderText = "未规定";
+            if (property == nameof(LegacyGb1991Requirements.TechnicalRequirements))
+            {
+                editor.AcceptsReturn = true;
+                editor.TextWrapping = TextWrapping.Wrap;
+                editor.MaxHeight = 120;
+            }
+            _legacyGbEditors.Add(property, editor);
+            AddRow(label, editor, ref currentRow, fullText, standard: OpticalDrawingStandard.GbT13323_1991);
+        }
+
+        void AddRow(string label, Control control, ref int currentRow, string? fullText = null, string? unit = null,
+            OpticalDrawingStandard? standard = null)
         {
             fullText ??= unit is null ? label : $"{label} ({unit})";
-            AddControl(CompactLabel.Parameter(label, fullText, unit), currentRow, 0);
+            var caption = CompactLabel.Parameter(label, fullText, unit);
+            AddControl(caption, currentRow, 0);
             ToolTip.SetTip(control, fullText);
             control.Margin = new Thickness(0, 3);
             AddControl(control, currentRow++, 1);
+            if (standard is not null)
+            {
+                var controls = standard == OpticalDrawingStandard.Iso10110 ? _isoOnlyControls : _legacyOnlyControls;
+                controls.Add(caption);
+                controls.Add(control);
+            }
         }
 
         void AddControl(Control control, int targetRow, int column, int columnSpan = 1)
@@ -311,6 +406,15 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             Grid.SetColumnSpan(control, columnSpan);
             grid.Children.Add(control);
         }
+    }
+
+    private void UpdateStandardControls()
+    {
+        foreach (var control in _isoOnlyControls)
+            control.IsVisible = _drawingStandard == OpticalDrawingStandard.Iso10110;
+        foreach (var control in _legacyOnlyControls)
+            control.IsVisible = _drawingStandard == OpticalDrawingStandard.GbT13323_1991;
+        _standardNote.Text = StandardNote(_drawingStandard);
     }
 
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
@@ -417,6 +521,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                 var reviewer = Value(_reviewer, "\u5ba1\u6838");
                 var revision = Value(_revision, "A");
                 var companyLogo = _companyLogoPng;
+                var standard = _drawingStandard;
 
                 var scene = await _visualization.BuildSceneAsync(new VisualizationRequestDto(
                     SceneDimension.TwoDimensional,
@@ -436,7 +541,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                     reviewer,
                     revision,
                     companyLogo,
-                    _drawingStandard);
+                    standard);
                 var systemBytes = OpticalDrawingRenderer.RenderSystemPreview(systemSheet);
                 using var systemStream = new MemoryStream(systemBytes);
                 var systemBitmap = new Bitmap(systemStream);
@@ -709,15 +814,41 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             (double)(_frontRadiusTolerance.Value ?? 0.1m),
             (double)(_backRadiusTolerance.Value ?? 0.1m),
             componentMaterials,
-            Value(_laserDamageThreshold, "-"));
+            Value(_laserDamageThreshold, "-"),
+            new LegacyGb1991Requirements
+            {
+                RefractiveIndexGrade = LegacyValue(nameof(LegacyGb1991Requirements.RefractiveIndexGrade)),
+                AbbeNumberGrade = LegacyValue(nameof(LegacyGb1991Requirements.AbbeNumberGrade)),
+                HomogeneityGrade = LegacyValue(nameof(LegacyGb1991Requirements.HomogeneityGrade)),
+                AbsorptionGrade = LegacyValue(nameof(LegacyGb1991Requirements.AbsorptionGrade)),
+                StressGrade = LegacyValue(nameof(LegacyGb1991Requirements.StressGrade)),
+                StriaeGrade = LegacyValue(nameof(LegacyGb1991Requirements.StriaeGrade)),
+                BubbleGrade = LegacyValue(nameof(LegacyGb1991Requirements.BubbleGrade)),
+                PowerFringes = LegacyValue(nameof(LegacyGb1991Requirements.PowerFringes)),
+                IrregularityFringes = LegacyValue(nameof(LegacyGb1991Requirements.IrregularityFringes)),
+                TestPlateGrade = LegacyValue(nameof(LegacyGb1991Requirements.TestPlateGrade)),
+                SurfaceImperfection = LegacyValue(nameof(LegacyGb1991Requirements.SurfaceImperfection)),
+                FocalLength = LegacyValue(nameof(LegacyGb1991Requirements.FocalLength)),
+                FrontFocalDistance = LegacyValue(nameof(LegacyGb1991Requirements.FrontFocalDistance)),
+                BackFocalDistance = LegacyValue(nameof(LegacyGb1991Requirements.BackFocalDistance)),
+                OpticalSurfaceRaMicrometers = OptionalValue(_opticalRa),
+                OtherSurfaceRaMicrometers = OptionalValue(_otherRa),
+                OpticalRaSamplingLengthMillimeters = OptionalValue(_opticalRaSample),
+                OtherRaSamplingLengthMillimeters = OptionalValue(_otherRaSample),
+                FringeReferenceWavelengthNanometers = OptionalValue(_fringeWavelength),
+                MaterialQualityStandard = LegacyValue(nameof(LegacyGb1991Requirements.MaterialQualityStandard)),
+                CenteringDatum = LegacyValue(nameof(LegacyGb1991Requirements.CenteringDatum)),
+                AsphericDefinitionReference = LegacyValue(nameof(LegacyGb1991Requirements.AsphericDefinitionReference)),
+                TechnicalRequirements = LegacyValue(nameof(LegacyGb1991Requirements.TechnicalRequirements))
+            });
     }
+
+    private string LegacyValue(string property) => _legacyGbEditors[property].Text?.Trim() ?? "";
 
     private static string StandardNote(OpticalDrawingStandard standard) => standard switch
     {
         OpticalDrawingStandard.GbT13323_1991 =>
-            "当前图样：GB/T 13323—1991《光学制图》旧版兼容布局，使用材料/零件要求表和旧版常用标注。",
-        OpticalDrawingStandard.GbT13323_2009 =>
-            "当前图样：GB/T 13323—2009《光学制图》。",
+            "当前图样：GB/T 13323—1991；半径标名义值，精度按ΔR及N/ΔN填写。粗糙度Ra使用μm，补充Rq使用nm，互不换算；空项未规定。",
         _ => "当前图样：ISO 10110 系列表格式；6/- 表示未规定激光损伤阈值。"
     };
 
@@ -735,6 +866,15 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         Text = value,
         MinHeight = 30
     };
+
+    private static NumericUpDown OptionalNumber(decimal maximum, decimal increment)
+    {
+        var editor = Number(0, 0, maximum, increment, "0.######");
+        editor.Value = null;
+        return editor;
+    }
+
+    private static double? OptionalValue(NumericUpDown editor) => editor.Value is { } value ? (double)value : null;
 
     private static NumericUpDown Number(
         decimal value,
@@ -778,5 +918,6 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         return button;
     }
 
+    private sealed record StandardChoice(OpticalDrawingStandard Standard, string DisplayName);
     private sealed record ElementChoice(string DisplayName, OpticalDrawingElementDefinition? Element);
 }

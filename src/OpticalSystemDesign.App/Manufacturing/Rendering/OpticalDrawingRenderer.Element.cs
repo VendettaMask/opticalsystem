@@ -25,6 +25,11 @@ internal static partial class OpticalDrawingRendererCore
         }
 
         canvas.Clear(SKColors.White);
+        if (IsLegacyGb1991(sheet.Standard))
+        {
+            RenderGb1991Layout(canvas, sheet, pageWidth, pageHeight);
+            return;
+        }
         canvas.Save();
         canvas.Scale(pageWidth / A4Width, pageHeight / A4Height);
         RenderA4Layout(canvas, sheet);
@@ -113,7 +118,9 @@ internal static partial class OpticalDrawingRendererCore
         var cursorZ = 0.0;
         foreach (var component in element.Components)
         {
-            var profile = BuildManufacturingComponentProfile(component, cursorZ);
+            var profile = IsLegacyGb1991(sheet.Standard)
+                ? BuildGb1991MechanicalProfile(component, cursorZ)
+                : BuildManufacturingComponentProfile(component, cursorZ);
             componentProfiles.Add(profile);
             cursorZ = profile.BackVertexZ;
         }
@@ -170,7 +177,9 @@ internal static partial class OpticalDrawingRendererCore
             var componentCenterX = (geometry.FrontVertex + geometry.BackVertex) / 2;
             DrawFittedText(
                 canvas,
-                $"CT {geometry.Component.CenterThickness:0.###}",
+                IsLegacyGb1991(sheet.Standard)
+                    ? $"(d{componentGeometry.IndexOf(geometry) + 1} {geometry.Component.CenterThickness:0.###})"
+                    : $"CT {geometry.Component.CenterThickness:0.###}",
                 componentCenterX,
                 centerY + 17,
                 width,
@@ -231,7 +240,8 @@ internal static partial class OpticalDrawingRendererCore
                 xScale,
                 area,
                 dimension,
-                upperSurface: index % 2 == 0);
+                upperSurface: index % 2 == 0,
+                indication: IsLegacyGb1991(sheet.Standard) ? Gb1991RadiusIndication(geometry.Surface) : null);
             DrawText(canvas, $"S{index + 1}", geometry.Vertex, centerY - 7, 7.2f, SKTextAlign.Center, true);
         }
         return ScaleDesignation(scaleRatio);

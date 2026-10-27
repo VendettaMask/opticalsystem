@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3d24f0ed-6ddd-4080-94bd-9575da4ddeec" name="optics@LAPTOP-G4BBBCS0 2026-10-27 13:39:52" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T13:39:52.1472387+08:00" queuing="2026-10-27T13:39:52.1472389+08:00" start="2026-10-27T13:39:33.9375423+08:00" finish="2026-10-27T13:39:59.9688973+08:00" />
+  <TestSettings name="default" id="3035b9b5-fdcc-4fb0-a534-eedf54daf94d">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-27_13_39_52" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c1c80a47-d5e1-4fc4-858d-5f2ab2f0fb99" testId="b7d934e8-6cb9-8408-c94c-177ed84384fa" testName="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;en-US&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.7466576" startTime="2026-10-27T13:39:52.1319203+08:00" endTime="2026-10-27T13:39:55.8404807+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1c80a47-d5e1-4fc4-858d-5f2ab2f0fb99">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_1.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;g__Analysis|4&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs:line 115&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs:line 61&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(String language) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5e89c09b-2d7c-4adf-b80d-94b315742b22" testId="c2243577-fbc4-d5bd-1a35-b51cc30cae46" testName="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;ja-JP&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:12.5160382" startTime="2026-10-27T13:39:39.5814651+08:00" endTime="2026-10-27T13:39:52.0926619+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e89c09b-2d7c-4adf-b80d-94b315742b22">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_1.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;g__Analysis|4&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs:line 115&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs:line 61&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(String language) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="80df2a77-d9db-47d5-a39f-a33737ab2237" testId="bc263455-e7c8-62da-ffbd-3fcf3e45db48" testName="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;zh-CN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.9937666" startTime="2026-10-27T13:39:55.8434605+08:00" endTime="2026-10-27T13:39:59.8348680+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80df2a77-d9db-47d5-a39f-a33737ab2237">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_1.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;g__Analysis|4&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs:line 115&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs:line 61&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(String language) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;en-US&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b7d934e8-6cb9-8408-c94c-177ed84384fa">
+      <Execution id="c1c80a47-d5e1-4fc4-858d-5f2ab2f0fb99" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UserGuideCaptureTests" name="CaptureCurrentProductWithoutDesktopOrUserProfileChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;ja-JP&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c2243577-fbc4-d5bd-1a35-b51cc30cae46">
+      <Execution id="5e89c09b-2d7c-4adf-b80d-94b315742b22" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UserGuideCaptureTests" name="CaptureCurrentProductWithoutDesktopOrUserProfileChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;zh-CN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bc263455-e7c8-62da-ffbd-3fcf3e45db48">
+      <Execution id="80df2a77-d9db-47d5-a39f-a33737ab2237" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UserGuideCaptureTests" name="CaptureCurrentProductWithoutDesktopOrUserProfileChanges" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b7d934e8-6cb9-8408-c94c-177ed84384fa" executionId="c1c80a47-d5e1-4fc4-858d-5f2ab2f0fb99" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2243577-fbc4-d5bd-1a35-b51cc30cae46" executionId="5e89c09b-2d7c-4adf-b80d-94b315742b22" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bc263455-e7c8-62da-ffbd-3fcf3e45db48" executionId="80df2a77-d9db-47d5-a39f-a33737ab2237" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="0" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.99]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.53]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.56]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:16.12]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.12]       Expected: True&#xD;
+[xUnit.net 00:00:16.12]       Actual:   False&#xD;
+[xUnit.net 00:00:16.12]       Stack Trace:&#xD;
+[xUnit.net 00:00:16.12]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs(115,0): at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_1.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;g__Analysis|4&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:16.12]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.12]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs(61,0): at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:16.12]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.12]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:16.12]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.12]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:16.12]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.12]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs(40,0): at OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(String language)&#xD;
+[xUnit.net 00:00:16.12]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:19.87]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:19.87]       Expected: True&#xD;
+[xUnit.net 00:00:19.87]       Actual:   False&#xD;
+[xUnit.net 00:00:19.87]       Stack Trace:&#xD;
+[xUnit.net 00:00:19.87]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs(115,0): at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_1.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;g__Analysis|4&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:19.87]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:19.87]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs(61,0): at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:19.87]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:19.87]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:19.87]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:19.87]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:19.87]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:19.87]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs(40,0): at OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(String language)&#xD;
+[xUnit.net 00:00:19.87]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:23.86]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:23.86]       Expected: True&#xD;
+[xUnit.net 00:00:23.86]       Actual:   False&#xD;
+[xUnit.net 00:00:23.86]       Stack Trace:&#xD;
+[xUnit.net 00:00:23.86]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs(115,0): at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_1.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;g__Analysis|4&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:23.86]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:23.86]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs(61,0): at OpticalSystemDesign.Tests.UserGuideCaptureTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;CaptureCurrentProductWithoutDesktopOrUserProfileChanges&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:23.86]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:23.86]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:23.86]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:23.86]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:23.86]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:23.86]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuideCaptureTests.cs(40,0): at OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(String language)&#xD;
+[xUnit.net 00:00:23.86]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:23.87]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T13:39:52.0955768+08:00">
+        <Text>[xUnit.net 00:00:16.12]     OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: "ja-JP") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T13:39:55.8412418+08:00">
+        <Text>[xUnit.net 00:00:19.87]     OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: "en-US") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T13:39:59.8352600+08:00">
+        <Text>[xUnit.net 00:00:23.86]     OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: "zh-CN") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

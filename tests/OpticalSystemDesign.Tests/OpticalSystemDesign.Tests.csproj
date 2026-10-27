@@ -184,4 +184,7 @@
     <None Update="Fixtures/fft-cumulative-stop-branch-holdout-zemax-2026-r1.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/fft-cumulative-expanded-zemax-2026-r1.zip" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Shared/SafeHeadlessUnitTestSession.cs" Link="Shared/SafeHeadlessUnitTestSession.cs" />
+  </ItemGroup>
 </Project>

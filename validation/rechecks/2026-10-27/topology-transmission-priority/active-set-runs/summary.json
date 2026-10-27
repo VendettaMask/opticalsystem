@@ -1,0 +1,2830 @@
+{
+  "ProtocolSha256": "438179a5d4d4eb73ebb60f58e94ff0fd216608ce120f887948996cce5be63e52",
+  "Binaries": {
+    "OpticalSystemDesign.InitialStructure.Engine": "57451f27156888eb0ccb4579e05b444419529bdc14aa587821ffa6a54e1d5e82",
+    "OpticalSystemDesign.InitialStructure.Contracts": "bbddd93346dc5a8420d761123e19be04157a79ab4a7abf5cd070fc34e6c1a218",
+    "OpticalSystemDesign.Core": "ede8fc25329a4862e755386769c2f22ab8c576378a8756ed2a181ee638b8cc60",
+    "OpticalSystemDesign.InitialStructure.Benchmarks": "3cc64dee5c72b0c240e6e56976aab20079c01365dabfeb5c21668feb53fb2e06"
+  },
+  "CpuProcessors": 2,
+  "Priority": "BelowNormal",
+  "PairedInputsVerified": true,
+  "Runs": [
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "control",
+      "Id": "repr-qualified4-wide21-42-C-control",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "d235184ae1a36fb472d33fadd52af00dc04ff5cf55529259337a51433de1644a",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 202,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 175,
+        "DifferenceEvaluations": 158,
+        "JacobianBuilds": 13,
+        "TracedRays": 1343596,
+        "GeometryProbes": 24642,
+        "Elapsed": "00:00:14.1604133"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.30014981502326,
+          "FNumber": 4.931021763188169,
+          "WorstRmsMillimeters": 0.03550366642900219,
+          "WorstMaximumMillimeters": 0.0926781992109742,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "12afd5442d71f85c883bc6eff17fd88d4edc17106b4f6f7ee87c9397fa8bed7a"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 1,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "local",
+      "Id": "repr-qualified4-wide21-42-C-local",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "77d91c3e8a3af9c3742b5a6fe2f2de6fab07ed044cbb8ddcb9b9088ddefea5ad",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 202,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 175,
+        "DifferenceEvaluations": 158,
+        "JacobianBuilds": 13,
+        "TracedRays": 1343612,
+        "GeometryProbes": 24642,
+        "Elapsed": "00:00:08.8615880"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.300401172958157,
+          "FNumber": 4.931041211614139,
+          "WorstRmsMillimeters": 0.03551623497181693,
+          "WorstMaximumMillimeters": 0.09272732009622509,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "a5c3c6a1fe022f75b5c1e4cad43428296fb3ebb30e4df7f73107695e440cb832"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 1,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "transmission",
+      "Id": "repr-qualified4-wide21-42-C-transmission",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "e2d7e9cef086bceb5d262539e792c19d6dbfee43edc2a5ada9acb651d4234832",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 202,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 175,
+        "DifferenceEvaluations": 158,
+        "JacobianBuilds": 13,
+        "TracedRays": 1347432,
+        "GeometryProbes": 24642,
+        "Elapsed": "00:00:09.5711695"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.32976336341288,
+          "FNumber": 4.922737156543697,
+          "WorstRmsMillimeters": 0.03610382760744745,
+          "WorstMaximumMillimeters": 0.09952096103361896,
+          "MinimumValidFraction": 0.990625,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 11,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "0c0f6cf9ae01db6391a91ab5f87b4e3c1379492757375cd65a765b58c4931b43"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 1,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "both",
+      "Id": "repr-qualified4-wide21-42-C-both",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "709ce745a346c61c9602fcbb7f480a8247b7c925c736a56d9989dde77ef997c8",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 202,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 175,
+        "DifferenceEvaluations": 158,
+        "JacobianBuilds": 13,
+        "TracedRays": 1349184,
+        "GeometryProbes": 24642,
+        "Elapsed": "00:00:09.2586069"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.351355065843123,
+          "FNumber": 4.9190399070732465,
+          "WorstRmsMillimeters": 0.04359297931135191,
+          "WorstMaximumMillimeters": 0.11721262795847309,
+          "MinimumValidFraction": 0.990625,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 9,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "d1fb4d465e6638821b24d3c145c37377b7ecee2322876a412d23f6ac3660cdab"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 1,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "control",
+      "Id": "repr-qualified4-wide21-42-D-control",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "e9cf329db5c2de12ef60d1c4fcef87992b0e59ca2521cdda5d56c741422c9927",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 352,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 319,
+        "DifferenceEvaluations": 290,
+        "JacobianBuilds": 24,
+        "TracedRays": 1343596,
+        "GeometryProbes": 45951,
+        "Elapsed": "00:00:09.2498246"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.30014981502326,
+          "FNumber": 4.931021763188169,
+          "WorstRmsMillimeters": 0.03550366642900219,
+          "WorstMaximumMillimeters": 0.0926781992109742,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "12afd5442d71f85c883bc6eff17fd88d4edc17106b4f6f7ee87c9397fa8bed7a"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at trial-5-lens:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "local",
+      "Id": "repr-qualified4-wide21-42-D-local",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "150265e39aa5d8bd37adbcb977fd9e841b94fc68b3330f65f158097976892ce0",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 352,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 319,
+        "DifferenceEvaluations": 290,
+        "JacobianBuilds": 24,
+        "TracedRays": 1343612,
+        "GeometryProbes": 45951,
+        "Elapsed": "00:00:09.3710126"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.300401172958157,
+          "FNumber": 4.931041211614139,
+          "WorstRmsMillimeters": 0.03551623497181693,
+          "WorstMaximumMillimeters": 0.09272732009622509,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "a5c3c6a1fe022f75b5c1e4cad43428296fb3ebb30e4df7f73107695e440cb832"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at trial-5-lens:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "transmission",
+      "Id": "repr-qualified4-wide21-42-D-transmission",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "48af00836dbcc6c07a7f4d313772c0d3d84b60e34562b4d3f34ca7ecb68ddfc9",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 352,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 319,
+        "DifferenceEvaluations": 290,
+        "JacobianBuilds": 24,
+        "TracedRays": 1347432,
+        "GeometryProbes": 45951,
+        "Elapsed": "00:00:10.0830975"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.32976336341288,
+          "FNumber": 4.922737156543697,
+          "WorstRmsMillimeters": 0.03610382760744745,
+          "WorstMaximumMillimeters": 0.09952096103361896,
+          "MinimumValidFraction": 0.990625,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 11,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "0c0f6cf9ae01db6391a91ab5f87b4e3c1379492757375cd65a765b58c4931b43"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at trial-5-lens:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "both",
+      "Id": "repr-qualified4-wide21-42-D-both",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "26144d6710ae889ac3250bb0fef74b26ee90e4fedaf0df9b32015de8ae8de9c5",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 352,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 319,
+        "DifferenceEvaluations": 290,
+        "JacobianBuilds": 24,
+        "TracedRays": 1349184,
+        "GeometryProbes": 45951,
+        "Elapsed": "00:00:09.8263164"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.351355065843123,
+          "FNumber": 4.9190399070732465,
+          "WorstRmsMillimeters": 0.04359297931135191,
+          "WorstMaximumMillimeters": 0.11721262795847309,
+          "MinimumValidFraction": 0.990625,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 9,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "d1fb4d465e6638821b24d3c145c37377b7ecee2322876a412d23f6ac3660cdab"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at trial-5-lens:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "control",
+      "Id": "repr-qualified4-wide21-101-C-control",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "1abd3393f6143dff2530bdb3b73a0f388233b2bc8e91855a5c1be6f304b2dfe4",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 202,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 175,
+        "DifferenceEvaluations": 158,
+        "JacobianBuilds": 13,
+        "TracedRays": 1343596,
+        "GeometryProbes": 24642,
+        "Elapsed": "00:00:08.9032892"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.30014981502326,
+          "FNumber": 4.931021763188169,
+          "WorstRmsMillimeters": 0.03550366642900219,
+          "WorstMaximumMillimeters": 0.0926781992109742,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "12afd5442d71f85c883bc6eff17fd88d4edc17106b4f6f7ee87c9397fa8bed7a"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 1,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "local",
+      "Id": "repr-qualified4-wide21-101-C-local",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "1501032ef8c4775bdf74697fed780577f11b5c4d5bb8aa203cf97e8c28bb5f12",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 202,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 175,
+        "DifferenceEvaluations": 158,
+        "JacobianBuilds": 13,
+        "TracedRays": 1343612,
+        "GeometryProbes": 24642,
+        "Elapsed": "00:00:08.7365075"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.300401172958157,
+          "FNumber": 4.931041211614139,
+          "WorstRmsMillimeters": 0.03551623497181693,
+          "WorstMaximumMillimeters": 0.09272732009622509,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "a5c3c6a1fe022f75b5c1e4cad43428296fb3ebb30e4df7f73107695e440cb832"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 1,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "transmission",
+      "Id": "repr-qualified4-wide21-101-C-transmission",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "c3c1bb749f7f9c0b136eb6172aa34199755bd6274f33705cba805c08ac07726b",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 202,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 175,
+        "DifferenceEvaluations": 158,
+        "JacobianBuilds": 13,
+        "TracedRays": 1347432,
+        "GeometryProbes": 24642,
+        "Elapsed": "00:00:09.3620970"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.32976336341288,
+          "FNumber": 4.922737156543697,
+          "WorstRmsMillimeters": 0.03610382760744745,
+          "WorstMaximumMillimeters": 0.09952096103361896,
+          "MinimumValidFraction": 0.990625,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 11,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "0c0f6cf9ae01db6391a91ab5f87b4e3c1379492757375cd65a765b58c4931b43"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 1,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "both",
+      "Id": "repr-qualified4-wide21-101-C-both",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "3dc7048b66b87a6d0e1c484204350548e60b168fede9e331ecb68e2ffbd660fd",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 202,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 175,
+        "DifferenceEvaluations": 158,
+        "JacobianBuilds": 13,
+        "TracedRays": 1349184,
+        "GeometryProbes": 24642,
+        "Elapsed": "00:00:09.3041478"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.351355065843123,
+          "FNumber": 4.9190399070732465,
+          "WorstRmsMillimeters": 0.04359297931135191,
+          "WorstMaximumMillimeters": 0.11721262795847309,
+          "MinimumValidFraction": 0.990625,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 9,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "d1fb4d465e6638821b24d3c145c37377b7ecee2322876a412d23f6ac3660cdab"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 1,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "control",
+      "Id": "repr-qualified4-wide21-101-D-control",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "6aec7ec77981b3897eba272cdad78218b61e1fa74dbddc84d64128882ea222c0",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 352,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 319,
+        "DifferenceEvaluations": 290,
+        "JacobianBuilds": 24,
+        "TracedRays": 1343596,
+        "GeometryProbes": 45951,
+        "Elapsed": "00:00:09.5573823"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.30014981502326,
+          "FNumber": 4.931021763188169,
+          "WorstRmsMillimeters": 0.03550366642900219,
+          "WorstMaximumMillimeters": 0.0926781992109742,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "12afd5442d71f85c883bc6eff17fd88d4edc17106b4f6f7ee87c9397fa8bed7a"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at trial-5-lens:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "local",
+      "Id": "repr-qualified4-wide21-101-D-local",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "986dae84d57de7de2c4cd7aeccca482a936f0c2f98dc9a3f70a0a60b9dcb8771",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 352,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 319,
+        "DifferenceEvaluations": 290,
+        "JacobianBuilds": 24,
+        "TracedRays": 1343612,
+        "GeometryProbes": 45951,
+        "Elapsed": "00:00:09.8092953"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.300401172958157,
+          "FNumber": 4.931041211614139,
+          "WorstRmsMillimeters": 0.03551623497181693,
+          "WorstMaximumMillimeters": 0.09272732009622509,
+          "MinimumValidFraction": 0.9864583333333333,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 15,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "a5c3c6a1fe022f75b5c1e4cad43428296fb3ebb30e4df7f73107695e440cb832"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at trial-5-lens:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "transmission",
+      "Id": "repr-qualified4-wide21-101-D-transmission",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "addbd7607bdf02ae2bbdfed72612ab5e2ded4cc8c7448353ff6e152c53266e74",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 352,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 319,
+        "DifferenceEvaluations": 290,
+        "JacobianBuilds": 24,
+        "TracedRays": 1347432,
+        "GeometryProbes": 45951,
+        "Elapsed": "00:00:10.3876541"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.32976336341288,
+          "FNumber": 4.922737156543697,
+          "WorstRmsMillimeters": 0.03610382760744745,
+          "WorstMaximumMillimeters": 0.09952096103361896,
+          "MinimumValidFraction": 0.990625,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 11,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "0c0f6cf9ae01db6391a91ab5f87b4e3c1379492757375cd65a765b58c4931b43"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at trial-5-lens:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "qualified4-wide21",
+      "SourceName": "Qualified 4-element continuation of US02298090-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "both",
+      "Id": "repr-qualified4-wide21-101-D-both",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+      "PairedTaskFingerprint": "0b5c96319b54de3bca995c88f30cc21696be77038ddcd5d9aeb021af3c425c70",
+      "PlanFingerprint": "ec99ee07b04c95e3c6df71b4344086206e21457666cdedba920804ac3205c7b0",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 4,
+      "Consumed": {
+        "FunctionEvaluations": 352,
+        "GradientEvaluations": 14,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 319,
+        "DifferenceEvaluations": 290,
+        "JacobianBuilds": 24,
+        "TracedRays": 1349184,
+        "GeometryProbes": 45951,
+        "Elapsed": "00:00:09.9978307"
+      },
+      "PendingPhase": "Recovery",
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 26.320482026842704,
+          "FNumber": 4.911866493170811,
+          "WorstRmsMillimeters": 0.03696885213557132,
+          "WorstMaximumMillimeters": 0.1333149847266739,
+          "MinimumValidFraction": 1,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-1",
+          "ParentId": "seed-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 26.351355065843123,
+          "FNumber": 4.9190399070732465,
+          "WorstRmsMillimeters": 0.04359297931135191,
+          "WorstMaximumMillimeters": 0.11721262795847309,
+          "MinimumValidFraction": 0.990625,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "field:34:check-lost",
+              "Actual": 9,
+              "Limit": 0
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "d1fb4d465e6638821b24d3c145c37377b7ecee2322876a412d23f6ac3660cdab"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 26.320482026842704,
+        "FNumber": 4.911866493170811,
+        "WorstRmsMillimeters": 0.03696885213557132,
+        "WorstMaximumMillimeters": 0.1333149847266739,
+        "MinimumValidFraction": 1,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5"
+      },
+      "DeletionTrials": 2,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 2,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-003:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at trial-5-lens:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "StageValidationDeferred",
+          "Detail": "Full dense-check allowance unavailable; continue compensation and retain the independent final gate.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-1",
+          "ParentId": "seed-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-1",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    }
+  ]
+}

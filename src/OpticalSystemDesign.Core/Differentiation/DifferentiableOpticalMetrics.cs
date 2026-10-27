@@ -34,6 +34,25 @@ public sealed record DifferentiableOpticalResult(DifferentialScalar OpticalPower
 /// </summary>
 public static class DifferentiableOpticalMetrics
 {
+    /// <summary>Maximum over integration and independent check rays about the integration centroid.
+    /// Check rays never change its area integral. Unclipped design rays do not certify physical throughput.</summary>
+    public static DifferentialScalar MaximumRadiusWithChecks(DifferentiableSpotField integration, DifferentiableSpotField checks)
+    {
+        ArgumentNullException.ThrowIfNull(integration);
+        ArgumentNullException.ThrowIfNull(checks);
+        if (integration.NormalizedFieldX != checks.NormalizedFieldX || integration.NormalizedFieldY != checks.NormalizedFieldY
+            || integration.Rays.Count == 0 || checks.Rays.Count == 0)
+            throw new ArgumentException("Integration and check rays must refer to the same nonempty field.");
+        DifferentialScalar maximum = 0;
+        foreach (var ray in integration.Rays.Concat(checks.Rays))
+        {
+            var squared = DifferentialScalar.Square(ray.X - integration.CentroidX) + DifferentialScalar.Square(ray.Y - integration.CentroidY);
+            if (!squared.IsFinite) throw new ArithmeticException("A common-centroid check radius is unavailable.");
+            if (squared.Value > maximum.Value) maximum = squared;
+        }
+        return DifferentialScalar.Sqrt(maximum);
+    }
+
     public static DifferentiableOpticalResult Evaluate(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters,
         IReadOnlyList<double> normalizedFields, IReadOnlyList<PupilSample> pupils, CancellationToken cancellationToken = default,
         DesignComputeMode computeMode = DesignComputeMode.Cpu)

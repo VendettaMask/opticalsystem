@@ -130,17 +130,23 @@ public sealed partial class MainWindow : Window
     private Services.Updates.PreparedOtaUpdate? _pendingOtaUpdate;
     private bool _startupCompleted;
     private readonly string? _startupDocumentPath;
+    private readonly bool _isolatedWorkspace;
 
     internal event EventHandler? StartupCompleted;
 
-    public MainWindow()
+    public MainWindow() : this(null, null, null) { }
+
+    // Off-screen documentation captures use an isolated application/session store.
+    // The ordinary desktop constructor keeps its existing profile lifecycle.
+    internal MainWindow(AppSettings? settings, IWorkbenchApplication? application, WorkspaceSessionStore? sessionStore)
     {
-        var startup = StartupRequest.Parse(Environment.GetCommandLineArgs().Skip(1));
+        _isolatedWorkspace = application is not null && settings is not null && sessionStore is not null;
+        var startup = StartupRequest.Parse(_isolatedWorkspace ? [] : Environment.GetCommandLineArgs().Skip(1));
         _startupDocumentPath = startup.DocumentPath;
-        _settings = AppSettings.Load();
+        _settings = settings ?? AppSettings.Load();
         UiLocalization.Apply(_settings.Language);
         ConfigureDisplaySettings();
-        _application = WorkbenchApplication.Create(
+        _application = application ?? WorkbenchApplication.Create(
             startup.Sample,
             UserGlassCatalogDirectory(),
             BundledLensLibraryDirectory());
@@ -152,6 +158,7 @@ public sealed partial class MainWindow : Window
         _panels = new PanelManager(
             _application,
             _settings,
+            sessionStore,
             openProjectAsync: OpenLensLibraryProjectAsync,
             userGuideActions: () => _actions.Actions);
         RegisterActions();
@@ -212,6 +219,7 @@ public sealed partial class MainWindow : Window
 
     private async void OnClosing(object? sender, WindowClosingEventArgs args)
     {
+        if (_isolatedWorkspace) return;
         if (_closeAfterPersistence)
         {
             return;

@@ -1,0 +1,4116 @@
+{
+  "SourceNative": "D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-10-27\\wide21-gates-repair\\fixed-repair\\joint\\qualified.staropt",
+  "NativeSha256": "a84d87ad8b5a2e2b640c4e7b5bca2e4e98383070e9eab6cdd638a3665573b546",
+  "SourceTopology": {
+    "SchemaVersion": 1,
+    "Algorithm": "AutonomousTopologyV1",
+    "Name": "Imported Zemax ZMX",
+    "Conjugate": "infinite",
+    "Reference": {
+      "Id": "reference",
+      "ZMillimeters": 0
+    },
+    "Stop": {
+      "Id": "stop",
+      "ZMillimeters": 12.547600000000001,
+      "ClearSemiDiameterMillimeters": 2.4880530821461484,
+      "MechanicalSemiDiameterMillimeters": null
+    },
+    "Image": {
+      "Id": "image",
+      "ZMillimeters": 35.50469404012648,
+      "Protected": true
+    },
+    "Elements": [
+      {
+        "Id": "element-001",
+        "FrontSurfaceId": "element-001:front",
+        "BackSurfaceId": "element-001:back",
+        "FrontZMillimeters": 0.00402987734835092,
+        "ThicknessMillimeters": 3.1204758112902007,
+        "Material": "SK4",
+        "Front": {
+          "Profile": {
+            "Kind": "standard",
+            "CurvaturePerMillimeter": 0.04988254705922738,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 10,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Back": {
+          "Profile": {
+            "Kind": "standard",
+            "CurvaturePerMillimeter": 0.0028079110793628416,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 10,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Protected": false,
+        "Transition": false
+      },
+      {
+        "Id": "element-002",
+        "FrontSurfaceId": "element-002:front",
+        "BackSurfaceId": "element-002:back",
+        "FrontZMillimeters": 3.3072636545684126,
+        "ThicknessMillimeters": 2.6874717238879136,
+        "Material": "SK4",
+        "Front": {
+          "Profile": {
+            "Kind": "standard",
+            "CurvaturePerMillimeter": 0.08165171151887533,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 8,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Back": {
+          "Profile": {
+            "Kind": "standard",
+            "CurvaturePerMillimeter": 0.06146827650913934,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 6.5,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Protected": false,
+        "Transition": false
+      },
+      {
+        "Id": "element-003",
+        "FrontSurfaceId": "element-003:front",
+        "BackSurfaceId": "element-003:back",
+        "FrontZMillimeters": 9.361854321589368,
+        "ThicknessMillimeters": 0.872764312358683,
+        "Material": "SF18",
+        "Front": {
+          "Profile": {
+            "Kind": "standard",
+            "CurvaturePerMillimeter": -0.02229592833155328,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 4,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Back": {
+          "Profile": {
+            "Kind": "standard",
+            "CurvaturePerMillimeter": 0.10765881068416372,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 3.5,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Protected": false,
+        "Transition": false
+      },
+      {
+        "Id": "element-004",
+        "FrontSurfaceId": "element-004:front",
+        "BackSurfaceId": "element-004:back",
+        "FrontZMillimeters": 13.534692741360454,
+        "ThicknessMillimeters": 5.919797863050958,
+        "Material": "LAK09",
+        "Front": {
+          "Profile": {
+            "Kind": "standard",
+            "CurvaturePerMillimeter": 0.04572533120301689,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 3.5,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Back": {
+          "Profile": {
+            "Kind": "standard",
+            "CurvaturePerMillimeter": -0.06524708790057292,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 5,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Protected": false,
+        "Transition": false
+      }
+    ],
+    "Fields": [
+      {
+        "Label": "On axis",
+        "XAngleDegrees": 0,
+        "YAngleDegrees": 0,
+        "Weight": 1
+      },
+      {
+        "Label": "Field 2",
+        "XAngleDegrees": 0,
+        "YAngleDegrees": 14,
+        "Weight": 1
+      },
+      {
+        "Label": "Field 3",
+        "XAngleDegrees": 0,
+        "YAngleDegrees": 21,
+        "Weight": 1
+      }
+    ],
+    "Wavelengths": [
+      {
+        "Label": "W1",
+        "Nanometers": 486.1327,
+        "Weight": 1,
+        "IsPrimary": false
+      },
+      {
+        "Label": "W2",
+        "Nanometers": 587.5618000000001,
+        "Weight": 1,
+        "IsPrimary": true
+      },
+      {
+        "Label": "W3",
+        "Nanometers": 656.2725,
+        "Weight": 1,
+        "IsPrimary": false
+      }
+    ],
+    "GlassCatalogs": [
+      "SCHOTT",
+      "HIKARI",
+      "SUMITA"
+    ],
+    "RayAimingEnabled": true,
+    "MatchRefractiveIndexData": true,
+    "TemperatureCelsius": 20,
+    "PressureAtmospheres": 1
+  },
+  "Assessment": {
+    "OpticFingerprint": "646dae050554111c568e3dad0ab01d7a79d5b8e4602b620120af6feaa9c83899",
+    "ProtocolFingerprint": "7fc8e0607c4f59d029dfe5693362e2672c54a39ddddf9b284863852c5a92e964",
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 25.462945191529624,
+      "FNumber": 3.3415938571561186,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 0.05,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.03,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.01,
+      "MaximumOpticalTrackMillimeters": 10000,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "StructuralConstraints": {
+      "MinimumElementCount": 1,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 0.1,
+      "MaximumMechanicalTrackMillimeters": 10000,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "EffectiveFocalLengthMillimeters": 25.12309299403972,
+    "FNumber": 3.402414748082625,
+    "Fields": [
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04741433566353566,
+        "MaximumRadiusMillimeters": 0.06544487759378696,
+        "DistortionFraction": 0,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.03333333333333333
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04739390335545994,
+        "MaximumRadiusMillimeters": 0.0663918475697064,
+        "DistortionFraction": 2.3263588858747104E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.06666666666666667
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04733256244507245,
+        "MaximumRadiusMillimeters": 0.06733595839112327,
+        "DistortionFraction": 9.318544806203583E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.1
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04723016572602156,
+        "MaximumRadiusMillimeters": 0.06827204750826255,
+        "DistortionFraction": 0.00021015925623565893,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.13333333333333333
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04708641670425142,
+        "MaximumRadiusMillimeters": 0.06919268814993296,
+        "DistortionFraction": 0.0003748424690086106,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.16666666666666666
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.046900791772959846,
+        "MaximumRadiusMillimeters": 0.07008788334264615,
+        "DistortionFraction": 0.0005881582718764234,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.2
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04667242918275809,
+        "MaximumRadiusMillimeters": 0.07094468819310795,
+        "DistortionFraction": 0.0008512982432369497,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.2333333333333333
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.046399983034521676,
+        "MaximumRadiusMillimeters": 0.07174675261823449,
+        "DistortionFraction": 0.0011657256523002072,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.26666666666666666
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04608144047682822,
+        "MaximumRadiusMillimeters": 0.07247377539616728,
+        "DistortionFraction": 0.001533179287823603,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.3
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.045713900644219554,
+        "MaximumRadiusMillimeters": 0.07310085902279351,
+        "DistortionFraction": 0.001955677679259168,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.3333333333333333
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04529331478639519,
+        "MaximumRadiusMillimeters": 0.07359775339973718,
+        "DistortionFraction": 0.0024355235298564744,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.36666666666666664
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04481418873664448,
+        "MaximumRadiusMillimeters": 0.07392797486671077,
+        "DistortionFraction": 0.00297530812903454,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.4
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04426925169015585,
+        "MaximumRadiusMillimeters": 0.07404778554845581,
+        "DistortionFraction": 0.003577915445967869,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.4333333333333333
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04364909976131055,
+        "MaximumRadiusMillimeters": 0.07390501644717506,
+        "DistortionFraction": 0.004246525523833832,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.4666666666666666
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04294182991901375,
+        "MaximumRadiusMillimeters": 0.07343771622089967,
+        "DistortionFraction": 0.004984616689158162,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.5
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04213269139555124,
+        "MaximumRadiusMillimeters": 0.07257260619702866,
+        "DistortionFraction": 0.0057959659564256255,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.5333333333333333
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04120380079647589,
+        "MaximumRadiusMillimeters": 0.07122332093559347,
+        "DistortionFraction": 0.006684646834831924,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.5666666666666667
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.040134000253897344,
+        "MaximumRadiusMillimeters": 0.069288412622873,
+        "DistortionFraction": 0.007655023518484027,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.6
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.03889899775316612,
+        "MaximumRadiusMillimeters": 0.06664909675898922,
+        "DistortionFraction": 0.00871174014526922,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.6333333333333333
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.03747204139960936,
+        "MaximumRadiusMillimeters": 0.06316671594445289,
+        "DistortionFraction": 0.009859703416060189,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.6666666666666666
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.03582560072476938,
+        "MaximumRadiusMillimeters": 0.05867989786890693,
+        "DistortionFraction": 0.011104056336682652,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.05
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.047368352869033896,
+        "MaximumRadiusMillimeters": 0.06686453309229323,
+        "DistortionFraction": 5.237379424127481E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.15
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.046998883125753114,
+        "MaximumRadiusMillimeters": 0.06964420144201844,
+        "DistortionFraction": 0.00047535314925797867,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.25
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.046246631441766044,
+        "MaximumRadiusMillimeters": 0.07212108429281194,
+        "DistortionFraction": 0.0013427046415077388,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.35
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04506147798826102,
+        "MaximumRadiusMillimeters": 0.07378624885711904,
+        "DistortionFraction": 0.002697750141731097,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.45
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04330720596068866,
+        "MaximumRadiusMillimeters": 0.07371622763815378,
+        "DistortionFraction": 0.00460665689685373,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.55
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04068796352071783,
+        "MaximumRadiusMillimeters": 0.07033605907598961,
+        "DistortionFraction": 0.007159339337116712,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.65
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.036677928351562805,
+        "MaximumRadiusMillimeters": 0.06105991901589647,
+        "DistortionFraction": 0.010469501446623775,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.7
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.033934981348100746,
+        "MaximumRadiusMillimeters": 0.053173759615638305,
+        "DistortionFraction": 0.012450140122925685,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.75
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.030615960956768072,
+        "MaximumRadiusMillimeters": 0.04618601683174174,
+        "DistortionFraction": 0.014672032313041287,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.8
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.026813092598888293,
+        "MaximumRadiusMillimeters": 0.04159744126465693,
+        "DistortionFraction": 0.017153874627364285,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.85
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.023091365119187655,
+        "MaximumRadiusMillimeters": 0.0386541578926443,
+        "DistortionFraction": 0.019913809116530058,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.9
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.021273167339616535,
+        "MaximumRadiusMillimeters": 0.05995739872479433,
+        "DistortionFraction": 0.022968007288255887,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.95
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.024689976454524087,
+        "MaximumRadiusMillimeters": 0.09952602351027373,
+        "DistortionFraction": 0.026328351954139306,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 1
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.03517712150282724,
+        "MaximumRadiusMillimeters": 0.1498936200527794,
+        "DistortionFraction": 0.029998539374068905,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "Violations": [],
+    "Completed": true,
+    "MeetsTargets": true,
+    "TracedRayCount": 446064,
+    "GeometryProbes": 1099,
+    "Failure": null
+  },
+  "AdditionalPreparationRays": 446064,
+  "Deletions": [
+    {
+      "Removed": "element-001",
+      "Change": {
+        "Operation": "delete",
+        "ParentFingerprint": "251f08f38521ea566a24bfb5adeb8f69bc7c1a94a4f298d072ca67351f9d3f70",
+        "ChildFingerprint": "27eb834632af7319f193e79c6649df97ccf0cef67a897c9fe72f782656a0039d",
+        "CreatedElementIds": [],
+        "RemovedElementIds": [
+          "element-001"
+        ]
+      },
+      "Recovery": {
+        "Algorithm": "AutonomousTopologyV1",
+        "ProtocolFingerprint": "662cfb301a11d78867f5dbafca0dd4e5d029361fcfcd36b91be07a36b51e7e0a",
+        "Topology": {
+          "SchemaVersion": 1,
+          "Algorithm": "AutonomousTopologyV1",
+          "Name": "Imported Zemax ZMX",
+          "Conjugate": "infinite",
+          "Reference": {
+            "Id": "reference",
+            "ZMillimeters": 0
+          },
+          "Stop": {
+            "Id": "stop",
+            "ZMillimeters": 12.547600000000001,
+            "ClearSemiDiameterMillimeters": 2.4880530821461484,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Image": {
+            "Id": "image",
+            "ZMillimeters": 35.50469404012648,
+            "Protected": true
+          },
+          "Elements": [
+            {
+              "Id": "element-002",
+              "FrontSurfaceId": "element-002:front",
+              "BackSurfaceId": "element-002:back",
+              "FrontZMillimeters": 3.3072636545684126,
+              "ThicknessMillimeters": 2.6874717238879136,
+              "Material": "SK4",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.10212845594493096,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.04691859470216514,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 6.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "element-003",
+              "FrontSurfaceId": "element-003:front",
+              "BackSurfaceId": "element-003:back",
+              "FrontZMillimeters": 9.361854321589368,
+              "ThicknessMillimeters": 0.872764312358683,
+              "Material": "SF18",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": -0.013570014893592266,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 4,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.09996556781009677,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 3.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "element-004",
+              "FrontSurfaceId": "element-004:front",
+              "BackSurfaceId": "element-004:back",
+              "FrontZMillimeters": 13.534692741360454,
+              "ThicknessMillimeters": 5.919797863050958,
+              "Material": "LAK09",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.04983707374017636,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 3.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": -0.0634461169206636,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            }
+          ],
+          "Fields": [
+            {
+              "Label": "On axis",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 0,
+              "Weight": 1
+            },
+            {
+              "Label": "Field 2",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 14,
+              "Weight": 1
+            },
+            {
+              "Label": "Field 3",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 21,
+              "Weight": 1
+            }
+          ],
+          "Wavelengths": [
+            {
+              "Label": "W1",
+              "Nanometers": 486.1327,
+              "Weight": 1,
+              "IsPrimary": false
+            },
+            {
+              "Label": "W2",
+              "Nanometers": 587.5618000000001,
+              "Weight": 1,
+              "IsPrimary": true
+            },
+            {
+              "Label": "W3",
+              "Nanometers": 656.2725,
+              "Weight": 1,
+              "IsPrimary": false
+            }
+          ],
+          "GlassCatalogs": [
+            "SCHOTT",
+            "HIKARI",
+            "SUMITA"
+          ],
+          "RayAimingEnabled": true,
+          "MatchRefractiveIndexData": true,
+          "TemperatureCelsius": 20,
+          "PressureAtmospheres": 1
+        },
+        "Termination": "budgetExhausted",
+        "Work": {
+          "FunctionEvaluations": 150,
+          "DifferenceEvaluations": 131,
+          "MatrixEvaluations": 143,
+          "JacobianBuilds": 10,
+          "GeometryProbes": 16207,
+          "Elapsed": "00:00:01.1751788"
+        },
+        "Variables": [
+          {
+            "SurfaceId": "element-002:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-002:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-003:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-003:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-004:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-004:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          }
+        ],
+        "ChildInitialCoordinates": [
+          8.165171151887533,
+          6.1468276509139335,
+          -2.229592833155328,
+          10.765881068416371,
+          4.572533120301689,
+          -6.524708790057292
+        ],
+        "EndpointCoordinates": [
+          10.212845594493096,
+          4.691859470216514,
+          -1.3570014893592266,
+          9.996556781009676,
+          4.983707374017636,
+          -6.34461169206636
+        ],
+        "ParentMatrix": {
+          "A": 0.02197180542757915,
+          "B": 24.881161434735596,
+          "C": -0.03980401617894911,
+          "D": 0.438282039793249,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 11,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "InitialMatrix": {
+          "A": 0.742235520398314,
+          "B": 25.686241536084715,
+          "C": -0.027245665671997096,
+          "D": 0.404401625210004,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 9,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "EndpointMatrix": {
+          "A": 0.12054370799168057,
+          "B": 22.06320137514148,
+          "C": -0.043699750384407834,
+          "D": 0.2973494662024784,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 9,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "InitialAError": 0.7202637149707348,
+        "InitialFocalCError": 0.3197725906545374,
+        "EndpointAError": 0.09857190256410142,
+        "EndpointFocalCError": -0.0991968665543627,
+        "InitialJacobianRank": 2,
+        "Steps": [
+          {
+            "AcceptedStep": 1,
+            "Coordinates": [
+              8.569380202872724,
+              5.816509503866194,
+              -1.9064471227335362,
+              10.446974152029059,
+              5.049531416564124,
+              -7.066790719945813
+            ],
+            "AError": 0.43399971857170827,
+            "FocalCError": 0.02187018005777349,
+            "CoordinateDisplacementNorm": 0.9999999999999997
+          },
+          {
+            "AcceptedStep": 2,
+            "Coordinates": [
+              9.934312104071669,
+              4.868639764833343,
+              -1.4044741962798262,
+              10.023717120824358,
+              5.089779782854858,
+              -6.575368235451263
+            ],
+            "AError": 0.12615176707239972,
+            "FocalCError": -0.11375644550977801,
+            "CoordinateDisplacementNorm": 2.503070626285408
+          },
+          {
+            "AcceptedStep": 3,
+            "Coordinates": [
+              10.037479666321575,
+              4.8006748639364485,
+              -1.3789914413957998,
+              10.005098576203663,
+              5.068209701556277,
+              -6.512858500952918
+            ],
+            "AError": 0.11035012200527461,
+            "FocalCError": -0.1154023997352883,
+            "CoordinateDisplacementNorm": 2.6202700108550223
+          },
+          {
+            "AcceptedStep": 4,
+            "Coordinates": [
+              10.080046517935203,
+              4.77463495445841,
+              -1.3748605605288837,
+              10.00434738721263,
+              5.0447417993218915,
+              -6.467933259890018
+            ],
+            "AError": 0.10857148033225383,
+            "FocalCError": -0.11004391518375148,
+            "CoordinateDisplacementNorm": 2.662022871153956
+          },
+          {
+            "AcceptedStep": 5,
+            "Coordinates": [
+              10.169954233748077,
+              4.718655667263004,
+              -1.3629850441436844,
+              9.999318912371436,
+              5.002725807725099,
+              -6.383328811203783
+            ],
+            "AError": 0.10209797507829066,
+            "FocalCError": -0.10228785126264499,
+            "CoordinateDisplacementNorm": 2.7572651424897097
+          },
+          {
+            "AcceptedStep": 6,
+            "Coordinates": [
+              10.181415799737774,
+              4.711486953448745,
+              -1.3613612865161404,
+              9.998554447710918,
+              4.997690603387039,
+              -6.37303516560325
+            ],
+            "AError": 0.10114655220528201,
+            "FocalCError": -0.10147115354570493,
+            "CoordinateDisplacementNorm": 2.769806009991642
+          },
+          {
+            "AcceptedStep": 7,
+            "Coordinates": [
+              10.204296532398768,
+              4.697190344386845,
+              -1.3581633875161443,
+              9.997074703542818,
+              4.987555788915445,
+              -6.352392640130659
+            ],
+            "AError": 0.09926092214826743,
+            "FocalCError": -0.09982829350977568,
+            "CoordinateDisplacementNorm": 2.794972238557322
+          },
+          {
+            "AcceptedStep": 8,
+            "Coordinates": [
+              10.2071467406936,
+              4.695412846758103,
+              -1.3577753742731384,
+              9.996901354000283,
+              4.98627386697455,
+              -6.349799650101567
+            ],
+            "AError": 0.09903112387101809,
+            "FocalCError": -0.09961778103125246,
+            "CoordinateDisplacementNorm": 2.7981135313806176
+          },
+          {
+            "AcceptedStep": 9,
+            "Coordinates": [
+              10.212845594493096,
+              4.691859470216514,
+              -1.3570014893592266,
+              9.996556781009676,
+              4.983707374017636,
+              -6.34461169206636
+            ],
+            "AError": 0.09857190256410142,
+            "FocalCError": -0.0991968665543627,
+            "CoordinateDisplacementNorm": 2.8044032830224848
+          }
+        ],
+        "Trials": [
+          {
+            "FunctionEvaluations": 28,
+            "Accepted": true,
+            "BaseCoordinates": [
+              8.165171151887533,
+              6.1468276509139335,
+              -2.229592833155328,
+              10.765881068416371,
+              4.572533120301689,
+              -6.524708790057292
+            ],
+            "TrialCoordinates": [
+              8.569380202872724,
+              5.816509503866194,
+              -1.9064471227335362,
+              10.446974152029059,
+              5.049531416564124,
+              -7.066790719945813
+            ],
+            "Radius": 1,
+            "NextRadius": 2,
+            "PredictedReduction": 2211.905583294519,
+            "ActualReduction": 2161.0013412063845,
+            "ReductionRatio": 0.9769862500132961
+          },
+          {
+            "FunctionEvaluations": 41,
+            "Accepted": true,
+            "BaseCoordinates": [
+              8.569380202872724,
+              5.816509503866194,
+              -1.9064471227335362,
+              10.446974152029059,
+              5.049531416564124,
+              -7.066790719945813
+            ],
+            "TrialCoordinates": [
+              9.934312104071669,
+              4.868639764833343,
+              -1.4044741962798262,
+              10.023717120824358,
+              5.089779782854858,
+              -6.575368235451263
+            ],
+            "Radius": 2,
+            "NextRadius": 4,
+            "PredictedReduction": 808.4061345495419,
+            "ActualReduction": 799.8963136951852,
+            "ReductionRatio": 0.9894733346387846
+          },
+          {
+            "FunctionEvaluations": 54,
+            "Accepted": false,
+            "BaseCoordinates": [
+              9.934312104071669,
+              4.868639764833343,
+              -1.4044741962798262,
+              10.023717120824358,
+              5.089779782854858,
+              -6.575368235451263
+            ],
+            "TrialCoordinates": [
+              11.467137476904247,
+              3.8979717009808015,
+              -1.1780919586004004,
+              9.913138311706167,
+              4.432815815383518,
+              -5.261235743689309
+            ],
+            "Radius": 4,
+            "NextRadius": 0.5870355911700266,
+            "PredictedReduction": 144.27397958069963,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 55,
+            "Accepted": false,
+            "BaseCoordinates": [
+              9.934312104071669,
+              4.868639764833343,
+              -1.4044741962798262,
+              10.023717120824358,
+              5.089779782854858,
+              -6.575368235451263
+            ],
+            "TrialCoordinates": [
+              10.312368710492727,
+              4.628675240660565,
+              -1.3402429505354918,
+              9.987226829742468,
+              4.942693574526767,
+              -6.255207085354095
+            ],
+            "Radius": 0.5870355911700266,
+            "NextRadius": 0.14363679879844973,
+            "PredictedReduction": 62.144679036633754,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 56,
+            "Accepted": true,
+            "BaseCoordinates": [
+              9.934312104071669,
+              4.868639764833343,
+              -1.4044741962798262,
+              10.023717120824358,
+              5.089779782854858,
+              -6.575368235451263
+            ],
+            "TrialCoordinates": [
+              10.037479666321575,
+              4.8006748639364485,
+              -1.3789914413957998,
+              10.005098576203663,
+              5.068209701556277,
+              -6.512858500952918
+            ],
+            "Radius": 0.14363679879844973,
+            "NextRadius": 0.28727359759689947,
+            "PredictedReduction": 16.893319762942983,
+            "ActualReduction": 16.79966939610294,
+            "ReductionRatio": 0.9944563668861892
+          },
+          {
+            "FunctionEvaluations": 69,
+            "Accepted": false,
+            "BaseCoordinates": [
+              10.037479666321575,
+              4.8006748639364485,
+              -1.3789914413957998,
+              10.005098576203663,
+              5.068209701556277,
+              -6.512858500952918
+            ],
+            "TrialCoordinates": [
+              10.217357483171366,
+              4.688533711697905,
+              -1.3548290595162484,
+              9.99463022936629,
+              4.984578839073503,
+              -6.343721291530636
+            ],
+            "Radius": 0.28727359759689947,
+            "NextRadius": 0.0712506977046565,
+            "PredictedReduction": 30.480104859693025,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 70,
+            "Accepted": true,
+            "BaseCoordinates": [
+              10.037479666321575,
+              4.8006748639364485,
+              -1.3789914413957998,
+              10.005098576203663,
+              5.068209701556277,
+              -6.512858500952918
+            ],
+            "TrialCoordinates": [
+              10.080046517935203,
+              4.77463495445841,
+              -1.3748605605288837,
+              10.00434738721263,
+              5.0447417993218915,
+              -6.467933259890018
+            ],
+            "Radius": 0.0712506977046565,
+            "NextRadius": 0.142501395409313,
+            "PredictedReduction": 8.009439750466882,
+            "ActualReduction": 7.987168293407547,
+            "ReductionRatio": 0.9972193489490901
+          },
+          {
+            "FunctionEvaluations": 83,
+            "Accepted": true,
+            "BaseCoordinates": [
+              10.080046517935203,
+              4.77463495445841,
+              -1.3748605605288837,
+              10.00434738721263,
+              5.0447417993218915,
+              -6.467933259890018
+            ],
+            "TrialCoordinates": [
+              10.169954233748077,
+              4.718655667263004,
+              -1.3629850441436844,
+              9.999318912371436,
+              5.002725807725099,
+              -6.383328811203783
+            ],
+            "Radius": 0.142501395409313,
+            "NextRadius": 0.285002790818626,
+            "PredictedReduction": 15.13651663766659,
+            "ActualReduction": 15.05314263937449,
+            "ReductionRatio": 0.9944918635979545
+          },
+          {
+            "FunctionEvaluations": 96,
+            "Accepted": false,
+            "BaseCoordinates": [
+              10.169954233748077,
+              4.718655667263004,
+              -1.3629850441436844,
+              9.999318912371436,
+              5.002725807725099,
+              -6.383328811203783
+            ],
+            "TrialCoordinates": [
+              10.353339289583232,
+              4.60395624623485,
+              -1.3370049221029812,
+              9.987087477803135,
+              4.922162538316146,
+              -6.21863048159525
+            ],
+            "Radius": 0.285002790818626,
+            "NextRadius": 0.07125069770465657,
+            "PredictedReduction": 26.91492740430882,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 97,
+            "Accepted": false,
+            "BaseCoordinates": [
+              10.169954233748077,
+              4.718655667263004,
+              -1.3629850441436844,
+              9.999318912371436,
+              5.002725807725099,
+              -6.383328811203783
+            ],
+            "TrialCoordinates": [
+              10.215800497706866,
+              4.689980812005965,
+              -1.3564900136335085,
+              9.996261053729361,
+              4.982584990372861,
+              -6.3421542288016495
+            ],
+            "Radius": 0.07125069770465657,
+            "NextRadius": 0.017812674426164115,
+            "PredictedReduction": 7.106420895180902,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 98,
+            "Accepted": true,
+            "BaseCoordinates": [
+              10.169954233748077,
+              4.718655667263004,
+              -1.3629850441436844,
+              9.999318912371436,
+              5.002725807725099,
+              -6.383328811203783
+            ],
+            "TrialCoordinates": [
+              10.181415799737774,
+              4.711486953448745,
+              -1.3613612865161404,
+              9.998554447710918,
+              4.997690603387039,
+              -6.37303516560325
+            ],
+            "Radius": 0.017812674426164115,
+            "NextRadius": 0.03562534885232823,
+            "PredictedReduction": 1.800210789051639,
+            "ActualReduction": 1.7989049958647485,
+            "ReductionRatio": 0.9992746442834184
+          },
+          {
+            "FunctionEvaluations": 111,
+            "Accepted": true,
+            "BaseCoordinates": [
+              10.181415799737774,
+              4.711486953448745,
+              -1.3613612865161404,
+              9.998554447710918,
+              4.997690603387039,
+              -6.37303516560325
+            ],
+            "TrialCoordinates": [
+              10.204296532398768,
+              4.697190344386845,
+              -1.3581633875161443,
+              9.997074703542818,
+              4.987555788915445,
+              -6.352392640130659
+            ],
+            "Radius": 0.03562534885232823,
+            "NextRadius": 0.07125069770465646,
+            "PredictedReduction": 3.5481615701861617,
+            "ActualReduction": 3.5430058005454597,
+            "ReductionRatio": 0.9985469180197362
+          },
+          {
+            "FunctionEvaluations": 124,
+            "Accepted": false,
+            "BaseCoordinates": [
+              10.204296532398768,
+              4.697190344386845,
+              -1.3581633875161443,
+              9.997074703542818,
+              4.987555788915445,
+              -6.352392640130659
+            ],
+            "TrialCoordinates": [
+              10.249899865116095,
+              4.668750382326963,
+              -1.3519551756280501,
+              9.994301110862258,
+              4.967045037861119,
+              -6.3109047996651935
+            ],
+            "Radius": 0.07125069770465646,
+            "NextRadius": 0.017812674426164146,
+            "PredictedReduction": 6.888948276550776,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 125,
+            "Accepted": false,
+            "BaseCoordinates": [
+              10.204296532398768,
+              4.697190344386845,
+              -1.3581633875161443,
+              9.997074703542818,
+              4.987555788915445,
+              -6.352392640130659
+            ],
+            "TrialCoordinates": [
+              10.2156973655781,
+              4.690080353871875,
+              -1.3566113345441209,
+              9.996381305372678,
+              4.982428101151864,
+              -6.342020680014293
+            ],
+            "Radius": 0.017812674426164146,
+            "NextRadius": 0.0044531686065409515,
+            "PredictedReduction": 1.7455533051728993,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 126,
+            "Accepted": true,
+            "BaseCoordinates": [
+              10.204296532398768,
+              4.697190344386845,
+              -1.3581633875161443,
+              9.997074703542818,
+              4.987555788915445,
+              -6.352392640130659
+            ],
+            "TrialCoordinates": [
+              10.2071467406936,
+              4.695412846758103,
+              -1.3577753742731384,
+              9.996901354000283,
+              4.98627386697455,
+              -6.349799650101567
+            ],
+            "Radius": 0.0044531686065409515,
+            "NextRadius": 0.008906337213081903,
+            "PredictedReduction": 0.4378455910454048,
+            "ActualReduction": 0.43776528146941746,
+            "ReductionRatio": 0.9998165801423382
+          },
+          {
+            "FunctionEvaluations": 139,
+            "Accepted": true,
+            "BaseCoordinates": [
+              10.2071467406936,
+              4.695412846758103,
+              -1.3577753742731384,
+              9.996901354000283,
+              4.98627386697455,
+              -6.349799650101567
+            ],
+            "TrialCoordinates": [
+              10.212845594493096,
+              4.691859470216514,
+              -1.3570014893592266,
+              9.996556781009676,
+              4.983707374017636,
+              -6.34461169206636
+            ],
+            "Radius": 0.008906337213081903,
+            "NextRadius": 0.017812674426163806,
+            "PredictedReduction": 0.872457454809741,
+            "ActualReduction": 0.8721373995645112,
+            "ReductionRatio": 0.9996331566158724
+          }
+        ],
+        "Diagnostics": [
+          "Recovery geometry is blocked at element-002:edge:8",
+          "Trust-region termination: EvaluationLimit"
+        ]
+      }
+    },
+    {
+      "Removed": "element-002",
+      "Change": {
+        "Operation": "delete",
+        "ParentFingerprint": "251f08f38521ea566a24bfb5adeb8f69bc7c1a94a4f298d072ca67351f9d3f70",
+        "ChildFingerprint": "e135710b3f89382e289450507d0798aee62ea8c8328c9d6c979463bd2f3798fd",
+        "CreatedElementIds": [],
+        "RemovedElementIds": [
+          "element-002"
+        ]
+      },
+      "Recovery": {
+        "Algorithm": "AutonomousTopologyV1",
+        "ProtocolFingerprint": "0be21c0642c9ccfea6f30faed1d97cac6391f7a94541cf845c5e52b72a9d867c",
+        "Topology": {
+          "SchemaVersion": 1,
+          "Algorithm": "AutonomousTopologyV1",
+          "Name": "Imported Zemax ZMX",
+          "Conjugate": "infinite",
+          "Reference": {
+            "Id": "reference",
+            "ZMillimeters": 0
+          },
+          "Stop": {
+            "Id": "stop",
+            "ZMillimeters": 12.547600000000001,
+            "ClearSemiDiameterMillimeters": 2.4880530821461484,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Image": {
+            "Id": "image",
+            "ZMillimeters": 35.50469404012648,
+            "Protected": true
+          },
+          "Elements": [
+            {
+              "Id": "element-001",
+              "FrontSurfaceId": "element-001:front",
+              "BackSurfaceId": "element-001:back",
+              "FrontZMillimeters": 0.00402987734835092,
+              "ThicknessMillimeters": 3.1204758112902007,
+              "Material": "SK4",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.054439413113300555,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 10,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": -0.0011981692944848879,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 10,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "element-003",
+              "FrontSurfaceId": "element-003:front",
+              "BackSurfaceId": "element-003:back",
+              "FrontZMillimeters": 9.361854321589368,
+              "ThicknessMillimeters": 0.872764312358683,
+              "Material": "SF18",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": -0.019340035608348172,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 4,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.10478254679626985,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 3.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "element-004",
+              "FrontSurfaceId": "element-004:front",
+              "BackSurfaceId": "element-004:back",
+              "FrontZMillimeters": 13.534692741360454,
+              "ThicknessMillimeters": 5.919797863050958,
+              "Material": "LAK09",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.04969573706107663,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 3.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": -0.0694510815756319,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            }
+          ],
+          "Fields": [
+            {
+              "Label": "On axis",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 0,
+              "Weight": 1
+            },
+            {
+              "Label": "Field 2",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 14,
+              "Weight": 1
+            },
+            {
+              "Label": "Field 3",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 21,
+              "Weight": 1
+            }
+          ],
+          "Wavelengths": [
+            {
+              "Label": "W1",
+              "Nanometers": 486.1327,
+              "Weight": 1,
+              "IsPrimary": false
+            },
+            {
+              "Label": "W2",
+              "Nanometers": 587.5618000000001,
+              "Weight": 1,
+              "IsPrimary": true
+            },
+            {
+              "Label": "W3",
+              "Nanometers": 656.2725,
+              "Weight": 1,
+              "IsPrimary": false
+            }
+          ],
+          "GlassCatalogs": [
+            "SCHOTT",
+            "HIKARI",
+            "SUMITA"
+          ],
+          "RayAimingEnabled": true,
+          "MatchRefractiveIndexData": true,
+          "TemperatureCelsius": 20,
+          "PressureAtmospheres": 1
+        },
+        "Termination": "budgetExhausted",
+        "Work": {
+          "FunctionEvaluations": 150,
+          "DifferenceEvaluations": 126,
+          "MatrixEvaluations": 137,
+          "JacobianBuilds": 10,
+          "GeometryProbes": 15667,
+          "Elapsed": "00:00:00.9196462"
+        },
+        "Variables": [
+          {
+            "SurfaceId": "element-001:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-001:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-003:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-003:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-004:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-004:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          }
+        ],
+        "ChildInitialCoordinates": [
+          4.988254705922738,
+          0.28079110793628415,
+          -2.229592833155328,
+          10.765881068416371,
+          4.572533120301689,
+          -6.524708790057292
+        ],
+        "EndpointCoordinates": [
+          5.443941311330055,
+          -0.11981692944848879,
+          -1.9340035608348172,
+          10.478254679626984,
+          4.969573706107663,
+          -6.94510815756319
+        ],
+        "ParentMatrix": {
+          "A": 0.02197180542757915,
+          "B": 24.881161434735596,
+          "C": -0.03980401617894911,
+          "D": 0.438282039793249,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 11,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "InitialMatrix": {
+          "A": 0.4050677949060498,
+          "B": 25.658581833705476,
+          "C": -0.03269455468336527,
+          "D": 0.39772130780646175,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 9,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "EndpointMatrix": {
+          "A": 0.15176679070474797,
+          "B": 23.332727668916426,
+          "C": -0.04102732433291832,
+          "D": 0.2814885533082059,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 9,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "InitialAError": 0.3830959894784707,
+        "InitialFocalCError": 0.1810278284033416,
+        "EndpointAError": 0.12979498527716882,
+        "EndpointFocalCError": -0.03114902847686932,
+        "InitialJacobianRank": 2,
+        "Steps": [
+          {
+            "AcceptedStep": 1,
+            "Coordinates": [
+              5.098145429189006,
+              0.18359041141472748,
+              -2.1550966197778454,
+              10.693061004177938,
+              4.676006730632861,
+              -6.637617586081987
+            ],
+            "AError": 0.31698100368438586,
+            "FocalCError": 0.12322654323847812,
+            "CoordinateDisplacementNorm": 0.23628706753067508
+          },
+          {
+            "AcceptedStep": 2,
+            "Coordinates": [
+              5.322738143961978,
+              -0.01477512368319328,
+              -2.005405621135412,
+              10.547050631899008,
+              4.8804096232583545,
+              -6.856771809595785
+            ],
+            "AError": 0.18928278523631592,
+            "FocalCError": 0.015017336675635595,
+            "CoordinateDisplacementNorm": 0.7088293331922565
+          },
+          {
+            "AcceptedStep": 3,
+            "Coordinates": [
+              5.437556005619293,
+              -0.11443599220288189,
+              -1.937142486844875,
+              10.481222161300375,
+              4.966174822017013,
+              -6.942167846191892
+            ],
+            "AError": 0.13247897013046372,
+            "FocalCError": -0.029286530642004194,
+            "CoordinateDisplacementNorm": 0.9240453830462734
+          },
+          {
+            "AcceptedStep": 4,
+            "Coordinates": [
+              5.441396825098363,
+              -0.1176745729058767,
+              -1.935246848172199,
+              10.479429252986627,
+              4.968234736033417,
+              -6.943956514752912
+            ],
+            "AError": 0.13085927972816025,
+            "FocalCError": -0.030413440262005344,
+            "CoordinateDisplacementNorm": 0.930137249965737
+          },
+          {
+            "AcceptedStep": 5,
+            "Coordinates": [
+              5.443328241935237,
+              -0.11930103533812315,
+              -1.9343019829045933,
+              10.478536486382932,
+              4.969253419036145,
+              -6.944833693708422
+            ],
+            "AError": 0.130050637645581,
+            "FocalCError": -0.03097277497779174,
+            "CoordinateDisplacementNorm": 0.9331779955884246
+          },
+          {
+            "AcceptedStep": 6,
+            "Coordinates": [
+              5.443570369801142,
+              -0.11950479838641867,
+              -1.93418406763857,
+              10.47842513033968,
+              4.969380027651383,
+              -6.944942238241818
+            ],
+            "AError": 0.12994963035947293,
+            "FocalCError": -0.031042434202973937,
+            "CoordinateDisplacementNorm": 0.933557732717964
+          },
+          {
+            "AcceptedStep": 7,
+            "Coordinates": [
+              5.443691477806454,
+              -0.11960670850914296,
+              -1.9341251222541644,
+              10.478369467520366,
+              4.96944328603248,
+              -6.944996440889931
+            ],
+            "AError": 0.12989913172871093,
+            "FocalCError": -0.031077247086567658,
+            "CoordinateDisplacementNorm": 0.9337475796680532
+          },
+          {
+            "AcceptedStep": 8,
+            "Coordinates": [
+              5.443933737939666,
+              -0.11981055738020585,
+              -1.9340072437676503,
+              10.478258157121909,
+              4.969569756778861,
+              -6.945104776444372
+            ],
+            "AError": 0.12979814095222664,
+            "FocalCError": -0.03114685426627108,
+            "CoordinateDisplacementNorm": 0.9341272559479598
+          },
+          {
+            "AcceptedStep": 9,
+            "Coordinates": [
+              5.443941311330055,
+              -0.11981692944848879,
+              -1.9340035608348172,
+              10.478254679626984,
+              4.969573706107663,
+              -6.94510815756319
+            ],
+            "AError": 0.12979498527716882,
+            "FocalCError": -0.03114902847686932,
+            "CoordinateDisplacementNorm": 0.9341391193930524
+          }
+        ],
+        "Trials": [
+          {
+            "FunctionEvaluations": 28,
+            "Accepted": false,
+            "BaseCoordinates": [
+              4.988254705922738,
+              0.28079110793628415,
+              -2.229592833155328,
+              10.765881068416371,
+              4.572533120301689,
+              -6.524708790057292
+            ],
+            "TrialCoordinates": [
+              5.558398976918816,
+              -0.19827077984142627,
+              -1.9447974931248155,
+              10.495713181832896,
+              4.891290151044352,
+              -6.812867345635959
+            ],
+            "Radius": 1,
+            "NextRadius": 0.23628706753067508,
+            "PredictedReduction": 829.7894746864579,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 29,
+            "Accepted": true,
+            "BaseCoordinates": [
+              4.988254705922738,
+              0.28079110793628415,
+              -2.229592833155328,
+              10.765881068416371,
+              4.572533120301689,
+              -6.524708790057292
+            ],
+            "TrialCoordinates": [
+              5.098145429189006,
+              0.18359041141472748,
+              -2.1550966197778454,
+              10.693061004177938,
+              4.676006730632861,
+              -6.637617586081987
+            ],
+            "Radius": 0.23628706753067508,
+            "NextRadius": 0.47257413506135015,
+            "PredictedReduction": 323.31868059331157,
+            "ActualReduction": 319.35937075034934,
+            "ReductionRatio": 0.9877541568718002
+          },
+          {
+            "FunctionEvaluations": 42,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.098145429189006,
+              0.18359041141472748,
+              -2.1550966197778454,
+              10.693061004177938,
+              4.676006730632861,
+              -6.637617586081987
+            ],
+            "TrialCoordinates": [
+              5.322738143961978,
+              -0.01477512368319328,
+              -2.005405621135412,
+              10.547050631899008,
+              4.8804096232583545,
+              -6.856771809595785
+            ],
+            "Radius": 0.47257413506135015,
+            "NextRadius": 0.9451482701227003,
+            "PredictedReduction": 404.7166431372474,
+            "ActualReduction": 398.0412221147887,
+            "ReductionRatio": 0.9835059389435711
+          },
+          {
+            "FunctionEvaluations": 55,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.322738143961978,
+              -0.01477512368319328,
+              -2.005405621135412,
+              10.547050631899008,
+              4.8804096232583545,
+              -6.856771809595785
+            ],
+            "TrialCoordinates": [
+              5.975937233054344,
+              -0.5171569884604539,
+              -1.8683271949802087,
+              10.43714721517742,
+              4.850279289099298,
+              -6.663703099109388
+            ],
+            "Radius": 0.9451482701227003,
+            "NextRadius": 0.2162332664013938,
+            "PredictedReduction": 171.31281493574687,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 56,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.322738143961978,
+              -0.01477512368319328,
+              -2.005405621135412,
+              10.547050631899008,
+              4.8804096232583545,
+              -6.856771809595785
+            ],
+            "TrialCoordinates": [
+              5.437556005619293,
+              -0.11443599220288189,
+              -1.937142486844875,
+              10.481222161300375,
+              4.966174822017013,
+              -6.942167846191892
+            ],
+            "Radius": 0.2162332664013938,
+            "NextRadius": 0.4324665328027876,
+            "PredictedReduction": 88.8448054537262,
+            "ActualReduction": 88.22557374315622,
+            "ReductionRatio": 0.9930301866562982
+          },
+          {
+            "FunctionEvaluations": 69,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.437556005619293,
+              -0.11443599220288189,
+              -1.937142486844875,
+              10.481222161300375,
+              4.966174822017013,
+              -6.942167846191892
+            ],
+            "TrialCoordinates": [
+              5.742144329638787,
+              -0.34900549034897577,
+              -1.8723559044348477,
+              10.428964899137362,
+              4.955504430598214,
+              -6.859007577032293
+            ],
+            "Radius": 0.4324665328027876,
+            "NextRadius": 0.10054678852354845,
+            "PredictedReduction": 62.31318088194608,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 70,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.437556005619293,
+              -0.11443599220288189,
+              -1.937142486844875,
+              10.481222161300375,
+              4.966174822017013,
+              -6.942167846191892
+            ],
+            "TrialCoordinates": [
+              5.499009117284417,
+              -0.16625328345079915,
+              -1.9068122680820592,
+              10.452535628280422,
+              4.999133446279472,
+              -6.970786543168214
+            ],
+            "Radius": 0.10054678852354845,
+            "NextRadius": 0.02513669713088708,
+            "PredictedReduction": 24.07180003733344,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 71,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.437556005619293,
+              -0.11443599220288189,
+              -1.937142486844875,
+              10.481222161300375,
+              4.966174822017013,
+              -6.942167846191892
+            ],
+            "TrialCoordinates": [
+              5.452919283535574,
+              -0.1273903150148612,
+              -1.929559932154171,
+              10.474050528045387,
+              4.974414478082628,
+              -6.949322520435972
+            ],
+            "Radius": 0.02513669713088708,
+            "NextRadius": 0.006284174282721729,
+            "PredictedReduction": 6.9530821364597015,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 72,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.437556005619293,
+              -0.11443599220288189,
+              -1.937142486844875,
+              10.481222161300375,
+              4.966174822017013,
+              -6.942167846191892
+            ],
+            "TrialCoordinates": [
+              5.441396825098363,
+              -0.1176745729058767,
+              -1.935246848172199,
+              10.479429252986627,
+              4.968234736033417,
+              -6.943956514752912
+            ],
+            "Radius": 0.006284174282721729,
+            "NextRadius": 0.012568348565443458,
+            "PredictedReduction": 1.7967162920603568,
+            "ActualReduction": 1.7962498160017428,
+            "ReductionRatio": 0.9997403730011938
+          },
+          {
+            "FunctionEvaluations": 85,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.441396825098363,
+              -0.1176745729058767,
+              -1.935246848172199,
+              10.479429252986627,
+              4.968234736033417,
+              -6.943956514752912
+            ],
+            "TrialCoordinates": [
+              5.449122492445861,
+              -0.12418042263486245,
+              -1.931467387101777,
+              10.475858186571848,
+              4.972309468044326,
+              -6.947465230574951
+            ],
+            "Radius": 0.012568348565443458,
+            "NextRadius": 0.0031420871413608917,
+            "PredictedReduction": 3.4753735953886413,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 86,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.441396825098363,
+              -0.1176745729058767,
+              -1.935246848172199,
+              10.479429252986627,
+              4.968234736033417,
+              -6.943956514752912
+            ],
+            "TrialCoordinates": [
+              5.443328241935237,
+              -0.11930103533812315,
+              -1.9343019829045933,
+              10.478536486382932,
+              4.969253419036145,
+              -6.944833693708422
+            ],
+            "Radius": 0.0031420871413608917,
+            "NextRadius": 0.0062841742827217835,
+            "PredictedReduction": 0.8833504258767604,
+            "ActualReduction": 0.8832364856487009,
+            "ReductionRatio": 0.9998710135584682
+          },
+          {
+            "FunctionEvaluations": 99,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.443328241935237,
+              -0.11930103533812315,
+              -1.9343019829045933,
+              10.478536486382932,
+              4.969253419036145,
+              -6.944833693708422
+            ],
+            "TrialCoordinates": [
+              5.447202287789715,
+              -0.12256124411085106,
+              -1.932415338648221,
+              10.476754789690897,
+              4.971279156879952,
+              -6.946570406242756
+            ],
+            "Radius": 0.0062841742827217835,
+            "NextRadius": 0.0015710435706804166,
+            "PredictedReduction": 1.7373207876390717,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 100,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.443328241935237,
+              -0.11930103533812315,
+              -1.9343019829045933,
+              10.478536486382932,
+              4.969253419036145,
+              -6.944833693708422
+            ],
+            "TrialCoordinates": [
+              5.444296753398857,
+              -0.12011608753130512,
+              -1.9338303218405002,
+              10.478091062209923,
+              4.969759853497097,
+              -6.945267871842006
+            ],
+            "Radius": 0.0015710435706804166,
+            "NextRadius": 0.00039276089267015803,
+            "PredictedReduction": 0.4379435439029898,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 101,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.443328241935237,
+              -0.11930103533812315,
+              -1.9343019829045933,
+              10.478536486382932,
+              4.969253419036145,
+              -6.944833693708422
+            ],
+            "TrialCoordinates": [
+              5.443570369801142,
+              -0.11950479838641867,
+              -1.93418406763857,
+              10.47842513033968,
+              4.969380027651383,
+              -6.944942238241818
+            ],
+            "Radius": 0.00039276089267015803,
+            "NextRadius": 0.0007855217853403161,
+            "PredictedReduction": 0.10971172016280724,
+            "ActualReduction": 0.1097099498331497,
+            "ReductionRatio": 0.9999838638054812
+          },
+          {
+            "FunctionEvaluations": 114,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.443570369801142,
+              -0.11950479838641867,
+              -1.93418406763857,
+              10.47842513033968,
+              4.969380027651383,
+              -6.944942238241818
+            ],
+            "TrialCoordinates": [
+              5.444054801822393,
+              -0.11991243887731584,
+              -1.9339482861009478,
+              10.478202479062425,
+              4.969633061175775,
+              -6.945159048834269
+            ],
+            "Radius": 0.0007855217853403161,
+            "NextRadius": 0.00019638044633506216,
+            "PredictedReduction": 0.21896486771814702,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 115,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.443570369801142,
+              -0.11950479838641867,
+              -1.93418406763857,
+              10.47842513033968,
+              4.969380027651383,
+              -6.944942238241818
+            ],
+            "TrialCoordinates": [
+              5.443691477806454,
+              -0.11960670850914296,
+              -1.9341251222541644,
+              10.478369467520366,
+              4.96944328603248,
+              -6.944996440889931
+            ],
+            "Radius": 0.00019638044633506216,
+            "NextRadius": 0.0003927608926701243,
+            "PredictedReduction": 0.054797649031223125,
+            "ActualReduction": 0.05479720710796386,
+            "ReductionRatio": 0.9999919353609675
+          },
+          {
+            "FunctionEvaluations": 128,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.443691477806454,
+              -0.11960670850914296,
+              -1.9341251222541644,
+              10.478369467520366,
+              4.96944328603248,
+              -6.944996440889931
+            ],
+            "TrialCoordinates": [
+              5.443933737939666,
+              -0.11981055738020585,
+              -1.9340072437676503,
+              10.478258157121909,
+              4.969569756778861,
+              -6.945104776444372
+            ],
+            "Radius": 0.0003927608926701243,
+            "NextRadius": 0.0007855217853402486,
+            "PredictedReduction": 0.1094806883374863,
+            "ActualReduction": 0.10947892471616844,
+            "ReductionRatio": 0.9999838910282294
+          },
+          {
+            "FunctionEvaluations": 141,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.443933737939666,
+              -0.11981055738020585,
+              -1.9340072437676503,
+              10.478258157121909,
+              4.969569756778861,
+              -6.945104776444372
+            ],
+            "TrialCoordinates": [
+              5.444418434924522,
+              -0.12021836975031525,
+              -1.933771536066326,
+              10.478035597446683,
+              4.9698225138221765,
+              -6.945321168048773
+            ],
+            "Radius": 0.0007855217853402486,
+            "NextRadius": 0.00019638044633504064,
+            "PredictedReduction": 0.21850314905579987,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 142,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.443933737939666,
+              -0.11981055738020585,
+              -1.9340072437676503,
+              10.478258157121909,
+              4.969569756778861,
+              -6.945104776444372
+            ],
+            "TrialCoordinates": [
+              5.44405491218588,
+              -0.11991251047273319,
+              -1.9339483168423193,
+              10.478202517203101,
+              4.96963294603969,
+              -6.945158874345472
+            ],
+            "Radius": 0.00019638044633504064,
+            "NextRadius": 4.909511158381968E-05,
+            "PredictedReduction": 0.054682179580682014,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 143,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.443933737939666,
+              -0.11981055738020585,
+              -1.9340072437676503,
+              10.478258157121909,
+              4.969569756778861,
+              -6.945104776444372
+            ],
+            "TrialCoordinates": [
+              5.44396403150122,
+              -0.11983604565333772,
+              -1.9339925120363175,
+              10.478244247142207,
+              4.969585554094068,
+              -6.945118300919646
+            ],
+            "Radius": 4.909511158381968E-05,
+            "NextRadius": 1.2273777895898976E-05,
+            "PredictedReduction": 0.01367406941489981,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 144,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.443933737939666,
+              -0.11981055738020585,
+              -1.9340072437676503,
+              10.478258157121909,
+              4.969569756778861,
+              -6.945104776444372
+            ],
+            "TrialCoordinates": [
+              5.443941311330055,
+              -0.11981692944848879,
+              -1.9340035608348172,
+              10.478254679626984,
+              4.969573706107663,
+              -6.94510815756319
+            ],
+            "Radius": 1.2273777895898976E-05,
+            "NextRadius": 2.454755579179795E-05,
+            "PredictedReduction": 0.0034187376362063895,
+            "ActualReduction": 0.0034187359145958023,
+            "ReductionRatio": 0.9999994964192136
+          }
+        ],
+        "Diagnostics": [
+          "Recovery geometry is blocked at element-001:edge:8",
+          "Trust-region termination: EvaluationLimit"
+        ]
+      }
+    },
+    {
+      "Removed": "element-003",
+      "Change": {
+        "Operation": "delete",
+        "ParentFingerprint": "251f08f38521ea566a24bfb5adeb8f69bc7c1a94a4f298d072ca67351f9d3f70",
+        "ChildFingerprint": "82d611611d8369b4bd8c674a636ba3e7afc64006d2eb3f5a31238560216d8e0a",
+        "CreatedElementIds": [],
+        "RemovedElementIds": [
+          "element-003"
+        ]
+      },
+      "Recovery": {
+        "Algorithm": "AutonomousTopologyV1",
+        "ProtocolFingerprint": "21e3d302ecba08f9a4b32f01be2e35ad2915e676ae3d8d0d2ea19b140bf10bf4",
+        "Topology": {
+          "SchemaVersion": 1,
+          "Algorithm": "AutonomousTopologyV1",
+          "Name": "Imported Zemax ZMX",
+          "Conjugate": "infinite",
+          "Reference": {
+            "Id": "reference",
+            "ZMillimeters": 0
+          },
+          "Stop": {
+            "Id": "stop",
+            "ZMillimeters": 12.547600000000001,
+            "ClearSemiDiameterMillimeters": 2.4880530821461484,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Image": {
+            "Id": "image",
+            "ZMillimeters": 35.50469404012648,
+            "Protected": true
+          },
+          "Elements": [
+            {
+              "Id": "element-001",
+              "FrontSurfaceId": "element-001:front",
+              "BackSurfaceId": "element-001:back",
+              "FrontZMillimeters": 0.00402987734835092,
+              "ThicknessMillimeters": 3.1204758112902007,
+              "Material": "SK4",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.04013083424784465,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 10,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.01578668569919161,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 10,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "element-002",
+              "FrontSurfaceId": "element-002:front",
+              "BackSurfaceId": "element-002:back",
+              "FrontZMillimeters": 3.3072636545684126,
+              "ThicknessMillimeters": 2.6874717238879136,
+              "Material": "SK4",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.06834071587763096,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.07570412764591251,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 6.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "element-004",
+              "FrontSurfaceId": "element-004:front",
+              "BackSurfaceId": "element-004:back",
+              "FrontZMillimeters": 13.534692741360454,
+              "ThicknessMillimeters": 5.919797863050958,
+              "Material": "LAK09",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.015438073967398935,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 3.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": -0.03307345213290933,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            }
+          ],
+          "Fields": [
+            {
+              "Label": "On axis",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 0,
+              "Weight": 1
+            },
+            {
+              "Label": "Field 2",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 14,
+              "Weight": 1
+            },
+            {
+              "Label": "Field 3",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 21,
+              "Weight": 1
+            }
+          ],
+          "Wavelengths": [
+            {
+              "Label": "W1",
+              "Nanometers": 486.1327,
+              "Weight": 1,
+              "IsPrimary": false
+            },
+            {
+              "Label": "W2",
+              "Nanometers": 587.5618000000001,
+              "Weight": 1,
+              "IsPrimary": true
+            },
+            {
+              "Label": "W3",
+              "Nanometers": 656.2725,
+              "Weight": 1,
+              "IsPrimary": false
+            }
+          ],
+          "GlassCatalogs": [
+            "SCHOTT",
+            "HIKARI",
+            "SUMITA"
+          ],
+          "RayAimingEnabled": true,
+          "MatchRefractiveIndexData": true,
+          "TemperatureCelsius": 20,
+          "PressureAtmospheres": 1
+        },
+        "Termination": "recovered",
+        "Work": {
+          "FunctionEvaluations": 80,
+          "DifferenceEvaluations": 72,
+          "MatrixEvaluations": 80,
+          "JacobianBuilds": 6,
+          "GeometryProbes": 8927,
+          "Elapsed": "00:00:00.4361970"
+        },
+        "Variables": [
+          {
+            "SurfaceId": "element-001:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-001:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-002:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-002:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-004:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-004:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          }
+        ],
+        "ChildInitialCoordinates": [
+          4.988254705922738,
+          0.28079110793628415,
+          8.165171151887533,
+          6.1468276509139335,
+          4.572533120301689,
+          -6.524708790057292
+        ],
+        "EndpointCoordinates": [
+          4.013083424784465,
+          1.5786685699191607,
+          6.834071587763097,
+          7.570412764591252,
+          1.5438073967398933,
+          -3.307345213290933
+        ],
+        "ParentMatrix": {
+          "A": 0.02197180542757915,
+          "B": 24.881161434735596,
+          "C": -0.03980401617894911,
+          "D": 0.438282039793249,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 11,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "InitialMatrix": {
+          "A": -0.9185860907735227,
+          "B": 13.591700804045326,
+          "C": -0.0734208035086105,
+          "D": -0.0022713232208949607,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 9,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "EndpointMatrix": {
+          "A": 0.02197122300868215,
+          "B": 24.795201653829217,
+          "C": -0.0398040457999438,
+          "D": 0.5939886799648161,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 9,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "InitialAError": -0.9405578962011019,
+        "InitialFocalCError": -0.8559824132904753,
+        "EndpointAError": -5.824188969993926E-07,
+        "EndpointFocalCError": -7.542377643554188E-07,
+        "InitialJacobianRank": 2,
+        "Steps": [
+          {
+            "AcceptedStep": 1,
+            "Coordinates": [
+              4.648494843951461,
+              0.7011533781250867,
+              7.73758345650476,
+              6.561520132806742,
+              4.063282240760408,
+              -6.21856952779216
+            ],
+            "AError": -0.7620930620109656,
+            "FocalCError": -0.757919529691802,
+            "CoordinateDisplacementNorm": 1
+          },
+          {
+            "AcceptedStep": 2,
+            "Coordinates": [
+              3.9632636625321567,
+              1.4986281756830189,
+              6.929150944310303,
+              7.332882255610622,
+              3.0278536097487114,
+              -5.461062383217052
+            ],
+            "AError": -0.3415348824533375,
+            "FocalCError": -0.4639590793189206,
+            "CoordinateDisplacementNorm": 2.997596322151582
+          },
+          {
+            "AcceptedStep": 3,
+            "Coordinates": [
+              4.085345563131249,
+              1.5775685022664325,
+              6.829000425348888,
+              7.622561520103821,
+              1.3252126618154385,
+              -3.3290910722426643
+            ],
+            "AError": 0.015164165579673927,
+            "FocalCError": 0.02324977655144946,
+            "CoordinateDisplacementNorm": 5.216999324537931
+          },
+          {
+            "AcceptedStep": 4,
+            "Coordinates": [
+              4.009128958468332,
+              1.5792978812090936,
+              6.8337859934257335,
+              7.567612658292854,
+              1.5603982950128772,
+              -3.2931042360465304
+            ],
+            "AError": -0.00011632286553542315,
+            "FocalCError": -0.0001441845130865071,
+            "CoordinateDisplacementNorm": 5.094334867885045
+          },
+          {
+            "AcceptedStep": 5,
+            "Coordinates": [
+              4.013083424784465,
+              1.5786685699191607,
+              6.834071587763097,
+              7.570412764591252,
+              1.5438073967398933,
+              -3.307345213290933
+            ],
+            "AError": -5.824188969993926E-07,
+            "FocalCError": -7.542377643554188E-07,
+            "CoordinateDisplacementNorm": 5.094945873416482
+          }
+        ],
+        "Trials": [
+          {
+            "FunctionEvaluations": 28,
+            "Accepted": true,
+            "BaseCoordinates": [
+              4.988254705922738,
+              0.28079110793628415,
+              8.165171151887533,
+              6.1468276509139335,
+              4.572533120301689,
+              -6.524708790057292
+            ],
+            "TrialCoordinates": [
+              4.648494843951461,
+              0.7011533781250867,
+              7.73758345650476,
+              6.561520132806742,
+              4.063282240760408,
+              -6.21856952779216
+            ],
+            "Radius": 1,
+            "NextRadius": 2,
+            "PredictedReduction": 2122.0885301491207,
+            "ActualReduction": 2310.635996076685,
+            "ReductionRatio": 1.0888499528878348
+          },
+          {
+            "FunctionEvaluations": 41,
+            "Accepted": true,
+            "BaseCoordinates": [
+              4.648494843951461,
+              0.7011533781250867,
+              7.73758345650476,
+              6.561520132806742,
+              4.063282240760408,
+              -6.21856952779216
+            ],
+            "TrialCoordinates": [
+              3.9632636625321567,
+              1.4986281756830189,
+              6.929150944310303,
+              7.332882255610622,
+              3.0278536097487114,
+              -5.461062383217052
+            ],
+            "Radius": 2,
+            "NextRadius": 4,
+            "PredictedReduction": 3634.9571859353373,
+            "ActualReduction": 4116.618723200289,
+            "ReductionRatio": 1.1325081734466185
+          },
+          {
+            "FunctionEvaluations": 54,
+            "Accepted": true,
+            "BaseCoordinates": [
+              3.9632636625321567,
+              1.4986281756830189,
+              6.929150944310303,
+              7.332882255610622,
+              3.0278536097487114,
+              -5.461062383217052
+            ],
+            "TrialCoordinates": [
+              4.085345563131249,
+              1.5775685022664325,
+              6.829000425348888,
+              7.622561520103821,
+              1.3252126618154385,
+              -3.3290910722426643
+            ],
+            "Radius": 4,
+            "NextRadius": 4,
+            "PredictedReduction": 1659.5205069586286,
+            "ActualReduction": 1655.667986821528,
+            "ReductionRatio": 0.997678534178429
+          },
+          {
+            "FunctionEvaluations": 67,
+            "Accepted": true,
+            "BaseCoordinates": [
+              4.085345563131249,
+              1.5775685022664325,
+              6.829000425348888,
+              7.622561520103821,
+              1.3252126618154385,
+              -3.3290910722426643
+            ],
+            "TrialCoordinates": [
+              4.009128958468332,
+              1.5792978812090936,
+              6.8337859934257335,
+              7.567612658292854,
+              1.5603982950128772,
+              -3.2931042360465304
+            ],
+            "Radius": 4,
+            "NextRadius": 4,
+            "PredictedReduction": 3.8525207695175068,
+            "ActualReduction": 3.8523491686032836,
+            "ReductionRatio": 0.9999554574979632
+          },
+          {
+            "FunctionEvaluations": 80,
+            "Accepted": true,
+            "BaseCoordinates": [
+              4.009128958468332,
+              1.5792978812090936,
+              6.8337859934257335,
+              7.567612658292854,
+              1.5603982950128772,
+              -3.2931042360465304
+            ],
+            "TrialCoordinates": [
+              4.013083424784465,
+              1.5786685699191607,
+              6.834071587763097,
+              7.570412764591252,
+              1.5438073967398933,
+              -3.307345213290933
+            ],
+            "Radius": 4,
+            "NextRadius": 4,
+            "PredictedReduction": 0.0001715978013725372,
+            "ActualReduction": 0.0001715932610164954,
+            "ReductionRatio": 0.9999735407096975
+          }
+        ],
+        "Diagnostics": [
+          "Trust-region termination: StopRequested"
+        ]
+      }
+    },
+    {
+      "Removed": "element-004",
+      "Change": {
+        "Operation": "delete",
+        "ParentFingerprint": "251f08f38521ea566a24bfb5adeb8f69bc7c1a94a4f298d072ca67351f9d3f70",
+        "ChildFingerprint": "680d73846fa4cc39134e6c12256958a226bb86f7840c4152c5c506b9011bd377",
+        "CreatedElementIds": [],
+        "RemovedElementIds": [
+          "element-004"
+        ]
+      },
+      "Recovery": {
+        "Algorithm": "AutonomousTopologyV1",
+        "ProtocolFingerprint": "34ae6482c0028eede6c6dcdd3a3314fba7773f79188e1e41b3ed4f93bca43b12",
+        "Topology": {
+          "SchemaVersion": 1,
+          "Algorithm": "AutonomousTopologyV1",
+          "Name": "Imported Zemax ZMX",
+          "Conjugate": "infinite",
+          "Reference": {
+            "Id": "reference",
+            "ZMillimeters": 0
+          },
+          "Stop": {
+            "Id": "stop",
+            "ZMillimeters": 12.547600000000001,
+            "ClearSemiDiameterMillimeters": 2.4880530821461484,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Image": {
+            "Id": "image",
+            "ZMillimeters": 35.50469404012648,
+            "Protected": true
+          },
+          "Elements": [
+            {
+              "Id": "element-001",
+              "FrontSurfaceId": "element-001:front",
+              "BackSurfaceId": "element-001:back",
+              "FrontZMillimeters": 0.00402987734835092,
+              "ThicknessMillimeters": 3.1204758112902007,
+              "Material": "SK4",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.05447497382994044,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 10,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": -0.0011517639480605763,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 10,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "element-002",
+              "FrontSurfaceId": "element-002:front",
+              "BackSurfaceId": "element-002:back",
+              "FrontZMillimeters": 3.3072636545684126,
+              "ThicknessMillimeters": 2.6874717238879136,
+              "Material": "SK4",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.08555553266286728,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.05864446035561154,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 6.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "element-003",
+              "FrontSurfaceId": "element-003:front",
+              "BackSurfaceId": "element-003:back",
+              "FrontZMillimeters": 9.361854321589368,
+              "ThicknessMillimeters": 0.872764312358683,
+              "Material": "SF18",
+              "Front": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": -0.020328154897950187,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 4,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": "standard",
+                  "CurvaturePerMillimeter": 0.10583541556144889,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 3.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            }
+          ],
+          "Fields": [
+            {
+              "Label": "On axis",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 0,
+              "Weight": 1
+            },
+            {
+              "Label": "Field 2",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 14,
+              "Weight": 1
+            },
+            {
+              "Label": "Field 3",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 21,
+              "Weight": 1
+            }
+          ],
+          "Wavelengths": [
+            {
+              "Label": "W1",
+              "Nanometers": 486.1327,
+              "Weight": 1,
+              "IsPrimary": false
+            },
+            {
+              "Label": "W2",
+              "Nanometers": 587.5618000000001,
+              "Weight": 1,
+              "IsPrimary": true
+            },
+            {
+              "Label": "W3",
+              "Nanometers": 656.2725,
+              "Weight": 1,
+              "IsPrimary": false
+            }
+          ],
+          "GlassCatalogs": [
+            "SCHOTT",
+            "HIKARI",
+            "SUMITA"
+          ],
+          "RayAimingEnabled": true,
+          "MatchRefractiveIndexData": true,
+          "TemperatureCelsius": 20,
+          "PressureAtmospheres": 1
+        },
+        "Termination": "budgetExhausted",
+        "Work": {
+          "FunctionEvaluations": 150,
+          "DifferenceEvaluations": 127,
+          "MatrixEvaluations": 139,
+          "JacobianBuilds": 10,
+          "GeometryProbes": 15847,
+          "Elapsed": "00:00:05.7147876"
+        },
+        "Variables": [
+          {
+            "SurfaceId": "element-001:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-001:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-002:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-002:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-003:front",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "element-003:back",
+            "Kind": "curvature",
+            "LowerBound": -0.2224330706622151,
+            "UpperBound": 0.2224330706622151,
+            "Scale": 0.01,
+            "Power": 0
+          }
+        ],
+        "ChildInitialCoordinates": [
+          4.988254705922738,
+          0.28079110793628415,
+          8.165171151887533,
+          6.1468276509139335,
+          -2.229592833155328,
+          10.765881068416371
+        ],
+        "EndpointCoordinates": [
+          5.447497382994044,
+          -0.11517639480605762,
+          8.555553266286728,
+          5.864446035561154,
+          -2.0328154897950186,
+          10.583541556144887
+        ],
+        "ParentMatrix": {
+          "A": 0.02197180542757915,
+          "B": 24.881161434735596,
+          "C": -0.03980401617894911,
+          "D": 0.438282039793249,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 11,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "InitialMatrix": {
+          "A": 1.017303068164109,
+          "B": 51.74391930656671,
+          "C": 0.014957909998429213,
+          "D": 1.7438076650599799,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 9,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "EndpointMatrix": {
+          "A": 0.5680180163013918,
+          "B": 50.53173983930739,
+          "C": -0.0006881631413128558,
+          "D": 1.6992875075709342,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 35.50469404012648,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 9,
+          "WavelengthNanometers": 587.5618000000001
+        },
+        "InitialAError": 0.9953312627365299,
+        "InitialFocalCError": 1.3943999248371757,
+        "EndpointAError": 0.5460462108738127,
+        "EndpointFocalCError": 0.9960048220172595,
+        "InitialJacobianRank": 2,
+        "Steps": [
+          {
+            "AcceptedStep": 1,
+            "Coordinates": [
+              5.128260432620385,
+              0.16032443228458776,
+              8.28394067917586,
+              6.060693492755925,
+              -2.1689054650083857,
+              10.709507971261715
+            ],
+            "AError": 0.8570060239165617,
+            "FocalCError": 1.271633795361023,
+            "CoordinateDisplacementNorm": 0.24999999999999953
+          },
+          {
+            "AcceptedStep": 2,
+            "Coordinates": [
+              5.408443399473682,
+              -0.08132029047032352,
+              8.5221754013918,
+              5.888439503450444,
+              -2.049077743806485,
+              10.598515040943665
+            ],
+            "AError": 0.5837552218234315,
+            "FocalCError": 1.029396898094471,
+            "CoordinateDisplacementNorm": 0.7499978377251317
+          },
+          {
+            "AcceptedStep": 3,
+            "Coordinates": [
+              5.443492611943146,
+              -0.11170241074159143,
+              8.552128345494879,
+              5.866906461712713,
+              -2.034478173773215,
+              10.585071407468478
+            ],
+            "AError": 0.5499090559836461,
+            "FocalCError": 0.9994250360102019,
+            "CoordinateDisplacementNorm": 0.8124938885482
+          },
+          {
+            "AcceptedStep": 4,
+            "Coordinates": [
+              5.444587933167944,
+              -0.11265253621614862,
+              8.553065052175745,
+              5.866233525788615,
+              -2.0340233724648105,
+              10.584652929430007
+            ],
+            "AError": 0.5488524617201123,
+            "FocalCError": 0.9984895059276999,
+            "CoordinateDisplacementNorm": 0.8144468728301785
+          },
+          {
+            "AcceptedStep": 5,
+            "Coordinates": [
+              5.4467785770158565,
+              -0.11455282985852841,
+              8.554938507836317,
+              5.864887651917992,
+              -2.033113858999471,
+              10.583816075000945
+            ],
+            "AError": 0.5467394761118161,
+            "FocalCError": 0.9966186418816583,
+            "CoordinateDisplacementNorm": 0.8183528416417719
+          },
+          {
+            "AcceptedStep": 6,
+            "Coordinates": [
+              5.447052407829523,
+              -0.11479037723496764,
+              8.555172700367438,
+              5.8647194171722745,
+              -2.0330001920891596,
+              10.583711493593725
+            ],
+            "AError": 0.5464753716534633,
+            "FocalCError": 0.9963848024134004,
+            "CoordinateDisplacementNorm": 0.8188410874884321
+          },
+          {
+            "AcceptedStep": 7,
+            "Coordinates": [
+              5.447189323256354,
+              -0.11490915159010635,
+              8.5552897972938,
+              5.864635299767149,
+              -2.0329433600254236,
+              10.583659204476731
+            ],
+            "AError": 0.5463433209953759,
+            "FocalCError": 0.9962678842188076,
+            "CoordinateDisplacementNorm": 0.8190852103997984
+          },
+          {
+            "AcceptedStep": 8,
+            "Coordinates": [
+              5.4474631541299114,
+              -0.11514670096720649,
+              8.555523991807338,
+              5.864467064924568,
+              -2.032829697289245,
+              10.58355462782923
+            ],
+            "AError": 0.5460792228492519,
+            "FocalCError": 0.9960340508933346,
+            "CoordinateDisplacementNorm": 0.8195734562263979
+          },
+          {
+            "AcceptedStep": 9,
+            "Coordinates": [
+              5.447497382994044,
+              -0.11517639480605762,
+              8.555553266286728,
+              5.864446035561154,
+              -2.0328154897950186,
+              10.583541556144887
+            ],
+            "AError": 0.5460462108738127,
+            "FocalCError": 0.9960048220172595,
+            "CoordinateDisplacementNorm": 0.8196344869507394
+          }
+        ],
+        "Trials": [
+          {
+            "FunctionEvaluations": 28,
+            "Accepted": false,
+            "BaseCoordinates": [
+              4.988254705922738,
+              0.28079110793628415,
+              8.165171151887533,
+              6.1468276509139335,
+              -2.229592833155328,
+              10.765881068416371
+            ],
+            "TrialCoordinates": [
+              5.548277612713327,
+              -0.2010755946705014,
+              8.640249261040845,
+              5.802291018281899,
+              -1.986843360567558,
+              10.540388679797744
+            ],
+            "Radius": 1,
+            "NextRadius": 0.25,
+            "PredictedReduction": 9648.200496795587,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 29,
+            "Accepted": true,
+            "BaseCoordinates": [
+              4.988254705922738,
+              0.28079110793628415,
+              8.165171151887533,
+              6.1468276509139335,
+              -2.229592833155328,
+              10.765881068416371
+            ],
+            "TrialCoordinates": [
+              5.128260432620385,
+              0.16032443228458776,
+              8.28394067917586,
+              6.060693492755925,
+              -2.1689054650083857,
+              10.709507971261715
+            ],
+            "Radius": 0.25,
+            "NextRadius": 0.5,
+            "PredictedReduction": 2929.562999239692,
+            "ActualReduction": 2917.6181921340603,
+            "ReductionRatio": 0.9959226659031631
+          },
+          {
+            "FunctionEvaluations": 42,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.128260432620385,
+              0.16032443228458776,
+              8.28394067917586,
+              6.060693492755925,
+              -2.1689054650083857,
+              10.709507971261715
+            ],
+            "TrialCoordinates": [
+              5.408443399473682,
+              -0.08132029047032352,
+              8.5221754013918,
+              5.888439503450444,
+              -2.049077743806485,
+              10.598515040943665
+            ],
+            "Radius": 0.5,
+            "NextRadius": 1,
+            "PredictedReduction": 4791.103661684744,
+            "ActualReduction": 4755.418508354561,
+            "ReductionRatio": 0.9925517885126212
+          },
+          {
+            "FunctionEvaluations": 55,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.408443399473682,
+              -0.08132029047032352,
+              8.5221754013918,
+              5.888439503450444,
+              -2.049077743806485,
+              10.598515040943665
+            ],
+            "TrialCoordinates": [
+              5.969230798985112,
+              -0.5674342148106107,
+              9.001422507041053,
+              5.543910835646745,
+              -1.8154846232741648,
+              10.38341690534066
+            ],
+            "Radius": 1,
+            "NextRadius": 0.25,
+            "PredictedReduction": 5484.740708331188,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 56,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.408443399473682,
+              -0.08132029047032352,
+              8.5221754013918,
+              5.888439503450444,
+              -2.049077743806485,
+              10.598515040943665
+            ],
+            "TrialCoordinates": [
+              5.548640249351539,
+              -0.20284877155539532,
+              8.641987177804113,
+              5.80230733649952,
+              -1.9906794636734049,
+              10.544740507042913
+            ],
+            "Radius": 0.25,
+            "NextRadius": 0.0624999999999999,
+            "PredictedReduction": 1862.7649944074299,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 57,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.408443399473682,
+              -0.08132029047032352,
+              8.5221754013918,
+              5.888439503450444,
+              -2.049077743806485,
+              10.598515040943665
+            ],
+            "TrialCoordinates": [
+              5.443492611943146,
+              -0.11170241074159143,
+              8.552128345494879,
+              5.866906461712713,
+              -2.034478173773215,
+              10.585071407468478
+            ],
+            "Radius": 0.0624999999999999,
+            "NextRadius": 0.1249999999999998,
+            "PredictedReduction": 496.4149871846457,
+            "ActualReduction": 495.8888017302965,
+            "ReductionRatio": 0.9989400290725842
+          },
+          {
+            "FunctionEvaluations": 70,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.443492611943146,
+              -0.11170241074159143,
+              8.552128345494879,
+              5.866906461712713,
+              -2.034478173773215,
+              10.585071407468478
+            ],
+            "TrialCoordinates": [
+              5.5135931703302425,
+              -0.17251044111325425,
+              8.612077573070255,
+              5.823838562570448,
+              -2.005370890035315,
+              10.558288813006312
+            ],
+            "Radius": 0.1249999999999998,
+            "NextRadius": 0.031249999999999827,
+            "PredictedReduction": 929.4966398014192,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 71,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.443492611943146,
+              -0.11170241074159143,
+              8.552128345494879,
+              5.866906461712713,
+              -2.034478173773215,
+              10.585071407468478
+            ],
+            "TrialCoordinates": [
+              5.46101775153992,
+              -0.12690441833450708,
+              8.567115652388724,
+              5.856139486927146,
+              -2.02720135283874,
+              10.578375758852937
+            ],
+            "Radius": 0.031249999999999827,
+            "NextRadius": 0.007812500000000035,
+            "PredictedReduction": 240.0224451382631,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 72,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.443492611943146,
+              -0.11170241074159143,
+              8.552128345494879,
+              5.866906461712713,
+              -2.034478173773215,
+              10.585071407468478
+            ],
+            "TrialCoordinates": [
+              5.4478738968423395,
+              -0.11550291263982038,
+              8.55587517221834,
+              5.8642147180163215,
+              -2.032658968539596,
+              10.583397495314593
+            ],
+            "Radius": 0.007812500000000035,
+            "NextRadius": 0.0019531249999999215,
+            "PredictedReduction": 60.48362910880721,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 73,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.443492611943146,
+              -0.11170241074159143,
+              8.552128345494879,
+              5.866906461712713,
+              -2.034478173773215,
+              10.585071407468478
+            ],
+            "TrialCoordinates": [
+              5.444587933167944,
+              -0.11265253621614862,
+              8.553065052175745,
+              5.866233525788615,
+              -2.0340233724648105,
+              10.584652929430007
+            ],
+            "Radius": 0.0019531249999999215,
+            "NextRadius": 0.003906249999999843,
+            "PredictedReduction": 15.15078339121869,
+            "ActualReduction": 15.150271362654571,
+            "ReductionRatio": 0.9999662044825738
+          },
+          {
+            "FunctionEvaluations": 86,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.444587933167944,
+              -0.11265253621614862,
+              8.553065052175745,
+              5.866233525788615,
+              -2.0340233724648105,
+              10.584652929430007
+            ],
+            "TrialCoordinates": [
+              5.4467785770158565,
+              -0.11455282985852841,
+              8.554938507836317,
+              5.864887651917992,
+              -2.033113858999471,
+              10.583816075000945
+            ],
+            "Radius": 0.003906249999999843,
+            "NextRadius": 0.007812499999999686,
+            "PredictedReduction": 30.239773101461726,
+            "ActualReduction": 30.23773049133934,
+            "ReductionRatio": 0.9999324528621452
+          },
+          {
+            "FunctionEvaluations": 99,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.4467785770158565,
+              -0.11455282985852841,
+              8.554938507836317,
+              5.864887651917992,
+              -2.033113858999471,
+              10.583816075000945
+            ],
+            "TrialCoordinates": [
+              5.4511598700345205,
+              -0.11835358788155603,
+              8.558685588334255,
+              5.862195895986512,
+              -2.0312951884344943,
+              10.582142772485438
+            ],
+            "Radius": 0.007812499999999686,
+            "NextRadius": 0.0019531249999999315,
+            "PredictedReduction": 60.23245190430848,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 100,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.4467785770158565,
+              -0.11455282985852841,
+              8.554938507836317,
+              5.864887651917992,
+              -2.033113858999471,
+              10.583816075000945
+            ],
+            "TrialCoordinates": [
+              5.4478739002705225,
+              -0.11550301936428532,
+              8.555875277960801,
+              5.864214712935122,
+              -2.032659191358227,
+              10.583397749372068
+            ],
+            "Radius": 0.0019531249999999315,
+            "NextRadius": 0.0004882812499999773,
+            "PredictedReduction": 15.087977169310983,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 101,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.4467785770158565,
+              -0.11455282985852841,
+              8.554938507836317,
+              5.864887651917992,
+              -2.033113858999471,
+              10.583816075000945
+            ],
+            "TrialCoordinates": [
+              5.447052407829523,
+              -0.11479037723496764,
+              8.555172700367438,
+              5.8647194171722745,
+              -2.0330001920891596,
+              10.583711493593725
+            ],
+            "Radius": 0.0004882812499999773,
+            "NextRadius": 0.0009765624999999546,
+            "PredictedReduction": 3.773860804405337,
+            "ActualReduction": 3.7738289040104958,
+            "ReductionRatio": 0.9999915470133917
+          },
+          {
+            "FunctionEvaluations": 114,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.447052407829523,
+              -0.11479037723496764,
+              8.555172700367438,
+              5.8647194171722745,
+              -2.0330001920891596,
+              10.583711493593725
+            ],
+            "TrialCoordinates": [
+              5.447600069536845,
+              -0.11526547465552243,
+              8.555641088072882,
+              5.864382947551773,
+              -2.0327728638342157,
+              10.583502337125754
+            ],
+            "Radius": 0.0009765624999999546,
+            "NextRadius": 0.00024414062500000325,
+            "PredictedReduction": 7.543861086583799,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 115,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.447052407829523,
+              -0.11479037723496764,
+              8.555172700367438,
+              5.8647194171722745,
+              -2.0330001920891596,
+              10.583711493593725
+            ],
+            "TrialCoordinates": [
+              5.447189323256354,
+              -0.11490915159010635,
+              8.5552897972938,
+              5.864635299767149,
+              -2.0329433600254236,
+              10.583659204476731
+            ],
+            "Radius": 0.00024414062500000325,
+            "NextRadius": 0.0004882812500000065,
+            "PredictedReduction": 1.8864318841528807,
+            "ActualReduction": 1.8864239103309206,
+            "ReductionRatio": 0.9999957730665883
+          },
+          {
+            "FunctionEvaluations": 128,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.447189323256354,
+              -0.11490915159010635,
+              8.5552897972938,
+              5.864635299767149,
+              -2.0329433600254236,
+              10.583659204476731
+            ],
+            "TrialCoordinates": [
+              5.4474631541299114,
+              -0.11514670096720649,
+              8.555523991807338,
+              5.864467064924568,
+              -2.032829697289245,
+              10.58355462782923
+            ],
+            "Radius": 0.0004882812500000065,
+            "NextRadius": 0.000976562500000013,
+            "PredictedReduction": 3.7718986610279357,
+            "ActualReduction": 3.771866776834657,
+            "ReductionRatio": 0.9999915469114777
+          },
+          {
+            "FunctionEvaluations": 141,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.4474631541299114,
+              -0.11514670096720649,
+              8.555523991807338,
+              5.864467064924568,
+              -2.032829697289245,
+              10.58355462782923
+            ],
+            "TrialCoordinates": [
+              5.448010815956036,
+              -0.11562180238882477,
+              8.555992383477573,
+              5.864130595109938,
+              -2.0326023773816235,
+              10.583345480879732
+            ],
+            "Radius": 0.000976562500000013,
+            "NextRadius": 0.0002441406250000641,
+            "PredictedReduction": 7.539937051716734,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 142,
+            "Accepted": false,
+            "BaseCoordinates": [
+              5.4474631541299114,
+              -0.11514670096720649,
+              8.555523991807338,
+              5.864467064924568,
+              -2.032829697289245,
+              10.58355462782923
+            ],
+            "TrialCoordinates": [
+              5.447600069586443,
+              -0.11526547632261108,
+              8.555641089724896,
+              5.864382947470911,
+              -2.0327728673123397,
+              10.583502341091855
+            ],
+            "Radius": 0.0002441406250000641,
+            "NextRadius": 6.103515624998471E-05,
+            "PredictedReduction": 1.8854508521542424,
+            "ActualReduction": null,
+            "ReductionRatio": null
+          },
+          {
+            "FunctionEvaluations": 143,
+            "Accepted": true,
+            "BaseCoordinates": [
+              5.4474631541299114,
+              -0.11514670096720649,
+              8.555523991807338,
+              5.864467064924568,
+              -2.032829697289245,
+              10.58355462782923
+            ],
+            "TrialCoordinates": [
+              5.447497382994044,
+              -0.11517639480605762,
+              8.555553266286728,
+              5.864446035561154,
+              -2.0328154897950186,
+              10.583541556144887
+            ],
+            "Radius": 6.103515624998471E-05,
+            "NextRadius": 0.00012207031249996943,
+            "PredictedReduction": 0.4713918748630094,
+            "ActualReduction": 0.4713913766884252,
+            "ReductionRatio": 0.9999989431837697
+          }
+        ],
+        "Diagnostics": [
+          "Recovery geometry is blocked at element-001:edge:8",
+          "Trust-region termination: EvaluationLimit"
+        ]
+      }
+    }
+  ]
+}

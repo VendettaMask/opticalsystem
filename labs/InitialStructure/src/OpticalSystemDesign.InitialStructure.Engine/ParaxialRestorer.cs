@@ -11,7 +11,7 @@ namespace OpticalSystemDesign.InitialStructure.Engine;
 /// quantities and geometry probes come from Core; the trust-region objective is laboratory policy.</summary>
 public static class ParaxialRestorer
 {
-    private sealed record Sample(CompiledTopology Source, ParaxialTransferMatrix Matrix, double[] Coordinates, double[] Residuals);
+    private sealed record Sample(CompiledTopology Source, ParaxialTransferMatrix Matrix, double[] Coordinates, double[] Residuals, double[,]? Jacobian = null, double? InverseFNumber = null);
     private sealed class BudgetReached : Exception { }
 
     public static ParaxialRecoveryResult Run(CompiledTopology parent, CompiledTopology child,
@@ -43,6 +43,10 @@ public static class ParaxialRestorer
         Sample? last = null;
         var solverDifference = false;
         int? rank = null;
+        var restorePupil = options.RestorePupilMagnification == true;
+        var opticalRows = restorePupil ? 3 : 2;
+        var pupils = 0;
+        double? parentFNumber = null, initialInverseF = null, finalInverseF = null;
         try
         {
             token.ThrowIfCancellationRequested();
@@ -57,7 +61,7 @@ public static class ParaxialRestorer
                 throw new ArgumentException("First-order recovery fixes image/reference/stop and releases only permitted lens curvatures or axial positions.");
             fingerprint = ContentFingerprint.Compute(new
             {
-                Identity = "autonomous-paraxial-recovery-v1",
+                Identity = restorePupil ? "autonomous-paraxial-recovery-pupil-v3" : options.UseAutomaticMatrixDerivatives == true ? "autonomous-paraxial-recovery-ad-v2" : "autonomous-paraxial-recovery-v1",
                 Parent = parent.BindingFingerprint,
                 Child = child.BindingFingerprint,
                 requests,
@@ -74,11 +78,17 @@ public static class ParaxialRestorer
             rows = TopologyEvaluationPlan.Geometry(child, targets, options.ProfileRadialSamples);
             Charge();
             parentMatrix = Matrix(parent);
+            if (restorePupil)
+            {
+                pupils++; parentFNumber = parent.CreateOptic().Paraxial.EstimateFNumber();
+                if (!(parentFNumber > 0) || !double.IsFinite(parentFNumber.Value)) throw new ArithmeticException("Parent F number is unavailable for fixed-stop recovery.");
+            }
             var first = EvaluateCore(q0, false);
             if (!first.IsValid) termination = ParaxialRecoveryTermination.GeometryBlocked;
             else
             {
                 initial = final = last!.Matrix;
+                initialInverseF = finalInverseF = last.InverseFNumber;
                 if (Recovered(final)) termination = ParaxialRecoveryTermination.Recovered;
                 else if (binding is null || binding.Slots.All(slot => slot.LowerCoordinate == slot.UpperCoordinate))
                     termination = ParaxialRecoveryTermination.NoFreeVariables;
@@ -86,7 +96,7 @@ public static class ParaxialRestorer
                 {
                     rank = Rank(first.Residuals);
                     if (rank is null) termination = ParaxialRecoveryTermination.GeometryBlocked;
-                    else if (rank < 2) termination = ParaxialRecoveryTermination.RankDeficient;
+                    else if (rank < opticalRows) termination = ParaxialRecoveryTermination.RankDeficient;
                     else
                     {
                         var solved = BoundedTrustRegionLeastSquares.Solve(q0,
@@ -107,12 +117,14 @@ public static class ParaxialRestorer
                             {
                                 if (last is null || !point.SequenceEqual(last.Coordinates)) throw new InvalidOperationException("Accepted recovery point does not match its Core evaluation.");
                                 current = last.Source; final = last.Matrix; endpoint = point.ToArray();
+                                finalInverseF = last.InverseFNumber;
                                 var displacement = endpoint.Select((value, index) => value - q0[index]).Aggregate(0.0, double.Hypot);
                                 steps.Add(new(steps.Count + 1, endpoint.ToImmutableArray(), AError(final), CError(final), displacement));
                                 progress?.Invoke(steps[^1]);
-                            }, difference => solverDifference = difference, () => builds++,
+                            }, difference => solverDifference = difference, () => { if (options.UseAutomaticMatrixDerivatives != true) builds++; },
                             trial => trials.Add(new(functions, trial.Accepted, trial.BasePoint.ToImmutableArray(), trial.TrialPoint.ToImmutableArray(),
-                                trial.Radius, trial.NextRadius, trial.PredictedReduction, trial.ActualReduction, trial.ReductionRatio)));
+                                trial.Radius, trial.NextRadius, trial.PredictedReduction, trial.ActualReduction, trial.ReductionRatio)),
+                            analyticJacobian: options.UseAutomaticMatrixDerivatives == true ? CachedJacobian : null);
                         diagnostics.Add("Trust-region termination: " + solved.Termination);
                         termination = Recovered(final!) ? ParaxialRecoveryTermination.Recovered
                             : solved.Termination == LeastSquaresTermination.EvaluationLimit || functions >= options.MaximumFunctionEvaluations
@@ -136,7 +148,7 @@ public static class ParaxialRestorer
             ProtocolFingerprint = fingerprint,
             Topology = current.Topology,
             Termination = termination,
-            Work = new(functions, differences, matrices, builds, probes, timer.Elapsed),
+            Work = new(functions, differences, matrices, builds, probes, timer.Elapsed) { PupilEvaluations = restorePupil ? pupils : null },
             Variables = requests,
             ChildInitialCoordinates = q0.ToImmutableArray(),
             EndpointCoordinates = endpoint.ToImmutableArray(),
@@ -147,6 +159,8 @@ public static class ParaxialRestorer
             InitialFocalCError = initial is null || parentMatrix is null ? null : CError(initial),
             EndpointAError = final is null || parentMatrix is null ? null : AError(final),
             EndpointFocalCError = final is null || parentMatrix is null ? null : CError(final),
+            InitialPupilError = initialInverseF is { } firstInverse ? firstInverse * parentFNumber - 1 : null,
+            EndpointPupilError = finalInverseF is { } lastInverse ? lastInverse * parentFNumber - 1 : null,
             InitialJacobianRank = rank,
             Steps = steps.ToImmutableArray(),
             Trials = trials.ToImmutableArray(),
@@ -155,7 +169,8 @@ public static class ParaxialRestorer
 
         double AError(ParaxialTransferMatrix matrix) => matrix.A - parentMatrix!.A;
         double CError(ParaxialTransferMatrix matrix) => targets.EffectiveFocalLengthMillimeters * (matrix.C - parentMatrix!.C);
-        bool Recovered(ParaxialTransferMatrix matrix) => Math.Abs(AError(matrix)) <= options.ATolerance && Math.Abs(CError(matrix)) <= options.FocalCTolerance;
+        bool Recovered(ParaxialTransferMatrix matrix) => Math.Abs(AError(matrix)) <= options.ATolerance && Math.Abs(CError(matrix)) <= options.FocalCTolerance
+            && (!restorePupil || finalInverseF is { } inverse && Math.Abs(inverse * parentFNumber!.Value - 1) <= options.FocalCTolerance);
         void Charge()
         {
             if (timer.Elapsed >= options.TimeLimit) deadline.Cancel();
@@ -187,13 +202,36 @@ public static class ParaxialRestorer
                     if (!double.IsFinite(measured) || (row.Upper ? measured > row.Limit : measured < row.Limit))
                         throw new ArithmeticException("Recovery geometry is blocked at " + row.Id);
                 }
-                var matrix = Matrix(value);
-                var residuals = new double[2 + coordinates.Count];
+                ParaxialTransferMatrix matrix;
+                DifferentiableParaxialTransferMatrix? automatic = null;
+                if (options.UseAutomaticMatrixDerivatives == true)
+                {
+                    matrices++; builds++;
+                    if (restorePupil) pupils++;
+                    automatic = DifferentiableParaxialMetrics.TransferMatrix(optic, binding?.CoreParameters ?? [],
+                        value.SurfaceIndices[value.Topology.Reference.Id], value.SurfaceIndices[value.Topology.Image.Id], includeInverseFNumber: restorePupil);
+                    matrix = automatic.Nominal;
+                }
+                else matrix = Matrix(value);
+                var residuals = new double[opticalRows + coordinates.Count];
                 residuals[0] = AError(matrix) / options.AScale;
                 residuals[1] = CError(matrix) / options.FocalCScale;
+                if (restorePupil) residuals[2] = (automatic!.InverseFNumber!.Value.Value * parentFNumber!.Value - 1) / options.FocalCScale;
                 for (var index = 0; index < coordinates.Count; index++)
-                    residuals[index + 2] = Math.Sqrt(options.MinimumChangeWeight) * (coordinates[index] - q0[index]);
-                last = new(value, matrix, coordinates.ToArray(), residuals);
+                    residuals[index + opticalRows] = Math.Sqrt(options.MinimumChangeWeight) * (coordinates[index] - q0[index]);
+                double[,]? jacobian = null;
+                if (automatic is not null)
+                {
+                    jacobian = new double[residuals.Length, coordinates.Count];
+                    for (var column = 0; column < coordinates.Count; column++)
+                    {
+                        jacobian[0, column] = automatic.A.Derivative(column) / options.AScale;
+                        jacobian[1, column] = targets.EffectiveFocalLengthMillimeters * automatic.C.Derivative(column) / options.FocalCScale;
+                        if (restorePupil) jacobian[2, column] = automatic.InverseFNumber!.Value.Derivative(column) * parentFNumber!.Value / options.FocalCScale;
+                        jacobian[column + opticalRows, column] = Math.Sqrt(options.MinimumChangeWeight);
+                    }
+                }
+                last = new(value, matrix, coordinates.ToArray(), residuals, jacobian, automatic?.InverseFNumber?.Value);
                 return new(residuals, true, probes - start + matrices - matrixStart);
             }
             catch (Exception error) when (TopologyEvaluationPlan.DomainError(error))
@@ -205,6 +243,34 @@ public static class ParaxialRestorer
         int? Rank(IReadOnlyList<double> baseline)
         {
             var a = new List<double>(); var c = new List<double>();
+            if (options.UseAutomaticMatrixDerivatives == true)
+            {
+                var cached = CachedJacobian(q0);
+                if (restorePupil)
+                {
+                    var basis = new List<double[]>();
+                    for (var row = 0; row < opticalRows; row++)
+                    {
+                        var vector = Enumerable.Range(0, binding!.Slots.Length).Where(column => binding.Slots[column].LowerCoordinate != binding.Slots[column].UpperCoordinate)
+                            .Select(column => cached[row, column]).ToArray();
+                        var size = vector.Aggregate(0.0, double.Hypot);
+                        if (size == 0) continue;
+                        for (var index = 0; index < vector.Length; index++) vector[index] /= size;
+                        foreach (var previous in basis)
+                        {
+                            var projection = vector.Zip(previous, (x, y) => x * y).Sum();
+                            for (var index = 0; index < vector.Length; index++) vector[index] -= projection * previous[index];
+                        }
+                        var remainder = vector.Aggregate(0.0, double.Hypot);
+                        if (remainder > options.RelativeRankTolerance) basis.Add(vector.Select(item => item / remainder).ToArray());
+                    }
+                    return basis.Count;
+                }
+                for (var column = 0; column < binding!.Slots.Length; column++)
+                    if (binding.Slots[column].LowerCoordinate != binding.Slots[column].UpperCoordinate)
+                    { a.Add(cached[0, column]); c.Add(cached[1, column]); }
+                return RowRank(a, c);
+            }
             for (var slot = 0; slot < binding!.Slots.Length; slot++)
             {
                 var bound = binding.Slots[slot];
@@ -230,6 +296,13 @@ public static class ParaxialRestorer
                     : (baseline[row] - minus!.Residuals[row]) / hm;
             }
             builds++;
+            return RowRank(a, c);
+        }
+        double[,] CachedJacobian(IReadOnlyList<double> coordinates)
+            => last?.Jacobian is { } jacobian && coordinates.SequenceEqual(last.Coordinates)
+                ? jacobian : throw new InvalidOperationException("Recovery derivatives must belong to the current Core matrix evaluation.");
+        int RowRank(IReadOnlyList<double> a, IReadOnlyList<double> c)
+        {
             var an = a.Aggregate(0.0, double.Hypot); var cn = c.Aggregate(0.0, double.Hypot);
             if (!double.IsFinite(an) || !double.IsFinite(cn)) throw new ArithmeticException("Recovery Jacobian is not finite.");
             if (an == 0 || cn == 0) return an + cn > 0 ? 1 : 0;
@@ -260,6 +333,7 @@ public static class ParaxialRestorer
         double[] positive = [options.AScale, options.FocalCScale, options.ATolerance, options.FocalCTolerance,
             options.RelativeDifferenceStep, options.RelativeRankTolerance];
         if (options.MaximumAcceptedSteps is < 1 or > 1000 || options.MaximumFunctionEvaluations is < 1 or > 100_000
+            || options.RestorePupilMagnification == true && options.UseAutomaticMatrixDerivatives != true
             || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromHours(1)
             || positive.Any(value => !double.IsFinite(value) || value <= 0)
             || !double.IsFinite(options.MinimumChangeWeight) || options.MinimumChangeWeight <= 0

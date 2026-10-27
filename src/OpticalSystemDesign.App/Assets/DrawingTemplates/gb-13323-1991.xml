@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <opticalDrawingTemplate id="gb-13323-1991" name="GB/T 13323—1991" standard="GbT13323_1991">
-  <page outerMargin="12" innerMargin="18" specificationTop="576" titleTop="754" />
+  <page outerMargin="12" innerMargin="18" specificationTop="448" titleTop="754" />
   <geometry horizontalInset="12" topInset="12" specificationGap="7" systemHorizontalInset="14" systemTopInset="14" systemTitleGap="12" />
   <titleBlock kind="standard">
     <field binding="title.standardDesignation" />
@@ -13,30 +13,46 @@
     <field binding="title.scale" />
   </titleBlock>
   <specification kind="gb1991" headerHeight="24">
-    <surfaceFields>
-      <field binding="surface.radius" />
-      <field binding="element.clearAperture" />
-      <field binding="surface.coating" />
-      <field binding="surface.edgeTreatment" />
-      <field binding="iso.surface.3.form" />
-      <field binding="iso.surface.4.centering" />
-      <field binding="iso.surface.5.imperfection" />
-    </surfaceFields>
-    <gb1991 title="GB/T 13323—1991 旧版光学零件技术要求" titleHeight="22" sectionWidth="66" itemWidth="82" materialHeight="66" partHeaderHeight="17">
+    <!-- GB 13323-91, 4.2.2/Table 2 and 4.3.1/Table 3: dimensions are physical mm on A4 and A3. -->
+    <gb1991 tableWidthMm="40" materialLabelWidthMm="25" partLabelWidthMm="15" headerHeightMm="8" rowHeightMm="6">
       <materialRows>
-        <row item="玻璃牌号" valueBinding="gb1991.material.glassAndMaker" />
-        <row item="折射率/阿贝数" valueBinding="gb1991.material.indexAndAbbe" />
-        <row item="均匀性/条纹" valueBinding="gb1991.material.homogeneityAndStriae" />
-        <row item="应力/气泡" valueBinding="gb1991.material.stressAndBubbles" />
+        <row item="Δn_d" valueBinding="gb1991.material.indexTolerance" />
+        <row item="Δν_d" valueBinding="gb1991.material.abbeTolerance" />
+        <row item="光学均匀性" valueBinding="gb1991.material.homogeneity" />
+        <row item="光吸收系数" valueBinding="gb1991.material.absorption" />
+        <row item="应力双折射" valueBinding="gb1991.material.stress" />
+        <row item="条纹度" valueBinding="gb1991.material.striae" />
+        <row item="气泡度" valueBinding="gb1991.material.bubbles" />
       </materialRows>
-      <partRequirementFields>
-        <field binding="gb1991.part.form" />
-        <field binding="gb1991.part.centering" />
-        <field binding="gb1991.part.imperfection" />
-        <field binding="gb1991.part.texture" />
-        <field binding="gb1991.part.coating" />
-        <field binding="gb1991.part.edgeTreatment" />
-      </partRequirementFields>
+      <partRows>
+        <row item="N" valueBinding="gb1991.part.powerFringes" />
+        <row item="ΔN" valueBinding="gb1991.part.irregularityFringes" />
+        <row item="ΔR" valueBinding="gb1991.part.testPlate" />
+        <row item="χ" valueBinding="gb1991.part.centering" />
+        <row item="B" valueBinding="gb1991.part.imperfection" />
+        <row item="θ_I" valueBinding="gb1991.part.prismNotApplicable" />
+        <row item="θ_II" valueBinding="gb1991.part.prismNotApplicable" />
+        <row item="d" valueBinding="gb1991.part.centerThickness" />
+        <row item="f′" valueBinding="gb1991.part.focalLength" />
+        <row item="L_f" valueBinding="gb1991.part.frontFocalDistance" />
+        <row item="L′_f" valueBinding="gb1991.part.backFocalDistance" />
+        <row item="倒二面角" valueBinding="gb1991.part.prismNotApplicable" />
+        <row item="倒三面角" valueBinding="gb1991.part.prismNotApplicable" />
+        <row item="D_0" valueBinding="gb1991.part.clearAperture" />
+      </partRows>
+      <assemblyRows>
+        <row item="N" valueBinding="gb1991.part.powerFringes" />
+        <row item="ΔN" valueBinding="gb1991.part.irregularityFringes" />
+        <row item="ΔR" valueBinding="gb1991.part.testPlate" />
+        <row item="χ" valueBinding="gb1991.part.centering" />
+        <row item="B" valueBinding="gb1991.part.imperfection" />
+        <row item="f′" valueBinding="gb1991.part.focalLength" />
+        <row item="L_f" valueBinding="gb1991.part.frontFocalDistance" />
+        <row item="L′_f" valueBinding="gb1991.part.backFocalDistance" />
+        <row item="θ_I" valueBinding="gb1991.part.prismNotApplicable" />
+        <row item="θ_II" valueBinding="gb1991.part.prismNotApplicable" />
+        <row item="D_0" valueBinding="gb1991.part.clearAperture" />
+      </assemblyRows>
     </gb1991>
   </specification>
 </opticalDrawingTemplate>

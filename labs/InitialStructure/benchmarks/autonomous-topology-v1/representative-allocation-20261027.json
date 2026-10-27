@@ -1,0 +1,738 @@
+{
+  "Version": 1,
+  "Purpose": "Predeclared allocation control for incomplete initial dense validations, not a quality-based source replacement. Total budget, targets, sampling, seeds and optimizer permission unchanged.",
+  "Seeds": [
+    42,
+    101
+  ],
+  "Groups": [
+    "C",
+    "D"
+  ],
+  "Modes": [
+    "legacy",
+    "fixed"
+  ],
+  "SeedPerturbation": "Deterministic xorshift64 face-curvature factors 1+uniform[-0.001,0.001], identical within each task/seed across C/D and legacy/fixed.",
+  "Budget": {
+    "MaximumTrials": 6,
+    "MaximumFunctionEvaluations": 600,
+    "MaximumGradientEvaluations": 100,
+    "MaximumTracedRays": 2000000,
+    "MaximumStageTracedRays": 400000,
+    "FinalValidationRayReserve": 800000,
+    "TimeLimitSeconds": 60
+  },
+  "Training": {
+    "FieldsPerDirection": 3,
+    "PupilRings": 1,
+    "PupilArms": 8,
+    "ProfileRadialSamples": 8,
+    "LocalUpdates": 4,
+    "FullUpdates": 8,
+    "RecoveryFunctions": 150
+  },
+  "Targets": {
+    "FocalLengthRelativeTolerance": 0.02,
+    "FNumberRelativeTolerance": 0.02,
+    "MaximumRmsRadiusMillimeters": 0.05,
+    "MaximumSpotRadiusMillimeters": 0.15,
+    "MaximumDistortionFraction": 0.03,
+    "MinimumValidRayFraction": 0.98,
+    "MinimumEdgeThicknessMillimeters": 0.1,
+    "MinimumEdgeAirGapMillimeters": 0.01,
+    "MaximumOpticalTrackMillimeters": 10000,
+    "MaximumAbsoluteSurfaceSlope": 10
+  },
+  "FinalValidation": "Unmodified Core-backed TopologyValidator: 21 positions per defined field direction with union/deduplication, 10x32 Gaussian pupil, boundary+center33, profile64, all source positive-weight wavelengths (RGB for all chosen cases).",
+  "Permissions": "Same curvature-only optimization and material bounds for all paired modes; real insert/delete allowed, C direct recovery, D adds gradual deletion. Split/merge/material/profile upgrades disabled. Image/reference/stop positions frozen.",
+  "Preparation": "Explicit physical air-spaced variants; editor merit/variable/solve and OPD-reference state frozen; original radii/materials/environment/coordinates/fields/spectrum retained before seed perturbation. Stop radius calibrated by shared Core to preserve original first-order F number, physical circular face apertures from original semi-diameters, aiming enabled. Not unmodified native imports. Original native bytes retained and hashed.",
+  "SuccessDefinition": "Archive original-task-qualified candidate with fewer elements than the initial source. Starting point failures, no deletion attempted, recovery failure, optical/manufacturing gates, unavailable endpoints and budget exhaustion classified separately.",
+  "Cases": [
+    {
+      "Id": "compact4",
+      "Role": "four-element symmetric reference, lower F and medium field",
+      "Source": {
+        "Id": "bundled-industrial-samples-9942109e774d",
+        "Name": "Symmetric Double Gauss 50 mm",
+        "Category": "工业镜头",
+        "SourceName": "STAR Labs 工业成像示例",
+        "SourceUrl": "",
+        "License": "项目示例",
+        "SourceFormat": "ZMX",
+        "ImportStatus": "可用",
+        "ImportMessage": null,
+        "EffectiveFocalLength": 24.089069730944008,
+        "FNumber": 2.4089069730944006,
+        "ApertureKind": "EntrancePupilDiameter",
+        "ApertureValue": 10,
+        "TotalTrack": 73,
+        "SurfaceCount": 11,
+        "FieldDefinition": "Angle",
+        "MaximumField": 14,
+        "FieldCount": 3,
+        "WavelengthCount": 3,
+        "MinimumWavelengthNanometers": 486.1327,
+        "MaximumWavelengthNanometers": 656.2725,
+        "NativePath": "projects/bundled-industrial-samples-9942109e774d.staropt",
+        "SourcePath": "double-gauss-50mm.zmx",
+        "NumericalAperture": 0.20323133288309575,
+        "NumericalApertureBasis": "像方空气近轴估算",
+        "WorkingDistance": 45,
+        "WorkingDistanceBasis": "像方后工作距离",
+        "LensElementCount": 4,
+        "MaximumClearAperture": 22,
+        "LensType": "工业成像镜头",
+        "Application": "工业成像",
+        "DesignOrganization": "S.T.A.R. Labs",
+        "ImportedAt": null,
+        "ImporterVersion": "历史版本（未记录）",
+        "RepositoryPath": "src/OpticalSystemDesign.App/Assets/LensLibrary/projects/bundled-industrial-samples-9942109e774d.staropt"
+      },
+      "OriginalSha256": "f07b913d5c1c16b952ac7410f70372d59a45064e53afe19352d7424acb78909f",
+      "PreparedTopologySha256": "d8a89f2e9c68c4be4c76ab827d48d6f10b15780e2a4cb4f83eb8ee97575f3a04",
+      "SourceTopology": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Symmetric Double Gauss 50 mm",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 14,
+          "ClearSemiDiameterMillimeters": 3.088295438664897,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 73,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "element-001",
+            "FrontSurfaceId": "element-001:front",
+            "BackSurfaceId": "element-001:back",
+            "FrontZMillimeters": 0,
+            "ThicknessMillimeters": 4,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.026315789473684202,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 11,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.00833333333333333,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 11,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-002",
+            "FrontSurfaceId": "element-002:front",
+            "BackSurfaceId": "element-002:back",
+            "FrontZMillimeters": 5,
+            "ThicknessMillimeters": 5,
+            "Material": "N-SF5",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.04,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 9,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.04,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-003",
+            "FrontSurfaceId": "element-003:front",
+            "BackSurfaceId": "element-003:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 5,
+            "Material": "N-SF5",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.04,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.04,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 9,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-004",
+            "FrontSurfaceId": "element-004:front",
+            "BackSurfaceId": "element-004:back",
+            "FrontZMillimeters": 24,
+            "ThicknessMillimeters": 4,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.00833333333333333,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 11,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.026315789473684202,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 11,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "On axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 2",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 7,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 3",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 14,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "W1",
+            "Nanometers": 486.1327,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "W2",
+            "Nanometers": 587.5618000000001,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "W3",
+            "Nanometers": 656.2725,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [
+          "SCHOTT"
+        ],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "FocalTargetMillimeters": 24.089069730944008,
+      "FNumberTarget": 2.4089069730944006,
+      "HalfFieldDegrees": 14,
+      "CurvatureBoundPerMillimeter": 0.08
+    },
+    {
+      "Id": "imager3-18",
+      "Role": "three-element photographic design, 18deg half field",
+      "Source": {
+        "Id": "dan-reiley-lens-design-exchange-photographic-lenses-prime-d2e2ccbd61b2",
+        "Name": "US02270234-1",
+        "Category": "Public Zemax Designs",
+        "SourceName": "photographic-lenses-prime",
+        "SourceUrl": "https://sites.google.com/site/danreiley/photographic-lenses-prime",
+        "License": "Public domain",
+        "SourceFormat": "ZMX",
+        "ImportStatus": "可用",
+        "ImportMessage": null,
+        "EffectiveFocalLength": 25.891466852583306,
+        "FNumber": 4.633404948565373,
+        "ApertureKind": "EntrancePupilDiameter",
+        "ApertureValue": 5.588,
+        "TotalTrack": 33.87700746282067,
+        "SurfaceCount": 9,
+        "FieldDefinition": "Angle",
+        "MaximumField": 18,
+        "FieldCount": 3,
+        "WavelengthCount": 3,
+        "MinimumWavelengthNanometers": 486.1327,
+        "MaximumWavelengthNanometers": 656.2725,
+        "NativePath": "projects/dan-reiley-lens-design-exchange-photographic-lenses-prime-d2e2ccbd61b2.staropt",
+        "SourcePath": "US02270234-1.zmx",
+        "NumericalAperture": 0.10728911834821449,
+        "NumericalApertureBasis": "像方空气近轴估算",
+        "WorkingDistance": 18.35760746282067,
+        "WorkingDistanceBasis": "像方后工作距离",
+        "LensElementCount": 3,
+        "MaximumClearAperture": 14,
+        "LensType": "未分类光学系统",
+        "Application": "公开研究与教学",
+        "DesignOrganization": "未注明",
+        "ImportedAt": null,
+        "ImporterVersion": "历史版本（未记录）",
+        "RepositoryPath": "src/OpticalSystemDesign.App/Assets/LensLibrary/projects/dan-reiley-lens-design-exchange-photographic-lenses-prime-d2e2ccbd61b2.staropt"
+      },
+      "OriginalSha256": "f65214a0b15da01a1b22475361a3ecde7a688426df511417b71cab506f46d5a2",
+      "PreparedTopologySha256": "18b2782f9c5dbe24a20604eb68bfee9c4a50494ede65a6511bf70bd89c2230b7",
+      "SourceTopology": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Imported Zemax ZMX",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 9.9314,
+          "ClearSemiDiameterMillimeters": 1.9754252597756978,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 33.87700746282067,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "element-001",
+            "FrontSurfaceId": "element-001:front",
+            "BackSurfaceId": "element-001:back",
+            "FrontZMillimeters": 0,
+            "ThicknessMillimeters": 5.08,
+            "Material": "LASF3",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.08666141728927935,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.007874015748031496,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-002",
+            "FrontSurfaceId": "element-002:front",
+            "BackSurfaceId": "element-002:back",
+            "FrontZMillimeters": 6.35,
+            "ThicknessMillimeters": 1.5494000000000003,
+            "Material": "TAFD40",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.04251968503596851,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 4,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.09172834647476338,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-003",
+            "FrontSurfaceId": "element-003:front",
+            "BackSurfaceId": "element-003:back",
+            "FrontZMillimeters": 10.4394,
+            "ThicknessMillimeters": 5.08,
+            "Material": "LASF3",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.033476377947634015,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 6,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.06295275593503666,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 6,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "On axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 2",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 12,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 3",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 18,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "W1",
+            "Nanometers": 486.1327,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "W2",
+            "Nanometers": 587.5618000000001,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "W3",
+            "Nanometers": 656.2725,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [
+          "SCHOTT",
+          "HIKARI",
+          "HOYA"
+        ],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "FocalTargetMillimeters": 25.891466852583306,
+      "FNumberTarget": 4.633404948565373,
+      "HalfFieldDegrees": 18,
+      "CurvatureBoundPerMillimeter": 0.18345669294952677
+    },
+    {
+      "Id": "imager3-21",
+      "Role": "different three-element photographic design, 21deg half field",
+      "Source": {
+        "Id": "dan-reiley-lens-design-exchange-photographic-lenses-prime-12601c6bd15c",
+        "Name": "US02298090-1",
+        "Category": "Public Zemax Designs",
+        "SourceName": "photographic-lenses-prime",
+        "SourceUrl": "https://sites.google.com/site/danreiley/photographic-lenses-prime",
+        "License": "Public domain",
+        "SourceFormat": "ZMX",
+        "ImportStatus": "可用",
+        "ImportMessage": null,
+        "EffectiveFocalLength": 26.29893046465161,
+        "FNumber": 4.93043315797743,
+        "ApertureKind": "EntrancePupilDiameter",
+        "ApertureValue": 5.334,
+        "TotalTrack": 30.567878567573416,
+        "SurfaceCount": 9,
+        "FieldDefinition": "Angle",
+        "MaximumField": 21,
+        "FieldCount": 3,
+        "WavelengthCount": 3,
+        "MinimumWavelengthNanometers": 486.1327,
+        "MaximumWavelengthNanometers": 656.2725,
+        "NativePath": "projects/dan-reiley-lens-design-exchange-photographic-lenses-prime-12601c6bd15c.staropt",
+        "SourcePath": "US02298090-1.zmx",
+        "NumericalAperture": 0.10089349157401048,
+        "NumericalApertureBasis": "像方空气近轴估算",
+        "WorkingDistance": 19.264878567573316,
+        "WorkingDistanceBasis": "像方后工作距离",
+        "LensElementCount": 3,
+        "MaximumClearAperture": 12,
+        "LensType": "未分类光学系统",
+        "Application": "公开研究与教学",
+        "DesignOrganization": "未注明",
+        "ImportedAt": null,
+        "ImporterVersion": "历史版本（未记录）",
+        "RepositoryPath": "src/OpticalSystemDesign.App/Assets/LensLibrary/projects/dan-reiley-lens-design-exchange-photographic-lenses-prime-12601c6bd15c.staropt"
+      },
+      "OriginalSha256": "9e977d835f8ec1dec6add0a54d0a01ed0367db856d48c3716e2b2dcbd1b1151f",
+      "PreparedTopologySha256": "947c56342ef89df2aef2946a11785bc542be0c3c7c964024f823b7b287c82339",
+      "SourceTopology": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Imported Zemax ZMX",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 3.3436820701111003,
+          "ClearSemiDiameterMillimeters": 2.261198955059374,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 30.567878567573416,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "element-001",
+            "FrontSurfaceId": "element-001:front",
+            "BackSurfaceId": "element-001:back",
+            "FrontZMillimeters": 0,
+            "ThicknessMillimeters": 2.7686,
+            "Material": "BAK1",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.11378740151866043,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 4,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 0,
+                "CurvaturePerMillimeter": 0,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-002",
+            "FrontSurfaceId": "element-002:front",
+            "BackSurfaceId": "element-002:back",
+            "FrontZMillimeters": 5.5626000000001,
+            "ThicknessMillimeters": 0.7873999999999999,
+            "Material": "SCHOTT:SF15",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.06110629925816539,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.11024803147635064,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "element-003",
+            "FrontSurfaceId": "element-003:front",
+            "BackSurfaceId": "element-003:back",
+            "FrontZMillimeters": 9.1440000000001,
+            "ThicknessMillimeters": 2.1590000000000007,
+            "Material": "TAFD30",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.032673228334217305,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 6,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.05346456693180708,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 6,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "On axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 2",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 14,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 3",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 21,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "W1",
+            "Nanometers": 486.1327,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "W2",
+            "Nanometers": 587.5618000000001,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "W3",
+            "Nanometers": 656.2725,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [
+          "SCHOTT",
+          "HIKARI",
+          "HOYA"
+        ],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "FocalTargetMillimeters": 26.29893046465161,
+      "FNumberTarget": 4.93043315797743,
+      "HalfFieldDegrees": 21,
+      "CurvatureBoundPerMillimeter": 0.22757480303732086
+    }
+  ],
+  "AllocationControl": {
+    "PrimaryProtocolSha256": "990d22de80f0d24e53d9a390581243df0acb0de76e9b4e2fe1fa4cb44c95240d",
+    "Reason": "Primary 200000-ray per-validation reserve ended before all dense fields for compact4/imager3-18/imager3-21. Reallocate within unchanged 2000000 total rays; no extra training updates or time.",
+    "OriginalFinalValidationReserve": 200000,
+    "NewFinalValidationReserve": 800000,
+    "KnownNonQuotaFailuresNotRerun": [
+      "fast6",
+      "wide4"
+    ]
+  }
+}

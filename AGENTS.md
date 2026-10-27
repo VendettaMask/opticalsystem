@@ -63,9 +63,11 @@
 
 ## Desktop build output locking
 
+- User validation preference (2026-10-27): tests must not interrupt the user’s computer use. Run background computation and off-screen/headless rendering only; do not launch foreground apps, steal focus, or inject mouse/keyboard input unless the user explicitly asks for native interaction. If a default-output build is locked by an app the user is using, report the lock without closing their window for testing.
+
 - User validation preference (2026-10-20): run focused regression tests for the changed behavior and concrete regressions observed during the task. Do not routinely rerun full test suites on every change; expand the scope only when a specific unresolved risk requires it or the user requests it. Report interrupted runs as incomplete.
 
-- If a running `Optical System Design` process locks the default App build output, close that specific application process and rerun the build or test against the default output directory so the runnable desktop binaries are updated. Do not work around the lock by treating an alternate output directory as the completed verification.
+- If an application process started by this task for validation locks the default App build output, close that specific validation process only when doing so does not interrupt the user, and rerun against the default output directory. If the user is using the app, report the lock without closing it for testing. Do not treat an alternate output directory as completed default-output verification.
 
 ## Accuracy reference priority
 

@@ -1,0 +1,2211 @@
+{
+  "ProtocolSha256": "06eb0ccbd4b7dea09f36dce37a55f1d9e07315d8ed54f9a143356d7fdf3db4be",
+  "Binaries": {
+    "OpticalSystemDesign.InitialStructure.Engine": "457e82cf2e54240cca7d0746a1dc6905be1e50129cda6ce1232842cd702b0558",
+    "OpticalSystemDesign.InitialStructure.Contracts": "20f9712c6b9ff6ee0bb4ebba16bdc68f34bc2d78ec9afbc4affb76864dc6dc5f",
+    "OpticalSystemDesign.Core": "ede8fc25329a4862e755386769c2f22ab8c576378a8756ed2a181ee638b8cc60",
+    "OpticalSystemDesign.InitialStructure.Benchmarks": "20543d9e6e6a702ab69cf7742d2c189a15eafb321153e06c551921250c7e3960"
+  },
+  "Runs": [
+    {
+      "Id": "m6-unoptimized-42-A",
+      "Task": "unoptimized",
+      "Seed": 42,
+      "Group": "A",
+      "SourceFingerprint": "f44fec6d9ae2f2af44129194cad16a87c96bba512eeb3dcaa1d4f15ab08be1f3",
+      "PlanFingerprint": "68fd2412120962d5d17817ad1ad8979a334055cce5c8bbffc8c7f721b1e255b4",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 61,
+        "GradientEvaluations": 54,
+        "ValidationEvaluations": 7,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 319740,
+        "GeometryProbes": 11989,
+        "Elapsed": "00:00:09.2801981"
+      },
+      "Accepted": 0,
+      "MinimumAcceptedElements": null,
+      "Best": {
+        "Id": "trial-5",
+        "Elements": 3,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 49.032080114044206,
+        "FNumber": 12.258020028511051,
+        "WorstRmsMillimeters": 0.09139011734747216,
+        "MinimumValidFraction": 1,
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.09139011734747216,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:1:rms",
+            "Actual": 0.09136617151337456,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:2:rms",
+            "Actual": 0.09129433571759009,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:3:rms",
+            "Actual": 0.0911746151128685,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:4:rms",
+            "Actual": 0.09100701840619106,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:5:rms",
+            "Actual": 0.09079155803749946,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:6:rms",
+            "Actual": 0.09052825043447305,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:7:rms",
+            "Actual": 0.0902171163464521,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:8:rms",
+            "Actual": 0.08985818126258488,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:9:rms",
+            "Actual": 0.08945147592058593,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:10:rms",
+            "Actual": 0.08899703691401253,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:11:rms",
+            "Actual": 0.0884949074076461,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:12:rms",
+            "Actual": 0.08794513797249064,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:13:rms",
+            "Actual": 0.08734778755425571,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:14:rms",
+            "Actual": 0.08670292459158913,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:15:rms",
+            "Actual": 0.08601062830363197,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:16:rms",
+            "Actual": 0.08527099016981377,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:17:rms",
+            "Actual": 0.08448411562926333,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:18:rms",
+            "Actual": 0.08365012603208781,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:19:rms",
+            "Actual": 0.08276916088101562,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:20:rms",
+            "Actual": 0.08184138040898542,
+            "Limit": 0.05
+          }
+        ]
+      },
+      "Outcomes": {
+        "UnmetTargets": 7,
+        "UpdateLimit": 6
+      },
+      "RecoveryAttempts": 0,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 7,
+      "ArchiveIds": []
+    },
+    {
+      "Id": "m6-unoptimized-42-B",
+      "Task": "unoptimized",
+      "Seed": 42,
+      "Group": "B",
+      "SourceFingerprint": "f44fec6d9ae2f2af44129194cad16a87c96bba512eeb3dcaa1d4f15ab08be1f3",
+      "PlanFingerprint": "6eec064b5be6c872e37f4fd00e022a64b9f49da206cdf22abc187b38b1ad0087",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 41,
+        "GradientEvaluations": 37,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 183630,
+        "GeometryProbes": 9013,
+        "Elapsed": "00:00:02.1675324"
+      },
+      "Accepted": 0,
+      "MinimumAcceptedElements": null,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 49.08261831354446,
+        "FNumber": 12.270654578386115,
+        "WorstRmsMillimeters": 0.1517309399811047,
+        "MinimumValidFraction": 1,
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.1517309399811047,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.21837058173996812,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:1:rms",
+            "Actual": 0.15170920770611923,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:1:maximum",
+            "Actual": 0.21861296578166103,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:2:rms",
+            "Actual": 0.15164401077159778,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:2:maximum",
+            "Actual": 0.21877574004225459,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:3:rms",
+            "Actual": 0.15153534885512204,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:3:maximum",
+            "Actual": 0.21885893736520223,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:4:rms",
+            "Actual": 0.1513832214534687,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:4:maximum",
+            "Actual": 0.21886258170889616,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:5:rms",
+            "Actual": 0.15118762793069873,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:5:maximum",
+            "Actual": 0.2187866881658378,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:6:rms",
+            "Actual": 0.15094856758815223,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:6:maximum",
+            "Actual": 0.21863126298428992,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:7:rms",
+            "Actual": 0.1506660397548774,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:7:maximum",
+            "Actual": 0.21839630359130435,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:8:rms",
+            "Actual": 0.15034004389971697,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:8:maximum",
+            "Actual": 0.21808230542648002,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:9:rms",
+            "Actual": 0.14997057976589218,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:9:maximum",
+            "Actual": 0.21771011367360427,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:10:rms",
+            "Actual": 0.14955764752920211,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:10:maximum",
+            "Actual": 0.2172945345901646,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:11:rms",
+            "Actual": 0.1491012479811463,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:11:maximum",
+            "Actual": 0.21684148289216046,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:12:rms",
+            "Actual": 0.14860138273852444,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:12:maximum",
+            "Actual": 0.2163331054227776,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:13:rms",
+            "Actual": 0.14805805448131196,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:13:maximum",
+            "Actual": 0.21578958262575676,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:14:rms",
+            "Actual": 0.14747126722084425,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:14:maximum",
+            "Actual": 0.2152081602559355,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:15:rms",
+            "Actual": 0.14684102660072412,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:15:maximum",
+            "Actual": 0.21457200465494344,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:16:rms",
+            "Actual": 0.1461673402330938,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:16:maximum",
+            "Actual": 0.21388110988100983,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:17:rms",
+            "Actual": 0.1454502180733871,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:17:maximum",
+            "Actual": 0.21315001889658128,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:18:rms",
+            "Actual": 0.14468967283702794,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:18:maximum",
+            "Actual": 0.21240265443315937,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:19:rms",
+            "Actual": 0.14388572046204806,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:19:maximum",
+            "Actual": 0.21160626697552276,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:20:rms",
+            "Actual": 0.14303838062210755,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:20:maximum",
+            "Actual": 0.21076083925642722,
+            "Limit": 0.15
+          }
+        ]
+      },
+      "Outcomes": {
+        "UnmetTargets": 4,
+        "UpdateLimit": 5,
+        "EditRejected": 3,
+        "RecoverySkipped": 2
+      },
+      "RecoveryAttempts": 0,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 4,
+      "ArchiveIds": []
+    },
+    {
+      "Id": "m6-unoptimized-42-C",
+      "Task": "unoptimized",
+      "Seed": 42,
+      "Group": "C",
+      "SourceFingerprint": "f44fec6d9ae2f2af44129194cad16a87c96bba512eeb3dcaa1d4f15ab08be1f3",
+      "PlanFingerprint": "fd7303a83844843ebcff6b3b87b8d55b67b6519206c80795e5fbc58991b9f953",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 217,
+        "GradientEvaluations": 23,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 183,
+        "DifferenceEvaluations": 166,
+        "JacobianBuilds": 13,
+        "TracedRays": 137010,
+        "GeometryProbes": 32847,
+        "Elapsed": "00:00:02.1080160"
+      },
+      "Accepted": 0,
+      "MinimumAcceptedElements": null,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 49.08261831354446,
+        "FNumber": 12.270654578386115,
+        "WorstRmsMillimeters": 0.1517309399811047,
+        "MinimumValidFraction": 1,
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.1517309399811047,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.21837058173996812,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:1:rms",
+            "Actual": 0.15170920770611923,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:1:maximum",
+            "Actual": 0.21861296578166103,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:2:rms",
+            "Actual": 0.15164401077159778,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:2:maximum",
+            "Actual": 0.21877574004225459,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:3:rms",
+            "Actual": 0.15153534885512204,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:3:maximum",
+            "Actual": 0.21885893736520223,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:4:rms",
+            "Actual": 0.1513832214534687,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:4:maximum",
+            "Actual": 0.21886258170889616,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:5:rms",
+            "Actual": 0.15118762793069873,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:5:maximum",
+            "Actual": 0.2187866881658378,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:6:rms",
+            "Actual": 0.15094856758815223,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:6:maximum",
+            "Actual": 0.21863126298428992,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:7:rms",
+            "Actual": 0.1506660397548774,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:7:maximum",
+            "Actual": 0.21839630359130435,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:8:rms",
+            "Actual": 0.15034004389971697,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:8:maximum",
+            "Actual": 0.21808230542648002,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:9:rms",
+            "Actual": 0.14997057976589218,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:9:maximum",
+            "Actual": 0.21771011367360427,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:10:rms",
+            "Actual": 0.14955764752920211,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:10:maximum",
+            "Actual": 0.2172945345901646,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:11:rms",
+            "Actual": 0.1491012479811463,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:11:maximum",
+            "Actual": 0.21684148289216046,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:12:rms",
+            "Actual": 0.14860138273852444,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:12:maximum",
+            "Actual": 0.2163331054227776,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:13:rms",
+            "Actual": 0.14805805448131196,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:13:maximum",
+            "Actual": 0.21578958262575676,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:14:rms",
+            "Actual": 0.14747126722084425,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:14:maximum",
+            "Actual": 0.2152081602559355,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:15:rms",
+            "Actual": 0.14684102660072412,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:15:maximum",
+            "Actual": 0.21457200465494344,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:16:rms",
+            "Actual": 0.1461673402330938,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:16:maximum",
+            "Actual": 0.21388110988100983,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:17:rms",
+            "Actual": 0.1454502180733871,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:17:maximum",
+            "Actual": 0.21315001889658128,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:18:rms",
+            "Actual": 0.14468967283702794,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:18:maximum",
+            "Actual": 0.21240265443315937,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:19:rms",
+            "Actual": 0.14388572046204806,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:19:maximum",
+            "Actual": 0.21160626697552276,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:20:rms",
+            "Actual": 0.14303838062210755,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:20:maximum",
+            "Actual": 0.21076083925642722,
+            "Limit": 0.15
+          }
+        ]
+      },
+      "Outcomes": {
+        "UnmetTargets": 3,
+        "UpdateLimit": 3,
+        "EditRejected": 3,
+        "Recovered": 1,
+        "BudgetExhausted": 1
+      },
+      "RecoveryAttempts": 2,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 3,
+      "ArchiveIds": []
+    },
+    {
+      "Id": "m6-unoptimized-42-D",
+      "Task": "unoptimized",
+      "Seed": 42,
+      "Group": "D",
+      "SourceFingerprint": "f44fec6d9ae2f2af44129194cad16a87c96bba512eeb3dcaa1d4f15ab08be1f3",
+      "PlanFingerprint": "10ff5fde40889816bda1406f3df62252b52d6067ea8646ea3cee4be98b51883d",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 217,
+        "GradientEvaluations": 23,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 183,
+        "DifferenceEvaluations": 166,
+        "JacobianBuilds": 13,
+        "TracedRays": 137010,
+        "GeometryProbes": 32847,
+        "Elapsed": "00:00:02.1055682"
+      },
+      "Accepted": 0,
+      "MinimumAcceptedElements": null,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 49.08261831354446,
+        "FNumber": 12.270654578386115,
+        "WorstRmsMillimeters": 0.1517309399811047,
+        "MinimumValidFraction": 1,
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.1517309399811047,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.21837058173996812,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:1:rms",
+            "Actual": 0.15170920770611923,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:1:maximum",
+            "Actual": 0.21861296578166103,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:2:rms",
+            "Actual": 0.15164401077159778,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:2:maximum",
+            "Actual": 0.21877574004225459,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:3:rms",
+            "Actual": 0.15153534885512204,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:3:maximum",
+            "Actual": 0.21885893736520223,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:4:rms",
+            "Actual": 0.1513832214534687,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:4:maximum",
+            "Actual": 0.21886258170889616,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:5:rms",
+            "Actual": 0.15118762793069873,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:5:maximum",
+            "Actual": 0.2187866881658378,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:6:rms",
+            "Actual": 0.15094856758815223,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:6:maximum",
+            "Actual": 0.21863126298428992,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:7:rms",
+            "Actual": 0.1506660397548774,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:7:maximum",
+            "Actual": 0.21839630359130435,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:8:rms",
+            "Actual": 0.15034004389971697,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:8:maximum",
+            "Actual": 0.21808230542648002,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:9:rms",
+            "Actual": 0.14997057976589218,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:9:maximum",
+            "Actual": 0.21771011367360427,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:10:rms",
+            "Actual": 0.14955764752920211,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:10:maximum",
+            "Actual": 0.2172945345901646,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:11:rms",
+            "Actual": 0.1491012479811463,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:11:maximum",
+            "Actual": 0.21684148289216046,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:12:rms",
+            "Actual": 0.14860138273852444,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:12:maximum",
+            "Actual": 0.2163331054227776,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:13:rms",
+            "Actual": 0.14805805448131196,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:13:maximum",
+            "Actual": 0.21578958262575676,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:14:rms",
+            "Actual": 0.14747126722084425,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:14:maximum",
+            "Actual": 0.2152081602559355,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:15:rms",
+            "Actual": 0.14684102660072412,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:15:maximum",
+            "Actual": 0.21457200465494344,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:16:rms",
+            "Actual": 0.1461673402330938,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:16:maximum",
+            "Actual": 0.21388110988100983,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:17:rms",
+            "Actual": 0.1454502180733871,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:17:maximum",
+            "Actual": 0.21315001889658128,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:18:rms",
+            "Actual": 0.14468967283702794,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:18:maximum",
+            "Actual": 0.21240265443315937,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:19:rms",
+            "Actual": 0.14388572046204806,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:19:maximum",
+            "Actual": 0.21160626697552276,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:20:rms",
+            "Actual": 0.14303838062210755,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:20:maximum",
+            "Actual": 0.21076083925642722,
+            "Limit": 0.15
+          }
+        ]
+      },
+      "Outcomes": {
+        "UnmetTargets": 3,
+        "UpdateLimit": 3,
+        "EditRejected": 3,
+        "Recovered": 1,
+        "BudgetExhausted": 1
+      },
+      "RecoveryAttempts": 2,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 3,
+      "ArchiveIds": []
+    },
+    {
+      "Id": "m6-unoptimized-101-A",
+      "Task": "unoptimized",
+      "Seed": 101,
+      "Group": "A",
+      "SourceFingerprint": "7ddaee9dc297fa2c3117b0cf3861efe3d0c67aaa5bb9147d0633eed08230b470",
+      "PlanFingerprint": "1c97e22f11c0c1aedbdf87b02374eed4a547fdc9edebccb81697406801b855c0",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 61,
+        "GradientEvaluations": 54,
+        "ValidationEvaluations": 7,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 319740,
+        "GeometryProbes": 11989,
+        "Elapsed": "00:00:03.6005752"
+      },
+      "Accepted": 0,
+      "MinimumAcceptedElements": null,
+      "Best": {
+        "Id": "trial-5",
+        "Elements": 3,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 49.04733920121726,
+        "FNumber": 12.261834800304316,
+        "WorstRmsMillimeters": 0.08874292003186326,
+        "MinimumValidFraction": 1,
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.08874292003186326,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:1:rms",
+            "Actual": 0.08871897081968903,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:2:rms",
+            "Actual": 0.08864712500259019,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:3:rms",
+            "Actual": 0.08852738807410757,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:4:rms",
+            "Actual": 0.08835976931623692,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:5:rms",
+            "Actual": 0.08814428198883689,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:6:rms",
+            "Actual": 0.08788094359971674,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:7:rms",
+            "Actual": 0.0875697762588361,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:8:rms",
+            "Actual": 0.0872108071221812,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:9:rms",
+            "Actual": 0.08680406893230591,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:10:rms",
+            "Actual": 0.08634960066421882,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:11:rms",
+            "Actual": 0.085847448287124,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:12:rms",
+            "Actual": 0.08529766565476624,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:13:rms",
+            "Actual": 0.08470031553951686,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:14:rms",
+            "Actual": 0.08405547082838515,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:15:rms",
+            "Actual": 0.08336321590241119,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:16:rms",
+            "Actual": 0.08262364822505133,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:17:rms",
+            "Actual": 0.08183688016993518,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:18:rms",
+            "Actual": 0.08100304112401756,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:19:rms",
+            "Actual": 0.08012227990920272,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:20:rms",
+            "Actual": 0.07919476757361632,
+            "Limit": 0.05
+          }
+        ]
+      },
+      "Outcomes": {
+        "UnmetTargets": 7,
+        "UpdateLimit": 6
+      },
+      "RecoveryAttempts": 0,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 7,
+      "ArchiveIds": []
+    },
+    {
+      "Id": "m6-unoptimized-101-B",
+      "Task": "unoptimized",
+      "Seed": 101,
+      "Group": "B",
+      "SourceFingerprint": "7ddaee9dc297fa2c3117b0cf3861efe3d0c67aaa5bb9147d0633eed08230b470",
+      "PlanFingerprint": "67bfe5c07335e923e7e24336831ce13f2a287bf69823234bb34ba171e133fd53",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 41,
+        "GradientEvaluations": 37,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 183630,
+        "GeometryProbes": 9013,
+        "Elapsed": "00:00:02.0134476"
+      },
+      "Accepted": 0,
+      "MinimumAcceptedElements": null,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 49.108283505623135,
+        "FNumber": 12.277070876405784,
+        "WorstRmsMillimeters": 0.15243766496836994,
+        "MinimumValidFraction": 1,
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.15243766496836994,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.21936379751842655,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:1:rms",
+            "Actual": 0.15241594449471976,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:1:maximum",
+            "Actual": 0.21960587656549527,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:2:rms",
+            "Actual": 0.15235078295249155,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:2:maximum",
+            "Actual": 0.21976839185658653,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:3:rms",
+            "Actual": 0.15224217998402695,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:3:maximum",
+            "Actual": 0.21985137617387718,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:4:rms",
+            "Actual": 0.15209013502704086,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:4:maximum",
+            "Actual": 0.21985485341249278,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:5:rms",
+            "Actual": 0.15189464736221292,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:5:maximum",
+            "Actual": 0.21977883859968206,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:6:rms",
+            "Actual": 0.15165571618247717,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:6:maximum",
+            "Actual": 0.21962333791639677,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:7:rms",
+            "Actual": 0.15137334068252972,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:7:maximum",
+            "Actual": 0.21938834872031387,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:8:rms",
+            "Actual": 0.15104752016976808,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:8:maximum",
+            "Actual": 0.2190743895079628,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:9:rms",
+            "Actual": 0.15067825419748612,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:9:maximum",
+            "Actual": 0.21870245356887114,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:10:rms",
+            "Actual": 0.15026554272142797,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:10:maximum",
+            "Actual": 0.21828697128836447,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:11:rms",
+            "Actual": 0.1498093862809842,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:11:maximum",
+            "Actual": 0.21783424486883024,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:12:rms",
+            "Actual": 0.14930978620656574,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:12:maximum",
+            "Actual": 0.2173260331855799,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:13:rms",
+            "Actual": 0.14876674485492192,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:13:maximum",
+            "Actual": 0.21678299557123076,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:14:rms",
+            "Actual": 0.14818026587440117,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:14:maximum",
+            "Actual": 0.21620180036518483,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:15:rms",
+            "Actual": 0.14755035450253517,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:15:maximum",
+            "Actual": 0.21556590168300396,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:16:rms",
+            "Actual": 0.14687701789853977,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:16:maximum",
+            "Actual": 0.21487529337370687,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:17:rms",
+            "Actual": 0.14616026551379716,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:17:maximum",
+            "Actual": 0.21414496067060668,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:18:rms",
+            "Actual": 0.14540010950372817,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:18:maximum",
+            "Actual": 0.2133979383347906,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:19:rms",
+            "Actual": 0.1445965651849539,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:19:maximum",
+            "Actual": 0.21260191934530728,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:20:rms",
+            "Actual": 0.14374965154216093,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:20:maximum",
+            "Actual": 0.2117568862944541,
+            "Limit": 0.15
+          }
+        ]
+      },
+      "Outcomes": {
+        "UnmetTargets": 4,
+        "UpdateLimit": 5,
+        "EditRejected": 3,
+        "RecoverySkipped": 2
+      },
+      "RecoveryAttempts": 0,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 4,
+      "ArchiveIds": []
+    },
+    {
+      "Id": "m6-unoptimized-101-C",
+      "Task": "unoptimized",
+      "Seed": 101,
+      "Group": "C",
+      "SourceFingerprint": "7ddaee9dc297fa2c3117b0cf3861efe3d0c67aaa5bb9147d0633eed08230b470",
+      "PlanFingerprint": "e2c88e6f688497353f8ce2b0d93077dd04b977a41d1aeeb15535726c9e6c78fa",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 217,
+        "GradientEvaluations": 23,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 185,
+        "DifferenceEvaluations": 168,
+        "JacobianBuilds": 14,
+        "TracedRays": 137010,
+        "GeometryProbes": 33045,
+        "Elapsed": "00:00:01.8700716"
+      },
+      "Accepted": 0,
+      "MinimumAcceptedElements": null,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 49.108283505623135,
+        "FNumber": 12.277070876405784,
+        "WorstRmsMillimeters": 0.15243766496836994,
+        "MinimumValidFraction": 1,
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.15243766496836994,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.21936379751842655,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:1:rms",
+            "Actual": 0.15241594449471976,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:1:maximum",
+            "Actual": 0.21960587656549527,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:2:rms",
+            "Actual": 0.15235078295249155,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:2:maximum",
+            "Actual": 0.21976839185658653,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:3:rms",
+            "Actual": 0.15224217998402695,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:3:maximum",
+            "Actual": 0.21985137617387718,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:4:rms",
+            "Actual": 0.15209013502704086,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:4:maximum",
+            "Actual": 0.21985485341249278,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:5:rms",
+            "Actual": 0.15189464736221292,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:5:maximum",
+            "Actual": 0.21977883859968206,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:6:rms",
+            "Actual": 0.15165571618247717,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:6:maximum",
+            "Actual": 0.21962333791639677,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:7:rms",
+            "Actual": 0.15137334068252972,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:7:maximum",
+            "Actual": 0.21938834872031387,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:8:rms",
+            "Actual": 0.15104752016976808,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:8:maximum",
+            "Actual": 0.2190743895079628,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:9:rms",
+            "Actual": 0.15067825419748612,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:9:maximum",
+            "Actual": 0.21870245356887114,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:10:rms",
+            "Actual": 0.15026554272142797,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:10:maximum",
+            "Actual": 0.21828697128836447,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:11:rms",
+            "Actual": 0.1498093862809842,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:11:maximum",
+            "Actual": 0.21783424486883024,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:12:rms",
+            "Actual": 0.14930978620656574,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:12:maximum",
+            "Actual": 0.2173260331855799,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:13:rms",
+            "Actual": 0.14876674485492192,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:13:maximum",
+            "Actual": 0.21678299557123076,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:14:rms",
+            "Actual": 0.14818026587440117,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:14:maximum",
+            "Actual": 0.21620180036518483,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:15:rms",
+            "Actual": 0.14755035450253517,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:15:maximum",
+            "Actual": 0.21556590168300396,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:16:rms",
+            "Actual": 0.14687701789853977,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:16:maximum",
+            "Actual": 0.21487529337370687,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:17:rms",
+            "Actual": 0.14616026551379716,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:17:maximum",
+            "Actual": 0.21414496067060668,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:18:rms",
+            "Actual": 0.14540010950372817,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:18:maximum",
+            "Actual": 0.2133979383347906,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:19:rms",
+            "Actual": 0.1445965651849539,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:19:maximum",
+            "Actual": 0.21260191934530728,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:20:rms",
+            "Actual": 0.14374965154216093,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:20:maximum",
+            "Actual": 0.2117568862944541,
+            "Limit": 0.15
+          }
+        ]
+      },
+      "Outcomes": {
+        "UnmetTargets": 3,
+        "UpdateLimit": 3,
+        "EditRejected": 3,
+        "Recovered": 1,
+        "BudgetExhausted": 1
+      },
+      "RecoveryAttempts": 2,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 3,
+      "ArchiveIds": []
+    },
+    {
+      "Id": "m6-unoptimized-101-D",
+      "Task": "unoptimized",
+      "Seed": 101,
+      "Group": "D",
+      "SourceFingerprint": "7ddaee9dc297fa2c3117b0cf3861efe3d0c67aaa5bb9147d0633eed08230b470",
+      "PlanFingerprint": "055bc1dbe3bd6b909e0b4734df3571684522a1b4f8284e7f50a6239e6f2fbfd0",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 217,
+        "GradientEvaluations": 23,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 185,
+        "DifferenceEvaluations": 168,
+        "JacobianBuilds": 14,
+        "TracedRays": 137010,
+        "GeometryProbes": 33045,
+        "Elapsed": "00:00:01.9831545"
+      },
+      "Accepted": 0,
+      "MinimumAcceptedElements": null,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 49.108283505623135,
+        "FNumber": 12.277070876405784,
+        "WorstRmsMillimeters": 0.15243766496836994,
+        "MinimumValidFraction": 1,
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.15243766496836994,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.21936379751842655,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:1:rms",
+            "Actual": 0.15241594449471976,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:1:maximum",
+            "Actual": 0.21960587656549527,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:2:rms",
+            "Actual": 0.15235078295249155,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:2:maximum",
+            "Actual": 0.21976839185658653,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:3:rms",
+            "Actual": 0.15224217998402695,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:3:maximum",
+            "Actual": 0.21985137617387718,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:4:rms",
+            "Actual": 0.15209013502704086,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:4:maximum",
+            "Actual": 0.21985485341249278,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:5:rms",
+            "Actual": 0.15189464736221292,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:5:maximum",
+            "Actual": 0.21977883859968206,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:6:rms",
+            "Actual": 0.15165571618247717,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:6:maximum",
+            "Actual": 0.21962333791639677,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:7:rms",
+            "Actual": 0.15137334068252972,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:7:maximum",
+            "Actual": 0.21938834872031387,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:8:rms",
+            "Actual": 0.15104752016976808,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:8:maximum",
+            "Actual": 0.2190743895079628,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:9:rms",
+            "Actual": 0.15067825419748612,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:9:maximum",
+            "Actual": 0.21870245356887114,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:10:rms",
+            "Actual": 0.15026554272142797,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:10:maximum",
+            "Actual": 0.21828697128836447,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:11:rms",
+            "Actual": 0.1498093862809842,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:11:maximum",
+            "Actual": 0.21783424486883024,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:12:rms",
+            "Actual": 0.14930978620656574,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:12:maximum",
+            "Actual": 0.2173260331855799,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:13:rms",
+            "Actual": 0.14876674485492192,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:13:maximum",
+            "Actual": 0.21678299557123076,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:14:rms",
+            "Actual": 0.14818026587440117,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:14:maximum",
+            "Actual": 0.21620180036518483,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:15:rms",
+            "Actual": 0.14755035450253517,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:15:maximum",
+            "Actual": 0.21556590168300396,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:16:rms",
+            "Actual": 0.14687701789853977,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:16:maximum",
+            "Actual": 0.21487529337370687,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:17:rms",
+            "Actual": 0.14616026551379716,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:17:maximum",
+            "Actual": 0.21414496067060668,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:18:rms",
+            "Actual": 0.14540010950372817,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:18:maximum",
+            "Actual": 0.2133979383347906,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:19:rms",
+            "Actual": 0.1445965651849539,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:19:maximum",
+            "Actual": 0.21260191934530728,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:20:rms",
+            "Actual": 0.14374965154216093,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:20:maximum",
+            "Actual": 0.2117568862944541,
+            "Limit": 0.15
+          }
+        ]
+      },
+      "Outcomes": {
+        "UnmetTargets": 3,
+        "UpdateLimit": 3,
+        "EditRejected": 3,
+        "Recovered": 1,
+        "BudgetExhausted": 1
+      },
+      "RecoveryAttempts": 2,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 3,
+      "ArchiveIds": []
+    },
+    {
+      "Id": "m6-m2-endpoint-42-A",
+      "Task": "m2-endpoint",
+      "Seed": 42,
+      "Group": "A",
+      "SourceFingerprint": "a8ca6db89fee2732245591d5e7e978c420da6e6327553bd32dd33f5dd1fe4c5e",
+      "PlanFingerprint": "c8b46d416fafac6c5eba9d8f40682eceb5faba7b3bbf330e7777fdf847ee5b35",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 61,
+        "GradientEvaluations": 54,
+        "ValidationEvaluations": 7,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 319740,
+        "GeometryProbes": 11989,
+        "Elapsed": "00:00:03.6950742"
+      },
+      "Accepted": 3,
+      "MinimumAcceptedElements": 3,
+      "Best": {
+        "Id": "trial-5",
+        "Elements": 3,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 49.571613469917274,
+        "FNumber": 12.392903367479319,
+        "WorstRmsMillimeters": 0.037048203499946815,
+        "MinimumValidFraction": 1,
+        "Violations": []
+      },
+      "Outcomes": {
+        "Accepted": 3,
+        "UpdateLimit": 6,
+        "UnmetTargets": 4
+      },
+      "RecoveryAttempts": 0,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 7,
+      "ArchiveIds": [
+        "seed-0",
+        "trial-2",
+        "trial-5"
+      ]
+    },
+    {
+      "Id": "m6-m2-endpoint-42-B",
+      "Task": "m2-endpoint",
+      "Seed": 42,
+      "Group": "B",
+      "SourceFingerprint": "a8ca6db89fee2732245591d5e7e978c420da6e6327553bd32dd33f5dd1fe4c5e",
+      "PlanFingerprint": "5a687f2d033001d2cd4b5e33a6f7869c4abe43221a01975676d51a816c978f69",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 46,
+        "GradientEvaluations": 42,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 184380,
+        "GeometryProbes": 5908,
+        "Elapsed": "00:00:01.9661656"
+      },
+      "Accepted": 1,
+      "MinimumAcceptedElements": 3,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 49.59215236293931,
+        "FNumber": 12.398038090734827,
+        "WorstRmsMillimeters": 0.0439724388744294,
+        "MinimumValidFraction": 1,
+        "Violations": []
+      },
+      "Outcomes": {
+        "Accepted": 1,
+        "RecoverySkipped": 3,
+        "UpdateLimit": 6,
+        "UnmetTargets": 3,
+        "EditRejected": 3
+      },
+      "RecoveryAttempts": 0,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 4,
+      "ArchiveIds": [
+        "seed-0"
+      ]
+    },
+    {
+      "Id": "m6-m2-endpoint-42-C",
+      "Task": "m2-endpoint",
+      "Seed": 42,
+      "Group": "C",
+      "SourceFingerprint": "a8ca6db89fee2732245591d5e7e978c420da6e6327553bd32dd33f5dd1fe4c5e",
+      "PlanFingerprint": "e0f1b0526d4be6d9112e259f77038d50d8e9825bb06ee795fea112f2b90f4976",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 329,
+        "GradientEvaluations": 42,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 249,
+        "DifferenceEvaluations": 227,
+        "JacobianBuilds": 28,
+        "TracedRays": 184380,
+        "GeometryProbes": 27731,
+        "Elapsed": "00:00:02.8396545"
+      },
+      "Accepted": 2,
+      "MinimumAcceptedElements": 3,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 49.59215236293931,
+        "FNumber": 12.398038090734827,
+        "WorstRmsMillimeters": 0.0439724388744294,
+        "MinimumValidFraction": 1,
+        "Violations": []
+      },
+      "Outcomes": {
+        "Accepted": 2,
+        "Recovered": 3,
+        "UpdateLimit": 6,
+        "UnmetTargets": 2,
+        "EditRejected": 2,
+        "BudgetExhausted": 1
+      },
+      "RecoveryAttempts": 4,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 4,
+      "ArchiveIds": [
+        "seed-0",
+        "trial-5"
+      ]
+    },
+    {
+      "Id": "m6-m2-endpoint-42-D",
+      "Task": "m2-endpoint",
+      "Seed": 42,
+      "Group": "D",
+      "SourceFingerprint": "a8ca6db89fee2732245591d5e7e978c420da6e6327553bd32dd33f5dd1fe4c5e",
+      "PlanFingerprint": "ebdad73d5724f852365f5a8326cee29cb0ba13195261fee215d5f29e15ca921d",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 382,
+        "GradientEvaluations": 56,
+        "ValidationEvaluations": 5,
+        "MatrixEvaluations": 287,
+        "DifferenceEvaluations": 259,
+        "JacobianBuilds": 32,
+        "TracedRays": 231000,
+        "GeometryProbes": 34335,
+        "Elapsed": "00:00:03.5282028"
+      },
+      "Accepted": 2,
+      "MinimumAcceptedElements": 3,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 49.59215236293931,
+        "FNumber": 12.398038090734827,
+        "WorstRmsMillimeters": 0.0439724388744294,
+        "MinimumValidFraction": 1,
+        "Violations": []
+      },
+      "Outcomes": {
+        "Accepted": 2,
+        "Recovered": 4,
+        "UpdateLimit": 8,
+        "UnmetTargets": 2,
+        "EditRejected": 2,
+        "BudgetExhausted": 1,
+        "TransitionRejected": 1
+      },
+      "RecoveryAttempts": 5,
+      "ProgressiveEvents": 4,
+      "CandidateCount": 4,
+      "ArchiveIds": [
+        "seed-0",
+        "trial-5"
+      ]
+    },
+    {
+      "Id": "m6-m2-endpoint-101-A",
+      "Task": "m2-endpoint",
+      "Seed": 101,
+      "Group": "A",
+      "SourceFingerprint": "a7276b31c5f67de0333554d5564d4797ade86c6a8cf93d23df24a5727ce3eaf0",
+      "PlanFingerprint": "0d93cf4cc96f38519a4f84a1528c7bbff25919bd132f1eef745737496a2fb254",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 61,
+        "GradientEvaluations": 54,
+        "ValidationEvaluations": 7,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 319740,
+        "GeometryProbes": 11989,
+        "Elapsed": "00:00:03.6844606"
+      },
+      "Accepted": 3,
+      "MinimumAcceptedElements": 3,
+      "Best": {
+        "Id": "trial-5",
+        "Elements": 3,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 49.57028202060174,
+        "FNumber": 12.392570505150434,
+        "WorstRmsMillimeters": 0.03712898179909862,
+        "MinimumValidFraction": 1,
+        "Violations": []
+      },
+      "Outcomes": {
+        "Accepted": 3,
+        "UpdateLimit": 6,
+        "UnmetTargets": 4
+      },
+      "RecoveryAttempts": 0,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 7,
+      "ArchiveIds": [
+        "seed-0",
+        "trial-2",
+        "trial-5"
+      ]
+    },
+    {
+      "Id": "m6-m2-endpoint-101-B",
+      "Task": "m2-endpoint",
+      "Seed": 101,
+      "Group": "B",
+      "SourceFingerprint": "a7276b31c5f67de0333554d5564d4797ade86c6a8cf93d23df24a5727ce3eaf0",
+      "PlanFingerprint": "61111ade1561fa0c3f19dec1d50dca35fdb1ba734baf9959c78d280e17da0566",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 46,
+        "GradientEvaluations": 42,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 184380,
+        "GeometryProbes": 5908,
+        "Elapsed": "00:00:01.6726502"
+      },
+      "Accepted": 1,
+      "MinimumAcceptedElements": 3,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 49.61936029375351,
+        "FNumber": 12.404840073438377,
+        "WorstRmsMillimeters": 0.04475722965058809,
+        "MinimumValidFraction": 1,
+        "Violations": []
+      },
+      "Outcomes": {
+        "Accepted": 1,
+        "RecoverySkipped": 3,
+        "UpdateLimit": 6,
+        "UnmetTargets": 3,
+        "EditRejected": 3
+      },
+      "RecoveryAttempts": 0,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 4,
+      "ArchiveIds": [
+        "seed-0"
+      ]
+    },
+    {
+      "Id": "m6-m2-endpoint-101-C",
+      "Task": "m2-endpoint",
+      "Seed": 101,
+      "Group": "C",
+      "SourceFingerprint": "a7276b31c5f67de0333554d5564d4797ade86c6a8cf93d23df24a5727ce3eaf0",
+      "PlanFingerprint": "30d5bd29bf0155273fce3fb41d53b282a63ee6df8437b41171644023776a9ce6",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 329,
+        "GradientEvaluations": 42,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 267,
+        "DifferenceEvaluations": 232,
+        "JacobianBuilds": 29,
+        "TracedRays": 184380,
+        "GeometryProbes": 28739,
+        "Elapsed": "00:00:02.8145125"
+      },
+      "Accepted": 2,
+      "MinimumAcceptedElements": 3,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 49.61936029375351,
+        "FNumber": 12.404840073438377,
+        "WorstRmsMillimeters": 0.04475722965058809,
+        "MinimumValidFraction": 1,
+        "Violations": []
+      },
+      "Outcomes": {
+        "Accepted": 2,
+        "Recovered": 3,
+        "UpdateLimit": 6,
+        "UnmetTargets": 2,
+        "EditRejected": 2,
+        "BudgetExhausted": 1
+      },
+      "RecoveryAttempts": 4,
+      "ProgressiveEvents": 0,
+      "CandidateCount": 4,
+      "ArchiveIds": [
+        "seed-0",
+        "trial-5"
+      ]
+    },
+    {
+      "Id": "m6-m2-endpoint-101-D",
+      "Task": "m2-endpoint",
+      "Seed": 101,
+      "Group": "D",
+      "SourceFingerprint": "a7276b31c5f67de0333554d5564d4797ade86c6a8cf93d23df24a5727ce3eaf0",
+      "PlanFingerprint": "e7fa849388e48cc88ee675e8a781d2a56b1e7a854056fd8d80263b47bef699ff",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 382,
+        "GradientEvaluations": 56,
+        "ValidationEvaluations": 5,
+        "MatrixEvaluations": 305,
+        "DifferenceEvaluations": 264,
+        "JacobianBuilds": 33,
+        "TracedRays": 231000,
+        "GeometryProbes": 35343,
+        "Elapsed": "00:00:03.1770581"
+      },
+      "Accepted": 2,
+      "MinimumAcceptedElements": 3,
+      "Best": {
+        "Id": "seed-0",
+        "Elements": 3,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 49.61936029375351,
+        "FNumber": 12.404840073438377,
+        "WorstRmsMillimeters": 0.04475722965058809,
+        "MinimumValidFraction": 1,
+        "Violations": []
+      },
+      "Outcomes": {
+        "Accepted": 2,
+        "Recovered": 4,
+        "UpdateLimit": 8,
+        "UnmetTargets": 2,
+        "EditRejected": 2,
+        "BudgetExhausted": 1,
+        "TransitionRejected": 1
+      },
+      "RecoveryAttempts": 5,
+      "ProgressiveEvents": 4,
+      "CandidateCount": 4,
+      "ArchiveIds": [
+        "seed-0",
+        "trial-5"
+      ]
+    }
+  ]
+}

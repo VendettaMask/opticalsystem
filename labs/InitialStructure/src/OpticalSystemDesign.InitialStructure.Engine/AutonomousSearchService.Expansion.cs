@@ -104,6 +104,7 @@ public static partial class AutonomousSearchService
             Template = edit.Topology!,
             Change = edit.Change,
             Phase = AutonomousSearchPhase.Recovery,
+            AfterFeasibility = null,
             Variables = [],
             StageOptions = null,
             Continuation = null,
@@ -116,19 +117,22 @@ public static partial class AutonomousSearchService
         var topology = pending.Template;
         var requests = Variables(topology, policy.CurvatureBoundPerMillimeter).Where(request => !topology.Elements.Any(element => element.Id == frozenId
             && (element.FrontSurfaceId == request.SurfaceId || element.BackSurfaceId == request.SurfaceId))).ToList();
-        if (policy.Expansion is not { EnableProfile: true } options) return requests.ToImmutableArray();
+        requests.AddRange(AxialVariables(pending, policy));
+        var profile = policy.Expansion is { EnableProfile: true };
+        var options = policy.Expansion;
+        if (!profile && policy.CompensateConic != true) return requests.ToImmutableArray();
         foreach (var element in topology.Elements.Where(element => !element.Protected && element.Id != frozenId))
             foreach (var (surfaceId, face) in new[] { (element.FrontSurfaceId, element.Front), (element.BackSurfaceId, element.Back) })
             {
                 if (face.Profile.Kind == TopologyProfileKind.Plane) continue;
-                var conicBound = Math.Max(options.MaximumAbsoluteConic, Math.Abs(face.Profile.Conic) * 2);
+                var conicBound = Math.Max(options?.MaximumAbsoluteConic ?? 2, Math.Abs(face.Profile.Conic) * 2);
                 requests.Add(new(surfaceId, OpticalDesignParameterKind.Conic, -conicBound, conicBound));
-                if (face.Profile.Kind != TopologyProfileKind.EvenAsphere) continue;
+                if (!profile || face.Profile.Kind != TopologyProfileKind.EvenAsphere) continue;
                 var radius = face.MechanicalSemiDiameterMillimeters ?? face.ClearSemiDiameterMillimeters;
                 for (var power = 4; power <= face.Profile.MaximumEvenPower; power += 2)
                 {
                     var initial = face.Profile.Terms.SingleOrDefault(term => term.Power == power)?.Coefficient ?? 0;
-                    var bound = Math.Max(1e-30, Math.Max(options.CoefficientCoordinateSagMillimeters / Math.Pow(radius, power), Math.Abs(initial) * 2));
+                    var bound = Math.Max(1e-30, Math.Max(options!.CoefficientCoordinateSagMillimeters / Math.Pow(radius, power), Math.Abs(initial) * 2));
                     requests.Add(new(surfaceId, OpticalDesignParameterKind.EvenAsphereCoefficient, -bound, bound, bound, power));
                 }
             }

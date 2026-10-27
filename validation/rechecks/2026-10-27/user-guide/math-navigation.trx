@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="910c6555-617a-4cea-ad4f-a7ff0f258aca" name="optics@LAPTOP-G4BBBCS0 2026-10-27 16:07:03" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T16:07:03.0883734+08:00" queuing="2026-10-27T16:07:03.0883737+08:00" start="2026-10-27T16:06:52.4026428+08:00" finish="2026-10-27T16:07:03.0954911+08:00" />
+  <TestSettings name="default" id="e853ba62-3e1c-4a8e-a661-805cd05f8d36">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-27_16_07_03" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e552c252-04c4-4df0-a191-f809bae7f92c" testId="e6cf4598-45ff-d57e-46c1-d43d4344d37f" testName="OpticalSystemDesign.Tests.UserGuidePanelTests.CalculationFilterNavigationAndEmptySearchStayConsistent" computerName="LAPTOP-G4BBBCS0" duration="00:00:07.8690276" startTime="2026-10-27T16:06:55.0938782+08:00" endTime="2026-10-27T16:07:02.9565376+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e552c252-04c4-4df0-a191-f809bae7f92c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: "How Zernike coefficients are fitted"&#xD;
+Actual:   "Wavefront"&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.UserGuidePanelTests.&lt;&gt;c.&lt;CalculationFilterNavigationAndEmptySearchStayConsistent&gt;b__1_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuidePanelTests.cs:line 133&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.UserGuidePanelTests.CalculationFilterNavigationAndEmptySearchStayConsistent() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuidePanelTests.cs:line 105&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.UserGuidePanelTests.CalculationFilterNavigationAndEmptySearchStayConsistent" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e6cf4598-45ff-d57e-46c1-d43d4344d37f">
+      <Execution id="e552c252-04c4-4df0-a191-f809bae7f92c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UserGuidePanelTests" name="CalculationFilterNavigationAndEmptySearchStayConsistent" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="e6cf4598-45ff-d57e-46c1-d43d4344d37f" executionId="e552c252-04c4-4df0-a191-f809bae7f92c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.18]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.11]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.13]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:10.05]       Assert.Equal() Failure: Strings differ&#xD;
+[xUnit.net 00:00:10.05]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:10.05]       Expected: "How Zernike coefficients are fitted"&#xD;
+[xUnit.net 00:00:10.05]       Actual:   "Wavefront"&#xD;
+[xUnit.net 00:00:10.05]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:10.05]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuidePanelTests.cs(133,0): at OpticalSystemDesign.Tests.UserGuidePanelTests.&lt;&gt;c.&lt;CalculationFilterNavigationAndEmptySearchStayConsistent&gt;b__1_0()&#xD;
+[xUnit.net 00:00:10.05]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:10.05]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:10.05]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:10.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UserGuidePanelTests.cs(105,0): at OpticalSystemDesign.Tests.UserGuidePanelTests.CalculationFilterNavigationAndEmptySearchStayConsistent()&#xD;
+[xUnit.net 00:00:10.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.06]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T16:07:02.9591919+08:00">
+        <Text>[xUnit.net 00:00:10.05]     OpticalSystemDesign.Tests.UserGuidePanelTests.CalculationFilterNavigationAndEmptySearchStayConsistent [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

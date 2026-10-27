@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="56e68f19-69a6-48af-b083-b692f2ec1ea2" name="optics@LAPTOP-G4BBBCS0 2026-10-27 14:23:37" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T14:23:37.7360560+08:00" queuing="2026-10-27T14:23:37.7360562+08:00" start="2026-10-27T14:23:31.7088492+08:00" finish="2026-10-27T14:23:59.9962778+08:00" />
+  <TestSettings name="default" id="db90c915-670f-49e4-bd4b-026902ecf6a8">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-27_14_23_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="eb5fe6ad-0818-4b1c-bf16-b60457e37902" testId="8f4670b6-bbdb-2645-a4b9-00a6c16c09f8" testName="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.VersionFourResumeIsExactAndRejectsOldModelIdentityBeforeTracing" computerName="LAPTOP-G4BBBCS0" duration="00:00:07.5993816" startTime="2026-10-27T14:23:37.7219491+08:00" endTime="2026-10-27T14:23:45.3057345+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb5fe6ad-0818-4b1c-bf16-b60457e37902" />
+    <UnitTestResult executionId="4198db2e-106e-42ff-a32b-8848528edd75" testId="0df7c9ab-81b2-d95e-da8b-c55bc049df52" testName="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.AllSixteenCurvatureAndAxialDerivativesOfTheBoundaryMaximumMatchDifferences" computerName="LAPTOP-G4BBBCS0" duration="00:00:14.5924751" startTime="2026-10-27T14:23:45.3316205+08:00" endTime="2026-10-27T14:23:59.9188724+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4198db2e-106e-42ff-a32b-8848528edd75" />
+    <UnitTestResult executionId="6ce148ba-25b0-481a-9d59-55970a006fd8" testId="62f9e0d3-d9c6-e4f5-43d0-c81c74f90326" testName="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.JointRestorationCanReduceCoupledViolationsInsideTheSameTrustBox" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0128990" startTime="2026-10-27T14:23:45.3075531+08:00" endTime="2026-10-27T14:23:45.3265322+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ce148ba-25b0-481a-9d59-55970a006fd8">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.JointRestorationCanReduceCoupledViolationsInsideTheSameTrustBox() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\WideFieldGateRepairTests.cs:line 64&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2fad9f75-2845-4b82-b3f8-f5e840d1e7a7" testId="f34fa39e-3bba-5e13-32b9-886954b11d8b" testName="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.CommonCheckMaximumExposesTheRetainedMissWithoutExtraRaysOrRmsChanges" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.1797916" startTime="2026-10-27T14:23:33.5148854+08:00" endTime="2026-10-27T14:23:37.7044639+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2fad9f75-2845-4b82-b3f8-f5e840d1e7a7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.AllSixteenCurvatureAndAxialDerivativesOfTheBoundaryMaximumMatchDifferences" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="0df7c9ab-81b2-d95e-da8b-c55bc049df52">
+      <Execution id="4198db2e-106e-42ff-a32b-8848528edd75" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests" name="AllSixteenCurvatureAndAxialDerivativesOfTheBoundaryMaximumMatchDifferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.CommonCheckMaximumExposesTheRetainedMissWithoutExtraRaysOrRmsChanges" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="f34fa39e-3bba-5e13-32b9-886954b11d8b">
+      <Execution id="2fad9f75-2845-4b82-b3f8-f5e840d1e7a7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests" name="CommonCheckMaximumExposesTheRetainedMissWithoutExtraRaysOrRmsChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.JointRestorationCanReduceCoupledViolationsInsideTheSameTrustBox" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="62f9e0d3-d9c6-e4f5-43d0-c81c74f90326">
+      <Execution id="6ce148ba-25b0-481a-9d59-55970a006fd8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests" name="JointRestorationCanReduceCoupledViolationsInsideTheSameTrustBox" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.VersionFourResumeIsExactAndRejectsOldModelIdentityBeforeTracing" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="8f4670b6-bbdb-2645-a4b9-00a6c16c09f8">
+      <Execution id="eb5fe6ad-0818-4b1c-bf16-b60457e37902" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests" name="VersionFourResumeIsExactAndRejectsOldModelIdentityBeforeTracing" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8f4670b6-bbdb-2645-a4b9-00a6c16c09f8" executionId="eb5fe6ad-0818-4b1c-bf16-b60457e37902" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0df7c9ab-81b2-d95e-da8b-c55bc049df52" executionId="4198db2e-106e-42ff-a32b-8848528edd75" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="62f9e0d3-d9c6-e4f5-43d0-c81c74f90326" executionId="6ce148ba-25b0-481a-9d59-55970a006fd8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f34fa39e-3bba-5e13-32b9-886954b11d8b" executionId="2fad9f75-2845-4b82-b3f8-f5e840d1e7a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="3" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.13]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.24]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.26]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:13.10]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:13.10]       Expected: True&#xD;
+[xUnit.net 00:00:13.10]       Actual:   False&#xD;
+[xUnit.net 00:00:13.10]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.10]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\WideFieldGateRepairTests.cs(64,0): at OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.JointRestorationCanReduceCoupledViolationsInsideTheSameTrustBox()&#xD;
+[xUnit.net 00:00:13.10]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:13.10]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:13.10]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:27.70]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T14:23:45.3288604+08:00">
+        <Text>[xUnit.net 00:00:13.10]     OpticalSystemDesign.InitialStructure.Tests.WideFieldGateRepairTests.JointRestorationCanReduceCoupledViolationsInsideTheSameTrustBox [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

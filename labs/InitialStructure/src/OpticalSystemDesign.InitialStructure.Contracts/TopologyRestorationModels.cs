@@ -1,10 +1,15 @@
 using System.Collections.Immutable;
+using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.InitialStructure.Contracts;
 
 public sealed record ParaxialRecoveryOptions
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? UseAutomaticMatrixDerivatives { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? RestorePupilMagnification { get; init; }
     public int MaximumAcceptedSteps { get; init; } = 30;
     public int MaximumFunctionEvaluations { get; init; } = 400;
     public TimeSpan TimeLimit { get; init; } = TimeSpan.FromMinutes(1);
@@ -33,10 +38,18 @@ public sealed record ParaxialRecoveryTrial(int FunctionEvaluations, bool Accepte
 /// <summary>Function requests include the parent reference and every child/difference attempt.
 /// Matrix/probe counts charge actual attempted Core calls, including rejected points.</summary>
 public sealed record ParaxialRecoveryWork(int FunctionEvaluations, int DifferenceEvaluations,
-    int MatrixEvaluations, int JacobianBuilds, long GeometryProbes, TimeSpan Elapsed);
+    int MatrixEvaluations, int JacobianBuilds, long GeometryProbes, TimeSpan Elapsed)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? PupilEvaluations { get; init; }
+}
 
 public sealed record ParaxialRecoveryResult
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double? InitialPupilError { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double? EndpointPupilError { get; init; }
     public string Algorithm { get; init; } = AutonomousTopologyIdentity.Name;
     public required string ProtocolFingerprint { get; init; }
     public required DesignTopology Topology { get; init; }

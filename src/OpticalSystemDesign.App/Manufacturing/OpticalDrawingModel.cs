@@ -11,8 +11,7 @@ public enum OpticalDrawingPageSize
 public enum OpticalDrawingStandard
 {
     Iso10110,
-    GbT13323_1991,
-    GbT13323_2009
+    GbT13323_1991
 }
 
 public sealed record OpticalSystemDrawingSheet(
@@ -56,7 +55,8 @@ public sealed record OpticalDrawingSheet(
     double FrontRadiusTolerance = 0.1,
     double BackRadiusTolerance = 0.1,
     IReadOnlyList<GlassMaterialDto?>? ComponentMaterialData = null,
-    string LaserDamageThreshold = "-")
+    string LaserDamageThreshold = "-",
+    LegacyGb1991Requirements? LegacyGb1991 = null)
 {
     public IReadOnlyList<string> Validate()
     {
@@ -77,13 +77,15 @@ public sealed record OpticalDrawingSheet(
         CheckNonNegative(SurfaceTextureNanometers, "表面纹理公差");
         CheckNonNegative(RefractiveIndexTolerance, "折射率公差");
         CheckNonNegative(AbbeNumberTolerance, "阿贝数公差");
-        CheckNonNegative(FrontRadiusTolerance, "S1 曲率半径公差");
-        CheckNonNegative(BackRadiusTolerance, "S2 曲率半径公差");
-
-        Require(SurfaceImperfection, "5/ 表面缺陷标注");
-        Require(StressBirefringence, "0/ 应力双折射标注");
-        Require(BubblesAndInclusions, "1/ 气泡和夹杂标注");
-        Require(HomogeneityAndStriae, "2/ 均匀性和条纹标注");
+        if (Standard == OpticalDrawingStandard.Iso10110)
+        {
+            CheckNonNegative(FrontRadiusTolerance, "S1 曲率半径公差");
+            CheckNonNegative(BackRadiusTolerance, "S2 曲率半径公差");
+            Require(SurfaceImperfection, "5/ 表面缺陷标注");
+            Require(StressBirefringence, "0/ 应力双折射标注");
+            Require(BubblesAndInclusions, "1/ 气泡和夹杂标注");
+            Require(HomogeneityAndStriae, "2/ 均匀性和条纹标注");
+        }
         return errors;
 
         void CheckNonNegative(double value, string name)
@@ -128,4 +130,33 @@ public sealed record OpticalDrawingSheet(
             || normalized.Equals("不规定", StringComparison.OrdinalIgnoreCase);
     }
 
+}
+
+// Grade designations and fringe requirements are not interchangeable with ISO codes or nm values.
+// Empty entries mean unspecified; the shared numeric index/Abbe tolerances remain available.
+public sealed record LegacyGb1991Requirements
+{
+    public string RefractiveIndexGrade { get; init; } = "";
+    public string AbbeNumberGrade { get; init; } = "";
+    public string HomogeneityGrade { get; init; } = "";
+    public string AbsorptionGrade { get; init; } = "";
+    public string StressGrade { get; init; } = "";
+    public string StriaeGrade { get; init; } = "";
+    public string BubbleGrade { get; init; } = "";
+    public string PowerFringes { get; init; } = "";
+    public string IrregularityFringes { get; init; } = "";
+    public string TestPlateGrade { get; init; } = "";
+    public string SurfaceImperfection { get; init; } = "";
+    public string FocalLength { get; init; } = "";
+    public string FrontFocalDistance { get; init; } = "";
+    public string BackFocalDistance { get; init; } = "";
+    public double? OpticalSurfaceRaMicrometers { get; init; }
+    public double? OtherSurfaceRaMicrometers { get; init; }
+    public double? OpticalRaSamplingLengthMillimeters { get; init; }
+    public double? OtherRaSamplingLengthMillimeters { get; init; }
+    public double? FringeReferenceWavelengthNanometers { get; init; }
+    public string MaterialQualityStandard { get; init; } = "GB 903—1987";
+    public string CenteringDatum { get; init; } = "机械外圆轴";
+    public string AsphericDefinitionReference { get; init; } = "";
+    public string TechnicalRequirements { get; init; } = "";
 }

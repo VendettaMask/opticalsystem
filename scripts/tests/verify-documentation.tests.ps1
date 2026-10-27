@@ -21,7 +21,8 @@ function Invoke-Fixture([hashtable]$Files) {
     foreach ($entry in $Files.GetEnumerator()) {
         $target = Join-Path $fixture $entry.Key
         [void][IO.Directory]::CreateDirectory((Split-Path $target))
-        [IO.File]::WriteAllText($target, $entry.Value, [Text.UTF8Encoding]::new($false))
+        if ($entry.Value -is [byte[]]) { [IO.File]::WriteAllBytes($target, $entry.Value) }
+        else { [IO.File]::WriteAllText($target, $entry.Value, [Text.UTF8Encoding]::new($false)) }
     }
     $reportPath = Join-Path $testRoot ([guid]::NewGuid().ToString('N') + '.json')
     $start = [Diagnostics.ProcessStartInfo]::new((Get-Command pwsh).Source)
@@ -112,6 +113,15 @@ try {
         $r = Invoke-Fixture @{ 'artifacts/a.md'=$dup; 'artifacts/b.md'=$dup; 'third_party/NOTICE.md'=$dup }
         Assert-Check ($r.ExitCode -eq 0 -and $r.Report.RepeatedParagraphs.Count -eq 0 -and $r.Report.Inventory.Count -eq 3) 'Evidence inventory was not preserved.'
         Assert-Check ([IO.File]::ReadAllText((Join-Path $r.Root 'third_party/NOTICE.md')) -ceq $dup) 'Notice content changed.'
+    }
+    Run-Case 'Binary documents are hashed without Markdown decoding' {
+        $payload = [Text.Encoding]::UTF8.GetBytes("[binary bytes are not links](missing.md)`n" + '```' + "`n" + $dup)
+        $pdf = [byte[]](@(0x25,0x50,0x44,0x46,0x2D) + $payload)
+        $office = [byte[]](@(0x50,0x4B,0x03,0x04) + $payload)
+        $r = Invoke-Fixture @{ 'guide.md'='[PDF](preview.pdf)'; 'preview.pdf'=$pdf; 'document.docx'=$office; 'document.odt'=$office }
+        Assert-Check ($r.ExitCode -eq 0 -and $r.Report.Inventory.Count -eq 4) 'Binary files were not inventoried.'
+        Assert-Check ($r.Report.BrokenLinks.Count -eq 0 -and $r.Report.MarkdownFenceIssues.Count -eq 0) 'Binary bytes were parsed as Markdown.'
+        Assert-Check ([Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $r.Root 'preview.pdf'))) -ceq [Convert]::ToBase64String($pdf)) 'Binary document was modified.'
     }
     Run-Case 'Chinese, duplicate and encoded anchors resolve' {
         $r = Invoke-Fixture @{ 'a.md'='[link](b.md#%E4%B8%AD%E6%96%87-%E8%AF%B4%E6%98%8E-1)'; 'b.md'="# 中文 说明`n`n# 中文 说明" }

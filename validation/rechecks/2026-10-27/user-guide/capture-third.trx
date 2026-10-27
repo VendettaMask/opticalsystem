@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e9a4434d-14d9-4039-9748-d36dab53630b" name="optics@LAPTOP-G4BBBCS0 2026-10-27 13:54:59" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T13:54:59.7801404+08:00" queuing="2026-10-27T13:54:59.7801405+08:00" start="2026-10-27T13:53:19.7067920+08:00" finish="2026-10-27T13:56:17.2022499+08:00" />
+  <TestSettings name="default" id="45ab436c-35e6-4ce1-9edb-239dd1ac8261">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-27_13_54_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7cc22781-dbf9-4b4c-9646-917a67f4a12a" testId="b7d934e8-6cb9-8408-c94c-177ed84384fa" testName="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;en-US&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:01:15.9788474" startTime="2026-10-27T13:54:59.7557208+08:00" endTime="2026-10-27T13:56:15.7126577+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7cc22781-dbf9-4b4c-9646-917a67f4a12a" />
+    <UnitTestResult executionId="9fe44050-e4c1-4acd-8373-cf4400e1e608" testId="c2243577-fbc4-d5bd-1a35-b51cc30cae46" testName="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;ja-JP&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:01:37.5056708" startTime="2026-10-27T13:53:22.2350478+08:00" endTime="2026-10-27T13:54:59.7297704+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9fe44050-e4c1-4acd-8373-cf4400e1e608" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;en-US&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b7d934e8-6cb9-8408-c94c-177ed84384fa">
+      <Execution id="7cc22781-dbf9-4b4c-9646-917a67f4a12a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UserGuideCaptureTests" name="CaptureCurrentProductWithoutDesktopOrUserProfileChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.UserGuideCaptureTests.CaptureCurrentProductWithoutDesktopOrUserProfileChanges(language: &quot;ja-JP&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c2243577-fbc4-d5bd-1a35-b51cc30cae46">
+      <Execution id="9fe44050-e4c1-4acd-8373-cf4400e1e608" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UserGuideCaptureTests" name="CaptureCurrentProductWithoutDesktopOrUserProfileChanges" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b7d934e8-6cb9-8408-c94c-177ed84384fa" executionId="7cc22781-dbf9-4b4c-9646-917a67f4a12a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2243577-fbc4-d5bd-1a35-b51cc30cae46" executionId="9fe44050-e4c1-4acd-8373-cf4400e1e608" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.55]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.94]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.98]   Starting:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-27T13:56:17.1749767+08:00">
+        <Text>活动的测试运行已中止。原因: 测试主机进程崩溃</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="8ef582b8-87ce-419e-88b7-5c8d1e109c68" name="optics@LAPTOP-G4BBBCS0 2026-10-27 09:48:54" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T09:48:54.8114040+08:00" queuing="2026-10-27T09:48:54.8114044+08:00" start="2026-10-27T09:48:47.7319215+08:00" finish="2026-10-27T09:48:56.7386012+08:00" />
+  <TestSettings name="default" id="dc964858-a5db-4e40-9f28-2ed6be84d1d9">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-27_09_48_54" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="fa11417b-6d9d-44db-b0c7-329a5511e5cb" testId="69a04080-57be-e1a8-bee2-85c0dab2db63" testName="OpticalSystemDesign.Tests.WavefrontSurfaceRenderTests.InitialViewDoesNotInvalidateTheActiveRenderPass" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.9049700" startTime="2026-10-27T09:48:53.2902913+08:00" endTime="2026-10-27T09:48:54.1816026+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fa11417b-6d9d-44db-b0c7-329a5511e5cb" />
+    <UnitTestResult executionId="5c2c0c94-a079-4372-8179-ad8f6b766770" testId="a9332fe5-aa46-f70f-ae96-159969ede70e" testName="OpticalSystemDesign.Tests.WavefrontSurfaceRenderTests.SettingsToggleUsesConfiguredSurfaceInLightTheme" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4096507" startTime="2026-10-27T09:48:54.1917903+08:00" endTime="2026-10-27T09:48:54.5931236+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c2c0c94-a079-4372-8179-ad8f6b766770" />
+    <UnitTestResult executionId="1591b723-6bcc-41a7-aa95-f0b3e2b0b8e1" testId="09717f3c-5585-0d52-f0e1-433abc5b904b" testName="OpticalSystemDesign.Tests.UiLocalizationTests.LanguageChangeUpdatesLoadedDynamicAndLaterControlsWithoutChangingUserInput" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.0440896" startTime="2026-10-27T09:48:54.5953979+08:00" endTime="2026-10-27T09:48:56.6394341+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1591b723-6bcc-41a7-aa95-f0b3e2b0b8e1" />
+    <UnitTestResult executionId="6ccd5984-04d0-4bb1-99f8-01b972fe93f1" testId="6cec2fb4-4b19-9e49-abda-867b555f566f" testName="OpticalSystemDesign.Tests.UiLocalizationTests.SettingsDefaultToChineseAndNormalizeUnsupportedLanguages" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0028764" startTime="2026-10-27T09:48:56.6407993+08:00" endTime="2026-10-27T09:48:56.6426855+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ccd5984-04d0-4bb1-99f8-01b972fe93f1" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.WavefrontSurfaceRenderTests.InitialViewDoesNotInvalidateTheActiveRenderPass" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="69a04080-57be-e1a8-bee2-85c0dab2db63">
+      <Execution id="fa11417b-6d9d-44db-b0c7-329a5511e5cb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.WavefrontSurfaceRenderTests" name="InitialViewDoesNotInvalidateTheActiveRenderPass" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.WavefrontSurfaceRenderTests.SettingsToggleUsesConfiguredSurfaceInLightTheme" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a9332fe5-aa46-f70f-ae96-159969ede70e">
+      <Execution id="5c2c0c94-a079-4372-8179-ad8f6b766770" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.WavefrontSurfaceRenderTests" name="SettingsToggleUsesConfiguredSurfaceInLightTheme" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.UiLocalizationTests.SettingsDefaultToChineseAndNormalizeUnsupportedLanguages" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6cec2fb4-4b19-9e49-abda-867b555f566f">
+      <Execution id="6ccd5984-04d0-4bb1-99f8-01b972fe93f1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UiLocalizationTests" name="SettingsDefaultToChineseAndNormalizeUnsupportedLanguages" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.UiLocalizationTests.LanguageChangeUpdatesLoadedDynamicAndLaterControlsWithoutChangingUserInput" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="09717f3c-5585-0d52-f0e1-433abc5b904b">
+      <Execution id="1591b723-6bcc-41a7-aa95-f0b3e2b0b8e1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.UiLocalizationTests" name="LanguageChangeUpdatesLoadedDynamicAndLaterControlsWithoutChangingUserInput" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="69a04080-57be-e1a8-bee2-85c0dab2db63" executionId="fa11417b-6d9d-44db-b0c7-329a5511e5cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a9332fe5-aa46-f70f-ae96-159969ede70e" executionId="5c2c0c94-a079-4372-8179-ad8f6b766770" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09717f3c-5585-0d52-f0e1-433abc5b904b" executionId="1591b723-6bcc-41a7-aa95-f0b3e2b0b8e1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6cec2fb4-4b19-9e49-abda-867b555f566f" executionId="6ccd5984-04d0-4bb1-99f8-01b972fe93f1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.75]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.32]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.36]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:06.76]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

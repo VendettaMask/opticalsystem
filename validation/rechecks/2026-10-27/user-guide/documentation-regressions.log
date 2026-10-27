@@ -1,0 +1,80 @@
+{
+  "Date": "2026-10-14",
+  "Cases": 18,
+  "Passed": 18,
+  "Failed": 0,
+  "Results": [
+    {
+      "Name": "Two current guides fail strict repetition check",
+      "Passed": true
+    },
+    {
+      "Name": "Whitespace and CRLF normalize",
+      "Passed": true
+    },
+    {
+      "Name": "One document repeated twice is not cross-document duplication",
+      "Passed": true
+    },
+    {
+      "Name": "Below 100 characters is ignored",
+      "Passed": true
+    },
+    {
+      "Name": "Exactly 100 characters is detected",
+      "Passed": true
+    },
+    {
+      "Name": "Letter case remains distinct",
+      "Passed": true
+    },
+    {
+      "Name": "Historical notices remain reported without strict failure",
+      "Passed": true
+    },
+    {
+      "Name": "Mixed guide/history group remains visible",
+      "Passed": true
+    },
+    {
+      "Name": "Historical comparison audit is not a current guide",
+      "Passed": true
+    },
+    {
+      "Name": "Fenced code and links inside it are ignored",
+      "Passed": true
+    },
+    {
+      "Name": "Longer fence may contain shorter fence",
+      "Passed": true
+    },
+    {
+      "Name": "Indented code and Markdown tables are ignored",
+      "Passed": true
+    },
+    {
+      "Name": "Evidence and notices keep fingerprints and bytes",
+      "Passed": true
+    },
+    {
+      "Name": "Binary documents are hashed without Markdown decoding",
+      "Passed": true
+    },
+    {
+      "Name": "Chinese, duplicate and encoded anchors resolve",
+      "Passed": true
+    },
+    {
+      "Name": "Missing file is rejected",
+      "Passed": true
+    },
+    {
+      "Name": "Missing anchor is rejected",
+      "Passed": true
+    },
+    {
+      "Name": "Wrong fence type cannot close a fence",
+      "Passed": true
+    }
+  ]
+}

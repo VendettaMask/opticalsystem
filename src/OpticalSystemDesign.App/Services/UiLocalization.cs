@@ -13,7 +13,7 @@ namespace OpticalSystemDesign.App.Services;
 /// application are built in code, so keeping the canonical Chinese text here lets a language
 /// change update the current visual tree as well as windows and flyouts created afterwards.
 /// </summary>
-internal static class UiLocalization
+internal static partial class UiLocalization
 {
     public const string Chinese = "zh-CN";
     public const string English = "en-US";
@@ -612,6 +612,33 @@ internal static class UiLocalization
         Add("公差数据可视化", "Tolerance Visualization", "公差データ可視化");
         Add("制造准备", "Manufacturing Preparation", "製造準備");
         Add("光学制图", "Optical Drawings", "光学製図");
+        Add("制图标准", "Drawing Standard", "図面規格");
+        Add("老国标材料等级", "Legacy GB Material Grades", "旧中国規格の材料等級");
+        Add("老国标零件要求", "Legacy GB Part Requirements", "旧中国規格の部品要件");
+        Add("老国标表面粗糙度", "Legacy GB Surface Roughness", "旧中国規格の表面粗さ");
+        Add("材料等级依据", "Material Grade Standard", "材料等級の規格");
+        Add("χ 定心基准", "χ Centering Datum", "χ センタリング基準");
+        Add("光学面 Ra", "Optical Surface Ra", "光学面 Ra");
+        Add("其余表面 Ra", "Other Surface Ra", "その他の面 Ra");
+        Add("光学面取样长度", "Optical Sampling Length", "光学面の基準長さ");
+        Add("其余面取样长度", "Other Sampling Length", "その他の面の基準長さ");
+        Add("补充 Rq", "Additional Rq", "補足 Rq");
+        Add("检验波长 λ", "Test Wavelength λ", "検査波長 λ");
+        Add("面型定义引用", "Surface Definition Reference", "面形状定義の参照");
+        Add("补充技术要求", "Additional Requirements", "追加技術要件");
+        Add("使用共用公差", "Use Shared Tolerance", "共通公差を使用");
+        Add("Δn[d] 等级", "Δn[d] Grade", "Δn[d] 等級");
+        Add("Δν[d] 等级", "Δν[d] Grade", "Δν[d] 等級");
+        Add("光学均匀性", "Optical Homogeneity", "光学的均質性");
+        Add("光吸收系数", "Absorption Coefficient", "吸収係数");
+        Add("应力双折射等级", "Stress Birefringence Grade", "応力複屈折等級");
+        Add("条纹度", "Striae Grade", "脈理等級");
+        Add("气泡度", "Bubble Grade", "泡等級");
+        Add("N 光圈数", "N Fringe Count", "N 干渉縞数");
+        Add("ΔN 光圈数", "ΔN Fringe Count", "ΔN 干渉縞数");
+        Add("ΔR 光学样板", "ΔR Test Plate", "ΔR 検査原器");
+        Add("B 表面疵病", "B Surface Imperfections", "B 表面欠陥");
+        Add("GB/T 13323—1991（老国标）", "GB/T 13323—1991 (Legacy)", "GB/T 13323—1991（旧中国規格）");
         Add("光学材料", "Optical Materials", "光学材料");
         Add("镜头设计", "Lens Design", "レンズ設計");
         Add("结构生成", "Structure Generation", "構成生成");
@@ -1174,6 +1201,7 @@ internal static class UiLocalization
             "The clipboard is temporarily unavailable. Nothing was pasted. Retry or type the text.",
             "クリップボードを利用できないため貼り付けませんでした。再試行するか、直接入力してください。");
 
+        AddAutonomousTopologyTexts(Add);
         return values;
     }
 }

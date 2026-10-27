@@ -1,0 +1,3266 @@
+{
+  "ProtocolSha256": "32ea88c3b425e162b8da898a2579b5ba6c0e921f70f5ef72fc67f1ca0fa940f4",
+  "Binaries": {
+    "OpticalSystemDesign.InitialStructure.Engine": "d76c4fd487cf4554d5ddc7725b50a0042e98cfeb24ab488bcf26ed2eabe3cf01",
+    "OpticalSystemDesign.InitialStructure.Contracts": "c3ee81fed0be89fa9db4efa3e833753869ac88a7ceaeee9fcd7b196ccb863e4b",
+    "OpticalSystemDesign.Core": "3d76457cf5540b92917846dbb261ef0a2b92a3c05be8d48821ba1ab48a769cd7",
+    "OpticalSystemDesign.InitialStructure.Benchmarks": "443a81f7ce6098f5d1b526f86c0a4f270c1a9ef0bfb3a5300163aadb2c3aef07"
+  },
+  "CpuProcessors": 2,
+  "Priority": "BelowNormal",
+  "PairedInputsVerified": true,
+  "Runs": [
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "v3",
+      "Id": "repr-new-wide4-3-42-C-v3",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "6f3195faa5037012a801a1dac5c467c3654a968f099e0d8e8d724cff4b2b309a",
+      "PairedTaskFingerprint": "b1279be48faa34b7757b7865f3d79fb7ac61879f0a10bfd1a5b479a021cdb1dd",
+      "PlanFingerprint": "144c6295b002ec9a2420e1cd372b78c9b9bb4f8e57e80d784bd81922447becd1",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 13,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 1,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 1066910,
+        "GeometryProbes": 3662,
+        "Elapsed": "00:00:14.2363240"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.459588467659835,
+        "FNumber": 3.3422457876517053,
+        "WorstRmsMillimeters": 0.0381619908918261,
+        "WorstMaximumMillimeters": 0.16528208528708888,
+        "MinimumValidFraction": 0.98125,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.03386974251129864,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:wave:2:lost-fraction",
+            "Actual": 0.021874999999999978,
+            "Limit": 0.020000000000000018
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16528208528708888,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03882587994287994,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "3544f8110acb8462dc6f39d07db74e17ce978d590ba74449f3d49ac1ea21787d"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.591179973846224,
+        "FNumber": 3.4024787523397704,
+        "WorstRmsMillimeters": 0.03677255130249055,
+        "WorstMaximumMillimeters": 0.15710756527838043,
+        "MinimumValidFraction": 0.990625,
+        "MinimumCheckValidFraction": 0.898989898989899,
+        "LostCheckRays": 10,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 10,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.15710756527838043,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.030177919000726056,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "704fb52a59c78ba04ad0ecca17aff3367b91715f97d638d393519b8880eeab93"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "maximum",
+      "Id": "repr-new-wide4-3-42-C-maximum",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "6f3195faa5037012a801a1dac5c467c3654a968f099e0d8e8d724cff4b2b309a",
+      "PairedTaskFingerprint": "b1279be48faa34b7757b7865f3d79fb7ac61879f0a10bfd1a5b479a021cdb1dd",
+      "PlanFingerprint": "ec6981da5f51d07157432747c1d340e7b354f8a8ee0f40d9550e23ffd155b44a",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 13,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 1,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 1066538,
+        "GeometryProbes": 3662,
+        "Elapsed": "00:00:09.2235938"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.459588467659835,
+        "FNumber": 3.3422457876517053,
+        "WorstRmsMillimeters": 0.0381619908918261,
+        "WorstMaximumMillimeters": 0.16528208528708888,
+        "MinimumValidFraction": 0.98125,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.03386974251129864,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:wave:2:lost-fraction",
+            "Actual": 0.021874999999999978,
+            "Limit": 0.020000000000000018
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16528208528708888,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03882587994287994,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "3544f8110acb8462dc6f39d07db74e17ce978d590ba74449f3d49ac1ea21787d"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.569764806713412,
+        "FNumber": 3.4024171601537123,
+        "WorstRmsMillimeters": 0.03775718961208096,
+        "WorstMaximumMillimeters": 0.14666592955414437,
+        "MinimumValidFraction": 0.990625,
+        "MinimumCheckValidFraction": 0.898989898989899,
+        "LostCheckRays": 10,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 10,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.030213674704793508,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "a91ee34730c499e1d0a88962041774043676640ae4fe54b738cf7279eb4340b0"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "joint",
+      "Id": "repr-new-wide4-3-42-C-joint",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "6f3195faa5037012a801a1dac5c467c3654a968f099e0d8e8d724cff4b2b309a",
+      "PairedTaskFingerprint": "b1279be48faa34b7757b7865f3d79fb7ac61879f0a10bfd1a5b479a021cdb1dd",
+      "PlanFingerprint": "8b95ea75e5f68c6524b4e4b51326e6ec859af20caf2fa77cf505148ce30a3251",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 391,
+        "GradientEvaluations": 7,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 355,
+        "DifferenceEvaluations": 326,
+        "JacobianBuilds": 26,
+        "TracedRays": 1602872,
+        "GeometryProbes": 45113,
+        "Elapsed": "00:00:11.6644215"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.459588467659835,
+        "FNumber": 3.3422457876517053,
+        "WorstRmsMillimeters": 0.0381619908918261,
+        "WorstMaximumMillimeters": 0.16528208528708888,
+        "MinimumValidFraction": 0.98125,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.03386974251129864,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:wave:2:lost-fraction",
+            "Actual": 0.021874999999999978,
+            "Limit": 0.020000000000000018
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16528208528708888,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03882587994287994,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "3544f8110acb8462dc6f39d07db74e17ce978d590ba74449f3d49ac1ea21787d"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 25.012847940094563,
+          "FNumber": 3.4028281313177278,
+          "WorstRmsMillimeters": 0.048570946257240566,
+          "WorstMaximumMillimeters": 0.14999589067057428,
+          "MinimumValidFraction": 1,
+          "MinimumCheckValidFraction": 1,
+          "LostCheckRays": 0,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "3b50ac3ef7020f9fd8da673a1fac88097674801adf610800562ac22130f90ece"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-4",
+          "ParentId": "trial-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 25.0128315469696,
+          "FNumber": 3.8192458869892913,
+          "WorstRmsMillimeters": 0.2601826279064096,
+          "WorstMaximumMillimeters": 0.697969557620663,
+          "MinimumValidFraction": 1,
+          "MinimumCheckValidFraction": 1,
+          "LostCheckRays": 0,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "f-number",
+              "Actual": 0.14294137775309457,
+              "Limit": 0.02
+            },
+            {
+              "Code": "field:14:maximum",
+              "Actual": 0.16736717675963675,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:15:maximum",
+              "Actual": 0.1881574169419835,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:16:rms",
+              "Actual": 0.056198711427220785,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:16:maximum",
+              "Actual": 0.21032849183996838,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:17:rms",
+              "Actual": 0.06523904859364488,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:17:maximum",
+              "Actual": 0.23392635616778978,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:18:rms",
+              "Actual": 0.07513892168201365,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:18:maximum",
+              "Actual": 0.25900019690939846,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:19:rms",
+              "Actual": 0.0858717102887048,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:19:maximum",
+              "Actual": 0.2856025785481444,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:20:rms",
+              "Actual": 0.09742500887556034,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:20:maximum",
+              "Actual": 0.31378959225597125,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:25:maximum",
+              "Actual": 0.1574763580541827,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:26:rms",
+              "Actual": 0.06060906877150253,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:26:maximum",
+              "Actual": 0.22194607857444915,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:27:rms",
+              "Actual": 0.09154613981157958,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:27:maximum",
+              "Actual": 0.2994943587960668,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:28:rms",
+              "Actual": 0.1097964880506808,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:28:maximum",
+              "Actual": 0.3436210075383874,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:29:rms",
+              "Actual": 0.1299002640018401,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:29:maximum",
+              "Actual": 0.39159159268643684,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:30:rms",
+              "Actual": 0.1518962782192188,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:30:maximum",
+              "Actual": 0.4436377089023136,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:31:rms",
+              "Actual": 0.1758431514021513,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:31:maximum",
+              "Actual": 0.500012169161109,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:32:rms",
+              "Actual": 0.20181443345513422,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:32:maximum",
+              "Actual": 0.5609899332306938,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:33:rms",
+              "Actual": 0.22989569881862754,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:33:maximum",
+              "Actual": 0.6268687789091434,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:34:rms",
+              "Actual": 0.2601826279064096,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:34:maximum",
+              "Actual": 0.697969557620663,
+              "Limit": 0.15
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "bc490ec8852056945fee97b5660b59cd08ef1488d1c3908942ce6ce13962dfb5"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 25.012847940094563,
+        "FNumber": 3.4028281313177278,
+        "WorstRmsMillimeters": 0.048570946257240566,
+        "WorstMaximumMillimeters": 0.14999589067057428,
+        "MinimumValidFraction": 1,
+        "MinimumCheckValidFraction": 1,
+        "LostCheckRays": 0,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "3b50ac3ef7020f9fd8da673a1fac88097674801adf610800562ac22130f90ece"
+      },
+      "DeletionTrials": 3,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-002:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-001:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.)"
+          ]
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 11,
+          "TrialId": "trial-5",
+          "ParentId": "trial-4",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "v3",
+      "Id": "repr-new-wide4-3-42-D-v3",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "6f3195faa5037012a801a1dac5c467c3654a968f099e0d8e8d724cff4b2b309a",
+      "PairedTaskFingerprint": "b1279be48faa34b7757b7865f3d79fb7ac61879f0a10bfd1a5b479a021cdb1dd",
+      "PlanFingerprint": "b4600222a5872727d09255a1e98c0060b22cb9f3830942e1f1d6ce270aab5aee",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 13,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 1,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 1066910,
+        "GeometryProbes": 3662,
+        "Elapsed": "00:00:08.9075814"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.459588467659835,
+        "FNumber": 3.3422457876517053,
+        "WorstRmsMillimeters": 0.0381619908918261,
+        "WorstMaximumMillimeters": 0.16528208528708888,
+        "MinimumValidFraction": 0.98125,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.03386974251129864,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:wave:2:lost-fraction",
+            "Actual": 0.021874999999999978,
+            "Limit": 0.020000000000000018
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16528208528708888,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03882587994287994,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "3544f8110acb8462dc6f39d07db74e17ce978d590ba74449f3d49ac1ea21787d"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.591179973846224,
+        "FNumber": 3.4024787523397704,
+        "WorstRmsMillimeters": 0.03677255130249055,
+        "WorstMaximumMillimeters": 0.15710756527838043,
+        "MinimumValidFraction": 0.990625,
+        "MinimumCheckValidFraction": 0.898989898989899,
+        "LostCheckRays": 10,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 10,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.15710756527838043,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.030177919000726056,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "704fb52a59c78ba04ad0ecca17aff3367b91715f97d638d393519b8880eeab93"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "maximum",
+      "Id": "repr-new-wide4-3-42-D-maximum",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "6f3195faa5037012a801a1dac5c467c3654a968f099e0d8e8d724cff4b2b309a",
+      "PairedTaskFingerprint": "b1279be48faa34b7757b7865f3d79fb7ac61879f0a10bfd1a5b479a021cdb1dd",
+      "PlanFingerprint": "9c07a3dd929887faca90cdaca2fd009716ebec6b05d423bde44dcc75dcc793da",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 13,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 1,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 1066538,
+        "GeometryProbes": 3662,
+        "Elapsed": "00:00:09.0860384"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.459588467659835,
+        "FNumber": 3.3422457876517053,
+        "WorstRmsMillimeters": 0.0381619908918261,
+        "WorstMaximumMillimeters": 0.16528208528708888,
+        "MinimumValidFraction": 0.98125,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.03386974251129864,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:wave:2:lost-fraction",
+            "Actual": 0.021874999999999978,
+            "Limit": 0.020000000000000018
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16528208528708888,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03882587994287994,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "3544f8110acb8462dc6f39d07db74e17ce978d590ba74449f3d49ac1ea21787d"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.569764806713412,
+        "FNumber": 3.4024171601537123,
+        "WorstRmsMillimeters": 0.03775718961208096,
+        "WorstMaximumMillimeters": 0.14666592955414437,
+        "MinimumValidFraction": 0.990625,
+        "MinimumCheckValidFraction": 0.898989898989899,
+        "LostCheckRays": 10,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 10,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.030213674704793508,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "a91ee34730c499e1d0a88962041774043676640ae4fe54b738cf7279eb4340b0"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:6"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "joint",
+      "Id": "repr-new-wide4-3-42-D-joint",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "6f3195faa5037012a801a1dac5c467c3654a968f099e0d8e8d724cff4b2b309a",
+      "PairedTaskFingerprint": "b1279be48faa34b7757b7865f3d79fb7ac61879f0a10bfd1a5b479a021cdb1dd",
+      "PlanFingerprint": "19887e408b82767485598941214de7f01b463909374e9467dc7ec4174eedd414",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 598,
+        "GradientEvaluations": 8,
+        "ValidationEvaluations": 6,
+        "MatrixEvaluations": 550,
+        "DifferenceEvaluations": 503,
+        "JacobianBuilds": 40,
+        "TracedRays": 1602872,
+        "GeometryProbes": 75889,
+        "Elapsed": "00:00:14.3940318"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.459588467659835,
+        "FNumber": 3.3422457876517053,
+        "WorstRmsMillimeters": 0.0381619908918261,
+        "WorstMaximumMillimeters": 0.16528208528708888,
+        "MinimumValidFraction": 0.98125,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.03386974251129864,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:wave:2:lost-fraction",
+            "Actual": 0.021874999999999978,
+            "Limit": 0.020000000000000018
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16528208528708888,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03882587994287994,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "3544f8110acb8462dc6f39d07db74e17ce978d590ba74449f3d49ac1ea21787d"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 25.012847940094563,
+          "FNumber": 3.4028281313177278,
+          "WorstRmsMillimeters": 0.048570946257240566,
+          "WorstMaximumMillimeters": 0.14999589067057428,
+          "MinimumValidFraction": 1,
+          "MinimumCheckValidFraction": 1,
+          "LostCheckRays": 0,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "3b50ac3ef7020f9fd8da673a1fac88097674801adf610800562ac22130f90ece"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-4",
+          "ParentId": "trial-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 25.0128315469696,
+          "FNumber": 3.8192458869892913,
+          "WorstRmsMillimeters": 0.2601826279064096,
+          "WorstMaximumMillimeters": 0.697969557620663,
+          "MinimumValidFraction": 1,
+          "MinimumCheckValidFraction": 1,
+          "LostCheckRays": 0,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "f-number",
+              "Actual": 0.14294137775309457,
+              "Limit": 0.02
+            },
+            {
+              "Code": "field:14:maximum",
+              "Actual": 0.16736717675963675,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:15:maximum",
+              "Actual": 0.1881574169419835,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:16:rms",
+              "Actual": 0.056198711427220785,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:16:maximum",
+              "Actual": 0.21032849183996838,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:17:rms",
+              "Actual": 0.06523904859364488,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:17:maximum",
+              "Actual": 0.23392635616778978,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:18:rms",
+              "Actual": 0.07513892168201365,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:18:maximum",
+              "Actual": 0.25900019690939846,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:19:rms",
+              "Actual": 0.0858717102887048,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:19:maximum",
+              "Actual": 0.2856025785481444,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:20:rms",
+              "Actual": 0.09742500887556034,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:20:maximum",
+              "Actual": 0.31378959225597125,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:25:maximum",
+              "Actual": 0.1574763580541827,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:26:rms",
+              "Actual": 0.06060906877150253,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:26:maximum",
+              "Actual": 0.22194607857444915,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:27:rms",
+              "Actual": 0.09154613981157958,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:27:maximum",
+              "Actual": 0.2994943587960668,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:28:rms",
+              "Actual": 0.1097964880506808,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:28:maximum",
+              "Actual": 0.3436210075383874,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:29:rms",
+              "Actual": 0.1299002640018401,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:29:maximum",
+              "Actual": 0.39159159268643684,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:30:rms",
+              "Actual": 0.1518962782192188,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:30:maximum",
+              "Actual": 0.4436377089023136,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:31:rms",
+              "Actual": 0.1758431514021513,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:31:maximum",
+              "Actual": 0.500012169161109,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:32:rms",
+              "Actual": 0.20181443345513422,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:32:maximum",
+              "Actual": 0.5609899332306938,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:33:rms",
+              "Actual": 0.22989569881862754,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:33:maximum",
+              "Actual": 0.6268687789091434,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:34:rms",
+              "Actual": 0.2601826279064096,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:34:maximum",
+              "Actual": 0.697969557620663,
+              "Limit": 0.15
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "bc490ec8852056945fee97b5660b59cd08ef1488d1c3908942ce6ce13962dfb5"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 25.012847940094563,
+        "FNumber": 3.4028281313177278,
+        "WorstRmsMillimeters": 0.048570946257240566,
+        "WorstMaximumMillimeters": 0.14999589067057428,
+        "MinimumValidFraction": 1,
+        "MinimumCheckValidFraction": 1,
+        "LostCheckRays": 0,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "3b50ac3ef7020f9fd8da673a1fac88097674801adf610800562ac22130f90ece"
+      },
+      "DeletionTrials": 3,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 3,
+        "Recovered": 2
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-002:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "gradual-delete",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "gradual-delete",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.)"
+          ]
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "gradual-delete",
+          "Phase": "TransitionValidation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-001:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-001:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 11,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 13,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 14,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.)"
+          ]
+        },
+        {
+          "Sequence": 15,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 16,
+          "TrialId": "trial-5",
+          "ParentId": "trial-4",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "v3",
+      "Id": "repr-new-wide4-3-101-C-v3",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "67cbe59bdcd11f7aaa5b4065cd5dadb82f1b0a497792c1b50bfbcfa9e67398ce",
+      "PairedTaskFingerprint": "517721103fa0a09f65d9333e6273e20d4dba00889b1777d61879251e68ecc673",
+      "PlanFingerprint": "2d911153c50c8f4b2777ea490205cde963fbd406dadfcb4c1feff8a58167a09a",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 13,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 1,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 1066214,
+        "GeometryProbes": 3664,
+        "Elapsed": "00:00:08.8827753"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.49538053834631,
+        "FNumber": 3.3491882773819737,
+        "WorstRmsMillimeters": 0.035922046918538245,
+        "WorstMaximumMillimeters": 0.16030391963725954,
+        "MinimumValidFraction": 0.9833333333333333,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.033823050947582756,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16030391963725954,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03876866631460169,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "fd7cbf1eba9eb409ee99119f3b71f473b3f2725f98a38b0178d282caa302dc1a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.536125438589448,
+        "FNumber": 3.4021285974076165,
+        "WorstRmsMillimeters": 0.03805762707676651,
+        "WorstMaximumMillimeters": 0.16291479494779182,
+        "MinimumValidFraction": 0.990625,
+        "MinimumCheckValidFraction": 0.898989898989899,
+        "LostCheckRays": 10,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 10,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16291479494779182,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.030176593111633312,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "4f3da114d09df90116fc6bcc11f9837d8cab627e5151964cf8431f1e35f28852"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:8"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "maximum",
+      "Id": "repr-new-wide4-3-101-C-maximum",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "67cbe59bdcd11f7aaa5b4065cd5dadb82f1b0a497792c1b50bfbcfa9e67398ce",
+      "PairedTaskFingerprint": "517721103fa0a09f65d9333e6273e20d4dba00889b1777d61879251e68ecc673",
+      "PlanFingerprint": "86903258f5ea20ec73103f2084fdef72fb24558cae53d26704caebf19f685682",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 13,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 1,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 1066358,
+        "GeometryProbes": 3664,
+        "Elapsed": "00:00:08.8053599"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.49538053834631,
+        "FNumber": 3.3491882773819737,
+        "WorstRmsMillimeters": 0.035922046918538245,
+        "WorstMaximumMillimeters": 0.16030391963725954,
+        "MinimumValidFraction": 0.9833333333333333,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.033823050947582756,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16030391963725954,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03876866631460169,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "fd7cbf1eba9eb409ee99119f3b71f473b3f2725f98a38b0178d282caa302dc1a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.57579296519205,
+        "FNumber": 3.4024325099642336,
+        "WorstRmsMillimeters": 0.03784293294827084,
+        "WorstMaximumMillimeters": 0.14554723767054512,
+        "MinimumValidFraction": 0.990625,
+        "MinimumCheckValidFraction": 0.898989898989899,
+        "LostCheckRays": 10,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 10,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03020425132854746,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "06aeadfe34b09af06c6eb36d78ce3089456425f0e2b735865ab084b05965a356"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:8"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "joint",
+      "Id": "repr-new-wide4-3-101-C-joint",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "67cbe59bdcd11f7aaa5b4065cd5dadb82f1b0a497792c1b50bfbcfa9e67398ce",
+      "PairedTaskFingerprint": "517721103fa0a09f65d9333e6273e20d4dba00889b1777d61879251e68ecc673",
+      "PlanFingerprint": "f9ae1d2ae23a167745b99969e1d1bd4512de9ee4e67b3bc7c91e79187d36ea35",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 391,
+        "GradientEvaluations": 7,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 344,
+        "DifferenceEvaluations": 322,
+        "JacobianBuilds": 26,
+        "TracedRays": 1602896,
+        "GeometryProbes": 44123,
+        "Elapsed": "00:00:11.5839782"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.49538053834631,
+        "FNumber": 3.3491882773819737,
+        "WorstRmsMillimeters": 0.035922046918538245,
+        "WorstMaximumMillimeters": 0.16030391963725954,
+        "MinimumValidFraction": 0.9833333333333333,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.033823050947582756,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16030391963725954,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03876866631460169,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "fd7cbf1eba9eb409ee99119f3b71f473b3f2725f98a38b0178d282caa302dc1a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 25.01290497152638,
+          "FNumber": 3.4028450795820717,
+          "WorstRmsMillimeters": 0.048595408117610074,
+          "WorstMaximumMillimeters": 0.14999442756418446,
+          "MinimumValidFraction": 1,
+          "MinimumCheckValidFraction": 1,
+          "LostCheckRays": 0,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "7372f16240de98d872dd84ed13df1abded3bb81449b289a9dd892b146d0dc86b"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-4",
+          "ParentId": "trial-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 25.012888637374072,
+          "FNumber": 3.8192128988314393,
+          "WorstRmsMillimeters": 0.260185707636618,
+          "WorstMaximumMillimeters": 0.6980923680299789,
+          "MinimumValidFraction": 1,
+          "MinimumCheckValidFraction": 1,
+          "LostCheckRays": 0,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "f-number",
+              "Actual": 0.1429315057700642,
+              "Limit": 0.02
+            },
+            {
+              "Code": "field:14:maximum",
+              "Actual": 0.1673342879950086,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:15:maximum",
+              "Actual": 0.1881313875995101,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:16:rms",
+              "Actual": 0.05616926505078458,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:16:maximum",
+              "Actual": 0.21030965088370657,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:17:rms",
+              "Actual": 0.06520881365490923,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:17:maximum",
+              "Actual": 0.23391504300348576,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:18:rms",
+              "Actual": 0.07510877131588772,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:18:maximum",
+              "Actual": 0.25899676190567167,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:19:rms",
+              "Actual": 0.08584231352220258,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:19:maximum",
+              "Actual": 0.28560738351565096,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:20:rms",
+              "Actual": 0.09739689787654222,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:20:maximum",
+              "Actual": 0.31380301087236795,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:25:maximum",
+              "Actual": 0.1574401598275763,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:26:rms",
+              "Actual": 0.060579102801102284,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:26:maximum",
+              "Actual": 0.22193095841504196,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:27:rms",
+              "Actual": 0.09151732600254661,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:27:maximum",
+              "Actual": 0.2995034231217586,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:28:rms",
+              "Actual": 0.10977010296925951,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:28:maximum",
+              "Actual": 0.34364342570398065,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:29:rms",
+              "Actual": 0.1298771625325992,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:29:maximum",
+              "Actual": 0.39162826110936955,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:30:rms",
+              "Actual": 0.15187718237295827,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:30:maximum",
+              "Actual": 0.44368956667668513,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:31:rms",
+              "Actual": 0.17582870866455763,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:31:maximum",
+              "Actual": 0.5000801977063061,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:32:rms",
+              "Actual": 0.2018052502827538,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:32:maximum",
+              "Actual": 0.5610751543857404,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:33:rms",
+              "Actual": 0.22989236005816768,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:33:maximum",
+              "Actual": 0.6269722508869382,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:34:rms",
+              "Actual": 0.260185707636618,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:34:maximum",
+              "Actual": 0.6980923680299789,
+              "Limit": 0.15
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "1d20ecf59b7dd316524fd72170e77103d441af1ea91e1fb6d0f16d420a49b678"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 25.01290497152638,
+        "FNumber": 3.4028450795820717,
+        "WorstRmsMillimeters": 0.048595408117610074,
+        "WorstMaximumMillimeters": 0.14999442756418446,
+        "MinimumValidFraction": 1,
+        "MinimumCheckValidFraction": 1,
+        "LostCheckRays": 0,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "7372f16240de98d872dd84ed13df1abded3bb81449b289a9dd892b146d0dc86b"
+      },
+      "DeletionTrials": 3,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 2,
+        "Recovered": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-002:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-001:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.)"
+          ]
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 11,
+          "TrialId": "trial-5",
+          "ParentId": "trial-4",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "v3",
+      "Id": "repr-new-wide4-3-101-D-v3",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "67cbe59bdcd11f7aaa5b4065cd5dadb82f1b0a497792c1b50bfbcfa9e67398ce",
+      "PairedTaskFingerprint": "517721103fa0a09f65d9333e6273e20d4dba00889b1777d61879251e68ecc673",
+      "PlanFingerprint": "3e1d34cceac079b5c70a3979d71379070648d20168521c9c9957f8987246ca54",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 13,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 1,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 1066214,
+        "GeometryProbes": 3664,
+        "Elapsed": "00:00:08.7560088"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.49538053834631,
+        "FNumber": 3.3491882773819737,
+        "WorstRmsMillimeters": 0.035922046918538245,
+        "WorstMaximumMillimeters": 0.16030391963725954,
+        "MinimumValidFraction": 0.9833333333333333,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.033823050947582756,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16030391963725954,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03876866631460169,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "fd7cbf1eba9eb409ee99119f3b71f473b3f2725f98a38b0178d282caa302dc1a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.536125438589448,
+        "FNumber": 3.4021285974076165,
+        "WorstRmsMillimeters": 0.03805762707676651,
+        "WorstMaximumMillimeters": 0.16291479494779182,
+        "MinimumValidFraction": 0.990625,
+        "MinimumCheckValidFraction": 0.898989898989899,
+        "LostCheckRays": 10,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 10,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16291479494779182,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.030176593111633312,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "4f3da114d09df90116fc6bcc11f9837d8cab627e5151964cf8431f1e35f28852"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:8"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "maximum",
+      "Id": "repr-new-wide4-3-101-D-maximum",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "67cbe59bdcd11f7aaa5b4065cd5dadb82f1b0a497792c1b50bfbcfa9e67398ce",
+      "PairedTaskFingerprint": "517721103fa0a09f65d9333e6273e20d4dba00889b1777d61879251e68ecc673",
+      "PlanFingerprint": "011502c0a3c304851b866309bf77c9fa6a51452af74e0863c4fbcd1cc3273ab5",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 13,
+        "GradientEvaluations": 9,
+        "ValidationEvaluations": 2,
+        "MatrixEvaluations": 1,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 1066358,
+        "GeometryProbes": 3664,
+        "Elapsed": "00:00:08.8468771"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.49538053834631,
+        "FNumber": 3.3491882773819737,
+        "WorstRmsMillimeters": 0.035922046918538245,
+        "WorstMaximumMillimeters": 0.16030391963725954,
+        "MinimumValidFraction": 0.9833333333333333,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.033823050947582756,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16030391963725954,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03876866631460169,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "fd7cbf1eba9eb409ee99119f3b71f473b3f2725f98a38b0178d282caa302dc1a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": null,
+      "Archive": [],
+      "ReducedCandidates": [],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.57579296519205,
+        "FNumber": 3.4024325099642336,
+        "WorstRmsMillimeters": 0.03784293294827084,
+        "WorstMaximumMillimeters": 0.14554723767054512,
+        "MinimumValidFraction": 0.990625,
+        "MinimumCheckValidFraction": 0.898989898989899,
+        "LostCheckRays": 10,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 10,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03020425132854746,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "06aeadfe34b09af06c6eb36d78ce3089456425f0e2b735865ab084b05965a356"
+      },
+      "DeletionTrials": 0,
+      "RecoveryOutcomes": {
+        "GeometryBlocked": 1
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 3,
+          "TrialId": "trial-0",
+          "ParentId": "seed-0",
+          "Operation": "optimize",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 5,
+          "TrialId": "trial-2",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-3",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-4",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-5",
+          "ParentId": "trial-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "GeometryBlocked",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at air:5:6:8"
+          ],
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    },
+    {
+      "Task": "new-wide4-3",
+      "SourceName": "US02432387-1",
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "joint",
+      "Id": "repr-new-wide4-3-101-D-joint",
+      "SourceElements": 4,
+      "OriginalHalfField": 21,
+      "SourceFingerprint": "67cbe59bdcd11f7aaa5b4065cd5dadb82f1b0a497792c1b50bfbcfa9e67398ce",
+      "PairedTaskFingerprint": "517721103fa0a09f65d9333e6273e20d4dba00889b1777d61879251e68ecc673",
+      "PlanFingerprint": "d98b98f69f4ae3e69a321c0e8be59e3dfbaa41efdd2f5a4360e3ac8e280b427d",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 598,
+        "GradientEvaluations": 8,
+        "ValidationEvaluations": 6,
+        "MatrixEvaluations": 539,
+        "DifferenceEvaluations": 499,
+        "JacobianBuilds": 40,
+        "TracedRays": 1602896,
+        "GeometryProbes": 74899,
+        "Elapsed": "00:00:14.6520048"
+      },
+      "PendingPhase": null,
+      "SeedAssessment": {
+        "Id": "seed-0",
+        "ParentId": null,
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.49538053834631,
+        "FNumber": 3.3491882773819737,
+        "WorstRmsMillimeters": 0.035922046918538245,
+        "WorstMaximumMillimeters": 0.16030391963725954,
+        "MinimumValidFraction": 0.9833333333333333,
+        "MinimumCheckValidFraction": 0.7575757575757576,
+        "LostCheckRays": 25,
+        "FieldCount": 35,
+        "Violations": [
+          {
+            "Code": "field:33:check-lost",
+            "Actual": 1,
+            "Limit": 0
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.033823050947582756,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:check-lost",
+            "Actual": 24,
+            "Limit": 0
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.16030391963725954,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.03876866631460169,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "OpticFingerprint": "fd7cbf1eba9eb409ee99119f3b71f473b3f2725f98a38b0178d282caa302dc1a"
+      },
+      "ReducedSuccess": false,
+      "MinimumAcceptedElements": 4,
+      "Archive": [
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 4,
+          "Completed": true,
+          "MeetsTargets": true,
+          "EffectiveFocalLengthMillimeters": 25.01290497152638,
+          "FNumber": 3.4028450795820717,
+          "WorstRmsMillimeters": 0.048595408117610074,
+          "WorstMaximumMillimeters": 0.14999442756418446,
+          "MinimumValidFraction": 1,
+          "MinimumCheckValidFraction": 1,
+          "LostCheckRays": 0,
+          "FieldCount": 35,
+          "Violations": [],
+          "Failure": null,
+          "OpticFingerprint": "7372f16240de98d872dd84ed13df1abded3bb81449b289a9dd892b146d0dc86b"
+        }
+      ],
+      "ReducedCandidates": [
+        {
+          "Id": "trial-4",
+          "ParentId": "trial-0",
+          "Elements": 3,
+          "Completed": true,
+          "MeetsTargets": false,
+          "EffectiveFocalLengthMillimeters": 25.012888637374072,
+          "FNumber": 3.8192128988314393,
+          "WorstRmsMillimeters": 0.260185707636618,
+          "WorstMaximumMillimeters": 0.6980923680299789,
+          "MinimumValidFraction": 1,
+          "MinimumCheckValidFraction": 1,
+          "LostCheckRays": 0,
+          "FieldCount": 35,
+          "Violations": [
+            {
+              "Code": "f-number",
+              "Actual": 0.1429315057700642,
+              "Limit": 0.02
+            },
+            {
+              "Code": "field:14:maximum",
+              "Actual": 0.1673342879950086,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:15:maximum",
+              "Actual": 0.1881313875995101,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:16:rms",
+              "Actual": 0.05616926505078458,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:16:maximum",
+              "Actual": 0.21030965088370657,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:17:rms",
+              "Actual": 0.06520881365490923,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:17:maximum",
+              "Actual": 0.23391504300348576,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:18:rms",
+              "Actual": 0.07510877131588772,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:18:maximum",
+              "Actual": 0.25899676190567167,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:19:rms",
+              "Actual": 0.08584231352220258,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:19:maximum",
+              "Actual": 0.28560738351565096,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:20:rms",
+              "Actual": 0.09739689787654222,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:20:maximum",
+              "Actual": 0.31380301087236795,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:25:maximum",
+              "Actual": 0.1574401598275763,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:26:rms",
+              "Actual": 0.060579102801102284,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:26:maximum",
+              "Actual": 0.22193095841504196,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:27:rms",
+              "Actual": 0.09151732600254661,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:27:maximum",
+              "Actual": 0.2995034231217586,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:28:rms",
+              "Actual": 0.10977010296925951,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:28:maximum",
+              "Actual": 0.34364342570398065,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:29:rms",
+              "Actual": 0.1298771625325992,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:29:maximum",
+              "Actual": 0.39162826110936955,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:30:rms",
+              "Actual": 0.15187718237295827,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:30:maximum",
+              "Actual": 0.44368956667668513,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:31:rms",
+              "Actual": 0.17582870866455763,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:31:maximum",
+              "Actual": 0.5000801977063061,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:32:rms",
+              "Actual": 0.2018052502827538,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:32:maximum",
+              "Actual": 0.5610751543857404,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:33:rms",
+              "Actual": 0.22989236005816768,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:33:maximum",
+              "Actual": 0.6269722508869382,
+              "Limit": 0.15
+            },
+            {
+              "Code": "field:34:rms",
+              "Actual": 0.260185707636618,
+              "Limit": 0.05
+            },
+            {
+              "Code": "field:34:maximum",
+              "Actual": 0.6980923680299789,
+              "Limit": 0.15
+            }
+          ],
+          "Failure": null,
+          "OpticFingerprint": "1d20ecf59b7dd316524fd72170e77103d441af1ea91e1fb6d0f16d420a49b678"
+        }
+      ],
+      "BestEndpoint": {
+        "Id": "trial-0",
+        "ParentId": "seed-0",
+        "Elements": 4,
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 25.01290497152638,
+        "FNumber": 3.4028450795820717,
+        "WorstRmsMillimeters": 0.048595408117610074,
+        "WorstMaximumMillimeters": 0.14999442756418446,
+        "MinimumValidFraction": 1,
+        "MinimumCheckValidFraction": 1,
+        "LostCheckRays": 0,
+        "FieldCount": 35,
+        "Violations": [],
+        "Failure": null,
+        "OpticFingerprint": "7372f16240de98d872dd84ed13df1abded3bb81449b289a9dd892b146d0dc86b"
+      },
+      "DeletionTrials": 3,
+      "RecoveryOutcomes": {
+        "BudgetExhausted": 3,
+        "Recovered": 2
+      },
+      "FailureEvents": [
+        {
+          "Sequence": 1,
+          "TrialId": "seed-0",
+          "ParentId": null,
+          "Operation": "seed",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 4,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-002:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 6,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "gradual-delete",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 7,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "gradual-delete",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)"
+          ]
+        },
+        {
+          "Sequence": 8,
+          "TrialId": "trial-1",
+          "ParentId": "trial-0",
+          "Operation": "gradual-delete",
+          "Phase": "TransitionValidation",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 9,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": "Direct recovery failed; beginning original-relative gradual deletion.",
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-001:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 10,
+          "TrialId": "trial-2",
+          "ParentId": "trial-0",
+          "Operation": "gradual-delete",
+          "Phase": "Recovery",
+          "Outcome": "BudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": [
+            "Recovery geometry is blocked at element-001:edge:8",
+            "Trust-region termination: EvaluationLimit"
+          ],
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 11,
+          "TrialId": "trial-3",
+          "ParentId": "seed-0",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 13,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Feasibility",
+          "Outcome": "ValidationUnavailable",
+          "Detail": "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.) (The CPU sequential trace quota cannot reserve this submission.)",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 14,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Local",
+          "Outcome": "RayBudgetExhausted",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": [
+            "One or more errors occurred. (The CPU sequential trace quota cannot reserve this submission.)"
+          ]
+        },
+        {
+          "Sequence": 15,
+          "TrialId": "trial-4",
+          "ParentId": "trial-0",
+          "Operation": "delete",
+          "Phase": "Validation",
+          "Outcome": "UnmetTargets",
+          "Detail": null,
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        },
+        {
+          "Sequence": 16,
+          "TrialId": "trial-5",
+          "ParentId": "trial-4",
+          "Operation": "insert",
+          "Phase": "Recovery",
+          "Outcome": "EditRejected",
+          "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+          "RecoveryDiagnostics": null,
+          "OptimizationDiagnostics": null
+        }
+      ],
+      "ExportAuditRays": 0
+    }
+  ]
+}

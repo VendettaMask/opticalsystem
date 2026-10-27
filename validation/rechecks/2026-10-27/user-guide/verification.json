@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-27",
+  "screenshotCasesPassed": 3,
+  "screenshots": 54,
+  "distinctScreens": 18,
+  "tutorialChapters": 9,
+  "calculationChapters": 13,
+  "focusedTestsPassed": 13,
+  "frozenFilesMatched": 2668,
+  "defaultReleaseBuild": "Passed through focused test build",
+  "desktopInteraction": false,
+  "fullSuiteRun": false,
+  "captureTrx": "capture-sixth.trx",
+  "focusedTrx": "focused-complete.trx",
+  "settingsIncident": "Early captures wrote profile settings; final capture workflow isolated. Chinese restored; pre-task custom settings unavailable.",
+  "sourceFiles": [
+    {
+      "path": "src/OpticalSystemDesign.App/MainWindow.cs",
+      "sha256": "998bca362cdedd7b146f0d42ef0508c5690b60e7e45fef38fd41f66008671754"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj",
+      "sha256": "2461acf192d3285a745217a251a0b805501d844f5655618aad9a960545e61033"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "sha256": "13c0e523464a505d49630425f57ff762f4a35f4b7da47f3a69d57275b9322202"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.Layout.cs",
+      "sha256": "e97278f944b36123cb3496136816409e2233f944131d4023456f01854126a2b4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.Computation.cs",
+      "sha256": "cbb4f938f7e3a8973716b10b6660d26fa0becea1b948cb714c573ce04e5bce74"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.Tutorials.cs",
+      "sha256": "c9016c7659bdeab00409495101644591c4653cc26da31163315d92603a623896"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuideScreenshots.cs",
+      "sha256": "087e414243b6561703383d1a0a81277b5081a842c492e6c8a0d4be3e7728c95a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuideIllustration.cs",
+      "sha256": "709028d369d36dd24c441a118d7aa3b06ec09d534709b431696c3ec8c2440217"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/UserGuidePanelTests.cs",
+      "sha256": "b82f9b0f2d6b5f5fd6015b3f20814294730acf7fdf90d62994733cd839a88c25"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/UserGuideCaptureTests.cs",
+      "sha256": "9302912420f50ad723a7366f7a374af733756829c84b1366c2c4d39cbbbba8b9"
+    }
+  ]
+}

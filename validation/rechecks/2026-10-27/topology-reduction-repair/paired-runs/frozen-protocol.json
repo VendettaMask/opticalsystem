@@ -1,0 +1,22 @@
+{
+  "Version": 1,
+  "Source": "validation/rechecks/2026-10-27/autonomous-comparison-m6",
+  "Task": "m2-endpoint",
+  "Seeds": [
+    42,
+    101
+  ],
+  "Groups": [
+    "C",
+    "D"
+  ],
+  "Modes": [
+    "legacy",
+    "descent-only",
+    "feasibility-only",
+    "both"
+  ],
+  "Budget": "Exactly inherited from each paired M6 plan: 6 trials, 600 functions, 100 gradients, 2000000 rays, 400000 stage rays, 200000 final reserve, 60 seconds. No extension.",
+  "Physics": "Original targets, training sampling, Core dense validation, materials, bounds, frozen image and initial topology unchanged.",
+  "Interpretation": "Exploratory paired repair reproduction on already accepted M2-derived seeds; not representative success rate or statistical superiority."
+}

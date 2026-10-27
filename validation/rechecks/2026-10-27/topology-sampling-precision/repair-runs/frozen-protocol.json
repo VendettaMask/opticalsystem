@@ -1,0 +1,27 @@
+{
+  "Version": 1,
+  "Purpose": "Fresh deterministic fixed-three-element continuation from two retained nine-ray-loss endpoints. Paired coarse/accurate evaluation, original targets/physical stop/apertures/field unchanged. Preparation searches remain separate.",
+  "Seed": 42,
+  "Budget": {
+    "MaximumTracedRays": 2000000,
+    "MaximumFunctionEvaluations": 600,
+    "MaximumGradientEvaluations": 100,
+    "TimeLimitSeconds": 60,
+    "FinalValidationRayReserve": 800000
+  },
+  "MaximumUpdates": 99,
+  "Allocation": "Two fresh complete physical checks are counted. The single fixed-topology phase uses only remaining total rays after reserving 800k for the original final gate; same 100-gradient ceiling on both sides, precision trades off against update count. This is not another 4-to-3 search or a combined single-budget pipeline claim.",
+  "Sampling": "coarse 1x8 vs accurate 4x16, same five training fields and center/boundary checks. Original final 35 fields/10x32/33/profile64 unchanged.",
+  "Cases": [
+    {
+      "Id": "retained-nine",
+      "SourceCheckpoint": "validation/rechecks/2026-10-27/topology-transmission-priority/active-set-runs/repr-qualified4-wide21-42-C-both/run.autonomous.json",
+      "SourceSha256": "6f65d956074e9367f5fbac493a1f1f5cf4fd2bd9b776f777e73a67bb7f9372dc"
+    },
+    {
+      "Id": "precision-nine",
+      "SourceCheckpoint": "validation/rechecks/2026-10-27/topology-sampling-precision/paired-runs/repr-qualified4-wide21-42-C-accurate/run.autonomous.json",
+      "SourceSha256": "79d00b95266ca52607cac0755ee84dffbefaa715555b9f8d37351291e17aea18"
+    }
+  ]
+}

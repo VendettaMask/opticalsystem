@@ -1,0 +1,2041 @@
+{
+  "RemovedElement": {
+    "Id": "trial-5-lens",
+    "FrontSurfaceId": "trial-5-front",
+    "BackSurfaceId": "trial-5-back",
+    "FrontZMillimeters": 3.795600296196072,
+    "ThicknessMillimeters": 1,
+    "Material": "N-BK7",
+    "Front": {
+      "Profile": {
+        "Kind": "standard",
+        "CurvaturePerMillimeter": 0.003,
+        "Conic": 0,
+        "MaximumEvenPower": 0,
+        "Terms": []
+      },
+      "ClearSemiDiameterMillimeters": 6,
+      "MechanicalSemiDiameterMillimeters": 6
+    },
+    "Back": {
+      "Profile": {
+        "Kind": "standard",
+        "CurvaturePerMillimeter": -0.003,
+        "Conic": 0,
+        "MaximumEvenPower": 0,
+        "Terms": []
+      },
+      "ClearSemiDiameterMillimeters": 6,
+      "MechanicalSemiDiameterMillimeters": 6
+    },
+    "Protected": false,
+    "Transition": false
+  },
+  "Change": {
+    "Operation": "delete",
+    "ParentFingerprint": "33945ce462a54a1a95e0034326efed91d2fa4bc6c1e845c0c95623cfe4809850",
+    "ChildFingerprint": "159752fa19ac1cc201d608ef332c050beea8db362b71bf084a6f11471a40d492",
+    "CreatedElementIds": [],
+    "RemovedElementIds": [
+      "trial-5-lens"
+    ]
+  },
+  "ActualRays": 2636,
+  "Scope": "Only the element was removed. All retained curvatures, material identities, absolute coordinates, stop, image and field/spectral data are unchanged. No recovery or optimization.",
+  "Results": [
+    {
+      "Elements": 4,
+      "OpticFingerprint": "dcfb17acabcebc7562238abbe64195413b16babdae372222c180363ff61c65b5",
+      "IsComplete": true,
+      "Rays": [
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 0,
+            "MinimumClearanceMillimeters": 1.8881197316508413,
+            "LimitingSurfaceIndex": 8,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 1,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 2,
+            "MinimumClearanceMillimeters": -4.68070027181966E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 3,
+            "MinimumClearanceMillimeters": -2.0694557179012918E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 4,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 5,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 6,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 7,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 8,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 9,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 10,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 11,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 12,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 13,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 14,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 15,
+            "MinimumClearanceMillimeters": -1.3322676295501878E-15,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 16,
+            "MinimumClearanceMillimeters": -1.1235457009206584E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 17,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 18,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 19,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 20,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 21,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 22,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 23,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 24,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 25,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 26,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 27,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 28,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 29,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 30,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 31,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 32,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 0,
+            "MinimumClearanceMillimeters": 1.8869954617854992,
+            "LimitingSurfaceIndex": 8,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 1,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 2,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 3,
+            "MinimumClearanceMillimeters": -1.283417816466681E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 4,
+            "MinimumClearanceMillimeters": -2.7711166694643907E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 5,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 6,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 7,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 8,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 9,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 10,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 11,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 12,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 13,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 14,
+            "MinimumClearanceMillimeters": -1.0169642905566434E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 15,
+            "MinimumClearanceMillimeters": 1.3766765505351941E-14,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 16,
+            "MinimumClearanceMillimeters": -1.8918200339612667E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 17,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 18,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 19,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 20,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 21,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 22,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 23,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 24,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 25,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 26,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 27,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 28,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 29,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 30,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 31,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 32,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 0,
+            "MinimumClearanceMillimeters": 1.8865411348313375,
+            "LimitingSurfaceIndex": 8,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 1,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 2,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 3,
+            "MinimumClearanceMillimeters": -1.2567724638756772E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 4,
+            "MinimumClearanceMillimeters": -1.6120438317557273E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 5,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 6,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 7,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 8,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 9,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 10,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 11,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 12,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 13,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 14,
+            "MinimumClearanceMillimeters": -3.375077994860476E-14,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 15,
+            "MinimumClearanceMillimeters": 7.549516567451064E-15,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 16,
+            "MinimumClearanceMillimeters": -2.575717417130363E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 17,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 18,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 19,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 20,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 21,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 22,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 23,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 24,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 25,
+            "MinimumClearanceMillimeters": -8.881784197001252E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 26,
+            "MinimumClearanceMillimeters": 8.881784197001252E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 27,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 28,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 29,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 30,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 31,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 32,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        }
+      ]
+    },
+    {
+      "Elements": 3,
+      "OpticFingerprint": "8a6b8871ed3ac6bb759ca6205d71155ef17da7202eb1fce50529f6cf2704d963",
+      "IsComplete": true,
+      "Rays": [
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 0,
+            "MinimumClearanceMillimeters": 1.6939328455201443,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 1,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 2,
+            "MinimumClearanceMillimeters": -4.68070027181966E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 3,
+            "MinimumClearanceMillimeters": -2.0694557179012918E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 4,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 5,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 6,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 7,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 8,
+            "MinimumClearanceMillimeters": -0.028270548569364617,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 9,
+            "MinimumClearanceMillimeters": -0.04203364749441851,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 10,
+            "MinimumClearanceMillimeters": -0.028270548569364617,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 11,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 12,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 13,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 14,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 15,
+            "MinimumClearanceMillimeters": -1.3322676295501878E-15,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 16,
+            "MinimumClearanceMillimeters": -1.1235457009206584E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 17,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 18,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 19,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 20,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 21,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 22,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 23,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 24,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 25,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 26,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 27,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 28,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 29,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 30,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 31,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 486.1327,
+            "PupilIndex": 32,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 0,
+            "MinimumClearanceMillimeters": 1.694523620063362,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 1,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 2,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 3,
+            "MinimumClearanceMillimeters": -1.283417816466681E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 4,
+            "MinimumClearanceMillimeters": -2.7711166694643907E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 5,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 6,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 7,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 8,
+            "MinimumClearanceMillimeters": -0.035869095192123446,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 9,
+            "MinimumClearanceMillimeters": -0.04969306448817079,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 10,
+            "MinimumClearanceMillimeters": -0.035869095192123446,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 11,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 12,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 13,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 14,
+            "MinimumClearanceMillimeters": -1.0169642905566434E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 15,
+            "MinimumClearanceMillimeters": 1.3766765505351941E-14,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 16,
+            "MinimumClearanceMillimeters": -1.8918200339612667E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 17,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 18,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 19,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 20,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 21,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 22,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 23,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 24,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 25,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 26,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 27,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 28,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 29,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 30,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 31,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 587.5618000000001,
+            "PupilIndex": 32,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 0,
+            "MinimumClearanceMillimeters": 1.6948300102976532,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 1,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 2,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 3,
+            "MinimumClearanceMillimeters": -1.2567724638756772E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 4,
+            "MinimumClearanceMillimeters": -1.6120438317557273E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 5,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 6,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 7,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 8,
+            "MinimumClearanceMillimeters": -0.03916681117350951,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 9,
+            "MinimumClearanceMillimeters": -0.053017230892618006,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 10,
+            "MinimumClearanceMillimeters": -0.03916681117350951,
+            "LimitingSurfaceIndex": 6,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "element-002:back"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 11,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 12,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 13,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 14,
+            "MinimumClearanceMillimeters": -3.375077994860476E-14,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 15,
+            "MinimumClearanceMillimeters": 7.549516567451064E-15,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 16,
+            "MinimumClearanceMillimeters": -2.575717417130363E-13,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 17,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 18,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 19,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 20,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 21,
+            "MinimumClearanceMillimeters": -4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 22,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 23,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 24,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 25,
+            "MinimumClearanceMillimeters": -8.881784197001252E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 26,
+            "MinimumClearanceMillimeters": 8.881784197001252E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 27,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 28,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 29,
+            "MinimumClearanceMillimeters": 4.440892098500626E-16,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 30,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 31,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        },
+        {
+          "Ray": {
+            "WavelengthNanometers": 656.2725,
+            "PupilIndex": 32,
+            "MinimumClearanceMillimeters": 0,
+            "LimitingSurfaceIndex": 4,
+            "ReachedImage": true
+          },
+          "LimitingSurfaceId": "stop"
+        }
+      ]
+    }
+  ]
+}

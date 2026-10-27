@@ -22,4 +22,7 @@
     <ProjectReference Include="../../src/OpticalSystemDesign.InitialStructure.Persistence/OpticalSystemDesign.InitialStructure.Persistence.csproj" />
     <ProjectReference Include="../../../../src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../../../tests/Shared/SafeHeadlessUnitTestSession.cs" Link="Shared/SafeHeadlessUnitTestSession.cs" />
+  </ItemGroup>
 </Project>

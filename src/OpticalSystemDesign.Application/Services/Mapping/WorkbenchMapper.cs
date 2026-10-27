@@ -71,7 +71,9 @@ internal static class WorkbenchMapper
             MechanicalSemiDiameter: surface.MechanicalSemiDiameter,
             ThermalExpansionPpmPerC: surface.ThermalExpansionPpmPerC,
             ChipZone: surface.ChipZone,
-            GeometryDefinition: new SurfaceGeometryDefinitionDto(geometry.Kind, geometry.Numbers));
+            GeometryDefinition: new SurfaceGeometryDefinitionDto(geometry.Kind, geometry.Numbers),
+            DrawingAperture: new SurfaceDrawingApertureDto(surface.PhysicalAperture?.Kind ?? "none",
+                (surface.PhysicalAperture as CircularAperture)?.Radius));
     }
 
     internal static string GeometryKind(OpticalSurface surface) => surface.Geometry switch

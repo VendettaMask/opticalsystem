@@ -5,8 +5,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 
@@ -33,21 +31,10 @@ internal static class UserGuideIllustration
 {
     private const double Width = 760;
     private const double Height = 220;
-    private static readonly Lazy<Bitmap> WorkbenchScreenshot = new(() =>
-    {
-        var uri = new Uri("avares://OpticalSystemDesign.App/Assets/UserGuide/workbench-light.png");
-        using var stream = AssetLoader.Open(uri);
-        return new Bitmap(stream);
-    });
 
     public static Control Build(UserGuideFigureKind kind, string language)
     {
         Control visual;
-        if (kind == UserGuideFigureKind.Interface && language == UiLocalization.Chinese)
-        {
-            visual = InterfaceScreenshot(language);
-        }
-        else
         {
             var canvas = new Canvas { Width = Width, Height = Height };
             switch (kind)
@@ -106,31 +93,6 @@ internal static class UserGuideIllustration
         AutomationProperties.SetName(figure, caption);
         AutomationProperties.SetHelpText(figure, caption);
         return figure;
-    }
-
-    private static Control InterfaceScreenshot(string language)
-    {
-        var image = new Image
-        {
-            Name = "UserGuideScreenshot",
-            Source = WorkbenchScreenshot.Value,
-            Width = 760,
-            Height = 487,
-            Stretch = Stretch.Uniform
-        };
-        AutomationProperties.SetName(image, L(language, "主工作台真实界面截图", "Actual main-workbench screenshot", "メインワークベンチの実画面"));
-        var canvas = new Canvas { Width = 760, Height = 487, Children = { image } };
-        Node(canvas, 18, 14, 150, 42, L(language, "1  功能区", "1  Ribbon", "1  リボン"), null, true);
-        Node(canvas, 18, 145, 150, 42, L(language, "2  系统属性", "2  System Properties", "2  システム設定"), null, true);
-        Node(canvas, 560, 145, 175, 42, L(language, "3  文档编辑区", "3  Document Area", "3  ドキュメント領域"), null, true);
-        Node(canvas, 560, 426, 175, 42, L(language, "4  状态栏", "4  Status Bar", "4  ステータスバー"), null, true);
-        return new Viewbox
-        {
-            Stretch = Stretch.Uniform,
-            HorizontalAlignment = HorizontalAlignment.Stretch,
-            MaxHeight = 390,
-            Child = canvas
-        };
     }
 
     private static void Workflow(Canvas canvas, string language)

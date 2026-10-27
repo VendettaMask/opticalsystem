@@ -1,0 +1,311 @@
+{
+  "Version": 1,
+  "Purpose": "Isolate boundary clearance with the confirmed compensation-budget starvation fixed equally on both sides; no increase in any run cap.",
+  "Seeds": [
+    42,
+    101
+  ],
+  "Groups": [
+    "C",
+    "D"
+  ],
+  "Modes": [
+    "budget",
+    "boundary-budget"
+  ],
+  "SeedPerturbation": "None: one frozen already-qualified source; 42/101 affect search random flow only. Not independent source geometries.",
+  "Budget": {
+    "MaximumTrials": 6,
+    "MaximumFunctionEvaluations": 600,
+    "MaximumGradientEvaluations": 100,
+    "MaximumTracedRays": 2000000,
+    "MaximumStageTracedRays": 400000,
+    "FinalValidationRayReserve": 800000,
+    "TimeLimitSeconds": 60
+  },
+  "Training": {
+    "FieldsPerDirection": 3,
+    "PupilRings": 1,
+    "PupilArms": 8,
+    "ProfileRadialSamples": 8,
+    "LocalUpdates": 4,
+    "FullUpdates": 8,
+    "RecoveryFunctions": 150
+  },
+  "Targets": {
+    "FocalLengthRelativeTolerance": 0.02,
+    "FNumberRelativeTolerance": 0.02,
+    "MaximumRmsRadiusMillimeters": 0.05,
+    "MaximumSpotRadiusMillimeters": 0.15,
+    "MaximumDistortionFraction": 0.03,
+    "MinimumValidRayFraction": 0.98,
+    "MinimumEdgeThicknessMillimeters": 0.1,
+    "MinimumEdgeAirGapMillimeters": 0.01,
+    "MaximumOpticalTrackMillimeters": 10000,
+    "MaximumAbsoluteSurfaceSlope": 10
+  },
+  "FinalValidation": "Unmodified Core-backed TopologyValidator: 21 positions per defined field direction with union/deduplication, 10x32 Gaussian pupil, boundary+center33, profile64, all source positive-weight wavelengths (RGB for all chosen cases).",
+  "Permissions": "Same curvature-only optimization and material bounds for all paired modes; real insert/delete allowed, C direct recovery, D adds gradual deletion. Split/merge/material/profile upgrades disabled. Image/reference/stop positions frozen.",
+  "Preparation": "Explicit physical air-spaced variants; editor merit/variable/solve and OPD-reference state frozen; original radii/materials/environment/coordinates/fields/spectrum retained before seed perturbation. Stop radius calibrated by shared Core to preserve original first-order F number, physical circular face apertures from original semi-diameters, aiming enabled. Not unmodified native imports. Original native bytes retained and hashed.",
+  "SuccessDefinition": "Archive original-task-qualified candidate with fewer elements than the initial source. Starting point failures, no deletion attempted, recovery failure, optical/manufacturing gates, unavailable endpoints and budget exhaustion classified separately.",
+  "Cases": [
+    {
+      "Id": "qualified4-wide21",
+      "Role": "Already accepted four-element wide-field result; actual delete trials from a qualified baseline",
+      "Source": {
+        "Name": "Qualified 4-element continuation of US02298090-1",
+        "RepositoryPath": "validation/rechecks/2026-10-27/representative-reduction/allocation-control/repr-imager3-21-42-C-fixed/trial-5.staropt"
+      },
+      "OriginalSha256": "92141c68ef1cb00c40b4d4fc9a58c10091ce81cf3989adaa2fa21e2e35815542",
+      "SourceTopology": {
+        "schemaVersion": 1,
+        "algorithm": "AutonomousTopologyV1",
+        "name": "Imported Zemax ZMX",
+        "conjugate": "infinite",
+        "reference": {
+          "id": "reference",
+          "zMillimeters": 0
+        },
+        "stop": {
+          "id": "stop",
+          "zMillimeters": 3.3436820701111003,
+          "clearSemiDiameterMillimeters": 2.261198955059374,
+          "mechanicalSemiDiameterMillimeters": null
+        },
+        "image": {
+          "id": "image",
+          "zMillimeters": 30.567878567573416,
+          "protected": true
+        },
+        "elements": [
+          {
+            "id": "element-001",
+            "frontSurfaceId": "element-001:front",
+            "backSurfaceId": "element-001:back",
+            "frontZMillimeters": 0,
+            "thicknessMillimeters": 2.7686,
+            "material": "BAK1",
+            "front": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": 0.11669224939658814,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 4,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "back": {
+              "profile": {
+                "kind": "plane",
+                "curvaturePerMillimeter": 0,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 3,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "protected": false,
+            "transition": false
+          },
+          {
+            "id": "trial-5-lens",
+            "frontSurfaceId": "trial-5-front",
+            "backSurfaceId": "trial-5-back",
+            "frontZMillimeters": 3.795600296196072,
+            "thicknessMillimeters": 1,
+            "material": "N-BK7",
+            "front": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": 0.003,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 6,
+              "mechanicalSemiDiameterMillimeters": 6
+            },
+            "back": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": -0.003,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 6,
+              "mechanicalSemiDiameterMillimeters": 6
+            },
+            "protected": false,
+            "transition": false
+          },
+          {
+            "id": "element-002",
+            "frontSurfaceId": "element-002:front",
+            "backSurfaceId": "element-002:back",
+            "frontZMillimeters": 5.5626000000001,
+            "thicknessMillimeters": 0.7873999999999999,
+            "material": "SCHOTT:SF15",
+            "front": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": -0.06083927930493711,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 3,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "back": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": 0.11015630036642503,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 3,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "protected": false,
+            "transition": false
+          },
+          {
+            "id": "element-003",
+            "frontSurfaceId": "element-003:front",
+            "backSurfaceId": "element-003:back",
+            "frontZMillimeters": 9.1440000000001,
+            "thicknessMillimeters": 2.1590000000000007,
+            "material": "TAFD30",
+            "front": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": 0.030674772712620247,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 6,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "back": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": -0.050743755094625406,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 6,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "protected": false,
+            "transition": false
+          }
+        ],
+        "fields": [
+          {
+            "label": "On axis",
+            "xAngleDegrees": 0,
+            "yAngleDegrees": 0,
+            "weight": 1
+          },
+          {
+            "label": "Field 2",
+            "xAngleDegrees": 0,
+            "yAngleDegrees": 14,
+            "weight": 1
+          },
+          {
+            "label": "Field 3",
+            "xAngleDegrees": 0,
+            "yAngleDegrees": 21,
+            "weight": 1
+          }
+        ],
+        "wavelengths": [
+          {
+            "label": "W1",
+            "nanometers": 486.1327,
+            "weight": 1,
+            "isPrimary": false
+          },
+          {
+            "label": "W2",
+            "nanometers": 587.5618000000001,
+            "weight": 1,
+            "isPrimary": true
+          },
+          {
+            "label": "W3",
+            "nanometers": 656.2725,
+            "weight": 1,
+            "isPrimary": false
+          }
+        ],
+        "glassCatalogs": [
+          "SCHOTT",
+          "HIKARI",
+          "HOYA"
+        ],
+        "rayAimingEnabled": true,
+        "matchRefractiveIndexData": true,
+        "temperatureCelsius": 20,
+        "pressureAtmospheres": 1
+      },
+      "FocalTargetMillimeters": 26.29893046465161,
+      "FNumberTarget": 4.93043315797743,
+      "HalfFieldDegrees": 21,
+      "CurvatureBoundPerMillimeter": 0.22757480303732086
+    }
+  ],
+  "AllocationControl": {
+    "PrimaryProtocolSha256": "990d22de80f0d24e53d9a390581243df0acb0de76e9b4e2fe1fa4cb44c95240d",
+    "Reason": "Primary 200000-ray per-validation reserve ended before all dense fields for compact4/imager3-18/imager3-21. Reallocate within unchanged 2000000 total rays; no extra training updates or time.",
+    "OriginalFinalValidationReserve": 200000,
+    "NewFinalValidationReserve": 800000,
+    "KnownNonQuotaFailuresNotRerun": [
+      "fast6",
+      "wide4"
+    ]
+  },
+  "ApplyCurvaturePerturbation": false,
+  "QualifiedSourceControl": {
+    "ParentRun": "validation/rechecks/2026-10-27/representative-reduction/allocation-control/repr-imager3-21-42-C-fixed/run.autonomous.json",
+    "ParentRunSha256": "f3e0e3b20093d1ebd4df43cef0ad9ae37c6d37688014ae65e2603d29b3434303",
+    "ParentConsumed": {
+      "functionEvaluations": 49,
+      "gradientEvaluations": 10,
+      "validationEvaluations": 4,
+      "matrixEvaluations": 35,
+      "differenceEvaluations": 30,
+      "jacobianBuilds": 3,
+      "tracedRays": 1615080,
+      "geometryProbes": 9895,
+      "elapsed": "00:00:04.4612186"
+    },
+    "ParentSourceElements": 3,
+    "PreparationResultElements": 4,
+    "ParentTaskTargets": {
+      "effectiveFocalLengthMillimeters": 26.29893046465161,
+      "fNumber": 4.93043315797743,
+      "focalLengthRelativeTolerance": 0.02,
+      "fNumberRelativeTolerance": 0.02,
+      "maximumRmsRadiusMillimeters": 0.05,
+      "maximumSpotRadiusMillimeters": 0.15,
+      "maximumDistortionFraction": 0.03,
+      "minimumValidRayFraction": 0.98,
+      "minimumEdgeThicknessMillimeters": 0.1,
+      "minimumEdgeAirGapMillimeters": 0.01,
+      "maximumOpticalTrackMillimeters": 10000,
+      "maximumAbsoluteSurfaceSlope": 10
+    },
+    "Reason": "All five original physical variants failed or could not complete the original dense gates; this additional source was genuinely qualified within a recorded short run. It is a distinct starting prescription, not evidence that the original three-element lens was reduced."
+  },
+  "BoundaryPolicy": "boundary adds independent 33 center/boundary minimum-clearance residuals at the existing training fields, with 0.01mm constraint scale. Gaussian sampling/statistics, all physical apertures, targets, variables, fixed/descent guards and dense final validation unchanged. Extra actual work is charged inside the same caps.",
+  "CompensationBudgetPolicy": "Both modes enable ProtectCompensationRayBudget. A post-local optional dense check is deferred with zero optical work if the remaining non-final ray allocation cannot reserve its configured full quota; full compensation and the independent final gate keep original limits. Recovery feasibility check remains. Previous eight runs are retained separately."
+}

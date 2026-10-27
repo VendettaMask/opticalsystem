@@ -25,10 +25,8 @@ public sealed class PanelContentLayoutTests
 {
     [Theory]
     [InlineData(OpticalDrawingStandard.Iso10110, false)]
-    [InlineData(OpticalDrawingStandard.GbT13323_2009, false)]
     [InlineData(OpticalDrawingStandard.GbT13323_1991, false)]
     [InlineData(OpticalDrawingStandard.Iso10110, true)]
-    [InlineData(OpticalDrawingStandard.GbT13323_2009, true)]
     [InlineData(OpticalDrawingStandard.GbT13323_1991, true)]
     public async Task DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(
         OpticalDrawingStandard standard, bool cemented)
@@ -71,12 +69,14 @@ public sealed class PanelContentLayoutTests
             if (standard == OpticalDrawingStandard.GbT13323_1991)
             {
                 var rows = OpticalDrawingRendererCore.Gb1991MaterialSpecificationRows(edited);
+                Assert.Contains(rows, row => row.Item == "Δn_d" && row.Value == "未规定");
+                Assert.Contains(rows, row => row.Item == "Δν_d" && row.Value == "未规定");
+                var notes = OpticalDrawingRendererCore.Gb1991TechnicalRequirementLines(edited);
                 for (var index = 0; index < edited.Element.Components.Count; index++)
                 {
                     var material = edited.ComponentMaterialData![index]!;
                     var label = cemented ? $"L{index + 1} " : string.Empty;
-                    Assert.Contains(rows, row => row.Item == label + "折射率/阿贝数"
-                        && row.Value == $"n[d] {material.RefractiveIndexD:0.000000} ±0.001200；V[d] {material.AbbeNumber:0.###} ±1.25");
+                    Assert.Contains(label + $"n[d] {material.RefractiveIndexD:0.000000} ±0.001200；V[d] {material.AbbeNumber:0.###} ±1.25", notes);
                 }
                 if (cemented)
                 {
@@ -84,8 +84,7 @@ public sealed class PanelContentLayoutTests
                     {
                         ComponentMaterialData = new[] { edited.MaterialData, null }
                     };
-                    Assert.Contains(OpticalDrawingRendererCore.Gb1991MaterialSpecificationRows(missingSecondMaterial),
-                        row => row.Item == "L2 折射率/阿贝数" && row.Value == "n[d]、V[d] 未解析");
+                    Assert.Contains("L2 n[d]、V[d] 未解析", OpticalDrawingRendererCore.Gb1991TechnicalRequirementLines(missingSecondMaterial));
                 }
             }
             var editedPreview = OpticalDrawingRenderer.RenderPreview(edited, 1500);
@@ -217,7 +216,6 @@ public sealed class PanelContentLayoutTests
 
     [Theory]
     [InlineData(OpticalDrawingStandard.Iso10110)]
-    [InlineData(OpticalDrawingStandard.GbT13323_2009)]
     [InlineData(OpticalDrawingStandard.GbT13323_1991)]
     public async Task DrawingLabelsKeepFullTooltipsAndVisibleUnitsInExistingPanes(OpticalDrawingStandard standard)
     {
@@ -241,6 +239,7 @@ public sealed class PanelContentLayoutTests
                     Assert.Equal(width < 900, layout.IsNarrow);
                     if (width >= 900) Assert.Equal(340, layout.ColumnDefinitions[0].Width.Value);
                     var labels = panel.GetVisualDescendants().OfType<TextBlock>()
+                        .Where(t => t.IsVisible)
                         .Where(t => ToolTip.GetTip(t) is string full && full.Contains(" ("))
                         .Where(t => t.Text?.Contains('\n') == true).ToArray();
                     Assert.True(labels.Length >= 9);

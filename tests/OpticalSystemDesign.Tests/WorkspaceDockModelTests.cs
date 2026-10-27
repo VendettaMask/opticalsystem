@@ -652,7 +652,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public async Task OpticalDrawingNationalStandardEditionsUseSeparateStableDocuments()
+    public async Task OpticalDrawingEntryReusesOneEditorAndItsSelectedStandard()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
         await session.Dispatch(() =>
@@ -660,18 +660,57 @@ public sealed class WorkspaceDockModelTests
             using var application = WorkbenchApplication.Create("cooke");
             using var manager = new PanelManager(application, new AppSettings());
 
-            manager.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_1991);
-            manager.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_2009);
+            manager.ShowOpticalDrawing();
+            var document = Assert.Single(manager.Factory.OpenDocuments(), item => item.Context is OpticalDrawingPanel);
+            var panel = Assert.IsType<OpticalDrawingPanel>(document.Context);
+            var picker = (ComboBox)typeof(OpticalDrawingPanel).GetField("_standardPicker", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(panel)!;
+            picker.SelectedIndex = 1;
+            manager.ShowOpticalDrawing();
 
-            var legacy = manager.Factory.Descriptor("document:optical-drawing-gb-1991");
-            var current = manager.Factory.Descriptor("document:optical-drawing-gb");
+            Assert.Same(document, Assert.Single(manager.Factory.OpenDocuments(), item => item.Context is OpticalDrawingPanel));
+            Assert.Equal("document:optical-drawing", document.Id);
+            Assert.Equal("光学制图", document.Title);
+            Assert.Equal(OpticalDrawingStandard.GbT13323_1991, panel.DrawingStandard);
+            Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_1991), manager.Factory.Descriptor(document.Id)!.Settings!["standard"]);
+            Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_1991),
+                manager.Factory.SnapshotDescriptors().Single(item => item.Id == document.Id).Settings!["standard"]);
+        }, CancellationToken.None);
+    }
 
-            Assert.NotNull(legacy);
-            Assert.NotNull(current);
-            Assert.Equal("光学制图 · GB/T 13323—1991", legacy.Title);
-            Assert.Equal("光学制图 · GB/T 13323—2009", current.Title);
-            Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_1991), legacy.Settings!["standard"]);
-            Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_2009), current.Settings!["standard"]);
+    [Theory]
+    [InlineData("GbT13323_2009")]
+    [InlineData("GB/T 13323—2009")]
+    [InlineData("GB/T 13323-2009")]
+    [InlineData("GbT13323")]
+    [InlineData("2")]
+    public async Task RemovedDrawingStandardRestoresAsIsoAndPreservesOtherSettings(string savedStandard)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            using var manager = new PanelManager(application, new AppSettings());
+            var saved = new WorkspaceDocumentDescriptor(
+                "document:optical-drawing-gb",
+                WorkspaceDocumentTypes.OpticalDrawing,
+                "光学制图 · GB/T 13323—2009",
+                Settings: new Dictionary<string, string>
+                {
+                    ["standard"] = savedStandard,
+                    ["custom-setting"] = "retained"
+                });
+
+            // Exercise the saved-layout path as well as opening the page directly.
+            manager.Factory.RegisterDescriptors(new[] { saved });
+            var restored = manager.Factory.OpenDocument(saved);
+            var descriptor = manager.Factory.SnapshotDescriptors().Single(item => item.Id == saved.Id);
+            var panel = Assert.IsType<OpticalDrawingPanel>(restored.Context);
+
+            Assert.Equal("光学制图", restored.Title);
+            Assert.Equal(nameof(OpticalDrawingStandard.Iso10110), descriptor.Settings!["standard"]);
+            Assert.Equal("retained", descriptor.Settings["custom-setting"]);
+            Assert.Equal(OpticalDrawingStandard.Iso10110, panel.DrawingStandard);
+            Assert.Equal(savedStandard, saved.Settings!["standard"]);
         }, CancellationToken.None);
     }
 

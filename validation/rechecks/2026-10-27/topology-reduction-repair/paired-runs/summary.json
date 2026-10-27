@@ -1,0 +1,1075 @@
+{
+  "ProtocolSha256": "3d050afcf422749426a6c121ecf1b58c44d052e65f159040a86aaa5ff0655c72",
+  "Binaries": {
+    "OpticalSystemDesign.InitialStructure.Engine": "46bdf39441242bb799c6cf10217a6c3bd354a6f439badfed0623457e8eb4b330",
+    "OpticalSystemDesign.InitialStructure.Contracts": "58035bc73abafd3a6ff663767df69a880f5e56bd5c92b22d45cb0729fc702bb8",
+    "OpticalSystemDesign.Core": "ede8fc25329a4862e755386769c2f22ab8c576378a8756ed2a181ee638b8cc60",
+    "OpticalSystemDesign.InitialStructure.Benchmarks": "bfe484477b2d848263a6fa0bfd781da66cbb7491b45ecc2488776f6fc82977c3"
+  },
+  "Runs": [
+    {
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "legacy",
+      "Id": "repair-42-C-legacy",
+      "SourceRecordSha256": "03f15f5792a5fa35655e286d5aa2ece0b1ae4ddfbdec9d110c22d1886e85e290",
+      "SourceFingerprint": "5820254aca17064084fdf4dde55923cf52e31bccdd4da652d1619feba029199b",
+      "PlanFingerprint": "e0f1b0526d4be6d9112e259f77038d50d8e9825bb06ee795fea112f2b90f4976",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 329,
+        "GradientEvaluations": 42,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 249,
+        "DifferenceEvaluations": 227,
+        "JacobianBuilds": 28,
+        "TracedRays": 184380,
+        "GeometryProbes": 27731,
+        "Elapsed": "00:00:05.8698462"
+      },
+      "Accepted": 2,
+      "MinimumAcceptedElements": 3,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.59215236293931,
+          "FNumber": 12.398038090734827,
+          "WorstRmsMillimeters": 0.0439724388744294,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "1dbd8b5ed38c8a309a60c4a12aa1111be70d688e6256a1d28a60d69459b5085d"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "trial-1",
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.95468428613283,
+          "FNumber": 12.488671071533208,
+          "WorstRmsMillimeters": 0.049355782314797786,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "53013e41e614a253d2fe71aade920ca3ff36cf518133771333b32aa5d1066c83"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 2,
+        "Recovered": 3,
+        "UpdateLimit": 6,
+        "UnmetTargets": 2,
+        "EditRejected": 2,
+        "BudgetExhausted": 1
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "descent-only",
+      "Id": "repair-42-C-descent-only",
+      "SourceRecordSha256": "03f15f5792a5fa35655e286d5aa2ece0b1ae4ddfbdec9d110c22d1886e85e290",
+      "SourceFingerprint": "5820254aca17064084fdf4dde55923cf52e31bccdd4da652d1619feba029199b",
+      "PlanFingerprint": "6a64bade9063584a7b7fe1660d705eba102fa65e7d523989e78afec294455ed8",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 599,
+        "GradientEvaluations": 28,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 478,
+        "DifferenceEvaluations": 411,
+        "JacobianBuilds": 90,
+        "TracedRays": 137760,
+        "GeometryProbes": 30997,
+        "Elapsed": "00:00:01.9904200"
+      },
+      "Accepted": 3,
+      "MinimumAcceptedElements": 2,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.59215236293931,
+          "FNumber": 12.398038090734827,
+          "WorstRmsMillimeters": 0.0439724388744294,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "1dbd8b5ed38c8a309a60c4a12aa1111be70d688e6256a1d28a60d69459b5085d"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.794732243649314,
+          "FNumber": 12.448683060912328,
+          "WorstRmsMillimeters": 0.04762743075750533,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "c2853de8ed781277bfd0b48d35cbb76c5cb64d253d242f4017d7692c2b85dc74"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.73608642257737,
+          "FNumber": 12.434021605644343,
+          "WorstRmsMillimeters": 0.04685409822697608,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "52bc8a344de4e8ce17a5219f1b55de1ad5657fbc0f0589def769c1b51f12e58c"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 3,
+        "Recovered": 2,
+        "UpdateLimit": 4,
+        "BudgetExhausted": 4
+      },
+      "DescentRejections": 10
+    },
+    {
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "feasibility-only",
+      "Id": "repair-42-C-feasibility-only",
+      "SourceRecordSha256": "03f15f5792a5fa35655e286d5aa2ece0b1ae4ddfbdec9d110c22d1886e85e290",
+      "SourceFingerprint": "5820254aca17064084fdf4dde55923cf52e31bccdd4da652d1619feba029199b",
+      "PlanFingerprint": "b819c560bbf6b6d543cf344a4100ff66310c39abf41accb39ef46b608e891a65",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 280,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 254,
+        "DifferenceEvaluations": 211,
+        "JacobianBuilds": 41,
+        "TracedRays": 178080,
+        "GeometryProbes": 17556,
+        "Elapsed": "00:00:00.8446256"
+      },
+      "Accepted": 4,
+      "MinimumAcceptedElements": 1,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.59215236293931,
+          "FNumber": 12.398038090734827,
+          "WorstRmsMillimeters": 0.0439724388744294,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "1dbd8b5ed38c8a309a60c4a12aa1111be70d688e6256a1d28a60d69459b5085d"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.592001057695526,
+          "FNumber": 12.398000264423882,
+          "WorstRmsMillimeters": 0.04288529091194537,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "da1867bb416acecd0c6ba6fc5f3e7eb7a1272cac150b943c929c3d721097a0f3"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "trial-0",
+          "Elements": 1,
+          "EffectiveFocalLengthMillimeters": 49.59199890092964,
+          "FNumber": 12.39799972523241,
+          "WorstRmsMillimeters": 0.04340105186748703,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "251b57960cf251d8d6d78d99ddf182b5f94a95895f630fcc538d4404e5e3eaef"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.59221785875421,
+          "FNumber": 12.398054464688553,
+          "WorstRmsMillimeters": 0.04400082039578329,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "200f9614ee27b78848fd08de520a1be0d4f018333294ea4be172b73a0921f694"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 4,
+        "Recovered": 3,
+        "BudgetExhausted": 1,
+        "EditRejected": 2
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 42,
+      "Group": "C",
+      "Mode": "both",
+      "Id": "repair-42-C-both",
+      "SourceRecordSha256": "03f15f5792a5fa35655e286d5aa2ece0b1ae4ddfbdec9d110c22d1886e85e290",
+      "SourceFingerprint": "5820254aca17064084fdf4dde55923cf52e31bccdd4da652d1619feba029199b",
+      "PlanFingerprint": "d16fd2bf897c881e40a48a13ebddf55d71d077086b8f17a410721f7b1a14b772",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 280,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 254,
+        "DifferenceEvaluations": 211,
+        "JacobianBuilds": 41,
+        "TracedRays": 178080,
+        "GeometryProbes": 17556,
+        "Elapsed": "00:00:00.8634940"
+      },
+      "Accepted": 4,
+      "MinimumAcceptedElements": 1,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.59215236293931,
+          "FNumber": 12.398038090734827,
+          "WorstRmsMillimeters": 0.0439724388744294,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "1dbd8b5ed38c8a309a60c4a12aa1111be70d688e6256a1d28a60d69459b5085d"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.592001057695526,
+          "FNumber": 12.398000264423882,
+          "WorstRmsMillimeters": 0.04288529091194537,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "da1867bb416acecd0c6ba6fc5f3e7eb7a1272cac150b943c929c3d721097a0f3"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "trial-0",
+          "Elements": 1,
+          "EffectiveFocalLengthMillimeters": 49.59199890092964,
+          "FNumber": 12.39799972523241,
+          "WorstRmsMillimeters": 0.04340105186748703,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "251b57960cf251d8d6d78d99ddf182b5f94a95895f630fcc538d4404e5e3eaef"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.59221785875421,
+          "FNumber": 12.398054464688553,
+          "WorstRmsMillimeters": 0.04400082039578329,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "200f9614ee27b78848fd08de520a1be0d4f018333294ea4be172b73a0921f694"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 4,
+        "Recovered": 3,
+        "BudgetExhausted": 1,
+        "EditRejected": 2
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "legacy",
+      "Id": "repair-42-D-legacy",
+      "SourceRecordSha256": "30a5a378ab50f2a448fdb571a12baacd02536676aea92d4c5eb30108dd79c0aa",
+      "SourceFingerprint": "5820254aca17064084fdf4dde55923cf52e31bccdd4da652d1619feba029199b",
+      "PlanFingerprint": "ebdad73d5724f852365f5a8326cee29cb0ba13195261fee215d5f29e15ca921d",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 382,
+        "GradientEvaluations": 56,
+        "ValidationEvaluations": 5,
+        "MatrixEvaluations": 287,
+        "DifferenceEvaluations": 259,
+        "JacobianBuilds": 32,
+        "TracedRays": 231000,
+        "GeometryProbes": 34335,
+        "Elapsed": "00:00:01.9841022"
+      },
+      "Accepted": 2,
+      "MinimumAcceptedElements": 3,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.59215236293931,
+          "FNumber": 12.398038090734827,
+          "WorstRmsMillimeters": 0.0439724388744294,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "1dbd8b5ed38c8a309a60c4a12aa1111be70d688e6256a1d28a60d69459b5085d"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "trial-1",
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.95468428613283,
+          "FNumber": 12.488671071533208,
+          "WorstRmsMillimeters": 0.049355782314797786,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "53013e41e614a253d2fe71aade920ca3ff36cf518133771333b32aa5d1066c83"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 2,
+        "Recovered": 4,
+        "UpdateLimit": 8,
+        "UnmetTargets": 2,
+        "EditRejected": 2,
+        "BudgetExhausted": 1,
+        "TransitionRejected": 1
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "descent-only",
+      "Id": "repair-42-D-descent-only",
+      "SourceRecordSha256": "30a5a378ab50f2a448fdb571a12baacd02536676aea92d4c5eb30108dd79c0aa",
+      "SourceFingerprint": "5820254aca17064084fdf4dde55923cf52e31bccdd4da652d1619feba029199b",
+      "PlanFingerprint": "4d2c48a9b49b874fd9f6f00431a00e26a1f5b69115e503e097ad21c48ded3efd",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 5,
+      "Consumed": {
+        "FunctionEvaluations": 599,
+        "GradientEvaluations": 28,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 516,
+        "DifferenceEvaluations": 427,
+        "JacobianBuilds": 96,
+        "TracedRays": 137760,
+        "GeometryProbes": 36072,
+        "Elapsed": "00:00:01.3405466"
+      },
+      "Accepted": 3,
+      "MinimumAcceptedElements": 2,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.59215236293931,
+          "FNumber": 12.398038090734827,
+          "WorstRmsMillimeters": 0.0439724388744294,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "1dbd8b5ed38c8a309a60c4a12aa1111be70d688e6256a1d28a60d69459b5085d"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.794732243649314,
+          "FNumber": 12.448683060912328,
+          "WorstRmsMillimeters": 0.04762743075750533,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "c2853de8ed781277bfd0b48d35cbb76c5cb64d253d242f4017d7692c2b85dc74"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.73608642257737,
+          "FNumber": 12.434021605644343,
+          "WorstRmsMillimeters": 0.04685409822697608,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "52bc8a344de4e8ce17a5219f1b55de1ad5657fbc0f0589def769c1b51f12e58c"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 3,
+        "Recovered": 2,
+        "UpdateLimit": 4,
+        "BudgetExhausted": 3,
+        "NoParaxialRecovery": 2
+      },
+      "DescentRejections": 10
+    },
+    {
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "feasibility-only",
+      "Id": "repair-42-D-feasibility-only",
+      "SourceRecordSha256": "30a5a378ab50f2a448fdb571a12baacd02536676aea92d4c5eb30108dd79c0aa",
+      "SourceFingerprint": "5820254aca17064084fdf4dde55923cf52e31bccdd4da652d1619feba029199b",
+      "PlanFingerprint": "c718d37b7774dcdc37813e127c9c26106f9529e982a70a0f72fe0adf98a0f82a",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 364,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 338,
+        "DifferenceEvaluations": 277,
+        "JacobianBuilds": 58,
+        "TracedRays": 178080,
+        "GeometryProbes": 24113,
+        "Elapsed": "00:00:00.9341096"
+      },
+      "Accepted": 4,
+      "MinimumAcceptedElements": 1,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.59215236293931,
+          "FNumber": 12.398038090734827,
+          "WorstRmsMillimeters": 0.0439724388744294,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "1dbd8b5ed38c8a309a60c4a12aa1111be70d688e6256a1d28a60d69459b5085d"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.592001057695526,
+          "FNumber": 12.398000264423882,
+          "WorstRmsMillimeters": 0.04288529091194537,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "da1867bb416acecd0c6ba6fc5f3e7eb7a1272cac150b943c929c3d721097a0f3"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "trial-0",
+          "Elements": 1,
+          "EffectiveFocalLengthMillimeters": 49.59199890092964,
+          "FNumber": 12.39799972523241,
+          "WorstRmsMillimeters": 0.04340105186748703,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "251b57960cf251d8d6d78d99ddf182b5f94a95895f630fcc538d4404e5e3eaef"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.59221785875421,
+          "FNumber": 12.398054464688553,
+          "WorstRmsMillimeters": 0.04400082039578329,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "200f9614ee27b78848fd08de520a1be0d4f018333294ea4be172b73a0921f694"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 4,
+        "Recovered": 3,
+        "BudgetExhausted": 1,
+        "NoParaxialRecovery": 1,
+        "EditRejected": 2
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 42,
+      "Group": "D",
+      "Mode": "both",
+      "Id": "repair-42-D-both",
+      "SourceRecordSha256": "30a5a378ab50f2a448fdb571a12baacd02536676aea92d4c5eb30108dd79c0aa",
+      "SourceFingerprint": "5820254aca17064084fdf4dde55923cf52e31bccdd4da652d1619feba029199b",
+      "PlanFingerprint": "1c0ebe7d784fc6eb099d9c51e8936da6661c0772aa0d9a167fe34aa9f7108ddf",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 364,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 338,
+        "DifferenceEvaluations": 277,
+        "JacobianBuilds": 58,
+        "TracedRays": 178080,
+        "GeometryProbes": 24113,
+        "Elapsed": "00:00:00.9583095"
+      },
+      "Accepted": 4,
+      "MinimumAcceptedElements": 1,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.59215236293931,
+          "FNumber": 12.398038090734827,
+          "WorstRmsMillimeters": 0.0439724388744294,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "1dbd8b5ed38c8a309a60c4a12aa1111be70d688e6256a1d28a60d69459b5085d"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.592001057695526,
+          "FNumber": 12.398000264423882,
+          "WorstRmsMillimeters": 0.04288529091194537,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "da1867bb416acecd0c6ba6fc5f3e7eb7a1272cac150b943c929c3d721097a0f3"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "trial-0",
+          "Elements": 1,
+          "EffectiveFocalLengthMillimeters": 49.59199890092964,
+          "FNumber": 12.39799972523241,
+          "WorstRmsMillimeters": 0.04340105186748703,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "251b57960cf251d8d6d78d99ddf182b5f94a95895f630fcc538d4404e5e3eaef"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.59221785875421,
+          "FNumber": 12.398054464688553,
+          "WorstRmsMillimeters": 0.04400082039578329,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "200f9614ee27b78848fd08de520a1be0d4f018333294ea4be172b73a0921f694"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 4,
+        "Recovered": 3,
+        "BudgetExhausted": 1,
+        "NoParaxialRecovery": 1,
+        "EditRejected": 2
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "legacy",
+      "Id": "repair-101-C-legacy",
+      "SourceRecordSha256": "dcdea28db1a57d2cedf0f8a59497c4517d3a7ed25064eecc1c1a50b071801efd",
+      "SourceFingerprint": "83f1c059234d2629b82c3ec791e29bfbee77e78b3dd91441a730fa8b4214eaa5",
+      "PlanFingerprint": "30d5bd29bf0155273fce3fb41d53b282a63ee6df8437b41171644023776a9ce6",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 329,
+        "GradientEvaluations": 42,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 267,
+        "DifferenceEvaluations": 232,
+        "JacobianBuilds": 29,
+        "TracedRays": 184380,
+        "GeometryProbes": 28739,
+        "Elapsed": "00:00:01.5043914"
+      },
+      "Accepted": 2,
+      "MinimumAcceptedElements": 3,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.61936029375351,
+          "FNumber": 12.404840073438377,
+          "WorstRmsMillimeters": 0.04475722965058809,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "68692859e80b00591916282c8e8843bf49bfe2225ddaf19a0df6a720e944b811"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "trial-1",
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.95524144702367,
+          "FNumber": 12.488810361755917,
+          "WorstRmsMillimeters": 0.0491121975647449,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "035828f6a3f821cd77650c10ffc655ec174602db985e70f3b458f79d80066b8e"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 2,
+        "Recovered": 3,
+        "UpdateLimit": 6,
+        "UnmetTargets": 2,
+        "EditRejected": 2,
+        "BudgetExhausted": 1
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "descent-only",
+      "Id": "repair-101-C-descent-only",
+      "SourceRecordSha256": "dcdea28db1a57d2cedf0f8a59497c4517d3a7ed25064eecc1c1a50b071801efd",
+      "SourceFingerprint": "83f1c059234d2629b82c3ec791e29bfbee77e78b3dd91441a730fa8b4214eaa5",
+      "PlanFingerprint": "e0b5013222dbdf5061bbf847e7ea33569d68e1d65813facfeec40e5e55b562bd",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 599,
+        "GradientEvaluations": 28,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 509,
+        "DifferenceEvaluations": 425,
+        "JacobianBuilds": 94,
+        "TracedRays": 137760,
+        "GeometryProbes": 31679,
+        "Elapsed": "00:00:01.2321019"
+      },
+      "Accepted": 3,
+      "MinimumAcceptedElements": 2,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.61936029375351,
+          "FNumber": 12.404840073438377,
+          "WorstRmsMillimeters": 0.04475722965058809,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "68692859e80b00591916282c8e8843bf49bfe2225ddaf19a0df6a720e944b811"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.807659161270216,
+          "FNumber": 12.451914790317554,
+          "WorstRmsMillimeters": 0.0480938976438264,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "36065b5aadddfa52fcf693f58e78debf30c2fb732c5af0b9874f9780db4ba320"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.78303283023046,
+          "FNumber": 12.445758207557615,
+          "WorstRmsMillimeters": 0.047120322149029316,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "69c5ca2216ec9a86f8fd4cb8e16c609bec7a1f7e75f1f1ab07831474d2df9f06"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 3,
+        "Recovered": 2,
+        "UpdateLimit": 4,
+        "BudgetExhausted": 4
+      },
+      "DescentRejections": 12
+    },
+    {
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "feasibility-only",
+      "Id": "repair-101-C-feasibility-only",
+      "SourceRecordSha256": "dcdea28db1a57d2cedf0f8a59497c4517d3a7ed25064eecc1c1a50b071801efd",
+      "SourceFingerprint": "83f1c059234d2629b82c3ec791e29bfbee77e78b3dd91441a730fa8b4214eaa5",
+      "PlanFingerprint": "a512fa030386d31e838a6af086add99a8c27268fbb8fa2592212a6ae5f608d2a",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 280,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 241,
+        "DifferenceEvaluations": 208,
+        "JacobianBuilds": 41,
+        "TracedRays": 178080,
+        "GeometryProbes": 17270,
+        "Elapsed": "00:00:00.8445493"
+      },
+      "Accepted": 4,
+      "MinimumAcceptedElements": 1,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.61936029375351,
+          "FNumber": 12.404840073438377,
+          "WorstRmsMillimeters": 0.04475722965058809,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "68692859e80b00591916282c8e8843bf49bfe2225ddaf19a0df6a720e944b811"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.619209514323735,
+          "FNumber": 12.404802378580934,
+          "WorstRmsMillimeters": 0.04361069266584879,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "0b9b24f9b7221dc8f53ebe678854f80144623393ee57487557e9306c1123ee94"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "trial-0",
+          "Elements": 1,
+          "EffectiveFocalLengthMillimeters": 49.61920736205466,
+          "FNumber": 12.404801840513665,
+          "WorstRmsMillimeters": 0.04413741586048601,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "ebb9becaea9e752cbffda41b5e5ae754e72b0fcc4fa3fff7ecad320f8e52e0cd"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.619426085788234,
+          "FNumber": 12.404856521447059,
+          "WorstRmsMillimeters": 0.04477376748833093,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "84b143d13ed2253b25eda2353d4239aad58e7366a30311bcba4e7bf4a983a688"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 4,
+        "Recovered": 3,
+        "BudgetExhausted": 1,
+        "EditRejected": 2
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 101,
+      "Group": "C",
+      "Mode": "both",
+      "Id": "repair-101-C-both",
+      "SourceRecordSha256": "dcdea28db1a57d2cedf0f8a59497c4517d3a7ed25064eecc1c1a50b071801efd",
+      "SourceFingerprint": "83f1c059234d2629b82c3ec791e29bfbee77e78b3dd91441a730fa8b4214eaa5",
+      "PlanFingerprint": "a17531e01785f9b0ccf8f910981acfbd22ca37a1d63d15a5d8ffd35cb45bdd81",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 280,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 241,
+        "DifferenceEvaluations": 208,
+        "JacobianBuilds": 41,
+        "TracedRays": 178080,
+        "GeometryProbes": 17270,
+        "Elapsed": "00:00:00.8318405"
+      },
+      "Accepted": 4,
+      "MinimumAcceptedElements": 1,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.61936029375351,
+          "FNumber": 12.404840073438377,
+          "WorstRmsMillimeters": 0.04475722965058809,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "68692859e80b00591916282c8e8843bf49bfe2225ddaf19a0df6a720e944b811"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.619209514323735,
+          "FNumber": 12.404802378580934,
+          "WorstRmsMillimeters": 0.04361069266584879,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "0b9b24f9b7221dc8f53ebe678854f80144623393ee57487557e9306c1123ee94"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "trial-0",
+          "Elements": 1,
+          "EffectiveFocalLengthMillimeters": 49.61920736205466,
+          "FNumber": 12.404801840513665,
+          "WorstRmsMillimeters": 0.04413741586048601,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "ebb9becaea9e752cbffda41b5e5ae754e72b0fcc4fa3fff7ecad320f8e52e0cd"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.619426085788234,
+          "FNumber": 12.404856521447059,
+          "WorstRmsMillimeters": 0.04477376748833093,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "84b143d13ed2253b25eda2353d4239aad58e7366a30311bcba4e7bf4a983a688"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 4,
+        "Recovered": 3,
+        "BudgetExhausted": 1,
+        "EditRejected": 2
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "legacy",
+      "Id": "repair-101-D-legacy",
+      "SourceRecordSha256": "242c2eb3bef6ae04a3b8efa421a9f13c8afcf637451fc3e01a8decb0a73dafe1",
+      "SourceFingerprint": "83f1c059234d2629b82c3ec791e29bfbee77e78b3dd91441a730fa8b4214eaa5",
+      "PlanFingerprint": "e7fa849388e48cc88ee675e8a781d2a56b1e7a854056fd8d80263b47bef699ff",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 382,
+        "GradientEvaluations": 56,
+        "ValidationEvaluations": 5,
+        "MatrixEvaluations": 305,
+        "DifferenceEvaluations": 264,
+        "JacobianBuilds": 33,
+        "TracedRays": 231000,
+        "GeometryProbes": 35343,
+        "Elapsed": "00:00:01.9816776"
+      },
+      "Accepted": 2,
+      "MinimumAcceptedElements": 3,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.61936029375351,
+          "FNumber": 12.404840073438377,
+          "WorstRmsMillimeters": 0.04475722965058809,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "68692859e80b00591916282c8e8843bf49bfe2225ddaf19a0df6a720e944b811"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "trial-1",
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.95524144702367,
+          "FNumber": 12.488810361755917,
+          "WorstRmsMillimeters": 0.0491121975647449,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "035828f6a3f821cd77650c10ffc655ec174602db985e70f3b458f79d80066b8e"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 2,
+        "Recovered": 4,
+        "UpdateLimit": 8,
+        "UnmetTargets": 2,
+        "EditRejected": 2,
+        "BudgetExhausted": 1,
+        "TransitionRejected": 1
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "descent-only",
+      "Id": "repair-101-D-descent-only",
+      "SourceRecordSha256": "242c2eb3bef6ae04a3b8efa421a9f13c8afcf637451fc3e01a8decb0a73dafe1",
+      "SourceFingerprint": "83f1c059234d2629b82c3ec791e29bfbee77e78b3dd91441a730fa8b4214eaa5",
+      "PlanFingerprint": "c4a1260c8412772e124e56bf79f74cc816e441810df4af5c8cfadf273967dd80",
+      "Status": "BudgetExhausted",
+      "TrialCursor": 5,
+      "Consumed": {
+        "FunctionEvaluations": 599,
+        "GradientEvaluations": 28,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 510,
+        "DifferenceEvaluations": 425,
+        "JacobianBuilds": 96,
+        "TracedRays": 137760,
+        "GeometryProbes": 35940,
+        "Elapsed": "00:00:01.3272463"
+      },
+      "Accepted": 3,
+      "MinimumAcceptedElements": 2,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.61936029375351,
+          "FNumber": 12.404840073438377,
+          "WorstRmsMillimeters": 0.04475722965058809,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "68692859e80b00591916282c8e8843bf49bfe2225ddaf19a0df6a720e944b811"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.807659161270216,
+          "FNumber": 12.451914790317554,
+          "WorstRmsMillimeters": 0.0480938976438264,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "36065b5aadddfa52fcf693f58e78debf30c2fb732c5af0b9874f9780db4ba320"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.78303283023046,
+          "FNumber": 12.445758207557615,
+          "WorstRmsMillimeters": 0.047120322149029316,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "69c5ca2216ec9a86f8fd4cb8e16c609bec7a1f7e75f1f1ab07831474d2df9f06"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 3,
+        "Recovered": 2,
+        "UpdateLimit": 4,
+        "BudgetExhausted": 3,
+        "NoParaxialRecovery": 2
+      },
+      "DescentRejections": 12
+    },
+    {
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "feasibility-only",
+      "Id": "repair-101-D-feasibility-only",
+      "SourceRecordSha256": "242c2eb3bef6ae04a3b8efa421a9f13c8afcf637451fc3e01a8decb0a73dafe1",
+      "SourceFingerprint": "83f1c059234d2629b82c3ec791e29bfbee77e78b3dd91441a730fa8b4214eaa5",
+      "PlanFingerprint": "30a0dc477084b0c0a56e334340c0c35ff1db86585af45bc8ba4623bc5a16d7b5",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 364,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 325,
+        "DifferenceEvaluations": 274,
+        "JacobianBuilds": 58,
+        "TracedRays": 178080,
+        "GeometryProbes": 23827,
+        "Elapsed": "00:00:00.9133941"
+      },
+      "Accepted": 4,
+      "MinimumAcceptedElements": 1,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.61936029375351,
+          "FNumber": 12.404840073438377,
+          "WorstRmsMillimeters": 0.04475722965058809,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "68692859e80b00591916282c8e8843bf49bfe2225ddaf19a0df6a720e944b811"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.619209514323735,
+          "FNumber": 12.404802378580934,
+          "WorstRmsMillimeters": 0.04361069266584879,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "0b9b24f9b7221dc8f53ebe678854f80144623393ee57487557e9306c1123ee94"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "trial-0",
+          "Elements": 1,
+          "EffectiveFocalLengthMillimeters": 49.61920736205466,
+          "FNumber": 12.404801840513665,
+          "WorstRmsMillimeters": 0.04413741586048601,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "ebb9becaea9e752cbffda41b5e5ae754e72b0fcc4fa3fff7ecad320f8e52e0cd"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.619426085788234,
+          "FNumber": 12.404856521447059,
+          "WorstRmsMillimeters": 0.04477376748833093,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "84b143d13ed2253b25eda2353d4239aad58e7366a30311bcba4e7bf4a983a688"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 4,
+        "Recovered": 3,
+        "BudgetExhausted": 1,
+        "NoParaxialRecovery": 1,
+        "EditRejected": 2
+      },
+      "DescentRejections": 0
+    },
+    {
+      "Seed": 101,
+      "Group": "D",
+      "Mode": "both",
+      "Id": "repair-101-D-both",
+      "SourceRecordSha256": "242c2eb3bef6ae04a3b8efa421a9f13c8afcf637451fc3e01a8decb0a73dafe1",
+      "SourceFingerprint": "83f1c059234d2629b82c3ec791e29bfbee77e78b3dd91441a730fa8b4214eaa5",
+      "PlanFingerprint": "9c5219f4042842e22c9160f6bfa6575fcd8248baed0d59917f9b8207393da818",
+      "Status": "Completed",
+      "TrialCursor": 6,
+      "Consumed": {
+        "FunctionEvaluations": 364,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 4,
+        "MatrixEvaluations": 325,
+        "DifferenceEvaluations": 274,
+        "JacobianBuilds": 58,
+        "TracedRays": 178080,
+        "GeometryProbes": 23827,
+        "Elapsed": "00:00:00.9233585"
+      },
+      "Accepted": 4,
+      "MinimumAcceptedElements": 1,
+      "Archive": [
+        {
+          "Id": "seed-0",
+          "ParentId": null,
+          "Elements": 3,
+          "EffectiveFocalLengthMillimeters": 49.61936029375351,
+          "FNumber": 12.404840073438377,
+          "WorstRmsMillimeters": 0.04475722965058809,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "68692859e80b00591916282c8e8843bf49bfe2225ddaf19a0df6a720e944b811"
+        },
+        {
+          "Id": "trial-0",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.619209514323735,
+          "FNumber": 12.404802378580934,
+          "WorstRmsMillimeters": 0.04361069266584879,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "0b9b24f9b7221dc8f53ebe678854f80144623393ee57487557e9306c1123ee94"
+        },
+        {
+          "Id": "trial-2",
+          "ParentId": "trial-0",
+          "Elements": 1,
+          "EffectiveFocalLengthMillimeters": 49.61920736205466,
+          "FNumber": 12.404801840513665,
+          "WorstRmsMillimeters": 0.04413741586048601,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "ebb9becaea9e752cbffda41b5e5ae754e72b0fcc4fa3fff7ecad320f8e52e0cd"
+        },
+        {
+          "Id": "trial-5",
+          "ParentId": "seed-0",
+          "Elements": 2,
+          "EffectiveFocalLengthMillimeters": 49.619426085788234,
+          "FNumber": 12.404856521447059,
+          "WorstRmsMillimeters": 0.04477376748833093,
+          "MinimumValidFraction": 1,
+          "OpticFingerprint": "84b143d13ed2253b25eda2353d4239aad58e7366a30311bcba4e7bf4a983a688"
+        }
+      ],
+      "Outcomes": {
+        "Accepted": 4,
+        "Recovered": 3,
+        "BudgetExhausted": 1,
+        "NoParaxialRecovery": 1,
+        "EditRejected": 2
+      },
+      "DescentRejections": 0
+    }
+  ]
+}
