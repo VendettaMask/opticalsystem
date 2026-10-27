@@ -4,7 +4,7 @@ namespace OpticalSystemDesign.InitialStructure.Engine.Optimization;
 internal static class LinearFeasibilityProjection
 {
     internal static double[]? Solve(IReadOnlyList<(double Offset, double[] Normal)> constraints, int dimension,
-        int maximumSweeps = 400, CancellationToken cancellationToken = default)
+        int maximumSweeps = 400, CancellationToken cancellationToken = default, IReadOnlyList<double>? preferredPoint = null)
     {
         var rows = new List<(double Offset, double[] Normal)>();
         foreach (var (offset, normal) in constraints)
@@ -15,7 +15,9 @@ internal static class LinearFeasibilityProjection
             rows.Add((offset / norm, normal.Select(item => item / norm).ToArray()));
         }
         var multipliers = new double[rows.Count];
-        var point = new double[dimension];
+        if (preferredPoint is not null && (preferredPoint.Count != dimension || preferredPoint.Any(value => !double.IsFinite(value))))
+            throw new ArgumentException("A finite preferred point must match the projection dimension.");
+        var point = preferredPoint?.ToArray() ?? new double[dimension];
         for (var sweep = 0; sweep < maximumSweeps; sweep++)
         {
             if (sweep % 16 == 0) cancellationToken.ThrowIfCancellationRequested();

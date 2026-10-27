@@ -1,0 +1,474 @@
+{
+  "Task": "Edge-constrained paraxial recovery using shared Core manufacturing tangents",
+  "Date": "2026-10-27",
+  "BaseCommit": "3947b7b57ae404f65af772b2a06ca356f79e539f",
+  "WorktreeIsUncommitted": true,
+  "UniqueTests": 5,
+  "LatestPassed": 5,
+  "LatestFailed": 0,
+  "NewTests": 4,
+  "ExistingRegression": 1,
+  "Attempts": [
+    {
+      "Total": 1,
+      "File": "step-projection.trx",
+      "Passed": 0,
+      "Failed": 1
+    },
+    {
+      "Total": 1,
+      "File": "joint-projection.trx",
+      "Passed": 1,
+      "Failed": 0
+    },
+    {
+      "Total": 5,
+      "File": "integrated.trx",
+      "Passed": 5,
+      "Failed": 0
+    },
+    {
+      "Total": 1,
+      "File": "final-controls.trx",
+      "Passed": 1,
+      "Failed": 0
+    },
+    {
+      "Total": 1,
+      "File": "optional-pupil.trx",
+      "Passed": 1,
+      "Failed": 0
+    }
+  ],
+  "LatestTests": [
+    {
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.GeometryRecoveryIsExplicitPreservesLegacyPlansAndUsesTheAutomaticMatrixDependency",
+      "Outcome": "Passed",
+      "Evidence": "integrated.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.ParaxialGeometryRecoveryTests.ActiveEdgeTangentsAgreeWithCorePerturbationsAndPolicyKeepsHardBudgets",
+      "Outcome": "Passed",
+      "Evidence": "optional-pupil.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.ParaxialGeometryRecoveryTests.AProjectedLeastSquaresStepPreservesTheBoundaryWithoutClaimingZeroResidual",
+      "Outcome": "Passed",
+      "Evidence": "integrated.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.ParaxialGeometryRecoveryTests.EdgeConstrainedDeletionRecoversWithinTheFrozenWindowAndOriginalGates",
+      "Outcome": "Passed",
+      "Evidence": "integrated.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.ParaxialRecoveryRepairTests.AutomaticRecoveryReplacesDifferenceProbesAndRetainsHardGeometryChecksAndLegacyIdentity",
+      "Outcome": "Passed",
+      "Evidence": "integrated.trx"
+    }
+  ],
+  "Checks": {
+    "SourceFormatVerify": 0,
+    "DefaultAndTestBinariesMatch": true,
+    "DiffWhitespace": 0,
+    "SourceFormat": 0,
+    "Documentation": 0,
+    "DefaultAppOutput": "Release/net10.0",
+    "InitialFormatApproval": "Timed out; permitted single retry completed"
+  },
+  "Scope": {
+    "OriginalFunctionCap": 80,
+    "NewOptionalRecoveryField": "UseGeometryConstraintTangents",
+    "AxialWindowMillimeters": 0.25,
+    "WorktreeBackendChangesOutsideThisTurn": [
+      "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutonomousSearchService.cs",
+      "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.CumulativeEnergy.cs",
+      "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs"
+    ],
+    "CoreOpticalFormulaChangedByThisTurn": false,
+    "OriginalAcceptedStepCap": 30,
+    "SharedCoreOptics": true,
+    "PureCSharp": true,
+    "CheckpointSchemaVersion": 1,
+    "OriginalVariables": 8,
+    "LegacyNullIdentityPreserved": true,
+    "RecoveryProtocol": "autonomous-paraxial-recovery-geometry-v1"
+  },
+  "IsolatedRecovery": {
+    "MaximumCoreTangentDifference": 1.1686097367569204E-09,
+    "AllDenseGeometryGatesMet": true,
+    "Errors": [
+      -3.85671175677782E-05,
+      -4.6234813300821687E-05,
+      4.5374125424713085E-05
+    ],
+    "Work": {
+      "FunctionEvaluations": 7,
+      "DifferenceEvaluations": 0,
+      "MatrixEvaluations": 7,
+      "JacobianBuilds": 6,
+      "GeometryProbes": 948,
+      "Elapsed": "00:00:00.0539728",
+      "PupilEvaluations": 7
+    },
+    "AcceptedSteps": 4,
+    "DenseGeometryRows": 583,
+    "MinimumEdgeMillimeters": 0.5448257463394629
+  },
+  "IndependentAssessments": {
+    "StrictViolations": [
+      {
+        "Code": "field:0:rms",
+        "Actual": 0.14835444241707266,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:0:maximum",
+        "Actual": 0.22916192873483254,
+        "Limit": 0.15
+      }
+    ],
+    "StrictProductTargetsMet": false,
+    "FixtureTargetsMet": true,
+    "FixtureRays": 2120,
+    "StrictRays": 2120
+  },
+  "SeparateSearchWork": {
+    "FunctionEvaluations": 9,
+    "GradientEvaluations": 0,
+    "ValidationEvaluations": 2,
+    "MatrixEvaluations": 7,
+    "DifferenceEvaluations": 0,
+    "JacobianBuilds": 6,
+    "TracedRays": 4240,
+    "GeometryProbes": 2372,
+    "Elapsed": "00:00:00.1344419"
+  },
+  "Validation": {
+    "DotnetProcessorCount": 2,
+    "NativeDesktopInteraction": false,
+    "ParentCommandPriority": "BelowNormal",
+    "Host": "CPU and Avalonia Headless/Skia"
+  },
+  "Limitations": [
+    "One axial workflow fixture, not general deletion success or final design qualification",
+    "Strict original product RMS and maximum-radius gates still fail; fixture acceptance is reported separately",
+    "No full repository suite, native GUI acceptance, long training, commit, push or release"
+  ],
+  "FrozenInputs": [
+    {
+      "Bytes": 26942,
+      "Path": "validation/rechecks/2026-10-27/autonomous-recovery-progress/recovery-True-resumed.autonomous.json",
+      "Sha256": "7276a3872e9f2fee752231c309563ecf2ff9f1cc313f324ec2ae6407d9a5deb8"
+    },
+    {
+      "Bytes": 34766,
+      "Path": "validation/rechecks/2026-10-27/autonomous-recovery-progress/front-stop-pupil-full-current.json",
+      "Sha256": "07a69a67f11cef1d9be4dcc9b4c2575a51c85233ef69dd1752eada4621a40ce5"
+    }
+  ],
+  "Sources": [
+    {
+      "Bytes": 6409,
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologyRestorationModels.cs",
+      "Sha256": "cdc3a6c34f337dbdc6cd3204e00145a3978a56df563cca2bcddba7a1106b2195"
+    },
+    {
+      "Bytes": 25770,
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialRestorer.cs",
+      "Sha256": "574b6c2820b8ee8734688f38d5c122dab7f34416478a30571681b5cea3033441"
+    },
+    {
+      "Bytes": 26131,
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/Optimization/BoundedTrustRegionLeastSquares.cs",
+      "Sha256": "cd2a853818af1182bcc04feb4e4392d22ee2cd1567197bdf8c7a6fd78b7e8054"
+    },
+    {
+      "Bytes": 2735,
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/Optimization/LinearFeasibilityProjection.cs",
+      "Sha256": "10e467dc59c73dd98336d521c67cffd7cda6c7780b42bf9540566fa25c512cdf"
+    },
+    {
+      "Bytes": 17005,
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.cs",
+      "Sha256": "d22f5248ab13feeb778e03be49710f4f62c7bcc44660b4d4f677bacc04e4f598"
+    },
+    {
+      "Bytes": 34980,
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs",
+      "Sha256": "4bd03458c9230a6b35648b8c9260b4f1d12516cbee74b351b37ede06dde92c40"
+    },
+    {
+      "Bytes": 19471,
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs",
+      "Sha256": "13ad6f7aeb09006647fbf8b98e68aeac5412f1d97e124b4108b47dc05d21802a"
+    },
+    {
+      "Bytes": 11622,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/ParaxialGeometryRecoveryTests.cs",
+      "Sha256": "8e057f519dcf4eda6270e17f1fde1a691b43b536320a099eaf669b323fa116db"
+    },
+    {
+      "Bytes": 3882,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutonomousDesktopTests.GeometryRecovery.cs",
+      "Sha256": "6db4d913850f3f85367116b86fc1188c603889820239e36695ea3e0158bf6ab7"
+    },
+    {
+      "Bytes": 88233,
+      "Path": "docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md",
+      "Sha256": "7f012ce4e8e7f60a0c7f6ea39ecc678323fec4c54a43e977533d03e39b9c0ae5"
+    },
+    {
+      "Bytes": 350943,
+      "Path": "docs/CURRENT_STATUS.md",
+      "Sha256": "af91a72e41d57b19d88b6ec265a2a60e2154914420bcf16420a1fffd832309df"
+    },
+    {
+      "Bytes": 21615,
+      "Path": "labs/InitialStructure/README.md",
+      "Sha256": "853dfa0a22c559ed39380b25242f73a65c3b092ff036f2d513d4bd08dba29670"
+    }
+  ],
+  "Binaries": [
+    {
+      "Bytes": 71163904,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "97828cb29358984b9053a95c11fcdfb2a3484e051dceb5ed3d3d90b1ad7076c1"
+    },
+    {
+      "Bytes": 71163904,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "97828cb29358984b9053a95c11fcdfb2a3484e051dceb5ed3d3d90b1ad7076c1"
+    },
+    {
+      "Bytes": 5893120,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "7f0e82799ab3357413a0629b1616b02a1274d193052a413b546895ca790b86d2"
+    },
+    {
+      "Bytes": 5893120,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "7f0e82799ab3357413a0629b1616b02a1274d193052a413b546895ca790b86d2"
+    },
+    {
+      "Bytes": 499712,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "dde8a5f135ed9bd3dab0418a7ee919ab7e323f6ffc488b9124f63640fc1b3e52"
+    },
+    {
+      "Bytes": 499712,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "dde8a5f135ed9bd3dab0418a7ee919ab7e323f6ffc488b9124f63640fc1b3e52"
+    },
+    {
+      "Bytes": 331776,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "Sha256": "6eacc574350db98242648367613420f3c9ebfa2bdc117bb7ddbfc45a706c1ebf"
+    },
+    {
+      "Bytes": 331776,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "Sha256": "6eacc574350db98242648367613420f3c9ebfa2bdc117bb7ddbfc45a706c1ebf"
+    },
+    {
+      "Bytes": 58880,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Persistence.dll",
+      "Sha256": "c1a855afbac1ae436fd6df2615109e173ff5c6ed39837c679c865153f746bb3d"
+    },
+    {
+      "Bytes": 58880,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Persistence.dll",
+      "Sha256": "c1a855afbac1ae436fd6df2615109e173ff5c6ed39837c679c865153f746bb3d"
+    }
+  ],
+  "Evidence": [
+    {
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\diff-check.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Bytes": 332590,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\documentation.json",
+      "Sha256": "d17ab25ca197d73a72f7cdd2eacaba5ec09a20a02e5687ac5bfd9ed699fc4054"
+    },
+    {
+      "Bytes": 246,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\documentation.log",
+      "Sha256": "d39bfe67ad28b2f0b888622a78ca7374a7166d5d3325a948b111f51f27e4a2c0"
+    },
+    {
+      "Bytes": 2484,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\edge-recovered-unqualified.staropt",
+      "Sha256": "2e3b376621b7561d024549bbeb81364ce2ed66172dfb3813724c9a6ca999f427"
+    },
+    {
+      "Bytes": 29682,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\final-controls-tangents-and-budgets.json",
+      "Sha256": "1eed1f7442d606043db771dbe239449a0060f3017aff141cf5763871184b0f50"
+    },
+    {
+      "Bytes": 2285,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\final-controls.log",
+      "Sha256": "3fcf769c853907bb803d698e97c21f2f1fcaf2d861829ba339e1baa336d73cd8"
+    },
+    {
+      "Bytes": 3659,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\final-controls.trx",
+      "Sha256": "4129dc99489e5f8f3631165a4bfff74c98ea88df5ec43753c722b16565bda9c9"
+    },
+    {
+      "Bytes": 220,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\format-approval-timeout.txt",
+      "Sha256": "cb6e6135319ec0d2e23b4bee3838fc5e4a305122a6ca051e5df917423f66d679"
+    },
+    {
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\format-verify.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\format.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Bytes": 107989,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\geometry-recovery-en-US.png",
+      "Sha256": "a0e46ffce5af9ad34515d5ca17833e88e6e0f1008b8ef21fdaee666e1910c8a7"
+    },
+    {
+      "Bytes": 107221,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\geometry-recovery-ja-JP.png",
+      "Sha256": "890fc8f397a6996fec72e19115901dfa87f0060c9b31ede5f1ebe47257a1c178"
+    },
+    {
+      "Bytes": 94685,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\geometry-recovery-zh-CN.png",
+      "Sha256": "95dab1f4d24b3dcd24e4a5a02f632d1f37e679269f3ecdf976958b8ee8458d2f"
+    },
+    {
+      "Bytes": 69659,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\integrated-autonomous-search.json",
+      "Sha256": "766cac168a99a699f7a6e422162877e8bb312abb2fa16833b017417e61f641ea"
+    },
+    {
+      "Bytes": 74531,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\integrated-dense-geometry.json",
+      "Sha256": "4bb945096461b4887d34f2fe001acf2944b3ef67c467be9540dffec5eadf131b"
+    },
+    {
+      "Bytes": 1843,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\integrated-independent-assessment.json",
+      "Sha256": "8814c0250ae7f2ed071ebdac44e7749bfe49318d9f52de22417a39b0bf28f24b"
+    },
+    {
+      "Bytes": 22335,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\integrated-result.json",
+      "Sha256": "0f39ddb51ae03bc10cadfd707596f37c0046af83fe4214ad7c41d9f299fe612b"
+    },
+    {
+      "Bytes": 2096,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\integrated-strict-product-assessment.json",
+      "Sha256": "23d09d3d277213be80d24f31a43050917c7656b5fe79a5f0c3798655eed217bf"
+    },
+    {
+      "Bytes": 29682,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\integrated-tangents-and-budgets.json",
+      "Sha256": "cb84f02bfc666d4c07be3527ee72780ec6eb3e90fdca7121aa8fa2d696d22620"
+    },
+    {
+      "Bytes": 2278,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\integrated.log",
+      "Sha256": "91e7c8cdec3492245dcabd0f1adf564316cb4199b26517414fd48946d25db4a6"
+    },
+    {
+      "Bytes": 10320,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\integrated.trx",
+      "Sha256": "5d2ab81630176c91ef63c410d8925734991a4b56fc1000c1343acc3d1446830e"
+    },
+    {
+      "Bytes": 74531,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\joint-projection-dense-geometry.json",
+      "Sha256": "4bb945096461b4887d34f2fe001acf2944b3ef67c467be9540dffec5eadf131b"
+    },
+    {
+      "Bytes": 1843,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\joint-projection-independent-assessment.json",
+      "Sha256": "8814c0250ae7f2ed071ebdac44e7749bfe49318d9f52de22417a39b0bf28f24b"
+    },
+    {
+      "Bytes": 22335,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\joint-projection-result.json",
+      "Sha256": "cb938d409e856eeb8d85e489e3f602a40cb179e6f00aab729b5fdb429b1a035f"
+    },
+    {
+      "Bytes": 2284,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\joint-projection.log",
+      "Sha256": "11d04100daf88da49f9f9691fe7c4f8683c48b36fda6218f797f9769ae10c812"
+    },
+    {
+      "Bytes": 3656,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\joint-projection.trx",
+      "Sha256": "f7e6dc0d4897827a3e95902984a15c392bef727afcafd3341d1da8965d62eb31"
+    },
+    {
+      "Bytes": 42238,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\optional-pupil-tangents-and-budgets.json",
+      "Sha256": "b7e1b574eb2d7a1c78777b99c7b8d41fa8b48a7dae2c725bd709e84b80072223"
+    },
+    {
+      "Bytes": 2285,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\optional-pupil.log",
+      "Sha256": "ee5ba31af788b79ecff02ab8e05d2b7a37fdf0fff5968c144e66cd6e3b4fa0dd"
+    },
+    {
+      "Bytes": 3659,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\optional-pupil.trx",
+      "Sha256": "a48311148d3b2ce0eb19e5738b8b39120f85c09c4328fc4947c8a7e3c1f18a36"
+    },
+    {
+      "Bytes": 5515,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\README.md",
+      "Sha256": "199f12efc30a498d7a560c0b49a0732f5b3e1ad5350407bee26d4e6e43874416"
+    },
+    {
+      "Bytes": 36408,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\recovery-probes.json",
+      "Sha256": "fff7cd559c851a7f963061820a7cac3476b50dbc9d17ef0d9f63ceee8318fd59"
+    },
+    {
+      "Bytes": 74395,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\step-projection-dense-geometry.json",
+      "Sha256": "28b03e37c822e943e2207000941f08c73e26eda7195655e19cf0f504a57fedfc"
+    },
+    {
+      "Bytes": 61201,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\step-projection-result.json",
+      "Sha256": "1ec53490aa2175307f0b46e40112c86a4f5d53568a452ab6625f6f82d1801c50"
+    },
+    {
+      "Bytes": 3089,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\step-projection.log",
+      "Sha256": "3814c14868f3c56be05dd28b169efa63491eece555c72566bac4691ad526e8b3"
+    },
+    {
+      "Bytes": 5234,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\step-projection.trx",
+      "Sha256": "5c80b7066b3fe026f2ddc52c891a688e7235ba1d3dadfbb6bb3ba2dd0da99e3a"
+    },
+    {
+      "Bytes": 270,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\summary-script-initial-error.txt",
+      "Sha256": "472e5229edb943f424af514f13554f2c1e474a056ed720c3e6ce184656a63e9d"
+    },
+    {
+      "Bytes": 10467,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\edge-constrained-recovery\\write-summary.ps1",
+      "Sha256": "0b347958e800640a89a26c10ffbb46681cca31b79245c4bc204cbc033b291112"
+    }
+  ]
+}

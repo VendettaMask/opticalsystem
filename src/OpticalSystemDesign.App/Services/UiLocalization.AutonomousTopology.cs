@@ -4,6 +4,11 @@ internal static partial class UiLocalization
 {
     private static void AddAutonomousTopologyTexts(Action<string, string, string> add)
     {
+        add("沿制造约束恢复", "Recover Within Manufacturing Limits", "製造制約内で復元");
+        add("使用共享 Core 的几何导数联合求步，仍按原制造门槛严格复核；需要矩阵自动求导", "Use shared Core geometry derivatives for joint recovery steps, then strictly check the original manufacturing limits; requires automatic matrix derivatives", "共有Coreの幾何微分で復元ステップを求め、元の製造制約を厳密に検証します。行列の自動微分が必要です");
+        add("本阶段正在恢复", "First-order recovery in progress", "一次光学特性を復元中");
+        add("已接受步骤", "Accepted steps", "受理済みステップ");
+        add("此通光原型仅供查看和导出，请新建版本化计划", "This transmission prototype is read-only; create a new versioned plan to run", "この透過補償プロトタイプは閲覧と出力専用です。実行には新しい版付き計画を作成してください");
         add("阶段独立验收", "Independent Stage Validation", "段階の独立検証");
         add("阶段更新完成", "Phase Update Limit Reached", "段階の更新上限に到達");
         add("阶段已收敛", "Phase Converged", "段階が収束しました");
@@ -111,6 +116,43 @@ internal static partial class UiLocalization
         add("已计费 / 上限", "Consumed / Limit", "消費 / 上限");
         add("评价", "Evaluation", "評価");
         add("求导", "Gradient", "勾配");
+        add("光线梯度尝试上限", "Ray-gradient Attempt Limit", "光線勾配試行の上限");
+        add("光线梯度", "Ray Gradients", "光線勾配");
+        add("F 数", "F-number", "F ナンバー");
+        add("评价 / 光线梯度 / 追迹", "Evaluations / Ray Gradients / Traced Rays", "評価 / 光線勾配 / 追跡光線");
+        add("恢复矩阵 / Jacobian / 差分", "Recovery Matrices / Jacobians / Differences", "復元行列 / Jacobian / 差分");
+        add("已记录的工作明细", "Recorded Work Details", "記録済み処理の詳細");
+        add("矩阵", "Matrices", "行列");
+        add("差分探测", "Difference Probes", "差分評価");
+        add("几何查询", "Geometry Probes", "形状評価");
+        add("瞳查询", "Pupil Queries", "瞳照会");
+        add("未记录", "Not Recorded", "未記録");
+        add("在途预约", "In-flight Reservation", "実行中の予約");
+        add("未知中断阶段按预约计费，辅助工作只显示已记录数量", "Unknown interrupted phases are charged their reservations; auxiliary work shows recorded counts only", "中断した不明な段階は予約分を計上し、補助処理は記録済み件数のみ表示します");
+        add("光线梯度与恢复矩阵 Jacobian 分别记录，不能按相同成本相加；未记录不代表零工作", "Ray gradients and recovery matrix Jacobians are recorded separately and have different costs; not recorded does not mean no work", "光線勾配と復元行列の Jacobian は別々に記録され処理量が異なります。未記録は処理ゼロを意味しません");
+        add("固定片数模式不派发结构分支，分支权限保留供后续使用", "Fixed-topology mode does not dispatch structural branches; branch permissions are preserved for later use", "固定構成モードでは構成分岐を実行せず、分岐の許可設定は後の使用のため保持します");
+        add("未知中断已按预约计费", "Unknown Interrupted Work Charged to Reservation", "中断した不明な処理を予約分として計上済み");
+        add("未派发，已退还预约", "Not Dispatched; Reservation Released", "未実行、予約分を解放済み");
+        add("渐进删除", "Gradual Deletion", "段階的削除");
+        add("允许拆片", "Allow Splitting", "分割を許可");
+        add("允许并片", "Allow Merging", "結合を許可");
+        add("恢复与连续补偿", "Recovery and Continuous Compensation", "復元と連続補償");
+        add("恢复矩阵自动求导", "Automatic Recovery Matrix Derivatives", "復元行列の自動微分");
+        add("恢复固定光阑瞳倍率", "Restore Fixed-stop Pupil Magnification", "固定絞りの瞳倍率を復元");
+        add("恢复阶段允许轴向微调", "Allow Axial Adjustment During Recovery", "復元段階で軸方向の微調整を許可");
+        add("独立锥常数补偿", "Independent Conic Compensation", "独立した円錐定数の補償");
+        add("阶段间独立验收", "Independent Checks Between Stages", "段階間の独立検証");
+        add("恢复后保留局部补偿额度", "Preserve Local Compensation Budget", "復元後の局所補償枠を確保");
+        add("优先保留全目标补偿额度", "Prioritize Full Compensation Budget", "全目標補償枠を優先");
+        add("局部补偿更新上限", "Local Update Limit", "局所補償の更新上限");
+        add("全目标更新上限", "Full Update Limit", "全目標補償の更新上限");
+        add("启用瞳倍率恢复会同时启用矩阵自动求导；关闭自动求导会关闭瞳倍率恢复", "Enabling pupil restoration also enables automatic matrix derivatives; disabling those derivatives turns pupil restoration off", "瞳倍率の復元は行列の自動微分も有効にします。自動微分を解除すると瞳倍率の復元も解除します");
+        add("不新增面型分支时独立释放已有面的锥常数；面型分支已有的变量规则保持", "Release existing conic coordinates without adding profile branches; existing profile-branch variable rules are preserved", "面型の分岐を追加せず既存面の円錐定数を解放します。面型分岐の既存変数規則は保持します");
+        add("沿用本次试验的轴向窗口，不移动机械参考、光阑与固定像面", "Use this trial's axial window; keep the mechanical reference, stop and fixed image plane unchanged", "本試行の軸方向範囲を使用し、機械基準、絞り、固定像面は移動しません");
+        add("可选阶段验收挤占补偿额度时延后检查，仍保留最终独立验收", "Defer an optional stage check when it would consume compensation budget; retain independent final validation", "任意の段階検証が補償枠を消費する場合は延期します。最終の独立検証は保持します");
+        add("请先启用镜面轴向微调，原恢复偏好保持", "Enable axial adjustment first; the saved recovery preference is preserved", "先に軸方向の微調整を有効にしてください。保存済みの復元設定は保持します");
+        add("请先启用阶段间独立验收，原预算保护偏好保持", "Enable between-stage checks first; saved budget-protection preferences are preserved", "先に段階間の独立検証を有効にしてください。保存済みの枠保護設定は保持します");
+        add("修改更新上限会相应预留阶段评价与梯度尝试，总预算和追迹硬限不变", "Changing the update limit also allows the required stage evaluations and gradients; total budgets and hard ray limits stay fixed", "更新上限に合わせて段階の評価と勾配の試行枠を確保します。総予算と光線の厳密上限は変わりません");
         add("追迹", "Traced Rays", "追跡光線");
         add("预约", "Reserved", "予約");
         add("达标归档", "Passing Archive", "合格アーカイブ");

@@ -32,8 +32,11 @@ internal sealed class AutonomousDesktopSession(string directory)
     }
 
     public Task RunAsync(AutonomousSearchPlan plan, bool resume, Action<AutonomousSearchCheckpoint> publish,
-        Action<AutonomousSearchPending, FixedTopologyStep>? progress = null)
+        Action<AutonomousSearchPending, FixedTopologyStep>? progress = null,
+        Action<AutonomousSearchPending, ParaxialRecoveryStep>? recoveryProgress = null)
     {
+        if (AutonomousSearchService.IsHistoricalReadOnlyPlan(plan))
+            throw new NotSupportedException("Historical transmission prototype plans are read-only; create a fresh versioned plan.");
         if (Interlocked.CompareExchange(ref _busy, 1, 0) != 0) throw new InvalidOperationException("An autonomous desktop operation is already active.");
         _cancellation = new();
         Pending = ExecuteAsync();
@@ -58,7 +61,7 @@ internal sealed class AutonomousDesktopSession(string directory)
                 var revision = source.Revision;
                 await Task.Run(() =>
                 {
-                    var endpoint = AutonomousSearchService.Run(source, Save, _cancellation.Token, progress);
+                    var endpoint = AutonomousSearchService.Run(source, Save, _cancellation.Token, progress, recoveryProgress);
                     _checkpoint = endpoint;
                     publish(endpoint);
 

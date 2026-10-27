@@ -1,0 +1,149 @@
+{
+  "date": "2026-10-27",
+  "sourceCommit": "3947b7b57ae404f65af772b2a06ca356f79e539f",
+  "coreSha256": "49487714417954f1f7b69a0aa085e9b5eb81dc294a420b317a8b15e8412fc3bc",
+  "globalPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "implemented": [
+    "Energy reference ray respects system aiming",
+    "Afocal Huygens uses physical reference-plane pupil positions",
+    "Afocal Huygens retains finite pupil-cell footprint and physical diopter phase"
+  ],
+  "afocal": {
+    "counts": {
+      "Close": 3,
+      "Difference": 3,
+      "Incomparable": 15,
+      "Pass": 129
+    },
+    "timedOutWorkers": 0,
+    "singleRayTracePass": 20,
+    "coreRelativeIlluminationUnavailable": 2,
+    "rawCentroidPlotDifferencesPreserved": 3,
+    "total": 150,
+    "coreCalculationsAvailable": 148
+  },
+  "fixedAngularGrid": {
+    "passed": 20,
+    "throughFocus": [
+      {
+        "conclusion": "Pass",
+        "maximumNrmse": 0.0004945000338726962,
+        "lens": "Afocal/Afocal Riflescope.ZMX",
+        "configuration": 1
+      },
+      {
+        "conclusion": "Pass",
+        "maximumNrmse": 0.002294535150142705,
+        "lens": "Afocal/Beam Expander.ZMX",
+        "configuration": 1
+      },
+      {
+        "conclusion": "Pass",
+        "maximumNrmse": 3.983311032209209E-05,
+        "lens": "Afocal/Binocular_System.ZMX",
+        "configuration": 1
+      },
+      {
+        "conclusion": "Pass",
+        "maximumNrmse": 3.983311142786295E-05,
+        "lens": "Afocal/Binocular_System.ZMX",
+        "configuration": 2
+      },
+      {
+        "conclusion": "Pass",
+        "maximumNrmse": 0.0004489919382223055,
+        "lens": "Miscellaneous/Apochromat_prism.zmx",
+        "configuration": 1
+      }
+    ],
+    "total": 20
+  },
+  "focal": {
+    "regressions": 0,
+    "originalPass": 1159,
+    "supplementalPoints": 30,
+    "originalRequests": 1159,
+    "supplementalAnalyses": 22,
+    "supplementalPass": 52,
+    "originalSourcesRequestsReferencesUnchanged": true
+  },
+  "tests": [
+    {
+      "passed": 89,
+      "path": "afocal-reference-focus.trx",
+      "total": 89,
+      "failed": 0
+    },
+    {
+      "passed": 385,
+      "path": "core-reference-focus.trx",
+      "total": 385,
+      "failed": 0
+    },
+    {
+      "passed": 3,
+      "path": "native-angular-centroid.trx",
+      "total": 3,
+      "failed": 0
+    }
+  ],
+  "differentFocusedTests": 477,
+  "defaultReleaseAppCoreMatches": true,
+  "nativeReferenceControls": [
+    {
+      "chiefDataSha256": "fb8c07403a68fdb14cd3c7d6b893ef99a0f7ac35305bdb51f5162596146d4c78",
+      "curvesEqual": true,
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "centroidDataSha256": "fb8c07403a68fdb14cd3c7d6b893ef99a0f7ac35305bdb51f5162596146d4c78",
+      "configuration": 1
+    },
+    {
+      "chiefDataSha256": "54dc24c1f413a85bc4bdde5095736da895d3fe3e65588f2e1c9252b5ec5401d6",
+      "curvesEqual": true,
+      "lens": "Afocal/Beam Expander.ZMX",
+      "centroidDataSha256": "54dc24c1f413a85bc4bdde5095736da895d3fe3e65588f2e1c9252b5ec5401d6",
+      "configuration": 1
+    },
+    {
+      "chiefDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "curvesEqual": true,
+      "lens": "Afocal/Binocular_System.ZMX",
+      "centroidDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "configuration": 1
+    },
+    {
+      "chiefDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "curvesEqual": true,
+      "lens": "Afocal/Binocular_System.ZMX",
+      "centroidDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "configuration": 2
+    },
+    {
+      "chiefDataSha256": "159ecb09fed7f4862685e2d63e4c818e3333e49994b8e78c02b9803b2813a788",
+      "curvesEqual": true,
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "centroidDataSha256": "159ecb09fed7f4862685e2d63e4c818e3333e49994b8e78c02b9803b2813a788",
+      "configuration": 1
+    }
+  ],
+  "nativeReferencePositiveControl": "Focal Double Gauss curves differ; maximum absolute energy difference 0.14930991217063994",
+  "nativeRayCentroid": {
+    "groups": 3,
+    "fieldCurves": 13,
+    "sampling": "32 intervals; 797 unit-weight pupil points per field",
+    "passedGroups": 3,
+    "inputRays": 10361,
+    "nativeChartReplaced": false
+  },
+  "frozen": {
+    "files": 2668,
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "headAndWorkingTreeUnchanged": true
+  },
+  "limitations": [
+    "Three built-in native AF centroid plots remain numeric Difference; their reference selector is inactive in these captured conditions",
+    "Three Close and 15 Incomparable retained",
+    "No all-95-file or universal sampling/polarization certification",
+    "No foreground app interaction, installation, package publishing or Git push in this task"
+  ]
+}

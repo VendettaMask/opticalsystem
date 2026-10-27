@@ -215,6 +215,11 @@ internal static class ImageSpaceAnalysisSupport
     {
         if (optic.SurfaceGroup.Items.Any(s => s.Geometry is PolygonGroupGeometry))
             return CompoundExitPupil(optic).Diameter;
+        var image = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+        var axis = image.ToGlobalDirection(new Vector3D(0, 0, 1));
+        if (optic.SurfaceGroup.Items.Skip(1).Any(surface =>
+            Math.Abs(Dot(surface.CoordinateSystem.ToGlobalDirection(new Vector3D(0, 0, 1)), axis)) < 1 - 1e-12))
+            return TangentialExitPupilDiameter(optic);
         var exit = Math.Abs(optic.Paraxial.EstimateExitPupilDiameter());
         if (double.IsFinite(exit) && exit > 1e-12)
         {
@@ -225,6 +230,42 @@ internal static class ImageSpaceAnalysisSupport
         return double.IsFinite(entrance) && entrance > 1e-12 ? entrance : 0;
     }
 
+    private static double TangentialExitPupilDiameter(Optic optic)
+    {
+        // An oblique or folded train can have different X/Y pupil scales.
+        // The scalar sequential Y-Ybar estimate omits that projection. Measure
+        // the tangential image of an infinitesimal pupil pencil instead.
+        const double probe = 1e-3;
+        var wave = optic.Wavelengths.FirstOrDefault(w => w.IsPrimary) ?? optic.Wavelengths[0];
+        var pupils = new[] { new OpticalSystemDesign.Core.Raytrace.PupilSample(0, -probe, 1),
+            new OpticalSystemDesign.Core.Raytrace.PupilSample(0, probe, 1),
+            new OpticalSystemDesign.Core.Raytrace.PupilSample(0, 0, 1) };
+        var rays = optic.SequentialRayTracer.TraceFinalSamples(
+            optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0, 0,
+                wave.Micrometers, pupils, optic.RayAimingEnabled));
+        if (rays.Any(ray => ray is not { Vignetted: false, Intensity: > 0 }))
+            throw new AnalysisDataUnavailableException("Afocal pupil", "tangential pupil pencil is blocked");
+        var frame = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+        var normal = Normalize(rays[2]!.Direction);
+        var distance = optic.Paraxial.EstimateExitPupilLocation(wave.Micrometers);
+        var axialCosine = frame.ToLocalDirection(normal).Z;
+        if (!double.IsFinite(distance) || Math.Abs(axialCosine) <= 1e-12)
+            throw new AnalysisDataUnavailableException("Afocal pupil", "no finite exit reference plane");
+        var origin = rays[2]!.Position + normal
+            * ((distance - frame.ToLocalPoint(rays[2]!.Position).Z) / axialCosine);
+        Vector3D Project(RayTraceSample ray)
+        {
+            var denominator = Dot(ray.Direction, normal);
+            if (Math.Abs(denominator) <= 1e-12)
+                throw new AnalysisDataUnavailableException("Afocal pupil", "pupil ray is tangent to its reference plane");
+            return frame.ToLocalPoint(ray.Position + ray.Direction * (Dot(origin - ray.Position, normal) / denominator));
+        }
+        var diameter = Math.Abs(Project(rays[1]!).Y - Project(rays[0]!).Y) / probe;
+        if (!double.IsFinite(diameter) || diameter <= 1e-12)
+            throw new AnalysisDataUnavailableException("Afocal pupil", "no finite tangential pupil diameter");
+        return diameter;
+    }
+
     internal static (double Position, double Diameter) CompoundExitPupil(Optic optic)
     {
         const double probe = 1e-3;
@@ -233,6 +274,30 @@ internal static class ImageSpaceAnalysisSupport
             new[] { (0d, 0d), (probe, 0d), (0d, probe) });
         return (optic.SurfaceGroup.Items[^1].CoordinateSystem.ToLocalPoint(result.Center).Z,
             2 * result.DisplayRadiusMillimeters / probe);
+    }
+
+    internal static (double X, double Y) AfocalFftPupilAspectStretch(
+        Optic optic, (double Hx, double Hy) field, Wavelength wavelength, bool aimAtStop)
+    {
+        // The scalar angular pitch and the pupil's two spatial intervals are
+        // separate: an oblique/folded exit pupil need not be circular. Preserve
+        // entrance-pupil orientation and trace the aspect before building the
+        // FFT grid, rather than resizing its intensity after the transform.
+        const double probe = 1e-3;
+        var pencil = WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
+            new[] { (-probe, 0d), (probe, 0d), (0d, -probe), (0d, probe) },
+            aimAtStop: aimAtStop, referenceWavelength: wavelength);
+        if (pencil.Samples.Any(sample => sample.Intensity <= 0))
+            throw new AnalysisDataUnavailableException("FFT PSF", "exit-pupil aspect pencil is blocked");
+        Vector3D Point(int index) => new(pencil.Samples[index].PupilX,
+            pencil.Samples[index].PupilY, pencil.Samples[index].PupilZ);
+        var x = (Point(1) - Point(0)).Length;
+        var y = (Point(3) - Point(2)).Length;
+        if (!double.IsFinite(x) || !double.IsFinite(y) || x <= 1e-15 || y <= 1e-15)
+            throw new AnalysisDataUnavailableException("FFT PSF", "no finite exit-pupil aspect");
+        if (Math.Abs(x / y - 1) <= 1e-12) return (1, 1);
+        var larger = Math.Max(x, y);
+        return (larger / x, larger / y);
     }
 
     public static double AfocalDefocusOpdWaves(
@@ -280,4 +345,7 @@ internal static class ImageSpaceAnalysisSupport
         var length = value.Length;
         return length <= 1e-30 ? Vector3D.Zero : value / length;
     }
+
+    private static double Dot(Vector3D left, Vector3D right) =>
+        left.X * right.X + left.Y * right.Y + left.Z * right.Z;
 }

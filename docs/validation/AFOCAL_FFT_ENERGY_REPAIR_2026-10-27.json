@@ -1,0 +1,278 @@
+{
+  "date": "2026-10-27",
+  "sourceCommit": "3947b7b57ae404f65af772b2a06ca356f79e539f",
+  "coreSha256": "7f0e82799ab3357413a0629b1616b02a1274d193052a413b546895ca790b86d2",
+  "globalPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "changes": [
+    "Automatically generated scalar AF FFT pupils retain physical exit-pupil aspect",
+    "Negative image delta retains its explicit unstretched pupil",
+    "AF cumulative energy forms its angular Fourier interval directly"
+  ],
+  "afocal": {
+    "timedOut": 0,
+    "coreUnavailable": 2,
+    "originalRequestsUnchanged": true,
+    "total": 150,
+    "originalCloseNowPass": [
+      {
+        "id": "0014-001-afocal-riflescope-c1-primary-f1-w2-diffraction-encircled-energy",
+        "lens": "Afocal/Afocal Riflescope.ZMX",
+        "configuration": 1,
+        "key": "Diffraction Encircled Energy",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 787,
+            "maxAbsolute": 2.674340300323763E-07,
+            "meanAbsolute": 3.090521660244309E-08,
+            "rmse": 5.6280565549380696E-08,
+            "nrmse": 5.6919671311888106E-08,
+            "maxRelative": 5.047060762020031E-07,
+            "p50": 1.723315956603244E-08,
+            "p90": 6.76211379113667E-08,
+            "p95": 1.265161308550141E-07,
+            "pearson": 0.9999999999999746,
+            "worstX": 0.09453866781635951,
+            "worstY": null,
+            "coverage": 0.9999999999999999,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 787,
+            "maxAbsolute": 2.682346659232948E-07,
+            "meanAbsolute": 5.6076288805688625E-08,
+            "rmse": 7.274767746640595E-08,
+            "nrmse": 7.384132796342097E-08,
+            "maxRelative": 5.991150243591505E-07,
+            "p50": 4.271791287369098E-08,
+            "p90": 1.017663921465406E-07,
+            "p95": 1.453252437971781E-07,
+            "pearson": 0.9999999999999778,
+            "worstX": 0.09817477042468103,
+            "worstY": null,
+            "coverage": 0.9999999999999999,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ],
+        "error": null
+      },
+      {
+        "id": "0063-003-binocular_system-c1-primary-f1-w2-fft-psf-cross-section",
+        "lens": "Afocal/Binocular_System.ZMX",
+        "configuration": 1,
+        "key": "FFT PSF Cross Section",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 399,
+            "maxAbsolute": 2.4504046107820532E-05,
+            "meanAbsolute": 1.032212806429752E-06,
+            "rmse": 3.6149185403714555E-06,
+            "nrmse": 4.701666417862645E-06,
+            "maxRelative": "Infinity",
+            "p50": 2.2803588469561768E-07,
+            "p90": 5.702773831103151E-07,
+            "p95": 4.983062708829863E-06,
+            "pearson": 0.9999999995642415,
+            "worstX": 0.09398615560580348,
+            "worstY": null,
+            "coverage": 0.9999973996855244,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ],
+        "error": null
+      },
+      {
+        "id": "0093-003-binocular_system-c2-primary-f1-w2-fft-psf-cross-section",
+        "lens": "Afocal/Binocular_System.ZMX",
+        "configuration": 2,
+        "key": "FFT PSF Cross Section",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 399,
+            "maxAbsolute": 0.0011946610529761578,
+            "meanAbsolute": 0.00015413551690682516,
+            "rmse": 0.0002705315866296929,
+            "nrmse": 0.00035186111709649355,
+            "maxRelative": "Infinity",
+            "p50": 7.894432708214659E-05,
+            "p90": 0.00038629909918100607,
+            "p95": 0.0005148161638004511,
+            "pearson": 0.9999973510265814,
+            "worstX": -0.1644757723101562,
+            "worstY": null,
+            "coverage": 0.9999973996855244,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ],
+        "error": null
+      }
+    ],
+    "previousPassRetained": 131,
+    "counts": {
+      "Difference": 3,
+      "Incomparable": 13,
+      "Pass": 134
+    }
+  },
+  "fixedAngularGrid": {
+    "passed": 20,
+    "total": 20
+  },
+  "focal": {
+    "supplementalPass": 52,
+    "supplementalPoints": 30,
+    "originalPass": 1159,
+    "originalRequests": 1159,
+    "supplementalAnalyses": 22,
+    "regressions": 0,
+    "sourcesRequestsReferencesUnchanged": true
+  },
+  "tests": [
+    {
+      "path": "core-fft-energy-final.trx",
+      "passed": 133,
+      "failed": 0,
+      "total": 133
+    },
+    {
+      "path": "afocal-fft-energy-final.trx",
+      "passed": 104,
+      "failed": 0,
+      "total": 104
+    }
+  ],
+  "differentFocusedTests": 237,
+  "defaultReleaseAppCoreMatches": true,
+  "nativeJobs": [
+    {
+      "requestSha256": "e6a2010a89725a3921569301a045c6532d4d47d3d3e93ec21fb539e4be27d427",
+      "dataSha256": "ba9a2fac95c42eb4ecc56685853d6b8d3352089beb683f77ebfbe1a649687e83",
+      "id": "afocal-riflescope-Real"
+    },
+    {
+      "requestSha256": "86f8e1dfcc1f7b037635f978039f3637af27e309a62bf6e4a7ed331aadc89a34",
+      "dataSha256": "b3f19130867ed9a730a788853fb6d2cea8b4eebdfab18f2910472c4674489ee4",
+      "id": "afocal-riflescope-Imaginary"
+    },
+    {
+      "requestSha256": "c18fd03e4774f3af97764fdc4ce4d8dcc17267bb9c4618dcc5b1b3f3ed42d976",
+      "dataSha256": "e761659c98fca8e4330b17721790c808cf669f8766caaba1b51822eae97f025f",
+      "id": "afocal-riflescope-Linear"
+    },
+    {
+      "requestSha256": "697661e491a1995c6d789838ee50aa2e1f9fa57196fd32fb849fcdeb674710fa",
+      "dataSha256": "6a020c5bdd614b52efcbb1203e162d49f1e5764bdb8cc67da75535a63f99d716",
+      "id": "beam-expander-Real"
+    },
+    {
+      "requestSha256": "e2995853190856deb7d1d6202e8273453b094d642d5ba0c88023c6c402142b1d",
+      "dataSha256": "1eb8a22587b1ea92c7b73b1c0ba51a4978a5b757dc32a9179094e4cd4c058cc8",
+      "id": "beam-expander-Imaginary"
+    },
+    {
+      "requestSha256": "21ed0764d054a995f7926f7a284a1df3af8677ce07d59bdbe56c5d763dba09ae",
+      "dataSha256": "021d88eb9f3379d021194779041bfb0862448b52898d09b20daf53eb9c2d4f55",
+      "id": "beam-expander-Linear"
+    },
+    {
+      "requestSha256": "e89f69a89f40f47b76fbdd007d82ff034c4a38b7770abae36124f67f7e78e99c",
+      "dataSha256": "2177a2a646915e8d38e569fc7a43c5014d56e845363caf19ba9f703afad3c596",
+      "id": "rifle-DEE-Centroid"
+    },
+    {
+      "requestSha256": "9cf72802d16563cbc50666dfe5c12eac94a71208ac86dd6810375cdc09519acb",
+      "dataSha256": "ffbffb552f2b7756b12941ea545b2ca6c4a7a80cb5fb2fa32dc507c5d9a4e55d",
+      "id": "rifle-DEE-ChiefRay"
+    },
+    {
+      "requestSha256": "83587907e4b4a7340572595a8afe48929ae4342d1f2384d6c20a9967f8c3b2ae",
+      "dataSha256": "9b3bca11a205d8dc47eb141db26bd0b9c58802ddc47bb10a372a9d4b6cc4873f",
+      "id": "binocular-c1-profile"
+    },
+    {
+      "requestSha256": "ac48d3e1da4e72f2b96225e25af7d4bb22478e447720b98aa9af77233f1563eb",
+      "dataSha256": "2f9f5870ed7f361f54ed52aae964cd1417bff9aafb62c18923f7011a6601540b",
+      "id": "binocular-c1-Real"
+    },
+    {
+      "requestSha256": "2cbfe10a0c38122af398e6b16a67e64d6eb379ae674598ec08b5a0634822d88d",
+      "dataSha256": "7092c14bb471c368174771ee7337091b0a114eb56a44b30c4c16c0a83343890d",
+      "id": "binocular-c1-Imaginary"
+    },
+    {
+      "requestSha256": "249edccb98fd13b50b69e6975d01d330b3155e1e84fc00024fa4a76e869d54f0",
+      "dataSha256": "9b3bca11a205d8dc47eb141db26bd0b9c58802ddc47bb10a372a9d4b6cc4873f",
+      "id": "binocular-c2-profile"
+    },
+    {
+      "requestSha256": "e5c8042aea28dd2207c6891a5e629f06379fd94d35d0fb9e46bb996210c36a59",
+      "dataSha256": "6bfe146c4008216a2d598ffba91eadf767dd793d482a7f18548700fd34bb2410",
+      "id": "binocular-c2-Real"
+    },
+    {
+      "requestSha256": "676245f69972a810d71cc6f35357a01f906489f1c4b011c84da861a1020131ad",
+      "dataSha256": "d4edc17d8152d41118b6466671cc0b31c3b8875d1aa7ed7f19867814b63d87ba",
+      "id": "binocular-c2-Imaginary"
+    }
+  ],
+  "binocularControls": [
+    {
+      "id": "binocular-c1",
+      "configuration": 1,
+      "nativeCount": 699,
+      "coreCount": 699,
+      "coreOnly": 0,
+      "nativeOnly": 0,
+      "x": 1.0000049793749568,
+      "y": 1,
+      "phaseRms": 4.015220240779312E-06,
+      "freshProfileMaxDifference": 0
+    },
+    {
+      "id": "binocular-c2",
+      "configuration": 2,
+      "nativeCount": 699,
+      "coreCount": 699,
+      "coreOnly": 2,
+      "nativeOnly": 2,
+      "x": 1.0000049793749568,
+      "y": 1,
+      "phaseRms": 0.000608354563057874,
+      "freshProfileMaxDifference": 0
+    }
+  ],
+  "freshRiflescopeEnergyReferenceEqual": true,
+  "failedStages": [
+    "First aspect version changed negative-delta MTF: two tests failed and matrix 132/2/3/13; rejected",
+    "First-version focal replay interrupted after 756 completed requests, not final acceptance",
+    "First diagnostic energy Linear PSF accidentally selected all wavelengths; excluded and recaptured with explicit selector readback"
+  ],
+  "frozen": {
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "files": 2668,
+    "headAndWorkingTreeUnchanged": true
+  },
+  "limitations": [
+    "Three built-in native centroid plot Differences and 13 Incomparable retained",
+    "Binocular configuration2 still has two Core-only and two native-only pupil nodes; original curve gates pass, no bitwise identity claim",
+    "New aspect convention is limited to automatically generated scalar nonnegative-delta FFT pupils; prepared and polarized input behavior retained",
+    "No all-95-file certification, foreground desktop use, installation, publishing or Git push"
+  ]
+}

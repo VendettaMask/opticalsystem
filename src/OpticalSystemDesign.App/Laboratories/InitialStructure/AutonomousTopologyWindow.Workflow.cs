@@ -53,7 +53,8 @@ public sealed partial class AutonomousTopologyWindow
         var plan = await AutonomousDesignFiles.LoadPlanAsync(path);
         ApplyPlan(plan); _session.Reset(); _generation++; _draft = plan;
         _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear();
-        _status.Text = UiLocalization.Text("计划已载入，尚未运行");
+        _status.Text = UiLocalization.Text(AutonomousSearchService.IsHistoricalReadOnlyPlan(plan)
+            ? "此通光原型仅供查看和导出，请新建版本化计划" : "计划已载入，尚未运行");
     }
     private async Task SavePlanAsync()
     {
@@ -68,13 +69,17 @@ public sealed partial class AutonomousTopologyWindow
         if (path.EndsWith(".family.json", StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException(UiLocalization.Text("AutoLens 记录请从原入口打开"));
         await _session.LoadAsync(path, ApplyPlan);
+        // An explicitly opened backup is authoritative even when this run was previously displayed at a later revision.
+        _displayRevision = -1; _displayRun = null;
         _generation++; _draft = _session.Checkpoint!.Plan; ApplyPlan(_draft); Publish(_session.Checkpoint);
-        _status.Text = UiLocalization.Text("记录已载入，尚未继续运行");
+        _status.Text = UiLocalization.Text(AutonomousSearchService.IsHistoricalReadOnlyPlan(_draft)
+            ? "此通光原型仅供查看和导出，请新建版本化计划" : "记录已载入，尚未继续运行");
     }
     private Task CheckAsync()
     {
         _draft = ReadPlan(); _ = AutonomousSearchService.Create("desktop-check", _draft);
-        _status.Text = UiLocalization.Text("输入有效，尚未进行光学验收");
+        _status.Text = UiLocalization.Text(AutonomousSearchService.IsHistoricalReadOnlyPlan(_draft)
+            ? "此通光原型仅供查看和导出，请新建版本化计划" : "输入有效，尚未进行光学验收");
         return Task.CompletedTask;
     }
     private async Task RunAsync(bool resume)
@@ -83,13 +88,23 @@ public sealed partial class AutonomousTopologyWindow
         _draft = plan;
         var generation = ++_generation;
         _status.Text = UiLocalization.Text("自主设计正在运行");
-        await _session.RunAsync(plan, resume,
-            state => Dispatcher.UIThread.Post(() => { if (!_closed && generation == _generation) Publish(state); }),
-            (pending, step) => Dispatcher.UIThread.Post(() =>
-            {
-                if (!_closed && generation == _generation)
-                    _status.Text = UiLocalization.Text("本阶段正在补偿") + $" · {pending.TrialId} · {step.Attempt}";
-            }));
+        try
+        {
+            await _session.RunAsync(plan, resume,
+                state => Dispatcher.UIThread.Post(() => { if (!_closed && generation == _generation) Publish(state); }),
+                (pending, step) => Dispatcher.UIThread.Post(() =>
+                {
+                    if (!_closed && generation == _generation)
+                        _status.Text = UiLocalization.Text("本阶段正在补偿") + $" · {pending.TrialId} · {step.Attempt}";
+                }),
+                (pending, step) => Dispatcher.UIThread.Post(() =>
+                {
+                    if (!_closed && generation == _generation)
+                        _status.Text = UiLocalization.Text("本阶段正在恢复") + $" · {pending.TrialId} · "
+                            + UiLocalization.Text("已接受步骤") + $" {step.AcceptedStep}";
+                }));
+        }
+        finally { _generation++; }
         Publish(_session.Checkpoint!);
         var checkpoint = _session.Checkpoint!;
         _status.Text = UiLocalization.Text(checkpoint.Status switch
@@ -147,15 +162,25 @@ public sealed partial class AutonomousTopologyWindow
         Put("AutonomousGradients", options.MaximumGradientEvaluations); Put("AutonomousRays", options.MaximumTracedRays);
         Put("AutonomousReserve", options.FinalValidationRayReserve); Put("AutonomousMinutes", options.TimeLimit.TotalMinutes); Put("AutonomousSeed", options.Seed);
         Put("AutonomousAxialWindow", options.AxialCompensation?.MaximumDisplacementMillimeters ?? .25);
+        Put("AutonomousLocalUpdates", options.Local.MaximumUpdates); Put("AutonomousFullUpdates", options.Full.MaximumUpdates);
         _applyingPlan = true;
         _choices["AutonomousImage"].IsChecked = !source.Image.Protected;
         _choices["AutonomousStructure"].IsChecked = options.FixedTopologyOnly != true;
         _choices["AutonomousGradual"].IsChecked = options.Expansion?.EnableGradualDeletion == true;
-        _choices["AutonomousSplit"].IsChecked = options.Expansion is { EnableSplit: true } or { EnableMerge: true };
+        _choices["AutonomousSplit"].IsChecked = options.Expansion?.EnableSplit == true;
+        _choices["AutonomousMerge"].IsChecked = options.Expansion?.EnableMerge == true;
         _choices["AutonomousMaterial"].IsChecked = options.Expansion?.EnableMaterial == true;
         _choices["AutonomousProfile"].IsChecked = options.Expansion?.EnableProfile == true;
         _choices["AutonomousPrecision"].IsChecked = HighPrecision(options);
         _choices["AutonomousAxial"].IsChecked = options.AxialCompensation is not null;
+        _choices["AutonomousMatrixDerivatives"].IsChecked = options.Recovery.UseAutomaticMatrixDerivatives == true;
+        _choices["AutonomousGeometryRecovery"].IsChecked = options.Recovery.UseGeometryConstraintTangents == true;
+        _choices["AutonomousPupilRecovery"].IsChecked = options.Recovery.RestorePupilMagnification == true;
+        _choices["AutonomousRecoveryAxial"].IsChecked = options.UseAxialVariablesInRecovery == true;
+        _choices["AutonomousConic"].IsChecked = options.CompensateConic == true;
+        _choices["AutonomousStageChecks"].IsChecked = options.CheckStageFeasibility == true;
+        _choices["AutonomousProtectLocalBudget"].IsChecked = options.ProtectPostRecoveryRayBudget == true;
+        _choices["AutonomousProtectFullBudget"].IsChecked = options.ProtectCompensationRayBudget == true;
         foreach (var pair in values) _numbers[pair.Key].Value = pair.Value;
         _applyingPlan = false; _planEdited = false;
         _source.Text = UiLocalization.Text("无限远起点") + $" · {plan.Seeds.Length} · " + string.Join(", ", plan.Seeds.Select(seed => seed.Name + $" ({seed.Elements.Length})"));
@@ -178,46 +203,58 @@ public sealed partial class AutonomousTopologyWindow
             if (control.Value is not { } value || !decimal.TryParse(control.Text, NumberStyles.Number, CultureInfo.CurrentCulture, out var text)
                 || Math.Abs(text - value) > .00000001m) throw new ArgumentException(UiLocalization.Text("请填写有效数字"));
             if (id is "AutonomousMinElements" or "AutonomousMaxElements" or "AutonomousTrials" or "AutonomousFunctions" or "AutonomousGradients" or "AutonomousRays" or "AutonomousReserve" or "AutonomousSeed"
+                or "AutonomousLocalUpdates" or "AutonomousFullUpdates"
                 && decimal.Truncate(value) != value) throw new ArgumentException(UiLocalization.Text("请填写有效整数"));
             return (double)value;
         }
-        var field = Read("AutonomousField"); var stop = Read("AutonomousStop");
+        double PreservedValue(string id, double original, double displayScale = 1)
+        {
+            var edited = Read(id);
+            return _numbers[id].Value == (decimal)(original * displayScale) ? original : edited / displayScale;
+        }
         var movable = _choices["AutonomousImage"].IsChecked == true;
         var seeds = _draft.Seeds.Select(seed =>
         {
             var optic = TopologyCompiler.Compile(seed, _draft.Constraints).CreateOptic();
             var maximum = FieldCoordinates.MaximumRadius(optic.Fields);
+            var field = PreservedValue("AutonomousField", maximum);
             var fields = field == maximum ? seed.Fields : maximum > 0
                 ? seed.Fields.Select(item => item with { XAngleDegrees = item.XAngleDegrees * field / maximum, YAngleDegrees = item.YAngleDegrees * field / maximum }).ToImmutableArray()
                 : ImmutableArray.Create(new TopologyField("Axis", 0, 0), new TopologyField("Edge", 0, field));
-            return seed with { Fields = fields, Stop = seed.Stop with { ClearSemiDiameterMillimeters = stop }, Image = seed.Image with { Protected = !movable } };
+            return seed with { Fields = fields, Stop = seed.Stop with { ClearSemiDiameterMillimeters = PreservedValue("AutonomousStop", seed.Stop.ClearSemiDiameterMillimeters) }, Image = seed.Image with { Protected = !movable } };
         }).ToImmutableArray();
         var structure = _choices["AutonomousStructure"].IsChecked == true;
-        var expansion = _draft.Options.Expansion ?? new TopologyExpansionOptions();
         var totalRays = (long)Read("AutonomousRays");
+        var minutes = Read("AutonomousMinutes");
         var options = _draft.Options with
         {
+            Recovery = _draft.Options.Recovery with
+            {
+                UseAutomaticMatrixDerivatives = ReadFlag("AutonomousMatrixDerivatives", _draft.Options.Recovery.UseAutomaticMatrixDerivatives),
+                RestorePupilMagnification = ReadFlag("AutonomousPupilRecovery", _draft.Options.Recovery.RestorePupilMagnification),
+                UseGeometryConstraintTangents = ReadFlag("AutonomousGeometryRecovery", _draft.Options.Recovery.UseGeometryConstraintTangents)
+            },
+            UseAxialVariablesInRecovery = ReadFlag("AutonomousRecoveryAxial", _draft.Options.UseAxialVariablesInRecovery),
+            CompensateConic = ReadFlag("AutonomousConic", _draft.Options.CompensateConic),
+            CheckStageFeasibility = ReadFlag("AutonomousStageChecks", _draft.Options.CheckStageFeasibility),
+            ProtectPostRecoveryRayBudget = ReadFlag("AutonomousProtectLocalBudget", _draft.Options.ProtectPostRecoveryRayBudget),
+            ProtectCompensationRayBudget = ReadFlag("AutonomousProtectFullBudget", _draft.Options.ProtectCompensationRayBudget),
+            Local = ReadStage("AutonomousLocalUpdates", _draft.Options.Local),
+            Full = ReadStage("AutonomousFullUpdates", _draft.Options.Full),
             AxialCompensation = _choices["AutonomousAxial"].IsChecked == true
-                ? (_draft.Options.AxialCompensation ?? new TopologyAxialCompensationOptions()) with { MaximumDisplacementMillimeters = Read("AutonomousAxialWindow") } : null,
+                ? (_draft.Options.AxialCompensation ?? new TopologyAxialCompensationOptions()) with
+                { MaximumDisplacementMillimeters = PreservedValue("AutonomousAxialWindow", _draft.Options.AxialCompensation?.MaximumDisplacementMillimeters ?? .25) } : null,
             MaximumTrials = (int)Read("AutonomousTrials"),
             MaximumFunctionEvaluations = (int)Read("AutonomousFunctions"),
             MaximumGradientEvaluations = (int)Read("AutonomousGradients"),
             MaximumTracedRays = totalRays,
             MaximumStageTracedRays = Math.Min(_draft.Options.MaximumStageTracedRays, totalRays),
             FinalValidationRayReserve = (long)Read("AutonomousReserve"),
-            TimeLimit = TimeSpan.FromMinutes(Read("AutonomousMinutes")),
+            TimeLimit = _numbers["AutonomousMinutes"].Value == (decimal)_draft.Options.TimeLimit.TotalMinutes
+                ? _draft.Options.TimeLimit : TimeSpan.FromMinutes(minutes),
             Seed = (long)Read("AutonomousSeed"),
-            FixedTopologyOnly = structure ? null : true,
-            Expansion = expansion with
-            {
-                EnableInsertion = structure && expansion.EnableInsertion,
-                EnableDeletion = structure && expansion.EnableDeletion,
-                EnableGradualDeletion = structure && _choices["AutonomousGradual"].IsChecked == true,
-                EnableSplit = structure && _choices["AutonomousSplit"].IsChecked == true,
-                EnableMerge = structure && _choices["AutonomousSplit"].IsChecked == true,
-                EnableMaterial = structure && _choices["AutonomousMaterial"].IsChecked == true,
-                EnableProfile = structure && _choices["AutonomousProfile"].IsChecked == true
-            }
+            FixedTopologyOnly = structure == (_draft.Options.FixedTopologyOnly != true) ? _draft.Options.FixedTopologyOnly : structure ? null : true,
+            Expansion = ReadExpansion()
         };
         // Editing a budget must not silently replace an imported plan's custom training grid.
         if ((_choices["AutonomousPrecision"].IsChecked == true) != HighPrecision(_draft.Options))
@@ -227,8 +264,6 @@ public sealed partial class AutonomousTopologyWindow
             { Sampling = stage.Sampling with { PupilRings = accurate ? 4 : 3, PupilArms = accurate ? 16 : 12 } };
             options = options with { Local = Grid(options.Local), Full = Grid(options.Full) };
         }
-        double TargetValue(string id, double original, double displayScale = 1)
-            => _numbers[id].Value == (decimal)(original * displayScale) ? original : Read(id) / displayScale;
         var plan = _draft with
         {
             Seeds = seeds,
@@ -237,14 +272,52 @@ public sealed partial class AutonomousTopologyWindow
             Options = options,
             Targets = _draft.Targets with
             {
-                EffectiveFocalLengthMillimeters = TargetValue("AutonomousFocal", _draft.Targets.EffectiveFocalLengthMillimeters),
-                FNumber = TargetValue("AutonomousFNumber", _draft.Targets.FNumber),
-                MaximumRmsRadiusMillimeters = TargetValue("AutonomousRms", _draft.Targets.MaximumRmsRadiusMillimeters, 1000),
-                MaximumSpotRadiusMillimeters = TargetValue("AutonomousMaximum", _draft.Targets.MaximumSpotRadiusMillimeters, 1000)
+                EffectiveFocalLengthMillimeters = PreservedValue("AutonomousFocal", _draft.Targets.EffectiveFocalLengthMillimeters),
+                FNumber = PreservedValue("AutonomousFNumber", _draft.Targets.FNumber),
+                MaximumRmsRadiusMillimeters = PreservedValue("AutonomousRms", _draft.Targets.MaximumRmsRadiusMillimeters, 1000),
+                MaximumSpotRadiusMillimeters = PreservedValue("AutonomousMaximum", _draft.Targets.MaximumSpotRadiusMillimeters, 1000)
             }
         };
         _ = AutonomousSearchService.Create("desktop-check", plan);
         return plan;
+
+        FixedTopologyOptions ReadStage(string id, FixedTopologyOptions original)
+        {
+            var updates = (int)Read(id);
+            return updates == original.MaximumUpdates ? original : original with
+            {
+                MaximumUpdates = updates,
+                MaximumFunctionEvaluations = Math.Max(original.MaximumFunctionEvaluations, updates + 1),
+                MaximumGradientEvaluations = Math.Max(original.MaximumGradientEvaluations, updates + 1)
+            };
+        }
+    }
+
+    private bool? ReadFlag(string id, bool? original)
+    {
+        var selected = _choices[id].IsChecked == true;
+        return selected == (original == true) ? original : selected;
+    }
+
+    private TopologyExpansionOptions? ReadExpansion()
+    {
+        var original = _draft.Options.Expansion;
+        var gradual = _choices["AutonomousGradual"].IsChecked == true;
+        var split = _choices["AutonomousSplit"].IsChecked == true;
+        var merge = _choices["AutonomousMerge"].IsChecked == true;
+        var material = _choices["AutonomousMaterial"].IsChecked == true;
+        var profile = _choices["AutonomousProfile"].IsChecked == true;
+        if (gradual == (original?.EnableGradualDeletion == true) && split == (original?.EnableSplit == true) && merge == (original?.EnableMerge == true)
+            && material == (original?.EnableMaterial == true) && profile == (original?.EnableProfile == true)) return original;
+        // The fixed-topology switch controls dispatch, while inactive branch permissions remain editable and preserved.
+        return (original ?? new TopologyExpansionOptions()) with
+        {
+            EnableGradualDeletion = gradual,
+            EnableSplit = split,
+            EnableMerge = merge,
+            EnableMaterial = material,
+            EnableProfile = profile
+        };
     }
 
     private static bool HighPrecision(AutonomousSearchOptions options)
@@ -268,33 +341,83 @@ public sealed partial class AutonomousTopologyWindow
         _eventRows.Clear();
         foreach (var entry in state.Events.TakeLast(1000))
             _eventRows.Add(new(entry.Sequence, entry.TrialId, entry.ParentId ?? "—", Operation(entry.Operation), Phase(entry.Phase), Outcome(entry.Outcome),
-                $"{entry.Work.FunctionEvaluations} / {entry.Work.GradientEvaluations} / {entry.Work.TracedRays}", entry.Detail ?? ""));
+                $"{entry.Work.FunctionEvaluations} / {entry.Work.GradientEvaluations} / {entry.Work.TracedRays}",
+                entry.Outcome == "InterruptedUnknownCharged" ? UiLocalization.Text("未记录")
+                    : $"{entry.Work.MatrixEvaluations} / {entry.Work.JacobianBuilds} / {entry.Work.DifferenceEvaluations}",
+                entry.Recovery?.Work.PupilEvaluations?.ToString(CultureInfo.CurrentCulture) ?? UiLocalization.Text("未记录"), entry.Detail ?? ""));
         _candidates.SelectedItem = _candidateRows.FirstOrDefault(row => row.Candidate.Id == selected) ?? _candidateRows.FirstOrDefault();
+        if (_session.IsBusy && state.Pending is { Phase: AutonomousSearchPhase.Recovery } pending
+            && state.Reservation?.Phase == AutonomousSearchPhase.Recovery)
+            _status.Text = UiLocalization.Text("本阶段正在恢复") + $" · {pending.TrialId}";
         Refresh();
     }
 
     private void Refresh()
     {
         var state = _session.Checkpoint; var editable = !IsBusy && state is null;
+        var readOnly = AutonomousSearchService.IsHistoricalReadOnlyPlan(state?.Plan ?? _draft);
         foreach (var number in _numbers.Values) { number.IsEnabled = editable; ToolTip.SetTip(number, editable ? null : UiLocalization.Text("请新建计划以修改输入，继续任务保持原计划")); }
-        foreach (var choice in _choices.Values) choice.IsEnabled = editable;
+        foreach (var choice in _choices.Values)
+        {
+            choice.IsEnabled = editable;
+            ToolTip.SetTip(choice, editable ? null : UiLocalization.Text("请新建计划以修改输入，继续任务保持原计划"));
+        }
+        foreach (var id in new[] { "AutonomousGradual", "AutonomousSplit", "AutonomousMerge", "AutonomousMaterial", "AutonomousProfile" })
+            if (editable && _choices["AutonomousStructure"].IsChecked != true)
+                ToolTip.SetTip(_choices[id], UiLocalization.Text("固定片数模式不派发结构分支，分支权限保留供后续使用"));
+        Hint("AutonomousPupilRecovery", "启用瞳倍率恢复会同时启用矩阵自动求导；关闭自动求导会关闭瞳倍率恢复");
+        Hint("AutonomousGeometryRecovery", "使用共享 Core 的几何导数联合求步，仍按原制造门槛严格复核；需要矩阵自动求导");
+        Hint("AutonomousConic", "不新增面型分支时独立释放已有面的锥常数；面型分支已有的变量规则保持");
+        Hint("AutonomousRecoveryAxial", "沿用本次试验的轴向窗口，不移动机械参考、光阑与固定像面");
+        Hint("AutonomousProtectLocalBudget", "可选阶段验收挤占补偿额度时延后检查，仍保留最终独立验收");
+        Hint("AutonomousProtectFullBudget", "可选阶段验收挤占补偿额度时延后检查，仍保留最终独立验收");
+        if (editable && _choices["AutonomousAxial"].IsChecked != true)
+        {
+            _choices["AutonomousRecoveryAxial"].IsEnabled = false;
+            ToolTip.SetTip(_choices["AutonomousRecoveryAxial"], UiLocalization.Text("请先启用镜面轴向微调，原恢复偏好保持"));
+        }
+        if (editable && _choices["AutonomousStageChecks"].IsChecked != true)
+            foreach (var id in new[] { "AutonomousProtectLocalBudget", "AutonomousProtectFullBudget" })
+            {
+                _choices[id].IsEnabled = false;
+                ToolTip.SetTip(_choices[id], UiLocalization.Text("请先启用阶段间独立验收，原预算保护偏好保持"));
+            }
+        foreach (var id in new[] { "AutonomousLocalUpdates", "AutonomousFullUpdates" })
+            if (editable) ToolTip.SetTip(_numbers[id], UiLocalization.Text("修改更新上限会相应预留阶段评价与梯度尝试，总预算和追迹硬限不变"));
         foreach (var pair in _commands)
         {
             var enabled = !IsBusy;
             if (pair.Key == "AutonomousCancel") enabled = _session.IsBusy;
-            else if (pair.Key is "AutonomousRun" or "AutonomousImport" or "AutonomousCheck") enabled &= state is null;
-            else if (pair.Key == "AutonomousResume") enabled &= state?.Status is AutonomousSearchStatus.Ready or AutonomousSearchStatus.Cancelled or AutonomousSearchStatus.Running;
+            else if (pair.Key is "AutonomousImport" or "AutonomousCheck") enabled &= state is null;
+            else if (pair.Key == "AutonomousRun") enabled &= state is null && !readOnly;
+            else if (pair.Key == "AutonomousResume") enabled &= !readOnly && state?.Status is AutonomousSearchStatus.Ready or AutonomousSearchStatus.Cancelled or AutonomousSearchStatus.Running;
             else if (pair.Key == "AutonomousCopy") enabled &= _session.RecordPath is not null;
             else if (pair.Key == "AutonomousExport") enabled &= _candidates.SelectedItem is TopologyCandidateRow row && row.Candidate.Assessment.Completed && !row.Candidate.Topology.HasTransitionElements;
             pair.Value.IsEnabled = enabled;
-            ToolTip.SetTip(pair.Value, enabled ? null : UiLocalization.Text(IsBusy ? "请先停止并保存当前任务" : "请先载入记录或选择可用候选"));
+            ToolTip.SetTip(pair.Value, enabled ? null : UiLocalization.Text(IsBusy ? "请先停止并保存当前任务"
+                : readOnly && pair.Key is "AutonomousRun" or "AutonomousResume" ? "此通光原型仅供查看和导出，请新建版本化计划" : "请先载入记录或选择可用候选"));
         }
         if (state is null) { _budget.Text = UiLocalization.Text("尚未消耗预算"); _record.Text = ""; return; }
-        var used = state.Consumed; var cap = state.Plan.Options; var reserved = state.Reservation?.Maximum.TracedRays ?? 0;
+        var used = state.Consumed; var cap = state.Plan.Options; var reserved = state.Reservation?.Maximum;
+        var pupils = state.Events.Where(entry => entry.Recovery?.Work.PupilEvaluations is not null).Select(entry => entry.Recovery!.Work.PupilEvaluations!.Value).ToArray();
+        var unknown = state.Events.Count(entry => entry.Outcome == "InterruptedUnknownCharged");
         _budget.Text = UiLocalization.Text("已计费 / 上限") + $" · {UiLocalization.Text("评价")} {used.FunctionEvaluations}/{cap.MaximumFunctionEvaluations} · "
-            + $"{UiLocalization.Text("求导")} {used.GradientEvaluations}/{cap.MaximumGradientEvaluations} · {UiLocalization.Text("追迹")} {used.TracedRays}/{cap.MaximumTracedRays}"
-            + $" · {UiLocalization.Text("预约")} {reserved} · {used.Elapsed.TotalSeconds:F1}s · {UiLocalization.Text("达标归档")} {state.AcceptedArchive.Length}";
+            + $"{UiLocalization.Text("光线梯度")} {used.GradientEvaluations}/{cap.MaximumGradientEvaluations} · {UiLocalization.Text("追迹")} {used.TracedRays}/{cap.MaximumTracedRays}"
+            + $" · {used.Elapsed.TotalSeconds:F1}/{cap.TimeLimit.TotalSeconds:G8}s\n"
+            + UiLocalization.Text("已记录的工作明细") + $" · {UiLocalization.Text("矩阵")} {used.MatrixEvaluations} · Jacobian {used.JacobianBuilds} · "
+            + $"{UiLocalization.Text("差分探测")} {used.DifferenceEvaluations} · {UiLocalization.Text("瞳查询")} "
+            + (pupils.Length > 0 ? pupils.Sum(value => (long)value).ToString(CultureInfo.CurrentCulture) : UiLocalization.Text("未记录"))
+            + $" · {UiLocalization.Text("几何查询")} {used.GeometryProbes} · {UiLocalization.Text("独立验收")} {used.ValidationEvaluations}\n"
+            + UiLocalization.Text("在途预约") + $" · {UiLocalization.Text("评价")} {reserved?.FunctionEvaluations ?? 0} · {UiLocalization.Text("光线梯度")} {reserved?.GradientEvaluations ?? 0} · "
+            + $"{UiLocalization.Text("追迹")} {reserved?.TracedRays ?? 0} · {(reserved?.Elapsed ?? TimeSpan.Zero).TotalSeconds:F1}s · {UiLocalization.Text("达标归档")} {state.AcceptedArchive.Length}"
+            + (unknown > 0 ? $"\n{UiLocalization.Text("未知中断阶段按预约计费，辅助工作只显示已记录数量")} · {unknown}" : "");
+        ToolTip.SetTip(_budget, UiLocalization.Text("光线梯度与恢复矩阵 Jacobian 分别记录，不能按相同成本相加；未记录不代表零工作"));
         _record.Text = _session.RecordPath;
+
+        void Hint(string id, string text)
+        {
+            if (editable) ToolTip.SetTip(_choices[id], UiLocalization.Text(text));
+        }
     }
 
     private void ShowCandidate()
@@ -327,7 +450,7 @@ public sealed partial class AutonomousTopologyWindow
     }
 
     private static string Operation(string value) => UiLocalization.Text(value switch
-    { "seed" => "起点验收", "optimize" => "连续优化", "insert" => "增片", "delete" => "删片", "split" => "拆片", "merge" => "并片", "material" => "替换材料", "profile" => "升级面型", _ => value });
+    { "seed" => "起点验收", "optimize" => "连续优化", "insert" => "增片", "delete" => "删片", "gradual-delete" => "渐进删除", "split" => "拆片", "merge" => "并片", "material" => "替换材料", "profile" => "升级面型", _ => value });
     private static string Phase(AutonomousSearchPhase? value) => UiLocalization.Text(value switch
     { AutonomousSearchPhase.Feasibility => "阶段独立验收", AutonomousSearchPhase.Recovery => "一阶恢复", AutonomousSearchPhase.Local => "局部补偿", AutonomousSearchPhase.Full => "全目标优化", AutonomousSearchPhase.Validation => "独立验收", AutonomousSearchPhase.TransitionValidation => "过渡验收", _ => "—" });
     private static string Outcome(string value) => UiLocalization.Text(value switch
@@ -349,6 +472,8 @@ public sealed partial class AutonomousTopologyWindow
         "TimeLimit" => "达到阶段时限",
         "Cancelled" => "已停止",
         "BudgetExhausted" or "RayBudgetExhausted" => "预算耗尽",
+        "InterruptedUnknownCharged" => "未知中断已按预约计费",
+        "NotDispatched" => "未派发，已退还预约",
         _ => value
     });
 

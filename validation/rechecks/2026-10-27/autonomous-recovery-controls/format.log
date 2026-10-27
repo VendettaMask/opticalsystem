@@ -1,0 +1,6 @@
+Unhandled exception: System.IO.FileNotFoundException: 解决方案文件“D:\Projects\opticalsystem\OpticalSystemDesign.sln”不存在。
+   at Microsoft.CodeAnalysis.Tools.Workspaces.MSBuildWorkspaceFinder.FindFile(String workspacePath)
+   at Microsoft.CodeAnalysis.Tools.Workspaces.MSBuildWorkspaceFinder.FindWorkspace(String searchDirectory, String workspacePath)
+   at Microsoft.CodeAnalysis.Tools.FormatCommandCommon.ParseWorkspaceOptions(ParseResult parseResult, FormatOptions formatOptions)
+   at Microsoft.CodeAnalysis.Tools.Commands.FormatWhitespaceCommand.FormatWhitespaceHandler.InvokeAsync(ParseResult parseResult, CancellationToken cancellationToken)
+   at System.CommandLine.Invocation.InvocationPipeline.InvokeAsync(ParseResult parseResult, CancellationToken cancellationToken)

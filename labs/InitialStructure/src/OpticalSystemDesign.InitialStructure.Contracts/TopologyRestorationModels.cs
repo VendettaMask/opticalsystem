@@ -10,6 +10,8 @@ public sealed record ParaxialRecoveryOptions
     public bool? UseAutomaticMatrixDerivatives { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? RestorePupilMagnification { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? UseGeometryConstraintTangents { get; init; }
     public int MaximumAcceptedSteps { get; init; } = 30;
     public int MaximumFunctionEvaluations { get; init; } = 400;
     public TimeSpan TimeLimit { get; init; } = TimeSpan.FromMinutes(1);

@@ -6,6 +6,9 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="../../validation/zemax/2026-r1/afocal-fft-energy-2026-10-27/*.json" Link="Fixtures/afocal-fft-energy/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/afocal-pupil-scale-2026-10-27/*.json" Link="Fixtures/afocal-pupil-scale/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/afocal-reference-focus-2026-10-27/*.json" Link="Fixtures/afocal-reference-focus/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/afocal-analysis-repair-2026-10-26/*.json" Link="Fixtures/afocal-analysis-repair/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/**/*" Link="Fixtures/afocal-repair/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/objectives-completion-2026-10-23/captures/**/*" Link="Fixtures/objectives-completion/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />

@@ -1,0 +1,45 @@
+  OpticalSystemDesign.Core -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.Application -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\Projects\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.InitialStructure.Tests -> D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll
+D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:06.13]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(local: False, version: 2) [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(local: False, version: 2) [5 s]
+  错误消息:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.<>c__DisplayClass18_0.<<HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution>b__0>d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Execution.cs:line 50
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.<>c__DisplayClass18_0.<<HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution>b__0>d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Execution.cs:line 75
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(Boolean local, Nullable`1 version) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Execution.cs:line 37
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:09.95]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(local: True, version: null) [FAIL]
+数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(local: True, version: null) [3 s]
+  错误消息:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.<>c__DisplayClass18_0.<<HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution>b__0>d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Execution.cs:line 50
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.<>c__DisplayClass18_0.<<HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution>b__0>d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Execution.cs:line 75
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(Boolean local, Nullable`1 version) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Execution.cs:line 37
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-10-27\autonomous-execution-gates\historical-first.trx
+
+失败!  - 失败:     2，通过:     0，已跳过:     0，总计:     2，持续时间: 8 s - OpticalSystemDesign.InitialStructure.Tests.dll (net10.0)

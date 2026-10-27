@@ -16,7 +16,8 @@ internal static class BoundedTrustRegionLeastSquares
         Action<IReadOnlyList<double>, LeastSquaresEvaluation>? acceptedStep = null,
         Action<bool>? evaluationStarted = null, Action? jacobianBuilt = null,
         Action<LeastSquaresTrial>? trialEvaluated = null,
-        Func<IReadOnlyList<double>, double[,]>? analyticJacobian = null)
+        Func<IReadOnlyList<double>, double[,]>? analyticJacobian = null,
+        Func<IReadOnlyList<double>, IReadOnlyList<double>, double, double[]?>? trialProjector = null)
     {
         options ??= new();
         Validate(initial, lowerBounds, upperBounds, options);
@@ -113,6 +114,16 @@ internal static class BoundedTrustRegionLeastSquares
                     : RegularizedStep(regularized, jacobian, evaluation.Residuals, gradient, scaledLower, scaledUpper, free,
                         radius, resolveCrossedBounds, ref factorizations);
                 var proposed = vector.Select((value, index) => Math.Clamp(value + step[index] / scales[index], lower[index], upper[index])).ToArray();
+                if (trialProjector is not null)
+                {
+                    proposed = trialProjector(vector, proposed, radius) ?? vector.ToArray();
+                    if (proposed.Length != vector.Length) throw new ArgumentException("Projected trial dimension changed.");
+                    for (var index = 0; index < proposed.Length; index++) proposed[index] = Math.Clamp(proposed[index], lower[index], upper[index]);
+                    var projectedStep = proposed.Select((value, index) => (value - vector[index]) * scales[index]).ToArray();
+                    var projectedNorm = regularized is null ? MaxAbs(projectedStep) : projectedStep.Aggregate(0.0, double.Hypot);
+                    if (projectedNorm > radius)
+                        for (var index = 0; index < proposed.Length; index++) proposed[index] = vector[index] + (proposed[index] - vector[index]) * radius / projectedNorm;
+                }
                 if (proposed.Any(value => !double.IsFinite(value))) return Finish(LeastSquaresTermination.NonFiniteModel);
                 for (var index = 0; index < step.Length; index++) step[index] = (proposed[index] - vector[index]) * scales[index];
                 var stepNorm = regularized is null ? MaxAbs(step) : step.Aggregate(0.0, double.Hypot);

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1a46c6f2-d5a8-467e-9182-27bcbd43a35f" name="allen@DESKTOP-SET3SNR 2026-10-27 19:48:55" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T19:48:55.0484974+08:00" queuing="2026-10-27T19:48:55.0484976+08:00" start="2026-10-27T19:48:49.8396477+08:00" finish="2026-10-27T19:48:55.0522338+08:00" />
+  <TestSettings name="default" id="3906cd5c-d140-412c-a0d6-2dca86f52e66">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-27_19_48_55" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="08499d6d-c167-41d3-a759-d3af6f723e1a" testId="b5257cef-2818-32a3-4b53-cdb17befad6f" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ReservationUnitsAndUnknownAuxiliaryCostsAreVisibleWithoutDispatch" computerName="DESKTOP-SET3SNR" duration="00:00:03.6565267" startTime="2026-10-27T19:48:51.3093291+08:00" endTime="2026-10-27T19:48:54.9491562+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08499d6d-c167-41d3-a759-d3af6f723e1a" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ReservationUnitsAndUnknownAuxiliaryCostsAreVisibleWithoutDispatch" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b5257cef-2818-32a3-4b53-cdb17befad6f">
+      <Execution id="08499d6d-c167-41d3-a759-d3af6f723e1a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="ReservationUnitsAndUnknownAuxiliaryCostsAreVisibleWithoutDispatch" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b5257cef-2818-32a3-4b53-cdb17befad6f" executionId="08499d6d-c167-41d3-a759-d3af6f723e1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.46]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.90]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.92]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:04.62]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Warning" timestamp="2026-10-27T19:48:55.0137530+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -15,10 +15,25 @@ public static partial class DiffractionEngine
             var diameter = ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic);
             if (!(diameter > 0)) throw new AnalysisDataUnavailableException("Diffraction Encircled Energy", "no finite exit pupil");
             var angularPitch = 2 * longest.Micrometers / (diameter * Math.Sqrt(pupilSampling));
-            return ComputeFftPsfSpectrum(optic, field, wavelengths, pupilSampling, 2 * pupilSampling,
-                cellCenteredPupil: true, zemaxFftSampling: true, ignoreOpd: ignoreOpd,
-                aimAtStop: optic.RayAimingEnabled, referenceWavelength: reference,
-                imageDelta: angularPitch, ignoreScalarTransmission: true);
+            return wavelengths.Select(wave =>
+            {
+                // Form the angular Fourier interval directly. Canceling the
+                // pupil diameter through a rounded default-pitch ratio can
+                // move the four diagonal nodes outside the closed unit pupil.
+                var step = (wave.Micrometers / longest.Micrometers) / (2 * Math.Sqrt(pupilSampling));
+                var aspect = ImageSpaceAnalysisSupport.AfocalFftPupilAspectStretch(
+                    optic, field, wave, optic.RayAimingEnabled);
+                var grid = new PupilGridSpecification(pupilSampling, true, true,
+                    step * aspect.X * (pupilSampling / 2d - 1))
+                {
+                    ExplicitCoordinateStep = step * aspect.X,
+                    ExplicitCoordinateStepY = step * aspect.Y
+                };
+                var result = ComputeFftPsfCore(optic, field, wave, pupilSampling, 2 * pupilSampling,
+                    false, true, 0, null, null, true, ignoreOpd, optic.RayAimingEnabled,
+                    reference, angularPitch, true, out _, explicitPupilGrid: grid);
+                return (wave, result with { SampleSpacingMicrometers = angularPitch });
+            }).ToArray();
         }
         var scaleWave = wavelengths.Count == 1 ? reference : longest;
         if (pupilSampling == 32 && wavelengths.Count == 1

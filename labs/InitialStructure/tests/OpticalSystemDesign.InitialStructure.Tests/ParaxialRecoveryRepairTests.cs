@@ -43,6 +43,26 @@ public sealed class ParaxialRecoveryRepairTests
     }
 
     [Fact]
+    public async Task DependentPupilJacobianWithIncompatibleResidualStillRejectsRecovery()
+    {
+        var plan = await Plan(); var parent = TopologyCompiler.Compile(plan.Seeds[0], plan.Constraints);
+        using var recorded = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/preparation.json")));
+        var restored = recorded.RootElement.GetProperty("Deletions")[2].GetProperty("Recovery").GetProperty("Topology").Deserialize<DesignTopology>(
+            new JsonSerializerOptions { Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) } })!;
+        var child = TopologyCompiler.Compile(restored, plan.Constraints);
+        var surfaces = restored.Elements.Where(element => element.FrontZMillimeters > restored.Stop.ZMillimeters)
+            .SelectMany(element => new[] { element.FrontSurfaceId, element.BackSurfaceId }).ToHashSet();
+        var variables = Bind(child, plan, true).Slots.Where(slot => surfaces.Contains(slot.Request.SurfaceId)).Take(2).Select(slot => slot.Request).ToArray();
+        using var measurement = SequentialTraceMeasurement.Begin();
+        var result = ParaxialRestorer.Run(parent, child, variables, plan.Targets, plan.Options.Recovery with
+        { UseAutomaticMatrixDerivatives = true, RestorePupilMagnification = true, MaximumFunctionEvaluations = 2 });
+        Assert.Equal(2, result.InitialJacobianRank); Assert.Equal(ParaxialRecoveryTermination.RankDeficient, result.Termination);
+        Assert.Empty(result.Steps); Assert.Equal(2, result.Work.FunctionEvaluations); Assert.Equal(0, measurement.RayCount);
+        Assert.True(Math.Abs(result.InitialPupilError!.Value) > .05);
+        Evidence("incompatible-pupil-rank", result);
+    }
+
+    [Fact]
     public async Task MatchedAAndCDoNotFalselyCertifyUnrestoredFixedStopPupil()
     {
         var plan = await Plan(); var parent = TopologyCompiler.Compile(plan.Seeds[0], plan.Constraints);

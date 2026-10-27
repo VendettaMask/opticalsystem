@@ -45,6 +45,24 @@ internal static class NativePointComparisonCapture
             Host.Write("reference-wavelength-readback.json",Host.Properties(wave));
         }
         system.UpdateStatus();
+        if ((string)Host.Request["pointKind"] == "centroid")
+        {
+            int sampling = Host.Int("centroidSampling");
+            if (sampling < 2 || sampling > 256) throw new InvalidOperationException("Bounded centroid sampling required");
+            var centroids = new List<object>();
+            foreach (var point in inputs)
+            {
+                var values = new Dictionary<string, object>();
+                foreach (var code in new[] { "CNAX", "CNAY", "CNPX", "CNPY" })
+                    values[code] = Host.Finite(system.MFE.GetOperandValue(Host.EnumValue<MeritOperandType>(code),
+                        0, Host.Int("wavelength"), N(point,"hx"), N(point,"hy"), 0, sampling, 0, 0));
+                centroids.Add(Host.Object("hx",N(point,"hx"),"hy",N(point,"hy"),"values",values));
+            }
+            Host.Write("centroid-reference.json",Host.Object("contract","NativeCentroidOperandsV1",
+                "sampling",sampling,"wavelength",Host.Int("wavelength"),"angleUnit","Radian",
+                "positionUnit","Millimeter","centroids",centroids,"savedInput",false));
+            return;
+        }
         var diameter = system.MFE.GetOperandValue(MeritOperandType.EPDI, 0, 0, 0, 0, 0, 0, 0, 0);
         if (double.IsNaN(diameter) || double.IsInfinity(diameter) || diameter <= 0) throw new InvalidOperationException("Invalid pupil");
         Host.Write("active-model.json",Host.Object("surfaces",Enumerable.Range(0,system.LDE.NumberOfSurfaces).Select(i=>Host.Properties(system.LDE.GetSurfaceAt(i))).ToArray(),
@@ -53,17 +71,18 @@ internal static class NativePointComparisonCapture
             initialThicknesses.Where((v,i)=>v!=system.LDE.GetSurfaceAt(i+1).Thickness).Any())
             throw new InvalidOperationException("Frozen prescription thickness changed");
         var surfaces = new List<object>();
+        bool imageGeometryOnly = Host.Request.ContainsKey("imageGeometryOnly") && Convert.ToBoolean(Host.Request["imageGeometryOnly"]);
         var tool = system.Tools.OpenBatchRayTrace();
         try
         {
             if (tool == null) throw new InvalidOperationException("Native batch ray tool unavailable");
-            var launches = inputs.Select(p => {
+            var launches = imageGeometryOnly ? new object[0] : inputs.Select(p => {
                 double x,y,z,l,m,n;
                 var ok=tool.GetDirectFieldCoordinates(Host.Int("wavelength"),RaysType.Real,N(p,"hx"),N(p,"hy"),N(p,"px"),N(p,"py"),out x,out y,out z,out l,out m,out n);
                 return Host.Object("success",ok,"x",Host.Finite(x),"y",Host.Finite(y),"z",Host.Finite(z),"l",Host.Finite(l),"m",Host.Finite(m),"n",Host.Finite(n));
             }).ToArray();
             Host.Write("direct-launches.json",launches);
-            for (var surface = 1; surface <= system.LDE.NumberOfSurfaces; surface++)
+            for (var surface = imageGeometryOnly ? system.LDE.NumberOfSurfaces : 1; surface <= system.LDE.NumberOfSurfaces; surface++)
             {
                 var index=Math.Min(surface,system.LDE.NumberOfSurfaces-1);
                 var data = tool.CreateNormUnpol(inputs.Length, RaysType.Real, index);
@@ -106,7 +125,7 @@ internal static class NativePointComparisonCapture
         Host.Write("point-reference.json",Host.Object("contract","NativeExplicitPointsV1","units","Millimeters", "opdMode","CurrentAndChief",
             "kind",Host.Request["pointKind"],"wavelength",Host.Int("wavelength"),"inputSha256",Host.Request["inputSha256"],
             "originalKeys",Host.Request["originalKeys"],"inputs",inputs,"surfaces",surfaces,"operands",operands,
-            "savedInput",false,"builtInPlotReplaced",false));
+            "savedInput",false,"builtInPlotReplaced",false,"imageGeometryOnly",imageGeometryOnly));
     }
     private static double N(Dictionary<string,object> p,string key) { return Convert.ToDouble(p[key]); }
 }

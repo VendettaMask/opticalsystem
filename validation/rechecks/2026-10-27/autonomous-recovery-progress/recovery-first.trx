@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ac180dc1-2376-4895-b0ab-26aae2583de7" name="allen@DESKTOP-SET3SNR 2026-10-27 21:27:47" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-27T21:27:47.2103119+08:00" queuing="2026-10-27T21:27:47.2103124+08:00" start="2026-10-27T21:27:35.7248455+08:00" finish="2026-10-27T21:27:57.9047001+08:00" />
+  <TestSettings name="default" id="a0aeb225-f6d2-47e3-8a44-9aed51d5c7d5">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-27_21_27_47" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="bdeb036a-890a-41c3-9964-acf1cb449915" testId="b9530c66-a68a-d64a-1628-0145a066df4a" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(automatic: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.6238177" startTime="2026-10-27T21:27:47.1516714+08:00" endTime="2026-10-27T21:27:47.6542396+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bdeb036a-890a-41c3-9964-acf1cb449915">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: Cancelled&#xD;
+Actual:   Completed</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(Boolean automatic) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.RecoveryProgress.cs:line 69&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1efc6eca-3df8-456f-bc41-bb764368182e" testId="37cdf83a-38e7-e911-e803-203478b1d29d" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(automatic: False)" computerName="DESKTOP-SET3SNR" duration="00:00:09.7469463" startTime="2026-10-27T21:27:37.2587555+08:00" endTime="2026-10-27T21:27:46.9970688+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1efc6eca-3df8-456f-bc41-bb764368182e" />
+    <UnitTestResult executionId="125b7aea-3edc-4ade-a83f-d1c9902eb02f" testId="80c53c9e-6c75-7555-85ee-a9fbe23559e5" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.EditedCompensationFlagsReachExecutionAndSurviveDurableCancelAndDesktopResume" computerName="DESKTOP-SET3SNR" duration="00:00:09.8087591" startTime="2026-10-27T21:27:47.6840422+08:00" endTime="2026-10-27T21:27:57.4638640+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="125b7aea-3edc-4ade-a83f-d1c9902eb02f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(automatic: False)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="37cdf83a-38e7-e911-e803-203478b1d29d">
+      <Execution id="1efc6eca-3df8-456f-bc41-bb764368182e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(automatic: True)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b9530c66-a68a-d64a-1628-0145a066df4a">
+      <Execution id="bdeb036a-890a-41c3-9964-acf1cb449915" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.EditedCompensationFlagsReachExecutionAndSurviveDurableCancelAndDesktopResume" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="80c53c9e-6c75-7555-85ee-a9fbe23559e5">
+      <Execution id="125b7aea-3edc-4ade-a83f-d1c9902eb02f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="EditedCompensationFlagsReachExecutionAndSurviveDurableCancelAndDesktopResume" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b9530c66-a68a-d64a-1628-0145a066df4a" executionId="bdeb036a-890a-41c3-9964-acf1cb449915" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="37cdf83a-38e7-e911-e803-203478b1d29d" executionId="1efc6eca-3df8-456f-bc41-bb764368182e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80c53c9e-6c75-7555-85ee-a9fbe23559e5" executionId="125b7aea-3edc-4ade-a83f-d1c9902eb02f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.74]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.91]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.93]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:11.37]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:11.37]       Expected: Cancelled&#xD;
+[xUnit.net 00:00:11.37]       Actual:   Completed&#xD;
+[xUnit.net 00:00:11.38]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.38]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.RecoveryProgress.cs(69,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(Boolean automatic)&#xD;
+[xUnit.net 00:00:11.38]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.20]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-27T21:27:47.6641817+08:00">
+        <Text>[xUnit.net 00:00:11.37]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(automatic: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Warning" timestamp="2026-10-27T21:27:57.6907485+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

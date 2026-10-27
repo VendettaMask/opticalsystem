@@ -1,0 +1,70 @@
+{
+  "assessment": {
+    "OpticFingerprint": "5e3e2b6674274c73e3523d37f4da2de13d87d5dbf7fdda25eb347a836175f827",
+    "ProtocolFingerprint": "725bee4f99b4f59d79a735cb6e6f27915d3798deb063efd67a1efb066931e806",
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 12.5,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 0.05,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.03,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.01,
+      "MaximumOpticalTrackMillimeters": 10000,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "StructuralConstraints": {
+      "MinimumElementCount": 1,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 0.1,
+      "MaximumMechanicalTrackMillimeters": 10000,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "EffectiveFocalLengthMillimeters": 49.06699461689734,
+    "FNumber": 12.266748654224335,
+    "Fields": [
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.14835444241707266,
+        "MaximumRadiusMillimeters": 0.22916192873483254,
+        "DistortionFraction": 0,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "Violations": [
+      {
+        "Code": "field:0:rms",
+        "Actual": 0.14835444241707266,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:0:maximum",
+        "Actual": 0.22916192873483254,
+        "Limit": 0.15
+      }
+    ],
+    "Completed": true,
+    "MeetsTargets": false,
+    "TracedRayCount": 2120,
+    "GeometryProbes": 583,
+    "Failure": null
+  },
+  "PhysicalRays": 2120
+}

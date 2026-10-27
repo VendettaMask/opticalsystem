@@ -19,7 +19,7 @@ using OpticalSystemDesign.Tests;
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
 [Collection(LabDesktopCollection.Name)]
-public sealed class AutonomousDesktopTests
+public sealed partial class AutonomousDesktopTests
 {
     private static readonly JsonSerializerOptions Json = new() { NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals };
 

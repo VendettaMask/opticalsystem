@@ -41,6 +41,8 @@ public sealed record WavefrontResult(
     public PupilGridSpecification? PupilGrid { get; init; }
     public PupilSourceIdentity? SourceIdentity { get; init; }
     public WavefrontReferenceSphere? ReferenceSphere { get; init; }
+    /// <summary>Global origin of the chief-normal reference plane for afocal propagation.</summary>
+    public Vector3D? AfocalReferencePlaneOrigin { get; init; }
     // Datum of the existing scalar Huygens weighting convention. This is not
     // a physical reference-sphere normal; keep that distinction explicit.
     public Vector3D HuygensCoordinateOrigin { get; init; }
@@ -533,7 +535,8 @@ public static class WavefrontEngine
             UseRayAiming = aimAtStop,
             SourceField = field,
             SourceWavelengthNanometers = wavelength.Nanometers,
-            SourceReferenceWavelengthNanometers = referenceWavelengthNanometers
+            SourceReferenceWavelengthNanometers = referenceWavelengthNanometers,
+            AfocalReferencePlaneOrigin = referencePoint
         };
     }
 

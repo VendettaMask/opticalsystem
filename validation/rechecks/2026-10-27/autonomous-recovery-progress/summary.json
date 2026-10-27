@@ -1,0 +1,465 @@
+{
+  "Task": "Recovery progress, compatible redundant pupil constraints, and durable cancellation",
+  "Date": "2026-10-27",
+  "BaseCommit": "3947b7b57ae404f65af772b2a06ca356f79e539f",
+  "WorktreeIsUncommitted": true,
+  "UniqueTests": 6,
+  "LatestPassed": 6,
+  "LatestFailed": 0,
+  "NewTests": 3,
+  "RelatedExistingRegressions": 3,
+  "Attempts": [
+    {
+      "Failed": 1,
+      "Total": 3,
+      "File": "recovery-first.trx",
+      "Passed": 2
+    },
+    {
+      "Failed": 1,
+      "Total": 1,
+      "File": "recovery-rank-probe.trx",
+      "Passed": 0
+    },
+    {
+      "Failed": 1,
+      "Total": 4,
+      "File": "recovery-corrected.trx",
+      "Passed": 3
+    },
+    {
+      "Failed": 0,
+      "Total": 1,
+      "File": "recovery-final.trx",
+      "Passed": 1
+    }
+  ],
+  "LatestTests": [
+    {
+      "Evidence": "recovery-first.trx",
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(automatic: False)"
+    },
+    {
+      "Evidence": "recovery-final.trx",
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(automatic: True)"
+    },
+    {
+      "Evidence": "recovery-first.trx",
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.EditedCompensationFlagsReachExecutionAndSurviveDurableCancelAndDesktopResume"
+    },
+    {
+      "Evidence": "recovery-corrected.trx",
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.ParaxialRecoveryRepairTests.AutomaticRecoveryReplacesDifferenceProbesAndRetainsHardGeometryChecksAndLegacyIdentity"
+    },
+    {
+      "Evidence": "recovery-corrected.trx",
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.ParaxialRecoveryRepairTests.DependentPupilJacobianWithIncompatibleResidualStillRejectsRecovery"
+    },
+    {
+      "Evidence": "recovery-corrected.trx",
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.RecoveryRecordsRankNoFreedomGeometryBudgetCancellationAndTimeoutSeparately"
+    }
+  ],
+  "Checks": {
+    "SourceFormat": 0,
+    "DefaultAndTestBinariesMatch": true,
+    "DiffWhitespace": 0,
+    "Documentation": 0,
+    "DefaultAppOutput": "Release/net10.0",
+    "SourceFormatVerify": 0
+  },
+  "Scope": {
+    "CheckpointFieldsChanged": false,
+    "ParameterPermissionsChanged": false,
+    "ConcurrentBackendChangesNotAuthoredByThisTask": [
+      "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs"
+    ],
+    "LegacyNonPupilProtocolsChanged": false,
+    "PupilRecoveryProtocol": "autonomous-paraxial-recovery-pupil-v4",
+    "OriginalTolerance": 0.0001,
+    "CoreOpticalCalculationsChangedByThisTask": false,
+    "LaboratoryRankGuardChanged": true
+  },
+  "Cases": [
+    {
+      "TrialReplayed": false,
+      "ResumedStatus": "completed",
+      "ResumeAdditionalTraces": 0,
+      "SearchWork": {
+        "FunctionEvaluations": 38,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 36,
+        "DifferenceEvaluations": 32,
+        "JacobianBuilds": 2,
+        "TracedRays": 2120,
+        "GeometryProbes": 3654,
+        "Elapsed": "00:00:01.3959442"
+      },
+      "RecoveryWork": {
+        "FunctionEvaluations": 37,
+        "DifferenceEvaluations": 32,
+        "MatrixEvaluations": 36,
+        "JacobianBuilds": 2,
+        "GeometryProbes": 2813,
+        "Elapsed": "00:00:00.1494342"
+      },
+      "Automatic": false
+    },
+    {
+      "TrialReplayed": false,
+      "ResumedStatus": "completed",
+      "ResumeAdditionalTraces": 0,
+      "SearchWork": {
+        "FunctionEvaluations": 6,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 4,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 3,
+        "TracedRays": 2120,
+        "GeometryProbes": 1126,
+        "Elapsed": "00:00:01.3789207"
+      },
+      "RecoveryWork": {
+        "FunctionEvaluations": 5,
+        "DifferenceEvaluations": 0,
+        "MatrixEvaluations": 4,
+        "JacobianBuilds": 3,
+        "GeometryProbes": 285,
+        "Elapsed": "00:00:00.0510528",
+        "PupilEvaluations": 4
+      },
+      "Automatic": true
+    }
+  ],
+  "SeparateControls": {
+    "PerturbationWork": {
+      "FunctionEvaluations": 4,
+      "DifferenceEvaluations": 0,
+      "MatrixEvaluations": 4,
+      "JacobianBuilds": 3,
+      "GeometryProbes": 339,
+      "Elapsed": "00:00:00.0127963",
+      "PupilEvaluations": 4
+    },
+    "IncompatibleWork": {
+      "FunctionEvaluations": 2,
+      "DifferenceEvaluations": 0,
+      "MatrixEvaluations": 2,
+      "JacobianBuilds": 1,
+      "GeometryProbes": 113,
+      "Elapsed": "00:00:00.0106504",
+      "PupilEvaluations": 2
+    },
+    "PerturbationRecovered": true,
+    "AdditionalPhysicalRays": 0,
+    "FullDeletionDiagnostics": [
+      "A redundant pupil constraint is locally consistent with the optical Jacobian; continuing with rank 2.",
+      "Recovery geometry is blocked at lens-3:edge:8",
+      "Trust-region termination: StepTooSmall"
+    ],
+    "FullDeletionWork": {
+      "FunctionEvaluations": 48,
+      "DifferenceEvaluations": 0,
+      "MatrixEvaluations": 22,
+      "JacobianBuilds": 21,
+      "GeometryProbes": 2907,
+      "Elapsed": "00:00:00.1291337",
+      "PupilEvaluations": 22
+    },
+    "IncompatibleResidualRejected": true,
+    "FullDeletionRecovered": false,
+    "PerturbationErrors": [
+      -2.6620130211263415E-08,
+      -5.156939077155531E-08,
+      5.06093966734511E-08
+    ]
+  },
+  "Validation": {
+    "ParentCommandPriority": "BelowNormal",
+    "NativeDesktopInteraction": false,
+    "Host": "Avalonia Headless/Skia via SafeHeadlessUnitTestSession",
+    "DotnetProcessorCount": 2
+  },
+  "Limitations": [
+    "The small parent uses relaxed workflow targets; no successful reduced optical design is claimed",
+    "Full deletion remains blocked by the original edge-thickness gate; the local perturbation control is separate",
+    "No native UI acceptance, full repository suite, long training, final-output comparison, commit, push or release"
+  ],
+  "Sources": [
+    {
+      "Bytes": 38788,
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutonomousSearchService.cs",
+      "Sha256": "dc5bceb88b27cb54898c19863007e7284cc4f6eaa2126a9160c0bf10bf559283"
+    },
+    {
+      "Bytes": 21733,
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialRestorer.cs",
+      "Sha256": "42b1615e5a3619606ff54f4314ab08b1a29f3093a37de2340a4f076a8b516dec"
+    },
+    {
+      "Bytes": 4115,
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousDesktopSession.cs",
+      "Sha256": "58ad5cada65988c7bf1c459d6a9f4fe693ec2e0dd55af302401af961becba68e"
+    },
+    {
+      "Bytes": 34566,
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs",
+      "Sha256": "9d6fb35b465815be02d1d4e60375554de19ca9ba5bfa4a745998ea3cc99bf825"
+    },
+    {
+      "Bytes": 18936,
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs",
+      "Sha256": "be69d6638af80ddd676f211c6ac38c2632c248bc441da91d1221d0d33e314cab"
+    },
+    {
+      "Bytes": 9548,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutonomousDesktopTests.RecoveryProgress.cs",
+      "Sha256": "8739309cf5683865d5c36e843d3ebf8aac2278392a18eb444b7d24a535b8fa89"
+    },
+    {
+      "Bytes": 19320,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/ParaxialRecoveryRepairTests.cs",
+      "Sha256": "c51871548a7beb6594434a52cf7b85d63b0f55c1fd0bb0e3552269d09c07cc27"
+    },
+    {
+      "Bytes": 85602,
+      "Path": "docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md",
+      "Sha256": "49612ed9bbd076e84e4cec3c798d8468c6768e8d7d4bcba1ea6f8e356c68a0a8"
+    },
+    {
+      "Bytes": 349620,
+      "Path": "docs/CURRENT_STATUS.md",
+      "Sha256": "0abc13815502e33844c317e32755f69ceb9ac055a9b0d02aa2a1e09193393937"
+    },
+    {
+      "Bytes": 20742,
+      "Path": "labs/InitialStructure/README.md",
+      "Sha256": "f6b9c8898c29affba1125994b6305c612c8068dfa11fb71dc4b68760c3b8d731"
+    }
+  ],
+  "Binaries": [
+    {
+      "Bytes": 71162880,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "41c2a877b7e679e8469c6d8fb29c6519384db76ddd68507994dd6b209f4fe9c6"
+    },
+    {
+      "Bytes": 71162880,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "41c2a877b7e679e8469c6d8fb29c6519384db76ddd68507994dd6b209f4fe9c6"
+    },
+    {
+      "Bytes": 5891072,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "9e084a60bd4fe65db149db5d8ad3329db4486f6ee21145664182fc32db658b3e"
+    },
+    {
+      "Bytes": 5891072,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "9e084a60bd4fe65db149db5d8ad3329db4486f6ee21145664182fc32db658b3e"
+    },
+    {
+      "Bytes": 493568,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "25c326cf91403d0ffd915c3214777b21b0fc947bcf3e4dff96046c481c029be0"
+    },
+    {
+      "Bytes": 493568,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "25c326cf91403d0ffd915c3214777b21b0fc947bcf3e4dff96046c481c029be0"
+    },
+    {
+      "Bytes": 331264,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "Sha256": "f113b03facd17f566a53ce8456f325d48feda84a08553c460cde1ea3c4bd1ff5"
+    },
+    {
+      "Bytes": 331264,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "Sha256": "f113b03facd17f566a53ce8456f325d48feda84a08553c460cde1ea3c4bd1ff5"
+    },
+    {
+      "Bytes": 58880,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Persistence.dll",
+      "Sha256": "3710802f68e4cf3ad77c0f3f26c99cdf8e6f9678f293ba1e0797e0271922475e"
+    },
+    {
+      "Bytes": 58880,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Persistence.dll",
+      "Sha256": "3710802f68e4cf3ad77c0f3f26c99cdf8e6f9678f293ba1e0797e0271922475e"
+    }
+  ],
+  "Evidence": [
+    {
+      "Bytes": 44561,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\compensation-cancelled.json",
+      "Sha256": "290e70ff7b128d7c8fbab9771ba30232b8e614aaca178afddb1de0e59c494585"
+    },
+    {
+      "Bytes": 63510,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\compensation-final.autonomous.json",
+      "Sha256": "b8ea163babbc43d364e3f3198968b806b1642756f453c3016c7be1492cb10905"
+    },
+    {
+      "Bytes": 4810,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\compensation-plan.json",
+      "Sha256": "d8f38c16dff62a626aaa2fdb1cdc676139be345deb206d090182cc792070f0a9"
+    },
+    {
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\diff-check.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Bytes": 332099,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\documentation.json",
+      "Sha256": "9a5cc70962d5e5df202478a2bd2510158e2209596cbc8beebf86e7199b7d5380"
+    },
+    {
+      "Bytes": 246,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\documentation.log",
+      "Sha256": "aadaa10d2d629b15299cf0dce282331a3e84fbedf8ef872e5d5504c40b9f209f"
+    },
+    {
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\format-close.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\format-final.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\format-verify.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\format.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Bytes": 34766,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\front-stop-pupil-full-current.json",
+      "Sha256": "07a69a67f11cef1d9be4dcc9b4c2575a51c85233ef69dd1752eada4621a40ce5"
+    },
+    {
+      "Bytes": 6000,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\front-stop-pupil-perturbation.json",
+      "Sha256": "9f42086858581c59551747397657dc3d0b329ffc68162a0692d40f8e0e397482"
+    },
+    {
+      "Bytes": 34766,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\front-stop-pupil-recovered.json",
+      "Sha256": "cf3efc219c1351cbe471906ea73d54e08831f0ed408246c6d7cb465598983b04"
+    },
+    {
+      "Bytes": 7097,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\incompatible-pupil-rank.json",
+      "Sha256": "021775171940e0dcd15796c825762abdafc12c925e1b0e6256aadaa7c97a64b7"
+    },
+    {
+      "Bytes": 4594,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\README.md",
+      "Sha256": "5d42404df634d2408981fc0bd56f8fcdca25d4cc951d28d2eda75ca8b4d557e4"
+    },
+    {
+      "Bytes": 3183,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-corrected.log",
+      "Sha256": "c96025bad6d0c0392e760b5605e36711507222b32176d3bebbc1786606731e15"
+    },
+    {
+      "Bytes": 10361,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-corrected.trx",
+      "Sha256": "ebb742ff1cc2e220f30555febb35ae8a115dfe29e36f8f7d995e92763f728334"
+    },
+    {
+      "Bytes": 26099,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-False-cancelled.json",
+      "Sha256": "acf423fd970dfb364b03c52b4e52ffb5be9e5474280d6d43225c94dc0ae628db"
+    },
+    {
+      "Bytes": 26695,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-False-resumed.autonomous.json",
+      "Sha256": "37c094beaa82edd8b779b51856f05f41afd4870078a47fbd727840cdbf6458dd"
+    },
+    {
+      "Bytes": 2285,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-final.log",
+      "Sha256": "e4562539069536e43142a69d3da8a4e7dfb0a26a48b032bf9b718cb7826ddba1"
+    },
+    {
+      "Bytes": 3714,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-final.trx",
+      "Sha256": "c2af63fcc7ca4989ca7eabe5c106a9426576e3f2cc06db95477c5b4127927fc4"
+    },
+    {
+      "Bytes": 3171,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-first.log",
+      "Sha256": "94fce878d9c01ab4053212ff45af687705dde40e0ca8c297288ce6b46d408156"
+    },
+    {
+      "Bytes": 8722,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-first.trx",
+      "Sha256": "b7710aec6a6a8c91d126d5f98aee44eced795d9f14f226e27573836437796a8e"
+    },
+    {
+      "Bytes": 36408,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-probes.json",
+      "Sha256": "58e9fa594c9ee0761a3da031dc3ddcedc0b9e3fad64587f34793986ff0d087e6"
+    },
+    {
+      "Bytes": 3172,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-rank-probe.log",
+      "Sha256": "bb9577fdf73d80d9e519afe52c0f53c9ef46cc275db5e3a40b840c889c78fbda"
+    },
+    {
+      "Bytes": 5369,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-rank-probe.trx",
+      "Sha256": "82ce6a69e55d88aa5a6888ece0e16218ff40676eeed5c28df72366826dae3a9c"
+    },
+    {
+      "Bytes": 26942,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-True-attempt-0431d02e36a5475d8badac9cc1c7eb5f.autonomous.json",
+      "Sha256": "28068058544c82035d2a2bb77e11d74f5e90dc810291a7ff089626acbd76c6db"
+    },
+    {
+      "Bytes": 26942,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-True-attempt-0d4eac712dca4019bd90d2933c51abce.autonomous.json",
+      "Sha256": "9ce2376e15c235f903bcba4d004e24939b32dd66572ad3b94d57b7af32dbddae"
+    },
+    {
+      "Bytes": 25276,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-True-attempt-957691652d054e91961e08752dfc5c69.autonomous.json",
+      "Sha256": "e69297247d479b1881b9e7587e9fcab9a9556a4994ff81c3afe3fa755ba1eefc"
+    },
+    {
+      "Bytes": 26346,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-True-cancelled.json",
+      "Sha256": "0f3950c0c1d52eb2a354ce11dec106d8564dcb8056b8477ec0d94deb04761228"
+    },
+    {
+      "Bytes": 26942,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\recovery-True-resumed.autonomous.json",
+      "Sha256": "7276a3872e9f2fee752231c309563ecf2ff9f1cc313f324ec2ae6407d9a5deb8"
+    },
+    {
+      "Bytes": 8251,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-recovery-progress\\write-summary.ps1",
+      "Sha256": "ecbe9c8957ea29233e4cebf2c6d164f1a187a2391ccf1c508ada180e1418c0eb"
+    }
+  ]
+}

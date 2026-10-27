@@ -1,0 +1,332 @@
+{
+  "Task": "Autonomous desktop work accounting and plan preservation",
+  "Date": "2026-10-27",
+  "BaseCommit": "3947b7b57ae404f65af772b2a06ca356f79e539f",
+  "WorktreeIsUncommitted": true,
+  "UniqueTests": 7,
+  "LatestPassed": 7,
+  "LatestFailed": 0,
+  "NewTests": 5,
+  "RelatedExistingRegressions": 2,
+  "Attempts": [
+    {
+      "File": "desktop-first.trx",
+      "Failed": 4,
+      "Passed": 3
+    },
+    {
+      "File": "desktop-corrected.trx",
+      "Failed": 0,
+      "Passed": 6
+    },
+    {
+      "File": "accounting-render-final.trx",
+      "Failed": 0,
+      "Passed": 2
+    },
+    {
+      "File": "unknown-recording-final.trx",
+      "Failed": 0,
+      "Passed": 1
+    }
+  ],
+  "LatestTests": [
+    {
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.BudgetEditsPreserveNullAndAsymmetricBranchPoliciesAndUneditedPhysicalValues(asymmetric: False)",
+      "Evidence": "desktop-corrected.trx"
+    },
+    {
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.BudgetEditsPreserveNullAndAsymmetricBranchPoliciesAndUneditedPhysicalValues(asymmetric: True)",
+      "Evidence": "desktop-corrected.trx"
+    },
+    {
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopLoadsWithoutRunningPreservesPlanIdentityLocalizesAndRejectsUnsupportedInput",
+      "Evidence": "desktop-corrected.trx"
+    },
+    {
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.PrecisionAndAxialEditorAreExplicitAndBudgetEditsPreserveImportedSampling",
+      "Evidence": "desktop-first.trx"
+    },
+    {
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.RecordedRecoveryCostsAndRayGradientBudgetRemainDistinctInEveryLanguage(automatic: False)",
+      "Evidence": "accounting-render-final.trx"
+    },
+    {
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.RecordedRecoveryCostsAndRayGradientBudgetRemainDistinctInEveryLanguage(automatic: True)",
+      "Evidence": "accounting-render-final.trx"
+    },
+    {
+      "Outcome": "Passed",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ReservationUnitsAndUnknownAuxiliaryCostsAreVisibleWithoutDispatch",
+      "Evidence": "unknown-recording-final.trx"
+    }
+  ],
+  "Checks": {
+    "DiffWhitespace": 0,
+    "SourceFormat": 0,
+    "Documentation": 0,
+    "DefaultAppOutput": "Release/net10.0",
+    "SourceFormatVerify": 0
+  },
+  "Backend": {
+    "BudgetAccountingRulesChanged": false,
+    "CheckpointSchemaChanged": false,
+    "TaskModifiesCoreOrDomainLibrarySources": false,
+    "ConcurrentWorktreeBackendChangesNotAuthoredByThisTask": [
+      "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs"
+    ]
+  },
+  "Validation": {
+    "RecoveryFixture": "30 function requests per recovery; one structural trial; only for displaying recorded work, not optical success",
+    "ParentCommandPriority": "BelowNormal",
+    "NativeDesktopInteraction": false,
+    "ReadAndEditUiAdditionalTraces": 0,
+    "DotnetProcessorCount": 2,
+    "Host": "Avalonia Headless/Skia via SafeHeadlessUnitTestSession"
+  },
+  "Limitations": [
+    "No native interaction or full-app localization certification; scoped labels and off-screen captures only",
+    "Explicit recovery matrix counts do not count every internal paraxial calculation",
+    "Unrecorded or unknown interrupted auxiliary work is not assumed zero",
+    "No long training, new optimization-effect comparison, full repository suite, external numerical certification, commit, push or release"
+  ],
+  "Sources": [
+    {
+      "Sha256": "587bd1d42f1946f3d3e472d09645a0d85020e5b14ccca13942a6c6818898cf6e",
+      "Bytes": 15582,
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.cs"
+    },
+    {
+      "Sha256": "7840eef3c06665f994e2af170798cac99fec0f47fdba4b11a98f8dcb0f7cecbf",
+      "Bytes": 28483,
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs"
+    },
+    {
+      "Sha256": "d1a921079ee5f13eaf651142a4a9fefd980090cf268432779bcdbae8db353b29",
+      "Bytes": 14892,
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs"
+    },
+    {
+      "Sha256": "15a7ade6c1f1390caf4529e820a3a07221d5812a90e89f063df7a021ccad6fb6",
+      "Bytes": 23889,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutonomousDesktopTests.cs"
+    },
+    {
+      "Sha256": "2621c7edde7688655e5b21f5c67598306ffcb5f5aaade03eeb35b1ec66b092e0",
+      "Bytes": 13723,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutonomousDesktopTests.Accounting.cs"
+    },
+    {
+      "Sha256": "6fe798dd1a49d8ebfdc5849fa242c8a5fdb42fab864789db44972f5217e4acaa",
+      "Bytes": 26700,
+      "Path": "AGENTS.md"
+    },
+    {
+      "Sha256": "06db13f9734fa5c2052a9580810a9a937472cf72e1ac0c6fc9969c368b1eb0da",
+      "Bytes": 5415,
+      "Path": "tests/Shared/SafeHeadlessUnitTestSession.cs"
+    },
+    {
+      "Sha256": "327fa9c112e962d382c8654362a5f12a2fac2178209569f5862f86a2fddc7c13",
+      "Bytes": 7829,
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/AutonomousSearchModels.cs"
+    },
+    {
+      "Sha256": "7681d9d52e4016fb89f41491c7fc96da3b98d3aee41618cb80d7306d6af1a9bf",
+      "Bytes": 6281,
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologyRestorationModels.cs"
+    },
+    {
+      "Sha256": "12fb4f41ff072dccd1674a81fe1f190044a1da4881d867bea224b9bfa3c99982",
+      "Bytes": 4824,
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/AutonomousSearchCheckpointStore.cs"
+    },
+    {
+      "Sha256": "0a9c9e28c1a9d719dbb486531eefc436ee5556e7291e658850fafb38fae3b80a",
+      "Bytes": 3807,
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousDesktopSession.cs"
+    },
+    {
+      "Sha256": "8c859d3afa48cf3ef844d75cc40cd69bc6891ad298b97126dad19b63b8605783",
+      "Bytes": 79857,
+      "Path": "docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md"
+    },
+    {
+      "Sha256": "081ad830014675274793d717766dc9f54184823d6afa98cdb11b6b62499c8008",
+      "Bytes": 343304,
+      "Path": "docs/CURRENT_STATUS.md"
+    },
+    {
+      "Sha256": "b9b47267bb4cbb61605daba8f3b9bec68c536fde808c03138d8307181c5b1ca6",
+      "Bytes": 18603,
+      "Path": "labs/InitialStructure/README.md"
+    }
+  ],
+  "Binaries": [
+    {
+      "Sha256": "52c9f154d8b8949488ee08dc812a4140a559677e12ef33cee2fac01834829d50",
+      "Bytes": 71153664,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll"
+    },
+    {
+      "Sha256": "c592190db7df865dbb6ebcf82d8f5ba14d5511dc9fde617933e988e4ce8a5cbb",
+      "Bytes": 5887488,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll"
+    },
+    {
+      "Sha256": "66adfd9c53d7947991ad37ba308ca001de752a6bcb700bed349f55833c5cf4fc",
+      "Bytes": 493056,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll"
+    },
+    {
+      "Sha256": "9dde60bd93853ce476b7892feb2124de46d5a258b62a3ca3515964d02c3b9f32",
+      "Bytes": 331264,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll"
+    },
+    {
+      "Sha256": "e45eeac7f55b39d150e9b8398af24881c9d7af1c7889662d76707659fa5f211c",
+      "Bytes": 58880,
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Persistence.dll"
+    },
+    {
+      "Sha256": "25396f2ba47cde75c3a243a2cbdac80fe56fbc2337934fe90250e2c366772bde",
+      "Bytes": 819200,
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Tests.dll"
+    }
+  ],
+  "LegacyInput": {
+    "Sha256": "862ea42e2501d95005374f74de08387fec31ead034f0669ee5dc02270cea5da0",
+    "Bytes": 19071,
+    "Path": "validation/rechecks/2026-10-26/autonomous-search-m4/checkpoint-interrupted.json"
+  },
+  "Evidence": [
+    {
+      "Sha256": "ac90669f2332f58e8c0e24020ba13aa6e0a35292022bf858817caaffeb0af788",
+      "Bytes": 106659,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\accounting-narrow-ja-JP.png"
+    },
+    {
+      "Sha256": "20f24accda0e0a192a4abf03586030e282c75ed2bb64ea957c6006926b044bc8",
+      "Bytes": 2296,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\accounting-render-final.log"
+    },
+    {
+      "Sha256": "d7d737085ac77bd7c1c6cd3e4784d54515cb8ad734a5a0b130acff8f97a9d244",
+      "Bytes": 5341,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\accounting-render-final.trx"
+    },
+    {
+      "Sha256": "d96b20bb99114fda5bfcb0040eee966694b540bbb4596d06c43bf97348879706",
+      "Bytes": 144825,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\accounting-wide-en-US.png"
+    },
+    {
+      "Sha256": "45da67e9ec7b3820969bdbb8c47c75b85a92c3dabd9d57ebe219856163dd19cb",
+      "Bytes": 152668,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\accounting-wide-ja-JP.png"
+    },
+    {
+      "Sha256": "962b9efa2484ebf814819a3448f243408429eaa9b0f636837404ddd5fb296fad",
+      "Bytes": 137639,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\accounting-wide-zh-CN.png"
+    },
+    {
+      "Sha256": "cd00dfd7ab10471cb8c4479cddff9f11171f160f400fd4243b738565d5c3e9e5",
+      "Bytes": 2290,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\desktop-corrected.log"
+    },
+    {
+      "Sha256": "7e8c790f6844969a46270b8d5d8c0f57ebd3b9999452e06f3f740a0317e18e5b",
+      "Bytes": 11986,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\desktop-corrected.trx"
+    },
+    {
+      "Sha256": "75f65a2aae3067a8613134088e6b020396457cf2cdabf2619f1f71e3967dfc84",
+      "Bytes": 12683,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\desktop-first.log"
+    },
+    {
+      "Sha256": "a34aed2e92ef12e3d82d06663a8fe47c0f54dd4d8d718c30d774f239e268c5e8",
+      "Bytes": 35394,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\desktop-first.trx"
+    },
+    {
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\diff-check.log"
+    },
+    {
+      "Sha256": "b068e283f56c187459320aa30b2d1f0025d5bdcd2b24abf0890a69bf4ffa838d",
+      "Bytes": 330473,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\documentation-check.json"
+    },
+    {
+      "Sha256": "821b18ffe88b4054a3525d8c34b15eca493cd723410901e93f29f2881e44e38b",
+      "Bytes": 246,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\documentation-check.log"
+    },
+    {
+      "Sha256": "94c4f17c3c8b6433d72a782f599c85a3c55edaaca76e0ec871e6ae37aa303062",
+      "Bytes": 495,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\format-files.json"
+    },
+    {
+      "Sha256": "1b18b0895ebc723c238a0368eb2796b35942770f1948621a33c8c217059930db",
+      "Bytes": 77090,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\narrow-ja-JP.png"
+    },
+    {
+      "Sha256": "0e48e626c17bf8aa1703899a01750149bff89ee0f9aee531aa386d58ed7fd6aa",
+      "Bytes": 5904,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\README.md"
+    },
+    {
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\source-format-verify.log"
+    },
+    {
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Bytes": 0,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\source-format.log"
+    },
+    {
+      "Sha256": "f1f53fa6cf2f250c88c26c4f4311aa5c9a693d3034ce9c4a34e0a6d74d1f3651",
+      "Bytes": 2295,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\unknown-recording-final.log"
+    },
+    {
+      "Sha256": "0edb9c3b8bcb90066422bfc7ab7d15688e446a8b7827179e92c1d2526f55366f",
+      "Bytes": 3626,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\unknown-recording-final.trx"
+    },
+    {
+      "Sha256": "e4d9f36a59f19851495ba264780b568461edf8e2d59dd0cde8dd6323aac745d7",
+      "Bytes": 110481,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\wide-en-US.png"
+    },
+    {
+      "Sha256": "5caff22afb6ba97af22c90ba610e50d274b6a0e663628e641c9ef0d2f6db213c",
+      "Bytes": 114124,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\wide-ja-JP.png"
+    },
+    {
+      "Sha256": "40e4aa18fdf637c3ac777fbbaafc1487500736792ad78d2ba3a14987c5b05c20",
+      "Bytes": 100877,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\wide-zh-CN.png"
+    },
+    {
+      "Sha256": "c21f858b7ea3f09e2d93e5b2ed3161f2d0df9845382958def090ad4eef436d5b",
+      "Bytes": 5271,
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-desktop-accounting\\write-summary.ps1"
+    }
+  ]
+}

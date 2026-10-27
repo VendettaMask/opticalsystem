@@ -248,6 +248,13 @@ public static partial class DiffractionEngine
         }
         if (explicitPupilGrid is not null) pupilGridStretch = explicitPupilGrid.Stretch;
         var grid = explicitPupilGrid ?? new PupilGridSpecification(pupilSampling, cellCenteredPupil, zemaxFftSampling, pupilGridStretch);
+        if (optic.ImageSpaceAfocal && zemaxFftSampling && imageDelta >= 0 && !usePolarization && explicitPupilGrid is null
+            && preparedWavefront is null && preparedPolarization is null)
+        {
+            var aspect = ImageSpaceAnalysisSupport.AfocalFftPupilAspectStretch(optic, field, wavelength, pupilAimAtStop);
+            if (aspect.X != 1 || aspect.Y != 1)
+                grid = grid with { Stretch = pupilGridStretch * aspect.X, StretchY = pupilGridStretch * aspect.Y };
+        }
         var currentSource = preparedWavefront is not null || (usePolarization && preparedPolarization is not null)
             ? PupilSourceIdentity.Capture(optic) : null;
         if (zemaxFftSampling && imageDelta > 0)
@@ -1276,6 +1283,8 @@ public static partial class DiffractionEngine
                 wavelength,
                 imageSize,
                 pixelPitchMillimeters,
+                optic.SurfaceGroup.Items[^1].CoordinateSystem,
+                numRays,
                 idealOpd: false,
                 polarization,
                 defocus,
@@ -1307,6 +1316,8 @@ public static partial class DiffractionEngine
                 wavelength,
                 1,
                 pixelPitchMillimeters,
+                optic.SurfaceGroup.Items[^1].CoordinateSystem,
+                numRays,
                 idealOpd: true,
                 afocalNormalizationPolarization,
                 defocus: 0)[0, 0];
@@ -1330,6 +1341,7 @@ public static partial class DiffractionEngine
                 SampleSpacingUnit: AnalysisAxisUnit.Milliradian)
             {
                 UseRayAiming = aimAtStop,
+                FiniteCellHuygensUsed = true,
                 HuygensPolarization = usePolarization ? HuygensPolarizationMode.LegacyScalarApproximation : HuygensPolarizationMode.None
             };
         }
@@ -2063,6 +2075,8 @@ public static partial class DiffractionEngine
         Wavelength wavelength,
         int imageSize,
         double angularPixelPitchMilliradians,
+        CoordinateSystem imageFrame,
+        int pupilSampling,
         bool idealOpd,
         JonesPupilResult? polarization = null,
         double defocus = 0,
@@ -2075,7 +2089,15 @@ public static partial class DiffractionEngine
             return psf;
         }
 
-        var pupilRadius = pupilDiameter / 2.0;
+        var pupilOrigin = wavefront.AfocalReferencePlaneOrigin
+            ?? throw new AnalysisDataUnavailableException("Huygens PSF", "afocal reference plane is missing");
+        var axisX = imageFrame.ToGlobalDirection(new Vector3D(1, 0, 0));
+        var axisY = imageFrame.ToGlobalDirection(new Vector3D(0, 1, 0));
+        var intervals = pupilSampling >= 8 && pupilSampling % 2 == 0 ? pupilSampling - 2 : pupilSampling - 1;
+        // Use the same finite pupil-cell convention as focused Huygens, now
+        // expressed in mrad rather than image-plane length. A point-emitter
+        // sum omits this footprint and changes the cropped PSF's MTF.
+        var halfExtent = .61 * wavelength.Micrometers * intervals / (wavefront.ImageRefractiveIndex * pupilDiameter);
         var wavelengthMillimeters = wavelength.Micrometers * 1e-3;
         var k = 2 * Math.PI / wavelengthMillimeters;
         var propagationK = k * wavefront.ImageRefractiveIndex;
@@ -2085,6 +2107,21 @@ public static partial class DiffractionEngine
                 X: (long)Math.Round(sample.Px * 1_000_000_000),
                 Y: (long)Math.Round(sample.Py * 1_000_000_000)),
             PolarizationAmplitude);
+        // The traced exit pupil can be anamorphic or folded. Use its actual
+        // reference-plane positions, never normalized entrance-pupil radius
+        // times a scalar paraxial diameter. Defocus is measured on that plane.
+        var emitters = wavefront.Samples.Where(sample => sample.Intensity > 0).Select(sample =>
+        {
+            var offset = new Vector3D(sample.PupilX, sample.PupilY, sample.PupilZ) - pupilOrigin;
+            var opdWaves = idealOpd ? 0 : sample.OpdWaves
+                - defocus * Dot(offset, offset) / (2000 * wavelengthMillimeters);
+            var polarizationAmplitude = polarizationByPupil?.GetValueOrDefault((
+                (long)Math.Round(sample.NormalizedPupilX * 1_000_000_000),
+                (long)Math.Round(sample.NormalizedPupilY * 1_000_000_000))) ?? 1;
+            return (X: Dot(offset, axisX), Y: Dot(offset, axisY),
+                Phase: -k * opdWaves * wavelengthMillimeters,
+                Amplitude: FieldAmplitudeFromPower(sample.Intensity) * polarizationAmplitude);
+        }).ToArray();
         for (var row = 0; row < imageSize; row++)
         {
             var thetaY = ((row - centerIndex) * angularPixelPitchMilliradians
@@ -2096,42 +2133,25 @@ public static partial class DiffractionEngine
                     + (imageCenterOffset?.X ?? 0)) / 1_000.0;
                 var field = Complex.Zero;
                 var sampleIndex = 0;
-                foreach (var sample in wavefront.Samples)
+                foreach (var emitter in emitters)
                 {
                     if ((sampleIndex++ & 255) == 0) ComputationCancellation.ThrowIfCancellationRequested();
-                    if (sample.Intensity <= 0)
-                    {
-                        continue;
-                    }
-
-                    var pupilX = sample.NormalizedPupilX * pupilRadius;
-                    var pupilY = sample.NormalizedPupilY * pupilRadius;
-                    var opdWaves = idealOpd
-                        ? 0
-                        : sample.OpdWaves
-                            + ImageSpaceAnalysisSupport.AfocalDefocusOpdWaves(
-                                sample,
-                                wavelength,
-                                defocus,
-                                pupilDiameter);
-                    var pupilPhase = -k * opdWaves * wavelengthMillimeters;
                     // OPD is already an optical path; only the geometric
                     // propagation term needs the image-medium index.
-                    var anglePhase = -propagationK * ((pupilX * thetaX) + (pupilY * thetaY));
-                    var polarizationAmplitude = polarizationByPupil?.GetValueOrDefault((
-                        (long)Math.Round(sample.NormalizedPupilX * 1_000_000_000),
-                        (long)Math.Round(sample.NormalizedPupilY * 1_000_000_000))) ?? 1;
-                    var sampleAmplitude = FieldAmplitudeFromPower(sample.Intensity);
-                    field += sampleAmplitude
-                        * polarizationAmplitude
-                        * Complex.FromPolarCoordinates(1, pupilPhase + anglePhase);
+                    var anglePhase = -propagationK * ((emitter.X * thetaX) + (emitter.Y * thetaY));
+                    field += emitter.Amplitude * Complex.FromPolarCoordinates(1, emitter.Phase + anglePhase);
                 }
 
-                psf[row, column] = field.Magnitude * field.Magnitude;
+                var footprint = Sinc(Math.PI * thetaX * 1000 / halfExtent) * Sinc(Math.PI * thetaY * 1000 / halfExtent);
+                psf[row, column] = Math.Abs(thetaX * 1000) >= halfExtent || Math.Abs(thetaY * 1000) >= halfExtent
+                    ? 0 : field.Magnitude * field.Magnitude * footprint * footprint;
             }
         }
 
         return psf;
+
+        static double Sinc(double value) => Math.Abs(value) < 1e-8
+            ? 1 - value * value / 6 : Math.Sin(value) / value;
 
         static double PolarizationAmplitude(JonesPupilSample sample)
         {

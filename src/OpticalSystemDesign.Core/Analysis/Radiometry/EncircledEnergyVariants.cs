@@ -1066,7 +1066,9 @@ internal static class EnergyCurveSupport
             new[] { primary },
             1,
             "uniform",
-            reference: "absolute");
+            reference: "absolute",
+            aimAtStop: optic.RayAimingEnabled,
+            includeSurfaceTransmission: false);
         var ray = chief.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays.FirstOrDefault();
         var scale = optic.ImageSpaceAfocal ? 1 : 1000;
         return ray is null ? Centroid(samples) : (ray.X * scale, ray.Y * scale);

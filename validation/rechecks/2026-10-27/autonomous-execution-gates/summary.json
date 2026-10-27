@@ -1,0 +1,288 @@
+{
+  "Task": "Autonomous execution eligibility and durable compensation continuation",
+  "Date": "2026-10-27",
+  "BaseCommit": "3947b7b57ae404f65af772b2a06ca356f79e539f",
+  "WorktreeIsUncommitted": true,
+  "UniqueTests": 4,
+  "LatestPassed": 4,
+  "LatestFailed": 0,
+  "NewTests": 3,
+  "ExistingRegression": 1,
+  "Attempts": [
+    {
+      "Passed": 0,
+      "Failed": 2,
+      "File": "historical-first.trx",
+      "Total": 2
+    },
+    {
+      "Passed": 4,
+      "Failed": 0,
+      "File": "execution-corrected.trx",
+      "Total": 4
+    }
+  ],
+  "LatestTests": [
+    {
+      "Evidence": "execution-corrected.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.EditedCompensationFlagsReachExecutionAndSurviveDurableCancelAndDesktopResume",
+      "Outcome": "Passed"
+    },
+    {
+      "Evidence": "execution-corrected.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(local: False, version: 2)",
+      "Outcome": "Passed"
+    },
+    {
+      "Evidence": "execution-corrected.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(local: True, version: null)",
+      "Outcome": "Passed"
+    },
+    {
+      "Evidence": "execution-corrected.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.UnversionedPrototypeCannotStartAnyOpticalWorkWhileItsHistoricalStateRemainsReadable",
+      "Outcome": "Passed"
+    }
+  ],
+  "Checks": {
+    "DiffWhitespace": 0,
+    "DefaultAppOutput": "Release/net10.0",
+    "DefaultAndTestBinariesMatch": true,
+    "SourceFormat": 0,
+    "SourceFormatVerify": 0,
+    "Documentation": 0
+  },
+  "Scope": {
+    "NumericalOptimizerChanged": false,
+    "CheckpointFormatChanged": false,
+    "SupportedVersionsChanged": false,
+    "CoreCalculationsChangedByThisTask": false,
+    "ConcurrentBackendChangesNotAuthoredByThisTask": [
+      "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs"
+    ],
+    "ExistingEngineEligibilityRuleExtractedAndReused": true
+  },
+  "Validation": {
+    "DotnetProcessorCount": 2,
+    "FinalStatus": "completed",
+    "FinalWork": {
+      "functionEvaluations": 7,
+      "gradientEvaluations": 5,
+      "validationEvaluations": 2,
+      "matrixEvaluations": 0,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 0,
+      "tracedRays": 4490,
+      "geometryProbes": 2247,
+      "elapsed": "00:00:01.7297917"
+    },
+    "HistoricalReadOnlyAdditionalTraces": 0,
+    "RecoveryDispatched": false,
+    "AcceptedDesigns": 0,
+    "CancelledWork": {
+      "FunctionEvaluations": 3,
+      "GradientEvaluations": 2,
+      "ValidationEvaluations": 1,
+      "MatrixEvaluations": 0,
+      "DifferenceEvaluations": 0,
+      "JacobianBuilds": 0,
+      "TracedRays": 2220,
+      "GeometryProbes": 1067,
+      "Elapsed": "00:00:01.4547931"
+    },
+    "ParentCommandPriority": "BelowNormal",
+    "NativeDesktopInteraction": false,
+    "Host": "Avalonia Headless/Skia via SafeHeadlessUnitTestSession",
+    "RejectedSessionCreatesRunDirectory": false,
+    "FixedTopology": true
+  },
+  "Limitations": [
+    "The short fixed-topology run validates workflow and accounting, not successful optical design",
+    "Recovery flags are persisted but no recovery matrix is dispatched by this fixed-topology case",
+    "No long training, new optimization-effect comparison, full repository suite, native interaction, commit, push or release"
+  ],
+  "Sources": [
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutonomousSearchService.cs",
+      "Sha256": "c4cb6d15b7d04a14647aea25b7906625e8af57326c1a42b86dcc5959f3180771",
+      "Bytes": 38524
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousDesktopSession.cs",
+      "Sha256": "e42affa1ca390c1543b123bb24c06206f1d09fa69a4acafd2371f0ee03afa13d",
+      "Bytes": 4009
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs",
+      "Sha256": "20fce9ca4001ccaaa18f8ecece4b466878aae2a01861efda48c14d7ea86305cf",
+      "Bytes": 33820
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs",
+      "Sha256": "39372c7ed72db55711aecec45230735eb0a33c6dfd95ec4934c1feb39f78ed75",
+      "Bytes": 18750
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutonomousDesktopTests.Execution.cs",
+      "Sha256": "5ea7c21415a3403e2cbf320e26d64fa120715ddeb4f39734b1ff9d474ae14964",
+      "Bytes": 11484
+    },
+    {
+      "Path": "docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md",
+      "Sha256": "f061eab2646d278c64518b15bfd00e0382cea37bc5947dfb2c96e91581d5c871",
+      "Bytes": 82992
+    },
+    {
+      "Path": "docs/CURRENT_STATUS.md",
+      "Sha256": "1d66d18eca9b4815c5e22c6a132abfac15672fee89c9a911bde2f38f62b43b57",
+      "Bytes": 347075
+    },
+    {
+      "Path": "labs/InitialStructure/README.md",
+      "Sha256": "3dc78a2a49b5606b3062e899ef7a598916327c501b313492797b1b7ad371207e",
+      "Bytes": 20073
+    }
+  ],
+  "Binaries": [
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "8e53f9bde4ea0fe1f8397dab785d159395eac947110f578f848c36e6550b5068",
+      "Bytes": 71161856
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "8e53f9bde4ea0fe1f8397dab785d159395eac947110f578f848c36e6550b5068",
+      "Bytes": 71161856
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "a9afc28566c71192966381ac562f8b790a52556f876521e2e2f7e10ed8c2e287",
+      "Bytes": 5891072
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "a9afc28566c71192966381ac562f8b790a52556f876521e2e2f7e10ed8c2e287",
+      "Bytes": 5891072
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "778795b7efe402f1a27e16292b6b9cfaf62c1daee658531edb3b98e83500aaad",
+      "Bytes": 493056
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "778795b7efe402f1a27e16292b6b9cfaf62c1daee658531edb3b98e83500aaad",
+      "Bytes": 493056
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "Sha256": "f113b03facd17f566a53ce8456f325d48feda84a08553c460cde1ea3c4bd1ff5",
+      "Bytes": 331264
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "Sha256": "f113b03facd17f566a53ce8456f325d48feda84a08553c460cde1ea3c4bd1ff5",
+      "Bytes": 331264
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Persistence.dll",
+      "Sha256": "0a759ca5cb3102de8d1f4e8045ce7d1b4f2f7535d42ec5dc0f52214a35c0664c",
+      "Bytes": 58880
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Persistence.dll",
+      "Sha256": "0a759ca5cb3102de8d1f4e8045ce7d1b4f2f7535d42ec5dc0f52214a35c0664c",
+      "Bytes": 58880
+    }
+  ],
+  "Evidence": [
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\compensation-cancelled.json",
+      "Sha256": "e155f1c7e31a9acbaef197ea2132c2e744bed57e34d09c9ca7f54a2f555506cc",
+      "Bytes": 44561
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\compensation-final.autonomous.json",
+      "Sha256": "f4315be90fae4118db689e078c029c4d73fdeee6e14c7db68d963111cbd30f3e",
+      "Bytes": 63510
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\compensation-plan.json",
+      "Sha256": "d8f38c16dff62a626aaa2fdb1cdc676139be345deb206d090182cc792070f0a9",
+      "Bytes": 4810
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\diff-check.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Bytes": 0
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\documentation.json",
+      "Sha256": "1c7017664bbe8995723ed9884350ac9552af75232765cdbc0676ee276428dc59",
+      "Bytes": 331406
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\documentation.log",
+      "Sha256": "e157b588ce7673f9325a28e51dc18c85f9ffd9b2697ef033e6f7e529eff46a0a",
+      "Bytes": 246
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\execution-corrected.log",
+      "Sha256": "50bfa7a063e46c3ddd0b944732735b5f62d0a245358213601e5dd2b3a24d02da",
+      "Bytes": 2289
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\execution-corrected.trx",
+      "Sha256": "629ebdce982d1c2e09deed8303f3d70ed93e65f08338b8a5f109696d1571b09c",
+      "Bytes": 8723
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\format-verify.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Bytes": 0
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\format.log",
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Bytes": 0
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\historical-first.log",
+      "Sha256": "8451d18b56125a11148a6ee5504c2f7886efbccfa48d5b76dde91fed79479a0f",
+      "Bytes": 5827
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\historical-first.trx",
+      "Sha256": "ba131e174366ec378301dcac8efe1fa5a3f1e0eb0b56358e72e6b7083c1c988b",
+      "Bytes": 12906
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\historical-readonly-en-US.png",
+      "Sha256": "a280515df7afe296bb86e6190ed44bd012899840c17141989638eb238ab66ae7",
+      "Bytes": 131400
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\historical-readonly-ja-JP.png",
+      "Sha256": "4c92a185b13afb00c9df51225279c68b75f94e4f7e8a30e71af8384930f6c1b7",
+      "Bytes": 143776
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\historical-readonly-zh-CN.png",
+      "Sha256": "bc6ba450cb4e5bd2570ca3c441f67623cfe713284c328010dc231e1196af2be4",
+      "Bytes": 124123
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\README.md",
+      "Sha256": "14f0dba31b89b13db534dfa5d498c92b0fb8421d330e1f28ccabbc7a324b7dcc",
+      "Bytes": 3076
+    },
+    {
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-27\\autonomous-execution-gates\\write-summary.ps1",
+      "Sha256": "7a9ea93c11aeec88b5221fd082a8101e55d7ca4382bfc4b417268424373022dc",
+      "Bytes": 6451
+    }
+  ]
+}

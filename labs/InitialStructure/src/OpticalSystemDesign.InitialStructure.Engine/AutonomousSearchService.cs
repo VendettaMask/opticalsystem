@@ -12,6 +12,11 @@ public static partial class AutonomousSearchService
 {
     private static readonly ConcurrentDictionary<string, byte> Running = new(StringComparer.Ordinal);
 
+    /// <summary>Historical transmission prototypes remain readable but must never dispatch optical work.</summary>
+    public static bool IsHistoricalReadOnlyPlan(AutonomousSearchPlan plan)
+        => new[] { plan.Options.Local, plan.Options.Full }.Any(stage =>
+            (stage.TransmissionFirst == true || stage.ActiveParameterLimit is not null) && stage.TransmissionPolicyVersion is not (3 or 4));
+
     public static AutonomousSearchCheckpoint Create(string runId, AutonomousSearchPlan plan)
     {
         ValidatePlan(plan);
@@ -28,20 +33,21 @@ public static partial class AutonomousSearchService
 
     public static AutonomousSearchCheckpoint Run(AutonomousSearchCheckpoint checkpoint,
         Action<AutonomousSearchCheckpoint>? save = null, CancellationToken cancellationToken = default,
-        Action<AutonomousSearchPending, FixedTopologyStep>? progress = null)
+        Action<AutonomousSearchPending, FixedTopologyStep>? progress = null,
+        Action<AutonomousSearchPending, ParaxialRecoveryStep>? recoveryProgress = null)
     {
         Validate(checkpoint);
-        if (new[] { checkpoint.Plan.Options.Local, checkpoint.Plan.Options.Full }.Any(stage =>
-            (stage.TransmissionFirst == true || stage.ActiveParameterLimit is not null) && stage.TransmissionPolicyVersion is not (3 or 4)))
+        if (IsHistoricalReadOnlyPlan(checkpoint.Plan))
             throw new NotSupportedException("Unversioned transmission prototype records are read-only. Create a fresh plan with explicit policy version 3 or 4.");
         if (!Running.TryAdd(checkpoint.RunId, 0)) throw new InvalidOperationException("This autonomous run is already executing.");
-        try { return Execute(checkpoint, save, cancellationToken, progress); }
+        try { return Execute(checkpoint, save, cancellationToken, progress, recoveryProgress); }
         finally { Running.TryRemove(checkpoint.RunId, out _); }
     }
 
     private static AutonomousSearchCheckpoint Execute(AutonomousSearchCheckpoint state,
         Action<AutonomousSearchCheckpoint>? save, CancellationToken cancellationToken,
-        Action<AutonomousSearchPending, FixedTopologyStep>? progress)
+        Action<AutonomousSearchPending, FixedTopologyStep>? progress,
+        Action<AutonomousSearchPending, ParaxialRecoveryStep>? recoveryProgress)
     {
         var policy = state.Plan.Options;
         // A persisted in-flight reservation has unknown execution extent. Charge its whole
@@ -101,7 +107,8 @@ public static partial class AutonomousSearchService
                         var parent = TopologyCompiler.Compile(pending.GradualDeletion?.Baseline ?? Find(pending.ParentId!).Topology, constraints);
                         invoked = true;
                         var recovery = ParaxialRestorer.Run(parent, source, pending.Variables, state.Plan.Targets,
-                            policy.Recovery with { MaximumFunctionEvaluations = maximum.FunctionEvaluations, TimeLimit = maximum.Elapsed }, token);
+                            policy.Recovery with { MaximumFunctionEvaluations = maximum.FunctionEvaluations, TimeLimit = maximum.Elapsed }, token,
+                            step => recoveryProgress?.Invoke(pending, step));
                         work = new()
                         {
                             FunctionEvaluations = recovery.Work.FunctionEvaluations,

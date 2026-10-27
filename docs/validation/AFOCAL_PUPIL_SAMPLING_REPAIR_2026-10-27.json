@@ -1,0 +1,255 @@
+{
+  "date": "2026-10-27",
+  "sourceCommit": "3947b7b57ae404f65af772b2a06ca356f79e539f",
+  "coreSha256": "9e084a60bd4fe65db149db5d8ad3329db4486f6ee21145664182fc32db658b3e",
+  "globalPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "change": "Noncoaxial sequential afocal diffraction uses traced tangential pupil scale; focal and compound paths retained",
+  "afocal": {
+    "originalRequestsUnchanged": true,
+    "previousPassRetained": 129,
+    "total": 150,
+    "counts": {
+      "Close": 3,
+      "Difference": 3,
+      "Incomparable": 13,
+      "Pass": 131
+    },
+    "newAutomaticGridPass": 2,
+    "coreUnavailable": 2,
+    "timedOut": 0
+  },
+  "fixedAngularGrid": {
+    "total": 20,
+    "passed": 20
+  },
+  "focal": {
+    "regressions": 0,
+    "sourcesRequestsReferencesUnchanged": true,
+    "originalPass": 1159,
+    "supplementalPoints": 30,
+    "supplementalPass": 52,
+    "originalRequests": 1159,
+    "supplementalAnalyses": 22
+  },
+  "tests": [
+    {
+      "failed": 0,
+      "passed": 41,
+      "total": 41,
+      "path": "core-sampling.trx"
+    },
+    {
+      "failed": 0,
+      "passed": 94,
+      "total": 94,
+      "path": "afocal-sampling-final.trx"
+    }
+  ],
+  "differentFocusedTests": 135,
+  "defaultReleaseAppCoreMatches": true,
+  "native": {
+    "validExplicitRayRequests": 2,
+    "excludedLegacyLinearRequests": 8,
+    "validComplexRequests": 8,
+    "gridRayControls": [
+      {
+        "id": "0059-003-binocular_system-c1-primary-f1-w2-psf",
+        "requested": 709,
+        "fftExcluded": [
+          {
+            "px": -0.6,
+            "py": -0.8,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.6,
+            "py": -0.8,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -0.8,
+            "py": -0.6,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.8,
+            "py": -0.6,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -1.0,
+            "py": 0.0,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 1.0,
+            "py": 0.0,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -0.8,
+            "py": 0.6,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.8,
+            "py": 0.6,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -0.6,
+            "py": 0.8,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.6,
+            "py": 0.8,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          }
+        ],
+        "vignetted": 0,
+        "errors": 0,
+        "nativeRays": 709
+      },
+      {
+        "id": "0119-004-apochromat_prism-c1-primary-f1-w3-psf",
+        "requested": 709,
+        "fftExcluded": [
+          {
+            "px": 0.0,
+            "py": -1.0,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -0.3333333333333333,
+            "py": -0.9333333333333333,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.3333333333333333,
+            "py": -0.9333333333333333,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -0.6,
+            "py": -0.8,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.6,
+            "py": -0.8,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -0.8,
+            "py": -0.6,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.8,
+            "py": -0.6,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -0.8,
+            "py": 0.6,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.8,
+            "py": 0.6,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -0.6,
+            "py": 0.8,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.6,
+            "py": 0.8,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": -0.3333333333333333,
+            "py": 0.9333333333333333,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.3333333333333333,
+            "py": 0.9333333333333333,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          },
+          {
+            "px": 0.0,
+            "py": 1.0,
+            "error": 0,
+            "vignette": 0,
+            "intensity": 1
+          }
+        ],
+        "vignetted": 0,
+        "errors": 0,
+        "nativeRays": 709
+      }
+    ],
+    "inverse": "pupil-inverse-v7; native complex conjugate convention and cyclic pupil center restored"
+  },
+  "frozen": {
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "files": 2668,
+    "headAndWorkingTreeUnchanged": true
+  },
+  "limitations": [
+    "Three Close and three native built-in centroid-plot Differences retained",
+    "Six automatic grids still Incomparable, plus five native illumination failures and two first-order N/A",
+    "No general pupil-mask mapping or all-95-file certification",
+    "No desktop interaction, installation, publishing or Git push"
+  ]
+}

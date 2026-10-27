@@ -35,6 +35,7 @@ public sealed partial class AutonomousTopologyWindow : Window
     private readonly Dictionary<string, NumericUpDown> _numbers = [];
     private readonly Dictionary<string, CheckBox> _choices = [];
     private readonly Dictionary<string, Button> _commands = [];
+    private readonly Dictionary<DataGridColumn, string> _columnTitles = [];
     private readonly TextBlock _source = Text("尚未载入起点");
     private readonly TextBlock _status = Named(Text("就绪"), "AutonomousStatus");
     private readonly TextBlock _budget = Named(Text("尚未消耗预算"), "AutonomousBudget");
@@ -117,31 +118,44 @@ public sealed partial class AutonomousTopologyWindow : Window
         Number("AutonomousMaxElements", "最多镜片数", 8, 1, 16);
         Number("AutonomousTrials", "结构决策上限", 12, 1, 128);
         Number("AutonomousFunctions", "评价尝试上限", 1000, 2, 100000);
-        Number("AutonomousGradients", "求导尝试上限", 200, 0, 100000);
+        Number("AutonomousGradients", "光线梯度尝试上限", 200, 0, 100000);
         Number("AutonomousRays", "总追迹上限", 2_000_000, 1, 1_000_000_000);
         Number("AutonomousReserve", "终验预留追迹", 200000, 1, 100_000_000);
         Number("AutonomousMinutes", "运行时限 (分钟)", 5, .01m, 240);
         Number("AutonomousSeed", "搜索种子", 42, 0, int.MaxValue);
         Choice("AutonomousStructure", "允许改变片数", true);
         Choice("AutonomousGradual", "逐步移除难删镜片", true);
-        Choice("AutonomousSplit", "允许拆片与并片", true);
+        Choice("AutonomousSplit", "允许拆片", true);
+        Choice("AutonomousMerge", "允许并片", true);
         Choice("AutonomousMaterial", "允许目录材料分支", true);
         Choice("AutonomousProfile", "允许偶次面型分支", true);
         Choice("AutonomousPrecision", "高精度训练采样", true);
         Choice("AutonomousAxial", "允许镜面轴向微调", true);
         Number("AutonomousAxialWindow", "每次试验轴向移动上限 (mm)", .25m, .000001m, 10);
+        _inputs.Children.Add(Text("恢复与连续补偿"));
+        Choice("AutonomousMatrixDerivatives", "恢复矩阵自动求导", false);
+        Choice("AutonomousGeometryRecovery", "沿制造约束恢复", false);
+        Choice("AutonomousPupilRecovery", "恢复固定光阑瞳倍率", false);
+        Choice("AutonomousRecoveryAxial", "恢复阶段允许轴向微调", false);
+        Choice("AutonomousConic", "独立锥常数补偿", false);
+        Choice("AutonomousStageChecks", "阶段间独立验收", false);
+        Choice("AutonomousProtectLocalBudget", "恢复后保留局部补偿额度", false);
+        Choice("AutonomousProtectFullBudget", "优先保留全目标补偿额度", false);
+        Number("AutonomousLocalUpdates", "局部补偿更新上限", 8, 0, 400);
+        Number("AutonomousFullUpdates", "全目标更新上限", 12, 0, 400);
         _form.Content = _inputs; _body.Children.Add(_form);
         _results.Children.Add(_budget);
         var tabs = Named(new TabControl(), "AutonomousTabs");
         tabs.Items.Add(new TabItem { Header = "候选与验收", Content = _candidates });
         var history = Table("AutonomousEvents", ("序号", "Sequence", 60), ("试验", "Trial", 110), ("父方案", "Parent", 130),
-            ("操作", "Operation", 110), ("阶段", "Phase", 100), ("结果", "Outcome", 170), ("消耗", "Work", 170), ("原因", "Detail", 340));
+            ("操作", "Operation", 110), ("阶段", "Phase", 100), ("结果", "Outcome", 170), ("评价 / 光线梯度 / 追迹", "Work", 210),
+            ("恢复矩阵 / Jacobian / 差分", "RecoveryWork", 220), ("瞳查询", "PupilWork", 90), ("原因", "Detail", 340));
         history.ItemsSource = _eventRows; tabs.Items.Add(new TabItem { Header = "谱系与失败", Content = history });
         var prescription = Table("AutonomousPrescription", ("镜片 / 面", "Id", 230), ("轴向位置 mm", "Position", 130),
             ("材料", "Material", 120), ("面型", "Profile", 130), ("净半口径 mm", "Clear", 130), ("保护", "Protected", 90));
-        prescription.Columns.Add(new DataGridTextColumn { Header = "曲率半径 mm", Binding = new Binding("Radius"), Width = new DataGridLength(130) });
-        prescription.Columns.Add(new DataGridTextColumn { Header = "二次曲面常数", Binding = new Binding("Conic"), Width = new DataGridLength(130) });
-        prescription.Columns.Add(new DataGridTextColumn { Header = "偶次系数", Binding = new Binding("Terms"), Width = new DataGridLength(300) });
+        prescription.Columns.Add(Column("曲率半径 mm", "Radius", 130));
+        prescription.Columns.Add(Column("二次曲面常数", "Conic", 130));
+        prescription.Columns.Add(Column("偶次系数", "Terms", 300));
         prescription.ItemsSource = _prescriptionRows; tabs.Items.Add(new TabItem { Header = "实际处方", Content = prescription });
         var fields = Table("AutonomousFields", ("视场 X / Y", "Field", 170), ("RMS µm", "Rms", 130), ("最大半径 µm", "Maximum", 150),
             ("有效 / 尝试", "Valid", 140), ("边界 / 中心", "Checks", 140), ("畸变 %", "Distortion", 130));
@@ -184,7 +198,21 @@ public sealed partial class AutonomousTopologyWindow : Window
     }
     private void Choice(string id, string label, bool value)
     {
-        var control = Named(new CheckBox { Content = label, IsChecked = value }, id); _choices.Add(id, control); control.IsCheckedChanged += (_, _) => { if (!_applyingPlan) _planEdited = true; }; _inputs.Children.Add(control);
+        var control = Named(new CheckBox { Content = label, IsChecked = value }, id); _choices.Add(id, control);
+        control.IsCheckedChanged += (_, _) =>
+        {
+            if (_applyingPlan) return;
+            _planEdited = true;
+            if (id is "AutonomousPupilRecovery" or "AutonomousGeometryRecovery" && control.IsChecked == true)
+                _choices["AutonomousMatrixDerivatives"].IsChecked = true;
+            else if (id == "AutonomousMatrixDerivatives" && control.IsChecked != true)
+            {
+                _choices["AutonomousPupilRecovery"].IsChecked = false;
+                _choices["AutonomousGeometryRecovery"].IsChecked = false;
+            }
+            Refresh();
+        };
+        _inputs.Children.Add(control);
     }
     private void Responsive()
     {
@@ -199,17 +227,29 @@ public sealed partial class AutonomousTopologyWindow : Window
     private static TextBlock Text(string value) => new() { Text = value, TextWrapping = TextWrapping.Wrap };
     private static T Named<T>(T control, string id) where T : Control
     { control.Name = id; AutomationProperties.SetName(control, id); return control; }
-    private static DataGrid Table(string id, params (string Title, string Path, double Width)[] columns)
+    private DataGrid Table(string id, params (string Title, string Path, double Width)[] columns)
     {
         var grid = Named(new DataGrid { AutoGenerateColumns = false, IsReadOnly = true, GridLinesVisibility = DataGridGridLinesVisibility.Horizontal, MinHeight = 180 }, id);
-        foreach (var column in columns) grid.Columns.Add(new DataGridTextColumn { Header = column.Title, Binding = new Binding(column.Path), Width = new DataGridLength(column.Width) });
+        foreach (var column in columns) grid.Columns.Add(Column(column.Title, column.Path, column.Width));
         return grid;
     }
+    private DataGridTextColumn Column(string title, string path, double width)
+    {
+        var column = new DataGridTextColumn { Header = UiLocalization.Text(title), Binding = new Binding(path), Width = new DataGridLength(width) };
+        _columnTitles.Add(column, title);
+        return column;
+    }
     private static string Value(double? value, string format = "G8") => value is { } actual && double.IsFinite(actual) ? actual.ToString(format, CultureInfo.CurrentCulture) : UiLocalization.Text("不可用");
-    private void LanguageChanged(object? sender, EventArgs args) { if (!_closed) { if (_session.Checkpoint is { } state) Publish(state); else Refresh(); } }
+    private void LanguageChanged(object? sender, EventArgs args)
+    {
+        if (_closed) return;
+        foreach (var (column, title) in _columnTitles) column.Header = UiLocalization.Text(title);
+        if (_session.Checkpoint is { } state) Publish(state); else Refresh();
+    }
 }
 
 internal sealed record TopologyCandidateRow(string Id, string Parent, string Status, int Elements, string Focal, string FNumber, string Rms, string Throughput, AutonomousSearchCandidate Candidate);
-internal sealed record TopologyEventRow(int Sequence, string Trial, string Parent, string Operation, string Phase, string Outcome, string Work, string Detail);
+internal sealed record TopologyEventRow(int Sequence, string Trial, string Parent, string Operation, string Phase, string Outcome, string Work,
+    string RecoveryWork, string PupilWork, string Detail);
 internal sealed record TopologyPrescriptionRow(string Id, string Position, string Material, string Profile, string Clear, string Protected, string Radius, string Conic, string Terms);
 internal sealed record TopologyFieldRow(string Field, string Rms, string Maximum, string Valid, string Checks, string Distortion);
