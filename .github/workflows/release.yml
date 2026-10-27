@@ -16,6 +16,10 @@ on:
         description: Replace selected existing installers (other platforms are preserved)
         type: boolean
         default: false
+      validation_only:
+        description: Run all selected platform checks without packaging or publishing
+        type: boolean
+        default: false
   push:
     tags: ['v*']
 
@@ -79,7 +83,7 @@ jobs:
         shell: pwsh
         run: |
           ./scripts/test-ota-key-crypto.ps1
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaHelperRuntimeTests|FullyQualifiedName~WindowsInstallationGateTests|FullyQualifiedName~WindowsInstallationLifetimeTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~WindowsPackagingTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=release.trx' --results-directory artifacts/cloud-verification
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~MacOtaPanelTests|FullyQualifiedName~OtaHelperRuntimeTests|FullyQualifiedName~WindowsInstallationGateTests|FullyQualifiedName~WindowsInstallationLifetimeTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~WindowsPackagingTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=release.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -87,7 +91,7 @@ jobs:
         if: matrix.runtime == 'osx-arm64'
         shell: pwsh
         run: |
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~MacPackagingTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=macos-release.trx' --results-directory artifacts/cloud-verification
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~MacPackagingTests|FullyQualifiedName~MacOtaPanelTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests|FullyQualifiedName~WorkspaceSessionTests' --logger 'trx;LogFileName=macos-release.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -95,7 +99,20 @@ jobs:
         shell: pwsh
         run: |
           # Real Skia navigation and drawing stubs must not share glyph caches.
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensConfigurationNavigationTests' --logger 'trx;LogFileName=lens-navigation.trx' --results-directory artifacts/cloud-verification
+          if ($IsMacOS) {
+            $reports = [IO.Path]::GetFullPath('artifacts/cloud-verification/native-crash')
+            [void][IO.Directory]::CreateDirectory($reports)
+            # .NET's report-only flag prevents any process-memory dump.
+            $env:DOTNET_DbgEnableMiniDump = '1'
+            $env:DOTNET_EnableCrashReportOnly = '1'
+            $env:DOTNET_DbgMiniDumpName = Join-Path $reports 'navigation.%p'
+            $env:OPTICAL_SYSTEM_DESIGN_NAVIGATION_TRACE = Join-Path $reports 'navigation-stages.txt'
+          }
+          if ($IsMacOS -and '${{ inputs.validation_only }}' -eq 'true') {
+            python3 scripts/test-macos-navigation-backtrace.py --results-directory artifacts/cloud-verification
+          } else {
+            ./scripts/test-lens-navigation-release.ps1 -ResultsDirectory artifacts/cloud-verification
+          }
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensEditorLayoutTests|FullyQualifiedName~LensHeaderTypographyTests|FullyQualifiedName~LensMaterialRowThemeTests|FullyQualifiedName~ViewerSettingsInputThemeTests|FullyQualifiedName~ViewerConfigurationTests|FullyQualifiedName~Viewer3DGeometryTests' --logger 'trx;LogFileName=lens-viewers.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -132,7 +149,7 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           ./scripts/verify-documentation.ps1 -Strict -OutputPath artifacts/cloud-verification/documentation.json
       - name: Build the complete self-contained EXE installer
-        if: matrix.runtime != 'osx-arm64'
+        if: ${{ matrix.runtime != 'osx-arm64' && !inputs.validation_only }}
         shell: pwsh
         env:
           TARGET_RUNTIME: ${{ matrix.runtime }}
@@ -153,7 +170,7 @@ jobs:
           Copy-Item -LiteralPath (Join-Path $package.Directory 'release.json') -Destination "distribution/release-$env:TARGET_RUNTIME.json"
           Get-FileHash -LiteralPath $package.Setup -Algorithm SHA256 | Format-List
       - name: Build and verify the self-contained Apple Silicon DMG
-        if: matrix.runtime == 'osx-arm64'
+        if: ${{ matrix.runtime == 'osx-arm64' && !inputs.validation_only }}
         shell: bash
         env:
           TEST_PACKAGE: ${{ needs.plan.outputs.test_package }}
@@ -161,7 +178,7 @@ jobs:
           options=()
           if [[ "$TEST_PACKAGE" == true ]]; then options+=(--test-package); fi
           bash scripts/build-macos.sh --output-root artifacts/cloud-macos "${options[@]}"
-          package_dir="$(find artifacts/cloud-macos -mindepth 1 -maxdepth 1 -type d ! -name '*.partial')"
+          package_dir="$(find artifacts/cloud-macos -mindepth 1 -maxdepth 1 -type d -name 'package.*' ! -name '*.partial')"
           test -n "$package_dir"
           mkdir -p distribution artifacts/cloud-package-verification
           cp "$package_dir"/*.dmg "$package_dir/release-osx-arm64.json" distribution/
@@ -170,12 +187,38 @@ jobs:
             cp "$report" "artifacts/cloud-package-verification/dmg-$(basename "$report")"
           done
           shasum -a 256 distribution/*.dmg
+      - name: Verify Mac native replacement and relaunch using owned cloud bundles
+        if: ${{ matrix.runtime == 'osx-arm64' && !inputs.validation_only }}
+        shell: bash
+        run: |
+          package_dir="$(find artifacts/cloud-macos -mindepth 1 -maxdepth 1 -type d -name 'package.*' ! -name '*.partial')"
+          python3 scripts/test-macos-ota-install.py "$package_dir/image/Optical System Design.app" artifacts/cloud-macos/.dependencies artifacts/mac-ota-install-work
+          cp artifacts/mac-ota-install-work/summary.json artifacts/cloud-verification/mac-ota-install-summary.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: ${{ !inputs.validation_only }}
         with:
           name: cloud-package-${{ matrix.runtime }}
           path: distribution/*
           if-no-files-found: error
           retention-days: 30
+      - name: Retain authorized bounded cloud Mac test crash reports
+        if: ${{ failure() && matrix.runtime == 'osx-arm64' }}
+        shell: bash
+        run: |
+          # User authorized temporary GitHub Mac test reports on 2026-10-27.
+          # No reports or files from the maintainer's own computer are read.
+          mkdir -p artifacts/cloud-verification/native-crash
+          count=0
+          sleep 2
+          for directory in "$HOME/Library/Logs/DiagnosticReports" "$HOME/Library/Logs/DiagnosticReports/Retired"; do
+            for report in "$directory"/{testhost,dotnet}*.{ips,crash}; do
+              [[ -f "$report" ]] || continue
+              if [[ $(stat -f%z "$report") -le 20971520 && $count -lt 5 ]]; then
+                cp "$report" artifacts/cloud-verification/native-crash/
+                count=$((count+1))
+              fi
+            done
+          done
       - name: Retain validation records inside Actions, not release attachments
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -188,8 +231,9 @@ jobs:
           retention-days: 30
 
   publish:
+    if: ${{ !inputs.validation_only }}
     needs: [plan, package]
-    runs-on: ubuntu-latest
+    runs-on: macos-15
     permissions:
       contents: write
     steps:
@@ -199,6 +243,23 @@ jobs:
           pattern: cloud-package-*
           path: distribution
           merge-multiple: true
+      - name: Prepare signed Mac archive and appcast before release mutation
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPTICAL_OTA_SIGNING_KEY: ${{ secrets.OPTICAL_OTA_SIGNING_KEY }}
+          OPTICAL_OTA_ENCRYPTED_BACKUP: ${{ secrets.OPTICAL_OTA_ENCRYPTED_BACKUP }}
+          OPTICAL_OTA_RECOVERY_PASSWORD: ${{ secrets.OPTICAL_OTA_RECOVERY_PASSWORD }}
+          RELEASE_TAG: ${{ needs.plan.outputs.tag }}
+        run: |
+          if (-not (Test-Path distribution/release-osx-arm64.json)) { return }
+          [void][IO.Directory]::CreateDirectory('distribution/release-evidence')
+          $headers = @{ Authorization = "Bearer $env:GH_TOKEN"; Accept = 'application/vnd.github+json'; 'User-Agent' = 'OpticalSystemDesign-MacOTA' }
+          $base = Invoke-RestMethod -Uri 'https://api.github.com/repos/VendettaMask/opticalsystem/contents/updates/macos/appcast.xml?ref=main' -Headers $headers
+          @{ sha = $base.sha } | ConvertTo-Json | Set-Content distribution/release-evidence/macos-feed-base.json -Encoding utf8
+          $feed = Join-Path $env:RUNNER_TEMP 'macos-feed-before.xml'
+          [IO.File]::WriteAllBytes($feed, [Convert]::FromBase64String($base.content))
+          ./scripts/prepare-macos-ota-release.ps1 -DistributionDirectory distribution -Tag $env:RELEASE_TAG -ExistingFeed $feed -OutputDirectory distribution/release-evidence
       - name: Verify and publish EXE and Apple Silicon DMG installers
         shell: pwsh
         env:
@@ -210,6 +271,11 @@ jobs:
           REPLACE_EXISTING: ${{ inputs.replace_existing || false }}
         run: |
           ./scripts/publish-github-exe.ps1 -Repository $env:GITHUB_REPOSITORY -Tag $env:RELEASE_TAG -DistributionDirectory distribution -ReplaceExisting:($env:REPLACE_EXISTING -eq 'true') -NotesFile packaging/windows/RELEASE_NOTES.md
+      - name: Activate signed Mac OTA feed after published archive verification
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./scripts/publish-macos-appcast.ps1 -DistributionDirectory distribution
       - name: Retain replacement receipts and previous assets inside Actions
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

@@ -22,6 +22,7 @@ using ContractMaterialCatalogService = OpticalSystemDesign.Application.Contracts
 
 namespace OpticalSystemDesign.Tests;
 
+[Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class AnalysisGuiContractTests
 {
     [Fact]
@@ -986,125 +987,133 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void AnalysisFooterUsesOneSharedHeightAcrossRegularAndPupilLayouts()
+    public async Task AnalysisFooterUsesOneSharedHeightAcrossRegularAndPupilLayouts()
     {
-        Assert.Equal(132, AnalysisPanel.AnalysisFooterHeight);
-        var view = new AnalysisContracts.AnalysisViewDto(
-            "test",
-            Array.Empty<AnalysisContracts.AnalysisRowDto>(),
-            string.Empty,
-            Array.Empty<AnalysisContracts.AnalysisSeriesDto>(),
-            new AnalysisContracts.AnalysisPlotOptionsDto(),
-            Array.Empty<AnalysisContracts.AnalysisPlotPaneDto>(),
-            1);
-        var document = new AnalysisContracts.OpticalDocumentSnapshot(
-            "test",
-            null,
-            0,
-            string.Empty,
-            false,
-            false,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0);
-        var generatedAt = new DateTimeOffset(2026, 8, 4, 12, 0, 0, TimeSpan.FromHours(8));
-        var regularFactory = typeof(AnalysisPanel).GetMethod(
-            "BuildAnalysisTitleBlock",
-            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
-        var pupilFactory = typeof(AnalysisPanel).GetMethod(
-            "BuildPupilAberrationTitleBlock",
-            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        await session.Dispatch(() =>
+        {
+            Assert.Equal(132, AnalysisPanel.AnalysisFooterHeight);
+            var view = new AnalysisContracts.AnalysisViewDto(
+                "test",
+                Array.Empty<AnalysisContracts.AnalysisRowDto>(),
+                string.Empty,
+                Array.Empty<AnalysisContracts.AnalysisSeriesDto>(),
+                new AnalysisContracts.AnalysisPlotOptionsDto(),
+                Array.Empty<AnalysisContracts.AnalysisPlotPaneDto>(),
+                1);
+            var document = new AnalysisContracts.OpticalDocumentSnapshot(
+                "test",
+                null,
+                0,
+                string.Empty,
+                false,
+                false,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0);
+            var generatedAt = new DateTimeOffset(2026, 8, 4, 12, 0, 0, TimeSpan.FromHours(8));
+            var regularFactory = typeof(AnalysisPanel).GetMethod(
+                "BuildAnalysisTitleBlock",
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+            var pupilFactory = typeof(AnalysisPanel).GetMethod(
+                "BuildPupilAberrationTitleBlock",
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
 
-        Assert.NotNull(regularFactory);
-        Assert.NotNull(pupilFactory);
-        var regular = Assert.IsType<Avalonia.Controls.Border>(
-            regularFactory.Invoke(null, new object[] { view, document, generatedAt }));
-        var pupil = Assert.IsType<Avalonia.Controls.Border>(
-            pupilFactory.Invoke(null, new object[]
-            {
+            Assert.NotNull(regularFactory);
+            Assert.NotNull(pupilFactory);
+            var regular = Assert.IsType<Avalonia.Controls.Border>(
+                regularFactory.Invoke(null, new object[] { view, document, generatedAt }));
+            var pupil = Assert.IsType<Avalonia.Controls.Border>(
+                pupilFactory.Invoke(null, new object[]
+                {
                 view with
                 {
                     PresentationKind = AnalysisContracts.AnalysisPresentationKind.PupilAberration
                 },
                 generatedAt
-            }));
+                }));
 
-        Assert.Equal(
-            AnalysisPanel.AnalysisFooterHeight,
-            Assert.IsAssignableFrom<Avalonia.Controls.Grid>(regular.Child).MinHeight);
-        Assert.Equal(
-            AnalysisPanel.AnalysisFooterHeight,
-            Assert.IsAssignableFrom<Avalonia.Controls.Grid>(pupil.Child).MinHeight);
+            Assert.Equal(
+                AnalysisPanel.AnalysisFooterHeight,
+                Assert.IsAssignableFrom<Avalonia.Controls.Grid>(regular.Child).MinHeight);
+            Assert.Equal(
+                AnalysisPanel.AnalysisFooterHeight,
+                Assert.IsAssignableFrom<Avalonia.Controls.Grid>(pupil.Child).MinHeight);
+        }, CancellationToken.None);
     }
 
     [Fact]
-    public void AngleVsImageHeightFooterOmitsDataWithoutChangingOtherAnalysisSummaries()
+    public async Task AngleVsImageHeightFooterOmitsDataWithoutChangingOtherAnalysisSummaries()
     {
-        foreach (var key in new[]
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        await session.Dispatch(() =>
         {
+            foreach (var key in new[]
+            {
             "Angle vs Image Height",
             "Angle vs Image Height - Through Pupil",
             "Angle vs Image Height - Through Field"
         })
-        {
+            {
+                Assert.Equal(
+                    AnalysisContracts.AnalysisPresentationKind.AngleVsImageHeight,
+                    WorkbenchAnalysisCatalog.PresentationKind(key));
+            }
+
+            var rows = Enumerable.Range(1, 7)
+                .Select(index => new AnalysisContracts.AnalysisRowDto($"Metric {index}", index.ToString()))
+                .ToArray();
+            var view = new AnalysisContracts.AnalysisViewDto(
+                "Renamed analysis",
+                rows,
+                "Full report remains available",
+                Array.Empty<AnalysisContracts.AnalysisSeriesDto>(),
+                new AnalysisContracts.AnalysisPlotOptionsDto(),
+                Array.Empty<AnalysisContracts.AnalysisPlotPaneDto>(),
+                1,
+                PresentationKind: AnalysisContracts.AnalysisPresentationKind.AngleVsImageHeight);
+            var document = new AnalysisContracts.OpticalDocumentSnapshot(
+                "test", null, 0, string.Empty, false, false, 0, 0, 0, 0, 0, 0, 0);
+            var generatedAt = new DateTimeOffset(2026, 9, 4, 12, 0, 0, TimeSpan.FromHours(8));
+            var factory = typeof(AnalysisPanel).GetMethod(
+                "BuildAnalysisTitleBlock",
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+            Assert.NotNull(factory);
+
+            Avalonia.Controls.StackPanel BuildLeft(AnalysisContracts.AnalysisViewDto candidate)
+            {
+                var border = Assert.IsType<Avalonia.Controls.Border>(
+                    factory.Invoke(null, new object[] { candidate, document, generatedAt }));
+                var grid = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(border.Child);
+                Assert.Equal(AnalysisPanel.AnalysisFooterHeight, grid.MinHeight);
+                Assert.Equal(2, grid.Children.Count);
+                return Assert.IsType<Avalonia.Controls.StackPanel>(grid.Children[0]);
+            }
+
+            var angleLeft = BuildLeft(view);
+            Assert.Equal(2, angleLeft.Children.Count);
+            Assert.Equal(view.Name, Assert.IsType<Avalonia.Controls.TextBlock>(angleLeft.Children[0]).Text);
             Assert.Equal(
-                AnalysisContracts.AnalysisPresentationKind.AngleVsImageHeight,
-                WorkbenchAnalysisCatalog.PresentationKind(key));
-        }
+                generatedAt.LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss"),
+                Assert.IsType<Avalonia.Controls.TextBlock>(angleLeft.Children[1]).Text);
+            Assert.Same(rows, view.Rows);
+            Assert.Equal("Full report remains available", view.ReportText);
 
-        var rows = Enumerable.Range(1, 7)
-            .Select(index => new AnalysisContracts.AnalysisRowDto($"Metric {index}", index.ToString()))
-            .ToArray();
-        var view = new AnalysisContracts.AnalysisViewDto(
-            "Renamed analysis",
-            rows,
-            "Full report remains available",
-            Array.Empty<AnalysisContracts.AnalysisSeriesDto>(),
-            new AnalysisContracts.AnalysisPlotOptionsDto(),
-            Array.Empty<AnalysisContracts.AnalysisPlotPaneDto>(),
-            1,
-            PresentationKind: AnalysisContracts.AnalysisPresentationKind.AngleVsImageHeight);
-        var document = new AnalysisContracts.OpticalDocumentSnapshot(
-            "test", null, 0, string.Empty, false, false, 0, 0, 0, 0, 0, 0, 0);
-        var generatedAt = new DateTimeOffset(2026, 9, 4, 12, 0, 0, TimeSpan.FromHours(8));
-        var factory = typeof(AnalysisPanel).GetMethod(
-            "BuildAnalysisTitleBlock",
-            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
-        Assert.NotNull(factory);
-
-        Avalonia.Controls.StackPanel BuildLeft(AnalysisContracts.AnalysisViewDto candidate)
-        {
-            var border = Assert.IsType<Avalonia.Controls.Border>(
-                factory.Invoke(null, new object[] { candidate, document, generatedAt }));
-            var grid = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(border.Child);
-            Assert.Equal(AnalysisPanel.AnalysisFooterHeight, grid.MinHeight);
-            Assert.Equal(2, grid.Children.Count);
-            return Assert.IsType<Avalonia.Controls.StackPanel>(grid.Children[0]);
-        }
-
-        var angleLeft = BuildLeft(view);
-        Assert.Equal(2, angleLeft.Children.Count);
-        Assert.Equal(view.Name, Assert.IsType<Avalonia.Controls.TextBlock>(angleLeft.Children[0]).Text);
-        Assert.Equal(
-            generatedAt.LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss"),
-            Assert.IsType<Avalonia.Controls.TextBlock>(angleLeft.Children[1]).Text);
-        Assert.Same(rows, view.Rows);
-        Assert.Equal("Full report remains available", view.ReportText);
-
-        // The visible name must not dispatch footer behavior.
-        var standardLeft = BuildLeft(view with
-        {
-            Name = "入射角 vs. 像高",
-            PresentationKind = AnalysisContracts.AnalysisPresentationKind.Standard
-        });
-        Assert.Equal(3, standardLeft.Children.Count);
-        var summary = Assert.IsType<Avalonia.Controls.TextBlock>(standardLeft.Children[2]);
-        Assert.Contains("Metric 1: 1", summary.Text);
-        Assert.Contains("其余 3 项", summary.Text);
+            // The visible name must not dispatch footer behavior.
+            var standardLeft = BuildLeft(view with
+            {
+                Name = "入射角 vs. 像高",
+                PresentationKind = AnalysisContracts.AnalysisPresentationKind.Standard
+            });
+            Assert.Equal(3, standardLeft.Children.Count);
+            var summary = Assert.IsType<Avalonia.Controls.TextBlock>(standardLeft.Children[2]);
+            Assert.Contains("Metric 1: 1", summary.Text);
+            Assert.Contains("其余 3 项", summary.Text);
+        }, CancellationToken.None);
     }
 
     [Fact]

@@ -7,6 +7,108 @@ permissions:
   contents: read
 
 jobs:
+  mac-identity:
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          global-json-file: global.json
+      - name: Verify Mac and Windows update UI contracts without desktop windows
+        shell: pwsh
+        run: |
+          dotnet restore tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj --locked-mode
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore /m:1 /nr:false --filter 'FullyQualifiedName~MacOtaPanelTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests' --logger 'trx;LogFileName=mac-ota-contracts.trx' --results-directory artifacts/mac-ota-validation
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Derive Mac public key from existing OTA Secrets and compile native bridge
+        shell: pwsh
+        env:
+          OPTICAL_OTA_SIGNING_KEY: ${{ secrets.OPTICAL_OTA_SIGNING_KEY }}
+          OPTICAL_OTA_ENCRYPTED_BACKUP: ${{ secrets.OPTICAL_OTA_ENCRYPTED_BACKUP }}
+          OPTICAL_OTA_RECOVERY_PASSWORD: ${{ secrets.OPTICAL_OTA_RECOVERY_PASSWORD }}
+        run: |
+          $privateDirectory = Join-Path $env:RUNNER_TEMP ([Guid]::NewGuid().ToString('N'))
+          [void][IO.Directory]::CreateDirectory($privateDirectory)
+          [IO.File]::SetUnixFileMode($privateDirectory, [IO.UnixFileMode]::UserRead -bor [IO.UnixFileMode]::UserWrite -bor [IO.UnixFileMode]::UserExecute)
+          try {
+            ./scripts/mac-ota-key.ps1 -OutputPath (Join-Path $privateDirectory 'seed')
+            [void][IO.Directory]::CreateDirectory('artifacts/mac-ota-public')
+            swift scripts/mac-ota-key.swift (Join-Path $privateDirectory 'seed') (Join-Path $privateDirectory 'signing-key') > artifacts/mac-ota-public/ota-public-key.txt
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            bash scripts/fetch-sparkle.sh artifacts/mac-ota-dependency
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            bash scripts/test-macos-updater.sh artifacts/mac-ota-dependency artifacts/mac-ota-native
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            # Sign and verify a disposable archive; only public metadata is retained.
+            [IO.File]::WriteAllText((Join-Path $privateDirectory 'fixture.bin'), 'Mac OTA cloud signing fixture')
+            $tool = 'artifacts/mac-ota-dependency/Sparkle-2.10.1/bin/sign_update'
+            $signature = & $tool --ed-key-file (Join-Path $privateDirectory 'signing-key') -p (Join-Path $privateDirectory 'fixture.bin')
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            & $tool --ed-key-file (Join-Path $privateDirectory 'signing-key') --verify (Join-Path $privateDirectory 'fixture.bin') $signature
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            [IO.File]::AppendAllText((Join-Path $privateDirectory 'fixture.bin'), 'tampered')
+            & $tool --ed-key-file (Join-Path $privateDirectory 'signing-key') --verify (Join-Path $privateDirectory 'fixture.bin') $signature
+            if (-not $LASTEXITCODE) { throw 'Tampered archive was incorrectly accepted.' }
+            $global:LASTEXITCODE = 0
+          } finally { Remove-Item -LiteralPath $privateDirectory -Recurse -Force }
+      - name: Build a disposable Apple Silicon OTA bundle and verify its mounted DMG
+        shell: bash
+        run: |
+          bash scripts/build-macos.sh --test-package --output-root artifacts/mac-ota-package
+          mkdir -p artifacts/mac-ota-distribution
+          package_dir="$(find artifacts/mac-ota-package -mindepth 1 -maxdepth 1 -type d -name 'package.*' ! -name '*.partial')"
+          cp "$package_dir"/*.dmg "$package_dir/release-osx-arm64.json" artifacts/mac-ota-distribution/
+          cp "$package_dir/verification/summary.json" artifacts/mac-ota-validation/bundle-summary.json
+          cp "$package_dir/dmg-verification/summary.json" artifacts/mac-ota-validation/dmg-summary.json
+      - name: Sign the disposable package and prepare public metadata without publishing
+        shell: pwsh
+        env:
+          OPTICAL_OTA_SIGNING_KEY: ${{ secrets.OPTICAL_OTA_SIGNING_KEY }}
+          OPTICAL_OTA_ENCRYPTED_BACKUP: ${{ secrets.OPTICAL_OTA_ENCRYPTED_BACKUP }}
+          OPTICAL_OTA_RECOVERY_PASSWORD: ${{ secrets.OPTICAL_OTA_RECOVERY_PASSWORD }}
+        run: |
+          $record = Get-Content artifacts/mac-ota-distribution/release-osx-arm64.json -Raw | ConvertFrom-Json
+          ./scripts/prepare-macos-ota-release.ps1 -DistributionDirectory artifacts/mac-ota-distribution -Tag "v$($record.Version)-test.20261019" -ExistingFeed updates/macos/appcast.xml -OutputDirectory artifacts/mac-ota-validation
+      - name: Replace and relaunch complete disposable product bundles through Sparkle
+        shell: bash
+        run: |
+          package_dir="$(find artifacts/mac-ota-package -mindepth 1 -maxdepth 1 -type d -name 'package.*' ! -name '*.partial')"
+          python3 scripts/test-macos-ota-install.py "$package_dir/image/Optical System Design.app" artifacts/mac-ota-package/.dependencies artifacts/mac-ota-install-work
+          cp artifacts/mac-ota-install-work/summary.json artifacts/mac-ota-validation/native-install-summary.json
+          for mode in cancel-download cancel-ready tampered-archive apply; do
+            cp "artifacts/mac-ota-install-work/$mode/result.json" "artifacts/mac-ota-validation/$mode-result.json"
+          done
+      - name: Retain bounded native installation fixture diagnostics
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/mac-ota-validation
+          for mode in cancel-download cancel-ready tampered-archive apply; do
+            for name in fixture.log result.json product-verification.json; do
+              source="artifacts/mac-ota-install-work/$mode/$name"
+              if [[ -f "$source" && $(stat -f%z "$source") -le 2097152 ]]; then
+                cp "$source" "artifacts/mac-ota-validation/$mode-$name"
+              fi
+            done
+          done
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: mac-ota-validation
+          path: artifacts/mac-ota-validation
+          if-no-files-found: warn
+          retention-days: 30
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: mac-ota-public-identity
+          path: artifacts/mac-ota-public/ota-public-key.txt
+          if-no-files-found: warn
+          retention-days: 30
   portable-crypto:
     strategy:
       fail-fast: false
@@ -39,7 +141,7 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests' --logger 'trx;LogFileName=ota-publisher.trx' --results-directory artifacts/ota-checks
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~MacOtaPanelTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests' --logger 'trx;LogFileName=ota-publisher.trx' --results-directory artifacts/ota-checks
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - name: Render three languages in a separate real Skia test process
         shell: pwsh

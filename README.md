@@ -10,19 +10,19 @@
 
 <p align="center">
   <strong>让光学设计，从一个想法走向可分析的系统。</strong><br />
-  建模、追迹、优化、初始结构与镀膜设计，汇聚在同一个桌面工作台。
+  顺序与非序列建模、成像分析、优化、公差、初始结构与镀膜设计，汇聚在同一个桌面工作台。
 </p>
 
 <p align="center">
   <a href="https://github.com/VendettaMask/opticalsystem/actions/workflows/ci.yml"><img src="https://github.com/VendettaMask/opticalsystem/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI 实时状态" /></a>
   <a href="global.json"><img src="https://img.shields.io/badge/C%23%20%2F%20.NET-10-512BD4?style=flat-square" alt="C# / .NET 10" /></a>
   <a href="docs/ARCHITECTURE.md"><img src="https://img.shields.io/badge/Avalonia-Desktop-7C3AED?style=flat-square" alt="Avalonia 桌面界面" /></a>
-  <a href="docs/CURRENT_STATUS.md"><img src="https://img.shields.io/badge/Status-In%20Development-D99A3D?style=flat-square" alt="持续开发中，尚未完成全部发布验收" /></a>
+  <a href="docs/CURRENT_STATUS.md"><img src="https://img.shields.io/badge/Status-In%20Development-D99A3D?style=flat-square" alt="持续开发中，提供测试版" /></a>
 </p>
 
 <p align="center">
   <a href="#功能一览"><strong>功能一览</strong></a> ·
-  <a href="#安装与启动"><strong>安装与启动</strong></a> ·
+  <a href="#安装与启动"><strong>下载与安装</strong></a> ·
   <a href="#开发者快速开始"><strong>快速开始</strong></a> ·
   <a href="docs/README.md"><strong>阅读文档</strong></a> ·
   <a href="https://github.com/VendettaMask/opticalsystem/issues"><strong>反馈问题</strong></a>
@@ -32,14 +32,14 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/workbench-dark.png" />
-    <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme/workbench-light.png" />
-    <img src="docs/assets/readme/workbench-light.png" alt="Optical System Design 工作台：镜头数据编辑器、文档页签与系统选项侧栏" width="1120" />
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/2026-10-27/workbench-dark.png" />
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme/2026-10-27/workbench-light.png" />
+    <img src="docs/assets/readme/2026-10-27/workbench-light.png" alt="Optical System Design 实际主窗口：变焦镜头数据、二维布局与系统选项" width="1120" />
   </picture>
 </p>
 
 <p align="center">
-  <sub>明暗主题下的桌面工作台。预览来自 2026-10-15 实际 Avalonia 控件的离屏渲染，展示布局，不代表数值或跨平台验收。</sub>
+  <sub>明暗主题下的实际主窗口：镜头数据、二维布局和系统选项。使用自带镜头示例离屏渲染。</sub>
 </p>
 
 ---
@@ -48,14 +48,14 @@
 
 这是 S.T.A.R. Labs 的非商业光学设计项目：用纯 C#/.NET 构建共享计算内核，用 Avalonia 提供桌面工作流，让镜头模型、分析结果和设计过程在一处衔接。
 
-- **一个工作台**：镜头编辑、二维/三维布局、分析、优化和公差共用工程与工作区。
+- **从处方到交付**：在镜头编辑、二维/三维布局、分析、优化、公差和设计报告之间衔接，无须反复转存工程。
 - **三种界面语言**：默认简体中文，可即时切换 English 与日本語并记住选择。
 - **一套计算内核**：主程序、初始结构和镀膜模块复用共享 Core，不依赖外部 Python 光学运行时。
 - **一个完整产品**：两个模块均为同进程、必装内置功能，标准安装一次包含，无须另外启动或安装。
-- **分类镜头示例**：从“文件 → 示例”浏览 Zemax Sequential 的 14 类、95 个镜头，按原目录选择并通过统一导入器加载；[使用与支持范围](docs/USER_GUIDE.md#镜头示例)。
+- **分类镜头示例**：从“文件 → 示例”浏览 Zemax Sequential 的 14 类、95 个镜头，用于打开、学习和分析；具体模型按[导入支持范围](docs/USER_GUIDE.md#镜头示例)执行。
 - **可追溯的验证**：区分已实现能力、冻结参考、数值对照和待验证边界，不把界面展示当作精度证明。
 
-> 项目仍在持续开发，尚未完成完整发布验收。当前包身份、验证范围与待解决问题统一见[当前状态](docs/CURRENT_STATUS.md)，本页不以历史测试数量代替当前结论。
+> 项目持续开发，现提供三平台测试包。当前包身份、已验证范围与剩余工作统一见[当前状态](docs/CURRENT_STATUS.md)，各分析和模型的适用范围见对应指南。
 
 ## 功能一览
 
@@ -63,58 +63,102 @@
   <tr>
     <td width="50%" valign="top">
       <h3>🔭 镜头建模与布局</h3>
-      <p>编辑表面、材料、孔径、视场与波长，在二维/三维布局中检查系统；支持多配置以及独立的非序列文档工作流。</p>
+      <p>编辑曲率、厚度、材料、面型、孔径、视场和波长，设置变量、解与拾取。多配置可在镜头表头前后切换，并与系统选项、布局和撤销/重做联动。</p>
       <a href="docs/GUI_QUICKSTART_REFACTOR.md">桌面工作流 →</a>
     </td>
     <td width="50%" valign="top">
       <h3>📈 追迹与成像分析</h3>
-      <p>从点列、光线像差和波前，到 PSF、MTF、累计能量与图像模拟，围绕当前光学模型查看结果。</p>
+      <p>点列、光线扇形、场曲/畸变、RMS、波前、真实干涉条纹、FFT/Huygens PSF 和 FFT/Huygens/几何 MTF，以及能量、照度和图像模拟；可按实际视场、波长与结构设置计算。</p>
       <a href="docs/PARITY_MATRIX.md">能力与支持边界 →</a>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
       <h3>🎯 优化与公差</h3>
-      <p>设置变量与评价目标，使用已实现的优化算法；通过灵敏度、补偿和 Monte Carlo 检查制造偏差的影响。</p>
+      <p>设置变量、评价操作数、权重与约束，使用 Damped Least Squares、Nelder–Mead 等实际实现的算法；通过灵敏度、补偿和 Monte Carlo 评估制造偏差。</p>
       <a href="docs/OPTIMIZATION_ALGORITHMS.md">优化算法</a> · <a href="docs/TOLERANCING.md">公差分析 →</a>
     </td>
     <td width="50%" valign="top">
       <h3>🧩 初始结构设计</h3>
-      <p>从规格出发生成与细化候选结构，使用共享 Core 进行真实光学评价。候选结果仍需按设计目标独立复验。</p>
+      <p>以 AutoLens 流程从规格与随机种子生成、优化和细化候选，支持运行记录、预算与续跑。设备可选自动优先 CUDA、GPU 或 CPU，候选使用共享 Core 独立验收，并可导出工程。</p>
       <a href="labs/InitialStructure/README.md">内置模块说明 →</a>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
       <h3>🌈 光学镀膜设计</h3>
-      <p>编辑膜层与材料，计算 R/T/A 光谱，开展减反、高反和窄带膜系的生成、优化、公差与实验保存。</p>
+      <p>生成减反、高反和窄带候选，编辑膜层厚度与 n/k 材料，计算 R/T/A、OD 光谱，进行厚度优化、有限结构搜索和制造公差，并保存独立实验。</p>
       <a href="labs/CoatingDesign/README.md">内置模块说明 →</a>
     </td>
     <td width="50%" valign="top">
       <h3>🛠️ 工程、材料与制造资料</h3>
-      <p>使用材料与镜头库，保存完整工程，生成制造图纸或导出 STEP；支持范围明确的 ZMX、SEQ、LEN 交换子集。</p>
-      <a href="docs/FILE_FORMATS_AND_PLUGINS.md">文件与交换格式</a> · <a href="docs/MANUFACTURING_DRAWINGS.md">制造制图 →</a>
+      <p>使用材料与镜头库，以 STAROPT 保存完整工程；导出处方与分析 CSV、完整 PNG、Markdown 设计报告、制造图纸和分面 STEP。支持范围明确的 ZMX、SEQ、LEN 交换子集。</p>
+      <a href="docs/FILE_FORMATS_AND_PLUGINS.md">文件与交换格式</a> · <a href="docs/MARKDOWN_REPORT_EXPORT.md">设计报告 →</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🔦 非序列与杂散光</h3>
+      <p>在独立对象文档中编辑光源、光学对象、机械 STL 网格与探测器；通过分支追迹、光线数据库、路径筛选和探测器重建检查传播与能量。</p>
+      <a href="docs/NON_SEQUENTIAL_TRACING.md">非序列工作流</a> · <a href="docs/NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md">杂散光链路 →</a>
+    </td>
+    <td width="50%" valign="top">
+      <h3>📷 相机成像仿真</h3>
+      <p>结合当前镜头快照、传感器、QE、光源与反射谱，观察光学、噪声、ADC 和基础 ISP 的分阶段结果；支持连续光谱积分、A/B 对照及结果导出。</p>
+      <a href="docs/CAMERA_IMAGING_LAB.md">成像实验室与模型范围 →</a>
     </td>
   </tr>
 </table>
 
+### 分析与显示
+
+| 工作 | 当前可用内容 |
+| --- | --- |
+| 几何像质 | 点列、光线扇形、场曲/畸变、横向色差、RMS 随视场/波长/焦点变化、赛德尔系数及柱形图自动量程 |
+| 衍射与能量 | FFT/Huygens PSF，FFT/Huygens/几何 MTF，累计能量、相对照度及各自支持的扫描设置 |
+| 波前与干涉 | 波前图提供曲面、等高线、二维热图；干涉图提供灰度、伪彩色、等高线及两光束、倾斜、分析面和子孔径设置 |
+| Zernike 系数 | Fringe、Standard、Annular 三种具名系数表与拟合统计，另有系数随视场分析；波前分布通过“波前图”查看 |
+| 交互与导出 | 按命名曲线勾选图例、缩放/平移、切换绘图/数据/文本；小窗口保持可读字号，重排或滚动查看，PNG 包含完整分析内容 |
+| 布局与实体 | 二维布局、三维布局与实体模型，支持视角预设、方向指示、光线显示及当前视口 PNG 导出 |
+
+干涉图显示共享 Core 根据波前差计算的条纹强度，具体物理假设和设置见[干涉条纹说明](docs/INTERFEROGRAM_2026-10-26.md)。分析使用各自的采样、参考、量纲和适用范围，完整定义见[用户指南](docs/USER_GUIDE.md)与[能力矩阵](docs/PARITY_MATRIX.md)。
+
+### 一条常用工作流
+
+1. **打开或建立系统**：导入受支持的顺序文件，或从分类示例开始；正式工程保存为 `.staropt`。
+2. **检查处方与布局**：调整系统选项、材料和表面，切换多配置，查看二维/三维传播。
+3. **分析与改进**：配置实际视场、波长和采样，比较像质，再按需要设置变量、评价目标与公差。
+4. **保存与交付**：保存工程，或在“数据库 → 设计报告”选择分析及所有配置，导出 Markdown 和配套图片；需要机械交换时显式导出 STEP。
+
+AI 初始结构与镀膜设计从“实验室”打开，使用各自的实验和运行记录。初始结构候选需要独立达标验收，镀膜实验不会自动应用到当前镜头。[GPU 说明](docs/AUTOLENS_GPU.md)列出设备支持和回退范围；自主拓扑增删/搜索目前提供实验性 CPU 库接口，开发进度见[实施计划](docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)。
+
 ## 安装与启动
+
+### 下载安装包
+
+| 平台 | 安装包 |
+| --- | --- |
+| Windows x64 | [下载 EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-6b4ccf31.exe) |
+| Windows ARM64 | [下载 EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-6b4ccf31.exe) |
+| Mac Apple Silicon | [下载 DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg) |
+
+三个平台均为自包含交付，包含运行时、两个必装内置模块与字体，无须另装 .NET。版本更新记录、文件校验值及历史版本统一在 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases) 查看。
 
 ### 使用 Windows 安装包
 
-安装包通过 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases) 分发。使用正式发布中的 `OpticalSystemDesign-*-Setup.exe`，按向导完成安装后启动主程序。Windows x64 标准包为自包含交付，使用者无须另装 .NET、初始结构或镀膜模块。
+选择与系统架构对应的 EXE，按向导完成安装后启动主程序。已有安装可通过完整安装包覆盖更新，无需先卸载。
 
-软件版本与更新集中在“帮助 → 关于”；点击“检查更新”手动查询正式版本，“打开发布页”前往下载完整包。不会自动下载或安装。版本与发布规则见[构建与发布](docs/BUILD_AND_RELEASE.md#软件版本与-github-分发)；开发版本不代表已有对应公开安装包。
+软件版本与更新集中在 **帮助 → 关于**。“包含测试版”默认勾选；手动检查后，可下载并验证匹配架构的更新，再点击“安装更新并重启”。有未保存修改时可选择保存、不保存或取消；不会在后台强制安装或关闭程序。同版本的新测试构建也可通过签名构建编号识别，详见[更新规则](docs/BUILD_AND_RELEASE.md#软件版本与-github-分发)。
 
 在主程序的 **实验室 → AI 初始结构 / 光学镀膜设计** 中进入两个内置模块。
 
 完整使用方法可在主程序的 **帮助 → 用户指南** 中搜索查看；该图文指南包含真实界面截图和主题自适应说明图，覆盖当前注册的全部功能命令和分析，并随界面切换中文、英文或日文。仓库内的范围说明见[用户指南](docs/USER_GUIDE.md)。
 
-当前安装包未签名，系统可能显示未知发布者提示；源码更新不会自动替换已有安装。安装、修复和恢复方式见 [Windows 安装说明](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)，实际包身份以[交付记录](docs/BUILT_IN_MODULES_2026-10-13.md)为准。
+Windows 安装包尚无 Authenticode 发布者签名，系统可能显示未知发布者提示；更新元数据的 RSA 验签不能替代该证书。安装、修复和恢复方式见 [Windows 安装说明](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)，具体版本和包信息以[发布页](https://github.com/VendettaMask/opticalsystem/releases)为准。
 
 ### 使用 Apple Silicon Mac 版
 
-Mac 发布仅支持 M 系列芯片（`osx-arm64`）。打开发布页的 DMG，将 **Optical System Design.app** 拖入“应用程序”；包内包含 .NET、两个必装模块和字体。当前包为 ad-hoc 签名、尚未公证，首次打开可能需要系统批准；Mac 通过发布页手动更新。具体可下载包及验证范围见[当前状态](docs/CURRENT_STATUS.md)，打包步骤见[云端发布指南](docs/GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
+Mac 发布仅支持 M 系列芯片（`osx-arm64`）。首次打开发布页的 DMG，将 **Optical System Design.app** 拖入“应用程序”；包内包含 .NET、两个必装模块和字体。带更新器的版本支持在“帮助 → 关于”检查、下载并校验更新，再安装和重启；早期 Mac 版本需先手动安装一次带更新器的完整包。Mac 使用 ad-hoc 签名、尚未公证，首次打开可能需要系统批准。具体可下载包及验证范围见[当前状态](docs/CURRENT_STATUS.md)，打包步骤见[云端发布指南](docs/GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
 
 ### 从源码启动
 
@@ -128,7 +172,7 @@ dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj 
 
 也可使用 Windows 的 [Run-OpticalSystemDesign.cmd](Run-OpticalSystemDesign.cmd) 或 macOS 的 [Run-OpticalSystemDesign.command](Run-OpticalSystemDesign.command)。这两个开发入口会依次还原、清理、构建并启动，不删除用户工程、主题或工作区。
 
-Windows ARM64、macOS 发布入口与 Linux CI 构建不等于对应平台已完成实机安装或全部桌面验收。跨平台交付范围见[构建与发布](docs/BUILD_AND_RELEASE.md)。
+Windows ARM64 安装包由 Windows x64 构建机交叉打包；Mac 在 Apple Silicon 云端执行定向回归和包内无界面检查。Linux 的 CI 构建不代表提供了 Linux 安装包。实机安装和完整桌面验收范围见[构建与发布](docs/BUILD_AND_RELEASE.md)。
 
 ## 开发者快速开始
 
@@ -167,6 +211,7 @@ dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore /m:1 /nr
 | 我想…… | 从这里开始 |
 | --- | --- |
 | 上手桌面工作流 | [使用指南](docs/GUI_QUICKSTART_REFACTOR.md) |
+| 查看分析、报告与成像实验室 | [用户指南](docs/USER_GUIDE.md) · [设计报告](docs/MARKDOWN_REPORT_EXPORT.md) · [相机成像](docs/CAMERA_IMAGING_LAB.md) |
 | 查阅全部文档 | [文档索引](docs/README.md) |
 | 了解当前验证、安装包与剩余工作 | [当前状态](docs/CURRENT_STATUS.md) · [问题清单](docs/OPEN_ISSUES_2026-10-08.md) |
 | 了解支持的模型和文件 | [能力矩阵](docs/PARITY_MATRIX.md) · [文件格式](docs/FILE_FORMATS_AND_PLUGINS.md) |

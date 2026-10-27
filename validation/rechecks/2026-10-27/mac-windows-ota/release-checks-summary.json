@@ -1,0 +1,950 @@
+{
+  "run_id": 40469805561,
+  "at_utc": "2026-10-27T08:09:09.263058+00:00",
+  "platforms": [
+    {
+      "name": "cloud-checks-win-x64",
+      "artifact_id": 12718660935,
+      "archive_sha256": "b05d3306eb3055b5cb13aea0a98716e2294a1ee8599c2d5911d8cfb044ed144e",
+      "api_digest_matched": true,
+      "size": 9867771,
+      "suites": [
+        {
+          "file": "cloud-verification/analysis-contracts.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 202,
+            "executed": 202,
+            "passed": 202,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/analysis-export.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 17,
+            "executed": 17,
+            "passed": 17,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/analysis-render.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 42,
+            "executed": 42,
+            "passed": 42,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/initial-structure.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 25,
+            "executed": 24,
+            "passed": 24,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": [
+            {
+              "name": "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm",
+              "outcome": "NotExecuted",
+              "reason": "Requires explicit CUDA hardware validation."
+            }
+          ]
+        },
+        {
+          "file": "cloud-verification/lens-navigation-01.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-02.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-03.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 4,
+            "executed": 4,
+            "passed": 4,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-04.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-05.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 2,
+            "executed": 2,
+            "passed": 2,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-viewers.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 64,
+            "executed": 62,
+            "passed": 62,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": [
+            {
+              "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway",
+              "outcome": "NotExecuted",
+              "reason": "Set the viewer3d capture directory to run independent Skia pixel checks."
+            },
+            {
+              "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidModelRemovesTheLowerRightGizmoAndKeepsTheLabelledTriad",
+              "outcome": "NotExecuted",
+              "reason": "Set the viewer3d capture directory to run independent Skia pixel checks."
+            }
+          ]
+        },
+        {
+          "file": "cloud-verification/ota-runtime-package.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 8,
+            "executed": 8,
+            "passed": 8,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/release.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 263,
+            "executed": 263,
+            "passed": 263,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/update-feedback-render.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 3,
+            "executed": 3,
+            "passed": 3,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        }
+      ],
+      "unique_tests": 579,
+      "unique_passed": 576,
+      "unique_failed": 0,
+      "unique_skipped": 3,
+      "incomplete_suites": []
+    },
+    {
+      "name": "cloud-checks-osx-arm64",
+      "artifact_id": 12718577199,
+      "archive_sha256": "fc3ff1f8cab6901385a8c4501f57d46ba40569eac57e3b9b4bcc2da022728c10",
+      "api_digest_matched": true,
+      "size": 11018859,
+      "suites": [
+        {
+          "file": "cloud-verification/analysis-contracts.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 202,
+            "executed": 202,
+            "passed": 202,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/analysis-export.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 17,
+            "executed": 17,
+            "passed": 17,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/analysis-render.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 42,
+            "executed": 42,
+            "passed": 42,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/initial-structure.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 25,
+            "executed": 24,
+            "passed": 24,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": [
+            {
+              "name": "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm",
+              "outcome": "NotExecuted",
+              "reason": "Requires explicit CUDA hardware validation."
+            }
+          ]
+        },
+        {
+          "file": "cloud-verification/lens-navigation-01.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-03.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 4,
+            "executed": 4,
+            "passed": 4,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-04.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-02.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-05.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 2,
+            "executed": 2,
+            "passed": 2,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-viewers.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 64,
+            "executed": 62,
+            "passed": 62,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": [
+            {
+              "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway",
+              "outcome": "NotExecuted",
+              "reason": "Set the viewer3d capture directory to run independent Skia pixel checks."
+            },
+            {
+              "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidModelRemovesTheLowerRightGizmoAndKeepsTheLabelledTriad",
+              "outcome": "NotExecuted",
+              "reason": "Set the viewer3d capture directory to run independent Skia pixel checks."
+            }
+          ]
+        },
+        {
+          "file": "cloud-verification/macos-release.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 173,
+            "executed": 173,
+            "passed": 173,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/update-feedback-render.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 3,
+            "executed": 3,
+            "passed": 3,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        }
+      ],
+      "unique_tests": 493,
+      "unique_passed": 490,
+      "unique_failed": 0,
+      "unique_skipped": 3,
+      "incomplete_suites": []
+    },
+    {
+      "name": "cloud-checks-win-arm64",
+      "artifact_id": 12718487751,
+      "archive_sha256": "bcc94ccfa28bfe14296f3d99c69e62489ee54bcfda0d87c0f40d97e8df83ba8b",
+      "api_digest_matched": true,
+      "size": 9859434,
+      "suites": [
+        {
+          "file": "cloud-verification/analysis-contracts.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 202,
+            "executed": 202,
+            "passed": 202,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/analysis-export.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 17,
+            "executed": 17,
+            "passed": 17,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/analysis-render.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 42,
+            "executed": 42,
+            "passed": 42,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/initial-structure.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 25,
+            "executed": 24,
+            "passed": 24,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": [
+            {
+              "name": "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm",
+              "outcome": "NotExecuted",
+              "reason": "Requires explicit CUDA hardware validation."
+            }
+          ]
+        },
+        {
+          "file": "cloud-verification/lens-navigation-01.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-02.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-03.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 4,
+            "executed": 4,
+            "passed": 4,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-04.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 1,
+            "executed": 1,
+            "passed": 1,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-navigation-05.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 2,
+            "executed": 2,
+            "passed": 2,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/lens-viewers.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 64,
+            "executed": 62,
+            "passed": 62,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": [
+            {
+              "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidModelRemovesTheLowerRightGizmoAndKeepsTheLabelledTriad",
+              "outcome": "NotExecuted",
+              "reason": "Set the viewer3d capture directory to run independent Skia pixel checks."
+            },
+            {
+              "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway",
+              "outcome": "NotExecuted",
+              "reason": "Set the viewer3d capture directory to run independent Skia pixel checks."
+            }
+          ]
+        },
+        {
+          "file": "cloud-verification/release.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 263,
+            "executed": 263,
+            "passed": 263,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        },
+        {
+          "file": "cloud-verification/update-feedback-render.trx",
+          "run_outcome": "Completed",
+          "counters": {
+            "total": 3,
+            "executed": 3,
+            "passed": 3,
+            "failed": 0,
+            "error": 0,
+            "timeout": 0,
+            "aborted": 0,
+            "inconclusive": 0,
+            "passedButRunAborted": 0,
+            "notRunnable": 0,
+            "notExecuted": 0,
+            "disconnected": 0,
+            "warning": 0,
+            "completed": 0,
+            "inProgress": 0,
+            "pending": 0
+          },
+          "nonpassing": []
+        }
+      ],
+      "unique_tests": 579,
+      "unique_passed": 576,
+      "unique_failed": 0,
+      "unique_skipped": 3,
+      "incomplete_suites": []
+    }
+  ]
+}

@@ -126,6 +126,7 @@ public sealed partial class MainWindow : Window
     private readonly CommandSearchControl _commandSearch;
     private bool _closeAfterPersistence;
     private bool _closeInProgress;
+    private bool _macOtaPrepared;
     private bool _closed;
     private Services.Updates.PreparedOtaUpdate? _pendingOtaUpdate;
     private bool _startupCompleted;
@@ -220,12 +221,24 @@ public sealed partial class MainWindow : Window
     private async void OnClosing(object? sender, WindowClosingEventArgs args)
     {
         if (_isolatedWorkspace) return;
-        if (_closeAfterPersistence)
+        if (_closeAfterPersistence || _macOtaPrepared)
         {
+            _closeAfterPersistence = true;
             return;
         }
 
         args.Cancel = true;
+        if (_closeInProgress) return;
+        if (OperatingSystem.IsMacOS() && Services.Updates.MacOtaUpdater.Existing is { } macUpdater)
+        {
+            // Sparkle prepares its installer during extraction. Wait for that
+            // finite step, then explicitly cancel rather than install on quit.
+            if (!macUpdater.CancelForClose())
+            {
+                _statusText.Text = UiLocalization.Text("正在校验并准备更新，请稍后再关闭软件。");
+                return;
+            }
+        }
         if (_closeInProgress)
         {
             return;

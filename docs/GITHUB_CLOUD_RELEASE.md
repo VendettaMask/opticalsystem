@@ -1,6 +1,8 @@
 # GitHub 云端构建与发布
 
-源码、依赖锁文件、Windows 安装器、Apple Silicon Mac DMG 及全部打包脚本均随仓库维护，不需要维护者电脑持续开机。入口是 [Desktop build and publish](https://github.com/VendettaMask/opticalsystem/actions/workflows/release.yml)。这是生成完整安装包的流程，不是软件自动安装更新功能。
+源码、依赖锁文件、Windows 安装器、Apple Silicon Mac DMG 及全部打包脚本均随仓库维护，不需要维护者电脑持续开机。入口是 [Desktop build and publish](https://github.com/VendettaMask/opticalsystem/actions/workflows/release.yml)。该流程生成完整安装包及两端 OTA 元数据；软件中的下载与安装均由用户发起。
+
+2026-10-27 较早批次已从 `a31fb444` 完成三平台构建与公开替换，原测试标签不动。该阶段的下载、Windows 签名与 Mac 布局崩溃修复见[原批次账目](validation/CLOUD_RELEASE_2026-10-27.json)；后续 Mac OTA 接入、当前实际安装包及最新验证范围以[当前状态](CURRENT_STATUS.md)为准。
 
 ## 一键更新当前测试包
 
@@ -48,6 +50,16 @@ Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完
 
 流程源码见[工作流](../.github/workflows/release.yml)与[安全替换脚本](../scripts/publish-github-exe.ps1)，实际执行和交付结果以[当前状态](CURRENT_STATUS.md)为准。
 
+镜头结构导航由 [test-lens-navigation-release.ps1](../scripts/test-lens-navigation-release.ps1) 动态发现全部用例，再按测试方法启动独立测试进程，避免完整 Dock 工作区与其他方法共用原生 Skia 状态。每组必须与发现的用例数相同、全部通过且运行完整结束，失败、漏跑或跳过直接拒绝；TRX 与 `lens-navigation-isolation.json` 随平台检查产物保留。图表页脚构建测试也须在独立真实绘图会话中创建矢量品牌控件，不能依赖其他测试留下的渲染平台。
+
+手动输入 `validation_only=true` 时仍执行所选平台全部验证，但不生成安装包、不上传 `cloud-package-*`、不执行发布任务；默认值为 false，正常交付流程不变。经用户于 2026-10-27 明确授权，失败的 Mac 云任务仅保留临时构建机上 `testhost` / `dotnet` 的系统崩溃报告，最多五份、每份不超过 20 MiB，随已有检查工件按 30 天保留；不读取维护者本机报告，不采集进程内存转储。导航步骤同时启用 .NET `DOTNET_EnableCrashReportOnly=1`，只生成 JSON 线程/调用栈报告，不生成 dump，并保留不含处方数据的测试阶段标记。该开关的无转储语义依据 [.NET runtime 实现](https://github.com/dotnet/runtime/blob/v10.0.0/src/coreclr/debug/createdump/createdumpmain.cpp)。
+
+仅验证的 Mac 任务还可通过 [后台原生栈观察器](../scripts/test-macos-navigation-backtrace.py) 在已知导航阶段附加 LLDB。目标 PID 必须由该测试写入且进程命令包含 `testhost.dll`，仅输出线程调用栈和栈指针寄存器，完成后分离调试器；不保存内存、不改测试断言，常规发布不附加调试器。该脚本拒绝在用户本机运行。
+
+LLDB 使用官方 `-k` 故障后命令打印栈，避免普通 `-o` 命令在异常处停止而漏记；临时 runner 单独安装固定版本 `dotnet-sos` 10.0.750501，仅执行不含参数/局部变量的 `clrstack`。诊断工具不进入产品依赖或安装包，也不在本机安装。依据 [LLDB 命令行说明](https://lldb.llvm.org/man/lldb.html)和 [Microsoft SOS 说明](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/dotnet-sos)。
+
+Mac 工作区路径散列已改用固定参数的 UTF-8 `realpath`，保留实际文件系统大小写与不存在路径的后备行为。旧声明将可变参数 `fcntl(F_GETPATH)` 当作固定参数调用，在 Darwin ARM64 上不符合调用约定，有写坏调用栈的风险。约定见 [Apple ARM64 说明](https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms)，实际文件名恢复见 [Apple libc realpath 实现](https://github.com/apple-oss-distributions/Libc/blob/main/stdlib/FreeBSD/realpath.c)。Mac 云门禁增加全部 `WorkspaceSessionTests`，包括真实 Unicode 文件连续保存/读取及原有文件系统大小写语义检查；原生回归结果以状态页为准。
+
 2026-10-26 已从 `45cce15b` 完成 Windows x64 云端重建与安全替换，EXE 末尾为 `-Setup-45cce15b.exe`。首次带码任务的依赖误报与旧界面夹具已修复，随后全部发布步骤通过；公开附件的源码、文件哈希、更新签名和下载均已核对。Mac 附件及来源、原测试标签保持，Windows 新名称使用新的下载地址；旧客户端需手动覆盖安装一次。实际运行、跳过范围与载荷证据见[本轮交付账目](validation/WINDOWS_CODED_EXE_RELEASE_2026-10-26.json)，没有替换用户本机安装。
 
 2026-10-24 曾从 `11de8bce` 分别重新构建并替换 Windows x64 与 Apple Silicon Mac 的现有测试包，新增分析排布、完整渲染和 PNG 导出门禁，当时保留原标签及下载地址。两平台的原阶段执行、去重测试、包内检查和签名核对见[该阶段交付账目](validation/ANALYSIS_UI_CLOUD_2026-10-24.json)。
@@ -62,4 +74,10 @@ Mac 仅生成 `osx-arm64` 的自包含 DMG，包含 .NET、两个必装模块、
 
 构建使用标准 Resources/Frameworks 目录和内部相对链接，检查原生代码均为 arm64，逐项 ad-hoc 签名后校验整个 bundle。生成 DMG 后只读挂载，检查整个 bundle 不包含独立模块启动程序，再运行包内 `--verify-installation` 并比较完整文件清单，确认运行时、初始结构和镀膜模块仍在主进程可用，不读取或写入用户设置。这是原生无界面载荷检查，不是完整 GUI 验收。
 
-当前无 Apple Developer ID 证书和公证凭据，文件名标记 `AdHoc` / `AdHocTest`，不宣称已公证。首次打开可能需要用户在系统设置中批准；不自动解除隔离或关闭安全保护。Mac 更新通过发布页手动替换 `.app`，Windows 安装 OTA 不适用于 Mac。打包入口见 [build-macos.sh](../scripts/build-macos.sh)、[载荷检查](../scripts/verify-macos-package.sh)和[安装说明](../packaging/macos/README.txt)。
+当前无 Apple Developer ID 证书和公证凭据，文件名标记 `AdHoc` / `AdHocTest`，不宣称已公证。首次打开可能需要用户在系统设置中批准；不自动解除隔离或关闭安全保护。带更新器的 Mac 版本在“帮助 → 关于”检查更新，下载并验证后再安装和重启。早期版本需先手动安装一次带更新器的完整 DMG。打包入口见 [build-macos.sh](../scripts/build-macos.sh)、[载荷检查](../scripts/verify-macos-package.sh)和[安装说明](../packaging/macos/README.txt)。
+
+Mac 使用固定版本和 SHA-256 的 Sparkle 2.10.1。沿用现有三个 OTA Secrets，通过 HKDF-SHA256 从既有 RSA 私钥派生独立 Ed25519 签名种子，公钥固定在包内；不新增 Secret，不改变 Windows 公钥或原签名信封，现有加密备份可恢复同一 Mac 身份。派生种子只在权限受限的云端临时目录出现，使用后清理，不上传到工件、Git 或发布页。
+
+最终发布作业在 Apple Silicon Mac 执行：先验证根密钥和 Mac 包身份，签署 DMG 与 Appcast，再调用原附件发布器上传并核对三平台安装文件。仅在实际 Mac 公开附件的名称、大小及完整 SHA-256 与已签名条目一致后，更新远端 main 的 `updates/macos/appcast.xml`，并逐字读回。更新文件 SHA 同时用于并发保护；清单被其他作业修改时停止，不覆盖。Windows-only 刷新不改 Mac 清单。
+
+Mac Appcast 的地址固定为 GitHub raw main 文件；稳定版使用默认通道，测试版使用 `test` 通道。客户端要求清单及完整更新包的 Ed25519 签名，在解包前验签。`CFBundleVersion` 由发布工作流的递增 run number 和 attempt 映射为符合数字位数限制的三段版本；显示版本仍来自 `ProductVersion.props`。不要重置发布工作流的编号或手工降低已签名清单的构建号。详细接口与验证范围见 [Mac OTA](MAC_OTA.md)。

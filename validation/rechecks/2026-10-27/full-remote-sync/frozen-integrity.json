@@ -1,0 +1,108 @@
+{
+  "source": "HEAD",
+  "commit": "259318f002f3e8a791b3ceda633159dcd60e5750",
+  "count": 2668,
+  "matched": 2668,
+  "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+  "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+  "unchanged": true,
+  "mismatches": [],
+  "relocationMap": {
+    "path": "tools/validation/frozen-evidence-relocations.json",
+    "count": 4,
+    "expectedSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+    "actualSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+    "gitBlob": "54fb7863a30f8808fd335a62332dd3301c1243ea",
+    "gitLinkPath": null,
+    "matches": true
+  },
+  "relocations": [
+    {
+      "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+      "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+      "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+      "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+      "gitBlob": "8ce33ef8a9c26d3b26cfef84d8f88e03acf30286",
+      "bytes": 10182,
+      "originalPathPresent": false,
+      "gitLinkPath": null,
+      "matches": true
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+      "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+      "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+      "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+      "gitBlob": "16aefa0dc68de132b63abb9260bac174ad652b7b",
+      "bytes": 6098,
+      "originalPathPresent": false,
+      "gitLinkPath": null,
+      "matches": true
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+      "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+      "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+      "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+      "gitBlob": "31bef72740c8acfb69c3ade3e0c03cc2a2f63b7a",
+      "bytes": 2010,
+      "originalPathPresent": false,
+      "gitLinkPath": null,
+      "matches": true
+    },
+    {
+      "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+      "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+      "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+      "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+      "gitBlob": "1356ccedaee37e9e41da3c9074ae375dbca33bab",
+      "bytes": 17236,
+      "originalPathPresent": false,
+      "gitLinkPath": null,
+      "matches": true
+    }
+  ],
+  "workingTree": {
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "relocationMap": {
+      "path": "tools/validation/frozen-evidence-relocations.json",
+      "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "count": 4
+    },
+    "relocations": [
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+        "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "matches": true
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "matches": true
+      }
+    ]
+  }
+}

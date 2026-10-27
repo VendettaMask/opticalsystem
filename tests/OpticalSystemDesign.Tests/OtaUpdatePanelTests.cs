@@ -250,8 +250,30 @@ public sealed class OtaUpdatePanelTests
                     .Invoke(main, null)!;
                 var about = Assert.Single(main.OwnedWindows);
                 Tick(about);
-                var panel = Named<SoftwareUpdatePanel>(about, "AboutUpdates");
-                var handoff = Field<Func<PreparedOtaUpdate, Task<bool>>>(panel, "_handoff");
+                Func<PreparedOtaUpdate, Task<bool>> handoff;
+                if (OperatingSystem.IsMacOS())
+                {
+                    var panel = Named<MacSoftwareUpdatePanel>(about, "AboutUpdates");
+                    var prepare = Field<Func<Task<bool>>>(panel, "_prepare");
+                    var close = Field<Action>(panel, "_closePrepared");
+                    // Exercise the real Mac close delegates while leaving the
+                    // native signed-download/install boundary uninvoked.
+                    handoff = async _ =>
+                    {
+                        if (!await prepare()) return false;
+                        Assert.True(Field<bool>(main, "_macOtaPrepared"));
+                        // Simulate a native quit that arrives before the install
+                        // reply returns to managed code. Never show a second prompt.
+                        main.Close();
+                        close();
+                        return true;
+                    };
+                }
+                else
+                {
+                    var panel = Named<SoftwareUpdatePanel>(about, "AboutUpdates");
+                    handoff = Field<Func<PreparedOtaUpdate, Task<bool>>>(panel, "_handoff");
+                }
                 var updateDirectory = Path.Combine(directory, "update");
                 Directory.CreateDirectory(updateDirectory);
                 prepared = new PreparedOtaUpdate(updateDirectory, OtaTestData.Update());

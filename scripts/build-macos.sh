@@ -52,6 +52,8 @@ cp packaging/macos/Info.plist "$bundle/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c 'Add :LSArchitecturePriority array' "$bundle/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c 'Add :LSArchitecturePriority:0 string arm64' "$bundle/Contents/Info.plist"
 cp src/OpticalSystemDesign.App/Assets/Brand/AppIcon.icns "$bundle/Contents/Resources/AppIcon.icns"
+bash scripts/prepare-macos-updater.sh "$output_root/.dependencies" "$bundle"
+bash scripts/test-macos-updater.sh "$output_root/.dependencies" "$stage/native-updater-tests"
 cp src/OpticalSystemDesign.App/Assets/Icons/LUCIDE-LICENSE.txt "$payload/Assets/Icons/"
 chmod +x "$payload/OpticalSystemDesign.App"
 
@@ -92,6 +94,10 @@ while IFS= read -r -d '' native; do
     /usr/bin/codesign --force --sign - --timestamp=none "$native"
   fi
 done < <(find "$bundle/Contents" -type f -print0)
+# Seal nested Sparkle XPC services, its installer app and framework inside out.
+while IFS= read -r -d '' nested; do
+  /usr/bin/codesign --force --sign - --timestamp=none "$nested"
+done < <(find "$bundle/Contents/Frameworks" -depth -type d \( -name '*.xpc' -o -name '*.app' -o -name '*.framework' \) -print0)
 /usr/bin/codesign --force --sign - --timestamp=none "$bundle"
 bash scripts/verify-macos-package.sh "$bundle" "$stage/verification"
 ln -s /Applications "$stage/image/Applications"
@@ -112,7 +118,7 @@ mounted=false
 trap - EXIT
 
 python3 - "$repository" "$stage" "$version" "$test_package" "$name" <<'PY'
-import hashlib, json, os, pathlib, subprocess, sys, uuid
+import hashlib, json, os, pathlib, plistlib, subprocess, sys, uuid
 root, stage = map(pathlib.Path, sys.argv[1:3])
 version, test, name = sys.argv[3:]
 head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
@@ -123,6 +129,8 @@ record = dict(Version=version, Runtime='osx-arm64', TestPackage=test=='true', So
               ProductAppId='OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A',
               ReleaseId=f'{version}-osx-arm64-{uuid.uuid4().hex[:12]}',
               OtaBuildSequence=int(os.environ.get('GITHUB_RUN_ID', '0')),
+              MacBundleVersion=plistlib.loads((stage/'image/Optical System Design.app/Contents/Info.plist').read_bytes())['CFBundleVersion'],
+              MacOta=True, MacOtaFramework='Sparkle 2.10.1',
               PackageSha256=hashlib.file_digest((stage/name).open('rb'), 'sha256').hexdigest())
 (stage/'release-osx-arm64.json').write_text(json.dumps(record, indent=2)+'\n')
 PY

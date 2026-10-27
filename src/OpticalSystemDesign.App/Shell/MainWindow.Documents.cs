@@ -170,6 +170,7 @@ public sealed partial class MainWindow
             new Uri("avares://OpticalSystemDesign.App/Assets/Author.jpg"));
         using var authorBitmap = new Bitmap(authorStream);
         Window? dialog = null;
+        var recoveryStoppedForUpdate = false;
         dialog = CreateAboutDialog(authorBitmap, handoff: async prepared =>
         {
             if (_closed || _closeInProgress || _pendingOtaUpdate is not null) return false;
@@ -182,13 +183,54 @@ public sealed partial class MainWindow
             dialog!.Close();
             Close();
             return true;
+        }, macPrepare: async () =>
+        {
+            if (_closed || _closeInProgress || _pendingOtaUpdate is not null) return false;
+            _closeInProgress = true;
+            try
+            {
+                var prepared = await Services.Updates.OtaShutdownGuard.PrepareAsync(
+                    async () => await ConfirmUnsavedChangesAsync("安装更新并重启程序", dialog) && dialog?.IsVisible == true,
+                    async () => { SaveLayout(); return _laboratories is null || await _laboratories.TryCloseAsync(); },
+                    async () =>
+                    {
+                        await _panels.SaveCurrentSessionAsync();
+                        _recoveryTimer?.Stop();
+                        if (_recovery is not null)
+                        {
+                            recoveryStoppedForUpdate = true;
+                            await _recovery.StopAsync(cleanExit: true);
+                        }
+                    });
+                // Establish consent before entering the native install reply:
+                // a synchronous/reentrant AppKit quit must not ask to save again.
+                _macOtaPrepared = prepared;
+                return prepared;
+            }
+            finally { _closeInProgress = false; }
+        }, macClosePrepared: () =>
+        {
+            _closeAfterPersistence = true;
+            dialog!.Close();
+            Close();
+        }, macPreparationCancelled: () =>
+        {
+            _macOtaPrepared = false;
+            if (!recoveryStoppedForUpdate || _closed) return;
+            recoveryStoppedForUpdate = false;
+            // A denied native install (for example another running instance)
+            // must leave the editor's periodic recovery protection working.
+            try { _recovery = new(_application.Documents, DocumentRecoveryStore.DefaultDirectory); _recoveryTimer?.Start(); }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            { _statusText.Text = $"工程恢复保护未启动：{exception.Message}"; }
         });
         await dialog.ShowDialog(this);
     }
 
     internal static Window CreateAboutDialog(Bitmap authorBitmap, IReleaseUpdateService? updateService = null,
         Func<Uri, Task<bool>>? openReleasePage = null, Func<PreparedOtaUpdate, Task<bool>>? handoff = null,
-        IOtaDownloader? downloader = null, Func<string?>? unavailableReason = null)
+        IOtaDownloader? downloader = null, Func<string?>? unavailableReason = null,
+        Func<Task<bool>>? macPrepare = null, Action? macClosePrepared = null, Action? macPreparationCancelled = null)
     {
         ArgumentNullException.ThrowIfNull(authorBitmap);
         var dialog = new Window
@@ -280,7 +322,9 @@ public sealed partial class MainWindow
             RowDefinitions = new RowDefinitions("*,Auto"),
             RowSpacing = 18
         };
-        var updates = new SoftwareUpdatePanel(updateService, openReleasePage, handoff, downloader, unavailableReason);
+        Control updates = OperatingSystem.IsMacOS() && updateService is null && macPrepare is not null && macClosePrepared is not null
+            ? new MacSoftwareUpdatePanel(Services.Updates.MacOtaUpdater.Current, macPrepare, macClosePrepared, macPreparationCancelled)
+            : new SoftwareUpdatePanel(updateService, openReleasePage, handoff, downloader, unavailableReason);
         var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 16 };
         footer.Children.Add(updates);
         Grid.SetColumn(closeButton, 1);
@@ -295,7 +339,7 @@ public sealed partial class MainWindow
         });
         root.Children.Add(footer);
         dialog.Content = root;
-        dialog.Closed += (_, _) => updates.Dispose();
+        dialog.Closed += (_, _) => ((IDisposable)updates).Dispose();
         DisplayTypography.Apply(dialog);
         UiLocalization.Attach(dialog);
         return dialog;

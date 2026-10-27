@@ -14,7 +14,9 @@ public sealed class CloudReleaseTests
         Assert.Contains("cancel-in-progress: false", text);
         Assert.Contains("needs: [plan, package]", text);
         Assert.Contains("CloudReleaseTests", text);
-        foreach (var name in new[] { "LensConfigurationNavigationTests", "LensEditorLayoutTests", "LensHeaderTypographyTests",
+        Assert.Contains("test-lens-navigation-release.ps1", text);
+        Assert.Contains("FullyQualifiedName~WorkspaceSessionTests", text);
+        foreach (var name in new[] { "LensEditorLayoutTests", "LensHeaderTypographyTests",
             "LensMaterialRowThemeTests", "ViewerSettingsInputThemeTests", "ViewerConfigurationTests", "Viewer3DGeometryTests" })
             Assert.Contains("FullyQualifiedName~" + name, text);
         Assert.Contains("LogFileName=lens-viewers.trx", text);
@@ -40,7 +42,12 @@ public sealed class CloudReleaseTests
         Assert.DoesNotContain("${{ secrets.", text[..publishStart]);
         foreach (var name in new[] { "OPTICAL_OTA_SIGNING_KEY", "OPTICAL_OTA_ENCRYPTED_BACKUP", "OPTICAL_OTA_RECOVERY_PASSWORD" })
             Assert.Contains("${{ secrets." + name + " }}", text[publishStart..]);
-        Assert.Equal(3, System.Text.RegularExpressions.Regex.Matches(text, @"\$\{\{ secrets\.").Count);
+        Assert.Equal(6, System.Text.RegularExpressions.Regex.Matches(text, @"\$\{\{ secrets\.").Count);
+        Assert.Contains("runs-on: macos-15", text[publishStart..]);
+        Assert.Contains("prepare-macos-ota-release.ps1", text[publishStart..]);
+        Assert.Contains("publish-macos-appcast.ps1", text[publishStart..]);
+        Assert.True(text.IndexOf("prepare-macos-ota-release.ps1", StringComparison.Ordinal) < text.IndexOf("./scripts/publish-github-exe.ps1", StringComparison.Ordinal));
+        Assert.True(text.IndexOf("./scripts/publish-github-exe.ps1", StringComparison.Ordinal) < text.IndexOf("./scripts/publish-macos-appcast.ps1", StringComparison.Ordinal));
         Assert.Contains("test-ota-key-crypto.ps1", text);
         Assert.DoesNotContain("--clobber", text);
         Assert.True(text.IndexOf("  publish:", StringComparison.Ordinal) < text.IndexOf("contents: write", StringComparison.Ordinal));

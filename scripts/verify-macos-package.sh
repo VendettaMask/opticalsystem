@@ -20,6 +20,9 @@ done
 test -d "$payload/LensLibrary/StockCatalogs"
 test -x "$payload/OpticalSystemDesign.App"
 test -s "$bundle/Contents/Resources/AppIcon.icns"
+test -s "$bundle/Contents/Frameworks/libOpticalSystemDesign.Updater.dylib"
+test -s "$bundle/Contents/Frameworks/Sparkle.framework/Sparkle"
+test -s "$bundle/Contents/Resources/Licenses/Sparkle-LICENSE.txt"
 if find "$bundle/Contents" -type f \( -name 'OpticalSystemDesign.InitialStructure.App*' -o -name 'OpticalSystemDesign.CoatingDesign.App*' \) | grep -q .; then
   echo 'Independent module executables are not permitted.' >&2; exit 1
 fi
@@ -41,16 +44,23 @@ bundle, output = map(pathlib.Path, sys.argv[1:])
 report = json.loads((output/'native-product.json').read_text())
 assert report['Success'] and report['Architecture']=='Arm64' and report['ModulesInProcess']
 assert report['Modules']==['InitialStructure','CoatingDesign'] and len(report['ModuleLibraries'])==5
+assert report['MacOtaNativeBridgeVerified']
 assert not report['UserDataWritten'] and not report['GuiVerified']
 info = plistlib.loads((bundle/'Contents/Info.plist').read_bytes())
+assert info['CFBundleIdentifier']=='com.starlabs.optical-system-design'
+assert info['CFBundleExecutable']=='OpticalSystemDesign.App'
 assert info['CFBundleShortVersionString']==report['Version'].split('+')[0]
-assert info['CFBundleVersion']==info['CFBundleShortVersionString']
+assert len(info['CFBundleVersion'].split('.')) == 3
+assert info['SUFeedURL']=='https://raw.githubusercontent.com/VendettaMask/opticalsystem/main/updates/macos/appcast.xml'
+assert info['SUVerifyUpdateBeforeExtraction'] and info['SURequireSignedFeed'] and not info['SUEnableAutomaticChecks'] and not info['SUAutomaticallyUpdate']
+assert len(__import__('base64').b64decode(info['SUPublicEDKey'], validate=True))==32
 assert info['LSArchitecturePriority']==['arm64']
 files = {str(p.relative_to(bundle)):hashlib.file_digest(p.open('rb'), 'sha256').hexdigest()
          for p in sorted(bundle.rglob('*')) if p.is_file()}
 (output/'bundle-manifest.json').write_text(json.dumps(files,indent=2)+'\n')
 (output/'summary.json').write_text(json.dumps(dict(Architecture='Arm64', ManifestFiles=len(files),
     SelfContained=True, BothModulesInProcess=True, NativeCodeSignaturesVerified=True,
-    DeveloperIdSigned=False, Notarized=False, GuiVerified=False, UserDataWritten=False),indent=2)+'\n')
+    DeveloperIdSigned=False, Notarized=False, MacOtaBundled=True, MacOtaFramework='Sparkle 2.10.1',
+    GuiVerified=False, UserDataWritten=False),indent=2)+'\n')
 print(f'Verified Apple Silicon package: {len(files)} files; both built-in modules in the main process.')
 PY

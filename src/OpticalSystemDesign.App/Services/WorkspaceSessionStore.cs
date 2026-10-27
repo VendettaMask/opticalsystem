@@ -120,9 +120,9 @@ public sealed class WorkspaceSessionStore
             if (File.Exists(normalized) && (OperatingSystem.IsWindows() || OperatingSystem.IsMacOS()))
             {
                 // Ask the filesystem for this file's spelling without listing parents.
-                using var handle = File.OpenHandle(normalized);
                 if (OperatingSystem.IsWindows())
                 {
+                    using var handle = File.OpenHandle(normalized);
                     var buffer = new StringBuilder(32768);
                     var length = GetFinalPathNameByHandle(handle, buffer, buffer.Capacity, 0);
                     if (length > 0 && length < buffer.Capacity)
@@ -134,8 +134,11 @@ public sealed class WorkspaceSessionStore
                 }
                 else
                 {
+                    // Darwin ARM64 passes fcntl's variadic pointer on the stack,
+                    // unlike a fixed third P/Invoke argument. Use realpath's
+                    // fixed signature to obtain filesystem spelling safely.
                     var buffer = new byte[4096];
-                    if (GetMacPath(handle.DangerousGetHandle().ToInt32(), 50, buffer) == 0
+                    if (GetMacRealPath(normalized, buffer) != 0
                         && Array.IndexOf(buffer, (byte)0) is > 0 and var length)
                         normalized = Encoding.UTF8.GetString(buffer, 0, length);
                 }
@@ -152,8 +155,11 @@ public sealed class WorkspaceSessionStore
     [System.Runtime.InteropServices.DllImport("kernel32.dll", CharSet = System.Runtime.InteropServices.CharSet.Unicode, SetLastError = true, EntryPoint = "GetFinalPathNameByHandleW")]
     private static extern uint GetFinalPathNameByHandle(Microsoft.Win32.SafeHandles.SafeFileHandle handle, StringBuilder path, int length, uint flags);
 
-    [System.Runtime.InteropServices.DllImport("libc", SetLastError = true, EntryPoint = "fcntl")]
-    private static extern int GetMacPath(int descriptor, int command, byte[] buffer);
+    [System.Runtime.InteropServices.DllImport("libc", SetLastError = true, EntryPoint = "realpath",
+        CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    private static extern nint GetMacRealPath(
+        [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPUTF8Str)] string path,
+        [System.Runtime.InteropServices.Out] byte[] buffer);
 
 
     public async Task<WorkspaceSession?> LoadAsync(

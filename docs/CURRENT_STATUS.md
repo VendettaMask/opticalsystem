@@ -2,6 +2,10 @@
 
 核对日期：2026-10-27。本页是当前产品状态与最新验证范围的汇总入口；专题指南说明功能，带日期报告保存对应阶段的原始结果。历史通过数不相加，也不能覆盖后来观察到的失败。
 
+## 2026-10-27 全量同步合并核对
+
+全部本地产品改动、文档、截图、交付文件及开发验证记录与远端新增16个提交合并。主窗口同时保留离屏隔离关闭和Mac更新准备状态，状态文档保留双方记录。合并后默认Release构建及后台离屏定向 **29/29** 通过，严格文档检查通过，2668份冻结文件在提交与工作目录均一致；没有全仓测试、原生桌面操作或重新发布安装包。下载原文和临时运行文件保留在本机忽略目录。见[合并范围与证据](../validation/rechecks/2026-10-27/full-remote-sync/README.md)。
+
 ## 2026-10-27 帮助阅读界面调整
 
 用户指南采用 248 DIP 目录、最大 720 DIP 正文及宽屏右侧小节目录；窄屏收起小节目录并保留阅读字号。长章节名和计算链接换行，公式居中且可局部滚动，截图改为轻边框与图注，保留放大和章末折叠示意。仅调整帮助阅读界面，没有修改计算算法或扩展 PDF 工作。
@@ -126,11 +130,47 @@ Ribbon、命令搜索及帮助统一为“光学制图”，页面内选择 ISO 
 
 最终**32个不同定向用例通过**：本轮模块28（新增7、旧搜索8、扩展13），共享界面4；正常与保存失败关闭、加载零追迹、文件身份和回读、旧检查点及中英日/480宽度离屏行为均有证据。默认Release输出已更新，未跑全仓和旧长训练。按用户要求后续测试只在后台/离屏执行；原生交互尝试被Escape中止，未计为原生验收。M6以本轮CPU/离屏范围完成，未提交推送或发布安装包。见[计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)、[测试账目](../validation/rechecks/2026-10-27/autonomous-desktop-m6/README.md)和[同预算结果](../validation/rechecks/2026-10-27/autonomous-comparison-m6/README.md)。
 
-## 2026-10-27 云发布：项目引用锁文件同步
+## 2026-10-27 Mac / Windows OTA 已云发布并核对
 
-按用户要求从已同步的 `a5086e5c` 启动三平台云发布，首次运行 [40430271074](https://github.com/VendettaMask/opticalsystem/actions/runs/40430271074) 在锁定还原阶段均因 NU1004 失败，发布步骤跳过，原公开安装包未变。原因是 InitialStructure.Persistence 新增 Engine 项目引用后六份锁文件仍是旧项目图；现已同步，仅改变项目引用图，第三方包版本和内容哈希逐项不变，不关闭 `--locked-mode`。
+源码 `6b4ccf3129b926ad82ae68de3d62b2310da34285` 已通过 [最终 OTA 定向验证 40468907100](https://github.com/VendettaMask/opticalsystem/actions/runs/40468907100)，并由 [三平台发布 40469805561](https://github.com/VendettaMask/opticalsystem/actions/runs/40469805561) 更新至[原测试发布页](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)。版本仍为 1.0.4，原标签未移动、不标 Latest。Windows EXE 末尾为 `-Setup-6b4ccf31.exe`，Mac 引导包内含 Sparkle 2.10.1；签名 Appcast 已在 main 启用，Mac bundle 构建号为 `1.29.1`。
 
-本地使用云端相同参数的锁定还原与完整 Release 解决方案编译已通过，19 项目、0 警告、0 错误；未重跑全仓测试或改动光学算法，云端重新构建及最终发布仍待完成。阶段账目见[锁文件修复记录](../validation/rechecks/2026-10-27/cloud-release/README.md)。本轮不操作用户桌面或本机安装。
+两端均从“帮助 → 关于”由用户检查、下载并校验，再安装和重启；未保存编辑提供保存、不保存和取消。Mac 在进入原生安装回复前确认关闭状态，提前到达的原生退出也不会重复询问。沿用既有 Windows 密钥与恢复备份，派生独立 Ed25519 身份，不新增 Secrets，不改变 Windows RSA 公钥及信封格式。旧 Mac 版须先手动安装一次本次带更新器的完整包；此后使用应用内 OTA。Mac 仍为 ad-hoc、未公证，首次运行可能需要系统批准。
+
+| 发布平台 | 不同定向用例 | 通过 | 条件跳过 | 失败／中止 |
+| --- | ---: | ---: | ---: | ---: |
+| Windows x64 | 579 | 576 | 3 | 0 |
+| Windows ARM64 构建任务 | 579 | 576 | 3 | 0 |
+| Mac ARM64 原生任务 | 493 | 490 | 3 | 0 |
+
+三个跳过均为真实 CUDA 硬件检查及两个需显式开启的 3D 像素捕获。Windows ARM64 在 x64 上交叉构建；不宣称原生 ARM64 GUI 验收。此前独立 OTA 阶段 Windows 185 项和 Mac 86 项全部通过；40 项密钥/恢复检查及 3 项清单元数据检查通过，不与发布集合重复相加。2668 个冻结文件、严格文档检查、Windows 包内 14 项检查及 Mac 原生包/只读挂载 1648 项文件清单比较均通过。
+
+Mac 使用完整包副本检查取消下载、取消安装、篡改拒绝、真实替换并重启测试驱动；完整清单和独立数据哨兵一致，替换后的真实产品再验证两个内置模块及更新桥接。安装夹具只修改副本的测试构建/公钥/本地网络 Info.plist，并使用本地测试驱动；不宣称主软件原生 GUI 或全部 macOS/硬件验收。
+
+三个公开 EXE/DMG 均已实际下载，完整大小/SHA-256 与发布身份一致且未执行；两份 Windows RSA-PSS 元数据绑定源码与构建 `40469805561`，Mac 的公开 Appcast 和实际 DMG 均用独立公钥工具验证 Ed25519 签名。原失败、中止和主动停止的旧全仓 CI 独立记录。全程未控制维护者桌面、剪贴板或本机安装，原始工作目录的其他任务改动未混入。
+
+详见[接口与限制](MAC_OTA.md)、[完整验证账目](validation/MAC_WINDOWS_OTA_2026-10-27.json)和[范围与公开核对](../validation/rechecks/2026-10-27/mac-windows-ota/README.md)。
+
+## 2026-10-27 README 实际界面截图与版本记录
+
+中英文首页采用当前产品真实 `MainWindow` 的四张明暗/语言合成帧，使用自带变焦镜头、真实镜头数据与二维场景，来源产品代码与已发布 `a31fb444` 相同。截图通过独立 Headless 进程和隔离配置完成，未操作桌面或编辑图片像素。README 移除版本更新横幅与变更摘要，更新记录归入发布页；三个安装包与两份 Windows OTA 签名保持并复核通过。来源及哈希见[图片清单](assets/readme/manifest.json)，采集方式和说明修改回执见[记录](../validation/rechecks/2026-10-27/readme-presentation/README.md)。本任务未重跑全仓或增加数值认证。
+
+## 2026-10-27 三平台云发布完成
+
+从干净源码 `a31fb444e6a4fe4a19f13fd8a506702af63ad383` 完成 [Actions 40439094476](https://github.com/VendettaMask/opticalsystem/actions/runs/40439094476)，Windows x64、Windows ARM64 与 Apple Silicon Mac 已统一更新至[原测试发布页](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)。Windows EXE 末尾为 `-Setup-a31fb444.exe`；版本仍为 1.0.4，原标签指向不变，不标 Latest。
+
+| 平台 | 不同定向用例 | 通过 | 条件跳过 | 失败／中止 |
+| --- | ---: | ---: | ---: | ---: |
+| Windows x64 | 572 | 569 | 3 | 0 |
+| Windows ARM64 构建任务 | 572 | 569 | 3 | 0 |
+| Mac ARM64 原生任务 | 407 | 404 | 3 | 0 |
+
+每个平台都完整结束；不同平台重复用例及历史通过数不累加。这是发布相关定向检查，不是全仓测试。三个跳过分别为真实 CUDA 硬件检查及两个需显式开启的 3D 像素捕获；Windows ARM64 包在 x64 主机交叉构建。完整分析页面渲染、PNG 导出、2668 个冻结文件完整性和严格文档检查通过。Windows x64 包内检查 14/14，Mac 原生包及挂载后清单共 1557 文件逐项相同，两个模块均在主进程可用；不宣称原生图形界面验收。
+
+本轮同步六份项目引用锁文件（第三方包版本/哈希不变），修正两项页脚测试的真实绘图准备，并保留导航全部九项逐方法隔离。Mac 崩溃定位为布局保存路径查询将可变参数 `fcntl` 误声明为固定参数，造成 Darwin ARM64 栈被路径文字覆盖；已改用固定参数 UTF-8 `realpath`。七项工作区持久化检查（含真实 Unicode 文件 16 轮保存/读取）和原崩溃在内的九项导航均在原生 Mac 通过，光学算法与数值阈值未改。
+
+三个公开安装文件已实际下载并逐项匹配完整大小/SHA-256；两份 Windows OTA 元数据使用内置 RSA-4096 公钥验证通过，均绑定本次源码和构建编号 `40439094476`。旧附件备份和替换回执保留在 Actions 工件 30 天。该较早批次的 Mac 为 ad-hoc、未公证，当时未提供 Mac OTA；后续状态见本页顶部。全程未操作用户桌面、未执行安装器或替换本机软件，另一任务未提交改动未混入发布。
+
+全部七次修复前失败、云端报告授权与根因过程见[阶段账目](../validation/rechecks/2026-10-27/cloud-release/README.md)，发布文件、验签、去重测试、跳过范围和包内核对见[完整机器记录](validation/CLOUD_RELEASE_2026-10-27.json)。
 
 ## 2026-10-26 无焦分析修正与全量本地同步停止点
 
@@ -608,7 +648,7 @@ Windows 定向 **282 个不同用例通过、0 失败、1 项 CUDA 硬件用例�
 
 首轮[云端门禁失败](https://github.com/VendettaMask/opticalsystem/actions/runs/40052638652)保留：旧布局断言把新增数字字体 Setter 误判为额外样式，修正为分别核对右对齐与数字字体，本机 2/2 及第二轮相关用例通过。初次 bundle 排布、运行时查找、本机未完成下载即尝试挂载及代理下载错误同样保留，不算通过。本机早期 43/43 与 .NET 10.0.8 包记录仅代表[原阶段](validation/MACOS_RELEASE_LOCAL_2026-10-24.json)，不与云端计数相加。
 
-当前 Mac 只提供 `osx-arm64`，最低系统声明为 macOS 14，采用 ad-hoc 完整性签名，尚无 Developer ID 签名/公证；Mac 通过发布页手动替换 `.app`，无 Mac 安装 OTA。此轮包含原生无界面载荷检查与 Headless 界面回归，未声明原生 GUI、高 DPI 或全部系统/硬件验收，没有新增光学数值认证。见[最终交付账目](validation/MACOS_RELEASE_CLOUD_2026-10-24.json)、[云端与公开包证据](../validation/rechecks/2026-10-24/macos-release-cloud-evidence.zip)、[首轮失败归档](../validation/rechecks/2026-10-24/macos-cloud-first-failure.zip)及[安装说明](GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
+该 2026-10-24 批次的 Mac 只提供 `osx-arm64`，最低系统声明为 macOS 14，采用 ad-hoc 完整性签名，尚无 Developer ID 签名/公证；当时通过发布页手动替换 `.app`，尚无 Mac OTA。后续接入结果见本页顶部。此轮包含原生无界面载荷检查与 Headless 界面回归，未声明原生 GUI、高 DPI 或全部系统/硬件验收，没有新增光学数值认证。见[最终交付账目](validation/MACOS_RELEASE_CLOUD_2026-10-24.json)、[云端与公开包证据](../validation/rechecks/2026-10-24/macos-release-cloud-evidence.zip)、[首轮失败归档](../validation/rechecks/2026-10-24/macos-cloud-first-failure.zip)及[安装说明](GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
 
 ### 2026-10-24 分析图例统一到右上侧
 
