@@ -47,6 +47,8 @@ assert report['Modules']==['InitialStructure','CoatingDesign'] and len(report['M
 assert report['MacOtaNativeBridgeVerified']
 assert not report['UserDataWritten'] and not report['GuiVerified']
 info = plistlib.loads((bundle/'Contents/Info.plist').read_bytes())
+assert info['CFBundleIdentifier']=='com.starlabs.optical-system-design'
+assert info['CFBundleExecutable']=='OpticalSystemDesign.App'
 assert info['CFBundleShortVersionString']==report['Version'].split('+')[0]
 assert len(info['CFBundleVersion'].split('.')) == 3
 assert info['SUFeedURL']=='https://raw.githubusercontent.com/VendettaMask/opticalsystem/main/updates/macos/appcast.xml'

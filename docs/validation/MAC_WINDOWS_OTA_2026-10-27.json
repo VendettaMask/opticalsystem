@@ -1,0 +1,132 @@
+{
+  "atUtc": "2026-10-27T07:30:30.141916+00:00",
+  "status": "integration-verified-publication-pending",
+  "validationRunId": 40464598219,
+  "validationSourceCommit": "6c56adc7f8d7db5949b88bf689c2e2c02c95427d",
+  "validationRunUrl": "https://github.com/VendettaMask/opticalsystem/actions/runs/40464598219",
+  "platforms": {
+    "Mac": {
+      "artifactId": 12717020764,
+      "artifactSha256": "f94499a6bef2b21b3f4a748f96e63fa976cdf1e79d711ca97451b761c3040657",
+      "distinctCases": 86,
+      "passed": 86,
+      "failed": 0,
+      "skipped": 0,
+      "suites": [
+        {
+          "file": "mac-ota-contracts.trx",
+          "counters": {
+            "total": "86",
+            "executed": "86",
+            "passed": "86",
+            "failed": "0",
+            "error": "0",
+            "timeout": "0",
+            "aborted": "0",
+            "inconclusive": "0",
+            "passedButRunAborted": "0",
+            "notRunnable": "0",
+            "notExecuted": "0",
+            "disconnected": "0",
+            "warning": "0",
+            "completed": "0",
+            "inProgress": "0",
+            "pending": "0"
+          }
+        }
+      ]
+    },
+    "Windows": {
+      "artifactId": 12716067089,
+      "artifactSha256": "10da3e68152801fe20178a4867528e0071fc3809ae8c4c13646973a5137f6dd2",
+      "distinctCases": 185,
+      "passed": 185,
+      "failed": 0,
+      "skipped": 0,
+      "suites": [
+        {
+          "file": "ota-publisher.trx",
+          "counters": {
+            "total": "186",
+            "executed": "186",
+            "passed": "186",
+            "failed": "0",
+            "error": "0",
+            "timeout": "0",
+            "aborted": "0",
+            "inconclusive": "0",
+            "passedButRunAborted": "0",
+            "notRunnable": "0",
+            "notExecuted": "0",
+            "disconnected": "0",
+            "warning": "0",
+            "completed": "0",
+            "inProgress": "0",
+            "pending": "0"
+          }
+        },
+        {
+          "file": "ota-render.trx",
+          "counters": {
+            "total": "6",
+            "executed": "6",
+            "passed": "6",
+            "failed": "0",
+            "error": "0",
+            "timeout": "0",
+            "aborted": "0",
+            "inconclusive": "0",
+            "passedButRunAborted": "0",
+            "notRunnable": "0",
+            "notExecuted": "0",
+            "disconnected": "0",
+            "warning": "0",
+            "completed": "0",
+            "inProgress": "0",
+            "pending": "0"
+          }
+        }
+      ]
+    }
+  },
+  "nativeInstallCases": 4,
+  "portableCryptoChecks": 40,
+  "metadataTestMethods": 3,
+  "publicMacKeySha256": "7265b54952ef38fa8ee4ea6369d88fb43d269a26bdb083f6d46cbf27198aaa0e",
+  "windowsPublicKeyUnchanged": true,
+  "newSecretsCreated": false,
+  "appleDeveloperIdSigned": false,
+  "notarized": false,
+  "productGuiStartedInInstallFixture": false,
+  "maintainerDesktopControlled": false,
+  "localInstallationChanged": false,
+  "priorRuns": [
+    {
+      "id": 40461433050,
+      "status": "failed",
+      "reason": "PowerShell split a native compiler version argument; public-key derivation completed."
+    },
+    {
+      "id": 40462525183,
+      "status": "failed",
+      "reason": "Five pre-existing real entry tests looked for the Windows panel on Mac; adapted to real Mac close delegates, none skipped."
+    },
+    {
+      "id": 40463535364,
+      "status": "passed",
+      "scope": "UI, native replies, packaged bundle/DMG, derived archive and feed signatures; before complete bundle replacement fixture."
+    }
+  ],
+  "supersededFullCiCancelled": [
+    40461372987,
+    40462522192,
+    40463533555,
+    40464596458
+  ],
+  "localAbortedRun": "First VSTest connection attempt timed out; not counted as a pass.",
+  "limits": [
+    "Native replacement uses full product copies with fixture build/key/local-network Info.plist values and a test-only loopback driver.",
+    "Relaunch is confirmed by the AppKit test driver; the updated real product is verified through its non-GUI entry point.",
+    "No claim of installed product GUI acceptance or all macOS/hardware coverage."
+  ]
+}

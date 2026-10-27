@@ -1,8 +1,8 @@
 # GitHub 云端构建与发布
 
-源码、依赖锁文件、Windows 安装器、Apple Silicon Mac DMG 及全部打包脚本均随仓库维护，不需要维护者电脑持续开机。入口是 [Desktop build and publish](https://github.com/VendettaMask/opticalsystem/actions/workflows/release.yml)。这是生成完整安装包的流程，不是软件自动安装更新功能。
+源码、依赖锁文件、Windows 安装器、Apple Silicon Mac DMG 及全部打包脚本均随仓库维护，不需要维护者电脑持续开机。入口是 [Desktop build and publish](https://github.com/VendettaMask/opticalsystem/actions/workflows/release.yml)。该流程生成完整安装包及两端 OTA 元数据；软件中的下载与安装均由用户发起。
 
-2026-10-27 已从 `a31fb444` 完成三平台构建与公开替换，原测试标签不动；Windows x64/ARM64 和 Mac Apple Silicon 均为同一源码。三个实际公开下载的大小与 SHA-256、两份 Windows OTA 签名及来源已核对。实际测试、条件跳过、Mac 布局崩溃修复及交付范围见[当前状态](CURRENT_STATUS.md)和[本轮机器账目](validation/CLOUD_RELEASE_2026-10-27.json)。
+2026-10-27 较早批次已从 `a31fb444` 完成三平台构建与公开替换，原测试标签不动。该阶段的下载、Windows 签名与 Mac 布局崩溃修复见[原批次账目](validation/CLOUD_RELEASE_2026-10-27.json)；后续 Mac OTA 接入、当前实际安装包及最新验证范围以[当前状态](CURRENT_STATUS.md)为准。
 
 ## 一键更新当前测试包
 
@@ -74,4 +74,10 @@ Mac 仅生成 `osx-arm64` 的自包含 DMG，包含 .NET、两个必装模块、
 
 构建使用标准 Resources/Frameworks 目录和内部相对链接，检查原生代码均为 arm64，逐项 ad-hoc 签名后校验整个 bundle。生成 DMG 后只读挂载，检查整个 bundle 不包含独立模块启动程序，再运行包内 `--verify-installation` 并比较完整文件清单，确认运行时、初始结构和镀膜模块仍在主进程可用，不读取或写入用户设置。这是原生无界面载荷检查，不是完整 GUI 验收。
 
-当前无 Apple Developer ID 证书和公证凭据，文件名标记 `AdHoc` / `AdHocTest`，不宣称已公证。首次打开可能需要用户在系统设置中批准；不自动解除隔离或关闭安全保护。Mac 更新通过发布页手动替换 `.app`，Windows 安装 OTA 不适用于 Mac。打包入口见 [build-macos.sh](../scripts/build-macos.sh)、[载荷检查](../scripts/verify-macos-package.sh)和[安装说明](../packaging/macos/README.txt)。
+当前无 Apple Developer ID 证书和公证凭据，文件名标记 `AdHoc` / `AdHocTest`，不宣称已公证。首次打开可能需要用户在系统设置中批准；不自动解除隔离或关闭安全保护。带更新器的 Mac 版本在“帮助 → 关于”检查更新，下载并验证后再安装和重启。早期版本需先手动安装一次带更新器的完整 DMG。打包入口见 [build-macos.sh](../scripts/build-macos.sh)、[载荷检查](../scripts/verify-macos-package.sh)和[安装说明](../packaging/macos/README.txt)。
+
+Mac 使用固定版本和 SHA-256 的 Sparkle 2.10.1。沿用现有三个 OTA Secrets，通过 HKDF-SHA256 从既有 RSA 私钥派生独立 Ed25519 签名种子，公钥固定在包内；不新增 Secret，不改变 Windows 公钥或原签名信封，现有加密备份可恢复同一 Mac 身份。派生种子只在权限受限的云端临时目录出现，使用后清理，不上传到工件、Git 或发布页。
+
+最终发布作业在 Apple Silicon Mac 执行：先验证根密钥和 Mac 包身份，签署 DMG 与 Appcast，再调用原附件发布器上传并核对三平台安装文件。仅在实际 Mac 公开附件的名称、大小及完整 SHA-256 与已签名条目一致后，更新远端 main 的 `updates/macos/appcast.xml`，并逐字读回。更新文件 SHA 同时用于并发保护；清单被其他作业修改时停止，不覆盖。Windows-only 刷新不改 Mac 清单。
+
+Mac Appcast 的地址固定为 GitHub raw main 文件；稳定版使用默认通道，测试版使用 `test` 通道。客户端要求清单及完整更新包的 Ed25519 签名，在解包前验签。`CFBundleVersion` 由发布工作流的递增 run number 和 attempt 映射为符合数字位数限制的三段版本；显示版本仍来自 `ProductVersion.props`。不要重置发布工作流的编号或手工降低已签名清单的构建号。详细接口与验证范围见 [Mac OTA](MAC_OTA.md)。

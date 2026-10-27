@@ -258,7 +258,16 @@ public sealed class OtaUpdatePanelTests
                     var close = Field<Action>(panel, "_closePrepared");
                     // Exercise the real Mac close delegates while leaving the
                     // native signed-download/install boundary uninvoked.
-                    handoff = async _ => { if (!await prepare()) return false; close(); return true; };
+                    handoff = async _ =>
+                    {
+                        if (!await prepare()) return false;
+                        Assert.True(Field<bool>(main, "_macOtaPrepared"));
+                        // Simulate a native quit that arrives before the install
+                        // reply returns to managed code. Never show a second prompt.
+                        main.Close();
+                        close();
+                        return true;
+                    };
                 }
                 else
                 {

@@ -15,7 +15,7 @@ ET.register_namespace('sparkle', NS)
 def bundle_version(run_number, attempt):
     # CFBundleVersion's numeric 4/2/2 digit limits; monotonic for release.yml.
     ordinal = int(run_number) * 100 + int(attempt)
-    if not 0 < ordinal < 99_990_000 or not 0 < int(attempt) < 100:
+    if int(run_number) <= 0 or not 0 < ordinal < 99_990_000 or not 0 < int(attempt) < 100:
         raise ValueError('Invalid monotonic Mac build number')
     return f'{1 + ordinal // 10000}.{ordinal // 100 % 100}.{ordinal % 100}'
 
@@ -40,7 +40,7 @@ def merge(feed_path, entry_path, output):
         raise ValueError('Invalid release tag')
     if name != f'OpticalSystemDesign-{version}-osx-arm64-{"AdHocTest" if test else "AdHoc"}.dmg':
         raise ValueError('Invalid Mac package name')
-    if not re.fullmatch(r'[0-9]{1,4}\.[0-9]{1,2}\.[0-9]{1,2}', build) or not 512 < entry['size'] <= 2147483648:
+    if not re.fullmatch(r'[1-9][0-9]{0,3}\.(0|[1-9][0-9]?)\.(0|[1-9][0-9]?)', build) or not 512 < entry['size'] <= 2147483648:
         raise ValueError('Invalid build or size')
     if len(base64.b64decode(entry['signature'], validate=True)) != 64:
         raise ValueError('Invalid Ed25519 signature')
@@ -53,6 +53,9 @@ def merge(feed_path, entry_path, output):
         ET.SubElement(channel,'link').text = 'https://github.com/VendettaMask/opticalsystem/releases'
     channel_name = 'test' if test else ''
     for old in list(channel.findall('item')):
+        old_version = old.findtext(f'{{{NS}}}shortVersionString')
+        if old_version and tuple(map(int, old_version.split('.'))) > tuple(map(int, version.split('.'))):
+            raise ValueError('Mac feed would offer an older product version')
         if (old.findtext(f'{{{NS}}}channel') or '') == channel_name:
             old_build = old.findtext(f'{{{NS}}}version')
             if old_build and tuple(map(int, old_build.split('.'))) >= tuple(map(int, build.split('.'))):

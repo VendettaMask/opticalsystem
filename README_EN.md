@@ -158,7 +158,7 @@ Windows installers do not yet have an Authenticode publisher signature and may d
 
 ### Apple Silicon Mac package
 
-Mac releases target M-series chips only (`osx-arm64`). Open the DMG and drag **Optical System Design.app** into Applications. The package includes .NET, both built-in modules, and fonts. Current packages use ad-hoc signing and are not notarized; first launch may require approval in macOS settings. Mac updates are downloaded manually from Releases. See [Current Status](docs/CURRENT_STATUS.md) for actual artifacts and verification, and the [release guide](docs/GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包) for packaging.
+Mac releases target M-series chips only (`osx-arm64`). For the first installation, open the DMG and drag **Optical System Design.app** into Applications. The package includes .NET, both built-in modules, and fonts. Versions containing the updater support checks, verified downloads, installation and restart through **Help → About**. Earlier Mac versions need one manual installation of a complete package containing the updater. Mac packages use ad-hoc signing and are not notarized; first launch may require approval in macOS settings. See [Current Status](docs/CURRENT_STATUS.md) for actual artifacts and verification, and the [release guide](docs/GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包) for packaging.
 
 ### Run from source
 

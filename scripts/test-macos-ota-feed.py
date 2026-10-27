@@ -16,7 +16,7 @@ class FeedTests(unittest.TestCase):
         tuples = [tuple(map(int, value.split('.'))) for value in values]
         self.assertEqual(sorted(tuples), tuples)
         self.assertTrue(all(1<=a<=9999 and b<=99 and c<=99 for a,b,c in tuples))
-        for args in [(0,0),(1,100),(1000000,1)]:
+        for args in [(0,0),(0,1),(1,100),(1000000,1)]:
             with self.assertRaises(ValueError): feed.bundle_version(*args)
 
     def test_channels_are_preserved_and_reused_builds_rejected(self):
@@ -33,6 +33,9 @@ class FeedTests(unittest.TestCase):
             items = ET.parse(target).findall('channel/item')
             self.assertEqual(2,len(items))
             self.assertEqual(['test',None],[item.findtext('{'+feed.NS+'}channel') for item in items])
+            entry.update(version='1.0.3',bundleVersion='1.2.5',name='OpticalSystemDesign-1.0.3-osx-arm64-AdHocTest.dmg',tag='v1.0.3-test.20261019')
+            entry_path.write_text(json.dumps(entry))
+            with self.assertRaises(ValueError): feed.merge(target,entry_path,target)
 
     def test_unsafe_release_metadata_is_rejected(self):
         original = dict(version='1.0.4', bundleVersion='1.2.3', name='OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg',

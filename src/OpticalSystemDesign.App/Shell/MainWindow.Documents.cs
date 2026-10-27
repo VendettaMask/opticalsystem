@@ -189,7 +189,7 @@ public sealed partial class MainWindow
             _closeInProgress = true;
             try
             {
-                return await Services.Updates.OtaShutdownGuard.PrepareAsync(
+                var prepared = await Services.Updates.OtaShutdownGuard.PrepareAsync(
                     async () => await ConfirmUnsavedChangesAsync("安装更新并重启程序", dialog) && dialog?.IsVisible == true,
                     async () => { SaveLayout(); return _laboratories is null || await _laboratories.TryCloseAsync(); },
                     async () =>
@@ -202,6 +202,10 @@ public sealed partial class MainWindow
                             await _recovery.StopAsync(cleanExit: true);
                         }
                     });
+                // Establish consent before entering the native install reply:
+                // a synchronous/reentrant AppKit quit must not ask to save again.
+                _macOtaPrepared = prepared;
+                return prepared;
             }
             finally { _closeInProgress = false; }
         }, macClosePrepared: () =>
@@ -211,6 +215,7 @@ public sealed partial class MainWindow
             Close();
         }, macPreparationCancelled: () =>
         {
+            _macOtaPrepared = false;
             if (!recoveryStoppedForUpdate || _closed) return;
             recoveryStoppedForUpdate = false;
             // A denied native install (for example another running instance)

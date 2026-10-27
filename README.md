@@ -158,7 +158,7 @@ Windows 安装包尚无 Authenticode 发布者签名，系统可能显示未知�
 
 ### 使用 Apple Silicon Mac 版
 
-Mac 发布仅支持 M 系列芯片（`osx-arm64`）。打开发布页的 DMG，将 **Optical System Design.app** 拖入“应用程序”；包内包含 .NET、两个必装模块和字体。当前包为 ad-hoc 签名、尚未公证，首次打开可能需要系统批准；Mac 通过发布页手动更新。具体可下载包及验证范围见[当前状态](docs/CURRENT_STATUS.md)，打包步骤见[云端发布指南](docs/GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
+Mac 发布仅支持 M 系列芯片（`osx-arm64`）。首次打开发布页的 DMG，将 **Optical System Design.app** 拖入“应用程序”；包内包含 .NET、两个必装模块和字体。带更新器的版本支持在“帮助 → 关于”检查、下载并校验更新，再安装和重启；早期 Mac 版本需先手动安装一次带更新器的完整包。Mac 使用 ad-hoc 签名、尚未公证，首次打开可能需要系统批准。具体可下载包及验证范围见[当前状态](docs/CURRENT_STATUS.md)，打包步骤见[云端发布指南](docs/GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
 
 ### 从源码启动
 

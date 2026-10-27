@@ -2,6 +2,8 @@
 *.cmd text eol=crlf
 *.command text eol=lf
 *.sh text eol=lf
+# Sparkle signs the exact XML bytes, including its embedded signature trailer.
+updates/macos/appcast.xml -text
 # Preserve original bundled font license bytes and upstream whitespace.
 src/OpticalSystemDesign.App/Assets/Fonts/Typography/*-OFL.txt -text -whitespace
 # Frozen evidence is hashed byte-for-byte; never normalize it on add/checkout.

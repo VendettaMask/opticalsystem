@@ -126,6 +126,7 @@ public sealed partial class MainWindow : Window
     private readonly CommandSearchControl _commandSearch;
     private bool _closeAfterPersistence;
     private bool _closeInProgress;
+    private bool _macOtaPrepared;
     private bool _closed;
     private Services.Updates.PreparedOtaUpdate? _pendingOtaUpdate;
     private bool _startupCompleted;
@@ -212,8 +213,9 @@ public sealed partial class MainWindow : Window
 
     private async void OnClosing(object? sender, WindowClosingEventArgs args)
     {
-        if (_closeAfterPersistence)
+        if (_closeAfterPersistence || _macOtaPrepared)
         {
+            _closeAfterPersistence = true;
             return;
         }
 

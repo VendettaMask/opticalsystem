@@ -1,6 +1,7 @@
 # Mac OTA
 
-Mac OTA integration is in progress. The existing Windows RSA-4096 signing
+Mac OTA is implemented and has passed scoped cloud regression. Public bootstrap
+publication is tracked separately in [Current Status](CURRENT_STATUS.md). The existing Windows RSA-4096 signing
 identity remains pinned and unchanged. The Mac signing seed is deterministically
 derived with HKDF-SHA256 from its canonical PKCS#8 private encoding, with separate
 product salt and `OpticalSystemDesign/macOS/Sparkle/Ed25519/v1` context. The
@@ -13,12 +14,14 @@ The cloud identity check publishes only the derived public key and tests native
 bridge compilation plus disposable archive signing/verification. This check
 does not by itself establish an installed product OTA regression.
 
-The planned product flow is user-initiated check, download, Ed25519 verification,
+The product flow is user-initiated check, download, Ed25519 verification,
 save/discard/cancel, installation and restart. Existing Mac users need one manual
 bootstrap installation. Gatekeeper approval remains the user's decision.
 The application now has a Mac-specific update panel using the native Sparkle
 driver, with no automatic startup network checks. Installation replies are held
-until document and module decisions plus session persistence succeed. Cancel
+until document and module decisions plus session persistence succeed. Managed
+close consent is established before entering the native install reply, so a
+synchronous AppKit quit cannot ask to save a discarded document a second time. Cancel
 uses Sparkle's cancel-install choice, including during extraction, to avoid
 implicitly approving installation on quit. Windows continues to use its
 existing signed manifest, verified download and guarded helper unchanged.
@@ -33,9 +36,9 @@ publish to Releases or update `main`.
 Release wiring is prepared, with archive/feed signing before release mutation,
 the existing Windows attachment publisher, and a final archive-identity gate
 before activating the appcast. The maintainer authorized main integration and
-cloud publication after successful regression. An installed old-to-new
-replacement regression remains pending; neither the bootstrap release nor the
-production feed has yet been changed.
+cloud publication after successful regression. Complete bundle replacement and
+test-driver relaunch passed in [Actions 40464598219](https://github.com/VendettaMask/opticalsystem/actions/runs/40464598219).
+The bootstrap release and production feed have not yet been activated.
 
 The native installation fixture uses copies of the complete packaged product,
 with only fixture build/key/local-network Info.plist values changed and re-signed.

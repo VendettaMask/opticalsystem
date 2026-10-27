@@ -98,9 +98,11 @@ RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用
 
 ## 软件版本与 GitHub 分发
 
-[ProductVersion.props](../ProductVersion.props) 是默认版本唯一来源，普通构建、启动画面、“关于”、更新窗口、Windows 发布及安装器均使用该值；macOS 发布脚本将同一值写入产物的两个 bundle 版本字段。安装脚本显式 `-AppVersion` 仅用于受控测试或明确指定版本，要求规范的三段稳定版本（每段 0..65534），并将同一版本传入编译。Windows 发布额外核对实际程序集的产品版本，不允许安装器和软件版本漂移。修改版本号不会自动发布。
+[ProductVersion.props](../ProductVersion.props) 是显示版本唯一来源，普通构建、启动画面、“关于”、Windows 发布及安装器均使用该值；macOS 发布脚本将其写入 `CFBundleShortVersionString`，另用递增的 `CFBundleVersion` 识别 OTA 构建。安装脚本显式 `-AppVersion` 仅用于受控测试或明确指定版本，要求规范的三段稳定版本（每段 0..65534），并将同一版本传入编译。Windows 发布额外核对实际程序集的产品版本，不允许安装器和软件版本漂移。修改版本号不会自动发布。
 
-软件中选择“帮助 → 关于”，同一窗口显示当前版本/构建、最新可用版本/构建及完整安装包名称。“包含测试版”默认勾选，通过固定仓库 `VendettaMask/opticalsystem` 的有界公开列表检查正式版和 `v<版本>-test.YYYYMMDD` 测试发布；取消勾选使用正式 Latest 接口。仅点击检查才发出只读、无凭据请求，不发送工程或设置，不在启动时联网。检查中显示不定进度，结束后将无更新、网络/限流/超时、签名缺失或可用更新直接显示在正文，工具提示和辅助功能同步；404 不误报已是最新。改变范围会清除已验证候选并要求重新检查。始终拒绝草稿、含糊元数据、不匹配仓库/标签/架构、重复或未完整上传的安装包。
+Windows 中选择“帮助 → 关于”，同一窗口显示当前版本/构建、最新可用版本/构建及完整安装包名称。“包含测试版”默认勾选，通过固定仓库 `VendettaMask/opticalsystem` 的有界公开列表检查正式版和 `v<版本>-test.YYYYMMDD` 测试发布；取消勾选使用正式 Latest 接口。仅点击检查才发出只读、无凭据请求，不发送工程或设置，不在启动时联网。检查中显示不定进度，结束后将无更新、网络/限流/超时、签名缺失或可用更新直接显示在正文，工具提示和辅助功能同步；404 不误报已是最新。改变范围会清除已验证候选并要求重新检查。始终拒绝草稿、含糊元数据、不匹配仓库/标签/架构、重复或未完整上传的安装包。
+
+Mac 使用同一“帮助 → 关于”入口，由 Sparkle 读取固定 HTTPS Appcast，默认包括 `test` 通道，验证清单及 DMG 的 Ed25519 签名并比较 bundle 构建号。下载、校验和安装由独立按钮发起；保存、不保存和取消的选择不改变原工程。取消保存或更新准备失败时保留编辑，并恢复周期性工程恢复保护；正常退出取消待安装更新，解包期间先等有限的准备步骤完成。具体签名身份和完整包回归范围见 [Mac OTA](MAC_OTA.md)。
 
 手动 OTA 先比较数字版本，低版本拒绝；相同版本仅允许测试包的签名构建编号高于当前主程序集中的编号，同一/旧构建不重复提示。正式版使用原 v1 签名信封，测试版使用 v2 并绑定云端 `GITHUB_RUN_ID`；测试标签、`UnsignedTest` 文件名、架构、完整大小/SHA-256、源码和载荷身份均须一致。检查、下载和安装交接使用相同的版本/构建判断。只有可信候选启用“下载更新”；下载显示进度且可取消，完整验证前不执行安装。请求仅访问固定仓库和允许的 HTTPS GitHub 下载主机，限制重定向、大小、空闲及总时长。“打开发布页”仅打开浏览器；无可信签名可手动下载。没有自动检查或后台安装。
 
@@ -144,7 +146,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/publish-windows.
 bash scripts/publish-cross-platform.sh
 ```
 
-Mac 请运行 `bash scripts/build-macos.sh --test-package`，生成自包含 `osx-arm64` DMG；不生成 Intel 版本。打开 DMG 后将 `.app` 拖入“应用程序”，无需 SDK。当前使用 ad-hoc 完整性签名，尚无 Developer ID 签名/公证；Mac 通过发布页手动更新，不使用 Windows OTA。该脚本包含标准 bundle 排布、arm64 检查、模块/字体许可校验、原生无界面执行及 DMG 只读挂载复查；临时目录失败保留，新构建不覆盖旧包。
+Mac 请运行 `bash scripts/build-macos.sh --test-package`，生成自包含 `osx-arm64` DMG；不生成 Intel 版本。打开 DMG 后将 `.app` 拖入“应用程序”，无需 SDK。当前使用 ad-hoc 完整性签名，尚无 Developer ID 签名/公证；带更新器的版本通过 Sparkle 使用独立签名的 Mac 更新包和更新清单，早期版本需手动安装一次完整包。该脚本包含标准 bundle 排布、arm64 检查、模块/字体许可校验、更新桥接载入、原生无界面执行及 DMG 只读挂载复查；临时目录失败保留，新构建不覆盖旧包。Mac 的身份派生、签名清单和递增构建规则见[云端发布指南](GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
 
 `publish-cross-platform.sh` 在 Mac 转入上述 DMG 打包，在其他主机保留 Windows 便携发布。脚本支持和原生载荷检查不等于全部桌面验收，系统及签名边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。Linux CI 构建不代表已有 Linux 正式安装包。
 

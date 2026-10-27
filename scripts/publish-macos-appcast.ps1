@@ -25,7 +25,7 @@ $api = 'https://api.github.com/repos/VendettaMask/opticalsystem/contents/updates
 $headers = @{ Authorization = "Bearer $env:GH_TOKEN"; Accept = 'application/vnd.github+json'; 'User-Agent' = 'OpticalSystemDesign-MacOTA' }
 $current = Invoke-RestMethod -Uri "$($api)?ref=main" -Headers $headers
 if ($current.sha -cne $base.sha) { throw 'The Mac feed changed during publishing; regenerate instead of overwriting it.' }
-$payload = @{ message = "Update signed Mac OTA feed for $($entry.version) ($($entry.bundleVersion))";
+$payload = @{ message = "Update signed Mac OTA feed for $($entry.version) ($($entry.bundleVersion)) [skip ci]";
     content = [Convert]::ToBase64String($expected); sha = $base.sha; branch = 'main' } | ConvertTo-Json
 $commit = Invoke-RestMethod -Method Put -Uri $api -Headers $headers -ContentType 'application/json' -Body $payload
 $readback = Invoke-RestMethod -Uri "$($api)?ref=main" -Headers $headers
