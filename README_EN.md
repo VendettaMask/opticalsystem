@@ -10,19 +10,19 @@
 
 <p align="center">
   <strong>Turn an optical idea into a system you can analyze.</strong><br />
-  Modeling, tracing, optimization, initial-structure generation, and coating design in one desktop workbench.
+  Sequential and non-sequential modeling, image analysis, optimization, tolerancing, initial-structure generation, and coating design in one desktop workbench.
 </p>
 
 <p align="center">
   <a href="https://github.com/VendettaMask/opticalsystem/actions/workflows/ci.yml"><img src="https://github.com/VendettaMask/opticalsystem/actions/workflows/ci.yml/badge.svg?branch=main" alt="Live CI status" /></a>
   <a href="global.json"><img src="https://img.shields.io/badge/C%23%20%2F%20.NET-10-512BD4?style=flat-square" alt="C# / .NET 10" /></a>
   <a href="docs/ARCHITECTURE.md"><img src="https://img.shields.io/badge/Avalonia-Desktop-7C3AED?style=flat-square" alt="Avalonia desktop UI" /></a>
-  <a href="docs/CURRENT_STATUS.md"><img src="https://img.shields.io/badge/Status-In%20Development-D99A3D?style=flat-square" alt="In development; full release acceptance is not complete" /></a>
+  <a href="docs/CURRENT_STATUS.md"><img src="https://img.shields.io/badge/Status-In%20Development-D99A3D?style=flat-square" alt="In development; test releases available" /></a>
 </p>
 
 <p align="center">
   <a href="#features"><strong>Features</strong></a> ·
-  <a href="#installation-and-startup"><strong>Install</strong></a> ·
+  <a href="#installation-and-startup"><strong>Download & Install</strong></a> ·
   <a href="#developer-quick-start"><strong>Quick Start</strong></a> ·
   <a href="docs/README.md"><strong>Documentation</strong></a> ·
   <a href="https://github.com/VendettaMask/opticalsystem/issues"><strong>Report an Issue</strong></a>
@@ -44,17 +44,20 @@
 
 ---
 
+**Current test release: 1.0.4 · October 27, 2026 · build `a31fb444`**. Windows x64, Windows ARM64, and Apple Silicon Mac packages now share the same source. [Choose a package](#installation-and-startup) · [Release and verification record](docs/validation/CLOUD_RELEASE_2026-10-27.json)
+
 ## Why Optical System Design?
 
 Optical System Design is a non-commercial optical-design project maintained by S.T.A.R. Labs. It combines a shared optical computation core written entirely in C#/.NET with an Avalonia desktop workflow, keeping lens models, analysis results, and the design process in one place.
 
-- **One workbench:** lens editing, 2D/3D layouts, analysis, optimization, and tolerancing share the same project and workspace.
+- **From prescription to delivery:** move between lens editing, 2D/3D layouts, analysis, optimization, tolerancing, and design reports within one project.
 - **Three UI languages:** Simplified Chinese is the default; English and Japanese can be selected instantly, and the choice is remembered.
 - **One computation core:** the main application, initial-structure module, and coating module reuse the shared Core without an external Python optical runtime.
 - **One complete product:** both modules are required, in-process features included by the standard installation; they do not need separate launchers or installers.
+- **Categorized lens examples:** browse 95 Zemax Sequential examples in 14 categories through **File → Examples**, with each model handled according to the [documented import scope](docs/USER_GUIDE.md#镜头示例).
 - **Traceable validation:** implemented capabilities, frozen references, numerical comparisons, and open validation boundaries are kept distinct. UI presentation is not treated as proof of numerical accuracy.
 
-> The project remains under active development and has not completed full release acceptance. See [Current Status](docs/CURRENT_STATUS.md) for the current package identity, validation scope, and open work. Historical test counts do not supersede that status.
+> Development continues with test packages available for all three platforms. See [Current Status](docs/CURRENT_STATUS.md) for package identity, verified scope, and remaining work, and the relevant guides for each analysis and model's applicable scope.
 
 ## Features
 
@@ -62,54 +65,100 @@ Optical System Design is a non-commercial optical-design project maintained by S
   <tr>
     <td width="50%" valign="top">
       <h3>🔭 Lens modeling and layout</h3>
-      <p>Edit surfaces, materials, apertures, fields, and wavelengths, then inspect the system in 2D and 3D layouts. Multi-configuration and a separate non-sequential document workflow are supported.</p>
+      <p>Edit curvature, thickness, materials, surface geometry, apertures, fields, and wavelengths, with variables, solves, and pickups. Step through configurations from the lens header, keeping system options, layouts, and undo/redo in sync.</p>
       <a href="docs/GUI_QUICKSTART_REFACTOR.md">Desktop workflow →</a>
     </td>
     <td width="50%" valign="top">
       <h3>📈 Ray tracing and image analysis</h3>
-      <p>Analyze the current optical model with spot diagrams, ray aberrations, wavefronts, PSF, MTF, encircled energy, and image simulation.</p>
+      <p>Use spots, ray fans, field curvature/distortion, RMS, wavefronts, real interference fringes, FFT/Huygens PSF, FFT/Huygens/geometric MTF, energy, illumination, and image simulation, with explicit field, wavelength, and configuration settings.</p>
       <a href="docs/PARITY_MATRIX.md">Capabilities and support boundaries →</a>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
       <h3>🎯 Optimization and tolerancing</h3>
-      <p>Define variables and merit targets, use the implemented optimization algorithms, and evaluate manufacturing variation through sensitivity, compensation, and Monte Carlo workflows.</p>
+      <p>Set variables, merit operands, weights, and constraints; run implemented algorithms such as Damped Least Squares and Nelder–Mead, then evaluate manufacturing variation through sensitivity, compensation, and Monte Carlo workflows.</p>
       <a href="docs/OPTIMIZATION_ALGORITHMS.md">Optimization algorithms</a> · <a href="docs/TOLERANCING.md">Tolerance analysis →</a>
     </td>
     <td width="50%" valign="top">
       <h3>🧩 Initial-structure design</h3>
-      <p>Generate and refine candidate structures from specifications using real optical evaluations from the shared Core. Candidate results still require independent verification against the design goals.</p>
+      <p>Generate, optimize, and refine candidates from specifications and random seeds through the AutoLens workflow, with budgets, saved runs, and resume support. Select automatic CUDA preference, GPU, or CPU; evaluate candidates independently through the shared Core and export projects.</p>
       <a href="labs/InitialStructure/README.md">Built-in module guide →</a>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
       <h3>🌈 Optical coating design</h3>
-      <p>Edit layers and materials, calculate R/T/A spectra, and generate, optimize, tolerance, and save anti-reflection, high-reflection, and narrowband coating experiments.</p>
+      <p>Generate anti-reflection, high-reflection, and narrowband candidates; edit layer thickness and n/k materials, calculate R/T/A and OD spectra, optimize thickness, search finite structures, evaluate tolerances, and save separate experiments.</p>
       <a href="labs/CoatingDesign/README.md">Built-in module guide →</a>
     </td>
     <td width="50%" valign="top">
       <h3>🛠️ Projects, materials, and manufacturing data</h3>
-      <p>Use material and lens libraries, save complete projects, produce manufacturing drawings, and export STEP. Clearly scoped subsets of ZMX, SEQ, and LEN exchange formats are supported.</p>
-      <a href="docs/FILE_FORMATS_AND_PLUGINS.md">Files and exchange formats</a> · <a href="docs/MANUFACTURING_DRAWINGS.md">Manufacturing drawings →</a>
+      <p>Use material and lens libraries and save complete STAROPT projects. Export prescription and analysis CSV, complete PNGs, Markdown design reports, manufacturing drawings, and faceted STEP, with scoped ZMX, SEQ, and LEN exchange.</p>
+      <a href="docs/FILE_FORMATS_AND_PLUGINS.md">Files and exchange formats</a> · <a href="docs/MARKDOWN_REPORT_EXPORT.md">Design reports →</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🔦 Non-sequential and stray-light workflows</h3>
+      <p>Edit sources, optical objects, mechanical STL meshes, and detectors in a separate object document. Inspect propagation and energy through branch tracing, ray databases, path filters, and detector reconstruction.</p>
+      <a href="docs/NON_SEQUENTIAL_TRACING.md">Non-sequential workflow</a> · <a href="docs/NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md">Stray-light pipeline →</a>
+    </td>
+    <td width="50%" valign="top">
+      <h3>📷 Camera imaging simulation</h3>
+      <p>Combine a current-lens snapshot, sensor settings, QE, illuminant, and reflectance spectra. Inspect optical, noise, ADC, and basic ISP stages, with continuous spectral integration, A/B comparisons, and result export.</p>
+      <a href="docs/CAMERA_IMAGING_LAB.md">Imaging laboratory and model scope →</a>
     </td>
   </tr>
 </table>
 
+### Analysis and display
+
+| Task | Available capabilities |
+| --- | --- |
+| Geometric image quality | Spots, ray fans, field curvature/distortion, lateral color, RMS versus field/wavelength/focus, and Seidel coefficients with automatic bar-chart range |
+| Diffraction and energy | FFT/Huygens PSF, FFT/Huygens/geometric MTF, encircled energy, relative illumination, and supported scan settings |
+| Wavefront and interference | Surface, contour, and 2D heatmap wavefront views; grayscale, false-color, and contour interferograms with beam, tilt, analysis-surface, and subaperture settings |
+| Zernike coefficients | Named Fringe, Standard, and Annular coefficient tables and fit statistics, plus coefficients versus field; use Wavefront Map for wavefront distributions |
+| Interaction and export | Named-curve legend selection, zoom/pan, plot/data/text views, readable reflow or scrolling in small panes, and complete analysis PNG export |
+| Layouts and solids | 2D layout, 3D layout, and solid model, with view presets, orientation indicators, ray display, and current-viewport PNG export |
+
+Interferograms display fringe intensity computed by the shared Core from wavefront differences. See the [interference guide](docs/INTERFEROGRAM_2026-10-26.md) for settings and physical assumptions. Each analysis has its own sampling, reference, units, and applicable scope; see the [User Guide](docs/USER_GUIDE.md) and [capability matrix](docs/PARITY_MATRIX.md).
+
+### A typical workflow
+
+1. **Open or create a system:** import a supported sequential file or choose a categorized example, then save the complete project as `.staropt`.
+2. **Check the prescription and layout:** adjust system options, materials, and surfaces, switch configurations, and inspect 2D/3D propagation.
+3. **Analyze and improve:** choose the actual fields, wavelengths, and sampling, compare image quality, and set variables, merit targets, and tolerances as needed.
+4. **Save and deliver:** save the project, or use **Database → Design Report** to select analyses and configurations for Markdown and image export; explicitly export STEP for mechanical exchange.
+
+Open AI Initial Structure and Optical Coating Design from **Laboratory**; they maintain their own experiments and run records. Initial-structure candidates require independent acceptance against the design goals, and coating experiments do not automatically modify the current lens. The [GPU guide](docs/AUTOLENS_GPU.md) describes device support and fallback scope. Autonomous topology insertion/deletion and search currently provide experimental CPU library interfaces; progress is tracked in the [implementation plan](docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md).
+
 ## Installation and startup
+
+### Download the current test release
+
+| Platform | Package |
+| --- | --- |
+| Windows x64 | [Download EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-a31fb444.exe) |
+| Windows ARM64 | [Download EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-a31fb444.exe) |
+| Mac Apple Silicon | [Download DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg) |
+
+These are **1.0.4 prerelease packages, build `a31fb444`, published October 27, 2026**. All three include the runtime, both required modules, and fonts; no separate .NET installation is required. [Release notes and SHA-256](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019) · [Actual verification scope](docs/CURRENT_STATUS.md).
+
+This release includes real interference fringes and their settings, removal of the duplicate generic Zernike entry, readable analysis layouts and complete image export, clipboard-failure handling in command search, and the Mac layout-save crash fix. Platform release gates, public-download hashes, and Windows update signatures were checked; numerical certification and native GUI/OTA acceptance retain their documented scopes.
 
 ### Windows installer
 
-Installers are distributed through [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases). Run `OpticalSystemDesign-*-Setup.exe` from a published release and follow the installer. The standard Windows x64 package is self-contained, so users do not need to install .NET or the initial-structure and coating modules separately.
+Choose the EXE matching your system architecture and follow the installer. Current filenames end with `-Setup-a31fb444.exe`; the final eight characters identify the actual package source. Older clients need one manual in-place update from Releases to recognize the coded filenames. Uninstalling first is not required.
 
-See **Help → About** or **Help → Check for Updates** for the installed version. Update checks are manual and can open GitHub Releases to obtain the full installer. Checks and downloads are user-initiated. Verified Windows updates can be applied after saving and closing normally; Mac uses manual DMG replacement. There is no background installation. See the [version and release rules](docs/BUILD_AND_RELEASE.md#软件版本与-github-分发); a development version does not imply a publicly available installer.
+Use **Help → About** for versions and updates. **Include prereleases** is selected by default. After a manual check, download and verify the matching update, then choose **Install Update and Restart**. Unsaved changes offer save, discard, or cancel; installation and application shutdown are not forced in the background. Signed build numbers also distinguish newer test builds of the same version. See the [update rules](docs/BUILD_AND_RELEASE.md#软件版本与-github-分发).
 
 Open the two built-in modules from **Laboratory → AI Initial Structure / Optical Coating Design** in the main application.
 
 Open **Help → User Guide** for the searchable illustrated manual. It combines an actual workbench screenshot with theme-aware explanatory diagrams, covers every currently registered feature command and analysis, and follows the selected Chinese, English, or Japanese interface language. See the repository [User Guide scope](docs/USER_GUIDE.md) for coverage details.
 
-The current installer is unsigned, so the operating system may display an unknown-publisher warning. Source updates do not automatically replace an existing installation. See the [Windows installation guide](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md) for installation, repair, and recovery, and the [delivery record](docs/BUILT_IN_MODULES_2026-10-13.md) for the actual package identity.
+Windows installers do not yet have an Authenticode publisher signature and may display an unknown-publisher warning; RSA verification of update metadata does not replace that certificate. See the [Windows installation guide](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md) for installation, repair, and recovery, and the [current delivery record](docs/validation/CLOUD_RELEASE_2026-10-27.json) for package identity.
 
 ### Apple Silicon Mac package
 
@@ -127,7 +176,7 @@ dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj 
 
 You can also use [Run-OpticalSystemDesign.cmd](Run-OpticalSystemDesign.cmd) on Windows or [Run-OpticalSystemDesign.command](Run-OpticalSystemDesign.command) on macOS. These development launchers restore, clean, build, and start the application in sequence; they do not delete user projects, themes, or workspaces.
 
-Windows ARM64 and macOS publishing entry points, and a successful Linux CI build, do not mean those platforms have completed real-device installation or full desktop acceptance. See [Build and Release](docs/BUILD_AND_RELEASE.md) for the cross-platform delivery scope.
+The Windows ARM64 installer is cross-built on Windows x64. Mac runs focused regressions and native package checks without a GUI on an Apple Silicon cloud runner. A Linux CI build does not imply a Linux installer is available. See [Build and Release](docs/BUILD_AND_RELEASE.md) for real-device installation and full desktop acceptance scope.
 
 ## Developer quick start
 
@@ -166,6 +215,7 @@ Continue reading: [System Architecture](docs/ARCHITECTURE.md) · [Code Map](docs
 | I want to… | Start here |
 | --- | --- |
 | Learn the desktop workflow | [User guide](docs/GUI_QUICKSTART_REFACTOR.md) |
+| Explore analysis, reports, and imaging | [User Guide](docs/USER_GUIDE.md) · [Design reports](docs/MARKDOWN_REPORT_EXPORT.md) · [Camera imaging](docs/CAMERA_IMAGING_LAB.md) |
 | Browse all documentation | [Documentation index](docs/README.md) |
 | Understand the current validation, installer, and remaining work | [Current status](docs/CURRENT_STATUS.md) · [Open issues](docs/OPEN_ISSUES_2026-10-08.md) |
 | Review supported models and files | [Capability matrix](docs/PARITY_MATRIX.md) · [File formats](docs/FILE_FORMATS_AND_PLUGINS.md) |
