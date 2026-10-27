@@ -45,3 +45,7 @@ dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false -p:
 第五次 [40436369194](https://github.com/VendettaMask/opticalsystem/actions/runs/40436369194) 获得 `navigation.9473.crashreport.json` 及阶段记录，工件 `12704139176`；报告明确标记界面工作线程崩溃，但信号边界后没有有效原始帧。三个配置的数据、光圈和场景断言均执行到完成；末尾标记是多配置编辑器已打开，随后重激活镜头标签并绘制时退出。仅验证模式增加云端 LLDB 观察，不更改用例数量/断言或生成内存转储。新增两项本地预检查通过，原始本机 TRX 仅保留本机，不新增上传。
 
 第六次 [40437583296](https://github.com/VendettaMask/opticalsystem/actions/runs/40437583296) 的工件 `12705126077` 保存 LLDB 附加成功及界面长任务线程 `EXC_BAD_ACCESS`；非法代码地址本身不足以说明调用来源。普通批处理 `-o` 后续命令因故障提前停止，现按官方文档改用 `-k`，并仅在临时 runner 安装固定 SOS 10.0.750501 以输出 `clrstack`（无参数/局部变量/转储），产品依赖不变。
+
+随后核对源代码确认 `WorkspaceSessionStore.PathHash` 固定参数声明调用了 Darwin `fcntl` 的可变参数指针。Apple Silicon 可变参数放置约定与固定第三参数不同，可能将路径写入栈；该问题与故障地址的路径字节相符。实现替换为固定签名 `realpath`，显式 UTF-8 输入及输出缓冲区；Apple libc 源码明确按文件系统实际名称恢复大小写。新增 16 轮真实 Unicode 文件布局保存/读取，Mac 云门禁同时执行整个工作区持久化测试类。保留原始数据文件和不存在路径的后备，不更改光学计算；原生结果待后续追加。
+
+修正后本地定向 **9/9** 通过（工作区持久化类、原崩溃导航方法、发布流程守卫），零失败/跳过；TRX 留在本机发布工作目录，不推送。Windows 本地结果不执行 Mac 分支，不能替代待运行的 Apple Silicon 验证。

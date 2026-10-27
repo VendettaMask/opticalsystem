@@ -56,6 +56,8 @@ Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完
 
 LLDB 使用官方 `-k` 故障后命令打印栈，避免普通 `-o` 命令在异常处停止而漏记；临时 runner 单独安装固定版本 `dotnet-sos` 10.0.750501，仅执行不含参数/局部变量的 `clrstack`。诊断工具不进入产品依赖或安装包，也不在本机安装。依据 [LLDB 命令行说明](https://lldb.llvm.org/man/lldb.html)和 [Microsoft SOS 说明](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/dotnet-sos)。
 
+Mac 工作区路径散列已改用固定参数的 UTF-8 `realpath`，保留实际文件系统大小写与不存在路径的后备行为。旧声明将可变参数 `fcntl(F_GETPATH)` 当作固定参数调用，在 Darwin ARM64 上不符合调用约定，有写坏调用栈的风险。约定见 [Apple ARM64 说明](https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms)，实际文件名恢复见 [Apple libc realpath 实现](https://github.com/apple-oss-distributions/Libc/blob/main/stdlib/FreeBSD/realpath.c)。Mac 云门禁增加全部 `WorkspaceSessionTests`，包括真实 Unicode 文件连续保存/读取及原有文件系统大小写语义检查；原生回归结果以状态页为准。
+
 2026-10-26 已从 `45cce15b` 完成 Windows x64 云端重建与安全替换，EXE 末尾为 `-Setup-45cce15b.exe`。首次带码任务的依赖误报与旧界面夹具已修复，随后全部发布步骤通过；公开附件的源码、文件哈希、更新签名和下载均已核对。Mac 附件及来源、原测试标签保持，Windows 新名称使用新的下载地址；旧客户端需手动覆盖安装一次。实际运行、跳过范围与载荷证据见[本轮交付账目](validation/WINDOWS_CODED_EXE_RELEASE_2026-10-26.json)，没有替换用户本机安装。
 
 2026-10-24 曾从 `11de8bce` 分别重新构建并替换 Windows x64 与 Apple Silicon Mac 的现有测试包，新增分析排布、完整渲染和 PNG 导出门禁，当时保留原标签及下载地址。两平台的原阶段执行、去重测试、包内检查和签名核对见[该阶段交付账目](validation/ANALYSIS_UI_CLOUD_2026-10-24.json)。

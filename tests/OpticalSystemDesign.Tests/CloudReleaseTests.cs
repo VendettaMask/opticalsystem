@@ -15,6 +15,7 @@ public sealed class CloudReleaseTests
         Assert.Contains("needs: [plan, package]", text);
         Assert.Contains("CloudReleaseTests", text);
         Assert.Contains("test-lens-navigation-release.ps1", text);
+        Assert.Contains("FullyQualifiedName~WorkspaceSessionTests", text);
         foreach (var name in new[] { "LensEditorLayoutTests", "LensHeaderTypographyTests",
             "LensMaterialRowThemeTests", "ViewerSettingsInputThemeTests", "ViewerConfigurationTests", "Viewer3DGeometryTests" })
             Assert.Contains("FullyQualifiedName~" + name, text);

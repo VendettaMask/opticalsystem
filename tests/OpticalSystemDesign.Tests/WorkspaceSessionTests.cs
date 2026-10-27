@@ -5,6 +5,38 @@ namespace OpticalSystemDesign.Tests;
 public sealed class WorkspaceSessionTests
 {
     [Fact]
+    public async Task ExistingUnicodeDocumentKeepsStableSessionPathAcrossRepeatedSaves()
+    {
+        var root = TemporaryDirectory();
+        try
+        {
+            var directory = Path.Combine(root, "光学 系统", "多配置", "測試_é");
+            Directory.CreateDirectory(directory);
+            var documentPath = Path.Combine(directory, "Zoom 镜头.staropt");
+            await File.WriteAllTextAsync(documentPath, "original document");
+            var store = new WorkspaceSessionStore(Path.Combine(root, "layouts"));
+            var expectedPath = store.SessionPath(documentPath);
+            var document = new WorkspaceDocumentDescriptor("lens", WorkspaceDocumentTypes.LensEditor, "镜头数据");
+            for (var index = 0; index < 16; index++)
+            {
+                var session = new WorkspaceSession(WorkspaceSessionStore.CurrentVersion,
+                    "{\"iteration\":" + index + "}", new[] { document }, document.Id);
+                await store.SaveAsync(documentPath, session);
+                var restored = await store.LoadAsync(documentPath);
+                Assert.NotNull(restored);
+                Assert.Equal(session.DockLayoutJson, restored.DockLayoutJson);
+                Assert.Equal(expectedPath, store.SessionPath(documentPath));
+            }
+            Assert.Equal("original document", await File.ReadAllTextAsync(documentPath));
+            Assert.Single(Directory.GetFiles(Path.GetDirectoryName(expectedPath)!, "*.workspace.json"));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
     public void PathHashUsesActualFileSystemCaseSemantics()
     {
         var root = TemporaryDirectory();
