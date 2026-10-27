@@ -411,6 +411,15 @@ internal static class UiLocalization
         void Add(string source, string english, string japanese) =>
             values[source] = new Translation(english, japanese);
 
+        Add("取消更新", "Cancel update", "更新をキャンセル");
+        Add("发现新版本，点击“下载更新”开始 OTA。", "An update is available. Select Download update to continue.", "更新があります。「更新をダウンロード」を選択してください。");
+        Add("正在校验并准备更新…", "Verifying and preparing the update…", "更新を検証して準備中…");
+        Add("更新校验通过。安装前可选择保存或不保存当前修改；取消则不安装。", "Update verified. Choose whether to save your changes before installing, or cancel to keep working.", "更新を検証しました。インストール前に変更を保存するか破棄するかを選択できます。キャンセルすると作業を続けます。");
+        Add("正在安装更新并重启…", "Installing the update and restarting…", "更新をインストールして再起動中…");
+        Add("无法完成更新，请稍后重试或从发布页手动安装。", "The update could not be completed. Retry later or install from the releases page.", "更新できませんでした。後で再試行するか、リリースページからインストールしてください。");
+        Add("点击“检查更新”获取 Mac 更新；下载完成后可安装并重启。", "Select Check for updates to get Mac updates, then download, install and restart.", "「更新を確認」から Mac の更新を取得し、ダウンロード後にインストールして再起動できます。");
+        Add("正在校验并准备更新，请稍后再关闭软件。", "The update is being verified. Please wait before closing the application.", "更新を検証中です。完了後にアプリケーションを閉じてください。");
+
         Add("线框", "Wireframe", "ワイヤーフレーム");
         Add("显示镜片内部剖面", "Show lens cross sections", "レンズ内部の断面を表示");
 

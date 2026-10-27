@@ -16,4 +16,19 @@ does not by itself establish an installed product OTA regression.
 The planned product flow is user-initiated check, download, Ed25519 verification,
 save/discard/cancel, installation and restart. Existing Mac users need one manual
 bootstrap installation. Gatekeeper approval remains the user's decision.
-The bootstrap package and native replacement regression are not yet published.
+The application now has a Mac-specific update panel using the native Sparkle
+driver, with no automatic startup network checks. Installation replies are held
+until document and module decisions plus session persistence succeed. Cancel
+uses Sparkle's cancel-install choice, including during extraction, to avoid
+implicitly approving installation on quit. Windows continues to use its
+existing signed manifest, verified download and guarded helper unchanged.
+
+`prepare-macos-ota-release.ps1` signs the DMG and a channel-aware appcast locally
+in the cloud; it performs no GitHub writes. Private derived seeds are held in
+owner-only temporary files and removed in `finally`. The `ota-security.yml`
+workflow validates the native bridge, throwaway signed/tampered archives,
+headless UI contracts and a disposable packaged application/DMG. It does not
+publish to Releases or update `main`.
+
+Public release wiring and an installed old-to-new replacement regression remain
+pending. Neither the bootstrap release nor the production feed has been changed.

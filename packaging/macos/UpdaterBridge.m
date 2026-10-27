@@ -13,6 +13,8 @@ typedef void (*OSDUpdateEvent)(int, const char *, double);
 @property(copy) void (^cancel)(void);
 @property uint64_t expected;
 @property uint64_t received;
+@property BOOL extracting;
+@property BOOL cancelRequested;
 @property(copy) NSString *version;
 @end
 
@@ -65,16 +67,18 @@ typedef void (*OSDUpdateEvent)(int, const char *, double);
 - (void)showDownloadDidReceiveDataOfLength:(uint64_t)length {
     self.received += length; [self emit:3 progress:self.expected ? 100.0 * self.received / self.expected : 0];
 }
-- (void)showDownloadDidStartExtractingUpdate { self.cancel = nil; [self emit:4 progress:0]; }
+- (void)showDownloadDidStartExtractingUpdate { self.cancel = nil; self.extracting = YES; [self emit:4 progress:0]; }
 - (void)showExtractionReceivedProgress:(double)progress { [self emit:4 progress:100 * progress]; }
 - (void)showReadyToInstallAndRelaunch:(void (^)(SPUUserUpdateChoice))reply {
+    self.extracting = NO;
+    if (self.cancelRequested) { self.cancelRequested = NO; reply(SPUUserUpdateChoiceSkip); [self emit:8 progress:0]; return; }
     self.ready = reply; [self emit:5 progress:100];
 }
 - (void)showInstallingUpdateWithApplicationTerminated:(BOOL)terminated retryTerminatingApplication:(void (^)(void))retry {
     [self emit:6 progress:100];
 }
 - (void)showUpdateInstalledAndRelaunched:(BOOL)relaunched acknowledgement:(void (^)(void))acknowledgement { acknowledgement(); }
-- (void)dismissUpdateInstallation { self.cancel = nil; self.choice = nil; self.ready = nil; }
+- (void)dismissUpdateInstallation { self.cancel = nil; self.choice = nil; self.ready = nil; self.extracting = NO; self.cancelRequested = NO; }
 - (void)showUpdateInFocus { }
 @end
 
@@ -104,11 +108,18 @@ __attribute__((visibility("default"))) void osd_updater_download(void) {
 }
 __attribute__((visibility("default"))) int osd_updater_install(void) {
     if (![NSThread isMainThread] || !instance.ready) return 0;
+    NSString *identifier = NSBundle.mainBundle.bundleIdentifier;
+    if (identifier.length > 0) {
+        for (NSRunningApplication *app in [NSRunningApplication runningApplicationsWithBundleIdentifier:identifier]) {
+            if (app.processIdentifier != NSProcessInfo.processInfo.processIdentifier && !app.terminated) return 0;
+        }
+    }
     void (^reply)(SPUUserUpdateChoice) = instance.ready; instance.ready = nil; reply(SPUUserUpdateChoiceInstall);
     return 1;
 }
-__attribute__((visibility("default"))) void osd_updater_cancel(void) {
-    if (![NSThread isMainThread] || !instance) return;
+__attribute__((visibility("default"))) int osd_updater_cancel(void) {
+    if (![NSThread isMainThread] || !instance) return 0;
+    if (instance.extracting) { instance.cancelRequested = YES; return 0; }
     // Dismiss would authorize installation on quit. Skip cancels that consent.
     void (^ready)(SPUUserUpdateChoice) = instance.ready; instance.ready = nil;
     void (^choice)(SPUUserUpdateChoice) = instance.choice; instance.choice = nil;
@@ -117,4 +128,5 @@ __attribute__((visibility("default"))) void osd_updater_cancel(void) {
     else if (choice) choice(SPUUserUpdateChoiceDismiss);
     else if (cancel) cancel();
     [instance emit:8 progress:0];
+    return 1;
 }
