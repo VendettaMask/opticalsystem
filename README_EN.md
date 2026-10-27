@@ -32,19 +32,17 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/workbench-dark.png" />
-    <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme/workbench-light.png" />
-    <img src="docs/assets/readme/workbench-light.png" alt="Optical System Design workbench with the lens data editor, document tabs, and system-options sidebar" width="1120" />
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/2026-10-27/workbench-dark-en.png" />
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme/2026-10-27/workbench-light-en.png" />
+    <img src="docs/assets/readme/2026-10-27/workbench-light-en.png" alt="Optical System Design main window with lens data, 2D layout, and system options" width="1120" />
   </picture>
 </p>
 
 <p align="center">
-  <sub>The desktop workbench in light and dark themes. The preview is an off-screen rendering of the actual Avalonia controls from October 15, 2026. It demonstrates layout, not numerical or cross-platform acceptance.</sub>
+  <sub>The actual main window in light and dark themes, showing lens data, the 2D layout, and system options. Rendered off-screen using a bundled lens example.</sub>
 </p>
 
 ---
-
-**Current test release: 1.0.4 · October 27, 2026 · build `a31fb444`**. Windows x64, Windows ARM64, and Apple Silicon Mac packages now share the same source. [Choose a package](#installation-and-startup) · [Release and verification record](docs/validation/CLOUD_RELEASE_2026-10-27.json)
 
 ## Why Optical System Design?
 
@@ -136,7 +134,7 @@ Open AI Initial Structure and Optical Coating Design from **Laboratory**; they m
 
 ## Installation and startup
 
-### Download the current test release
+### Download a package
 
 | Platform | Package |
 | --- | --- |
@@ -144,13 +142,11 @@ Open AI Initial Structure and Optical Coating Design from **Laboratory**; they m
 | Windows ARM64 | [Download EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-a31fb444.exe) |
 | Mac Apple Silicon | [Download DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg) |
 
-These are **1.0.4 prerelease packages, build `a31fb444`, published October 27, 2026**. All three include the runtime, both required modules, and fonts; no separate .NET installation is required. [Release notes and SHA-256](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019) · [Actual verification scope](docs/CURRENT_STATUS.md).
-
-This release includes real interference fringes and their settings, removal of the duplicate generic Zernike entry, readable analysis layouts and complete image export, clipboard-failure handling in command search, and the Mac layout-save crash fix. Platform release gates, public-download hashes, and Windows update signatures were checked; numerical certification and native GUI/OTA acceptance retain their documented scopes.
+All three platforms use self-contained packages with the runtime, both required modules, and fonts; no separate .NET installation is required. Find version history, release notes, and file checksums on [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases).
 
 ### Windows installer
 
-Choose the EXE matching your system architecture and follow the installer. Current filenames end with `-Setup-a31fb444.exe`; the final eight characters identify the actual package source. Older clients need one manual in-place update from Releases to recognize the coded filenames. Uninstalling first is not required.
+Choose the EXE matching your system architecture and follow the installer. An existing installation can be updated in place with the complete installer; uninstalling first is not required.
 
 Use **Help → About** for versions and updates. **Include prereleases** is selected by default. After a manual check, download and verify the matching update, then choose **Install Update and Restart**. Unsaved changes offer save, discard, or cancel; installation and application shutdown are not forced in the background. Signed build numbers also distinguish newer test builds of the same version. See the [update rules](docs/BUILD_AND_RELEASE.md#软件版本与-github-分发).
 
@@ -158,7 +154,7 @@ Open the two built-in modules from **Laboratory → AI Initial Structure / Optic
 
 Open **Help → User Guide** for the searchable illustrated manual. It combines an actual workbench screenshot with theme-aware explanatory diagrams, covers every currently registered feature command and analysis, and follows the selected Chinese, English, or Japanese interface language. See the repository [User Guide scope](docs/USER_GUIDE.md) for coverage details.
 
-Windows installers do not yet have an Authenticode publisher signature and may display an unknown-publisher warning; RSA verification of update metadata does not replace that certificate. See the [Windows installation guide](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md) for installation, repair, and recovery, and the [current delivery record](docs/validation/CLOUD_RELEASE_2026-10-27.json) for package identity.
+Windows installers do not yet have an Authenticode publisher signature and may display an unknown-publisher warning; RSA verification of update metadata does not replace that certificate. See the [Windows installation guide](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md) for installation, repair, and recovery, and [Releases](https://github.com/VendettaMask/opticalsystem/releases) for version and package details.
 
 ### Apple Silicon Mac package
 

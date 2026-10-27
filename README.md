@@ -32,19 +32,17 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/workbench-dark.png" />
-    <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme/workbench-light.png" />
-    <img src="docs/assets/readme/workbench-light.png" alt="Optical System Design 工作台：镜头数据编辑器、文档页签与系统选项侧栏" width="1120" />
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/2026-10-27/workbench-dark.png" />
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme/2026-10-27/workbench-light.png" />
+    <img src="docs/assets/readme/2026-10-27/workbench-light.png" alt="Optical System Design 实际主窗口：变焦镜头数据、二维布局与系统选项" width="1120" />
   </picture>
 </p>
 
 <p align="center">
-  <sub>明暗主题下的桌面工作台。预览来自 2026-10-15 实际 Avalonia 控件的离屏渲染，展示布局，不代表数值或跨平台验收。</sub>
+  <sub>明暗主题下的实际主窗口：镜头数据、二维布局和系统选项。使用自带镜头示例离屏渲染。</sub>
 </p>
 
 ---
-
-**当前测试版：1.0.4 · 2026-10-27 · 构建 `a31fb444`**。Windows x64、Windows ARM64 和 Apple Silicon Mac 已统一更新。[选择安装包](#安装与启动) · [本次发布与验证记录](docs/validation/CLOUD_RELEASE_2026-10-27.json)
 
 ## 为什么是 Optical System Design？
 
@@ -136,7 +134,7 @@ AI 初始结构与镀膜设计从“实验室”打开，使用各自的实验�
 
 ## 安装与启动
 
-### 下载当前测试版
+### 下载安装包
 
 | 平台 | 安装包 |
 | --- | --- |
@@ -144,13 +142,11 @@ AI 初始结构与镀膜设计从“实验室”打开，使用各自的实验�
 | Windows ARM64 | [下载 EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-a31fb444.exe) |
 | Mac Apple Silicon | [下载 DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg) |
 
-以上为 **1.0.4 测试预发布，构建 `a31fb444`，发布于 2026-10-27**。三个包均包含运行时、两个必装内置模块与字体，无须另装 .NET。[发布说明与 SHA-256](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019) · [实际验证范围](docs/CURRENT_STATUS.md)。
-
-本次包含真实干涉条纹与完整设置、Zernike 重复入口整理、分析排布与完整图片导出，以及功能搜索粘贴异常保护和 Mac 布局保存崩溃修复。三平台发布检查、公开下载校验和 Windows 更新签名已核对；完整数值认证及实机 GUI/OTA 验收范围仍以对应记录为准。
+三个平台均为自包含交付，包含运行时、两个必装内置模块与字体，无须另装 .NET。版本更新记录、文件校验值及历史版本统一在 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases) 查看。
 
 ### 使用 Windows 安装包
 
-选择与系统架构对应的 EXE，按向导完成安装后启动主程序。当前文件名以 `-Setup-a31fb444.exe` 结尾，末尾八位表示安装包实际源码。旧客户端需先从发布页手动覆盖安装一次，才能识别新的带码名称，无需先卸载。
+选择与系统架构对应的 EXE，按向导完成安装后启动主程序。已有安装可通过完整安装包覆盖更新，无需先卸载。
 
 软件版本与更新集中在 **帮助 → 关于**。“包含测试版”默认勾选；手动检查后，可下载并验证匹配架构的更新，再点击“安装更新并重启”。有未保存修改时可选择保存、不保存或取消；不会在后台强制安装或关闭程序。同版本的新测试构建也可通过签名构建编号识别，详见[更新规则](docs/BUILD_AND_RELEASE.md#软件版本与-github-分发)。
 
@@ -158,7 +154,7 @@ AI 初始结构与镀膜设计从“实验室”打开，使用各自的实验�
 
 完整使用方法可在主程序的 **帮助 → 用户指南** 中搜索查看；该图文指南包含真实界面截图和主题自适应说明图，覆盖当前注册的全部功能命令和分析，并随界面切换中文、英文或日文。仓库内的范围说明见[用户指南](docs/USER_GUIDE.md)。
 
-Windows 安装包尚无 Authenticode 发布者签名，系统可能显示未知发布者提示；更新元数据的 RSA 验签不能替代该证书。安装、修复和恢复方式见 [Windows 安装说明](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)，当前包身份以[本次交付记录](docs/validation/CLOUD_RELEASE_2026-10-27.json)为准。
+Windows 安装包尚无 Authenticode 发布者签名，系统可能显示未知发布者提示；更新元数据的 RSA 验签不能替代该证书。安装、修复和恢复方式见 [Windows 安装说明](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)，具体版本和包信息以[发布页](https://github.com/VendettaMask/opticalsystem/releases)为准。
 
 ### 使用 Apple Silicon Mac 版
 

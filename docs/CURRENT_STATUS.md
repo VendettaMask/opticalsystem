@@ -2,6 +2,10 @@
 
 核对日期：2026-10-27。本页是当前产品状态与最新验证范围的汇总入口；专题指南说明功能，带日期报告保存对应阶段的原始结果。历史通过数不相加，也不能覆盖后来观察到的失败。
 
+## 2026-10-27 README 实际界面截图与版本记录
+
+中英文首页采用当前产品真实 `MainWindow` 的四张明暗/语言合成帧，使用自带变焦镜头、真实镜头数据与二维场景，来源产品代码与已发布 `a31fb444` 相同。截图通过独立 Headless 进程和隔离配置完成，未操作桌面或编辑图片像素。README 移除版本更新横幅与变更摘要，更新记录归入发布页；三个安装包与两份 Windows OTA 签名保持并复核通过。来源及哈希见[图片清单](assets/readme/manifest.json)，采集方式和说明修改回执见[记录](../validation/rechecks/2026-10-27/readme-presentation/README.md)。本任务未重跑全仓或增加数值认证。
+
 ## 2026-10-27 三平台云发布完成
 
 从干净源码 `a31fb444e6a4fe4a19f13fd8a506702af63ad383` 完成 [Actions 40439094476](https://github.com/VendettaMask/opticalsystem/actions/runs/40439094476)，Windows x64、Windows ARM64 与 Apple Silicon Mac 已统一更新至[原测试发布页](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)。Windows EXE 末尾为 `-Setup-a31fb444.exe`；版本仍为 1.0.4，原标签指向不变，不标 Latest。
