@@ -54,6 +54,8 @@ Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完
 
 仅验证的 Mac 任务还可通过 [后台原生栈观察器](../scripts/test-macos-navigation-backtrace.py) 在已知导航阶段附加 LLDB。目标 PID 必须由该测试写入且进程命令包含 `testhost.dll`，仅输出线程调用栈和栈指针寄存器，完成后分离调试器；不保存内存、不改测试断言，常规发布不附加调试器。该脚本拒绝在用户本机运行。
 
+LLDB 使用官方 `-k` 故障后命令打印栈，避免普通 `-o` 命令在异常处停止而漏记；临时 runner 单独安装固定版本 `dotnet-sos` 10.0.750501，仅执行不含参数/局部变量的 `clrstack`。诊断工具不进入产品依赖或安装包，也不在本机安装。依据 [LLDB 命令行说明](https://lldb.llvm.org/man/lldb.html)和 [Microsoft SOS 说明](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/dotnet-sos)。
+
 2026-10-26 已从 `45cce15b` 完成 Windows x64 云端重建与安全替换，EXE 末尾为 `-Setup-45cce15b.exe`。首次带码任务的依赖误报与旧界面夹具已修复，随后全部发布步骤通过；公开附件的源码、文件哈希、更新签名和下载均已核对。Mac 附件及来源、原测试标签保持，Windows 新名称使用新的下载地址；旧客户端需手动覆盖安装一次。实际运行、跳过范围与载荷证据见[本轮交付账目](validation/WINDOWS_CODED_EXE_RELEASE_2026-10-26.json)，没有替换用户本机安装。
 
 2026-10-24 曾从 `11de8bce` 分别重新构建并替换 Windows x64 与 Apple Silicon Mac 的现有测试包，新增分析排布、完整渲染和 PNG 导出门禁，当时保留原标签及下载地址。两平台的原阶段执行、去重测试、包内检查和签名核对见[该阶段交付账目](validation/ANALYSIS_UI_CLOUD_2026-10-24.json)。

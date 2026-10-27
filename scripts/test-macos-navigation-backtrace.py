@@ -21,6 +21,15 @@ def main():
         raise RuntimeError("Use a fresh diagnostic directory.")
     environment = os.environ.copy()
     environment["OPTICAL_SYSTEM_DESIGN_NAVIGATION_DEBUGGER_PID"] = str(marker)
+    # A pinned official diagnostic tool supplies managed method names only.
+    # It is installed solely on the disposable runner, outside the product.
+    tool_directory = Path(os.environ["RUNNER_TEMP"]) / "navigation-sos"
+    subprocess.run(["dotnet", "tool", "install", "dotnet-sos", "--version", "10.0.750501",
+                    "--tool-path", str(tool_directory), "--allow-roll-forward"], check=True)
+    subprocess.run([str(tool_directory / "dotnet-sos"), "install"], check=True)
+    plugin = Path.home() / ".dotnet" / "sos" / "libsosplugin.dylib"
+    if not plugin.is_file():
+        raise RuntimeError("Managed stack plugin was not installed.")
     done = threading.Event()
     errors = []
 
@@ -38,18 +47,25 @@ def main():
             release = str(marker) + ".continue"
             commands = [
                 "settings set auto-confirm true",
+                "plugin load " + str(plugin),
                 "process handle SIGSEGV -s true -n true -p true",
                 "process handle SIGBUS -s true -n true -p true",
                 "process handle SIGABRT -s true -n true -p true",
                 "script open(" + repr(release) + ", 'w').close()",
                 "continue",
+            ]
+            crash_commands = [
                 "thread backtrace all",
+                "clrstack",
                 "register read pc lr fp sp",
                 "process detach",
             ]
             arguments = ["sudo", "-n", "/usr/bin/lldb", "--batch", "-p", str(process_id)]
             for command in commands:
                 arguments.extend(["-o", command])
+            # LLDB batch stops normal -o execution when the target faults.
+            for command in crash_commands:
+                arguments.extend(["-k", command])
             output = reports / "navigation-lldb.txt"
             with output.open("w", encoding="utf-8") as stream:
                 subprocess.run(arguments, stdout=stream, stderr=subprocess.STDOUT,

@@ -43,3 +43,5 @@ dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false -p:
 第四次 Mac 单独验证 [40434695432](https://github.com/VendettaMask/opticalsystem/actions/runs/40434695432) 重复同一方法的原生进程异常，系统诊断目录没有生成匹配的报告；已完成 110 项通过、1 项硬件条件跳过之外，仍有中止套件，不能当作完整通过。后续改用 .NET 原生报告的 `DOTNET_EnableCrashReportOnly=1`，按 runtime 源码确认只输出 JSON 线程/调用栈、不写内存 dump；导航阶段日志只记录阶段名称和时间，不记录处方或凭据。
 
 第五次 [40436369194](https://github.com/VendettaMask/opticalsystem/actions/runs/40436369194) 获得 `navigation.9473.crashreport.json` 及阶段记录，工件 `12704139176`；报告明确标记界面工作线程崩溃，但信号边界后没有有效原始帧。三个配置的数据、光圈和场景断言均执行到完成；末尾标记是多配置编辑器已打开，随后重激活镜头标签并绘制时退出。仅验证模式增加云端 LLDB 观察，不更改用例数量/断言或生成内存转储。新增两项本地预检查通过，原始本机 TRX 仅保留本机，不新增上传。
+
+第六次 [40437583296](https://github.com/VendettaMask/opticalsystem/actions/runs/40437583296) 的工件 `12705126077` 保存 LLDB 附加成功及界面长任务线程 `EXC_BAD_ACCESS`；非法代码地址本身不足以说明调用来源。普通批处理 `-o` 后续命令因故障提前停止，现按官方文档改用 `-k`，并仅在临时 runner 安装固定 SOS 10.0.750501 以输出 `clrstack`（无参数/局部变量/转储），产品依赖不变。
