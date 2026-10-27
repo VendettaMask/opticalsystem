@@ -12,6 +12,8 @@
 
 第三次运行 [40433380481](https://github.com/VendettaMask/opticalsystem/actions/runs/40433380481) 的 Mac 逐方法记录将异常定位到 `ImportedZoomSwitchesThreeRealConfigurationsAndOpensExistingEditor`，该方法在独立进程中仍异常退出，不能归因于已经排除的跨方法共享状态或视为已修复。用户随后明确授权仅保留 GitHub 临时 Mac 构建机上测试进程的系统崩溃报告。新增 `validation_only` 模式保留所选平台全部验证、跳过打包与发布；用于单独取得 Mac 调用栈，不替换任何公开附件，也不读取用户本机文件。最终交付仍待完成。
 
+Mac 单独验证 [40434695432](https://github.com/VendettaMask/opticalsystem/actions/runs/40434695432) 重复同一异常，系统未产生可留存的报告。下一轮增加 .NET 纯 JSON 调用栈报告及测试阶段标记，明确启用 report-only、禁止内存转储，所有测试和断言保留；仍未宣称 Mac 修复或云发布完成。
+
 ## 2026-10-26 无焦分析修正与全量本地同步停止点
 
 按用户要求停止继续比对，当前全部本地修正纳入远端同步。已修正选定波长 OPD、无焦角量纲与惠更斯间距、高斯标准点列采样、PSF 截面归一化、惠更斯离焦漏传/符号及混合模式数值报告。一阶报表明确无限焦距与不适用边界。已完成无焦定向 Release 测试 **79/79**，随后补齐显式 mrad 间距判断及诊断入口，诊断 Release 构建零警告/错误。

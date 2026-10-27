@@ -33,9 +33,11 @@ public sealed class LensConfigurationNavigationTests
     [Fact]
     public async Task ImportedZoomSwitchesThreeRealConfigurationsAndOpensExistingEditor()
     {
+        TraceNavigation("starting headless session");
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(LensConfigurationNavigationTests));
         await session.Dispatch(async () =>
         {
+            TraceNavigation("creating application and workspace");
             UiLocalization.Apply(UiLocalization.Chinese);
             using var app = WorkbenchApplication.Create();
             using var panels = new PanelManager(app, new AppSettings(), new WorkspaceSessionStore(
@@ -43,8 +45,11 @@ public sealed class LensConfigurationNavigationTests
             var window = new Window { Content = panels.WorkspaceControl, Width = 1400, Height = 900 };
             try
             {
+                TraceNavigation("showing workspace");
                 window.Show(); Tick(window);
+                TraceNavigation("opening zoom prescription");
                 await app.Documents.OpenAsync(ZoomPath()); Tick(window);
+                TraceNavigation("zoom prescription opened");
                 Assert.Equal(2, panels.Factory.OpenDocuments().Count);
                 var lens = panels.Factory.OpenDocuments().Single(d => d.Id == WorkspaceDockFactory.LensDocumentId);
                 var editor = Assert.IsType<LensEditorPanel>(lens.Context);
@@ -53,9 +58,11 @@ public sealed class LensConfigurationNavigationTests
                 // An unopened inactive tab has no applied visual template yet.
                 // Visit the real viewer before retaining its scene control.
                 panels.Factory.SetActiveDockable(viewerDocument); Tick(window);
+                TraceNavigation("2D viewer activated");
                 var viewer = (Control)viewerDocument.Context!;
                 var sceneControl = viewer.GetVisualDescendants().OfType<OpticSceneControl>().Single();
                 panels.Factory.SetActiveDockable(lens); Tick(window);
+                TraceNavigation("lens editor reactivated");
                 var sidebar = Assert.IsType<SystemPropertiesPanel>(WorkspaceDockFactory.EnumerateDockables(panels.Layout)
                     .Single(d => d.Id == WorkspaceDockFactory.SystemToolId).Context);
                 var aperture = (NumericUpDown)typeof(SystemPropertiesPanel).GetField("_apertureValue",
@@ -66,6 +73,7 @@ public sealed class LensConfigurationNavigationTests
                 var revisions = new List<long>();
                 for (var index = 0; index < 3; index++)
                 {
+                    TraceNavigation($"configuration {index + 1}: checking model and controls");
                     Assert.Equal($"结构 {index + 1}/3", Find<TextBlock>(editor, "LensConfigurationPosition").Text);
                     Assert.Equal(expected8[index], Rows(grid).Single(r => r.Number == 8).Thickness, 8);
                     Assert.Equal(expected15[index], Rows(grid).Single(r => r.Number == 15).Thickness, 8);
@@ -73,6 +81,7 @@ public sealed class LensConfigurationNavigationTests
                     Assert.Equal(index > 0, Find<Button>(editor, "PreviousLensConfiguration").IsEnabled);
                     Assert.Equal(index < 2, Find<Button>(editor, "NextLensConfiguration").IsEnabled);
                     var scene = await app.Visualization.BuildSceneAsync(SceneDimension.TwoDimensional);
+                    TraceNavigation($"configuration {index + 1}: scene built");
                     Assert.Equal(app.Events.Revision, scene.SourceRevision);
                     var deadline = DateTimeOffset.UtcNow.AddSeconds(10);
                     while (sceneControl.Scene?.SourceRevision != app.Events.Revision && DateTimeOffset.UtcNow < deadline)
@@ -82,6 +91,7 @@ public sealed class LensConfigurationNavigationTests
                     Assert.Equal(app.Events.Revision, sceneControl.Scene?.SourceRevision);
                     revisions.Add(scene.SourceRevision);
                     Capture(window, $"zoom-workspace-configuration-{index + 1}.png");
+                    TraceNavigation($"configuration {index + 1}: switching configuration");
                     if (index < 2) MouseClick(window, Find<Button>(editor, "NextLensConfiguration"));
                 }
                 Assert.Equal(3, revisions.Distinct().Count());
@@ -91,16 +101,26 @@ public sealed class LensConfigurationNavigationTests
                 for (var read = 0; read < 10; read++) Assert.Equal(new MultiConfigurationNavigationDto(3, 1), app.MultiConfiguration.GetNavigationState());
                 Assert.Equal(revision, app.Events.Revision);
                 panels.Show(WorkspacePanelId.MultiConfiguration); Tick(window);
+                TraceNavigation("multi-configuration editor opened");
                 var multi = Assert.Single(panels.Factory.OpenDocuments(), d => d.Context is MultiConfigurationPanel);
                 Assert.Equal(3, panels.Factory.OpenDocuments().Count);
                 panels.Factory.SetActiveDockable(lens); Tick(window);
                 panels.Show(WorkspacePanelId.MultiConfiguration); Tick(window);
                 Assert.Same(multi, Assert.Single(panels.Factory.OpenDocuments(), d => d.Context is MultiConfigurationPanel));
                 Assert.Equal(revision, app.Events.Revision);
+                TraceNavigation("workspace assertions completed");
             }
-            finally { window.Close(); }
+            finally { TraceNavigation("closing workspace"); window.Close(); }
             return true;
         }, CancellationToken.None);
+        TraceNavigation("headless dispatch completed");
+    }
+
+    private static void TraceNavigation(string stage)
+    {
+        var path = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_NAVIGATION_TRACE");
+        if (!string.IsNullOrWhiteSpace(path))
+            File.AppendAllText(path, $"{DateTimeOffset.UtcNow:O} {stage}{Environment.NewLine}");
     }
 
     [Theory]

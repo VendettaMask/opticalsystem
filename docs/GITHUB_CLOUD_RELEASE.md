@@ -50,7 +50,7 @@ Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完
 
 镜头结构导航由 [test-lens-navigation-release.ps1](../scripts/test-lens-navigation-release.ps1) 动态发现全部用例，再按测试方法启动独立测试进程，避免完整 Dock 工作区与其他方法共用原生 Skia 状态。每组必须与发现的用例数相同、全部通过且运行完整结束，失败、漏跑或跳过直接拒绝；TRX 与 `lens-navigation-isolation.json` 随平台检查产物保留。图表页脚构建测试也须在独立真实绘图会话中创建矢量品牌控件，不能依赖其他测试留下的渲染平台。
 
-手动输入 `validation_only=true` 时仍执行所选平台全部验证，但不生成安装包、不上传 `cloud-package-*`、不执行发布任务；默认值为 false，正常交付流程不变。经用户于 2026-10-27 明确授权，失败的 Mac 云任务仅保留临时构建机上 `testhost` / `dotnet` 的崩溃报告，最多五份、每份不超过 20 MiB，随已有检查工件按 30 天保留；不读取维护者本机报告，不采集进程内存转储。
+手动输入 `validation_only=true` 时仍执行所选平台全部验证，但不生成安装包、不上传 `cloud-package-*`、不执行发布任务；默认值为 false，正常交付流程不变。经用户于 2026-10-27 明确授权，失败的 Mac 云任务仅保留临时构建机上 `testhost` / `dotnet` 的系统崩溃报告，最多五份、每份不超过 20 MiB，随已有检查工件按 30 天保留；不读取维护者本机报告，不采集进程内存转储。导航步骤同时启用 .NET `DOTNET_EnableCrashReportOnly=1`，只生成 JSON 线程/调用栈报告，不生成 dump，并保留不含处方数据的测试阶段标记。该开关的无转储语义依据 [.NET runtime 实现](https://github.com/dotnet/runtime/blob/v10.0.0/src/coreclr/debug/createdump/createdumpmain.cpp)。
 
 2026-10-26 已从 `45cce15b` 完成 Windows x64 云端重建与安全替换，EXE 末尾为 `-Setup-45cce15b.exe`。首次带码任务的依赖误报与旧界面夹具已修复，随后全部发布步骤通过；公开附件的源码、文件哈希、更新签名和下载均已核对。Mac 附件及来源、原测试标签保持，Windows 新名称使用新的下载地址；旧客户端需手动覆盖安装一次。实际运行、跳过范围与载荷证据见[本轮交付账目](validation/WINDOWS_CODED_EXE_RELEASE_2026-10-26.json)，没有替换用户本机安装。
 

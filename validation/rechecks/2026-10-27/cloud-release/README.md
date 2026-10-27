@@ -39,3 +39,5 @@ dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false -p:
 第三次 `df7bcb26c1e19b5ef4dbf600a62b27d3d48af7f6` 的 [40433380481](https://github.com/VendettaMask/opticalsystem/actions/runs/40433380481) Mac 前三个方法进程共 6 项完成通过，第四个 `ImportedZoomSwitchesThreeRealConfigurationsAndOpensExistingEditor` 单独异常退出。现有进程序列已定位到具体方法，进程隔离没有修复这一异常；没有把部分通过当作 Mac 完整通过。
 
 用户在获知自动审批拒绝额外上传系统诊断的原因后，明确答复“允许上传云端测试崩溃报告”。据此只允许 GitHub 临时 Mac 构建机上测试进程的有界报告进入本仓库 Actions 检查工件，不读取用户电脑，不采集进程内存转储。新增仅验证模式不打包/上传安装器/发布，保留全部所选平台验证；先用 Mac 单平台诊断，修复后仍需完整发布门禁通过。
+
+第四次 Mac 单独验证 [40434695432](https://github.com/VendettaMask/opticalsystem/actions/runs/40434695432) 重复同一方法的原生进程异常，系统诊断目录没有生成匹配的报告；已完成 110 项通过、1 项硬件条件跳过之外，仍有中止套件，不能当作完整通过。后续改用 .NET 原生报告的 `DOTNET_EnableCrashReportOnly=1`，按 runtime 源码确认只输出 JSON 线程/调用栈、不写内存 dump；导航阶段日志只记录阶段名称和时间，不记录处方或凭据。
