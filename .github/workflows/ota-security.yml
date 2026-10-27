@@ -7,6 +7,47 @@ permissions:
   contents: read
 
 jobs:
+  mac-identity:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Derive Mac public key from existing OTA Secrets and compile native bridge
+        shell: pwsh
+        env:
+          OPTICAL_OTA_SIGNING_KEY: ${{ secrets.OPTICAL_OTA_SIGNING_KEY }}
+          OPTICAL_OTA_ENCRYPTED_BACKUP: ${{ secrets.OPTICAL_OTA_ENCRYPTED_BACKUP }}
+          OPTICAL_OTA_RECOVERY_PASSWORD: ${{ secrets.OPTICAL_OTA_RECOVERY_PASSWORD }}
+        run: |
+          $privateDirectory = Join-Path $env:RUNNER_TEMP ([Guid]::NewGuid().ToString('N'))
+          [void][IO.Directory]::CreateDirectory($privateDirectory)
+          [IO.File]::SetUnixFileMode($privateDirectory, [IO.UnixFileMode]::UserRead -bor [IO.UnixFileMode]::UserWrite -bor [IO.UnixFileMode]::UserExecute)
+          try {
+            ./scripts/mac-ota-key.ps1 -OutputPath (Join-Path $privateDirectory 'seed')
+            [void][IO.Directory]::CreateDirectory('artifacts/mac-ota-public')
+            swift scripts/mac-ota-key.swift (Join-Path $privateDirectory 'seed') (Join-Path $privateDirectory 'signing-key') > artifacts/mac-ota-public/ota-public-key.txt
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            bash scripts/fetch-sparkle.sh artifacts/mac-ota-dependency
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            xcrun clang -arch arm64 -mmacosx-version-min=14.0 -fobjc-arc -fblocks -dynamiclib -fvisibility=hidden -Wall -Werror -F artifacts/mac-ota-dependency/Sparkle-2.10.1 -framework Sparkle -framework AppKit packaging/macos/UpdaterBridge.m -o artifacts/mac-ota-public/bridge.dylib
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            # Sign and verify a disposable archive; only public metadata is retained.
+            [IO.File]::WriteAllText((Join-Path $privateDirectory 'fixture.bin'), 'Mac OTA cloud signing fixture')
+            $tool = 'artifacts/mac-ota-dependency/Sparkle-2.10.1/bin/sign_update'
+            $signature = & $tool --ed-key-file (Join-Path $privateDirectory 'signing-key') -p (Join-Path $privateDirectory 'fixture.bin')
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            & $tool --ed-key-file (Join-Path $privateDirectory 'signing-key') --verify (Join-Path $privateDirectory 'fixture.bin') $signature
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          } finally { Remove-Item -LiteralPath $privateDirectory -Recurse -Force }
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: mac-ota-public-identity
+          path: artifacts/mac-ota-public/ota-public-key.txt
+          if-no-files-found: warn
+          retention-days: 30
   portable-crypto:
     strategy:
       fail-fast: false

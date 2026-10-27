@@ -107,6 +107,19 @@ function Get-OtaSigningRsa([string]$TrustedPublicKey) {
     } finally { if ($rsa) { $rsa.Dispose() } }
 }
 
+# Same protected root identity, a separate algorithm/domain for Sparkle. The
+# canonical PKCS#8 representation survives the existing encrypted recovery path.
+# Never emit, log or persist this seed outside a private temporary signing file.
+function Get-MacOtaSeed([Security.Cryptography.RSA]$Rsa) {
+    $private = $Rsa.ExportPkcs8PrivateKey()
+    try {
+        [Security.Cryptography.HKDF]::DeriveKey([Security.Cryptography.HashAlgorithmName]::SHA256,
+            $private, 32,
+            [Text.Encoding]::UTF8.GetBytes('OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A'),
+            [Text.Encoding]::UTF8.GetBytes('OpticalSystemDesign/macOS/Sparkle/Ed25519/v1'))
+    } finally { [Security.Cryptography.CryptographicOperations]::ZeroMemory($private) }
+}
+
 function New-OtaReleaseEnvelope([Security.Cryptography.RSA]$Rsa, $Package, [string]$Version, [string]$Tag) {
     $test = $Tag -cmatch ('^v' + [regex]::Escape($Version) + '-test\.[0-9]{8}$')
     $expectedName = "OpticalSystemDesign-$Version-$($Package.Runtime)-$(if ($test) { 'UnsignedTest' } else { 'Unsigned' })-Setup.exe"

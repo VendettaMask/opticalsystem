@@ -18,6 +18,12 @@ try {
     if ($json.Contains('BEGIN PRIVATE KEY') -or $json.Contains($password)) { throw 'Plaintext was included in a backup.' }; $passed++
     $restored = Read-OtaPortableBackup $json $password $public
     try {
+        $firstSeed = [byte[]](Get-MacOtaSeed $rsa)
+        $recoveredSeed = [byte[]](Get-MacOtaSeed $restored)
+        if ($firstSeed.Length -ne 32 -or -not [Security.Cryptography.CryptographicOperations]::FixedTimeEquals($firstSeed, $recoveredSeed)) { throw 'Mac signing identity changed after portable recovery.' }; $passed++
+        $otherSeed = [byte[]](Get-MacOtaSeed $other)
+        if ([Security.Cryptography.CryptographicOperations]::FixedTimeEquals($firstSeed, $otherSeed)) { throw 'Different root keys produced the same Mac key.' }; $passed++
+        foreach ($secretSeed in @($firstSeed, $recoveredSeed, $otherSeed)) { [Security.Cryptography.CryptographicOperations]::ZeroMemory($secretSeed) }
         if ((Get-OtaKeyId $restored) -cne (Get-OtaKeyId $rsa)) { throw 'Portable restore changed the key.' }
         $message = [Text.Encoding]::UTF8.GetBytes('portable cloud OTA key recovery fixture')
         $signature = $restored.SignData($message, [Security.Cryptography.HashAlgorithmName]::SHA256, [Security.Cryptography.RSASignaturePadding]::Pss)
