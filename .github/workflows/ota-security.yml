@@ -73,6 +73,28 @@ jobs:
         run: |
           $record = Get-Content artifacts/mac-ota-distribution/release-osx-arm64.json -Raw | ConvertFrom-Json
           ./scripts/prepare-macos-ota-release.ps1 -DistributionDirectory artifacts/mac-ota-distribution -Tag "v$($record.Version)-test.20261019" -ExistingFeed updates/macos/appcast.xml -OutputDirectory artifacts/mac-ota-validation
+      - name: Replace and relaunch complete disposable product bundles through Sparkle
+        shell: bash
+        run: |
+          package_dir="$(find artifacts/mac-ota-package -mindepth 1 -maxdepth 1 -type d -name 'package.*' ! -name '*.partial')"
+          python3 scripts/test-macos-ota-install.py "$package_dir/image/Optical System Design.app" artifacts/mac-ota-package/.dependencies artifacts/mac-ota-install-work
+          cp artifacts/mac-ota-install-work/summary.json artifacts/mac-ota-validation/native-install-summary.json
+          for mode in cancel-download cancel-ready tampered-archive apply; do
+            cp "artifacts/mac-ota-install-work/$mode/result.json" "artifacts/mac-ota-validation/$mode-result.json"
+          done
+      - name: Retain bounded native installation fixture diagnostics
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/mac-ota-validation
+          for mode in cancel-download cancel-ready tampered-archive apply; do
+            for name in fixture.log result.json product-verification.json; do
+              source="artifacts/mac-ota-install-work/$mode/$name"
+              if [[ -f "$source" && $(stat -f%z "$source") -le 2097152 ]]; then
+                cp "$source" "artifacts/mac-ota-validation/$mode-$name"
+              fi
+            done
+          done
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:

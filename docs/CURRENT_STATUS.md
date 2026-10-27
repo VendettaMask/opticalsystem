@@ -8,6 +8,8 @@
 
 后续原生桥接、签名拒绝、包内和挂载后核对正在 [OTA 云验证](https://github.com/VendettaMask/opticalsystem/actions/runs/40462525183) 中进行。正式发布流程、远端 main 和公开安装包尚未改变；当前公开 Mac 包仍需手动更新。范围见 [Mac OTA](MAC_OTA.md)，待授权的上线步骤见[发布方案](MAC_OTA_PUBLISHING_PROPOSAL.md)。
 
+后续 [Actions 40463535364](https://github.com/VendettaMask/opticalsystem/actions/runs/40463535364) 的全部作业已完成通过，包括 Mac 86 项关闭/更新界面回归、原生桥接编译与取消回复检查、实际产品和只读挂载 DMG 的代码签名/模块/更新桥接载入核对，以及现有密钥派生后的 DMG 与 Appcast 签名和篡改拒绝。Windows 发布相关检查与三语言虚拟界面渲染通过。用户已明确允许验证后合入 main 并云发布；完整包副本的原生替换/重启回归仍在准备，公开发布尚未变更。
+
 ## 2026-10-27 README 实际界面截图与版本记录
 
 中英文首页采用当前产品真实 `MainWindow` 的四张明暗/语言合成帧，使用自带变焦镜头、真实镜头数据与二维场景，来源产品代码与已发布 `a31fb444` 相同。截图通过独立 Headless 进程和隔离配置完成，未操作桌面或编辑图片像素。README 移除版本更新横幅与变更摘要，更新记录归入发布页；三个安装包与两份 Windows OTA 签名保持并复核通过。来源及哈希见[图片清单](assets/readme/manifest.json)，采集方式和说明修改回执见[记录](../validation/rechecks/2026-10-27/readme-presentation/README.md)。本任务未重跑全仓或增加数值认证。

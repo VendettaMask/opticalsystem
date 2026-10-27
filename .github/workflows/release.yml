@@ -187,6 +187,13 @@ jobs:
             cp "$report" "artifacts/cloud-package-verification/dmg-$(basename "$report")"
           done
           shasum -a 256 distribution/*.dmg
+      - name: Verify Mac native replacement and relaunch using owned cloud bundles
+        if: ${{ matrix.runtime == 'osx-arm64' && !inputs.validation_only }}
+        shell: bash
+        run: |
+          package_dir="$(find artifacts/cloud-macos -mindepth 1 -maxdepth 1 -type d -name 'package.*' ! -name '*.partial')"
+          python3 scripts/test-macos-ota-install.py "$package_dir/image/Optical System Design.app" artifacts/cloud-macos/.dependencies artifacts/mac-ota-install-work
+          cp artifacts/mac-ota-install-work/summary.json artifacts/cloud-verification/mac-ota-install-summary.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: ${{ !inputs.validation_only }}
         with:

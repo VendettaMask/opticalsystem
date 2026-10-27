@@ -15,9 +15,9 @@ ET.register_namespace('sparkle', NS)
 def bundle_version(run_number, attempt):
     # CFBundleVersion's numeric 4/2/2 digit limits; monotonic for release.yml.
     ordinal = int(run_number) * 100 + int(attempt)
-    if not 0 < ordinal < 100_000_000 or not 0 < int(attempt) < 100:
+    if not 0 < ordinal < 99_990_000 or not 0 < int(attempt) < 100:
         raise ValueError('Invalid monotonic Mac build number')
-    return f'{ordinal // 10000}.{ordinal // 100 % 100}.{ordinal % 100}'
+    return f'{1 + ordinal // 10000}.{ordinal // 100 % 100}.{ordinal % 100}'
 
 def configure(plist_path, key_path):
     public = pathlib.Path(key_path).read_text().strip()

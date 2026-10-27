@@ -36,3 +36,13 @@ before activating the appcast. The maintainer authorized main integration and
 cloud publication after successful regression. An installed old-to-new
 replacement regression remains pending; neither the bootstrap release nor the
 production feed has yet been changed.
+
+The native installation fixture uses copies of the complete packaged product,
+with only fixture build/key/local-network Info.plist values changed and re-signed.
+A test-only AppKit driver permits its loopback server; the shipped bridge accepts
+only the product's HTTPS GitHub DMGs. The fixture checks cancelled download,
+cancelled install, a modified archive and actual bundle replacement/relaunch,
+compares complete bundle manifests and separate user-data sentinels, then runs
+the updated product's non-GUI module/bridge verification. It relaunches the
+test driver rather than opening the actual product GUI; that distinction must
+remain explicit in verification records.

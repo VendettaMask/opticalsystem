@@ -16,6 +16,7 @@ typedef void (*OSDUpdateEvent)(int, const char *, double);
 @property BOOL extracting;
 @property BOOL cancelRequested;
 @property(copy) NSString *version;
+- (BOOL)isTrustedDownloadURL:(NSURL *)url;
 @end
 
 @implementation OSDUpdater
@@ -36,7 +37,13 @@ typedef void (*OSDUpdateEvent)(int, const char *, double);
 }
 - (void)showUpdateFoundWithAppcastItem:(SUAppcastItem *)item state:(SPUUserUpdateState *)state reply:(void (^)(SPUUserUpdateChoice))reply {
     // The feed cannot turn the updater into an arbitrary download/installer.
-    NSURL *url = item.fileURL;
+    if (![self isTrustedDownloadURL:item.fileURL] || item.informationOnlyUpdate) { reply(SPUUserUpdateChoiceSkip); [self emit:9 progress:0]; return; }
+    self.version = [NSString stringWithFormat:@"%@ (%@)", item.displayVersionString, item.versionString];
+    self.cancel = nil;
+    if (state.stage == SPUUserUpdateStageInstalling) { self.ready = reply; [self emit:5 progress:100]; }
+    else { self.choice = reply; [self emit:2 progress:0]; }
+}
+- (BOOL)isTrustedDownloadURL:(NSURL *)url {
     BOOL trusted = [url.scheme isEqualToString:@"https"] && [url.host isEqualToString:@"github.com"] &&
         url.user == nil && url.password == nil && url.port == nil &&
         [url.path hasPrefix:@"/VendettaMask/opticalsystem/releases/download/"] &&
@@ -45,11 +52,7 @@ typedef void (*OSDUpdateEvent)(int, const char *, double);
         url.user == nil && url.password == nil && url.port == nil &&
         [url.path hasPrefix:@"/VendettaMask/opticalsystem/releases/download/"] &&
         [url.lastPathComponent hasPrefix:@"OpticalSystemDesign-"] && [url.lastPathComponent hasSuffix:@"-osx-arm64-AdHoc.dmg"]);
-    if (!trusted || item.informationOnlyUpdate) { reply(SPUUserUpdateChoiceSkip); [self emit:9 progress:0]; return; }
-    self.version = [NSString stringWithFormat:@"%@ (%@)", item.displayVersionString, item.versionString];
-    self.cancel = nil;
-    if (state.stage == SPUUserUpdateStageInstalling) { self.ready = reply; [self emit:5 progress:100]; }
-    else { self.choice = reply; [self emit:2 progress:0]; }
+    return trusted;
 }
 - (void)showUpdateReleaseNotesWithDownloadData:(SPUDownloadData *)data { }
 - (void)showUpdateReleaseNotesFailedToDownloadWithError:(NSError *)error { }

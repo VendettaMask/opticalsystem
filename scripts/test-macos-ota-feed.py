@@ -15,7 +15,7 @@ class FeedTests(unittest.TestCase):
         values = [feed.bundle_version(run, attempt) for run,attempt in [(1,1),(1,2),(2,1),(99,99),(100,1)]]
         tuples = [tuple(map(int, value.split('.'))) for value in values]
         self.assertEqual(sorted(tuples), tuples)
-        self.assertTrue(all(a<=9999 and b<=99 and c<=99 for a,b,c in tuples))
+        self.assertTrue(all(1<=a<=9999 and b<=99 and c<=99 for a,b,c in tuples))
         for args in [(0,0),(1,100),(1000000,1)]:
             with self.assertRaises(ValueError): feed.bundle_version(*args)
 
