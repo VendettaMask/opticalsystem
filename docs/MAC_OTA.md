@@ -1,7 +1,7 @@
 # Mac OTA
 
-Mac OTA is implemented and has passed scoped cloud regression. Public bootstrap
-publication is tracked separately in [Current Status](CURRENT_STATUS.md). The existing Windows RSA-4096 signing
+Mac OTA is implemented and has passed scoped cloud regression. The bootstrap and signed feed are published;
+see [Current Status](CURRENT_STATUS.md) for the exact artifacts and scope. The existing Windows RSA-4096 signing
 identity remains pinned and unchanged. The Mac signing seed is deterministically
 derived with HKDF-SHA256 from its canonical PKCS#8 private encoding, with separate
 product salt and `OpticalSystemDesign/macOS/Sparkle/Ed25519/v1` context. The
@@ -38,7 +38,7 @@ the existing Windows attachment publisher, and a final archive-identity gate
 before activating the appcast. The maintainer authorized main integration and
 cloud publication after successful regression. Complete bundle replacement and
 test-driver relaunch passed in [Actions 40464598219](https://github.com/VendettaMask/opticalsystem/actions/runs/40464598219).
-The bootstrap release and production feed have not yet been activated.
+The bootstrap and signed production feed were activated by [release 40469805561](https://github.com/VendettaMask/opticalsystem/actions/runs/40469805561). Public downloads and both update protocols were independently verified. The final validation source includes a reentrant-quit guard tested by the real Mac close delegates.
 
 The native installation fixture uses copies of the complete packaged product,
 with only fixture build/key/local-network Info.plist values changed and re-signed.

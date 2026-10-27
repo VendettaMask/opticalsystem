@@ -1,4 +1,8 @@
-# Mac and Windows OTA integration
+# Mac and Windows OTA delivery
+
+Final source `6b4ccf3129b926ad82ae68de3d62b2310da34285` passed [validation 40468907100](https://github.com/VendettaMask/opticalsystem/actions/runs/40468907100), including native early-quit/save-choice regression. [Release 40469805561](https://github.com/VendettaMask/opticalsystem/actions/runs/40469805561) published all three packages and activated the signed Mac feed. All three actual downloads and both protocols were independently verified; see `public-verification.json` and `release-checks-summary.json`. No installer was executed locally. The earlier integration stage below is retained with its original scope.
+
+# Earlier integration stage
 
 Scope: [Actions 40464598219](https://github.com/VendettaMask/opticalsystem/actions/runs/40464598219),
 source `6c56adc7f8d7db5949b88bf689c2e2c02c95427d`. Public release activation is a

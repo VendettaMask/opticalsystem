@@ -1,0 +1,146 @@
+{
+  "runId": 40468907100,
+  "sourceCommit": "6b4ccf3129b926ad82ae68de3d62b2310da34285",
+  "platforms": {
+    "Windows": {
+      "artifactId": 12717563871,
+      "artifactSha256": "45d92ae76168923e348e88170a9fc747db1b3dd4dcd25d75e9866f6790a4307a",
+      "distinctCases": 185,
+      "passed": 185,
+      "failed": 0,
+      "skipped": 0,
+      "suites": [
+        {
+          "file": "ota-publisher.trx",
+          "counters": {
+            "total": "186",
+            "executed": "186",
+            "passed": "186",
+            "failed": "0",
+            "error": "0",
+            "timeout": "0",
+            "aborted": "0",
+            "inconclusive": "0",
+            "passedButRunAborted": "0",
+            "notRunnable": "0",
+            "notExecuted": "0",
+            "disconnected": "0",
+            "warning": "0",
+            "completed": "0",
+            "inProgress": "0",
+            "pending": "0"
+          }
+        },
+        {
+          "file": "ota-render.trx",
+          "counters": {
+            "total": "6",
+            "executed": "6",
+            "passed": "6",
+            "failed": "0",
+            "error": "0",
+            "timeout": "0",
+            "aborted": "0",
+            "inconclusive": "0",
+            "passedButRunAborted": "0",
+            "notRunnable": "0",
+            "notExecuted": "0",
+            "disconnected": "0",
+            "warning": "0",
+            "completed": "0",
+            "inProgress": "0",
+            "pending": "0"
+          }
+        }
+      ]
+    },
+    "Mac": {
+      "artifactId": 12717438265,
+      "artifactSha256": "a29ccadc27e64e11533cde176186f315990ff2814a7b60554a93c08d6bc7bf33",
+      "distinctCases": 86,
+      "passed": 86,
+      "failed": 0,
+      "skipped": 0,
+      "suites": [
+        {
+          "file": "mac-ota-contracts.trx",
+          "counters": {
+            "total": "86",
+            "executed": "86",
+            "passed": "86",
+            "failed": "0",
+            "error": "0",
+            "timeout": "0",
+            "aborted": "0",
+            "inconclusive": "0",
+            "passedButRunAborted": "0",
+            "notRunnable": "0",
+            "notExecuted": "0",
+            "disconnected": "0",
+            "warning": "0",
+            "completed": "0",
+            "inProgress": "0",
+            "pending": "0"
+          }
+        }
+      ]
+    }
+  },
+  "nativeInstall": {
+    "Cases": [
+      {
+        "Mode": "cancel-download",
+        "Passed": true,
+        "UserDataUnchanged": true,
+        "ProductBundleCompared": true,
+        "Relaunched": false
+      },
+      {
+        "Mode": "cancel-ready",
+        "Passed": true,
+        "UserDataUnchanged": true,
+        "ProductBundleCompared": true,
+        "Relaunched": false
+      },
+      {
+        "Mode": "tampered-archive",
+        "Passed": true,
+        "UserDataUnchanged": true,
+        "ProductBundleCompared": true,
+        "Relaunched": false
+      },
+      {
+        "Mode": "apply",
+        "Passed": true,
+        "UserDataUnchanged": true,
+        "ProductBundleCompared": true,
+        "Relaunched": true
+      }
+    ],
+    "ProductGuiStarted": false,
+    "ThrowawayKey": true
+  },
+  "macSignaturePreparation": {
+    "FeedSignatureVerified": true,
+    "BundleVersion": "1.9.1",
+    "Archive": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+    "ArchiveSignatureVerified": true,
+    "ArchiveSha256": "19d3add3d91f8abae6e04dccd18dac0d94952ec1d7ca49c0ed6f301a48d17217",
+    "Published": false,
+    "PublicKey": "X7XWrFoGozehnhldAQUxuWhHpWZba2OkdRDVXDTNzNk=",
+    "SourceCommit": "6b4ccf3129b926ad82ae68de3d62b2310da34285"
+  },
+  "bundleSummary": {
+    "Architecture": "Arm64",
+    "ManifestFiles": 1648,
+    "SelfContained": true,
+    "BothModulesInProcess": true,
+    "NativeCodeSignaturesVerified": true,
+    "DeveloperIdSigned": false,
+    "Notarized": false,
+    "MacOtaBundled": true,
+    "MacOtaFramework": "Sparkle 2.10.1",
+    "GuiVerified": false,
+    "UserDataWritten": false
+  }
+}

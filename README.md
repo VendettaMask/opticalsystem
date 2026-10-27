@@ -138,8 +138,8 @@ AI 初始结构与镀膜设计从“实验室”打开，使用各自的实验�
 
 | 平台 | 安装包 |
 | --- | --- |
-| Windows x64 | [下载 EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-a31fb444.exe) |
-| Windows ARM64 | [下载 EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-a31fb444.exe) |
+| Windows x64 | [下载 EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-6b4ccf31.exe) |
+| Windows ARM64 | [下载 EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-6b4ccf31.exe) |
 | Mac Apple Silicon | [下载 DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg) |
 
 三个平台均为自包含交付，包含运行时、两个必装内置模块与字体，无须另装 .NET。版本更新记录、文件校验值及历史版本统一在 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases) 查看。

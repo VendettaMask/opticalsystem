@@ -138,8 +138,8 @@ Open AI Initial Structure and Optical Coating Design from **Laboratory**; they m
 
 | Platform | Package |
 | --- | --- |
-| Windows x64 | [Download EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-a31fb444.exe) |
-| Windows ARM64 | [Download EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-a31fb444.exe) |
+| Windows x64 | [Download EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-6b4ccf31.exe) |
+| Windows ARM64 | [Download EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-6b4ccf31.exe) |
 | Mac Apple Silicon | [Download DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg) |
 
 All three platforms use self-contained packages with the runtime, both required modules, and fonts; no separate .NET installation is required. Find version history, release notes, and file checksums on [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases).

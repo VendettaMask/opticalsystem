@@ -1,16 +1,15 @@
-# Proposed production OTA publishing change
+# Mac OTA publishing design
 
 The maintainer authorized this publishing change on 2026-10-27, conditional on
-cloud regression success. The workflow implementation is prepared on the
-isolated branch. Production main and public releases remain unchanged until
-those checks pass.
+cloud regression success. The workflow was verified on the isolated branch,
+merged to main and activated by [release 40469805561](https://github.com/VendettaMask/opticalsystem/actions/runs/40469805561). The steps below record the delivered design.
 
-The prepared code adds the native Sparkle bridge and Mac update panel, derives
+The implementation adds the native Sparkle bridge and Mac update panel, derives
 the Mac Ed25519 identity from the existing protected Windows RSA key, verifies
 signed archives and prepares a signed appcast. The existing Windows trust key,
 release-body envelopes and installer helpers are unchanged. See [Mac OTA](MAC_OTA.md).
 
-To activate the implementation, the remaining concrete publishing changes are:
+The publishing workflow performs these steps:
 
 1. Use an Apple Silicon Mac for the final publisher job, so it can run the
    pinned Sparkle signing tool. Keep the same existing three OTA Secrets scoped
