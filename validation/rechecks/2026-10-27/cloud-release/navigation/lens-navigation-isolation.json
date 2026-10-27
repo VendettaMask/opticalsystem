@@ -1,0 +1,37 @@
+{
+  "DiscoveredCases": 9,
+  "IsolatedMethods": 5,
+  "Passed": 9.0,
+  "Methods": [
+    {
+      "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ActiveStructureAndSelectionTrackUndoRedoAndProjectRoundTrip",
+      "Expected": 1,
+      "Passed": 1,
+      "Trx": "lens-navigation-01.trx"
+    },
+    {
+      "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.CountsTrackUndoRedoFileResetAndRejectStaleOrDisposedNavigation",
+      "Expected": 1,
+      "Passed": 1,
+      "Trx": "lens-navigation-02.trx"
+    },
+    {
+      "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.HeaderFitsAndLocalizesLive",
+      "Expected": 4,
+      "Passed": 4,
+      "Trx": "lens-navigation-03.trx"
+    },
+    {
+      "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ImportedZoomSwitchesThreeRealConfigurationsAndOpensExistingEditor",
+      "Expected": 1,
+      "Passed": 1,
+      "Trx": "lens-navigation-04.trx"
+    },
+    {
+      "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.NavigationCommitsValidInputButPreservesInvalidDraft",
+      "Expected": 2,
+      "Passed": 2,
+      "Trx": "lens-navigation-05.trx"
+    }
+  ]
+}

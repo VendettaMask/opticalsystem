@@ -95,7 +95,7 @@ jobs:
         shell: pwsh
         run: |
           # Real Skia navigation and drawing stubs must not share glyph caches.
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensConfigurationNavigationTests' --logger 'trx;LogFileName=lens-navigation.trx' --results-directory artifacts/cloud-verification
+          ./scripts/test-lens-navigation-release.ps1 -ResultsDirectory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensEditorLayoutTests|FullyQualifiedName~LensHeaderTypographyTests|FullyQualifiedName~LensMaterialRowThemeTests|FullyQualifiedName~ViewerSettingsInputThemeTests|FullyQualifiedName~ViewerConfigurationTests|FullyQualifiedName~Viewer3DGeometryTests' --logger 'trx;LogFileName=lens-viewers.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
