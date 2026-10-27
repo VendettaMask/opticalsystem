@@ -121,6 +121,17 @@ public sealed class LensConfigurationNavigationTests
         var path = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_NAVIGATION_TRACE");
         if (!string.IsNullOrWhiteSpace(path))
             File.AppendAllText(path, $"{DateTimeOffset.UtcNow:O} {stage}{Environment.NewLine}");
+        var marker = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_NAVIGATION_DEBUGGER_PID");
+        if (stage == "multi-configuration editor opened" && !string.IsNullOrWhiteSpace(marker))
+        {
+            File.WriteAllText(marker, Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            var deadline = DateTimeOffset.UtcNow.AddSeconds(60);
+            while (!File.Exists(marker + ".continue"))
+            {
+                if (DateTimeOffset.UtcNow >= deadline) throw new TimeoutException("Cloud native debugger did not attach.");
+                Thread.Sleep(25);
+            }
+        }
     }
 
     [Theory]

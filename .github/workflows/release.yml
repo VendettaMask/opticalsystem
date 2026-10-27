@@ -108,7 +108,11 @@ jobs:
             $env:DOTNET_DbgMiniDumpName = Join-Path $reports 'navigation.%p'
             $env:OPTICAL_SYSTEM_DESIGN_NAVIGATION_TRACE = Join-Path $reports 'navigation-stages.txt'
           }
-          ./scripts/test-lens-navigation-release.ps1 -ResultsDirectory artifacts/cloud-verification
+          if ($IsMacOS -and '${{ inputs.validation_only }}' -eq 'true') {
+            python3 scripts/test-macos-navigation-backtrace.py --results-directory artifacts/cloud-verification
+          } else {
+            ./scripts/test-lens-navigation-release.ps1 -ResultsDirectory artifacts/cloud-verification
+          }
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensEditorLayoutTests|FullyQualifiedName~LensHeaderTypographyTests|FullyQualifiedName~LensMaterialRowThemeTests|FullyQualifiedName~ViewerSettingsInputThemeTests|FullyQualifiedName~ViewerConfigurationTests|FullyQualifiedName~Viewer3DGeometryTests' --logger 'trx;LogFileName=lens-viewers.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }

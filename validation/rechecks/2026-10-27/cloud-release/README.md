@@ -41,3 +41,5 @@ dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false -p:
 用户在获知自动审批拒绝额外上传系统诊断的原因后，明确答复“允许上传云端测试崩溃报告”。据此只允许 GitHub 临时 Mac 构建机上测试进程的有界报告进入本仓库 Actions 检查工件，不读取用户电脑，不采集进程内存转储。新增仅验证模式不打包/上传安装器/发布，保留全部所选平台验证；先用 Mac 单平台诊断，修复后仍需完整发布门禁通过。
 
 第四次 Mac 单独验证 [40434695432](https://github.com/VendettaMask/opticalsystem/actions/runs/40434695432) 重复同一方法的原生进程异常，系统诊断目录没有生成匹配的报告；已完成 110 项通过、1 项硬件条件跳过之外，仍有中止套件，不能当作完整通过。后续改用 .NET 原生报告的 `DOTNET_EnableCrashReportOnly=1`，按 runtime 源码确认只输出 JSON 线程/调用栈、不写内存 dump；导航阶段日志只记录阶段名称和时间，不记录处方或凭据。
+
+第五次 [40436369194](https://github.com/VendettaMask/opticalsystem/actions/runs/40436369194) 获得 `navigation.9473.crashreport.json` 及阶段记录，工件 `12704139176`；报告明确标记界面工作线程崩溃，但信号边界后没有有效原始帧。三个配置的数据、光圈和场景断言均执行到完成；末尾标记是多配置编辑器已打开，随后重激活镜头标签并绘制时退出。仅验证模式增加云端 LLDB 观察，不更改用例数量/断言或生成内存转储。新增两项本地预检查通过，原始本机 TRX 仅保留本机，不新增上传。

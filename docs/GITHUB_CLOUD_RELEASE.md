@@ -52,6 +52,8 @@ Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完
 
 手动输入 `validation_only=true` 时仍执行所选平台全部验证，但不生成安装包、不上传 `cloud-package-*`、不执行发布任务；默认值为 false，正常交付流程不变。经用户于 2026-10-27 明确授权，失败的 Mac 云任务仅保留临时构建机上 `testhost` / `dotnet` 的系统崩溃报告，最多五份、每份不超过 20 MiB，随已有检查工件按 30 天保留；不读取维护者本机报告，不采集进程内存转储。导航步骤同时启用 .NET `DOTNET_EnableCrashReportOnly=1`，只生成 JSON 线程/调用栈报告，不生成 dump，并保留不含处方数据的测试阶段标记。该开关的无转储语义依据 [.NET runtime 实现](https://github.com/dotnet/runtime/blob/v10.0.0/src/coreclr/debug/createdump/createdumpmain.cpp)。
 
+仅验证的 Mac 任务还可通过 [后台原生栈观察器](../scripts/test-macos-navigation-backtrace.py) 在已知导航阶段附加 LLDB。目标 PID 必须由该测试写入且进程命令包含 `testhost.dll`，仅输出线程调用栈和栈指针寄存器，完成后分离调试器；不保存内存、不改测试断言，常规发布不附加调试器。该脚本拒绝在用户本机运行。
+
 2026-10-26 已从 `45cce15b` 完成 Windows x64 云端重建与安全替换，EXE 末尾为 `-Setup-45cce15b.exe`。首次带码任务的依赖误报与旧界面夹具已修复，随后全部发布步骤通过；公开附件的源码、文件哈希、更新签名和下载均已核对。Mac 附件及来源、原测试标签保持，Windows 新名称使用新的下载地址；旧客户端需手动覆盖安装一次。实际运行、跳过范围与载荷证据见[本轮交付账目](validation/WINDOWS_CODED_EXE_RELEASE_2026-10-26.json)，没有替换用户本机安装。
 
 2026-10-24 曾从 `11de8bce` 分别重新构建并替换 Windows x64 与 Apple Silicon Mac 的现有测试包，新增分析排布、完整渲染和 PNG 导出门禁，当时保留原标签及下载地址。两平台的原阶段执行、去重测试、包内检查和签名核对见[该阶段交付账目](validation/ANALYSIS_UI_CLOUD_2026-10-24.json)。
