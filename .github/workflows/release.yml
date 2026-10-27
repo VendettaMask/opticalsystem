@@ -16,6 +16,10 @@ on:
         description: Replace selected existing installers (other platforms are preserved)
         type: boolean
         default: false
+      validation_only:
+        description: Run all selected platform checks without packaging or publishing
+        type: boolean
+        default: false
   push:
     tags: ['v*']
 
@@ -132,7 +136,7 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           ./scripts/verify-documentation.ps1 -Strict -OutputPath artifacts/cloud-verification/documentation.json
       - name: Build the complete self-contained EXE installer
-        if: matrix.runtime != 'osx-arm64'
+        if: ${{ matrix.runtime != 'osx-arm64' && !inputs.validation_only }}
         shell: pwsh
         env:
           TARGET_RUNTIME: ${{ matrix.runtime }}
@@ -153,7 +157,7 @@ jobs:
           Copy-Item -LiteralPath (Join-Path $package.Directory 'release.json') -Destination "distribution/release-$env:TARGET_RUNTIME.json"
           Get-FileHash -LiteralPath $package.Setup -Algorithm SHA256 | Format-List
       - name: Build and verify the self-contained Apple Silicon DMG
-        if: matrix.runtime == 'osx-arm64'
+        if: ${{ matrix.runtime == 'osx-arm64' && !inputs.validation_only }}
         shell: bash
         env:
           TEST_PACKAGE: ${{ needs.plan.outputs.test_package }}
@@ -171,11 +175,30 @@ jobs:
           done
           shasum -a 256 distribution/*.dmg
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: ${{ !inputs.validation_only }}
         with:
           name: cloud-package-${{ matrix.runtime }}
           path: distribution/*
           if-no-files-found: error
           retention-days: 30
+      - name: Retain authorized bounded cloud Mac test crash reports
+        if: ${{ failure() && matrix.runtime == 'osx-arm64' }}
+        shell: bash
+        run: |
+          # User authorized temporary GitHub Mac test reports on 2026-10-27.
+          # No reports or files from the maintainer's own computer are read.
+          mkdir -p artifacts/cloud-verification/native-crash
+          count=0
+          sleep 2
+          for directory in "$HOME/Library/Logs/DiagnosticReports" "$HOME/Library/Logs/DiagnosticReports/Retired"; do
+            for report in "$directory"/{testhost,dotnet}*.{ips,crash}; do
+              [[ -f "$report" ]] || continue
+              if [[ $(stat -f%z "$report") -le 20971520 && $count -lt 5 ]]; then
+                cp "$report" artifacts/cloud-verification/native-crash/
+                count=$((count+1))
+              fi
+            done
+          done
       - name: Retain validation records inside Actions, not release attachments
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -188,6 +211,7 @@ jobs:
           retention-days: 30
 
   publish:
+    if: ${{ !inputs.validation_only }}
     needs: [plan, package]
     runs-on: ubuntu-latest
     permissions:
