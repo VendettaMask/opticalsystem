@@ -1,0 +1,35 @@
+{
+  "Date": "2026-10-27",
+  "FailedRun": 40430271074,
+  "FailedSource": "a5086e5cd85ba26da9cf85b168195e27edaa89b0",
+  "Cause": "NU1004: Persistence -> Engine project reference missing from six lock graphs.",
+  "Files": [
+    {
+      "Path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/packages.lock.json",
+      "ThirdPartyPackagesUnchanged": true
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/packages.lock.json",
+      "ThirdPartyPackagesUnchanged": true
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/packages.lock.json",
+      "ThirdPartyPackagesUnchanged": true
+    },
+    {
+      "Path": "labs/InitialStructure/tools/OpticalSystemDesign.InitialStructure.Benchmarks/packages.lock.json",
+      "ThirdPartyPackagesUnchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/packages.lock.json",
+      "ThirdPartyPackagesUnchanged": true
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/packages.lock.json",
+      "ThirdPartyPackagesUnchanged": true
+    }
+  ],
+  "LockedRestorePassed": true,
+  "PublishSkipped": true,
+  "PreviousReleaseUnchanged": true
+}
