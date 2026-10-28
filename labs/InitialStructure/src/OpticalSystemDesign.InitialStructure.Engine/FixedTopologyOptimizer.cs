@@ -66,7 +66,9 @@ public static class FixedTopologyOptimizer
             termination = FixedTopologyTermination.Unsupported;
             diagnostics.Add(error.Message);
         }
-        var transmission = objective is null ? null : new TopologyTransmissionCompensation(objective.ResidualIds, options.TransmissionPolicyVersion ?? 3);
+        var projectionEvents = options.TransmissionPolicyVersion == 12 ? new List<TopologyProjectionAttempt>() : null;
+        var transmission = objective is null ? null : new TopologyTransmissionCompensation(objective.ResidualIds,
+            options.TransmissionPolicyVersion ?? 3, projectionEvents is null ? null : projectionEvents.Add);
         if (continuation is not null && endpoint is not null)
             Require(endpoint.Available && endpoint.LayoutFingerprint == objective?.Fingerprint
                 && endpoint.OpticFingerprint == current.OpticFingerprint && endpoint.Gradient.Length == binding.Slots.Length
@@ -106,6 +108,7 @@ public static class FixedTopologyOptimizer
                         var modelRank = 0;
                         if (transmissionFirst)
                         {
+                            projectionEvents?.Clear();
                             try { (coordinates, modelRank) = transmission!.Propose(endpoint, state.Coordinates, binding, active, rate / options.LearningRate, token); }
                             catch (OperationCanceledException) when (token.IsCancellationRequested) { break; }
                             catch (ArithmeticException error) { diagnostics.Add(error.Message); termination = FixedTopologyTermination.Stalled; break; }
@@ -126,6 +129,9 @@ public static class FixedTopologyOptimizer
                                     SecondMoment = proposed.SecondMoment.Select((value, index) => active.Contains(index) ? value : 0).ToArray()
                                 };
                         }
+                        if (projectionEvents is not null)
+                            foreach (var item in projectionEvents)
+                                diagnostics.Add($"Projection attempt {attempt}: decrease={item.Decrease:R}, dimension={item.Dimension}, primary={item.PrimaryFeasible}, fallbackAttempted={item.FallbackAttempted}, fallbackFeasible={item.FallbackFeasible}.");
                         if (coordinates.SequenceEqual(state.Coordinates)) { termination = FixedTopologyTermination.Stalled; break; }
                         var trial = Evaluate(coordinates);
                         if (SequentialTraceMeasurement.CpuBudgetReached) { termination = FixedTopologyTermination.BudgetExhausted; break; }
@@ -155,6 +161,8 @@ public static class FixedTopologyOptimizer
                             ActiveParameters = needsJacobian ? active.ToImmutableArray() : null,
                             Transmission = transmissionFirst ? new(beforeMerit.Clearance, afterMerit.Item1, beforeMerit.Other, afterMerit.Item2, modelRank) : null
                         };
+                        if (projectionEvents is { Count: > 0 } && projectionEvents[^1].FallbackFeasible)
+                            diagnostics.Add($"Fallback candidate attempt {attempt}: accepted={accepted}.");
                         steps.Add(step); progress?.Invoke(step);
                         if (!trial.Available && rate < 1e-10) { termination = FixedTopologyTermination.DomainFailure; break; }
                     }

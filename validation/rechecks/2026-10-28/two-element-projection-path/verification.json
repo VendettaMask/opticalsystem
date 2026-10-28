@@ -1,0 +1,99 @@
+{
+  "verified": true,
+  "sourceSha256": "091e12a43c57e531e1c80d6beca77206c9f377b6fc820a46d3c4edbeb63a0984",
+  "runs": [
+    {
+      "version": 5,
+      "meetsTargets": false,
+      "rmsUm": 55.9258927246604,
+      "maximumUm": 161.4612750551711,
+      "distortionPercent": 2.999882641658419,
+      "rays": 1333862,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 13.0643539,
+      "accepted": 13,
+      "allValid": true,
+      "violations": [
+        "field:33:rms",
+        "field:34:rms",
+        "field:34:maximum"
+      ]
+    },
+    {
+      "version": 12,
+      "meetsTargets": false,
+      "rmsUm": 58.75197655796813,
+      "maximumUm": 167.1852731867026,
+      "distortionPercent": 2.99910123756227,
+      "rays": 1334998,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 10.6065045,
+      "accepted": 1,
+      "allValid": true,
+      "violations": [
+        "field:33:rms",
+        "field:33:maximum",
+        "field:34:rms",
+        "field:34:maximum"
+      ]
+    }
+  ],
+  "totalSearchRaysAcrossTwoSeparateBudgets": 2668860,
+  "triggerCounts": [
+    {
+      "version": 5,
+      "phase": "local",
+      "termination": "updateLimit",
+      "fallbackAttempts": 0,
+      "feasibleFallbacks": 0,
+      "selectedEvaluatedFallbacks": 0,
+      "acceptedFallbacks": 0,
+      "acceptedSteps": 1,
+      "completedAttempts": 4
+    },
+    {
+      "version": 5,
+      "phase": "full",
+      "termination": "budgetExhausted",
+      "fallbackAttempts": 0,
+      "feasibleFallbacks": 0,
+      "selectedEvaluatedFallbacks": 0,
+      "acceptedFallbacks": 0,
+      "acceptedSteps": 12,
+      "completedAttempts": 22
+    },
+    {
+      "version": 12,
+      "phase": "local",
+      "termination": "updateLimit",
+      "fallbackAttempts": 4,
+      "feasibleFallbacks": 0,
+      "selectedEvaluatedFallbacks": 0,
+      "acceptedFallbacks": 0,
+      "acceptedSteps": 1,
+      "completedAttempts": 4
+    },
+    {
+      "version": 12,
+      "phase": "full",
+      "termination": "budgetExhausted",
+      "fallbackAttempts": 23,
+      "feasibleFallbacks": 23,
+      "selectedEvaluatedFallbacks": 22,
+      "acceptedFallbacks": 0,
+      "acceptedSteps": 0,
+      "completedAttempts": 22
+    }
+  ],
+  "additionalReadbackRays": 848200,
+  "independentResumeTestRays": 101748,
+  "priorImplementationResumeTestRays": 101748,
+  "notes": [
+    "All solver pivots run inside the original wall-time/deadline; no new optical evaluation path.",
+    "Readback and regression costs are separate from the two fresh optimization arms.",
+    "Fallback events without a completed candidate acceptance record may belong to the final quota-interrupted evaluation, not an accepted step.",
+    "No default policy or Core changes; no physical impossibility claim."
+  ]
+}
