@@ -53,6 +53,10 @@ public sealed class AfocalIndependentPhysicsTests(ITestOutputHelper output)
         // Not the unchanged native comparison tolerance, and not a continuum precision claim.
         Assert.InRange(airyErrors.Max(), 0, 8d / (n - 1));
         var mtfErrors = new List<double>();
+        var productionMtf = DiffractionEngine.ComputeFftMtf(psf, optic, optic.Wavelengths[0]);
+        var productionPsfMtf = DiffractionEngine.ComputePsfMtf(psf);
+        var productionMtfErrors = new List<double>();
+        Assert.InRange(Math.Abs(productionMtf.CutoffFrequency - 2 / .55), 0, 1e-12);
         foreach (var shift in new[] { 0, n / 4, n / 2, 3 * n / 4, n - 1 })
         {
             var nu = shift / (n - 1d);
@@ -61,8 +65,17 @@ public sealed class AfocalIndependentPhysicsTests(ITestOutputHelper output)
             for (var y = 0; y < g; y++) for (var x = 0; x < g; x++)
                 otf += psf.Values[y, x] / 100 * Complex.FromPolarCoordinates(1, 2 * Math.PI * shift * (x - g / 2) / g);
             mtfErrors.Add(Math.Abs(otf.Magnitude / sum - expected));
+            // Independent D/lambda cutoff in cycles/mrad, not inferred from output metadata.
+            var frequency = shift * 2 / (.55 * (n - 1));
+            foreach (var actual in new[] { productionMtf, productionPsfMtf })
+            {
+                Assert.InRange(Math.Abs(actual.Frequency[shift] - frequency), 0, 1e-12);
+                productionMtfErrors.Add(Math.Abs(actual.Tangential[shift] - expected));
+                productionMtfErrors.Add(Math.Abs(actual.Sagittal[shift] - expected));
+            }
         }
         Assert.InRange(mtfErrors.Max(), 0, 8d / (n - 1));
+        Assert.InRange(productionMtfErrors.Max(), 0, 8d / (n - 1));
         var windows = new List<object>();
         foreach (var radius in new[] { .2, .4, .8 })
         {
@@ -89,9 +102,39 @@ public sealed class AfocalIndependentPhysicsTests(ITestOutputHelper output)
             windows,
             airyMaximumAbsolute = airyErrors.Max(),
             mtfMaximumAbsolute = mtfErrors.Max(),
+            productionMtfMaximumAbsolute = productionMtfErrors.Max(),
             parsevalRelative = sum / parsevalExpected - 1,
             rasterBudget = 8d / (n - 1)
         });
+    }
+
+    [Theory]
+    [InlineData(32)]
+    [InlineData(64)]
+    public void ProductionAfocalHuygensHasAnalyticAiryProfile(int n)
+    {
+        // Same physical disk as FFT; no prepared wavefront, native data or FFT-derived expectation.
+        // Fixed 32x32 angular window, 0.02 mrad/pixel; only pupil sampling varies.
+        // Huygens finite-cell quadrature is not a periodic DFT: FFT Parseval does not apply.
+        var optic = Disk(); const int g = 32; const double pitch = .02;
+        var psf = DiffractionEngine.ComputeHuygensPsf(optic, (0, 0), optic.Wavelengths[0], n, g, pitch);
+        Assert.Equal(AnalysisAxisUnit.Milliradian, psf.SampleSpacingUnit);
+        Assert.Equal(pitch, psf.SampleSpacingMicrometers);
+        Assert.InRange(Math.Abs(psf.Values[g / 2, g / 2] / 100 - 1), 0, 2e-12);
+        var maximum = 0d;
+        for (var y = 0; y < g; y++) for (var x = 0; x < g; x++)
+        {
+            var radius = pitch * Math.Sqrt(Math.Pow(x - g / 2, 2) + Math.Pow(y - g / 2, 2));
+            var z = Math.PI * 2 * radius / .55;
+            var expected = z == 0 ? 1 : Math.Pow(2 * BesselJ1(z) / z, 2);
+            Assert.True(double.IsFinite(psf.Values[y, x]) && psf.Values[y, x] >= 0);
+            maximum = Math.Max(maximum, Math.Abs(psf.Values[y, x] / 100 - expected));
+        }
+        // Preserve the existing conservative raster budget; this is not a high-precision gate.
+        Assert.InRange(maximum, 0, 8d / (n - 1));
+        Record(new { kind = "production-huygens-airy", n, g, pitchMrad = pitch,
+            airyMaximumAbsolute = maximum, rasterBudget = 8d / (n - 1),
+            scope = "scalar paraxial disk; finite cell/window, no absolute flux claim" });
     }
 
     // J1 power series is independent of the FFT implementation; evaluated only |z| <= 13.

@@ -45,3 +45,13 @@
 已有144项比较链路测试记录加本轮8个不同身份，现有记录去重为152通过；不是一次运行152项，也不是152项光学对比通过。原三项质心Difference、六项自动PSF网格Incomparable、双筒节点差异、五项无有效照度参考、两项mixed NSC一阶不适用均未关闭。内部解析验证不能替代原生定义证据。
 
 后续已授权修改共享Core的阶段见[出瞳交会修复报告](AFOCAL_PUPIL_CONDITIONING_2026-10-28.md)：仅修复FitLines数值相消，125项相关回归通过，原生残留与双筒探针敏感性未关闭。本报告前文“未改Core”描述的是当时阶段。
+
+## 生产链覆盖复核与补充（2026-10-28）
+
+原8项并非只验证参考：3项圆瞳、零填充和旋转均直接调用ComputeFftPsf；其中旋转使用准备好的非对称相位瞳孔，3项探针只检查有限值。实际缺口是MTF由测试内直接傅里叶和得到，没有检验生产MTF轴/幅值；也未覆盖ComputeHuygensPsf的无焦远场分支。已有其他原生比较不能替代这个独立解析检查。
+
+现对原3项圆瞳测试增加ComputeFftMtf及ComputePsfMtf两条生产路径，分别检验T/S幅值和cycles/mrad频率轴，期望仍来自D/λ与解析圆盘重叠面积，不从被测元数据推回。新增2项Huygens测试直接导入相同2 mm圆瞳、0.55 µm波长并生成真实波前，不使用preparedWavefront；固定32×32输出和0.02 mrad步长，仅改变瞳孔N=32/64。逐像素用解析Airy作为独立期望。Huygens有限单元求和不是周期DFT，不套用FFT Parseval或把截窗能量归一为1。仍仅适用标量近轴、均匀圆瞳。
+
+5项定点验证全部通过（原3项扩展+新增2项，不是新增5项）；测试报告约1秒，命令硬上限180秒。生产MTF最大绝对差N32/64/128分别为0.00574685、0.00258841、0.000465401；轴与独立D/λ标尺误差在1e−12内。Huygens全窗口Airy最大绝对差为0.0237125与0.0114679（峰值1），随两档采样加密下降，仍是百分比量级，不能称为原生精度认证。保留事先既有的宽松8/(N−1)离散预算，没有调整原比较门槛。未证明新的计算缺陷，不修改Core。未重跑其他旋转/探针/150项；原3项Difference和6项自动网格Incomparable不关闭。
+
+证据：`validation/rechecks/2026-10-28/afocal-psf-contract/production-physics.trx`及`production-physics-summary.json`。生产调用处可见`MtfScanAnalysis.cs`的ComputeFftMtf/ComputePsfMtf路径；本次测试到Core计算入口，不声称覆盖UI、所有预设或偏振/大角度系统。
