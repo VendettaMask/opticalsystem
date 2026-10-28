@@ -1,0 +1,57 @@
+{
+  "verified": true,
+  "decision": "Stop current reduction at the qualified three-element parent; no two-to-one dispatch.",
+  "minimumVerifiedElementCount": 3,
+  "globalMinimumProven": false,
+  "parent": {
+    "rmsUm": 49.29257176225859,
+    "maximumUm": 136.48802777710335,
+    "distortionPercent": 1.4720274828050226,
+    "qualified": true
+  },
+  "latestTwoElementArms": [
+    {
+      "version": 5,
+      "rmsUm": 55.9258927246604,
+      "maximumUm": 161.4612750551711,
+      "distortionPercent": 2.999882641658419,
+      "qualified": false
+    },
+    {
+      "version": 14,
+      "rmsUm": 56.91803828200751,
+      "maximumUm": 164.79991864610514,
+      "distortionPercent": 2.9996056548276773,
+      "qualified": false
+    }
+  ],
+  "scope": "Engineering stop under frozen constraints and bounded attempts; branch coverage and local solver failure do not certify global infeasibility.",
+  "additionalOpticalEvaluations": 0,
+  "sources": [
+    {
+      "role": "qualifiedParent",
+      "path": "validation/rechecks/2026-10-28/three-to-two-continuation/paired-runs/preparation.json",
+      "sha256": "e3e19c205efe73c49aeb6357ac4320e74e1f6d52274abc423441967bcf9fb9de"
+    },
+    {
+      "role": "deletionCoverage",
+      "path": "validation/rechecks/2026-10-28/three-to-two-continuation/verification.json",
+      "sha256": "e295c4c400744840673a2248b362341338807cc14a40044ad11138769a960037"
+    },
+    {
+      "role": "originalInput",
+      "path": "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5/input.json",
+      "sha256": "c0c8be3c8d3defd8aca11108acde775a3200bf114f0dd5ab2c663f017b9ad2d8"
+    },
+    {
+      "role": "originalEndpoint",
+      "path": "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5/full.json",
+      "sha256": "091e12a43c57e531e1c80d6beca77206c9f377b6fc820a46d3c4edbeb63a0984"
+    },
+    {
+      "role": "latestPair",
+      "path": "validation/rechecks/2026-10-28/two-element-primary-first/paired/summary.json",
+      "sha256": "fd1f4fd8c83dabc4da3594be0136649708241281d64d96c553bcaf5cb00d30b2"
+    }
+  ]
+}

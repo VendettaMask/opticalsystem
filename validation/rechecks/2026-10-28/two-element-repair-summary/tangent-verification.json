@@ -1,0 +1,145 @@
+{
+  "verified": true,
+  "sourceSha256": "091e12a43c57e531e1c80d6beca77206c9f377b6fc820a46d3c4edbeb63a0984",
+  "identicalStartsAndOriginalBounds": true,
+  "identicalControlAssessments": true,
+  "runs": [
+    {
+      "pair": "paired",
+      "version": 5,
+      "rmsUm": 55.9258927246604,
+      "maximumUm": 161.4612750551711,
+      "distortionPercent": 2.999882641658419,
+      "rays": 1333862,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 12.4196412,
+      "accepted": 13,
+      "correctionAttempts": 0,
+      "acceptedCorrections": 0,
+      "violations": [
+        "field:33:rms",
+        "field:34:maximum",
+        "field:34:rms"
+      ],
+      "allValid": true
+    },
+    {
+      "pair": "paired",
+      "version": 7,
+      "rmsUm": 56.16429767580756,
+      "maximumUm": 165.54134788364485,
+      "distortionPercent": 2.99980107881937,
+      "rays": 1334290,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 9.6161337,
+      "accepted": 6,
+      "correctionAttempts": 11,
+      "acceptedCorrections": 3,
+      "violations": [
+        "field:33:maximum",
+        "field:33:rms",
+        "field:34:maximum",
+        "field:34:rms"
+      ],
+      "allValid": true
+    },
+    {
+      "pair": "newton-paired",
+      "version": 5,
+      "rmsUm": 55.9258927246604,
+      "maximumUm": 161.4612750551711,
+      "distortionPercent": 2.999882641658419,
+      "rays": 1333862,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 12.5018062,
+      "accepted": 13,
+      "correctionAttempts": 0,
+      "acceptedCorrections": 0,
+      "violations": [
+        "field:33:rms",
+        "field:34:maximum",
+        "field:34:rms"
+      ],
+      "allValid": true
+    },
+    {
+      "pair": "newton-paired",
+      "version": 8,
+      "rmsUm": 58.62093529872476,
+      "maximumUm": 167.34036441557214,
+      "distortionPercent": 2.9998039279065107,
+      "rays": 1266454,
+      "functions": 27,
+      "gradients": 25,
+      "seconds": 9.2342378,
+      "accepted": 9,
+      "correctionAttempts": 0,
+      "acceptedCorrections": 0,
+      "violations": [
+        "field:33:maximum",
+        "field:33:rms",
+        "field:34:maximum",
+        "field:34:rms"
+      ],
+      "allValid": true
+    },
+    {
+      "pair": "tolerance-paired",
+      "version": 5,
+      "rmsUm": 55.9258927246604,
+      "maximumUm": 161.4612750551711,
+      "distortionPercent": 2.999882641658419,
+      "rays": 1333862,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 12.7182812,
+      "accepted": 13,
+      "correctionAttempts": 0,
+      "acceptedCorrections": 0,
+      "violations": [
+        "field:33:rms",
+        "field:34:maximum",
+        "field:34:rms"
+      ],
+      "allValid": true
+    },
+    {
+      "pair": "tolerance-paired",
+      "version": 9,
+      "rmsUm": 58.73839744191011,
+      "maximumUm": 167.18527294224032,
+      "distortionPercent": 2.9991134600983105,
+      "rays": 1334994,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 10.6723879,
+      "accepted": 8,
+      "correctionAttempts": 0,
+      "acceptedCorrections": 0,
+      "violations": [
+        "field:33:maximum",
+        "field:33:rms",
+        "field:34:maximum",
+        "field:34:rms"
+      ],
+      "allValid": true
+    }
+  ],
+  "totalSearchRaysAcrossSixSeparateBudgets": 7937324,
+  "auditRays": 848196,
+  "testDiagnosticRays": {
+    "test-evidence-rows": 102764,
+    "test-evidence-newton": 102756,
+    "test-evidence-interior": 102756,
+    "test-evidence-second": 102764
+  },
+  "limitations": [
+    "No qualified design. All full phases exhausted the original stage ray cap, not proof of convergence or physical impossibility.",
+    "First failed exact-endpoint test did not persist its counters; it had a separate 300000-ray cap and is not counted as zero.",
+    "v7/v8 removed from production; original-row check v9 remains explicit only, not default, and is not recommended as an image-quality improvement.",
+    "Earlier Linux historical checkpoint fingerprint failures remain unresolved and were not bypassed."
+  ]
+}

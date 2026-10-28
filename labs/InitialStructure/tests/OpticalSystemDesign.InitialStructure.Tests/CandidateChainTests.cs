@@ -1,0 +1,64 @@
+using System.Collections.Immutable;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.InitialStructure.Contracts;
+using OpticalSystemDesign.InitialStructure.Engine;
+
+namespace OpticalSystemDesign.InitialStructure.Tests;
+
+public sealed class CandidateChainTests
+{
+    [Fact]
+    public void RejectedLinearCandidateYieldsToPrimaryAndSurvivesResume()
+    {
+        var root = new DirectoryInfo(AppContext.BaseDirectory);
+        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        var json = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
+        json.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+        using var input = JsonDocument.Parse(File.ReadAllText(Path.Combine(root!.FullName,
+            "validation/rechecks/2026-10-28/two-element-candidate-chain/candidate-chain-input.json")));
+        T Read<T>(string name) => JsonSerializer.Deserialize<T>(input.RootElement.GetProperty(name).GetRawText(), json)!;
+        var source = TopologyCompiler.Compile(Read<DesignTopology>("Source"), Read<TopologyConstraints>("Constraints"));
+        var binding = TopologyParameterBinder.Bind(source, Read<ImmutableArray<TopologyVariableRequest>>("Variables"));
+        var options = Read<FixedTopologyOptions>("Full") with { TransmissionPolicyVersion = 13,
+            MaximumUpdates = 2, MaximumFunctionEvaluations = 3, MaximumGradientEvaluations = 3, PerformFinalAssessment = false };
+        using var quota = SequentialTraceMeasurement.BeginCpuBudget(150_000);
+        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+        FixedTopologyResult? full = null, part = null, resumed = null;
+        try
+        {
+            full = FixedTopologyOptimizer.Run(source, binding, Read<TopologyTargets>("Targets"), options, deadline.Token);
+            Assert.False(full.Steps[0].Accepted);
+            Assert.True(full.Steps[1].Accepted); // Green: after nonlinear rejection the original smaller primary path is available.
+            Assert.True(full.Steps[0].UsedFallbackCandidate);
+            Assert.False(full.Steps[1].UsedFallbackCandidate);
+            Assert.False(full.Continuation!.SuppressFallbackAtCurrentPoint);
+            using var stop = CancellationTokenSource.CreateLinkedTokenSource(deadline.Token);
+            part = FixedTopologyOptimizer.Run(source, binding, Read<TopologyTargets>("Targets"), options, stop.Token,
+                step => { if (step.Attempt == 1) stop.Cancel(); });
+            var saved = JsonSerializer.Deserialize<FixedTopologyContinuation>(JsonSerializer.Serialize(part.Continuation, json), json)!;
+            Assert.True(saved.SuppressFallbackAtCurrentPoint);
+            using (var noRays = SequentialTraceMeasurement.Begin())
+            {
+                Assert.Throws<TopologyValidationException>(() => FixedTopologyOptimizer.Run(source, binding, Read<TopologyTargets>("Targets"),
+                    options, deadline.Token, continuation: saved with { SuppressFallbackAtCurrentPoint = false }));
+                Assert.Equal(0, noRays.RayCount);
+            }
+            resumed = FixedTopologyOptimizer.Run(source, binding, Read<TopologyTargets>("Targets"), options, deadline.Token, continuation: saved);
+            Assert.Equal(ContentFingerprint.Compute(full.Topology), ContentFingerprint.Compute(resumed.Topology));
+            Assert.Equal(full.Work.TracedRays, resumed.Work.TracedRays);
+            Assert.Equal(full.Work.FunctionEvaluations, resumed.Work.FunctionEvaluations);
+            Assert.Equal(full.Work.GradientEvaluations, resumed.Work.GradientEvaluations);
+        }
+        finally
+        {
+            if (Environment.GetEnvironmentVariable("AUTOLENS_CHAIN_EVIDENCE") is { } folder)
+            {
+                Directory.CreateDirectory(folder);
+                File.WriteAllText(Path.Combine(folder, "reproduction.json"), JsonSerializer.Serialize(new { full, part, resumed,
+                    Rays = quota.RayCount, RayCap = 150_000, TimeCapSeconds = 60 }, json));
+            }
+        }
+    }
+}

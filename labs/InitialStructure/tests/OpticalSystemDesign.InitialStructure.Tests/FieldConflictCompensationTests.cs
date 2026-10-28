@@ -129,6 +129,11 @@ public sealed class FieldConflictCompensationTests
     [Theory]
     [InlineData(4)]
     [InlineData(5)]
+    [InlineData(9)]
+    [InlineData(11)]
+    [InlineData(12)]
+    [InlineData(13)]
+    [InlineData(14)]
     public void SameNonlinearGateRejectsCrossFieldRegressionsAndNewlyFailedGates(int version)
     {
         string[] ids = ["target:power", "target:inverse-f-number", "field:0:maximum", "field:1:maximum", "field:0:boundary:0:clearance"];
@@ -140,6 +145,56 @@ public sealed class FieldConflictCompensationTests
         Assert.False(policy.Accept(before, Value([0, 0, .1, 0, .001])));
         Assert.True(policy.Accept(before, Value([0, 0, .9, 0, 0])));
         static TopologyObjectiveEvaluation Value(double[] r) => new() { Available = true, LayoutFingerprint = "test", OpticFingerprint = "test", Residuals = r.ToImmutableArray() };
+    }
+
+    [Theory]
+    [InlineData(5)]
+    [InlineData(9)]
+    [InlineData(11)]
+    public void BoundAxialCoordinatesPreserveProtectedPlanesAndSerializedContinuation(int version)
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        var json = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
+        json.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+        var root = Path.Combine(directory!.FullName, "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5");
+        var endpoint = JsonSerializer.Deserialize<FixedTopologyResult>(File.ReadAllText(Path.Combine(root, "full.json")), json)!;
+        using var input = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "input.json")));
+        var options = JsonSerializer.Deserialize<FixedTopologyOptions>(input.RootElement.GetProperty("Full").GetRawText(), json)! with
+        { TransmissionPolicyVersion = version, MaximumUpdates = 2, MaximumFunctionEvaluations = 3, MaximumGradientEvaluations = 3, PerformFinalAssessment = false };
+        var source = TopologyCompiler.Compile(endpoint.Topology, endpoint.Constraints);
+        var binding = TopologyParameterBinder.Bind(source, endpoint.Variables);
+        // Exact fixed identities survive every legal axial update, including old one-ULP failures.
+        for (var sample = 1; sample <= 20; sample++)
+        {
+            var q = binding.InitialCoordinates.ToArray(); q[5] += sample * .001;
+            var applied = TopologyParameterBinder.Apply(source, binding, q);
+            Assert.Equal(source.Topology.Stop, applied.Topology.Stop);
+            Assert.Equal(source.Topology.Reference, applied.Topology.Reference);
+            Assert.Equal(source.Topology.Image, applied.Topology.Image);
+            Assert.Equal(q[4] * binding.Slots[4].Request.Scale, applied.Topology.Elements[0].FrontZMillimeters);
+            Assert.InRange(Math.Abs(applied.Topology.Elements[0].BackZMillimeters - q[5] * binding.Slots[5].Request.Scale), 0, 1e-14);
+        }
+        var tampered = source.CreateOptic();
+        tampered.SurfaceGroup.Items[source.SurfaceIndices[source.Topology.Stop.Id] - 1].Thickness += 1e-6;
+        tampered.SurfaceGroup.Renumber();
+        Assert.Throws<TopologyValidationException>(() => TopologyCompiler.Update(source, tampered.ToSnapshot()));
+        var full = FixedTopologyOptimizer.Run(source, binding, endpoint.Targets, options);
+        using var stop = new CancellationTokenSource();
+        var part = FixedTopologyOptimizer.Run(source, binding, endpoint.Targets, options, stop.Token, _ => stop.Cancel());
+        Assert.Equal(FixedTopologyTermination.Cancelled, part.Termination);
+        Assert.False(part.Steps[0].Accepted);
+        Assert.NotNull(part.Continuation);
+        var saved = JsonSerializer.Deserialize<FixedTopologyContinuation>(JsonSerializer.Serialize(part.Continuation, json), json)!;
+        var resumed = FixedTopologyOptimizer.Run(source, binding, endpoint.Targets, options, continuation: saved);
+        Assert.Equal(ContentFingerprint.Compute(full.Topology), ContentFingerprint.Compute(resumed.Topology));
+        Assert.Equal(ContentFingerprint.Compute(full.Steps), ContentFingerprint.Compute(resumed.Steps));
+        Assert.Equal(full.Work.TracedRays, resumed.Work.TracedRays);
+        Assert.Equal(full.Work.FunctionEvaluations, resumed.Work.FunctionEvaluations);
+        using var quota = SequentialTraceMeasurement.Begin();
+        Assert.Throws<TopologyValidationException>(() => FixedTopologyOptimizer.Run(source, binding, endpoint.Targets,
+            options with { TransmissionPolicyVersion = 4 }, continuation: saved));
+        Assert.Equal(0, quota.RayCount);
     }
 
     private static async Task<(AutonomousSearchCheckpoint State, CompiledTopology Source, BoundTopologyParameters Binding, FixedTopologyObjective Objective)> Fixture()

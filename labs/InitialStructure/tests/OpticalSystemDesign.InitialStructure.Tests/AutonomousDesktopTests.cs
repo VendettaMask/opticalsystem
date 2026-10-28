@@ -334,6 +334,60 @@ public sealed partial class AutonomousDesktopTests
         }, CancellationToken.None).WaitAsync(TimeSpan.FromSeconds(30));
     }
 
+    [Fact]
+    public async Task QualifiedReductionControlPersistsPermissionsAndExplainsVerifiedCountInThreeLanguages()
+    {
+        using var files = new OwnedFiles();
+        using var host = SafeHeadlessUnitTestSession.StartNew(typeof(FlatStartDesktopTests));
+        await host.Dispatch(async () =>
+        {
+            var language = UiLocalization.CurrentLanguage;
+            var plan = Plan();
+            plan = plan with { Options = plan.Options with { Expansion = new() } };
+            var saved = 0;
+            var window = new AutonomousTopologyWindow(new() { InitialPlan = plan,
+                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("reduction-" + saved++ + ".topology-plan.json")) });
+            try
+            {
+                window.Show(); window.UpdateLayout();
+                using var trace = SequentialTraceMeasurement.Begin();
+                Assert.False(Find<CheckBox>(window, "AutonomousReductionOnly").IsChecked);
+                Find<CheckBox>(window, "AutonomousReductionOnly").IsChecked = true;
+                foreach (var id in new[] { "AutonomousSplit", "AutonomousMerge", "AutonomousMaterial", "AutonomousProfile" })
+                {
+                    Assert.False(Find<CheckBox>(window, id).IsChecked);
+                    Assert.False(Find<CheckBox>(window, id).IsEnabled);
+                }
+                Assert.True(Find<CheckBox>(window, "AutonomousStructure").IsChecked);
+                Click(window, "AutonomousSavePlan"); await window.PendingOperation;
+                var reduction = await AutonomousDesignFiles.LoadPlanAsync(files.Path("reduction-0.topology-plan.json"));
+                Assert.True(reduction.Options.QualifiedReductionOnly);
+                Assert.False(reduction.Options.Expansion!.EnableInsertion);
+                Assert.True(reduction.Options.Expansion.EnableDeletion);
+                Assert.Equal(plan.Targets, reduction.Targets);
+                Assert.Equal(ContentFingerprint.Compute(plan.Seeds), ContentFingerprint.Compute(reduction.Seeds));
+                Find<NumericUpDown>(window, "AutonomousTrials").Value = plan.Options.MaximumTrials + 1;
+                Click(window, "AutonomousSavePlan"); await window.PendingOperation;
+                var edited = await AutonomousDesignFiles.LoadPlanAsync(files.Path("reduction-1.topology-plan.json"));
+                Assert.True(edited.Options.QualifiedReductionOnly);
+                Assert.Equal(ContentFingerprint.Compute(reduction.Options.Expansion!), ContentFingerprint.Compute(edited.Options.Expansion!));
+                var state = AutonomousSearchService.Create("reduction-status-ui", reduction);
+                foreach (var selected in new[] { UiLocalization.Chinese, UiLocalization.English, UiLocalization.Japanese })
+                {
+                    UiLocalization.Apply(selected); window.UpdateLayout();
+                    Assert.Equal(UiLocalization.Text("仅从达标处方减片"), Find<CheckBox>(window, "AutonomousReductionOnly").Content);
+                    var text = AutonomousTopologyWindow.ReductionConclusionText(state);
+                    Assert.Contains(UiLocalization.Text("最少已验证片数"), text);
+                    Assert.Contains(UiLocalization.Text("不代表全局最少片数"), text);
+                    Assert.Contains(UiLocalization.Text("尚无达标处方"), text);
+                }
+                Assert.Equal(0, trace.RayCount);
+            }
+            finally { window.RequestSafeClose(); await window.PendingOperation; UiLocalization.Apply(language); }
+            return true;
+        }, CancellationToken.None).WaitAsync(TimeSpan.FromSeconds(30));
+    }
+
     private static AutonomousSearchPlan Plan()
     {
         var source = AutonomousDesignExamples.ThreeElement();

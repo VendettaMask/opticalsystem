@@ -1,0 +1,30 @@
+{
+  "passed": 5,
+  "failed": 0,
+  "tests": "QualifiedReductionTests only",
+  "costs": [
+    {
+      "file": "budget-stop.json",
+      "rays": 4240,
+      "rayCap": 300000
+    },
+    {
+      "file": "failed-child.json",
+      "rays": 6360,
+      "rayCap": 300000
+    },
+    {
+      "file": "failed-seed.json",
+      "rays": 2120,
+      "rayCap": 300000
+    },
+    {
+      "file": "minimum-and-cancel.json",
+      "rays": 6360,
+      "rayCap": 300000
+    }
+  ],
+  "totalInstrumentedRays": 19080,
+  "timeCapSecondsPerTest": 30,
+  "priorFailure": "Two serialized-event comparisons used reference equality; replaced with content fingerprints. Prior failed run retained."
+}

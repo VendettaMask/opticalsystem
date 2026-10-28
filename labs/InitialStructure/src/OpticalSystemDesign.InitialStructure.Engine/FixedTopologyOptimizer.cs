@@ -24,8 +24,8 @@ public static class FixedTopologyOptimizer
         var needsJacobian = transmissionFirst || options.ActiveParameterLimit is not null;
         Require((options.ActiveParameterLimit is null or >= 1 and <= 512) && (!needsJacobian || options.Sampling.IncludeBoundaryClearance == true),
             TopologyFailureCode.InvalidInput, "Transmission compensation/selection requires explicit boundary sampling and a bounded active parameter count.");
-        Require(!needsJacobian || options.TransmissionPolicyVersion is 3 or 4 or 5, TopologyFailureCode.IdentityMismatch,
-            "An explicit transmission policy version 3, 4 or 5 is required. Unversioned prototype records are read-only; create a fresh versioned plan.");
+        Require(!needsJacobian || options.TransmissionPolicyVersion is 3 or 4 or 5 or 9 or 11 or 12 or 13 or 14, TopologyFailureCode.IdentityMismatch,
+            "An explicit transmission policy version 3, 4, 5, 9, 11, 12, 13 or 14 is required. Unversioned prototype records are read-only; create a fresh versioned plan.");
         var timer = Stopwatch.StartNew();
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         var elapsedBefore = continuation?.Work.Elapsed ?? TimeSpan.Zero;
@@ -47,10 +47,24 @@ public static class FixedTopologyOptimizer
         FixedTopologyObjective? objective = null;
         var state = continuation?.Adam ?? DifferentiableAdam.Initialize(binding.InitialCoordinates);
         var rate = continuation?.LearningRate ?? options.LearningRate;
+        var suppressFallback = continuation?.SuppressFallbackAtCurrentPoint ?? false;
+        var tryFallbackNext = continuation?.TryFallbackNext ?? false;
+        static (bool Suppressed, bool Pending) Advance(bool suppressed, bool accepted, bool considered) =>
+            accepted ? (false, false) : (suppressed || considered, !suppressed && !considered);
         var phaseFingerprint = ContentFingerprint.Compute(new { Identity = needsJacobian ? "fixed-topology-transmission-v" + options.TransmissionPolicyVersion : "fixed-topology-continuation-v1", source.BindingFingerprint, binding.Fingerprint, targets, options });
         if (continuation is not null)
         {
             DifferentiableAdam.Validate(state);
+            var expectedChain = (Suppressed: false, Pending: false);
+            foreach (var step in steps) expectedChain = Advance(expectedChain.Suppressed, step.Accepted, step.FallbackConsidered == true);
+            Require(options.TransmissionPolicyVersion == 14
+                ? steps.All(step => step.UsedFallbackCandidate.HasValue && step.FallbackConsidered.HasValue)
+                    && (suppressFallback, tryFallbackNext) == expectedChain
+                : options.TransmissionPolicyVersion == 13
+                ? steps.All(step => step.UsedFallbackCandidate.HasValue)
+                    && suppressFallback == steps.AsEnumerable().Reverse().TakeWhile(step => !step.Accepted).Any(step => step.UsedFallbackCandidate == true)
+                : !suppressFallback && !tryFallbackNext,
+                TopologyFailureCode.IdentityMismatch, "Candidate-chain continuation state does not match completed nonlinear decisions.");
             Require(continuation.PhaseFingerprint == phaseFingerprint && state.Coordinates.Count == binding.Slots.Length
                 && double.IsFinite(rate) && rate > 0 && rate <= options.LearningRate
                 && functions >= 0 && functions <= options.MaximumFunctionEvaluations && gradients >= 0 && gradients <= options.MaximumGradientEvaluations
@@ -66,7 +80,9 @@ public static class FixedTopologyOptimizer
             termination = FixedTopologyTermination.Unsupported;
             diagnostics.Add(error.Message);
         }
-        var transmission = objective is null ? null : new TopologyTransmissionCompensation(objective.ResidualIds, options.TransmissionPolicyVersion ?? 3);
+        var projectionEvents = options.TransmissionPolicyVersion is 12 or 13 or 14 ? new List<TopologyProjectionAttempt>() : null;
+        var transmission = objective is null ? null : new TopologyTransmissionCompensation(objective.ResidualIds,
+            options.TransmissionPolicyVersion ?? 3, projectionEvents is null ? null : projectionEvents.Add);
         if (continuation is not null && endpoint is not null)
             Require(endpoint.Available && endpoint.LayoutFingerprint == objective?.Fingerprint
                 && endpoint.OpticFingerprint == current.OpticFingerprint && endpoint.Gradient.Length == binding.Slots.Length
@@ -104,9 +120,21 @@ public static class FixedTopologyOptimizer
                         AutoLensAdamState proposed;
                         double[] coordinates;
                         var modelRank = 0;
+                        var fallbackConsidered = options.TransmissionPolicyVersion == 14 && tryFallbackNext && !suppressFallback;
                         if (transmissionFirst)
                         {
-                            try { (coordinates, modelRank) = transmission!.Propose(endpoint, state.Coordinates, binding, active, rate / options.LearningRate, token); }
+                            projectionEvents?.Clear();
+                            try
+                            {
+                                (coordinates, modelRank) = transmission!.Propose(endpoint, state.Coordinates, binding, active, rate / options.LearningRate, token,
+                                    options.TransmissionPolicyVersion == 14 ? !fallbackConsidered : suppressFallback);
+                                // Only absence of a primary step permits same-attempt lazy fallback. No optics have run yet.
+                                if (options.TransmissionPolicyVersion == 14 && !suppressFallback && !fallbackConsidered && coordinates.SequenceEqual(state.Coordinates))
+                                {
+                                    fallbackConsidered = true;
+                                    (coordinates, modelRank) = transmission.Propose(endpoint, state.Coordinates, binding, active, rate / options.LearningRate, token);
+                                }
+                            }
                             catch (OperationCanceledException) when (token.IsCancellationRequested) { break; }
                             catch (ArithmeticException error) { diagnostics.Add(error.Message); termination = FixedTopologyTermination.Stalled; break; }
                             proposed = DifferentiableAdam.Initialize(coordinates) with { Iteration = state.Iteration + 1 };
@@ -126,6 +154,11 @@ public static class FixedTopologyOptimizer
                                     SecondMoment = proposed.SecondMoment.Select((value, index) => active.Contains(index) ? value : 0).ToArray()
                                 };
                         }
+                        if (options.TransmissionPolicyVersion is 13 or 14)
+                            diagnostics.Add($"Candidate attempt {attempt}: fallbackSuppressed={suppressFallback}, fallbackPending={tryFallbackNext}, fallbackConsidered={fallbackConsidered}.");
+                        if (projectionEvents is not null)
+                            foreach (var item in projectionEvents)
+                                diagnostics.Add($"Projection attempt {attempt}: decrease={item.Decrease:R}, dimension={item.Dimension}, primary={item.PrimaryFeasible}, fallbackAttempted={item.FallbackAttempted}, fallbackFeasible={item.FallbackFeasible}.");
                         if (coordinates.SequenceEqual(state.Coordinates)) { termination = FixedTopologyTermination.Stalled; break; }
                         var trial = Evaluate(coordinates);
                         if (SequentialTraceMeasurement.CpuBudgetReached) { termination = FixedTopologyTermination.BudgetExhausted; break; }
@@ -135,6 +168,11 @@ public static class FixedTopologyOptimizer
                         var afterMerit = transmissionFirst && trial.Available ? transmission!.Merit(trial) : (double.PositiveInfinity, double.PositiveInfinity);
                         var accepted = transmissionFirst ? transmission!.Accept(endpoint, trial)
                             : trial.Available && (options.RequireDescent != true || trial.Objective <= endpoint.Objective);
+                        var usedFallback = projectionEvents is { Count: > 0 } && projectionEvents[^1].FallbackFeasible;
+                        if (options.TransmissionPolicyVersion == 13)
+                            suppressFallback = !accepted && (suppressFallback || usedFallback);
+                        if (options.TransmissionPolicyVersion == 14)
+                            (suppressFallback, tryFallbackNext) = Advance(suppressFallback, accepted, fallbackConsidered);
                         if (accepted)
                         {
                             current = TopologyParameterBinder.Apply(source, binding, coordinates);
@@ -152,9 +190,13 @@ public static class FixedTopologyOptimizer
                         var step = new FixedTopologyStep(attempt, accepted, trial.Objective,
                             trial.Available && !accepted ? transmissionFirst ? "Transmission/gate filter rejected the proposal." : "Non-descending proposal rejected under the fixed phase objective." : trial.Failure)
                         {
+                            UsedFallbackCandidate = options.TransmissionPolicyVersion is 13 or 14 ? usedFallback : null,
+                            FallbackConsidered = options.TransmissionPolicyVersion == 14 ? fallbackConsidered : null,
                             ActiveParameters = needsJacobian ? active.ToImmutableArray() : null,
                             Transmission = transmissionFirst ? new(beforeMerit.Clearance, afterMerit.Item1, beforeMerit.Other, afterMerit.Item2, modelRank) : null
                         };
+                        if (projectionEvents is { Count: > 0 } && projectionEvents[^1].FallbackFeasible)
+                            diagnostics.Add($"Fallback candidate attempt {attempt}: accepted={accepted}.");
                         steps.Add(step); progress?.Invoke(step);
                         if (!trial.Available && rate < 1e-10) { termination = FixedTopologyTermination.DomainFailure; break; }
                     }
@@ -193,6 +235,8 @@ public static class FixedTopologyOptimizer
             Continuation = validations == 0 ? new()
             {
                 PhaseFingerprint = phaseFingerprint,
+                SuppressFallbackAtCurrentPoint = suppressFallback,
+                TryFallbackNext = tryFallbackNext,
                 Adam = state,
                 LearningRate = rate,
                 Work = Work(),

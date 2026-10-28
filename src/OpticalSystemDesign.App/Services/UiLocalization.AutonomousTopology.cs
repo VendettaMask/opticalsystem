@@ -4,6 +4,18 @@ internal static partial class UiLocalization
 {
     private static void AddAutonomousTopologyTexts(Action<string, string, string> add)
     {
+        add("仅从达标处方减片", "Reduce Only Qualified Designs", "適合処方のみを減枚");
+        add("失败处方保留但不再派发结构分支；达到预算或限定尝试即停止", "Retain failed designs without further structural branches; stop at budget or trial limits", "不適合処方を保持して構成分岐を停止し、予算または試行上限で終了します");
+        add("减片模式只允许从达标处方删除镜片", "Reduction mode only removes elements from qualified designs", "減枚モードでは適合処方からのみレンズを削除します");
+        add("正在验证减片", "Validating Reduction", "減枚を検証中");
+        add("减片任务已暂停", "Reduction Paused", "減枚を一時停止");
+        add("已到预算，未完成的分支保留", "Budget Reached; Unfinished Branches Retained", "予算上限に到達、未完了の分岐を保持");
+        add("尚无达标起点，停止减片", "No Qualified Seed; Reduction Stopped", "適合する初期処方がないため減枚を停止");
+        add("已到设定片数下限", "Configured Element Limit Reached", "設定した最小枚数に到達");
+        add("限定删减尝试已结束，保留达标处方", "Bounded Reduction Finished; Qualified Designs Retained", "限定した減枚試行が終了、適合処方を保持");
+        add("最少已验证片数", "Minimum Verified Element Count", "検証済みの最小枚数");
+        add("尚无达标处方", "No Qualified Design", "適合処方なし");
+        add("不代表全局最少片数", "Not a Global Minimum Certificate", "大域的な最小枚数の証明ではありません");
         add("沿制造约束恢复", "Recover Within Manufacturing Limits", "製造制約内で復元");
         add("使用共享 Core 的几何导数联合求步，仍按原制造门槛严格复核；需要矩阵自动求导", "Use shared Core geometry derivatives for joint recovery steps, then strictly check the original manufacturing limits; requires automatic matrix derivatives", "共有Coreの幾何微分で復元ステップを求め、元の製造制約を厳密に検証します。行列の自動微分が必要です");
         add("本阶段正在恢复", "First-order recovery in progress", "一次光学特性を復元中");

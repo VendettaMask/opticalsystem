@@ -1,0 +1,380 @@
+{
+  "SameLocalCandidates": true,
+  "TracedRays": 0,
+  "Seconds": 1.7938293,
+  "TimeCapSeconds": 60,
+  "Rows": [
+    {
+      "Version": 5,
+      "Phase": "local",
+      "Attempt": 1,
+      "Accepted": false,
+      "Rate": 0.01,
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 2,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 2,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.9191111022993015,
+        1.6816607472115752,
+        -6.20016114041629,
+        -8.805355431578999,
+        1.5439649386377582E-06,
+        31.103041110159744,
+        133.50472366521487,
+        197.85806990596575,
+        0.12028771341329114,
+        -0.04780155915885558,
+        0.4449469248286573,
+        -0.08627570736211111
+      ]
+    },
+    {
+      "Version": 5,
+      "Phase": "local",
+      "Attempt": 2,
+      "Accepted": false,
+      "Rate": 0.005,
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 2,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 2,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.919662866109095,
+        1.6816607472115752,
+        -6.20016114041629,
+        -8.805355431578999,
+        1.5439649386377582E-06,
+        31.103041110159744,
+        133.50472366521487,
+        197.84541659763306,
+        0.12028771341329114,
+        -0.04780155915885558,
+        0.4449469248286573,
+        -0.08627570736211111
+      ]
+    },
+    {
+      "Version": 5,
+      "Phase": "local",
+      "Attempt": 3,
+      "Accepted": false,
+      "Rate": 0.0025,
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 2,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 2,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.919938748013992,
+        1.6816607472115752,
+        -6.20016114041629,
+        -8.805355431578999,
+        1.5439649386377582E-06,
+        31.103041110159744,
+        133.50472366521487,
+        197.8390899434667,
+        0.12028771341329114,
+        -0.04780155915885558,
+        0.4449469248286573,
+        -0.08627570736211111
+      ]
+    },
+    {
+      "Version": 5,
+      "Phase": "local",
+      "Attempt": 4,
+      "Accepted": true,
+      "Rate": 0.00125,
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 2,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 2,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.92007668896644,
+        1.6816607472115752,
+        -6.20016114041629,
+        -8.805355431578999,
+        1.5439649386377582E-06,
+        31.103041110159744,
+        133.50472366521487,
+        197.83592661638352,
+        0.12028771341329114,
+        -0.04780155915885558,
+        0.4449469248286573,
+        -0.08627570736211111
+      ]
+    },
+    {
+      "Version": 5,
+      "Phase": "full-first",
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 12,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 12,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.926773740967667,
+        1.6930002605881793,
+        -6.225957450561817,
+        -8.827596229284943,
+        3.8539999100070665E-20,
+        31.10313797621281,
+        133.48909962186195,
+        197.85502442844898,
+        0.12785563219609636,
+        -0.05067494856725831,
+        0.4761225567603401,
+        -0.07376916104946168
+      ],
+      "AllRecordedAttemptsDimension": 12,
+      "RecordedAttempts": 22,
+      "Termination": "BudgetExhausted",
+      "ResumeUsed": false
+    },
+    {
+      "Version": 11,
+      "Phase": "local",
+      "Attempt": 1,
+      "Accepted": false,
+      "Rate": 0.01,
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 2,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": true,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 2,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.9191111022993015,
+        1.6816607472115752,
+        -6.20016114041629,
+        -8.805355431578999,
+        1.5439649386377582E-06,
+        31.103041110159744,
+        133.50472366521487,
+        197.85806990596575,
+        0.12028771341329114,
+        -0.04780155915885558,
+        0.4449469248286573,
+        -0.08627570736211111
+      ]
+    },
+    {
+      "Version": 11,
+      "Phase": "local",
+      "Attempt": 2,
+      "Accepted": false,
+      "Rate": 0.005,
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 2,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": true,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 2,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.919662866109095,
+        1.6816607472115752,
+        -6.20016114041629,
+        -8.805355431578999,
+        1.5439649386377582E-06,
+        31.103041110159744,
+        133.50472366521487,
+        197.84541659763306,
+        0.12028771341329114,
+        -0.04780155915885558,
+        0.4449469248286573,
+        -0.08627570736211111
+      ]
+    },
+    {
+      "Version": 11,
+      "Phase": "local",
+      "Attempt": 3,
+      "Accepted": false,
+      "Rate": 0.0025,
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 2,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": true,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 2,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.919938748013992,
+        1.6816607472115752,
+        -6.20016114041629,
+        -8.805355431578999,
+        1.5439649386377582E-06,
+        31.103041110159744,
+        133.50472366521487,
+        197.8390899434667,
+        0.12028771341329114,
+        -0.04780155915885558,
+        0.4449469248286573,
+        -0.08627570736211111
+      ]
+    },
+    {
+      "Version": 11,
+      "Phase": "local",
+      "Attempt": 4,
+      "Accepted": true,
+      "Rate": 0.00125,
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 2,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": true,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 2,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.92007668896644,
+        1.6816607472115752,
+        -6.20016114041629,
+        -8.805355431578999,
+        1.5439649386377582E-06,
+        31.103041110159744,
+        133.50472366521487,
+        197.83592661638352,
+        0.12028771341329114,
+        -0.04780155915885558,
+        0.4449469248286573,
+        -0.08627570736211111
+      ]
+    },
+    {
+      "Version": 11,
+      "Phase": "full-first",
+      "Events": [
+        {
+          "Decrease": 0.01,
+          "Dimension": 12,
+          "PrimaryFeasible": false,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        },
+        {
+          "Decrease": 0.001,
+          "Dimension": 12,
+          "PrimaryFeasible": true,
+          "FallbackAttempted": false,
+          "FallbackFeasible": false
+        }
+      ],
+      "Coordinates": [
+        5.926773740967667,
+        1.6930002605881793,
+        -6.225957450561817,
+        -8.827596229284943,
+        3.8539999100070665E-20,
+        31.10313797621281,
+        133.48909962186195,
+        197.85502442844898,
+        0.12785563219609636,
+        -0.05067494856725831,
+        0.4761225567603401,
+        -0.07376916104946168
+      ],
+      "AllRecordedAttemptsDimension": 12,
+      "RecordedAttempts": 22,
+      "Termination": "BudgetExhausted",
+      "ResumeUsed": false
+    }
+  ]
+}

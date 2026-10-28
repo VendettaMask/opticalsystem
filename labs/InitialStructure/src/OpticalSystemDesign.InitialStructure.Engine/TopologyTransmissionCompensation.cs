@@ -4,6 +4,8 @@ using OpticalSystemDesign.InitialStructure.Engine.Optimization;
 namespace OpticalSystemDesign.InitialStructure.Engine;
 
 /// <summary>Residual/model arithmetic only. All optical values and tangents are supplied by Core through the fixed objective.</summary>
+internal sealed record TopologyProjectionAttempt(double Decrease, int Dimension, bool PrimaryFeasible, bool FallbackAttempted, bool FallbackFeasible);
+
 internal sealed class TopologyTransmissionCompensation
 {
     private readonly int[] _constraints;
@@ -12,11 +14,19 @@ internal sealed class TopologyTransmissionCompensation
     private readonly HashSet<int> _rms;
     private readonly bool _jointRestoration;
     private readonly bool _feasibleDescent;
+    private readonly bool _originalRowTolerance;
+    private readonly bool _boundedPlanarFallback;
+    private readonly bool _boundedLinearFallback;
+    private readonly Action<TopologyProjectionAttempt>? _observeProjection;
 
-    internal TopologyTransmissionCompensation(IReadOnlyList<string> ids, int version = 3)
+    internal TopologyTransmissionCompensation(IReadOnlyList<string> ids, int version = 3, Action<TopologyProjectionAttempt>? observeProjection = null)
     {
-        _jointRestoration = version is 4 or 5;
-        _feasibleDescent = version == 5;
+        _observeProjection = observeProjection;
+        _jointRestoration = version is 4 or 5 or 9 or 11 or 12 or 13 or 14;
+        _feasibleDescent = version is 5 or 9 or 11 or 12 or 13 or 14;
+        _originalRowTolerance = version == 9;
+        _boundedPlanarFallback = version is 11 or 12 or 13 or 14;
+        _boundedLinearFallback = version is 12 or 13 or 14;
         _constraints = Enumerable.Range(0, ids.Count).Where(row => !ids[row].EndsWith(":x", StringComparison.Ordinal)
             && !ids[row].EndsWith(":y", StringComparison.Ordinal)).ToArray();
         _clearance = _constraints.Where(row => ids[row].EndsWith(":clearance", StringComparison.Ordinal)).ToArray();
@@ -95,11 +105,11 @@ internal sealed class TopologyTransmissionCompensation
     }
 
     internal (double[] Coordinates, int Rank) Propose(TopologyObjectiveEvaluation value, IReadOnlyList<double> current,
-        BoundTopologyParameters binding, IReadOnlyList<int> active, double stepFraction, CancellationToken cancellationToken = default)
+        BoundTopologyParameters binding, IReadOnlyList<int> active, double stepFraction, CancellationToken cancellationToken = default, bool suppressFallback = false)
     {
         const double radius = 1;
         if (value.ConstraintTangents is not { } tangents) throw new ArithmeticException("Signed constraint tangents are required for transmission compensation.");
-        if (_feasibleDescent) return FeasibleDescent(value, current, binding, active, stepFraction, cancellationToken);
+        if (_feasibleDescent) return FeasibleDescent(value, current, binding, active, stepFraction, cancellationToken, suppressFallback);
         foreach (var fraction in new[] { 1.05, .75, .5, .25, .1 })
         {
             if (_jointRestoration) cancellationToken.ThrowIfCancellationRequested();
@@ -160,7 +170,7 @@ internal sealed class TopologyTransmissionCompensation
     }
 
     private (double[] Coordinates, int Rank) FeasibleDescent(TopologyObjectiveEvaluation value, IReadOnlyList<double> current,
-        BoundTopologyParameters binding, IReadOnlyList<int> active, double stepFraction, CancellationToken token)
+        BoundTopologyParameters binding, IReadOnlyList<int> active, double stepFraction, CancellationToken token, bool suppressFallback)
     {
         // Version4's nonlinear filter stays authoritative. Model its actual no-worsening
         // conditions instead of requiring every failed row to shrink by the same fraction.
@@ -202,7 +212,13 @@ internal sealed class TopologyTransmissionCompensation
         {
             token.ThrowIfCancellationRequested();
             var model = constraints.Append((decrease, descent)).ToArray();
-            var step = LinearFeasibilityProjection.Solve(model, active.Count, 4096, token, preferred);
+            var step = LinearFeasibilityProjection.Solve(model, active.Count, 4096, token, preferred, _originalRowTolerance ? 1e-10 : null);
+            var primaryFeasible = step is not null;
+            var useFallback = !suppressFallback && !primaryFeasible && (_boundedPlanarFallback && active.Count == 2
+                || _boundedLinearFallback && active.Count is > 2 and <= 12);
+            if (useFallback) step = active.Count == 2 ? BoundedPlanarProjection.Solve(model, preferred, token)
+                : BoundedLinearFeasibility.Solve(model, preferred, token);
+            _observeProjection?.Invoke(new(decrease, active.Count, primaryFeasible, useFallback, useFallback && step is not null));
             if (step is null || step.Zip(descent, (a, b) => a * b).Sum() >= -1e-10) continue;
             var result = current.ToArray();
             for (var column = 0; column < active.Count; column++)

@@ -166,6 +166,7 @@ public sealed partial class AutonomousTopologyWindow
         _applyingPlan = true;
         _choices["AutonomousImage"].IsChecked = !source.Image.Protected;
         _choices["AutonomousStructure"].IsChecked = options.FixedTopologyOnly != true;
+        _choices["AutonomousReductionOnly"].IsChecked = options.QualifiedReductionOnly == true;
         _choices["AutonomousGradual"].IsChecked = options.Expansion?.EnableGradualDeletion == true;
         _choices["AutonomousSplit"].IsChecked = options.Expansion?.EnableSplit == true;
         _choices["AutonomousMerge"].IsChecked = options.Expansion?.EnableMerge == true;
@@ -239,6 +240,7 @@ public sealed partial class AutonomousTopologyWindow
             CheckStageFeasibility = ReadFlag("AutonomousStageChecks", _draft.Options.CheckStageFeasibility),
             ProtectPostRecoveryRayBudget = ReadFlag("AutonomousProtectLocalBudget", _draft.Options.ProtectPostRecoveryRayBudget),
             ProtectCompensationRayBudget = ReadFlag("AutonomousProtectFullBudget", _draft.Options.ProtectCompensationRayBudget),
+            QualifiedReductionOnly = ReadFlag("AutonomousReductionOnly", _draft.Options.QualifiedReductionOnly),
             Local = ReadStage("AutonomousLocalUpdates", _draft.Options.Local),
             Full = ReadStage("AutonomousFullUpdates", _draft.Options.Full),
             AxialCompensation = _choices["AutonomousAxial"].IsChecked == true
@@ -307,6 +309,12 @@ public sealed partial class AutonomousTopologyWindow
         var merge = _choices["AutonomousMerge"].IsChecked == true;
         var material = _choices["AutonomousMaterial"].IsChecked == true;
         var profile = _choices["AutonomousProfile"].IsChecked == true;
+        if (_choices["AutonomousReductionOnly"].IsChecked == true && (original is not null || gradual))
+            return (original ?? new TopologyExpansionOptions()) with
+            {
+                EnableDeletion = true, EnableInsertion = false, EnableSplit = false, EnableMerge = false,
+                EnableMaterial = false, EnableProfile = false, EnableGradualDeletion = gradual
+            };
         if (gradual == (original?.EnableGradualDeletion == true) && split == (original?.EnableSplit == true) && merge == (original?.EnableMerge == true)
             && material == (original?.EnableMaterial == true) && profile == (original?.EnableProfile == true)) return original;
         // The fixed-topology switch controls dispatch, while inactive branch permissions remain editable and preserved.
@@ -371,6 +379,13 @@ public sealed partial class AutonomousTopologyWindow
         Hint("AutonomousRecoveryAxial", "沿用本次试验的轴向窗口，不移动机械参考、光阑与固定像面");
         Hint("AutonomousProtectLocalBudget", "可选阶段验收挤占补偿额度时延后检查，仍保留最终独立验收");
         Hint("AutonomousProtectFullBudget", "可选阶段验收挤占补偿额度时延后检查，仍保留最终独立验收");
+        Hint("AutonomousReductionOnly", "失败处方保留但不再派发结构分支；达到预算或限定尝试即停止");
+        if (editable && _choices["AutonomousReductionOnly"].IsChecked == true)
+            foreach (var id in new[] { "AutonomousStructure", "AutonomousSplit", "AutonomousMerge", "AutonomousMaterial", "AutonomousProfile" })
+            {
+                _choices[id].IsEnabled = false;
+                ToolTip.SetTip(_choices[id], UiLocalization.Text("减片模式只允许从达标处方删除镜片"));
+            }
         if (editable && _choices["AutonomousAxial"].IsChecked != true)
         {
             _choices["AutonomousRecoveryAxial"].IsEnabled = false;
@@ -412,12 +427,30 @@ public sealed partial class AutonomousTopologyWindow
             + $"{UiLocalization.Text("追迹")} {reserved?.TracedRays ?? 0} · {(reserved?.Elapsed ?? TimeSpan.Zero).TotalSeconds:F1}s · {UiLocalization.Text("达标归档")} {state.AcceptedArchive.Length}"
             + (unknown > 0 ? $"\n{UiLocalization.Text("未知中断阶段按预约计费，辅助工作只显示已记录数量")} · {unknown}" : "");
         ToolTip.SetTip(_budget, UiLocalization.Text("光线梯度与恢复矩阵 Jacobian 分别记录，不能按相同成本相加；未记录不代表零工作"));
+        if (state.Plan.Options.QualifiedReductionOnly == true) _budget.Text += "\n" + ReductionConclusionText(state);
         _record.Text = _session.RecordPath;
 
         void Hint(string id, string text)
         {
             if (editable) ToolTip.SetTip(_choices[id], UiLocalization.Text(text));
         }
+    }
+
+    internal static string ReductionConclusionText(AutonomousSearchCheckpoint checkpoint)
+    {
+        var summary = AutonomousSearchService.ReductionSummary(checkpoint);
+        var reason = summary.Reason switch
+        {
+            AutonomousReductionStopReason.InProgress => "正在验证减片",
+            AutonomousReductionStopReason.Cancelled => "减片任务已暂停",
+            AutonomousReductionStopReason.BudgetExhausted => "已到预算，未完成的分支保留",
+            AutonomousReductionStopReason.NoQualifiedSource => "尚无达标起点，停止减片",
+            AutonomousReductionStopReason.MinimumAllowedCountReached => "已到设定片数下限",
+            _ => "限定删减尝试已结束，保留达标处方"
+        };
+        return UiLocalization.Text(reason) + " · " + UiLocalization.Text("最少已验证片数") + ": "
+            + (summary.MinimumVerifiedElementCount?.ToString(CultureInfo.CurrentCulture) ?? UiLocalization.Text("尚无达标处方"))
+            + " · " + UiLocalization.Text("不代表全局最少片数");
     }
 
     private void ShowCandidate()

@@ -4,14 +4,16 @@ namespace OpticalSystemDesign.InitialStructure.Engine.Optimization;
 internal static class LinearFeasibilityProjection
 {
     internal static double[]? Solve(IReadOnlyList<(double Offset, double[] Normal)> constraints, int dimension,
-        int maximumSweeps = 400, CancellationToken cancellationToken = default, IReadOnlyList<double>? preferredPoint = null)
+        int maximumSweeps = 400, CancellationToken cancellationToken = default, IReadOnlyList<double>? preferredPoint = null, double? originalTolerance = null)
     {
+        if (originalTolerance is { } tolerance && (!double.IsFinite(tolerance) || tolerance <= 0))
+            throw new ArgumentOutOfRangeException(nameof(originalTolerance));
         var rows = new List<(double Offset, double[] Normal)>();
         foreach (var (offset, normal) in constraints)
         {
             var norm = normal.Aggregate(0.0, double.Hypot);
             if (!double.IsFinite(norm) || !double.IsFinite(offset)) throw new ArithmeticException("Non-finite linear constraint.");
-            if (norm <= 1e-14) { if (offset > 1e-10) return null; continue; }
+            if (norm <= 1e-14) { if (offset > (originalTolerance ?? 1e-10)) return null; continue; }
             rows.Add((offset / norm, normal.Select(item => item / norm).ToArray()));
         }
         var multipliers = new double[rows.Count];
@@ -44,7 +46,8 @@ internal static class LinearFeasibilityProjection
                     maximum = Math.Max(maximum, violation);
                 }
             }
-            if (maximum <= 1e-8) return point;
+            if (maximum <= 1e-8 && (originalTolerance is null || constraints.All(item =>
+                item.Offset + item.Normal.Zip(point, (a, b) => a * b).Sum() <= originalTolerance.Value))) return point;
         }
         return null;
     }
