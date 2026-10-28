@@ -89,7 +89,35 @@ public static class TopologyParameterBinder
         Require(coordinates.Count == binding.Slots.Length && coordinates.Select((value, index) =>
             double.IsFinite(value) && value >= binding.Slots[index].LowerCoordinate && value <= binding.Slots[index].UpperCoordinate).All(valid => valid),
             TopologyFailureCode.InvalidVariableBounds, "Optimizer coordinates exceed the declared bounds.");
-        var updated = OpticalDesignParameters.Apply(template.Snapshot, binding.CoreParameters, coordinates);
-        return TopologyCompiler.Update(template, updated.ToSnapshot());
+        var axial = binding.Slots.Select((slot, index) => (slot, index))
+            .Where(item => item.slot.Request.Kind == OpticalDesignParameterKind.AxialPosition).ToArray();
+        if (axial.Length == 0)
+        {
+            var updated = OpticalDesignParameters.Apply(template.Snapshot, binding.CoreParameters, coordinates);
+            return TopologyCompiler.Update(template, updated.ToSnapshot());
+        }
+        // Axial requests are already absolute coordinates in the declared mechanical frame.
+        // Do not recover them (or fixed planes) by subtracting then accumulating Core thicknesses:
+        // that round trip can move a protected stop by one ULP and reject an otherwise legal step.
+        // Core still applies all shape parameters and performs all subsequent physical calculations.
+        var shape = binding.Slots.Select((slot, index) => (slot, index))
+            .Where(item => item.slot.Request.Kind != OpticalDesignParameterKind.AxialPosition).ToArray();
+        var shaped = shape.Length == 0 ? template : TopologyCompiler.Update(template,
+            OpticalDesignParameters.Apply(template.Snapshot, shape.Select(item => item.slot.CoreParameter).ToArray(),
+                shape.Select(item => coordinates[item.index]).ToArray()).ToSnapshot());
+        var positions = axial.ToDictionary(item => item.slot.Request.SurfaceId, item => coordinates[item.index] * item.slot.Request.Scale);
+        var topology = shaped.Topology with
+        {
+            Elements = shaped.Topology.Elements.Select(element =>
+            {
+                var front = positions.GetValueOrDefault(element.FrontSurfaceId, element.FrontZMillimeters);
+                var back = positions.GetValueOrDefault(element.BackSurfaceId, element.BackZMillimeters);
+                return positions.ContainsKey(element.FrontSurfaceId) || positions.ContainsKey(element.BackSurfaceId)
+                    ? element with { FrontZMillimeters = front, ThicknessMillimeters = back - front } : element;
+            }).ToImmutableArray(),
+            Image = positions.TryGetValue(shaped.Topology.Image.Id, out var imageZ)
+                ? shaped.Topology.Image with { ZMillimeters = imageZ } : shaped.Topology.Image
+        };
+        return TopologyCompiler.Compile(topology, template.Constraints);
     }
 }

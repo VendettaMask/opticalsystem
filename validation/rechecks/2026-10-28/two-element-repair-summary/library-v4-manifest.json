@@ -1,0 +1,1211 @@
+{
+  "baseCommit": "9ee9cd547688a8876287d8420635b1ddd20e2873",
+  "branch": "codex/autolens-curvature-backtrack-20261028",
+  "files": [
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "size": 359718,
+      "sha256": "21a0501c0eafea0b66b019f623c54d8b842b564b4d4eaabc1d5db7fb129419ce"
+    },
+    {
+      "path": "labs/InitialStructure/README.md",
+      "size": 24570,
+      "sha256": "02547f2ce6277d70f9ebb6fe6c38f15275492ac54a009880dd21ffc101f493b3"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/FixedTopologyModels.cs",
+      "size": 8226,
+      "sha256": "3b8d3eb92ff84ffc5beef45672ce9730853fe17bc9101194ac5b9f45b0dda1e7"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutonomousSearchService.cs",
+      "size": 38804,
+      "sha256": "c6af99749b697d0b96684d717914e09a07348914d8de185369b81eaa01c8aaeb"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FixedTopologyOptimizer.cs",
+      "size": 16997,
+      "sha256": "e24f9231b940d4d0f6e2f8fb0f0b4d143bb62bf63d44a849ef09fffeea3707a8"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/Optimization/LinearFeasibilityProjection.cs",
+      "size": 3131,
+      "sha256": "c563df11b675055bc05f9f32e1aff2f639b6af6b23c5d21ae68354f65b2e490d"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyParameterBinder.cs",
+      "size": 9546,
+      "sha256": "2c09b6043b57290721a6f693b21e29e7ce1ff34ae15f6f54e4c3459b59ee903c"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyTransmissionCompensation.cs",
+      "size": 14448,
+      "sha256": "a4c7cc607f693f199669421302a34cc228008c745e48f9973839fdd5a39bd95b"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/FieldConflictCompensationTests.cs",
+      "size": 14721,
+      "sha256": "3c4d45818267fa47ced0cd222f12b77eec12e42f9a537a6faa23a83d2034845d"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/TangentCorrectionTests.cs",
+      "size": 1523,
+      "sha256": "3a55676afd8db30e2ce9cca40d82e7ef9d6e8315cdb9dd69bc2400cfd4ce3025"
+    },
+    {
+      "path": "labs/InitialStructure/tools/OpticalSystemDesign.InitialStructure.Benchmarks/FieldConflictBenchmarks.cs",
+      "size": 20998,
+      "sha256": "c537ab2cf63941f2217a4630ea45d7b5ebe444f9c85a7d9d63c5f543e310020b"
+    },
+    {
+      "path": "labs/InitialStructure/tools/OpticalSystemDesign.InitialStructure.Benchmarks/MaximumEnvelopeBenchmarks.cs",
+      "size": 8519,
+      "sha256": "cc61de05b3e0cb7f4fddbb817a42aafb856ef23222ec0a545e5f901c4ed8c25e"
+    },
+    {
+      "path": "labs/InitialStructure/tools/OpticalSystemDesign.InitialStructure.Benchmarks/Program.cs",
+      "size": 16778,
+      "sha256": "66f98fe65af57441788c970755be5007c2567e65efd8f7f3c9cf9a906d7a7798"
+    },
+    {
+      "path": "labs/InitialStructure/tools/OpticalSystemDesign.InitialStructure.Benchmarks/README.md",
+      "size": 11372,
+      "sha256": "365a9c96d5dddb84aee83f53d047107c11a9784febb05a9dde8c48d150e5a6ad"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/run.autonomous.json",
+      "size": 7133448,
+      "sha256": "e5764cee42d8eb1e26a0134b285458bb237abc66cb2776183c9ddef901876af0"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/README.md",
+      "size": 9692,
+      "sha256": "6ce35ad445bbcf28a39717b941a85da10caba2503c02478e8f794d7dcd9b3cea"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/SUPPLEMENT.md",
+      "size": 8265,
+      "sha256": "f3a470959bbf8757871767f0aacc861e17470837697531e49e888b4ed7b2eeaa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/analyze_spots.py",
+      "size": 2455,
+      "sha256": "8fc28c4ee443e0aa48ea4f3cf72ba56364b04f97a3c14a2b2e245db37611fdfc"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/build-control.log",
+      "size": 1095,
+      "sha256": "2abe74ef512aba537b526d8ecb5bc99c8b109d7bf7e4b1b7a67a7b03944165db"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/build-control2.log",
+      "size": 1095,
+      "sha256": "91fe0714df0a478e96662a0371570ae46f4bf12386e27254d21734e849c6d5b9"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/build-coordinate.log",
+      "size": 1095,
+      "sha256": "fc4a363137fff88098b32fcaeecb206f1a18dec6f675a73bafca512aadcebb18"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/build-diagnostic-final.log",
+      "size": 1095,
+      "sha256": "efd22769018d2891df9620a50c606c86482e7f7a7eeb850d3cfb1b2508867bbd"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/build-final.log",
+      "size": 1095,
+      "sha256": "a05be7e48afbbb3dbf5f9dc7d43e37dd2424d5f28666a8f59c1453287574adf1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/build-repair.log",
+      "size": 1095,
+      "sha256": "9cc2c73683ad87a13f1b37e2bc1d5aa8de02fbc65bdf0e9d28f04edadb924033"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/build-spatial2.log",
+      "size": 1095,
+      "sha256": "980294e4c3d95ade6d20bc111cf4a10a0fa2cae2a21e9f5ffb4fc624849362a6"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/build.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/build.log",
+      "size": 1095,
+      "sha256": "c48a20b5de744ebfc4e7ea1df688d9dccb11ac4db06df01f9815023b6ee6c4b7"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control/frozen-protocol.json",
+      "size": 978,
+      "sha256": "68e6dbe328fd5186a23bd3b1c642acdf61ee4ce39edad3a3e2cbd73a02415f40"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control-protocol.json",
+      "size": 1161,
+      "sha256": "8b1a788f65e60691b98d47c6c0cd3ffdf1edc4defe407800c20236feef693828"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control.exit",
+      "size": 4,
+      "sha256": "e726b440cc164001999e718b51780d80314709efe06e7857282377be9111127b"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control.log",
+      "size": 1059,
+      "sha256": "5a12f898e71b3f63db9b8dd213e72331d4034f9ececcb6ee4f9c46d1da056f8f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control2/frozen-protocol.json",
+      "size": 1161,
+      "sha256": "8b1a788f65e60691b98d47c6c0cd3ffdf1edc4defe407800c20236feef693828"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control2/summary.json",
+      "size": 42031,
+      "sha256": "e47e4161e3bec73671009723f113f8020cbe5799642148a256cc0153fec97d16"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control2/v5/full.json",
+      "size": 6799984,
+      "sha256": "7a2d645791b68e4a9bfb48c8f163f8a4c5c234967294f13ae52db9ddb8ca40b0"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control2/v5/input.json",
+      "size": 7794,
+      "sha256": "885003db5a69fd28da99008572e2f534fdb8f3537c0b4f2e54f27180f21d6e54"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control2/v5/local.json",
+      "size": 6774917,
+      "sha256": "fd8db6370946839c6c43df1575f69523a9514dadefe0392d08f34c77f68ed166"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control2/v5/unqualified.staropt",
+      "size": 2513,
+      "sha256": "21e47a0b4efbe265c286385c3acfe25fbf5a21962da2279b119d201eab74685d"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control2.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/control2.log",
+      "size": 46,
+      "sha256": "dc88d847fa60a669f966015746c9150294c58a1c29f2635c3d1839a089de8615"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/coordinate-repair/frozen-protocol.json",
+      "size": 1161,
+      "sha256": "8b1a788f65e60691b98d47c6c0cd3ffdf1edc4defe407800c20236feef693828"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/coordinate-repair/summary.json",
+      "size": 42032,
+      "sha256": "eff15b6ac250413da7e07408da9141cab97d311bc142dde4a041b310642faab9"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/coordinate-repair/v5/full.json",
+      "size": 6787469,
+      "sha256": "8432865f02b0103e1611bb6e81be83b707b38616fffc06db97d0227cb6d3bbaf"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/coordinate-repair/v5/input.json",
+      "size": 7794,
+      "sha256": "885003db5a69fd28da99008572e2f534fdb8f3537c0b4f2e54f27180f21d6e54"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/coordinate-repair/v5/local.json",
+      "size": 6774917,
+      "sha256": "11df7eda75beadd24d020e1f742b91904b33774b34c9655f465468b46d6c4b7c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/coordinate-repair/v5/unqualified.staropt",
+      "size": 2520,
+      "sha256": "b74dc0d564b88c069b2495ee13e26d7050e57dd44b31f755437761c000f7664f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/coordinate-repair.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/coordinate-repair.log",
+      "size": 46,
+      "sha256": "745f144849b16656131890cc7888fd3ce25c591a6cc0e6d6c5dc4df7a3201228"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/diagnosis/diagnosis.json",
+      "size": 7208781,
+      "sha256": "3bbd6ef4bb42671b4cf6c21df860cfb8544a66268c890b6a1204d5fac9118419"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/diagnosis.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/diagnostic-final/axial-roundtrip.json",
+      "size": 2908,
+      "sha256": "2dac7fd2c699665922cf42d0dc2b5bf745cb1c493f821b0053de9b0f93ab128f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/diagnostic-final/diagnosis.json",
+      "size": 7211734,
+      "sha256": "c17a4848497fd7149765af887e2413ca5b4c4c73f6ec3996c8f7199b454f4054"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/diagnostic-final/spot-rays.json",
+      "size": 126654,
+      "sha256": "dc0a87d4707faba7de572926d7c3a1736ec292b9fe7248ad72bc8179a9e6b22c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/diagnostic-final.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/diagnostic-final.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/documentation.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/documentation.json",
+      "size": 326062,
+      "sha256": "8ed03b36322ced1c2249cb77451d551701b528bfa70264dd7b74e36d955d415e"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/documentation.log",
+      "size": 237,
+      "sha256": "2e44cc0f790730d639b856688e29dd218ef516503b77fd7862ac7770ce899f63"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/environment-install.log",
+      "size": 4083,
+      "sha256": "68ee758b3468b40761dabb1a7addfb5799395ba106bff878746fbe806ea91d7f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/native-audit/native-audits.json",
+      "size": 19199,
+      "sha256": "0c0ed70afd05b34ef563bc18d8b3b027fb4e014c70f73a124259f25612539674"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/native-audit.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/native-audit.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/rejected-v6-experiment.patch",
+      "size": 17457,
+      "sha256": "d3c4498a4dffe736d4c64c2710cb70228c8b55cfa8f21a8aa670a984f0cfded7"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/repair/frozen-protocol.json",
+      "size": 1161,
+      "sha256": "3988911a71e28f156d9f299c71d5df2c9451e3e15af51cb82d0094c4083c22d0"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/repair/summary.json",
+      "size": 42299,
+      "sha256": "eb90dbb8cb46f99d864b7fd18310679b79f5e6da64de0ee41c1d4f34eaf70fe1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/repair/v6/full.json",
+      "size": 6853357,
+      "sha256": "f2e69f2f68cc1446d70fb48ead634f29717a1de605ce5d7a90c165d96938718f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/repair/v6/input.json",
+      "size": 7794,
+      "sha256": "542f89fb72e127e261cb7d3b125690561b44d5d372e80bc3dc538348aff05288"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/repair/v6/local.json",
+      "size": 6771247,
+      "sha256": "02e9a2b7f3c5eb88c2aa8998d22b04898c53aa544eb89bef565030f5bc741b93"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/repair/v6/unqualified.staropt",
+      "size": 2487,
+      "sha256": "2b1fee5b2b05945cb7e682578e270b940a1d9eea125c7b3ca6c922762797d423"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/repair-protocol.json",
+      "size": 1161,
+      "sha256": "3988911a71e28f156d9f299c71d5df2c9451e3e15af51cb82d0094c4083c22d0"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/repair.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/repair.log",
+      "size": 45,
+      "sha256": "44a77d78c52f84d05ff14ad0c2d17205dfaac3e330fe5deb3108eaa6b0bab727"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/review.patch",
+      "size": 31773,
+      "sha256": "4d62be83a86c8c435ce7cbaed5bfc48f3ab08923c1309916781e3f268157396e"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/source-manifest.json",
+      "size": 1355,
+      "sha256": "335e51e3e60b3d26a1f5b0aa37b79c21bfda256f5c8ee22fc53e50e3983e2780"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/spatial.exit",
+      "size": 4,
+      "sha256": "e726b440cc164001999e718b51780d80314709efe06e7857282377be9111127b"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/spatial.log",
+      "size": 1523,
+      "sha256": "5bbcf0892252fd0e08446f79eeaacce73d5efbcc2b85f788621735880b4082fd"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/spatial2/axial-roundtrip.json",
+      "size": 3203,
+      "sha256": "99f17d749c8736439f6c6360168b3858101a8c565e68324e8131057e29d786ca"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/spatial2/diagnosis.json",
+      "size": 7208781,
+      "sha256": "4a2bb088d439f4ccc459ef86ca205876512dd1b3cd8f19eaaa189f52c3c54d51"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/spatial2/spot-rays.json",
+      "size": 126654,
+      "sha256": "dc0a87d4707faba7de572926d7c3a1736ec292b9fe7248ad72bc8179a9e6b22c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/spatial2.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/spatial2.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/spot-decomposition.json",
+      "size": 2107,
+      "sha256": "981195a3aecbbaa796f8495d5d14e005e7d47bf39c6f3dbbbddb23b9cf691833"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/supplement-diagnosis.json",
+      "size": 61365,
+      "sha256": "70d2e5a5ca825bf3a6d052ee830b19a624aaa96f6d17fcb8888e01e9931e02b9"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/supplement_diagnosis.py",
+      "size": 6134,
+      "sha256": "a90df93b547ea4a1572971c4086df3b6ccd2a3fc20ce09318d6db887b3b9ff3a"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests/focused.trx",
+      "size": 32933,
+      "sha256": "a60b6b6a62d91316dc0c9f950dc851fa2559fe8bbaa9707f3293c4763a993408"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests-coordinate-final/coordinate-final.trx",
+      "size": 3264,
+      "sha256": "c4e54d84e6bae9c24bea1f1c56918f63427f7142f8396f27decec7bf0ca47746"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests-coordinate-final.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests-coordinate-final.log",
+      "size": 2179,
+      "sha256": "6716ab251281d5929620d7e3789e173cbf21647e885e9205937d801ca9183788"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests-final/focused.trx",
+      "size": 19373,
+      "sha256": "8d1cb949c705406c1bbd76ce174cf0f14a31697723c83323cbcdacbcc0550d2a"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests-final.exit",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests-final.log",
+      "size": 5365,
+      "sha256": "16b1270b780b6a524e5c6bb65540718dcd11dde7f27376ad6e41d46f9a2ae781"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests-regression/regression.trx",
+      "size": 68946,
+      "sha256": "455391a8e94bb9dbf185cf3a21d113e47c8bea67970d598e3c6edefe60a4004b"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests-regression.exit",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests-regression.log",
+      "size": 3171,
+      "sha256": "7116a9f6adea7f9612e69b6f1870761e76e8363d62af95d4198c3a1457df6d88"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests.exit",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/tests.log",
+      "size": 9955,
+      "sha256": "7549e1519767e1c5ca1e1afff3c5143af272441b2c2ee73c5520f5676546b34d"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/verification.json",
+      "size": 3127,
+      "sha256": "6940110525b794166892c9bd62203f1ca2f19ed5b03b98f42239f757ff0e0b02"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-active-constraints/verify.py",
+      "size": 3850,
+      "sha256": "d92623f3cac94f422a27abba13870e8d2e560b289f0992651d11aa79d5c63be1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/CurvatureBacktrackTests.experimental.cs.txt",
+      "size": 3889,
+      "sha256": "6dca90a1a4509e3e13825a9f85545036d56a10c97019a28b2715a4275603da4e"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/HYPOTHESES.md",
+      "size": 1414,
+      "sha256": "f6fdd1e5cf3ac5509c1bf6b789179b6b5e84099dc104a728e48d37cdd910f357"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/README.md",
+      "size": 4255,
+      "sha256": "374200cf344445653a49591676eef24cfa92a5750201e2d42f4f94b1e4f68b18"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/build-restored.log",
+      "size": 1175,
+      "sha256": "7e94ed8fc17a72bc00db141c587ae0e25813ab33064fe2681108e8dbe63289bd"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/build.log",
+      "size": 1175,
+      "sha256": "6b5d832ae8d579452695a05c792ccd3ae3fc92a711fac8ae3afda24d01583322"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/docs-exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/docs.log",
+      "size": 237,
+      "sha256": "52db49d0447f7fe2a16dd33315719632a3e06d22244f77e6a17e7bca7af1082e"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/experimental-AutonomousSearchService.cs.txt",
+      "size": 38810,
+      "sha256": "c85fc8a54fb3b8d8acc1cb4ee01a0a2c822dce567e885ddcfe9a7e0b08846d6f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/experimental-FieldConflictCompensationTests.cs.txt",
+      "size": 14942,
+      "sha256": "eadcf5f8bdabb382aa9387c260432db46e11fe38185db771a319da535871a8be"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/experimental-FixedTopologyOptimizer.cs.txt",
+      "size": 17506,
+      "sha256": "a9c355bf91251288710dc5cf0f915dd15e691d7152ce5397950def6fec12d721"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/experimental-TopologyTransmissionCompensation.cs.txt",
+      "size": 16536,
+      "sha256": "50fa54db4d5bff1913b2b64124cdcd53fe6cfae33e4d0f87ec08177c16581cfa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/frozen-protocol.json",
+      "size": 1224,
+      "sha256": "985fd30cbe8f4008e29d457f24b8d5afb6e6a54d0a416670bf8c42f391f8bbe7"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/summary.json",
+      "size": 83569,
+      "sha256": "14ac6a91f6a3146fe4ff00d6c5d5a65875fdf0f9b14b0635e67c38ee4a15cbb2"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/v10/full.json",
+      "size": 6778379,
+      "sha256": "4f490c29029afb08fb81a05d82eb7c653aaf6e9ce1771e083db9a5a1ae1df4a1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/v10/input.json",
+      "size": 7796,
+      "sha256": "724b3893be279842b1c7c82c24445b3809bed5e124e2a029b12b2206f84e0c25"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/v10/local.json",
+      "size": 6770005,
+      "sha256": "b3c358f37808d0a3cd39b906b315acd4118dba012dfbe0916818b47aab2462b8"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/v10/unqualified.staropt",
+      "size": 2512,
+      "sha256": "f3c79ca0a0b8e5f3fd114f5f27b7cb846874cd598819f8bf7f4ffd906283d887"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/v5/full.json",
+      "size": 6787404,
+      "sha256": "b1ae75d395f58db53c50e47298168bd0bd0fb32e4d72a7becebffe89535e413a"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/v5/input.json",
+      "size": 7794,
+      "sha256": "885003db5a69fd28da99008572e2f534fdb8f3537c0b4f2e54f27180f21d6e54"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/v5/local.json",
+      "size": 6774917,
+      "sha256": "1bb401124b1522fa61e84d78b69f04600a9a53a735b42a110272c740aebed764"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired/v5/unqualified.staropt",
+      "size": 2520,
+      "sha256": "b74dc0d564b88c069b2495ee13e26d7050e57dd44b31f755437761c000f7664f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired-exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/paired.log",
+      "size": 92,
+      "sha256": "049ab737fd79d1abc442fb5ddc77fe537ee95054405aba88bdff480200c0640b"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/protocol.json",
+      "size": 1224,
+      "sha256": "985fd30cbe8f4008e29d457f24b8d5afb6e6a54d0a416670bf8c42f391f8bbe7"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/rejected-v10-experiment.patch",
+      "size": 14221,
+      "sha256": "e62daa9c93fceb9ae9166ff87bc6b46d6c31e811b92de463c2c08a30cd0a3611"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/restored-exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/review.patch",
+      "size": 55806,
+      "sha256": "5bb9d72e4397ca4b5ec23314bfbe54dece3538d1ca590b417a87150a74f8e99b"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/saved-direction-model.json",
+      "size": 31756,
+      "sha256": "b259d520dda353fb80f5e701e81d0ce93bd89a7c129dda286c31f7edcb8929ee"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/test-evidence/axial-resume-v10.json",
+      "size": 40,
+      "sha256": "e4b758601c936333e158fce3804565ca6951670d0f2952aea783d7eab48147ca"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/test-evidence/axial-resume-v5.json",
+      "size": 40,
+      "sha256": "e4b758601c936333e158fce3804565ca6951670d0f2952aea783d7eab48147ca"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/test-evidence/axial-resume-v9.json",
+      "size": 40,
+      "sha256": "a0e8eafd36c617f2aa6cd251a98a6f6dd041e1de254d05a8f526efc6890df832"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/tests-corrected/regression.trx",
+      "size": 16454,
+      "sha256": "508d9969baa86b60990ee15dc75b1fc19c9911ccf79637aecac01fd0981ef992"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/tests-corrected-exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/tests-corrected.log",
+      "size": 2247,
+      "sha256": "b8c3562620e2b080c208cb1c4adb6ff4524588e4b4323d1ad7fc2a90c4b90d06"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/tests-exit",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/tests.log",
+      "size": 3019,
+      "sha256": "268cc5362fa45cc4b187f8317d82a77d88f565a78ea686d30b17dca77b5ef9f8"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/verification.json",
+      "size": 1514,
+      "sha256": "3b639f85f6fcd536e236c300e5634b32dfda39dba24461929cb176f0aa596bd2"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/verification.log",
+      "size": 1514,
+      "sha256": "3b639f85f6fcd536e236c300e5634b32dfda39dba24461929cb176f0aa596bd2"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-curvature-backtrack/verify.py",
+      "size": 3096,
+      "sha256": "957b816b2132e720c58cfa8ba9c5d989be3f5e55785361ff1d8f61280fe45a09"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/summary.json",
+      "size": 87728,
+      "sha256": "b1944a26399efac375a37c09c8195161e56f3fe055a425bff0bb01a5a404d136"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5/full.json",
+      "size": 7123004,
+      "sha256": "091e12a43c57e531e1c80d6beca77206c9f377b6fc820a46d3c4edbeb63a0984"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5/input.json",
+      "size": 8095,
+      "sha256": "c0c8be3c8d3defd8aca11108acde775a3200bf114f0dd5ab2c663f017b9ad2d8"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5/local.json",
+      "size": 7097181,
+      "sha256": "ac1a56b3d889d28e4be1e1b8a1c43be53d6f3846b5535b48f4fb0bebdd777ca2"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5/unqualified.staropt",
+      "size": 2509,
+      "sha256": "2950c0cd4789ddfdf2f1d287c1aa366f4c0caac0265e0f8950f35d60af370cc9"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/README.md",
+      "size": 4823,
+      "sha256": "47c32f000a04b145c6edd467471ccee904abda60d1914bcf104355c29fb4fe02"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/analysis-final.log",
+      "size": 9303,
+      "sha256": "9d40a027112e956dd4f5c1ec5709fa321a08b87c7043a33bbf2b5ff7989486c4"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/analysis.json",
+      "size": 41787,
+      "sha256": "6d12458e0bba0b3b10ba95ded3ee43b8774f7393457abe61ea278b3bf6bce928"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/analysis.log",
+      "size": 9303,
+      "sha256": "9d40a027112e956dd4f5c1ec5709fa321a08b87c7043a33bbf2b5ff7989486c4"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/analyze.py",
+      "size": 2967,
+      "sha256": "a81d9ad353e5ac5cb8f5bc877d45931a993aa4bd145c06b1d2be86556363eb3f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/build.log",
+      "size": 1942,
+      "sha256": "d0c409bfb8dd4a924ede3c18eee04e51f93bd30292de4a57db1a4c59d2f81929"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/check-exit",
+      "size": 4,
+      "sha256": "743c7850cccfba5e53a9002663ec1ddd1079315a98bdbfdde10e6044f56abefe"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/docs-activated-exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/docs-activated.log",
+      "size": 237,
+      "sha256": "3fdafb9d2e1b45f9b8019a4d9bf57ecf1337c79a0ff664acb3c5c660e5d9c990"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/docs.log",
+      "size": 38,
+      "sha256": "85571ca9591a135eeaf7b90dc6add702ed5adaf90b4a66665d6b34391e48ba24"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/exit-code",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/inputs.json",
+      "size": 507,
+      "sha256": "cba732c39b29a8645081dbb3d4d690e6f0fe5af06ac7e0c2b0ab88b238ba1c87"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/review.patch",
+      "size": 55315,
+      "sha256": "a3976db8123c7bc6cc3ef6f2beda3225da17ace4d447ef4b65a428d85c023535"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/run/envelope.json",
+      "size": 22880503,
+      "sha256": "119bb8047fb69ce2f5cf89af2c377550f0aff9fa7b51261d9bb124fa62a42b9c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/run.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/source-manifest.json",
+      "size": 2269,
+      "sha256": "de6fee08abbc8f7729da82e427fa9a291d28916dd3d393d99aa82bc1a10e4a29"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-maximum-envelope/verification.json",
+      "size": 789,
+      "sha256": "9689ae0ae3fec3f0728cbc35a2789826c8f3b51ab9fc4d33ff0392fa80a73e97"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/HYPOTHESES.md",
+      "size": 2188,
+      "sha256": "e13a65675be1402d89305e983b798191d0407dcb0d732b6fad44e470fdf87d7e"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/README.md",
+      "size": 7861,
+      "sha256": "7b9fcaf017b1778859487e7baacfe24d6f86605a735f6380ab16476a07572bc5"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/TangentCorrectionTests.experimental.cs.txt",
+      "size": 7160,
+      "sha256": "5c26a3b356ea290945f07111183ed920cec62a85d8905a75195dd41db9c87c09"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/build-final.log",
+      "size": 1095,
+      "sha256": "1d6c5a9bb0c82f011de6dc921dfade85b1011e6689d9f56c4a24697e4bc1fc0e"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/build-newton.log",
+      "size": 1095,
+      "sha256": "638441c7b498a6f44388fdf7db9460c69ed3ba408892b4fe4aacd60a75e9b1ef"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/build-paired.log",
+      "size": 1095,
+      "sha256": "77c5ec65cfc8e84b1b7e9455699fea83bc0c16eab8c81662e2e1b96d4051bb97"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/build-tolerance.log",
+      "size": 1095,
+      "sha256": "fa4000407438500bbd44e31ac48868d98135379e93875b19776f62f4ae13c7b1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/documentation.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/documentation.json",
+      "size": 327047,
+      "sha256": "e7d7862d920505543d73e51ec37b1ff5be273407463769289df63bfddcf57125"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/documentation.log",
+      "size": 237,
+      "sha256": "cb55ec33c3472d7c418d0a246f12905b84af6f28cfa7137e3d76794c66419dc6"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/native-audit/native-audits.json",
+      "size": 38511,
+      "sha256": "50cb20cdb824c598b23d7d86543d2263b5353f9274275af8b5c521f0ebb473b7"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/native-audit.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/native-audit.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/frozen-protocol.json",
+      "size": 1362,
+      "sha256": "b8c93db0103cd9d6d702c5fc08ad412bd72f8b33482b72680c442012e3f2384d"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/summary.json",
+      "size": 83566,
+      "sha256": "22b64696aaf611d00976a9930cfab22987a45608c938e5e379029765e7947a6a"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/v5/full.json",
+      "size": 6787404,
+      "sha256": "da371c1bb219a5a8f1432530eeaf7767765dea6aa0029ccd86089de2a2963588"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/v5/input.json",
+      "size": 7794,
+      "sha256": "885003db5a69fd28da99008572e2f534fdb8f3537c0b4f2e54f27180f21d6e54"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/v5/local.json",
+      "size": 6774917,
+      "sha256": "13208dee1f9badd5e8b7a0995ecaceceebed8cf1fe28aa7e8ab37d9557730fe0"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/v5/unqualified.staropt",
+      "size": 2520,
+      "sha256": "b74dc0d564b88c069b2495ee13e26d7050e57dd44b31f755437761c000f7664f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/v8/full.json",
+      "size": 6795606,
+      "sha256": "490b13d0bfb50dc048439c5faf2492bc2f92cdef433b7159518728c0882cd05d"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/v8/input.json",
+      "size": 7794,
+      "sha256": "a3dcaee8d3c0f0aff4de32dba844643e538fb5138c73c9beef44717b943dc2b2"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/v8/local.json",
+      "size": 6778770,
+      "sha256": "e3998dccd330c89af9530dd52650a020ca9220010df24009fe0a2597493840f3"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired/v8/unqualified.staropt",
+      "size": 2508,
+      "sha256": "65c4f193fbefdc5105d20580fc56d91fbef7dc435ad8c2ffe22b5bbdb661e56c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-paired.log",
+      "size": 91,
+      "sha256": "91517eff6a27568421d8450282c5d2718e6cd8601788e64e32ce6dc5a0b15d5f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/newton-protocol.json",
+      "size": 1362,
+      "sha256": "b8c93db0103cd9d6d702c5fc08ad412bd72f8b33482b72680c442012e3f2384d"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/frozen-protocol.json",
+      "size": 1310,
+      "sha256": "e0f1fa1ff1e11041e6b5f7ad46691d4702c66fb1bd4b1d9d688e948a2db5fff5"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/summary.json",
+      "size": 83561,
+      "sha256": "86a392c613db40bcb4fcf2fae812ba716e6ec347f039b45c482d0be5d26b2a26"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/v5/full.json",
+      "size": 6787404,
+      "sha256": "74e30506b57bb69c1083c40588f2916c6bb201c7141eeae4c359094401a53ff8"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/v5/input.json",
+      "size": 7794,
+      "sha256": "885003db5a69fd28da99008572e2f534fdb8f3537c0b4f2e54f27180f21d6e54"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/v5/local.json",
+      "size": 6774917,
+      "sha256": "def2cf6df4c98fb2d02df8bd218a941bb48af38ab4878dc260343141a8d67fc6"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/v5/unqualified.staropt",
+      "size": 2520,
+      "sha256": "b74dc0d564b88c069b2495ee13e26d7050e57dd44b31f755437761c000f7664f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/v7/full.json",
+      "size": 8744152,
+      "sha256": "790cd62d9b5f04b8a75dac097536f1d2e63698b73262e05143c870ad473dcb43"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/v7/input.json",
+      "size": 7794,
+      "sha256": "eef3a34bee0721f6d12bb1b6be43cd96e3e1e486a6725e3bc691b21eaf7f2ec9"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/v7/local.json",
+      "size": 6784542,
+      "sha256": "e96ce32ccde9e2c1001be7cb42f49c438f3ec0a155063ab47263308ffd24960d"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired/v7/unqualified.staropt",
+      "size": 2509,
+      "sha256": "f93d3a48c3f6002b8b71bec23426d44293614b725804f5782ae517afec15172a"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/paired.log",
+      "size": 91,
+      "sha256": "2a3267ad5aa9ee94e470def62bbf599aa3cd77546872453e697a37810421da66"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/patch-check.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/protocol.json",
+      "size": 1310,
+      "sha256": "e0f1fa1ff1e11041e6b5f7ad46691d4702c66fb1bd4b1d9d688e948a2db5fff5"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/rejected-v7-v8-experiments.patch",
+      "size": 24199,
+      "sha256": "7341b83305322be7d4c8f72d36b3ddcafc9eb61968ae7f568c11d9078039286a"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/review.patch",
+      "size": 45121,
+      "sha256": "d4f05876a368fd59a50d3c317ab0bc013a102f7731af6c3324ded676ab49801b"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/source-manifest.json",
+      "size": 2314,
+      "sha256": "d1f434a09f22b902266feb162d6410218aa64d48917c1681caf5857ad0db66d4"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/test-evidence-interior/exact-endpoint.json",
+      "size": 11427077,
+      "sha256": "408fa9149c26a49af02c81f4f1742aac785c57f79036398326007b1f3eb39bad"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/test-evidence-newton/exact-endpoint.json",
+      "size": 11427077,
+      "sha256": "01edbe5637c0e6d0444428d57f5f4b0b6b4e231746629f06dabb7b7f8a18ca5f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/test-evidence-rows/exact-endpoint.json",
+      "size": 11434463,
+      "sha256": "00955b92b74cf001587612f10ef9e39a01d48b0191aee47c24209d340f728b2c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/test-evidence-second/exact-endpoint.json",
+      "size": 11432465,
+      "sha256": "9271e895cd59f372fabd0668a4f96f98d3645707821eec201befe3060cd876b1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-final-corrected/final.trx",
+      "size": 76831,
+      "sha256": "9e14920bcf8778c54a0655a0a1a45a1d9ebe6bdca7ed22b103a89743bb976f1c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-final-corrected.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-final-corrected.log",
+      "size": 2168,
+      "sha256": "88f0c2e281463b68d181d84ae3243a518df86b6fddc2edfac3b9460f7fa6ced5"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-final.exit",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-final.log",
+      "size": 1776,
+      "sha256": "011b1523081260620248596866e0aaf72e2331cde09834477ef29482ad63b522"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-first/first.trx",
+      "size": 8120,
+      "sha256": "ddfee61a1a9e36b35735e57224f1ff78c64a9841c3b06c78c0ba01bad5423e8a"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-first.exit",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-first.log",
+      "size": 3002,
+      "sha256": "1ac9b958a5bd0911ceeab9cf29441f4e46b9c7a76b393dd0940b12e8ce1cd304"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-interior/interior.trx",
+      "size": 6394,
+      "sha256": "8b0f108c16e11d6586038cbdc75a15ccef49354c48c7f70406f1ee03fb4385ad"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-interior.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-interior.log",
+      "size": 2163,
+      "sha256": "6fc185894d5a5e4aad8f8033683047e131adeb8cb05d0ba81f6d394404ee22c0"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-newton/newton.trx",
+      "size": 14615,
+      "sha256": "6a2b27a10fa1f5e393cb3529ce3f6481c0b7a83d8c67017d91727c45eecaff9c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-newton.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-newton.log",
+      "size": 2159,
+      "sha256": "be06c96a12fe47a63eb640787e342d1440c293d842a7cd57610d453188e306a4"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-rows/rows.trx",
+      "size": 4933,
+      "sha256": "dcd063b1e7dea6a6cac15bf807de7885d1d1a68d080e3803ba375921a4fe5d75"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-rows.exit",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-rows.log",
+      "size": 3000,
+      "sha256": "0f52abdb0f7a27f2b75852cb7f612cf2ecfcf9c9f0dc8cc3622cf5bf4e232031"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-second/second.trx",
+      "size": 4933,
+      "sha256": "8d22e2d9e0130d08a1c57c1579067be3b43a233825e446736f06a00542c63124"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-second.exit",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tests-second.log",
+      "size": 3004,
+      "sha256": "43c0aed510cdf37b97f52acddbf6449e1df8b672225b88f68ead4ae47ae299f8"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/frozen-protocol.json",
+      "size": 1396,
+      "sha256": "72d1bfa27eec5c583c788c77fa9218a0eaefc7cf25857661e028bf075bd6e2e3"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/summary.json",
+      "size": 83547,
+      "sha256": "b5edaefea58b8d9d129de69e6763ee2e0b35dc0e77eec8a6f0100c841cc3e552"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/v5/full.json",
+      "size": 6787469,
+      "sha256": "b415616302429bb193f5570012ae856b4dcddca958b71f21a4aceaf15b365392"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/v5/input.json",
+      "size": 7794,
+      "sha256": "885003db5a69fd28da99008572e2f534fdb8f3537c0b4f2e54f27180f21d6e54"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/v5/local.json",
+      "size": 6774917,
+      "sha256": "9cf654f9f14bd063949a3b224065bd9d843730b4a5db8eb1f873f48bde7872c7"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/v5/unqualified.staropt",
+      "size": 2520,
+      "sha256": "b74dc0d564b88c069b2495ee13e26d7050e57dd44b31f755437761c000f7664f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/v9/full.json",
+      "size": 6791651,
+      "sha256": "39f025109e233ff825d1e599b0cfd191c731840df6c2e83badf165c8e5b89551"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/v9/input.json",
+      "size": 7794,
+      "sha256": "fe0c070d9ebf89fd12939e8b9d583ca33a5800f8cde92d9966dece02f94d9342"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/v9/local.json",
+      "size": 6774917,
+      "sha256": "2395eb70ed91a7f43b93404fecf5ea2df733cc6002750622a15a7430826c157d"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired/v9/unqualified.staropt",
+      "size": 2511,
+      "sha256": "08a1d15dc348f4833610df701ed390aeda60c7b1f8b068baa337480ec952abbc"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired.exit",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-paired.log",
+      "size": 91,
+      "sha256": "819e85ec96d032622cd9ce3363a01df9b79916860660c6e248c4e2466b4f2791"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/tolerance-protocol.json",
+      "size": 1396,
+      "sha256": "72d1bfa27eec5c583c788c77fa9218a0eaefc7cf25857661e028bf075bd6e2e3"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/verification.json",
+      "size": 4041,
+      "sha256": "6abdbbeea3b97f8443543f6166069781c5fe75895b198115e871cd0e31be3eb2"
+    },
+    {
+      "path": "validation/rechecks/2026-10-28/two-element-tangent-correction/verify.py",
+      "size": 4297,
+      "sha256": "388057098e99bebd4816b9982bf220a1a80919f2bcf860c70f6e294628910c7b"
+    }
+  ],
+  "notes": [
+    "No binaries, credentials or full repository included. Extract into a copy at the recorded base; apply review.patch or use included modified files, not both.",
+    "Includes original exact v5 endpoint, checksum-pinned checkpoint/input, all current failed trials, logs, tests, offline diagnostic scripts and reports.",
+    "Version4 adds one v5/v10 same-budget pair and 9 focused regression results. v10 worsened quality and was removed; original failure evidence preserved. Current cumulative review.patch is in two-element-curvature-backtrack. No search reached qualification."
+  ]
+}

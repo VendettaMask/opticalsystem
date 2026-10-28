@@ -1,0 +1,109 @@
+{
+  "sourceHashesVerified": true,
+  "identicalPairedInputs": true,
+  "originalBoundsAndGatesPreserved": true,
+  "runs": [
+    {
+      "run": "control2",
+      "version": 5,
+      "qualified": false,
+      "rmsUm": 55.9111224072271,
+      "maximumUm": 161.41488921991032,
+      "distortionPercent": 2.999862154908374,
+      "efl": 24.988546914349723,
+      "fNumber": 3.4012060676170823,
+      "violationCodes": [
+        "field:33:rms",
+        "field:34:maximum",
+        "field:34:rms"
+      ],
+      "allIntegrationRays": true,
+      "allCheckRays": true,
+      "functions": 36,
+      "gradients": 34,
+      "rays": 1333818,
+      "seconds": 13.2719123,
+      "accepted": 15,
+      "phaseRays": {
+        "InitialRays": 424672,
+        "LocalRays": 85658,
+        "FullRays": 400000,
+        "FinalRays": 423488
+      },
+      "mechanicalRejections": 5
+    },
+    {
+      "run": "repair",
+      "version": 6,
+      "qualified": false,
+      "rmsUm": 58.58308535317111,
+      "maximumUm": 166.3562728230625,
+      "distortionPercent": 3.000000009858762,
+      "efl": 24.98817049798978,
+      "fNumber": 3.4063137798869745,
+      "violationCodes": [
+        "field:33:maximum",
+        "field:33:rms",
+        "field:34:distortion",
+        "field:34:maximum",
+        "field:34:rms"
+      ],
+      "allIntegrationRays": true,
+      "allCheckRays": true,
+      "functions": 40,
+      "gradients": 38,
+      "rays": 1300666,
+      "seconds": 11.5007867,
+      "accepted": 7,
+      "phaseRays": {
+        "InitialRays": 424672,
+        "LocalRays": 51394,
+        "FullRays": 400000,
+        "FinalRays": 424600
+      },
+      "mechanicalRejections": 11
+    },
+    {
+      "run": "coordinate-repair",
+      "version": 5,
+      "qualified": false,
+      "rmsUm": 55.9258927246604,
+      "maximumUm": 161.4612750551711,
+      "distortionPercent": 2.999882641658419,
+      "efl": 24.988204152476655,
+      "fNumber": 3.4018150286658932,
+      "violationCodes": [
+        "field:33:rms",
+        "field:34:maximum",
+        "field:34:rms"
+      ],
+      "allIntegrationRays": true,
+      "allCheckRays": true,
+      "functions": 31,
+      "gradients": 29,
+      "rays": 1333862,
+      "seconds": 11.9896333,
+      "accepted": 13,
+      "phaseRays": {
+        "InitialRays": 424672,
+        "LocalRays": 85658,
+        "FullRays": 400000,
+        "FinalRays": 423532
+      },
+      "mechanicalRejections": 0
+    }
+  ],
+  "searchRaysAllAttempts": 3968346,
+  "nativeAuditRays": 423532,
+  "diagnosticRays": {
+    "diagnosis": 154162,
+    "spatial2": 161416,
+    "diagnostic-final": 161416
+  },
+  "limitations": [
+    "Initial spatial-diagnosis failed after eight probes before writing counters; this unreported diagnostic work is not included in known totals.",
+    "Historical checkpoint restore and two historical tests fail physical fingerprint validation on Linux; no validation bypass or historical rewrite.",
+    "v6 experiment was worse and is not retained in production; patch and all endpoints are retained.",
+    "Neither control nor repair qualifies; manufacture and first-order passes do not establish image quality."
+  ]
+}

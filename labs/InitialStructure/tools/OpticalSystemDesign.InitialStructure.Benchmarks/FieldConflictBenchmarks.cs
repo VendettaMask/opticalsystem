@@ -9,12 +9,70 @@ using OpticalSystemDesign.InitialStructure.Persistence;
 
 internal static class FieldConflictBenchmarks
 {
+    public static async Task<int> ActiveDiagnose(string[] args)
+    {
+        if (args.Length != 2) throw new ArgumentException("--active-constraint-diagnose <frozen v5 directory> <new directory>");
+        var output = NewDirectory(args[1]);
+        var endpoint = JsonSerializer.Deserialize<FixedTopologyResult>(await File.ReadAllTextAsync(Path.Combine(args[0], "full.json")), TopologySamplingBenchmarks.Json)!;
+        using var input = JsonDocument.Parse(await File.ReadAllTextAsync(Path.Combine(args[0], "input.json")));
+        var sampling = JsonSerializer.Deserialize<FixedTopologyOptions>(input.RootElement.GetProperty("Full").GetRawText(), TopologySamplingBenchmarks.Json)!.Sampling;
+        var source = TopologyCompiler.Compile(endpoint.Topology, endpoint.Constraints);
+        var binding = TopologyParameterBinder.Bind(source, endpoint.Variables);
+        var objective = new FixedTopologyObjective(source, binding, endpoint.Targets, sampling);
+        using var quota = SequentialTraceMeasurement.BeginCpuBudget(500_000);
+        var q = binding.InitialCoordinates.ToArray();
+        var before = objective.Evaluate(q, includeJacobian: true, includeConstraintTangents: true);
+        var policy = new TopologyTransmissionCompensation(objective.ResidualIds, 5);
+        var rows = new List<object>();
+        foreach (var fraction in new[] { 1.0, .5, .25, .125, .0625, .03125, .015625, .0078125 })
+        {
+            var proposal = policy.Propose(before, q, binding, Enumerable.Range(0, q.Length).ToArray(), fraction);
+            var after = objective.Evaluate(proposal.Coordinates, includeConstraintTangents: true);
+            rows.Add(new { Fraction = fraction, proposal.Coordinates, proposal.Rank, after.Available, after.Failure, Accepted = policy.Accept(before, after),
+                After = after.ConstraintTangents, Residuals = after.Residuals });
+        }
+        var axial = new List<object>();
+        for (var sample = 1; sample <= 20; sample++)
+        {
+            var moved = q.ToArray(); moved[5] += sample * .001;
+            var raw = OpticalSystemDesign.Core.Differentiation.OpticalDesignParameters.Apply(source.Snapshot, binding.CoreParameters, moved);
+            var originalStop = source.CreateOptic().SurfaceGroup.Items[source.SurfaceIndices[source.Topology.Stop.Id]].CoordinateSystem.Origin.Z;
+            var appliedStop = raw.SurfaceGroup.Items[source.SurfaceIndices[source.Topology.Stop.Id]].CoordinateSystem.Origin.Z;
+            string? failure = null;
+            try { TopologyParameterBinder.Apply(source, binding, moved); } catch (Exception error) { failure = error.Message; }
+            axial.Add(new { Sample = sample, OriginalStop = originalStop, AppliedStop = appliedStop, Drift = appliedStop - originalStop, Failure = failure });
+        }
+        await Write(output, "axial-roundtrip.json", axial);
+        var pupils = OpticalSystemDesign.Core.Raytrace.ApertureSampler.GenerateGaussianQuadrature(4, 16).ToArray();
+        var optical = OpticalSystemDesign.Core.Differentiation.DifferentiableOpticalMetrics.EvaluateAtFields(source.CreateOptic(), binding.CoreParameters,
+            new[] { (0.0, 0.0), (0.0, 2.0 / 3), (0.0, 1.0) }, pupils, usePhysicalStop: true);
+        await Write(output, "spot-rays.json", optical.Fields.Select(field => new { field.NormalizedFieldY,
+            Rms = field.RmsRadiusMillimeters.Value, Rays = field.Rays.Select((ray, index) => new { Wave = index / pupils.Length,
+                PupilX = pupils[index % pupils.Length].X, PupilY = pupils[index % pupils.Length].Y, X = ray.X.Value, Y = ray.Y.Value, ray.Weight }) }));
+        await Write(output, "diagnosis.json", new { objective.ResidualIds, Before = before, Coordinates = q, Variables = endpoint.Variables, Rows = rows, ActualRays = quota.RayCount });
+        return 0;
+    }
+
     public static async Task<int> Audit(string[] args)
     {
         if (args.Length != 2) throw new ArgumentException("--field-conflict-audit <comparison directory> <new directory>");
         var root = Path.GetFullPath(args[0]); var output = NewDirectory(args[1]);
         using var protocol = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(root, "frozen-protocol.json")));
-        var state = await new AutonomousSearchCheckpointStore().LoadAsync(protocol.RootElement.GetProperty("Checkpoint").GetString()!);
+        TopologyTargets targets;
+        TopologyConstraints constraints;
+        if (protocol.RootElement.TryGetProperty("Endpoint", out _))
+        {
+            var bytes = await File.ReadAllBytesAsync(protocol.RootElement.GetProperty("Input").GetString()!);
+            if (Hash(bytes) != protocol.RootElement.GetProperty("InputSha256").GetString()) throw new InvalidDataException("Frozen input changed.");
+            using var input = JsonDocument.Parse(bytes);
+            targets = JsonSerializer.Deserialize<TopologyTargets>(input.RootElement.GetProperty("Targets").GetRawText(), TopologySamplingBenchmarks.Json)!;
+            constraints = JsonSerializer.Deserialize<TopologyConstraints>(input.RootElement.GetProperty("Constraints").GetRawText(), TopologySamplingBenchmarks.Json)!;
+        }
+        else
+        {
+            var state = await new AutonomousSearchCheckpointStore().LoadAsync(protocol.RootElement.GetProperty("Checkpoint").GetString()!);
+            targets = state.Plan.Targets; constraints = state.Plan.Constraints;
+        }
         using var summary = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(root, "summary.json")));
         var rows = new List<object>();
         foreach (var row in summary.RootElement.GetProperty("Runs").EnumerateArray())
@@ -23,8 +81,8 @@ internal static class FieldConflictBenchmarks
             var expected = JsonSerializer.Deserialize<TopologyAssessment>(row.GetProperty("Final").GetRawText(), TopologySamplingBenchmarks.Json)!;
             var native = Path.Combine(root, "v" + version, expected.MeetsTargets ? "qualified.staropt" : "unqualified.staropt");
             using var quota = SequentialTraceMeasurement.BeginCpuBudget(800_000);
-            var imported = await AutonomousDesignFiles.ImportSeedAsync(native, state.Plan.Constraints);
-            var actual = TopologyValidator.Validate(TopologyCompiler.Compile(imported, state.Plan.Constraints), state.Plan.Targets);
+            var imported = await AutonomousDesignFiles.ImportSeedAsync(native, constraints);
+            var actual = TopologyValidator.Validate(TopologyCompiler.Compile(imported, constraints), targets);
             var matched = actual.Completed && actual.MeetsTargets == expected.MeetsTargets && actual.ProtocolFingerprint == expected.ProtocolFingerprint
                 && Equal(actual.EffectiveFocalLengthMillimeters, expected.EffectiveFocalLengthMillimeters, 1e-9) && Equal(actual.FNumber, expected.FNumber, 1e-9)
                 && actual.Fields.Length == expected.Fields.Length && actual.Fields.Zip(expected.Fields, (a, b) => a.ValidRays == b.ValidRays
@@ -105,11 +163,39 @@ internal static class FieldConflictBenchmarks
         var checkpoint = protocol.GetProperty("Checkpoint").GetString()!;
         if (Hash(await File.ReadAllBytesAsync(checkpoint)) != protocol.GetProperty("Sha256").GetString()) throw new InvalidDataException("Frozen source changed.");
         var output = NewDirectory(args[1]); await File.WriteAllBytesAsync(Path.Combine(output, "frozen-protocol.json"), bytes);
-        var state = await new AutonomousSearchCheckpointStore().LoadAsync(checkpoint);
-        var candidate = state.Candidates.Single(c => c.Topology.Elements.Length == 2);
-        var variables = state.Events.Last(e => e.Optimization is not null).Optimization!.Variables;
-        var source = TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints);
-        var policy = state.Plan.Options;
+        CompiledTopology source;
+        System.Collections.Immutable.ImmutableArray<TopologyVariableRequest> variables;
+        TopologyTargets targets;
+        TopologyConstraints constraints;
+        AutonomousSearchOptions policy;
+        if (protocol.TryGetProperty("Endpoint", out var endpointPath))
+        {
+            var endpointBytes = await File.ReadAllBytesAsync(endpointPath.GetString()!);
+            var inputBytes = await File.ReadAllBytesAsync(protocol.GetProperty("Input").GetString()!);
+            if (Hash(endpointBytes) != protocol.GetProperty("EndpointSha256").GetString()
+                || Hash(inputBytes) != protocol.GetProperty("InputSha256").GetString()) throw new InvalidDataException("Frozen endpoint/input changed.");
+            var endpoint = JsonSerializer.Deserialize<FixedTopologyResult>(endpointBytes, TopologySamplingBenchmarks.Json)!;
+            using var input = JsonDocument.Parse(inputBytes);
+            variables = JsonSerializer.Deserialize<System.Collections.Immutable.ImmutableArray<TopologyVariableRequest>>(input.RootElement.GetProperty("Variables").GetRawText(), TopologySamplingBenchmarks.Json);
+            targets = JsonSerializer.Deserialize<TopologyTargets>(input.RootElement.GetProperty("Targets").GetRawText(), TopologySamplingBenchmarks.Json)!;
+            constraints = JsonSerializer.Deserialize<TopologyConstraints>(input.RootElement.GetProperty("Constraints").GetRawText(), TopologySamplingBenchmarks.Json)!;
+            if (ContentFingerprint.Compute(endpoint.Variables) != ContentFingerprint.Compute(variables)
+                || ContentFingerprint.Compute(endpoint.Targets) != ContentFingerprint.Compute(targets)
+                || ContentFingerprint.Compute(endpoint.Constraints) != ContentFingerprint.Compute(constraints)) throw new InvalidDataException("Original bounds/gates changed.");
+            policy = new() { MaximumFunctionEvaluations = 600, MaximumGradientEvaluations = 100, MaximumTracedRays = 2_000_000,
+                MaximumStageTracedRays = 400_000, FinalValidationRayReserve = 800_000, TimeLimit = TimeSpan.FromSeconds(60),
+                Local = JsonSerializer.Deserialize<FixedTopologyOptions>(input.RootElement.GetProperty("Local").GetRawText(), TopologySamplingBenchmarks.Json)!,
+                Full = JsonSerializer.Deserialize<FixedTopologyOptions>(input.RootElement.GetProperty("Full").GetRawText(), TopologySamplingBenchmarks.Json)! };
+            source = TopologyCompiler.Compile(endpoint.Topology, constraints);
+        }
+        else
+        {
+            var state = await new AutonomousSearchCheckpointStore().LoadAsync(checkpoint);
+            var candidate = state.Candidates.Single(c => c.Topology.Elements.Length == 2);
+            variables = state.Events.Last(e => e.Optimization is not null).Optimization!.Variables;
+            targets = state.Plan.Targets; constraints = state.Plan.Constraints; policy = state.Plan.Options;
+            source = TopologyCompiler.Compile(candidate.Topology, constraints);
+        }
         if (policy.MaximumFunctionEvaluations != 600 || policy.MaximumGradientEvaluations != 100 || policy.MaximumTracedRays != 2_000_000
             || policy.MaximumStageTracedRays != 400_000 || policy.FinalValidationRayReserve != 800_000 || policy.TimeLimit != TimeSpan.FromSeconds(60)
             || policy.Local.MaximumUpdates != 4 || policy.Full.MaximumUpdates != 99 || variables.Length != 12) throw new InvalidDataException("Frozen budget changed.");
@@ -127,28 +213,28 @@ internal static class FieldConflictBenchmarks
                 PerformFinalAssessment = false,
                 MaximumGradientEvaluations = 100 - localOptions.MaximumGradientEvaluations
             };
-            await Write(directory, "input.json", new { Source = source.Topology, Variables = variables, state.Plan.Targets, state.Plan.Constraints, Local = localOptions, Full = fullOptions });
+            await Write(directory, "input.json", new { Source = source.Topology, Variables = variables, Targets = targets, Constraints = constraints, Local = localOptions, Full = fullOptions });
             var timer = Stopwatch.StartNew(); using var deadline = new CancellationTokenSource(policy.TimeLimit);
             using var quota = SequentialTraceMeasurement.BeginCpuBudget(policy.MaximumTracedRays);
             TopologyAssessment initial;
-            using (var check = SequentialTraceMeasurement.BeginCpuBudget(800_000)) initial = TopologyValidator.Validate(source, state.Plan.Targets, deadline.Token);
+            using (var check = SequentialTraceMeasurement.BeginCpuBudget(800_000)) initial = TopologyValidator.Validate(source, targets, deadline.Token);
             if (!initial.Completed) throw new InvalidDataException("Initial independent assessment incomplete.");
             var initialRays = quota.RayCount;
             FixedTopologyResult local;
             using (var phase = SequentialTraceMeasurement.BeginCpuBudget(400_000))
-                local = FixedTopologyOptimizer.Run(source, TopologyParameterBinder.Bind(source, variables), state.Plan.Targets, localOptions, deadline.Token);
+                local = FixedTopologyOptimizer.Run(source, TopologyParameterBinder.Bind(source, variables), targets, localOptions, deadline.Token);
             var localRays = quota.RayCount - initialRays;
-            var next = TopologyCompiler.Compile(local.Topology, state.Plan.Constraints);
+            var next = TopologyCompiler.Compile(local.Topology, constraints);
             FixedTopologyResult full;
             using (var phase = SequentialTraceMeasurement.BeginCpuBudget(Math.Min(400_000, 2_000_000 - quota.RayCount - 800_000)))
-                full = FixedTopologyOptimizer.Run(next, TopologyParameterBinder.Bind(next, variables), state.Plan.Targets, fullOptions, deadline.Token);
+                full = FixedTopologyOptimizer.Run(next, TopologyParameterBinder.Bind(next, variables), targets, fullOptions, deadline.Token);
             var fullRays = quota.RayCount - initialRays - localRays;
             TopologyAssessment final;
             using (var check = SequentialTraceMeasurement.BeginCpuBudget(Math.Min(800_000, 2_000_000 - quota.RayCount)))
-                final = TopologyValidator.Validate(TopologyCompiler.Compile(full.Topology, state.Plan.Constraints), state.Plan.Targets, deadline.Token);
+                final = TopologyValidator.Validate(TopologyCompiler.Compile(full.Topology, constraints), targets, deadline.Token);
             var elapsed = timer.Elapsed;
             if (final.Completed)
-                await AutonomousDesignFiles.ExportAsync(new("v" + version, null, full.Topology, final, final.Violations.Length), state.Plan.Constraints,
+                await AutonomousDesignFiles.ExportAsync(new("v" + version, null, full.Topology, final, final.Violations.Length), constraints,
                     Path.Combine(directory, final.MeetsTargets ? "qualified.staropt" : "unqualified.staropt"));
             await Write(directory, "local.json", local); await Write(directory, "full.json", full);
             rows.Add(new

@@ -1,0 +1,53 @@
+{
+  "verified": true,
+  "sourceSha256": "091e12a43c57e531e1c80d6beca77206c9f377b6fc820a46d3c4edbeb63a0984",
+  "runs": [
+    {
+      "version": 5,
+      "rmsUm": 55.9258927246604,
+      "maximumUm": 161.4612750551711,
+      "distortionPercent": 2.999882641658419,
+      "rays": 1333862,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 12.3137392,
+      "accepted": 13,
+      "allValid": true,
+      "violations": [
+        "field:33:rms",
+        "field:34:rms",
+        "field:34:maximum"
+      ]
+    },
+    {
+      "version": 10,
+      "rmsUm": 56.33960913546058,
+      "maximumUm": 164.61600754532333,
+      "distortionPercent": 2.999817269061479,
+      "rays": 1173758,
+      "functions": 21,
+      "gradients": 19,
+      "seconds": 7.7034774,
+      "accepted": 8,
+      "allValid": true,
+      "violations": [
+        "field:33:rms",
+        "field:33:maximum",
+        "field:34:rms",
+        "field:34:maximum"
+      ]
+    }
+  ],
+  "totalSearchRaysAcrossTwoSeparateBudgets": 2507620,
+  "testDiagnosticRays": {
+    "axial-resume-v10": 102748,
+    "axial-resume-v5": 102748,
+    "axial-resume-v9": 102764
+  },
+  "notes": [
+    "No additional optical diagnostic was run; saved-data tests replay existing evidence.",
+    "Initial failed build performed no tests/ray work. Nine corrected focused regressions passed.",
+    "v10 removed; no default behavior changed; all experimental source and failure evidence preserved.",
+    "Neither result qualifies; not proof of physical impossibility."
+  ]
+}

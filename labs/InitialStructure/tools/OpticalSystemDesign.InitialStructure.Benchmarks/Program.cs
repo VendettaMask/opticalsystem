@@ -19,6 +19,8 @@ if (args.FirstOrDefault() == "--four-to-three-filter") return await FourToThreeR
 if (args.FirstOrDefault() == "--four-to-three-audit") return await FourToThreeRecoveryBenchmarks.Audit(args[1..]);
 if (args.FirstOrDefault() == "--reduction-continuation") return await ReductionContinuationBenchmarks.Run(args[1..]);
 if (args.FirstOrDefault() == "--reduction-diagnose") return await ReductionContinuationBenchmarks.Diagnose(args[1..]);
+if (args.FirstOrDefault() == "--maximum-envelope-diagnose") return await MaximumEnvelopeBenchmarks.Run(args[1..]);
+if (args.FirstOrDefault() == "--active-constraint-diagnose") return await FieldConflictBenchmarks.ActiveDiagnose(args[1..]);
 if (args.FirstOrDefault() == "--field-conflict-diagnose") return await FieldConflictBenchmarks.Diagnose(args[1..]);
 if (args.FirstOrDefault() == "--field-conflict-compare") return await FieldConflictBenchmarks.Compare(args[1..]);
 if (args.FirstOrDefault() == "--field-conflict-audit") return await FieldConflictBenchmarks.Audit(args[1..]);
