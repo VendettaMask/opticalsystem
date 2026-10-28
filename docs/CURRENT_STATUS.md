@@ -1,3 +1,5 @@
+2026-10-28 GitHub阶段同步：9507a25ecf98c257de6b6baf4b9b352a653dd2a2已推送独立无焦分支并核验远端SHA。官方2026 R1确认R转双三角形及Glue Distance边界规则；采集器补NSC上下文和33点逐面探针，离线检查通过，未执行原生。见 [原生边界契约报告](AFOCAL_NATIVE_EDGE_CONTRACT_2026-10-28.md)。
+
 2026-10-28 阶段同步准备：用户最新消息授权commit/push独立`fix/afocal-precision-20261028`分支；不合并main、不发布。新增PSF夹具改为复用已有冻结归档和哈希清单，较大运行证据保留Library。
 
 2026-10-28 无焦棱镜路径：42条实际内部命中记录确认非共面POB三角片切换，独立平面/Snell核验通过；本阶段未改光学算法。2项观察器无扰动测试通过。见 [路径报告](AFOCAL_POLYGON_PATHS_2026-10-28.md)。

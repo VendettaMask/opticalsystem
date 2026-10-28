@@ -59,3 +59,5 @@ Y也趋于同一平台。这分离了固定分支跳变和正常非线性截断�
 内部命中和折痕已确认；但不能据此判定原生采用相同的非共面POB解释。若需最终归因原生3/6项及节点差异，仍缺原生2026 R1对本文件R四边形的三角划分/拟合面规则、对角线命中规则，以及中心和±探针对应的原生内部面ID/法向/命中点。无需无目标重跑150项，也不应修改冻结顶点猜测原生行为。
 
 证据在 [目录](../validation/rechecks/2026-10-28/afocal-psf-contract/README.md)：`polygon-paths-final.trx`保存全部实际事件；`polygon-path-verification.json`保存独立误差、分支、折痕与全部诊断扫描。可复现脚本 [Verify-PolygonPaths.py](../tools/diagnostics/AfocalPsfContract20261028/Verify-PolygonPaths.py)。本轮没有运行原生Zemax、外部采集、GPU或AutoLens，没有推送/发布。原失败、不可比、参考、门槛及POB完整保留。
+
+官方语义后续核验：2026 R1手册确认R内部转为双三角形，并说明异法向面边缘的Glue Distance吸收规则；仍缺本例对角线和实际边界设置。见[原生边界契约报告](AFOCAL_NATIVE_EDGE_CONTRACT_2026-10-28.md)。不得据通用规则猜测删除节点或修改模型。

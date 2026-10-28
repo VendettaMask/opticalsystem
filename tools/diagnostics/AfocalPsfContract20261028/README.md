@@ -37,11 +37,14 @@ Jobs / interpretation:
   retained. Raw arrays, text, settings and selectors distinguish stale-analysis
   reuse from reference-center semantics. They do not replace the original Field=0
   evidence or its three Differences.
-- Two 13-ray binocular boundary probes: center and each signed axis at radii
+- Two 33-ray binocular boundary/seam probes: center and each signed axis at radii
   0.99999, 1, 1.00001, Field=1, Wavelength=2. Output error/vignette/intensity,
-  image position and direction identifies physical admission either side of the
+  per-surface position and direction identifies physical admission either side of the
   endpoint. `image-geometry.json` has OPDMode.None: do not interpret its OPD column.
   These probes cannot by themselves reveal the native FFT pixel-to-launch mapping.
+  Each job also traces 20 central probes: signed X/Y at h=.01,.003,.001,.0003,.0001.
+  Full sequential surface records are requested, including surfaces 5 and 6 before/after
+  the polygon group; internal facet IDs are still not exposed by this batch API.
 
 Existing exact endpoints are already frozen and valid in both configurations;
 `existing-evidence.json` exports their original input/index correspondence and
@@ -59,3 +62,11 @@ comparisons remain inapplicable; these 11 jobs intentionally do not invent eithe
 Cloud validation covers offline preparation, exact input hashes, all 11 selectors,
 10 existing endpoint identities and bounded job structure. Native compilation and
 execution are **not verified** without proprietary assemblies/license.
+
+2026-10-28 native-edge context update: pupil probes also write
+`afocal-nsc-context.json`, listing discovered SystemData interface property names
+and primitive NSC/non-sequential settings (including glue distance only if exposed).
+Missing properties/sections remain explicitly unavailable, not zero defaults.
+`completeNativeEdgeContract=false`: API metadata and sequential group exit rays do
+not establish internal facet IDs, rectangle diagonal or edge-selection behavior.
+The 11-job cap and 120-second per-job timeout are unchanged. No native run performed.

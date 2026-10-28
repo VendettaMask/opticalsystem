@@ -28,3 +28,5 @@ Polygon path phase: two observation-invariance tests pass for 42 rays. Independe
 GitHub storage: large derived ZIP and verbose TRX are excluded from new commits and preserved in Library `libfile_bd0a0b365150819188071f73122732bd` version 4; see `evidence-storage.json` for exact paths/hashes. Small original failures and text summaries remain here. PSF tests now read the existing committed 2026-10-27 archive using the new per-member hash manifest; no native reference changes.
 
 GitHub fixture packaging check: `github-fixture-reuse.trx` records 40 passing contract tests after switching to the existing source archive, 0 failures/skips, ~20 seconds. Original thresholds and outcomes unchanged.
+
+Native edge contract phase: `native-edge-plan-verification.json` checks 11 offline jobs with two 33-point full-surface probe sets. NSC context capture added but native compilation/execution remains unverified. See the dated native-edge-contract report for official 2026 R1 sources and remaining ambiguity.

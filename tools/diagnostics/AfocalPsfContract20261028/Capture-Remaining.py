@@ -73,11 +73,15 @@ def prepare(output, api):
             for x, y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                 for r in [1 - 1e-5, 1, 1 + 1e-5]:
                     points.append(dict(fieldNumber=1, hx=0, hy=0, px=x*r, py=y*r))
+            for h in [.01, .003, .001, .0003, .0001]:
+                for x, y in [(h, 0), (-h, 0), (0, h), (0, -h)]:
+                    points.append(dict(fieldNumber=1, hx=0, hy=0, px=x, py=y))
+            assert len(points) == 33
             source = output / 'Binocular_System.ZMX'
             assert sha(source.read_bytes()) == req['inputSha256']
             req.update(input=str(source.resolve()), zosApiPath=api, pointInputs=points,
-                       imageGeometryOnly=True, captureScreenshots=False)
-            jobs.append(('binocular-c' + str(config) + '-boundary13', req))
+                       imageGeometryOnly=False, pointKind='pupil-boundary-and-seam', captureScreenshots=False)
+            jobs.append(('binocular-c' + str(config) + '-boundary-and-seam33', req))
         evidence['existingEndpoints'] = endpoints
         pupil_text = []
         for member in grids.namelist():
