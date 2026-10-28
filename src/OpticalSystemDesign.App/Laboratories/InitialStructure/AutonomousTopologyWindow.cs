@@ -95,6 +95,7 @@ public sealed partial class AutonomousTopologyWindow : Window
         var bar = new WrapPanel { Orientation = Orientation.Horizontal };
         Add("AutonomousNew", "新建示例任务", NewDraft);
         Add("AutonomousImport", "导入起点", ImportAsync);
+        Add("AutonomousPrepareSeeds", "生成一阶起点", PrepareSeedsAsync);
         Add("AutonomousOpenPlan", "打开设计计划", OpenPlanAsync);
         Add("AutonomousSavePlan", "保存设计计划", SavePlanAsync);
         Add("AutonomousOpenRecord", "打开自主记录", OpenRecordAsync);
@@ -123,6 +124,13 @@ public sealed partial class AutonomousTopologyWindow : Window
         Number("AutonomousReserve", "终验预留追迹", 200000, 1, 100_000_000);
         Number("AutonomousMinutes", "运行时限 (分钟)", 5, .01m, 240);
         Number("AutonomousSeed", "搜索种子", 42, 0, int.MaxValue);
+        Choice("AutonomousDiversity", "保留不同结构与玻璃组合", false);
+        _inputs.Children.Add(Text("一阶起点准备（独立预算）"));
+        Number("AutonomousSeedStarts", "一阶起点尝试上限", 12, 1, 64);
+        Number("AutonomousSeedRetained", "一阶保留起点数", 4, 1, 8);
+        Number("AutonomousSeedFunctions", "一阶评价尝试上限", 300, 2, 10000);
+        Number("AutonomousSeedSeconds", "一阶准备时限 (秒)", 15, .01m, 120);
+        _inputs.Children.Add(_seedSummary);
         Choice("AutonomousStructure", "允许改变片数", true);
         Choice("AutonomousReductionOnly", "仅从达标处方减片", false);
         Choice("AutonomousGradual", "逐步移除难删镜片", true);
@@ -174,6 +182,7 @@ public sealed partial class AutonomousTopologyWindow : Window
         void Add(string id, string label, Func<Task> action, bool accent = false)
         {
             var button = Named(new Button { Content = label, Margin = new Thickness(0, 0, 6, 6) }, id);
+            AutomationProperties.SetName(button, label);
             if (accent) button.Classes.Add("accent");
             button.Click += (_, _) =>
             {
@@ -190,20 +199,22 @@ public sealed partial class AutonomousTopologyWindow : Window
         var panel = new Grid { ColumnDefinitions = new("*,130"), ColumnSpacing = 8 };
         panel.Children.Add(Text(label));
         var number = Named(new NumericUpDown { Value = value, Minimum = minimum, Maximum = maximum, FormatString = "0.########", Increment = value >= 100 ? 10 : .1m }, id);
-        Grid.SetColumn(number, 1); panel.Children.Add(number); _inputs.Children.Add(panel); _numbers.Add(id, number); number.ValueChanged += (_, _) => { if (!_applyingPlan) _planEdited = true; };
+        AutomationProperties.SetName(number, label);
+        Grid.SetColumn(number, 1); panel.Children.Add(number); _inputs.Children.Add(panel); _numbers.Add(id, number); number.ValueChanged += (_, _) => { if (!_applyingPlan) MarkPlanEdited(); };
         number.PropertyChanged += (_, args) =>
         {
             if (args.Property == NumericUpDown.TextProperty && !_applyingPlan
-                && (!decimal.TryParse(number.Text, NumberStyles.Number, CultureInfo.CurrentCulture, out var parsed) || number.Value != parsed)) _planEdited = true;
+                && (!decimal.TryParse(number.Text, NumberStyles.Number, CultureInfo.CurrentCulture, out var parsed) || number.Value != parsed)) MarkPlanEdited();
         };
     }
     private void Choice(string id, string label, bool value)
     {
         var control = Named(new CheckBox { Content = label, IsChecked = value }, id); _choices.Add(id, control);
+        AutomationProperties.SetName(control, label);
         control.IsCheckedChanged += (_, _) =>
         {
             if (_applyingPlan) return;
-            _planEdited = true;
+            MarkPlanEdited();
             if (id == "AutonomousReductionOnly" && control.IsChecked == true)
             {
                 _choices["AutonomousStructure"].IsChecked = true;
@@ -250,6 +261,7 @@ public sealed partial class AutonomousTopologyWindow : Window
     private void LanguageChanged(object? sender, EventArgs args)
     {
         if (_closed) return;
+        RefreshSeedSummary();
         foreach (var (column, title) in _columnTitles) column.Header = UiLocalization.Text(title);
         if (_session.Checkpoint is { } state) Publish(state); else Refresh();
     }

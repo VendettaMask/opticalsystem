@@ -71,7 +71,8 @@ internal sealed partial class CameraImagingService
     }
     private static string IntegrationCsv(CameraIntegrationDiagnostics integration)
     {
-        var text = new StringBuilder("wavelength_nm,weight_nm,irradiance_w_m2_nm,reflectance,qe_r,qe_g,qe_b\n");
+        var rhoColumn = integration.Materials is null ? "reflectance" : "label_area_mean_reflectance";
+        var text = new StringBuilder($"wavelength_nm,weight_nm,irradiance_w_m2_nm,{rhoColumn},qe_r,qe_g,qe_b\n");
         foreach (var n in integration.Nodes) text.Append(CultureInfo.InvariantCulture,
             $"{n.WavelengthNanometers:G17},{n.WeightNanometers:G17},{n.IrradianceWattsPerSquareMeterPerNanometer:G17},{n.Reflectance:G17},{n.RedQe:G17},{n.GreenQe:G17},{n.BlueQe:G17}\n");
         return text.ToString();

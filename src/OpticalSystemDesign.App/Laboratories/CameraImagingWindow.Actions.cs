@@ -22,7 +22,7 @@ public sealed partial class CameraImagingWindow
             var request = new CameraImagingRequest((CameraSource)_source.SelectedIndex, _sourceFile, width, height,
                 (CameraOptics)_optics.SelectedIndex, (CameraAberration)_aberration.SelectedIndex, sensor, isp,
                 _spectralResponse, _sensorIdentity, (CameraSpectralModel)_spectralModel.SelectedIndex, _illuminant, _reflectance,
-                new(V("spectrum-min"), V("spectrum-max"), V("spectrum-step")));
+                new(V("spectrum-min"), V("spectrum-max"), V("spectrum-step")), (CameraSceneMode)_sceneMode.SelectedIndex, _materialScene);
             var result = await _application.CameraImaging.SimulateAsync(request, operation.Token);
             if (_closed || generation != _generation || result.SourceRevision != _application.Events.Revision) return;
             _result = result;
@@ -147,6 +147,7 @@ public sealed partial class CameraImagingWindow
         ControlAvailability.Set(_export, !_busy && _result is not null, "请先完成当前仿真，再导出对照包。");
         UpdateSensorFiles();
         UpdateSceneSpectra();
+        UpdateMaterialControls();
     }
     private double V(string key) => (double)(_numbers[key].Value ?? throw new InvalidOperationException("请输入有效数值。"));
 }

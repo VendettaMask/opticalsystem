@@ -60,7 +60,7 @@ public sealed class SpectralIntegrationPlan
 public sealed record ContinuousImageResult(RgbImage SourceMask, RgbImage OpticalPreview, double[] PhotoElectrons);
 
 /// <summary>One material spectrum modulated by a linear grayscale spatial mask. All optics are supplied by the shared image engine.</summary>
-public static class CameraContinuousSpectrum
+public static partial class CameraContinuousSpectrum
 {
     public const int MaximumNodes = 36864;
     public const long MaximumPixelNodes = 100_000_000;
@@ -68,6 +68,10 @@ public static class CameraContinuousSpectrum
 
     public static SpectralIntegrationPlan BuildPlan(ScalarSpectrum illuminant, ScalarSpectrum reflectance,
         SensorSpectralResponse qe, ContinuousSpectrumSettings settings)
+        => BuildPlan(illuminant, reflectance, qe, settings, Array.Empty<double>());
+
+    private static SpectralIntegrationPlan BuildPlan(ScalarSpectrum illuminant, ScalarSpectrum reflectance,
+        SensorSpectralResponse qe, ContinuousSpectrumSettings settings, IEnumerable<double> additionalKnots)
     {
         ArgumentNullException.ThrowIfNull(illuminant); ArgumentNullException.ThrowIfNull(reflectance);
         ArgumentNullException.ThrowIfNull(qe); ArgumentNullException.ThrowIfNull(settings);
@@ -81,6 +85,7 @@ public static class CameraContinuousSpectrum
         { _ = illuminant.Evaluate(endpoint); _ = reflectance.Evaluate(endpoint); _ = qe.Evaluate(0, endpoint); }
         var knots = illuminant.Samples.Select(s => s.WavelengthNanometers)
             .Concat(reflectance.Samples.Select(s => s.WavelengthNanometers)).Concat(qe.Samples.Select(s => s.WavelengthNanometers))
+            .Concat(additionalKnots)
             .Where(w => w > settings.MinimumNanometers && w < settings.MaximumNanometers)
             .Append(settings.MinimumNanometers).Append(settings.MaximumNanometers).Distinct().Order().ToArray();
         var nodes = new List<SpectralIntegrationNode>(); var intervals = 0;

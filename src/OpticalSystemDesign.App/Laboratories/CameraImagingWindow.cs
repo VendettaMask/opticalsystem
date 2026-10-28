@@ -74,6 +74,7 @@ public sealed partial class CameraImagingWindow : Window
         }));
         settings.Children.Add(BuildSensorFilesCard());
         settings.Children.Add(BuildSceneSpectraCard());
+        settings.Children.Add(BuildMaterialSceneCard());
         settings.Children.Add(Group("曝光与传感器", new Control[]
         {
             Number("exposure", "曝光 (ms)", 10, 0.001m, 10000, 1),
@@ -134,8 +135,8 @@ public sealed partial class CameraImagingWindow : Window
                     TextWrapping = TextWrapping.Wrap,
                     Text = "已实现：sRGB 输入解码、650/550/450 nm 三窄带、当前镜头共享 Core 成像或理想对照、光电子转换、Poisson 散粒噪声、读出噪声、暗电流、PRNU/DSNU、满阱、ADC、Bayer、双线性去马赛克、RGB 增益、方框降噪、非锐化掩模和 Gamma。\n\n"
                         + "支持 JSON 传感器参数和 CSV 绝对 QE 曲线。导入响应后，每类 CFA 像元对 650/550/450 nm 三输入波段分别响应并累加光电子；曲线替代固定 QE，不重复相乘。无曲线时沿用原三波段独立响应。\n\n"
-                        + "连续光谱：导入光源 W/m²/nm、单一材质反射率和 QE；合并全部折点作分段三点 Gauss-Legendre 积分，每个积分波长调用共享光学。图片转线性灰度空间图样；不从 RGB 反演光谱。\n\n"
-                        + "像面强度采用像素中心样本；尚无逐像素多材质光谱、像元面积积分、角度 QE、像素串扰、自动实测标定、3D 光源/BRDF、动态快门、杂散光耦合或厂商 ISP。导入文件保留来源与哈希，不代表已核实测量。\n\n"
+                        + "连续光谱：导入光源 W/m²/nm、材质反射率和 QE；支持单材质或最多 16 类源平面标签分区。每波长先施加各材质反射率，再调用共享光学，使模糊可跨材质边界传播。合并全部折点作分段三点 Gauss-Legendre 积分。图片转线性灰度空间图样，不从 RGB 反演光谱。\n\n"
+                        + "像面强度采用像素中心样本；尚无像元面积积分、角度 QE、像素串扰、自动实测标定、3D 光源/BRDF、动态快门、杂散光耦合或厂商 ISP。导入文件保留来源与哈希，不代表已核实测量。\n\n"
                         + "对照：无噪声结果使用相同光学像、曝光、ADC 与 ISP，仅关闭随机噪声及固定非均匀性；A/B 保存各自参数与镜头修订。同种子可重复。电子图/RAW 不做逐图峰值归一化。\n\n"
                         + "公开功能参考（非数值认证）：\nDeepO Sensor & ISP — https://www.ai4optics.com/deepo/manual/image-simulation/sensor/\n"
                         + "Keysight ImSym — https://www.keysight.com/us/en/products/software/optical-solutions-software/optical-design-solutions/imsym-imaging-system-simulator.html\n"
@@ -230,8 +231,9 @@ public sealed partial class CameraImagingWindow : Window
         private readonly TextBlock _empty = LaboratoryPresentation.Hint("运行仿真后显示图像");
         private WriteableBitmap? _bitmap;
         public string Title { set => _title.Text = value; }
-        public CameraFrameView()
+        public CameraFrameView(bool categorical = false)
         {
+            if (categorical) RenderOptions.SetBitmapInterpolationMode(_image, BitmapInterpolationMode.None);
             Padding = new Thickness(12); Margin = new Thickness(0, 0, 10, 10);
             Classes.Add("lab-card");
             ThemeChrome.Apply(this, ThemeChromeRole.SurfaceCard, shadow: false);

@@ -2,6 +2,7 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Raytrace;
 
@@ -9,6 +10,23 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class ParaxialTransferMatrixTests
 {
+    [Fact]
+    public void OptionalWholeSystemPowerUsesTheFormalCoreValueAndCurvatureTangents()
+    {
+        var optic = Lens();
+        OpticalDesignParameter[] parameters = [new(3, OpticalDesignParameterKind.Curvature, .01)];
+        var point = OpticalDesignParameters.Read(optic, parameters);
+        using var trace = SequentialTraceMeasurement.Begin();
+        var differential = DifferentiableParaxialMetrics.TransferMatrix(optic, parameters, 1, 5, includeInverseFNumber: true);
+        Assert.Equal(optic.Paraxial.EstimateOpticalPower(), differential.OpticalPowerPerMillimeter!.Value.Value);
+        const double step = 1e-5;
+        var plus = point.ToArray(); var minus = point.ToArray(); plus[0] += step; minus[0] -= step;
+        var measured = (OpticalDesignParameters.Apply(optic.ToSnapshot(), parameters, plus).Paraxial.EstimateOpticalPower()
+            - OpticalDesignParameters.Apply(optic.ToSnapshot(), parameters, minus).Paraxial.EstimateOpticalPower()) / (2 * step);
+        Assert.InRange(Math.Abs(measured - differential.OpticalPowerPerMillimeter.Value.Derivative(0)), 0, 1e-9);
+        Assert.Null(DifferentiableParaxialMetrics.TransferMatrix(optic, [], 1, 5).OpticalPowerPerMillimeter);
+        Assert.Equal(0, trace.RayCount);
+    }
     [Fact]
     public void FullMatrixMatchesIndependentThickLensProductAndExcludesImagePlaceholderThickness()
     {

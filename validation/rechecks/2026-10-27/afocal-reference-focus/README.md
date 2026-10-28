@@ -1,6 +1,6 @@
 # 无焦参考中心与惠更斯离焦
 
-范围、剩余差异及原生参考定义见[专题报告](../../../../docs/AFOCAL_REFERENCE_FOCUS_REPAIR_2026-10-27.md)。机器账目为 `summary.json`，原 150 项原始结论为 `analysis-results.json`，不覆盖上一轮数据。
+范围、剩余差异及原生参考定义见[专题报告](../../../../docs/AFOCAL_REFERENCE_FOCUS_REPAIR_2026-10-27.md)。机器账目引用同字节的[唯一原件](../../../../docs/validation/AFOCAL_REFERENCE_FOCUS_REPAIR_2026-10-27.json)，原`summary.json`逻辑路径记录在[映射](../../../evidence-aliases.json)中；`analysis-results.json`保留该阶段原150项结论。
 
 - 原 150 项：129 Pass / 3 Close / 3 Difference / 15 Incomparable。两项 Core 相对照度明确不可用，未超时，不计通过。
 - 固定角网格 20/20 Pass，其中五配置离焦 MTF 全部通过原门槛。

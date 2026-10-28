@@ -1,0 +1,52 @@
+{
+  "Format": "OpticalSystemDesign.CameraMaterialScene",
+  "SchemaVersion": 1,
+  "Name": "Synthetic three-material stripes",
+  "Source": "Synthetic reflectance curves and explicit source-plane labels; not measured",
+  "Width": 12,
+  "Height": 4,
+  "MaterialIds": [
+    0,0,0,0,1,1,1,1,2,2,2,2,
+    0,0,0,0,1,1,1,1,2,2,2,2,
+    0,0,0,0,1,1,1,1,2,2,2,2,
+    0,0,0,0,1,1,1,1,2,2,2,2
+  ],
+  "Materials": [
+    {
+      "Id": 0, "Name": "Red material", "Source": "Synthetic, not measured",
+      "Reflectance": {
+        "Name": "Synthetic red reflectance", "Source": "Synthetic", "Kind": "Reflectance",
+        "Samples": [
+          { "WavelengthNanometers": 400, "Value": 0.05 },
+          { "WavelengthNanometers": 500, "Value": 0.1 },
+          { "WavelengthNanometers": 600, "Value": 0.6 },
+          { "WavelengthNanometers": 700, "Value": 0.8 }
+        ]
+      }
+    },
+    {
+      "Id": 1, "Name": "Green material", "Source": "Synthetic, not measured",
+      "Reflectance": {
+        "Name": "Synthetic green reflectance", "Source": "Synthetic", "Kind": "Reflectance",
+        "Samples": [
+          { "WavelengthNanometers": 400, "Value": 0.1 },
+          { "WavelengthNanometers": 500, "Value": 0.7 },
+          { "WavelengthNanometers": 600, "Value": 0.3 },
+          { "WavelengthNanometers": 700, "Value": 0.1 }
+        ]
+      }
+    },
+    {
+      "Id": 2, "Name": "Blue material", "Source": "Synthetic, not measured",
+      "Reflectance": {
+        "Name": "Synthetic blue reflectance", "Source": "Synthetic", "Kind": "Reflectance",
+        "Samples": [
+          { "WavelengthNanometers": 400, "Value": 0.8 },
+          { "WavelengthNanometers": 500, "Value": 0.4 },
+          { "WavelengthNanometers": 600, "Value": 0.05 },
+          { "WavelengthNanometers": 700, "Value": 0.02 }
+        ]
+      }
+    }
+  ]
+}

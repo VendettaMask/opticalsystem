@@ -6,6 +6,15 @@ public enum CameraAberration { Geometric, Diffraction }
 public enum CameraBayerPattern { RGGB, BGGR, GRBG, GBRG }
 public enum CameraSpectralModel { ThreeBand, Continuous }
 public enum CameraSpectrumKind { Illuminant, Reflectance }
+public enum CameraSceneMode { Uniform, MaterialMap }
+public sealed record CameraSceneMaterial(int Id, string Name, string Source, CameraSpectrumCurve? Reflectance = null);
+public sealed record CameraMaterialScene(string Format, int SchemaVersion, string Name, string Source,
+    int Width, int Height, IReadOnlyList<int> MaterialIds, IReadOnlyList<CameraSceneMaterial> Materials,
+    CameraFileOrigin? Origin = null, bool Modified = false)
+{
+    public const string FormatIdentifier = "OpticalSystemDesign.CameraMaterialScene";
+}
+public sealed record CameraMaterialDiagnostics(int Id, string Name, int SampledPixels, double ReflectedIrradianceWattsPerSquareMeter);
 public sealed record CameraSpectrumSample(double WavelengthNanometers, double Value);
 public sealed record CameraSpectrumCurve(string Name, string Source, CameraSpectrumKind Kind,
     IReadOnlyList<CameraSpectrumSample> Samples, CameraFileOrigin? Origin = null);
@@ -14,7 +23,9 @@ public sealed record CameraIntegrationSettings(double MinimumNanometers = 400, d
 public sealed record CameraIntegrationNode(double WavelengthNanometers, double WeightNanometers,
     double IrradianceWattsPerSquareMeterPerNanometer, double Reflectance, double RedQe, double GreenQe, double BlueQe);
 public sealed record CameraIntegrationDiagnostics(int Intervals, IReadOnlyList<CameraIntegrationNode> Nodes,
-    double IlluminantIrradianceWattsPerSquareMeter, double ReflectedIrradianceWattsPerSquareMeter);
+    double IlluminantIrradianceWattsPerSquareMeter, double ReflectedIrradianceWattsPerSquareMeter,
+    IReadOnlyList<CameraMaterialDiagnostics>? Materials = null,
+    string ReflectanceMeaning = "Uniform material; excludes spatial grayscale modulation and optics");
 public sealed record CameraResponseSample(double WavelengthNanometers, double RedQe, double GreenQe, double BlueQe);
 public sealed record CameraFileOrigin(string FileName, string Sha256);
 public sealed record CameraResponseCurve(string Name, string Source, IReadOnlyList<CameraResponseSample> Samples,
@@ -38,7 +49,8 @@ public sealed record CameraImagingRequest(CameraSource Source = CameraSource.Col
     CameraAberration Aberration = CameraAberration.Diffraction, CameraSensorParameters? Sensor = null,
     CameraIspParameters? Isp = null, CameraResponseCurve? SpectralResponse = null, CameraSensorIdentity? SensorIdentity = null,
     CameraSpectralModel SpectralModel = CameraSpectralModel.ThreeBand, CameraSpectrumCurve? Illuminant = null,
-    CameraSpectrumCurve? Reflectance = null, CameraIntegrationSettings? Integration = null);
+    CameraSpectrumCurve? Reflectance = null, CameraIntegrationSettings? Integration = null,
+    CameraSceneMode SceneMode = CameraSceneMode.Uniform, CameraMaterialScene? MaterialScene = null);
 public sealed record CameraImage(int Width, int Height, IReadOnlyList<byte> Rgb24);
 public sealed record CameraImagingResult(string DocumentName, long SourceRevision, CameraImagingRequest Request,
     CameraImage Source, CameraImage Optical, CameraImage Electrons, CameraImage Raw, CameraImage Noiseless,
@@ -51,6 +63,8 @@ public interface ICameraImagingService
     Task<CameraResponseCurve> ImportResponseAsync(string path, CancellationToken cancellationToken = default);
     Task<CameraSpectrumCurve> ImportIlluminantAsync(string path, CancellationToken cancellationToken = default);
     Task<CameraSpectrumCurve> ImportReflectanceAsync(string path, CancellationToken cancellationToken = default);
+    Task<CameraMaterialScene> ImportMaterialSceneAsync(string path, CancellationToken cancellationToken = default);
+    Task SaveMaterialSceneAsync(CameraMaterialScene scene, string path, CancellationToken cancellationToken = default);
     Task SaveSensorAsync(CameraSensorProfile profile, string path, CancellationToken cancellationToken = default);
     Task<CameraImagingResult> SimulateAsync(CameraImagingRequest request, CancellationToken cancellationToken = default);
     Task ExportAsync(CameraImagingResult result, string path, CameraImagingResult? comparison = null,

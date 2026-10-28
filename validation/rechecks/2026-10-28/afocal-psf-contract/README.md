@@ -15,7 +15,7 @@
 
 逐请求坐标差、强度NRMSE与coverage记录于最终TRX及汇总。自动10项为4 Pass/6 Incomparable，独立固定角PSF10项全Pass；不可比断言通过不等于该光学比较通过。原150项134/0/3/13仅为原完整矩阵记录，本轮未重跑完整矩阵。
 
-原生夹具在 `validation/zemax/2026-r1/afocal-psf-contract-2026-10-28/native-grids.zip`，其 `manifest.json` 记录原归档路径、归档SHA与每个原成员的SHA。所有参考数组、模型、捕获设置保留原字节。原比较策略未改变，Core/Application没有修改。未进行新原生捕获、桌面操作、AutoLens、推送或发布。
+当前测试通过[成员清单](../../../zemax/2026-r1/afocal-psf-contract-2026-10-28/manifest.json)直接复用[2026-10-27原归档](../../2026-10-27/afocal-fft-energy/evidence-current.zip)，按归档及逐成员SHA核验，不再复制一份原生数组。原阶段派生的 `native-grids.zip` 仅按下述Library存储记录保留，不是现行测试依赖。参考数组、模型和捕获设置字节不变；本节的比较契约修复阶段没有修改Core/Application，后续交会修改的独立身份见下文。
 
 Continuation: `existing-fields-final.json`, `capture-plan-verification.json`, `closure-regression.trx/.log` record the existing native endpoints/pupil text and 80 repeated passing tests. Native diagnostic host changes are not compiled/executed here. See the report and Capture-Remaining.py README for the bounded external jobs.
 

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7f632e39-53ac-4f41-a6fd-b8286f43d4c9" name="allen@DESKTOP-SET3SNR 2026-10-28 23:07:24" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-28T23:07:24.6467073+08:00" queuing="2026-10-28T23:07:24.6467075+08:00" start="2026-10-28T23:07:22.0761697+08:00" finish="2026-10-28T23:07:24.6520038+08:00" />
+  <TestSettings name="default" id="d8897120-cfe9-4010-aa59-78edd0979b54">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-28_23_07_24" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f17878bb-9cd4-4069-9bd0-e17b5bb792e3" testId="1a24b9ff-65cf-9a5e-f37d-d18a407207d6" testName="OpticalSystemDesign.Tests.CameraMaterialServiceTests.SixteenBitAndAnimatedPngAreRejectedBeforeAnyIdConversion(animation: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0088832" startTime="2026-10-28T23:07:24.5619968+08:00" endTime="2026-10-28T23:07:24.5707532+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f17878bb-9cd4-4069-9bd0-e17b5bb792e3" />
+    <UnitTestResult executionId="a6102eb6-95be-4bb9-a31e-2a67562a79d3" testId="cb280f0c-8dd4-9b10-9721-71a289f148a4" testName="OpticalSystemDesign.Tests.CameraMaterialServiceTests.SixteenBitAndAnimatedPngAreRejectedBeforeAnyIdConversion(animation: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0023324" startTime="2026-10-28T23:07:24.5708440+08:00" endTime="2026-10-28T23:07:24.5732813+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6102eb6-95be-4bb9-a31e-2a67562a79d3" />
+    <UnitTestResult executionId="9cffd919-2ae3-4a9e-a5c3-4b7fe5ebbd7e" testId="76d51527-7d06-9b31-3561-b2b2e93e94bb" testName="OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 1, g: 1, b: 1, alpha: 255, valid: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0269522" startTime="2026-10-28T23:07:24.5271988+08:00" endTime="2026-10-28T23:07:24.5545300+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9cffd919-2ae3-4a9e-a5c3-4b7fe5ebbd7e" />
+    <UnitTestResult executionId="faeb060a-54e1-45b2-87a2-b54f862984f5" testId="abe5ad63-e981-3c60-69b1-af844f3ef2c8" testName="OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 0, g: 1, b: 0, alpha: 255, valid: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0133603" startTime="2026-10-28T23:07:24.5167060+08:00" endTime="2026-10-28T23:07:24.5264621+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="faeb060a-54e1-45b2-87a2-b54f862984f5" />
+    <UnitTestResult executionId="f295d046-764c-49dc-80f8-fc0bfce80e3c" testId="f4c3ed9a-4ee2-f71c-9d54-e836f16d906e" testName="OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 0, g: 0, b: 0, alpha: 128, valid: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4753176" startTime="2026-10-28T23:07:24.0480480+08:00" endTime="2026-10-28T23:07:24.5104161+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f295d046-764c-49dc-80f8-fc0bfce80e3c" />
+    <UnitTestResult executionId="ad63705d-387e-44d0-8c2d-f6f1d99e04f2" testId="d83e6722-f0d9-26c8-6713-04686beac25f" testName="OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 16, g: 16, b: 16, alpha: 255, valid: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0060105" startTime="2026-10-28T23:07:24.5546381+08:00" endTime="2026-10-28T23:07:24.5609442+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad63705d-387e-44d0-8c2d-f6f1d99e04f2" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraMaterialServiceTests.SixteenBitAndAnimatedPngAreRejectedBeforeAnyIdConversion(animation: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cb280f0c-8dd4-9b10-9721-71a289f148a4">
+      <Execution id="a6102eb6-95be-4bb9-a31e-2a67562a79d3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraMaterialServiceTests" name="SixteenBitAndAnimatedPngAreRejectedBeforeAnyIdConversion" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 1, g: 1, b: 1, alpha: 255, valid: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="76d51527-7d06-9b31-3561-b2b2e93e94bb">
+      <Execution id="9cffd919-2ae3-4a9e-a5c3-4b7fe5ebbd7e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraMaterialServiceTests" name="PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 0, g: 0, b: 0, alpha: 128, valid: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f4c3ed9a-4ee2-f71c-9d54-e836f16d906e">
+      <Execution id="f295d046-764c-49dc-80f8-fc0bfce80e3c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraMaterialServiceTests" name="PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 0, g: 1, b: 0, alpha: 255, valid: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="abe5ad63-e981-3c60-69b1-af844f3ef2c8">
+      <Execution id="faeb060a-54e1-45b2-87a2-b54f862984f5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraMaterialServiceTests" name="PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraMaterialServiceTests.SixteenBitAndAnimatedPngAreRejectedBeforeAnyIdConversion(animation: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1a24b9ff-65cf-9a5e-f37d-d18a407207d6">
+      <Execution id="f17878bb-9cd4-4069-9bd0-e17b5bb792e3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraMaterialServiceTests" name="SixteenBitAndAnimatedPngAreRejectedBeforeAnyIdConversion" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 16, g: 16, b: 16, alpha: 255, valid: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d83e6722-f0d9-26c8-6713-04686beac25f">
+      <Execution id="ad63705d-387e-44d0-8c2d-f6f1d99e04f2" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraMaterialServiceTests" name="PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1a24b9ff-65cf-9a5e-f37d-d18a407207d6" executionId="f17878bb-9cd4-4069-9bd0-e17b5bb792e3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb280f0c-8dd4-9b10-9721-71a289f148a4" executionId="a6102eb6-95be-4bb9-a31e-2a67562a79d3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="76d51527-7d06-9b31-3561-b2b2e93e94bb" executionId="9cffd919-2ae3-4a9e-a5c3-4b7fe5ebbd7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="abe5ad63-e981-3c60-69b1-af844f3ef2c8" executionId="faeb060a-54e1-45b2-87a2-b54f862984f5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f4c3ed9a-4ee2-f71c-9d54-e836f16d906e" executionId="f295d046-764c-49dc-80f8-fc0bfce80e3c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d83e6722-f0d9-26c8-6713-04686beac25f" executionId="ad63705d-387e-44d0-8c2d-f6f1d99e04f2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="6" passed="6" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.56]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.57]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.59]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.15]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

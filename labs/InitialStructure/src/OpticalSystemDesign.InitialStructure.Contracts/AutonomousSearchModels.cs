@@ -6,6 +6,11 @@ namespace OpticalSystemDesign.InitialStructure.Contracts;
 
 public sealed record AutonomousSearchOptions
 {
+    /// <summary>Explicit preparation configuration. Only the separate seed-preparation command executes it.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ParaxialSeedSearchOptions? SeedPreparation { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TopologyDiversityOptions? PoolDiversity { get; init; }
     /// <summary>Explicit finite reduction: only qualified parents dispatch deletion; failed children remain evidence.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? QualifiedReductionOnly { get; init; }

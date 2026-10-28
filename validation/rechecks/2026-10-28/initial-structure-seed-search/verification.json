@@ -1,0 +1,173 @@
+{
+  "sourceHead": "3fabccb2c9a234965cbeb9502a1db174ed0ffe23",
+  "uncommittedChanges": true,
+  "mode": "background CPU/Avalonia.Headless; two processors; BelowNormal; no desktop interaction",
+  "runs": [
+    {
+      "name": "seed-diversity-green",
+      "passed": 13,
+      "tests": [
+        "OpticalSystemDesign.InitialStructure.Tests.TopologyProtocolPortabilityTests.HistoricalAliasesBindAllTargetsConstraintsAndFieldCoordinatesExactly",
+        "OpticalSystemDesign.InitialStructure.Tests.TopologyDiversityTests.ActualDiversePoolPersistsCancelsResumesAndRejectsChangedMembershipBeforeTracing",
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialRecoveryRepairTests.CoreFixedPlaneAbcdDerivativesMatchAllRemainingCurvatureAndAxialDifferences(removed: \"element-004\")",
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialSeedSearchTests.SharedCoreWholeSystemPowerAndDerivativeMatchNominalPerturbationsWithoutTracing",
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialSeedSearchTests.PreparationIsDeterministicBoundedCancellableAndRejectsInvalidVersionsBeforeWork",
+        "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopLoadsWithoutRunningPreservesPlanIdentityLocalizesAndRejectsUnsupportedInput",
+        "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.FirstOrderButtonPreparesAndPersistsNewPlanWithoutStartingSearchAndLocalizesControls",
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialRecoveryRepairTests.CoreFixedPlaneAbcdDerivativesMatchAllRemainingCurvatureAndAxialDifferences(removed: \"element-001\")",
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialSeedSearchTests.GeneratedSeedsFitActualCoreFirstOrderTargetsAndPreserveTheOriginalTaskAndPermissions",
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialRecoveryRepairTests.CoreFixedPlaneAbcdDerivativesMatchAllRemainingCurvatureAndAxialDifferences(removed: \"element-002\")",
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialRecoveryRepairTests.CoreFixedPlaneAbcdDerivativesMatchAllRemainingCurvatureAndAxialDifferences(removed: \"element-003\")",
+        "OpticalSystemDesign.InitialStructure.Tests.TopologyProtocolPortabilityTests.RetainedPlatformEncodingsLoadWithoutRewritingPhysicsOrSpendingRays",
+        "OpticalSystemDesign.InitialStructure.Tests.TopologyDiversityTests.NewPoolKeepsBestAndDifferentPrescriptionWhileNullKeepsExactLegacyRanking"
+      ],
+      "sha256": "c87cb7d743746d2c91aa568e5e963bcb82f2e8bdce4a8dce9c9ea19ea5a19289"
+    },
+    {
+      "name": "core-paraxial",
+      "passed": 4,
+      "tests": [
+        "OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.FullMatrixMatchesIndependentThickLensProductAndExcludesImagePlaceholderThickness",
+        "OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.EndpointMediaAndFixedReferenceCoordinatesAreExplicitAndUnsupportedPathsAreRejected",
+        "OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.MatrixMapsBothIndependentBasisRaysAndSmallPhysicalRaysUsingHeightAndSlopeOrder",
+        "OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.OptionalWholeSystemPowerUsesTheFormalCoreValueAndCurvatureTangents"
+      ],
+      "sha256": "e0d370d8e2c1bbfb95c288dc5f60eeb94ac0e6601a4af0236565e1d932bf320a"
+    },
+    {
+      "name": "seed-final-inputs",
+      "passed": 4,
+      "tests": [
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialSeedSearchTests.PreparationIsDeterministicBoundedCancellableAndRejectsInvalidVersionsBeforeWork",
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialSeedSearchTests.GeneratedSeedsFitActualCoreFirstOrderTargetsAndPreserveTheOriginalTaskAndPermissions",
+        "OpticalSystemDesign.InitialStructure.Tests.ParaxialSeedSearchTests.SharedCoreWholeSystemPowerAndDerivativeMatchNominalPerturbationsWithoutTracing",
+        "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.FirstOrderButtonPreparesAndPersistsNewPlanWithoutStartingSearchAndLocalizesControls"
+      ],
+      "sha256": "2801262bc7df4de9a489424598a7db2fdf7eea4611212704abd8c86f30eb8951"
+    },
+    {
+      "name": "seed-summary-locales",
+      "passed": 1,
+      "tests": [
+        "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.FirstOrderButtonPreparesAndPersistsNewPlanWithoutStartingSearchAndLocalizesControls"
+      ],
+      "sha256": "bb6b78a9207f5b90c6f63bf92e35f2d86ac08bd36e56a61434ae6c79d2b33bb7"
+    },
+    {
+      "name": "seed-panel-visibility",
+      "passed": 1,
+      "tests": [
+        "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.FirstOrderButtonPreparesAndPersistsNewPlanWithoutStartingSearchAndLocalizesControls"
+      ],
+      "sha256": "d5e9cf94c55c099de63459016704a3d4b9022abe907d919537e76231059456a2"
+    }
+  ],
+  "uniquePassingTests": 17,
+  "sourceHashes": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Differentiation/DifferentiableParaxialMetrics.cs",
+      "sha256": "72461d6385648b2fbf0a3c776888d85cda7682297393351b183c1ab9b7695b95"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ParaxialTransferMatrixTests.cs",
+      "sha256": "6d1ff6538a2a66bc5744537b0f739669fa10a40abb130405fcb9b934e384f294"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/AutonomousSearchModels.cs",
+      "sha256": "dedbc59483f98cfb52c0e58dbf462ef7a38eb636eeee2078beb0085d62bc6490"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologySeedSearchModels.cs",
+      "sha256": "3e172599137d025fe57313c3f410d2e70bd43da11fbd95c12bb8ce9605c2ecd3"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutonomousSearchService.cs",
+      "sha256": "1fb6cd12afe7543f7411a435d28a3a5024b8145024a6402224d731697de9e1a1"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialSeedSearch.cs",
+      "sha256": "76167d1696521a34771e94dd7832b976443188fc791a2ef5b8aef3a60676f7e0"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyDiversitySelection.cs",
+      "sha256": "b844f8ce03cc7075530cf015064b90227849e2fd40e2e04c797e13692756ff12"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/ParaxialSeedSearchFiles.cs",
+      "sha256": "e8d050450ad4011bb0d17a329281b4f8eedfce9663327746e522a894e96232c5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.cs",
+      "sha256": "92693b2e9f4652cfeec3c9468df1a050bc069ad3e50b36204ae282217bf62c5f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs",
+      "sha256": "e5df86bb8e9f157ba1487ff1a3b1b9068afe4187414b6192bb26add844cf3d80"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Seeds.cs",
+      "sha256": "2547231fe5c4eebaf32829cd6c7711ca391265a0a9654db59aa4718a345c1664"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs",
+      "sha256": "8739597d42e05455e48ead2c3a16e1e359c1d89f5ac202ddbf7e074bdd0b66fc"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/ParaxialSeedSearchTests.cs",
+      "sha256": "945c77e60d5b678d4ebb1e2ca5df7816cb3d8b133db4b1a48ba6b6e70f3c54fe"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/TopologyDiversityTests.cs",
+      "sha256": "4c3272be850778feb1799f1aa4878e1bb9a6a6fcaf3d28b69a4c4b7ce8dc2aad"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutonomousDesktopSeedTests.cs",
+      "sha256": "8b3a0d86c3744ceba5e2d1f0a0654d472acec4850ba674119260b6bf3e72394b"
+    }
+  ],
+  "binaryHashes": [
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "5995d999f2b8425c9ab7cf9d0e8c9c56f3e946a18082ad39e2a60f674760b78d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "833333c0d5ebf49df3b4cb12a98829e5d6b5a7524d81f27350465d031b5e07bb"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "sha256": "6078a2324cbbc870f8afbd353f3b8ef1db4d0ccba2ff60accb9097f98216a6ee"
+    }
+  ],
+  "preparation": {
+    "protocol": "b1f048b16dfefb21b859daec07d9002b256c9fcc34a289d828060ec79d2f82cd",
+    "starts": 3,
+    "retained": 1,
+    "work": {
+      "functionEvaluations": 58,
+      "gradientEvaluations": 0,
+      "validationEvaluations": 0,
+      "matrixEvaluations": 61,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 54,
+      "tracedRays": 0,
+      "geometryProbes": 14458,
+      "elapsed": "00:00:00.3700441"
+    },
+    "outcomes": [
+      "FirstOrderFeasibleOnly",
+      "DenseGeometryRejected",
+      "DenseGeometryRejected"
+    ],
+    "reportSha256": "66185de8d30d831a65f5be9c4f10bd5215aa3cf532e432621a14504497cc37bd"
+  },
+  "preparedPlanSha256": "fa7e0bb0da10a0bd63de77794d2290d2590bfe3daba578970d12a101504c68cd",
+  "physicalAcceptanceLimits": "unchanged; first-order preparation is not full physical certification",
+  "nativeInteractiveAcceptance": "not run",
+  "postFixLinuxMacExecution": "not run locally",
+  "remainingRecommendations": [
+    "bounded global/local population exploration",
+    "deletion contribution ranking",
+    "catalog neighborhood/allocation enhancement"
+  ]
+}

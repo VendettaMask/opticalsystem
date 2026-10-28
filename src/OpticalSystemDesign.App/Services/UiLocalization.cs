@@ -506,7 +506,7 @@ internal static partial class UiLocalization
         Add("FULL · 逐形式完整优化", "FULL · Optimize every form", "FULL · 各形態を完全最適化");
         Add("原生信赖域（默认）", "Native Trust Region (Default)", "ネイティブ信頼領域（既定）");
         Add("AutoLens 启发式 · C# CPU 试验", "AutoLens Heuristic · C# CPU Experiment", "AutoLens ヒューリスティック · C# CPU 実験");
-        Add("AutoLens · C# 自动求导", "AutoLens · C# Automatic Differentiation", "AutoLens · C# 自動微分");
+        Add("初始结构优化 · C# 自动求导", "Initial Structure Optimization · C# Automatic Differentiation", "初期構造最適化 · C# 自動微分");
         Add("原版脚本默认 · 5 mm F/1.8 全视场 90°", "Original script default · 5 mm F/1.8, 90° full field", "原版スクリプト既定 · 5 mm F/1.8、全画角 90°");
         Add("原版训练物距 20000 mm · 中心旋转对称定焦系统；半视场为光轴到边缘的角度。", "Original training object distance: 20000 mm. Centered rotational fixed-focus system; half-field is measured from axis to edge.", "原版の学習物体距離は 20000 mm。中心回転対称の単焦点系で、半画角は光軸から端までの角度です。");
         Add("使用前置独立实体光阑；镜片口径按原版周期修形更新。预算不足时保留训练状态。", "Uses a separate front stop and periodic aperture pruning. Training state is retained when the budget runs out.", "独立した前置絞りと周期的な口径修整を使用します。予算不足時は学習状態を保持します。");
@@ -690,6 +690,16 @@ internal static partial class UiLocalization
         Add("连续光谱积分", "Continuous Spectrum Integration", "連続スペクトル積分");
         Add("光源与场景光谱", "Illuminant and Scene Spectra", "光源とシーンのスペクトル");
         Add("光源与反射率", "Illuminant and Reflectance", "光源と反射率");
+        Add("材质反射率分区", "Material Reflectance Regions", "材質反射率の領域");
+        Add("场景反射率", "Scene Reflectance", "シーンの反射率");
+        Add("单材质曲线", "Uniform Material Curve", "単一材質曲線");
+        Add("材质标签分区", "Material Label Map", "材質ラベルマップ");
+        Add("导入材质分区", "Import Material Map", "材質領域を読み込む");
+        Add("三材质样例", "Three-Material Example", "3 材質のサンプル");
+        Add("保存材质场景", "Save Material Scene", "材質シーンを保存");
+        Add("移除材质分区", "Remove Material Map", "材質領域を解除");
+        Add("指定材质", "Select Material", "材質を選択");
+        Add("指定反射率 CSV", "Assign Reflectance CSV", "反射率 CSV を指定");
         Add("导入光源光谱", "Import Illuminant Spectrum", "光源スペクトルを読み込む");
         Add("导入场景反射率", "Import Scene Reflectance", "シーンの反射率を読み込む");
         Add("传感器文件与响应", "Sensor Files and Response", "センサーファイルと応答");

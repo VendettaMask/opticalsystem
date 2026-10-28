@@ -27,7 +27,7 @@ public sealed class TopologySamplingPrecisionTests
         Assert.True(accurate.Value.TracedRayCount > coarse.Value.TracedRayCount);
         Assert.True(accurate.Value.TracedRayCount < dense.Value.TracedRayCount);
         Assert.NotEqual(coarse.Objective.Fingerprint, accurate.Objective.Fingerprint);
-        Assert.Equal(f.ExpectedProtocol, TopologyValidator.GetProtocolFingerprint(f.Source, f.Targets));
+        Assert.True(TopologyValidator.MatchesProtocol(f.Source, f.Targets, f.ExpectedProtocol));
         Evidence("counterexample", new { CoarseMaximumErrorUm = coarseMaximum, AccurateMaximumErrorUm = accurateMaximum, Fields = errors });
     }
 

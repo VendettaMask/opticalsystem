@@ -12,9 +12,29 @@ public static class TopologyValidator
     public static string GetProtocolFingerprint(CompiledTopology source, TopologyTargets targets)
     {
         var fields = TopologyEvaluationPlan.Fields(source, 21);
+        // Protocol identity describes the algorithm/settings, not libm's last bits in generated samples.
+        // Actual acceptance continues to generate and trace the original shared Core sample set.
+        return ContentFingerprint.Compute(new { Identity = "autonomous-physical-validation-v2", targets,
+            StructuralConstraints = source.Constraints, fields,
+            Pupils = new { Algorithm = "Core.GaussianQuadrature.v1", RadialSamples = 10, AzimuthalSamples = 32, Obscuration = 0d },
+            Checks = new { Algorithm = "center-and-unit-rim-v1", AzimuthalSamples = 32 },
+            ProfileRadialSamples = 64, Backend = "CPU", Reference = "common-polychromatic-centroid",
+            DistortionReference = "primary-chief/current-image-paraxial", IncludeSurfaceTransmission = false });
+    }
+
+    internal static string GetNativeLegacyProtocolFingerprint(CompiledTopology source, TopologyTargets targets)
+    {
+        var fields = TopologyEvaluationPlan.Fields(source, 21);
         var pupils = ApertureSampler.GenerateGaussianQuadrature(10, 32).ToArray();
         var checks = TopologyEvaluationPlan.Checks();
         return ContentFingerprint.Compute(new { Identity = "autonomous-physical-validation-v1", targets, StructuralConstraints = source.Constraints, fields, pupils, checks, ProfileRadialSamples = 64, Backend = "CPU", Reference = "common-polychromatic-centroid", DistortionReference = "primary-chief/current-image-paraxial", IncludeSurfaceTransmission = false });
+    }
+
+    internal static bool MatchesProtocol(CompiledTopology source, TopologyTargets targets, string fingerprint)
+    {
+        var portable = GetProtocolFingerprint(source, targets);
+        return fingerprint == portable || fingerprint == GetNativeLegacyProtocolFingerprint(source, targets)
+            || HistoricalTopologyProtocols.Matches(portable, fingerprint);
     }
 
     public static TopologyAssessment Validate(CompiledTopology source, TopologyTargets targets, CancellationToken cancellationToken = default)

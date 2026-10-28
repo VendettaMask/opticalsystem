@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a045424c-ff12-45fc-9224-a3d9a6864d96" name="allen@DESKTOP-SET3SNR 2026-10-28 21:41:05" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-28T21:41:05.3141248+08:00" queuing="2026-10-28T21:41:05.3141256+08:00" start="2026-10-28T21:40:58.6687183+08:00" finish="2026-10-28T21:41:06.5870602+08:00" />
+  <TestSettings name="default" id="2a0170e2-ff3b-444d-beb5-293ba89267e5">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-28_21_41_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6c98ce26-7653-4129-84a3-38be64184293" testId="dcd409ec-2be2-68ba-2962-11874b311686" testName="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.PlaneParallelPlateStopImageMatchesIndependentConjugateAndTiltedDetectorProjection" computerName="DESKTOP-SET3SNR" duration="00:00:00.0056885" startTime="2026-10-28T21:41:06.3880592+08:00" endTime="2026-10-28T21:41:06.3936390+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6c98ce26-7653-4129-84a3-38be64184293" />
+    <UnitTestResult executionId="35a136f0-0560-4667-aa91-4f46b9d80760" testId="62d442cf-98fa-41af-49d4-220ea3cae552" testName="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.PostStopCurvedInterfaceHasAnalyticAxialConjugateAndNonlinearLateralPupilDistortion" computerName="DESKTOP-SET3SNR" duration="00:00:02.0199157" startTime="2026-10-28T21:41:04.0419063+08:00" endTime="2026-10-28T21:41:06.0195517+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="35a136f0-0560-4667-aa91-4f46b9d80760" />
+    <UnitTestResult executionId="1689faf9-19ba-48df-b803-a0ea89996b8f" testId="d2a50094-7c36-a32a-d2fa-2c39c5bd50de" testName="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.GeometricPupilMovesRigidlyWithoutChangingItsShapeOrPhysicalWavefront" computerName="DESKTOP-SET3SNR" duration="00:00:00.0083342" startTime="2026-10-28T21:41:06.3940098+08:00" endTime="2026-10-28T21:41:06.4021032+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1689faf9-19ba-48df-b803-a0ea89996b8f" />
+    <UnitTestResult executionId="06d80a3c-36b8-41d1-9de4-5e1157cc8495" testId="1e5fe33f-595e-faa5-7265-edba7d9ea4ed" testName="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.ConjugateFitRecoversKnownThreeDimensionalPointAndReportsSkewInsteadOfInventingExactFocus" computerName="DESKTOP-SET3SNR" duration="00:00:00.3423957" startTime="2026-10-28T21:41:03.7327263+08:00" endTime="2026-10-28T21:41:03.9974541+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="06d80a3c-36b8-41d1-9de4-5e1157cc8495" />
+    <UnitTestResult executionId="b71ecb0d-2efd-4a11-8e31-f8c83484ce74" testId="9c45c69f-a8ee-2aed-37a4-4f6bbaadf750" testName="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.ThreeDimensionalStopImagePreservesPhysicalWavefrontAndRetainsCurvedDepth" computerName="DESKTOP-SET3SNR" duration="00:00:00.3645802" startTime="2026-10-28T21:41:06.0234157+08:00" endTime="2026-10-28T21:41:06.3842739+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b71ecb0d-2efd-4a11-8e31-f8c83484ce74" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.PostStopCurvedInterfaceHasAnalyticAxialConjugateAndNonlinearLateralPupilDistortion" storage="d:\projects\opticalsystem\tools\diagnostics\afocalpsfcontract20261028\bin\release\net10.0\opticalsystemdesign.tests.dll" id="62d442cf-98fa-41af-49d4-220ea3cae552">
+      <Execution id="35a136f0-0560-4667-aa91-4f46b9d80760" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\AfocalPsfContract20261028\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests" name="PostStopCurvedInterfaceHasAnalyticAxialConjugateAndNonlinearLateralPupilDistortion" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.PlaneParallelPlateStopImageMatchesIndependentConjugateAndTiltedDetectorProjection" storage="d:\projects\opticalsystem\tools\diagnostics\afocalpsfcontract20261028\bin\release\net10.0\opticalsystemdesign.tests.dll" id="dcd409ec-2be2-68ba-2962-11874b311686">
+      <Execution id="6c98ce26-7653-4129-84a3-38be64184293" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\AfocalPsfContract20261028\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests" name="PlaneParallelPlateStopImageMatchesIndependentConjugateAndTiltedDetectorProjection" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.ThreeDimensionalStopImagePreservesPhysicalWavefrontAndRetainsCurvedDepth" storage="d:\projects\opticalsystem\tools\diagnostics\afocalpsfcontract20261028\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9c45c69f-a8ee-2aed-37a4-4f6bbaadf750">
+      <Execution id="b71ecb0d-2efd-4a11-8e31-f8c83484ce74" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\AfocalPsfContract20261028\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests" name="ThreeDimensionalStopImagePreservesPhysicalWavefrontAndRetainsCurvedDepth" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.ConjugateFitRecoversKnownThreeDimensionalPointAndReportsSkewInsteadOfInventingExactFocus" storage="d:\projects\opticalsystem\tools\diagnostics\afocalpsfcontract20261028\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1e5fe33f-595e-faa5-7265-edba7d9ea4ed">
+      <Execution id="06d80a3c-36b8-41d1-9de4-5e1157cc8495" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\AfocalPsfContract20261028\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests" name="ConjugateFitRecoversKnownThreeDimensionalPointAndReportsSkewInsteadOfInventingExactFocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.GeometricPupilMovesRigidlyWithoutChangingItsShapeOrPhysicalWavefront" storage="d:\projects\opticalsystem\tools\diagnostics\afocalpsfcontract20261028\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d2a50094-7c36-a32a-d2fa-2c39c5bd50de">
+      <Execution id="1689faf9-19ba-48df-b803-a0ea89996b8f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\AfocalPsfContract20261028\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PupilFoucaultExtensionTests" name="GeometricPupilMovesRigidlyWithoutChangingItsShapeOrPhysicalWavefront" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="dcd409ec-2be2-68ba-2962-11874b311686" executionId="6c98ce26-7653-4129-84a3-38be64184293" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="62d442cf-98fa-41af-49d4-220ea3cae552" executionId="35a136f0-0560-4667-aa91-4f46b9d80760" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d2a50094-7c36-a32a-d2fa-2c39c5bd50de" executionId="1689faf9-19ba-48df-b803-a0ea89996b8f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1e5fe33f-595e-faa5-7265-edba7d9ea4ed" executionId="06d80a3c-36b8-41d1-9de4-5e1157cc8495" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9c45c69f-a8ee-2aed-37a4-4f6bbaadf750" executionId="b71ecb0d-2efd-4a11-8e31-f8c83484ce74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="5" executed="5" passed="5" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.47]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.97]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.08]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:04.95]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

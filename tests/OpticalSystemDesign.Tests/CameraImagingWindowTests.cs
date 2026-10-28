@@ -262,6 +262,65 @@ public sealed class CameraImagingWindowTests
         }, CancellationToken.None);
     }
 
+    [Theory]
+    [InlineData("Light")] [InlineData("Dark")]
+    public async Task MaterialScenesPreserveABAndAllowCurveAssignmentWithoutPhotoClassification(string theme)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));
+        await session.Dispatch<bool>(async () =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            using var app = WorkbenchApplication.Create(); using var files = new CameraSensorFileTests.TemporaryFiles();
+            var window = new CameraImagingWindow(app);
+            try
+            {
+                window.Show(); await window.RunAsync(); window.PinComparison(); var legacy = window.Comparison;
+                Assert.True(await window.ImportResponseFromPathAsync(Path.Combine(CameraSensorFileTests.Examples, "example-qe.csv")));
+                Assert.True(await window.ImportSceneSpectrumFromPathAsync(Path.Combine(CameraSensorFileTests.Examples, "illuminant-flat.csv"), true));
+                Assert.True(await window.ImportMaterialSceneFromPathAsync(CameraMaterialServiceTests.Example));
+                var controls = window.GetVisualDescendants().OfType<Control>().ToArray();
+                controls.OfType<ComboBox>().Single(c => c.Name == "camera-spectral-model").SelectedIndex = 1;
+                var run = controls.OfType<Button>().Single(c => c.Name == "camera-run"); Assert.True(run.IsEnabled);
+                await window.RunAsync(); var material = Assert.IsType<CameraImagingResult>(window.Result);
+                Assert.Same(legacy, window.Comparison); Assert.Equal(CameraSceneMode.MaterialMap, material.Request.SceneMode);
+                Assert.Null(material.Request.Reflectance); Assert.Equal(3, material.Integration!.Materials!.Count);
+                var tabs = controls.OfType<TabControl>().Single(); tabs.SelectedIndex = 1; Capture(window, theme + "-materials-AB");
+                tabs.SelectedIndex = 3; window.Height = 1440; Capture(window, theme + "-materials-scene");
+                Assert.True(window.GetVisualDescendants().OfType<Control>().Single(c => c.Name == "camera-material-preview").IsVisible);
+                var plot = window.GetVisualDescendants().OfType<global::OpticalSystemDesign.App.Controls.AnalysisPlotControl>()
+                    .Single(p => p.Name == "camera-reflectance-plot");
+                Assert.Equal(3, plot.Series.Count); var options = plot.PlotOptions;
+                var checks = window.GetVisualDescendants().OfType<CheckBox>().Where(c => c.Name?.StartsWith("camera-material-visible-") == true).ToArray();
+                Assert.Equal(3, checks.Length);
+                foreach (var check in checks) check.IsChecked = false;
+                Assert.Empty(plot.Series); Assert.Same(options, plot.PlotOptions); Assert.Same(material, window.Result);
+                foreach (var check in checks) check.IsChecked = true;
+                Assert.Equal(3, plot.Series.Count);
+                window.Height = 900;
+                var settings = controls.OfType<ScrollViewer>().Single(s => s.Name == "CameraSettings");
+                settings.Offset = new Vector(0, 1100); Capture(window, theme + "-materials-settings"); settings.Offset = default;
+                window.PinComparison();
+                Assert.True(await window.ReplaceMaterialReflectanceFromPathAsync(Path.Combine(CameraSensorFileTests.Examples, "reflectance-neutral.csv"), 1));
+                Assert.Null(window.Result); Assert.Same(material, window.Comparison);
+                Assert.Equal(.7, material.Request.MaterialScene!.Materials.Single(m => m.Id == 1).Reflectance!.Samples[1].Value);
+                await window.RunAsync(); var changed = window.Result;
+                Assert.True(changed!.Request.MaterialScene!.Modified);
+                controls.OfType<ComboBox>().Single(c => c.Name == "camera-material-choice").SelectedIndex = 2;
+                Assert.Same(changed, window.Result); // choosing the assignment target is not a physical change
+                var invalid = files.Path("invalid.json"); File.WriteAllText(invalid, "{}");
+                Assert.False(await window.ImportMaterialSceneFromPathAsync(invalid)); Assert.Same(changed, window.Result); Assert.Same(material, window.Comparison);
+                controls.OfType<ComboBox>().Single(c => c.Name == "camera-scene-mode").SelectedIndex = 0;
+                Assert.False(run.IsEnabled); Assert.Same(material, window.Comparison);
+                Assert.True(await window.ImportSceneSpectrumFromPathAsync(Path.Combine(CameraSensorFileTests.Examples, "reflectance-neutral.csv"), false));
+                Assert.True(run.IsEnabled); await window.RunAsync(); Assert.Null(window.Result!.Integration!.Materials);
+                Assert.Same(material, window.Comparison);
+                app.Documents.NewBlank(); Assert.Null(window.Result); Assert.Null(window.Comparison);
+                return true;
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
     private static void Capture(Window window, string name)
     {
         Dispatcher.UIThread.RunJobs(); window.UpdateLayout(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();

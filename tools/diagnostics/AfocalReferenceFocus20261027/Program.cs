@@ -10,6 +10,38 @@ using OpticalSystemDesign.ZemaxComparison.Zemax;
 
 if(args.Length!=3)throw new ArgumentException("prepare|workbench|compare <audit root> <new run>");
 var mode=args[0];var audit=Path.GetFullPath(args[1]);var output=Path.GetFullPath(args[2]);
+if(mode=="prepare-existing")
+{
+    // Reuse the exact prior requests and original reference paths. This mode
+    // creates only new worker jobs and identity records, never native arrays.
+    if(Directory.Exists(output))throw new IOException("Fresh recheck output required");
+    var source=Path.Combine(audit,"items.json");var prior=JsonFiles.Read<List<Row>>(source);
+    if(prior.Count==0||prior.Select(r=>r.Id).Distinct(StringComparer.Ordinal).Count()!=prior.Count)
+        throw new InvalidDataException("Empty or repeated recheck identities");
+    var sources=new List<object>();
+    foreach(var row in prior)
+    {
+        if(Path.GetFileName(row.Id)!=row.Id||row.Id is "." or "..")throw new InvalidDataException("Invalid recheck ID");
+        if(!File.Exists(row.Snapshot)||!Directory.Exists(row.Native))throw new FileNotFoundException("Missing frozen input/reference");
+        sources.Add(new{row.Id,requestFingerprint=row.Request.Fingerprint,snapshot=row.Snapshot,
+            snapshotSha256=JsonFiles.Hash(File.ReadAllBytes(row.Snapshot)),native=row.Native,
+            files=Directory.EnumerateFiles(row.Native).Order(StringComparer.Ordinal).Select(path=>new{
+                path,sha256=JsonFiles.Hash(File.ReadAllBytes(path))}).ToArray()});
+    }
+    Directory.CreateDirectory(output);
+    foreach(var row in prior)
+    {
+        var wb=Path.Combine(output,row.Id,"workbench");Directory.CreateDirectory(wb);
+        JsonFiles.Write(Path.Combine(wb,"request.json"),new WorkbenchJob(row.Snapshot,wb,row.Request));
+    }
+    JsonFiles.Write(Path.Combine(output,"items.json"),prior);
+    JsonFiles.Write(Path.Combine(output,"input-identity.json"),new{source,sourceSha256=JsonFiles.Hash(File.ReadAllBytes(source)),
+        count=prior.Count,inputs=sources});
+    JsonFiles.Write(Path.Combine(output,"identity.json"),new{
+        coreSha256=JsonFiles.Hash(File.ReadAllBytes(typeof(Optic).Assembly.Location)),
+        applicationSha256=JsonFiles.Hash(File.ReadAllBytes(typeof(WorkbenchRuntime).Assembly.Location))});
+    Console.WriteLine($"Prepared {prior.Count} unchanged requests with shared frozen references");return;
+}
 if(mode=="focus-probe"){ ReferenceFocusProbe.Focus(audit,output);return; }
 if(mode=="reference-probe"){ ReferenceFocusProbe.Reference(audit,output);return; }
 if(mode=="focal-guards"){ FocalGuards.Run(output); return; }

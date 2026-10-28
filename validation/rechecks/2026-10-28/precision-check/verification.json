@@ -1,0 +1,317 @@
+{
+  "checkedAtUtc": "2026-10-28T13:59:11.4753919Z",
+  "sourceCommit": "3fabccb2c9a234965cbeb9502a1db174ed0ffe23",
+  "tests": [
+    {
+      "file": "tests/afocal.trx",
+      "sha256": "fab8ccca81ff33a59cc13769a518016793b6958d1b2944aee79d73c74932cc6c",
+      "scope": "Afocal regressions, native contracts and independent physics",
+      "total": 167,
+      "passed": 167,
+      "failed": 0,
+      "started": "2026-10-28T21:39:44.1276519+08:00",
+      "finished": "2026-10-28T21:40:08.6391129+08:00"
+    },
+    {
+      "file": "tests/focal-native.trx",
+      "sha256": "9901569909a28ac4b27dad522d4fc56841648d1631267b4df2353f2e1034f679",
+      "scope": "Focused focal native-reference regressions",
+      "total": 55,
+      "passed": 55,
+      "failed": 0,
+      "started": "2026-10-28T21:40:49.2307901+08:00",
+      "finished": "2026-10-28T21:43:46.3673476+08:00"
+    },
+    {
+      "file": "tests/pupil-focal.trx",
+      "sha256": "a01e94b56c1a4d6012e65c325ea2ba4539c4109cc2d7d4f854cfa3ca4f06be65",
+      "scope": "Existing focal pupil analytical regressions",
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "started": "2026-10-28T21:40:58.6687183+08:00",
+      "finished": "2026-10-28T21:41:06.5870602+08:00"
+    }
+  ],
+  "distinctPassed": 227,
+  "binaries": [
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "5fe37b4116bd56863529b57b2164151e7dce2b9c03abde2e8d0315f02084cb17"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "5fe37b4116bd56863529b57b2164151e7dce2b9c03abde2e8d0315f02084cb17"
+    },
+    {
+      "path": "tools/diagnostics/AfocalPsfContract20261028/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "5fe37b4116bd56863529b57b2164151e7dce2b9c03abde2e8d0315f02084cb17"
+    }
+  ],
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "psfGridChecks": [
+    {
+      "id": "0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf",
+      "conclusion": "Incomparable",
+      "maximumXErrorMrad": 2.8262731921469E-07,
+      "maximumYErrorMrad": 2.8262731921469E-07
+    },
+    {
+      "id": "0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 8.43769498715119E-15,
+      "maximumYErrorMrad": 8.43769498715119E-15
+    },
+    {
+      "id": "fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 1.1102230246251565E-16,
+      "maximumYErrorMrad": 1.1102230246251565E-16
+    },
+    {
+      "id": "0007-001-afocal-riflescope-c1-primary-f1-w2-psf",
+      "conclusion": "Incomparable",
+      "maximumXErrorMrad": 1.095180861998557E-06,
+      "maximumYErrorMrad": 1.095180861998557E-06
+    },
+    {
+      "id": "fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 8.881784197001252E-16,
+      "maximumYErrorMrad": 8.881784197001252E-16
+    },
+    {
+      "id": "0037-002-beam-expander-c1-primary-f1-w1-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 5.72673108933941E-09,
+      "maximumYErrorMrad": 5.72673108933941E-09
+    },
+    {
+      "id": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 1.6653345369377348E-16,
+      "maximumYErrorMrad": 1.6653345369377348E-16
+    },
+    {
+      "id": "fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 2.220446049250313E-16,
+      "maximumYErrorMrad": 2.220446049250313E-16
+    },
+    {
+      "id": "fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 4.440892098500626E-16,
+      "maximumYErrorMrad": 4.440892098500626E-16
+    },
+    {
+      "id": "0090-003-binocular_system-c2-primary-f1-w2-huygens-psf",
+      "conclusion": "Incomparable",
+      "maximumXErrorMrad": 4.991209908711269E-07,
+      "maximumYErrorMrad": 4.991209908711269E-07
+    },
+    {
+      "id": "0038-002-beam-expander-c1-primary-f1-w1-huygens-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 1.4778660795133902E-09,
+      "maximumYErrorMrad": 1.4778660795133902E-09
+    },
+    {
+      "id": "fixed-0059-003-binocular_system-c1-primary-f1-w2-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 6.661338147750939E-16,
+      "maximumYErrorMrad": 6.661338147750939E-16
+    },
+    {
+      "id": "0059-003-binocular_system-c1-primary-f1-w2-psf",
+      "conclusion": "Incomparable",
+      "maximumXErrorMrad": 1.934071229836576E-06,
+      "maximumYErrorMrad": 1.934071229836576E-06
+    },
+    {
+      "id": "0060-003-binocular_system-c1-primary-f1-w2-huygens-psf",
+      "conclusion": "Incomparable",
+      "maximumXErrorMrad": 4.99115156094021E-07,
+      "maximumYErrorMrad": 4.99115156094021E-07
+    },
+    {
+      "id": "fixed-0089-003-binocular_system-c2-primary-f1-w2-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 6.661338147750939E-16,
+      "maximumYErrorMrad": 6.661338147750939E-16
+    },
+    {
+      "id": "0119-004-apochromat_prism-c1-primary-f1-w3-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 3.26405569239796E-14,
+      "maximumYErrorMrad": 3.26405569239796E-14
+    },
+    {
+      "id": "fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 8.881784197001252E-16,
+      "maximumYErrorMrad": 8.881784197001252E-16
+    },
+    {
+      "id": "fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 4.440892098500626E-16,
+      "maximumYErrorMrad": 4.440892098500626E-16
+    },
+    {
+      "id": "0089-003-binocular_system-c2-primary-f1-w2-psf",
+      "conclusion": "Incomparable",
+      "maximumXErrorMrad": 1.9340938406386954E-06,
+      "maximumYErrorMrad": 1.9340938406386954E-06
+    },
+    {
+      "id": "fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf",
+      "conclusion": "Pass",
+      "maximumXErrorMrad": 2.220446049250313E-16,
+      "maximumYErrorMrad": 2.220446049250313E-16
+    }
+  ],
+  "independentPhysics": [
+    {
+      "kind": "ideal-disk",
+      "n": 32,
+      "g": 128,
+      "occupied": 740,
+      "pitchMrad": 0.0666015625,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6986640251253965,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8444485695515956,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9310889765669007,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.006858343559588698,
+      "mtfMaximumAbsolute": 0.005746847636108776,
+      "productionMtfMaximumAbsolute": 0.0057468476361153265,
+      "parsevalRelative": -5.329070518200751E-15,
+      "rasterBudget": 0.25806451612903225
+    },
+    {
+      "kind": "ideal-disk",
+      "n": 64,
+      "g": 256,
+      "occupied": 3096,
+      "pitchMrad": 0.06767578125000001,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6706873792824941,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8447238851732815,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9329480205830192,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.0023525396721574,
+      "mtfMaximumAbsolute": 0.002588408958212357,
+      "productionMtfMaximumAbsolute": 0.002588408958216798,
+      "parsevalRelative": -2.1316282072803006E-14,
+      "rasterBudget": 0.12698412698412698
+    },
+    {
+      "kind": "production-huygens-airy",
+      "n": 32,
+      "g": 32,
+      "pitchMrad": 0.02,
+      "airyMaximumAbsolute": 0.023712472493625736,
+      "rasterBudget": 0.25806451612903225,
+      "scope": "scalar paraxial disk; finite cell/window, no absolute flux claim"
+    },
+    {
+      "kind": "padding",
+      "maximum": 1.9184653865522705E-13,
+      "energyRelative": 2.353672812205332E-14,
+      "note": "Same Fourier period; this is zero padding, not an enlarged physical window"
+    },
+    {
+      "kind": "ideal-disk",
+      "n": 128,
+      "g": 512,
+      "occupied": 12644,
+      "pitchMrad": 0.06821289062500001,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6771360457808545,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8460423893057976,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9340004321086629,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.0006236676229911531,
+      "mtfMaximumAbsolute": 0.00046540086572816053,
+      "productionMtfMaximumAbsolute": 0.00046540086572546824,
+      "parsevalRelative": -5.995204332975845E-15,
+      "rasterBudget": 0.06299212598425197
+    },
+    {
+      "kind": "rotation90",
+      "maximum": 1.0658141036401503E-13,
+      "scope": "prepared scalar pupil, not a folded-train global-frame certification"
+    },
+    {
+      "kind": "production-huygens-airy",
+      "n": 64,
+      "g": 32,
+      "pitchMrad": 0.02,
+      "airyMaximumAbsolute": 0.011467859589020302,
+      "rasterBudget": 0.12698412698412698,
+      "scope": "scalar paraxial disk; finite cell/window, no absolute flux claim"
+    }
+  ],
+  "frozen": {
+    "count": 2668,
+    "unchanged": true,
+    "workingUnchanged": true,
+    "reportSha256": "60eaec191c04bd21df91046add10f9b00f51299c67791f3dff45ef46491719b1",
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+  },
+  "scope": {
+    "limitation": "Passing tests include expected Incomparable outcomes and finite-data diagnostics; they are not 227 optical comparisons.",
+    "full1159Plus52Recomputed": false,
+    "nativeRecapture": false,
+    "complete150Recomputed": false,
+    "tolerancesChanged": false,
+    "productCodeChanged": false
+  },
+  "incompleteAttempts": [
+    {
+      "reason": "Restricted process did not start; cancelled before a TRX existed. Excluded from passing count.",
+      "log": "afocal-startup-incomplete.log"
+    },
+    {
+      "reason": "Absolute relocation-map argument rejected; repeated using the required repository-relative path. Excluded from integrity certification.",
+      "log": "frozen-integrity.log"
+    }
+  ]
+}

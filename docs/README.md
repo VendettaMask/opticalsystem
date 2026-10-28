@@ -14,6 +14,7 @@
 | 按计划建设自主镜片增删流程 | [自主镜头拓扑设计实施计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)，M0–M5 已核对完成，M6 内置界面与阶段验收已实现；[低F数/宽视场复验](../validation/rechecks/2026-10-27/representative-reduction/README.md)保留未达标边界；[两片视场冲突求步修复](../validation/rechecks/2026-10-28/two-element-field-conflict/README.md)（同预算改善但光斑仍未达标）；[合格三片3→2短程及失败诊断](../validation/rechecks/2026-10-28/three-to-two-continuation/README.md)（12次未达严格像质门槛，保留合格三片）；[指定合格四片4→3恢复修复](../validation/rechecks/2026-10-27/four-to-three-recovery/README.md)（两直接成功、渐进失败保留，原总配额、增加锥常数自由度）；[F/3.34、21°三项门槛修复](../validation/rechecks/2026-10-27/wide21-gates-repair/README.md)；[高精度/轴向接入及新处方回归](../validation/rechecks/2026-10-27/topology-integrated-compensation/README.md)；[积分精度/三片失光修复](../validation/rechecks/2026-10-27/topology-sampling-precision/README.md)；[通光优先/选参复验](../validation/rechecks/2026-10-27/topology-transmission-priority/README.md)；[边缘通光及预算修复](../validation/rechecks/2026-10-27/topology-edge-loss-repair/README.md)；[阶段验收修复](../validation/rechecks/2026-10-27/topology-reduction-repair/README.md)；[结果与边界](../validation/rechecks/2026-10-27/autonomous-comparison-m6/README.md) |
 | 维护代码与界面 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
 | 查询文件和数值边界 | [文件格式](FILE_FORMATS_AND_PLUGINS.md)、[数值验证](NUMERICAL_PARITY.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md) |
+| 核对精度结论、阶段重叠与文件复用 | [精度记录维护与去重](NUMERICAL_PARITY.md#精度结论与文件去重)，最近运行查状态页，未关闭项查问题清单，原始报告按阶段追溯 |
 | 一键导出镜头、布局与分析截图 | [Markdown 光学设计报告](MARKDOWN_REPORT_EXPORT.md) |
 
 ## 当前指南与功能契约
@@ -37,7 +38,6 @@
 - [非序列光源](NONSEQUENTIAL_SOURCES.md)
 - [非序列模式 Zemax 工作流对齐路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)
 - [数值验证与冻结历史回归](NUMERICAL_PARITY.md)
-- [四无焦项目修复、复比与未关闭项（2026-10-24）](AFOCAL_REPAIR_2026-10-24.md)
 - [计算精度与发布待解决问题分类](OPEN_ISSUES_2026-10-08.md)
 - [光学装调实验室](OPTICAL_ASSEMBLY_LAB.md)
 - [相机成像仿真实验室：传感器、ISP 与 A/B 对照](CAMERA_IMAGING_LAB.md)
@@ -113,6 +113,7 @@
 <details>
 <summary>光学、UI、架构和可靠性阶段记录</summary>
 
+- [四无焦项目修复与复比（2026-10-24阶段）](AFOCAL_REPAIR_2026-10-24.md)；后续各阶段及当前入口见[阶段关系](NUMERICAL_PARITY.md#无焦记录的阶段关系)。
 - [精度与页面对比验证（2026-09-05 更新）](ACCURACY_VALIDATION_2026-07-31.md)
 - [C# Zemax 比较工具首轮历史审计（2026-09-05）](ZEMAX_COMPARISON_TOOL.md)
 - [旧、新架构收敛与单一结果链路修正计划](ARCHITECTURE_CONVERGENCE_PLAN.md)

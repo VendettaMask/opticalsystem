@@ -1,0 +1,509 @@
+{
+  "auditedAtUtc": "2026-10-28T13:51:09.8996958Z",
+  "scope": "Tracked and pending afocal docs, ledgers, fixtures, 2026-10-27/28 afocal evidence, latest focused precision check. Whole-file bytes only; archive members not expanded.",
+  "sourceCommit": "3fabccb2c9a234965cbeb9502a1db174ed0ffe23",
+  "files": 695,
+  "totalBytes": 220984051.0,
+  "exactDuplicateGroups": [
+    {
+      "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0",
+      "bytesEach": 8781,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0061-003-binocular_system-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0061-003-binocular_system-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0061-003-binocular_system-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c1/model.json"
+      ],
+      "copies": 6,
+      "duplicateBytes": 43905,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "1b9217cfe4a0d9c5a6bdcf9162a1d9f660128532c6a07b5c5f74f00b5342d1cb",
+      "bytesEach": 862574,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/fft-mtf-all-fields-poly64/workbench/data.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/mtf-c1/data.json"
+      ],
+      "copies": 2,
+      "duplicateBytes": 862574,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "bytesEach": 15264,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/sources/Afocal/Afocal Riflescope.ZMX",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/source.ZMX",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/input/Afocal Riflescope.ZMX"
+      ],
+      "copies": 3,
+      "duplicateBytes": 30528,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytesEach": 3472,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0039-002-beam-expander-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0061-003-binocular_system-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0091-003-binocular_system-c2-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0039-002-beam-expander-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0061-003-binocular_system-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0091-003-binocular_system-c2-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0039-002-beam-expander-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0061-003-binocular_system-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0091-003-binocular_system-c2-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/beam/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c1/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c2/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/prism/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w1/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w2/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w3/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w1/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w2/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w3/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w2/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w3/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/fft-mtf-all-fields-poly64/native/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/field-curvature-distortion-w1/native/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-axis-w1/native/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-edge-w1/native/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/probe/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/ray-fan-c1/environment.json"
+      ],
+      "copies": 46,
+      "duplicateBytes": 156240,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "403fc1bd0f26054f45ea868714c4568a50043a081153bc10352462cfd79dd685",
+      "bytesEach": 206750,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/field-curvature-distortion-w1/workbench/data.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/field-curvature-and-distortion-c1/data.json"
+      ],
+      "copies": 2,
+      "duplicateBytes": 206750,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "48792b0534c92ddb9c43a45db3ec61400113bf52b39050275a4e73fd44767cbd",
+      "bytesEach": 18448,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/settings.CFG",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/settings.CFG"
+      ],
+      "copies": 2,
+      "duplicateBytes": 18448,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytesEach": 2,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/field-curvature-and-distortion-c1/preflight.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/mtf-c1/preflight.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/ray-fan-c1/preflight.json"
+      ],
+      "copies": 3,
+      "duplicateBytes": 4,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d",
+      "bytesEach": 8781,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0091-003-binocular_system-c2-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0091-003-binocular_system-c2-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0091-003-binocular_system-c2-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c2/model.json"
+      ],
+      "copies": 6,
+      "duplicateBytes": 43905,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "65ebcd0d8722eb5179c4a8bc37e5e6d688fa5dfbf4c11fcd5abe51983038066f",
+      "bytesEach": 9813,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/fft-mtf-all-fields-poly64/native/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/field-curvature-distortion-w1/native/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-axis-w1/native/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-edge-w1/native/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/probe/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/ray-fan-c1/model.json"
+      ],
+      "copies": 8,
+      "duplicateBytes": 68691,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee",
+      "bytesEach": 4650,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0039-002-beam-expander-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0039-002-beam-expander-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0039-002-beam-expander-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/beam/model.json"
+      ],
+      "copies": 6,
+      "duplicateBytes": 23250,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "7ecb8f4fe338d11fff3ad59a13b2a5cffd94f9c9a17678d190819223d6da8550",
+      "bytesEach": 12710,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/comparisons/ray-fan-c1/sagittal-values.csv",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/comparisons/ray-fan-c1/tangential-values.csv"
+      ],
+      "copies": 2,
+      "duplicateBytes": 12710,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "7f6bbcf48fd7ef69fa22832029d2393ff29b5913a2bffff9cf716d3c1049eb7b",
+      "bytesEach": 18448,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/settings.CFG",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/settings.CFG",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/settings.CFG"
+      ],
+      "copies": 3,
+      "duplicateBytes": 36896,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "88f43f3de8bc8c72072a81440faee91bc148e2b9e3583134a5a832d1ebe43395",
+      "bytesEach": 18448,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/settings.CFG",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/settings.CFG"
+      ],
+      "copies": 2,
+      "duplicateBytes": 18448,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "8901149955974dea221e7f444f014738715b0995d12dedaa3672f82a92d1e500",
+      "bytesEach": 388,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w1/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w2/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w3/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w1/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w2/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w3/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w2/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w3/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope/point-reference-settings.json"
+      ],
+      "copies": 9,
+      "duplicateBytes": 3104,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "ab8adb266e97b9b73e6dd42b04f818c545f2edc474a54f54a2e30af1daf674d5",
+      "bytesEach": 148943,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-axis-w1/workbench/data.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/ray-fan-c1/data.json"
+      ],
+      "copies": 2,
+      "duplicateBytes": 148943,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1",
+      "bytesEach": 10119,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w1/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w2/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w3/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w1/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w2/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w3/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w2/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w3/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope/model.json"
+      ],
+      "copies": 14,
+      "duplicateBytes": 131547,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "b4b074b1676b96b0b2c9ed4edd312ee70094255507308fd4a486a297245fc117",
+      "bytesEach": 76,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0039-002-beam-expander-c1-primary-f0-w0-mtf/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0061-003-binocular_system-c1-primary-f0-w0-mtf/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0091-003-binocular_system-c2-primary-f0-w0-mtf/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/capture.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/capture.json"
+      ],
+      "copies": 6,
+      "duplicateBytes": 380,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35",
+      "bytesEach": 8620,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/prism/model.json"
+      ],
+      "copies": 6,
+      "duplicateBytes": 43100,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "cdb9d407572689932a974767cd6cd9dbcc22d463bb5d587a15a7d3bd5341651f",
+      "bytesEach": 18448,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0061-003-binocular_system-c1-primary-f0-w0-mtf/settings.CFG",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0091-003-binocular_system-c2-primary-f0-w0-mtf/settings.CFG",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/settings.CFG"
+      ],
+      "copies": 3,
+      "duplicateBytes": 36896,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytesEach": 0,
+      "paths": [
+        "validation/rechecks/2026-10-28/afocal-psf-contract/binocular-nodes-final.log",
+        "validation/rechecks/2026-10-28/afocal-psf-contract/binocular.log",
+        "validation/rechecks/2026-10-28/afocal-psf-contract/conditioning-format-final.log",
+        "validation/rechecks/2026-10-28/afocal-psf-contract/conditioning-format.log",
+        "validation/rechecks/2026-10-28/afocal-psf-contract/format.log",
+        "validation/rechecks/2026-10-28/afocal-psf-contract/independent-format-final.log",
+        "validation/rechecks/2026-10-28/afocal-psf-contract/independent-format-fix.log",
+        "validation/rechecks/2026-10-28/afocal-psf-contract/polygon-format-final.log",
+        "validation/rechecks/2026-10-28/afocal-psf-contract/polygon-format.log",
+        "validation/rechecks/2026-10-28/precision-check/afocal-startup-incomplete.log",
+        "validation/rechecks/2026-10-28/precision-check/frozen-integrity.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/zemax.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/zemax.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0039-002-beam-expander-c1-primary-f0-w0-mtf/zemax.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/zemax.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0061-003-binocular_system-c1-primary-f0-w0-mtf/zemax.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/zemax.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0091-003-binocular_system-c2-primary-f0-w0-mtf/zemax.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/zemax.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/zemax.log",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/zemax.log",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/process.log",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/zemax.log",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/process.log",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/zemax.log",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/probe/process.log",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/ray-fan-c1/process.log",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/ray-fan-c1/zemax.log"
+      ],
+      "copies": 28,
+      "duplicateBytes": 0,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "e6a7c400e78221cbe865c23edce39b3b8e9fc525006a463bbc959b93bad5f223",
+      "bytesEach": 5009,
+      "paths": [
+        "docs/validation/AFOCAL_REFERENCE_FOCUS_REPAIR_2026-10-27.json",
+        "validation/rechecks/2026-10-27/afocal-reference-focus/summary.json"
+      ],
+      "copies": 2,
+      "duplicateBytes": 5009,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "e954f9cfa7f5c6e641a1842ae612a9772b44845691c9541cf36bb87135d8ff8c",
+      "bytesEach": 384,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c1/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c2/point-reference-settings.json"
+      ],
+      "copies": 2,
+      "duplicateBytes": 384,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "f9150c508e9f0d6dc7efb89d4eafdf936a85e7384856013db80baff95cf3d30a",
+      "bytesEach": 8036,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w1/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w2/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w3/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w1/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w2/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w3/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w2/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w3/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope/active-model.json"
+      ],
+      "copies": 9,
+      "duplicateBytes": 64288,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    },
+    {
+      "sha256": "fa82e214770378ab3e68877185af256a6e1acc99b6e84a3fd8082c4ba7fe3c4a",
+      "bytesEach": 97,
+      "paths": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/capture.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/capture.json"
+      ],
+      "copies": 6,
+      "duplicateBytes": 485,
+      "action": "Preserve captured evidence; reuse via existing canonical paths/manifests, do not delete by content hash alone."
+    }
+  ],
+  "nonEmptyDuplicateGroups": 23,
+  "potentialDuplicateBytes": 1956485.0,
+  "semantics": "Equal bytes do not imply equal requests, versions or execution provenance. No historical/native evidence removed.",
+  "testExecutionOverlap": {
+    "scope": "Only the fourteen currently available TRX files in 2026-10-28/afocal-psf-contract. Library-only files not fetched. Test identities, not optical cases.",
+    "previousFiles": [
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/afocal-before.trx",
+        "sha256": "91fce62fdd00be69e4c4dc0b3f74a73b530f9d2524aff4fa2e64e58d6f1d4a0a",
+        "results": 15,
+        "overlapWithLatestAfocal": 15
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/conditioning-after.trx",
+        "sha256": "4d852c3e32609ffb9e731ee1dcaae36cd15b5c07be20e6bf26789c64bbbb82de",
+        "results": 14,
+        "overlapWithLatestAfocal": 14
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/conditioning-before.trx",
+        "sha256": "ad3963fd8a83c6fcf03d52e0b6c8e59fe87b2bb35fe4ce82fdeeff13a57777ae",
+        "results": 6,
+        "overlapWithLatestAfocal": 6
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/conditioning-energy-regression.trx",
+        "sha256": "5096080896e138910d144c709d23a5b97f541efcb9c7d2ad68d67e40869bfc38",
+        "results": 25,
+        "overlapWithLatestAfocal": 25
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/conditioning-focal-regression.trx",
+        "sha256": "146b096423dc7398338d991b12154cca3cc23ad5d20807cf726ddd2c881b64c6",
+        "results": 5,
+        "overlapWithLatestAfocal": 0
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/contract-after.trx",
+        "sha256": "ebb3bd0a51224a144e66e349c99a6b31d53f8b7ab3a2ba2c4e081bbc0ffaf351",
+        "results": 23,
+        "overlapWithLatestAfocal": 23
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/contract-before.trx",
+        "sha256": "b90d5e57f37e78546ce35e197c0d3864b1e89d26d474888bcd8f021763393efe",
+        "results": 23,
+        "overlapWithLatestAfocal": 23
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/contract-final.trx",
+        "sha256": "ee3bac42bb0c47998ed88e13155c0557294c136750337dc57acc898424525b52",
+        "results": 40,
+        "overlapWithLatestAfocal": 40
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/github-fixture-reuse.trx",
+        "sha256": "ec4d0951e92be7dc803978339be1cb874f13be82b473e2a97bc3ce074f772aa9",
+        "results": 40,
+        "overlapWithLatestAfocal": 40
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/independent-final.trx",
+        "sha256": "d969b50b2add55f7f7b2da70345604a5f80234b4f2fc822722c673c3b333e5ba",
+        "results": 8,
+        "overlapWithLatestAfocal": 8
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/independent-first.trx",
+        "sha256": "4905d0675edaf44a08a147fcce93f94dcbf4bed640fec1aebead225b5c085063",
+        "results": 8,
+        "overlapWithLatestAfocal": 8
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/polygon-dependencies-final.trx",
+        "sha256": "e6274f430206a99732020891503888e7e1f76eabaae1d20c7c8c3b8e630031a9",
+        "results": 4,
+        "overlapWithLatestAfocal": 4
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/polygon-dependencies.trx",
+        "sha256": "e7668fee244e88e6a1ea17f890a73f2ae0969ffa59b81c2b3be597e0b58220fc",
+        "results": 4,
+        "overlapWithLatestAfocal": 4
+      },
+      {
+        "path": "validation/rechecks/2026-10-28/afocal-psf-contract/production-physics.trx",
+        "sha256": "f78d9d5bf37c77fc4934106df8aa97b742038f303abae2b0a907aebd1931315c",
+        "results": 5,
+        "overlapWithLatestAfocal": 5
+      }
+    ],
+    "previousResultExecutions": 220.0,
+    "previousDistinctResultIds": 90,
+    "latestAfocalCount": 167,
+    "latestAlreadyRecorded": 85,
+    "latestTrxSha256": "fab8ccca81ff33a59cc13769a518016793b6958d1b2944aee79d73c74932cc6c"
+  },
+  "organizationChanges": {
+    "removedRepeatedStatusPreambleParagraphs": 9,
+    "currentConclusionRouting": "CURRENT_STATUS: executed scope; OPEN_ISSUES: unresolved issues; NUMERICAL_PARITY: identity and deduplication policy; dated reports: historical evidence.",
+    "historicalReportsAndProtectedTrackedPathsUnchanged": true,
+    "opticalTestsRerun": false,
+    "deletedHistoricalEvidence": false,
+    "oldFixtureCopyDescriptionCorrected": true,
+    "emptyLogsExcludedFromNonEmptyGroupCount": true
+  }
+}

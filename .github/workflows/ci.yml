@@ -48,6 +48,12 @@ jobs:
           ./tools/validation/GitFrozenIntegrity.Tests.ps1 -OutputDirectory (Join-Path '${{ runner.temp }}' 'frozen-evidence-tests')
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
+      - name: Verify consolidated evidence and test alias guards
+        shell: pwsh
+        run: |
+          ./tools/validation/EvidenceAliases.ps1 -OutputPath (Join-Path '${{ runner.temp }}' 'frozen-evidence/aliases.json')
+          ./tools/validation/EvidenceAliases.Tests.ps1 -OutputDirectory (Join-Path '${{ runner.temp }}' 'evidence-alias-tests')
+
       - name: Upload frozen-byte results
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
@@ -57,6 +63,7 @@ jobs:
             ${{ runner.temp }}/frozen-evidence
             ${{ runner.temp }}/frozen-working-tests/results.json
             ${{ runner.temp }}/frozen-evidence-tests/results.json
+            ${{ runner.temp }}/evidence-alias-tests/results.json
           if-no-files-found: warn
 
   documentation:

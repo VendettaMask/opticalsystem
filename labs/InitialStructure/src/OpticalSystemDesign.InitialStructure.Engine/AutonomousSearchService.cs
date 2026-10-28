@@ -245,13 +245,7 @@ public static partial class AutonomousSearchService
                 pending.Operation, pending.Phase, outcome, detail, work, endpoint, recovery, optimization)
                 { Change = pending.Change, GradualDeletion = pending.GradualDeletion, Assessment = policy.CheckStageFeasibility == true ? assessment : null })
             };
-        void RebuildPool() => state = state with
-        {
-            Pool = state.Candidates.Where(candidate => policy.QualifiedReductionOnly != true || candidate.Assessment.MeetsTargets)
-                .GroupBy(candidate => candidate.Topology.Elements.Length)
-                .SelectMany(group => group.OrderBy(candidate => candidate.Score).ThenBy(candidate => candidate.Id, StringComparer.Ordinal)
-                    .Take(policy.CandidatesPerElementCount)).Select(candidate => candidate.Id).ToImmutableArray()
-        };
+        void RebuildPool() => state = state with { Pool = TopologyDiversitySelection.Select(state) };
         bool Schedule()
         {
             if (state.SeedCursor < state.Plan.Seeds.Length)
@@ -448,11 +442,14 @@ public static partial class AutonomousSearchService
             var compiled = TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints);
             if (!double.IsFinite(candidate.Score) || candidate.OperationCursor < 0 || candidate.OperationCursor > state.Plan.Options.BranchesPerParent + 1
                 || !candidate.Assessment.Completed || candidate.Assessment.OpticFingerprint != compiled.OpticFingerprint
-                || candidate.Assessment.ProtocolFingerprint != TopologyValidator.GetProtocolFingerprint(compiled, state.Plan.Targets)
+                || !TopologyValidator.MatchesProtocol(compiled, state.Plan.Targets, candidate.Assessment.ProtocolFingerprint)
                 || candidate.Assessment.Targets != state.Plan.Targets || ContentFingerprint.Compute(candidate.Assessment.StructuralConstraints) != ContentFingerprint.Compute(state.Plan.Constraints)
                 || TaskIdentity(candidate.Topology) != TaskIdentity(state.Plan.Seeds[0])
                 || candidate.Assessment.MeetsTargets && (candidate.Assessment.Violations.Length != 0 || candidate.Topology.HasTransitionElements))
-                throw new InvalidDataException("Candidate physical assessment does not match the original specification.");
+                throw new InvalidDataException($"Candidate physical assessment does not match the original specification: {candidate.Id}; "
+                    + $"optic={candidate.Assessment.OpticFingerprint == compiled.OpticFingerprint}, "
+                    + $"protocol={TopologyValidator.MatchesProtocol(compiled, state.Plan.Targets, candidate.Assessment.ProtocolFingerprint)}, "
+                    + $"targets={candidate.Assessment.Targets == state.Plan.Targets}.");
         }
         foreach (var group in state.Pool.Select(id => state.Candidates.Single(candidate => candidate.Id == id)).GroupBy(candidate => candidate.Topology.Elements.Length))
             if (group.Count() > state.Plan.Options.CandidatesPerElementCount) throw new InvalidDataException("Candidate pool exceeds its per-count bound.");
@@ -487,12 +484,17 @@ public static partial class AutonomousSearchService
         }
         ValidateExpansionCheckpoint(state);
         ValidateAxialCheckpoint(state);
+        if (state.Plan.Options.PoolDiversity is not null && !state.Pool.SequenceEqual(TopologyDiversitySelection.Select(state)))
+            throw new InvalidDataException("Candidate pool does not match the recorded diversity policy.");
     }
 
     private static void ValidatePlan(AutonomousSearchPlan plan)
     {
         ArgumentNullException.ThrowIfNull(plan);
         var options = plan.Options;
+        if (options.PoolDiversity is { } diversity && (diversity.Version != 1 || diversity.RankWindow is < 8 or > 128))
+            throw new ArgumentException("Unsupported or unbounded diversity policy.");
+        if (options.SeedPreparation is { } preparation) ParaxialSeedSearch.ValidateOptions(preparation);
         if (options.QualifiedReductionOnly == true && (options.FixedTopologyOnly == true
             || options.Expansion is { } reduction && (!reduction.EnableDeletion || reduction.EnableInsertion || reduction.EnableSplit
                 || reduction.EnableMerge || reduction.EnableMaterial || reduction.EnableProfile)))

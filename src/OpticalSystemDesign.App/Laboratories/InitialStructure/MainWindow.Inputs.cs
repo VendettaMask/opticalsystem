@@ -37,7 +37,7 @@ public sealed partial class MainWindow
     private readonly NumericUpDown _seedCount = Number("RootCount", "起始试验上限", 24, 1, 128, 1);
     private readonly NumericUpDown _maximumEvaluations = Number("EvaluationBudget", "评价次数上限", 10000, 1, 100000, 100);
     private readonly ComboBox _searchMode = Named(new ComboBox { ItemsSource = new[] { "QUICK · 筛选后择优优化", "FULL · 逐形式完整优化" }, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch }, "SearchMode", "形式搜索方式");
-    private readonly TextBlock _optimizationMethod = Named(Text("AutoLens · C# 自动求导"), "OptimizationMethod", "局部优化算法");
+    private readonly TextBlock _optimizationMethod = Named(Text("初始结构优化 · C# 自动求导"), "OptimizationMethod", "局部优化算法");
     private readonly ComboBox _computeMode = Named(new ComboBox
     {
         ItemsSource = new[] { "自动（优先 GPU）", "GPU", "CPU" },

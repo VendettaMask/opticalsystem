@@ -1,0 +1,39 @@
+{
+  "recipient": "https://api.deepseek.com/chat/completions",
+  "model": "deepseek-v4-pro",
+  "sha256": "7dbd9980f3064bcbde159d43b686bf39dadcbfce12ac797832aafa89d5861b8c",
+  "requestBytes": 160074,
+  "status": "prepared_not_sent",
+  "selectedPaths": [
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Actions.cs",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneSpectra.cs",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.cs",
+    "src/OpticalSystemDesign.Application/Contracts/CameraImagingContracts.cs",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Continuous.cs",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.SpectrumFiles.cs",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.cs",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/CameraContinuousSpectrum.cs",
+    "tests/OpticalSystemDesign.Tests/CameraImagingWindowTests.cs",
+    "samples/camera-imaging/three-materials.camera-scene.json",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Materials.cs",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.MaterialFiles.cs",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/CameraMaterialSpectrum.cs",
+    "tests/OpticalSystemDesign.Tests/CameraMaterialServiceTests.cs",
+    "tests/OpticalSystemDesign.Tests/CameraMaterialSpectrumTests.cs"
+  ],
+  "contextPaths": [
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Continuous.cs",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Files.cs",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.SpectrumFiles.cs",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/CameraContinuousSpectrum.cs",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/CameraSensorPipeline.cs"
+  ],
+  "omissions": [
+    "All other working-tree changes, including InitialStructure, afocal optics and CI",
+    "Shared localization dictionary and repository-wide status documentation",
+    "Real optical project/input data, screenshots, test-result files and evidence archives",
+    "User configuration, credentials and Git metadata"
+  ],
+  "proposedMaximumReviewRounds": 3,
+  "codeSent": false
+}

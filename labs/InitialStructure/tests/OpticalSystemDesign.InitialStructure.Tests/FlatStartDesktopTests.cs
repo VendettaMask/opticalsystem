@@ -108,7 +108,7 @@ public sealed class FlatStartDesktopTests
                     UiLocalization.Apply(language);
                     tabs.SelectedIndex = 0; window.UpdateLayout();
                     Assert.Equal(UiLocalization.Text("开始形式搜索"), Find<Button>(window, "Generate").Content);
-                    Assert.Equal(UiLocalization.Text("AutoLens · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
+                    Assert.Equal(UiLocalization.Text("初始结构优化 · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
                     Assert.DoesNotContain(window.GetLogicalDescendants().OfType<ComboBox>(), control => control.Name == "OptimizationMethod");
                     Assert.Equal(UiLocalization.Text("目标"), Assert.IsType<TextBlock>(((TabItem)tabs.Items[1]!).Header).Text);
                     foreach (var item in tabs.Items.Cast<TabItem>().Concat(Find<TabControl>(window, "DetailsTabs").Items.Cast<TabItem>()))
@@ -171,7 +171,7 @@ public sealed class FlatStartDesktopTests
                 Assert.Equal((decimal)presets[index].Specification.EffectiveFocalLengthMillimeters, Find<NumericUpDown>(window, "FocalLength").Value);
                 Assert.Equal((decimal)presets[index].Specification.FNumber, Find<NumericUpDown>(window, "FNumber").Value);
                 Assert.Equal((decimal)presets[index].Specification.MaximumFieldAngleDegrees, Find<NumericUpDown>(window, "HalfField").Value);
-                Assert.Equal(UiLocalization.Text("AutoLens · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
+                Assert.Equal(UiLocalization.Text("初始结构优化 · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
                 Assert.Equal(presets[index].Specification.FlatStart!.AutoLens!.EvenAsphereOrder - 1, Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex);
                 Assert.Equal((decimal)presets[index].Specification.Budget.MaximumEvaluations, Find<NumericUpDown>(window, "EvaluationBudget").Value);
                 Assert.Contains("尚未运行", Find<TextBlock>(window, "Status").Text);
@@ -319,7 +319,7 @@ public sealed class FlatStartDesktopTests
             Find<TextBox>(window, "AutoLensCemented").Text = "";
             Assert.Null(window.CurrentCheckpoint);
             Click(window, "OpenRun"); await window.PendingOperation;
-            Assert.Equal(UiLocalization.Text("AutoLens · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
+            Assert.Equal(UiLocalization.Text("初始结构优化 · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
             Assert.Equal(1, Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex);
             Assert.Equal("1", Find<TextBox>(window, "AutoLensCemented").Text);
             Assert.Equal(0, Find<ComboBox>(window, "ComputeMode").SelectedIndex);

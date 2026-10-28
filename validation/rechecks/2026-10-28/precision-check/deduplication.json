@@ -1,0 +1,144 @@
+{
+  "checkedAtUtc": "2026-10-28T14:25:44.5132470Z",
+  "sourceCommit": "3fabccb2c9a234965cbeb9502a1db174ed0ffe23",
+  "scope": "Physical afocal evidence deduplication only; unrelated application/initial-structure changes in this shared checkout excluded.",
+  "beforeAudit": "file-duplication-audit.json",
+  "manifest": {
+    "groups": 23,
+    "aliases": 127,
+    "path": "validation/evidence-aliases.json",
+    "sha256": "d71f1fecae396b446e804fe154ced46998f94671bb90e9fa0a5ca47ae4c3e8e0",
+    "logicalRolesPreserved": 150
+  },
+  "storage": {
+    "sealedArchivesChanged": false,
+    "emptyLogsPreserved": true,
+    "originalAuditedFiles": 695,
+    "remainingPhysicalFiles": 568,
+    "gitHistoryRewritten": false,
+    "removedPhysicalCopies": 127,
+    "removedDuplicatePayloadBytes": 1956485.0,
+    "remainingNonEmptyDuplicateGroups": 0
+  },
+  "regression": {
+    "coreSha256": "5fe37b4116bd56863529b57b2164151e7dce2b9c03abde2e8d0315f02084cb17",
+    "passed": 167,
+    "skipped": 0,
+    "failed": 0,
+    "identitiesExactlyMatchPreviousAfocal": true,
+    "newOpticalCoverage": 0,
+    "freshOutputDirectory": true
+  },
+  "guards": {
+    "fixtureByteMismatches": 0,
+    "passed": 9,
+    "failed": 0,
+    "fixtureFiles": 300,
+    "historicalAliases": 127,
+    "historicalByteMismatches": 0,
+    "finalMaterializerFixtureRechecked": true
+  },
+  "frozen": {
+    "canonicalReport": "frozen-head-final.json",
+    "reportSha256": "60eaec191c04bd21df91046add10f9b00f51299c67791f3dff45ef46491719b1",
+    "reusedIdenticalResultBytes": true,
+    "workingUnchanged": true,
+    "count": 2668,
+    "headUnchanged": true
+  },
+  "changedSourceIdentities": [
+    {
+      "path": "tools/validation/EvidenceAliases.ps1",
+      "sha256": "4b38196748f11039327fd4c1ced9f610735543366d2dd869d81f9d9c4d3e8ba4"
+    },
+    {
+      "path": "tools/validation/EvidenceAliases.Tests.ps1",
+      "sha256": "8e67e1ec5ff71c68ddf36b2af59b430cce7606a07b4e048c11cba09c926f4757"
+    },
+    {
+      "path": "validation/evidence-aliases.json",
+      "sha256": "d71f1fecae396b446e804fe154ced46998f94671bb90e9fa0a5ca47ae4c3e8e0"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/OpticalSystemDesign.ZemaxComparison.Tests.csproj",
+      "sha256": "b906bc067f366895851f2c35a5c5edaf7be899554e5effb2f3acb99a40531e07"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "8e6f47541e1fdc446196f68e8a251596ac9b34b6dfdef3949f8ae9b3de002b26"
+    }
+  ],
+  "archive": {
+    "bytes": 107257,
+    "readbackVerified": true,
+    "members": [
+      {
+        "member": "tests/afocal.trx",
+        "bytes": 1153039,
+        "sha256": "ed4d26599b8b0bc4afa95d4778bcdc403d992ec96dc8a37c722133e61bb0d9f8"
+      },
+      {
+        "member": "tests/afocal.log",
+        "bytes": 1465,
+        "sha256": "9beb65af9c78fb7702d8642f6dc1c38bc54e881cba6c113ff109dcb4799e9be8"
+      },
+      {
+        "member": "tests/alias-guards.json",
+        "bytes": 928,
+        "sha256": "b7d38906315d2dd0417fda0ecec271e9254558b0340ef4e53fe074c62afc1abc"
+      },
+      {
+        "member": "fixtures-before.json",
+        "bytes": 100659,
+        "sha256": "24551be05a8e3e6db8f4edecc2336573eee429a1c6f12983f3d43a47fb0e0a99"
+      },
+      {
+        "member": "roundtrip.json",
+        "bytes": 196,
+        "sha256": "df76d9cc1b09241df2776ef9cef4061b04daf3f500124c619bd4ff79e42ca961"
+      },
+      {
+        "member": "aliases.json",
+        "bytes": 242,
+        "sha256": "cf1d047a4e65e847a68b4116ca7edc069a12653cc9d0d370fe26a82b8a93a3e6"
+      },
+      {
+        "member": "same-scope.json",
+        "bytes": 230,
+        "sha256": "6890bc1e5e17c8f791926d39f09da3fc9390239c86ab8435e46b57f43d84e13d"
+      },
+      {
+        "member": "historical-view.json",
+        "bytes": 287,
+        "sha256": "a101647e042c18d26c76420ac478bc39e15e9a1b95f50b4f75e5e35b1ba0b8e9"
+      },
+      {
+        "member": "final-fixture-view.json",
+        "bytes": 289,
+        "sha256": "883964bd377112845904191b69349d08ab074ecb4c33a920ff7391a9c49aa395"
+      },
+      {
+        "member": "source-identities.json",
+        "bytes": 785,
+        "sha256": "5e94336787d8f9b877536f594af156dc164cef7fea4535ab4490afd91788ff15"
+      }
+    ],
+    "file": "dedup-evidence.zip",
+    "sha256": "7d7bb1ae8d5695c40724a63aa5873cbae45a681360ff677ed117380a2178e39a"
+  },
+  "ci": {
+    "remoteExecutionVerified": false,
+    "threePlatformGuardConfigured": true
+  },
+  "externalReview": {
+    "payloadTransmitted": false,
+    "deepseekToolsAvailable": false
+  },
+  "limits": [
+    "Same original 695-path audit scope; archive members and the whole repository were not deduplicated.",
+    "Generated historical/test views are intentionally materialized outside the source evidence tree.",
+    "This repeated 167-case regression must not be added to the previous 227-case coverage.",
+    "No optical formulas, original tolerance policy or original 2668-file manifest changed.",
+    "Run from a build to populate fixture aliases; old direct-path diagnostics require an independent restored view."
+  ]
+}

@@ -1,8 +1,12 @@
 # C# Zemax / Workbench comparison
 
+Identical afocal evidence is stored once using [hash-checked logical paths](../../validation/evidence-aliases.json). Offline test builds materialize their original fixture layout automatically. For historical diagnostics that read the old repository paths directly, first create a separate restored view with [EvidenceAliases.ps1](../validation/README.md#无焦证据副本收敛); the original captured requests/manifests and bytes retain their historical identities.
+
 The independent `NativeExplicitFanNormalizer` requires `NativeExplicitPointsV1`, millimeter units, the selected wavelength, a valid chief, complete ordered pupil axes and explicit error/vignette masks. It never fills or relabels a built-in plot. The [Objectives continuation](../../docs/OBJECTIVES_COMPLETION_2026-10-23.md) records matched source, primary wavelength and frozen-thickness readbacks, with separate every-surface physical gates. F-Theta full-field controls and higher-sampling energy controls retain different request identities from the original matrix.
 
 ## Afocal comparisons
+
+For an offline recheck of an existing afocal batch, `tools/diagnostics/AfocalReferenceFocus20261027` supports `prepare-existing <previous-run-root> <fresh-output-root>`, followed by its `workbench` and `compare` modes. It reuses the complete canonical request objects and original snapshot/native paths, records their hashes and the executing assemblies, and refuses an existing output directory. It requires the original generated inputs to be available; it does not reconstruct missing native captures. See the [current replay scope and evidence](../../validation/rechecks/2026-10-28/precision-check/README.md). Interpret Pass using both pointwise errors and the original NRMSE alternative; an overall Pass does not certify peak-amplitude agreement.
 
 The main runner and Sequential corpus runner dispatch afocal support per analysis, rather than excluding every afocal system. MM lenses have audited unit contracts for Ray Fan, FFT MTF, Field Curvature/Distortion, and the limited scalar FFT/Huygens PSF contract below. Other afocal contracts remain explicitly unverified. Native `AFocalImageSpace`, `AfocalModeUnits`, selected field/wavelength and angular MTF frequency must agree with the request and captured settings; localized axis captions never select a unit.
 

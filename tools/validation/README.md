@@ -1,5 +1,19 @@
 # 冻结证据与准备输入验收
 
+## 无焦证据副本收敛
+
+`validation/evidence-aliases.json`按原字节SHA-256保留一份内容和各历史逻辑路径。`EvidenceAliases.ps1`拒绝内容变化、路径越界/链接、重复映射及已删除副本重新出现；受管目录还检查新增的非空重复内容。原2668份冻结清单及旧归档不改动。比较测试构建自动在生成目录还原完整夹具，仓库不再保存这些物理副本。
+
+```powershell
+pwsh -NoProfile -File tools/validation/EvidenceAliases.ps1
+pwsh -NoProfile -File tools/validation/EvidenceAliases.ps1 -Mode Materialize -DestinationRoot artifacts/restored-afocal-evidence
+pwsh -NoProfile -File tools/validation/EvidenceAliases.Tests.ps1 -OutputDirectory artifacts/fresh-evidence-alias-tests
+```
+
+第二条在独立目录生成原相对布局与保留上下文，供读取历史路径的诊断使用，不能指向仓库根或捕获目录。测试夹具布局可加`-FixtureLayout`；默认测试构建已执行该操作，`--no-build`要求此前已有成功构建。三平台CI已接入路径/内容守卫及脚本回归；本机Windows验证结果见[本次账目](../../validation/rechecks/2026-10-28/precision-check/deduplication.json)，不代表远端或其他系统已运行成功。
+
+## 原冻结清单
+
 Windows 安装升级验收另见 [2026-10-12 报告](../../docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)和 `scripts/verify-windows-upgrade.ps1`。该脚本仅允许独立测试产品标识，实际安装矩阵 48/48 与正式安装相关定向回归各 32/32 分别记录，不修改冻结光学账本，也不替代光学完整回归。
 
 2026-10-11 新增 Git 字节检查，核对原件及 Git 提交/索引，避免工作区完整但远端 blob 不完整；原 E04 索引与全新检出的结果保留在[阶段记录](../../docs/FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.md)。2026-10-19 为产品更名后的四项证据增加显式迁移，当前结果以[最新账本](../../docs/validation/FROZEN_EVIDENCE_RELOCATION_REPAIR_2026-10-19.json)为准。10 月 10 日的专用 Collect 脚本保留原验收修订和 2660/2668 条件，不用当前通过改写旧账本。

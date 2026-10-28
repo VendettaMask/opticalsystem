@@ -32,18 +32,22 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
             SpectralResponse = FreezeResponse(request.SpectralResponse),
             Illuminant = FreezeSpectrum(request.Illuminant),
             Reflectance = FreezeSpectrum(request.Reflectance),
+            MaterialScene = FreezeMaterialScene(request.MaterialScene),
             Integration = request.Integration ?? new()
         };
         CameraSensorPipeline.ValidateDimensions(request.Width, request.Height);
         if (!Enum.IsDefined(request.Source) || !Enum.IsDefined(request.Optics) || !Enum.IsDefined(request.Aberration)
-            || !Enum.IsDefined(request.SpectralModel))
+            || !Enum.IsDefined(request.SpectralModel) || !Enum.IsDefined(request.SceneMode))
             throw new ArgumentException("Unsupported camera simulation option.");
         if (request.Optics == CameraOptics.CurrentLens && (request.Width > 256 || request.Height > 256))
             throw new ArgumentOutOfRangeException(nameof(request), "当前镜头阶段每边最多 256 像素；512 × 384 可用于理想光学传感器对照。");
         var sensor = ToCore(request.Sensor); var isp = ToCore(request.Isp);
         CameraSensorPipeline.Validate(sensor, isp);
         if (request.SpectralModel == CameraSpectralModel.ThreeBand) ToCore(request.SpectralResponse)?.ValidateCameraCoverage();
-        var plan = request.SpectralModel == CameraSpectralModel.Continuous ? ContinuousPlan(request) : null;
+        var materialPlan = request.SpectralModel == CameraSpectralModel.Continuous && request.SceneMode == CameraSceneMode.MaterialMap
+            ? MaterialPlan(request) : null;
+        var plan = materialPlan?.Common ?? (request.SpectralModel == CameraSpectralModel.Continuous ? ContinuousPlan(request) : null);
+        var materialSampling = materialPlan?.DescribeSampling(request.Width, request.Height);
         if (plan is not null)
         {
             if (request.Optics == CameraOptics.CurrentLens && (long)request.Width * request.Height * plan.Nodes.Count > CameraContinuousSpectrum.MaximumPixelNodes)
@@ -82,11 +86,13 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                 if (plan is not null)
                 {
                     var modes = new HashSet<string>();
-                    var integrated = CameraContinuousSpectrum.Integrate(source, sensor, plan, optic is null ? null : (mask, wavelength) =>
+                    Func<RgbImage, double, RgbImage>? propagation = optic is null ? null : (mask, wavelength) =>
                     {
                         var image = Propagate(optic, mask, request, sensor, new[] { wavelength });
                         modes.Add(image.Mode); fallbacks += image.Fallbacks; return image.Image;
-                    });
+                    };
+                    var integrated = materialPlan is null ? CameraContinuousSpectrum.Integrate(source, sensor, plan, propagation)
+                        : CameraContinuousSpectrum.IntegrateMaterials(source, sensor, materialPlan, propagation);
                     source = integrated.SourceMask; optical = integrated.OpticalPreview;
                     if (modes.Count > 0) opticalMode = string.Join(" + ", modes.Order(StringComparer.Ordinal));
                     sensorResult = CameraSensorPipeline.SimulatePhotoElectrons(integrated.PhotoElectrons, request.Width, request.Height, sensor, isp);
@@ -108,8 +114,8 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                     electrons, raw, Display(sensorResult.ReferenceDeveloped), Display(sensorResult.Developed),
                     sensorResult.RawDn, sensorResult.ReferenceRawDn, sensorResult.PhotoElectrons,
                     sensorResult.MeanPhotoElectrons, sensorResult.RawNoiseRmseDn, sensorResult.SaturatedPixels,
-                    opticalMode, fallbacks, plan is not null ? ContinuousScope : request.SpectralResponse is null ? Scope : SpectralScope,
-                    plan is null ? null : Diagnostics(plan));
+                    opticalMode, fallbacks, materialPlan is not null ? MaterialScope : plan is not null ? ContinuousScope : request.SpectralResponse is null ? Scope : SpectralScope,
+                    materialPlan is not null ? Diagnostics(request.MaterialScene!, materialPlan, materialSampling!) : plan is null ? null : Diagnostics(plan));
             }, linked.Token).ConfigureAwait(false);
     }
 
@@ -156,7 +162,7 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                 BandsNanometers = run.Integration is null ? CameraSensorPipeline.BandWavelengthsNanometers
                     : run.Integration.Nodes.Select(n => n.WavelengthNanometers).ToArray(),
                 run.Integration,
-                ModelVersion = run.Integration is not null ? "CameraLabV3-Continuous" : run.Request.SpectralResponse is null ? "CameraLabV1" : "CameraLabV2-QE",
+                ModelVersion = run.Integration?.Materials is not null ? "CameraLabV4-Materials" : run.Integration is not null ? "CameraLabV3-Continuous" : run.Request.SpectralResponse is null ? "CameraLabV1" : "CameraLabV2-QE",
                 OpticalSampling = run.Request.Optics == CameraOptics.CurrentLens
                     ? "3x3 field; 16x16 PSF; 3 components; 12 pupil sampling parameter; 8px guard; 5x5 distortion grid; degree 3"
                     : "Ideal optical control"
@@ -166,7 +172,15 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
             if (run.Integration is { } integration)
             {
                 Write(folder + "/illuminant.csv", Encoding.UTF8.GetBytes(SpectrumCsv(run.Request.Illuminant!)));
-                Write(folder + "/reflectance.csv", Encoding.UTF8.GetBytes(SpectrumCsv(run.Request.Reflectance!)));
+                if (integration.Materials is not null)
+                {
+                    var scene = run.Request.MaterialScene!;
+                    Write(folder + "/material-scene.json", JsonSerializer.SerializeToUtf8Bytes(scene, MaterialJsonOptions));
+                    Write(folder + "/material-map.png", MaterialMapPng(scene));
+                    foreach (var material in scene.Materials)
+                        Write(folder + $"/material-{material.Id:D2}-reflectance.csv", Encoding.UTF8.GetBytes(SpectrumCsv(material.Reflectance!)));
+                }
+                else Write(folder + "/reflectance.csv", Encoding.UTF8.GetBytes(SpectrumCsv(run.Request.Reflectance!)));
                 Write(folder + "/integration.csv", Encoding.UTF8.GetBytes(IntegrationCsv(integration)));
             }
             Write(folder + "/sensor-profile.json", JsonSerializer.SerializeToUtf8Bytes(new CameraSensorProfile(

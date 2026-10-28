@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-28",
+  "scope": "Camera laboratory explicit source-plane material reflectance regions; local source and default Release output, background validation only",
+  "model": "CameraLabV4-Materials",
+  "implementation": {
+    "materials": "1–16 categorical IDs, each assigned a piecewise-linear reflectance curve",
+    "formats": "8-bit opaque gray PNG with decoded R=G=B=ID 0–15; self-contained OpticalSystemDesign.CameraMaterialScene JSON schema 1",
+    "sourceOrdering": "Apply material reflectance before one shared monochromatic optical propagation per quadrature wavelength, then integrate charge before one sensor/ISP operation",
+    "sampling": "Pixel-center nearest neighbor, no interpolated labels or automatic photo classification",
+    "limits": {
+      "maximumMaterialFileBytes": 8388608,
+      "maximumLabelPixels": 262144,
+      "maximumLabelDimension": 1024,
+      "maximumMaterials": 16,
+      "maximumSamplesPerCurve": 4096
+    },
+    "opticalBudgets": "Existing total node, pixel-node and convolution budgets retained; no per-material trace multiplication or budget bypass",
+    "comparison": "Uniform and three-band modes retained; frozen A/B includes labels, curves, origins and modification state",
+    "statistics": "Integration CSV label_area_mean_reflectance and mean reflected irradiance exclude source grayscale modulation and optics; per-material sampled pixels and irradiance retained",
+    "export": [
+      "material-scene.json",
+      "material-map.png",
+      "material-XX-reflectance.csv",
+      "integration.csv",
+      "Existing metadata, RAW, sensor profile, illuminant and image files"
+    ]
+  },
+  "verification": {
+    "distinctFinalPassed": 60,
+    "newCases": 28,
+    "finalSkipped": 0,
+    "selection": "materials-final.trx 60 cases, materials-export-final.trx 9 overlapping cases. Baseline and earlier runs retained without increasing current totals.",
+    "boundaryBlurReference": {
+      "nodes": 9,
+      "opticalCalls": 9,
+      "expectedDarkSideEdgeElectrons": 747.5663102800925,
+      "actualDarkSideEdgeElectrons": 747.5663102800926,
+      "expectedBrightSideEdgeElectrons": 1121.349465420139,
+      "actualBrightSideEdgeElectrons": 1121.3494654201388
+    },
+    "sharedLensLinearity": {
+      "maximumChargeDifferenceElectrons": 0,
+      "identicalRaw": true,
+      "prescriptionUnchanged": true,
+      "nodes": 9,
+      "scope": "Shared optical-path and linearity control, not external lens numerical certification"
+    },
+    "coverage": [
+      "Four Bayer patterns and independent photon integrals",
+      "Reflectance before blur and cross-boundary energy",
+      "Uniform single-material equivalence",
+      "Narrow material reflectance peak",
+      "Categorical nearest-neighbor labels and defensive copies",
+      "Cancellation and aggregate optical budget",
+      "PNG static/invalid color/alpha/16-bit/APNG controls",
+      "Strict JSON schema and IDs",
+      "Frozen A/B and export/reimport",
+      "Unassigned materials prevent continuous execution",
+      "Headless Light/Dark assignment, mode switch, plot filtering and document invalidation"
+    ],
+    "earlyFailures": [
+      "Initial build: SeriesColor overload ambiguity in this task plus concurrent report compilation errors; later default build succeeded",
+      "First numeric selection 42/44: static PNG FrameCount zero was rejected; corrected and rechecked using static PNG plus 16-bit/APNG fixtures",
+      "A later PNG test build was temporarily blocked by concurrent InitialStructure ParaxialSeedSearch CS0103. PNG-only test compilation reused verified default binaries, then normal default App build passed again; no unrelated source was changed."
+    ],
+    "build": "Default Release App output, zero warnings/errors",
+    "visual": "Actual off-screen Skia captures inspected; categorical preview uses nearest-neighbor rendering; no foreground app control",
+    "documentation": "Strict repository documentation audit and scoped whitespace checks",
+    "evidenceDirectory": "validation/rechecks/2026-10-28/camera-materials",
+    "pngFinal": "6/6 overlapping cases; gamma metadata preserves ID. A test-only rebuild reused verified default product binaries while concurrent InitialStructure source was incomplete; the default App subsequently rebuilt normally with zero warnings/errors."
+  },
+  "externalReview": {
+    "provider": "DeepSeek",
+    "status": "local_preview_ready_pending_human_transmission_consent",
+    "codeSent": false,
+    "sha256": "7dbd9980f3064bcbde159d43b686bf39dadcbfce12ac797832aafa89d5861b8c",
+    "model": "deepseek-v4-pro",
+    "recipient": "https://api.deepseek.com/chat/completions"
+  },
+  "limitations": [
+    "No automatic material recognition, measured material library, continuous material mixtures or RGB spectral reconstruction",
+    "No 3D geometry/BRDF, pixel-area integration or vendor ISP added",
+    "Nearest-neighbor low-resolution sampling may lose small regions; sampled pixel counts disclosed",
+    "No full repository test run, new Zemax/EMVA/vendor certification, native desktop acceptance, commit/push or package release"
+  ]
+}

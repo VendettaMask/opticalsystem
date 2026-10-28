@@ -2,6 +2,8 @@
 
 ## Persistent UI preferences
 
+- User direction (2026-10-28): develop our own initial-structure retrieval and design workflow. Upstream AutoLens parity is no longer a roadmap goal or completion gate. Prioritize native UI acceptance and unresolved historical checkpoint portability. Preserve historical algorithm/checkpoint identities and evidence; retain pure C#/.NET, shared Core, and unchanged physical/manufacturing acceptance gates. Existing managed engine restrictions below remain compatibility and execution boundaries, not a requirement to reproduce upstream outputs.
+
 - Formal S.T.A.R.Labs company marks share the outlined `Assets/Brand/CompanyLogo.svg` across splash, About, analysis, engineering drawings/settings and previews. Use actual vector paths from the complete Nasalization-authored wordmark; never wrap a PNG in SVG or simulate the mark with ordinary text. Default engineering PDF marks remain vector. Keep publisher descriptions, file metadata, installation paths and organization names as ordinary text. Preserve separate product icons and user-imported drawing logos. The authoring font stays local; product rendering uses the fixed outlined artwork rather than bundling an unlicensed working font.
 
 - Manual Windows OTA must let users update without saving the current project or tolerance edits. Offer Save and continue, Don't save, and Cancel for dirty documents; no edits means no save prompt. Honor Don't save through the final close without a second save or prompt, preserve the original project file, and retain the current editor and verified download when the user cancels. Update action labels must not imply that saving is mandatory.
@@ -64,6 +66,8 @@
 - A change is not complete until code, tests, documentation, and the reported verification result agree.
 
 ## Desktop build output locking
+
+- User clarification (2026-10-28): perform validation independently in the background without occupying the user's desktop. The earlier native-acceptance request is not permission to launch or control foreground windows. Use headless/off-screen tests and retain native interaction as unverified unless the user later explicitly authorizes an independent desktop session.
 
 - User validation preference (2026-10-27): tests must not interrupt the user’s computer use. Run background computation and off-screen/headless rendering only; do not launch foreground apps, steal focus, or inject mouse/keyboard input unless the user explicitly asks for native interaction. If a default-output build is locked by an app the user is using, report the lock without closing their window for testing.
 

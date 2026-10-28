@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "3fabccb2c9a234965cbeb9502a1db174ed0ffe23",
+  "scope": "Lossless storage aliases for identical afocal evidence. Logical capture paths retain their original bytes/roles when materialized; no change to optical references or acceptance.",
+  "datasets": [
+    {
+      "fixturePrefix": "Fixtures/afocal-repair",
+      "sourcePrefix": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures"
+    },
+    {
+      "fixturePrefix": "Fixtures/afocal-riflescope",
+      "sourcePrefix": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures"
+    }
+  ],
+  "scanRoots": [
+    "validation/zemax/2026-r1/afocal-repair-2026-10-24",
+    "validation/zemax/2026-r1/afocal-riflescope-2026-10-19",
+    "validation/rechecks/2026-10-27/afocal-reference-focus"
+  ],
+  "scanFiles": [
+    "docs/validation/AFOCAL_REFERENCE_FOCUS_REPAIR_2026-10-27.json"
+  ],
+  "groups": [
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0061-003-binocular_system-c1-primary-f0-w0-mtf/model.json",
+      "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0",
+      "bytes": 8781,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c1/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0061-003-binocular_system-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0061-003-binocular_system-c1-primary-f0-w0-mtf/model.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/fft-mtf-all-fields-poly64/workbench/data.json",
+      "sha256": "1b9217cfe4a0d9c5a6bdcf9162a1d9f660128532c6a07b5c5f74f00b5342d1cb",
+      "bytes": 862574,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/mtf-c1/data.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/sources/Afocal/Afocal Riflescope.ZMX",
+      "sha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "bytes": 15264,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/source.ZMX",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/input/Afocal Riflescope.ZMX"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/fft-mtf-all-fields-poly64/native/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/field-curvature-distortion-w1/native/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-axis-w1/native/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-edge-w1/native/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0039-002-beam-expander-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0061-003-binocular_system-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0091-003-binocular_system-c2-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/beam/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c1/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c2/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/prism/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w1/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w2/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w3/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w1/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w2/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w3/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w2/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w3/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0039-002-beam-expander-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0061-003-binocular_system-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0091-003-binocular_system-c2-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0039-002-beam-expander-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0061-003-binocular_system-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0091-003-binocular_system-c2-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/probe/environment.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/ray-fan-c1/environment.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/field-curvature-distortion-w1/workbench/data.json",
+      "sha256": "403fc1bd0f26054f45ea868714c4568a50043a081153bc10352462cfd79dd685",
+      "bytes": 206750,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/field-curvature-and-distortion-c1/data.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/settings.CFG",
+      "sha256": "48792b0534c92ddb9c43a45db3ec61400113bf52b39050275a4e73fd44767cbd",
+      "bytes": 18448,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/settings.CFG"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/field-curvature-and-distortion-c1/preflight.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/mtf-c1/preflight.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/ray-fan-c1/preflight.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0091-003-binocular_system-c2-primary-f0-w0-mtf/model.json",
+      "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d",
+      "bytes": 8781,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c2/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0091-003-binocular_system-c2-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0091-003-binocular_system-c2-primary-f0-w0-mtf/model.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/fft-mtf-all-fields-poly64/native/model.json",
+      "sha256": "65ebcd0d8722eb5179c4a8bc37e5e6d688fa5dfbf4c11fcd5abe51983038066f",
+      "bytes": 9813,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/field-curvature-distortion-w1/native/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-axis-w1/native/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-edge-w1/native/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/probe/model.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/ray-fan-c1/model.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0039-002-beam-expander-c1-primary-f0-w0-mtf/model.json",
+      "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee",
+      "bytes": 4650,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/beam/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0039-002-beam-expander-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0039-002-beam-expander-c1-primary-f0-w0-mtf/model.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/comparisons/ray-fan-c1/sagittal-values.csv",
+      "sha256": "7ecb8f4fe338d11fff3ad59a13b2a5cffd94f9c9a17678d190819223d6da8550",
+      "bytes": 12710,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/comparisons/ray-fan-c1/tangential-values.csv"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/settings.CFG",
+      "sha256": "7f6bbcf48fd7ef69fa22832029d2393ff29b5913a2bffff9cf716d3c1049eb7b",
+      "bytes": 18448,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/settings.CFG",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/settings.CFG"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/settings.CFG",
+      "sha256": "88f43f3de8bc8c72072a81440faee91bc148e2b9e3583134a5a832d1ebe43395",
+      "bytes": 18448,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/settings.CFG"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w1/point-reference-settings.json",
+      "sha256": "8901149955974dea221e7f444f014738715b0995d12dedaa3672f82a92d1e500",
+      "bytes": 388,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w2/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w3/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w1/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w2/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w3/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w2/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w3/point-reference-settings.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope/point-reference-settings.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/ray-fan-axis-w1/workbench/data.json",
+      "sha256": "ab8adb266e97b9b73e6dd42b04f818c545f2edc474a54f54a2e30af1daf674d5",
+      "bytes": 148943,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/workbench/ray-fan-c1/data.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/model.json",
+      "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1",
+      "bytes": 10119,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w1/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w2/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w3/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w1/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w2/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w3/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w2/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w3/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/model.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/capture.json",
+      "sha256": "b4b074b1676b96b0b2c9ed4edd312ee70094255507308fd4a486a297245fc117",
+      "bytes": 76,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0039-002-beam-expander-c1-primary-f0-w0-mtf/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0061-003-binocular_system-c1-primary-f0-w0-mtf/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0091-003-binocular_system-c2-primary-f0-w0-mtf/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/capture.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/mtf-c1/capture.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/model.json",
+      "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35",
+      "bytes": 8620,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/prism/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/fullband/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/model.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0061-003-binocular_system-c1-primary-f0-w0-mtf/settings.CFG",
+      "sha256": "cdb9d407572689932a974767cd6cd9dbcc22d463bb5d587a15a7d3bd5341651f",
+      "bytes": 18448,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0091-003-binocular_system-c2-primary-f0-w0-mtf/settings.CFG",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/settings.CFG"
+      ]
+    },
+    {
+      "canonical": "docs/validation/AFOCAL_REFERENCE_FOCUS_REPAIR_2026-10-27.json",
+      "sha256": "e6a7c400e78221cbe865c23edce39b3b8e9fc525006a463bbc959b93bad5f223",
+      "bytes": 5009,
+      "aliases": [
+        "validation/rechecks/2026-10-27/afocal-reference-focus/summary.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c1/point-reference-settings.json",
+      "sha256": "e954f9cfa7f5c6e641a1842ae612a9772b44845691c9541cf36bb87135d8ff8c",
+      "bytes": 384,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/binocular-c2/point-reference-settings.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w1/active-model.json",
+      "sha256": "f9150c508e9f0d6dc7efb89d4eafdf936a85e7384856013db80baff95cf3d30a",
+      "bytes": 8036,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w2/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0-w3/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w1/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w2/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f0.7-w3/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w2/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope-f1-w3/active-model.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/opd/riflescope/active-model.json"
+      ]
+    },
+    {
+      "canonical": "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion/capture.json",
+      "sha256": "fa82e214770378ab3e68877185af256a6e1acc99b6e84a3fd8082c4ba7fe3c4a",
+      "bytes": 97,
+      "aliases": [
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion/capture.json",
+        "validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/corrected/0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion/capture.json",
+        "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/raw/zemax/field-curvature-and-distortion-c1/capture.json"
+      ]
+    }
+  ]
+}

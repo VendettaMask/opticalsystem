@@ -2,6 +2,7 @@ using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Input;
@@ -89,6 +90,9 @@ public sealed partial class AutonomousDesktopTests
                 {
                     UiLocalization.Apply(language); window.UpdateLayout();
                     Assert.Equal(UiLocalization.Text("开始自主设计"), Find<Button>(window, "AutonomousRun").Content);
+                    Assert.Equal(UiLocalization.Text("开始自主设计"), AutomationProperties.GetName(Find<Button>(window, "AutonomousRun")));
+                    Assert.Equal(UiLocalization.Text("目标焦距 (mm)"), AutomationProperties.GetName(Find<NumericUpDown>(window, "AutonomousFocal")));
+                    Assert.Equal(UiLocalization.Text("允许移动像面"), AutomationProperties.GetName(Find<CheckBox>(window, "AutonomousImage")));
                     Assert.Contains("accent", Find<Button>(window, "AutonomousRun").Classes);
                     Assert.DoesNotContain("accent", Find<Button>(window, "AutonomousCancel").Classes);
                     Assert.NotNull(ToolTip.GetTip(Find<Button>(window, "AutonomousResume")));
@@ -216,7 +220,7 @@ public sealed partial class AutonomousDesktopTests
                 Assert.Equal(0, trace.RayCount);
                 Assert.Equal(5m, Find<NumericUpDown>(owner, "FocalLength").Value);
                 Assert.Equal(1.8m, Find<NumericUpDown>(owner, "FNumber").Value);
-                Assert.Equal(UiLocalization.Text("AutoLens · C# 自动求导"), Find<TextBlock>(owner, "OptimizationMethod").Text);
+                Assert.Equal(UiLocalization.Text("初始结构优化 · C# 自动求导"), Find<TextBlock>(owner, "OptimizationMethod").Text);
                 child.Close(); Assert.Empty(owner.OwnedWindows);
                 return true;
             }

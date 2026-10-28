@@ -4,6 +4,21 @@ internal static partial class UiLocalization
 {
     private static void AddAutonomousTopologyTexts(Action<string, string, string> add)
     {
+        add("生成一阶起点", "Prepare First-Order Seeds", "近軸初期処方を生成");
+        add("保留不同结构与玻璃组合", "Retain Diverse Structures and Glasses", "異なる構成とガラスを保持");
+        add("一阶起点准备（独立预算）", "First-Order Preparation (Separate Budget)", "近軸初期処方の準備（独立予算）");
+        add("一阶起点尝试上限", "First-Order Start Limit", "近軸初期処方の試行上限");
+        add("一阶保留起点数", "Retained First-Order Seeds", "保持する近軸初期処方数");
+        add("一阶评价尝试上限", "First-Order Evaluation Limit", "近軸評価の試行上限");
+        add("一阶准备时限 (秒)", "Preparation Time Limit (s)", "準備時間の上限 (秒)");
+        add("一阶准备使用独立额度，不代表完整光学验收通过", "Preparation has a separate budget; full optical acceptance is still required", "準備は独立予算を使用し、完全な光学検証は別途必要です");
+        add("正在准备一阶起点", "Preparing First-Order Seeds", "近軸初期処方を準備中");
+        add("一阶准备已停止并保存", "Preparation Stopped and Saved", "準備を停止して保存しました");
+        add("一阶准备完成", "Preparation Complete", "準備完了");
+        add("一阶准备已到额度", "Preparation Budget Reached", "準備予算の上限に到達");
+        add("一阶准备已到时限", "Preparation Time Limit Reached", "準備時間の上限に到達");
+        add("未找到满足一阶条件的起点，原起点保留", "No First-Order Feasible Seed; Original Seeds Retained", "近軸条件を満たす初期処方がないため元の処方を保持");
+        add("一阶起点已保存，尚未运行完整光学搜索", "First-Order Seeds Saved; Full Optical Search Has Not Started", "近軸初期処方を保存、完全な光学探索は未開始");
         add("仅从达标处方减片", "Reduce Only Qualified Designs", "適合処方のみを減枚");
         add("失败处方保留但不再派发结构分支；达到预算或限定尝试即停止", "Retain failed designs without further structural branches; stop at budget or trial limits", "不適合処方を保持して構成分岐を停止し、予算または試行上限で終了します");
         add("减片模式只允许从达标处方删除镜片", "Reduction mode only removes elements from qualified designs", "減枚モードでは適合処方からのみレンズを削除します");

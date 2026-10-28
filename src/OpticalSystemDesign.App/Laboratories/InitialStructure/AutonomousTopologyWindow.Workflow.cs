@@ -117,6 +117,7 @@ public sealed partial class AutonomousTopologyWindow
     }
     private void Cancel()
     {
+        _seedCancellation?.Cancel();
         _session.Cancel(); _status.Text = UiLocalization.Text("正在停止并保存，完成后可继续。");
     }
     internal void RequestSafeClose()
@@ -151,6 +152,7 @@ public sealed partial class AutonomousTopologyWindow
 
     private void ApplyPlan(AutonomousSearchPlan plan)
     {
+        ResetSeedSummary();
         var values = new Dictionary<string, decimal>();
         var source = plan.Seeds[0]; var target = plan.Targets; var options = plan.Options;
         Put("AutonomousFocal", target.EffectiveFocalLengthMillimeters); Put("AutonomousFNumber", target.FNumber);
@@ -162,11 +164,15 @@ public sealed partial class AutonomousTopologyWindow
         Put("AutonomousGradients", options.MaximumGradientEvaluations); Put("AutonomousRays", options.MaximumTracedRays);
         Put("AutonomousReserve", options.FinalValidationRayReserve); Put("AutonomousMinutes", options.TimeLimit.TotalMinutes); Put("AutonomousSeed", options.Seed);
         Put("AutonomousAxialWindow", options.AxialCompensation?.MaximumDisplacementMillimeters ?? .25);
+        var seedOptions = options.SeedPreparation ?? new();
+        Put("AutonomousSeedStarts", seedOptions.MaximumStarts); Put("AutonomousSeedRetained", seedOptions.RetainedSeeds);
+        Put("AutonomousSeedFunctions", seedOptions.MaximumFunctionEvaluations); Put("AutonomousSeedSeconds", seedOptions.TimeLimit.TotalSeconds);
         Put("AutonomousLocalUpdates", options.Local.MaximumUpdates); Put("AutonomousFullUpdates", options.Full.MaximumUpdates);
         _applyingPlan = true;
         _choices["AutonomousImage"].IsChecked = !source.Image.Protected;
         _choices["AutonomousStructure"].IsChecked = options.FixedTopologyOnly != true;
         _choices["AutonomousReductionOnly"].IsChecked = options.QualifiedReductionOnly == true;
+        _choices["AutonomousDiversity"].IsChecked = options.PoolDiversity is not null;
         _choices["AutonomousGradual"].IsChecked = options.Expansion?.EnableGradualDeletion == true;
         _choices["AutonomousSplit"].IsChecked = options.Expansion?.EnableSplit == true;
         _choices["AutonomousMerge"].IsChecked = options.Expansion?.EnableMerge == true;
@@ -241,6 +247,8 @@ public sealed partial class AutonomousTopologyWindow
             ProtectPostRecoveryRayBudget = ReadFlag("AutonomousProtectLocalBudget", _draft.Options.ProtectPostRecoveryRayBudget),
             ProtectCompensationRayBudget = ReadFlag("AutonomousProtectFullBudget", _draft.Options.ProtectCompensationRayBudget),
             QualifiedReductionOnly = ReadFlag("AutonomousReductionOnly", _draft.Options.QualifiedReductionOnly),
+            PoolDiversity = _choices["AutonomousDiversity"].IsChecked == true ? _draft.Options.PoolDiversity ?? new TopologyDiversityOptions() : null,
+            SeedPreparation = ReadSeedSettings(),
             Local = ReadStage("AutonomousLocalUpdates", _draft.Options.Local),
             Full = ReadStage("AutonomousFullUpdates", _draft.Options.Full),
             AxialCompensation = _choices["AutonomousAxial"].IsChecked == true
@@ -402,15 +410,16 @@ public sealed partial class AutonomousTopologyWindow
         foreach (var pair in _commands)
         {
             var enabled = !IsBusy;
-            if (pair.Key == "AutonomousCancel") enabled = _session.IsBusy;
+            if (pair.Key == "AutonomousCancel") enabled = _session.IsBusy || _seedCancellation is not null;
             else if (pair.Key is "AutonomousImport" or "AutonomousCheck") enabled &= state is null;
+            else if (pair.Key == "AutonomousPrepareSeeds") enabled &= state is null && !readOnly;
             else if (pair.Key == "AutonomousRun") enabled &= state is null && !readOnly;
             else if (pair.Key == "AutonomousResume") enabled &= !readOnly && state?.Status is AutonomousSearchStatus.Ready or AutonomousSearchStatus.Cancelled or AutonomousSearchStatus.Running;
             else if (pair.Key == "AutonomousCopy") enabled &= _session.RecordPath is not null;
             else if (pair.Key == "AutonomousExport") enabled &= _candidates.SelectedItem is TopologyCandidateRow row && row.Candidate.Assessment.Completed && !row.Candidate.Topology.HasTransitionElements;
             pair.Value.IsEnabled = enabled;
             ToolTip.SetTip(pair.Value, enabled ? null : UiLocalization.Text(IsBusy ? "请先停止并保存当前任务"
-                : readOnly && pair.Key is "AutonomousRun" or "AutonomousResume" ? "此通光原型仅供查看和导出，请新建版本化计划" : "请先载入记录或选择可用候选"));
+                : readOnly && pair.Key is "AutonomousRun" or "AutonomousResume" or "AutonomousPrepareSeeds" ? "此通光原型仅供查看和导出，请新建版本化计划" : "请先载入记录或选择可用候选"));
         }
         if (state is null) { _budget.Text = UiLocalization.Text("尚未消耗预算"); _record.Text = ""; return; }
         var used = state.Consumed; var cap = state.Plan.Options; var reserved = state.Reservation?.Maximum;

@@ -13,11 +13,9 @@
     <None Include="../../validation/zemax/2026-r1/afocal-pupil-scale-2026-10-27/*.json" Link="Fixtures/afocal-pupil-scale/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/afocal-reference-focus-2026-10-27/*.json" Link="Fixtures/afocal-reference-focus/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/afocal-analysis-repair-2026-10-26/*.json" Link="Fixtures/afocal-analysis-repair/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="../../validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/**/*" Link="Fixtures/afocal-repair/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/objectives-completion-2026-10-23/captures/**/*" Link="Fixtures/objectives-completion/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/objectives-repair-2026-10-23/captures/zero-field/**/*" Link="Fixtures/zero-field/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/objectives-repair-2026-10-23/captures/dense-energy/**/*" Link="Fixtures/dense-energy/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="../../validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/**/*" Link="Fixtures/afocal-riflescope/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX" Link="Fixtures/recapture-source.ZMX" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/huygens-offaxis-2026-10-11/**/*" Link="Fixtures/huygens-offaxis/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/ra256-field-sampling-2026-10-07/**/*" Link="Fixtures/ra256-field-sampling/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
@@ -33,4 +31,7 @@
     <None Include="../../validation/zemax/2026-r1/energy-repair-2026-09-06/**/*" Link="Fixtures/energy-repair/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/tessar-vignetting-2026-10-06/rotated30-axis-compressed/*-native.json" Link="Fixtures/tessar-vignetting/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  <Target Name="MaterializeAfocalEvidence" AfterTargets="CopyFilesToOutputDirectory" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Exec Command="pwsh -NoProfile -File &quot;$(MSBuildProjectDirectory)/../../tools/validation/EvidenceAliases.ps1&quot; -Mode Materialize -RepositoryRoot &quot;$(MSBuildProjectDirectory)/../..&quot; -DestinationRoot &quot;$(TargetDir).&quot; -FixtureLayout" />
+  </Target>
 </Project>
