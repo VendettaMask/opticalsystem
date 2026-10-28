@@ -1,0 +1,1825 @@
+{
+  "runs": {
+    "conditioning-before": {
+      "counters": {
+        "total": "6",
+        "executed": "6",
+        "passed": "2",
+        "failed": "4",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-28T07:40:43.7381688+00:00",
+        "queuing": "2026-10-28T07:40:43.7381689+00:00",
+        "start": "2026-10-28T07:40:42.8870740+00:00",
+        "finish": "2026-10-28T07:40:43.7449000+00:00"
+      },
+      "fitErrors": [
+        {
+          "angle": 0.0001,
+          "rotation": 0.0,
+          "conjugateErrorMm": 3.9225452042046527e-07,
+          "residualMm": 3.5084169521485683e-11
+        },
+        {
+          "angle": 0.001,
+          "rotation": 0.0,
+          "conjugateErrorMm": 4.987583679394447e-09,
+          "residualMm": 4.4611511122265345e-12
+        },
+        {
+          "angle": 0.001,
+          "rotation": 0.7,
+          "conjugateErrorMm": 2.273585830503045e-08,
+          "residualMm": 2.0336030049305532e-11
+        },
+        {
+          "angle": 1e-05,
+          "rotation": 0.7,
+          "conjugateErrorMm": 2.7305638043800774e-05,
+          "residualMm": 2.442310495274633e-10
+        },
+        {
+          "angle": 0.0001,
+          "rotation": 0.7,
+          "conjugateErrorMm": 1.074085675627398e-06,
+          "residualMm": 9.607150950581732e-11
+        },
+        {
+          "angle": 1e-05,
+          "rotation": 0.0,
+          "conjugateErrorMm": 8.284026762339636e-06,
+          "residualMm": 7.409467527664273e-11
+        }
+      ],
+      "records": []
+    },
+    "conditioning-after": {
+      "counters": {
+        "total": "14",
+        "executed": "14",
+        "passed": "14",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-28T07:41:35.7601663+00:00",
+        "queuing": "2026-10-28T07:41:35.7601664+00:00",
+        "start": "2026-10-28T07:41:33.7995339+00:00",
+        "finish": "2026-10-28T07:41:36.7153706+00:00"
+      },
+      "fitErrors": [
+        {
+          "angle": 0.001,
+          "rotation": 0.0,
+          "conjugateErrorMm": 1.2789769243681803e-13,
+          "residualMm": 8.688869536365455e-17
+        },
+        {
+          "angle": 1e-05,
+          "rotation": 0.7,
+          "conjugateErrorMm": 3.3825038970747014e-10,
+          "residualMm": 1.1218798904860587e-14
+        },
+        {
+          "angle": 0.001,
+          "rotation": 0.7,
+          "conjugateErrorMm": 1.319147992558322e-12,
+          "residualMm": 1.5592093266855073e-14
+        },
+        {
+          "angle": 0.0001,
+          "rotation": 0.0,
+          "conjugateErrorMm": 1.6342482922482304e-12,
+          "residualMm": 1.2710865877966855e-14
+        },
+        {
+          "angle": 1e-05,
+          "rotation": 0.0,
+          "conjugateErrorMm": 9.634959496906959e-12,
+          "residualMm": 1.271086578326786e-14
+        },
+        {
+          "angle": 0.0001,
+          "rotation": 0.7,
+          "conjugateErrorMm": 2.5635422074603712e-11,
+          "residualMm": 1.5551298176570148e-15
+        }
+      ],
+      "records": [
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.01,
+          "diameterX": 3.7509404381050824,
+          "diameterY": 3.7509423058163343,
+          "aspect": 0.9999995020687871,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.26554882276334,
+              "PupilY": -9.025248046646938e-09,
+              "PupilZ": 264.0182311017343
+            },
+            {
+              "PupilX": 28.303058227144373,
+              "PupilY": -9.025261077558557e-09,
+              "PupilZ": 264.0182310657497
+            },
+            {
+              "PupilX": 28.28430350504244,
+              "PupilY": -0.018754709983543533,
+              "PupilZ": 264.0182310837541
+            },
+            {
+              "PupilX": 28.284303505062326,
+              "PupilY": 0.01875471307461981,
+              "PupilZ": 264.01823108373
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.01,
+          "angle": 0.0003,
+          "diameter": 3.7509631265855137,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 8.047545605206118e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.01,
+          "angle": 0.0001,
+          "diameter": 3.7509465041219436,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.8864069661700092e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.01,
+          "angle": 3e-05,
+          "diameter": 3.7509437796876037,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.301897088010814e-08
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.003,
+          "diameterX": 3.7509315215746355,
+          "diameterY": 3.750937747290535,
+          "aspect": 0.9999983402241468,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.278677127672054,
+              "PupilY": -9.020618678167007e-09,
+              "PupilZ": 264.0182310891397
+            },
+            {
+              "PupilX": 28.289929922236773,
+              "PupilY": -9.02062007773533e-09,
+              "PupilZ": 264.01823107834434
+            },
+            {
+              "PupilX": 28.284303505048104,
+              "PupilY": -0.005626405075397508,
+              "PupilZ": 264.0182310837456
+            },
+            {
+              "PupilX": 28.28430350505407,
+              "PupilY": 0.005626408166474099,
+              "PupilZ": 264.01823108373844
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.003,
+          "angle": 0.0003,
+          "diameter": 3.7509635000826695,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 3.150223550230571e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.003,
+          "angle": 0.0001,
+          "diameter": 3.7509468776565758,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.3770803805847932e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.003,
+          "angle": 3e-05,
+          "diameter": 3.7509450104314275,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.1979454300441432e-08
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.001,
+          "diameterX": 3.7509050172221445,
+          "diameterY": 3.750923694388058,
+          "aspect": 0.9999950206489294,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.282428072445857,
+              "PupilY": -9.01928254230124e-09,
+              "PupilZ": 264.01823108554123
+            },
+            {
+              "PupilX": 28.286178977463077,
+              "PupilY": -9.019282506164701e-09,
+              "PupilZ": 264.0182310819428
+            },
+            {
+              "PupilX": 28.284303505050442,
+              "PupilY": -0.0018754603016513016,
+              "PupilZ": 264.0182310837432
+            },
+            {
+              "PupilX": 28.284303505052435,
+              "PupilY": 0.0018754633927367567,
+              "PupilZ": 264.01823108374083
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.001,
+          "angle": 0.0003,
+          "diameter": 3.7509635329275115,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 1.806000561458765e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.001,
+          "angle": 0.0001,
+          "diameter": 3.75094691050657,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.244736226658083e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.001,
+          "angle": 3e-05,
+          "diameter": 3.7509450432823863,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.1860088092312238e-08
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0003,
+          "diameterX": 3.7508121414492943,
+          "diameterY": 3.750874398645124,
+          "aspect": 0.9999834019513284,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.283740903133257,
+              "PupilY": -9.018825361873093e-09,
+              "PupilZ": 264.01823108428175
+            },
+            {
+              "PupilX": 28.28486614677569,
+              "PupilY": -9.018822249138147e-09,
+              "PupilZ": 264.01823108320224
+            },
+            {
+              "PupilX": 28.284303505051337,
+              "PupilY": -0.0005626296142540942,
+              "PupilZ": 264.01823108374236
+            },
+            {
+              "PupilX": 28.28430350505193,
+              "PupilY": 0.0005626327053394429,
+              "PupilZ": 264.0182310837417
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0003,
+          "angle": 0.0003,
+          "diameter": 3.7509635366992877,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 1.3686451765224021e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0003,
+          "angle": 0.0001,
+          "diameter": 3.7509469142804623,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.2004588776599795e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0003,
+          "angle": 3e-05,
+          "diameter": 3.7509450470310126,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.1820416649413032e-08
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0001,
+          "diameterX": 3.7505467718208,
+          "diameterY": 3.750733543351193,
+          "aspect": 0.9999502039992354,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.284115997615878,
+              "PupilY": -9.018698300742698e-09,
+              "PupilZ": 264.01823108392193
+            },
+            {
+              "PupilX": 28.28449105229306,
+              "PupilY": -9.018690895260327e-09,
+              "PupilZ": 264.0182310835621
+            },
+            {
+              "PupilX": 28.284303505051593,
+              "PupilY": -0.0001875351316226484,
+              "PupilZ": 264.01823108374214
+            },
+            {
+              "PupilX": 28.284303505051795,
+              "PupilY": 0.00018753822271247092,
+              "PupilZ": 264.0182310837419
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0001,
+          "angle": 0.0003,
+          "diameter": 3.7509635370724936,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 1.2515241890592946e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0001,
+          "angle": 0.0001,
+          "diameter": 3.7509469146357333,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.1880321834380152e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0001,
+          "angle": 3e-05,
+          "diameter": 3.7509450472817027,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.1809290150833817e-08
+        },
+        {
+          "kind": "ideal-disk",
+          "n": 32,
+          "g": 128,
+          "occupied": 740,
+          "pitchMrad": 0.0666015625,
+          "windows": [
+            {
+              "radiusMrad": 0.2,
+              "discreteFractionOfPeriod": 0.6986640251253966,
+              "continuumFractionOfInfinitePlane": 0.7015670921224507
+            },
+            {
+              "radiusMrad": 0.4,
+              "discreteFractionOfPeriod": 0.8444485695515955,
+              "continuumFractionOfInfinitePlane": 0.8456348529895353
+            },
+            {
+              "radiusMrad": 0.8,
+              "discreteFractionOfPeriod": 0.9310889765669008,
+              "continuumFractionOfInfinitePlane": 0.933378475676094
+            }
+          ],
+          "airyMaximumAbsolute": 0.006858343559588559,
+          "mtfMaximumAbsolute": 0.005746847636108721,
+          "parsevalRelative": -5.662137425588298e-15,
+          "rasterBudget": 0.25806451612903225
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.01,
+          "diameterX": 3.7509404381050824,
+          "diameterY": 3.7509423058163343,
+          "aspect": 0.9999995020687871,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.303058227144373,
+              "PupilY": -9.025261077558557e-09,
+              "PupilZ": 264.0182310657497
+            },
+            {
+              "PupilX": -28.26554882276334,
+              "PupilY": -9.025248046646938e-09,
+              "PupilZ": 264.0182311017343
+            },
+            {
+              "PupilX": -28.28430350504244,
+              "PupilY": -0.018754709983543533,
+              "PupilZ": 264.0182310837541
+            },
+            {
+              "PupilX": -28.284303505062326,
+              "PupilY": 0.01875471307461981,
+              "PupilZ": 264.01823108373
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.01,
+          "angle": 0.0003,
+          "diameter": 3.7509631265855137,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 8.01132405707095e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.01,
+          "angle": 0.0001,
+          "diameter": 3.7509465041219436,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.8834078514919994e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.01,
+          "angle": 3e-05,
+          "diameter": 3.7509437796876037,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.301897088010814e-08
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.003,
+          "diameterX": 3.7509315215746355,
+          "diameterY": 3.750937747290535,
+          "aspect": 0.9999983402241468,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.289929922236773,
+              "PupilY": -9.02062007773533e-09,
+              "PupilZ": 264.01823107834434
+            },
+            {
+              "PupilX": -28.278677127672054,
+              "PupilY": -9.020618678167007e-09,
+              "PupilZ": 264.0182310891397
+            },
+            {
+              "PupilX": -28.284303505048104,
+              "PupilY": -0.005626405075397508,
+              "PupilZ": 264.0182310837456
+            },
+            {
+              "PupilX": -28.28430350505407,
+              "PupilY": 0.005626408166474099,
+              "PupilZ": 264.01823108373844
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.003,
+          "angle": 0.0003,
+          "diameter": 3.7509635000826695,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 3.114444442289315e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.003,
+          "angle": 0.0001,
+          "diameter": 3.7509468776565758,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.3738463324266267e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.003,
+          "angle": 3e-05,
+          "diameter": 3.7509450104314275,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.1977477972966588e-08
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.001,
+          "diameterX": 3.7509050172221445,
+          "diameterY": 3.750923694388058,
+          "aspect": 0.9999950206489294,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.286178977463077,
+              "PupilY": -9.019282506164701e-09,
+              "PupilZ": 264.0182310819428
+            },
+            {
+              "PupilX": -28.282428072445857,
+              "PupilY": -9.01928254230124e-09,
+              "PupilZ": 264.01823108554123
+            },
+            {
+              "PupilX": -28.284303505050442,
+              "PupilY": -0.0018754603016513016,
+              "PupilZ": 264.0182310837432
+            },
+            {
+              "PupilX": -28.284303505052435,
+              "PupilY": 0.0018754633927367567,
+              "PupilZ": 264.01823108374083
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.001,
+          "angle": 0.0003,
+          "diameter": 3.7509635329275115,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 1.7722367266069122e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.001,
+          "angle": 0.0001,
+          "diameter": 3.75094691050657,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.2414828670286886e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.001,
+          "angle": 3e-05,
+          "diameter": 3.7509450432823863,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.1857478735626347e-08
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0003,
+          "diameterX": 3.7508121414492943,
+          "diameterY": 3.750874398645124,
+          "aspect": 0.9999834019513284,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.28486614677569,
+              "PupilY": -9.018822249138147e-09,
+              "PupilZ": 264.01823108320224
+            },
+            {
+              "PupilX": -28.283740903133257,
+              "PupilY": -9.018825361873093e-09,
+              "PupilZ": 264.01823108428175
+            },
+            {
+              "PupilX": -28.284303505051337,
+              "PupilY": -0.0005626296142540942,
+              "PupilZ": 264.01823108374236
+            },
+            {
+              "PupilX": -28.28430350505193,
+              "PupilY": 0.0005626327053394429,
+              "PupilZ": 264.0182310837417
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0003,
+          "angle": 0.0003,
+          "diameter": 3.7509635366992877,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 1.3373776856412232e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0003,
+          "angle": 0.0001,
+          "diameter": 3.750946914260921,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.1972052409252382e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0003,
+          "angle": 3e-05,
+          "diameter": 3.7509450470310126,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.1817590678961656e-08
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0001,
+          "diameterX": 3.7505467718208,
+          "diameterY": 3.750733543351193,
+          "aspect": 0.9999502039992354,
+          "productionScalarDiameter": 3.75094691050657,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.28449105229306,
+              "PupilY": -9.018690895260327e-09,
+              "PupilZ": 264.0182310835621
+            },
+            {
+              "PupilX": -28.284115997615878,
+              "PupilY": -9.018698300742698e-09,
+              "PupilZ": 264.01823108392193
+            },
+            {
+              "PupilX": -28.284303505051593,
+              "PupilY": -0.0001875351316226484,
+              "PupilZ": 264.01823108374214
+            },
+            {
+              "PupilX": -28.284303505051795,
+              "PupilY": 0.00018753822271247092,
+              "PupilZ": 264.0182310837419
+            }
+          ]
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0001,
+          "angle": 0.0003,
+          "diameter": 3.750963537044459,
+          "centerZ": 1.2474973679995855,
+          "residualMm": 1.2256643275433195e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0001,
+          "angle": 0.0001,
+          "diameter": 3.750946914515979,
+          "centerZ": 1.2476436187420177,
+          "residualMm": 1.1851373783113251e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0001,
+          "angle": 3e-05,
+          "diameter": 3.7509450472817027,
+          "centerZ": 1.247703252342376,
+          "residualMm": 1.1806644943925915e-08
+        },
+        {
+          "kind": "ideal-disk",
+          "n": 128,
+          "g": 512,
+          "occupied": 12644,
+          "pitchMrad": 0.06821289062500001,
+          "windows": [
+            {
+              "radiusMrad": 0.2,
+              "discreteFractionOfPeriod": 0.6771360457808545,
+              "continuumFractionOfInfinitePlane": 0.7015670921224507
+            },
+            {
+              "radiusMrad": 0.4,
+              "discreteFractionOfPeriod": 0.8460423893057974,
+              "continuumFractionOfInfinitePlane": 0.8456348529895353
+            },
+            {
+              "radiusMrad": 0.8,
+              "discreteFractionOfPeriod": 0.9340004321086629,
+              "continuumFractionOfInfinitePlane": 0.933378475676094
+            }
+          ],
+          "airyMaximumAbsolute": 0.00062366762299082,
+          "mtfMaximumAbsolute": 0.0004654008657282438,
+          "parsevalRelative": -5.995204332975845e-15,
+          "rasterBudget": 0.06299212598425197
+        },
+        {
+          "kind": "rotation90",
+          "maximum": 1.2789769243681803e-13,
+          "scope": "prepared scalar pupil, not a folded-train global-frame certification"
+        },
+        {
+          "kind": "ideal-disk",
+          "n": 64,
+          "g": 256,
+          "occupied": 3096,
+          "pitchMrad": 0.06767578125000001,
+          "windows": [
+            {
+              "radiusMrad": 0.2,
+              "discreteFractionOfPeriod": 0.6706873792824938,
+              "continuumFractionOfInfinitePlane": 0.7015670921224507
+            },
+            {
+              "radiusMrad": 0.4,
+              "discreteFractionOfPeriod": 0.8447238851732807,
+              "continuumFractionOfInfinitePlane": 0.8456348529895353
+            },
+            {
+              "radiusMrad": 0.8,
+              "discreteFractionOfPeriod": 0.9329480205830185,
+              "continuumFractionOfInfinitePlane": 0.933378475676094
+            }
+          ],
+          "airyMaximumAbsolute": 0.002352539672157261,
+          "mtfMaximumAbsolute": 0.002588408958212468,
+          "parsevalRelative": -2.098321516541546e-14,
+          "rasterBudget": 0.12698412698412698
+        },
+        {
+          "kind": "padding",
+          "maximum": 2.1316282072803006e-13,
+          "energyRelative": 2.2648549702353193e-14,
+          "note": "Same Fourier period; this is zero padding, not an enlarged physical window"
+        },
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.01,
+          "diameterX": 10,
+          "diameterY": 9.880969745332244,
+          "aspect": 1.012046414242285,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.05,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.05,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.2518897366105628,
+              "PupilZ": 14.50034657549
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.3504570484559524,
+              "PupilZ": 14.507263319405372
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.003,
+          "diameterX": 10,
+          "diameterY": 9.880969745332289,
+          "aspect": 1.0120464142422803,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.015,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.015,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.286388295756449,
+              "PupilZ": 14.502767435860381
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.3159584893100662,
+              "PupilZ": 14.50484245903499
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.001,
+          "diameterX": 10,
+          "diameterY": 9.880969745332216,
+          "aspect": 1.0120464142422878,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.005,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.005,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.2962450269409882,
+              "PupilZ": 14.503459110251917
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.3061017581255272,
+              "PupilZ": 14.504150784643453
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.0003,
+          "diameterX": 10,
+          "diameterY": 9.880969745335197,
+          "aspect": 1.0120464142419825,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.0014999999999999998,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.0014999999999999998,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.29969488285557633,
+              "PupilZ": 14.503701196288954
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.30265190221093885,
+              "PupilZ": 14.503908698606416
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.0001,
+          "diameterX": 10,
+          "diameterY": 9.880969745330027,
+          "aspect": 1.0120464142425118,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.0005,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.0005,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.30068055597403087,
+              "PupilZ": 14.503770363728108
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.30166622909248453,
+              "PupilZ": 14.503839531167262
+            }
+          ]
+        }
+      ]
+    },
+    "conditioning-related": {
+      "counters": {
+        "total": "87",
+        "executed": "87",
+        "passed": "87",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-28T07:44:07.4548904+00:00",
+        "queuing": "2026-10-28T07:44:07.4548904+00:00",
+        "start": "2026-10-28T07:44:06.0935217+00:00",
+        "finish": "2026-10-28T07:44:55.1025524+00:00"
+      },
+      "fitErrors": [
+        {
+          "angle": 1e-05,
+          "rotation": 0.0,
+          "conjugateErrorMm": 9.634959496906959e-12,
+          "residualMm": 1.271086578326786e-14
+        },
+        {
+          "angle": 0.0001,
+          "rotation": 0.7,
+          "conjugateErrorMm": 2.5635422074603712e-11,
+          "residualMm": 1.5551298176570148e-15
+        },
+        {
+          "angle": 1e-05,
+          "rotation": 0.7,
+          "conjugateErrorMm": 3.3825038970747014e-10,
+          "residualMm": 1.1218798904860587e-14
+        },
+        {
+          "angle": 0.001,
+          "rotation": 0.0,
+          "conjugateErrorMm": 1.2789769243681803e-13,
+          "residualMm": 8.688869536365455e-17
+        },
+        {
+          "angle": 0.001,
+          "rotation": 0.7,
+          "conjugateErrorMm": 1.319147992558322e-12,
+          "residualMm": 1.5592093266855073e-14
+        },
+        {
+          "angle": 0.0001,
+          "rotation": 0.0,
+          "conjugateErrorMm": 1.6342482922482304e-12,
+          "residualMm": 1.2710865877966855e-14
+        }
+      ],
+      "records": [
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 1,
+          "geometry": "plane",
+          "positionDerivative": [
+            15,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 2,
+          "geometry": "plane",
+          "positionDerivative": [
+            15,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 3,
+          "geometry": "standard",
+          "positionDerivative": [
+            15,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            -0.03297258372798846,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 4,
+          "geometry": "standard",
+          "positionDerivative": [
+            14.802170446754124,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            -0.018742892701712945,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 5,
+          "geometry": "standard",
+          "positionDerivative": [
+            14.745940414287167,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            -0.06247611892834631,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 6,
+          "geometry": "polygon_group",
+          "positionDerivative": [
+            -0.31431323067661054,
+            -7.401451879696228e-13,
+            0
+          ],
+          "directionDerivative": [
+            0.0624760430883666,
+            -2.525979483049207e-14,
+            -3.608224830031759e-13
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 7,
+          "geometry": "plane",
+          "positionDerivative": [
+            -0.31431323067661054,
+            -7.401451879696228e-13,
+            0
+          ],
+          "directionDerivative": [
+            0.0624760430883666,
+            -2.525979483049207e-14,
+            -3.608224830031759e-13
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 8,
+          "geometry": "plane",
+          "positionDerivative": [
+            -0.0019329542698898194,
+            -8.664441875630569e-13,
+            0
+          ],
+          "directionDerivative": [
+            0.04118937346209717,
+            -1.6653345369377348e-14,
+            -1.5543122344752192e-13
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 9,
+          "geometry": "standard",
+          "positionDerivative": [
+            0.14222986340932664,
+            -9.247718298847981e-13,
+            1.6362093901989283e-07
+          ],
+          "directionDerivative": [
+            0.059535866874704114,
+            -6.117096481968059e-15,
+            -3.539596393764555e-08
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 10,
+          "geometry": "standard",
+          "positionDerivative": [
+            1.8401311330002557,
+            -1.099242833794067e-12,
+            -1.3220187611295842e-06
+          ],
+          "directionDerivative": [
+            0.0010931766803700229,
+            1.8755951635107766e-14,
+            -6.960820808643575e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 11,
+          "geometry": "standard",
+          "positionDerivative": [
+            1.8461435803455828,
+            -9.950735298080343e-13,
+            1.080674394415837e-06
+          ],
+          "directionDerivative": [
+            0.013122698227476588,
+            1.0484804956056392e-14,
+            -6.861144985492729e-09
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 12,
+          "geometry": "standard",
+          "positionDerivative": [
+            1.8723890951084954,
+            -9.743296434643759e-13,
+            2.338353510822344e-07
+          ],
+          "directionDerivative": [
+            0.0002739349879057734,
+            2.881368541483708e-14,
+            -2.625843986692189e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 13,
+          "geometry": "plane",
+          "positionDerivative": [
+            1.8751284458137008,
+            -6.863409973860065e-13,
+            0
+          ],
+          "directionDerivative": [
+            0.0002739349879057734,
+            2.881368541483708e-14,
+            -2.625843986692189e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.01,
+          "surface": 14,
+          "geometry": "plane",
+          "positionDerivative": [
+            1.8751284458137008,
+            -6.863409973860065e-13,
+            0
+          ],
+          "directionDerivative": [
+            0.0002739349879057734,
+            2.881368541483708e-14,
+            -2.625843986692189e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 1,
+          "geometry": "plane",
+          "positionDerivative": [
+            15,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 2,
+          "geometry": "plane",
+          "positionDerivative": [
+            15,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 3,
+          "geometry": "standard",
+          "positionDerivative": [
+            15,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            -0.032972573650618266,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 4,
+          "geometry": "standard",
+          "positionDerivative": [
+            14.802164617587435,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            -0.01874290497327799,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 5,
+          "geometry": "standard",
+          "positionDerivative": [
+            14.745935889123997,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            -0.062476117704597496,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 6,
+          "geometry": "polygon_group",
+          "positionDerivative": [
+            -0.3143312364368711,
+            -1.4381287849027932e-13,
+            0
+          ],
+          "directionDerivative": [
+            0.06247535930453332,
+            7.754818242684634e-23,
+            -3.3306690738754696e-13
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 7,
+          "geometry": "plane",
+          "positionDerivative": [
+            -0.3143312364368711,
+            -1.4381287849027932e-13,
+            0
+          ],
+          "directionDerivative": [
+            0.06247535930453332,
+            7.754818242684634e-23,
+            -3.3306690738754696e-13
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 8,
+          "geometry": "plane",
+          "positionDerivative": [
+            -0.0019544393037307373,
+            -1.4381287849027932e-13,
+            0
+          ],
+          "directionDerivative": [
+            0.04118892265525531,
+            7.754818242684634e-23,
+            -1.6653345369377348e-13
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 9,
+          "geometry": "standard",
+          "positionDerivative": [
+            0.14220679009468995,
+            -1.4385377926284762e-13,
+            1.6359535948140547e-07
+          ],
+          "directionDerivative": [
+            0.05953566034067293,
+            2.9995573599376775e-15,
+            -3.5395908426494316e-08
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 10,
+          "geometry": "standard",
+          "positionDerivative": [
+            1.840101261938898,
+            -5.832739019709057e-14,
+            -1.3219931815910968e-06
+          ],
+          "directionDerivative": [
+            0.0010936965732592594,
+            3.181511868921835e-15,
+            -6.96498414498592e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 11,
+          "geometry": "standard",
+          "positionDerivative": [
+            1.8461165928478351,
+            -3.981709813704231e-14,
+            1.0806502359628212e-06
+          ],
+          "directionDerivative": [
+            0.013122983253667583,
+            2.6391120670803745e-15,
+            -6.861344825637161e-09
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 12,
+          "geometry": "standard",
+          "positionDerivative": [
+            1.8723625605385763,
+            -3.476472196896027e-14,
+            2.3383961433864897e-07
+          ],
+          "directionDerivative": [
+            0.0002747195920349539,
+            4.813013466661499e-15,
+            -2.634004125923184e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 13,
+          "geometry": "plane",
+          "positionDerivative": [
+            1.875109756467097,
+            1.3217120306929579e-14,
+            0
+          ],
+          "directionDerivative": [
+            0.0002747195920349539,
+            4.813013466661499e-15,
+            -2.634004125923184e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.001,
+          "surface": 14,
+          "geometry": "plane",
+          "positionDerivative": [
+            1.875109756467097,
+            1.3217120306929579e-14,
+            0
+          ],
+          "directionDerivative": [
+            0.0002747195920349539,
+            4.813013466661499e-15,
+            -2.634004125923184e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 1,
+          "geometry": "plane",
+          "positionDerivative": [
+            15,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 2,
+          "geometry": "plane",
+          "positionDerivative": [
+            15,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 3,
+          "geometry": "standard",
+          "positionDerivative": [
+            15,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            -0.032972573549844605,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 4,
+          "geometry": "standard",
+          "positionDerivative": [
+            14.802164559295843,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            -0.018742905095993127,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 5,
+          "geometry": "standard",
+          "positionDerivative": [
+            14.745935843872427,
+            0,
+            0
+          ],
+          "directionDerivative": [
+            -0.06247611769235943,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 6,
+          "geometry": "polygon_group",
+          "positionDerivative": [
+            -0.31450719406578287,
+            1.018806882785098e-10,
+            0
+          ],
+          "directionDerivative": [
+            0.062468533693035774,
+            1.6839863221189694e-12,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 7,
+          "geometry": "plane",
+          "positionDerivative": [
+            -0.31450719406578287,
+            1.018806882785098e-10,
+            0
+          ],
+          "directionDerivative": [
+            0.062468533693035774,
+            1.6839863221189694e-12,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 8,
+          "geometry": "plane",
+          "positionDerivative": [
+            -0.0021645255898761206,
+            1.1030061990280482e-10,
+            0
+          ],
+          "directionDerivative": [
+            0.04118442264777753,
+            1.1102230248836505e-12,
+            0
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 9,
+          "geometry": "standard",
+          "positionDerivative": [
+            0.14198095367845553,
+            1.1418635965935784e-10,
+            1.6342482922482304e-07
+          ],
+          "directionDerivative": [
+            0.059533503222678724,
+            -6.764484474412859e-13,
+            -3.53944651365623e-08
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 10,
+          "geometry": "standard",
+          "positionDerivative": [
+            1.839813897710485,
+            9.489474303441518e-11,
+            -1.3217515970609384e-06
+          ],
+          "directionDerivative": [
+            0.0010982336976505642,
+            -2.4137545966159368e-12,
+            -6.994405055138486e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 11,
+          "geometry": "standard",
+          "positionDerivative": [
+            1.845854183049056,
+            8.162010457469922e-11,
+            1.0804512839968083e-06
+          ],
+          "directionDerivative": [
+            0.013125373071781495,
+            -1.6524310686815331e-12,
+            -6.862843626720405e-09
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 12,
+          "geometry": "standard",
+          "positionDerivative": [
+            1.8721049291947622,
+            7.831501662374977e-11,
+            2.3376856006507296e-07
+          ],
+          "directionDerivative": [
+            0.0002816996008014041,
+            -3.670662435818077e-12,
+            -2.6978419498391304e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 13,
+          "geometry": "plane",
+          "positionDerivative": [
+            1.8749219252001126,
+            4.16082440575507e-11,
+            0
+          ],
+          "directionDerivative": [
+            0.0002816996008014036,
+            -3.670662436335065e-12,
+            -2.703393064962256e-10
+          ]
+        },
+        {
+          "kind": "surface-derivative",
+          "h": 0.0001,
+          "surface": 14,
+          "geometry": "plane",
+          "positionDerivative": [
+            1.8749219252001126,
+            4.16082440575507e-11,
+            0
+          ],
+          "directionDerivative": [
+            0.0002816996008014036,
+            -3.670662436335065e-12,
+            -2.703393064962256e-10
+          ]
+        }
+      ]
+    },
+    "conditioning-focal-regression": {
+      "counters": {
+        "total": "5",
+        "executed": "5",
+        "passed": "5",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-28T07:43:18.5508592+00:00",
+        "queuing": "2026-10-28T07:43:18.5508592+00:00",
+        "start": "2026-10-28T07:43:17.0055426+00:00",
+        "finish": "2026-10-28T07:43:18.5567049+00:00"
+      },
+      "fitErrors": [],
+      "records": []
+    },
+    "conditioning-energy-regression": {
+      "counters": {
+        "total": "25",
+        "executed": "25",
+        "passed": "25",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-28T07:46:43.8395214+00:00",
+        "queuing": "2026-10-28T07:46:43.8395215+00:00",
+        "start": "2026-10-28T07:46:41.8626990+00:00",
+        "finish": "2026-10-28T07:47:42.5020182+00:00"
+      },
+      "fitErrors": [],
+      "records": []
+    }
+  },
+  "coreChange": "ExitPupilGeometryEngine.FitLines only: same least-squares objective, local frame and cancellation-free projector diagonal",
+  "limits": [
+    "Binocular probe sensitivity not resolved",
+    "Actual internal polygon hit sequence not captured",
+    "No change to reference, optical gates, geometry or probe sizes"
+  ]
+}

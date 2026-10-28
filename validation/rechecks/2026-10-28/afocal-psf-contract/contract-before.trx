@@ -1,0 +1,611 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c5211de3-9395-4b41-bc05-4051e4aecccd" name="@fc8a4896a013 2026-10-28 05:37:15" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-28T05:37:15.9329486+00:00" queuing="2026-10-28T05:37:15.9329491+00:00" start="2026-10-28T05:37:14.1634746+00:00" finish="2026-10-28T05:37:16.0804181+00:00" />
+  <TestSettings name="default" id="f16e8585-eb96-4f40-9ea4-d6144b7c047b">
+    <Deployment runDeploymentRoot="_fc8a4896a013_2026-10-28_05_37_15" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6d7ae872-9b2c-4826-9308-00ab90c345f1" testId="52a39039-f2b6-c5af-9af3-5b289b515cdc" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0120-004-apochromat_prism-c1-primary-f1-w3-huygens&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0021363" startTime="2026-10-28T05:37:15.9134279+00:00" endTime="2026-10-28T05:37:15.9152860+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d7ae872-9b2c-4826-9308-00ab90c345f1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="af0f4bf0-e840-4ff5-a330-c933544002bb" testId="800b1ac8-671f-9883-b2ca-6e66a8c49b34" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0037-002-beam-expander-c1-primary-f1-w1-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.0180404" startTime="2026-10-28T05:37:15.7804814+00:00" endTime="2026-10-28T05:37:15.7986886+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="af0f4bf0-e840-4ff5-a330-c933544002bb">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="26767f3c-7045-4e58-9f68-f724bef22ee6" testId="0a5570bd-3973-16a6-7675-9e75ea7ed3ca" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0037-002-beam-expander-c1-primary-f1-w1-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.8128632" startTime="2026-10-28T05:37:14.8973788+00:00" endTime="2026-10-28T05:37:15.7240433+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="26767f3c-7045-4e58-9f68-f724bef22ee6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b9281eba-69f7-43da-bddb-df4c10bfa82b" testId="07179fdc-91ed-6638-7c81-90edcbfef12e" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0008-001-afocal-riflescope-c1-primary-f1-w2-huygen&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0030258" startTime="2026-10-28T05:37:15.7775250+00:00" endTime="2026-10-28T05:37:15.7801470+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b9281eba-69f7-43da-bddb-df4c10bfa82b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0132c66d-e2ae-4e0f-8e21-1eedd543566a" testId="45badee0-2f37-4be2-6e91-8be1ca4479a2" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0038-002-beam-expander-c1-primary-f1-w1-huygens-ps&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0020187" startTime="2026-10-28T05:37:15.8974248+00:00" endTime="2026-10-28T05:37:15.8992120+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0132c66d-e2ae-4e0f-8e21-1eedd543566a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bf7c4f1e-2602-4f09-81ac-938e3baab9e4" testId="3db6845b-11cc-2588-4cea-f0868cc26bbb" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0090-003-binocular_system-c2-primary-f1-w2-h&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0127548" startTime="2026-10-28T05:37:15.9156256+00:00" endTime="2026-10-28T05:37:15.9284073+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf7c4f1e-2602-4f09-81ac-938e3baab9e4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0565ce93-fa71-4386-9d21-bd9a64159a23" testId="7c5ace45-261a-1c2d-d2ce-6daff1f47cc0" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;PSF&quot;, unit: &quot;ArcMinute&quot;)" computerName="fc8a4896a013" duration="00:00:00.0188843" startTime="2026-10-28T05:37:15.9855204+00:00" endTime="2026-10-28T05:37:16.0035054+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0565ce93-fa71-4386-9d21-bd9a64159a23">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 13 decimal places
+Expected: 0.17188733853919999 (rounded from 0.17188733853924698)
+Actual:   0.050000000000000003 (rounded from 0.050000000000000003)</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(String key, String unit) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 88
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d308b8cc-c83b-4b12-8631-a5216526d469" testId="d787dbe9-e372-0fdb-3684-0a8cc25d3b74" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0059-003-binocular_system-c1-primary-f1-w2-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.0417730" startTime="2026-10-28T05:37:15.8934742+00:00" endTime="2026-10-28T05:37:15.8969963+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d308b8cc-c83b-4b12-8631-a5216526d469">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3be8a2d0-bb67-440d-815a-06d4908ea4f4" testId="729f280d-6ee0-2359-f5cf-f30a3d6f1c98" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0120-004-apochromat_prism-c1-primary-f1-w3-h&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0126994" startTime="2026-10-28T05:37:15.7644434+00:00" endTime="2026-10-28T05:37:15.7769418+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3be8a2d0-bb67-440d-815a-06d4908ea4f4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9f8f3360-da7b-4ad9-9fd8-a294e0b41740" testId="e7b449fa-61fc-c460-51e9-a5b7193af3d1" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0060-003-binocular_system-c1-primary-f1-w2-h&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0112955" startTime="2026-10-28T05:37:15.9019062+00:00" endTime="2026-10-28T05:37:15.9129913+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f8f3360-da7b-4ad9-9fd8-a294e0b41740">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3b4e40d3-13c0-40b4-8393-bc329f08eb36" testId="0412a7f5-79ae-3e8f-fdb6-994e771316d8" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0090-003-binocular_system-c2-primary-f1-w2-huygens&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0088141" startTime="2026-10-28T05:37:15.8930797+00:00" endTime="2026-10-28T05:37:15.8931459+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b4e40d3-13c0-40b4-8393-bc329f08eb36">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="33842c98-5a35-47a6-a0b1-6fefdf328acd" testId="08b8ac3f-fbe9-c480-e55c-f40effe6bf2e" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;PSF&quot;, unit: &quot;Microradian&quot;)" computerName="fc8a4896a013" duration="00:00:00.0017376" startTime="2026-10-28T05:37:16.0042211+00:00" endTime="2026-10-28T05:37:16.0054563+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33842c98-5a35-47a6-a0b1-6fefdf328acd">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 13 decimal places
+Expected: 50 (rounded from 50.000000000000007)
+Actual:   0.050000000000000003 (rounded from 0.050000000000000003)</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(String key, String unit) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 88
+   at InvokeStub_AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a4ec6d9a-4c23-46dc-a532-7b4ec793212c" testId="193a046f-2fc9-fb12-be31-a5606c1d48ed" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0089-003-binocular_system-c2-primary-f1-w2-p&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0217858" startTime="2026-10-28T05:37:15.9622934+00:00" endTime="2026-10-28T05:37:15.9839552+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a4ec6d9a-4c23-46dc-a532-7b4ec793212c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="24686df4-63df-4d73-8bcd-cd058f601d8f" testId="88aed3c7-5f6e-7436-8560-d7cd5085c536" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;Huygens PSF&quot;, unit: &quot;ArcSecond&quot;)" computerName="fc8a4896a013" duration="00:00:00.0022611" startTime="2026-10-28T05:37:16.0058882+00:00" endTime="2026-10-28T05:37:16.0079070+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24686df4-63df-4d73-8bcd-cd058f601d8f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 13 decimal places
+Expected: 10.3132403123548 (rounded from 10.31324031235482)
+Actual:   0.050000000000000003 (rounded from 0.050000000000000003)</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(String key, String unit) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 88
+   at InvokeStub_AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ac6eb02c-a28c-4b03-9af7-8bf877c24c90" testId="e48a7208-cc47-d615-fc1f-17098aea84fe" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0060-003-binocular_system-c1-primary-f1-w2-huygens&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0018571" startTime="2026-10-28T05:37:15.8995504+00:00" endTime="2026-10-28T05:37:15.9013805+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ac6eb02c-a28c-4b03-9af7-8bf877c24c90">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f29aa156-5c2f-42ee-9c21-6a93ddbb4d8c" testId="dd55b56f-f57b-6299-2a1b-88eb61d9c2d3" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0038-002-beam-expander-c1-primary-f1-w1-huyg&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0127079" startTime="2026-10-28T05:37:15.9289774+00:00" endTime="2026-10-28T05:37:15.9422251+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f29aa156-5c2f-42ee-9c21-6a93ddbb4d8c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7a8e16ca-f968-4116-9be2-14aee4cc1904" testId="a88cf46f-36d2-252b-e735-3e3ff2eba270" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0007-001-afocal-riflescope-c1-primary-f1-w2-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.0128432" startTime="2026-10-28T05:37:15.7512498+00:00" endTime="2026-10-28T05:37:15.7638596+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7a8e16ca-f968-4116-9be2-14aee4cc1904">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3bdb3e20-78cd-4fb6-8a3f-914142d4402f" testId="21643b02-9b75-6cbf-0ffa-64a38db29142" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0129482" startTime="2026-10-28T05:37:15.7994698+00:00" endTime="2026-10-28T05:37:15.8122287+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3bdb3e20-78cd-4fb6-8a3f-914142d4402f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a9cbedb7-3d96-427e-902e-0302a1e3d4ff" testId="68ab5062-8f4c-f4dd-6241-799023204ac0" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0119-004-apochromat_prism-c1-primary-f1-w3-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.0198479" startTime="2026-10-28T05:37:15.8922098+00:00" endTime="2026-10-28T05:37:15.8923343+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a9cbedb7-3d96-427e-902e-0302a1e3d4ff">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="63fabe9b-90d9-4a4d-9cc9-9eb72f15e5cd" testId="513e24ce-1861-ba6c-1dd5-687acf1a4784" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0059-003-binocular_system-c1-primary-f1-w2-p&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0197983" startTime="2026-10-28T05:37:15.9454497+00:00" endTime="2026-10-28T05:37:15.9617289+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="63fabe9b-90d9-4a4d-9cc9-9eb72f15e5cd">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dc1ae924-db63-4cdf-93a8-eb3b3353407d" testId="df6907a8-3052-3ba7-bfe5-a76e17c24aac" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0119-004-apochromat_prism-c1-primary-f1-w3-p&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0129342" startTime="2026-10-28T05:37:15.8128770+00:00" endTime="2026-10-28T05:37:15.8255264+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dc1ae924-db63-4cdf-93a8-eb3b3353407d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="39782d88-0793-48ee-ad3e-d36660cb7714" testId="a1343d79-eeb9-62da-ee84-cdf75ae2fa02" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0089-003-binocular_system-c2-primary-f1-w2-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.0130073" startTime="2026-10-28T05:37:15.7394285+00:00" endTime="2026-10-28T05:37:15.7507035+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39782d88-0793-48ee-ad3e-d36660cb7714">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ba975ce0-0eff-474d-ba31-8fb9fc9ca636" testId="ead202c2-d63f-0af8-2892-8d1119179862" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-&quot;···)" computerName="fc8a4896a013" duration="00:00:00.0133295" startTime="2026-10-28T05:37:15.7381297+00:00" endTime="2026-10-28T05:37:15.7382245+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba975ce0-0eff-474d-ba31-8fb9fc9ca636">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="ead202c2-d63f-0af8-2892-8d1119179862">
+      <Execution id="ba975ce0-0eff-474d-ba31-8fb9fc9ca636" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0060-003-binocular_system-c1-primary-f1-w2-h&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="e7b449fa-61fc-c460-51e9-a5b7193af3d1">
+      <Execution id="9f8f3360-da7b-4ad9-9fd8-a294e0b41740" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0120-004-apochromat_prism-c1-primary-f1-w3-h&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="729f280d-6ee0-2359-f5cf-f30a3d6f1c98">
+      <Execution id="3be8a2d0-bb67-440d-815a-06d4908ea4f4" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;PSF&quot;, unit: &quot;Microradian&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="08b8ac3f-fbe9-c480-e55c-f40effe6bf2e">
+      <Execution id="33842c98-5a35-47a6-a0b1-6fefdf328acd" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0007-001-afocal-riflescope-c1-primary-f1-w2-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="a88cf46f-36d2-252b-e735-3e3ff2eba270">
+      <Execution id="7a8e16ca-f968-4116-9be2-14aee4cc1904" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0038-002-beam-expander-c1-primary-f1-w1-huyg&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="dd55b56f-f57b-6299-2a1b-88eb61d9c2d3">
+      <Execution id="f29aa156-5c2f-42ee-9c21-6a93ddbb4d8c" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0037-002-beam-expander-c1-primary-f1-w1-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="0a5570bd-3973-16a6-7675-9e75ea7ed3ca">
+      <Execution id="26767f3c-7045-4e58-9f68-f724bef22ee6" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0090-003-binocular_system-c2-primary-f1-w2-h&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="3db6845b-11cc-2588-4cea-f0868cc26bbb">
+      <Execution id="bf7c4f1e-2602-4f09-81ac-938e3baab9e4" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;PSF&quot;, unit: &quot;ArcMinute&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="7c5ace45-261a-1c2d-d2ce-6daff1f47cc0">
+      <Execution id="0565ce93-fa71-4386-9d21-bd9a64159a23" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0008-001-afocal-riflescope-c1-primary-f1-w2-huygen&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="07179fdc-91ed-6638-7c81-90edcbfef12e">
+      <Execution id="b9281eba-69f7-43da-bddb-df4c10bfa82b" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;Huygens PSF&quot;, unit: &quot;ArcSecond&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="88aed3c7-5f6e-7436-8560-d7cd5085c536">
+      <Execution id="24686df4-63df-4d73-8bcd-cd058f601d8f" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0038-002-beam-expander-c1-primary-f1-w1-huygens-ps&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="45badee0-2f37-4be2-6e91-8be1ca4479a2">
+      <Execution id="0132c66d-e2ae-4e0f-8e21-1eedd543566a" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0089-003-binocular_system-c2-primary-f1-w2-p&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="193a046f-2fc9-fb12-be31-a5606c1d48ed">
+      <Execution id="a4ec6d9a-4c23-46dc-a532-7b4ec793212c" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="21643b02-9b75-6cbf-0ffa-64a38db29142">
+      <Execution id="3bdb3e20-78cd-4fb6-8a3f-914142d4402f" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0119-004-apochromat_prism-c1-primary-f1-w3-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="68ab5062-8f4c-f4dd-6241-799023204ac0">
+      <Execution id="a9cbedb7-3d96-427e-902e-0302a1e3d4ff" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0090-003-binocular_system-c2-primary-f1-w2-huygens&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="0412a7f5-79ae-3e8f-fdb6-994e771316d8">
+      <Execution id="3b4e40d3-13c0-40b4-8393-bc329f08eb36" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0060-003-binocular_system-c1-primary-f1-w2-huygens&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="e48a7208-cc47-d615-fc1f-17098aea84fe">
+      <Execution id="ac6eb02c-a28c-4b03-9af7-8bf877c24c90" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0037-002-beam-expander-c1-primary-f1-w1-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="800b1ac8-671f-9883-b2ca-6e66a8c49b34">
+      <Execution id="af0f4bf0-e840-4ff5-a330-c933544002bb" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0120-004-apochromat_prism-c1-primary-f1-w3-huygens&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="52a39039-f2b6-c5af-9af3-5b289b515cdc">
+      <Execution id="6d7ae872-9b2c-4826-9308-00ab90c345f1" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0119-004-apochromat_prism-c1-primary-f1-w3-p&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="df6907a8-3052-3ba7-bfe5-a76e17c24aac">
+      <Execution id="dc1ae924-db63-4cdf-93a8-eb3b3353407d" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0059-003-binocular_system-c1-primary-f1-w2-p&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="513e24ce-1861-ba6c-1dd5-687acf1a4784">
+      <Execution id="63fabe9b-90d9-4a4d-9cc9-9eb72f15e5cd" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0089-003-binocular_system-c2-primary-f1-w2-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="a1343d79-eeb9-62da-ee84-cdf75ae2fa02">
+      <Execution id="39782d88-0793-48ee-ad3e-d36660cb7714" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0059-003-binocular_system-c1-primary-f1-w2-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/release/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="d787dbe9-e372-0fdb-3684-0a8cc25d3b74">
+      <Execution id="d308b8cc-c83b-4b12-8631-a5216526d469" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="52a39039-f2b6-c5af-9af3-5b289b515cdc" executionId="6d7ae872-9b2c-4826-9308-00ab90c345f1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="800b1ac8-671f-9883-b2ca-6e66a8c49b34" executionId="af0f4bf0-e840-4ff5-a330-c933544002bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0a5570bd-3973-16a6-7675-9e75ea7ed3ca" executionId="26767f3c-7045-4e58-9f68-f724bef22ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07179fdc-91ed-6638-7c81-90edcbfef12e" executionId="b9281eba-69f7-43da-bddb-df4c10bfa82b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45badee0-2f37-4be2-6e91-8be1ca4479a2" executionId="0132c66d-e2ae-4e0f-8e21-1eedd543566a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3db6845b-11cc-2588-4cea-f0868cc26bbb" executionId="bf7c4f1e-2602-4f09-81ac-938e3baab9e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c5ace45-261a-1c2d-d2ce-6daff1f47cc0" executionId="0565ce93-fa71-4386-9d21-bd9a64159a23" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d787dbe9-e372-0fdb-3684-0a8cc25d3b74" executionId="d308b8cc-c83b-4b12-8631-a5216526d469" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="729f280d-6ee0-2359-f5cf-f30a3d6f1c98" executionId="3be8a2d0-bb67-440d-815a-06d4908ea4f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7b449fa-61fc-c460-51e9-a5b7193af3d1" executionId="9f8f3360-da7b-4ad9-9fd8-a294e0b41740" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0412a7f5-79ae-3e8f-fdb6-994e771316d8" executionId="3b4e40d3-13c0-40b4-8393-bc329f08eb36" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="08b8ac3f-fbe9-c480-e55c-f40effe6bf2e" executionId="33842c98-5a35-47a6-a0b1-6fefdf328acd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="193a046f-2fc9-fb12-be31-a5606c1d48ed" executionId="a4ec6d9a-4c23-46dc-a532-7b4ec793212c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88aed3c7-5f6e-7436-8560-d7cd5085c536" executionId="24686df4-63df-4d73-8bcd-cd058f601d8f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e48a7208-cc47-d615-fc1f-17098aea84fe" executionId="ac6eb02c-a28c-4b03-9af7-8bf877c24c90" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd55b56f-f57b-6299-2a1b-88eb61d9c2d3" executionId="f29aa156-5c2f-42ee-9c21-6a93ddbb4d8c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a88cf46f-36d2-252b-e735-3e3ff2eba270" executionId="7a8e16ca-f968-4116-9be2-14aee4cc1904" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="21643b02-9b75-6cbf-0ffa-64a38db29142" executionId="3bdb3e20-78cd-4fb6-8a3f-914142d4402f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68ab5062-8f4c-f4dd-6241-799023204ac0" executionId="a9cbedb7-3d96-427e-902e-0302a1e3d4ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="513e24ce-1861-ba6c-1dd5-687acf1a4784" executionId="63fabe9b-90d9-4a4d-9cc9-9eb72f15e5cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df6907a8-3052-3ba7-bfe5-a76e17c24aac" executionId="dc1ae924-db63-4cdf-93a8-eb3b3353407d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1343d79-eeb9-62da-ee84-cdf75ae2fa02" executionId="39782d88-0793-48ee-ad3e-d36660cb7714" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ead202c2-d63f-0af8-2892-8d1119179862" executionId="ba975ce0-0eff-474d-ba31-8fb9fc9ca636" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="23" executed="23" passed="0" failed="23" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.08]   Discovering: OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.27]   Discovered:  OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.32]   Starting:    OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:01.17]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.18]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.18]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.18]       Stack Trace:
+[xUnit.net 00:00:01.18]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.18]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.19]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.19]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.19]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.19]       Stack Trace:
+[xUnit.net 00:00:01.19]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.19]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.20]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.20]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.20]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.20]       Stack Trace:
+[xUnit.net 00:00:01.20]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.20]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.21]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.21]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.21]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.21]       Stack Trace:
+[xUnit.net 00:00:01.21]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.21]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.22]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.22]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.22]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.23]       Stack Trace:
+[xUnit.net 00:00:01.23]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.23]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.23]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.23]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.23]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.23]       Stack Trace:
+[xUnit.net 00:00:01.23]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.23]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.25]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.25]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.25]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.25]       Stack Trace:
+[xUnit.net 00:00:01.25]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.25]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.26]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.26]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.26]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.26]       Stack Trace:
+[xUnit.net 00:00:01.26]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.26]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.27]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.27]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.27]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.27]       Stack Trace:
+[xUnit.net 00:00:01.27]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.27]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.34]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.34]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.34]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.34]       Stack Trace:
+[xUnit.net 00:00:01.34]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.34]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.34]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.34]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.34]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.34]       Stack Trace:
+[xUnit.net 00:00:01.34]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.34]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.34]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.34]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.34]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.34]       Stack Trace:
+[xUnit.net 00:00:01.34]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.34]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.35]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.35]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.35]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.35]       Stack Trace:
+[xUnit.net 00:00:01.35]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.35]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.35]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.35]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.35]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.35]       Stack Trace:
+[xUnit.net 00:00:01.35]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.35]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.36]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.36]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.36]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.36]       Stack Trace:
+[xUnit.net 00:00:01.36]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.36]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.36]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.36]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.36]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.36]       Stack Trace:
+[xUnit.net 00:00:01.36]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.36]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.38]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.38]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.38]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.38]       Stack Trace:
+[xUnit.net 00:00:01.38]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.39]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.39]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.39]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.39]       Stack Trace:
+[xUnit.net 00:00:01.39]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.39]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.41]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.41]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.41]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.41]       Stack Trace:
+[xUnit.net 00:00:01.41]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.43]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.43]       Expected: Axis { Quantity = IncidentAngle, Unit = Milliradian }
+[xUnit.net 00:00:01.43]       Actual:   Axis { Quantity = ImageHeight, Unit = Micrometer }
+[xUnit.net 00:00:01.43]       Stack Trace:
+[xUnit.net 00:00:01.43]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(47,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(String id)
+[xUnit.net 00:00:01.43]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.45]       Assert.Equal() Failure: Values are not within 13 decimal places
+[xUnit.net 00:00:01.45]       Expected: 0.17188733853919999 (rounded from 0.17188733853924698)
+[xUnit.net 00:00:01.45]       Actual:   0.050000000000000003 (rounded from 0.050000000000000003)
+[xUnit.net 00:00:01.45]       Stack Trace:
+[xUnit.net 00:00:01.45]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(88,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(String key, String unit)
+[xUnit.net 00:00:01.45]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:01.45]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:01.45]       Assert.Equal() Failure: Values are not within 13 decimal places
+[xUnit.net 00:00:01.45]       Expected: 50 (rounded from 50.000000000000007)
+[xUnit.net 00:00:01.45]       Actual:   0.050000000000000003 (rounded from 0.050000000000000003)
+[xUnit.net 00:00:01.45]       Stack Trace:
+[xUnit.net 00:00:01.45]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(88,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(String key, String unit)
+[xUnit.net 00:00:01.45]            at InvokeStub_AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(Object, Span`1)
+[xUnit.net 00:00:01.45]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:01.46]       Assert.Equal() Failure: Values are not within 13 decimal places
+[xUnit.net 00:00:01.46]       Expected: 10.3132403123548 (rounded from 10.31324031235482)
+[xUnit.net 00:00:01.46]       Actual:   0.050000000000000003 (rounded from 0.050000000000000003)
+[xUnit.net 00:00:01.46]       Stack Trace:
+[xUnit.net 00:00:01.46]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs(88,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(String key, String unit)
+[xUnit.net 00:00:01.46]            at InvokeStub_AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(Object, Span`1)
+[xUnit.net 00:00:01.46]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:01.46]   Finished:    OpticalSystemDesign.ZemaxComparison.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.7304737+00:00">
+        <Text>[xUnit.net 00:00:01.17]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.7387617+00:00">
+        <Text>[xUnit.net 00:00:01.19]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.7512458+00:00">
+        <Text>[xUnit.net 00:00:01.20]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0089-003-binocular_system-c2-primary-f1-w2-psf") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.7644225+00:00">
+        <Text>[xUnit.net 00:00:01.21]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0007-001-afocal-riflescope-c1-primary-f1-w2-psf") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.7777279+00:00">
+        <Text>[xUnit.net 00:00:01.22]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0120-004-apochromat_prism-c1-primary-f1-w3-h"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.7803939+00:00">
+        <Text>[xUnit.net 00:00:01.23]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0008-001-afocal-riflescope-c1-primary-f1-w2-huygen"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.7992852+00:00">
+        <Text>[xUnit.net 00:00:01.25]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0037-002-beam-expander-c1-primary-f1-w1-psf") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.8128222+00:00">
+        <Text>[xUnit.net 00:00:01.26]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.8262404+00:00">
+        <Text>[xUnit.net 00:00:01.27]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0119-004-apochromat_prism-c1-primary-f1-w3-p"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9464361+00:00">
+        <Text>[xUnit.net 00:00:01.34]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0119-004-apochromat_prism-c1-primary-f1-w3-psf") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9464665+00:00">
+        <Text>[xUnit.net 00:00:01.34]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0090-003-binocular_system-c2-primary-f1-w2-huygens"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9464921+00:00">
+        <Text>[xUnit.net 00:00:01.34]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0059-003-binocular_system-c1-primary-f1-w2-psf") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9465209+00:00">
+        <Text>[xUnit.net 00:00:01.35]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0038-002-beam-expander-c1-primary-f1-w1-huygens-ps"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9465509+00:00">
+        <Text>[xUnit.net 00:00:01.35]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0060-003-binocular_system-c1-primary-f1-w2-huygens"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9466126+00:00">
+        <Text>[xUnit.net 00:00:01.36]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0060-003-binocular_system-c1-primary-f1-w2-h"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9466389+00:00">
+        <Text>[xUnit.net 00:00:01.36]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "0120-004-apochromat_prism-c1-primary-f1-w3-huygens"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9466651+00:00">
+        <Text>[xUnit.net 00:00:01.38]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0090-003-binocular_system-c2-primary-f1-w2-h"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9467032+00:00">
+        <Text>[xUnit.net 00:00:01.39]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0038-002-beam-expander-c1-primary-f1-w1-huyg"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9622942+00:00">
+        <Text>[xUnit.net 00:00:01.41]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0059-003-binocular_system-c1-primary-f1-w2-p"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:15.9847062+00:00">
+        <Text>[xUnit.net 00:00:01.43]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: "fixed-0089-003-binocular_system-c2-primary-f1-w2-p"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:16.0048426+00:00">
+        <Text>[xUnit.net 00:00:01.45]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: "PSF", unit: "ArcMinute") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:16.0057121+00:00">
+        <Text>[xUnit.net 00:00:01.45]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: "PSF", unit: "Microradian") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T05:37:16.0082143+00:00">
+        <Text>[xUnit.net 00:00:01.46]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: "Huygens PSF", unit: "ArcSecond") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

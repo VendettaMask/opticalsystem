@@ -66,6 +66,14 @@ public static class ResultNormalizer
         if (entry.ResultKind == ResultKind.Grid2D)
         {
             var series = data.PlotSeries.Single();
+            if (AfocalPsfContract.Applies(request))
+            {
+                AfocalPsfContract.ValidateRequest(request);
+                if (series.XQuantity != AnalysisAxisQuantity.IncidentAngle || series.YQuantity != AnalysisAxisQuantity.IncidentAngle
+                    || series.XUnit != AnalysisAxisUnit.Milliradian || series.YUnit != AnalysisAxisUnit.Milliradian
+                    || series.ValueQuantity != AnalysisAxisQuantity.Irradiance || series.ValueUnit != AnalysisAxisUnit.Dimensionless)
+                    throw new InvalidDataException("Workbench afocal PSF must publish angular coordinates and dimensionless irradiance.");
+            }
             var xs = series.Points.Select(p => p.X).Distinct().Order().ToArray();
             var ys = series.Points.Select(p => p.Y).Distinct().Order().ToArray();
             if (entry.ZemaxSettingsMapper == "wavefront")
@@ -164,6 +172,14 @@ public static class ResultNormalizer
             }
             var z = g.GetProperty("values").EnumerateArray().Select(row => row.EnumerateArray().Select(Finite).ToArray()).ToArray();
             var xy = pupil ? new Axis("PupilCoordinate", "Dimensionless") : new Axis("ImageHeight", "Micrometer");
+            if (AfocalPsfContract.Applies(request))
+            {
+                var scale = PhysicalNormalization.UnitScale(request.NativeAfocalAngleUnit!, "Milliradian");
+                x = x.Select(value => value * scale).ToArray();
+                y = y.Select(value => value * scale).ToArray();
+                xy = new("IncidentAngle", "Milliradian");
+                result.Transformations.Add("Native AF PSF model angular units converted to mrad; grid origin, ordering, shape and intensity retained. No coordinate alignment or resampling.");
+            }
             result.Grids.Add(new("grid", x, y, z, xy, xy, pupil ? new("WavefrontError", "Wave") : new("Irradiance", "Dimensionless")));
             return result;
         }

@@ -1,0 +1,385 @@
+{
+  "maximum": {
+    "planeResidualMm": 6.21727655828871e-15,
+    "distanceErrorMm": 7.105427357601002e-15,
+    "normalError": 0.0,
+    "directionError": 4.839443244664977e-16,
+    "rayPointErrorMm": 7.53644380168212e-15
+  },
+  "creases": [
+    {
+      "configuration": 1,
+      "triangles": [
+        2,
+        3
+      ],
+      "normalDifference": 1.1102230246251565e-16
+    },
+    {
+      "configuration": 1,
+      "triangles": [
+        4,
+        5
+      ],
+      "normalDifference": 1.1102230246251565e-16
+    },
+    {
+      "configuration": 1,
+      "triangles": [
+        10,
+        11
+      ],
+      "normalDifference": 6.123725825516368e-10
+    },
+    {
+      "configuration": 1,
+      "triangles": [
+        12,
+        13
+      ],
+      "normalDifference": 3.061862965387802e-10
+    },
+    {
+      "configuration": 2,
+      "triangles": [
+        2,
+        3
+      ],
+      "normalDifference": 1.1102230246251565e-16
+    },
+    {
+      "configuration": 2,
+      "triangles": [
+        4,
+        5
+      ],
+      "normalDifference": 1.1102230246251565e-16
+    },
+    {
+      "configuration": 2,
+      "triangles": [
+        10,
+        11
+      ],
+      "normalDifference": 6.123725825516368e-10
+    },
+    {
+      "configuration": 2,
+      "triangles": [
+        12,
+        13
+      ],
+      "normalDifference": 3.061862965387802e-10
+    }
+  ],
+  "branchLimits": [
+    {
+      "configuration": 1,
+      "axis": "px",
+      "fixedBranchDirectionJump": 1.516799823203931e-09,
+      "jumpVector": [
+        -1.5167998232039216e-09,
+        1.6839863223774633e-16,
+        0.0
+      ],
+      "scan": [
+        {
+          "h": 0.01,
+          "rawDirectionDerivative": [
+            0.0624760430883666,
+            -2.525979483049207e-14,
+            -3.608224830031759e-13
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.06247611892835776,
+            -3.367972644237939e-14,
+            -3.608224830031759e-13
+          ]
+        },
+        {
+          "h": 0.003,
+          "rawDirectionDerivative": [
+            0.06247586500349275,
+            0.0,
+            -3.515706244646329e-13
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.06247611780346329,
+            -2.8066438706291053e-14,
+            -3.515706244646329e-13
+          ]
+        },
+        {
+          "h": 0.001,
+          "rawDirectionDerivative": [
+            0.06247535930453332,
+            7.754818242684634e-23,
+            -3.3306690738754696e-13
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.062476117704444924,
+            -8.419931604132498e-14,
+            -3.3306690738754696e-13
+          ]
+        },
+        {
+          "h": 0.0003,
+          "rawDirectionDerivative": [
+            0.062473589693288464,
+            2.8066438680441663e-13,
+            -1.8503717077085943e-13
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.062476117692993806,
+            -2.5849394142282115e-22,
+            -1.8503717077085943e-13
+          ]
+        },
+        {
+          "h": 0.0001,
+          "rawDirectionDerivative": [
+            0.062468533693035774,
+            1.6839863221189694e-12,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.06247611769215179,
+            8.419931609302377e-13,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "configuration": 1,
+      "axis": "py",
+      "fixedBranchDirectionJump": 7.584000800006116e-10,
+      "jumpVector": [
+        -1.6839863203095118e-16,
+        -7.58400080000593e-10,
+        0.0
+      ],
+      "scan": [
+        {
+          "h": 0.01,
+          "rawDirectionDerivative": [
+            3.310717109160783e-11,
+            0.06247608100832851,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            3.3115591023209375e-11,
+            0.062476118928332505,
+            0.0
+          ]
+        },
+        {
+          "h": 0.003,
+          "rawDirectionDerivative": [
+            3.3090331228444366e-11,
+            0.06247599140344997,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            3.311839766711619e-11,
+            0.0624761178034633,
+            0.0
+          ]
+        },
+        {
+          "h": 0.001,
+          "rawDirectionDerivative": [
+            3.3174530544580474e-11,
+            0.06247573850457332,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            3.325872986059595e-11,
+            0.06247611770461332,
+            0.0
+          ]
+        },
+        {
+          "h": 0.0003,
+          "rawDirectionDerivative": [
+            3.3118397667047264e-11,
+            0.06247485369314116,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            3.3399062053765516e-11,
+            0.06247611769327449,
+            0.0
+          ]
+        },
+        {
+          "h": 0.0001,
+          "rawDirectionDerivative": [
+            3.367972644237939e-11,
+            0.06247232569090982,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            3.4521719602534144e-11,
+            0.06247611769130982,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "configuration": 2,
+      "axis": "px",
+      "fixedBranchDirectionJump": 1.516799823203931e-09,
+      "jumpVector": [
+        -1.5167998232039216e-09,
+        -1.6839863223774633e-16,
+        0.0
+      ],
+      "scan": [
+        {
+          "h": 0.01,
+          "rawDirectionDerivative": [
+            0.0624760430883666,
+            2.525979483049207e-14,
+            3.608224830031759e-13
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.06247611892835776,
+            3.367972644237939e-14,
+            3.608224830031759e-13
+          ]
+        },
+        {
+          "h": 0.003,
+          "rawDirectionDerivative": [
+            0.06247586500349275,
+            0.0,
+            3.515706244646329e-13
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.06247611780346329,
+            2.8066438706291053e-14,
+            3.515706244646329e-13
+          ]
+        },
+        {
+          "h": 0.001,
+          "rawDirectionDerivative": [
+            0.06247535930453332,
+            -7.754818242684634e-23,
+            3.3306690738754696e-13
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.062476117704444924,
+            8.419931604132498e-14,
+            3.3306690738754696e-13
+          ]
+        },
+        {
+          "h": 0.0003,
+          "rawDirectionDerivative": [
+            0.062473589693288464,
+            -2.8066438680441663e-13,
+            1.8503717077085943e-13
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.062476117692993806,
+            2.5849394142282115e-22,
+            1.8503717077085943e-13
+          ]
+        },
+        {
+          "h": 0.0001,
+          "rawDirectionDerivative": [
+            0.062468533693035774,
+            -1.6839863221189694e-12,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            0.06247611769215179,
+            -8.419931609302377e-13,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "configuration": 2,
+      "axis": "py",
+      "fixedBranchDirectionJump": 7.584000800006116e-10,
+      "jumpVector": [
+        1.6839863203095118e-16,
+        -7.58400080000593e-10,
+        0.0
+      ],
+      "scan": [
+        {
+          "h": 0.01,
+          "rawDirectionDerivative": [
+            -3.310717109160783e-11,
+            0.06247608100832851,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            -3.3115591023209375e-11,
+            0.062476118928332505,
+            0.0
+          ]
+        },
+        {
+          "h": 0.003,
+          "rawDirectionDerivative": [
+            -3.3090331228444366e-11,
+            0.06247599140344997,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            -3.311839766711619e-11,
+            0.0624761178034633,
+            0.0
+          ]
+        },
+        {
+          "h": 0.001,
+          "rawDirectionDerivative": [
+            -3.3174530544580474e-11,
+            0.06247573850457332,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            -3.325872986059595e-11,
+            0.06247611770461332,
+            0.0
+          ]
+        },
+        {
+          "h": 0.0003,
+          "rawDirectionDerivative": [
+            -3.3118397667047264e-11,
+            0.06247485369314116,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            -3.3399062053765516e-11,
+            0.06247611769327449,
+            0.0
+          ]
+        },
+        {
+          "h": 0.0001,
+          "rawDirectionDerivative": [
+            -3.367972644237939e-11,
+            0.06247232569090982,
+            0.0
+          ],
+          "afterRemovingIndependentBranchJumpForDiagnosisOnly": [
+            -3.4521719602534144e-11,
+            0.06247611769130982,
+            0.0
+          ]
+        }
+      ]
+    }
+  ]
+}

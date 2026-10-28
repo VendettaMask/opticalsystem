@@ -101,7 +101,7 @@ internal static class NativePointComparisonCapture
                         "z",Host.Finite(z),"l",Host.Finite(l),"m",Host.Finite(m),"n",Host.Finite(n),"opdWaves",Host.Finite(opd),"intensity",Host.Finite(intensity)));
                 if (rows.Count != inputs.Length) throw new InvalidOperationException("Incomplete native ray result");
                 if(surface==system.LDE.NumberOfSurfaces) Host.Write("image-geometry.json",rows);
-                else surfaces.Add(Host.Object("surface",surface,"rays",rows)); data.ClearData();
+                else surfaces.Add(Host.Object("surface",surface,"opdMode",surface == system.LDE.NumberOfSurfaces - 1 ? "CurrentAndChief" : "None","rays",rows)); data.ClearData();
             }
         }
         finally { if (tool != null) tool.Close(); }
@@ -122,7 +122,8 @@ internal static class NativePointComparisonCapture
                 }
             }
         }
-        Host.Write("point-reference.json",Host.Object("contract","NativeExplicitPointsV1","units","Millimeters", "opdMode","CurrentAndChief",
+        Host.Write("point-reference.json",Host.Object("contract","NativeExplicitPointsV1","units","Millimeters", "opdMode",imageGeometryOnly ? "None" : "CurrentAndChief",
+            "imageGeometryOpdMode","None",
             "kind",Host.Request["pointKind"],"wavelength",Host.Int("wavelength"),"inputSha256",Host.Request["inputSha256"],
             "originalKeys",Host.Request["originalKeys"],"inputs",inputs,"surfaces",surfaces,"operands",operands,
             "savedInput",false,"builtInPlotReplaced",false,"imageGeometryOnly",imageGeometryOnly));

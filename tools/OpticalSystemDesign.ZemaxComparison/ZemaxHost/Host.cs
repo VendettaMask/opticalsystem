@@ -133,6 +133,11 @@ internal static class Host
                 "surfaces", Enumerable.Range(0, system.LDE.NumberOfSurfaces).Select(i => Properties(system.LDE.GetSurfaceAt(i))).ToArray(),
                 "warnings", system.GetCurrentStatus()));
             if ((string)Request["adapter"] == "probe") return 0;
+            if ((string)Request["adapter"] == "afocal-diagnosis")
+            {
+                AfocalDiagnosticCapture.Run(system);
+                return 0;
+            }
             if ((string)Request["adapter"] == "ray-audit")
             {
                 NativeRayAuditCapture.Run(system);

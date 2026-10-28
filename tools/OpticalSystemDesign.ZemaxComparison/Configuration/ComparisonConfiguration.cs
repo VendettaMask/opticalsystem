@@ -36,9 +36,11 @@ public sealed record ComparisonConfiguration
             if (a is null || a.Quantities is null || a.WorkbenchSettings is null)
                 throw new ArgumentException($"Null analysis settings: {key}");
             var allMtf = key == "MTF";
+            var automaticPsfPitch = key is "PSF" or "Huygens PSF";
             if (a.Field < (allMtf ? 0 : 1) || a.Wavelength < (allMtf ? 0 : 1) || a.RayCount < 1 || a.RayCount > 500
                 || a.PupilSampling is not (32 or 64 or 128 or 256) || a.ImageSampling is not (32 or 64 or 128 or 256)
-                || !double.IsFinite(a.ImageDeltaMicrometers) || a.ImageDeltaMicrometers <= 0
+                || !double.IsFinite(a.ImageDeltaMicrometers) || a.ImageDeltaMicrometers < 0
+                || (a.ImageDeltaMicrometers == 0 && !automaticPsfPitch)
                 || !double.IsFinite(a.MaximumFrequency) || a.MaximumFrequency <= 0)
                 throw new ArgumentException($"Invalid explicit settings: {key}");
             if (entry.ZemaxSettingsMapper == "spot" && a.RayCount > 32)

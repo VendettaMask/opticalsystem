@@ -1,0 +1,1620 @@
+{
+  "source": "independent-final.trx",
+  "testCounters": {
+    "total": "8",
+    "executed": "8",
+    "passed": "8",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "times": {
+    "creation": "2026-10-28T07:31:48.4307134+00:00",
+    "queuing": "2026-10-28T07:31:48.4307134+00:00",
+    "start": "2026-10-28T07:31:46.5232409+00:00",
+    "finish": "2026-10-28T07:31:49.2850919+00:00"
+  },
+  "idealDisk": [
+    {
+      "kind": "ideal-disk",
+      "n": 32,
+      "g": 128,
+      "occupied": 740,
+      "pitchMrad": 0.0666015625,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6986640251253966,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8444485695515955,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9310889765669008,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.006858343559588559,
+      "mtfMaximumAbsolute": 0.005746847636108721,
+      "parsevalRelative": -5.662137425588298e-15,
+      "rasterBudget": 0.25806451612903225
+    },
+    {
+      "kind": "ideal-disk",
+      "n": 64,
+      "g": 256,
+      "occupied": 3096,
+      "pitchMrad": 0.06767578125000001,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6706873792824938,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8447238851732807,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9329480205830185,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.002352539672157261,
+      "mtfMaximumAbsolute": 0.002588408958212468,
+      "parsevalRelative": -2.098321516541546e-14,
+      "rasterBudget": 0.12698412698412698
+    },
+    {
+      "kind": "ideal-disk",
+      "n": 128,
+      "g": 512,
+      "occupied": 12644,
+      "pitchMrad": 0.06821289062500001,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6771360457808545,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8460423893057974,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9340004321086629,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.00062366762299082,
+      "mtfMaximumAbsolute": 0.0004654008657282438,
+      "parsevalRelative": -5.995204332975845e-15,
+      "rasterBudget": 0.06299212598425197
+    }
+  ],
+  "invariants": [
+    {
+      "kind": "rotation90",
+      "maximum": 1.2789769243681803e-13,
+      "scope": "prepared scalar pupil, not a folded-train global-frame certification"
+    },
+    {
+      "kind": "padding",
+      "maximum": 2.1316282072803006e-13,
+      "energyRelative": 2.2648549702353193e-14,
+      "note": "Same Fourier period; this is zero padding, not an enlarged physical window"
+    }
+  ],
+  "pencilSweep": [
+    {
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "aspectSpanPpm": 49.29806955222826,
+      "rows": [
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0001,
+          "diameterX": 3.7505467718208,
+          "diameterY": 3.7507335433513416,
+          "aspect": 0.9999502039991957,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.284115997615878,
+              "PupilY": -9.018698300570359e-09,
+              "PupilZ": 264.01823108419063
+            },
+            {
+              "PupilX": 28.28449105229306,
+              "PupilY": -9.018690895087987e-09,
+              "PupilZ": 264.0182310838308
+            },
+            {
+              "PupilX": 28.284303505051593,
+              "PupilY": -0.0001875351316226557,
+              "PupilZ": 264.01823108401084
+            },
+            {
+              "PupilX": 28.284303505051795,
+              "PupilY": 0.00018753822271247846,
+              "PupilZ": 264.0182310840106
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.0003,
+          "diameterX": 3.7508121414492943,
+          "diameterY": 3.7508743986452715,
+          "aspect": 0.9999834019512891,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.283740903133257,
+              "PupilY": -9.018825361700754e-09,
+              "PupilZ": 264.01823108455045
+            },
+            {
+              "PupilX": 28.28486614677569,
+              "PupilY": -9.018822248965807e-09,
+              "PupilZ": 264.01823108347094
+            },
+            {
+              "PupilX": 28.284303505051337,
+              "PupilY": -0.0005626296142541162,
+              "PupilZ": 264.01823108401106
+            },
+            {
+              "PupilX": 28.28430350505193,
+              "PupilY": 0.0005626327053394652,
+              "PupilZ": 264.0182310840104
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.001,
+          "diameterX": 3.7509050172256972,
+          "diameterY": 3.7509236943882054,
+          "aspect": 0.9999950206498373,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.282428072445857,
+              "PupilY": -9.0192825421289e-09,
+              "PupilZ": 264.01823108580993
+            },
+            {
+              "PupilX": 28.28617897746308,
+              "PupilY": -9.019282505992361e-09,
+              "PupilZ": 264.0182310822115
+            },
+            {
+              "PupilX": 28.284303505050442,
+              "PupilY": -0.0018754603016513751,
+              "PupilZ": 264.0182310840119
+            },
+            {
+              "PupilX": 28.284303505052435,
+              "PupilY": 0.0018754633927368304,
+              "PupilZ": 264.0182310840095
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.003,
+          "diameterX": 3.7509315215746355,
+          "diameterY": 3.750937747290683,
+          "aspect": 0.9999983402241074,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.278677127672054,
+              "PupilY": -9.020618677994666e-09,
+              "PupilZ": 264.0182310894084
+            },
+            {
+              "PupilX": 28.289929922236773,
+              "PupilY": -9.02062007756299e-09,
+              "PupilZ": 264.01823107861304
+            },
+            {
+              "PupilX": 28.284303505048104,
+              "PupilY": -0.005626405075397729,
+              "PupilZ": 264.0182310840143
+            },
+            {
+              "PupilX": 28.28430350505407,
+              "PupilY": 0.00562640816647432,
+              "PupilZ": 264.01823108400714
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.01,
+          "diameterX": 3.7509404381050824,
+          "diameterY": 3.7509423058164812,
+          "aspect": 0.9999995020687479,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": 28.26554882276334,
+              "PupilY": -9.025248046474596e-09,
+              "PupilZ": 264.01823110200297
+            },
+            {
+              "PupilX": 28.303058227144373,
+              "PupilY": -9.025261077386217e-09,
+              "PupilZ": 264.0182310660184
+            },
+            {
+              "PupilX": 28.28430350504244,
+              "PupilY": -0.018754709983544268,
+              "PupilZ": 264.0182310840228
+            },
+            {
+              "PupilX": 28.284303505062326,
+              "PupilY": 0.018754713074620545,
+              "PupilZ": 264.01823108399867
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "aspectSpanPpm": 49.29806955222826,
+      "rows": [
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0001,
+          "diameterX": 3.7505467718208,
+          "diameterY": 3.7507335433513416,
+          "aspect": 0.9999502039991957,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.28449105229306,
+              "PupilY": -9.018690895087987e-09,
+              "PupilZ": 264.0182310838308
+            },
+            {
+              "PupilX": -28.284115997615878,
+              "PupilY": -9.018698300570359e-09,
+              "PupilZ": 264.01823108419063
+            },
+            {
+              "PupilX": -28.284303505051593,
+              "PupilY": -0.0001875351316226557,
+              "PupilZ": 264.01823108401084
+            },
+            {
+              "PupilX": -28.284303505051795,
+              "PupilY": 0.00018753822271247846,
+              "PupilZ": 264.0182310840106
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.0003,
+          "diameterX": 3.7508121414492943,
+          "diameterY": 3.7508743986452715,
+          "aspect": 0.9999834019512891,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.28486614677569,
+              "PupilY": -9.018822248965807e-09,
+              "PupilZ": 264.01823108347094
+            },
+            {
+              "PupilX": -28.283740903133257,
+              "PupilY": -9.018825361700754e-09,
+              "PupilZ": 264.01823108455045
+            },
+            {
+              "PupilX": -28.284303505051337,
+              "PupilY": -0.0005626296142541162,
+              "PupilZ": 264.01823108401106
+            },
+            {
+              "PupilX": -28.28430350505193,
+              "PupilY": 0.0005626327053394652,
+              "PupilZ": 264.0182310840104
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.001,
+          "diameterX": 3.7509050172256972,
+          "diameterY": 3.7509236943882054,
+          "aspect": 0.9999950206498373,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.28617897746308,
+              "PupilY": -9.019282505992361e-09,
+              "PupilZ": 264.0182310822115
+            },
+            {
+              "PupilX": -28.282428072445857,
+              "PupilY": -9.0192825421289e-09,
+              "PupilZ": 264.01823108580993
+            },
+            {
+              "PupilX": -28.284303505050442,
+              "PupilY": -0.0018754603016513751,
+              "PupilZ": 264.0182310840119
+            },
+            {
+              "PupilX": -28.284303505052435,
+              "PupilY": 0.0018754633927368304,
+              "PupilZ": 264.0182310840095
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.003,
+          "diameterX": 3.7509315215746355,
+          "diameterY": 3.750937747290683,
+          "aspect": 0.9999983402241074,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.289929922236773,
+              "PupilY": -9.02062007756299e-09,
+              "PupilZ": 264.01823107861304
+            },
+            {
+              "PupilX": -28.278677127672054,
+              "PupilY": -9.020618677994666e-09,
+              "PupilZ": 264.0182310894084
+            },
+            {
+              "PupilX": -28.284303505048104,
+              "PupilY": -0.005626405075397729,
+              "PupilZ": 264.0182310840143
+            },
+            {
+              "PupilX": -28.28430350505407,
+              "PupilY": 0.00562640816647432,
+              "PupilZ": 264.01823108400714
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.01,
+          "diameterX": 3.7509404381050824,
+          "diameterY": 3.7509423058164812,
+          "aspect": 0.9999995020687479,
+          "productionScalarDiameter": 3.750946910506798,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -28.303058227144373,
+              "PupilY": -9.025261077386217e-09,
+              "PupilZ": 264.0182310660184
+            },
+            {
+              "PupilX": -28.26554882276334,
+              "PupilY": -9.025248046474596e-09,
+              "PupilZ": 264.01823110200297
+            },
+            {
+              "PupilX": -28.28430350504244,
+              "PupilY": -0.018754709983544268,
+              "PupilZ": 264.0182310840228
+            },
+            {
+              "PupilX": -28.284303505062326,
+              "PupilY": 0.018754713074620545,
+              "PupilZ": 264.01823108399867
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "aspectSpanPpm": 5.293543381412746e-07,
+      "rows": [
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.0001,
+          "diameterX": 10,
+          "diameterY": 9.880969745330027,
+          "aspect": 1.0120464142425118,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.0005,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.0005,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.30068055597403087,
+              "PupilZ": 14.503770363728108
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.30166622909248453,
+              "PupilZ": 14.503839531167262
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.0003,
+          "diameterX": 10,
+          "diameterY": 9.880969745335197,
+          "aspect": 1.0120464142419825,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.0014999999999999998,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.0014999999999999998,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.29969488285557633,
+              "PupilZ": 14.503701196288954
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.30265190221093885,
+              "PupilZ": 14.503908698606416
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.001,
+          "diameterX": 10,
+          "diameterY": 9.880969745332216,
+          "aspect": 1.0120464142422878,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.005,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.005,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.2962450269409882,
+              "PupilZ": 14.503459110251917
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.3061017581255272,
+              "PupilZ": 14.504150784643453
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.003,
+          "diameterX": 10,
+          "diameterY": 9.880969745332289,
+          "aspect": 1.0120464142422803,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.015,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.015,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.286388295756449,
+              "PupilZ": 14.502767435860381
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.3159584893100662,
+              "PupilZ": 14.50484245903499
+            }
+          ]
+        },
+        {
+          "kind": "pencil",
+          "lens": "Miscellaneous/Apochromat_prism.zmx",
+          "configuration": 1,
+          "h": 0.01,
+          "diameterX": 10,
+          "diameterY": 9.880969745332244,
+          "aspect": 1.012046414242285,
+          "productionScalarDiameter": 9.88096974533259,
+          "aimAtStop": false,
+          "points": [
+            {
+              "PupilX": -0.05,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0.05,
+              "PupilY": 0.3011733925332576,
+              "PupilZ": 14.503804947447687
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.2518897366105628,
+              "PupilZ": 14.50034657549
+            },
+            {
+              "PupilX": 0,
+              "PupilY": 0.3504570484559524,
+              "PupilZ": 14.507263319405372
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "compoundAngleSensitivity": [
+    {
+      "configuration": 1,
+      "atPupilProbe": 0.001,
+      "directionProbeDiameterSpanPpm": 4.929326847445827,
+      "rows": [
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.001,
+          "angle": 0.0003,
+          "diameter": 3.750963532927535,
+          "centerZ": 1.2474973680355106,
+          "residualMm": 1.8060005614862122e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.001,
+          "angle": 0.0001,
+          "diameter": 3.750946910506798,
+          "centerZ": 1.2476436190107165,
+          "residualMm": 1.2447362269291822e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 1,
+          "h": 0.001,
+          "angle": 3e-05,
+          "diameter": 3.7509450432842257,
+          "centerZ": 1.2477032530387078,
+          "residualMm": 1.1860088116578848e-08
+        }
+      ]
+    },
+    {
+      "configuration": 2,
+      "atPupilProbe": 0.001,
+      "directionProbeDiameterSpanPpm": 4.929326847445827,
+      "rows": [
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.001,
+          "angle": 0.0003,
+          "diameter": 3.750963532927535,
+          "centerZ": 1.2474973680355106,
+          "residualMm": 1.7722367266444963e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.001,
+          "angle": 0.0001,
+          "diameter": 3.750946910506798,
+          "centerZ": 1.2476436190107165,
+          "residualMm": 1.2414828670564696e-08
+        },
+        {
+          "kind": "compound",
+          "lens": "Afocal/Binocular_System.ZMX",
+          "configuration": 2,
+          "h": 0.001,
+          "angle": 3e-05,
+          "diameter": 3.7509450432842257,
+          "centerZ": 1.2477032530387078,
+          "residualMm": 1.1857478740389076e-08
+        }
+      ]
+    }
+  ],
+  "allRecords": [
+    {
+      "kind": "rotation90",
+      "maximum": 1.2789769243681803e-13,
+      "scope": "prepared scalar pupil, not a folded-train global-frame certification"
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.01,
+      "diameterX": 3.7509404381050824,
+      "diameterY": 3.7509423058164812,
+      "aspect": 0.9999995020687479,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": 28.26554882276334,
+          "PupilY": -9.025248046474596e-09,
+          "PupilZ": 264.01823110200297
+        },
+        {
+          "PupilX": 28.303058227144373,
+          "PupilY": -9.025261077386217e-09,
+          "PupilZ": 264.0182310660184
+        },
+        {
+          "PupilX": 28.28430350504244,
+          "PupilY": -0.018754709983544268,
+          "PupilZ": 264.0182310840228
+        },
+        {
+          "PupilX": 28.284303505062326,
+          "PupilY": 0.018754713074620545,
+          "PupilZ": 264.01823108399867
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.01,
+      "angle": 0.0003,
+      "diameter": 3.7509631265855234,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 8.047545605207308e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.01,
+      "angle": 0.0001,
+      "diameter": 3.750946504122015,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.886406966213036e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.01,
+      "angle": 3e-05,
+      "diameter": 3.750943779689106,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.3018970893402397e-08
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.003,
+      "diameterX": 3.7509315215746355,
+      "diameterY": 3.750937747290683,
+      "aspect": 0.9999983402241074,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": 28.278677127672054,
+          "PupilY": -9.020618677994666e-09,
+          "PupilZ": 264.0182310894084
+        },
+        {
+          "PupilX": 28.289929922236773,
+          "PupilY": -9.02062007756299e-09,
+          "PupilZ": 264.01823107861304
+        },
+        {
+          "PupilX": 28.284303505048104,
+          "PupilY": -0.005626405075397729,
+          "PupilZ": 264.0182310840143
+        },
+        {
+          "PupilX": 28.28430350505407,
+          "PupilY": 0.00562640816647432,
+          "PupilZ": 264.01823108400714
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.003,
+      "angle": 0.0003,
+      "diameter": 3.7509635000826798,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 3.150223550232429e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.003,
+      "angle": 0.0001,
+      "diameter": 3.7509468776568093,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.3770803806380527e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.003,
+      "angle": 3e-05,
+      "diameter": 3.750945010432904,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.1979454305071569e-08
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.001,
+      "diameterX": 3.7509050172256972,
+      "diameterY": 3.7509236943882054,
+      "aspect": 0.9999950206498373,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": 28.282428072445857,
+          "PupilY": -9.0192825421289e-09,
+          "PupilZ": 264.01823108580993
+        },
+        {
+          "PupilX": 28.28617897746308,
+          "PupilY": -9.019282505992361e-09,
+          "PupilZ": 264.0182310822115
+        },
+        {
+          "PupilX": 28.284303505050442,
+          "PupilY": -0.0018754603016513751,
+          "PupilZ": 264.0182310840119
+        },
+        {
+          "PupilX": 28.284303505052435,
+          "PupilY": 0.0018754633927368304,
+          "PupilZ": 264.0182310840095
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.001,
+      "angle": 0.0003,
+      "diameter": 3.750963532927535,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 1.8060005614862122e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.001,
+      "angle": 0.0001,
+      "diameter": 3.750946910506798,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.2447362269291822e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.001,
+      "angle": 3e-05,
+      "diameter": 3.7509450432842257,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.1860088116578848e-08
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.0003,
+      "diameterX": 3.7508121414492943,
+      "diameterY": 3.7508743986452715,
+      "aspect": 0.9999834019512891,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": 28.283740903133257,
+          "PupilY": -9.018825361700754e-09,
+          "PupilZ": 264.01823108455045
+        },
+        {
+          "PupilX": 28.28486614677569,
+          "PupilY": -9.018822248965807e-09,
+          "PupilZ": 264.01823108347094
+        },
+        {
+          "PupilX": 28.284303505051337,
+          "PupilY": -0.0005626296142541162,
+          "PupilZ": 264.01823108401106
+        },
+        {
+          "PupilX": 28.28430350505193,
+          "PupilY": 0.0005626327053394652,
+          "PupilZ": 264.0182310840104
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.0003,
+      "angle": 0.0003,
+      "diameter": 3.750963536699287,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 1.3686451765120892e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.0003,
+      "angle": 0.0001,
+      "diameter": 3.7509469142804623,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.2004588778383574e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.0003,
+      "angle": 3e-05,
+      "diameter": 3.7509450470317542,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.1820416657318273e-08
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.0001,
+      "diameterX": 3.7505467718208,
+      "diameterY": 3.7507335433513416,
+      "aspect": 0.9999502039991957,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": 28.284115997615878,
+          "PupilY": -9.018698300570359e-09,
+          "PupilZ": 264.01823108419063
+        },
+        {
+          "PupilX": 28.28449105229306,
+          "PupilY": -9.018690895087987e-09,
+          "PupilZ": 264.0182310838308
+        },
+        {
+          "PupilX": 28.284303505051593,
+          "PupilY": -0.0001875351316226557,
+          "PupilZ": 264.01823108401084
+        },
+        {
+          "PupilX": 28.284303505051795,
+          "PupilY": 0.00018753822271247846,
+          "PupilZ": 264.0182310840106
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.0001,
+      "angle": 0.0003,
+      "diameter": 3.7509635370724936,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 1.2515241890604764e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.0001,
+      "angle": 0.0001,
+      "diameter": 3.7509469146357333,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.1880321834632234e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "h": 0.0001,
+      "angle": 3e-05,
+      "diameter": 3.7509450472831785,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.1809290159234701e-08
+    },
+    {
+      "kind": "ideal-disk",
+      "n": 32,
+      "g": 128,
+      "occupied": 740,
+      "pitchMrad": 0.0666015625,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6986640251253966,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8444485695515955,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9310889765669008,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.006858343559588559,
+      "mtfMaximumAbsolute": 0.005746847636108721,
+      "parsevalRelative": -5.662137425588298e-15,
+      "rasterBudget": 0.25806451612903225
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.01,
+      "diameterX": 3.7509404381050824,
+      "diameterY": 3.7509423058164812,
+      "aspect": 0.9999995020687479,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -28.303058227144373,
+          "PupilY": -9.025261077386217e-09,
+          "PupilZ": 264.0182310660184
+        },
+        {
+          "PupilX": -28.26554882276334,
+          "PupilY": -9.025248046474596e-09,
+          "PupilZ": 264.01823110200297
+        },
+        {
+          "PupilX": -28.28430350504244,
+          "PupilY": -0.018754709983544268,
+          "PupilZ": 264.0182310840228
+        },
+        {
+          "PupilX": -28.284303505062326,
+          "PupilY": 0.018754713074620545,
+          "PupilZ": 264.01823108399867
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.01,
+      "angle": 0.0003,
+      "diameter": 3.7509631265855234,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 8.011324057099607e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.01,
+      "angle": 0.0001,
+      "diameter": 3.750946504122015,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.8834078515699797e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.01,
+      "angle": 3e-05,
+      "diameter": 3.750943779689106,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.3018970893402395e-08
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.003,
+      "diameterX": 3.7509315215746355,
+      "diameterY": 3.750937747290683,
+      "aspect": 0.9999983402241074,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -28.289929922236773,
+          "PupilY": -9.02062007756299e-09,
+          "PupilZ": 264.01823107861304
+        },
+        {
+          "PupilX": -28.278677127672054,
+          "PupilY": -9.020618677994666e-09,
+          "PupilZ": 264.0182310894084
+        },
+        {
+          "PupilX": -28.284303505048104,
+          "PupilY": -0.005626405075397729,
+          "PupilZ": 264.0182310840143
+        },
+        {
+          "PupilX": -28.28430350505407,
+          "PupilY": 0.00562640816647432,
+          "PupilZ": 264.01823108400714
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.003,
+      "angle": 0.0003,
+      "diameter": 3.7509635000826798,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 3.11444444230693e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.003,
+      "angle": 0.0001,
+      "diameter": 3.7509468776568093,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.3738463325631066e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.003,
+      "angle": 3e-05,
+      "diameter": 3.750945010432904,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.1977477998592991e-08
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.001,
+      "diameterX": 3.7509050172256972,
+      "diameterY": 3.7509236943882054,
+      "aspect": 0.9999950206498373,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -28.28617897746308,
+          "PupilY": -9.019282505992361e-09,
+          "PupilZ": 264.0182310822115
+        },
+        {
+          "PupilX": -28.282428072445857,
+          "PupilY": -9.0192825421289e-09,
+          "PupilZ": 264.01823108580993
+        },
+        {
+          "PupilX": -28.284303505050442,
+          "PupilY": -0.0018754603016513751,
+          "PupilZ": 264.0182310840119
+        },
+        {
+          "PupilX": -28.284303505052435,
+          "PupilY": 0.0018754633927368304,
+          "PupilZ": 264.0182310840095
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.001,
+      "angle": 0.0003,
+      "diameter": 3.750963532927535,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 1.7722367266444963e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.001,
+      "angle": 0.0001,
+      "diameter": 3.750946910506798,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.2414828670564696e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.001,
+      "angle": 3e-05,
+      "diameter": 3.7509450432842257,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.1857478740389076e-08
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.0003,
+      "diameterX": 3.7508121414492943,
+      "diameterY": 3.7508743986452715,
+      "aspect": 0.9999834019512891,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -28.28486614677569,
+          "PupilY": -9.018822248965807e-09,
+          "PupilZ": 264.01823108347094
+        },
+        {
+          "PupilX": -28.283740903133257,
+          "PupilY": -9.018825361700754e-09,
+          "PupilZ": 264.01823108455045
+        },
+        {
+          "PupilX": -28.284303505051337,
+          "PupilY": -0.0005626296142541162,
+          "PupilZ": 264.01823108401106
+        },
+        {
+          "PupilX": -28.28430350505193,
+          "PupilY": 0.0005626327053394652,
+          "PupilZ": 264.0182310840104
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.0003,
+      "angle": 0.0003,
+      "diameter": 3.750963536699287,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 1.3373776856389266e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.0003,
+      "angle": 0.0001,
+      "diameter": 3.7509469142609566,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.197205240972989e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.0003,
+      "angle": 3e-05,
+      "diameter": 3.7509450470317542,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.18175906805359e-08
+    },
+    {
+      "kind": "pencil",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.0001,
+      "diameterX": 3.7505467718208,
+      "diameterY": 3.7507335433513416,
+      "aspect": 0.9999502039991957,
+      "productionScalarDiameter": 3.750946910506798,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -28.28449105229306,
+          "PupilY": -9.018690895087987e-09,
+          "PupilZ": 264.0182310838308
+        },
+        {
+          "PupilX": -28.284115997615878,
+          "PupilY": -9.018698300570359e-09,
+          "PupilZ": 264.01823108419063
+        },
+        {
+          "PupilX": -28.284303505051593,
+          "PupilY": -0.0001875351316226557,
+          "PupilZ": 264.01823108401084
+        },
+        {
+          "PupilX": -28.284303505051795,
+          "PupilY": 0.00018753822271247846,
+          "PupilZ": 264.0182310840106
+        }
+      ]
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.0001,
+      "angle": 0.0003,
+      "diameter": 3.7509635370444667,
+      "centerZ": 1.2474973680355106,
+      "residualMm": 1.2256643275660335e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.0001,
+      "angle": 0.0001,
+      "diameter": 3.750946914516159,
+      "centerZ": 1.2476436190107165,
+      "residualMm": 1.1851373785597311e-08
+    },
+    {
+      "kind": "compound",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "h": 0.0001,
+      "angle": 3e-05,
+      "diameter": 3.7509450472831785,
+      "centerZ": 1.2477032530387078,
+      "residualMm": 1.1806644957656876e-08
+    },
+    {
+      "kind": "ideal-disk",
+      "n": 64,
+      "g": 256,
+      "occupied": 3096,
+      "pitchMrad": 0.06767578125000001,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6706873792824938,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8447238851732807,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9329480205830185,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.002352539672157261,
+      "mtfMaximumAbsolute": 0.002588408958212468,
+      "parsevalRelative": -2.098321516541546e-14,
+      "rasterBudget": 0.12698412698412698
+    },
+    {
+      "kind": "padding",
+      "maximum": 2.1316282072803006e-13,
+      "energyRelative": 2.2648549702353193e-14,
+      "note": "Same Fourier period; this is zero padding, not an enlarged physical window"
+    },
+    {
+      "kind": "pencil",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "h": 0.01,
+      "diameterX": 10,
+      "diameterY": 9.880969745332244,
+      "aspect": 1.012046414242285,
+      "productionScalarDiameter": 9.88096974533259,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -0.05,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0.05,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.2518897366105628,
+          "PupilZ": 14.50034657549
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.3504570484559524,
+          "PupilZ": 14.507263319405372
+        }
+      ]
+    },
+    {
+      "kind": "pencil",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "h": 0.003,
+      "diameterX": 10,
+      "diameterY": 9.880969745332289,
+      "aspect": 1.0120464142422803,
+      "productionScalarDiameter": 9.88096974533259,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -0.015,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0.015,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.286388295756449,
+          "PupilZ": 14.502767435860381
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.3159584893100662,
+          "PupilZ": 14.50484245903499
+        }
+      ]
+    },
+    {
+      "kind": "pencil",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "h": 0.001,
+      "diameterX": 10,
+      "diameterY": 9.880969745332216,
+      "aspect": 1.0120464142422878,
+      "productionScalarDiameter": 9.88096974533259,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -0.005,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0.005,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.2962450269409882,
+          "PupilZ": 14.503459110251917
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.3061017581255272,
+          "PupilZ": 14.504150784643453
+        }
+      ]
+    },
+    {
+      "kind": "pencil",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "h": 0.0003,
+      "diameterX": 10,
+      "diameterY": 9.880969745335197,
+      "aspect": 1.0120464142419825,
+      "productionScalarDiameter": 9.88096974533259,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -0.0014999999999999998,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0.0014999999999999998,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.29969488285557633,
+          "PupilZ": 14.503701196288954
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.30265190221093885,
+          "PupilZ": 14.503908698606416
+        }
+      ]
+    },
+    {
+      "kind": "pencil",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "h": 0.0001,
+      "diameterX": 10,
+      "diameterY": 9.880969745330027,
+      "aspect": 1.0120464142425118,
+      "productionScalarDiameter": 9.88096974533259,
+      "aimAtStop": false,
+      "points": [
+        {
+          "PupilX": -0.0005,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0.0005,
+          "PupilY": 0.3011733925332576,
+          "PupilZ": 14.503804947447687
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.30068055597403087,
+          "PupilZ": 14.503770363728108
+        },
+        {
+          "PupilX": 0,
+          "PupilY": 0.30166622909248453,
+          "PupilZ": 14.503839531167262
+        }
+      ]
+    },
+    {
+      "kind": "ideal-disk",
+      "n": 128,
+      "g": 512,
+      "occupied": 12644,
+      "pitchMrad": 0.06821289062500001,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6771360457808545,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8460423893057974,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9340004321086629,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.00062366762299082,
+      "mtfMaximumAbsolute": 0.0004654008657282438,
+      "parsevalRelative": -5.995204332975845e-15,
+      "rasterBudget": 0.06299212598425197
+    }
+  ],
+  "scope": {
+    "scalarParaxialAir": true,
+    "newNativeCapture": false,
+    "coreModified": false,
+    "samplingConvergenceIsNotNativeParity": true,
+    "probeTestsAssertFiniteNotStability": true,
+    "cropFractionsAreDiagnosticsNotGatedNativeComparisons": true
+  }
+}

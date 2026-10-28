@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="157a1e5b-1aba-4a70-9c7c-d755046d1a20" name="@fc8a4896a013 2026-10-28 09:25:44" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-28T09:25:44.9247299+00:00" queuing="2026-10-28T09:25:44.9247300+00:00" start="2026-10-28T09:25:43.1261433+00:00" finish="2026-10-28T09:26:04.4556444+00:00" />
+  <TestSettings name="default" id="fa9a6194-e39d-435f-8cee-71d298ff2514">
+    <Deployment runDeploymentRoot="_fc8a4896a013_2026-10-28_09_25_44" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8c391c26-8211-41f6-98b9-5253b0736ac0" testId="513e24ce-1861-ba6c-1dd5-687acf1a4784" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0059-003-binocular_system-c1-primary-f1-w2-p&quot;···)" computerName="fc8a4896a013" duration="00:00:00.3873285" startTime="2026-10-28T09:26:03.6402150+00:00" endTime="2026-10-28T09:26:04.0281225+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c391c26-8211-41f6-98b9-5253b0736ac0">
+      <Output>
+        <StdOut>fixed-0059-003-binocular_system-c1-primary-f1-w2-psf: original=Pass, maxAngularCoordinateError=(6.661338147750939E-16, 6.661338147750939E-16) mrad
+NRMSE=1.3323785035760633E-07; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f8cac51e-d996-4bd4-982c-d508971e2172" testId="21643b02-9b75-6cbf-0ffa-64a38db29142" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-&quot;···)" computerName="fc8a4896a013" duration="00:00:00.8416376" startTime="2026-10-28T09:25:54.9886251+00:00" endTime="2026-10-28T09:25:55.8307464+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8cac51e-d996-4bd4-982c-d508971e2172">
+      <Output>
+        <StdOut>fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf: original=Pass, maxAngularCoordinateError=(8.881784197001252E-16, 8.881784197001252E-16) mrad
+NRMSE=1.9509003831058545E-08; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8e7a55b9-b6e3-4e90-8484-e7eb3757fd2a" testId="3590d3f4-19ee-1b45-0f4f-ba852a2e94fe" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 2)" computerName="fc8a4896a013" duration="00:00:00.0019782" startTime="2026-10-28T09:25:44.8522162+00:00" endTime="2026-10-28T09:25:44.8522760+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8e7a55b9-b6e3-4e90-8484-e7eb3757fd2a" />
+    <UnitTestResult executionId="5c0db3f0-b2d6-43d9-bc96-c39e17c4beee" testId="52a39039-f2b6-c5af-9af3-5b289b515cdc" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0120-004-apochromat_prism-c1-primary-f1-w3-huygens&quot;···)" computerName="fc8a4896a013" duration="00:00:00.1115591" startTime="2026-10-28T09:25:59.5425708+00:00" endTime="2026-10-28T09:25:59.6537859+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c0db3f0-b2d6-43d9-bc96-c39e17c4beee">
+      <Output>
+        <StdOut>0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf: original=Pass, maxAngularCoordinateError=(8.43769498715119E-15, 8.43769498715119E-15) mrad
+NRMSE=5.122908793350415E-13; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fdb217ed-47e2-4410-8908-69c566639742" testId="3db6845b-11cc-2588-4cea-f0868cc26bbb" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0090-003-binocular_system-c2-primary-f1-w2-h&quot;···)" computerName="fc8a4896a013" duration="00:00:02.1943396" startTime="2026-10-28T09:25:59.6541588+00:00" endTime="2026-10-28T09:26:01.8505600+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fdb217ed-47e2-4410-8908-69c566639742">
+      <Output>
+        <StdOut>fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf: original=Pass, maxAngularCoordinateError=(4.440892098500626E-16, 4.440892098500626E-16) mrad
+NRMSE=3.145803715146979E-07; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6276a7d7-82f1-4692-930b-1c01ce6ed568" testId="769eea90-1fda-6fcc-2932-a4bdab89bb8f" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;selectors&quot;, key: &quot;Wavelength&quot;, value: &quot;1&quot;)" computerName="fc8a4896a013" duration="00:00:00.0067030" startTime="2026-10-28T09:25:44.7213364+00:00" endTime="2026-10-28T09:25:44.7280005+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6276a7d7-82f1-4692-930b-1c01ce6ed568" />
+    <UnitTestResult executionId="5e23604c-0879-472a-94a2-2085037f7e96" testId="ead202c2-d63f-0af8-2892-8d1119179862" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-&quot;···)" computerName="fc8a4896a013" duration="00:00:04.1574433" startTime="2026-10-28T09:25:46.3755491+00:00" endTime="2026-10-28T09:25:50.5345442+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e23604c-0879-472a-94a2-2085037f7e96">
+      <Output>
+        <StdOut>fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf: original=Pass, maxAngularCoordinateError=(8.881784197001252E-16, 8.881784197001252E-16) mrad
+NRMSE=7.72923400398587E-10; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8feba492-16df-4114-8745-03791f361787" testId="a1343d79-eeb9-62da-ee84-cdf75ae2fa02" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0089-003-binocular_system-c2-primary-f1-w2-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.7683805" startTime="2026-10-28T09:25:50.5356682+00:00" endTime="2026-10-28T09:25:51.3032791+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8feba492-16df-4114-8745-03791f361787">
+      <Output>
+        <StdOut>0089-003-binocular_system-c2-primary-f1-w2-psf: original=Incomparable, maxAngularCoordinateError=(1.9340938406386954E-06, 1.9340938406386954E-06) mrad</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3adf8524-a35d-4b2e-9e79-92d80d1b694e" testId="e48a7208-cc47-d615-fc1f-17098aea84fe" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0060-003-binocular_system-c1-primary-f1-w2-huygens&quot;···)" computerName="fc8a4896a013" duration="00:00:00.1805323" startTime="2026-10-28T09:25:57.2906910+00:00" endTime="2026-10-28T09:25:57.4724134+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3adf8524-a35d-4b2e-9e79-92d80d1b694e">
+      <Output>
+        <StdOut>0060-003-binocular_system-c1-primary-f1-w2-huygens-psf: original=Incomparable, maxAngularCoordinateError=(4.99115156094021E-07, 4.99115156094021E-07) mrad</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="40657cfc-ea7e-4140-bb2f-adc138b2a69a" testId="dd55b56f-f57b-6299-2a1b-88eb61d9c2d3" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0038-002-beam-expander-c1-primary-f1-w1-huyg&quot;···)" computerName="fc8a4896a013" duration="00:00:01.7904743" startTime="2026-10-28T09:26:01.8510867+00:00" endTime="2026-10-28T09:26:03.6400630+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="40657cfc-ea7e-4140-bb2f-adc138b2a69a">
+      <Output>
+        <StdOut>fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf: original=Pass, maxAngularCoordinateError=(1.1102230246251565E-16, 1.1102230246251565E-16) mrad
+NRMSE=5.958584592653958E-13; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8d5e3d00-dc35-4034-9353-daa657c64aee" testId="07179fdc-91ed-6638-7c81-90edcbfef12e" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0008-001-afocal-riflescope-c1-primary-f1-w2-huygen&quot;···)" computerName="fc8a4896a013" duration="00:00:00.2818903" startTime="2026-10-28T09:25:54.3039655+00:00" endTime="2026-10-28T09:25:54.5863075+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d5e3d00-dc35-4034-9353-daa657c64aee">
+      <Output>
+        <StdOut>0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf: original=Incomparable, maxAngularCoordinateError=(2.8262731921469E-07, 2.8262731921469E-07) mrad</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6c0801f6-2865-4f04-8ed4-b067deea379a" testId="7c5ace45-261a-1c2d-d2ce-6daff1f47cc0" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;PSF&quot;, unit: &quot;ArcMinute&quot;)" computerName="fc8a4896a013" duration="00:00:00.0059353" startTime="2026-10-28T09:26:04.3868827+00:00" endTime="2026-10-28T09:26:04.3928856+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6c0801f6-2865-4f04-8ed4-b067deea379a" />
+    <UnitTestResult executionId="6619f297-4fd0-4d2e-a0f3-3e662b233474" testId="193a046f-2fc9-fb12-be31-a5606c1d48ed" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0089-003-binocular_system-c2-primary-f1-w2-p&quot;···)" computerName="fc8a4896a013" duration="00:00:00.3568129" startTime="2026-10-28T09:26:04.0282719+00:00" endTime="2026-10-28T09:26:04.3864674+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6619f297-4fd0-4d2e-a0f3-3e662b233474">
+      <Output>
+        <StdOut>fixed-0089-003-binocular_system-c2-primary-f1-w2-psf: original=Pass, maxAngularCoordinateError=(6.661338147750939E-16, 6.661338147750939E-16) mrad
+NRMSE=3.400620448466331E-07; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3b0b7c94-1337-43aa-8b43-ecc947259105" testId="08b8ac3f-fbe9-c480-e55c-f40effe6bf2e" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;PSF&quot;, unit: &quot;Microradian&quot;)" computerName="fc8a4896a013" duration="00:00:00.0004173" startTime="2026-10-28T09:26:04.3929644+00:00" endTime="2026-10-28T09:26:04.3933640+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b0b7c94-1337-43aa-8b43-ecc947259105" />
+    <UnitTestResult executionId="c30829da-79b1-4986-95aa-7e8225031378" testId="7fe7d0f9-e4ac-c6fb-1e88-11811d5b3e34" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 0)" computerName="fc8a4896a013" duration="00:00:00.0016534" startTime="2026-10-28T09:25:44.8526397+00:00" endTime="2026-10-28T09:25:44.8527385+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c30829da-79b1-4986-95aa-7e8225031378" />
+    <UnitTestResult executionId="9514494e-244c-4bea-8b69-2025bb8a7056" testId="e83b2f47-1582-6772-8eca-d9093bbedd2e" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;OutputSize&quot;, value: &quot;\&quot;PsfS_64x64\&quot;&quot;)" computerName="fc8a4896a013" duration="00:00:00.0078931" startTime="2026-10-28T09:25:44.7139997+00:00" endTime="2026-10-28T09:25:44.7211619+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9514494e-244c-4bea-8b69-2025bb8a7056" />
+    <UnitTestResult executionId="6bd74003-db70-42b5-a911-4c64506f5559" testId="80e02d6c-121e-a70a-e71c-7795afdfdd96" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 1)" computerName="fc8a4896a013" duration="00:00:00.0028032" startTime="2026-10-28T09:25:44.8520458+00:00" endTime="2026-10-28T09:25:44.8521069+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6bd74003-db70-42b5-a911-4c64506f5559" />
+    <UnitTestResult executionId="aa685f45-630a-4102-aba6-89244ef18716" testId="45badee0-2f37-4be2-6e91-8be1ca4479a2" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0038-002-beam-expander-c1-primary-f1-w1-huygens-ps&quot;···)" computerName="fc8a4896a013" duration="00:00:00.1735321" startTime="2026-10-28T09:25:57.1146536+00:00" endTime="2026-10-28T09:25:57.2904395+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa685f45-630a-4102-aba6-89244ef18716">
+      <Output>
+        <StdOut>0038-002-beam-expander-c1-primary-f1-w1-huygens-psf: original=Pass, maxAngularCoordinateError=(1.4778660795133902E-09, 1.4778660795133902E-09) mrad
+NRMSE=1.7056164888741204E-09; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2d3a9933-ac53-474c-85df-335ccf97bdd2" testId="e5e336b8-f3b2-9495-2cd2-c6e69a2c7da2" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;request&quot;, key: &quot;configuration&quot;, value: &quot;2&quot;)" computerName="fc8a4896a013" duration="00:00:00.0080995" startTime="2026-10-28T09:25:44.8515719+00:00" endTime="2026-10-28T09:25:44.8516686+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d3a9933-ac53-474c-85df-335ccf97bdd2" />
+    <UnitTestResult executionId="36f1b6b6-07a9-42c9-9b80-21ae077aca0b" testId="0412a7f5-79ae-3e8f-fdb6-994e771316d8" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0090-003-binocular_system-c2-primary-f1-w2-huygens&quot;···)" computerName="fc8a4896a013" duration="00:00:00.1484514" startTime="2026-10-28T09:25:56.5477300+00:00" endTime="2026-10-28T09:25:56.6966940+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="36f1b6b6-07a9-42c9-9b80-21ae077aca0b">
+      <Output>
+        <StdOut>0090-003-binocular_system-c2-primary-f1-w2-huygens-psf: original=Incomparable, maxAngularCoordinateError=(4.991209908711269E-07, 4.991209908711269E-07) mrad</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1dc0fcc6-42e9-4b21-bbe7-369cb84b8f21" testId="68ab5062-8f4c-f4dd-6241-799023204ac0" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0119-004-apochromat_prism-c1-primary-f1-w3-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.3031318" startTime="2026-10-28T09:25:56.2442609+00:00" endTime="2026-10-28T09:25:56.5475149+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1dc0fcc6-42e9-4b21-bbe7-369cb84b8f21">
+      <Output>
+        <StdOut>0119-004-apochromat_prism-c1-primary-f1-w3-psf: original=Pass, maxAngularCoordinateError=(3.26405569239796E-14, 3.26405569239796E-14) mrad
+NRMSE=2.353774951571796E-13; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e7b8ca76-28c8-4da3-805c-fc643bf80fb0" testId="729f280d-6ee0-2359-f5cf-f30a3d6f1c98" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0120-004-apochromat_prism-c1-primary-f1-w3-h&quot;···)" computerName="fc8a4896a013" duration="00:00:02.0428360" startTime="2026-10-28T09:25:52.2601286+00:00" endTime="2026-10-28T09:25:54.3037075+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e7b8ca76-28c8-4da3-805c-fc643bf80fb0">
+      <Output>
+        <StdOut>fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf: original=Pass, maxAngularCoordinateError=(2.220446049250313E-16, 2.220446049250313E-16) mrad
+NRMSE=1.242770915836759E-13; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8aa4c065-52d1-4d65-8364-f3ac9fcec12d" testId="f93af377-8e2f-8751-b083-6feb2e7add8a" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;UsePolarization&quot;, value: &quot;true&quot;)" computerName="fc8a4896a013" duration="00:00:00.0084370" startTime="2026-10-28T09:25:44.7485786+00:00" endTime="2026-10-28T09:25:44.7572647+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8aa4c065-52d1-4d65-8364-f3ac9fcec12d" />
+    <UnitTestResult executionId="eb271695-9a44-402c-92e3-b2c57a205be0" testId="28497a78-23f2-112c-8360-36dcc56e4522" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;Rotation&quot;, value: &quot;\&quot;CW90\&quot;&quot;)" computerName="fc8a4896a013" duration="00:00:00.0073471" startTime="2026-10-28T09:25:44.8508206+00:00" endTime="2026-10-28T09:25:44.8509324+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb271695-9a44-402c-92e3-b2c57a205be0" />
+    <UnitTestResult executionId="8eb78c64-6783-41e3-adeb-b81fd6192455" testId="0a5570bd-3973-16a6-7675-9e75ea7ed3ca" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0037-002-beam-expander-c1-primary-f1-w1-psf&quot;)" computerName="fc8a4896a013" duration="00:00:01.5417486" startTime="2026-10-28T09:25:44.8529680+00:00" endTime="2026-10-28T09:25:46.3734934+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8eb78c64-6783-41e3-adeb-b81fd6192455">
+      <Output>
+        <StdOut>fixed-0037-002-beam-expander-c1-primary-f1-w1-psf: original=Pass, maxAngularCoordinateError=(1.6653345369377348E-16, 1.6653345369377348E-16) mrad
+NRMSE=0.00650447520985971; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="36d9d611-9c69-4121-865c-09fded8433b1" testId="3cb22d64-b69a-49b8-7a0c-c484cbd081cb" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;SampleSize&quot;, value: &quot;\&quot;PsfS_32x32\&quot;&quot;)" computerName="fc8a4896a013" duration="00:00:00.0285150" startTime="2026-10-28T09:25:44.7578639+00:00" endTime="2026-10-28T09:25:44.7859395+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="36d9d611-9c69-4121-865c-09fded8433b1" />
+    <UnitTestResult executionId="0d523d1f-b640-4221-a03c-8ed341720059" testId="e7b449fa-61fc-c460-51e9-a5b7193af3d1" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0060-003-binocular_system-c1-primary-f1-w2-h&quot;···)" computerName="fc8a4896a013" duration="00:00:02.0673167" startTime="2026-10-28T09:25:57.4726405+00:00" endTime="2026-10-28T09:25:59.5405360+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0d523d1f-b640-4221-a03c-8ed341720059">
+      <Output>
+        <StdOut>fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf: original=Pass, maxAngularCoordinateError=(4.440892098500626E-16, 4.440892098500626E-16) mrad
+NRMSE=3.5872781977760993E-10; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0b405693-32fc-4a7b-9051-4ef65cd029ec" testId="800b1ac8-671f-9883-b2ca-6e66a8c49b34" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0037-002-beam-expander-c1-primary-f1-w1-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.4014420" startTime="2026-10-28T09:25:54.5865036+00:00" endTime="2026-10-28T09:25:54.9883689+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b405693-32fc-4a7b-9051-4ef65cd029ec">
+      <Output>
+        <StdOut>0037-002-beam-expander-c1-primary-f1-w1-psf: original=Pass, maxAngularCoordinateError=(5.72673108933941E-09, 5.72673108933941E-09) mrad
+NRMSE=0.005007429828924688; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b3e1d849-47dd-4b51-8374-a80b7cf70f31" testId="f2cdab26-2b30-59bc-58e8-39c94ccad5ca" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.AutomaticPsfPitchIsAnExplicitConfigurationMode(key: &quot;Huygens PSF&quot;)" computerName="fc8a4896a013" duration="00:00:00.6016247" startTime="2026-10-28T09:25:44.0758850+00:00" endTime="2026-10-28T09:25:44.6840149+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b3e1d849-47dd-4b51-8374-a80b7cf70f31" />
+    <UnitTestResult executionId="07a0ce5f-a60c-4721-81bd-c489f241a9a5" testId="d787dbe9-e372-0fdb-3684-0a8cc25d3b74" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0059-003-binocular_system-c1-primary-f1-w2-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.4166554" startTime="2026-10-28T09:25:56.6976812+00:00" endTime="2026-10-28T09:25:57.1144776+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07a0ce5f-a60c-4721-81bd-c489f241a9a5">
+      <Output>
+        <StdOut>0059-003-binocular_system-c1-primary-f1-w2-psf: original=Incomparable, maxAngularCoordinateError=(1.934071229836576E-06, 1.934071229836576E-06) mrad</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1059a64c-b4f7-4fa4-b462-9d104b01c0df" testId="88aed3c7-5f6e-7436-8560-d7cd5085c536" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;Huygens PSF&quot;, unit: &quot;ArcSecond&quot;)" computerName="fc8a4896a013" duration="00:00:00.0002682" startTime="2026-10-28T09:26:04.3934079+00:00" endTime="2026-10-28T09:26:04.3937022+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1059a64c-b4f7-4fa4-b462-9d104b01c0df" />
+    <UnitTestResult executionId="cfc411b8-6794-4221-89ad-323ae9224c05" testId="4b36e92f-81e5-a00b-6295-2b9f26fccf10" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 3)" computerName="fc8a4896a013" duration="00:00:00.0017283" startTime="2026-10-28T09:25:44.8524083+00:00" endTime="2026-10-28T09:25:44.8524800+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cfc411b8-6794-4221-89ad-323ae9224c05" />
+    <UnitTestResult executionId="e5239234-c917-4d8b-bf14-296eefb4cc1a" testId="36a32d25-5648-3d3a-1c9f-36f1d316a855" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.AutomaticPsfPitchIsAnExplicitConfigurationMode(key: &quot;PSF&quot;)" computerName="fc8a4896a013" duration="00:00:00.0012456" startTime="2026-10-28T09:25:44.6961384+00:00" endTime="2026-10-28T09:25:44.6962695+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e5239234-c917-4d8b-bf14-296eefb4cc1a" />
+    <UnitTestResult executionId="b04577ac-aeda-4fed-99a0-a33031779e81" testId="2bfb4c7b-0dc0-c481-2ede-418456703a43" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;selectors&quot;, key: &quot;Surface&quot;, value: &quot;1&quot;)" computerName="fc8a4896a013" duration="00:00:00.0100641" startTime="2026-10-28T09:25:44.8517790+00:00" endTime="2026-10-28T09:25:44.8518363+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b04577ac-aeda-4fed-99a0-a33031779e81" />
+    <UnitTestResult executionId="6a571f85-2133-4a3d-bfd7-7ae21582fd50" testId="df6907a8-3052-3ba7-bfe5-a76e17c24aac" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0119-004-apochromat_prism-c1-primary-f1-w3-p&quot;···)" computerName="fc8a4896a013" duration="00:00:00.4125561" startTime="2026-10-28T09:25:55.8310167+00:00" endTime="2026-10-28T09:25:56.2438753+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a571f85-2133-4a3d-bfd7-7ae21582fd50">
+      <Output>
+        <StdOut>fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf: original=Pass, maxAngularCoordinateError=(2.220446049250313E-16, 2.220446049250313E-16) mrad
+NRMSE=4.4288217849125575E-13; coverage=1; conclusion=Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1f3b436f-2366-4e8b-9bae-710d7a2ccf01" testId="a88cf46f-36d2-252b-e735-3e3ff2eba270" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0007-001-afocal-riflescope-c1-primary-f1-w2-psf&quot;)" computerName="fc8a4896a013" duration="00:00:00.9553289" startTime="2026-10-28T09:25:51.3040737+00:00" endTime="2026-10-28T09:25:52.2599326+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1f3b436f-2366-4e8b-9bae-710d7a2ccf01">
+      <Output>
+        <StdOut>0007-001-afocal-riflescope-c1-primary-f1-w2-psf: original=Incomparable, maxAngularCoordinateError=(1.095180861998557E-06, 1.095180861998557E-06) mrad</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a9ab752f-bd7f-499e-b1aa-4f2b597ca3c7" testId="9bc2d23a-14af-e4c8-20c3-ac3efd283801" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;selectors&quot;, key: &quot;Field&quot;, value: &quot;2&quot;)" computerName="fc8a4896a013" duration="00:00:00.0067368" startTime="2026-10-28T09:25:44.7283721+00:00" endTime="2026-10-28T09:25:44.7348757+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a9ab752f-bd7f-499e-b1aa-4f2b597ca3c7" />
+    <UnitTestResult executionId="c4551ded-3e33-40d8-99ec-7dbe365002f5" testId="ef04741b-013c-37a8-edaa-3ed7e31c4a1b" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;Normalize&quot;, value: &quot;true&quot;)" computerName="fc8a4896a013" duration="00:00:00.0074141" startTime="2026-10-28T09:25:44.8513670+00:00" endTime="2026-10-28T09:25:44.8514352+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4551ded-3e33-40d8-99ec-7dbe365002f5" />
+    <UnitTestResult executionId="ec5362a9-c9e2-42e0-a1dc-7760b243c99d" testId="c09df022-69f7-3fa8-7fa3-b0f1a4e21fb7" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;ImageDelta&quot;, value: &quot;0.05&quot;)" computerName="fc8a4896a013" duration="00:00:00.0277445" startTime="2026-10-28T09:25:44.6975002+00:00" endTime="2026-10-28T09:25:44.7134946+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec5362a9-c9e2-42e0-a1dc-7760b243c99d" />
+    <UnitTestResult executionId="18124d72-f202-48c3-875b-ad543351d5e3" testId="480a5617-6c2e-e4a5-f08b-0e1aa8addf0f" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;Type&quot;, value: &quot;\&quot;Real\&quot;&quot;)" computerName="fc8a4896a013" duration="00:00:00.0132120" startTime="2026-10-28T09:25:44.7350390+00:00" endTime="2026-10-28T09:25:44.7483428+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="18124d72-f202-48c3-875b-ad543351d5e3" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.AutomaticPsfPitchIsAnExplicitConfigurationMode(key: &quot;Huygens PSF&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="f2cdab26-2b30-59bc-58e8-39c94ccad5ca">
+      <Execution id="b3e1d849-47dd-4b51-8374-a80b7cf70f31" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="AutomaticPsfPitchIsAnExplicitConfigurationMode" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0059-003-binocular_system-c1-primary-f1-w2-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="d787dbe9-e372-0fdb-3684-0a8cc25d3b74">
+      <Execution id="07a0ce5f-a60c-4721-81bd-c489f241a9a5" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;SampleSize&quot;, value: &quot;\&quot;PsfS_32x32\&quot;&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="3cb22d64-b69a-49b8-7a0c-c484cbd081cb">
+      <Execution id="36d9d611-9c69-4121-865c-09fded8433b1" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 1)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="80e02d6c-121e-a70a-e71c-7795afdfdd96">
+      <Execution id="6bd74003-db70-42b5-a911-4c64506f5559" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsUnsupportedRequestsBeforeNativeDispatch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;ImageDelta&quot;, value: &quot;0.05&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="c09df022-69f7-3fa8-7fa3-b0f1a4e21fb7">
+      <Execution id="ec5362a9-c9e2-42e0-a1dc-7760b243c99d" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;selectors&quot;, key: &quot;Wavelength&quot;, value: &quot;1&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="769eea90-1fda-6fcc-2932-a4bdab89bb8f">
+      <Execution id="6276a7d7-82f1-4692-930b-1c01ce6ed568" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0119-004-apochromat_prism-c1-primary-f1-w3-p&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="df6907a8-3052-3ba7-bfe5-a76e17c24aac">
+      <Execution id="6a571f85-2133-4a3d-bfd7-7ae21582fd50" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0038-002-beam-expander-c1-primary-f1-w1-huyg&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="dd55b56f-f57b-6299-2a1b-88eb61d9c2d3">
+      <Execution id="40657cfc-ea7e-4140-bb2f-adc138b2a69a" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;Type&quot;, value: &quot;\&quot;Real\&quot;&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="480a5617-6c2e-e4a5-f08b-0e1aa8addf0f">
+      <Execution id="18124d72-f202-48c3-875b-ad543351d5e3" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0089-003-binocular_system-c2-primary-f1-w2-p&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="193a046f-2fc9-fb12-be31-a5606c1d48ed">
+      <Execution id="6619f297-4fd0-4d2e-a0f3-3e662b233474" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0059-003-binocular_system-c1-primary-f1-w2-p&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="513e24ce-1861-ba6c-1dd5-687acf1a4784">
+      <Execution id="8c391c26-8211-41f6-98b9-5253b0736ac0" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0120-004-apochromat_prism-c1-primary-f1-w3-huygens&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="52a39039-f2b6-c5af-9af3-5b289b515cdc">
+      <Execution id="5c0db3f0-b2d6-43d9-bc96-c39e17c4beee" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.AutomaticPsfPitchIsAnExplicitConfigurationMode(key: &quot;PSF&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="36a32d25-5648-3d3a-1c9f-36f1d316a855">
+      <Execution id="e5239234-c917-4d8b-bf14-296eefb4cc1a" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="AutomaticPsfPitchIsAnExplicitConfigurationMode" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 0)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="7fe7d0f9-e4ac-c6fb-1e88-11811d5b3e34">
+      <Execution id="c30829da-79b1-4986-95aa-7e8225031378" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsUnsupportedRequestsBeforeNativeDispatch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;UsePolarization&quot;, value: &quot;true&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="f93af377-8e2f-8751-b083-6feb2e7add8a">
+      <Execution id="8aa4c065-52d1-4d65-8364-f3ac9fcec12d" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;Huygens PSF&quot;, unit: &quot;ArcSecond&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="88aed3c7-5f6e-7436-8560-d7cd5085c536">
+      <Execution id="1059a64c-b4f7-4fa4-b462-9d104b01c0df" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0090-003-binocular_system-c2-primary-f1-w2-huygens&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="0412a7f5-79ae-3e8f-fdb6-994e771316d8">
+      <Execution id="36f1b6b6-07a9-42c9-9b80-21ae077aca0b" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="21643b02-9b75-6cbf-0ffa-64a38db29142">
+      <Execution id="f8cac51e-d996-4bd4-982c-d508971e2172" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0037-002-beam-expander-c1-primary-f1-w1-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="800b1ac8-671f-9883-b2ca-6e66a8c49b34">
+      <Execution id="0b405693-32fc-4a7b-9051-4ef65cd029ec" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0007-001-afocal-riflescope-c1-primary-f1-w2-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="a88cf46f-36d2-252b-e735-3e3ff2eba270">
+      <Execution id="1f3b436f-2366-4e8b-9bae-710d7a2ccf01" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0089-003-binocular_system-c2-primary-f1-w2-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="a1343d79-eeb9-62da-ee84-cdf75ae2fa02">
+      <Execution id="8feba492-16df-4114-8745-03791f361787" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;Rotation&quot;, value: &quot;\&quot;CW90\&quot;&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="28497a78-23f2-112c-8360-36dcc56e4522">
+      <Execution id="eb271695-9a44-402c-92e3-b2c57a205be0" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0037-002-beam-expander-c1-primary-f1-w1-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="0a5570bd-3973-16a6-7675-9e75ea7ed3ca">
+      <Execution id="8eb78c64-6783-41e3-adeb-b81fd6192455" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0038-002-beam-expander-c1-primary-f1-w1-huygens-ps&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="45badee0-2f37-4be2-6e91-8be1ca4479a2">
+      <Execution id="aa685f45-630a-4102-aba6-89244ef18716" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0120-004-apochromat_prism-c1-primary-f1-w3-h&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="729f280d-6ee0-2359-f5cf-f30a3d6f1c98">
+      <Execution id="e7b8ca76-28c8-4da3-805c-fc643bf80fb0" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0060-003-binocular_system-c1-primary-f1-w2-huygens&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="e48a7208-cc47-d615-fc1f-17098aea84fe">
+      <Execution id="3adf8524-a35d-4b2e-9e79-92d80d1b694e" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="ead202c2-d63f-0af8-2892-8d1119179862">
+      <Execution id="5e23604c-0879-472a-94a2-2085037f7e96" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0090-003-binocular_system-c2-primary-f1-w2-h&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="3db6845b-11cc-2588-4cea-f0868cc26bbb">
+      <Execution id="fdb217ed-47e2-4410-8908-69c566639742" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 2)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="3590d3f4-19ee-1b45-0f4f-ba852a2e94fe">
+      <Execution id="8e7a55b9-b6e3-4e90-8484-e7eb3757fd2a" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsUnsupportedRequestsBeforeNativeDispatch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;fixed-0060-003-binocular_system-c1-primary-f1-w2-h&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="e7b449fa-61fc-c460-51e9-a5b7193af3d1">
+      <Execution id="0d523d1f-b640-4221-a03c-8ed341720059" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0119-004-apochromat_prism-c1-primary-f1-w3-psf&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="68ab5062-8f4c-f4dd-6241-799023204ac0">
+      <Execution id="1dc0fcc6-42e9-4b21-bbe7-369cb84b8f21" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;PSF&quot;, unit: &quot;ArcMinute&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="7c5ace45-261a-1c2d-d2ce-6daff1f47cc0">
+      <Execution id="6c0801f6-2865-4f04-8ed4-b067deea379a" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;selectors&quot;, key: &quot;Surface&quot;, value: &quot;1&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="2bfb4c7b-0dc0-c481-2ede-418456703a43">
+      <Execution id="b04577ac-aeda-4fed-99a0-a33031779e81" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;OutputSize&quot;, value: &quot;\&quot;PsfS_64x64\&quot;&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="e83b2f47-1582-6772-8eca-d9093bbedd2e">
+      <Execution id="9514494e-244c-4bea-8b69-2025bb8a7056" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: &quot;0008-001-afocal-riflescope-c1-primary-f1-w2-huygen&quot;···)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="07179fdc-91ed-6638-7c81-90edcbfef12e">
+      <Execution id="8d5e3d00-dc35-4034-9353-daa657c64aee" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="FormalNormalizerRetainsOriginalGridOutcomes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;request&quot;, key: &quot;configuration&quot;, value: &quot;2&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="e5e336b8-f3b2-9495-2cd2-c6e69a2c7da2">
+      <Execution id="2d3a9933-ac53-474c-85df-335ccf97bdd2" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;properties&quot;, key: &quot;Normalize&quot;, value: &quot;true&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="ef04741b-013c-37a8-edaa-3ed7e31c4a1b">
+      <Execution id="c4551ded-3e33-40d8-99ec-7dbe365002f5" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: &quot;selectors&quot;, key: &quot;Field&quot;, value: &quot;2&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="9bc2d23a-14af-e4c8-20c3-ac3efd283801">
+      <Execution id="a9ab752f-bd7f-499e-b1aa-4f2b597ca3c7" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsChangedNativePhysicalContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: &quot;PSF&quot;, unit: &quot;Microradian&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="08b8ac3f-fbe9-c480-e55c-f40effe6bf2e">
+      <Execution id="3b0b7c94-1337-43aa-8b43-ecc947259105" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 3)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="4b36e92f-81e5-a00b-6295-2b9f26fccf10">
+      <Execution id="cfc411b8-6794-4221-89ad-323ae9224c05" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests" name="RejectsUnsupportedRequestsBeforeNativeDispatch" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="513e24ce-1861-ba6c-1dd5-687acf1a4784" executionId="8c391c26-8211-41f6-98b9-5253b0736ac0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="21643b02-9b75-6cbf-0ffa-64a38db29142" executionId="f8cac51e-d996-4bd4-982c-d508971e2172" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3590d3f4-19ee-1b45-0f4f-ba852a2e94fe" executionId="8e7a55b9-b6e3-4e90-8484-e7eb3757fd2a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="52a39039-f2b6-c5af-9af3-5b289b515cdc" executionId="5c0db3f0-b2d6-43d9-bc96-c39e17c4beee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3db6845b-11cc-2588-4cea-f0868cc26bbb" executionId="fdb217ed-47e2-4410-8908-69c566639742" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="769eea90-1fda-6fcc-2932-a4bdab89bb8f" executionId="6276a7d7-82f1-4692-930b-1c01ce6ed568" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ead202c2-d63f-0af8-2892-8d1119179862" executionId="5e23604c-0879-472a-94a2-2085037f7e96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1343d79-eeb9-62da-ee84-cdf75ae2fa02" executionId="8feba492-16df-4114-8745-03791f361787" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e48a7208-cc47-d615-fc1f-17098aea84fe" executionId="3adf8524-a35d-4b2e-9e79-92d80d1b694e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd55b56f-f57b-6299-2a1b-88eb61d9c2d3" executionId="40657cfc-ea7e-4140-bb2f-adc138b2a69a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07179fdc-91ed-6638-7c81-90edcbfef12e" executionId="8d5e3d00-dc35-4034-9353-daa657c64aee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c5ace45-261a-1c2d-d2ce-6daff1f47cc0" executionId="6c0801f6-2865-4f04-8ed4-b067deea379a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="193a046f-2fc9-fb12-be31-a5606c1d48ed" executionId="6619f297-4fd0-4d2e-a0f3-3e662b233474" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="08b8ac3f-fbe9-c480-e55c-f40effe6bf2e" executionId="3b0b7c94-1337-43aa-8b43-ecc947259105" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7fe7d0f9-e4ac-c6fb-1e88-11811d5b3e34" executionId="c30829da-79b1-4986-95aa-7e8225031378" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e83b2f47-1582-6772-8eca-d9093bbedd2e" executionId="9514494e-244c-4bea-8b69-2025bb8a7056" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80e02d6c-121e-a70a-e71c-7795afdfdd96" executionId="6bd74003-db70-42b5-a911-4c64506f5559" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45badee0-2f37-4be2-6e91-8be1ca4479a2" executionId="aa685f45-630a-4102-aba6-89244ef18716" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e5e336b8-f3b2-9495-2cd2-c6e69a2c7da2" executionId="2d3a9933-ac53-474c-85df-335ccf97bdd2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0412a7f5-79ae-3e8f-fdb6-994e771316d8" executionId="36f1b6b6-07a9-42c9-9b80-21ae077aca0b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68ab5062-8f4c-f4dd-6241-799023204ac0" executionId="1dc0fcc6-42e9-4b21-bbe7-369cb84b8f21" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="729f280d-6ee0-2359-f5cf-f30a3d6f1c98" executionId="e7b8ca76-28c8-4da3-805c-fc643bf80fb0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f93af377-8e2f-8751-b083-6feb2e7add8a" executionId="8aa4c065-52d1-4d65-8364-f3ac9fcec12d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="28497a78-23f2-112c-8360-36dcc56e4522" executionId="eb271695-9a44-402c-92e3-b2c57a205be0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0a5570bd-3973-16a6-7675-9e75ea7ed3ca" executionId="8eb78c64-6783-41e3-adeb-b81fd6192455" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3cb22d64-b69a-49b8-7a0c-c484cbd081cb" executionId="36d9d611-9c69-4121-865c-09fded8433b1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7b449fa-61fc-c460-51e9-a5b7193af3d1" executionId="0d523d1f-b640-4221-a03c-8ed341720059" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="800b1ac8-671f-9883-b2ca-6e66a8c49b34" executionId="0b405693-32fc-4a7b-9051-4ef65cd029ec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f2cdab26-2b30-59bc-58e8-39c94ccad5ca" executionId="b3e1d849-47dd-4b51-8374-a80b7cf70f31" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d787dbe9-e372-0fdb-3684-0a8cc25d3b74" executionId="07a0ce5f-a60c-4721-81bd-c489f241a9a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88aed3c7-5f6e-7436-8560-d7cd5085c536" executionId="1059a64c-b4f7-4fa4-b462-9d104b01c0df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4b36e92f-81e5-a00b-6295-2b9f26fccf10" executionId="cfc411b8-6794-4221-89ad-323ae9224c05" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="36a32d25-5648-3d3a-1c9f-36f1d316a855" executionId="e5239234-c917-4d8b-bf14-296eefb4cc1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2bfb4c7b-0dc0-c481-2ede-418456703a43" executionId="b04577ac-aeda-4fed-99a0-a33031779e81" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df6907a8-3052-3ba7-bfe5-a76e17c24aac" executionId="6a571f85-2133-4a3d-bfd7-7ae21582fd50" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a88cf46f-36d2-252b-e735-3e3ff2eba270" executionId="1f3b436f-2366-4e8b-9bae-710d7a2ccf01" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9bc2d23a-14af-e4c8-20c3-ac3efd283801" executionId="a9ab752f-bd7f-499e-b1aa-4f2b597ca3c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef04741b-013c-37a8-edaa-3ed7e31c4a1b" executionId="c4551ded-3e33-40d8-99ec-7dbe365002f5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c09df022-69f7-3fa8-7fa3-b0f1a4e21fb7" executionId="ec5362a9-c9e2-42e0-a1dc-7760b243c99d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="480a5617-6c2e-e4a5-f08b-0e1aa8addf0f" executionId="18124d72-f202-48c3-875b-ad543351d5e3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="40" executed="40" passed="40" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.11]   Discovering: OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.37]   Discovered:  OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.43]   Starting:    OpticalSystemDesign.ZemaxComparison.Tests
+Fontconfig error: No writable cache directories
+[xUnit.net 00:00:20.78]   Finished:    OpticalSystemDesign.ZemaxComparison.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

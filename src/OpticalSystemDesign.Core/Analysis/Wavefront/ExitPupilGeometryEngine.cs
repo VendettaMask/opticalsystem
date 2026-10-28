@@ -90,15 +90,26 @@ public static class ExitPupilGeometryEngine
     internal static (Vector3D Point, double Residual) FitLines(IReadOnlyList<(Vector3D P, Vector3D D)> lines)
     {
         var origin = lines[0].P;
+        // Keep a narrow pencil's weak axial direction explicit. In global axes,
+        // forming I-dd^T and eliminating nearly equal terms loses the O(angle^2)
+        // information needed to locate the conjugate, even with a tiny residual.
+        var axis = Unit(lines[0].D);
+        var transverseX = Unit(Cross(axis, Math.Abs(axis.Z) < .9 ? new(0, 0, 1) : new(0, 1, 0)));
+        var transverseY = Cross(axis, transverseX);
+        Vector3D Local(Vector3D value) => new(Dot(value, transverseX), Dot(value, transverseY), Dot(value, axis));
         var matrix = new double[3, 4];
         foreach (var (point, direction) in lines)
         {
-            var d = Unit(direction); var p = point - origin;
+            var d = Unit(Local(Unit(direction))); var p = Local(point - origin);
             var v = new[] { d.X, d.Y, d.Z }; var q = new[] { p.X, p.Y, p.Z };
             for (var r = 0; r < 3; r++)
                 for (var c = 0; c < 3; c++)
                 {
-                    var value = (r == c ? 1 : 0) - v[r] * v[c];
+                    // For a unit direction, 1-d_i^2 equals the sum of the two
+                    // other squared components, without subtracting near-unity values.
+                    var value = r == c
+                        ? v[(r + 1) % 3] * v[(r + 1) % 3] + v[(r + 2) % 3] * v[(r + 2) % 3]
+                        : -v[r] * v[c];
                     matrix[r, c] += value; matrix[r, 3] += value * q[c];
                 }
         }
@@ -116,7 +127,7 @@ public static class ExitPupilGeometryEngine
                 for (var k = c; k < 4; k++) matrix[r, k] -= factor * matrix[c, k];
             }
         }
-        var result = origin + new Vector3D(matrix[0, 3], matrix[1, 3], matrix[2, 3]);
+        var result = origin + transverseX * matrix[0, 3] + transverseY * matrix[1, 3] + axis * matrix[2, 3];
         var residual = Math.Sqrt(lines.Average(line =>
         {
             var delta = result - line.P; var perpendicular = delta - Unit(line.D) * Dot(delta, Unit(line.D));

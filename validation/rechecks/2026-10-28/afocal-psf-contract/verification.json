@@ -1,0 +1,419 @@
+{
+  "date": "2026-10-28",
+  "baseCommit": "9ee9cd547688a8876287d8420635b1ddd20e2873",
+  "branch": "fix/afocal-precision-20261028",
+  "runs": [
+    {
+      "file": "afocal-before.trx",
+      "counts": {
+        "total": "15",
+        "executed": "15",
+        "passed": "15",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "file": "contract-before.trx",
+      "counts": {
+        "total": "23",
+        "executed": "23",
+        "passed": "0",
+        "failed": "23",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "file": "contract-after.trx",
+      "counts": {
+        "total": "23",
+        "executed": "23",
+        "passed": "23",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "file": "afocal-focused.trx",
+      "counts": {
+        "total": "142",
+        "executed": "142",
+        "passed": "142",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "file": "contract-final.trx",
+      "counts": {
+        "total": "40",
+        "executed": "40",
+        "passed": "40",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    }
+  ],
+  "distinctLatestOutcomes": {
+    "Passed": 166
+  },
+  "original150": {
+    "status": "historical unchanged; full matrix not rerun",
+    "pass": 134,
+    "close": 0,
+    "difference": 3,
+    "incomparable": 13
+  },
+  "recalculatedAutomaticPsf": {
+    "total": 10,
+    "pass": 4,
+    "incomparable": 6
+  },
+  "recalculatedFixedAngularPsf": {
+    "total": 10,
+    "pass": 10
+  },
+  "grids": [
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0090-003-binocular_system-c2-primary-f1-w2-h\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf: original=Pass, maxAngularCoordinateError=(4.440892098500626E-16, 4.440892098500626E-16) mrad\nNRMSE=3.1458037647230863E-07; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf: original=Pass, maxAngularCoordinateError=(8.881784197001252E-16, 8.881784197001252E-16) mrad\nNRMSE=1.9509003831058545E-08; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0059-003-binocular_system-c1-primary-f1-w2-psf\")",
+      "outcome": "Passed",
+      "diagnostic": "0059-003-binocular_system-c1-primary-f1-w2-psf: original=Incomparable, maxAngularCoordinateError=(1.934071437670326E-06, 1.934071437670326E-06) mrad"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0090-003-binocular_system-c2-primary-f1-w2-huygens\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "0090-003-binocular_system-c2-primary-f1-w2-huygens-psf: original=Incomparable, maxAngularCoordinateError=(4.99121044494899E-07, 4.99121044494899E-07) mrad"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0037-002-beam-expander-c1-primary-f1-w1-psf\")",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf: original=Pass, maxAngularCoordinateError=(1.6653345369377348E-16, 1.6653345369377348E-16) mrad\nNRMSE=0.00650447520985971; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0119-004-apochromat_prism-c1-primary-f1-w3-psf\")",
+      "outcome": "Passed",
+      "diagnostic": "0119-004-apochromat_prism-c1-primary-f1-w3-psf: original=Pass, maxAngularCoordinateError=(3.26405569239796E-14, 3.26405569239796E-14) mrad\nNRMSE=2.353774951571796E-13; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0120-004-apochromat_prism-c1-primary-f1-w3-huygens\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf: original=Pass, maxAngularCoordinateError=(8.43769498715119E-15, 8.43769498715119E-15) mrad\nNRMSE=5.122908793350415E-13; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0060-003-binocular_system-c1-primary-f1-w2-huygens\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "0060-003-binocular_system-c1-primary-f1-w2-huygens-psf: original=Incomparable, maxAngularCoordinateError=(4.991152097177931E-07, 4.991152097177931E-07) mrad"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0060-003-binocular_system-c1-primary-f1-w2-h\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf: original=Pass, maxAngularCoordinateError=(4.440892098500626E-16, 4.440892098500626E-16) mrad\nNRMSE=3.587272682090289E-10; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0089-003-binocular_system-c2-primary-f1-w2-p\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0089-003-binocular_system-c2-primary-f1-w2-psf: original=Pass, maxAngularCoordinateError=(6.661338147750939E-16, 6.661338147750939E-16) mrad\nNRMSE=3.4006316481871783E-07; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0037-002-beam-expander-c1-primary-f1-w1-psf\")",
+      "outcome": "Passed",
+      "diagnostic": "0037-002-beam-expander-c1-primary-f1-w1-psf: original=Pass, maxAngularCoordinateError=(5.72673108933941E-09, 5.72673108933941E-09) mrad\nNRMSE=0.005007429828924688; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0119-004-apochromat_prism-c1-primary-f1-w3-p\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf: original=Pass, maxAngularCoordinateError=(2.220446049250313E-16, 2.220446049250313E-16) mrad\nNRMSE=4.4288217849125575E-13; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0059-003-binocular_system-c1-primary-f1-w2-p\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0059-003-binocular_system-c1-primary-f1-w2-psf: original=Pass, maxAngularCoordinateError=(6.661338147750939E-16, 6.661338147750939E-16) mrad\nNRMSE=1.3323813677686557E-07; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0008-001-afocal-riflescope-c1-primary-f1-w2-huygen\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf: original=Incomparable, maxAngularCoordinateError=(2.8262731921469E-07, 2.8262731921469E-07) mrad"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0038-002-beam-expander-c1-primary-f1-w1-huyg\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf: original=Pass, maxAngularCoordinateError=(1.1102230246251565E-16, 1.1102230246251565E-16) mrad\nNRMSE=5.958584592653958E-13; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0007-001-afocal-riflescope-c1-primary-f1-w2-psf\")",
+      "outcome": "Passed",
+      "diagnostic": "0007-001-afocal-riflescope-c1-primary-f1-w2-psf: original=Incomparable, maxAngularCoordinateError=(1.095180861998557E-06, 1.095180861998557E-06) mrad"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0038-002-beam-expander-c1-primary-f1-w1-huygens-ps\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "0038-002-beam-expander-c1-primary-f1-w1-huygens-psf: original=Pass, maxAngularCoordinateError=(1.4778660795133902E-09, 1.4778660795133902E-09) mrad\nNRMSE=1.7056164888741204E-09; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0089-003-binocular_system-c2-primary-f1-w2-psf\")",
+      "outcome": "Passed",
+      "diagnostic": "0089-003-binocular_system-c2-primary-f1-w2-psf: original=Incomparable, maxAngularCoordinateError=(1.9340940484724456E-06, 1.9340940484724456E-06) mrad"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0120-004-apochromat_prism-c1-primary-f1-w3-h\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf: original=Pass, maxAngularCoordinateError=(2.220446049250313E-16, 2.220446049250313E-16) mrad\nNRMSE=1.242770915836759E-13; coverage=1; conclusion=Pass"
+    },
+    {
+      "test": "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-\"\u00b7\u00b7\u00b7)",
+      "outcome": "Passed",
+      "diagnostic": "fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf: original=Pass, maxAngularCoordinateError=(8.881784197001252E-16, 8.881784197001252E-16) mrad\nNRMSE=7.72923400398587E-10; coverage=1; conclusion=Pass"
+    }
+  ],
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "policyUnchanged": true,
+  "coreAndApplicationUnchanged": false,
+  "limitations": [
+    "No new Zemax capture or live host execution",
+    "No full 150 or full repository run",
+    "Three centroid Differences and six automatic grids remain open",
+    "Five missing illumination references and two mixed-NSC first-order N/A unchanged",
+    "Binocular c2 pupil-node mismatch reproduced unchanged in current two-configuration audit"
+  ],
+  "files": {
+    "afocal-before.trx": "91fce62fdd00be69e4c4dc0b3f74a73b530f9d2524aff4fa2e64e58d6f1d4a0a",
+    "contract-before.trx": "b90d5e57f37e78546ce35e197c0d3864b1e89d26d474888bcd8f021763393efe",
+    "contract-before.log": "0e5142c29b7d977ee720743d7f1b5c0f2ed838ebbcec2826596b97c8dea5ee39",
+    "contract-after.trx": "ebb3bd0a51224a144e66e349c99a6b31d53f8b7ab3a2ba2c4e081bbc0ffaf351",
+    "contract-after.log": "87ba620b3501e227f170d8878dad21b3e3fc55f09eeaf970ef66d6840477d58c",
+    "afocal-focused.trx": "3e2d597b2a8234c9b2baaf315b037207c8ec0f6f6a1476cf468d21e679ff4d27",
+    "focused.log": "dd9ad6bf220991e9e1cdaecdb29607167c76ba3207c370b5b7b1afbd734d455c",
+    "contract-final.trx": "ee3bac42bb0c47998ed88e13155c0557294c136750337dc57acc898424525b52",
+    "contract-final.log": "3a7672ddbf467e55f4d1a09770bbcecd8427fe11ef478121c2ce6f534c73a7be",
+    "binocular-current.json": "f3369f9f26b007686a6fd4eb2819eac4e91de0fa4c7253f82a838d99003943de",
+    "binocular-source-manifest.json": "992bfd239bd6911035b13ea24d2c1b6e842efc272aaaef30879d19bd7f952a4e",
+    "binocular.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "closure-diagnosis.json": "b2772b7364c8e5d33872e72d7eda93f093fe9ca033f3ad5fb92ed1c9aa010b5d",
+    "scope-test-audit.json": "70fd585fecf6ba0220c237db0a76223b46d17d5c338d16f7d6914b4d9633661a",
+    "binocular-nodes-final.json": "d511c7f07bfbf4482c7234e46b2f6393b2260546bd8172cb2279ec660a816310",
+    "binocular-nodes-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "independent-first.trx": "4905d0675edaf44a08a147fcce93f94dcbf4bed640fec1aebead225b5c085063",
+    "independent-format-fix.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "independent-first.log": "6c6a1fdce0a19e576a6dcb6b4f82c21e685e8618635f9a2c09ddc9fe4c30bdd1",
+    "independent-physics-summary.json": "f575051ee76b02460ddd348b1c692a19d233a1231e72a9e0ff7b61d1a9a300c0",
+    "independent-format.log": "bab42e87188df4e37cab2c5dc7d7bdd41236f63c804306a2c746d4ed101c7cee",
+    "independent-final.trx": "d969b50b2add55f7f7b2da70345604a5f80234b4f2fc822722c673c3b333e5ba",
+    "independent-final.log": "cffc335827b64d7f4c41896286f296f3b310442d2f48655f84662401330542dc",
+    "independent-format-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "conditioning-before.trx": "ad3963fd8a83c6fcf03d52e0b6c8e59fe87b2bb35fe4ce82fdeeff13a57777ae",
+    "conditioning-focal-regression.trx": "146b096423dc7398338d991b12154cca3cc23ad5d20807cf726ddd2c881b64c6",
+    "conditioning-related.trx": "3e87d1029a71d487037b1954a2353d48cc3f8b7b6c2b12c20b9b746f757bb856",
+    "conditioning-after.trx": "4d852c3e32609ffb9e731ee1dcaae36cd15b5c07be20e6bf26789c64bbbb82de",
+    "conditioning-summary.json": "7d2b23fd79a5ac19243c5c99a1846369a7c79123e4c1863e58930ad91c368d18",
+    "conditioning-before.log": "39e625ea2bd74ba011c974dd4771ef6ed16d593b7edef01f82eb3bf1d7803214",
+    "conditioning-focal-regression.log": "e0ca2521d65ff8d921015f5c8709541cd3946010efd1d3734ce948d1e5516e41",
+    "conditioning-energy-regression.log": "b96a058698a062ff277a41fe50682e34f0b740944ce75d2d1d3756a168e963c4",
+    "conditioning-energy-regression.trx": "5096080896e138910d144c709d23a5b97f541efcb9c7d2ad68d67e40869bfc38",
+    "conditioning-after.log": "689cad0f62f701999c0766e94968123e159d8ec001c01f6ed78735b4bf17860d",
+    "conditioning-related.log": "997607e1ebab8d7eb2c1e1354c82f3b103b41c104314fd41de1d9c8a83815a54",
+    "conditioning-format-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "conditioning-format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "polygon-path-verification.json": "732d32ecd460673fd530a09038e550eb7f66a7d79d6c8c823e930da91bed38a6",
+    "polygon-normal-diagnostic.json": "f7573e2225f888a3e454df595e8a61093f57731500eca401ba1b2b8f128c767b",
+    "polygon-format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "polygon-paths.trx": "1fa029889fa21b3a62211f66a138f6532428f772c9d28831ce811b29ad0165e3",
+    "polygon-paths-final.log": "2ab5e077fb43d97bc859fba156e1094030a05902fa382848db0f9ce287a3288f",
+    "polygon-independent.log": "d81d01122f3f6b2bf041e5e5306dcd4e8fdfe78e8783037b6a3fa4e00ab4438d",
+    "polygon-paths-final.trx": "d3f6a45470c60a2d547fd53d3696249bd7cb350b342dc93e2dc5f0794b407105",
+    "polygon-paths.log": "642401bc1c4c7bccc58e4ab9201370df9148a995469332e05499c77d168048ab",
+    "polygon-format-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "binocularCurrent": [
+    {
+      "id": "binocular-c1",
+      "configuration": 1,
+      "nativeCount": 699,
+      "coreCount": 699,
+      "coreOnly": 0,
+      "nativeOnly": 0,
+      "x": 1.0000049793749568,
+      "y": 1,
+      "phaseRms": 4.01522024077668e-06,
+      "freshProfileMaxDifference": 0
+    },
+    {
+      "id": "binocular-c2",
+      "configuration": 2,
+      "nativeCount": 699,
+      "coreCount": 699,
+      "coreOnly": 2,
+      "nativeOnly": 2,
+      "x": 1.0000049793749568,
+      "y": 1,
+      "phaseRms": 0.0006083545630578738,
+      "freshProfileMaxDifference": 0
+    }
+  ],
+  "closureDiagnosis": "closure-diagnosis.json",
+  "scopeAudit": "scope-test-audit.json",
+  "binocularNodesFinal": [
+    {
+      "id": "binocular-c1",
+      "configuration": 1,
+      "nativeCount": 699,
+      "coreCount": 699,
+      "coreOnly": 0,
+      "nativeOnly": 0,
+      "coreOnlyNodes": [],
+      "nativeOnlyNodes": [],
+      "x": 1.0000049793749568,
+      "y": 1,
+      "phaseRms": 4.01522024077668e-06,
+      "freshProfileMaxDifference": 0
+    },
+    {
+      "id": "binocular-c2",
+      "configuration": 2,
+      "nativeCount": 699,
+      "coreCount": 699,
+      "coreOnly": 2,
+      "nativeOnly": 2,
+      "coreOnlyNodes": [
+        {
+          "column": 32,
+          "row": 17,
+          "px": 0,
+          "py": -1
+        },
+        {
+          "column": 32,
+          "row": 47,
+          "px": 0,
+          "py": 1
+        }
+      ],
+      "nativeOnlyNodes": [
+        {
+          "column": 17,
+          "row": 32,
+          "px": -1.0000049793749568,
+          "py": 0,
+          "insideRequestedGrid": false
+        },
+        {
+          "column": 47,
+          "row": 32,
+          "px": 1.0000049793749568,
+          "py": 0,
+          "insideRequestedGrid": false
+        }
+      ],
+      "x": 1.0000049793749568,
+      "y": 1,
+      "phaseRms": 0.0006083545630578738,
+      "freshProfileMaxDifference": 0
+    }
+  ],
+  "closureRun": {
+    "file": "closure-regression.trx",
+    "passed": 80,
+    "failed": 0,
+    "skipped": 0,
+    "configuration": "Debug",
+    "distinctTotalStill": 144,
+    "nativeHostCompiled": false
+  },
+  "independentPhysics": {
+    "tests": 8,
+    "passed": 8,
+    "scope": "5 independent diffraction tests; 3 finite-data probe sweeps, not stability certification",
+    "source": "independent-physics-summary.json",
+    "noCoreChanges": true
+  },
+  "coreChanges": [
+    "src/OpticalSystemDesign.Core/Analysis/Wavefront/ExitPupilGeometryEngine.cs: FitLines",
+    "src/OpticalSystemDesign.Core/Geometries/PolygonGroupGeometry.cs: opt-in observation only"
+  ],
+  "applicationAndAutoLensUnchanged": true,
+  "currentCoreRerun": {
+    "passed": 125,
+    "failed": 0,
+    "skipped": 0,
+    "historicalNotRerun": 39
+  },
+  "conditioning": {
+    "beforePassed": 2,
+    "beforeFailed": 4,
+    "afterPassed": 6,
+    "summary": "conditioning-summary.json",
+    "binocularSensitivityResolved": false
+  },
+  "polygonPathPhase": {
+    "testsPassed": 2,
+    "rays": 42,
+    "opticsChanged": false,
+    "internalSensitivityCause": "noncoplanar POB quad triangle branch switch",
+    "nativeInterpretationUnverified": true
+  }
+}

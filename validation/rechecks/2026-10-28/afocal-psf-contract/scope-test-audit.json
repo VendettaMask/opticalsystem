@@ -1,0 +1,1242 @@
+{
+  "baseCommit": "9ee9cd547688a8876287d8420635b1ddd20e2873",
+  "distinctTests": 166,
+  "latestOutcomes": {
+    "Passed": 166
+  },
+  "byClass": {
+    "AfocalFftEnergyTests": 10,
+    "AfocalReferenceFocusTests": 13,
+    "AfocalPupilScaleTests": 2,
+    "AfocalPsfContractTests": 40,
+    "AfocalRepairNativeTests": 40,
+    "AfocalAnalysisRepairTests": 29,
+    "AfocalComparisonTests": 10,
+    "AfocalIndependentPhysicsTests": 8,
+    "AfocalPupilConditioningTests": 7,
+    "PupilFoucaultExtensionTests": 5,
+    "AfocalPolygonPathTests": 2
+  },
+  "tests": {
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"FFT PSF Cross Section\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"Diffraction Encircled Energy\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"Diffraction Encircled Energy\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.AngularCentroidEnergyMatchesIndependentNativeRays(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilScaleTests.CapturedPrismAutomaticGridMatchesNativeTangentialPupil(key: \"Huygens PSF\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"Diffraction Encircled Energy\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.AngularCentroidEnergyMatchesIndependentNativeRays(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"Diffraction Encircled Energy\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"FFT PSF Cross Section\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.AngularCentroidEnergyMatchesIndependentNativeRays(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"Diffraction Encircled Energy\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"FFT PSF Cross Section\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"FFT PSF Cross Section\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"FFT PSF Cross Section\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilScaleTests.CapturedPrismAutomaticGridMatchesNativeTangentialPupil(key: \"PSF\")": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0120-004-apochromat_prism-c1-primary-f1-w3-huygens\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0037-002-beam-expander-c1-primary-f1-w1-psf\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0037-002-beam-expander-c1-primary-f1-w1-psf\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0008-001-afocal-riflescope-c1-primary-f1-w2-huygen\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0038-002-beam-expander-c1-primary-f1-w1-huygens-ps\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0090-003-binocular_system-c2-primary-f1-w2-h\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: \"PSF\", unit: \"ArcMinute\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0059-003-binocular_system-c1-primary-f1-w2-psf\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0120-004-apochromat_prism-c1-primary-f1-w3-h\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0060-003-binocular_system-c1-primary-f1-w2-h\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0090-003-binocular_system-c2-primary-f1-w2-huygens\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: \"PSF\", unit: \"Microradian\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0089-003-binocular_system-c2-primary-f1-w2-p\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: \"Huygens PSF\", unit: \"ArcSecond\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0060-003-binocular_system-c1-primary-f1-w2-huygens\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0038-002-beam-expander-c1-primary-f1-w1-huyg\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0007-001-afocal-riflescope-c1-primary-f1-w2-psf\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0119-004-apochromat_prism-c1-primary-f1-w3-psf\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0059-003-binocular_system-c1-primary-f1-w2-p\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0119-004-apochromat_prism-c1-primary-f1-w3-p\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0089-003-binocular_system-c2-primary-f1-w2-psf\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"MTF\", fullband: True)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"MTF\", fullband: True)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"Normalize\", value: \"true\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0-w3\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0150-004-apochromat_prism-c1-edge-f1-w5-optical-pa\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"Field Curvature and Distortion\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0022-001-afocal-riflescope-c1-edge-f3-w1-optical-p\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.AfocalDerivedAnalysisRetainsAngularAxes(key: \"Huygens PSF Cross Section\")": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.MixedModeNumericTraceSurvivesUnavailableLayout(configuration: 2)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 2)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 0)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"Field Curvature and Distortion\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.DiopterGateIsExplicitAndCannotReplaceTheFocalDefocusGate": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0030-001-afocal-riflescope-c1-edge-f3-w3-optical-p\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"selectors\", key: \"Field\", value: \"2\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.GaussianImportanceSampledSpotsMatchNativeAcrossFactorsAndDensities(factor: 1, density: 40)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.GaussianImportanceSampledSpotsMatchNativeAcrossFactorsAndDensities(factor: 0, density: 40)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.FocalRequestFingerprintAndDefaultPolicyRemainUnchanged": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"MTF\", fullband: True)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.GaussianImportanceSampledSpotsMatchNativeAcrossFactorsAndDensities(factor: 2, density: 40)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0134-004-apochromat_prism-c1-edge-f1-w1-optical-pa\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 3)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.GaussianImportanceSampledSpotsMatchNativeAcrossFactorsAndDensities(factor: 0, density: 20)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0138-004-apochromat_prism-c1-edge-f1-w2-optical-pa\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0146-004-apochromat_prism-c1-edge-f1-w4-optical-pa\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"UsePolarization\", value: \"true\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"Field Curvature and Distortion\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"selectors\", key: \"Wavelength\", value: \"1\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AddedAngularUnitsConvertOnlyWithinTheirPhysicalQuantity(from: \"ArcSecond\", to: \"Milliradian\", scale: 0.0048481368110953604)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.MixedModeNumericTraceSurvivesUnavailableLayout(configuration: 1)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"ImageDelta\", value: \"0.05\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0082-003-binocular_system-c1-edge-f5-w3-optical-pa\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f1-w2\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0074-003-binocular_system-c1-edge-f5-w1-optical-pa\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"binocular-c1\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.ConvertsOnlyCompatibleTypedAngularUnits(from: \"CyclesPerArcMinute\", to: \"CyclesPerMilliradian\", scale: 3.4377467707849392)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.ConvertsOnlyCompatibleTypedAngularUnits(from: \"ArcMinute\", to: \"Milliradian\", scale: 0.29088820866572163)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AddedAngularUnitsConvertOnlyWithinTheirPhysicalQuantity(from: \"CyclesPerArcSecond\", to: \"CyclesPerMilliradian\", scale: 206.26480624709637)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.GaussianImportanceSampledSpotsMatchNativeAcrossFactorsAndDensities(factor: 1, density: 20)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f1-w3\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.AfocalDerivedAnalysisRetainsAngularAxes(key: \"Encircled Energy\")": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"MTF\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"MTF\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"OutputSize\", value: \"\\\"PsfS_64x64\\\"\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalCurvatureOperandsMatchIndependentNativeOperandReadback(configuration: 2)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0-w1\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0104-003-binocular_system-c2-edge-f5-w1-optical-pa\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.AfocalDerivedAnalysisRetainsAngularAxes(key: \"Diffraction Encircled Energy\")": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.AfocalGateIsPerAnalysisAndPowerCannotBecomeLength": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.SelectedWavelengthOpdFansMatchIndependentNativeCurves(id: \"0112-003-binocular_system-c2-edge-f5-w3-optical-pa\"\u00b7\u00b7\u00b7)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"Type\", value: \"\\\"Real\\\"\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.GaussianImportanceSampledSpotsMatchNativeAcrossFactorsAndDensities(factor: 1, density: 6)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"beam\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.NativeAfocalFieldCurvatureRejectsFrozenLengthDataAndAcceptsFreshPowerMetadata": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0.7-w2\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0-w2\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.AfocalHuygensThroughFocusActuallyChangesWithDefocus": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.AfocalDerivedAnalysisRetainsAngularAxes(key: \"RMS vs Field\")": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AddedAngularUnitsConvertOnlyWithinTheirPhysicalQuantity(from: \"Microradian\", to: \"Milliradian\", scale: 0.001)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.ApplicationHuygensSpacingKeepsThePhysicalUnit(afocal: True)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0.7-w3\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"selectors\", key: \"Surface\", value: \"1\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"MTF\", fullband: True)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"Field Curvature and Distortion\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"prism\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.ApplicationHuygensSpacingKeepsThePhysicalUnit(afocal: False)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.ConvertsOnlyCompatibleTypedAngularUnits(from: \"ArcMinute\", to: \"Degree\", scale: 0.016666666666666666)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"MTF\", fullband: True)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"binocular-c2\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalCurvatureOperandsMatchIndependentNativeOperandReadback(configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.ActualRiflescopeRayFanMatchesIndependentNativeAngularCapture(id: \"ray-fan-axis-w1\")": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.AfocalDerivedAnalysisRetainsAngularAxes(key: \"FFT PSF Cross Section\")": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0.7-w1\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"MTF\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.GaussianImportanceSampledSpotsMatchNativeAcrossFactorsAndDensities(factor: 2, density: 6)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"MTF\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AddedAngularUnitsConvertOnlyWithinTheirPhysicalQuantity(from: \"CyclesPerMicroradian\", to: \"CyclesPerMilliradian\", scale: 1000)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"Rotation\", value: \"\\\"CW90\\\"\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.AngularRayFanRequiresSeparateExplicitAngleTolerance": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.GaussianImportanceSampledSpotsMatchNativeAcrossFactorsAndDensities(factor: 0, density: 6)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.PolychromaticMtfRetainsAllFieldsAndCanonicalFrequency": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"SampleSize\", value: \"\\\"PsfS_32x32\\\"\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"request\", key: \"configuration\", value: \"2\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalComparisonTests.ActualRiflescopeRayFanMatchesIndependentNativeAngularCapture(id: \"ray-fan-edge-w1\")": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-energy-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"Field Curvature and Distortion\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"MTF\", fullband: False)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalAnalysisRepairTests.GaussianImportanceSampledSpotsMatchNativeAcrossFactorsAndDensities(factor: 2, density: 20)": {
+      "outcome": "Passed",
+      "source": "afocal-focused.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.AutomaticPsfPitchIsAnExplicitConfigurationMode(key: \"PSF\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.AutomaticPsfPitchIsAnExplicitConfigurationMode(key: \"Huygens PSF\")": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.RotatingAnAsymmetricPhasePupilRotatesTheFullPsf": {
+      "outcome": "Passed",
+      "source": "conditioning-after.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.BoundedPupilProbeSweepRecordsScaleAndFitResidual(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-after.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.IdealDiskHasAnalyticAiryMtfAndDiscreteParseval(n: 32)": {
+      "outcome": "Passed",
+      "source": "conditioning-after.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.BoundedPupilProbeSweepRecordsScaleAndFitResidual(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+      "outcome": "Passed",
+      "source": "conditioning-after.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.IdealDiskHasAnalyticAiryMtfAndDiscreteParseval(n: 64)": {
+      "outcome": "Passed",
+      "source": "conditioning-after.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.ZeroPaddingChangesAngularPitchButNotMatchedSamplesOrIntegratedEnergy": {
+      "outcome": "Passed",
+      "source": "conditioning-after.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.BoundedPupilProbeSweepRecordsScaleAndFitResidual(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1)": {
+      "outcome": "Passed",
+      "source": "conditioning-after.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.IdealDiskHasAnalyticAiryMtfAndDiscreteParseval(n: 128)": {
+      "outcome": "Passed",
+      "source": "conditioning-after.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.001, rotation: 0)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0.69999999999999996)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.001, rotation: 0.69999999999999996)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0.69999999999999996)": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.PlaneParallelPlateStopImageMatchesIndependentConjugateAndTiltedDetectorProjection": {
+      "outcome": "Passed",
+      "source": "conditioning-focal-regression.trx"
+    },
+    "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.ThreeDimensionalStopImagePreservesPhysicalWavefrontAndRetainsCurvedDepth": {
+      "outcome": "Passed",
+      "source": "conditioning-focal-regression.trx"
+    },
+    "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.ConjugateFitRecoversKnownThreeDimensionalPointAndReportsSkewInsteadOfInventingExactFocus": {
+      "outcome": "Passed",
+      "source": "conditioning-focal-regression.trx"
+    },
+    "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.PostStopCurvedInterfaceHasAnalyticAxialConjugateAndNonlinearLateralPupilDistortion": {
+      "outcome": "Passed",
+      "source": "conditioning-focal-regression.trx"
+    },
+    "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.GeometricPupilMovesRigidlyWithoutChangingItsShapeOrPhysicalWavefront": {
+      "outcome": "Passed",
+      "source": "conditioning-focal-regression.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.RecordFirstSurfaceWithProbeDependentResponse": {
+      "outcome": "Passed",
+      "source": "conditioning-related.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonPathTests.ActualPolygonPathsAreBoundedAndObservationDoesNotChangeRays(configuration: 2)": {
+      "outcome": "Passed",
+      "source": "polygon-paths-final.trx"
+    },
+    "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonPathTests.ActualPolygonPathsAreBoundedAndObservationDoesNotChangeRays(configuration: 1)": {
+      "outcome": "Passed",
+      "source": "polygon-paths-final.trx"
+    }
+  },
+  "trackedChanges": [
+    "docs/CURRENT_STATUS.md",
+    "docs/OPEN_ISSUES_2026-10-08.md",
+    "tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalComparisonTests.cs",
+    "tests/OpticalSystemDesign.ZemaxComparison.Tests/OpticalSystemDesign.ZemaxComparison.Tests.csproj",
+    "tools/OpticalSystemDesign.ZemaxComparison/AfocalAnalysisContracts.cs",
+    "tools/OpticalSystemDesign.ZemaxComparison/ComparisonRunner.cs",
+    "tools/OpticalSystemDesign.ZemaxComparison/Configuration/ComparisonConfiguration.cs",
+    "tools/OpticalSystemDesign.ZemaxComparison/Normalization/ResultNormalizer.cs",
+    "tools/OpticalSystemDesign.ZemaxComparison/README.md",
+    "tools/diagnostics/AfocalFftEnergy20261027/BinocularAudit.cs"
+  ],
+  "untrackedChanges": [
+    "docs/AFOCAL_PSF_CONTRACT_REPAIR_2026-10-28.md",
+    "tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs",
+    "tools/OpticalSystemDesign.ZemaxComparison/Normalization/AfocalPsfContract.cs",
+    "tools/diagnostics/AfocalPsfContract20261028/Prepare-Fixture.py",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/README.md",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/afocal-before.trx",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/afocal-focused.trx",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/binocular-current.json",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/binocular-nodes-final.json",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/binocular-nodes-final.log",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/binocular-source-manifest.json",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/binocular.log",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/closure-diagnosis.json",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/contract-after.log",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/contract-after.trx",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/contract-before.log",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/contract-before.trx",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/contract-final.log",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/contract-final.trx",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/focused.log",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/format.log",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/local-checks.json",
+    "validation/rechecks/2026-10-28/afocal-psf-contract/verification.json",
+    "validation/zemax/2026-r1/afocal-psf-contract-2026-10-28/native-grids.zip"
+  ],
+  "coreAndAutoLensUnchanged": true,
+  "originalPolicyUnchanged": true,
+  "notes": [
+    "Six expected Incomparable assertions are not six optical Passes",
+    "Two-configuration node audits are not test-count additions"
+  ],
+  "currentCoreRerun": {
+    "distinct": 125,
+    "passed": 125,
+    "notRerun": 39,
+    "tests": {
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.BoundedPupilProbeSweepRecordsScaleAndFitResidual(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-after.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.IdealDiskHasAnalyticAiryMtfAndDiscreteParseval(n: 32)": {
+        "outcome": "Passed",
+        "source": "conditioning-after.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.001, rotation: 0)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0.69999999999999996)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.BoundedPupilProbeSweepRecordsScaleAndFitResidual(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+        "outcome": "Passed",
+        "source": "conditioning-after.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.001, rotation: 0.69999999999999996)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.IdealDiskHasAnalyticAiryMtfAndDiscreteParseval(n: 128)": {
+        "outcome": "Passed",
+        "source": "conditioning-after.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.RotatingAnAsymmetricPhasePupilRotatesTheFullPsf": {
+        "outcome": "Passed",
+        "source": "conditioning-after.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.IdealDiskHasAnalyticAiryMtfAndDiscreteParseval(n: 64)": {
+        "outcome": "Passed",
+        "source": "conditioning-after.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.ZeroPaddingChangesAngularPitchButNotMatchedSamplesOrIntegratedEnergy": {
+        "outcome": "Passed",
+        "source": "conditioning-after.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalIndependentPhysicsTests.BoundedPupilProbeSweepRecordsScaleAndFitResidual(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-after.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0.69999999999999996)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.PlaneParallelPlateStopImageMatchesIndependentConjugateAndTiltedDetectorProjection": {
+        "outcome": "Passed",
+        "source": "conditioning-focal-regression.trx"
+      },
+      "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.ThreeDimensionalStopImagePreservesPhysicalWavefrontAndRetainsCurvedDepth": {
+        "outcome": "Passed",
+        "source": "conditioning-focal-regression.trx"
+      },
+      "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.ConjugateFitRecoversKnownThreeDimensionalPointAndReportsSkewInsteadOfInventingExactFocus": {
+        "outcome": "Passed",
+        "source": "conditioning-focal-regression.trx"
+      },
+      "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.PostStopCurvedInterfaceHasAnalyticAxialConjugateAndNonlinearLateralPupilDistortion": {
+        "outcome": "Passed",
+        "source": "conditioning-focal-regression.trx"
+      },
+      "OpticalSystemDesign.Tests.PupilFoucaultExtensionTests.GeometricPupilMovesRigidlyWithoutChangingItsShapeOrPhysicalWavefront": {
+        "outcome": "Passed",
+        "source": "conditioning-focal-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: \"PSF\", unit: \"Microradian\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"MTF\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"MTF\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"Field Curvature and Distortion\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"MTF\", fullband: True)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"UsePolarization\", value: \"true\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.AutomaticPsfPitchIsAnExplicitConfigurationMode(key: \"Huygens PSF\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"MTF\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f1-w3\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0059-003-binocular_system-c1-primary-f1-w2-psf\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0.7-w2\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0.7-w3\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"Type\", value: \"\\\"Real\\\"\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AddedAngularUnitsConvertOnlyWithinTheirPhysicalQuantity(from: \"Microradian\", to: \"Milliradian\", scale: 0.001)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalCurvatureOperandsMatchIndependentNativeOperandReadback(configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"binocular-c2\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"ImageDelta\", value: \"0.05\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0037-002-beam-expander-c1-primary-f1-w1-psf\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f1-w2\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 3)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: \"PSF\", unit: \"ArcMinute\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0038-002-beam-expander-c1-primary-f1-w1-huyg\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.AutomaticPsfPitchIsAnExplicitConfigurationMode(key: \"PSF\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0.7-w1\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.DiopterGateIsExplicitAndCannotReplaceTheFocalDefocusGate": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"selectors\", key: \"Surface\", value: \"1\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0060-003-binocular_system-c1-primary-f1-w2-h\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0037-002-beam-expander-c1-primary-f1-w1-psf\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AddedAngularUnitsConvertOnlyWithinTheirPhysicalQuantity(from: \"ArcSecond\", to: \"Milliradian\", scale: 0.0048481368110953604)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"MTF\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0120-004-apochromat_prism-c1-primary-f1-w3-huygens\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"request\", key: \"configuration\", value: \"2\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"selectors\", key: \"Wavelength\", value: \"1\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 0)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"MTF\", fullband: True)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"MTF\", fullband: True)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"selectors\", key: \"Field\", value: \"2\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"SampleSize\", value: \"\\\"PsfS_32x32\\\"\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0-w1\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"MTF\", fullband: True)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0-w3\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"Rotation\", value: \"\\\"CW90\\\"\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0119-004-apochromat_prism-c1-primary-f1-w3-p\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0089-003-binocular_system-c2-primary-f1-w2-psf\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0008-001-afocal-riflescope-c1-primary-f1-w2-huygen\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalCurvatureOperandsMatchIndependentNativeOperandReadback(configuration: 2)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"MTF\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AddedAngularUnitsConvertOnlyWithinTheirPhysicalQuantity(from: \"CyclesPerMicroradian\", to: \"CyclesPerMilliradian\", scale: 1000)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"prism\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0038-002-beam-expander-c1-primary-f1-w1-huygens-ps\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"MTF\", fullband: True)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0089-003-binocular_system-c2-primary-f1-w2-p\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0090-003-binocular_system-c2-primary-f1-w2-huygens\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"Normalize\", value: \"true\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"riflescope-f0-w2\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"beam\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0059-003-binocular_system-c1-primary-f1-w2-p\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AfocalOpdUsesTheCapturedPrimaryChiefPlaneAndOriginalWaveTolerance(id: \"binocular-c1\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.NativePayloadConvertsExplicitAngularPitchWithoutChangingRequest(key: \"Huygens PSF\", unit: \"ArcSecond\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"Field Curvature and Distortion\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0007-001-afocal-riflescope-c1-primary-f1-w2-psf\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0060-003-binocular_system-c1-primary-f1-w2-huygens\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsUnsupportedRequestsBeforeNativeDispatch(variant: 2)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.RecordFirstSurfaceWithProbeDependentResponse": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0120-004-apochromat_prism-c1-primary-f1-w3-h\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.RejectsChangedNativePhysicalContract(group: \"properties\", key: \"OutputSize\", value: \"\\\"PsfS_64x64\\\"\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AddedAngularUnitsConvertOnlyWithinTheirPhysicalQuantity(from: \"CyclesPerArcSecond\", to: \"CyclesPerMilliradian\", scale: 206.26480624709637)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"fixed-0090-003-binocular_system-c2-primary-f1-w2-h\"\u00b7\u00b7\u00b7)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"Field Curvature and Distortion\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"Field Curvature and Distortion\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPsfContractTests.FormalNormalizerRetainsOriginalGridOutcomes(id: \"0119-004-apochromat_prism-c1-primary-f1-w3-psf\")": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.FreshSharedCoreMatchesLicensedNativeArraysWithoutChangingFocalTolerances(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"Field Curvature and Distortion\", fullband: False)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalRepairNativeTests.AngularPercentageDistortionPassesTheOriginalPercentageGate(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-related.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"FFT PSF Cross Section\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"Diffraction Encircled Energy\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"Diffraction Encircled Energy\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1, key: \"Diffraction Encircled Energy\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.AngularCentroidEnergyMatchesIndependentNativeRays(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.AngularCentroidEnergyMatchesIndependentNativeRays(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"FFT PSF Cross Section\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"Diffraction Encircled Energy\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.AngularCentroidEnergyMatchesIndependentNativeRays(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1, key: \"FFT PSF Cross Section\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilScaleTests.CapturedPrismAutomaticGridMatchesNativeTangentialPupil(key: \"PSF\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilScaleTests.CapturedPrismAutomaticGridMatchesNativeTangentialPupil(key: \"Huygens PSF\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Miscellaneous/Apochromat_prism.zmx\", configuration: 1, key: \"FFT PSF Cross Section\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Afocal/Beam Expander.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.HuygensThroughFocusMatchesNativeWithoutChangingFocalConvention(lens: \"Afocal/Afocal Riflescope.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Binocular_System.ZMX\", configuration: 2, key: \"Diffraction Encircled Energy\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalFftEnergyTests.CapturedScalarFftAndEnergyMeetOriginalNativeGates(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1, key: \"FFT PSF Cross Section\")": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      },
+      "OpticalSystemDesign.ZemaxComparison.Tests.AfocalReferenceFocusTests.GeometricEnergyChiefReferenceMatchesIndependentNativeCapture(lens: \"Afocal/Binocular_System.ZMX\", configuration: 1)": {
+        "outcome": "Passed",
+        "source": "conditioning-energy-regression.trx"
+      }
+    }
+  },
+  "observerPhase": {
+    "tests": 2,
+    "raysComparedExactly": 42,
+    "source": "polygon-paths-final.trx"
+  }
+}
