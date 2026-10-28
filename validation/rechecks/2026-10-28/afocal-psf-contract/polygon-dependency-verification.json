@@ -1,0 +1,22 @@
+{
+  "scope": "offline capture dependencies only",
+  "pythonBefore": {
+    "passed": 8,
+    "failed": 1
+  },
+  "pythonAfter": {
+    "passed": 9
+  },
+  "csharpInitial": {
+    "passed": 2,
+    "failed": 2,
+    "reason": "test expected IOException but guard throws InvalidDataException; corrected assertion types"
+  },
+  "csharpFinal": {
+    "passed": 4
+  },
+  "nativeCompiled": false,
+  "nativeExecuted": false,
+  "originalOpticalResidualsClosed": false,
+  "coreChanged": false
+}

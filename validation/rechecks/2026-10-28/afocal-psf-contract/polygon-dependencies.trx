@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1a616797-ea1b-4d2f-bdbb-71048503567a" name="@fc8a4896a013 2026-10-28 10:26:36" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-28T10:26:36.0497790+00:00" queuing="2026-10-28T10:26:36.0497791+00:00" start="2026-10-28T10:26:35.0583617+00:00" finish="2026-10-28T10:26:36.0550563+00:00" />
+  <TestSettings name="default" id="524520c8-359c-4024-bd6b-fafd2d73db1b">
+    <Deployment runDeploymentRoot="_fc8a4896a013_2026-10-28_10_26_36" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9b21ad74-09d0-4e5f-844b-ced784c862db" testId="04a8f0ec-5c23-82ec-d2e1-27dc42b81a16" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: &quot;changed&quot;)" computerName="fc8a4896a013" duration="00:00:00.0005055" startTime="2026-10-28T10:26:35.9132716+00:00" endTime="2026-10-28T10:26:35.9133552+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b21ad74-09d0-4e5f-844b-ced784c862db">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Polygon dependency SHA-256 mismatch: test.POB; actual=9dd2610ed40c3b690a05e22a7d1328d49cc97893012ed21fe80f80a61af0074a</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(String scenario) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPolygonDependencyTests.cs:line 25
+   at InvokeStub_AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace -----
+   at PolygonDependencyGuard.Verify(String objectsDirectory, String name, String expectedSha256) in /workspace/opticalsystem-afocal/tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/PolygonDependencyGuard.cs:line 21
+   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.&lt;&gt;c__DisplayClass0_1.&lt;CaptureRequiresExactFrozenPolygonBytes&gt;b__0() in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPolygonDependencyTests.cs:line 25</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="20652925-7017-45fc-b5e8-1631799b8180" testId="eee5bd24-5e64-08cc-cf58-7da2c6ef59ee" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: &quot;traversal&quot;)" computerName="fc8a4896a013" duration="00:00:00.0051757" startTime="2026-10-28T10:26:35.8770423+00:00" endTime="2026-10-28T10:26:35.8950748+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20652925-7017-45fc-b5e8-1631799b8180">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Invalid polygon dependency contract.</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(String scenario) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPolygonDependencyTests.cs:line 25
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+----- Inner Stack Trace -----
+   at PolygonDependencyGuard.Verify(String objectsDirectory, String name, String expectedSha256) in /workspace/opticalsystem-afocal/tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/PolygonDependencyGuard.cs:line 14
+   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.&lt;&gt;c__DisplayClass0_1.&lt;CaptureRequiresExactFrozenPolygonBytes&gt;b__0() in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPolygonDependencyTests.cs:line 25</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f4e5fae3-63c4-4a97-ba0e-21151ffb9a2b" testId="25f6e087-63d7-8daa-ee8e-297d39952390" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: &quot;missing&quot;)" computerName="fc8a4896a013" duration="00:00:00.0003228" startTime="2026-10-28T10:26:35.9141617+00:00" endTime="2026-10-28T10:26:35.9142315+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f4e5fae3-63c4-4a97-ba0e-21151ffb9a2b" />
+    <UnitTestResult executionId="19a97f1d-825a-4e4b-bee0-8eb00d22c71c" testId="ec117e47-6342-29b7-4e42-8ee6c8ad576b" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: &quot;matching&quot;)" computerName="fc8a4896a013" duration="00:00:00.0015068" startTime="2026-10-28T10:26:35.9116479+00:00" endTime="2026-10-28T10:26:35.9120411+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19a97f1d-825a-4e4b-bee0-8eb00d22c71c" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: &quot;matching&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="ec117e47-6342-29b7-4e42-8ee6c8ad576b">
+      <Execution id="19a97f1d-825a-4e4b-bee0-8eb00d22c71c" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests" name="CaptureRequiresExactFrozenPolygonBytes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: &quot;traversal&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="eee5bd24-5e64-08cc-cf58-7da2c6ef59ee">
+      <Execution id="20652925-7017-45fc-b5e8-1631799b8180" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests" name="CaptureRequiresExactFrozenPolygonBytes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: &quot;changed&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="04a8f0ec-5c23-82ec-d2e1-27dc42b81a16">
+      <Execution id="9b21ad74-09d0-4e5f-844b-ced784c862db" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests" name="CaptureRequiresExactFrozenPolygonBytes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: &quot;missing&quot;)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="25f6e087-63d7-8daa-ee8e-297d39952390">
+      <Execution id="f4e5fae3-63c4-4a97-ba0e-21151ffb9a2b" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests" name="CaptureRequiresExactFrozenPolygonBytes" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="04a8f0ec-5c23-82ec-d2e1-27dc42b81a16" executionId="9b21ad74-09d0-4e5f-844b-ced784c862db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eee5bd24-5e64-08cc-cf58-7da2c6ef59ee" executionId="20652925-7017-45fc-b5e8-1631799b8180" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25f6e087-63d7-8daa-ee8e-297d39952390" executionId="f4e5fae3-63c4-4a97-ba0e-21151ffb9a2b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ec117e47-6342-29b7-4e42-8ee6c8ad576b" executionId="19a97f1d-825a-4e4b-bee0-8eb00d22c71c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="2" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.09]   Discovering: OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.32]   Discovered:  OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.35]   Starting:    OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.41]       Assert.ThrowsAny() Failure: Exception type was not compatible
+[xUnit.net 00:00:00.41]       Expected: typeof(System.IO.IOException)
+[xUnit.net 00:00:00.41]       Actual:   typeof(System.IO.InvalidDataException)
+[xUnit.net 00:00:00.41]       ---- System.IO.InvalidDataException : Invalid polygon dependency contract.
+[xUnit.net 00:00:00.41]       Stack Trace:
+[xUnit.net 00:00:00.41]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPolygonDependencyTests.cs(25,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(String scenario)
+[xUnit.net 00:00:00.41]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.41]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.41]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.41]         /workspace/opticalsystem-afocal/tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/PolygonDependencyGuard.cs(14,0): at PolygonDependencyGuard.Verify(String objectsDirectory, String name, String expectedSha256)
+[xUnit.net 00:00:00.41]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPolygonDependencyTests.cs(25,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.&lt;&gt;c__DisplayClass0_1.&lt;CaptureRequiresExactFrozenPolygonBytes&gt;b__0()
+[xUnit.net 00:00:00.42]       Assert.ThrowsAny() Failure: Exception type was not compatible
+[xUnit.net 00:00:00.42]       Expected: typeof(System.IO.IOException)
+[xUnit.net 00:00:00.42]       Actual:   typeof(System.IO.InvalidDataException)
+[xUnit.net 00:00:00.42]       ---- System.IO.InvalidDataException : Polygon dependency SHA-256 mismatch: test.POB; actual=9dd2610ed40c3b690a05e22a7d1328d49cc97893012ed21fe80f80a61af0074a
+[xUnit.net 00:00:00.42]       Stack Trace:
+[xUnit.net 00:00:00.42]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPolygonDependencyTests.cs(25,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(String scenario)
+[xUnit.net 00:00:00.42]            at InvokeStub_AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(Object, Span`1)
+[xUnit.net 00:00:00.42]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.42]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.42]         /workspace/opticalsystem-afocal/tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/PolygonDependencyGuard.cs(21,0): at PolygonDependencyGuard.Verify(String objectsDirectory, String name, String expectedSha256)
+[xUnit.net 00:00:00.42]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPolygonDependencyTests.cs(25,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.&lt;&gt;c__DisplayClass0_1.&lt;CaptureRequiresExactFrozenPolygonBytes&gt;b__0()
+[xUnit.net 00:00:00.43]   Finished:    OpticalSystemDesign.ZemaxComparison.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T10:26:35.8993838+00:00">
+        <Text>[xUnit.net 00:00:00.41]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: "traversal") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T10:26:35.9139333+00:00">
+        <Text>[xUnit.net 00:00:00.42]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPolygonDependencyTests.CaptureRequiresExactFrozenPolygonBytes(scenario: "changed") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -60,4 +60,21 @@ class CaptureContextTests(unittest.TestCase):
             self.assertFalse(result['tokenSemanticsVerified'])
             self.assertNotIn('glueDistance',result)
 
+class PolygonPreparationTests(unittest.TestCase):
+    def test_binocular_jobs_bind_both_frozen_polygon_dependencies(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'prepared'
+            jobs = module.prepare(output, '')
+            self.assertEqual(11, len(jobs))
+            for job in jobs:
+                request = json.loads((output / job['request']).read_text())
+                dependencies = request.get('polygonDependencies', [])
+                if Path(request['input']).name == 'Binocular_System.ZMX':
+                    self.assertEqual({'PORRO_PRISM-LH.POB', 'PORRO_PRISM-RH.POB'},
+                                     {d['name'] for d in dependencies})
+                    for dep in dependencies:
+                        self.assertEqual(dep['sha256'], module.sha((output / 'polygon-reference' / dep['name']).read_bytes()))
+                else:
+                    self.assertEqual([], dependencies)
+
 if __name__=='__main__': unittest.main()

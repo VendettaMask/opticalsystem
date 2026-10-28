@@ -83,4 +83,14 @@ instead of returning success merely because host processes exited 0. Capture/run
 failures still stop the batch immediately. Native execution remains untested.
 
 Offline regression: `python tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py`
-(8 tests, no native software).
+(9 tests, no native software).
+
+Polygon dependencies: preparation includes exact frozen LH/RH POB bytes in
+`polygon-reference/` and binds both hashes to every binocular request. Before
+loading a binocular lens, the host checks the same-named files under the native
+application's `ObjectsDir/Polygon Objects` directory. Missing or different bytes
+stop capture with `PolygonDependencyMismatch` and a diagnostic JSON; no installed
+file is copied, overwritten or normalized. The supplied POB files are references,
+not automatically installed dependencies. Even a hash match is not proof of
+loaded internal facet provenance. This API hookup has not been compiled or run
+against proprietary 2026 R1 assemblies; only the independent guard was tested.

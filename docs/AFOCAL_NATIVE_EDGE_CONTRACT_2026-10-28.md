@@ -46,3 +46,15 @@ GitHub Actions API查询返回Forbidden，因此没有确认远端CI结果，也
 本轮修复的是采集器的完成状态缺陷：旧脚本仅检查进程退出码，即使上下文为空也可正常结束。新增8个离线契约测试，添加实现前8项报错，修复后8通过；覆盖缺文件/坏JSON/错配置/空NSC/异常getter/非数值或负值/数值但语义未知，以及UTF-16原始记录保真。每个原生任务的证据状态与进程状态分开保存；仍未核实内部对角线/边缘语义时，整个采集批次保存所有结果后明确以退出码3标记不完整。不会因读到一个数字就宣布原生契约完整。
 
 本轮未修改Core、POB或原比较门槛，也未运行原生或光学长测。当前不可继续修改物理行为所缺的最小输入是：同一冻结ZMX由原生2026 R1读回的NSC属性名/实际值/单位，或官方NSCD字段映射；对角线/边缘归属仍需对应定义。采集器发现接口的能力尚未经专有API编译运行验证，不把“准备好读取”写成“已经读到”。
+
+## 继续核查：外部POB依赖未固定（已修采集契约）
+
+新核查发现：双筒ZMX的NSOH/NCOM引用左右两份POB，而此前11任务准备器仅固定ZMX。官方[2025 R2示例09](https://developer.synopsys.com/docs/zos-api-interface-2025-r2/page_ex09_cs.xhtml)使用应用ObjectsDir下的Polygon Objects目录；仅复制镜头无法保证另一个原生安装使用同一组顶点。此缺口不证明历史原生结果用了错误POB。
+
+准备器现在附带2026-10-24冻结捕获的两份POB原始字节、来源路径和SHA-256，并在所有双筒任务中声明依赖。它们与产品样本逐文本一致，仅换行字节不同；不重写文件、不归一化哈希。host在LoadFile之前只读校验实际app.ObjectsDir/Polygon Objects中的同名文件，缺失或不匹配则写polygon-dependencies.json并停止。不会安装或覆盖用户文件。此校验只证明目录文件字节一致，不冒充原生已加载面来源证明（loadedFacetProvenanceVerified=false）。
+
+新增准备器回归在修改前失败（缺少两项依赖），修改后9项离线测试全部通过；独立C#守卫测试覆盖匹配、缺失、变化和路径越界4种情况。原生host的API调用接线仍未经2026 R1专有程序集编译/执行。没有运行光学150项，也没有修改Core/AutoLens/原参考/门槛。
+
+另外已找到官方[ISystemData](https://developer.synopsys.com/docs/zos-api-interface-2025-r2/interface_z_o_s_a_p_i_1_1_system_data_1_1_i_system_data.xhtml)和[ISDNonSeqData](https://developer.synopsys.com/docs/zos-api-interface-2025-r2/interface_z_o_s_a_p_i_1_1_system_data_1_1_i_s_d_non_seq_data.xhtml)说明：读取路径为SystemData.NonSequentialData.GlueDistanceInLensUnits。公开页面标注2025 R2；它支持现有反射采集路径，但不能替代本例2026 R1实际读数，也没有给出NSCD字段映射或对角线规则。此前“API属性名未知”的范围可缩小到“本机版本读取结果未验证”。
+
+C#测试初次2通过/2失败来自测试对InvalidDataException继承关系的错误断言；修正断言为精确异常类型后4通过。初次和最终TRX均保留于validation/rechecks/2026-10-28/afocal-psf-contract，不把测试断言修正称为光学修复。

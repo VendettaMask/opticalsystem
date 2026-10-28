@@ -6,6 +6,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/PolygonDependencyGuard.cs" Link="PolygonDependencyGuard.cs" />
     <None Include="../../validation/zemax/2026-r1/afocal-psf-contract-2026-10-28/manifest.json" Link="Fixtures/afocal-psf-contract/manifest.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip" Link="Fixtures/afocal-psf-contract/source-evidence.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/afocal-fft-energy-2026-10-27/*.json" Link="Fixtures/afocal-fft-energy/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />

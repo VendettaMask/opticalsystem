@@ -77,6 +77,17 @@ def prepare(output, api):
     output.mkdir(parents=True, exist_ok=False)
     archives = ROOT / 'validation/rechecks/2026-10-27'
     evidence = {'rawNscRecords': []}
+    # Frozen native POB bytes are separate from the ZMX archive. Do not rely on
+    # whichever same-named sample happens to be installed on the capture machine.
+    polygon_dependencies = []
+    polygon_dir = output / 'polygon-reference'
+    polygon_dir.mkdir()
+    for name in ['PORRO_PRISM-LH.POB', 'PORRO_PRISM-RH.POB']:
+        source = ROOT / 'validation/zemax/2026-r1/afocal-repair-2026-10-24/captures' / name
+        raw = source.read_bytes()
+        (polygon_dir / name).write_bytes(raw)
+        polygon_dependencies.append({'name': name, 'sha256': sha(raw), 'source': str(source.relative_to(ROOT))})
+    evidence['polygonDependencies'] = polygon_dependencies
     jobs = []
     with zipfile.ZipFile(archives / 'afocal-fft-energy/evidence-current.zip') as grids, zipfile.ZipFile(archives / 'afocal-reference-focus/evidence.zip') as rays:
         controls = [n for n in rays.namelist() if any('native-reference-controls/Centroid-' + key in n for key in ['0013-', '0065-', '0095-']) and n.endswith('/request.json')]
@@ -95,6 +106,7 @@ def prepare(output, api):
             else:
                 source.write_bytes(raw)
             request.update(input=str(source.resolve()), zosApiPath=api, captureScreenshots=False, inputSha256=sha(raw))
+            request['polygonDependencies'] = polygon_dependencies if filename == 'Binocular_System.ZMX' else []
             # Independent host processes make each analysis a fresh instance.
             for reference in ['Centroid', 'ChiefRay']:
                 item = copy.deepcopy(request)
@@ -138,6 +150,7 @@ def prepare(output, api):
             assert sha(source.read_bytes()) == req['inputSha256']
             req.update(input=str(source.resolve()), zosApiPath=api, pointInputs=points,
                        imageGeometryOnly=False, pointKind='pupil-boundary-and-seam', captureScreenshots=False)
+            req['polygonDependencies'] = polygon_dependencies
             jobs.append(('binocular-c' + str(config) + '-boundary-and-seam33', req))
         evidence['existingEndpoints'] = endpoints
         pupil_text = []

@@ -1,0 +1,15 @@
+........F
+======================================================================
+FAIL: test_binocular_jobs_bind_both_frozen_polygon_dependencies (__main__.PolygonPreparationTests.test_binocular_jobs_bind_both_frozen_polygon_dependencies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 73, in test_binocular_jobs_bind_both_frozen_polygon_dependencies
+    self.assertEqual({'PORRO_PRISM-LH.POB', 'PORRO_PRISM-RH.POB'},
+AssertionError: Items in the first set but not the second:
+'PORRO_PRISM-RH.POB'
+'PORRO_PRISM-LH.POB'
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.081s
+
+FAILED (failures=1)

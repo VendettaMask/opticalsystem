@@ -99,6 +99,28 @@ internal static class Host
             if (actual != expected) throw new InvalidOperationException("Version mismatch: expected " + expected + ", received " + actual);
             app.BeginMessageLogging();
             var system = app.PrimarySystem;
+            if (Request.ContainsKey("polygonDependencies"))
+            {
+                var checks = new List<object>();
+                bool failed = false;
+                foreach (Dictionary<string, object> dependency in (System.Collections.IEnumerable)Request["polygonDependencies"])
+                {
+                    string name = (string)dependency["name"];
+                    try
+                    {
+                        var actual = PolygonDependencyGuard.Verify(app.ObjectsDir, name, (string)dependency["sha256"]);
+                        checks.Add(Object("name", name, "sha256", actual, "matched", true));
+                    }
+                    catch (Exception e)
+                    {
+                        failed = true;
+                        checks.Add(Object("name", name, "matched", false, "error", e.ToString()));
+                    }
+                }
+                Write("polygon-dependencies.json", Object("objectsDirectory", app.ObjectsDir, "checks", checks,
+                    "allMatched", !failed, "loadedFacetProvenanceVerified", false));
+                if (failed) throw new CaptureFailure("PolygonDependencyMismatch", "Frozen polygon dependencies differ or are missing; source lens was not loaded.");
+            }
             if (!system.LoadFile((string)Request["input"], false)) throw new InvalidOperationException("Zemax failed to load snapshot");
             if (Request.ContainsKey("nativeLensUnit") && Request["nativeLensUnit"] != null)
             {
