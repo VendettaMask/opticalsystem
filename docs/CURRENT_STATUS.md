@@ -1,3 +1,5 @@
+2026-10-28 无焦采集状态修复：确认冻结NSCD原始行存在但字段映射未证实；补原文保真记录和不完整证据退出码3，8项离线契约测试通过。未修改Core/参考/门槛，原生未运行。见 [边界契约报告](AFOCAL_NATIVE_EDGE_CONTRACT_2026-10-28.md)。
+
 2026-10-28 GitHub阶段同步：9507a25ecf98c257de6b6baf4b9b352a653dd2a2已推送独立无焦分支并核验远端SHA。官方2026 R1确认R转双三角形及Glue Distance边界规则；采集器补NSC上下文和33点逐面探针，离线检查通过，未执行原生。见 [原生边界契约报告](AFOCAL_NATIVE_EDGE_CONTRACT_2026-10-28.md)。
 
 2026-10-28 阶段同步准备：用户最新消息授权commit/push独立`fix/afocal-precision-20261028`分支；不合并main、不发布。新增PSF夹具改为复用已有冻结归档和哈希清单，较大运行证据保留Library。

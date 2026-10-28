@@ -70,3 +70,17 @@ Missing properties/sections remain explicitly unavailable, not zero defaults.
 `completeNativeEdgeContract=false`: API metadata and sequential group exit rays do
 not establish internal facet IDs, rectangle diagonal or edge-selection behavior.
 The 11-job cap and 120-second per-job timeout are unchanged. No native run performed.
+
+Evidence completion contract: `existing-evidence.json` preserves the original NSCD
+record verbatim (UTF-16/UTF-8 aware) with source hash. Token meaning is unverified;
+no token is silently assigned to Glue Distance. Successful native processes are
+now separately assessed. Missing/invalid context, wrong configuration, absent NSC
+sections, getter errors and invalid glue readbacks are explicitly listed.
+A numeric glue candidate still does not prove its units, rectangle diagonal or
+facet-edge semantics. All completed jobs are retained; the final batch writes
+`evidence-assessment.json` and exits **3** for incomplete native edge evidence,
+instead of returning success merely because host processes exited 0. Capture/runtime
+failures still stop the batch immediately. Native execution remains untested.
+
+Offline regression: `python tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py`
+(8 tests, no native software).

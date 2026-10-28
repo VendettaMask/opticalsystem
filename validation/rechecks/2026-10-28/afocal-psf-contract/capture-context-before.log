@@ -1,0 +1,98 @@
+EEEEEEEE
+======================================================================
+ERROR: test_empty_sections_are_not_zero_glue (__main__.CaptureContextTests.test_empty_sections_are_not_zero_glue)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 33, in test_empty_sections_are_not_zero_glue
+    result = self.assess({'configuration':2,'sections':[]})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 19, in assess
+    return module.assess_native_context(p, 2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'capture_remaining' has no attribute 'assess_native_context'
+
+======================================================================
+ERROR: test_frozen_record_preserves_tokens_without_guessing_their_meaning (__main__.CaptureContextTests.test_frozen_record_preserves_tokens_without_guessing_their_meaning)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 58, in test_frozen_record_preserves_tokens_without_guessing_their_meaning
+    result=module.raw_nsc_records(raw)
+           ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'capture_remaining' has no attribute 'raw_nsc_records'
+
+======================================================================
+ERROR: test_getter_error_is_retained (__main__.CaptureContextTests.test_getter_error_is_retained)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 38, in test_getter_error_is_retained
+    result = self.assess({'configuration':2,'sections':[{'name':'NSC','error':'getter failed'}]})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 19, in assess
+    return module.assess_native_context(p, 2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'capture_remaining' has no attribute 'assess_native_context'
+
+======================================================================
+ERROR: test_malformed_context_is_explicit (__main__.CaptureContextTests.test_malformed_context_is_explicit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 27, in test_malformed_context_is_explicit
+    self.assertIn('context-file-invalid', self.assess(raw='{')['issues'])
+                                          ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 19, in assess
+    return module.assess_native_context(p, 2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'capture_remaining' has no attribute 'assess_native_context'
+
+======================================================================
+ERROR: test_missing_context_is_explicit (__main__.CaptureContextTests.test_missing_context_is_explicit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 22, in test_missing_context_is_explicit
+    result = self.assess()
+             ^^^^^^^^^^^^^
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 19, in assess
+    return module.assess_native_context(p, 2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'capture_remaining' has no attribute 'assess_native_context'
+
+======================================================================
+ERROR: test_numeric_readback_does_not_prove_diagonal_or_edge_semantics (__main__.CaptureContextTests.test_numeric_readback_does_not_prove_diagonal_or_edge_semantics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 48, in test_numeric_readback_does_not_prove_diagonal_or_edge_semantics
+    result = self.assess({'configuration':2,'completeNativeEdgeContract':True,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 19, in assess
+    return module.assess_native_context(p, 2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'capture_remaining' has no attribute 'assess_native_context'
+
+======================================================================
+ERROR: test_unavailable_or_boolean_is_not_numeric_glue (__main__.CaptureContextTests.test_unavailable_or_boolean_is_not_numeric_glue)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 43, in test_unavailable_or_boolean_is_not_numeric_glue
+    result = self.assess({'configuration':2,'sections':[{'name':'NSC','properties':{'GlueDistance':value}}]})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 19, in assess
+    return module.assess_native_context(p, 2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'capture_remaining' has no attribute 'assess_native_context'
+
+======================================================================
+ERROR: test_wrong_configuration_cannot_be_accepted (__main__.CaptureContextTests.test_wrong_configuration_cannot_be_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 30, in test_wrong_configuration_cannot_be_accepted
+    self.assertIn('configuration-mismatch', self.assess({'configuration':1,'sections':[]})['issues'])
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/opticalsystem-afocal/tools/diagnostics/AfocalPsfContract20261028/Test-CaptureRemaining.py", line 19, in assess
+    return module.assess_native_context(p, 2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'capture_remaining' has no attribute 'assess_native_context'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.002s
+
+FAILED (errors=8)

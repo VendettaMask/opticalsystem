@@ -5,6 +5,7 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import subprocess
@@ -17,10 +18,65 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def raw_nsc_records(data):
+    encoding = 'utf-16' if data[:2] in [b'\xff\xfe', b'\xfe\xff'] else 'utf-8-sig'
+    text = data.decode(encoding)
+    return {'records': [line.strip() for line in text.splitlines() if line.strip().startswith('NSCD ')],
+            'tokenSemanticsVerified': False, 'sourceSha256': sha(data)}
+
+
+def assess_native_context(destination, configuration):
+    result = {'evidenceComplete': False, 'glueCandidates': [],
+              'issues': ['native-diagonal-and-edge-semantics-unverified']}
+    path = destination / 'afocal-nsc-context.json'
+    if not path.is_file():
+        result['issues'].append('context-file-missing')
+        return result
+    try:
+        data = json.loads(path.read_text(encoding='utf-8-sig'))
+        if not isinstance(data, dict):
+            raise ValueError('Context must be an object')
+    except (OSError, ValueError):
+        result['issues'].append('context-file-invalid')
+        return result
+    if data.get('configuration') != configuration:
+        result['issues'].append('configuration-mismatch')
+        return result
+    sections = data.get('sections')
+    if not isinstance(sections, list) or not sections:
+        result['issues'].append('nsc-sections-missing')
+        return result
+    for section in sections:
+        if not isinstance(section, dict) or section.get('error'):
+            result['issues'].append('nsc-section-error')
+            continue
+        properties = section.get('properties')
+        if not isinstance(properties, dict):
+            result['issues'].append('nsc-properties-missing')
+            continue
+        for name, value in properties.items():
+            if 'glue' not in name.lower():
+                continue
+            if type(value) in (int, float) and math.isfinite(value) and value >= 0:
+                result['glueCandidates'].append({'section': section.get('name'), 'property': name, 'value': value,
+                                                 'unitsAndSemanticsVerified': False})
+            else:
+                result['issues'].append('glue-field-invalid-or-unavailable')
+    if not result['glueCandidates']:
+        result['issues'].append('numeric-glue-readback-missing')
+    result['issues'] = sorted(set(result['issues']))
+    return result
+
+
+def evidence_exit_code(assessments):
+    # Successful API execution is not a complete native edge contract.
+    return 0 if assessments and all(a.get('evidenceComplete') is True for a in assessments) else 3
+
+
 def prepare(output, api):
     output.mkdir(parents=True, exist_ok=False)
     archives = ROOT / 'validation/rechecks/2026-10-27'
-    evidence = {}
+    evidence = {'rawNscRecords': []}
     jobs = []
     with zipfile.ZipFile(archives / 'afocal-fft-energy/evidence-current.zip') as grids, zipfile.ZipFile(archives / 'afocal-reference-focus/evidence.zip') as rays:
         controls = [n for n in rays.namelist() if any('native-reference-controls/Centroid-' + key in n for key in ['0013-', '0065-', '0095-']) and n.endswith('/request.json')]
@@ -32,6 +88,7 @@ def prepare(output, api):
             members = [n for n in grids.namelist() if n.split('/')[-1] == filename and n.startswith('src/')]
             assert len(members) == 1
             raw = grids.read(members[0])
+            evidence['rawNscRecords'].append({'model': filename, 'configuration': request['configuration'], **raw_nsc_records(raw)})
             source = output / filename
             if source.exists():
                 assert source.read_bytes() == raw
@@ -119,6 +176,7 @@ def run(output, api, jobs):
         subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, check=True, timeout=60)
     Path(str(exe) + '.config').write_text('<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8"/></startup></configuration>')
     results = []
+    assessments = []
     for job in jobs:
         request_path = output / job['request']
         request = json.loads(request_path.read_text())
@@ -135,10 +193,19 @@ def run(output, api, jobs):
                 # Stop the batch; do not target any unrelated running application.
                 status = {'id': job['id'], 'timeout': True, 'nativeChildCleanupUncertain': True}
         status['sourceUnchanged'] = sha(source.read_bytes()) == job['inputSha256']
+        if status.get('exitCode') == 0 and request['adapter'] == 'afocal-diagnosis':
+            assessment = assess_native_context(destination, request['configuration'])
+            assessments.append(assessment)
+            status['evidenceAssessment'] = assessment
         results.append(status)
         (output / 'execution.json').write_text(json.dumps(results, indent=2))
         if status.get('timeout') or status.get('exitCode') != 0 or not status['sourceUnchanged']:
             raise SystemExit('Capture stopped; inspect execution.json and logs')
+    (output / 'evidence-assessment.json').write_text(json.dumps({
+        'captureProcessesCompleted': True, 'nativeEdgeContractComplete': False,
+        'assessments': assessments, 'exitCode': evidence_exit_code(assessments)}, indent=2))
+    print('Capture processes completed; native edge evidence remains incomplete. See evidence-assessment.json.')
+    raise SystemExit(evidence_exit_code(assessments))
 
 
 if __name__ == '__main__':
