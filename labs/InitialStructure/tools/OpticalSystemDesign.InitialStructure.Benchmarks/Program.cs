@@ -12,6 +12,7 @@ using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
 
+if (args.FirstOrDefault() == "--projection-path-audit") return await ProjectionPathBenchmarks.Run(args[1..]);
 if (args.FirstOrDefault() == "--wide-field-diagnose") return await WideFieldCompensationBenchmarks.Diagnose(args[1..]);
 if (args.FirstOrDefault() == "--four-to-three-prepare") return await FourToThreeRecoveryBenchmarks.Prepare(args[1..]);
 if (args.FirstOrDefault() == "--four-to-three-compare") return await FourToThreeRecoveryBenchmarks.Run(args[1..]);

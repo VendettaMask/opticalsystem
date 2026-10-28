@@ -4,6 +4,8 @@ using OpticalSystemDesign.InitialStructure.Engine.Optimization;
 namespace OpticalSystemDesign.InitialStructure.Engine;
 
 /// <summary>Residual/model arithmetic only. All optical values and tangents are supplied by Core through the fixed objective.</summary>
+internal sealed record TopologyProjectionAttempt(double Decrease, int Dimension, bool PrimaryFeasible, bool FallbackAttempted, bool FallbackFeasible);
+
 internal sealed class TopologyTransmissionCompensation
 {
     private readonly int[] _constraints;
@@ -14,9 +16,11 @@ internal sealed class TopologyTransmissionCompensation
     private readonly bool _feasibleDescent;
     private readonly bool _originalRowTolerance;
     private readonly bool _boundedPlanarFallback;
+    private readonly Action<TopologyProjectionAttempt>? _observeProjection;
 
-    internal TopologyTransmissionCompensation(IReadOnlyList<string> ids, int version = 3)
+    internal TopologyTransmissionCompensation(IReadOnlyList<string> ids, int version = 3, Action<TopologyProjectionAttempt>? observeProjection = null)
     {
+        _observeProjection = observeProjection;
         _jointRestoration = version is 4 or 5 or 9 or 11;
         _feasibleDescent = version is 5 or 9 or 11;
         _originalRowTolerance = version == 9;
@@ -207,8 +211,10 @@ internal sealed class TopologyTransmissionCompensation
             token.ThrowIfCancellationRequested();
             var model = constraints.Append((decrease, descent)).ToArray();
             var step = LinearFeasibilityProjection.Solve(model, active.Count, 4096, token, preferred, _originalRowTolerance ? 1e-10 : null);
-            if (step is null && _boundedPlanarFallback && active.Count == 2)
-                step = BoundedPlanarProjection.Solve(model, preferred, token);
+            var primaryFeasible = step is not null;
+            var useFallback = !primaryFeasible && _boundedPlanarFallback && active.Count == 2;
+            if (useFallback) step = BoundedPlanarProjection.Solve(model, preferred, token);
+            _observeProjection?.Invoke(new(decrease, active.Count, primaryFeasible, useFallback, useFallback && step is not null));
             if (step is null || step.Zip(descent, (a, b) => a * b).Sum() >= -1e-10) continue;
             var result = current.ToArray();
             for (var column = 0; column < active.Count; column++)
