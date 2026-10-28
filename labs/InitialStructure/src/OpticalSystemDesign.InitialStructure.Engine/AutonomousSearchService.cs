@@ -247,7 +247,8 @@ public static partial class AutonomousSearchService
             };
         void RebuildPool() => state = state with
         {
-            Pool = state.Candidates.GroupBy(candidate => candidate.Topology.Elements.Length)
+            Pool = state.Candidates.Where(candidate => policy.QualifiedReductionOnly != true || candidate.Assessment.MeetsTargets)
+                .GroupBy(candidate => candidate.Topology.Elements.Length)
                 .SelectMany(group => group.OrderBy(candidate => candidate.Score).ThenBy(candidate => candidate.Id, StringComparer.Ordinal)
                     .Take(policy.CandidatesPerElementCount)).Select(candidate => candidate.Id).ToImmutableArray()
         };
@@ -264,7 +265,10 @@ public static partial class AutonomousSearchService
                 return true;
             }
             if (state.TrialCursor >= policy.MaximumTrials) return false;
-            var parents = state.Pool.Select(Find).Where(candidate => candidate.OperationCursor
+            var parents = state.Pool.Select(Find)
+                .Where(candidate => policy.QualifiedReductionOnly != true || candidate.Assessment.MeetsTargets
+                    && candidate.Topology.Elements.Length > state.Plan.Constraints.MinimumElementCount)
+                .Where(candidate => candidate.OperationCursor
                 < policy.BranchesPerParent + (candidate.Assessment.MeetsTargets ? 0 : 1))
                 .OrderBy(candidate => candidate.OperationCursor).ThenBy(candidate => candidate.Score).ThenBy(candidate => candidate.Id, StringComparer.Ordinal).ToArray();
             if (parents.Length == 0) return false;
@@ -456,6 +460,16 @@ public static partial class AutonomousSearchService
             if (!accepted.Assessment.MeetsTargets || !state.Candidates.Any(candidate => candidate.Id == accepted.Id
                 && ContentFingerprint.Compute(candidate.Topology) == ContentFingerprint.Compute(accepted.Topology)))
                 throw new InvalidDataException("Invalid accepted archive.");
+        if (state.Plan.Options.QualifiedReductionOnly == true)
+        {
+            bool QualifiedParent(string id) => state.Candidates.Any(candidate => candidate.Id == id && candidate.Assessment.MeetsTargets);
+            if (state.Pool.Any(id => !QualifiedParent(id))
+                || state.Candidates.Any(candidate => candidate.ParentId is { } id && !QualifiedParent(id))
+                || state.Pending is { } reduction && (reduction.ParentId is { } parent
+                    ? !QualifiedParent(parent) || reduction.Operation is not ("delete" or "gradual-delete")
+                    : reduction.Operation != "seed" || reduction.Phase != AutonomousSearchPhase.Validation))
+                throw new InvalidDataException("Qualified-only reduction cannot continue an unqualified parent or a non-deletion branch.");
+        }
         if (state.Pending is { } pending && (!Enum.IsDefined(pending.Phase) || pending.ParentId is not null && !state.Candidates.Any(candidate => candidate.Id == pending.ParentId)))
             throw new InvalidDataException("Invalid pending lineage or phase.");
         foreach (var candidate in state.Candidates)
@@ -479,6 +493,10 @@ public static partial class AutonomousSearchService
     {
         ArgumentNullException.ThrowIfNull(plan);
         var options = plan.Options;
+        if (options.QualifiedReductionOnly == true && (options.FixedTopologyOnly == true
+            || options.Expansion is { } reduction && (!reduction.EnableDeletion || reduction.EnableInsertion || reduction.EnableSplit
+                || reduction.EnableMerge || reduction.EnableMaterial || reduction.EnableProfile)))
+            throw new ArgumentException("Qualified-only reduction requires deletion branches without insertion, merge, material, profile or fixed-topology search.");
         if (options.FixedTopologyOnly == true && options.SkipParaxialRecovery == true
             || options.SkipParaxialRecovery == true && options.Expansion?.EnableGradualDeletion == true)
             throw new ArgumentException("Recovery-free comparison cannot enable progressive recovery or the fixed-topology policy.");

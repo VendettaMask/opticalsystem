@@ -6,6 +6,9 @@ namespace OpticalSystemDesign.InitialStructure.Contracts;
 
 public sealed record AutonomousSearchOptions
 {
+    /// <summary>Explicit finite reduction: only qualified parents dispatch deletion; failed children remain evidence.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? QualifiedReductionOnly { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? CheckStageFeasibility { get; init; }
     /// <summary>Defer optional post-local dense checks when their full quota would consume the full-compensation allowance.</summary>

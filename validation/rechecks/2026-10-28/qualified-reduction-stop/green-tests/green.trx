@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7b4f02b0-24d9-4c52-bb9c-286a51bc530e" name="@e19b428609b8 2026-10-28 11:43:01" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-28T11:43:01.6586833+00:00" queuing="2026-10-28T11:43:01.6586833+00:00" start="2026-10-28T11:42:59.7758484+00:00" finish="2026-10-28T11:43:02.3278320+00:00" />
+  <TestSettings name="default" id="a1001bc6-3a20-4968-b093-89123fef6b6f">
+    <Deployment runDeploymentRoot="_e19b428609b8_2026-10-28_11_43_01" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="bf4bb941-905e-48d4-b837-cc63f57f8aab" testId="757ab0d0-2be6-124f-6ba3-4ac8f0066c9b" testName="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.PolicyIsExplicitAndIncompatibleOperationsFailBeforeOptics" computerName="e19b428609b8" duration="00:00:00.0145049" startTime="2026-10-28T11:43:01.6445521+00:00" endTime="2026-10-28T11:43:01.6449398+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf4bb941-905e-48d4-b837-cc63f57f8aab" />
+    <UnitTestResult executionId="b6ac27fd-138e-4eaa-beba-939588f69187" testId="6f7b3e89-f19a-0fac-d135-d40020b6dabc" testName="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.FailedChildIsRetainedButCannotStartAnInsertionOrFurtherDeletion" computerName="e19b428609b8" duration="00:00:00.3780042" startTime="2026-10-28T11:43:01.7056405+00:00" endTime="2026-10-28T11:43:02.0848273+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6ac27fd-138e-4eaa-beba-939588f69187" />
+    <UnitTestResult executionId="2361471c-508d-4d3e-9c2c-c21839a9b1f0" testId="25997534-e476-6739-1b9a-713c76f5eb21" testName="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.FailedSeedCannotStartReductionOrRepairCycle" computerName="e19b428609b8" duration="00:00:00.0971601" startTime="2026-10-28T11:43:01.6460634+00:00" endTime="2026-10-28T11:43:01.7051889+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2361471c-508d-4d3e-9c2c-c21839a9b1f0" />
+    <UnitTestResult executionId="809e6118-756c-46bd-829b-d7ded5ce5f59" testId="d8829b4c-da5e-a63e-97f4-e8346f2694ed" testName="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.BudgetStopKeepsQualifiedParentAndPendingWorkWithoutClaimingBranchExhaustion" computerName="e19b428609b8" duration="00:00:00.1795477" startTime="2026-10-28T11:43:02.0851272+00:00" endTime="2026-10-28T11:43:02.2630872+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="809e6118-756c-46bd-829b-d7ded5ce5f59" />
+    <UnitTestResult executionId="9b777d5f-7eec-4763-88ee-a1e6b157007d" testId="ef84565d-68dd-a1d9-bcd5-659891682a02" testName="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.ConfiguredMinimumStopsWithoutDeletionAndCancellationRemainsResumable" computerName="e19b428609b8" duration="00:00:01.1625687" startTime="2026-10-28T11:43:00.4164914+00:00" endTime="2026-10-28T11:43:01.5894932+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b777d5f-7eec-4763-88ee-a1e6b157007d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.FailedChildIsRetainedButCannotStartAnInsertionOrFurtherDeletion" storage="/workspace/opticalsystem/labs/initialstructure/tests/opticalsystemdesign.initialstructure.tests/bin/release/net10.0/opticalsystemdesign.initialstructure.tests.dll" id="6f7b3e89-f19a-0fac-d135-d40020b6dabc">
+      <Execution id="b6ac27fd-138e-4eaa-beba-939588f69187" />
+      <TestMethod codeBase="/workspace/opticalsystem/labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests" name="FailedChildIsRetainedButCannotStartAnInsertionOrFurtherDeletion" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.BudgetStopKeepsQualifiedParentAndPendingWorkWithoutClaimingBranchExhaustion" storage="/workspace/opticalsystem/labs/initialstructure/tests/opticalsystemdesign.initialstructure.tests/bin/release/net10.0/opticalsystemdesign.initialstructure.tests.dll" id="d8829b4c-da5e-a63e-97f4-e8346f2694ed">
+      <Execution id="809e6118-756c-46bd-829b-d7ded5ce5f59" />
+      <TestMethod codeBase="/workspace/opticalsystem/labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests" name="BudgetStopKeepsQualifiedParentAndPendingWorkWithoutClaimingBranchExhaustion" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.PolicyIsExplicitAndIncompatibleOperationsFailBeforeOptics" storage="/workspace/opticalsystem/labs/initialstructure/tests/opticalsystemdesign.initialstructure.tests/bin/release/net10.0/opticalsystemdesign.initialstructure.tests.dll" id="757ab0d0-2be6-124f-6ba3-4ac8f0066c9b">
+      <Execution id="bf4bb941-905e-48d4-b837-cc63f57f8aab" />
+      <TestMethod codeBase="/workspace/opticalsystem/labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests" name="PolicyIsExplicitAndIncompatibleOperationsFailBeforeOptics" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.FailedSeedCannotStartReductionOrRepairCycle" storage="/workspace/opticalsystem/labs/initialstructure/tests/opticalsystemdesign.initialstructure.tests/bin/release/net10.0/opticalsystemdesign.initialstructure.tests.dll" id="25997534-e476-6739-1b9a-713c76f5eb21">
+      <Execution id="2361471c-508d-4d3e-9c2c-c21839a9b1f0" />
+      <TestMethod codeBase="/workspace/opticalsystem/labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests" name="FailedSeedCannotStartReductionOrRepairCycle" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests.ConfiguredMinimumStopsWithoutDeletionAndCancellationRemainsResumable" storage="/workspace/opticalsystem/labs/initialstructure/tests/opticalsystemdesign.initialstructure.tests/bin/release/net10.0/opticalsystemdesign.initialstructure.tests.dll" id="ef84565d-68dd-a1d9-bcd5-659891682a02">
+      <Execution id="9b777d5f-7eec-4763-88ee-a1e6b157007d" />
+      <TestMethod codeBase="/workspace/opticalsystem/labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.QualifiedReductionTests" name="ConfiguredMinimumStopsWithoutDeletionAndCancellationRemainsResumable" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="757ab0d0-2be6-124f-6ba3-4ac8f0066c9b" executionId="bf4bb941-905e-48d4-b837-cc63f57f8aab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6f7b3e89-f19a-0fac-d135-d40020b6dabc" executionId="b6ac27fd-138e-4eaa-beba-939588f69187" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25997534-e476-6739-1b9a-713c76f5eb21" executionId="2361471c-508d-4d3e-9c2c-c21839a9b1f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8829b4c-da5e-a63e-97f4-e8346f2694ed" executionId="809e6118-756c-46bd-829b-d7ded5ce5f59" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef84565d-68dd-a1d9-bcd5-659891682a02" executionId="9b777d5f-7eec-4763-88ee-a1e6b157007d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="5" executed="5" passed="5" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.09]   Discovering: OpticalSystemDesign.InitialStructure.Tests
+[xUnit.net 00:00:00.22]   Discovered:  OpticalSystemDesign.InitialStructure.Tests
+[xUnit.net 00:00:00.24]   Starting:    OpticalSystemDesign.InitialStructure.Tests
+[xUnit.net 00:00:02.12]   Finished:    OpticalSystemDesign.InitialStructure.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
