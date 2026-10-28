@@ -1,0 +1,5 @@
+# One bounded primary-first scheduling experiment
+
+Predeclared strategy: evaluate the existing primary proposal (including its unchanged smaller-decrease ladder) first. Only if it has no candidate or is nonlinearly rejected may a stronger fallback be considered lazily. Give that fallback at most one consideration per accepted point; after rejection continue primary backtracking. A newly accepted point resets this scheduling state. No eager optical candidate evaluation, extra active variables, changed gates/bounds/sampling or hidden costs.
+
+This is a scheduling experiment, not a claim that all stronger candidates are wrong. Red/green replay uses the saved actual Full starting point from the preceding candidate-chain fixture, with250k rays/60seconds per optical regression. Then at most one fresh original58.752088/167.340368 v5/new-policy pair uses the original600/100/2M/60s and stage caps. If identical to or worse than control, stop this candidate-chain series; do not tune more scheduling constants. Defaults/Core stay unchanged.
