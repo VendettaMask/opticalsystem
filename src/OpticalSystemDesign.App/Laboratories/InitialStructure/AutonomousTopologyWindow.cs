@@ -124,6 +124,7 @@ public sealed partial class AutonomousTopologyWindow : Window
         Number("AutonomousMinutes", "运行时限 (分钟)", 5, .01m, 240);
         Number("AutonomousSeed", "搜索种子", 42, 0, int.MaxValue);
         Choice("AutonomousStructure", "允许改变片数", true);
+        Choice("AutonomousReductionOnly", "仅从达标处方减片", false);
         Choice("AutonomousGradual", "逐步移除难删镜片", true);
         Choice("AutonomousSplit", "允许拆片", true);
         Choice("AutonomousMerge", "允许并片", true);
@@ -203,6 +204,12 @@ public sealed partial class AutonomousTopologyWindow : Window
         {
             if (_applyingPlan) return;
             _planEdited = true;
+            if (id == "AutonomousReductionOnly" && control.IsChecked == true)
+            {
+                _choices["AutonomousStructure"].IsChecked = true;
+                foreach (var branch in new[] { "AutonomousSplit", "AutonomousMerge", "AutonomousMaterial", "AutonomousProfile" })
+                    _choices[branch].IsChecked = false;
+            }
             if (id is "AutonomousPupilRecovery" or "AutonomousGeometryRecovery" && control.IsChecked == true)
                 _choices["AutonomousMatrixDerivatives"].IsChecked = true;
             else if (id == "AutonomousMatrixDerivatives" && control.IsChecked != true)
