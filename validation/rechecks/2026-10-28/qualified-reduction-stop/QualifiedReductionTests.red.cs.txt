@@ -1,0 +1,53 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Differentiation;
+using OpticalSystemDesign.InitialStructure.Contracts;
+using OpticalSystemDesign.InitialStructure.Engine;
+
+namespace OpticalSystemDesign.InitialStructure.Tests;
+
+public sealed class QualifiedReductionTests
+{
+    private static readonly JsonSerializerOptions Json = new() { WriteIndented = true, NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals };
+
+    [Fact]
+    public void FailedSeedCannotStartReductionOrRepairCycle()
+    {
+        using var quota = SequentialTraceMeasurement.BeginCpuBudget(300_000);
+        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+        var plan = Plan() with { Targets = new() { MaximumRmsRadiusMillimeters = 1e-9 } };
+        var result = AutonomousSearchService.Run(AutonomousSearchService.Create("bounded-reduction-failed-seed", plan), cancellationToken: deadline.Token);
+        Write("failed-seed", new { result, Rays = quota.RayCount, RayCap = 300_000 });
+        Assert.Equal(AutonomousSearchStatus.Completed, result.Status);
+        Assert.Equal(0, result.TrialCursor);
+        Assert.Empty(result.AcceptedArchive);
+        Assert.Single(result.Events);
+        Assert.Equal("seed", result.Events[0].Operation);
+        var before = quota.RayCount;
+        var resumed = AutonomousSearchService.Run(result, cancellationToken: deadline.Token);
+        Assert.Equal(before, quota.RayCount);
+        Assert.Equal(result.Events, resumed.Events);
+    }
+
+    private static AutonomousSearchPlan Plan()
+    {
+        var root = new DirectoryInfo(AppContext.BaseDirectory);
+        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        var source = JsonSerializer.Deserialize<DesignTopology>(File.ReadAllText(Path.Combine(root!.FullName,
+            "labs/InitialStructure/benchmarks/autonomous-topology-v1/foundation-3.json")), Json)! with { Fields = [new("Axis", 0, 0)] };
+        var stage = new FixedTopologyOptions { ComputeMode = DesignComputeMode.Cpu, PerformFinalAssessment = false, MaximumUpdates = 0,
+            MaximumFunctionEvaluations = 1, MaximumGradientEvaluations = 0 };
+        return new() { Seeds = [source], Options = new() { QualifiedReductionOnly = true, SkipParaxialRecovery = true,
+            MaximumTrials = 4, BranchesPerParent = 1, MaximumFunctionEvaluations = 20, MaximumGradientEvaluations = 4,
+            MaximumTracedRays = 300_000, MaximumStageTracedRays = 10_000, FinalValidationRayReserve = 80_000,
+            TimeLimit = TimeSpan.FromSeconds(30), Local = stage, Full = stage } };
+    }
+
+    private static void Write(string name, object value)
+    {
+        if (Environment.GetEnvironmentVariable("AUTOLENS_REDUCTION_STOP_EVIDENCE") is not { } folder) return;
+        Directory.CreateDirectory(folder);
+        File.WriteAllText(Path.Combine(folder, name + ".json"), JsonSerializer.Serialize(value, Json));
+    }
+}

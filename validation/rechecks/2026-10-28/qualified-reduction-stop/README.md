@@ -1,0 +1,7 @@
+# Qualified reduction stop policy
+
+User decision: judge the stopping boundary instead of endlessly reducing elements. The exact same-lineage qualified three-element parent is retained; current unqualified two-element trials do not dispatch further deletion. [Offline boundary verification](decision.json) pins the original endpoint and checks identical targets, structural gates, fields, spectrum and protected planes, with zero new optical work. This is an engineering stop, not global infeasibility certification.
+
+The existing generic autonomous search is finite and only directly deletes qualified candidates, but can route failed candidates into repair/insertion and later reduction. The new explicit `QualifiedReductionOnly = true` mode will permit only qualified parents and deletion branches, retain all failed children and charges, preserve qualified archives, and report a bounded stop reason. Null preserves historical plans and fingerprints. No new optical strategy or original-prescription search is authorized by this test. No default/Core changes.
+
+Red regression: before dispatch filtering, a failed seed continues through three repair/insertion decisions rather than stopping after its physical assessment. The explicit CPU test setup initially failed validation before optics; that failure and corrected red output are both retained. Synthetic reduced fixtures are contract tests, not evidence of optical image-quality success or new same-budget prescription improvement.
