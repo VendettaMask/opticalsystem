@@ -9,3 +9,7 @@ The independent SciPy diagnostic solves six saved-data linear programs, each cap
 Next candidate: a bounded two-dimensional polygon intersection fallback only when iterative projection exhausts. Preserve existing proposals when the solver succeeds, all nonlinear filters, phase budgets and default policies. No extra derivative or trace calls; numerical fallback wall time remains inside the original deadline. Require deterministic feasibility/empty-set/cancellation tests before one fresh original-budget v5/candidate pair. Full12-dimensional solves remain unchanged; no increase of local active parameter count.
 
 Saved source is Library v4 version3, ID `libfile_b3b554cb381881918ebd21ba0e590728`; the diagnostic script requires that archive extracted at the repository root. The compact C# fixture does not. No Core changes.
+
+## Implemented isolated fallback
+
+Explicit policy v11 first runs the unchanged v5 projection. Only an exhausted two-dimensional solve may use a polygon clipped by the same halfspaces inside the original unit step box. The returned point is independently checked in all original rows at1e−10. Default and historical policies remain unchanged, and the nonlinear filter remains authoritative. Nine focused background tests passed (saved cone, infeasible sets, cancellation, original gate protection, axial mapping and serialized resume). Optical qualification is not implied; a fresh same-budget v5/v11 pair is pending at this stage.

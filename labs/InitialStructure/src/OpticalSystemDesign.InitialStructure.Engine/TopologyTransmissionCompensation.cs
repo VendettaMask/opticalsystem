@@ -13,12 +13,14 @@ internal sealed class TopologyTransmissionCompensation
     private readonly bool _jointRestoration;
     private readonly bool _feasibleDescent;
     private readonly bool _originalRowTolerance;
+    private readonly bool _boundedPlanarFallback;
 
     internal TopologyTransmissionCompensation(IReadOnlyList<string> ids, int version = 3)
     {
-        _jointRestoration = version is 4 or 5 or 9;
-        _feasibleDescent = version is 5 or 9;
+        _jointRestoration = version is 4 or 5 or 9 or 11;
+        _feasibleDescent = version is 5 or 9 or 11;
         _originalRowTolerance = version == 9;
+        _boundedPlanarFallback = version == 11;
         _constraints = Enumerable.Range(0, ids.Count).Where(row => !ids[row].EndsWith(":x", StringComparison.Ordinal)
             && !ids[row].EndsWith(":y", StringComparison.Ordinal)).ToArray();
         _clearance = _constraints.Where(row => ids[row].EndsWith(":clearance", StringComparison.Ordinal)).ToArray();
@@ -205,6 +207,8 @@ internal sealed class TopologyTransmissionCompensation
             token.ThrowIfCancellationRequested();
             var model = constraints.Append((decrease, descent)).ToArray();
             var step = LinearFeasibilityProjection.Solve(model, active.Count, 4096, token, preferred, _originalRowTolerance ? 1e-10 : null);
+            if (step is null && _boundedPlanarFallback && active.Count == 2)
+                step = BoundedPlanarProjection.Solve(model, preferred, token);
             if (step is null || step.Zip(descent, (a, b) => a * b).Sum() >= -1e-10) continue;
             var result = current.ToArray();
             for (var column = 0; column < active.Count; column++)

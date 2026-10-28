@@ -24,8 +24,8 @@ public static class FixedTopologyOptimizer
         var needsJacobian = transmissionFirst || options.ActiveParameterLimit is not null;
         Require((options.ActiveParameterLimit is null or >= 1 and <= 512) && (!needsJacobian || options.Sampling.IncludeBoundaryClearance == true),
             TopologyFailureCode.InvalidInput, "Transmission compensation/selection requires explicit boundary sampling and a bounded active parameter count.");
-        Require(!needsJacobian || options.TransmissionPolicyVersion is 3 or 4 or 5 or 9, TopologyFailureCode.IdentityMismatch,
-            "An explicit transmission policy version 3, 4 or 5 is required. Unversioned prototype records are read-only; create a fresh versioned plan.");
+        Require(!needsJacobian || options.TransmissionPolicyVersion is 3 or 4 or 5 or 9 or 11, TopologyFailureCode.IdentityMismatch,
+            "An explicit transmission policy version 3, 4, 5, 9 or 11 is required. Unversioned prototype records are read-only; create a fresh versioned plan.");
         var timer = Stopwatch.StartNew();
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         var elapsedBefore = continuation?.Work.Elapsed ?? TimeSpan.Zero;

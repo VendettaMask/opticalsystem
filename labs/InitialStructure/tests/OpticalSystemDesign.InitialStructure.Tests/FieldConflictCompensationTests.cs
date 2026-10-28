@@ -130,6 +130,7 @@ public sealed class FieldConflictCompensationTests
     [InlineData(4)]
     [InlineData(5)]
     [InlineData(9)]
+    [InlineData(11)]
     public void SameNonlinearGateRejectsCrossFieldRegressionsAndNewlyFailedGates(int version)
     {
         string[] ids = ["target:power", "target:inverse-f-number", "field:0:maximum", "field:1:maximum", "field:0:boundary:0:clearance"];
@@ -146,6 +147,7 @@ public sealed class FieldConflictCompensationTests
     [Theory]
     [InlineData(5)]
     [InlineData(9)]
+    [InlineData(11)]
     public void BoundAxialCoordinatesPreserveProtectedPlanesAndSerializedContinuation(int version)
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
