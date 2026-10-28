@@ -1,0 +1,114 @@
+[
+  {
+    "name": "exact bytes pass",
+    "passed": true
+  },
+  {
+    "name": "EOL difference cannot hide behind unchanged=true",
+    "passed": true
+  },
+  {
+    "name": "changed content cannot hide behind unchanged=true",
+    "passed": true
+  },
+  {
+    "name": "incorrect count",
+    "passed": true
+  },
+  {
+    "name": "duplicate path",
+    "passed": true
+  },
+  {
+    "name": "escaping path",
+    "passed": true
+  },
+  {
+    "name": "incorrect aggregate",
+    "passed": true
+  },
+  {
+    "name": "missing file",
+    "passed": true
+  },
+  {
+    "name": "explicit relocation preserves original aggregate and exact bytes",
+    "passed": true
+  },
+  {
+    "name": "no implicit fallback without relocation map",
+    "passed": true
+  },
+  {
+    "name": "relocation map must be pinned",
+    "passed": true
+  },
+  {
+    "name": "modified map cannot bypass pinned hash",
+    "passed": true
+  },
+  {
+    "name": "map must bind the original manifest aggregate",
+    "passed": true
+  },
+  {
+    "name": "relocation cannot substitute a new content hash",
+    "passed": true
+  },
+  {
+    "name": "unknown relocation source",
+    "passed": true
+  },
+  {
+    "name": "duplicate relocation source",
+    "passed": true
+  },
+  {
+    "name": "invalid relocation destination: ../outside.bin",
+    "passed": true
+  },
+  {
+    "name": "invalid relocation destination: /absolute.bin",
+    "passed": true
+  },
+  {
+    "name": "invalid relocation destination: C:/absolute.bin",
+    "passed": true
+  },
+  {
+    "name": "invalid relocation destination: dir\\reference.bin",
+    "passed": true
+  },
+  {
+    "name": "invalid relocation destination: line\nbreak.bin",
+    "passed": true
+  },
+  {
+    "name": "missing relocated bytes",
+    "passed": true
+  },
+  {
+    "name": "relocated EOL difference is not normalized",
+    "passed": true
+  },
+  {
+    "name": "relocated changed content is rejected",
+    "passed": true
+  },
+  {
+    "name": "relocation cannot hide a recreated original path",
+    "passed": true
+  },
+  {
+    "name": "two logical entries cannot share one destination",
+    "passed": true
+  },
+  {
+    "name": "relocation cannot collide with an unmapped frozen entry",
+    "passed": true
+  },
+  {
+    "name": "relocation cannot traverse a working link",
+    "passed": true
+  }
+]
