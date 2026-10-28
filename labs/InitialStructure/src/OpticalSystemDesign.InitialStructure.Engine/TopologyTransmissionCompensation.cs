@@ -22,11 +22,11 @@ internal sealed class TopologyTransmissionCompensation
     internal TopologyTransmissionCompensation(IReadOnlyList<string> ids, int version = 3, Action<TopologyProjectionAttempt>? observeProjection = null)
     {
         _observeProjection = observeProjection;
-        _jointRestoration = version is 4 or 5 or 9 or 11 or 12 or 13;
-        _feasibleDescent = version is 5 or 9 or 11 or 12 or 13;
+        _jointRestoration = version is 4 or 5 or 9 or 11 or 12 or 13 or 14;
+        _feasibleDescent = version is 5 or 9 or 11 or 12 or 13 or 14;
         _originalRowTolerance = version == 9;
-        _boundedPlanarFallback = version is 11 or 12 or 13;
-        _boundedLinearFallback = version is 12 or 13;
+        _boundedPlanarFallback = version is 11 or 12 or 13 or 14;
+        _boundedLinearFallback = version is 12 or 13 or 14;
         _constraints = Enumerable.Range(0, ids.Count).Where(row => !ids[row].EndsWith(":x", StringComparison.Ordinal)
             && !ids[row].EndsWith(":y", StringComparison.Ordinal)).ToArray();
         _clearance = _constraints.Where(row => ids[row].EndsWith(":clearance", StringComparison.Ordinal)).ToArray();

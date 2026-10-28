@@ -43,7 +43,7 @@ public sealed record FixedTopologyOptions
     /// <summary>Choose up to this many independent boundary/constraint sensitivity columns per proposal.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? ActiveParameterLimit { get; init; }
-    /// <summary>Explicit strategy identity: 3 historical restoration, 4 joint restoration, 5 protected merit descent, 9 explicit original-row linear feasibility verification, 11 bounded planar fallback, 12 bounded linear-feasibility fallback, 13 nonlinear-rejection-aware candidate chain.
+    /// <summary>Explicit strategy identity: 3 historical restoration, 4 joint restoration, 5 protected merit descent, 9 explicit original-row linear feasibility verification, 11 bounded planar fallback, 12 bounded linear-feasibility fallback, 13 nonlinear-rejection-aware candidate chain, 14 primary-first lazy fallback.
     /// Unversioned development records remain readable but cannot execute this policy.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? TransmissionPolicyVersion { get; init; }
@@ -109,6 +109,8 @@ public sealed record FixedTopologyStep(int Attempt, bool Accepted, double? Objec
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? UsedFallbackCandidate { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? FallbackConsidered { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ImmutableArray<int>? ActiveParameters { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public TopologyTransmissionStep? Transmission { get; init; }
@@ -121,6 +123,8 @@ public sealed record FixedTopologyContinuation
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool SuppressFallbackAtCurrentPoint { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool TryFallbackNext { get; init; }
     public required string PhaseFingerprint { get; init; }
     public required AutoLensAdamState Adam { get; init; }
     public required double LearningRate { get; init; }
