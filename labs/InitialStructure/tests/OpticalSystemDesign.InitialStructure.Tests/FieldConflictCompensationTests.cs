@@ -132,6 +132,7 @@ public sealed class FieldConflictCompensationTests
     [InlineData(9)]
     [InlineData(11)]
     [InlineData(12)]
+    [InlineData(13)]
     public void SameNonlinearGateRejectsCrossFieldRegressionsAndNewlyFailedGates(int version)
     {
         string[] ids = ["target:power", "target:inverse-f-number", "field:0:maximum", "field:1:maximum", "field:0:boundary:0:clearance"];

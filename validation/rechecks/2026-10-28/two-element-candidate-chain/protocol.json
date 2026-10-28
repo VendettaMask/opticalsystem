@@ -1,0 +1,27 @@
+{
+  "Name": "Exact endpoint nonlinear-rejection-aware candidate chain v5/v13",
+  "Checkpoint": "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/run.autonomous.json",
+  "Sha256": "e5764cee42d8eb1e26a0134b285458bb237abc66cb2776183c9ddef901876af0",
+  "CandidateId": "trial-0",
+  "Versions": [
+    5,
+    13
+  ],
+  "Budget": {
+    "MaximumFunctionEvaluations": 600,
+    "MaximumGradientEvaluations": 100,
+    "MaximumTracedRays": 2000000,
+    "MaximumStageTracedRays": 400000,
+    "FinalValidationRayReserve": 800000,
+    "TimeLimitSeconds": 60
+  },
+  "Notes": [
+    "Fresh original58.752088/167.340368 endpoint and unchanged bounds/conditions/budget for both arms.",
+    "v13 suppresses previously rejected fallback only at the current accepted point; existing lower-decrease primary proposals remain reachable. Existing rate-halving and all nonlinear gates remain unchanged.",
+    "Suppression and selected candidate kind survive validated serialization; every optical attempt follows existing charged Evaluate path. Defaults and Core unchanged."
+  ],
+  "Endpoint": "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5/full.json",
+  "EndpointSha256": "091e12a43c57e531e1c80d6beca77206c9f377b6fc820a46d3c4edbeb63a0984",
+  "Input": "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5/input.json",
+  "InputSha256": "c0c8be3c8d3defd8aca11108acde775a3200bf114f0dd5ab2c663f017b9ad2d8"
+}
