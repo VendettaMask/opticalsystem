@@ -1,0 +1,48 @@
+{
+  "verified": true,
+  "sourceSha256": "091e12a43c57e531e1c80d6beca77206c9f377b6fc820a46d3c4edbeb63a0984",
+  "runs": [
+    {
+      "version": 5,
+      "rmsUm": 55.9258927246604,
+      "maximumUm": 161.4612750551711,
+      "distortionPercent": 2.999882641658419,
+      "rays": 1333862,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 13.1617822,
+      "accepted": 13,
+      "allValid": true,
+      "violations": [
+        "field:33:rms",
+        "field:34:rms",
+        "field:34:maximum"
+      ]
+    },
+    {
+      "version": 11,
+      "rmsUm": 55.9258927246604,
+      "maximumUm": 161.4612750551711,
+      "distortionPercent": 2.999882641658419,
+      "rays": 1333862,
+      "functions": 31,
+      "gradients": 29,
+      "seconds": 10.2843546,
+      "accepted": 13,
+      "allValid": true,
+      "violations": [
+        "field:33:rms",
+        "field:34:rms",
+        "field:34:maximum"
+      ]
+    }
+  ],
+  "totalSearchRaysAcrossTwoSeparateBudgets": 2667724,
+  "testDiagnosticRays": null,
+  "notes": [
+    "Six independent saved-data LP diagnostics and the reproduction regression used zero rays.",
+    "Nine fallback regressions passed; optical mapping/resume tests were separate from search and did not persist exact ray counters. Their stage function/gradient limits remain enforced; do not report this work as zero.",
+    "v11 retained as explicit bounded planar solver fallback, default unchanged; paired final assessment identical to v5.",
+    "Neither result qualifies; not proof of physical impossibility."
+  ]
+}
