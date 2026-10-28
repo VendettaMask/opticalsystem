@@ -45,7 +45,9 @@ public sealed class AfocalComparisonTests
     {
         Assert.Null(AfocalAnalysisContracts.BlockReason("MM", true, "Ray Fan"));
         Assert.Null(AfocalAnalysisContracts.BlockReason("MM", true, "MTF"));
-        Assert.NotNull(AfocalAnalysisContracts.BlockReason("MM", true, "PSF"));
+        Assert.Null(AfocalAnalysisContracts.BlockReason("MM", true, "PSF"));
+        Assert.Null(AfocalAnalysisContracts.BlockReason("MM", true, "Huygens PSF"));
+        Assert.NotNull(AfocalAnalysisContracts.BlockReason("MM", true, "Spot Diagram"));
         Assert.NotNull(AfocalAnalysisContracts.BlockReason("IN", false, "MTF"));
         Assert.Throws<InvalidDataException>(() => PhysicalNormalization.UnitScale("Millimeter", "Diopter"));
         Assert.Throws<InvalidDataException>(() => PhysicalNormalization.UnitScale("Micrometer", "Degree"));

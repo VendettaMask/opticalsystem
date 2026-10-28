@@ -1,0 +1,1854 @@
+{
+  "sourceArchive": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+  "sourceArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "referenceBytesUnchanged": true,
+  "cases": [
+    {
+      "id": "0007-001-afocal-riflescope-c1-primary-f1-w2-psf",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0",
+          "UsePolarization": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "True",
+          "UseCentroid": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Incomparable",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "True",
+          "Display": "32"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Incomparable",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "0037-002-beam-expander-c1-primary-f1-w1-psf",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0",
+          "UsePolarization": "False",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "0038-002-beam-expander-c1-primary-f1-w1-huygens-psf",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Display": "32"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "0059-003-binocular_system-c1-primary-f1-w2-psf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0",
+          "UsePolarization": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Incomparable",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "0060-003-binocular_system-c1-primary-f1-w2-huygens-psf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Display": "32"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Incomparable",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "0089-003-binocular_system-c2-primary-f1-w2-psf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0",
+          "UsePolarization": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Incomparable",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "0090-003-binocular_system-c2-primary-f1-w2-huygens-psf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Display": "32"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Incomparable",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "0119-004-apochromat_prism-c1-primary-f1-w3-psf",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0",
+          "UsePolarization": "False",
+          "WavelengthNumber": "3",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "3",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Display": "32"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-150-v2"
+    },
+    {
+      "id": "fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.05,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0.05",
+          "UsePolarization": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "True",
+          "UseCentroid": "False",
+          "PupilSampling": "64",
+          "ImageSampling": "128"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    },
+    {
+      "id": "fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.05,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.05",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "True",
+          "Display": "128",
+          "Sampling": "64"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    },
+    {
+      "id": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.005,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0.005",
+          "UsePolarization": "False",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False",
+          "PupilSampling": "64",
+          "ImageSampling": "128"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    },
+    {
+      "id": "fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.005,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.005",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Display": "128",
+          "Sampling": "64"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    },
+    {
+      "id": "fixed-0059-003-binocular_system-c1-primary-f1-w2-psf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.05,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0.05",
+          "UsePolarization": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False",
+          "PupilSampling": "64",
+          "ImageSampling": "128"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    },
+    {
+      "id": "fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.05,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.05",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Display": "128",
+          "Sampling": "64"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    },
+    {
+      "id": "fixed-0089-003-binocular_system-c2-primary-f1-w2-psf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.05,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0.05",
+          "UsePolarization": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False",
+          "PupilSampling": "64",
+          "ImageSampling": "128"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    },
+    {
+      "id": "fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.05,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.05",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Display": "128",
+          "Sampling": "64"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    },
+    {
+      "id": "fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "key": "PSF",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.02,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0.02",
+          "UsePolarization": "False",
+          "WavelengthNumber": "3",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False",
+          "PupilSampling": "64",
+          "ImageSampling": "128"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    },
+    {
+      "id": "fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "key": "Huygens PSF",
+      "request": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.02,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.02",
+          "Rotation": "0",
+          "UsePolarization": "False",
+          "UseCentroid": "False",
+          "WavelengthNumber": "3",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Display": "128",
+          "Sampling": "64"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "originalConclusion": "Pass",
+      "batch": "final-fixed-v2"
+    }
+  ],
+  "entries": [
+    {
+      "path": "0007-001-afocal-riflescope-c1-primary-f1-w2-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0007-001-afocal-riflescope-c1-primary-f1-w2-psf/native/data.json",
+      "sha256": "8cd5a1891bfa42187fd35b568e01b151fdb2a3f915ee812dc1b979f775d77205"
+    },
+    {
+      "path": "0007-001-afocal-riflescope-c1-primary-f1-w2-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0007-001-afocal-riflescope-c1-primary-f1-w2-psf/native/model.json",
+      "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+    },
+    {
+      "path": "0007-001-afocal-riflescope-c1-primary-f1-w2-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0007-001-afocal-riflescope-c1-primary-f1-w2-psf/native/captured-settings.json",
+      "sha256": "81a110e0e205a73425c517271ef78e202689a31aedf5cf63b7fcdd6461742d89"
+    },
+    {
+      "path": "0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/native/data.json",
+      "sha256": "6bfb1765940d6af74c40848ee92ce7716277ac752d74950987024fe8f236c205"
+    },
+    {
+      "path": "0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/native/model.json",
+      "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+    },
+    {
+      "path": "0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/native/captured-settings.json",
+      "sha256": "7cf383d0f3832444a09fa51515f13a97d56906d4d07a6daa8b38d12d9b5f8ec7"
+    },
+    {
+      "path": "0037-002-beam-expander-c1-primary-f1-w1-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0037-002-beam-expander-c1-primary-f1-w1-psf/native/data.json",
+      "sha256": "d8ef37c91a669b58cd60f646f554717702a7e0ddcdb9d31cb0e647c70769924f"
+    },
+    {
+      "path": "0037-002-beam-expander-c1-primary-f1-w1-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0037-002-beam-expander-c1-primary-f1-w1-psf/native/model.json",
+      "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+    },
+    {
+      "path": "0037-002-beam-expander-c1-primary-f1-w1-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0037-002-beam-expander-c1-primary-f1-w1-psf/native/captured-settings.json",
+      "sha256": "de36bddb3fe61e378e0121fed767b187cf7c258fc0a428cc9d7dc55f3981999c"
+    },
+    {
+      "path": "0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/native/data.json",
+      "sha256": "42ad4193b6d7e7567ffe710ad3de2c00255fb679be6a726eb52bd6af93e20c1f"
+    },
+    {
+      "path": "0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/native/model.json",
+      "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+    },
+    {
+      "path": "0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/native/captured-settings.json",
+      "sha256": "254c16bb654f841311d5f1dee3541bcd8d6d688b2e9e1f2566c925b9f548659d"
+    },
+    {
+      "path": "0059-003-binocular_system-c1-primary-f1-w2-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0059-003-binocular_system-c1-primary-f1-w2-psf/native/data.json",
+      "sha256": "33ccdb8730901055d1d8c023bda7e4ff974603ad0bb295202135aa0dc0ff7d2a"
+    },
+    {
+      "path": "0059-003-binocular_system-c1-primary-f1-w2-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0059-003-binocular_system-c1-primary-f1-w2-psf/native/model.json",
+      "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+    },
+    {
+      "path": "0059-003-binocular_system-c1-primary-f1-w2-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0059-003-binocular_system-c1-primary-f1-w2-psf/native/captured-settings.json",
+      "sha256": "c86580ea2992ca0e4fa5cb4a23101357378b68d3215c3d78013d642321b26fca"
+    },
+    {
+      "path": "0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/native/data.json",
+      "sha256": "0b4e5a3ef1eb82618e2c477dc2e51832a5649a5b764b979a77d654a95bb9ca30"
+    },
+    {
+      "path": "0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/native/model.json",
+      "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+    },
+    {
+      "path": "0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/native/captured-settings.json",
+      "sha256": "9dfe33b528761bcc187ef0c2a136497d33555cc7b3c19ba93d892640bcdb5e06"
+    },
+    {
+      "path": "0089-003-binocular_system-c2-primary-f1-w2-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0089-003-binocular_system-c2-primary-f1-w2-psf/native/data.json",
+      "sha256": "d22d563b5e98b3b39696ef7708d043a5933b870cabb567a8c2cd500ca41d56c5"
+    },
+    {
+      "path": "0089-003-binocular_system-c2-primary-f1-w2-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0089-003-binocular_system-c2-primary-f1-w2-psf/native/model.json",
+      "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+    },
+    {
+      "path": "0089-003-binocular_system-c2-primary-f1-w2-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0089-003-binocular_system-c2-primary-f1-w2-psf/native/captured-settings.json",
+      "sha256": "0d64cdaa0c9f5e0334bf2f99c28f82ecfe9e6e8c0bd6d5fc475a547b4156f253"
+    },
+    {
+      "path": "0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/native/data.json",
+      "sha256": "afceec30f2983aad4370c73b30b90e8b507b7acf86dfd96f3b6ec7cd91341ca1"
+    },
+    {
+      "path": "0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/native/model.json",
+      "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+    },
+    {
+      "path": "0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/native/captured-settings.json",
+      "sha256": "8d69dd6007e9ee6e842bbdebe494417bcd2a67af60c7f5f9833cc4126509d829"
+    },
+    {
+      "path": "0119-004-apochromat_prism-c1-primary-f1-w3-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0119-004-apochromat_prism-c1-primary-f1-w3-psf/native/data.json",
+      "sha256": "6aeef0675617a962f1599fc971021dcc0347f5837b19fb6ac925d81a18b2a1cd"
+    },
+    {
+      "path": "0119-004-apochromat_prism-c1-primary-f1-w3-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0119-004-apochromat_prism-c1-primary-f1-w3-psf/native/model.json",
+      "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+    },
+    {
+      "path": "0119-004-apochromat_prism-c1-primary-f1-w3-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0119-004-apochromat_prism-c1-primary-f1-w3-psf/native/captured-settings.json",
+      "sha256": "f39c6cdd442b9a4fd258708fdd1d3539d76a52c8eabb0ae5b48b91aca4db4a96"
+    },
+    {
+      "path": "0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/native/data.json",
+      "sha256": "0187222f1ed0d2ef1425f1985e42421e12bd45233c39a3b04a347f115fae9e03"
+    },
+    {
+      "path": "0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/native/model.json",
+      "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+    },
+    {
+      "path": "0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/expanded/0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/native/captured-settings.json",
+      "sha256": "78cc5a89321d247d29d8dd418ce24ee4c3bbdd79774ec54520c0b35ab6c1aeaf"
+    },
+    {
+      "path": "fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf/native/data.json",
+      "sha256": "1f294d2e003152f081be0428e5bdeff42e478d78f49979d4d8345220a51d50ab"
+    },
+    {
+      "path": "fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf/native/model.json",
+      "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+    },
+    {
+      "path": "fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf/native/captured-settings.json",
+      "sha256": "4afb76668c8098805bc8d4346ae9a5c62e2b9d85d2d6ebad7728faa63dc02b49"
+    },
+    {
+      "path": "fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/native/data.json",
+      "sha256": "f9dc87092f09b6ff79f2e6f825cdc28164660a94028054d885006365cf6a8fc6"
+    },
+    {
+      "path": "fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/native/model.json",
+      "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+    },
+    {
+      "path": "fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf/native/captured-settings.json",
+      "sha256": "0d914747c42baa425054f915c8f1b2152977d0e0e249223db5a7ae839572f71f"
+    },
+    {
+      "path": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0037-002-beam-expander-c1-primary-f1-w1-psf/native/data.json",
+      "sha256": "c694bd5dcf28f5ee23caf8d8fff1a5d7a641ab431762270d2c38b54fd2a56b82"
+    },
+    {
+      "path": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0037-002-beam-expander-c1-primary-f1-w1-psf/native/model.json",
+      "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+    },
+    {
+      "path": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0037-002-beam-expander-c1-primary-f1-w1-psf/native/captured-settings.json",
+      "sha256": "eb11704c887f8cf189dabf61e45a2210bfb8e69b4715da4f79e4bfbdb8540de9"
+    },
+    {
+      "path": "fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/native/data.json",
+      "sha256": "3b17ae5a8aeb35f176f3b93075c4a806f525ccec14e047e0f3390684293c9aab"
+    },
+    {
+      "path": "fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/native/model.json",
+      "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+    },
+    {
+      "path": "fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf/native/captured-settings.json",
+      "sha256": "f1d096e5f6d61a48d4214b1ef2e552928d201812e2466a56b2f5834500c59f5f"
+    },
+    {
+      "path": "fixed-0059-003-binocular_system-c1-primary-f1-w2-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0059-003-binocular_system-c1-primary-f1-w2-psf/native/data.json",
+      "sha256": "5d6fe314e3bab14b11febaa476d63ada5b8fd0f6b8344edab3d9c57b295a3c3c"
+    },
+    {
+      "path": "fixed-0059-003-binocular_system-c1-primary-f1-w2-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0059-003-binocular_system-c1-primary-f1-w2-psf/native/model.json",
+      "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+    },
+    {
+      "path": "fixed-0059-003-binocular_system-c1-primary-f1-w2-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0059-003-binocular_system-c1-primary-f1-w2-psf/native/captured-settings.json",
+      "sha256": "cca84c19c4a52c9a236f4bc87d4f33e0f62d5830a29b8a890eebe2523d623ede"
+    },
+    {
+      "path": "fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/native/data.json",
+      "sha256": "ba93fd62de715b7f814df06cd215f74b184b312b8df1aa08ba2c2a844a1740aa"
+    },
+    {
+      "path": "fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/native/model.json",
+      "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+    },
+    {
+      "path": "fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf/native/captured-settings.json",
+      "sha256": "d063b999d7b9fa15bbb0734c7a2e8ce9de54795bc06390629010f705a228b189"
+    },
+    {
+      "path": "fixed-0089-003-binocular_system-c2-primary-f1-w2-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0089-003-binocular_system-c2-primary-f1-w2-psf/native/data.json",
+      "sha256": "896ac0804b2aff3e1f7b7d9fd9d43cfb2543587791d299064bffc4b83c930c6a"
+    },
+    {
+      "path": "fixed-0089-003-binocular_system-c2-primary-f1-w2-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0089-003-binocular_system-c2-primary-f1-w2-psf/native/model.json",
+      "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+    },
+    {
+      "path": "fixed-0089-003-binocular_system-c2-primary-f1-w2-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0089-003-binocular_system-c2-primary-f1-w2-psf/native/captured-settings.json",
+      "sha256": "c91bcda3505af37a9d22c16f4b0e6a58cf72a8793cdc9fdd25c67d2eb5044bd4"
+    },
+    {
+      "path": "fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/native/data.json",
+      "sha256": "5b6bec66c07ea2d6923341f5c902ab0805011450d7db197815cf3610e451fc2d"
+    },
+    {
+      "path": "fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/native/model.json",
+      "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+    },
+    {
+      "path": "fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf/native/captured-settings.json",
+      "sha256": "3e999f7eb0f5a404c919071c35a592dfaa3874376cca52ad5bf5843b2d71443d"
+    },
+    {
+      "path": "fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf/native/data.json",
+      "sha256": "3782904bdd42c0cf481940d672fbf361384ae6d3050dd07b531bd26d181752f0"
+    },
+    {
+      "path": "fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf/native/model.json",
+      "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+    },
+    {
+      "path": "fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf/native/captured-settings.json",
+      "sha256": "e47c9c331f71296581b56f5eda3c0bdd0b1197e14f8d0620b50a7d620f9c00a9"
+    },
+    {
+      "path": "fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/data.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/native/data.json",
+      "sha256": "5cba003ccf043bbfd52946776b963b9ae6b376483b135dc416e7d6963afeb994"
+    },
+    {
+      "path": "fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/model.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/native/model.json",
+      "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+    },
+    {
+      "path": "fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/captured-settings.json",
+      "sourcePath": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf/native/captured-settings.json",
+      "sha256": "c702bce67da7233ac8baacf27ec0aa4a673d162c99ccbd931d1dc82a44b79f4e"
+    }
+  ]
+}

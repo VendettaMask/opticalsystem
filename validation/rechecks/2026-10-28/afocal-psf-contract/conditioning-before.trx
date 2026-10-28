@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f8a8cd09-118b-4f39-be4c-fa1c589ad7d9" name="@fc8a4896a013 2026-10-28 07:40:43" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-28T07:40:43.7381688+00:00" queuing="2026-10-28T07:40:43.7381689+00:00" start="2026-10-28T07:40:42.8870740+00:00" finish="2026-10-28T07:40:43.7449000+00:00" />
+  <TestSettings name="default" id="aea62d6e-49f5-4754-9404-fdcf10798920">
+    <Deployment runDeploymentRoot="_fc8a4896a013_2026-10-28_07_40_43" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ce7b45e9-4083-41b0-ba0d-e51db345b94c" testId="223b16e9-5791-60cd-3b3a-7232591667aa" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0)" computerName="fc8a4896a013" duration="00:00:00.0107211" startTime="2026-10-28T07:40:43.5877677+00:00" endTime="2026-10-28T07:40:43.6101591+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ce7b45e9-4083-41b0-ba0d-e51db345b94c">
+      <Output>
+        <StdOut>angle=0.0001; rotation=0; conjugateErrorMm=3.9225452042046527E-07; residualMm=3.5084169521485683E-11</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range
+Range:  (0 - 9.9999999999999995E-08)
+Actual: 3.9225452042046527E-07</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs:line 34
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1841acf9-0ff2-4f87-b573-9ba92b0f0d01" testId="e729f404-5d96-ab55-6db2-2bb2319e9ede" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.001, rotation: 0)" computerName="fc8a4896a013" duration="00:00:00.0000271" startTime="2026-10-28T07:40:43.6268050+00:00" endTime="2026-10-28T07:40:43.6268741+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1841acf9-0ff2-4f87-b573-9ba92b0f0d01">
+      <Output>
+        <StdOut>angle=0.001; rotation=0; conjugateErrorMm=4.987583679394447E-09; residualMm=4.4611511122265345E-12</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ad42d79f-4755-4532-9a84-5871a9bf3eee" testId="af114693-db44-bb40-4ef6-7f9caabd1b4e" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.001, rotation: 0.69999999999999996)" computerName="fc8a4896a013" duration="00:00:00.0017762" startTime="2026-10-28T07:40:43.6245303+00:00" endTime="2026-10-28T07:40:43.6248718+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad42d79f-4755-4532-9a84-5871a9bf3eee">
+      <Output>
+        <StdOut>angle=0.001; rotation=0.7; conjugateErrorMm=2.273585830503045E-08; residualMm=2.0336030049305532E-11</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d21b66c0-bc5b-4b2c-8968-595265efe62e" testId="39ee708e-d6da-ccd0-b792-7ce52e4ffd42" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0.69999999999999996)" computerName="fc8a4896a013" duration="00:00:00.0000659" startTime="2026-10-28T07:40:43.6278691+00:00" endTime="2026-10-28T07:40:43.6279152+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d21b66c0-bc5b-4b2c-8968-595265efe62e">
+      <Output>
+        <StdOut>angle=1E-05; rotation=0.7; conjugateErrorMm=2.7305638043800774E-05; residualMm=2.442310495274633E-10</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range
+Range:  (0 - 9.9999999999999995E-08)
+Actual: 2.7305638043800774E-05</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs:line 34
+   at InvokeStub_AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="10fe03cd-29f7-4b3e-b078-dba729456ae1" testId="987c292a-569b-2719-abd3-47ffe1ecf40e" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0.69999999999999996)" computerName="fc8a4896a013" duration="00:00:00.0001097" startTime="2026-10-28T07:40:43.6256719+00:00" endTime="2026-10-28T07:40:43.6257493+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="10fe03cd-29f7-4b3e-b078-dba729456ae1">
+      <Output>
+        <StdOut>angle=0.0001; rotation=0.7; conjugateErrorMm=1.074085675627398E-06; residualMm=9.607150950581732E-11</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range
+Range:  (0 - 9.9999999999999995E-08)
+Actual: 1.074085675627398E-06</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs:line 34
+   at InvokeStub_AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="60dd6575-f500-4c0b-a044-840f68b0dc4a" testId="ecf0ef03-5b8a-c19d-0033-12559e75cb6f" testName="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0)" computerName="fc8a4896a013" duration="00:00:00.0000573" startTime="2026-10-28T07:40:43.6269454+00:00" endTime="2026-10-28T07:40:43.6269896+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="60dd6575-f500-4c0b-a044-840f68b0dc4a">
+      <Output>
+        <StdOut>angle=1E-05; rotation=0; conjugateErrorMm=8.284026762339636E-06; residualMm=7.409467527664273E-11</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range
+Range:  (0 - 9.9999999999999995E-08)
+Actual: 8.2840267623396358E-06</Message>
+          <StackTrace>   at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs:line 34
+   at InvokeStub_AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="ecf0ef03-5b8a-c19d-0033-12559e75cb6f">
+      <Execution id="60dd6575-f500-4c0b-a044-840f68b0dc4a" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests" name="NarrowIntersectingPencilsRecoverKnownConjugate" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="223b16e9-5791-60cd-3b3a-7232591667aa">
+      <Execution id="ce7b45e9-4083-41b0-ba0d-e51db345b94c" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests" name="NarrowIntersectingPencilsRecoverKnownConjugate" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0.69999999999999996)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="39ee708e-d6da-ccd0-b792-7ce52e4ffd42">
+      <Execution id="d21b66c0-bc5b-4b2c-8968-595265efe62e" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests" name="NarrowIntersectingPencilsRecoverKnownConjugate" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.001, rotation: 0)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="e729f404-5d96-ab55-6db2-2bb2319e9ede">
+      <Execution id="1841acf9-0ff2-4f87-b573-9ba92b0f0d01" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests" name="NarrowIntersectingPencilsRecoverKnownConjugate" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.001, rotation: 0.69999999999999996)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="af114693-db44-bb40-4ef6-7f9caabd1b4e">
+      <Execution id="ad42d79f-4755-4532-9a84-5871a9bf3eee" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests" name="NarrowIntersectingPencilsRecoverKnownConjugate" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0.69999999999999996)" storage="/workspace/opticalsystem-afocal/tests/opticalsystemdesign.zemaxcomparison.tests/bin/debug/net10.0/opticalsystemdesign.zemaxcomparison.tests.dll" id="987c292a-569b-2719-abd3-47ffe1ecf40e">
+      <Execution id="10fe03cd-29f7-4b3e-b078-dba729456ae1" />
+      <TestMethod codeBase="/workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests" name="NarrowIntersectingPencilsRecoverKnownConjugate" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="223b16e9-5791-60cd-3b3a-7232591667aa" executionId="ce7b45e9-4083-41b0-ba0d-e51db345b94c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e729f404-5d96-ab55-6db2-2bb2319e9ede" executionId="1841acf9-0ff2-4f87-b573-9ba92b0f0d01" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af114693-db44-bb40-4ef6-7f9caabd1b4e" executionId="ad42d79f-4755-4532-9a84-5871a9bf3eee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39ee708e-d6da-ccd0-b792-7ce52e4ffd42" executionId="d21b66c0-bc5b-4b2c-8968-595265efe62e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="987c292a-569b-2719-abd3-47ffe1ecf40e" executionId="10fe03cd-29f7-4b3e-b078-dba729456ae1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecf0ef03-5b8a-c19d-0033-12559e75cb6f" executionId="60dd6575-f500-4c0b-a044-840f68b0dc4a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="2" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.09]   Discovering: OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.25]   Discovered:  OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.28]   Starting:    OpticalSystemDesign.ZemaxComparison.Tests
+[xUnit.net 00:00:00.34]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:00.34]       Range:  (0 - 9.9999999999999995E-08)
+[xUnit.net 00:00:00.34]       Actual: 3.9225452042046527E-07
+[xUnit.net 00:00:00.34]       Stack Trace:
+[xUnit.net 00:00:00.34]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs(34,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation)
+[xUnit.net 00:00:00.34]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.34]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.34]       Output:
+[xUnit.net 00:00:00.34]         angle=0.0001; rotation=0; conjugateErrorMm=3.9225452042046527E-07; residualMm=3.5084169521485683E-11
+[xUnit.net 00:00:00.35]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:00.35]       Range:  (0 - 9.9999999999999995E-08)
+[xUnit.net 00:00:00.35]       Actual: 1.074085675627398E-06
+[xUnit.net 00:00:00.35]       Stack Trace:
+[xUnit.net 00:00:00.35]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs(34,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation)
+[xUnit.net 00:00:00.35]            at InvokeStub_AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Object, Span`1)
+[xUnit.net 00:00:00.35]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.35]       Output:
+[xUnit.net 00:00:00.35]         angle=0.0001; rotation=0.7; conjugateErrorMm=1.074085675627398E-06; residualMm=9.607150950581732E-11
+[xUnit.net 00:00:00.35]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:00.35]       Range:  (0 - 9.9999999999999995E-08)
+[xUnit.net 00:00:00.35]       Actual: 8.2840267623396358E-06
+[xUnit.net 00:00:00.35]       Stack Trace:
+[xUnit.net 00:00:00.35]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs(34,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation)
+[xUnit.net 00:00:00.35]            at InvokeStub_AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Object, Span`1)
+[xUnit.net 00:00:00.35]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.35]       Output:
+[xUnit.net 00:00:00.35]         angle=1E-05; rotation=0; conjugateErrorMm=8.284026762339636E-06; residualMm=7.409467527664273E-11
+[xUnit.net 00:00:00.35]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:00.35]       Range:  (0 - 9.9999999999999995E-08)
+[xUnit.net 00:00:00.35]       Actual: 2.7305638043800774E-05
+[xUnit.net 00:00:00.35]       Stack Trace:
+[xUnit.net 00:00:00.35]         /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs(34,0): at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation)
+[xUnit.net 00:00:00.35]            at InvokeStub_AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Object, Span`1)
+[xUnit.net 00:00:00.35]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.35]       Output:
+[xUnit.net 00:00:00.35]         angle=1E-05; rotation=0.7; conjugateErrorMm=2.7305638043800774E-05; residualMm=2.442310495274633E-10
+[xUnit.net 00:00:00.35]   Finished:    OpticalSystemDesign.ZemaxComparison.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T07:40:43.6135359+00:00">
+        <Text>[xUnit.net 00:00:00.34]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T07:40:43.6261668+00:00">
+        <Text>[xUnit.net 00:00:00.35]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0.69999999999999996) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T07:40:43.6271396+00:00">
+        <Text>[xUnit.net 00:00:00.35]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="fc8a4896a013" outcome="Error" timestamp="2026-10-28T07:40:43.6305297+00:00">
+        <Text>[xUnit.net 00:00:00.35]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0.69999999999999996) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

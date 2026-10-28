@@ -10,7 +10,7 @@ public static class AfocalAnalysisContracts
     {
         if (lensUnit != "MM" && !(normalizeNativeLength && NativeLengthUnitContract.IsSupported(lensUnit)))
             return "Live adapter requires MM lens units or an explicit native millimeter conversion contract; no length/angle substitution.";
-        return afocal && key is not ("Ray Fan" or "MTF" or "Field Curvature" or "Field Curvature and Distortion")
+        return afocal && key is not ("Ray Fan" or "MTF" or "Field Curvature" or "Field Curvature and Distortion" or "PSF" or "Huygens PSF")
             ? $"Afocal {key}: settings/result contract has not been verified; no focal interpretation."
             : null;
     }
@@ -46,6 +46,15 @@ public static class AfocalAnalysisContracts
 
     public static void MapNativePayload(Dictionary<string, object?> payload, CanonicalAnalysisRequest request)
     {
+        if (request.ImageSpaceAfocal && AfocalPsfContract.Applies(request))
+        {
+            AfocalPsfContract.ValidateRequest(request);
+            // Historical property name: the Core AF value is mrad, whereas the
+            // native API expects the model's afocal angular unit. Keep the
+            // canonical request/fingerprint unchanged and convert only payload.
+            payload["imageDeltaMicrometers"] = request.ImageDeltaMicrometers
+                * PhysicalNormalization.UnitScale("Milliradian", request.NativeAfocalAngleUnit!);
+        }
         if (request.ImageSpaceAfocal && request.CanonicalAnalysisKey == "MTF")
             payload["maximumFrequency"] = request.MaximumFrequency
                 * PhysicalNormalization.UnitScale("CyclesPerMilliradian", FrequencyUnit(request));
@@ -90,6 +99,7 @@ public static class AfocalAnalysisContracts
             || root.GetProperty("units").GetProperty("LensUnits").GetString() != "Millimeters"
             || root.GetProperty("units").GetProperty("AfocalModeUnits").GetString() != expected)
             throw new InvalidDataException("Native afocal image-space/angle-unit readback differs from the canonical request.");
+        if (AfocalPsfContract.Applies(request)) AfocalPsfContract.ValidateCapture(dataPath, request);
         if (request.CanonicalAnalysisKey is "Ray Fan" or "MTF")
         {
             var settingsPath = Path.Combine(Path.GetDirectoryName(dataPath)!, "captured-settings.json");

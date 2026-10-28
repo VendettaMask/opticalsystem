@@ -1,0 +1,116 @@
+{
+  "passed": 5,
+  "failed": 0,
+  "newTestIdentities": 2,
+  "extendedExistingTestIdentities": 3,
+  "coreChanged": false,
+  "nativeResidualsClosed": false,
+  "timeLimitSeconds": 180,
+  "records": [
+    {
+      "kind": "ideal-disk",
+      "n": 64,
+      "g": 256,
+      "occupied": 3096,
+      "pitchMrad": 0.06767578125000001,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6706873792824938,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8447238851732807,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9329480205830185,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.002352539672157261,
+      "mtfMaximumAbsolute": 0.002588408958212468,
+      "productionMtfMaximumAbsolute": 0.0025884089582167147,
+      "parsevalRelative": -2.098321516541546e-14,
+      "rasterBudget": 0.12698412698412698
+    },
+    {
+      "kind": "production-huygens-airy",
+      "n": 32,
+      "g": 32,
+      "pitchMrad": 0.02,
+      "airyMaximumAbsolute": 0.023712472493625736,
+      "rasterBudget": 0.25806451612903225,
+      "scope": "scalar paraxial disk; finite cell/window, no absolute flux claim"
+    },
+    {
+      "kind": "ideal-disk",
+      "n": 32,
+      "g": 128,
+      "occupied": 740,
+      "pitchMrad": 0.0666015625,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6986640251253966,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8444485695515955,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9310889765669008,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.006858343559588559,
+      "mtfMaximumAbsolute": 0.005746847636108721,
+      "productionMtfMaximumAbsolute": 0.0057468476361153265,
+      "parsevalRelative": -5.662137425588298e-15,
+      "rasterBudget": 0.25806451612903225
+    },
+    {
+      "kind": "ideal-disk",
+      "n": 128,
+      "g": 512,
+      "occupied": 12644,
+      "pitchMrad": 0.06821289062500001,
+      "windows": [
+        {
+          "radiusMrad": 0.2,
+          "discreteFractionOfPeriod": 0.6771360457808545,
+          "continuumFractionOfInfinitePlane": 0.7015670921224507
+        },
+        {
+          "radiusMrad": 0.4,
+          "discreteFractionOfPeriod": 0.8460423893057974,
+          "continuumFractionOfInfinitePlane": 0.8456348529895353
+        },
+        {
+          "radiusMrad": 0.8,
+          "discreteFractionOfPeriod": 0.9340004321086629,
+          "continuumFractionOfInfinitePlane": 0.933378475676094
+        }
+      ],
+      "airyMaximumAbsolute": 0.00062366762299082,
+      "mtfMaximumAbsolute": 0.0004654008657282438,
+      "productionMtfMaximumAbsolute": 0.0004654008657254405,
+      "parsevalRelative": -5.995204332975845e-15,
+      "rasterBudget": 0.06299212598425197
+    },
+    {
+      "kind": "production-huygens-airy",
+      "n": 64,
+      "g": 32,
+      "pitchMrad": 0.02,
+      "airyMaximumAbsolute": 0.011467859589020302,
+      "rasterBudget": 0.12698412698412698,
+      "scope": "scalar paraxial disk; finite cell/window, no absolute flux claim"
+    }
+  ]
+}

@@ -366,12 +366,19 @@ public sealed class ComparisonRunner
         }
         foreach (var grid in z.Grids)
         {
-            var actual = w.Grids.Single(s => s.Id == grid.Id);
-            var values = ComparisonMetrics.Align(actual, grid, run.Normalizations);
-            var metric = ComparisonMetrics.Calculate(grid.Id, grid.ValueAxis.Unit, values, T(grid.ValueAxis.Quantity));
-            if (grid.ValueAxis.Quantity is "Irradiance" or "WavefrontError")
-                metric = metric with { Extra = ComparisonMetrics.GridStatistics(values, grid.Id, grid.ValueAxis.Quantity == "WavefrontError") };
-            run.Metrics.Add(metric); ReportWriter.Values(Path.Combine(directory, JsonFiles.Slug(grid.Id) + "-values.csv"), values); PlotWriter.Grid(directory, JsonFiles.Slug(grid.Id), values);
+            try
+            {
+                var actual = w.Grids.Single(s => s.Id == grid.Id);
+                var values = ComparisonMetrics.Align(actual, grid, run.Normalizations);
+                var metric = ComparisonMetrics.Calculate(grid.Id, grid.ValueAxis.Unit, values, T(grid.ValueAxis.Quantity));
+                if (grid.ValueAxis.Quantity is "Irradiance" or "WavefrontError")
+                    metric = metric with { Extra = ComparisonMetrics.GridStatistics(values, grid.Id, grid.ValueAxis.Quantity == "WavefrontError") };
+                run.Metrics.Add(metric); ReportWriter.Values(Path.Combine(directory, JsonFiles.Slug(grid.Id) + "-values.csv"), values); PlotWriter.Grid(directory, JsonFiles.Slug(grid.Id), values);
+            }
+            catch (InvalidDataException error) when (AfocalPsfContract.Applies(run.Request))
+            {
+                physicalGaps.Add(grid.Id + ": " + error.Message);
+            }
         }
         if (run.Metrics.Count == 0) { run.Conclusion = Conclusion.Incomparable; run.Reason = string.Join("; ", physicalGaps.Prepend("No shared numerical output")); return; }
         run.Conclusion = run.Metrics.Any(m => m.Conclusion == Conclusion.Incomparable) ? Conclusion.Incomparable

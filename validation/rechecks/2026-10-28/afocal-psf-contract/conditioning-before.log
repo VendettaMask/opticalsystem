@@ -1,0 +1,65 @@
+  OpticalSystemDesign.Core -> /workspace/opticalsystem-afocal/src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> /workspace/opticalsystem-afocal/src/OpticalSystemDesign.Application/bin/Debug/net10.0/OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.ZemaxComparison -> /workspace/opticalsystem-afocal/tools/OpticalSystemDesign.ZemaxComparison/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.dll
+  OpticalSystemDesign.ZemaxComparison.Tests -> /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll
+Test run for /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.34]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0) [FAIL]
+[xUnit.net 00:00:00.35]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0.69999999999999996) [FAIL]
+[xUnit.net 00:00:00.35]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0) [FAIL]
+[xUnit.net 00:00:00.35]     OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0.69999999999999996) [FAIL]
+  Failed OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0) [10 ms]
+  Error Message:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 9.9999999999999995E-08)
+Actual: 3.9225452042046527E-07
+  Stack Trace:
+     at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs:line 34
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Standard Output Messages:
+ angle=0.0001; rotation=0; conjugateErrorMm=3.9225452042046527E-07; residualMm=3.5084169521485683E-11
+
+
+  Failed OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 0.0001, rotation: 0.69999999999999996) [< 1 ms]
+  Error Message:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 9.9999999999999995E-08)
+Actual: 1.074085675627398E-06
+  Stack Trace:
+     at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs:line 34
+   at InvokeStub_AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Standard Output Messages:
+ angle=0.0001; rotation=0.7; conjugateErrorMm=1.074085675627398E-06; residualMm=9.607150950581732E-11
+
+
+  Failed OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0) [< 1 ms]
+  Error Message:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 9.9999999999999995E-08)
+Actual: 8.2840267623396358E-06
+  Stack Trace:
+     at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs:line 34
+   at InvokeStub_AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Standard Output Messages:
+ angle=1E-05; rotation=0; conjugateErrorMm=8.284026762339636E-06; residualMm=7.409467527664273E-11
+
+
+  Failed OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(angle: 1.0000000000000001E-05, rotation: 0.69999999999999996) [< 1 ms]
+  Error Message:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 9.9999999999999995E-08)
+Actual: 2.7305638043800774E-05
+  Stack Trace:
+     at OpticalSystemDesign.ZemaxComparison.Tests.AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Double angle, Double rotation) in /workspace/opticalsystem-afocal/tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPupilConditioningTests.cs:line 34
+   at InvokeStub_AfocalPupilConditioningTests.NarrowIntersectingPencilsRecoverKnownConjugate(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Standard Output Messages:
+ angle=1E-05; rotation=0.7; conjugateErrorMm=2.7305638043800774E-05; residualMm=2.442310495274633E-10
+
+
+Results File: /workspace/opticalsystem-afocal/validation/rechecks/2026-10-28/afocal-psf-contract/conditioning-before.trx
+
+Failed!  - Failed:     4, Passed:     2, Skipped:     0, Total:     6, Duration: 40 ms - OpticalSystemDesign.ZemaxComparison.Tests.dll (net10.0)
