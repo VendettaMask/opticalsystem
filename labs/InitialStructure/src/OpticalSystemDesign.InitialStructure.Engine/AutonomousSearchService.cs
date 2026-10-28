@@ -15,7 +15,7 @@ public static partial class AutonomousSearchService
     /// <summary>Historical transmission prototypes remain readable but must never dispatch optical work.</summary>
     public static bool IsHistoricalReadOnlyPlan(AutonomousSearchPlan plan)
         => new[] { plan.Options.Local, plan.Options.Full }.Any(stage =>
-            (stage.TransmissionFirst == true || stage.ActiveParameterLimit is not null) && stage.TransmissionPolicyVersion is not (3 or 4));
+            (stage.TransmissionFirst == true || stage.ActiveParameterLimit is not null) && stage.TransmissionPolicyVersion is not (3 or 4 or 5));
 
     public static AutonomousSearchCheckpoint Create(string runId, AutonomousSearchPlan plan)
     {
@@ -38,7 +38,7 @@ public static partial class AutonomousSearchService
     {
         Validate(checkpoint);
         if (IsHistoricalReadOnlyPlan(checkpoint.Plan))
-            throw new NotSupportedException("Unversioned transmission prototype records are read-only. Create a fresh plan with explicit policy version 3 or 4.");
+            throw new NotSupportedException("Unversioned transmission prototype records are read-only. Create a fresh plan with explicit policy version 3, 4 or 5.");
         if (!Running.TryAdd(checkpoint.RunId, 0)) throw new InvalidOperationException("This autonomous run is already executing.");
         try { return Execute(checkpoint, save, cancellationToken, progress, recoveryProgress); }
         finally { Running.TryRemove(checkpoint.RunId, out _); }

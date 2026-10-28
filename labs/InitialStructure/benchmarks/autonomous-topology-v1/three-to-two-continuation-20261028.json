@@ -1,0 +1,27 @@
+{
+  "Name": "Qualified 21-degree three-to-two / geometry-recovery paired study",
+  "SourcePlan": "validation/rechecks/2026-10-27/four-to-three-recovery/allocation-runs/four-to-three-42-C-allocated/task.topology-plan.json",
+  "SourcePlanSha256": "8fb93a8da18c1073e12756a464e0d3c08abdae4d2edcfa680b53b071512b66f1",
+  "SourceNative": "validation/rechecks/2026-10-27/four-to-three-recovery/allocation-runs/four-to-three-42-C-allocated/trial-2.staropt",
+  "SourceNativeSha256": "b5bf15d288bb95684f813466f68f125b8e4a29fcbae60340ebf97f81c9632fcc",
+  "SourceElements": 3,
+  "Seeds": [
+    42,
+    101
+  ],
+  "Groups": [
+    "C",
+    "D"
+  ],
+  "Modes": [
+    "baseline",
+    "geometry"
+  ],
+  "PreserveAllFailures": true,
+  "Notes": [
+    "Identical native input; search seeds do not perturb geometry.",
+    "Only geometry-recovery flag differs within each pair.",
+    "Original 6 trials, 600F/100 fixed-ray gradients/2million rays/60s; Local4/Full99 with 400k stage and 800k final reserve.",
+    "Original curvature, per-trial axial window and conic bounds; no new degrees of freedom or changed gates."
+  ]
+}

@@ -1,6 +1,6 @@
 # 初始结构（产品内置模块）
 
-更新：2026-10-27。通过 **实验室 → AI 初始结构** 打开，与镀膜设计同在主程序进程内运行，随标准安装包交付。产品保持纯 C#；相同的基础光学计算使用共享 Core，AutoLens 专用的绿色参考、detach 与 epsilon RMS 损失统计留在实验室。
+更新：2026-10-28。通过 **实验室 → AI 初始结构** 打开，与镀膜设计同在主程序进程内运行，随标准安装包交付。产品保持纯 C#；相同的基础光学计算使用共享 Core，AutoLens 专用的绿色参考、detach 与 epsilon RMS 损失统计留在实验室。
 
 后续镜片增删与自主搜索按[自主镜头拓扑设计实施计划](../../docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)推进。`AutonomousTopologyV1` 已完成 M0–M5：稳定 ID、Core 编译/参数绑定、固定拓扑优化、真实增删恢复、有限多候选 CPU 搜索、硬追迹配额、独立归档和取消续跑，以及原始快照渐进删除、真实拆片/并片、目录材料和显式偶次面型分支。M3 两个短程终点未完整达标；[M4](../../validation/rechecks/2026-10-26/autonomous-search-m4/README.md)与[M5](../../validation/rechecks/2026-10-26/autonomous-expansion-m5/README.md)使用明确的小型流程目标，不证明原任务优化成功。M5 新计划设置 `Options.Expansion = new()` 开启扩展，空值保持 M4 行为和旧检查点校验；过渡片冻结全部变量，只给本片临时厚度例外，实体删除后恢复原约束独立验收。M6 已接入显式 CPU 的内置桌面入口，并完成受控短程对照，范围见下文；下述 `UpstreamE58`、桌面自动优先 GPU 默认及已停止的旧训练保持独立。
 
@@ -49,6 +49,14 @@
 新修复均通过计划显式启用，普通新示例和旧计划未自动升级：`Recovery.UseAutomaticMatrixDerivatives`用共享Core固定平面ABCD导数替换差分，`Recovery.RestorePupilMagnification`另恢复固定光阑的父逆F数；后者必须同时开启自动导数。`Options.ProtectPostRecoveryRayBudget`在完整可选密集检查额度不足时延后，继续Local，最终验收照常。`Options.UseAxialVariablesInRecovery`沿用原冻结轴向权限；`Options.CompensateConic`单独开放锥常数，不自动开启Profile分支或多项式。可空字段省略null，旧身份与续跑不改；恢复矩阵导数计入函数/矩阵/Jacobian，光线梯度计数定义保持，瞳调用另列。
 
 成功需要六个[-2,2]锥常数，属于额外面型自由度；原曲率/轴向界限不变。仅修复恢复/预算仍失败，锥常数配原Full8也以RMS50.472853µm失败；最终Full上限99利用原40万阶段/200万全局剩余额度，实际13接受更新后被阶段追迹截断。不能称与原8更新同段分配、原纯球面权限或普遍可减片。94/94定向后台回归、native回读及默认Release通过，全部28次配额/输入/权限核验。RMS/F数余量小，未作容差认证；全过程后台两处理器低优先级，无原生桌面操作或完整精修。
+
+[两片跨视场补偿方向修复](../../validation/rechecks/2026-10-28/two-element-field-conflict/README.md)已实现显式`TransmissionPolicyVersion=5`：用与实际接受门槛一致的Core组合梯度，在原参数界、逐行保护和下降条件内求步，去掉失败后的未保护原始锚点回退。原v4非线性接受规则不变；旧v3/v4和新例默认v4不升级，v5与旧续跑身份隔离，执行资格明确支持v5。没有改Core光学公式或原AutoLens。
+
+同一最好失败两片、原12变量绝对界（未重新居中）和原配额短程，接受更新0→14，RMS63.985121→58.752088µm、最大180.146721→167.340368µm，仍不合格；畸变2.999702587%、通光/制造/焦距/F数通过。保留原合格三片和两版失败。67个不同相关后台/离屏回归、全12门槛导数和两native回读、默认Release核验通过；诊断/搜索/审计分开计费，无桌面操作/长训练。
+
+[合格三片继续3→2短程](../../validation/rechecks/2026-10-28/three-to-two-continuation/README.md)已完成12次同总配额研究，仍无合格两片，保留原合格三片。默认8次先删第一片均一阶恢复、补偿零接受；D未进入渐进。逐删除诊断后另冻4次第二删除优先人工定点对照，4接受更新后最好RMS63.985121µm/最大180.146721µm仍不合格，其余原门槛通过；新旧沿制造约束恢复像质差很小。诊断显示原v4拒绝跨场恶化的提议，本轮未改保护或验收。人工选位不代表自动搜索排序已改进，第三删除的局部秩失败不证明物理无解。
+
+所有输入/门槛/权限/每试验轴向锚点与上轮总配额不变，12搜索及准备/诊断/native分别计费；源与失败STAROPT和完整记录保留。7个既有定向恢复回归、4种两片native及默认Release核验通过。只新增可复跑研究工具/协议，生产Core/Engine/UI/默认不变；仅后台低优先级两处理器，不操作桌面或启动完整精修。
 
 新实验使用 `AutoLensManagedV1` 入口的显式 `UpstreamE58` 策略，算法后缀 `autolens-upstream-e58-v2`、优化状态 schema 2。默认预设来自已实际跑通的原版 MOBILE_CONFIG：5 mm、F/1.8、全视场 90°、六片、独立前置光阑、20000 mm 物距、r⁴–r¹⁸、种子 42。另保留 README 的五项本地目标适配。载入不自动运行，也不代表成功处方。[逐项对齐及保留差异](../../docs/AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.md)、[预设来源](../../docs/AUTOLENS_OFFICIAL_EXAMPLES.md)、[当前状态](../../docs/CURRENT_STATUS.md)分别说明范围。
 

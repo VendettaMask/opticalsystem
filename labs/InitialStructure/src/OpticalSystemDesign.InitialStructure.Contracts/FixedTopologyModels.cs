@@ -43,7 +43,8 @@ public sealed record FixedTopologyOptions
     /// <summary>Choose up to this many independent boundary/constraint sensitivity columns per proposal.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? ActiveParameterLimit { get; init; }
-    /// <summary>Explicit strategy identity; unversioned development records remain readable but cannot execute this policy.</summary>
+    /// <summary>Explicit strategy identity: 3 historical restoration, 4 joint restoration, 5 protected merit descent.
+    /// Unversioned development records remain readable but cannot execute this policy.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? TransmissionPolicyVersion { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

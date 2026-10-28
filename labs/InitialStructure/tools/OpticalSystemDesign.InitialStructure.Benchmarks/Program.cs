@@ -17,6 +17,11 @@ if (args.FirstOrDefault() == "--four-to-three-prepare") return await FourToThree
 if (args.FirstOrDefault() == "--four-to-three-compare") return await FourToThreeRecoveryBenchmarks.Run(args[1..]);
 if (args.FirstOrDefault() == "--four-to-three-filter") return await FourToThreeRecoveryBenchmarks.FilterAudit(args[1..]);
 if (args.FirstOrDefault() == "--four-to-three-audit") return await FourToThreeRecoveryBenchmarks.Audit(args[1..]);
+if (args.FirstOrDefault() == "--reduction-continuation") return await ReductionContinuationBenchmarks.Run(args[1..]);
+if (args.FirstOrDefault() == "--reduction-diagnose") return await ReductionContinuationBenchmarks.Diagnose(args[1..]);
+if (args.FirstOrDefault() == "--field-conflict-diagnose") return await FieldConflictBenchmarks.Diagnose(args[1..]);
+if (args.FirstOrDefault() == "--field-conflict-compare") return await FieldConflictBenchmarks.Compare(args[1..]);
+if (args.FirstOrDefault() == "--field-conflict-audit") return await FieldConflictBenchmarks.Audit(args[1..]);
 if (args.FirstOrDefault() == "--wide-field-repair") return await WideFieldCompensationBenchmarks.Repair(args[1..]);
 if (args.FirstOrDefault() == "--wide-field-native-audit") return await WideFieldCompensationBenchmarks.Audit(args[1..]);
 if (args.FirstOrDefault() == "--integrated-sampling-audit") return await IntegratedCompensationBenchmarks.Audit(args[1..]);

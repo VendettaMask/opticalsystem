@@ -1,0 +1,60 @@
+{
+  "Verified": true,
+  "Runs": [
+    {
+      "Version": 4,
+      "Metrics": {
+        "Qualified": false,
+        "RmsUm": 63.9851213032571,
+        "MaximumUm": 180.14672063920594,
+        "DistortionPercent": 2.9396326584562047,
+        "FocalMillimeters": 25.009833684790582,
+        "FNumber": 3.40240207165283,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      },
+      "Rays": 1336986,
+      "Functions": 31,
+      "Gradients": 29,
+      "AcceptedUpdates": 0
+    },
+    {
+      "Version": 5,
+      "Metrics": {
+        "Qualified": false,
+        "RmsUm": 58.75208791787859,
+        "MaximumUm": 167.3403684323777,
+        "DistortionPercent": 2.9997025866720604,
+        "FocalMillimeters": 24.990442108572605,
+        "FNumber": 3.4057146971963106,
+        "LostIntegrationRays": 0,
+        "LostCheckRays": 0
+      },
+      "Rays": 1284568,
+      "Functions": 29,
+      "Gradients": 27,
+      "AcceptedUpdates": 14
+    }
+  ],
+  "RmsImprovementPercent": 8.178516003082315,
+  "MaximumImprovementPercent": 7.108845590631951,
+  "ActualSearchRaysAcrossTwoSeparateRuns": 2621554,
+  "AdditionalV4FilterDiagnosticRays": 137544,
+  "AdditionalDirectionDiagnosticRays": 154638,
+  "AdditionalNativeAuditRays": 850300,
+  "MeritDerivativeMaximumAbsoluteError": 7.960711003590637e-09,
+  "MeritDerivativeDiagnosticRaysInTests": 445720,
+  "FocusedTestsPassed": 67,
+  "FallbackDirectionalSlopes": {
+    "RawConstraintObjectiveBeforeClip": -2.7317592229259477,
+    "GuardedMeritBeforeClip": 0.05050879759906528,
+    "GuardedMeritAfterClip": 0.049633662845181115
+  },
+  "Limits": [
+    "Fresh compensation of one fixed failed two-element endpoint, not a new successful three-to-two run.",
+    "All original twelve absolute bounds were reused without axial recentering.",
+    "v5 preserves v4 nonlinear acceptance and independent physical gates; defaults and old versions are not upgraded.",
+    "Both endpoints still fail original spot gates; no physical impossibility claim.",
+    "Shared-host wall time is not an isolated speed benchmark; diagnostics and audits are separate budgets."
+  ]
+}

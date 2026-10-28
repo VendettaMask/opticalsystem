@@ -11,10 +11,12 @@ internal sealed class TopologyTransmissionCompensation
     private readonly int[] _other;
     private readonly HashSet<int> _rms;
     private readonly bool _jointRestoration;
+    private readonly bool _feasibleDescent;
 
     internal TopologyTransmissionCompensation(IReadOnlyList<string> ids, int version = 3)
     {
-        _jointRestoration = version == 4;
+        _jointRestoration = version is 4 or 5;
+        _feasibleDescent = version == 5;
         _constraints = Enumerable.Range(0, ids.Count).Where(row => !ids[row].EndsWith(":x", StringComparison.Ordinal)
             && !ids[row].EndsWith(":y", StringComparison.Ordinal)).ToArray();
         _clearance = _constraints.Where(row => ids[row].EndsWith(":clearance", StringComparison.Ordinal)).ToArray();
@@ -97,6 +99,7 @@ internal sealed class TopologyTransmissionCompensation
     {
         const double radius = 1;
         if (value.ConstraintTangents is not { } tangents) throw new ArithmeticException("Signed constraint tangents are required for transmission compensation.");
+        if (_feasibleDescent) return FeasibleDescent(value, current, binding, active, stepFraction, cancellationToken);
         foreach (var fraction in new[] { 1.05, .75, .5, .25, .1 })
         {
             if (_jointRestoration) cancellationToken.ThrowIfCancellationRequested();
@@ -154,6 +157,81 @@ internal sealed class TopologyTransmissionCompensation
         }
         if (coordinates.Any(item => !double.IsFinite(item))) throw new ArithmeticException("Transmission model produced a non-finite bounded step.");
         return (coordinates, model.Rank);
+    }
+
+    private (double[] Coordinates, int Rank) FeasibleDescent(TopologyObjectiveEvaluation value, IReadOnlyList<double> current,
+        BoundTopologyParameters binding, IReadOnlyList<int> active, double stepFraction, CancellationToken token)
+    {
+        // Version4's nonlinear filter stays authoritative. Model its actual no-worsening
+        // conditions instead of requiring every failed row to shrink by the same fraction.
+        // The old raw-anchor fallback optimizes a different merit even inside the safe
+        // anchor band; clipping its unconstrained step can introduce another mismatch.
+        var tangents = value.ConstraintTangents!.Value;
+        var constraints = new List<(double Offset, double[] Normal)>();
+        var fullGradient = MeritGradient(value);
+        var gradient = active.Select(column => fullGradient[column]).ToArray();
+        foreach (var item in tangents)
+        {
+            var normal = active.Select(column => item.Derivatives[column]).ToArray();
+            if (item.Row < 2)
+            {
+                var band = Math.Max(.95, Math.Abs(item.Value));
+                constraints.Add((item.Value - band, normal));
+                constraints.Add((-item.Value - band, normal.Select(entry => -entry).ToArray()));
+            }
+            else
+            {
+                var raw = item.Value + (_rms.Contains(item.Row) ? .02 : 0);
+                constraints.Add((Math.Min(raw, 0), normal));
+            }
+        }
+        for (var column = 0; column < active.Count; column++)
+        {
+            var slot = binding.Slots[active[column]];
+            var positive = new double[active.Count]; positive[column] = 1;
+            var negative = new double[active.Count]; negative[column] = -1;
+            constraints.Add((-Math.Min(1, slot.UpperCoordinate - current[active[column]]), positive));
+            constraints.Add((-Math.Min(1, current[active[column]] - slot.LowerCoordinate), negative));
+        }
+        var norm = gradient.Aggregate(0.0, double.Hypot);
+        if (!double.IsFinite(norm)) throw new ArithmeticException("Non-finite constraint-merit gradient.");
+        if (norm <= 1e-20) return (current.ToArray(), 0);
+        var descent = gradient.Select(entry => entry / norm).ToArray();
+        var preferred = descent.Select(entry => -entry).ToArray();
+        foreach (var decrease in new[] { .01, .001, .0001, .000001 })
+        {
+            token.ThrowIfCancellationRequested();
+            var model = constraints.Append((decrease, descent)).ToArray();
+            var step = LinearFeasibilityProjection.Solve(model, active.Count, 4096, token, preferred);
+            if (step is null || step.Zip(descent, (a, b) => a * b).Sum() >= -1e-10) continue;
+            var result = current.ToArray();
+            for (var column = 0; column < active.Count; column++)
+            {
+                var slot = binding.Slots[active[column]];
+                result[active[column]] = Math.Clamp(result[active[column]] + stepFraction * step[column], slot.LowerCoordinate, slot.UpperCoordinate);
+            }
+            // A round-off clamp must not silently turn the returned displacement uphill.
+            if (active.Select((index, column) => (result[index] - current[index]) * descent[column]).Sum() >= -1e-12) continue;
+            var matrix = new double[tangents.Length, active.Count];
+            for (var row = 0; row < tangents.Length; row++)
+                for (var column = 0; column < active.Count; column++) matrix[row, column] = tangents[row].Derivatives[active[column]];
+            return (result, new RegularizedLeastSquaresModel(matrix, new double[tangents.Length]).Rank);
+        }
+        return (current.ToArray(), 0);
+    }
+
+    internal double[] MeritGradient(TopologyObjectiveEvaluation value)
+    {
+        var gradient = new double[value.Gradient.Length];
+        var restoreOther = Merit(value).Other > 1e-16;
+        foreach (var item in value.ConstraintTangents!.Value)
+        {
+            var violation = Violation(value, item.Row);
+            if ((_clearance.Contains(item.Row) == !restoreOther) && violation > 0)
+                for (var column = 0; column < gradient.Length; column++)
+                    gradient[column] += 2 * violation * (item.Row < 2 ? Math.Sign(item.Value) : 1) * item.Derivatives[column];
+        }
+        return gradient;
     }
 
     private static void SubtractProjection(double[] vector, double[] unit)

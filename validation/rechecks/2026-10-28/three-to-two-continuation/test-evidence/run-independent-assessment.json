@@ -1,0 +1,59 @@
+{
+  "assessment": {
+    "OpticFingerprint": "5e3e2b6674274c73e3523d37f4da2de13d87d5dbf7fdda25eb347a836175f827",
+    "ProtocolFingerprint": "2f050b5a0183df40330834fd8c549fe7334ff6d119fb44ed4176429c27a49ec6",
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 12.5,
+      "FocalLengthRelativeTolerance": 1,
+      "FNumberRelativeTolerance": 1,
+      "MaximumRmsRadiusMillimeters": 5,
+      "MaximumSpotRadiusMillimeters": 10,
+      "MaximumDistortionFraction": 1,
+      "MinimumValidRayFraction": 0.1,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.01,
+      "MaximumOpticalTrackMillimeters": 10000,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "StructuralConstraints": {
+      "MinimumElementCount": 1,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 0.1,
+      "MaximumMechanicalTrackMillimeters": 10000,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "EffectiveFocalLengthMillimeters": 49.06699461689734,
+    "FNumber": 12.266748654224335,
+    "Fields": [
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.14835444241707266,
+        "MaximumRadiusMillimeters": 0.22916192873483254,
+        "DistortionFraction": 0,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "Violations": [],
+    "Completed": true,
+    "MeetsTargets": true,
+    "TracedRayCount": 2120,
+    "GeometryProbes": 583,
+    "Failure": null
+  },
+  "PhysicalRays": 2120
+}
