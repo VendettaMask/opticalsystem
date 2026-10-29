@@ -84,6 +84,7 @@ internal static class Host
         if (!ZOSAPI_NetHelper.ZOSAPI_Initializer.Initialize(api)) throw new InvalidOperationException("ZOS-API initializer failed");
         IZOSAPI_Application app = null;
         IA_ analysis = null;
+        string ownedPolygon = null;
         try
         {
             app = new ZOSAPI_Connection().CreateNewApplication();
@@ -108,8 +109,8 @@ internal static class Host
                     string name = (string)dependency["name"];
                     try
                     {
-                        var actual = PolygonDependencyGuard.Verify(app.ObjectsDir, name, (string)dependency["sha256"]);
-                        checks.Add(Object("name", name, "sha256", actual, "matched", true));
+                        var verifiedHash = PolygonDependencyGuard.Verify(app.ObjectsDir, name, (string)dependency["sha256"]);
+                        checks.Add(Object("name", name, "sha256", verifiedHash, "matched", true));
                     }
                     catch (Exception e)
                     {
@@ -143,6 +144,18 @@ internal static class Host
                     "method", "OpticStudio.Tools.OpenScale.ScaleByUnits", "savedInput", false));
             }
             system.MCE.SetCurrentConfiguration(Int("configuration"));
+            if (Request.ContainsKey("diagnosticPolygonTriangles"))
+                ownedPolygon = NativePolygonControl.Apply(system, app.ObjectsDir);
+            if (Request.ContainsKey("diagnosticGaussianApodizationFactor"))
+            {
+                double factor = Number("diagnosticGaussianApodizationFactor");
+                if (double.IsNaN(factor) || factor < 0.1 || factor > 4) throw new InvalidOperationException("Bounded Gaussian diagnostic required");
+                var originalApodization = Properties(system.SystemData.Aperture);
+                system.SystemData.Aperture.ApodizationType = ZOSAPI.SystemData.ZemaxApodizationType.Gaussian;
+                system.SystemData.Aperture.ApodizationFactor = factor;
+                Write("diagnostic-apodization.json", Object("original", originalApodization,
+                    "actual", Properties(system.SystemData.Aperture), "savedInput", false, "originalReferenceRequest", false));
+            }
             var fields = Enumerable.Range(1, system.SystemData.Fields.NumberOfFields)
                 .Select(i => Object("number", i, "data", Properties(system.SystemData.Fields.GetField(i)))).ToArray();
             var waves = Enumerable.Range(1, system.SystemData.Wavelengths.NumberOfWavelengths)
@@ -155,6 +168,16 @@ internal static class Host
                 "surfaces", Enumerable.Range(0, system.LDE.NumberOfSurfaces).Select(i => Properties(system.LDE.GetSurfaceAt(i))).ToArray(),
                 "warnings", system.GetCurrentStatus()));
             if ((string)Request["adapter"] == "probe") return 0;
+            if ((string)Request["adapter"] == "nsc-normals")
+            {
+                NativeNormalsCapture.Run(system, app);
+                return 0;
+            }
+            if ((string)Request["adapter"] == "nsc-facet-paths")
+            {
+                NativeFacetPathCapture.Run(system);
+                return 0;
+            }
             if ((string)Request["adapter"] == "afocal-diagnosis")
             {
                 AfocalDiagnosticCapture.Run(system);
@@ -224,6 +247,7 @@ internal static class Host
         {
             if (analysis != null) try { analysis.Close(); } catch (Exception e) { Console.Error.WriteLine(e.Message); }
             if (app != null) try { app.CloseApplication(); } catch (Exception e) { Console.Error.WriteLine(e.Message); }
+            if (ownedPolygon != null) NativePolygonControl.RemoveOwned(ownedPolygon);
         }
     }
     private static object[][] Matrix(double[,] values)

@@ -15,6 +15,41 @@ namespace OpticalSystemDesign.InitialStructure.Tests;
 public sealed partial class AutonomousDesktopTests
 {
     [Fact]
+    public async Task ImageScreeningOptionsRoundTripWithoutTracingAndLocalizeInEveryLanguage()
+    {
+        using var files = new OwnedFiles();
+        using var host = SafeHeadlessUnitTestSession.StartNew(typeof(FlatStartDesktopTests));
+        await host.Dispatch(async () =>
+        {
+            var language = UiLocalization.CurrentLanguage;
+            var screening = new SeedImageScreeningOptions { MaximumCandidates = 3, BoundaryCheckArms = 8, MaximumTracedRaysPerCandidate = 1800 };
+            var plan = Plan() with { Options = Plan().Options with { SeedPreparation = new() { ImageScreening = screening } } };
+            using var trace = SequentialTraceMeasurement.Begin();
+            var window = new AutonomousTopologyWindow(new() { RunDirectory = files.Root, InitialPlan = plan,
+                SavePicker = (_, _) => Task.FromResult<string?>(files.Path("image-ranked.topology-plan.json")) });
+            try
+            {
+                window.Show(); window.UpdateLayout();
+                Assert.True(Find<CheckBox>(window, "AutonomousImageScreening").IsChecked);
+                Assert.Equal(1800m, Find<NumericUpDown>(window, "AutonomousScreenRays").Value);
+                foreach (var locale in new[] { UiLocalization.Chinese, UiLocalization.English, UiLocalization.Japanese })
+                {
+                    UiLocalization.Apply(locale); window.UpdateLayout();
+                    Assert.Equal(UiLocalization.Text("按真实像差筛选并排序起点"),
+                        Find<CheckBox>(window, "AutonomousImageScreening").Content);
+                }
+                Click(window, "AutonomousSavePlan"); await window.PendingOperation;
+                var saved = await AutonomousDesignFiles.LoadPlanAsync(files.Path("image-ranked.topology-plan.json"));
+                Assert.Equal(screening, saved.Options.SeedPreparation!.ImageScreening);
+                Assert.Equal(0, trace.RayCount);
+                Assert.Null(window.CurrentCheckpoint);
+            }
+            finally { window.RequestSafeClose(); await window.PendingOperation; UiLocalization.Apply(language); }
+            return true;
+        }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(1));
+    }
+
+    [Fact]
     public async Task FirstOrderButtonPreparesAndPersistsNewPlanWithoutStartingSearchAndLocalizesControls()
     {
         using var files = new OwnedFiles();

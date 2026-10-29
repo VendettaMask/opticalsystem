@@ -30,7 +30,7 @@ internal sealed partial class CameraImagingService
 
     public async Task<CameraSensorProfile> ImportSensorAsync(string path, CancellationToken cancellationToken = default)
     {
-        var bytes = await BoundedFile.ReadAllBytesAsync(path, MaximumSensorFileBytes, "Camera sensor profile", cancellationToken).ConfigureAwait(false);
+        var bytes = await BoundedFile.ReadAllBytesAsync(path, MaximumCalibrationBytes, "Camera sensor profile", cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         var payload = bytes.AsMemory();
         if (payload.Length >= 3 && payload.Span[0] == 0xEF && payload.Span[1] == 0xBB && payload.Span[2] == 0xBF) payload = payload[3..];
@@ -46,6 +46,7 @@ internal sealed partial class CameraImagingService
                 RequireCurveProperties(response);
             var profile = JsonSerializer.Deserialize<CameraSensorProfile>(payload.Span, SensorJsonOptions)
                 ?? throw new InvalidDataException("传感器参数文件为空。");
+            if (profile.Calibration is null && bytes.Length > MaximumSensorFileBytes) throw new InvalidDataException("无标定帧的传感器模板上限为 1 MiB。");
             return ValidateProfile(profile) with { Origin = Origin(path, bytes) };
         }
         catch (Exception ex) when (ex is JsonException or ArgumentException or InvalidOperationException)
@@ -89,7 +90,7 @@ internal sealed partial class CameraImagingService
         cancellationToken.ThrowIfCancellationRequested();
         profile = ValidateProfile(profile);
         var bytes = JsonSerializer.SerializeToUtf8Bytes(profile, SensorJsonOptions);
-        return BoundedFile.WriteAllBytesAtomicAsync(path, bytes, MaximumSensorFileBytes, "Camera sensor profile", cancellationToken);
+        return BoundedFile.WriteAllBytesAtomicAsync(path, bytes, profile.Calibration is null ? MaximumSensorFileBytes : MaximumCalibrationBytes, "Camera sensor profile", cancellationToken);
     }
 
     private static CameraSensorProfile ValidateProfile(CameraSensorProfile profile)
@@ -101,7 +102,8 @@ internal sealed partial class CameraImagingService
         ValidateOrigin(profile.Origin);
         if (profile.Sensor is null) throw new InvalidDataException("传感器参数不能为空。");
         CameraSensorPipeline.Validate(ToCore(profile.Sensor), new());
-        return profile with { SpectralResponse = FreezeResponse(profile.SpectralResponse) };
+        return profile with { SpectralResponse = FreezeResponse(profile.SpectralResponse),
+            Calibration = profile.Calibration is null ? null : FreezeCalibration(profile.Calibration) };
     }
 
     private static CameraResponseCurve? FreezeResponse(CameraResponseCurve? curve)

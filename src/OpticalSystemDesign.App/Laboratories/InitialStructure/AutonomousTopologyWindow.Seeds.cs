@@ -39,6 +39,9 @@ public sealed partial class AutonomousTopologyWindow
             + $"{UiLocalization.Text("矩阵")} {result.MatrixRequests} · Jacobian {result.Work.JacobianBuilds} · "
             + $"{UiLocalization.Text("几何查询")} {result.Work.GeometryProbes} · {UiLocalization.Text("追迹")} {result.Work.TracedRays}/{options.MaximumTracedRays}\n"
             + _seedReportPath;
+        if (result.ImageScreens is { } screens)
+            _seedSummary.Text += "\n" + UiLocalization.Text("真实像差筛选，仅用于起点排序")
+                + $" · {screens.Count(screen => screen.Outcome == "Screened")}/{screens.Length}";
     }
 
     private async Task PrepareSeedsAsync()
@@ -76,7 +79,7 @@ public sealed partial class AutonomousTopologyWindow
         _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear();
         _seedResult = result; _seedReportPath = reportPath; RefreshSeedSummary();
         _status.Text = UiLocalization.Text(result.Termination == ParaxialSeedTermination.Cancelled ? "一阶准备已停止并保存"
-            : result.Seeds.IsEmpty ? "未找到满足一阶条件的起点，原起点保留" : "一阶起点已保存，尚未运行完整光学搜索");
+            : result.Seeds.IsEmpty ? result.ImageScreens is not null ? "像差筛选未得到完整有效结果，原起点保留" : "未找到满足一阶条件的起点，原起点保留" : "一阶起点已保存，尚未运行完整光学搜索");
     }
 
     private ParaxialSeedSearchOptions ReadSeedOptions(ParaxialSeedSearchOptions original)
@@ -92,6 +95,9 @@ public sealed partial class AutonomousTopologyWindow
             MaximumEvaluationsPerStart = Whole("AutonomousSeedPerStart"),
             Generation = ReadGeneration(original.Generation),
             FixedStopRecoveryVersion = _choices["AutonomousFixedStopRecovery"].IsChecked == true ? 2 : null,
+            ImageScreening = _choices["AutonomousImageScreening"].IsChecked == true
+                ? (original.ImageScreening ?? new() { BoundaryCheckArms = 8, PupilRings = 1, PupilArms = 4 }) with
+                    { MaximumTracedRaysPerCandidate = Whole("AutonomousScreenRays") } : null,
             TimeLimit = seconds == (decimal)original.TimeLimit.TotalSeconds ? original.TimeLimit : TimeSpan.FromSeconds((double)seconds)
         };
     }

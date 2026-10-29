@@ -43,6 +43,7 @@
 - [非序列光源](NONSEQUENTIAL_SOURCES.md)
 - [非序列模式 Zemax 工作流对齐路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)
 - [数值验证与冻结历史回归](NUMERICAL_PARITY.md)
+- [无焦精度：本机 Zemax 后台核验与未关闭残差](AFOCAL_NATIVE_RESUME_2026-10-29.md)
 - [计算精度与发布待解决问题分类](OPEN_ISSUES_2026-10-08.md)
 - [光学装调实验室](OPTICAL_ASSEMBLY_LAB.md)
 - [相机成像仿真实验室：传感器、ISP 与 A/B 对照](CAMERA_IMAGING_LAB.md)

@@ -35,6 +35,7 @@ public sealed partial class CameraImagingWindow
         var importSensor = new Button { Name = "camera-import-sensor", Content = "导入传感器" };
         var saveSensor = new Button { Name = "camera-save-sensor", Content = "保存参数/模板" };
         var importResponse = new Button { Name = "camera-import-response", Content = "导入 QE 曲线" };
+        var calibrate = new Button { Name = "camera-calibrate-sensor", Content = "暗场／平场标定" };
         importSensor.Click += async (_, _) =>
         {
             var path = await PickSensorFileAsync("导入传感器参数", "*.json");
@@ -46,12 +47,22 @@ public sealed partial class CameraImagingWindow
             if (path is not null) await ImportResponseFromPathAsync(path);
         };
         saveSensor.Click += async (_, _) => await SaveSensorProfileAsync();
+        calibrate.Click += async (_, _) =>
+        {
+            try
+            {
+                var baseline = CurrentSensorProfile(); var generation = _generation;
+                var path = await PickSensorFileAsync("导入暗场／平场 RAW 标定 JSON", "*.json");
+                if (path is not null && generation == _generation) await CalibrateSensorFromPathAsync(path, baseline);
+            }
+            catch (Exception ex) { if (!_closed) _status.Text = "标定未应用：" + ex.Message; }
+        };
         _clearResponse.Click += (_, _) => ClearSpectralResponse();
         return Group("传感器文件与响应", new Control[]
         {
-            LaboratoryPresentation.Commands(importSensor, saveSensor, importResponse, _clearResponse),
+            LaboratoryPresentation.Commands(importSensor, saveSensor, importResponse, _clearResponse, calibrate),
             _sensorProfileInfo, _responseInfo,
-            LaboratoryPresentation.Hint("JSON 保存当前传感器参数；CSV 使用绝对 QE，支持比例或明确标注的百分数。导入来源不代表已核实测量。")
+            LaboratoryPresentation.Hint("标定导入固定温度、已知增益的线性 RAW：两组暗曝光（各至少 2 帧）及长曝光平场（至少 2 帧），估计黑电平、读噪、暗电流、DSNU/PRNU。保留原始帧与条件；不估计 QE/满阱，不做逐像元校正。导入来源不代表已核实测量。")
         });
     }
 
@@ -76,26 +87,48 @@ public sealed partial class CameraImagingWindow
         {
             var profile = await _application.CameraImaging.ImportSensorAsync(path);
             if (_closed || generation != _generation || serial != _sensorFileLoadSerial) return false;
-            _applyingSensor = true;
-            try
-            {
-                var s = profile.Sensor;
-                foreach (var (key, value) in new (string, double)[]
-                {
-                    ("exposure", s.ExposureMilliseconds), ("pitch", s.PixelPitchMicrometers), ("irradiance", s.ReferenceIrradiance),
-                    ("qe-r", s.RedQe), ("qe-g", s.GreenQe), ("qe-b", s.BlueQe), ("full-well", s.FullWellElectrons),
-                    ("read", s.ReadNoiseElectrons), ("dark", s.DarkElectronsPerSecond), ("prnu", s.PrnuPercent),
-                    ("dsnu", s.DsnuElectrons), ("gain", s.GainDnPerElectron), ("black", s.BlackLevel), ("bits", s.BitDepth), ("seed", s.Seed)
-                }) _numbers[key].Value = (decimal)value;
-                _noise.IsChecked = s.NoiseEnabled; _bayer.SelectedIndex = (int)s.Pattern;
-                _spectralResponse = profile.SpectralResponse;
-                _sensorIdentity = new(profile.Name, profile.Source, profile.Origin);
-            }
-            finally { _applyingSensor = false; }
+            ApplySensorProfile(profile);
             Invalidate("传感器参数已导入；A 保留原参数，请运行新的 B。"); return true;
         }
         catch (Exception ex)
         { if (!_closed) _status.Text = "参数导入失败，现有参数与 A/B 保留：" + ex.Message; return false; }
+    }
+
+    private CameraSensorProfile CurrentSensorProfile() => new(CameraSensorProfile.FormatIdentifier, 1,
+        _sensorIdentity?.Name ?? "Generic laboratory sensor", _sensorIdentity?.Source ?? "User configured, not calibrated",
+        ReadSensor(), _spectralResponse, Calibration: _sensorIdentity?.Calibration);
+
+    private void ApplySensorProfile(CameraSensorProfile profile)
+    {
+        var wasApplying = _applyingSensor; _applyingSensor = true;
+        try
+        {
+            var s = profile.Sensor;
+            foreach (var (key, value) in new (string, double)[]
+            {
+                ("exposure", s.ExposureMilliseconds), ("pitch", s.PixelPitchMicrometers), ("irradiance", s.ReferenceIrradiance),
+                ("qe-r", s.RedQe), ("qe-g", s.GreenQe), ("qe-b", s.BlueQe), ("full-well", s.FullWellElectrons),
+                ("read", s.ReadNoiseElectrons), ("dark", s.DarkElectronsPerSecond), ("prnu", s.PrnuPercent),
+                ("dsnu", s.DsnuElectrons), ("gain", s.GainDnPerElectron), ("black", s.BlackLevel), ("bits", s.BitDepth), ("seed", s.Seed)
+            }) _numbers[key].Value = (decimal)value;
+            _noise.IsChecked = s.NoiseEnabled; _bayer.SelectedIndex = (int)s.Pattern;
+            _spectralResponse = profile.SpectralResponse;
+            _sensorIdentity = new(profile.Name, profile.Source, profile.Origin, Calibration: profile.Calibration);
+        }
+        finally { _applyingSensor = wasApplying; }
+    }
+
+    internal async Task<bool> CalibrateSensorFromPathAsync(string path, CameraSensorProfile? baseline = null)
+    {
+        var generation = _generation; var serial = ++_sensorFileLoadSerial;
+        try
+        {
+            var profile = await _application.CameraImaging.CalibrateSensorAsync(path, baseline ?? CurrentSensorProfile());
+            if (_closed || generation != _generation || serial != _sensorFileLoadSerial) return false;
+            ApplySensorProfile(profile); Invalidate("暗场／平场参数估计已应用；原始帧与条件可随模板保存，A 保留。请运行 B。"); return true;
+        }
+        catch (Exception ex)
+        { if (!_closed) _status.Text = "标定失败，原参数与 A/B 保留：" + ex.Message; return false; }
     }
 
     internal async Task<bool> ImportResponseFromPathAsync(string path)
@@ -122,9 +155,7 @@ public sealed partial class CameraImagingWindow
     {
         try
         {
-            var profile = new CameraSensorProfile(CameraSensorProfile.FormatIdentifier, 1,
-                _sensorIdentity?.Name ?? "Generic laboratory sensor", _sensorIdentity?.Source ?? "User configured, not calibrated",
-                ReadSensor(), _spectralResponse);
+            var profile = CurrentSensorProfile();
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
                 Title = "保存传感器参数/模板",
@@ -157,6 +188,9 @@ public sealed partial class CameraImagingWindow
     {
         _sensorProfileInfo.Text = _sensorIdentity is null ? "通用手动参数 · 尚未导入传感器文件"
             : $"{_sensorIdentity.Name}{(_sensorIdentity.Modified ? "（参数已修改）" : "")}\n{_sensorIdentity.Source}\n{OriginText(_sensorIdentity.Origin)}";
+        if (_sensorIdentity?.Calibration is { } calibration)
+            _sensorProfileInfo.Text += $"\n{(calibration.Capture.Synthetic ? "合成数据" : "用户 RAW 标定")} · {calibration.Capture.Device} · {calibration.Capture.TemperatureCelsius:G4} °C\n"
+                + calibration.Capture.Conditions + "\n" + OriginText(calibration.Origin);
         _responseInfo.Text = _spectralResponse is null ? "响应：固定三波段 QE"
             : $"响应：{_spectralResponse.Name} · {_spectralResponse.Samples.Count} 点\n{OriginText(_spectralResponse.Origin)}";
         _responsePageInfo.Text = _spectralResponse is null ? "尚未导入 QE 曲线。可先保存参数模板，或从左侧导入响应 CSV。"

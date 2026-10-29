@@ -100,6 +100,6 @@ internal static class TopologyEvaluationPlan
     internal static bool DomainError(Exception error) => error is ArithmeticException or InvalidOperationException or NotSupportedException or ArgumentException
         || Core.Raytrace.SequentialTraceBudgetExceededException.IsBudgetException(error);
 
-    internal static PupilSample[] Checks() => [new(0, 0, 1), .. Enumerable.Range(0, 32)
-        .Select(index => new PupilSample(Math.Cos(2 * Math.PI * index / 32), Math.Sin(2 * Math.PI * index / 32), 1))];
+    internal static PupilSample[] Checks(int arms = 32) => [new(0, 0, 1), .. Enumerable.Range(0, arms)
+        .Select(index => new PupilSample(Math.Cos(2 * Math.PI * index / arms), Math.Sin(2 * Math.PI * index / arms), 1))];
 }

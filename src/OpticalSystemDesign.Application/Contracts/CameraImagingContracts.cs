@@ -30,9 +30,11 @@ public sealed record CameraResponseSample(double WavelengthNanometers, double Re
 public sealed record CameraFileOrigin(string FileName, string Sha256);
 public sealed record CameraResponseCurve(string Name, string Source, IReadOnlyList<CameraResponseSample> Samples,
     CameraFileOrigin? Origin = null);
-public sealed record CameraSensorIdentity(string Name, string Source, CameraFileOrigin? Origin = null, bool Modified = false);
+public sealed record CameraSensorIdentity(string Name, string Source, CameraFileOrigin? Origin = null, bool Modified = false,
+    CameraCalibrationRecord? Calibration = null);
 public sealed record CameraSensorProfile(string Format, int SchemaVersion, string Name, string Source,
-    CameraSensorParameters Sensor, CameraResponseCurve? SpectralResponse = null, CameraFileOrigin? Origin = null)
+    CameraSensorParameters Sensor, CameraResponseCurve? SpectralResponse = null, CameraFileOrigin? Origin = null,
+    CameraCalibrationRecord? Calibration = null)
 {
     public const string FormatIdentifier = "OpticalSystemDesign.CameraSensor";
 }
@@ -52,13 +54,37 @@ public sealed record CameraImagingRequest(CameraSource Source = CameraSource.Col
     CameraSpectrumCurve? Reflectance = null, CameraIntegrationSettings? Integration = null,
     CameraSceneMode SceneMode = CameraSceneMode.Uniform, CameraMaterialScene? MaterialScene = null);
 public sealed record CameraImage(int Width, int Height, IReadOnlyList<byte> Rgb24);
+public sealed record CameraExperimentInputs(string EngineVersion, string? LensSnapshotJson = null,
+    byte[]? ExternalImageBytes = null, CameraFileOrigin? ImageOrigin = null,
+    string? LensDocumentName = null, long? LensSourceRevision = null);
+public sealed record CameraExperiment(string Format, int SchemaVersion, CameraImagingResult B, CameraImagingResult? A = null)
+{
+    public const string FormatIdentifier = "OpticalSystemDesign.CameraExperiment";
+    public const string CurrentEngineVersion = "CameraLabV5-ExperimentCalibration/1";
+}
+public sealed record CameraCalibrationFrame(double ExposureMilliseconds, IReadOnlyList<ushort> RawDn);
+public sealed record CameraCalibrationCapture(string Format, int SchemaVersion, string Name, string Source,
+    string Device, string Conditions, double TemperatureCelsius, int Width, int Height, int BitDepth,
+    CameraBayerPattern Pattern, double GainDnPerElectron, IReadOnlyList<CameraCalibrationFrame> DarkFrames,
+    IReadOnlyList<CameraCalibrationFrame> FlatFrames, bool Synthetic = false)
+{
+    public const string FormatIdentifier = "OpticalSystemDesign.CameraCalibration";
+}
+public sealed record CameraCalibrationRecord(CameraCalibrationCapture Capture, CameraFileOrigin Origin,
+    double BlackLevelDn, double ReadNoiseElectrons, double DarkElectronsPerSecond,
+    double DsnuElectrons, double PrnuPercent, string Method);
 public sealed record CameraImagingResult(string DocumentName, long SourceRevision, CameraImagingRequest Request,
     CameraImage Source, CameraImage Optical, CameraImage Electrons, CameraImage Raw, CameraImage Noiseless,
     CameraImage Developed, IReadOnlyList<ushort> RawDn, IReadOnlyList<ushort> ReferenceRawDn,
     IReadOnlyList<double> PhotoElectrons, double MeanPhotoElectrons, double RawNoiseRmseDn,
-    int SaturatedPixels, string OpticalModel, int OpticalFallbackCount, string ModelScope, CameraIntegrationDiagnostics? Integration = null);
+    int SaturatedPixels, string OpticalModel, int OpticalFallbackCount, string ModelScope, CameraIntegrationDiagnostics? Integration = null,
+    CameraExperimentInputs? Inputs = null);
 public interface ICameraImagingService
 {
+    Task<CameraSensorProfile> CalibrateSensorAsync(string path, CameraSensorProfile baseline, CancellationToken cancellationToken = default);
+    Task SaveExperimentAsync(CameraExperiment experiment, string path, CancellationToken cancellationToken = default);
+    Task<CameraExperiment> OpenExperimentAsync(string path, CancellationToken cancellationToken = default);
+    Task<CameraImagingResult> RecomputeAsync(CameraImagingResult run, CameraImagingRequest? request = null, CancellationToken cancellationToken = default);
     Task<CameraSensorProfile> ImportSensorAsync(string path, CancellationToken cancellationToken = default);
     Task<CameraResponseCurve> ImportResponseAsync(string path, CancellationToken cancellationToken = default);
     Task<CameraSpectrumCurve> ImportIlluminantAsync(string path, CancellationToken cancellationToken = default);

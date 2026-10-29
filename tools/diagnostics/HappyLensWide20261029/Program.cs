@@ -42,6 +42,13 @@ Directory.CreateDirectory(output);
 var protocolBytes = await File.ReadAllBytesAsync(args[0]);
 using var protocol = JsonDocument.Parse(protocolBytes);
 var root = protocol.RootElement;
+if (root.TryGetProperty("PriorityClass", out var priority))
+{
+    if (!Enum.TryParse<ProcessPriorityClass>(priority.GetString(), out var selectedPriority)
+        || selectedPriority is not (ProcessPriorityClass.Normal or ProcessPriorityClass.BelowNormal))
+        throw new InvalidDataException("Only bounded background Normal/BelowNormal diagnostic priority is supported.");
+    Process.GetCurrentProcess().PriorityClass = selectedPriority;
+}
 var sourcePath = root.GetProperty("SourcePlan").GetString()!;
 if (Convert.ToHexStringLower(SHA256.HashData(await File.ReadAllBytesAsync(sourcePath))) != root.GetProperty("SourceSha256").GetString())
     throw new InvalidDataException("The frozen original task changed.");
@@ -54,9 +61,14 @@ if (original.Options.MaximumFunctionEvaluations != common.MaximumFunctionEvaluat
     || original.Options.FinalValidationRayReserve != common.FinalValidationRayReserve)
     throw new InvalidDataException("Comparison envelope differs from the original budget.");
 var preparationOptions = root.GetProperty("Preparation").Deserialize<ParaxialSeedSearchOptions>(json)!;
+var persistenceReserve = root.TryGetProperty("PersistenceReserveSeconds", out var reserve)
+    ? TimeSpan.FromSeconds(reserve.GetDouble()) : TimeSpan.Zero;
+if (persistenceReserve < TimeSpan.Zero || persistenceReserve >= common.TimeLimit / 2)
+    throw new InvalidDataException("Invalid persistence wall-time reserve.");
 await File.WriteAllBytesAsync(Path.Combine(output, "frozen-protocol.json"), protocolBytes);
 await File.WriteAllBytesAsync(Path.Combine(output, "original-task.topology-plan.json"), await File.ReadAllBytesAsync(sourcePath));
 await Write("runtime.json", new { Runtime = Environment.Version.ToString(), Environment.ProcessorCount,
+    PriorityClass = Process.GetCurrentProcess().PriorityClass.ToString(),
     Assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic && a.GetName().Name!.StartsWith("OpticalSystemDesign"))
         .Select(a => new { a.GetName().Name, Path = a.Location, Sha256 = Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(a.Location))) }).ToArray() });
 var summaries = new List<object>();
@@ -68,10 +80,11 @@ foreach (var mode in root.GetProperty("Order").EnumerateArray().Select(value => 
     ParaxialSeedSearchResult? preparation = null;
     var plan = original;
     var sourceFingerprint = ContentFingerprint.Compute(original);
-    if (mode is "delano-population" or "bounded-candidates" or "thick-delano")
+    if (mode is "delano-population" or "bounded-candidates" or "thick-delano" or "image-ranked")
     {
-        var bounded = mode is "bounded-candidates" or "thick-delano";
-        var selectedPreparation = mode == "thick-delano" ? root.GetProperty("ThickPreparation").Deserialize<ParaxialSeedSearchOptions>(json)!
+        var bounded = mode is "bounded-candidates" or "thick-delano" or "image-ranked";
+        var selectedPreparation = mode == "image-ranked" ? root.GetProperty("ImagePreparation").Deserialize<ParaxialSeedSearchOptions>(json)!
+            : mode == "thick-delano" ? root.GetProperty("ThickPreparation").Deserialize<ParaxialSeedSearchOptions>(json)!
             : bounded ? root.GetProperty("ImprovedPreparation").Deserialize<ParaxialSeedSearchOptions>(json)! : preparationOptions;
         preparation = ParaxialSeedSearch.Run(original, selectedPreparation);
         await ParaxialSeedSearchFiles.SaveAsync(preparation, Path.Combine(directory, "preparation.seed-search.json"));
@@ -83,7 +96,7 @@ foreach (var mode in root.GetProperty("Order").EnumerateArray().Select(value => 
                 BoundedSearch = bounded ? root.GetProperty("BoundedPolicy").Deserialize<BoundedCandidateSearchOptions>(json)! : null } };
     }
     var preparationWork = preparation?.Work ?? new AutonomousSearchWork();
-    var remaining = common.TimeLimit - timer.Elapsed;
+    var remaining = common.TimeLimit - timer.Elapsed - persistenceReserve;
     if (remaining <= TimeSpan.Zero) throw new InvalidOperationException("Preparation consumed the complete original wall-clock envelope.");
     plan = plan with { Options = plan.Options with
     {
@@ -130,13 +143,14 @@ foreach (var mode in root.GetProperty("Order").EnumerateArray().Select(value => 
         throw new InvalidOperationException("End-to-end work exceeded the original envelope.");
     var summary = new { Mode = mode, SourcePlanFingerprint = sourceFingerprint,
         Preparation = preparation is null ? null : new { preparation.Termination, Retained = preparation.Seeds.Length,
-            FallbackToOriginal = preparation.Seeds.IsEmpty, preparation.Work, preparation.DiagramEvaluations,
+            FallbackToOriginal = preparation.Seeds.IsEmpty, preparation.Work, preparation.DiagramEvaluations, preparation.ImageScreens,
             Outcomes = preparation.Attempts.Select(a => new { a.Index, a.Outcome, a.FunctionEvaluations, a.Score }).ToArray() },
         InitialQuality = initial.Select(c => new { c.Id, Elements = c.Topology.Elements.Length, Assessment = Metrics(c.Assessment) }).ToArray(),
         BestRetained = best is null ? null : new { best.Id, Elements = best.Topology.Elements.Length, Assessment = Metrics(best.Assessment) },
         LastAssessment = last is null ? null : Metrics(last), Endpoints = endpoints,
         SearchWork = state.Consumed, CombinedFunctions = functions, CombinedGradients = gradients, CombinedRays = rays,
         ComputeAndSaveWallSeconds = searchWall.TotalSeconds, WallLimitSeconds = common.TimeLimit.TotalSeconds,
+        PersistenceReserveSeconds = persistenceReserve.TotalSeconds,
         WithinWallLimit = searchWall <= common.TimeLimit, state.Status, state.TrialCursor,
         PopulationOperations = state.Events.Where(e => e.Operation.StartsWith("population-", StringComparison.Ordinal)).Select(e => new { e.Operation, e.Phase, e.Outcome }).ToArray(),
         QualifiedCandidates = state.AcceptedArchive.Length,

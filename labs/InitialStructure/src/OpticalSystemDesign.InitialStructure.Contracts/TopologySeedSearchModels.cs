@@ -13,6 +13,8 @@ public sealed record TopologyDiversityOptions
 public sealed record ParaxialSeedSearchOptions
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public SeedImageScreeningOptions? ImageScreening { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? FixedStopRecoveryVersion { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public StructureGenerationOptions? Generation { get; init; }
@@ -25,6 +27,25 @@ public sealed record ParaxialSeedSearchOptions
     public long MaximumTracedRays { get; init; } = 10_000;
     public double FocusATolerance { get; init; } = .001;
 }
+
+/// <summary>Bounded real-ray ranking only; never changes independent final acceptance.</summary>
+public sealed record SeedImageScreeningOptions
+{
+    /// <summary>Null retains the original 32-arm screen; explicit sparse checks are ranking only.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? BoundaryCheckArms { get; init; }
+    public int Version { get; init; } = 1;
+    public int MaximumCandidates { get; init; } = 8;
+    public int FieldsPerDirection { get; init; } = 2;
+    public int PupilRings { get; init; } = 2;
+    public int PupilArms { get; init; } = 8;
+    public long MaximumTracedRaysPerCandidate { get; init; } = 2_500;
+    public double RelativeQualityWindow { get; init; } = .25;
+}
+
+public sealed record SeedImageScreeningResult(string TopologyFingerprint, string Outcome,
+    int CompletedFields, int ExpectedFields, double? WorstRmsMillimeters, double? WorstMaximumMillimeters,
+    double? MinimumValidFraction, bool BoundaryChecksPassed, double? QualityScore, long TracedRays);
 
 public enum StructureGenerationMethod { RandomPhysical, Delano }
 
@@ -102,6 +123,8 @@ public sealed record ParaxialSeedAttempt(int Index, string SourceFingerprint, st
 /// <summary>First-order feasibility only. Every returned seed still needs full independent physical acceptance.</summary>
 public sealed record ParaxialSeedSearchResult
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ImmutableArray<SeedImageScreeningResult>? ImageScreens { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? DiagramEvaluations { get; init; }
     public string Algorithm { get; init; } = "initial-structure-paraxial-seeds-v1";

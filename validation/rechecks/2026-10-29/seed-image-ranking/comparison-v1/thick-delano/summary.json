@@ -1,0 +1,121 @@
+{
+  "Mode": "thick-delano",
+  "SourcePlanFingerprint": "ea50725ca36102358024755685fda992c74ca2e3ed5c7e3dd8c51c35e3ecb3c6",
+  "Preparation": {
+    "Termination": "Completed",
+    "Retained": 1,
+    "FallbackToOriginal": false,
+    "Work": {
+      "FunctionEvaluations": 52,
+      "GradientEvaluations": 0,
+      "ValidationEvaluations": 0,
+      "MatrixEvaluations": 136,
+      "DifferenceEvaluations": 0,
+      "JacobianBuilds": 8,
+      "TracedRays": 0,
+      "GeometryProbes": 38471,
+      "Elapsed": "00:00:01.0193383"
+    },
+    "DiagramEvaluations": 40,
+    "ImageScreens": null,
+    "Outcomes": [
+      {
+        "Index": 0,
+        "Outcome": "FirstOrderFeasibleOnly",
+        "FunctionEvaluations": 16,
+        "Score": 1.1173475165356988E-25
+      },
+      {
+        "Index": 1,
+        "Outcome": "FirstOrderFeasibleOnly",
+        "FunctionEvaluations": 12,
+        "Score": 7.900935003854196E-25
+      },
+      {
+        "Index": 2,
+        "Outcome": "FirstOrderFeasibleOnly",
+        "FunctionEvaluations": 12,
+        "Score": 4.942706609275402E-26
+      },
+      {
+        "Index": 3,
+        "Outcome": "FirstOrderFeasibleOnly",
+        "FunctionEvaluations": 12,
+        "Score": 4.942706609275402E-26
+      }
+    ]
+  },
+  "InitialQuality": [],
+  "BestRetained": null,
+  "LastAssessment": {
+    "Completed": false,
+    "MeetsTargets": false,
+    "EffectiveFocalLengthMillimeters": 25.012716195783153,
+    "FNumber": 3.4028450695876655,
+    "Fields": 0,
+    "RmsMicrometers": null,
+    "MaximumMicrometers": null,
+    "DistortionPercent": null,
+    "MinimumIntegrationValid": null,
+    "MinimumChecksValid": null,
+    "Violations": [],
+    "Failure": "The operation was canceled.",
+    "TracedRayCount": 9600
+  },
+  "Endpoints": [
+    {
+      "TrialId": "seed-0",
+      "Operation": "seed",
+      "Phase": "Validation",
+      "Outcome": "ValidationUnavailable",
+      "Detail": "The operation was canceled.",
+      "Elements": 3,
+      "AcceptedUpdates": null,
+      "Assessment": {
+        "Completed": false,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.012716195783153,
+        "FNumber": 3.4028450695876655,
+        "Fields": 0,
+        "RmsMicrometers": null,
+        "MaximumMicrometers": null,
+        "DistortionPercent": null,
+        "MinimumIntegrationValid": null,
+        "MinimumChecksValid": null,
+        "Violations": [],
+        "Failure": "The operation was canceled.",
+        "TracedRayCount": 9600
+      }
+    }
+  ],
+  "SearchWork": {
+    "FunctionEvaluations": 1,
+    "GradientEvaluations": 0,
+    "ValidationEvaluations": 1,
+    "MatrixEvaluations": 0,
+    "DifferenceEvaluations": 0,
+    "JacobianBuilds": 0,
+    "TracedRays": 9600,
+    "GeometryProbes": 841,
+    "Elapsed": "00:01:15.9221531"
+  },
+  "CombinedFunctions": 53,
+  "CombinedGradients": 0,
+  "CombinedRays": 9600,
+  "ComputeAndSaveWallSeconds": 77.8610248,
+  "WallLimitSeconds": 60,
+  "WithinWallLimit": false,
+  "Status": "BudgetExhausted",
+  "TrialCursor": 0,
+  "PopulationOperations": [],
+  "QualifiedCandidates": 0,
+  "BoundedConclusion": {
+    "BestQualifiedId": null,
+    "Complexity": null,
+    "StopReason": "TimeLimit",
+    "ScreenedTrials": 0,
+    "RejectedScreens": 0,
+    "EvaluatedTrials": 0,
+    "ConsecutiveUnsuccessfulTrials": 0
+  }
+}

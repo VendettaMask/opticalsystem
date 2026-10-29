@@ -181,6 +181,7 @@ public sealed partial class AutonomousTopologyWindow
         Put("AutonomousSeedPerStart", seedOptions.MaximumEvaluationsPerStart);
         Put("AutonomousSeedStarts", seedOptions.MaximumStarts); Put("AutonomousSeedRetained", seedOptions.RetainedSeeds);
         Put("AutonomousSeedFunctions", seedOptions.MaximumFunctionEvaluations); Put("AutonomousSeedSeconds", seedOptions.TimeLimit.TotalSeconds);
+        Put("AutonomousScreenRays", seedOptions.ImageScreening?.MaximumTracedRaysPerCandidate ?? 2500);
         Put("AutonomousLocalUpdates", options.Local.MaximumUpdates); Put("AutonomousFullUpdates", options.Full.MaximumUpdates);
         _applyingPlan = true;
         _choices["AutonomousImage"].IsChecked = !source.Image.Protected;
@@ -191,6 +192,7 @@ public sealed partial class AutonomousTopologyWindow
         _choices["AutonomousBounded"].IsChecked = options.BoundedSearch is not null;
         _choices["AutonomousGeometryScreen"].IsChecked = options.PopulationExploration?.Geometry is not null;
         _choices["AutonomousFixedStopRecovery"].IsChecked = seedOptions.FixedStopRecoveryVersion == 2;
+        _choices["AutonomousImageScreening"].IsChecked = seedOptions.ImageScreening is not null;
         _choices["AutonomousDescriptor"].IsChecked = generation is not null;
         _choices["AutonomousDelano"].IsChecked = generation?.Method == StructureGenerationMethod.Delano;
         _choices["AutonomousThickDelano"].IsChecked = generation?.MaterializationVersion == 2;

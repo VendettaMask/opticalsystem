@@ -138,6 +138,8 @@ public sealed partial class AutonomousTopologyWindow : Window
         Choice("AutonomousDelano", "使用 Delano 一阶搜索", false);
         Choice("AutonomousThickDelano", "按实际厚度与固定光阑构造 Delano 起点", false);
         Choice("AutonomousFixedStopRecovery", "独立恢复固定光阑入瞳", false);
+        Choice("AutonomousImageScreening", "按真实像差筛选并排序起点", false);
+        Number("AutonomousScreenRays", "每候选像差筛选追迹上限", 2500, 1, 1000000);
         Number("AutonomousGeneratedElements", "生成镜片数", 3, 2, 16);
         Number("AutonomousGeneratedStop", "光阑前镜片数", 0, 0, 16);
         Number("AutonomousGeneratedRadius", "生成净半口径 (mm)", 5, .001m, 1000);

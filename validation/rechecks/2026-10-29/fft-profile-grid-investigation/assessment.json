@@ -1,0 +1,379 @@
+{
+  "date": "2026-10-29",
+  "status": "investigation_completed_precision_issue_open",
+  "objectiveAchieved": false,
+  "originalReferenceSamplingToleranceChanged": false,
+  "foregroundDesktopUsed": false,
+  "productCoreChangesAccepted": 0,
+  "verificationScope": "Isolated HEAD Core only; concurrent main-workspace changes are not certified",
+  "isolatedRoot": "D:\\Projects\\opticalsystem-afocal-335",
+  "sourceCommit": "cf61c001dc1a5f36afdd84a4d24d7d020b130d99",
+  "coreSourceMatchesCommit": true,
+  "coreAssemblySha256": "04cbb40d090fe9df5cae57f517361e00853200a2b930f2144c7170f59382af99",
+  "originalArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "installedPolygonAssets": [
+    {
+      "name": "PORRO_PRISM-LH.POB",
+      "sha256": "8ba3b4bfe0092319a97e6169de6987132c0f9e2cda99f0b6a19a70eecc3a74f4",
+      "unchanged": true
+    },
+    {
+      "name": "PORRO_PRISM-RH.POB",
+      "sha256": "c247ee42b9ec39fed6d0411e5f8b7c780ad3a6ff938bd6a642450d1e40dcef68",
+      "unchanged": true
+    }
+  ],
+  "temporaryPolygonFilesRemaining": 0,
+  "validNativeCaptures": 10,
+  "invalidNativeCaptures": 6,
+  "failedNativeCaptures": 1,
+  "executions": [
+    {
+      "cohort": "fft-profile-gaussian-20261029",
+      "id": "binocular-c1-gaussian-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Gaussian factor 1 readback and complex grids"
+    },
+    {
+      "cohort": "fft-profile-gaussian-20261029",
+      "id": "binocular-c1-gaussian-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Gaussian factor 1 readback and complex grids"
+    },
+    {
+      "cohort": "fft-profile-gaussian-20261029",
+      "id": "binocular-c2-gaussian-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Gaussian factor 1 readback and complex grids"
+    },
+    {
+      "cohort": "fft-profile-gaussian-20261029",
+      "id": "binocular-c2-gaussian-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Gaussian factor 1 readback and complex grids"
+    },
+    {
+      "cohort": "fft-profile-triangle-control-20261029",
+      "id": "binocular-c1-triangle-02",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "reason": "Native filename truncated; polygon not intersected"
+    },
+    {
+      "cohort": "fft-profile-triangle-control-20261029",
+      "id": "binocular-c1-triangle-02-reverse",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "reason": "Native filename truncated; polygon not intersected"
+    },
+    {
+      "cohort": "fft-profile-triangle-control-20261029",
+      "id": "binocular-c2-triangle-02",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "reason": "Native filename truncated; polygon not intersected"
+    },
+    {
+      "cohort": "fft-profile-triangle-control-20261029",
+      "id": "binocular-c2-triangle-02-reverse",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "reason": "Native filename truncated; polygon not intersected"
+    },
+    {
+      "cohort": "fft-profile-triangle-control-20261029-02",
+      "id": "binocular-c1-triangle-02",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Exact filename readback and complete physical paths"
+    },
+    {
+      "cohort": "fft-profile-triangle-control-20261029-02",
+      "id": "binocular-c1-triangle-02-reverse",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Exact filename readback and complete physical paths"
+    },
+    {
+      "cohort": "fft-profile-triangle-control-20261029-02",
+      "id": "binocular-c2-triangle-02",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Exact filename readback and complete physical paths"
+    },
+    {
+      "cohort": "fft-profile-triangle-control-20261029-02",
+      "id": "binocular-c2-triangle-02-reverse",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Exact filename readback and complete physical paths"
+    },
+    {
+      "cohort": "fft-profile-normal-control-20261029",
+      "id": "binocular-c1-normals",
+      "exitCode": 2,
+      "sourceUnchanged": true,
+      "validity": "failed",
+      "reason": "NSC single-ray analysis unavailable in mixed mode"
+    },
+    {
+      "cohort": "fft-profile-normal-control-20261029-02",
+      "id": "binocular-c1-normals",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "reason": "SaveRaysFile interpreted as input; result IsValid=false"
+    },
+    {
+      "cohort": "fft-profile-normal-control-20261029-02",
+      "id": "binocular-c2-normals",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "reason": "SaveRaysFile interpreted as input; result IsValid=false"
+    },
+    {
+      "cohort": "fft-profile-normal-control-20261029-03",
+      "id": "binocular-c1-normals",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Extracted group; valid direct normal readback"
+    },
+    {
+      "cohort": "fft-profile-normal-control-20261029-03",
+      "id": "binocular-c2-normals",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "reason": "Extracted group; valid direct normal readback"
+    }
+  ],
+  "triangleControls": [
+    {
+      "id": "binocular-c1-triangle-02",
+      "configuration": 1,
+      "originalPath": "artifacts\\validation\\afocal-native-resume-20261029-paths-02\\binocular-c1-nsc-paths-pupil\\nsc-paths.json",
+      "all33PathsExactlyEqual": true,
+      "segmentObjectSequencesEqual": true,
+      "maximumCoordinateDifferenceMm": 0.0,
+      "maximumDirectionComponentDifference": 0.0,
+      "maximumSegmentLengthDifferenceMm": 0.0
+    },
+    {
+      "id": "binocular-c1-triangle-02-reverse",
+      "configuration": 1,
+      "originalPath": "artifacts\\validation\\afocal-native-resume-20261029-paths-02\\binocular-c1-nsc-paths-pupil\\nsc-paths.json",
+      "all33PathsExactlyEqual": true,
+      "segmentObjectSequencesEqual": true,
+      "maximumCoordinateDifferenceMm": 0.0,
+      "maximumDirectionComponentDifference": 0.0,
+      "maximumSegmentLengthDifferenceMm": 0.0
+    },
+    {
+      "id": "binocular-c2-triangle-02",
+      "configuration": 2,
+      "originalPath": "artifacts\\validation\\afocal-native-resume-20261029-paths-02\\binocular-c2-nsc-paths-pupil\\nsc-paths.json",
+      "all33PathsExactlyEqual": true,
+      "segmentObjectSequencesEqual": true,
+      "maximumCoordinateDifferenceMm": 0.0,
+      "maximumDirectionComponentDifference": 0.0,
+      "maximumSegmentLengthDifferenceMm": 0.0
+    },
+    {
+      "id": "binocular-c2-triangle-02-reverse",
+      "configuration": 2,
+      "originalPath": "artifacts\\validation\\afocal-native-resume-20261029-paths-02\\binocular-c2-nsc-paths-pupil\\nsc-paths.json",
+      "all33PathsExactlyEqual": false,
+      "segmentObjectSequencesEqual": true,
+      "maximumCoordinateDifferenceMm": 3.65526737766686E-08,
+      "maximumDirectionComponentDifference": 1.5596948279951975E-09,
+      "maximumSegmentLengthDifferenceMm": 1.479254052583201E-08
+    }
+  ],
+  "normalControls": [
+    {
+      "id": "binocular-c1-normals",
+      "valid": true,
+      "segments": 10,
+      "originalFullSystemRequest": false,
+      "internalTriangleIdsAvailable": false
+    },
+    {
+      "id": "binocular-c2-normals",
+      "valid": true,
+      "segments": 10,
+      "originalFullSystemRequest": false,
+      "internalTriangleIdsAvailable": false
+    }
+  ],
+  "gaussianInferenceAxes": [
+    {
+      "configuration": 1,
+      "x": 13,
+      "y": 0,
+      "inferredCoordinateStretch": 1.0000000000068188
+    },
+    {
+      "configuration": 1,
+      "x": 0,
+      "y": 13,
+      "inferredCoordinateStretch": 1.0000000000000002
+    },
+    {
+      "configuration": 2,
+      "x": 13,
+      "y": 0,
+      "inferredCoordinateStretch": 1
+    },
+    {
+      "configuration": 2,
+      "x": 0,
+      "y": 13,
+      "inferredCoordinateStretch": 1.0000000000038076
+    }
+  ],
+  "gaussianInferenceIsRuntimeInput": false,
+  "rejectedExperiments": [
+    {
+      "id": "fft-profile-grid-20261029-canonical-positive",
+      "c1Violations": 335,
+      "c2Violations": 360,
+      "c2Maximum": 0.019590770353385523,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-conditioned-frame",
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011937572842809704,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-edge-distance",
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011937572847488462,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-local-pencil",
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011937572848295455,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-moller-positive",
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.001189094903992112,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-planar-positive",
+      "c1Violations": 335,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011910646007435022,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-positive-edge",
+      "c1Violations": 335,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011937572858135917,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-sellmeier-group",
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011937572818217154,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-source-frame",
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011890950088498317,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-source-no-snap",
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011937572887326178,
+      "accepted": false
+    },
+    {
+      "id": "fft-profile-grid-20261029-source-positive-edge",
+      "c1Violations": 0,
+      "c2Violations": 361,
+      "c2Maximum": 0.01959077036870127,
+      "accepted": false
+    }
+  ],
+  "restoredProfilesExactlyEqualPreviousBaseline": true,
+  "restoredProfiles": [
+    {
+      "id": "0011-001-afocal-riflescope-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "f67e6c1f08fa5a496b652cc23725a997db2e36a80bca426f85a1279a05babd2e",
+      "maximum": 1.0155965035285597E-05,
+      "violations": 0,
+      "coverage": 0.9999994222309813
+    },
+    {
+      "id": "0041-002-beam-expander-c1-primary-f1-w1-fft-psf-cross-section",
+      "fingerprint": "66b44e5320bf27805e80e04e9b6a5f3030bc18537313d6a1f88e1f53dc88398f",
+      "maximum": 1.3853439448929805E-06,
+      "violations": 0,
+      "coverage": 0.9999999281812085
+    },
+    {
+      "id": "0063-003-binocular_system-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "701c41210aa641e7ef80b76cc0687c6029492f2759785319405f674f98fc3c87",
+      "maximum": 2.4503986426338553E-05,
+      "violations": 0,
+      "coverage": 0.999997399685585
+    },
+    {
+      "id": "0093-003-binocular_system-c2-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "57aabf59989a9b1648b62c46842ae0eb8e1be77adeb37fb9490cf243a5b36fe7",
+      "maximum": 0.0011946610381988604,
+      "violations": 335,
+      "coverage": 0.999997399685585
+    },
+    {
+      "id": "0123-004-apochromat_prism-c1-primary-f1-w3-fft-psf-cross-section",
+      "fingerprint": "15c7c9f2c088df99ba697ab0936584444e84673c52e00d9a4b7dcf359610aa33",
+      "maximum": 0.00011202888833755642,
+      "violations": 0,
+      "coverage": 0.9999951901557569
+    }
+  ],
+  "allProfilePointsPassed": false,
+  "remainingViolations": 335,
+  "focusedGuardTests": {
+    "total": 12,
+    "failed": 0,
+    "passed": 12
+  },
+  "broadTestSuiteRun": false,
+  "staleGaussianOutput": "gaussian-coordinates.json and gaussian-coordinates-corrected.json use the old analyzer and are rejected; the latter ran before its rebuild completed"
+}

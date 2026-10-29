@@ -4,6 +4,10 @@ internal static partial class UiLocalization
 {
     private static void AddAutonomousTopologyTexts(Action<string, string, string> add)
     {
+        add("按真实像差筛选并排序起点", "Screen and rank seeds by physical aberrations", "実光線の収差で初期処方を選別・順位付け");
+        add("每候选像差筛选追迹上限", "Screening ray budget per candidate", "候補ごとの収差選別追跡上限");
+        add("真实像差筛选，仅用于起点排序", "Physical aberration screening, for seed ranking only", "実光線収差の選別（初期処方の順位付けのみ）");
+        add("像差筛选未得到完整有效结果，原起点保留", "No complete valid image screening result; original seeds retained", "有効な収差選別結果が得られず、元の初期処方を保持");
         add("镜头结构", "Lens Structure", "レンズ構成");
         add("刷新结构", "Refresh Structure", "構成を更新");
         add("适合窗口", "Fit to Window", "ウィンドウに合わせる");

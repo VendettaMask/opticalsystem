@@ -1236,6 +1236,7 @@ internal static partial class UiLocalization
             "クリップボードを利用できないため貼り付けませんでした。再試行するか、直接入力してください。");
 
         AddAutonomousTopologyTexts(Add);
+        AddManufacturabilityTexts(Add);
         return values;
     }
 }

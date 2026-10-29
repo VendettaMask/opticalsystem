@@ -1,0 +1,492 @@
+{
+  "date": "2026-10-29",
+  "status": "rules_partially_characterized_precision_issue_open",
+  "objectiveAchieved": false,
+  "sourceCommit": "cf61c001dc1a5f36afdd84a4d24d7d020b130d99",
+  "isolatedCoreSourceMatchesCommit": true,
+  "isolatedRoot": "D:\\Projects\\opticalsystem-afocal-335",
+  "coreAssemblySha256": "04cbb40d090fe9df5cae57f517361e00853200a2b930f2144c7170f59382af99",
+  "originalReferenceSamplingToleranceChanged": false,
+  "foregroundDesktopUsed": false,
+  "productCoreChangesAccepted": 0,
+  "sourceArchive": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+  "sourceArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "installedAssets": [
+    {
+      "name": "PORRO_PRISM-LH.POB",
+      "sha256": "8ba3b4bfe0092319a97e6169de6987132c0f9e2cda99f0b6a19a70eecc3a74f4",
+      "unchanged": true
+    },
+    {
+      "name": "PORRO_PRISM-RH.POB",
+      "sha256": "c247ee42b9ec39fed6d0411e5f8b7c780ad3a6ff938bd6a642450d1e40dcef68",
+      "unchanged": true
+    }
+  ],
+  "nativeValidCaptures": 8,
+  "nativeInvalidOutputs": 5,
+  "nativeFailedControls": 2,
+  "executions": [
+    {
+      "cohort": "field2",
+      "id": "binocular-c1-uniform-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "nativeField": 2,
+      "canonicalParentField": 1,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "field2",
+      "id": "binocular-c1-gaussian-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "nativeField": 2,
+      "canonicalParentField": 1,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "field2",
+      "id": "binocular-c1-uniform-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "nativeField": 2,
+      "canonicalParentField": 1,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "field2",
+      "id": "binocular-c1-gaussian-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "nativeField": 2,
+      "canonicalParentField": 1,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "field2",
+      "id": "binocular-c2-uniform-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "nativeField": 2,
+      "canonicalParentField": 1,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "field2",
+      "id": "binocular-c2-gaussian-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "nativeField": 2,
+      "canonicalParentField": 1,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "field2",
+      "id": "binocular-c2-uniform-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "nativeField": 2,
+      "canonicalParentField": 1,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "field2",
+      "id": "binocular-c2-gaussian-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "valid",
+      "nativeField": 2,
+      "canonicalParentField": 1,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-rule-20261029-native-predicate",
+      "id": "c1-facet10",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-rule-20261029-native-predicate",
+      "id": "c1-facet11",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-rule-20261029-native-predicate",
+      "id": "c2-facet10",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-rule-20261029-native-predicate",
+      "id": "c2-facet11",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-rule-20261029-native-predicate-02",
+      "id": "c2-facet11",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "validity": "invalid",
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-rule-20261029-native-predicate-03",
+      "id": "c1-facet10",
+      "exitCode": 2,
+      "sourceUnchanged": true,
+      "validity": "failed",
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-rule-20261029-native-predicate-04",
+      "id": "c1-facet10",
+      "exitCode": 2,
+      "sourceUnchanged": true,
+      "validity": "failed",
+      "formalAcceptanceRequest": false
+    }
+  ],
+  "rejectedCoreHypotheses": 7,
+  "counterfactualRuns": [
+    {
+      "id": "quad-tie",
+      "usesSourceReimport": false,
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011937572843199185,
+      "accepted": false
+    },
+    {
+      "id": "plane-equation",
+      "usesSourceReimport": false,
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.00118909500095115,
+      "accepted": false
+    },
+    {
+      "id": "reciprocal",
+      "usesSourceReimport": false,
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011881497719227405,
+      "accepted": false
+    },
+    {
+      "id": "source-reciprocal",
+      "usesSourceReimport": true,
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011881497233973623,
+      "accepted": false
+    },
+    {
+      "id": "stable-source",
+      "usesSourceReimport": true,
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.001188149719440361,
+      "accepted": false
+    },
+    {
+      "id": "coplanar-source",
+      "usesSourceReimport": true,
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011881497407956534,
+      "accepted": false
+    },
+    {
+      "id": "coplanar-frozen",
+      "usesSourceReimport": false,
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.001188149767331781,
+      "accepted": false
+    },
+    {
+      "id": "tangential-source",
+      "usesSourceReimport": true,
+      "c1Violations": 0,
+      "c2Violations": 335,
+      "c2Maximum": 0.0011890949435553536,
+      "accepted": false
+    }
+  ],
+  "normalMatches": [
+    {
+      "configuration": 1,
+      "segment": 2,
+      "matchingImportedFaceNumbers": [
+        0,
+        1,
+        8,
+        9
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 1,
+      "segment": 3,
+      "matchingImportedFaceNumbers": [
+        2,
+        3
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 1,
+      "segment": 4,
+      "matchingImportedFaceNumbers": [
+        5
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 1,
+      "segment": 5,
+      "matchingImportedFaceNumbers": [
+        0,
+        1,
+        8,
+        9
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 1,
+      "segment": 6,
+      "matchingImportedFaceNumbers": [
+        0,
+        1,
+        8,
+        9
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 1,
+      "segment": 7,
+      "matchingImportedFaceNumbers": [
+        11
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 1,
+      "segment": 8,
+      "matchingImportedFaceNumbers": [
+        12
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 1,
+      "segment": 9,
+      "matchingImportedFaceNumbers": [
+        0,
+        1,
+        8,
+        9
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 2,
+      "segment": 2,
+      "matchingImportedFaceNumbers": [
+        0,
+        1,
+        8,
+        9
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 2,
+      "segment": 3,
+      "matchingImportedFaceNumbers": [
+        2,
+        3
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 2,
+      "segment": 4,
+      "matchingImportedFaceNumbers": [
+        4
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 2,
+      "segment": 5,
+      "matchingImportedFaceNumbers": [
+        0,
+        1,
+        8,
+        9
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 2,
+      "segment": 6,
+      "matchingImportedFaceNumbers": [
+        0,
+        1,
+        8,
+        9
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 2,
+      "segment": 7,
+      "matchingImportedFaceNumbers": [
+        10
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 2,
+      "segment": 8,
+      "matchingImportedFaceNumbers": [
+        12
+      ],
+      "apiInternalTriangleIdentity": false
+    },
+    {
+      "configuration": 2,
+      "segment": 9,
+      "matchingImportedFaceNumbers": [
+        0,
+        1,
+        8,
+        9
+      ],
+      "apiInternalTriangleIdentity": false
+    }
+  ],
+  "fieldChanges": [
+    {
+      "id": "binocular-c1-gaussian-Real",
+      "maximumComplexChannelChange": 0.3851457825581811
+    },
+    {
+      "id": "binocular-c1-gaussian-Imaginary",
+      "maximumComplexChannelChange": 0.4449879821917802
+    },
+    {
+      "id": "binocular-c2-gaussian-Real",
+      "maximumComplexChannelChange": 0.38541578077035565
+    },
+    {
+      "id": "binocular-c2-gaussian-Imaginary",
+      "maximumComplexChannelChange": 0.44140439099831463
+    }
+  ],
+  "gaussianEnvelopeAxes": [
+    {
+      "configuration": 1,
+      "x": 13,
+      "y": 0,
+      "field1EnvelopeStretch": 1.0000000000068188,
+      "field2EnvelopeStretch": 1.000000000006818,
+      "difference": -6.661338147750939E-16,
+      "physicalLaunchMapProven": false
+    },
+    {
+      "configuration": 1,
+      "x": 0,
+      "y": 13,
+      "field1EnvelopeStretch": 1.0000000000000002,
+      "field2EnvelopeStretch": 0.9999999999999998,
+      "difference": -4.440892098500626E-16,
+      "physicalLaunchMapProven": false
+    },
+    {
+      "configuration": 2,
+      "x": 13,
+      "y": 0,
+      "field1EnvelopeStretch": 1,
+      "field2EnvelopeStretch": 1,
+      "difference": 0,
+      "physicalLaunchMapProven": false
+    },
+    {
+      "configuration": 2,
+      "x": 0,
+      "y": 13,
+      "field1EnvelopeStretch": 1.0000000000038076,
+      "field2EnvelopeStretch": 1.0000000000038078,
+      "difference": 2.220446049250313E-16,
+      "physicalLaunchMapProven": false
+    }
+  ],
+  "gaussianEnvelopeDoesNotProvePhysicalLaunchMap": true,
+  "restoredProfilesExactlyEqualPreviousBaseline": true,
+  "restoredProfiles": [
+    {
+      "id": "0011-001-afocal-riflescope-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "f67e6c1f08fa5a496b652cc23725a997db2e36a80bca426f85a1279a05babd2e",
+      "maximum": 1.0155965035285597E-05,
+      "violations": 0,
+      "coverage": 0.9999994222309813
+    },
+    {
+      "id": "0041-002-beam-expander-c1-primary-f1-w1-fft-psf-cross-section",
+      "fingerprint": "66b44e5320bf27805e80e04e9b6a5f3030bc18537313d6a1f88e1f53dc88398f",
+      "maximum": 1.3853439448929805E-06,
+      "violations": 0,
+      "coverage": 0.9999999281812085
+    },
+    {
+      "id": "0063-003-binocular_system-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "701c41210aa641e7ef80b76cc0687c6029492f2759785319405f674f98fc3c87",
+      "maximum": 2.4503986426338553E-05,
+      "violations": 0,
+      "coverage": 0.999997399685585
+    },
+    {
+      "id": "0093-003-binocular_system-c2-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "57aabf59989a9b1648b62c46842ae0eb8e1be77adeb37fb9490cf243a5b36fe7",
+      "maximum": 0.0011946610381988604,
+      "violations": 335,
+      "coverage": 0.999997399685585
+    },
+    {
+      "id": "0123-004-apochromat_prism-c1-primary-f1-w3-fft-psf-cross-section",
+      "fingerprint": "15c7c9f2c088df99ba697ab0936584444e84673c52e00d9a4b7dcf359610aa33",
+      "maximum": 0.00011202888833755642,
+      "violations": 0,
+      "coverage": 0.9999951901557569
+    }
+  ],
+  "remainingViolations": 335,
+  "rejectedPredicateAdapterRemoved": true,
+  "broadTestSuiteRun": false,
+  "newUnitTestRun": false,
+  "finalBuildLog": "artifacts/validation/fft-rule-20261029-restored-build-02.log",
+  "interruptedBuildLog": "artifacts/validation/fft-rule-20261029-restored-build.log",
+  "verificationScope": "Isolated HEAD Core and recorded diagnostics only; concurrent main-workspace changes are not certified"
+}

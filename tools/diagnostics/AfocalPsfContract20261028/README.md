@@ -1,4 +1,11 @@
-# Remaining afocal capture (not executed here)
+# Remaining afocal capture preparation
+
+Follow-up on 2026-10-29: the licensed machine completed the relevant original
+jobs plus bounded internal NSC controls through the hidden C# runner. Actual
+version, dependency hashes, settings and remaining precision gaps are recorded in
+the [native-resumption report](../../../docs/AFOCAL_NATIVE_RESUME_2026-10-29.md).
+Statements below about unexecuted native code describe this preparation stage;
+they do not supersede that later execution evidence.
 
 Requires a checkout of the recorded base commit with this patch applied, Python 3.9+,
 and, **only for `--run`**, a licensed Windows OpticStudio 2026 R1 installation and

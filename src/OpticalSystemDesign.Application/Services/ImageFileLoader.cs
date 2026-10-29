@@ -20,10 +20,19 @@ internal static class ImageFileLoader
             throw new FileNotFoundException("The image simulation input bitmap does not exist.", fullPath);
         }
 
-        using var stream = BoundedFile.OpenRead(
-            fullPath,
-            BoundedFile.MaximumImageDataBytes,
-            "Image-simulation bitmap");
+        using var stream = BoundedFile.OpenRead(fullPath, BoundedFile.MaximumImageDataBytes, "Image-simulation bitmap");
+        return LoadRgb(stream);
+    }
+
+    internal static RgbImage LoadRgb(byte[] bytes)
+    {
+        if (bytes.LongLength > BoundedFile.MaximumImageDataBytes) throw new InvalidDataException("Input bitmap is too large.");
+        using var stream = new MemoryStream(bytes, writable: false);
+        return LoadRgb(stream);
+    }
+
+    private static RgbImage LoadRgb(Stream stream)
+    {
         // The metadata codec owns its Skia stream, not the file needed by the decoder below.
         using (var codecStream = new SKManagedStream(stream, disposeManagedStream: false))
         using (var codec = SKCodec.Create(codecStream)

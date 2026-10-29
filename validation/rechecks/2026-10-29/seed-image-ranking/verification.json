@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "protocol_sha256": "7be7f028beeba7516f2586ad14cbab0776ed88739ff69d1a910594fec24670d4",
+  "scope": "one fixed wide-angle task, not a broad benchmark or a claim of final design improvement",
+  "runs": [
+    {
+      "mode": "thick-delano",
+      "functions": 77,
+      "gradients": 21,
+      "rays": 1637216,
+      "wall_seconds": 15.3005184,
+      "original_physical_gates_and_caps_preserved": true
+    },
+    {
+      "mode": "image-ranked",
+      "functions": 81,
+      "gradients": 21,
+      "rays": 1637216,
+      "wall_seconds": 12.4934936,
+      "original_physical_gates_and_caps_preserved": true
+    }
+  ],
+  "distinct_latest_tests_passed": 18
+}

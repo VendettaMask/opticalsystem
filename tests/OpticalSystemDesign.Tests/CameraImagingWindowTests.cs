@@ -18,6 +18,51 @@ namespace OpticalSystemDesign.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class CameraImagingWindowTests
 {
+    [Theory]
+    [InlineData("Light")]
+    [InlineData("Dark")]
+    public async Task ExperimentOpenEditedReplayAndCalibrationPreserveAAndRejectInvalidImports(string theme)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));
+        await session.Dispatch<bool>(async () =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            using var app = WorkbenchApplication.Create();
+            var a = await app.CameraImaging.SimulateAsync(new(Width: 8, Height: 8, Optics: CameraOptics.Ideal));
+            var b = await app.CameraImaging.SimulateAsync(a.Request with { Isp = new(Gamma: 1.8) });
+            var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".camera-experiment.zip");
+            var calibrationPath = path + ".json";
+            var window = new CameraImagingWindow(app);
+            try
+            {
+                await app.CameraImaging.SaveExperimentAsync(new(CameraExperiment.FormatIdentifier, 1, b, a), path);
+                window.Show(); Assert.True(await window.OpenExperimentFromPathAsync(path));
+                Assert.Equal(b.RawDn, window.Result!.RawDn); Assert.Equal(a.RawDn, window.Comparison!.RawDn);
+                app.Documents.NewBlank(); Assert.NotNull(window.Result); // Explicit saved-input mode survives unrelated project changes.
+                var controls = window.GetVisualDescendants().OfType<Control>().ToArray();
+                controls.OfType<NumericUpDown>().Single(c => c.Name == "camera-exposure").Value = 20;
+                Assert.Null(window.Result); Assert.NotNull(window.Comparison);
+                await window.RunAsync();
+                Assert.Equal(b.MeanPhotoElectrons * 2, window.Result!.MeanPhotoElectrons, 8);
+                var edited = window.Result;
+                await window.RecomputeExperimentAsync(); Assert.Equal(edited.RawDn, window.Result!.RawDn);
+                var beforeInvalid = window.Result;
+                await File.WriteAllTextAsync(calibrationPath, "{}");
+                Assert.False(await window.OpenExperimentFromPathAsync(calibrationPath)); Assert.Same(beforeInvalid, window.Result);
+                Assert.False(await window.CalibrateSensorFromPathAsync(calibrationPath)); Assert.Same(beforeInvalid, window.Result);
+                await File.WriteAllTextAsync(calibrationPath, System.Text.Json.JsonSerializer.Serialize(CameraCalibrationTests.Capture(), CameraCalibrationTests.Json));
+                Assert.True(await window.CalibrateSensorFromPathAsync(calibrationPath));
+                Assert.Null(window.Result); Assert.NotNull(window.Comparison);
+                await window.RunAsync(); Assert.NotNull(window.Result!.Request.SensorIdentity?.Calibration);
+                Capture(window, theme + "-experiment-calibration");
+                window.Width = 760; window.Height = 540; Capture(window, theme + "-experiment-narrow");
+                Assert.True(controls.OfType<Button>().Single(c => c.Name == "camera-save-experiment").IsEnabled);
+                return true;
+            }
+            finally { window.Close(); File.Delete(path); File.Delete(calibrationPath); }
+        }, CancellationToken.None);
+    }
+
     public static AppBuilder BuildAvaloniaApp()
     {
         var capture = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("OPTICAL_CAMERA_CAPTURE_DIR"));

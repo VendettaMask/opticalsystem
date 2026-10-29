@@ -29,7 +29,8 @@ public static class ParaxialSeedSearch
             throw new ArgumentException("First-order preparation requires complete physical seed templates, not deletion transition states.");
         var protocol = ContentFingerprint.Compute(new
         {
-            Identity = options.Generation?.MaterializationVersion == 2 ? "initial-structure-thick-delano-seeds-v2"
+            Identity = options.ImageScreening is not null ? "initial-structure-real-ray-ranked-seeds-v1"
+                : options.Generation?.MaterializationVersion == 2 ? "initial-structure-thick-delano-seeds-v2"
                 : options.Generation is null ? "initial-structure-paraxial-seeds-v1" : "initial-structure-descriptor-seeds-v1",
             plan,
             options,
@@ -48,6 +49,9 @@ public static class ParaxialSeedSearch
         var attempts = new List<ParaxialSeedAttempt>();
         var retained = new List<(DesignTopology Topology, double Score)>();
         var termination = ParaxialSeedTermination.Completed;
+        var screeningPhase = false;
+        var screeningReserve = options.ImageScreening is { } imageOptions
+            ? Math.Min(Math.Min(imageOptions.MaximumCandidates, options.MaximumStarts), options.MaximumFunctionEvaluations - 2) : 0;
         try
         {
             using var cpu = new SequentialGpuSession(DesignComputeMode.Cpu, token);
@@ -241,15 +245,41 @@ public static class ParaxialSeedSearch
         var pool = retained.OrderBy(item => item.Score).ThenBy(item => ContentFingerprint.Compute(item.Topology), StringComparer.Ordinal)
             .DistinctBy(item => TopologyDiversitySelection.PrescriptionIdentity(item.Topology)).ToList();
         var seeds = new List<DesignTopology>();
-        while (pool.Count > 0 && seeds.Count < options.RetainedSeeds)
+        List<SeedImageScreeningResult>? screens = null;
+        if (options.ImageScreening is { } screening)
         {
-            var best = seeds.Count == 0 ? pool[0] : pool.OrderByDescending(item => seeds.Min(chosen =>
-                TopologyDiversitySelection.Distance(item.Topology, chosen, plan.Targets))).ThenBy(item => item.Score).First();
-            seeds.Add(best.Topology); pool.Remove(best);
+            screeningPhase = true;
+            screens = [];
+            try
+            {
+                foreach (var candidate in pool.Take(screening.MaximumCandidates))
+                {
+                    Charge();
+                    var assessed = SeedImageQualityScreening.Evaluate(TopologyCompiler.Compile(candidate.Topology, plan.Constraints),
+                        plan.Targets, screening, token);
+                    screens.Add(assessed);
+                    progress?.Invoke(attempts.Count, functions);
+                    if (token.IsCancellationRequested) token.ThrowIfCancellationRequested();
+                    if (rays.LimitReached) throw new LimitReached();
+                }
+            }
+            catch (OperationCanceledException) { termination = cancellationToken.IsCancellationRequested ? ParaxialSeedTermination.Cancelled : ParaxialSeedTermination.TimeLimit; }
+            catch (LimitReached) { termination = ParaxialSeedTermination.BudgetExhausted; }
+            seeds = SeedImageQualityScreening.Select(pool, screens, options.RetainedSeeds, screening, plan.Targets);
+        }
+        else
+        {
+            while (pool.Count > 0 && seeds.Count < options.RetainedSeeds)
+            {
+                var best = seeds.Count == 0 ? pool[0] : pool.OrderByDescending(item => seeds.Min(chosen =>
+                    TopologyDiversitySelection.Distance(item.Topology, chosen, plan.Targets))).ThenBy(item => item.Score).First();
+                seeds.Add(best.Topology); pool.Remove(best);
+            }
         }
         return new()
         {
-            Algorithm = options.Generation?.MaterializationVersion == 2 ? "initial-structure-thick-delano-seeds-v2"
+            Algorithm = options.ImageScreening is not null ? "initial-structure-real-ray-ranked-seeds-v1"
+                : options.Generation?.MaterializationVersion == 2 ? "initial-structure-thick-delano-seeds-v2"
                 : options.FixedStopRecoveryVersion == 2 ? "initial-structure-fixed-stop-seeds-v2"
                 : options.Generation is null ? "initial-structure-paraxial-seeds-v1" : "initial-structure-descriptor-seeds-v1",
             DiagramEvaluations = options.Generation?.Method == StructureGenerationMethod.Delano ? diagrams : null,
@@ -259,6 +289,7 @@ public static class ParaxialSeedSearch
             Termination = termination,
             Seeds = seeds.ToImmutableArray(),
             Attempts = attempts.ToImmutableArray(),
+            ImageScreens = screens?.ToImmutableArray(),
             MatrixRequests = matrices,
             Work = new()
             {
@@ -271,7 +302,11 @@ public static class ParaxialSeedSearch
             }
         };
 
-        void CheckLimit() { token.ThrowIfCancellationRequested(); if (functions >= options.MaximumFunctionEvaluations) throw new LimitReached(); }
+        void CheckLimit()
+        {
+            token.ThrowIfCancellationRequested();
+            if (functions >= options.MaximumFunctionEvaluations - (screeningPhase ? 0 : screeningReserve)) throw new LimitReached();
+        }
         void Charge() { CheckLimit(); functions++; }
     }
 
@@ -303,6 +338,11 @@ public static class ParaxialSeedSearch
     {
         ArgumentNullException.ThrowIfNull(options);
         if (options.Generation is { } generation) StructureSeedGenerator.Validate(generation);
+        if (options.ImageScreening is { } screening)
+        {
+            SeedImageQualityScreening.Validate(screening);
+            if (options.MaximumFunctionEvaluations < 3) throw new ArgumentException("Real-ray screening requires a separate evaluation within the preparation budget.");
+        }
         if (options.FixedStopRecoveryVersion is not (null or 2) || options.Version != 1 || options.MaximumStarts is < 1 or > 64 || options.RetainedSeeds is < 1 or > 8
             || options.MaximumFunctionEvaluations is < 2 or > 10_000 || options.MaximumEvaluationsPerStart is < 2 or > 200
             || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromMinutes(2)

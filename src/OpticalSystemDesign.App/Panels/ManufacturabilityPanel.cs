@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Layout;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -13,7 +12,7 @@ using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
 
-public sealed class ManufacturabilityPanel : UserControl, IDisposable
+public sealed partial class ManufacturabilityPanel : UserControl, IDisposable
 {
     private readonly IPrescriptionService _prescription;
     private readonly IWorkspaceEventStream _events;
@@ -30,10 +29,11 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
     private readonly TextBlock _basis = new()
     {
         Text = "规则用于设计阶段筛查，最终结论应由加工和检验人员审核。",
-        VerticalAlignment = VerticalAlignment.Center
+        VerticalAlignment = VerticalAlignment.Center,
+        TextWrapping = TextWrapping.Wrap
     };
     private readonly DataGrid _metricGrid;
-    private readonly DataGrid _grid;
+    private ManufacturabilityReport? _report;
     private bool _disposed;
 
     public ManufacturabilityPanel(
@@ -43,77 +43,10 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
         _prescription = prescription;
         _events = events;
         _metricGrid = BuildMetricGrid();
-        _grid = BuildGrid();
-
-        var evaluate = new Button
-        {
-            Content = new LocalIconLabel("clipboard-check", "重新评估"),
-            MinWidth = 108,
-            Height = 32
-        };
-        evaluate.Click += (_, _) => Refresh();
-
-        var settings = new WrapPanel
-        {
-            Orientation = Orientation.Horizontal,
-            VerticalAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(10, 6),
-            Children =
-            {
-                Label("最小中心厚度 (mm)"), _minimumCenterThickness,
-                Label("最小边厚 (mm)"), _minimumEdgeThickness,
-                Label("最大 D/CT"), _maximumAspectRatio,
-                Label("最小 |R|/D"), _minimumRadiusRatio,
-                Label("最大边缘斜率 (°)"), _maximumEdgeSlope,
-                evaluate
-            }
-        };
-        var settingsBand = new Border
-        {
-            BorderThickness = new Thickness(0, 0, 0, 1),
-            Child = settings
-        };
-        var summaryBand = new Border
-        {
-            BorderThickness = new Thickness(0, 1, 0, 0),
-            Padding = new Thickness(12, 7),
-            Child = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                Spacing = 20,
-                Children = { _summary, _basis }
-            }
-        };
-        _basis.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
-        settingsBand.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
-        settingsBand.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        summaryBand.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        summaryBand.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-
-        var body = new Grid
-        {
-            RowDefinitions = new RowDefinitions("Auto,*,Auto,2*")
-        };
-        var metricHeader = SectionHeader("几何加工指标");
-        var findingsHeader = SectionHeader("规则评估结论");
-        Grid.SetRow(metricHeader, 0);
-        Grid.SetRow(_metricGrid, 1);
-        Grid.SetRow(findingsHeader, 2);
-        Grid.SetRow(_grid, 3);
-        body.Children.Add(metricHeader);
-        body.Children.Add(_metricGrid);
-        body.Children.Add(findingsHeader);
-        body.Children.Add(_grid);
-
-        var root = new DockPanel();
-        DockPanel.SetDock(settingsBand, Avalonia.Controls.Dock.Top);
-        DockPanel.SetDock(summaryBand, Avalonia.Controls.Dock.Bottom);
-        root.Children.Add(settingsBand);
-        root.Children.Add(summaryBand);
-        root.Children.Add(body);
-        Content = root;
+        Content = BuildPage();
 
         _events.Changed += OnWorkspaceChanged;
+        UiLocalization.LanguageChanged += OnLanguageChanged;
         Refresh();
     }
 
@@ -126,6 +59,7 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
 
         _disposed = true;
         _events.Changed -= OnWorkspaceChanged;
+        UiLocalization.LanguageChanged -= OnLanguageChanged;
     }
 
     private static DataGrid BuildMetricGrid()
@@ -133,54 +67,34 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
         var grid = BaseGrid();
         grid.Columns.Add(Column("元件", nameof(ManufacturabilityGeometryMetric.ElementNumber), 64));
         grid.Columns.Add(Column("表面", nameof(ManufacturabilityGeometryMetric.Surfaces), 86));
-        grid.Columns.Add(Column("项目", nameof(ManufacturabilityGeometryMetric.Item), 180));
+        grid.Columns.Add(Column("项目", nameof(ManufacturabilityGeometryMetric.Item), 174));
         grid.Columns.Add(new DataGridTextColumn
         {
             Header = "计算值",
             Binding = new Binding(nameof(ManufacturabilityGeometryMetric.Value)),
-            Width = new DataGridLength(1, DataGridLengthUnitType.Star)
+            Width = new DataGridLength(1, DataGridLengthUnitType.Star),
+            MinWidth = 185
         });
-        grid.Columns.Add(Column("说明", nameof(ManufacturabilityGeometryMetric.Note), 220));
-        return grid;
-    }
-
-    private DataGrid BuildGrid()
-    {
-        var grid = BaseGrid();
-        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("severity-error"))
-        {
-            Setters = { new Setter(DataGridRow.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.ErrorSurface)) }
-        });
-        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("severity-warning"))
-        {
-            Setters = { new Setter(DataGridRow.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.WarningSurface)) }
-        });
-        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("severity-success"))
-        {
-            Setters = { new Setter(DataGridRow.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.SuccessSurface)) }
-        });
-        grid.Columns.Add(Column("元件", nameof(ManufacturabilityFinding.ElementNumber), 64));
-        grid.Columns.Add(Column("表面", nameof(ManufacturabilityFinding.Surfaces), 86));
-        grid.Columns.Add(Column("结论", nameof(ManufacturabilityFinding.SeverityText), 92));
-        grid.Columns.Add(Column("检查项目", nameof(ManufacturabilityFinding.Check), 150));
-        grid.Columns.Add(Column("实测/计算值", nameof(ManufacturabilityFinding.MeasuredValue), 180));
         grid.Columns.Add(new DataGridTextColumn
         {
-            Header = "工艺建议",
-            Binding = new Binding(nameof(ManufacturabilityFinding.Recommendation)),
-            Width = new DataGridLength(1, DataGridLengthUnitType.Star)
+            Header = "说明",
+            Binding = new Binding(nameof(ManufacturabilityGeometryMetric.Note)),
+            Width = new DataGridLength(1, DataGridLengthUnitType.Star),
+            MinWidth = 190
         });
-        grid.LoadingRow += (_, args) =>
+        grid.Name = "ManufacturingMetrics";
+        grid.Styles.Add(new Style(selector => selector.OfType<DataGridCell>().Descendant().OfType<TextBlock>())
         {
-            if (args.Row.DataContext is not ManufacturabilityFinding finding)
+            Setters =
             {
-                return;
+                new Setter(TextBlock.TextWrappingProperty, TextWrapping.Wrap),
+                new Setter(TextBlock.MarginProperty, new Thickness(8, 6))
             }
-
-            args.Row.Classes.Set("severity-error", finding.Severity == ManufacturabilitySeverity.Error);
-            args.Row.Classes.Set("severity-warning", finding.Severity == ManufacturabilitySeverity.Warning);
-            args.Row.Classes.Set("severity-success", finding.Severity == ManufacturabilitySeverity.Pass);
-        };
+        });
+        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>())
+        {
+            Setters = { new Setter(MinHeightProperty, Math.Max(38, UiDensity.CompactTableRowHeight)) }
+        });
         return grid;
     }
 
@@ -210,34 +124,23 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
         catch (Exception exception) when (exception is NotSupportedException or InvalidOperationException or ArgumentException)
         {
             _metricGrid.ItemsSource = null;
-            _grid.ItemsSource = null;
-            _summary.Text = $"无法评估：{exception.Message}";
+            _report = null;
+            PresentFailure(exception.Message);
             return;
         }
-        _metricGrid.ItemsSource = report.GeometryMetrics;
-        _grid.ItemsSource = report.Findings;
-        _summary.Text = report.Elements.Count == 0
-            ? "没有识别到可评估的玻璃元件"
-            : $"元件 {report.Elements.Count} · 不可加工 {report.ErrorCount} · 需评审 {report.WarningCount} · 通过 {report.PassCount}";
+        _report = report;
+        PresentReport(report);
     }
 
     private static DataGrid BaseGrid() => new()
     {
         AutoGenerateColumns = false,
         IsReadOnly = true,
-        GridLinesVisibility = DataGridGridLinesVisibility.All,
+        GridLinesVisibility = DataGridGridLinesVisibility.Horizontal,
         HeadersVisibility = DataGridHeadersVisibility.Column,
-        RowHeight = UiDensity.CompactTableRowHeight,
+        RowHeight = double.NaN,
         ColumnHeaderHeight = UiDensity.TableHeaderHeight,
         BorderThickness = new Thickness(0)
-    };
-
-    private static TextBlock SectionHeader(string text) => new()
-    {
-        Text = text,
-        FontWeight = FontWeight.SemiBold,
-        Margin = new Thickness(10, 6, 10, 4),
-        VerticalAlignment = VerticalAlignment.Center
     };
 
     private static DataGridTextColumn Column(string header, string property, double width) => new()
@@ -247,21 +150,14 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
         Width = new DataGridLength(width)
     };
 
-    private static TextBlock Label(string text) => new()
-    {
-        Text = text,
-        Margin = new Thickness(8, 0, 4, 0),
-        VerticalAlignment = VerticalAlignment.Center
-    };
-
     private static NumericUpDown Number(decimal value, decimal minimum, decimal maximum, decimal increment) => new()
     {
         Value = value,
         Minimum = minimum,
         Maximum = maximum,
         Increment = increment,
-        Width = 86,
-        Height = 30,
+        HorizontalAlignment = HorizontalAlignment.Stretch,
+        MinHeight = 34,
         FormatString = "0.###"
     };
 }

@@ -1,0 +1,103 @@
+{
+  "Mode": "image-ranked",
+  "SourcePlanFingerprint": "ea50725ca36102358024755685fda992c74ca2e3ed5c7e3dd8c51c35e3ecb3c6",
+  "Preparation": {
+    "Termination": "TimeLimit",
+    "Retained": 0,
+    "FallbackToOriginal": true,
+    "Work": {
+      "FunctionEvaluations": 14,
+      "GradientEvaluations": 0,
+      "ValidationEvaluations": 0,
+      "MatrixEvaluations": 34,
+      "DifferenceEvaluations": 0,
+      "JacobianBuilds": 3,
+      "TracedRays": 0,
+      "GeometryProbes": 9459,
+      "Elapsed": "00:00:15.1679942"
+    },
+    "DiagramEvaluations": 10,
+    "ImageScreens": [],
+    "Outcomes": [
+      {
+        "Index": 0,
+        "Outcome": "NoFirstOrderSeed",
+        "FunctionEvaluations": 14,
+        "Score": 6.418355623511756E-05
+      }
+    ]
+  },
+  "InitialQuality": [],
+  "BestRetained": null,
+  "LastAssessment": {
+    "Completed": false,
+    "MeetsTargets": false,
+    "EffectiveFocalLengthMillimeters": 25.012716195783153,
+    "FNumber": 3.4028450695876655,
+    "Fields": 3,
+    "RmsMicrometers": 30.90957398772261,
+    "MaximumMicrometers": 51.18119347355288,
+    "DistortionPercent": 0.004943157677547907,
+    "MinimumIntegrationValid": 960,
+    "MinimumChecksValid": 99,
+    "Violations": [],
+    "Failure": "The operation was canceled.",
+    "TracedRayCount": 41292
+  },
+  "Endpoints": [
+    {
+      "TrialId": "seed-0",
+      "Operation": "seed",
+      "Phase": "Validation",
+      "Outcome": "ValidationUnavailable",
+      "Detail": "The operation was canceled.",
+      "Elements": 3,
+      "AcceptedUpdates": null,
+      "Assessment": {
+        "Completed": false,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.012716195783153,
+        "FNumber": 3.4028450695876655,
+        "Fields": 3,
+        "RmsMicrometers": 30.90957398772261,
+        "MaximumMicrometers": 51.18119347355288,
+        "DistortionPercent": 0.004943157677547907,
+        "MinimumIntegrationValid": 960,
+        "MinimumChecksValid": 99,
+        "Violations": [],
+        "Failure": "The operation was canceled.",
+        "TracedRayCount": 41292
+      }
+    }
+  ],
+  "SearchWork": {
+    "FunctionEvaluations": 1,
+    "GradientEvaluations": 0,
+    "ValidationEvaluations": 1,
+    "MatrixEvaluations": 0,
+    "DifferenceEvaluations": 0,
+    "JacobianBuilds": 0,
+    "TracedRays": 41292,
+    "GeometryProbes": 841,
+    "Elapsed": "00:00:44.8128940"
+  },
+  "CombinedFunctions": 15,
+  "CombinedGradients": 0,
+  "CombinedRays": 41292,
+  "ComputeAndSaveWallSeconds": 60.665022,
+  "WallLimitSeconds": 60,
+  "WithinWallLimit": false,
+  "Status": "BudgetExhausted",
+  "TrialCursor": 0,
+  "PopulationOperations": [],
+  "QualifiedCandidates": 0,
+  "BoundedConclusion": {
+    "BestQualifiedId": null,
+    "Complexity": null,
+    "StopReason": "TimeLimit",
+    "ScreenedTrials": 0,
+    "RejectedScreens": 0,
+    "EvaluatedTrials": 0,
+    "ConsecutiveUnsuccessfulTrials": 0
+  }
+}

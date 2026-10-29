@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../OpticalSystemDesign.ZemaxComparison/OpticalSystemDesign.ZemaxComparison.csproj" />
+    <Compile Include="../FftProfile20261029/Source/FftProfileDiagnostics.cs" Link="FftProfileDiagnostics.cs" />
+    <Compile Include="../FftProfile20261029/Source/FftProfileFacetDiagnostics.cs" Link="FftProfileFacetDiagnostics.cs" />
+  </ItemGroup>
+</Project>

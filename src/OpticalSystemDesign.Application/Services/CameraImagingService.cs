@@ -10,6 +10,7 @@ using OpticalSystemDesign.Core.Analysis.Imaging;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Core.Serialization;
 using SkiaSharp;
 
 namespace OpticalSystemDesign.Application.Services;
@@ -20,12 +21,34 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
     internal const string Scope = "Generic laboratory model; 650/550/450 nm narrow bands; ideal non-overlapping Bayer filters; "
         + "user-specified image-plane irradiance per band at linear value 1 (W/m^2); input assumed sRGB; "
         + "bilinear demosaic, black-level subtraction, RGB gains, box denoise, unsharp mask, power gamma. "
-        + "Pixel-center optical samples, no pixel-area integration; no measured sensor calibration, full spectral scene, angular QE, 3D scene, motion, stray-light coupling or vendor ISP. "
+        + "Pixel-center optical samples, no pixel-area integration; user RAW scalar calibration is not independently verified; no full spectral scene, angular QE, 3D scene, motion, stray-light coupling or vendor ISP. "
         + "Not an ImSym/Speos numerical comparison or EMVA certification.";
 
-    public async Task<CameraImagingResult> SimulateAsync(CameraImagingRequest request, CancellationToken cancellationToken = default)
+    public Task<CameraImagingResult> SimulateAsync(CameraImagingRequest request, CancellationToken cancellationToken = default)
+        => SimulateCoreAsync(request, null, null, cancellationToken);
+
+    public Task<CameraImagingResult> RecomputeAsync(CameraImagingResult run, CameraImagingRequest? request = null,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(run);
+        if (run.Inputs is null) throw new InvalidDataException("此结果没有可复算输入，请使用新的实验文件。");
+        if (run.Inputs.EngineVersion != ExperimentEngineVersion) throw new InvalidDataException("实验计算模型版本不同；可查看原结果，不能保证同模型复算。");
+        var inputs = FreezeInputs(run.Inputs);
+        if (request is { Source: CameraSource.ExternalImage } && (inputs.ExternalImageBytes is null
+            || request.SourceFile != run.Request.SourceFile))
+        {
+            var bytes = BoundedFile.ReadAllBytes(request.SourceFile, BoundedFile.MaximumImageDataBytes, "Camera input image");
+            inputs = inputs with { ExternalImageBytes = bytes, ImageOrigin = Origin(request.SourceFile, bytes) };
+        }
+        return SimulateCoreAsync(request ?? run.Request, inputs, run.DocumentName, cancellationToken);
+    }
+
+    private async Task<CameraImagingResult> SimulateCoreAsync(CameraImagingRequest request, CameraExperimentInputs? inputs,
+        string? savedName, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request); cancellationToken.ThrowIfCancellationRequested();
+        if (request.Source == CameraSource.ExternalImage && string.IsNullOrWhiteSpace(request.SourceFile) && inputs?.ExternalImageBytes is null)
+            throw new InvalidOperationException("External bitmap mode requires an input image file.");
         request = request with { Sensor = request.Sensor ?? new(), Isp = request.Isp ?? new() };
         request = request with
         {
@@ -35,6 +58,8 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
             MaterialScene = FreezeMaterialScene(request.MaterialScene),
             Integration = request.Integration ?? new()
         };
+        if (request.SensorIdentity?.Calibration is { } calibration)
+            request = request with { SensorIdentity = request.SensorIdentity with { Calibration = FreezeCalibration(calibration) } };
         CameraSensorPipeline.ValidateDimensions(request.Width, request.Height);
         if (!Enum.IsDefined(request.Source) || !Enum.IsDefined(request.Optics) || !Enum.IsDefined(request.Aberration)
             || !Enum.IsDefined(request.SpectralModel) || !Enum.IsDefined(request.SceneMode))
@@ -61,18 +86,27 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
         Optic? optic; long revision; string name; CancellationTokenSource linked;
         lock (Gate)
         {
-            if (request.Optics == CameraOptics.CurrentLens && modes.CurrentMode != OpticalWorkbenchMode.Sequential)
+            if (inputs is null && request.Optics == CameraOptics.CurrentLens && modes.CurrentMode != OpticalWorkbenchMode.Sequential)
                 throw new InvalidOperationException("当前镜头成像需要顺序模式；可选择理想光学对照。");
-            optic = request.Optics == CameraOptics.CurrentLens ? Runtime.CurrentOptic.Clone() : null;
-            revision = Workspace.Revision; name = Runtime.CurrentOptic.Name;
+            optic = request.Optics != CameraOptics.CurrentLens ? null : inputs is null ? Runtime.CurrentOptic.Clone()
+                : RestoreLens(inputs.LensSnapshotJson ?? throw new InvalidDataException("实验没有镜头快照。"));
+            revision = Workspace.Revision; name = savedName ?? Runtime.CurrentOptic.Name;
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
+        // Preserve the prescription BEFORE the image-plane field configuration below.
+        var lensJson = optic is null ? inputs?.LensSnapshotJson : JsonSerializer.Serialize(optic.ToSnapshot(), LensJsonOptions);
         using (linked)
             return await Task.Run(() =>
             {
                 using var scope = ComputationCancellation.Push(linked.Token);
-                var encoded = request.Source == CameraSource.ExternalImage
-                    ? ImageFileLoader.LoadRgb(request.SourceFile)
+                var imageBytes = request.Source != CameraSource.ExternalImage ? null : inputs is not null
+                    ? inputs.ExternalImageBytes ?? throw new InvalidDataException("实验没有保存外部输入图片。")
+                    : BoundedFile.ReadAllBytes(request.SourceFile, BoundedFile.MaximumImageDataBytes, "Camera input image");
+                var captured = new CameraExperimentInputs(ExperimentEngineVersion, lensJson, imageBytes ?? inputs?.ExternalImageBytes,
+                    imageBytes is null ? inputs?.ImageOrigin : inputs?.ImageOrigin ?? Origin(request.SourceFile, imageBytes),
+                    inputs?.LensDocumentName ?? name, inputs?.LensSourceRevision ?? revision);
+                var encoded = imageBytes is not null
+                    ? ImageFileLoader.LoadRgb(imageBytes)
                     : ImageSimulationEngine.CreateSourceImage((ImageSimulationSourcePattern)request.Source, request.Width, request.Height);
                 var source = ResizeLinear(encoded, request.Width, request.Height);
                 var optical = source; var opticalMode = "Ideal optical control"; var fallbacks = 0;
@@ -115,7 +149,7 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                     sensorResult.RawDn, sensorResult.ReferenceRawDn, sensorResult.PhotoElectrons,
                     sensorResult.MeanPhotoElectrons, sensorResult.RawNoiseRmseDn, sensorResult.SaturatedPixels,
                     opticalMode, fallbacks, materialPlan is not null ? MaterialScope : plan is not null ? ContinuousScope : request.SpectralResponse is null ? Scope : SpectralScope,
-                    materialPlan is not null ? Diagnostics(request.MaterialScene!, materialPlan, materialSampling!) : plan is null ? null : Diagnostics(plan));
+                    materialPlan is not null ? Diagnostics(request.MaterialScene!, materialPlan, materialSampling!) : plan is null ? null : Diagnostics(plan), captured);
             }, linked.Token).ConfigureAwait(false);
     }
 
@@ -185,7 +219,8 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
             }
             Write(folder + "/sensor-profile.json", JsonSerializer.SerializeToUtf8Bytes(new CameraSensorProfile(
                 SensorFormat, 1, run.Request.SensorIdentity?.Name ?? "Generic laboratory sensor",
-                run.Request.SensorIdentity?.Source ?? "User configured, not calibrated", run.Request.Sensor!, run.Request.SpectralResponse), SensorJsonOptions));
+                run.Request.SensorIdentity?.Source ?? "User configured, not calibrated", run.Request.Sensor!, run.Request.SpectralResponse,
+                Calibration: run.Request.SensorIdentity?.Calibration), SensorJsonOptions));
             foreach (var (label, image) in new[] { ("source", run.Source), ("optical", run.Optical), ("electrons", run.Electrons),
                 ("raw-preview", run.Raw), ("noiseless-isp", run.Noiseless), ("developed", run.Developed) })
             {

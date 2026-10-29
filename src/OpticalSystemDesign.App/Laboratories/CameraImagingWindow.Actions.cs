@@ -23,17 +23,15 @@ public sealed partial class CameraImagingWindow
                 (CameraOptics)_optics.SelectedIndex, (CameraAberration)_aberration.SelectedIndex, sensor, isp,
                 _spectralResponse, _sensorIdentity, (CameraSpectralModel)_spectralModel.SelectedIndex, _illuminant, _reflectance,
                 new(V("spectrum-min"), V("spectrum-max"), V("spectrum-step")), (CameraSceneMode)_sceneMode.SelectedIndex, _materialScene);
-            var result = await _application.CameraImaging.SimulateAsync(request, operation.Token);
+            if (_size.SelectedIndex == 3 && _savedSize is { } savedSize)
+                request = request with { Width = savedSize.Width, Height = savedSize.Height };
+            var result = UsingExperimentInputs
+                ? await _application.CameraImaging.RecomputeAsync(_experimentRun!, request, operation.Token)
+                : await _application.CameraImaging.SimulateAsync(request, operation.Token);
             if (_closed || generation != _generation || result.SourceRevision != _application.Events.Revision) return;
-            _result = result;
-            foreach (var (view, frame) in _stageViews.Zip(new[] { result.Source, result.Optical, result.Electrons, result.Raw, result.Noiseless, result.Developed })) view.Set(frame);
-            _metrics.Text = $"{width} × {height} · 平均光电子 {result.MeanPhotoElectrons:G5} e⁻/像元 · "
-                + $"RAW 对无噪声 RMSE {result.RawNoiseRmseDn:G4} DN · 饱和 {result.SaturatedPixels}/{width * height}\n"
-                + $"光学模型：{result.OpticalModel} · 几何回退 {result.OpticalFallbackCount} · 曝光 {sensor.ExposureMilliseconds:G4} ms · "
-                + $"像元 {sensor.PixelPitchMicrometers:G4} µm · {sensor.BitDepth} bit · seed {sensor.Seed}\n"
-                + $"传感器：{result.Request.SensorIdentity?.Name ?? "通用参数"} · QE：{result.Request.SpectralResponse?.Name ?? "固定三波段"}";
-            _metrics.Text += "\n" + SpectrumDescription(result);
-            UpdateComparison(); _status.Text = "已完成。可固定 A、修改参数后运行 B，或导出各阶段图像、RAW 数值与参数。";
+            if (UsingExperimentInputs) _experimentRun = result;
+            PresentResult(result);
+            _status.Text = "已完成。可固定 A、修改参数后运行 B，或保存完整实验。";
         }
         catch (OperationCanceledException) { if (generation == _generation && !_closed) _status.Text = "计算已取消"; }
         catch (Exception ex) { if (generation == _generation && !_closed) _status.Text = "仿真未完成：" + ex.Message; }
@@ -42,6 +40,20 @@ public sealed partial class CameraImagingWindow
             if (generation == _generation) { _operation = null; _busy = false; UpdateAvailability(); }
             operation.Dispose();
         }
+    }
+
+    private void PresentResult(CameraImagingResult result)
+    {
+        var sensor = result.Request.Sensor!; var width = result.Request.Width; var height = result.Request.Height;
+        _result = result;
+        foreach (var (view, frame) in _stageViews.Zip(new[] { result.Source, result.Optical, result.Electrons, result.Raw, result.Noiseless, result.Developed })) view.Set(frame);
+        _metrics.Text = $"{width} × {height} · 平均光电子 {result.MeanPhotoElectrons:G5} e⁻/像元 · "
+            + $"RAW 对无噪声 RMSE {result.RawNoiseRmseDn:G4} DN · 饱和 {result.SaturatedPixels}/{width * height}\n"
+            + $"光学模型：{result.OpticalModel} · 几何回退 {result.OpticalFallbackCount} · 曝光 {sensor.ExposureMilliseconds:G4} ms · "
+            + $"像元 {sensor.PixelPitchMicrometers:G4} µm · {sensor.BitDepth} bit · seed {sensor.Seed}\n"
+            + $"传感器：{result.Request.SensorIdentity?.Name ?? "通用参数"} · QE：{result.Request.SpectralResponse?.Name ?? "固定三波段"}";
+        _metrics.Text += "\n" + SpectrumDescription(result);
+        UpdateComparison(); UpdateAvailability();
     }
 
     internal void PinComparison()
@@ -59,6 +71,8 @@ public sealed partial class CameraImagingWindow
             FileTypeFilter = new[] { new FilePickerFileType("图像") { Patterns = new[] { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.tif", "*.tiff", "*.webp" } } }
         });
         if (files.Count == 0 || _closed) return;
+        if (UsingExperimentInputs)
+            _experimentRun = _experimentRun! with { Inputs = _experimentRun!.Inputs! with { ExternalImageBytes = null, ImageOrigin = null } };
         _sourceFile = files[0].Path.LocalPath; _source.SelectedIndex = (int)CameraSource.ExternalImage;
         _fileInfo.Text = System.IO.Path.GetFileName(_sourceFile); Invalidate("输入图片已改变，请重新运行。");
     }
@@ -107,7 +121,7 @@ public sealed partial class CameraImagingWindow
     {
         var s = result.Request.Sensor!; var isp = result.Request.Isp!;
         var source = result.Request.Source == CameraSource.ExternalImage ? System.IO.Path.GetFileName(result.Request.SourceFile) : result.Request.Source.ToString();
-        return $"{label}：{result.DocumentName} · revision {result.SourceRevision} · {source} · {s.ExposureMilliseconds:G4} ms · "
+        return $"{label}：{result.Inputs?.LensDocumentName ?? result.DocumentName} · revision {result.Inputs?.LensSourceRevision ?? result.SourceRevision} · {source} · {s.ExposureMilliseconds:G4} ms · "
             + $"{s.GainDnPerElectron:G3} DN/e⁻ · {s.BitDepth} bit · read {s.ReadNoiseElectrons:G3} e⁻ · "
             + $"noise {s.NoiseEnabled} · ISP {isp.Enabled} · Gamma {isp.Gamma:G3} · seed {s.Seed}\n"
             + $"传感器：{result.Request.SensorIdentity?.Name ?? "通用参数"} · QE：{result.Request.SpectralResponse?.Name ?? "固定三波段"}"
@@ -126,17 +140,26 @@ public sealed partial class CameraImagingWindow
         UpdateComparison(); _status.Text = message; UpdateAvailability();
     }
     private void Cancel() { _generation++; _operation?.Cancel(); _operation = null; _busy = false; }
-    private void UpdateSource() => _document.Text = "相机成像仿真 · " + _application.Documents.GetSnapshot().Name;
+    private void UpdateSource()
+    {
+        _document.Text = "相机成像仿真 · " + (UsingExperimentInputs ? "实验快照：" + _experimentRun!.DocumentName : _application.Documents.GetSnapshot().Name);
+        _opticsInputInfo.Text = UsingExperimentInputs
+            ? "当前镜头使用实验快照；像面视场按像元尺寸与分辨率采样。取消上方勾选后使用当前工程。"
+            : "当前镜头沿用未保存处方；像面视场按像元尺寸与分辨率采样。";
+    }
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args) => OnUi(() =>
-    { UpdateSource(); Invalidate("镜头已改变，旧结果已清除，请重新运行。", true); });
-    private void OnModeChanged(object? sender, WorkbenchModeChangedEventArgs args) => OnUi(() => Invalidate("模式已改变，旧结果已清除。", true));
+    { UpdateSource(); if (!UsingExperimentInputs) Invalidate("镜头已改变，旧结果已清除，请重新运行。", true); });
+    private void OnModeChanged(object? sender, WorkbenchModeChangedEventArgs args) => OnUi(() =>
+    { if (!UsingExperimentInputs) Invalidate("模式已改变，旧结果已清除。", true); });
     private void OnUi(Action action)
     { if (Dispatcher.UIThread.CheckAccess()) { if (!_closed) action(); } else Dispatcher.UIThread.Post(() => { if (!_closed) action(); }); }
     private void UpdateAvailability()
     {
-        var validLens = _application.Modes.CurrentMode == OpticalWorkbenchMode.Sequential && _application.Documents.GetSnapshot().SurfaceCount >= 4;
+        var validLens = UsingExperimentInputs ? _experimentRun!.Inputs?.LensSnapshotJson is not null
+            : _application.Modes.CurrentMode == OpticalWorkbenchMode.Sequential && _application.Documents.GetSnapshot().SurfaceCount >= 4;
         var sourceReady = _source.SelectedIndex != (int)CameraSource.ExternalImage || !string.IsNullOrWhiteSpace(_sourceFile);
-        var sizeReady = _optics.SelectedIndex == 1 || _size.SelectedIndex < 2;
+        var sizeReady = _optics.SelectedIndex == 1 || _size.SelectedIndex < 2
+            || _size.SelectedIndex == 3 && _savedSize is { Width: <= 256, Height: <= 256 };
         var spectrumReason = SpectrumReadiness();
         var canRun = !_busy && sourceReady && sizeReady && spectrumReason is null && (_optics.SelectedIndex == 1 || validLens);
         ControlAvailability.Set(_run, canRun, _busy ? "正在计算，可取消后修改。" : !sourceReady ? "请先导入图片。"
@@ -148,6 +171,7 @@ public sealed partial class CameraImagingWindow
         UpdateSensorFiles();
         UpdateSceneSpectra();
         UpdateMaterialControls();
+        UpdateExperimentControls();
     }
     private double V(string key) => (double)(_numbers[key].Value ?? throw new InvalidOperationException("请输入有效数值。"));
 }
