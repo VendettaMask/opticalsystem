@@ -1,0 +1,2782 @@
+{
+  "date": "2026-10-29",
+  "baseCommit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+  "scope": "Five original afocal Huygens through-focus MTF requests and five existing fixed-angle controls; 20 curves, five calculated focus planes and 101 display points per curve.",
+  "rootCause": "Native-compatible added diopter phase is defined on normalized pupil coordinates scaled by the paraxial exit-pupil radius. Physical distorted pupil coordinates remain necessary for propagation, but must not also replace the phase datum.",
+  "samplingPrescriptionAndToleranceUnchanged": true,
+  "comparisonPolicyLfSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "nativeArchive": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+  "nativeArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "cases": [
+    {
+      "id": "0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True",
+          "Sampling": "32",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_32x32",
+          "ImageSampleSize": "S_32x32",
+          "Configuration": 2,
+          "ImageDelta": 0,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 0.49999999999999994,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "7d7f67bb8f9c0cb4612eac052eead88b7dad78a08c91944a9edb9acdb80cdba3",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "af8e17035c96db1d551d8073ac288431b6d908589356ced4714df29b7d73c83d",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf/native/data.json",
+          "sha256": "8a931f184aef9f472aca9f2474e6f62a499e06123e2a58793271c3d7b07fc1a1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf/native/model.json",
+          "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "e29cb3e932e6d1e7d9ee36f17cf14bbf4d9495f85e67222e65737c1c544978c2"
+        }
+      ],
+      "before": {
+        "id": "0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "7d7f67bb8f9c0cb4612eac052eead88b7dad78a08c91944a9edb9acdb80cdba3",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.00044857327879155307,
+              "meanAbsolute": 0.0001741695076197076,
+              "rmse": 0.00020711443453139404,
+              "nrmse": 0.0003188312445343802,
+              "maxRelative": 0.0007001454734718081,
+              "p50": 0.0001632754846127571,
+              "p90": 0.0003485956918203303,
+              "p95": 0.0004035197870291606,
+              "pearson": 0.9999936638198693,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.0004485732812893328,
+              "meanAbsolute": 0.00017416950761662588,
+              "rmse": 0.00020711443498738308,
+              "nrmse": 0.0003188312452370141,
+              "maxRelative": 0.0007001454773714787,
+              "p50": 0.0001632754845720119,
+              "p90": 0.0003485956943439561,
+              "p95": 0.00040351978953845894,
+              "pearson": 0.9999936638198689,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "7d7f67bb8f9c0cb4612eac052eead88b7dad78a08c91944a9edb9acdb80cdba3",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.920388347289361e-09,
+              "meanAbsolute": 2.8687510171196418e-09,
+              "rmse": 3.083200476651555e-09,
+              "nrmse": 4.746268155302353e-09,
+              "maxRelative": 6.049672749621131e-09,
+              "p50": 3.2993322518493073e-09,
+              "p90": 3.892708655417465e-09,
+              "p95": 3.914019897077736e-09,
+              "pearson": 0.9999999999999786,
+              "worstX": -0.003,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.917754121118833e-09,
+              "meanAbsolute": 2.866267005859069e-09,
+              "rmse": 3.0807669775677694e-09,
+              "nrmse": 4.74252203523545e-09,
+              "maxRelative": 6.045607793595752e-09,
+              "p50": 3.296705408661893e-09,
+              "p90": 3.890077115986657e-09,
+              "p95": 3.9113860483830365e-09,
+              "pearson": 0.9999999999999786,
+              "worstX": -0.003,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.0004485732812893328,
+      "afterMaximumAbsolute": 3.920388347289361e-09
+    },
+    {
+      "id": "0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 1,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_32x32",
+          "ImageSampleSize": "S_32x32",
+          "Configuration": 2,
+          "ImageDelta": 0,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 0.008333333333333333,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "1f64e470d4bbc5a150027450a18ae50238b76f72e68c532496889fb68ea5fd20",
+      "sourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "fa600a507dece35fc76970977b26f2b2610e12a0de0a3f33e598417d4dd99e95",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf/native/data.json",
+          "sha256": "1cd66df49a4be48d84836acbcea2ca116d68ae85792c996f3f8bc31fbe6eefc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf/native/model.json",
+          "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "f62db724ca5ee3ba8ce59eae78cd860a8a6eab44059f10420ed1df86aa05f018"
+        }
+      ],
+      "before": {
+        "id": "0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+        "fingerprint": "1f64e470d4bbc5a150027450a18ae50238b76f72e68c532496889fb68ea5fd20",
+        "violations": 160,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 80,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.0027835565244994642,
+              "meanAbsolute": 0.0017948235627699488,
+              "rmse": 0.0020139570534423662,
+              "nrmse": 0.00203306713032485,
+              "maxRelative": 0.0031308715964079004,
+              "p50": 0.0020948137635491415,
+              "p90": 0.0027480564618118652,
+              "p95": 0.0027741179521199367,
+              "pearson": 0.9999403639494446,
+              "worstX": -0.0064,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 80,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.0027835565239990867,
+              "meanAbsolute": 0.0017948235622641693,
+              "rmse": 0.0020139570528648013,
+              "nrmse": 0.0020330671297418244,
+              "maxRelative": 0.0031308715956398577,
+              "p50": 0.002094813761565617,
+              "p90": 0.0027480564615430803,
+              "p95": 0.0027741179516748257,
+              "pearson": 0.9999403639494054,
+              "worstX": -0.0064,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+        "fingerprint": "1f64e470d4bbc5a150027450a18ae50238b76f72e68c532496889fb68ea5fd20",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.0610369027830302e-08,
+              "meanAbsolute": 4.485280037137829e-09,
+              "rmse": 5.531387629318359e-09,
+              "nrmse": 5.583873973395268e-09,
+              "maxRelative": 1.3722333057724469e-08,
+              "p50": 4.071501802371813e-09,
+              "p90": 9.249997001692378e-09,
+              "p95": 9.90390909283434e-09,
+              "pearson": 1.0000000000000004,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.0612922873853847e-08,
+              "meanAbsolute": 4.4857859787805765e-09,
+              "rmse": 5.532222894778603e-09,
+              "nrmse": 5.58471716453955e-09,
+              "maxRelative": 1.3725635933062953e-08,
+              "p50": 4.071502246461023e-09,
+              "p90": 9.251919397268438e-09,
+              "p95": 9.906168552120675e-09,
+              "pearson": 0.9999999999999988,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.0027835565244994642,
+      "afterMaximumAbsolute": 1.0612922873853847e-08
+    },
+    {
+      "id": "0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_32x32",
+          "ImageSampleSize": "S_32x32",
+          "Configuration": 2,
+          "ImageDelta": 0,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 1.7188733853924696,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "a03a2a6aee2f3908ddc84080d129aca6b685a6d8bc73846ff18c504b7b859edc",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "0d0a0c481c889cbbb6421e346a53c4b271432d05ca7a629db593b3b96b1b93ac",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf/native/data.json",
+          "sha256": "e3875c6034407e8b097f3da61aa691833ddeaa8fb9b8e1cff79face5a022de50"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf/native/model.json",
+          "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "d90c0a497d374e44c35b1e453752bc1098d5309d82e0a519352c9363515fd21c"
+        }
+      ],
+      "before": {
+        "id": "0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "a03a2a6aee2f3908ddc84080d129aca6b685a6d8bc73846ff18c504b7b859edc",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.7141661901718415e-05,
+              "meanAbsolute": 1.64165715271598e-05,
+              "rmse": 1.8977231819065532e-05,
+              "nrmse": 3.084119348977239e-05,
+              "maxRelative": 6.306278031858765e-05,
+              "p50": 1.59321728233075e-05,
+              "p90": 2.8775458258079034e-05,
+              "p95": 3.2105367479623444e-05,
+              "pearson": 0.9999999991822204,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.714206514682239e-05,
+              "meanAbsolute": 1.6416504555143326e-05,
+              "rmse": 1.8977182307567952e-05,
+              "nrmse": 3.084108099880608e-05,
+              "maxRelative": 6.306336103810153e-05,
+              "p50": 1.5932114940220288e-05,
+              "p90": 2.8774822439681103e-05,
+              "p95": 3.210577542927528e-05,
+              "pearson": 0.9999999991821812,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "a03a2a6aee2f3908ddc84080d129aca6b685a6d8bc73846ff18c504b7b859edc",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.174795948357456e-08,
+              "meanAbsolute": 1.971315658714362e-08,
+              "rmse": 2.129045982725289e-08,
+              "nrmse": 3.4600578065282104e-08,
+              "maxRelative": 5.159577385541955e-08,
+              "p50": 2.076129740347099e-08,
+              "p90": 2.990439470496042e-08,
+              "p95": 3.092750059385807e-08,
+              "pearson": 0.9999999999999972,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.22015876186299e-08,
+              "meanAbsolute": 2.0186940539318465e-08,
+              "rmse": 2.172546959168029e-08,
+              "nrmse": 3.530750543229512e-08,
+              "maxRelative": 5.2332941526322524e-08,
+              "p50": 2.1234627556321328e-08,
+              "p90": 3.0361883873730734e-08,
+              "p95": 3.13828587228393e-08,
+              "pearson": 0.999999999999998,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 3.714206514682239e-05,
+      "afterMaximumAbsolute": 3.22015876186299e-08
+    },
+    {
+      "id": "0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_32x32",
+          "ImageSampleSize": "S_32x32",
+          "Configuration": 3,
+          "ImageDelta": 0,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 1.7188733853924696,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "c3e9dedaf420962691c3fa3030766d473384c926763aaef1c4ef054c6e8f9ad2",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "02f938fcf862bbb7d4a9801f5fb4a94827dadefef193f986ef17597a5ff120de",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf/native/data.json",
+          "sha256": "a01fe1ca53afc2b749736b52698d85520067d7515d1018743addb7c634913a01"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf/native/model.json",
+          "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "fa26d0c65e88b240d61745a9e55f0268d73b7dff9e148ee6b5b507c81b6d12e4"
+        }
+      ],
+      "before": {
+        "id": "0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "c3e9dedaf420962691c3fa3030766d473384c926763aaef1c4ef054c6e8f9ad2",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.714129223064688e-05,
+              "meanAbsolute": 1.6416579407277365e-05,
+              "rmse": 1.8977220381752626e-05,
+              "nrmse": 3.084117482814464e-05,
+              "maxRelative": 6.30621524925837e-05,
+              "p50": 1.5932174765864726e-05,
+              "p90": 2.8775836201089255e-05,
+              "p95": 3.2104996912785114e-05,
+              "pearson": 0.9999999991822177,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.713976965102894e-05,
+              "meanAbsolute": 1.6416509293131105e-05,
+              "rmse": 1.897706544759768e-05,
+              "nrmse": 3.084089088027874e-05,
+              "maxRelative": 6.305946306282812e-05,
+              "p50": 1.5932085615844027e-05,
+              "p90": 2.8776997510693292e-05,
+              "p95": 3.210348693308273e-05,
+              "pearson": 0.9999999991821675,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "c3e9dedaf420962691c3fa3030766d473384c926763aaef1c4ef054c6e8f9ad2",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.1371114705969205e-08,
+              "meanAbsolute": 1.9338139684195454e-08,
+              "rmse": 2.0943053665975256e-08,
+              "nrmse": 3.403598454116209e-08,
+              "maxRelative": 5.0983337587779064e-08,
+              "p50": 2.0385707011350007e-08,
+              "p90": 2.9527602052326073e-08,
+              "p95": 3.055067558932478e-08,
+              "pearson": 0.9999999999999987,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.0026906183699964e-08,
+              "meanAbsolute": 1.795120834445496e-08,
+              "rmse": 1.9679367848285873e-08,
+              "nrmse": 3.198224920906736e-08,
+              "maxRelative": 4.8798721785569205e-08,
+              "p50": 1.8998482120835547e-08,
+              "p90": 2.817450946990263e-08,
+              "p95": 2.9202478157852596e-08,
+              "pearson": 0.9999999999999982,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 3.714129223064688e-05,
+      "afterMaximumAbsolute": 3.1371114705969205e-08
+    },
+    {
+      "id": "0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "3",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 3,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_32x32",
+          "ImageSampleSize": "S_32x32",
+          "Configuration": 2,
+          "ImageDelta": 0,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 1.7188733853924696,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "ad6ef606f5a9f396be4c8a42712ee039089d659a88876bd8ba2dfa8364588e8c",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "72ae7746611a853b1e938515d9bf753fb1c16f88d3bdede29778f4f929c910f4",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf/native/data.json",
+          "sha256": "2b0dc687effeb5f697c230d9d087176c56e9437bb35cdedbf9bfd2fbc030558b"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "0c68f00bc5a806d52d392135c67ba0a93e2af6f8e4eadd0bde54981bfdd26b9f"
+        }
+      ],
+      "before": {
+        "id": "0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf",
+        "fingerprint": "ad6ef606f5a9f396be4c8a42712ee039089d659a88876bd8ba2dfa8364588e8c",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.187042505401692e-05,
+              "meanAbsolute": 4.018203567378829e-06,
+              "rmse": 5.41156450976265e-06,
+              "nrmse": 5.889176397871754e-06,
+              "maxRelative": 1.3222995637182366e-05,
+              "p50": 2.8506985325638112e-06,
+              "p90": 9.890887849617336e-06,
+              "p95": 1.093672252348021e-05,
+              "pearson": 0.9999999999809791,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.0010226744887932293,
+              "meanAbsolute": 0.00034155585763514726,
+              "rmse": 0.0004627547531547868,
+              "nrmse": 0.0005029148769065984,
+              "maxRelative": 0.0011371120034166238,
+              "p50": 0.0002377543829267248,
+              "p90": 0.0008494320483157791,
+              "p95": 0.0009409484402906784,
+              "pearson": 0.9999999951569694,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf",
+        "fingerprint": "ad6ef606f5a9f396be4c8a42712ee039089d659a88876bd8ba2dfa8364588e8c",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.457611809030368e-12,
+              "meanAbsolute": 6.872610119890155e-13,
+              "rmse": 7.945213301347674e-13,
+              "nrmse": 8.646439041046499e-13,
+              "maxRelative": 1.6236987726898444e-12,
+              "p50": 6.946665465079604e-13,
+              "p90": 1.2397860515989123e-12,
+              "p95": 1.3435141887896406e-12,
+              "pearson": 1.0000000000000002,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 8.293365993949919e-14,
+              "meanAbsolute": 5.920004070292251e-14,
+              "rmse": 6.042755427075327e-14,
+              "nrmse": 6.56717533653891e-14,
+              "maxRelative": 9.221395589495738e-14,
+              "p50": 5.595524044110789e-14,
+              "p90": 7.798206524967099e-14,
+              "p95": 8.074096946586451e-14,
+              "pearson": 1.0000000000000004,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.0010226744887932293,
+      "afterMaximumAbsolute": 1.457611809030368e-12
+    },
+    {
+      "id": "fixed-0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.05,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.05",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True",
+          "Sampling": "64",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128",
+          "Display": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_64x64",
+          "ImageSampleSize": "S_128x128",
+          "Configuration": 2,
+          "ImageDelta": 0.17188733853924698,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 0.49999999999999994,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "908d022a2f10e7bead7df551a8ec0b281595ae1fd128c6e5568c34363108860b",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-fixed-v2/fixed-0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "75987b26a5ec2ff9ad2f247ac5a2b7e65910f9152ac686cdc1404f61589d198b",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf/native/data.json",
+          "sha256": "92ef39906afd03f501d71e6e8b6969350038e3a2370f4047b471c23af4ede25a"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf/native/model.json",
+          "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "5edfd7f15bdb5d247058654e4f6d3ac5ef60d7d9a69e58d4a49454486a31cd24"
+        }
+      ],
+      "before": {
+        "id": "fixed-0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "908d022a2f10e7bead7df551a8ec0b281595ae1fd128c6e5568c34363108860b",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.0006097995188265593,
+              "meanAbsolute": 0.0002546924476796719,
+              "rmse": 0.0002983089379700162,
+              "nrmse": 0.0004945000338726676,
+              "maxRelative": 0.0010368885958095147,
+              "p50": 0.00024141487403572803,
+              "p90": 0.00047892739148635004,
+              "p95": 0.0005508982643570247,
+              "pearson": 0.9999997237091477,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.0006097995188262262,
+              "meanAbsolute": 0.00025469244767974304,
+              "rmse": 0.00029830893797003357,
+              "nrmse": 0.0004945000338726962,
+              "maxRelative": 0.001036888595808948,
+              "p50": 0.00024141487403595008,
+              "p90": 0.000478927391486239,
+              "p95": 0.0005508982643566527,
+              "pearson": 0.9999997237091468,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "fixed-0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "908d022a2f10e7bead7df551a8ec0b281595ae1fd128c6e5568c34363108860b",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.4124538538773379e-08,
+              "meanAbsolute": 8.779625994964624e-09,
+              "rmse": 9.093111858590994e-09,
+              "nrmse": 1.507344752282669e-08,
+              "maxRelative": 2.4017029334671607e-08,
+              "p50": 8.041594556917886e-09,
+              "p90": 1.2619969957938793e-08,
+              "p95": 1.344473097852905e-08,
+              "pearson": 0.9999999999999957,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.4124538538773379e-08,
+              "meanAbsolute": 8.779625700061633e-09,
+              "rmse": 9.093111601171829e-09,
+              "nrmse": 1.507344709610871e-08,
+              "maxRelative": 2.40170293346716e-08,
+              "p50": 8.041594168339827e-09,
+              "p90": 1.2619969924632102e-08,
+              "p95": 1.3444730867506748e-08,
+              "pearson": 0.9999999999999949,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.0006097995188265593,
+      "afterMaximumAbsolute": 1.4124538538773379e-08
+    },
+    {
+      "id": "fixed-0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.005,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.005",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "64",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128",
+          "Display": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 1,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_64x64",
+          "ImageSampleSize": "S_128x128",
+          "Configuration": 2,
+          "ImageDelta": 1.0313240312354819,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 0.008333333333333333,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "1fc24683f00057fd0c8d0dbdffebc3f07f0d3ee2ec9335f0a51f1cbbe3d5ddf0",
+      "sourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-fixed-v2/fixed-0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "726ee0dc09fdbf3d816361ecc96b26ff53214758914175d8b420acab29fc8a74",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf/native/data.json",
+          "sha256": "d8f658053233863df0c4892638ba5c302b1f62de3f128a7d30fff3e036c0aecf"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf/native/model.json",
+          "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "1aaf5c2c73af4f64a9092d6d0c546ff954fdc1079428ff65e159d165751ab7a8"
+        }
+      ],
+      "before": {
+        "id": "fixed-0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+        "fingerprint": "1fc24683f00057fd0c8d0dbdffebc3f07f0d3ee2ec9335f0a51f1cbbe3d5ddf0",
+        "violations": 100,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 50,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.004808924267304948,
+              "meanAbsolute": 0.0017417615263374793,
+              "rmse": 0.00228041431068715,
+              "nrmse": 0.00229453515014251,
+              "maxRelative": 0.005514886251758837,
+              "p50": 0.0013481364917296013,
+              "p90": 0.0040732225809679504,
+              "p95": 0.0044619756344311525,
+              "pearson": 0.9999987407885478,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 50,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.004808924267304948,
+              "meanAbsolute": 0.0017417615263376754,
+              "rmse": 0.002280414310687344,
+              "nrmse": 0.002294535150142705,
+              "maxRelative": 0.005514886251758837,
+              "p50": 0.0013481364917298233,
+              "p90": 0.004073222580968372,
+              "p95": 0.0044619756344313685,
+              "pearson": 0.9999987407885481,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "fixed-0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+        "fingerprint": "1fc24683f00057fd0c8d0dbdffebc3f07f0d3ee2ec9335f0a51f1cbbe3d5ddf0",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 6.184372125517257e-09,
+              "meanAbsolute": 2.1730752692086797e-09,
+              "rmse": 2.8816467473229884e-09,
+              "nrmse": 2.8994905535538595e-09,
+              "maxRelative": 7.0908788237255e-09,
+              "p50": 1.6244766642969921e-09,
+              "p90": 5.2026298824614514e-09,
+              "p95": 5.716915590925352e-09,
+              "pearson": 1.0000000000000002,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 6.184371792450349e-09,
+              "meanAbsolute": 2.1730750740522886e-09,
+              "rmse": 2.8816465569701605e-09,
+              "nrmse": 2.899490362022324e-09,
+              "maxRelative": 7.090878441837566e-09,
+              "p50": 1.6244764422523872e-09,
+              "p90": 5.202629549394544e-09,
+              "p95": 5.716915363329631e-09,
+              "pearson": 1.0000000000000002,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.004808924267304948,
+      "afterMaximumAbsolute": 6.184372125517257e-09
+    },
+    {
+      "id": "fixed-0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.05,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.05",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "64",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128",
+          "Display": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_64x64",
+          "ImageSampleSize": "S_128x128",
+          "Configuration": 2,
+          "ImageDelta": 0.05,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 1.7188733853924696,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "505a9be7e40f72013dde075e5988d78dc54ce5742d2094ea357691b4d701ca31",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-fixed-v2/fixed-0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "3a9fc10277f9f09fd28db0acbc242cedaa7981b38f87b5dd4d030f9b0778afab",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf/native/data.json",
+          "sha256": "e80c3f49426732c3f345fe495dceb2fd413ac290ae361f4df4238badbe8c23a2"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf/native/model.json",
+          "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "6625f5f42244e1536231ae200aae87a2d13e03b6552d22217fc63ddc07fa24d6"
+        }
+      ],
+      "before": {
+        "id": "fixed-0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "505a9be7e40f72013dde075e5988d78dc54ce5742d2094ea357691b4d701ca31",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 4.362738147423162e-05,
+              "meanAbsolute": 1.973949007958841e-05,
+              "rmse": 2.2790507741383355e-05,
+              "nrmse": 3.9833110302379084e-05,
+              "maxRelative": 8.06056556271945e-05,
+              "p50": 1.916088858677778e-05,
+              "p90": 3.499779872646602e-05,
+              "p95": 3.7788181610554074e-05,
+              "pearson": 0.9999999995302126,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 4.362733660012719e-05,
+              "meanAbsolute": 1.973943463949926e-05,
+              "rmse": 2.279044561990687e-05,
+              "nrmse": 3.983295025907934e-05,
+              "maxRelative": 8.060541554830725e-05,
+              "p50": 1.9160834934861537e-05,
+              "p90": 3.4997670180547665e-05,
+              "p95": 3.778813966077154e-05,
+              "pearson": 0.9999999995301845,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "fixed-0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "505a9be7e40f72013dde075e5988d78dc54ce5742d2094ea357691b4d701ca31",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.794054682591195e-08,
+              "meanAbsolute": 8.78999824142912e-09,
+              "rmse": 1.0135026087110373e-08,
+              "nrmse": 1.771393672429223e-08,
+              "maxRelative": 3.13563782216188e-08,
+              "p50": 8.589236044631576e-09,
+              "p90": 1.575055924574187e-08,
+              "p95": 1.6850135931001373e-08,
+              "pearson": 0.9999999999999988,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.7954329800673463e-08,
+              "meanAbsolute": 8.792912828403665e-09,
+              "rmse": 1.0139084648667442e-08,
+              "nrmse": 1.7721007356266666e-08,
+              "maxRelative": 3.138042747442576e-08,
+              "p50": 8.589228772670765e-09,
+              "p90": 1.5764355654201978e-08,
+              "p95": 1.6863925700327794e-08,
+              "pearson": 0.999999999999999,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 4.362738147423162e-05,
+      "afterMaximumAbsolute": 1.7954329800673463e-08
+    },
+    {
+      "id": "fixed-0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.05,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.05",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "64",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128",
+          "Display": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_64x64",
+          "ImageSampleSize": "S_128x128",
+          "Configuration": 3,
+          "ImageDelta": 0.05,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 1.7188733853924696,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "387bf5587c679a67ee75785bf4ec88b0d7a74d1eae6e99ebefbe0f5278df84bb",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-fixed-v2/fixed-0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "36d98c34465e648654b46343360e25b4a7e817ae1660dd4d845569eeaee635ab",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf/native/data.json",
+          "sha256": "3f1e8b05faea327eb0a552df4015e4ffb80af26dbe2272306545636dd1ae087e"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf/native/model.json",
+          "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "661072352aef48641f38b68dc4debaf85e46fb93c74c44db4782849eadd9252e"
+        }
+      ],
+      "before": {
+        "id": "fixed-0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "387bf5587c679a67ee75785bf4ec88b0d7a74d1eae6e99ebefbe0f5278df84bb",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 4.36273792165931e-05,
+              "meanAbsolute": 1.973949075024812e-05,
+              "rmse": 2.279050837416472e-05,
+              "nrmse": 3.983311140819404e-05,
+              "maxRelative": 8.060565145590867e-05,
+              "p50": 1.9160889184077767e-05,
+              "p90": 3.49978012696317e-05,
+              "p95": 3.77881791988166e-05,
+              "pearson": 0.9999999995302115,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 4.362729191853543e-05,
+              "meanAbsolute": 1.9739435009016176e-05,
+              "rmse": 2.279044428946135e-05,
+              "nrmse": 3.983294793285263e-05,
+              "maxRelative": 8.06053329930801e-05,
+              "p50": 1.916083462488727e-05,
+              "p90": 3.499768720585106e-05,
+              "p95": 3.778809505305402e-05,
+              "pearson": 0.9999999995301853,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "fixed-0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf",
+        "fingerprint": "387bf5587c679a67ee75785bf4ec88b0d7a74d1eae6e99ebefbe0f5278df84bb",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.793580561848529e-08,
+              "meanAbsolute": 8.788698287361119e-09,
+              "rmse": 1.0133320081189352e-08,
+              "nrmse": 1.771095497748847e-08,
+              "maxRelative": 3.1348091568098754e-08,
+              "p50": 8.588644795359812e-09,
+              "p90": 1.574603921694617e-08,
+              "p95": 1.6845505312890194e-08,
+              "pearson": 0.999999999999999,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.7910915972585428e-08,
+              "meanAbsolute": 8.784145218501682e-09,
+              "rmse": 1.0126513956511126e-08,
+              "nrmse": 1.7699036405250645e-08,
+              "maxRelative": 3.13045491480656e-08,
+              "p50": 8.589525424262945e-09,
+              "p90": 1.5720824331211246e-08,
+              "p95": 1.6820453063726146e-08,
+              "pearson": 0.999999999999999,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 4.36273792165931e-05,
+      "afterMaximumAbsolute": 1.793580561848529e-08
+    },
+    {
+      "id": "fixed-0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.02,
+        "maximumFrequency": 1.7188733853924696,
+        "focusMinimum": -0.01,
+        "focusMaximum": 0.01,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PupilSampling": "64",
+          "ImageSampling": "128",
+          "ImageDeltaMicrometers": "0.02",
+          "DeltaFocus": "0.01",
+          "SpatialFrequency": "1.7188733853924696",
+          "Steps": "5",
+          "WavelengthNumber": "3",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "64",
+          "Normalized": "False",
+          "UseCentroid": "False",
+          "Frequency": "1.7188733853924696",
+          "MaximumFrequency": "1.7188733853924696",
+          "NumberOfSteps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128",
+          "Display": "128"
+        },
+        "zemaxSettings": {
+          "Wavelength": 3,
+          "UsePolarization": false,
+          "Field": 1,
+          "PupilSampleSize": "S_64x64",
+          "ImageSampleSize": "S_128x128",
+          "Configuration": 2,
+          "ImageDelta": 0.02,
+          "UseDashes": false,
+          "Type": "Modulation",
+          "DeltaFocus": 0.01,
+          "Frequency": 1.7188733853924696,
+          "NumberOfSteps": 5
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "f75e7252d4d7246228e49da74d6e6662e07aad9d7e65077c2c38e4bd2dcf43c0",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-fixed-v2/fixed-0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf/workbench/request.json",
+      "requestMemberSha256": "f6f6083920296a201369da2b398c6e38c950f42acee49aa535bc91496b1f2e17",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf/native/data.json",
+          "sha256": "c96f48dd387b08e681fe2e6e5936ef7ea96978b903908ee6b7f4a75a2ced8d59"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/fixed-grid-controls/fixed-0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf/native/captured-settings.json",
+          "sha256": "42a8969e59e14939a76c0b2f7cacbe1db93285bbac10969d7471aba453a502a7"
+        }
+      ],
+      "before": {
+        "id": "fixed-0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf",
+        "fingerprint": "f75e7252d4d7246228e49da74d6e6662e07aad9d7e65077c2c38e4bd2dcf43c0",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 2.5719593818029907e-06,
+              "meanAbsolute": 8.768002233159114e-07,
+              "rmse": 1.1771919498871726e-06,
+              "nrmse": 1.3190268472896614e-06,
+              "maxRelative": 2.961411617349545e-06,
+              "p50": 6.281346310865743e-07,
+              "p90": 2.146659773494264e-06,
+              "p95": 2.371370935894123e-06,
+              "pearson": 0.9999999999985835,
+              "worstX": 0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 0.0011455457444472517,
+              "meanAbsolute": 0.00038263058402122907,
+              "rmse": 0.0005183815542797413,
+              "nrmse": 0.0005799017214715039,
+              "maxRelative": 0.0013161200845135822,
+              "p50": 0.0002663839827929948,
+              "p90": 0.000951510819266177,
+              "p95": 0.0010540110635613273,
+              "pearson": 0.9999999952725784,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "fixed-0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf",
+        "fingerprint": "f75e7252d4d7246228e49da74d6e6662e07aad9d7e65077c2c38e4bd2dcf43c0",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "curve:0",
+            "violations": 0,
+            "metric": {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 1.4654943925052066e-14,
+              "meanAbsolute": 7.843552196629133e-15,
+              "rmse": 8.642803917799704e-15,
+              "nrmse": 9.684138941428129e-15,
+              "maxRelative": 1.6874030553629335e-14,
+              "p50": 8.770761894538737e-15,
+              "p90": 1.2245759961615476e-14,
+              "p95": 1.3428147482841266e-14,
+              "pearson": 1.0000000000000002,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "curve:1",
+            "violations": 0,
+            "metric": {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 128,
+              "maxAbsolute": 3.1086244689504383e-15,
+              "meanAbsolute": 6.930220286527344e-16,
+              "rmse": 1.0014629391743127e-15,
+              "nrmse": 1.1203139417721215e-15,
+              "maxRelative": 3.571505650147724e-15,
+              "p50": 3.885780586188048e-16,
+              "p90": 1.809663530139005e-15,
+              "p95": 2.2926105458509473e-15,
+              "pearson": 0.9999999999999999,
+              "worstX": -0.01,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.0011455457444472517,
+      "afterMaximumAbsolute": 1.4654943925052066e-14
+    }
+  ],
+  "decomposition": [
+    {
+      "id": "0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+      "n": 32,
+      "pitchMilliradians": 0.006576527860067985,
+      "modes": [
+        {
+          "mode": "original",
+          "rawTangential": [
+            0.7714712378743692,
+            0.9286496578067384,
+            0.9906003710274787,
+            0.9286319184118488,
+            0.7738226929502118
+          ],
+          "rawSagittal": [
+            0.7714712378743693,
+            0.9286496578067384,
+            0.9906003710274787,
+            0.9286319184118488,
+            0.7738226929502117
+          ],
+          "maximumByCurve": [
+            0.0027835565244995752,
+            0.0027835565239991977
+          ],
+          "violationsAtNativeDisplayPoints": 126,
+          "psfReplayMaximumAbsolute": 5.968558980384842e-13
+        },
+        {
+          "mode": "paraxial-phase-only",
+          "rawTangential": [
+            0.7732190385407246,
+            0.9311985882568752,
+            0.9906003710274787,
+            0.9311893361660544,
+            0.7754942340293307
+          ],
+          "rawSagittal": [
+            0.7732190385407246,
+            0.9311985882568752,
+            0.9906003710274787,
+            0.9311893361660545,
+            0.7754942340293306
+          ],
+          "maximumByCurve": [
+            1.0610368694763395e-08,
+            1.061292254078694e-08
+          ],
+          "violationsAtNativeDisplayPoints": 0
+        },
+        {
+          "mode": "incorrect-paraxial-propagation",
+          "rawTangential": [
+            0.7703139047790568,
+            0.9286951055390253,
+            0.990406276898757,
+            0.9286602554429881,
+            0.7726409890371261
+          ],
+          "rawSagittal": [
+            0.7703139047790568,
+            0.9286951055390253,
+            0.9904062768987569,
+            0.9286602554429881,
+            0.7726409890371261
+          ],
+          "maximumByCurve": [
+            0.0030401584412784732,
+            0.0030401584400802095
+          ],
+          "violationsAtNativeDisplayPoints": 124
+        }
+      ],
+      "nativeNaturalSplineReconstructionMaximum": 2.220446049250313e-16
+    },
+    {
+      "id": "fixed-0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+      "n": 128,
+      "pitchMilliradians": 0.005,
+      "modes": [
+        {
+          "mode": "original",
+          "rawTangential": [
+            0.8671808227145589,
+            0.9599948290462202,
+            0.9938458822568625,
+            0.960070313581808,
+            0.8673504533259353
+          ],
+          "rawSagittal": [
+            0.867180822714559,
+            0.9599948290462204,
+            0.9938458822568625,
+            0.960070313581808,
+            0.8673504533259353
+          ],
+          "maximumByCurve": [
+            0.004808924267305059,
+            0.004808924267304948
+          ],
+          "violationsAtNativeDisplayPoints": 84,
+          "psfReplayMaximumAbsolute": 1.6626700016786344e-12
+        },
+        {
+          "mode": "paraxial-phase-only",
+          "rawTangential": [
+            0.8719897531589114,
+            0.9614483180289226,
+            0.9938458822568625,
+            0.9615245663469857,
+            0.8721587722917343
+          ],
+          "rawSagittal": [
+            0.8719897531589114,
+            0.9614483180289224,
+            0.9938458822568625,
+            0.961524566346986,
+            0.8721587722917344
+          ],
+          "maximumByCurve": [
+            6.184372125517257e-09,
+            6.184371681428047e-09
+          ],
+          "violationsAtNativeDisplayPoints": 0
+        },
+        {
+          "mode": "incorrect-paraxial-propagation",
+          "rawTangential": [
+            0.8671843750862354,
+            0.9599004296308623,
+            0.9936638625980865,
+            0.9599722344952705,
+            0.8673464453320234
+          ],
+          "rawSagittal": [
+            0.8671843750862354,
+            0.9599004296308624,
+            0.9936638625980864,
+            0.9599722344952705,
+            0.8673464453320235
+          ],
+          "maximumByCurve": [
+            0.004812320775338774,
+            0.004812320775339107
+          ],
+          "violationsAtNativeDisplayPoints": 88
+        }
+      ],
+      "nativeNaturalSplineReconstructionMaximum": 2.220446049250313e-16
+    }
+  ],
+  "finalTests": [
+    {
+      "file": "huygens-focus-final.trx",
+      "counters": {
+        "total": "128",
+        "executed": "128",
+        "passed": "128",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "f2bb2090601a937499035c84b86f555be669b962deae4b575ae2372de8b8f4d9"
+    },
+    {
+      "file": "huygens-focus-protection.trx",
+      "counters": {
+        "total": "30",
+        "executed": "30",
+        "passed": "30",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "a1957f6078ee5821bd9c71fa523be1e051e18f33d7fc75187c556d08c7227714"
+    }
+  ],
+  "distinctPassingTests": 158,
+  "coreBinaries": [
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "41929bff2ea31eafbdc5ca3835d624d3d88193bfd241fc816e3117eccb7cfa5d"
+    },
+    {
+      "path": "tools/diagnostics/HuygensFocus20261029/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "41929bff2ea31eafbdc5ca3835d624d3d88193bfd241fc816e3117eccb7cfa5d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "41929bff2ea31eafbdc5ca3835d624d3d88193bfd241fc816e3117eccb7cfa5d"
+    }
+  ],
+  "sourceIdentities": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "4902941154b1f894ec26b7b3680395c5d459c65c0834aa6a03737e35c98b640a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/MtfScanAnalysis.cs",
+      "sha256": "721e253ea9526337fb035108655d03789362c4d0306024e268ce2afc24cc51e0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs",
+      "sha256": "7f5c807938f3dea055c7f5ab00a90b40a20c9173314947c77d435c8c30b7a941"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/HuygensThroughFocusPointwiseTests.cs",
+      "sha256": "3a3f63182358f8e6abf6cc78cd117f14b4a93742885f59f04b54e0329fb5dea9"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/HuygensAfocalDefocusTests.cs",
+      "sha256": "4bf8c96b9f9ae3a25bb01d7dd821b9555f1c104ac7c14de2654195de7960dbea"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/HuygensFocusDiagnostics.cs",
+      "sha256": "b65e3c7b23d55d0bd0135d1bf96414f9c6009d4ace6298f7cb8b358258a320bf"
+    },
+    {
+      "path": "tools/diagnostics/HuygensFocus20261029/FocusedHuygensRegression.csproj",
+      "sha256": "27b02ab4e11e57e159ed730fa6c11a3a5b8138e076ddfe5a44c38769ef2e127b"
+    },
+    {
+      "path": "tools/diagnostics/HuygensFocus20261029/packages.lock.json",
+      "sha256": "231e8b023d917e0f84a8b4e0e7b20dae0804dc6d1ad8bd9693e8065afa1ff6b6"
+    },
+    {
+      "path": "tools/diagnostics/HuygensFocus20261029/Diagnose.py",
+      "sha256": "dab23ce5297d1e180f62f4f1a32ea4d03aae2d8e40e7d8cd40b17d7bcddfb49f"
+    },
+    {
+      "path": "tools/diagnostics/HuygensFocus20261029/Collect-Evidence.py",
+      "sha256": "a2d3aa36c2248754fe273af0f26420695bad4dd548b65e82c16e53092f281c01"
+    }
+  ],
+  "frozenIntegrity": {
+    "source": "HEAD",
+    "commit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "relocationMap": {
+      "path": "tools/validation/frozen-evidence-relocations.json",
+      "count": 4,
+      "expectedSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "actualSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "gitBlob": "54fb7863a30f8808fd335a62332dd3301c1243ea",
+      "gitLinkPath": null,
+      "matches": true
+    },
+    "relocations": [
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "gitBlob": "8ce33ef8a9c26d3b26cfef84d8f88e03acf30286",
+        "bytes": 10182,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "gitBlob": "16aefa0dc68de132b63abb9260bac174ad652b7b",
+        "bytes": 6098,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+        "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "gitBlob": "31bef72740c8acfb69c3ade3e0c03cc2a2f63b7a",
+        "bytes": 2010,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "gitBlob": "1356ccedaee37e9e41da3c9074ae375dbca33bab",
+        "bytes": 17236,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      }
+    ],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": [],
+      "relocationMap": {
+        "path": "tools/validation/frozen-evidence-relocations.json",
+        "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+        "count": 4
+      },
+      "relocations": [
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+          "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "matches": true
+        },
+        {
+          "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+          "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+          "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "matches": true
+        }
+      ]
+    }
+  },
+  "appBuild": {
+    "defaultOutput": true,
+    "exitCode": 0,
+    "warnings": 0,
+    "errors": 0,
+    "appLaunched": false
+  },
+  "earlierFailures": [
+    "Initial diagnostic compile used a nonexistent PsfResult pixel-pitch property; corrected before running optical tests.",
+    "huygens-focus-before.trx: all ten blocked by the generic focal normalizer attempting Diopter/Millimeter conversion. The test now checks typed Diopter axes and compares original native arrays directly, as in the earlier afocal fixture controls.",
+    "huygens-focus-baseline.trx: two genuine pointwise failures and eight passes; historical aggregate NRMSE passed all ten.",
+    "huygens-focus-pupil.trx repeats the two original failures for diagnostic exports, not new coverage."
+  ],
+  "limitations": [
+    "Definition inferred and verified for the listed native captures; not a universal description of undocumented Zemax internals.",
+    "General physical defocus default, actual propagation geometry and zero-defocus behavior retain their contracts.",
+    "Not a rerun of the full 150-request matrix, 95-file corpus, GUI/CUDA, native recapture or release."
+  ],
+  "evidenceArchiveSha256": "33cb841023e9f3ba6e3a85cda13c191ce5b2dcc70a6a66832801946b808c0e07",
+  "evidenceMembers": [
+    {
+      "file": "huygens-focus-baseline.trx",
+      "sha256": "36f52bf312b37e8c88fd792c15591187208bd26952d05b1e3d78331292eaaffd",
+      "bytes": 49554
+    },
+    {
+      "file": "huygens-focus-before.trx",
+      "sha256": "378205a564133269cc03750f3ceb67dec39adc871758bc83a1750c6284083f58",
+      "bytes": 66353
+    },
+    {
+      "file": "huygens-focus-final.trx",
+      "sha256": "f2bb2090601a937499035c84b86f555be669b962deae4b575ae2372de8b8f4d9",
+      "bytes": 316399
+    },
+    {
+      "file": "huygens-focus-protection.trx",
+      "sha256": "a1957f6078ee5821bd9c71fa523be1e051e18f33d7fc75187c556d08c7227714",
+      "bytes": 47892
+    },
+    {
+      "file": "huygens-focus-pupil.trx",
+      "sha256": "33af92761d52bb5d520a25c2eb4336b69e27beec27c318b28690e5e9afde44ec",
+      "bytes": 19568
+    },
+    {
+      "file": "huygens-focus-targeted.trx",
+      "sha256": "5e256d8fcff794dc0a5a1d8996fac36c977296b5829340549b63e8ee3a2b5aa6",
+      "bytes": 39197
+    },
+    {
+      "file": "decomposition.json",
+      "sha256": "df3ad70376b9fbcdf26f9d24410f7fb0f10ff9e9f8e9e89c0df789ce430043b9",
+      "bytes": 4204
+    },
+    {
+      "file": "frozen-integrity.json",
+      "sha256": "fd0572f2ff0ad3509d46bbfe610e2c9583edf52a5f633e4e81cd0b627670ce66",
+      "bytes": 5255
+    },
+    {
+      "file": "DiffractionEngine.before.cs",
+      "sha256": "667456eff19e8c8743b48d282c18f07c0bd58c65f550e1058ffde5b2aaea2803",
+      "bytes": 110253
+    },
+    {
+      "file": "MtfScanAnalysis.before.cs",
+      "sha256": "38e3c652f979614c8186eeda573ad680c529e97c39a909f3486b9c56c4e58b08",
+      "bytes": 55280
+    },
+    {
+      "file": "HuygensPsfSynthesis.before.cs",
+      "sha256": "6a8858ed30e2317cc868023c2c03ba637d6fd4593b62b12871f986025c628170",
+      "bytes": 4409
+    },
+    {
+      "file": "core-before.json",
+      "sha256": "b38293a7018e85e1173c4a168bd410ec2e4b7428920305e81850703d8659b1e5",
+      "bytes": 249
+    },
+    {
+      "file": "app-build.log",
+      "sha256": "d3602890cde1600a49ecbe26785644fcf4821bb98dbb022572c7be4c8e12a032",
+      "bytes": 1623
+    }
+  ],
+  "documentation": {
+    "Documents": 1258,
+    "BrokenLinks": [],
+    "MarkdownFenceIssues": [],
+    "LocalOnlyLinks": []
+  }
+}

@@ -1,0 +1,2435 @@
+{
+  "date": "2026-10-29",
+  "baseCommit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+  "scope": "Five exact original 64-sample afocal FFT MTF requests and 30 T/S curves against existing OpticStudio 2026 R1 captures.",
+  "rootCause": "Linear spectral regridding onto one coarse wavelength axis followed by a second spline loses curvature. Interpolate each complex monochromatic OTF to the requested display frequency first, then weight and derive the response.",
+  "samplingPrescriptionAndToleranceUnchanged": true,
+  "comparisonPolicyLfSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "nativeArchive": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+  "nativeArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "cases": [
+    {
+      "id": "0061-003-binocular_system-c1-primary-f0-w0-mtf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 0,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 1.7188733853924698,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "MaximumFrequency": "1.7188733853924698",
+          "WavelengthNumber": "0",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "Type": "调制",
+          "ShowDiffractionLimit": "false",
+          "UsePolarization": "False",
+          "UseDashes": "false",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "6f6345847ae961f29780911601aace5d58aeb3a537fbd335b611cc397ca90c93",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0061-003-binocular_system-c1-primary-f0-w0-mtf/workbench/request.json",
+      "requestMemberSha256": "73c5fee4a9395dbae52c3e515791eb53deaaac7557902627c8e408add8689c7b",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0061-003-binocular_system-c1-primary-f0-w0-mtf/native/data.json",
+          "sha256": "d04edfda616bbc7ffb221f66f8d8dd4c0b41344c5a28d52bcdc7117780f1a883"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0061-003-binocular_system-c1-primary-f0-w0-mtf/native/model.json",
+          "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0061-003-binocular_system-c1-primary-f0-w0-mtf/native/captured-settings.json",
+          "sha256": "27a9ac7a9b6c6441ed75855cb60036005544682101f569a2d34beebe94cef315"
+        }
+      ],
+      "before": {
+        "id": "0061-003-binocular_system-c1-primary-f0-w0-mtf",
+        "Fingerprint": "6f6345847ae961f29780911601aace5d58aeb3a537fbd335b611cc397ca90c93",
+        "violations": 220,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0003035910948228082,
+              "MeanAbsolute": 6.757808760918031e-05,
+              "Rmse": 9.419300615234774e-05,
+              "Nrmse": 9.419300615234774e-05,
+              "MaxRelative": 0.0003101370467700874,
+              "P50": 5.357393604776828e-05,
+              "P90": 0.00014603267832448145,
+              "P95": 0.00022668670795582553,
+              "Pearson": 0.9999999049709597,
+              "WorstX": 0.09197984670996494,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.00030359035270899337,
+              "MeanAbsolute": 6.757803738683652e-05,
+              "Rmse": 9.419285245326888e-05,
+              "Nrmse": 9.419285245326888e-05,
+              "MaxRelative": 0.0003101362878511806,
+              "P50": 5.3574000828282564e-05,
+              "P90": 0.000146032596887602,
+              "P95": 0.0002266862124938874,
+              "Pearson": 0.9999999049720126,
+              "WorstX": 0.09197984670996494,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0008819518140262828,
+              "MeanAbsolute": 0.00015869834563786753,
+              "Rmse": 0.00024364361937232351,
+              "Nrmse": 0.00024364361937232351,
+              "MaxRelative": 0.0009022561247323437,
+              "P50": 7.359157792669047e-05,
+              "P90": 0.00034563784530572406,
+              "P95": 0.0006187375878824453,
+              "Pearson": 0.999999283466196,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0014078887498036874,
+              "MeanAbsolute": 0.0002794271313248164,
+              "Rmse": 0.0003983623628523651,
+              "Nrmse": 0.0003983623628523651,
+              "MaxRelative": 0.0014454808152754698,
+              "P50": 0.00017288486044919615,
+              "P90": 0.0004828842820001736,
+              "P95": 0.0009821508240188796,
+              "Pearson": 0.9999988150334008,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:3:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.001775132611517627,
+              "MeanAbsolute": 0.0003311619603368064,
+              "Rmse": 0.00048822749574274404,
+              "Nrmse": 0.00048822749574274404,
+              "MaxRelative": 0.0018248890022439506,
+              "P50": 0.000223556984636053,
+              "P90": 0.0005665095857257501,
+              "P95": 0.0012313734540909847,
+              "Pearson": 0.9999982251532967,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:sagittal",
+            "violations": 110,
+            "metric": {
+              "Id": "field:3:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.01017187945016762,
+              "MeanAbsolute": 0.0015866031276962336,
+              "Rmse": 0.0028013831199377413,
+              "Nrmse": 0.0028013831199377413,
+              "MaxRelative": 0.04268896508417583,
+              "P50": 0.0003625396974855505,
+              "P90": 0.0046698527181091645,
+              "P95": 0.005998763338743853,
+              "Pearson": 0.9999605169007747,
+              "WorstX": 0.08048236587121932,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:4:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:4:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0008819518201882426,
+              "MeanAbsolute": 0.00015869835116080216,
+              "Rmse": 0.00024364362131689543,
+              "Nrmse": 0.00024364362131689543,
+              "MaxRelative": 0.0009022561307181658,
+              "P50": 7.35915777123064e-05,
+              "P90": 0.00034563783900321,
+              "P95": 0.0006187375899986358,
+              "Pearson": 0.9999992834661858,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:4:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:4:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0014078893244537927,
+              "MeanAbsolute": 0.0002794272557962128,
+              "Rmse": 0.000398362530701312,
+              "Nrmse": 0.000398362530701312,
+              "MaxRelative": 0.0014454814102064554,
+              "P50": 0.00017288494395667486,
+              "P90": 0.0004828845244038485,
+              "P95": 0.0009821512318425433,
+              "Pearson": 0.9999988150332777,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:5:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:5:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0017751326372771326,
+              "MeanAbsolute": 0.00033116195433663767,
+              "Rmse": 0.00048822749600354096,
+              "Nrmse": 0.00048822749600354096,
+              "MaxRelative": 0.0018248890289302565,
+              "P50": 0.00022355696088305343,
+              "P90": 0.0005665095922852364,
+              "P95": 0.0012313734712659074,
+              "Pearson": 0.9999982251533298,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:5:sagittal",
+            "violations": 110,
+            "metric": {
+              "Id": "field:5:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.01017188265066471,
+              "MeanAbsolute": 0.0015866036362322776,
+              "Rmse": 0.0028013840638845514,
+              "Nrmse": 0.0028013840638845514,
+              "MaxRelative": 0.04268912440713616,
+              "P50": 0.0003625398509167904,
+              "P90": 0.004669854209055792,
+              "P95": 0.005998765118216578,
+              "Pearson": 0.9999605168824082,
+              "WorstX": 0.08048236587121932,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0061-003-binocular_system-c1-primary-f0-w0-mtf",
+        "Fingerprint": "6f6345847ae961f29780911601aace5d58aeb3a537fbd335b611cc397ca90c93",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.7638843268527076e-05,
+              "MeanAbsolute": 1.0172782026841476e-05,
+              "Rmse": 1.1178893216863025e-05,
+              "Nrmse": 1.1178893216863025e-05,
+              "MaxRelative": 9.281759921904377e-05,
+              "P50": 1.1372074886495387e-05,
+              "P90": 1.2612564525360525e-05,
+              "P95": 1.2661513441369898e-05,
+              "Pearson": 0.999999999655817,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.763883365277444e-05,
+              "MeanAbsolute": 1.0172748632853563e-05,
+              "Rmse": 1.1178859272541733e-05,
+              "Nrmse": 1.1178859272541733e-05,
+              "MaxRelative": 9.281772418008783e-05,
+              "P50": 1.1372022093059098e-05,
+              "P90": 1.26125236939445e-05,
+              "P95": 1.2661470228936267e-05,
+              "Pearson": 0.9999999996558172,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.811664848330954e-05,
+              "MeanAbsolute": 1.4464649750886488e-05,
+              "Rmse": 1.5540144724021477e-05,
+              "Nrmse": 1.5540144724021477e-05,
+              "MaxRelative": 9.766321385817549e-05,
+              "P50": 1.64658537720741e-05,
+              "P90": 1.8247992054221117e-05,
+              "P95": 1.8293189491436213e-05,
+              "Pearson": 0.999999999672495,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.687258634372693e-05,
+              "MeanAbsolute": 1.816955664621081e-05,
+              "Rmse": 1.9458629935114304e-05,
+              "Nrmse": 1.9458629935114304e-05,
+              "MaxRelative": 0.000129190657945576,
+              "P50": 2.0934133193262205e-05,
+              "P90": 2.329470194368799e-05,
+              "P95": 2.3340916590591787e-05,
+              "Pearson": 0.9999999997836453,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:3:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.538520909175281e-05,
+              "MeanAbsolute": 1.9438111741451015e-05,
+              "Rmse": 2.073195437727001e-05,
+              "Nrmse": 2.073195437727001e-05,
+              "MaxRelative": 0.00013087085604744205,
+              "P50": 2.1876677638310582e-05,
+              "P90": 2.5183918612514678e-05,
+              "P95": 2.5303614627020243e-05,
+              "Pearson": 0.9999999997297256,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:3:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 3.136512434342986e-05,
+              "MeanAbsolute": 1.0040238553350144e-05,
+              "Rmse": 1.4273219848386383e-05,
+              "Nrmse": 1.4273219848386383e-05,
+              "MaxRelative": 0.0026951556000069346,
+              "P50": 5.602178648686507e-06,
+              "P90": 2.6497259846064435e-05,
+              "P95": 2.8164379525942584e-05,
+              "Pearson": 0.9999999993068939,
+              "WorstX": 0.36791938683985975,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:4:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:4:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.811664102788438e-05,
+              "MeanAbsolute": 1.4464642007932903e-05,
+              "Rmse": 1.5540137318071465e-05,
+              "Nrmse": 1.5540137318071465e-05,
+              "MaxRelative": 9.76631987795891e-05,
+              "P50": 1.6465843656998658e-05,
+              "P90": 1.824798685866602e-05,
+              "P95": 1.8293184057888155e-05,
+              "Pearson": 0.9999999996724952,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:4:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:4:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.6872578453482916e-05,
+              "MeanAbsolute": 1.8169558729390904e-05,
+              "Rmse": 1.945863221535357e-05,
+              "Nrmse": 1.945863221535357e-05,
+              "MaxRelative": 0.00012919070097809282,
+              "P50": 2.0934130681438123e-05,
+              "P90": 2.3294705490861657e-05,
+              "P95": 2.3340919315600896e-05,
+              "Pearson": 0.9999999997836444,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:5:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:5:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.5385209517245784e-05,
+              "MeanAbsolute": 1.943812312423933e-05,
+              "Rmse": 2.0731966818158547e-05,
+              "Nrmse": 2.0731966818158547e-05,
+              "MaxRelative": 0.00013087085770627083,
+              "P50": 2.1876678320015275e-05,
+              "P90": 2.5183946237838927e-05,
+              "P95": 2.5303638650936434e-05,
+              "Pearson": 0.9999999997297255,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:5:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:5:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 3.136513928841955e-05,
+              "MeanAbsolute": 1.0040234632190506e-05,
+              "Rmse": 1.4273220350518245e-05,
+              "Nrmse": 1.4273220350518245e-05,
+              "MaxRelative": 0.002695187023361605,
+              "P50": 5.602155784115159e-06,
+              "P90": 2.6497273565562195e-05,
+              "P95": 2.816439268205906e-05,
+              "Pearson": 0.9999999993068922,
+              "WorstX": 0.36791938683985975,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.01017188265066471,
+      "afterMaximumAbsolute": 4.811664848330954e-05
+    },
+    {
+      "id": "0039-002-beam-expander-c1-primary-f0-w0-mtf",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 0,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 1.7188733853924698,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "MaximumFrequency": "1.7188733853924698",
+          "WavelengthNumber": "0",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "Type": "调制",
+          "ShowDiffractionLimit": "false",
+          "UsePolarization": "False",
+          "UseDashes": "false",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "29fd79a4e500f608636fa9bc8df0b63fdc3554487e667d934b449aea4236e70e",
+      "sourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0039-002-beam-expander-c1-primary-f0-w0-mtf/workbench/request.json",
+      "requestMemberSha256": "b675ffa5f2b13ea4e691143d5ae741ca78bfdec7aae6fc4860d933f84ac9a773",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0039-002-beam-expander-c1-primary-f0-w0-mtf/native/data.json",
+          "sha256": "a715e811fab7e90060c2dad62734d23ef5ae1ce18bd511e251ac0913b380a623"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0039-002-beam-expander-c1-primary-f0-w0-mtf/native/model.json",
+          "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0039-002-beam-expander-c1-primary-f0-w0-mtf/native/captured-settings.json",
+          "sha256": "eed0ce45f2d3595f39d63b74bdd6d983ba205fea05c621b88b5f14f546f40d11"
+        }
+      ],
+      "before": {
+        "id": "0039-002-beam-expander-c1-primary-f0-w0-mtf",
+        "Fingerprint": "29fd79a4e500f608636fa9bc8df0b63fdc3554487e667d934b449aea4236e70e",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 461,
+              "MaxAbsolute": 3.3608105928673027e-05,
+              "MeanAbsolute": 2.2310834650765427e-06,
+              "Rmse": 3.6679110575003435e-06,
+              "Nrmse": 3.6679110575003435e-06,
+              "MaxRelative": 3.386489111979465e-05,
+              "P50": 1.9189367154170967e-06,
+              "P90": 3.404942882423434e-06,
+              "P95": 3.5797214386068532e-06,
+              "Pearson": 0.9999989711481496,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 461,
+              "MaxAbsolute": 3.360810592845098e-05,
+              "MeanAbsolute": 2.2310834651952718e-06,
+              "Rmse": 3.667911057578597e-06,
+              "Nrmse": 3.667911057578597e-06,
+              "MaxRelative": 3.386489111957091e-05,
+              "P50": 1.918936715528119e-06,
+              "P90": 3.4049428826454786e-06,
+              "P95": 3.579721438828898e-06,
+              "Pearson": 0.9999989711481492,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0039-002-beam-expander-c1-primary-f0-w0-mtf",
+        "Fingerprint": "29fd79a4e500f608636fa9bc8df0b63fdc3554487e667d934b449aea4236e70e",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 461,
+              "MaxAbsolute": 3.3608105928673027e-05,
+              "MeanAbsolute": 2.2310834650765427e-06,
+              "Rmse": 3.6679110575003435e-06,
+              "Nrmse": 3.6679110575003435e-06,
+              "MaxRelative": 3.386489111979465e-05,
+              "P50": 1.9189367154170967e-06,
+              "P90": 3.404942882423434e-06,
+              "P95": 3.5797214386068532e-06,
+              "Pearson": 0.9999989711481496,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 461,
+              "MaxAbsolute": 3.360810592845098e-05,
+              "MeanAbsolute": 2.2310834651952718e-06,
+              "Rmse": 3.667911057578597e-06,
+              "Nrmse": 3.667911057578597e-06,
+              "MaxRelative": 3.386489111957091e-05,
+              "P50": 1.918936715528119e-06,
+              "P90": 3.4049428826454786e-06,
+              "P95": 3.579721438828898e-06,
+              "Pearson": 0.9999989711481492,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 3.3608105928673027e-05,
+      "afterMaximumAbsolute": 3.3608105928673027e-05
+    },
+    {
+      "id": "0091-003-binocular_system-c2-primary-f0-w0-mtf",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "request": {
+        "canonicalAnalysisKey": "MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 0,
+        "wavelength": 0,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 1.7188733853924698,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "MaximumFrequency": "1.7188733853924698",
+          "WavelengthNumber": "0",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "Type": "调制",
+          "ShowDiffractionLimit": "false",
+          "UsePolarization": "False",
+          "UseDashes": "false",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "c7c4512f960e6b288828dd161b1f2121a41ec6e0cdacc44d706da5556818ed4d",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0091-003-binocular_system-c2-primary-f0-w0-mtf/workbench/request.json",
+      "requestMemberSha256": "e1b5b1486bc63f7bd5a8825e4e8d49110022974aba3ed8836aad252e94df6f76",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0091-003-binocular_system-c2-primary-f0-w0-mtf/native/data.json",
+          "sha256": "71ef5b581699af67352756a63c52937d99f70e283b382a7225c422151c853741"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0091-003-binocular_system-c2-primary-f0-w0-mtf/native/model.json",
+          "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0091-003-binocular_system-c2-primary-f0-w0-mtf/native/captured-settings.json",
+          "sha256": "f30604635b086124e026fcb3a4e5524c2bf5c3833878e28be021673f1f04a7c9"
+        }
+      ],
+      "before": {
+        "id": "0091-003-binocular_system-c2-primary-f0-w0-mtf",
+        "Fingerprint": "c7c4512f960e6b288828dd161b1f2121a41ec6e0cdacc44d706da5556818ed4d",
+        "violations": 220,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0003035910947133402,
+              "MeanAbsolute": 6.757808625475565e-05,
+              "Rmse": 9.419300532541175e-05,
+              "Nrmse": 9.419300532541175e-05,
+              "MaxRelative": 0.0003101370466582938,
+              "P50": 5.357393332217075e-05,
+              "P90": 0.00014603267807704605,
+              "P95": 0.00022668670784526952,
+              "Pearson": 0.9999999049709588,
+              "WorstX": 0.09197984670996494,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.00030359035282789826,
+              "MeanAbsolute": 6.757803586302312e-05,
+              "Rmse": 9.419285159778478e-05,
+              "Nrmse": 9.41928515977848e-05,
+              "MaxRelative": 0.0003101362879726116,
+              "P50": 5.3573997692679676e-05,
+              "P90": 0.00014603259725817224,
+              "P95": 0.00022668621263270412,
+              "Pearson": 0.9999999049720135,
+              "WorstX": 0.09197984670996494,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0008819518138908355,
+              "MeanAbsolute": 0.00015869834670421891,
+              "Rmse": 0.00024364361968587465,
+              "Nrmse": 0.00024364361968587465,
+              "MaxRelative": 0.0009022561245811317,
+              "P50": 7.359157833747298e-05,
+              "P90": 0.0003456378447772579,
+              "P95": 0.0006187375877112599,
+              "Pearson": 0.9999992834661946,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.001407888749925923,
+              "MeanAbsolute": 0.00027942713059234445,
+              "Rmse": 0.0003983623625379819,
+              "Nrmse": 0.000398362362537982,
+              "MaxRelative": 0.0014454808154007878,
+              "P50": 0.00017288486021938,
+              "P90": 0.0004828842825253868,
+              "P95": 0.0009821508241706417,
+              "Pearson": 0.9999988150334015,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:3:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.00177513261135831,
+              "MeanAbsolute": 0.0003311619611723932,
+              "Rmse": 0.0004882274961000497,
+              "Nrmse": 0.0004882274961000497,
+              "MaxRelative": 0.0018248890020804672,
+              "P50": 0.0002235569862478748,
+              "P90": 0.0005665095851467021,
+              "P95": 0.0012313734539006814,
+              "Pearson": 0.9999982251532941,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:sagittal",
+            "violations": 110,
+            "metric": {
+              "Id": "field:3:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.010171879450636245,
+              "MeanAbsolute": 0.0015866031272107307,
+              "Rmse": 0.002801383119481698,
+              "Nrmse": 0.0028013831194816986,
+              "MaxRelative": 0.04268896508060894,
+              "P50": 0.0003625396946672632,
+              "P90": 0.004669852716531632,
+              "P95": 0.005998763339305443,
+              "Pearson": 0.9999605169008159,
+              "WorstX": 0.08048236587121932,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:4:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:4:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.000881951820041027,
+              "MeanAbsolute": 0.00015869835301601646,
+              "Rmse": 0.0002436436218956411,
+              "Nrmse": 0.0002436436218956411,
+              "MaxRelative": 0.0009022561305542291,
+              "P50": 7.35915789199515e-05,
+              "P90": 0.0003456378384510961,
+              "P95": 0.0006187375898155101,
+              "Pearson": 0.9999992834661849,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:4:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:4:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0014078893245813573,
+              "MeanAbsolute": 0.0002794272547755486,
+              "Rmse": 0.0003983625302559847,
+              "Nrmse": 0.00039836253025598477,
+              "MaxRelative": 0.0014454814103372366,
+              "P50": 0.00017288494363959517,
+              "P90": 0.0004828845249564065,
+              "P95": 0.0009821512319992626,
+              "Pearson": 0.999998815033279,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:5:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:5:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0017751326370613052,
+              "MeanAbsolute": 0.0003311619551395392,
+              "Rmse": 0.0004882274962760955,
+              "Nrmse": 0.0004882274962760955,
+              "MaxRelative": 0.0018248890287087846,
+              "P50": 0.00022355696237008615,
+              "P90": 0.0005665095915662449,
+              "P95": 0.0012313734710158962,
+              "Pearson": 0.9999982251533271,
+              "WorstX": 0.08623110629059212,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:5:sagittal",
+            "violations": 110,
+            "metric": {
+              "Id": "field:5:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.01017188265110891,
+              "MeanAbsolute": 0.001586603635214264,
+              "Rmse": 0.0028013840635099717,
+              "Nrmse": 0.002801384063509972,
+              "MaxRelative": 0.04268912441696057,
+              "P50": 0.00036253984690114496,
+              "P90": 0.004669854207970269,
+              "P95": 0.005998765118748724,
+              "Pearson": 0.999960516882446,
+              "WorstX": 0.08048236587121932,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0091-003-binocular_system-c2-primary-f0-w0-mtf",
+        "Fingerprint": "c7c4512f960e6b288828dd161b1f2121a41ec6e0cdacc44d706da5556818ed4d",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.763884750680347e-05,
+              "MeanAbsolute": 1.0172783362920533e-05,
+              "Rmse": 1.1178894697114637e-05,
+              "Nrmse": 1.1178894697114637e-05,
+              "MaxRelative": 9.281760747596397e-05,
+              "P50": 1.1372077973803574e-05,
+              "P90": 1.2612565867975433e-05,
+              "P95": 1.2661514997569512e-05,
+              "Pearson": 0.9999999996558162,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.7638837510244336e-05,
+              "MeanAbsolute": 1.0172750656819407e-05,
+              "Rmse": 1.1178861398106226e-05,
+              "Nrmse": 1.1178861398106228e-05,
+              "MaxRelative": 9.281773169514054e-05,
+              "P50": 1.137202526596548e-05,
+              "P90": 1.261252605527785e-05,
+              "P95": 1.2661472695740805e-05,
+              "Pearson": 0.9999999996558163,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.811664688630923e-05,
+              "MeanAbsolute": 1.4464648464631546e-05,
+              "Rmse": 1.5540143361217503e-05,
+              "Nrmse": 1.5540143361217503e-05,
+              "MaxRelative": 9.766321061703223e-05,
+              "P50": 1.6465852150260307e-05,
+              "P90": 1.8247990404185455e-05,
+              "P95": 1.8293187766599272e-05,
+              "Pearson": 0.9999999996724944,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.6872587031510093e-05,
+              "MeanAbsolute": 1.8169557554923812e-05,
+              "Rmse": 1.9458630883606508e-05,
+              "Nrmse": 1.945863088360651e-05,
+              "MaxRelative": 0.0001291906598410054,
+              "P50": 2.093413403472799e-05,
+              "P90": 2.329470317211646e-05,
+              "P95": 2.3340917804604012e-05,
+              "Pearson": 0.999999999783644,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:3:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.538520840746685e-05,
+              "MeanAbsolute": 1.943811067360739e-05,
+              "Rmse": 2.0731953264530096e-05,
+              "Nrmse": 2.0731953264530096e-05,
+              "MaxRelative": 0.00013087085407452242,
+              "P50": 2.1876676743082246e-05,
+              "P90": 2.518391697391431e-05,
+              "P95": 2.5303613138694115e-05,
+              "Pearson": 0.9999999997297261,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:3:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 3.136512662826885e-05,
+              "MeanAbsolute": 1.0040237348891001e-05,
+              "Rmse": 1.427322023014963e-05,
+              "Nrmse": 1.4273220230149632e-05,
+              "MaxRelative": 0.002695154969486135,
+              "P50": 5.602175800884651e-06,
+              "P90": 2.6497262217362038e-05,
+              "P95": 2.8164381800542537e-05,
+              "Pearson": 0.9999999993068954,
+              "WorstX": 0.36791938683985975,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:4:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:4:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.811663743875538e-05,
+              "MeanAbsolute": 1.4464639864903713e-05,
+              "Rmse": 1.554013500904128e-05,
+              "Nrmse": 1.554013500904128e-05,
+              "MaxRelative": 9.766319149538186e-05,
+              "P50": 1.646584027453768e-05,
+              "P90": 1.8247984178065836e-05,
+              "P95": 1.82931812694076e-05,
+              "Pearson": 0.9999999996724955,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:4:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:4:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.687257921831556e-05,
+              "MeanAbsolute": 1.816955993756638e-05,
+              "Rmse": 1.9458633500585505e-05,
+              "Nrmse": 1.945863350058551e-05,
+              "MaxRelative": 0.00012919070308586037,
+              "P50": 2.093413189716009e-05,
+              "P90": 2.329470715762838e-05,
+              "P95": 2.3340920990660984e-05,
+              "Pearson": 0.9999999997836444,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:5:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:5:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 4.538520831554038e-05,
+              "MeanAbsolute": 1.9438122033180266e-05,
+              "Rmse": 2.07319657136069e-05,
+              "Nrmse": 2.07319657136069e-05,
+              "MaxRelative": 0.00013087085424153778,
+              "P50": 2.187667715716768e-05,
+              "P90": 2.518394502236676e-05,
+              "P95": 2.5303637619294994e-05,
+              "Pearson": 0.999999999729724,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:5:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:5:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 3.136514123536216e-05,
+              "MeanAbsolute": 1.0040233278387783e-05,
+              "Rmse": 1.4273220393324395e-05,
+              "Nrmse": 1.4273220393324396e-05,
+              "MaxRelative": 0.002695187398565908,
+              "P50": 5.602151554727486e-06,
+              "P90": 2.649727567537452e-05,
+              "P95": 2.8164394637923695e-05,
+              "Pearson": 0.9999999993068953,
+              "WorstX": 0.36791938683985975,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.01017188265110891,
+      "afterMaximumAbsolute": 4.811664688630923e-05
+    },
+    {
+      "id": "0121-004-apochromat_prism-c1-primary-f0-w0-mtf",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 0,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 1.7188733853924698,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "MaximumFrequency": "1.7188733853924698",
+          "WavelengthNumber": "0",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "Type": "调制",
+          "ShowDiffractionLimit": "false",
+          "UsePolarization": "False",
+          "UseDashes": "false",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "8e59bed0e9e9715c1a6e51c806e5131a4a8271e90abfa91e3c7306aed6fa6dc3",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/workbench/request.json",
+      "requestMemberSha256": "865f3946989dfef6a177a1ebb6508f2eef860e80eff2257794c12dc1f511f4fe",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/native/data.json",
+          "sha256": "cbcefea01adc56d5978bb696dd244fb334ad919df2e3ff8683099832710e8cf5"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0121-004-apochromat_prism-c1-primary-f0-w0-mtf/native/captured-settings.json",
+          "sha256": "ce188566061b112851932b50d697f829212981ea2dcefdb228c2cfe9158b32ea"
+        }
+      ],
+      "before": {
+        "id": "0121-004-apochromat_prism-c1-primary-f0-w0-mtf",
+        "Fingerprint": "8e59bed0e9e9715c1a6e51c806e5131a4a8271e90abfa91e3c7306aed6fa6dc3",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 7.281506775802526e-05,
+              "MeanAbsolute": 1.786806590658424e-05,
+              "Rmse": 2.7446983357270457e-05,
+              "Nrmse": 2.7446983357270457e-05,
+              "MaxRelative": 7.39672096595166e-05,
+              "P50": 6.63109075615953e-06,
+              "P90": 5.521325401046666e-05,
+              "P95": 6.892058290963732e-05,
+              "Pearson": 0.9999997843953781,
+              "WorstX": 0.21270339551679393,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0014707874594204196,
+              "MeanAbsolute": 0.000715923579314436,
+              "Rmse": 0.0008358824827223869,
+              "Nrmse": 0.0008358824827223869,
+              "MaxRelative": 0.0016706996869283199,
+              "P50": 0.0007116699415277705,
+              "P90": 0.00129844147840682,
+              "P95": 0.0013730031426021749,
+              "Pearson": 0.9999997866790908,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0121-004-apochromat_prism-c1-primary-f0-w0-mtf",
+        "Fingerprint": "8e59bed0e9e9715c1a6e51c806e5131a4a8271e90abfa91e3c7306aed6fa6dc3",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 3.730291115222606e-05,
+              "MeanAbsolute": 4.832691981563027e-07,
+              "Rmse": 3.2995428115442393e-06,
+              "Nrmse": 3.2995428115442393e-06,
+              "MaxRelative": 4.249862452605215e-05,
+              "P50": 4.78752582022679e-09,
+              "P90": 8.643282234377387e-09,
+              "P95": 4.022407521564488e-07,
+              "Pearson": 0.9999999957575667,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 330,
+              "MaxAbsolute": 0.0014711759910758238,
+              "MeanAbsolute": 0.000725390584142292,
+              "Rmse": 0.0008367113419730667,
+              "Nrmse": 0.0008367113419730667,
+              "MaxRelative": 0.0016711410285449402,
+              "P50": 0.0007220930952328564,
+              "P90": 0.0012991963451870483,
+              "P95": 0.00137369327056015,
+              "Pearson": 0.9999999932918514,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.0014707874594204196,
+      "afterMaximumAbsolute": 0.0014711759910758238
+    },
+    {
+      "id": "0009-001-afocal-riflescope-c1-primary-f0-w0-mtf",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 0,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 1.7188733853924698,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "MaximumFrequency": "1.7188733853924698",
+          "WavelengthNumber": "0",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "Type": "调制",
+          "ShowDiffractionLimit": "false",
+          "UsePolarization": "False",
+          "UseDashes": "false",
+          "UseRayAiming": "True"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "40c0b267868b652b1da9aa7d0285263a5aee940f998187c9e55706ec838f3e4c",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/workbench/request.json",
+      "requestMemberSha256": "3519b582c3541dedff63da31c679ddc99105582ad5042840ba4ad0cc5a24bd9c",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/native/data.json",
+          "sha256": "81991cfe62902f6f26c0c0de6dc9b4851edc5cf5d861d1233df31d2689e88bc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/native/model.json",
+          "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/baseline-v4/analyses/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf/native/captured-settings.json",
+          "sha256": "1ed9855cddadcdc79686f8e6635bec8be4cfbc5876ecbde2089ed2e6a7fafd13"
+        }
+      ],
+      "before": {
+        "id": "0009-001-afocal-riflescope-c1-primary-f0-w0-mtf",
+        "Fingerprint": "40c0b267868b652b1da9aa7d0285263a5aee940f998187c9e55706ec838f3e4c",
+        "violations": 198,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 0.001017715062548108,
+              "MeanAbsolute": 0.00016194288478503613,
+              "Rmse": 0.0002569656835746122,
+              "Nrmse": 0.0002569656835746122,
+              "MaxRelative": 0.001042476911754817,
+              "P50": 0.00010068994165340905,
+              "P90": 0.00020904590542392132,
+              "P95": 0.0007321527716225851,
+              "Pearson": 0.999999005097071,
+              "WorstX": 0.08623110629059214,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 0.001017715062478275,
+              "MeanAbsolute": 0.0001619428848007427,
+              "Rmse": 0.0002569656835804373,
+              "Nrmse": 0.0002569656835804373,
+              "MaxRelative": 0.0010424769116832847,
+              "P50": 0.00010068994177947488,
+              "P90": 0.00020904590561587888,
+              "P95": 0.0007321527715688503,
+              "Pearson": 0.9999990050970702,
+              "WorstX": 0.08623110629059214,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:tangential",
+            "violations": 65,
+            "metric": {
+              "Id": "field:2:tangential",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 0.011176637971816339,
+              "MeanAbsolute": 0.0013492812429699418,
+              "Rmse": 0.0031606559987805293,
+              "Nrmse": 0.0031606559987805293,
+              "MaxRelative": 0.013897072364541461,
+              "P50": 0.000156968249544448,
+              "P90": 0.006685223818064745,
+              "P95": 0.009502440181426819,
+              "Pearson": 0.9999130677132368,
+              "WorstX": 0.08623110629059214,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:sagittal",
+            "violations": 23,
+            "metric": {
+              "Id": "field:2:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 0.002994015146404738,
+              "MeanAbsolute": 0.0005768641316220171,
+              "Rmse": 0.0008145922764445813,
+              "Nrmse": 0.0008145922764445813,
+              "MaxRelative": 0.008642434693430923,
+              "P50": 0.0004053118257081323,
+              "P90": 0.0007960702444790857,
+              "P95": 0.002210287525322374,
+              "Pearson": 0.9999982508202171,
+              "WorstX": 0.09197984670996494,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:3:tangential",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 0.0017823246955951388,
+              "MeanAbsolute": 0.0005492716102286084,
+              "Rmse": 0.0007134449772972925,
+              "Nrmse": 0.0007134449772972925,
+              "MaxRelative": 0.003509217372151728,
+              "P50": 0.0003493394291010643,
+              "P90": 0.0013771547447996024,
+              "P95": 0.0015738041766023558,
+              "Pearson": 0.9999989031830935,
+              "WorstX": 0.24144709761365796,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:sagittal",
+            "violations": 110,
+            "metric": {
+              "Id": "field:3:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 0.004146618936345825,
+              "MeanAbsolute": 0.0010067247601036604,
+              "Rmse": 0.0013665877305497696,
+              "Nrmse": 0.0013665877305497696,
+              "MaxRelative": 0.03083235613720193,
+              "P50": 0.0008702238843499854,
+              "P90": 0.0017811881848678462,
+              "P95": 0.0032673612945091635,
+              "Pearson": 0.9999956491843487,
+              "WorstX": 0.09772858712933774,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0009-001-afocal-riflescope-c1-primary-f0-w0-mtf",
+        "Fingerprint": "40c0b267868b652b1da9aa7d0285263a5aee940f998187c9e55706ec838f3e4c",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "field:1:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:tangential",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 3.9681114117062766e-05,
+              "MeanAbsolute": 7.243278098076625e-06,
+              "Rmse": 8.260002158161723e-06,
+              "Nrmse": 8.260002158161723e-06,
+              "MaxRelative": 8.152124827543743e-05,
+              "P50": 8.417818398887e-06,
+              "P90": 9.04379388538823e-06,
+              "P95": 9.063423126814962e-06,
+              "Pearson": 0.9999999998162026,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:1:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:1:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 3.968111416918774e-05,
+              "MeanAbsolute": 7.2432780260094125e-06,
+              "Rmse": 8.260002113492934e-06,
+              "Nrmse": 8.260002113492934e-06,
+              "MaxRelative": 8.152124838252346e-05,
+              "P50": 8.417818293193768e-06,
+              "P90": 9.043793918805942e-06,
+              "P95": 9.063423130922788e-06,
+              "Pearson": 0.9999999998162031,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:tangential",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 0.00038240565750236044,
+              "MeanAbsolute": 1.3745383141331319e-05,
+              "Rmse": 3.321107819955357e-05,
+              "Nrmse": 3.321107819955357e-05,
+              "MaxRelative": 0.00038786119161584177,
+              "P50": 8.266481062613185e-06,
+              "P90": 2.3890465201736877e-05,
+              "P95": 3.112053482459687e-05,
+              "Pearson": 0.9999999904931018,
+              "WorstX": 0.011497480838745617,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:2:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:2:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 3.483709224895437e-05,
+              "MeanAbsolute": 1.2219301476591812e-05,
+              "Rmse": 1.4741867867755002e-05,
+              "Nrmse": 1.4741867867755002e-05,
+              "MaxRelative": 0.001260397000855941,
+              "P50": 1.4766670365984336e-05,
+              "P90": 2.0866908110483973e-05,
+              "P95": 2.0980797732644135e-05,
+              "Pearson": 0.999999999971,
+              "WorstX": 1.7073759045537242,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:tangential",
+            "violations": 0,
+            "metric": {
+              "Id": "field:3:tangential",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 3.607519893888966e-05,
+              "MeanAbsolute": 2.301600427518511e-05,
+              "Rmse": 2.5021721895443674e-05,
+              "Nrmse": 2.5021721895443674e-05,
+              "MaxRelative": 0.00012240304022022156,
+              "P50": 2.5065931260059848e-05,
+              "P90": 3.526777975237927e-05,
+              "P95": 3.550815269903751e-05,
+              "Pearson": 0.9999999993923696,
+              "WorstX": 0.5288841185822984,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          },
+          {
+            "curve": "field:3:sagittal",
+            "violations": 0,
+            "metric": {
+              "Id": "field:3:sagittal",
+              "Unit": "Dimensionless",
+              "Count": 396,
+              "MaxAbsolute": 6.09799394003796e-05,
+              "MeanAbsolute": 3.458427803091871e-05,
+              "Rmse": 3.9300853101545576e-05,
+              "Nrmse": 3.9300853101545576e-05,
+              "MaxRelative": 0.0012020862727960696,
+              "P50": 3.544265240980338e-05,
+              "P90": 5.9284108716688155e-05,
+              "P95": 6.0416863981727076e-05,
+              "Pearson": 0.9999999987023567,
+              "WorstX": 0.7530849949378379,
+              "WorstY": null,
+              "Coverage": 1,
+              "Conclusion": 0,
+              "Extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsolute": 0.011176637971816339,
+      "afterMaximumAbsolute": 0.00038240565750236044
+    }
+  ],
+  "curveCount": 30,
+  "finalTests": [
+    {
+      "file": "mtf-targeted.trx",
+      "counters": {
+        "total": "88",
+        "executed": "88",
+        "passed": "88",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "b8f28e50eb7ce3bdbd37b9b5d1f8bed4315128e554be171d80a115eb989acd90"
+    },
+    {
+      "file": "mtf-protection.trx",
+      "counters": {
+        "total": "53",
+        "executed": "53",
+        "passed": "53",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "d357a18508f02da80da5ed610c5275800e9b948cb050b8f30e810df6d26fa2ce"
+    }
+  ],
+  "distinctPassingTests": 141,
+  "coreBinaries": [
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "ba70dcecfa9e530fd290220d76a4e888e56c68e9e85f495753528cdae902561d"
+    },
+    {
+      "path": "tools/diagnostics/BeamFftPsf20261029/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "ba70dcecfa9e530fd290220d76a4e888e56c68e9e85f495753528cdae902561d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "ba70dcecfa9e530fd290220d76a4e888e56c68e9e85f495753528cdae902561d"
+    }
+  ],
+  "sourceIdentities": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+      "sha256": "7bbded0cbe0498cafab15fa3617dc36b96aec902e0fc2205cad8c8bd0f025483"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalFftMtfPointwiseTests.cs",
+      "sha256": "ae8453503f1109071c5de630a8f8d2d9458a270f34d7df819ae3a5e4ec44a895"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/FftMtfDiagnostics.cs",
+      "sha256": "b4b26cced2f5d418237e1c20d1c6d5821f86ea12d424a9dbdc7800c9b680a1d9"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/FftMtfSpectrumInterpolationTests.cs",
+      "sha256": "174fca8cf78b2202d6805c21e66f2528010f4eccf0286585a12adb3c9aa21f11"
+    }
+  ],
+  "decomposition": {
+    "scope": "Original monochromatic OTF samples and display coordinates, unchanged natural spline; controls do not fit parameters or replace native reference values.",
+    "cases": [
+      {
+        "id": "0009-001-afocal-riflescope-c1-primary-f0-w0-mtf",
+        "pupilSampling": 64,
+        "fftGrid": 128,
+        "sourceSha256": "5cfd323ab09b2aa165e0a500bb2d45e101266d472c9fb8b19f26f9c23bb5de2b",
+        "baselineReconstructionMaximumAbsolute": 3.3306690738754696e-16,
+        "opticalAndAxisControls": [
+          {
+            "mode": "baseline",
+            "maximumAbsolute": 0.011176637971816339
+          },
+          {
+            "mode": "omit-transmission",
+            "maximumAbsolute": 0.011183795364436366
+          },
+          {
+            "mode": "amplitude",
+            "maximumAbsolute": 0.011183795364436366
+          },
+          {
+            "mode": "dual-grid",
+            "maximumAbsolute": 0.014907050331445126
+          }
+        ],
+        "combinationControls": {
+          "combined-natural": {
+            "maximumAbsolute": 0.011176637971816339,
+            "violations": 198
+          },
+          "combined-notaknot": {
+            "maximumAbsolute": 0.006681086422285931,
+            "violations": 200
+          },
+          "combined-linear": {
+            "maximumAbsolute": 0.020882679863644782,
+            "violations": 760
+          },
+          "direct-natural": {
+            "maximumAbsolute": 0.0003824056575022494,
+            "violations": 0
+          },
+          "direct-notaknot": {
+            "maximumAbsolute": 0.014898302800390062,
+            "violations": 66
+          },
+          "direct-linear": {
+            "maximumAbsolute": 0.011219815802163802,
+            "violations": 372
+          },
+          "magnitudes-natural": {
+            "maximumAbsolute": 0.12650707143895273,
+            "violations": 780
+          }
+        }
+      },
+      {
+        "id": "0039-002-beam-expander-c1-primary-f0-w0-mtf",
+        "pupilSampling": 64,
+        "fftGrid": 128,
+        "sourceSha256": "89c07ff6305ef19046120177854d5f488d8f5ed6e866d06bac604d8a8c05299a",
+        "baselineReconstructionMaximumAbsolute": 2.220446049250313e-16,
+        "opticalAndAxisControls": [
+          {
+            "mode": "baseline",
+            "maximumAbsolute": 3.3608105928673027e-05
+          },
+          {
+            "mode": "omit-transmission",
+            "maximumAbsolute": 3.3495033898600646e-05
+          },
+          {
+            "mode": "amplitude",
+            "maximumAbsolute": 3.7367485086869934e-05
+          },
+          {
+            "mode": "dual-grid",
+            "maximumAbsolute": 0.00019993635646631258
+          }
+        ],
+        "combinationControls": {
+          "combined-natural": {
+            "maximumAbsolute": 3.3608105928673027e-05,
+            "violations": 0
+          },
+          "combined-notaknot": {
+            "maximumAbsolute": 0.0001057207514237879,
+            "violations": 0
+          },
+          "combined-linear": {
+            "maximumAbsolute": 0.0002998430788617723,
+            "violations": 0
+          },
+          "direct-natural": {
+            "maximumAbsolute": 3.3608105928673027e-05,
+            "violations": 0
+          },
+          "direct-notaknot": {
+            "maximumAbsolute": 0.0001057207514237879,
+            "violations": 0
+          },
+          "direct-linear": {
+            "maximumAbsolute": 0.0002998430788617723,
+            "violations": 0
+          },
+          "magnitudes-natural": {
+            "maximumAbsolute": 3.3608105928673027e-05,
+            "violations": 0
+          }
+        }
+      },
+      {
+        "id": "0061-003-binocular_system-c1-primary-f0-w0-mtf",
+        "pupilSampling": 64,
+        "fftGrid": 128,
+        "sourceSha256": "ead14cddb505d85bcf8801ee3610407965cc5e34ac3a55f70ab991194fea8468",
+        "baselineReconstructionMaximumAbsolute": 4.440892098500626e-16,
+        "opticalAndAxisControls": [
+          {
+            "mode": "baseline",
+            "maximumAbsolute": 0.01017188265066471
+          },
+          {
+            "mode": "omit-transmission",
+            "maximumAbsolute": 0.010165887412389663
+          },
+          {
+            "mode": "amplitude",
+            "maximumAbsolute": 0.010165887412389663
+          },
+          {
+            "mode": "dual-grid",
+            "maximumAbsolute": 0.015335613484657784
+          }
+        ],
+        "combinationControls": {
+          "combined-natural": {
+            "maximumAbsolute": 0.010171882650664932,
+            "violations": 220
+          },
+          "combined-notaknot": {
+            "maximumAbsolute": 0.007131259072578056,
+            "violations": 214
+          },
+          "combined-linear": {
+            "maximumAbsolute": 0.02320039698043641,
+            "violations": 426
+          },
+          "direct-natural": {
+            "maximumAbsolute": 4.8116648483420565e-05,
+            "violations": 0
+          },
+          "direct-notaknot": {
+            "maximumAbsolute": 0.011437466051416934,
+            "violations": 56
+          },
+          "direct-linear": {
+            "maximumAbsolute": 0.011634238819526299,
+            "violations": 282
+          },
+          "magnitudes-natural": {
+            "maximumAbsolute": 0.011602626754093954,
+            "violations": 890
+          }
+        }
+      },
+      {
+        "id": "0091-003-binocular_system-c2-primary-f0-w0-mtf",
+        "pupilSampling": 64,
+        "fftGrid": 128,
+        "sourceSha256": "4ef843f9505ab908aaa44abb00203a3c71cc0cf79289decbd8f15e07f8f21f8d",
+        "baselineReconstructionMaximumAbsolute": 4.440892098500626e-16,
+        "opticalAndAxisControls": [
+          {
+            "mode": "baseline",
+            "maximumAbsolute": 0.01017188265110891
+          },
+          {
+            "mode": "omit-transmission",
+            "maximumAbsolute": 0.010165887412833863
+          },
+          {
+            "mode": "amplitude",
+            "maximumAbsolute": 0.010165887412833863
+          },
+          {
+            "mode": "dual-grid",
+            "maximumAbsolute": 0.015335613482755472
+          }
+        ],
+        "combinationControls": {
+          "combined-natural": {
+            "maximumAbsolute": 0.010171882651109132,
+            "violations": 220
+          },
+          "combined-notaknot": {
+            "maximumAbsolute": 0.007131259072369001,
+            "violations": 214
+          },
+          "combined-linear": {
+            "maximumAbsolute": 0.023200396980841753,
+            "violations": 426
+          },
+          "direct-natural": {
+            "maximumAbsolute": 4.811664688625372e-05,
+            "violations": 0
+          },
+          "direct-notaknot": {
+            "maximumAbsolute": 0.011437466051181122,
+            "violations": 56
+          },
+          "direct-linear": {
+            "maximumAbsolute": 0.011634238819838938,
+            "violations": 282
+          },
+          "magnitudes-natural": {
+            "maximumAbsolute": 0.011602626753878905,
+            "violations": 890
+          }
+        }
+      },
+      {
+        "id": "0121-004-apochromat_prism-c1-primary-f0-w0-mtf",
+        "pupilSampling": 64,
+        "fftGrid": 128,
+        "sourceSha256": "8034547540bc013637d069b417f318ca4b2ffb57886c592790fa1751220bab55",
+        "baselineReconstructionMaximumAbsolute": 3.3306690738754696e-16,
+        "opticalAndAxisControls": [
+          {
+            "mode": "baseline",
+            "maximumAbsolute": 0.0014707874594204196
+          },
+          {
+            "mode": "omit-transmission",
+            "maximumAbsolute": 0.0014707855405233783
+          },
+          {
+            "mode": "amplitude",
+            "maximumAbsolute": 0.0014707855405233783
+          },
+          {
+            "mode": "dual-grid",
+            "maximumAbsolute": 0.0019555512278119913
+          }
+        ],
+        "combinationControls": {
+          "combined-natural": {
+            "maximumAbsolute": 0.0014707874594203085,
+            "violations": 0
+          },
+          "combined-notaknot": {
+            "maximumAbsolute": 0.0014709449165829502,
+            "violations": 0
+          },
+          "combined-linear": {
+            "maximumAbsolute": 0.0014712181529764612,
+            "violations": 0
+          },
+          "direct-natural": {
+            "maximumAbsolute": 0.0014711759910758238,
+            "violations": 0
+          },
+          "direct-notaknot": {
+            "maximumAbsolute": 0.0014711919089871461,
+            "violations": 0
+          },
+          "direct-linear": {
+            "maximumAbsolute": 0.0014712181529764612,
+            "violations": 0
+          },
+          "magnitudes-natural": {
+            "maximumAbsolute": 0.0014711759910758238,
+            "violations": 0
+          }
+        }
+      }
+    ]
+  },
+  "frozenIntegrity": {
+    "source": "HEAD",
+    "commit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "relocationMap": {
+      "path": "tools/validation/frozen-evidence-relocations.json",
+      "count": 4,
+      "expectedSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "actualSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "gitBlob": "54fb7863a30f8808fd335a62332dd3301c1243ea",
+      "gitLinkPath": null,
+      "matches": true
+    },
+    "relocations": [
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "gitBlob": "8ce33ef8a9c26d3b26cfef84d8f88e03acf30286",
+        "bytes": 10182,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "gitBlob": "16aefa0dc68de132b63abb9260bac174ad652b7b",
+        "bytes": 6098,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+        "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "gitBlob": "31bef72740c8acfb69c3ade3e0c03cc2a2f63b7a",
+        "bytes": 2010,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "gitBlob": "1356ccedaee37e9e41da3c9074ae375dbca33bab",
+        "bytes": 17236,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      }
+    ],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": [],
+      "relocationMap": {
+        "path": "tools/validation/frozen-evidence-relocations.json",
+        "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+        "count": 4
+      },
+      "relocations": [
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+          "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "matches": true
+        },
+        {
+          "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+          "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+          "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "matches": true
+        }
+      ]
+    }
+  },
+  "appBuild": {
+    "defaultOutput": true,
+    "exitCode": 0,
+    "warnings": 0,
+    "errors": 0,
+    "appLaunched": false
+  },
+  "earlierFailures": [
+    "Diagnostic first compile referenced internal SpotAnalysisEngine directly; corrected diagnostic reflection before any optical test ran.",
+    "Initial offline script allocated integer weights then attempted in-place floating normalization; corrected dtype before collecting diagnosis.",
+    "mtf-before.trx: three real optical failures and two original pointwise passes; NRMSE passed all five historically."
+  ],
+  "limitations": [
+    "Unchanged pointwise gates met; residuals are not zero and one prism-control maximum increases slightly within the same gates.",
+    "Not a rerun of the full 150-request matrix, 95-file corpus, GUI/CUDA, native recapture or release."
+  ],
+  "evidenceArchiveSha256": "c8cb88177ec477e6ebbd7f89a97d00498d6997f93e8e8b56cc4b159a4c358733",
+  "evidenceMembers": [
+    {
+      "file": "mtf-after.trx",
+      "sha256": "d57197d21e8c6857cc7d930ad25f3a6b646d9c8c81630198a3ad349f364d039d",
+      "bytes": 26452
+    },
+    {
+      "file": "mtf-before.trx",
+      "sha256": "c14f8ab436a61c1720ec1ba5df6bcd4ac98a3c2211d3d2035d7bb45b82fe64ba",
+      "bytes": 44332
+    },
+    {
+      "file": "mtf-protection.trx",
+      "sha256": "d357a18508f02da80da5ed610c5275800e9b948cb050b8f30e810df6d26fa2ce",
+      "bytes": 83070
+    },
+    {
+      "file": "mtf-targeted.trx",
+      "sha256": "b8f28e50eb7ce3bdbd37b9b5d1f8bed4315128e554be171d80a115eb989acd90",
+      "bytes": 188531
+    },
+    {
+      "file": "decomposition.json",
+      "sha256": "ea06bfd5a321db7c38ba10de9977ddabc4fa0de8fb0992b50211d5846fa2297d",
+      "bytes": 8534
+    },
+    {
+      "file": "frozen-integrity.json",
+      "sha256": "fd0572f2ff0ad3509d46bbfe610e2c9583edf52a5f633e4e81cd0b627670ce66",
+      "bytes": 5255
+    }
+  ],
+  "documentation": {
+    "Documents": 1247,
+    "BrokenLinks": [],
+    "MarkdownFenceIssues": [],
+    "LocalOnlyLinks": []
+  }
+}

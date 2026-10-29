@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/StandardSampleOpdParityTests.cs" Link="StandardSampleOpdParityTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/WavefrontAimingRepairTests.cs" Link="WavefrontAimingRepairTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/VignettedWavefrontPhaseTests.cs" Link="VignettedWavefrontPhaseTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/AfocalEvaluationContractTests.cs" Link="AfocalEvaluationContractTests.cs" />
+    <None Include="../../../validation/zemax/2026-r1/standard-sample-opd-2026-10-06/**/*" Link="Validation/Zemax/StandardSampleOpd/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Using Include="Xunit" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+</Project>

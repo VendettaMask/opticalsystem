@@ -29,9 +29,12 @@ public static partial class DiffractionEngine
                     ExplicitCoordinateStep = step * aspect.X,
                     ExplicitCoordinateStepY = step * aspect.Y
                 };
+                // Share the scalar FFT amplitude rule with afocal PSF displays;
+                // cumulative integration must receive the same apodized pupil.
                 var result = ComputeFftPsfCore(optic, field, wave, pupilSampling, 2 * pupilSampling,
                     false, true, 0, null, null, true, ignoreOpd, optic.RayAimingEnabled,
-                    reference, angularPitch, true, out _, explicitPupilGrid: grid);
+                    reference, angularPitch, true, out _, explicitPupilGrid: grid,
+                    interpolateScalarPupilAmplitude: true);
                 return (wave, result with { SampleSpacingMicrometers = angularPitch });
             }).ToArray();
         }

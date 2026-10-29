@@ -40,6 +40,54 @@ public sealed class AfocalPsfContractTests(ITestOutputHelper output)
     public static IEnumerable<object[]> Cases() => Manifest().GetProperty("cases").EnumerateArray()
         .Select(row => new object[] { row.GetProperty("id").GetString()! });
 
+    public static IEnumerable<object[]> BeamPsfCases() => Manifest().GetProperty("cases").EnumerateArray()
+        .Where(row => row.GetProperty("lens").GetString() == "Afocal/Beam Expander.ZMX"
+            && row.GetProperty("key").GetString() == "PSF")
+        .Select(row => new object[] { row.GetProperty("id").GetString()! });
+
+    [Theory]
+    [MemberData(nameof(BeamPsfCases))]
+    public async Task GaussianBeamPsfPeakMeetsOriginalToleranceWithoutPeakFitting(string id)
+    {
+        var row = Manifest().GetProperty("cases").EnumerateArray().Single(r => r.GetProperty("id").GetString() == id);
+        var request = row.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
+        var directory = WriteNative(id);
+        try
+        {
+            var entry = AnalysisComparisonRegistry.Get("PSF");
+            var expected = ResultNormalizer.Zemax(Path.Combine(directory, "data.json"), entry, request).Grids.Single();
+            var optic = (await WorkbenchExecutor.Import(Path.Combine(AppContext.BaseDirectory,
+                "Fixtures/afocal-repair/sources", row.GetProperty("lens").GetString()!))).Configurations[request.Configuration - 1];
+            var data = new WorkbenchRuntime(optic).BuildAnalysisData("PSF", request.WorkbenchSettings);
+            var workbench = Path.Combine(directory, "workbench.json");
+            JsonFiles.Write(workbench, data);
+            var actual = ResultNormalizer.Workbench(workbench, entry, request).Grids.Single();
+            var matched = ComparisonMetrics.Align(actual, expected, []);
+            var policy = ComparisonConfiguration.Load(Path.Combine(AppContext.BaseDirectory, "comparison-settings.json"))
+                .Analyses["PSF"].Quantities["Irradiance"];
+            var errors = matched.Workbench.Zip(matched.Zemax, (a, b) => Math.Abs(a - b)).ToArray();
+            var violations = errors.Where((e, i) => e > policy.Absolute + policy.Relative * Math.Abs(matched.Zemax[i])).Count();
+            output.WriteLine(JsonSerializer.Serialize(new { id, samples = errors.Length, violations,
+                actualPeak = matched.Workbench.Max(), nativePeak = matched.Zemax.Max(),
+                maximumAbsolute = errors.Max(), windowSumRatio = matched.Workbench.Sum() / matched.Zemax.Sum(),
+                idealPeakRatio = Convert.ToDouble(data.Values["UnaberratedPeakRatio"]),
+                metric = ComparisonMetrics.Calculate("grid", "Dimensionless", matched, policy) }));
+            BeamPsfShapeDiagnostics.WriteIfRequested(id, optic, request, expected, actual);
+            // Apply the unchanged pointwise gate to the peak explicitly, rather
+            // than relying on whole-grid NRMSE to detect its previous 23% loss.
+            // The same gate is also required for every matched pixel below.
+            var nativePeak = matched.Zemax.Max();
+            Assert.InRange(Math.Abs(matched.Workbench.Max() - nativePeak), 0,
+                policy.Absolute + policy.Relative * Math.Abs(nativePeak));
+            Assert.Equal(Conclusion.Pass, ComparisonMetrics.Calculate("grid", "Dimensionless", matched, policy).Conclusion);
+            Assert.Equal(1, matched.Coverage);
+            // This captured beam is slightly aberrated: Normalize=false must retain that loss.
+            Assert.True(matched.Workbench.Max() < 0.999999);
+            Assert.Equal(0, violations);
+        }
+        finally { Directory.Delete(directory, true); }
+    }
+
     [Theory]
     [MemberData(nameof(Cases))]
     public async Task FormalNormalizerRetainsOriginalGridOutcomes(string id)

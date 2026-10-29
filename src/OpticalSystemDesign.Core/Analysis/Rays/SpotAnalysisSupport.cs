@@ -116,7 +116,10 @@ internal static class SpotAnalysisEngine
     {
         var fieldArray = fields.ToArray();
         var wavelengthArray = wavelengths.ToArray();
-        var pupilSamples = explicitPupilSamples ?? CreatePupilSamples(sampleParameter, distribution, gaussianAzimuthalSamples);
+        var pupilSamples = explicitPupilSamples ?? (gaussianPupilIntegral
+            ? ApertureSampler.GenerateGaussianQuadrature(sampleParameter, gaussianAzimuthalSamples,
+                useChebyshevAzimuths: true)
+            : CreatePupilSamples(sampleParameter, distribution, gaussianAzimuthalSamples));
         var rawFields = new List<SpotFieldData>(fieldArray.Length);
         var rayCount = 0;
         var vignettedRayCount = 0;

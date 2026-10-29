@@ -448,7 +448,10 @@ public static class WavefrontEngine
             {
                 var distance = optic.SurfaceGroup.Items.Any(s => s.Geometry is PolygonGroupGeometry)
                     ? ImageSpaceAnalysisSupport.CompoundExitPupil(optic).Position
-                    : optic.Paraxial.EstimateExitPupilLocation(referenceWavelengthNanometers / 1000);
+                    // The system pupil position is evaluated at the primary
+                    // wavelength. A monochromatic fan changes the reference
+                    // chief (and plane normal), not this axial pupil datum.
+                    : optic.Paraxial.EstimateExitPupilLocation();
                 if (!double.IsFinite(distance))
                     throw new InvalidOperationException("Afocal exit-pupil OPD requires a finite exit-pupil reference position.");
                 var frame = optic.SurfaceGroup.Items[^1].CoordinateSystem;

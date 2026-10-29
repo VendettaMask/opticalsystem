@@ -100,7 +100,8 @@ public sealed class PsfAnalysis : BaseAnalysis
             ignoreOpd: _ignoreOpd, aimAtStop: analysisOptic.RayAimingEnabled,
             referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0],
             imageDelta: _zemaxCompatible ? _imageDeltaMicrometers : 0,
-            ignoreScalarTransmission: _zemaxCompatible);
+            ignoreScalarTransmission: _zemaxCompatible,
+            interpolateScalarPupilAmplitude: _zemaxCompatible && !_usePolarization);
         var primary = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
         if (primary.Wavelength is null)
         {
@@ -123,6 +124,16 @@ public sealed class PsfAnalysis : BaseAnalysis
         var useConfiguredWeights = results.Any(item => item.Wavelength.Weight > 0);
         var totalWeight = results.Sum(item =>
             useConfiguredWeights ? item.Wavelength.Weight : 1);
+        // Native scalar FFT intensity is relative to the unaberrated PSF with
+        // the same apodization and accepted pupil. Use its incoherent spectral
+        // peak, without fitting the actual image or tracing an extra ideal pupil.
+        // Keep general-purpose and experimental polarized power contracts intact.
+        var idealPeak = _zemaxCompatible && !_usePolarization
+            ? results.Sum(item => (useConfiguredWeights ? item.Wavelength.Weight : 1)
+                * item.Result.UnaberratedPeakRatio) / totalWeight
+            : 1;
+        if (!double.IsFinite(idealPeak) || idealPeak <= 0)
+            throw new InvalidOperationException("FFT PSF has no finite unaberrated peak reference.");
 
         for (var row = 0; row < gridSize; row++)
         {
@@ -137,7 +148,7 @@ public sealed class PsfAnalysis : BaseAnalysis
                     sum += weight * BilinearSample(item.Result, x, y) / 100.0;
                 }
 
-                values[row, column] = sum / totalWeight;
+                values[row, column] = sum / totalWeight / idealPeak;
             }
         }
 
@@ -224,7 +235,8 @@ public sealed class PsfAnalysis : BaseAnalysis
             ["PolarizationLimit"] = _usePolarization
                 ? "Jones component powers are collapsed before scalar diffraction; complex cross-polarization interference and longitudinal high-NA fields are not modeled."
                 : string.Empty,
-            ["Normalized"] = _normalize
+            ["Normalized"] = _normalize,
+            ["UnaberratedPeakRatio"] = idealPeak
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: title,
             EqualAspect: true,
@@ -397,7 +409,7 @@ public sealed class MtfAnalysis : BaseAnalysis
                 : Math.Min(cutoff, fullMtf.CutoffFrequency);
             var fieldPlottedMaximum = _maximumFrequency ?? fullMtf.CutoffFrequency;
             var mtf = _zemaxCompatible
-                ? Resample(fullMtf, fieldPlottedMaximum, _dataType, 300)
+                ? ResampleSpectrum(wavelengthResults, fieldPlottedMaximum, _dataType, 300)
                 : DiffractionEngine.LimitFrequency(fullMtf, _maximumFrequency);
             if (_showDiffractionLimit && diffractionLimit is null)
             {
@@ -512,6 +524,49 @@ public sealed class MtfAnalysis : BaseAnalysis
             .ToArray();
         clone.SurfaceGroup.Replace(surfaces);
         return clone;
+    }
+
+    private static MtfResult ResampleSpectrum(
+        IReadOnlyList<(Wavelength Wavelength, MtfResult Result)> results,
+        double maximumFrequency, FftMtfDataType type, int pointCount)
+    {
+        // Preserve the existing square-wave harmonic contract. For ordinary FFT
+        // responses, interpolate each complex OTF once on its own physical axis,
+        // then combine on the requested display grid. Combining on one coarse
+        // wavelength grid first loses curvature before the final spline.
+        if (type == FftMtfDataType.SquareWave)
+            return Resample(MtfMethodEvaluator.CombinePolychromatic(results), maximumFrequency, type, pointCount);
+        var totalWeight = results.Sum(item => item.Wavelength.Weight);
+        var equalWeights = totalWeight <= 1e-30;
+        var active = results.Where(item => equalWeights || item.Wavelength.Weight > 0).ToArray();
+        var components = active.Select(item =>
+        {
+            if (item.Result.TangentialOtf is null || item.Result.SagittalOtf is null)
+                throw new ArgumentException("FFT MTF spectrum requires complex OTF data.", nameof(results));
+            return (Weight: equalWeights ? 1 : item.Wavelength.Weight,
+                Real: Resample(item.Result, maximumFrequency, FftMtfDataType.Real, pointCount),
+                Imaginary: Resample(item.Result, maximumFrequency, FftMtfDataType.Imaginary, pointCount));
+        }).ToArray();
+        if (components.Length == 0)
+            return new MtfResult(Array.Empty<double>(), Array.Empty<double>(), Array.Empty<double>(), 0);
+        if (equalWeights) totalWeight = components.Length;
+        var frequency = components[0].Real.Frequency;
+        return new MtfResult(frequency, Direction(true), Direction(false), active.Max(item => item.Result.CutoffFrequency));
+
+        double[] Direction(bool tangential) => Enumerable.Range(0, frequency.Count).Select(index =>
+        {
+            var real = components.Sum(item => item.Weight * (tangential
+                ? item.Real.Tangential[index] : item.Real.Sagittal[index])) / totalWeight;
+            var imaginary = components.Sum(item => item.Weight * (tangential
+                ? item.Imaginary.Tangential[index] : item.Imaginary.Sagittal[index])) / totalWeight;
+            return type switch
+            {
+                FftMtfDataType.Real => real,
+                FftMtfDataType.Imaginary => imaginary,
+                FftMtfDataType.Phase => Math.Atan2(imaginary, real),
+                _ => Math.Clamp(System.Numerics.Complex.Abs(new(real, imaginary)), 0, 1)
+            };
+        }).ToArray();
     }
 
     private static MtfResult Resample(

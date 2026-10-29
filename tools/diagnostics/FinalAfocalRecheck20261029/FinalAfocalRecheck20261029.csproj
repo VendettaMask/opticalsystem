@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <FrozenBinaryRoot Condition="'$(FrozenBinaryRoot)' == ''">../../../artifacts/validation/final-core-recheck-20261029/cohort</FrozenBinaryRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpticalSystemDesign.Core"><HintPath>$(FrozenBinaryRoot)/OpticalSystemDesign.Core.dll</HintPath></Reference>
+    <Reference Include="OpticalSystemDesign.Application"><HintPath>$(FrozenBinaryRoot)/OpticalSystemDesign.Application.dll</HintPath></Reference>
+    <Reference Include="OpticalSystemDesign.ZemaxComparison"><HintPath>$(FrozenBinaryRoot)/OpticalSystemDesign.ZemaxComparison.dll</HintPath></Reference>
+    <Compile Include="../AfocalReferenceFocus20261027/ScopedAfocalNormalizer.cs" Link="ScopedAfocalNormalizer.cs" />
+  </ItemGroup>
+</Project>

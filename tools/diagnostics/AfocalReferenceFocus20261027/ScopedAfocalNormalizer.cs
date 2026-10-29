@@ -10,7 +10,8 @@ using OpticalSystemDesign.ZemaxComparison.Normalization;
 internal static class ScopedAfocalNormalizer
 {
     internal static (NumericResult Actual,NumericResult Expected,AnalysisConfiguration Settings) Read(
-        string workbench,string native,AnalysisComparisonEntry entry,CanonicalAnalysisRequest r,AnalysisConfiguration settings,Tolerances angularRadius)
+        string workbench,string native,AnalysisComparisonEntry entry,CanonicalAnalysisRequest r,AnalysisConfiguration settings,Tolerances angularRadius,
+        string? relocatedSource = null)
     {
         AfocalAnalysisContracts.ValidateNativeModel(native,r);
         using var doc=JsonDocument.Parse(File.ReadAllText(native));NativeReferenceDiagnostics.Validate(doc.RootElement);
@@ -40,6 +41,7 @@ internal static class ScopedAfocalNormalizer
             var model=JsonFiles.Read<JsonElement>(Path.Combine(directory,"model.json"));
             var surfaces=model.GetProperty("surfaces").EnumerateArray().ToArray();
             var source=JsonFiles.Read<JsonElement>(Path.Combine(directory,"request.json")).GetProperty("input").GetString()!;
+            source=relocatedSource??source; // Path relocation only; caller verifies original source bytes.
             var retained=File.ReadLines(source).Select(line=>line.Split((char[]?)null,StringSplitOptions.RemoveEmptyEntries))
                 .Where(t=>t.Length>1&&t[0] is "REAX" or "REAY" or "REAZ" or "REAR" or "REAA" or "REAB" or "REAC")
                 .Select(t=>int.Parse(t[1],System.Globalization.CultureInfo.InvariantCulture)).ToHashSet();

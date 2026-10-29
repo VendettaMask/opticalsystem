@@ -23,7 +23,8 @@ internal static class HuygensPsfSynthesis
         bool usePolarization = false,
         Wavelength? referenceWavelength = null,
         (double X, double Y)? imageCenterOffset = null,
-        double defocus = 0)
+        double defocus = 0,
+        bool useParaxialPupilDefocus = false)
     {
         ArgumentNullException.ThrowIfNull(optic);
         ArgumentNullException.ThrowIfNull(wavelengths);
@@ -53,7 +54,8 @@ internal static class HuygensPsfSynthesis
             var psf = DiffractionEngine.ComputeHuygensPsf(optic, field, wavelength,
                 pupilSampling, imageSize, pixelPitchMillimeters, usePolarization,
                 aimAtStop: optic.RayAimingEnabled, referenceWavelength: referenceWavelength,
-                imageCenterOffset: imageCenterOffset, defocus: optic.ImageSpaceAfocal ? defocus : 0);
+                imageCenterOffset: imageCenterOffset, defocus: optic.ImageSpaceAfocal ? defocus : 0,
+                useParaxialPupilDefocus: useParaxialPupilDefocus);
             if (polarizationMode is { } previous && previous != psf.HuygensPolarization)
                 throw new AnalysisDataUnavailableException("Huygens PSF", "spectral components use different polarization models");
             polarizationMode = psf.HuygensPolarization;

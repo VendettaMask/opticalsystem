@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/HuygensMtfSamplingTests.cs" Link="HuygensMtfSamplingTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ZemaxHuygensThroughFocusMtfParityTests.cs" Link="ZemaxHuygensThroughFocusMtfParityTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/MtfMaximumFrequencyTests.cs" Link="MtfMaximumFrequencyTests.cs" />
+    <None Include="../../../validation/zemax/2026-r1/huygens-mtf-sampling-2026-09-06/**/*" Link="Validation/Zemax/HuygensMtfSampling/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX" Link="Fixtures/zemax-123456.ZMX" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json" Link="Fixtures/zemax-123456-huygens-through-focus-mtf.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../validation/zemax/2026-r1/fft-pupil-phase-2026-10-09/ms-l7-32/source.ZMX" Link="Fixtures/zemax-ms-l7-high-na.ZMX" CopyToOutputDirectory="PreserveNewest" />
+    <Using Include="Xunit" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+</Project>

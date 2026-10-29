@@ -32,6 +32,8 @@ public sealed record PsfResult(
     public HuygensPolarizationMode HuygensPolarization { get; init; }
     public bool FiniteCellHuygensUsed { get; init; }
     public double PupilGridStretch { get; init; } = 1;
+    /// <summary>Zero-phase peak of this FFT pupil, relative to the engine's unit-amplitude reference.</summary>
+    public double UnaberratedPeakRatio { get; init; } = 1;
     public double StrehlRatio => Values[GridSize / 2, GridSize / 2] / 100;
 
     public double PeakStrehlRatio => Values.Cast<double>().DefaultIfEmpty(0).Max() / 100;
@@ -138,7 +140,7 @@ public static partial class DiffractionEngine
         bool cellCenteredPupil = false, bool zemaxFftSampling = false,
         bool ignoreOpd = false, bool? aimAtStop = null,
         Wavelength? referenceWavelength = null, double imageDelta = 0,
-        bool ignoreScalarTransmission = false)
+        bool ignoreScalarTransmission = false, bool interpolateScalarPupilAmplitude = false)
     {
         ArgumentNullException.ThrowIfNull(wavelengths);
         if (wavelengths.Count == 0) throw new ArgumentException("No selected wavelengths.", nameof(wavelengths));
@@ -158,7 +160,8 @@ public static partial class DiffractionEngine
             cellCenteredPupil: cellCenteredPupil, zemaxFftSampling: zemaxFftSampling,
             ignoreOpd: ignoreOpd, aimAtStop: aimAtStop,
             referenceWavelength: reference, imageDelta: delta,
-            ignoreScalarTransmission: ignoreScalarTransmission);
+            ignoreScalarTransmission: ignoreScalarTransmission,
+            interpolateScalarPupilAmplitude: interpolateScalarPupilAmplitude);
     }
 
     /// <summary>
@@ -182,12 +185,13 @@ public static partial class DiffractionEngine
         bool? aimAtStop = null,
         Wavelength? referenceWavelength = null,
         double imageDelta = 0,
-        bool ignoreScalarTransmission = false)
+        bool ignoreScalarTransmission = false,
+        bool interpolateScalarPupilAmplitude = false)
     {
         return ComputeFftPsfCore(optic, field, wavelength, pupilSampling, gridSize, usePolarization,
             cellCenteredPupil, defocusMillimeters, preparedWavefront, preparedPolarization,
             zemaxFftSampling, ignoreOpd, aimAtStop, referenceWavelength, imageDelta,
-            ignoreScalarTransmission, out _);
+            ignoreScalarTransmission, out _, interpolateScalarPupilAmplitude: interpolateScalarPupilAmplitude);
     }
 
     private static PsfResult ComputeFftPsfCore(
@@ -197,9 +201,12 @@ public static partial class DiffractionEngine
         bool zemaxFftSampling, bool ignoreOpd, bool? aimAtStop, Wavelength? referenceWavelength,
         double imageDelta, bool ignoreScalarTransmission, out Complex[,] complexPupil,
         WavefrontReferenceSphere? referenceSphere = null,
-        PupilGridSpecification? explicitPupilGrid = null)
+        PupilGridSpecification? explicitPupilGrid = null,
+        bool interpolateScalarPupilAmplitude = false)
     {
         AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
+        if (interpolateScalarPupilAmplitude && (!zemaxFftSampling || usePolarization))
+            throw new ArgumentException("Scalar FFT amplitude interpolation requires scalar native FFT sampling.");
 
         var pupilAimAtStop = aimAtStop ?? optic.RayAimingEnabled;
         var fallbackUsed = false;
@@ -314,8 +321,13 @@ public static partial class DiffractionEngine
             };
         }
         if (zemaxFftSampling && pupilSampling >= 32
-            && (pupilSampling & (pupilSampling - 1)) == 0 && !ignoreOpd)
-            wavefront = InterpolateFftPupilPhase(wavefront, grid);
+            && (pupilSampling & (pupilSampling - 1)) == 0)
+        {
+            if (interpolateScalarPupilAmplitude)
+                wavefront = InterpolateFftPupilAmplitude(wavefront, grid);
+            if (!ignoreOpd)
+                wavefront = InterpolateFftPupilPhase(wavefront, grid);
+        }
         var polarization = usePolarization
             ? preparedPolarization ?? JonesPupilEngine.Generate(
                     optic,
@@ -356,6 +368,11 @@ public static partial class DiffractionEngine
             throw new AnalysisDataUnavailableException("FFT PSF", "no illuminated pupil samples reached the image surface");
         }
         var normalization = (double)nonzeroCount * nonzeroCount;
+        // The zero-phase coherent sum preserves the actual illuminated mask and
+        // amplitudes. A Gaussian pupil's ideal peak differs from a uniform pupil's;
+        // callers displaying Strehl need this reference, not the measured PSF peak.
+        var idealAmplitude = pupil.Cast<Complex>().Sum(value => value.Magnitude);
+        var unaberratedPeakRatio = idealAmplitude * idealAmplitude / normalization;
         var padded = new Complex[gridSize, gridSize];
         var offset = (gridSize - pupilSampling) / 2;
         for (var row = 0; row < pupilSampling; row++)
@@ -403,7 +420,8 @@ public static partial class DiffractionEngine
         {
             UseRayAiming = pupilAimAtStop,
             StopAimingFallbackUsed = fallbackUsed,
-            PupilGridStretch = pupilGridStretch
+            PupilGridStretch = pupilGridStretch,
+            UnaberratedPeakRatio = unaberratedPeakRatio
         };
 
         void ValidatePreparedSource(PupilSourceIdentity? source, string component)
@@ -899,6 +917,36 @@ public static partial class DiffractionEngine
         }
     }
 
+    private static WavefrontResult InterpolateFftPupilAmplitude(
+        WavefrontResult wavefront, PupilGridSpecification grid)
+    {
+        // Frozen native scalar FFT complex fields average amplitudes on the
+        // interior even checkerboard, including the central node. The phase
+        // interpolation below separately retains its chief-ray datum. Never
+        // bridge a blocked/missing neighbor or change the accepted pupil mask.
+        var nodes = wavefront.Samples.ToDictionary(sample => Index(sample), sample => sample);
+        return wavefront with
+        {
+            Samples = wavefront.Samples.Select(sample =>
+            {
+                var (column, row) = Index(sample);
+                if ((column + row) % 2 != 0 || !Illuminated(sample)
+                    || !nodes.TryGetValue((column - 1, row), out var left) || !Illuminated(left)
+                    || !nodes.TryGetValue((column + 1, row), out var right) || !Illuminated(right)
+                    || !nodes.TryGetValue((column, row - 1), out var bottom) || !Illuminated(bottom)
+                    || !nodes.TryGetValue((column, row + 1), out var top) || !Illuminated(top))
+                    return sample;
+                var amplitude = (Math.Sqrt(left.Intensity) + Math.Sqrt(right.Intensity)
+                    + Math.Sqrt(bottom.Intensity) + Math.Sqrt(top.Intensity)) / 4;
+                return sample with { Intensity = amplitude * amplitude };
+            }).ToArray()
+        };
+
+        (int Column, int Row) Index(WavefrontSample sample) => (
+            grid.ColumnIndex(sample.NormalizedPupilX), grid.RowIndex(sample.NormalizedPupilY));
+        static bool Illuminated(WavefrontSample sample) => sample.Intensity > 0 && double.IsFinite(sample.Intensity);
+    }
+
     private static WavefrontResult InterpolateFftPupilPhase(
         WavefrontResult wavefront, PupilGridSpecification grid)
     {
@@ -1208,7 +1256,8 @@ public static partial class DiffractionEngine
         bool aimAtStop = false,
         double defocus = 0,
         Wavelength? referenceWavelength = null,
-        (double X, double Y)? imageCenterOffset = null)
+        (double X, double Y)? imageCenterOffset = null,
+        bool useParaxialPupilDefocus = false)
     {
         ComputationCancellation.ThrowIfCancellationRequested();
         if (numRays < 2)
@@ -1288,7 +1337,8 @@ public static partial class DiffractionEngine
                 idealOpd: false,
                 polarization,
                 defocus,
-                imageCenterOffset);
+                imageCenterOffset,
+                useParaxialPupilDefocus);
             var afocalNormalizationWavefront = field.Hx == 0 && field.Hy == 0
                 ? wavefront
                 : WavefrontEngine.GenerateChiefRaySamples(optic, (0, 0), wavelength,
@@ -2080,7 +2130,8 @@ public static partial class DiffractionEngine
         bool idealOpd,
         JonesPupilResult? polarization = null,
         double defocus = 0,
-        (double X, double Y)? imageCenterOffset = null)
+        (double X, double Y)? imageCenterOffset = null,
+        bool useParaxialPupilDefocus = false)
     {
         var psf = new double[imageSize, imageSize];
         var pupilDiameter = wavefront.AfocalPupilDiameterMillimeters;
@@ -2107,14 +2158,17 @@ public static partial class DiffractionEngine
                 X: (long)Math.Round(sample.Px * 1_000_000_000),
                 Y: (long)Math.Round(sample.Py * 1_000_000_000)),
             PolarizationAmplitude);
-        // The traced exit pupil can be anamorphic or folded. Use its actual
-        // reference-plane positions, never normalized entrance-pupil radius
-        // times a scalar paraxial diameter. Defocus is measured on that plane.
+        // Propagate from the actual traced pupil, including distortion/folds.
+        // Native-compatible focus scans define the added paraxial power on
+        // normalized pupil coordinates; that phase datum is distinct from
+        // the physical emitter coordinates used in the propagation term.
         var emitters = wavefront.Samples.Where(sample => sample.Intensity > 0).Select(sample =>
         {
             var offset = new Vector3D(sample.PupilX, sample.PupilY, sample.PupilZ) - pupilOrigin;
             var opdWaves = idealOpd ? 0 : sample.OpdWaves
-                - defocus * Dot(offset, offset) / (2000 * wavelengthMillimeters);
+                + (useParaxialPupilDefocus
+                    ? ImageSpaceAnalysisSupport.AfocalDefocusOpdWaves(sample, wavelength, defocus, pupilDiameter)
+                    : -defocus * Dot(offset, offset) / (2000 * wavelengthMillimeters));
             var polarizationAmplitude = polarizationByPupil?.GetValueOrDefault((
                 (long)Math.Round(sample.NormalizedPupilX * 1_000_000_000),
                 (long)Math.Round(sample.NormalizedPupilY * 1_000_000_000))) ?? 1;

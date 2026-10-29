@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/FftCumulativeEnergyTests.cs" Link="FftCumulativeEnergyTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/FftEnergyGridIntegrityTests.cs" Link="FftEnergyGridIntegrityTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/EncircledEnergyVariantTests.cs" Link="EncircledEnergyVariantTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ZemaxEncircledEnergyParityTests.cs" Link="ZemaxEncircledEnergyParityTests.cs" />
+    <None Include="../../../validation/zemax/2026-r1/fft-energy-integration-2026-10-11/**/*" Link="Validation/Zemax/FftEnergyIntegration/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX" Link="Fixtures/zemax-123456.ZMX" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/data.json" Link="Fixtures/zemax-123456-diffraction-encircled-energy.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/035-geometricencircledenergy/data.json" Link="Fixtures/zemax-123456-geometric-encircled-energy.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/037-extendedsourceencircledenergy/data.json" Link="Fixtures/zemax-123456-extended-source-encircled-energy.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/source/LETTERF.IMA" Link="Fixtures/LETTERF.IMA" CopyToOutputDirectory="PreserveNewest" />
+    <Using Include="Xunit" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+</Project>

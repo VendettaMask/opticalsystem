@@ -1,0 +1,207 @@
+{
+  "date": "2026-10-29",
+  "status": "paused_by_user",
+  "reason": "User confirmed no OpticStudio 2026 R1 runtime and requested leaving this issue for now.",
+  "productCodeChangedByThisStage": false,
+  "prescriptionSamplingReferenceToleranceUnchanged": true,
+  "pointwiseFixCompleted": false,
+  "baselineCounters": {
+    "total": "5",
+    "executed": "5",
+    "passed": "4",
+    "failed": "1",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "baselineCases": [
+    {
+      "id": "0041-002-beam-expander-c1-primary-f1-w1-fft-psf-cross-section",
+      "fingerprint": "66b44e5320bf27805e80e04e9b6a5f3030bc18537313d6a1f88e1f53dc88398f",
+      "violations": 0,
+      "metric": {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 399,
+        "maxAbsolute": 1.3853439448929805e-06,
+        "meanAbsolute": 2.793176883824859e-07,
+        "rmse": 3.475689389316315e-07,
+        "nrmse": 3.475765856165151e-07,
+        "maxRelative": "Infinity",
+        "p50": 2.6907413378001377e-07,
+        "p90": 4.776205470531577e-07,
+        "p95": 4.961739407483411e-07,
+        "pearson": 0.9999999999978407,
+        "worstX": -0.005580368935819591,
+        "worstY": null,
+        "coverage": 0.9999999281812085,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "id": "0011-001-afocal-riflescope-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "f67e6c1f08fa5a496b652cc23725a997db2e36a80bca426f85a1279a05babd2e",
+      "violations": 0,
+      "metric": {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 399,
+        "maxAbsolute": 1.0155965035285597e-05,
+        "meanAbsolute": 5.19652316231431e-07,
+        "rmse": 1.3443047347727291e-06,
+        "nrmse": 1.6775647067145143e-06,
+        "maxRelative": "Infinity",
+        "p50": 2.8232981389144317e-07,
+        "p90": 4.811225183136364e-07,
+        "p95": 1.7579169235490133e-06,
+        "pearson": 0.9999999999471612,
+        "worstX": 0.043733554822099396,
+        "worstY": null,
+        "coverage": 0.9999994222309813,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "id": "0123-004-apochromat_prism-c1-primary-f1-w3-fft-psf-cross-section",
+      "fingerprint": "15c7c9f2c088df99ba697ab0936584444e84673c52e00d9a4b7dcf359610aa33",
+      "violations": 0,
+      "metric": {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 400,
+        "maxAbsolute": 0.00011202888833755642,
+        "meanAbsolute": 3.947680539198383e-06,
+        "rmse": 1.687568867914672e-05,
+        "nrmse": 1.687568867914672e-05,
+        "maxRelative": "Infinity",
+        "p50": 2.5799366601356566e-07,
+        "p90": 1.265351406082133e-06,
+        "p95": 1.7146864446635274e-05,
+        "pearson": 0.9999999944744786,
+        "worstX": -0.03315,
+        "worstY": null,
+        "coverage": 0.9999951901557569,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "id": "0093-003-binocular_system-c2-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "57aabf59989a9b1648b62c46842ae0eb8e1be77adeb37fb9490cf243a5b36fe7",
+      "violations": 335,
+      "metric": {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 399,
+        "maxAbsolute": 0.0011946610381988604,
+        "meanAbsolute": 0.00015413551705387407,
+        "rmse": 0.0002705315855748414,
+        "nrmse": 0.0003518611157245235,
+        "maxRelative": "Infinity",
+        "p50": 7.894432728783925e-05,
+        "p90": 0.0003862990982542751,
+        "p95": 0.0005148161663545237,
+        "pearson": 0.9999973510265906,
+        "worstX": -0.1644757723101664,
+        "worstY": null,
+        "coverage": 0.999997399685585,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "id": "0063-003-binocular_system-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "701c41210aa641e7ef80b76cc0687c6029492f2759785319405f674f98fc3c87",
+      "violations": 0,
+      "metric": {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 399,
+        "maxAbsolute": 2.4503986426338553e-05,
+        "meanAbsolute": 1.0322124263699448e-06,
+        "rmse": 3.614916325981476e-06,
+        "nrmse": 4.70166353776372e-06,
+        "maxRelative": "Infinity",
+        "p50": 2.2803553502599716e-07,
+        "p90": 5.702776334579743e-07,
+        "p95": 4.9829939614720565e-06,
+        "pearson": 0.9999999995642409,
+        "worstX": 0.09398615560580925,
+        "worstY": null,
+        "coverage": 0.999997399685585,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    }
+  ],
+  "actualCoreSha256": "902d4cfd12a07d342da8f2d91997d55818601b4ae46b431b7314277edc48676a",
+  "nativeArchive": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+  "nativeArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "nativeRayArchive": "validation/rechecks/2026-10-27/afocal-reference-focus/evidence.zip",
+  "nativeRayArchiveSha256": "7dd284af36a7809ad3520834f196a0a894178f75e1edf13ea756889630c2ac59",
+  "counterfactualsAreNotProductFixes": true,
+  "findings": {
+    "nativeRaysPerConfiguration": 3985,
+    "configuration1MaximumDirectionError": 3.708740715177869e-15,
+    "configuration2DirectionMismatchCount": 165,
+    "configuration2MismatchCondition": "Exactly normalized pupil X=0, 33 points per each of five fields",
+    "configuration2MaximumDirectionError": 1.7002283694441028e-09,
+    "alternateDiagonalRejected": true,
+    "coreOnlyBoundaryNodes": [
+      [
+        32,
+        17
+      ],
+      [
+        32,
+        47
+      ]
+    ],
+    "nativeOnlyBoundaryNodes": [
+      [
+        17,
+        32
+      ],
+      [
+        47,
+        32
+      ]
+    ]
+  },
+  "evidenceArchiveSha256": "9c87744deceb7daa148e5b1a01f23a58c0a54651ca72efd952d9af99d36112de",
+  "sources": [
+    {
+      "path": "tools/diagnostics/FftProfile20261029/Source/AfocalFftProfilePointwiseTests.cs",
+      "sha256": "3246b75bd115ec4c6a7c5dff8f2b29ab10a8816c530a9b3edf9c28b099c343bf"
+    },
+    {
+      "path": "tools/diagnostics/FftProfile20261029/Source/FftProfileDiagnostics.cs",
+      "sha256": "a8a7de75acf49a51ff2b21ea6efa085bac3b4679efe07d06666b7bdaae16202b"
+    },
+    {
+      "path": "tools/diagnostics/FftProfile20261029/Source/FftProfileFacetDiagnostics.cs",
+      "sha256": "eed6bbf3abc71d2578383af34cc8facd1864e54012fc8bfc67f2a5153985b613"
+    },
+    {
+      "path": "tools/diagnostics/FftProfile20261029/Diagnose.py",
+      "sha256": "bc0169969f1abc1580157c6f9c699825e7b68bde1e7e5b85a40657e5dea420be"
+    }
+  ],
+  "limitations": [
+    "No product correction or new accuracy pass claimed.",
+    "Diagnostic red tests moved outside maintained test project so the paused investigation does not add a default-suite failure.",
+    "No new native capture, full matrix rerun, release, or foreground interaction.",
+    "Precise native facet ownership/proximity semantics and actual settings are still unverified."
+  ]
+}

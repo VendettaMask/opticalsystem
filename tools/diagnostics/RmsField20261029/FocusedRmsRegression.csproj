@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/GaussianAzimuthQuadratureTests.cs" Link="GaussianAzimuthQuadratureTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/GaussianPupilParityTests.cs" Link="GaussianPupilParityTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/RmsSamplingRepairTests.cs" Link="RmsSamplingRepairTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/RmsAnalysisTests.cs" Link="RmsAnalysisTests.cs" />
+    <None Include="../../../validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/**/*" Link="Fixtures/tessar-ray-audit/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../validation/zemax/2026-r1/rms-field-sampling-2026-10-07/**/*" Link="Fixtures/rms-field-sampling/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Using Include="Xunit" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+</Project>

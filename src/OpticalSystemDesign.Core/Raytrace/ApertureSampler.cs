@@ -84,7 +84,8 @@ public static class ApertureSampler
     public static IReadOnlyList<PupilSample> GenerateGaussianQuadrature(
         int radialSamples,
         int azimuthalSamples = 6,
-        double obscuration = 0)
+        double obscuration = 0,
+        bool useChebyshevAzimuths = false)
     {
         radialSamples = Math.Clamp(radialSamples, 1, 32);
         azimuthalSamples = Math.Clamp(azimuthalSamples, 1, 72);
@@ -92,17 +93,19 @@ public static class ApertureSampler
 
         TrimSamplingCachesIfNeeded();
         return GaussianCache.GetOrAdd(
-            new GaussianSamplingKey(radialSamples, azimuthalSamples, obscuration),
+            new GaussianSamplingKey(radialSamples, azimuthalSamples, obscuration, useChebyshevAzimuths),
             static key => BuildGaussianQuadrature(
                 key.RadialSamples,
                 key.AzimuthalSamples,
-                key.Obscuration));
+                key.Obscuration,
+                key.UseChebyshevAzimuths));
     }
 
     private static IReadOnlyList<PupilSample> BuildGaussianQuadrature(
         int radialSamples,
         int azimuthalSamples,
-        double obscuration)
+        double obscuration,
+        bool useChebyshevAzimuths)
     {
 
         var lower = obscuration * obscuration;
@@ -151,11 +154,17 @@ public static class ApertureSampler
         }
 
         var samples = new List<PupilSample>(radialSamples * azimuthalSamples);
+        // For an even arm count, the meridional coordinates are the roots of
+        // T_(arms/2). Mirroring the half-pupil Gaussian nodes gives a full ring;
+        // counts divisible by four need a half-step relative to the +X axis.
+        // Preserve the general periodic rule and odd-count behavior by default.
+        var azimuthOffset = useChebyshevAzimuths && azimuthalSamples % 4 == 0
+            ? Math.PI / azimuthalSamples : 0;
         foreach (var radialSample in radial)
         {
             for (var azimuth = 0; azimuth < azimuthalSamples; azimuth++)
             {
-                var angle = 2 * Math.PI * azimuth / azimuthalSamples;
+                var angle = 2 * Math.PI * azimuth / azimuthalSamples + azimuthOffset;
                 samples.Add(new PupilSample(
                     radialSample.Radius * Math.Cos(angle),
                     radialSample.Radius * Math.Sin(angle),
@@ -408,7 +417,8 @@ public static class ApertureSampler
     private readonly record struct GaussianSamplingKey(
         int RadialSamples,
         int AzimuthalSamples,
-        double Obscuration);
+        double Obscuration,
+        bool UseChebyshevAzimuths);
 
     private readonly record struct SamplingKey(
         int SampleCount,

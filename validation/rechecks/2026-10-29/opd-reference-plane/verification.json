@@ -1,0 +1,4279 @@
+{
+  "date": "2026-10-29",
+  "baseCommit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+  "scope": "Twenty exact original afocal OPD requests, 40 fans, 41 nodes per fan, against existing OpticStudio 2026 R1 captures.",
+  "rootCause": "A selected reference chief also changed the paraxial exit-pupil axial datum to that wavelength. Keep the system primary-wavelength pupil position while using the selected reference chief direction.",
+  "samplingPrescriptionAndToleranceUnchanged": true,
+  "comparisonPolicyLfSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "nativeArchive": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+  "nativeArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "cases": [
+    {
+      "id": "0005-001-afocal-riflescope-c1-primary-f1-w2-optical-path-difference",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "be7a7d4c0ae37e5291f6b6d10b3b1cea9d91ed8e3484b3b0b5a9a387c3880fe6",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0005-001-afocal-riflescope-c1-primary-f1-w2-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "dde29868b5468f61c9d0e7212dedcd0c819842e6800d02c021d43ea80bbd1854",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0005-001-afocal-riflescope-c1-primary-f1-w2-optical-path-difference/native/data.json",
+          "sha256": "962df4f3fadcc2f90c7be06e90a53ba728a06ce75d13b5e0f89c78e8dceadb84"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0005-001-afocal-riflescope-c1-primary-f1-w2-optical-path-difference/native/model.json",
+          "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0005-001-afocal-riflescope-c1-primary-f1-w2-optical-path-difference/native/captured-settings.json",
+          "sha256": "e01c8bdca6e3c069a923a0ced135b3518585e16fbce129ad454f368e71ab269e"
+        }
+      ],
+      "before": {
+        "id": "0005-001-afocal-riflescope-c1-primary-f1-w2-optical-path-difference",
+        "fingerprint": "be7a7d4c0ae37e5291f6b6d10b3b1cea9d91ed8e3484b3b0b5a9a387c3880fe6",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.534230269026551e-08,
+              "meanAbsolute": 4.1937648761653495e-09,
+              "rmse": 1.044975157927383e-08,
+              "nrmse": 5.0008486919161267e-08,
+              "maxRelative": 5.26230845666748e-07,
+              "p50": 6.121475722153935e-10,
+              "p90": 1.1153296897159493e-08,
+              "p95": 2.3126305148668536e-08,
+              "pearson": 0.9999999999999967,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.534230269026551e-08,
+              "meanAbsolute": 4.190589886750074e-09,
+              "rmse": 1.0436136046154412e-08,
+              "nrmse": 4.994332822091524e-08,
+              "maxRelative": 5.26230845666748e-07,
+              "p50": 6.121475722153935e-10,
+              "p90": 1.1153296897159493e-08,
+              "p95": 2.3126305148668536e-08,
+              "pearson": 0.9999999999999971,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0005-001-afocal-riflescope-c1-primary-f1-w2-optical-path-difference",
+        "fingerprint": "be7a7d4c0ae37e5291f6b6d10b3b1cea9d91ed8e3484b3b0b5a9a387c3880fe6",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.534230269026551e-08,
+              "meanAbsolute": 4.1937648761653495e-09,
+              "rmse": 1.044975157927383e-08,
+              "nrmse": 5.0008486919161267e-08,
+              "maxRelative": 5.26230845666748e-07,
+              "p50": 6.121475722153935e-10,
+              "p90": 1.1153296897159493e-08,
+              "p95": 2.3126305148668536e-08,
+              "pearson": 0.9999999999999967,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.534230269026551e-08,
+              "meanAbsolute": 4.190589886750074e-09,
+              "rmse": 1.0436136046154412e-08,
+              "nrmse": 4.994332822091524e-08,
+              "maxRelative": 5.26230845666748e-07,
+              "p50": 6.121475722153935e-10,
+              "p90": 1.1153296897159493e-08,
+              "p95": 2.3126305148668536e-08,
+              "pearson": 0.9999999999999971,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 4.534230269026551e-08,
+      "afterMaximumAbsoluteWaves": 4.534230269026551e-08
+    },
+    {
+      "id": "0022-001-afocal-riflescope-c1-edge-f3-w1-optical-path-difference",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 3,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "3",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "f9e1b6c7b0ed4f37f7a85fe02a99b3faa01528eb8cc76cecc286ce2e0a71695c",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0022-001-afocal-riflescope-c1-edge-f3-w1-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "3964e2b811cedb703224b2c3e121f430ad2873bbb2aa1bd9e48f93fb7cba7ae8",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0022-001-afocal-riflescope-c1-edge-f3-w1-optical-path-difference/native/data.json",
+          "sha256": "7a04acd867361df3f219bb906fbecca1963ca55d6f40fb5b256ccde446b0117c"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0022-001-afocal-riflescope-c1-edge-f3-w1-optical-path-difference/native/model.json",
+          "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0022-001-afocal-riflescope-c1-edge-f3-w1-optical-path-difference/native/captured-settings.json",
+          "sha256": "c9cbd4f02d8d7d37c8451083f4d269ebbb2684b21b26d99715323b504465c862"
+        }
+      ],
+      "before": {
+        "id": "0022-001-afocal-riflescope-c1-edge-f3-w1-optical-path-difference",
+        "fingerprint": "f9e1b6c7b0ed4f37f7a85fe02a99b3faa01528eb8cc76cecc286ce2e0a71695c",
+        "violations": 6,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 6,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0.03917309038750538,
+              "meanAbsolute": 0.0015094074647245838,
+              "rmse": 0.005891723203798871,
+              "nrmse": 0.0009279433313051919,
+              "maxRelative": 0.006169741302215807,
+              "p50": 5.171305273576898e-05,
+              "p90": 0.001388767891495224,
+              "p95": 0.006573555077846294,
+              "pearson": 0.9999977191626515,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0.000294499669307724,
+              "meanAbsolute": 8.617079436123244e-05,
+              "rmse": 0.00010640314929124357,
+              "nrmse": 8.562782439655147e-05,
+              "maxRelative": 0.0002495498351354708,
+              "p50": 9.690845545340387e-05,
+              "p90": 0.0001276442524302812,
+              "p95": 0.00016464690519879532,
+              "pearson": 0.999999997068219,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0022-001-afocal-riflescope-c1-edge-f3-w1-optical-path-difference",
+        "fingerprint": "f9e1b6c7b0ed4f37f7a85fe02a99b3faa01528eb8cc76cecc286ce2e0a71695c",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 8.10698273490118e-06,
+              "meanAbsolute": 3.1282207934563316e-07,
+              "rmse": 1.2193527632945752e-06,
+              "nrmse": 1.9204742416924743e-07,
+              "maxRelative": 1.2768455519103994e-06,
+              "p50": 9.077443852145706e-09,
+              "p90": 2.8795096151945643e-07,
+              "p95": 1.3602540427370968e-06,
+              "pearson": 0.9999999999999013,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.060020263376487e-08,
+              "meanAbsolute": 1.4343887734058389e-08,
+              "rmse": 2.0176518844819936e-08,
+              "nrmse": 1.6237032682641956e-08,
+              "maxRelative": 1.1007698353923534e-07,
+              "p50": 9.646132170804123e-09,
+              "p90": 3.489290789637778e-08,
+              "p95": 3.62340091264457e-08,
+              "pearson": 0.9999999999999996,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 0.03917309038750538,
+      "afterMaximumAbsoluteWaves": 8.10698273490118e-06
+    },
+    {
+      "id": "0026-001-afocal-riflescope-c1-edge-f3-w2-optical-path-difference",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 3,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "3",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "c3948a96dd9b29dc53d61dfee23c68b48f197f57c1ec5f51b1bd5d2d3152b343",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0026-001-afocal-riflescope-c1-edge-f3-w2-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "698a2f9b347f2b0c5df0a1a1f91a468b801ff16b124723055f3991b363b1b160",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0026-001-afocal-riflescope-c1-edge-f3-w2-optical-path-difference/native/data.json",
+          "sha256": "d6c822a004d1016ff16d1967f774251b689326118123e0be75560397299cadd9"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0026-001-afocal-riflescope-c1-edge-f3-w2-optical-path-difference/native/model.json",
+          "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0026-001-afocal-riflescope-c1-edge-f3-w2-optical-path-difference/native/captured-settings.json",
+          "sha256": "3f5dee6b9cb6fb01ca88acb2c9e569c570a1279c805d769b662aef74f2489dd0"
+        }
+      ],
+      "before": {
+        "id": "0026-001-afocal-riflescope-c1-edge-f3-w2-optical-path-difference",
+        "fingerprint": "c3948a96dd9b29dc53d61dfee23c68b48f197f57c1ec5f51b1bd5d2d3152b343",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.2443586905905875e-06,
+              "meanAbsolute": 1.1584573235381938e-07,
+              "rmse": 4.7206242703922887e-07,
+              "nrmse": 1.5556190843875167e-07,
+              "maxRelative": 1.069135352994701e-06,
+              "p50": 5.589982338127797e-09,
+              "p90": 6.107749173089871e-08,
+              "p95": 4.2353731632971403e-07,
+              "pearson": 0.9999999999998918,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 5.570490024808805e-08,
+              "meanAbsolute": 1.3164750661439363e-08,
+              "rmse": 1.8701344203450068e-08,
+              "nrmse": 1.727541197768231e-08,
+              "maxRelative": 6.189058110687304e-08,
+              "p50": 8.959107344885808e-09,
+              "p90": 2.915792085556035e-08,
+              "p95": 3.252188340852058e-08,
+              "pearson": 1.0000000000000004,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0026-001-afocal-riflescope-c1-edge-f3-w2-optical-path-difference",
+        "fingerprint": "c3948a96dd9b29dc53d61dfee23c68b48f197f57c1ec5f51b1bd5d2d3152b343",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.2443586905905875e-06,
+              "meanAbsolute": 1.1584573235381938e-07,
+              "rmse": 4.7206242703922887e-07,
+              "nrmse": 1.5556190843875167e-07,
+              "maxRelative": 1.069135352994701e-06,
+              "p50": 5.589982338127797e-09,
+              "p90": 6.107749173089871e-08,
+              "p95": 4.2353731632971403e-07,
+              "pearson": 0.9999999999998918,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 5.570490024808805e-08,
+              "meanAbsolute": 1.3164750661439363e-08,
+              "rmse": 1.8701344203450068e-08,
+              "nrmse": 1.727541197768231e-08,
+              "maxRelative": 6.189058110687304e-08,
+              "p50": 8.959107344885808e-09,
+              "p90": 2.915792085556035e-08,
+              "p95": 3.252188340852058e-08,
+              "pearson": 1.0000000000000004,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 3.2443586905905875e-06,
+      "afterMaximumAbsoluteWaves": 3.2443586905905875e-06
+    },
+    {
+      "id": "0030-001-afocal-riflescope-c1-edge-f3-w3-optical-path-difference",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 3,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "3",
+          "FieldNumber": "3",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "8231ea44754e2f049880efa763e2525092d50bca10f5b2a159a8c187e2642c35",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0030-001-afocal-riflescope-c1-edge-f3-w3-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "62c65f9093f941345e70b8bbb765773d7fa102da625433e6b92a24392417a40a",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0030-001-afocal-riflescope-c1-edge-f3-w3-optical-path-difference/native/data.json",
+          "sha256": "e314da8875606ada9fc7d6a8d12da3c42fabf294d418d4eccf27e67fc89c1599"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0030-001-afocal-riflescope-c1-edge-f3-w3-optical-path-difference/native/model.json",
+          "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0030-001-afocal-riflescope-c1-edge-f3-w3-optical-path-difference/native/captured-settings.json",
+          "sha256": "39b5d25a98eb3e58fd7647557e0a4697d6dcac9ccfa4f2352c5237d25ea5da64"
+        }
+      ],
+      "before": {
+        "id": "0030-001-afocal-riflescope-c1-edge-f3-w3-optical-path-difference",
+        "fingerprint": "8231ea44754e2f049880efa763e2525092d50bca10f5b2a159a8c187e2642c35",
+        "violations": 5,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 5,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0.006425972535672786,
+              "meanAbsolute": 0.00020351144569311308,
+              "rmse": 0.0009064277117898826,
+              "nrmse": 0.000544095683834377,
+              "maxRelative": 0.0038572782756097945,
+              "p50": 1.1794542942138164e-06,
+              "p90": 7.364394908593308e-05,
+              "p95": 0.0006003664527745034,
+              "pearson": 0.9999983112492467,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0.00022207331546719722,
+              "meanAbsolute": 4.312759353582359e-05,
+              "rmse": 6.324608107340223e-05,
+              "nrmse": 8.994276886539648e-05,
+              "maxRelative": 0.00035739180733870043,
+              "p50": 3.361089608128198e-05,
+              "p90": 8.154804260029902e-05,
+              "p95": 0.00012960689323970875,
+              "pearson": 0.9999999926452557,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0030-001-afocal-riflescope-c1-edge-f3-w3-optical-path-difference",
+        "fingerprint": "8231ea44754e2f049880efa763e2525092d50bca10f5b2a159a8c187e2642c35",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.9170150731273594e-06,
+              "meanAbsolute": 6.076741026051877e-08,
+              "rmse": 2.703685222022789e-07,
+              "nrmse": 1.6229241897785154e-07,
+              "maxRelative": 1.1507146279479858e-06,
+              "p50": 7.529969182906715e-10,
+              "p90": 2.1756732637712162e-08,
+              "p95": 1.7871586616147184e-07,
+              "pearson": 0.9999999999998502,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.779039263271613e-08,
+              "meanAbsolute": 1.0205330537107741e-08,
+              "rmse": 1.7123012404984886e-08,
+              "nrmse": 2.435077590394053e-08,
+              "maxRelative": 2.2267155913166043e-07,
+              "p50": 4.516719276370651e-09,
+              "p90": 2.3575206675729987e-08,
+              "p95": 3.578600860087988e-08,
+              "pearson": 0.9999999999999989,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 0.006425972535672786,
+      "afterMaximumAbsoluteWaves": 1.9170150731273594e-06
+    },
+    {
+      "id": "0035-002-beam-expander-c1-primary-f1-w1-optical-path-difference",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "e7119f5590a00fc43bfc054b690c1ceef449c406985e3bb2328f20b9da7a93b0",
+      "sourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0035-002-beam-expander-c1-primary-f1-w1-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "519cb6770775964978d516fdc9aab68c54b80ac37fa109ddac127154bec5bb68",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0035-002-beam-expander-c1-primary-f1-w1-optical-path-difference/native/data.json",
+          "sha256": "938ca04ac3c2d6e510a89a02c8fc2a6ab2bf3cf7a5ac82182728f668038e6888"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0035-002-beam-expander-c1-primary-f1-w1-optical-path-difference/native/model.json",
+          "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0035-002-beam-expander-c1-primary-f1-w1-optical-path-difference/native/captured-settings.json",
+          "sha256": "8515649f7d496eb9883bf731c5ee20df7ad77c38d1eeecd8bcf5ece3a85a960f"
+        }
+      ],
+      "before": {
+        "id": "0035-002-beam-expander-c1-primary-f1-w1-optical-path-difference",
+        "fingerprint": "e7119f5590a00fc43bfc054b690c1ceef449c406985e3bb2328f20b9da7a93b0",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.830899481041069e-10,
+              "meanAbsolute": 3.116434083126292e-10,
+              "rmse": 3.8153643207610885e-10,
+              "nrmse": 7.998784032398183e-08,
+              "maxRelative": 6.562318161637926e-06,
+              "p50": 3.019806620475213e-10,
+              "p90": 6.314141097994719e-10,
+              "p95": 6.524074219228793e-10,
+              "pearson": 0.9999999999999251,
+              "worstX": -0.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.830899481041069e-10,
+              "meanAbsolute": 3.116434083126292e-10,
+              "rmse": 3.8153643207610885e-10,
+              "nrmse": 7.998784032398183e-08,
+              "maxRelative": 6.562318161637926e-06,
+              "p50": 3.019806620475213e-10,
+              "p90": 6.314141097994719e-10,
+              "p95": 6.524074219228793e-10,
+              "pearson": 0.9999999999999251,
+              "worstX": -0.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0035-002-beam-expander-c1-primary-f1-w1-optical-path-difference",
+        "fingerprint": "e7119f5590a00fc43bfc054b690c1ceef449c406985e3bb2328f20b9da7a93b0",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.830899481041069e-10,
+              "meanAbsolute": 3.116434083126292e-10,
+              "rmse": 3.8153643207610885e-10,
+              "nrmse": 7.998784032398183e-08,
+              "maxRelative": 6.562318161637926e-06,
+              "p50": 3.019806620475213e-10,
+              "p90": 6.314141097994719e-10,
+              "p95": 6.524074219228793e-10,
+              "pearson": 0.9999999999999251,
+              "worstX": -0.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.830899481041069e-10,
+              "meanAbsolute": 3.116434083126292e-10,
+              "rmse": 3.8153643207610885e-10,
+              "nrmse": 7.998784032398183e-08,
+              "maxRelative": 6.562318161637926e-06,
+              "p50": 3.019806620475213e-10,
+              "p90": 6.314141097994719e-10,
+              "p95": 6.524074219228793e-10,
+              "pearson": 0.9999999999999251,
+              "worstX": -0.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 6.830899481041069e-10,
+      "afterMaximumAbsoluteWaves": 6.830899481041069e-10
+    },
+    {
+      "id": "0052-002-beam-expander-c1-edge-f1-w1-optical-path-difference",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "e7119f5590a00fc43bfc054b690c1ceef449c406985e3bb2328f20b9da7a93b0",
+      "sourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0052-002-beam-expander-c1-edge-f1-w1-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "ec9654617224b8731e54b1e5a44ce95147057bc88d62274ab1a4fcdabfe68583",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0052-002-beam-expander-c1-edge-f1-w1-optical-path-difference/native/data.json",
+          "sha256": "938ca04ac3c2d6e510a89a02c8fc2a6ab2bf3cf7a5ac82182728f668038e6888"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0052-002-beam-expander-c1-edge-f1-w1-optical-path-difference/native/model.json",
+          "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0052-002-beam-expander-c1-edge-f1-w1-optical-path-difference/native/captured-settings.json",
+          "sha256": "8515649f7d496eb9883bf731c5ee20df7ad77c38d1eeecd8bcf5ece3a85a960f"
+        }
+      ],
+      "before": {
+        "id": "0052-002-beam-expander-c1-edge-f1-w1-optical-path-difference",
+        "fingerprint": "e7119f5590a00fc43bfc054b690c1ceef449c406985e3bb2328f20b9da7a93b0",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.830899481041069e-10,
+              "meanAbsolute": 3.116434083126292e-10,
+              "rmse": 3.8153643207610885e-10,
+              "nrmse": 7.998784032398183e-08,
+              "maxRelative": 6.562318161637926e-06,
+              "p50": 3.019806620475213e-10,
+              "p90": 6.314141097994719e-10,
+              "p95": 6.524074219228793e-10,
+              "pearson": 0.9999999999999251,
+              "worstX": -0.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.830899481041069e-10,
+              "meanAbsolute": 3.116434083126292e-10,
+              "rmse": 3.8153643207610885e-10,
+              "nrmse": 7.998784032398183e-08,
+              "maxRelative": 6.562318161637926e-06,
+              "p50": 3.019806620475213e-10,
+              "p90": 6.314141097994719e-10,
+              "p95": 6.524074219228793e-10,
+              "pearson": 0.9999999999999251,
+              "worstX": -0.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0052-002-beam-expander-c1-edge-f1-w1-optical-path-difference",
+        "fingerprint": "e7119f5590a00fc43bfc054b690c1ceef449c406985e3bb2328f20b9da7a93b0",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.830899481041069e-10,
+              "meanAbsolute": 3.116434083126292e-10,
+              "rmse": 3.8153643207610885e-10,
+              "nrmse": 7.998784032398183e-08,
+              "maxRelative": 6.562318161637926e-06,
+              "p50": 3.019806620475213e-10,
+              "p90": 6.314141097994719e-10,
+              "p95": 6.524074219228793e-10,
+              "pearson": 0.9999999999999251,
+              "worstX": -0.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 6.830899481041069e-10,
+              "meanAbsolute": 3.116434083126292e-10,
+              "rmse": 3.8153643207610885e-10,
+              "nrmse": 7.998784032398183e-08,
+              "maxRelative": 6.562318161637926e-06,
+              "p50": 3.019806620475213e-10,
+              "p90": 6.314141097994719e-10,
+              "p95": 6.524074219228793e-10,
+              "pearson": 0.9999999999999251,
+              "worstX": -0.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 6.830899481041069e-10,
+      "afterMaximumAbsoluteWaves": 6.830899481041069e-10
+    },
+    {
+      "id": "0057-003-binocular_system-c1-primary-f1-w2-optical-path-difference",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "64d47c03531d4594264f38f522891a060d6d560556e0d9be371c120731efdb91",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0057-003-binocular_system-c1-primary-f1-w2-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "b322ea0bd521a339d98d1675ae2a7db5b010b6cc21c31c23bb32c721cefab71c",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0057-003-binocular_system-c1-primary-f1-w2-optical-path-difference/native/data.json",
+          "sha256": "74f68fc6fff92356eb15391ff5441d4ab2c958acfa322cb0dbc81027e2f09850"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0057-003-binocular_system-c1-primary-f1-w2-optical-path-difference/native/model.json",
+          "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0057-003-binocular_system-c1-primary-f1-w2-optical-path-difference/native/captured-settings.json",
+          "sha256": "9ed5b14f429757277235932bb61fd7a7a347dd75a4cce53e716798c8c0ea9cda"
+        }
+      ],
+      "before": {
+        "id": "0057-003-binocular_system-c1-primary-f1-w2-optical-path-difference",
+        "fingerprint": "64d47c03531d4594264f38f522891a060d6d560556e0d9be371c120731efdb91",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.1999860438649534e-08,
+              "meanAbsolute": 1.6560863748875581e-09,
+              "rmse": 3.3750936085782837e-09,
+              "nrmse": 1.440665638848366e-08,
+              "maxRelative": 3.9548670303517525e-06,
+              "p50": 3.411431137578802e-10,
+              "p90": 5.567512756377013e-09,
+              "p95": 8.303104648277326e-09,
+              "pearson": 0.9999999999999993,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.1911894526317468e-08,
+              "meanAbsolute": 1.7123760168551576e-09,
+              "rmse": 3.3952753919055952e-09,
+              "nrmse": 1.4492718064691029e-08,
+              "maxRelative": 3.939943724643905e-06,
+              "p50": 3.9828119968721154e-10,
+              "p90": 5.4393028831034584e-09,
+              "p95": 8.610448715140606e-09,
+              "pearson": 1,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0057-003-binocular_system-c1-primary-f1-w2-optical-path-difference",
+        "fingerprint": "64d47c03531d4594264f38f522891a060d6d560556e0d9be371c120731efdb91",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.1999860438649534e-08,
+              "meanAbsolute": 1.6560863748875581e-09,
+              "rmse": 3.3750936085782837e-09,
+              "nrmse": 1.440665638848366e-08,
+              "maxRelative": 3.9548670303517525e-06,
+              "p50": 3.411431137578802e-10,
+              "p90": 5.567512756377013e-09,
+              "p95": 8.303104648277326e-09,
+              "pearson": 0.9999999999999993,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.1911894526317468e-08,
+              "meanAbsolute": 1.7123760168551576e-09,
+              "rmse": 3.3952753919055952e-09,
+              "nrmse": 1.4492718064691029e-08,
+              "maxRelative": 3.939943724643905e-06,
+              "p50": 3.9828119968721154e-10,
+              "p90": 5.4393028831034584e-09,
+              "p95": 8.610448715140606e-09,
+              "pearson": 1,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 1.1999860438649534e-08,
+      "afterMaximumAbsoluteWaves": 1.1999860438649534e-08
+    },
+    {
+      "id": "0074-003-binocular_system-c1-edge-f5-w1-optical-path-difference",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 5,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "5",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "e15766b043957a86e92229b9f66947bc9dfc961d6110e865f80adb642b851cae",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0074-003-binocular_system-c1-edge-f5-w1-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "67431abea3f23f673e45dc26b45be17c393ccb4f05daff6587950cb489194473",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0074-003-binocular_system-c1-edge-f5-w1-optical-path-difference/native/data.json",
+          "sha256": "4878ee5b026d65a6b9f865f70ab866fb2c41c5f65ec386cd9061ea6733895433"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0074-003-binocular_system-c1-edge-f5-w1-optical-path-difference/native/model.json",
+          "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0074-003-binocular_system-c1-edge-f5-w1-optical-path-difference/native/captured-settings.json",
+          "sha256": "86e6b60725a8a34ad4247c8e26dc36e839b77511e8af90f7c310d865ffc607fd"
+        }
+      ],
+      "before": {
+        "id": "0074-003-binocular_system-c1-edge-f5-w1-optical-path-difference",
+        "fingerprint": "e15766b043957a86e92229b9f66947bc9dfc961d6110e865f80adb642b851cae",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.0239810999124188e-08,
+              "meanAbsolute": 9.90754061913269e-10,
+              "rmse": 2.0689228197656304e-09,
+              "nrmse": 1.1065293579214397e-08,
+              "maxRelative": "Infinity",
+              "p50": 3.124790218245188e-10,
+              "p90": 2.863182307563661e-09,
+              "p95": 4.5451907723648155e-09,
+              "pearson": 0.9999999999999997,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 9.509785492411993e-08,
+              "meanAbsolute": 2.208883953828096e-08,
+              "rmse": 3.5036571344111274e-08,
+              "nrmse": 1.6635800280685765e-08,
+              "maxRelative": "Infinity",
+              "p50": 7.432368664961331e-09,
+              "p90": 6.443379163556529e-08,
+              "p95": 7.83711344709559e-08,
+              "pearson": 1.0000000000000004,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0074-003-binocular_system-c1-edge-f5-w1-optical-path-difference",
+        "fingerprint": "e15766b043957a86e92229b9f66947bc9dfc961d6110e865f80adb642b851cae",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.0239810999124188e-08,
+              "meanAbsolute": 9.90754061913269e-10,
+              "rmse": 2.0689228197656304e-09,
+              "nrmse": 1.1065293579214397e-08,
+              "maxRelative": "Infinity",
+              "p50": 3.124790218245188e-10,
+              "p90": 2.863182307563661e-09,
+              "p95": 4.5451907723648155e-09,
+              "pearson": 0.9999999999999997,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 9.509785492411993e-08,
+              "meanAbsolute": 2.208883953828096e-08,
+              "rmse": 3.5036571344111274e-08,
+              "nrmse": 1.6635800280685765e-08,
+              "maxRelative": "Infinity",
+              "p50": 7.432368664961331e-09,
+              "p90": 6.443379163556529e-08,
+              "p95": 7.83711344709559e-08,
+              "pearson": 1.0000000000000004,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 9.509785492411993e-08,
+      "afterMaximumAbsoluteWaves": 9.509785492411993e-08
+    },
+    {
+      "id": "0078-003-binocular_system-c1-edge-f5-w2-optical-path-difference",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 5,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "5",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "7877dca0856c256b8389971790abcc9991e44e926f3ac6fed9159301001f527c",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0078-003-binocular_system-c1-edge-f5-w2-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "7ed2515af9dc0ece556c9eac964814be6e93acb15407ddf23786c74753f026a3",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0078-003-binocular_system-c1-edge-f5-w2-optical-path-difference/native/data.json",
+          "sha256": "64831a054e22d797d125ead23bbaefb850cdb0405de757dbbf7acd569b236632"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0078-003-binocular_system-c1-edge-f5-w2-optical-path-difference/native/model.json",
+          "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0078-003-binocular_system-c1-edge-f5-w2-optical-path-difference/native/captured-settings.json",
+          "sha256": "0de4cf1b3f6e770556b5bd5b1f1f62c3374ca339f3f01a1123daec5118a24d21"
+        }
+      ],
+      "before": {
+        "id": "0078-003-binocular_system-c1-edge-f5-w2-optical-path-difference",
+        "fingerprint": "7877dca0856c256b8389971790abcc9991e44e926f3ac6fed9159301001f527c",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.537488191263094e-08,
+              "meanAbsolute": 5.290172763971369e-09,
+              "rmse": 1.00489792787907e-08,
+              "nrmse": 1.0888058793001476e-08,
+              "maxRelative": 3.133383949130898e-07,
+              "p50": 5.063973962382562e-10,
+              "p90": 1.9317832555820758e-08,
+              "p95": 2.601559989656721e-08,
+              "pearson": 1.0000000000000002,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.309146564487662e-07,
+              "meanAbsolute": 3.071279971762343e-08,
+              "rmse": 4.848990621880029e-08,
+              "nrmse": 2.1294672124308985e-08,
+              "maxRelative": 5.749206180692018e-08,
+              "p50": 1.0706582287411948e-08,
+              "p90": 8.852629074240781e-08,
+              "p95": 1.085136942524656e-07,
+              "pearson": 0.9999999999999991,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0078-003-binocular_system-c1-edge-f5-w2-optical-path-difference",
+        "fingerprint": "7877dca0856c256b8389971790abcc9991e44e926f3ac6fed9159301001f527c",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.537488191263094e-08,
+              "meanAbsolute": 5.290172763971369e-09,
+              "rmse": 1.00489792787907e-08,
+              "nrmse": 1.0888058793001476e-08,
+              "maxRelative": 3.133383949130898e-07,
+              "p50": 5.063973962382562e-10,
+              "p90": 1.9317832555820758e-08,
+              "p95": 2.601559989656721e-08,
+              "pearson": 1.0000000000000002,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.309146564487662e-07,
+              "meanAbsolute": 3.071279971762343e-08,
+              "rmse": 4.848990621880029e-08,
+              "nrmse": 2.1294672124308985e-08,
+              "maxRelative": 5.749206180692018e-08,
+              "p50": 1.0706582287411948e-08,
+              "p90": 8.852629074240781e-08,
+              "p95": 1.085136942524656e-07,
+              "pearson": 0.9999999999999991,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 1.309146564487662e-07,
+      "afterMaximumAbsoluteWaves": 1.309146564487662e-07
+    },
+    {
+      "id": "0082-003-binocular_system-c1-edge-f5-w3-optical-path-difference",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 5,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "3",
+          "FieldNumber": "5",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "2497a0892713736c4ee4242363f9c92e5c16c682a812172adbe30af7865916b7",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0082-003-binocular_system-c1-edge-f5-w3-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "7e74905cbc9a6b0755d4b8281be228bf0c675c42cf07e361364ae8104f611181",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0082-003-binocular_system-c1-edge-f5-w3-optical-path-difference/native/data.json",
+          "sha256": "bab2a5b0627a9782050ecf414d7bc73d99dad9e6ba05edf4b206873a8d04ecec"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0082-003-binocular_system-c1-edge-f5-w3-optical-path-difference/native/model.json",
+          "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0082-003-binocular_system-c1-edge-f5-w3-optical-path-difference/native/captured-settings.json",
+          "sha256": "77e3d0d265b2343df6adcbcbd0963b415dc6c516d5721a44ff0e5e0ab86eb577"
+        }
+      ],
+      "before": {
+        "id": "0082-003-binocular_system-c1-edge-f5-w3-optical-path-difference",
+        "fingerprint": "2497a0892713736c4ee4242363f9c92e5c16c682a812172adbe30af7865916b7",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 2.6299837641019508e-08,
+              "meanAbsolute": 2.891946860690988e-09,
+              "rmse": 6.2392371713708695e-09,
+              "nrmse": 1.0152189678455043e-08,
+              "maxRelative": 3.620161685782962e-07,
+              "p50": 2.487237221737715e-10,
+              "p90": 9.831205904919926e-09,
+              "p95": 1.3862213266158108e-08,
+              "pearson": 1.0000000000000002,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 9.320461091810728e-08,
+              "meanAbsolute": 2.0297313788679187e-08,
+              "rmse": 3.324507125046549e-08,
+              "nrmse": 1.9472566345806768e-08,
+              "maxRelative": 9.81927959719684e-08,
+              "p50": 5.7738343550717275e-09,
+              "p90": 6.05621117699684e-08,
+              "p95": 7.577362337585214e-08,
+              "pearson": 0.9999999999999996,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0082-003-binocular_system-c1-edge-f5-w3-optical-path-difference",
+        "fingerprint": "2497a0892713736c4ee4242363f9c92e5c16c682a812172adbe30af7865916b7",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 2.6299837641019508e-08,
+              "meanAbsolute": 2.891946860690988e-09,
+              "rmse": 6.2392371713708695e-09,
+              "nrmse": 1.0152189678455043e-08,
+              "maxRelative": 3.620161685782962e-07,
+              "p50": 2.487237221737715e-10,
+              "p90": 9.831205904919926e-09,
+              "p95": 1.3862213266158108e-08,
+              "pearson": 1.0000000000000002,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 9.320461091810728e-08,
+              "meanAbsolute": 2.0297313788679187e-08,
+              "rmse": 3.324507125046549e-08,
+              "nrmse": 1.9472566345806768e-08,
+              "maxRelative": 9.81927959719684e-08,
+              "p50": 5.7738343550717275e-09,
+              "p90": 6.05621117699684e-08,
+              "p95": 7.577362337585214e-08,
+              "pearson": 0.9999999999999996,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 9.320461091810728e-08,
+      "afterMaximumAbsoluteWaves": 9.320461091810728e-08
+    },
+    {
+      "id": "0087-003-binocular_system-c2-primary-f1-w2-optical-path-difference",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "7a56ba29cbe068dcb4915b2da393b03010e79f8bec37a410847a3bf6bc67a28c",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0087-003-binocular_system-c2-primary-f1-w2-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "01dd1bba904c84c6a635228e46dbf483b1f814d24ffccaa3d5b74aceb52b1b49",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0087-003-binocular_system-c2-primary-f1-w2-optical-path-difference/native/data.json",
+          "sha256": "694c5e0181ea83071f5148a93ba0ad4e22a24bbbd3dbaa5fc72bc8a7448d94a7"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0087-003-binocular_system-c2-primary-f1-w2-optical-path-difference/native/model.json",
+          "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0087-003-binocular_system-c2-primary-f1-w2-optical-path-difference/native/captured-settings.json",
+          "sha256": "a4f2f169435647ed61c45458ab9ec7048f0c4ac9afdabb9cfb8aba9706ec7e2d"
+        }
+      ],
+      "before": {
+        "id": "0087-003-binocular_system-c2-primary-f1-w2-optical-path-difference",
+        "fingerprint": "7a56ba29cbe068dcb4915b2da393b03010e79f8bec37a410847a3bf6bc67a28c",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.1993328358217425e-08,
+              "meanAbsolute": 1.6491181529256388e-09,
+              "rmse": 3.377017184145047e-09,
+              "nrmse": 1.4414867210700183e-08,
+              "maxRelative": 4.016213840608795e-06,
+              "p50": 2.9032577817528216e-10,
+              "p90": 5.617783002676013e-09,
+              "p95": 8.325396066988233e-09,
+              "pearson": 1.0000000000000004,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.956982750686789e-06,
+              "meanAbsolute": 2.4455011300913396e-06,
+              "rmse": 2.8600973363694893e-06,
+              "nrmse": 1.220845704949737e-05,
+              "maxRelative": 0.007030860309031461,
+              "p50": 2.2273022698277023e-06,
+              "p90": 4.457011291203461e-06,
+              "p95": 4.706678749410997e-06,
+              "pearson": 0.9999999992287992,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0087-003-binocular_system-c2-primary-f1-w2-optical-path-difference",
+        "fingerprint": "7a56ba29cbe068dcb4915b2da393b03010e79f8bec37a410847a3bf6bc67a28c",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.1993328358217425e-08,
+              "meanAbsolute": 1.6491181529256388e-09,
+              "rmse": 3.377017184145047e-09,
+              "nrmse": 1.4414867210700183e-08,
+              "maxRelative": 4.016213840608795e-06,
+              "p50": 2.9032577817528216e-10,
+              "p90": 5.617783002676013e-09,
+              "p95": 8.325396066988233e-09,
+              "pearson": 1.0000000000000004,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.956982750686789e-06,
+              "meanAbsolute": 2.4455011300913396e-06,
+              "rmse": 2.8600973363694893e-06,
+              "nrmse": 1.220845704949737e-05,
+              "maxRelative": 0.007030860309031461,
+              "p50": 2.2273022698277023e-06,
+              "p90": 4.457011291203461e-06,
+              "p95": 4.706678749410997e-06,
+              "pearson": 0.9999999992287992,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 4.956982750686789e-06,
+      "afterMaximumAbsoluteWaves": 4.956982750686789e-06
+    },
+    {
+      "id": "0104-003-binocular_system-c2-edge-f5-w1-optical-path-difference",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 5,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "5",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "d30e6fa7983f7ee06e24f8d505631f776f22aa1098ab8175499fbac35a450b8e",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0104-003-binocular_system-c2-edge-f5-w1-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "b014cb59cf286def6bb9044ecdbf9a0fbf1a75d1def03a2b42c9fe26e34582e0",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0104-003-binocular_system-c2-edge-f5-w1-optical-path-difference/native/data.json",
+          "sha256": "eb40b1162c06b5cd8fd624779d9a3c0f32a2e6f9f61548eda43cde4610b7aee5"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0104-003-binocular_system-c2-edge-f5-w1-optical-path-difference/native/model.json",
+          "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0104-003-binocular_system-c2-edge-f5-w1-optical-path-difference/native/captured-settings.json",
+          "sha256": "e802adb5aaf095e081e8e614ee967988ceaebe0e3ae1750614630d3750fbb2bd"
+        }
+      ],
+      "before": {
+        "id": "0104-003-binocular_system-c2-edge-f5-w1-optical-path-difference",
+        "fingerprint": "d30e6fa7983f7ee06e24f8d505631f776f22aa1098ab8175499fbac35a450b8e",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.0391796950726118e-08,
+              "meanAbsolute": 1.1277302078160733e-09,
+              "rmse": 2.142832160581422e-09,
+              "nrmse": 1.1460585528863603e-08,
+              "maxRelative": "Infinity",
+              "p50": 4.4179837566105107e-10,
+              "p90": 3.031040574129687e-09,
+              "p95": 4.543592120598294e-09,
+              "pearson": 1.0000000000000002,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 5.581160430701004e-06,
+              "meanAbsolute": 2.7127161795832383e-06,
+              "rmse": 3.173021233683981e-06,
+              "nrmse": 1.5065939101614962e-06,
+              "maxRelative": "Infinity",
+              "p50": 2.477435350756174e-06,
+              "p90": 5.0024804423287605e-06,
+              "p95": 5.2904085625637975e-06,
+              "pearson": 0.9999999999875636,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0104-003-binocular_system-c2-edge-f5-w1-optical-path-difference",
+        "fingerprint": "d30e6fa7983f7ee06e24f8d505631f776f22aa1098ab8175499fbac35a450b8e",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.0391796950726118e-08,
+              "meanAbsolute": 1.1277302078160733e-09,
+              "rmse": 2.142832160581422e-09,
+              "nrmse": 1.1460585528863603e-08,
+              "maxRelative": "Infinity",
+              "p50": 4.4179837566105107e-10,
+              "p90": 3.031040574129687e-09,
+              "p95": 4.543592120598294e-09,
+              "pearson": 1.0000000000000002,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 5.581160430701004e-06,
+              "meanAbsolute": 2.7127161795832383e-06,
+              "rmse": 3.173021233683981e-06,
+              "nrmse": 1.5065939101614962e-06,
+              "maxRelative": "Infinity",
+              "p50": 2.477435350756174e-06,
+              "p90": 5.0024804423287605e-06,
+              "p95": 5.2904085625637975e-06,
+              "pearson": 0.9999999999875636,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 5.581160430701004e-06,
+      "afterMaximumAbsoluteWaves": 5.581160430701004e-06
+    },
+    {
+      "id": "0108-003-binocular_system-c2-edge-f5-w2-optical-path-difference",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 5,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "5",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "28ebc70f7e3a74b616397ec4d64cf34a203a3b6f066112762e3de59fe3387a56",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0108-003-binocular_system-c2-edge-f5-w2-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "0f6600b949d8bec91b35effe9fd3e72ac202a66b4630b9a397fcb9b833034ebe",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0108-003-binocular_system-c2-edge-f5-w2-optical-path-difference/native/data.json",
+          "sha256": "8549ef91052453a6398a992f9bb796830a05cc80cf2e586be580e517ff103ef4"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0108-003-binocular_system-c2-edge-f5-w2-optical-path-difference/native/model.json",
+          "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0108-003-binocular_system-c2-edge-f5-w2-optical-path-difference/native/captured-settings.json",
+          "sha256": "854b71fedd45d7be870ca4e3ebda134e32a6e302f5bad57c8455c4ff72fe5a7a"
+        }
+      ],
+      "before": {
+        "id": "0108-003-binocular_system-c2-edge-f5-w2-optical-path-difference",
+        "fingerprint": "28ebc70f7e3a74b616397ec4d64cf34a203a3b6f066112762e3de59fe3387a56",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.556402516924351e-08,
+              "meanAbsolute": 5.325218939941611e-09,
+              "rmse": 1.0083309034969268e-08,
+              "nrmse": 1.0925255046546458e-08,
+              "maxRelative": 3.9103432306791e-07,
+              "p50": 6.075351333123535e-10,
+              "p90": 1.9338806445112766e-08,
+              "p95": 2.6033645017520257e-08,
+              "pearson": 1.0000000000000002,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.6675613711855135e-06,
+              "meanAbsolute": 2.2439402807684815e-06,
+              "rmse": 2.624974088684494e-06,
+              "nrmse": 1.1527775218289794e-06,
+              "maxRelative": 5.788797385021094e-05,
+              "p50": 2.053902394993923e-06,
+              "p90": 4.1725406418891e-06,
+              "p95": 4.405959928455161e-06,
+              "pearson": 0.9999999999927502,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0108-003-binocular_system-c2-edge-f5-w2-optical-path-difference",
+        "fingerprint": "28ebc70f7e3a74b616397ec4d64cf34a203a3b6f066112762e3de59fe3387a56",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.556402516924351e-08,
+              "meanAbsolute": 5.325218939941611e-09,
+              "rmse": 1.0083309034969268e-08,
+              "nrmse": 1.0925255046546458e-08,
+              "maxRelative": 3.9103432306791e-07,
+              "p50": 6.075351333123535e-10,
+              "p90": 1.9338806445112766e-08,
+              "p95": 2.6033645017520257e-08,
+              "pearson": 1.0000000000000002,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.6675613711855135e-06,
+              "meanAbsolute": 2.2439402807684815e-06,
+              "rmse": 2.624974088684494e-06,
+              "nrmse": 1.1527775218289794e-06,
+              "maxRelative": 5.788797385021094e-05,
+              "p50": 2.053902394993923e-06,
+              "p90": 4.1725406418891e-06,
+              "p95": 4.405959928455161e-06,
+              "pearson": 0.9999999999927502,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 4.6675613711855135e-06,
+      "afterMaximumAbsoluteWaves": 4.6675613711855135e-06
+    },
+    {
+      "id": "0112-003-binocular_system-c2-edge-f5-w3-optical-path-difference",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 5,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "3",
+          "FieldNumber": "5",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "63bfa8d5726794fe073acf9c3999c41dd05325e90405c7657f5a168d1af9aa25",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0112-003-binocular_system-c2-edge-f5-w3-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "2cfe8007b6a4a017beb60f6d40ea14f380819e0f5e9fdb90740989771e8e9ed1",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0112-003-binocular_system-c2-edge-f5-w3-optical-path-difference/native/data.json",
+          "sha256": "da147790e2acdaee1c26eb38564a0ccca03d288dfa40a8921e03b3a00ab0fdd3"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0112-003-binocular_system-c2-edge-f5-w3-optical-path-difference/native/model.json",
+          "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0112-003-binocular_system-c2-edge-f5-w3-optical-path-difference/native/captured-settings.json",
+          "sha256": "01fc0a56ac7014c237190a79f838d543a68d33b655643e23dea782d6f1a10b5a"
+        }
+      ],
+      "before": {
+        "id": "0112-003-binocular_system-c2-edge-f5-w3-optical-path-difference",
+        "fingerprint": "63bfa8d5726794fe073acf9c3999c41dd05325e90405c7657f5a168d1af9aa25",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 2.632106865796402e-08,
+              "meanAbsolute": 2.8825843877327646e-09,
+              "rmse": 6.237542147629715e-09,
+              "nrmse": 1.0149431616172e-08,
+              "maxRelative": 2.1454546461148244e-07,
+              "p50": 2.468416963885556e-10,
+              "p90": 9.830783020969847e-09,
+              "p95": 1.3813914900850932e-08,
+              "pearson": 1.0000000000000002,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.152266223522716e-06,
+              "meanAbsolute": 2.007571601073858e-06,
+              "rmse": 2.348280017416924e-06,
+              "nrmse": 1.375456434185168e-06,
+              "maxRelative": 7.858293948978301e-05,
+              "p50": 1.8338549369889545e-06,
+              "p90": 3.7143789477500633e-06,
+              "p95": 3.932347182766804e-06,
+              "pearson": 0.9999999999895118,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0112-003-binocular_system-c2-edge-f5-w3-optical-path-difference",
+        "fingerprint": "63bfa8d5726794fe073acf9c3999c41dd05325e90405c7657f5a168d1af9aa25",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 2.632106865796402e-08,
+              "meanAbsolute": 2.8825843877327646e-09,
+              "rmse": 6.237542147629715e-09,
+              "nrmse": 1.0149431616172e-08,
+              "maxRelative": 2.1454546461148244e-07,
+              "p50": 2.468416963885556e-10,
+              "p90": 9.830783020969847e-09,
+              "p95": 1.3813914900850932e-08,
+              "pearson": 1.0000000000000002,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.152266223522716e-06,
+              "meanAbsolute": 2.007571601073858e-06,
+              "rmse": 2.348280017416924e-06,
+              "nrmse": 1.375456434185168e-06,
+              "maxRelative": 7.858293948978301e-05,
+              "p50": 1.8338549369889545e-06,
+              "p90": 3.7143789477500633e-06,
+              "p95": 3.932347182766804e-06,
+              "pearson": 0.9999999999895118,
+              "worstX": 1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 4.152266223522716e-06,
+      "afterMaximumAbsoluteWaves": 4.152266223522716e-06
+    },
+    {
+      "id": "0117-004-apochromat_prism-c1-primary-f1-w3-optical-path-difference",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "3",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "34be31185a0c36a4c4992c9dee63f10c5fd529c8c8ef60fda0c9ed93208939dd",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0117-004-apochromat_prism-c1-primary-f1-w3-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "97ada6dc63372dd3e1507c79ca5b3b6f134efdadba895a767348f86de38f15b7",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0117-004-apochromat_prism-c1-primary-f1-w3-optical-path-difference/native/data.json",
+          "sha256": "be9d8f46a9ad9fe31bebbd78eef8c03d3209bcba6dc422333c93c7f8bd828757"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0117-004-apochromat_prism-c1-primary-f1-w3-optical-path-difference/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0117-004-apochromat_prism-c1-primary-f1-w3-optical-path-difference/native/captured-settings.json",
+          "sha256": "38a999d72e66b63d48d4585383651e726e2c5ac4f8cfee574eea0a174c313553"
+        }
+      ],
+      "before": {
+        "id": "0117-004-apochromat_prism-c1-primary-f1-w3-optical-path-difference",
+        "fingerprint": "34be31185a0c36a4c4992c9dee63f10c5fd529c8c8ef60fda0c9ed93208939dd",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.0105304604173214e-11,
+              "meanAbsolute": 8.83739436487102e-12,
+              "rmse": 1.1746092806444e-11,
+              "nrmse": 1.1746092806444e-06,
+              "maxRelative": 273.2000187778424,
+              "p50": 5.191991278670467e-12,
+              "p90": 1.959574878542097e-11,
+              "p95": 2.5773185770979317e-11,
+              "pearson": 0.09925643896634062,
+              "worstX": 0.8999999999999999,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0,
+              "meanAbsolute": 0,
+              "rmse": 0,
+              "nrmse": 0,
+              "maxRelative": 0,
+              "p50": 0,
+              "p90": 0,
+              "p95": 0,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0117-004-apochromat_prism-c1-primary-f1-w3-optical-path-difference",
+        "fingerprint": "34be31185a0c36a4c4992c9dee63f10c5fd529c8c8ef60fda0c9ed93208939dd",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.0105304604173214e-11,
+              "meanAbsolute": 8.83739436487102e-12,
+              "rmse": 1.1746092806444e-11,
+              "nrmse": 1.1746092806444e-06,
+              "maxRelative": 273.2000187778424,
+              "p50": 5.191991278670467e-12,
+              "p90": 1.959574878542097e-11,
+              "p95": 2.5773185770979317e-11,
+              "pearson": 0.09925643896634062,
+              "worstX": 0.8999999999999999,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0,
+              "meanAbsolute": 0,
+              "rmse": 0,
+              "nrmse": 0,
+              "maxRelative": 0,
+              "p50": 0,
+              "p90": 0,
+              "p95": 0,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 3.0105304604173214e-11,
+      "afterMaximumAbsoluteWaves": 3.0105304604173214e-11
+    },
+    {
+      "id": "0134-004-apochromat_prism-c1-edge-f1-w1-optical-path-difference",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "57e32b04248ff22bde5b0f90a9e5e6871c2500f9651c3bb27fd814abe7ecc6fc",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0134-004-apochromat_prism-c1-edge-f1-w1-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "6cd24646e4cdd34c5f5e8ee24ad1c10aee4ecf9a22d0892699eb4c533423df83",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0134-004-apochromat_prism-c1-edge-f1-w1-optical-path-difference/native/data.json",
+          "sha256": "8f148d3ad63c79bf7d27ce49369aeb4d8061fa25cae66da25d75a828bcd70ce4"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0134-004-apochromat_prism-c1-edge-f1-w1-optical-path-difference/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0134-004-apochromat_prism-c1-edge-f1-w1-optical-path-difference/native/captured-settings.json",
+          "sha256": "50b40684d4fa7ed0036b3abe1d3d09b0da3a7b295fe9c9efe1189c4e0098dc36"
+        }
+      ],
+      "before": {
+        "id": "0134-004-apochromat_prism-c1-edge-f1-w1-optical-path-difference",
+        "fingerprint": "57e32b04248ff22bde5b0f90a9e5e6871c2500f9651c3bb27fd814abe7ecc6fc",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 4.9866354264165706e-11,
+              "meanAbsolute": 2.4394652018388473e-11,
+              "rmse": 2.718309382564753e-11,
+              "nrmse": 2.7183093825647527e-06,
+              "maxRelative": "Infinity",
+              "p50": 2.4489062357238368e-11,
+              "p90": 4.0306383320063366e-11,
+              "p95": 4.4670371179700465e-11,
+              "pearson": -0.1731657198994493,
+              "worstX": 0.6499999999999999,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.6148698540002275e-11,
+              "meanAbsolute": 1.5354500251149728e-11,
+              "rmse": 1.5746593148621255e-11,
+              "nrmse": 1.5746593148621253e-06,
+              "maxRelative": "Infinity",
+              "p50": 1.6148698540002275e-11,
+              "p90": 1.6148698540002275e-11,
+              "p95": 1.6148698540002275e-11,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0134-004-apochromat_prism-c1-edge-f1-w1-optical-path-difference",
+        "fingerprint": "57e32b04248ff22bde5b0f90a9e5e6871c2500f9651c3bb27fd814abe7ecc6fc",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 5.702187299418347e-11,
+              "meanAbsolute": 2.958661759781334e-11,
+              "rmse": 3.232648717602698e-11,
+              "nrmse": 3.232648717602698e-06,
+              "maxRelative": "Infinity",
+              "p50": 3.183207568028062e-11,
+              "p90": 4.4670371179700465e-11,
+              "p95": 4.861252219354326e-11,
+              "pearson": -0.1793818527691961,
+              "worstX": -0.55,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.6148698540002275e-11,
+              "meanAbsolute": 1.5354500251149728e-11,
+              "rmse": 1.5746593148621255e-11,
+              "nrmse": 1.5746593148621253e-06,
+              "maxRelative": "Infinity",
+              "p50": 1.6148698540002275e-11,
+              "p90": 1.6148698540002275e-11,
+              "p95": 1.6148698540002275e-11,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 4.9866354264165706e-11,
+      "afterMaximumAbsoluteWaves": 5.702187299418347e-11
+    },
+    {
+      "id": "0138-004-apochromat_prism-c1-edge-f1-w2-optical-path-difference",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "ce9430a8de9802f0399fa4d1edf59c01bf3dd07a9c93af1cb19d13a4592844fa",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0138-004-apochromat_prism-c1-edge-f1-w2-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "1091ef863108b9cb485d9771216e6a7c43846c88b9e18573b108c38d322cef32",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0138-004-apochromat_prism-c1-edge-f1-w2-optical-path-difference/native/data.json",
+          "sha256": "9b5dc9fe9fa016f0bf978d200ec6164d6c79e378c165e10675a3b2983789a011"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0138-004-apochromat_prism-c1-edge-f1-w2-optical-path-difference/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0138-004-apochromat_prism-c1-edge-f1-w2-optical-path-difference/native/captured-settings.json",
+          "sha256": "985346539e5a8f5130811a40c641d4d78c9c7a0e4adef5a52028c938907c5d1f"
+        }
+      ],
+      "before": {
+        "id": "0138-004-apochromat_prism-c1-edge-f1-w2-optical-path-difference",
+        "fingerprint": "ce9430a8de9802f0399fa4d1edf59c01bf3dd07a9c93af1cb19d13a4592844fa",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.784877609881182e-11,
+              "meanAbsolute": 1.2091591907177844e-11,
+              "rmse": 1.5340401748949716e-11,
+              "nrmse": 1.5340401748949715e-06,
+              "maxRelative": 191.0234403613722,
+              "p50": 1.1171644596279054e-11,
+              "p90": 2.208882637798713e-11,
+              "p95": 3.487952504268746e-11,
+              "pearson": 0.12409654019081624,
+              "worstX": -0.050000000000000044,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0,
+              "meanAbsolute": 0,
+              "rmse": 0,
+              "nrmse": 0,
+              "maxRelative": 0,
+              "p50": 0,
+              "p90": 0,
+              "p95": 0,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0138-004-apochromat_prism-c1-edge-f1-w2-optical-path-difference",
+        "fingerprint": "ce9430a8de9802f0399fa4d1edf59c01bf3dd07a9c93af1cb19d13a4592844fa",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.0447289267977445e-11,
+              "meanAbsolute": 1.0515932250791924e-11,
+              "rmse": 1.3154148204362609e-11,
+              "nrmse": 1.3154148204362608e-06,
+              "maxRelative": 191.0234403613722,
+              "p50": 7.447747182318277e-12,
+              "p90": 2.208882637798713e-11,
+              "p95": 2.74780382118531e-11,
+              "pearson": 0.19368043545311342,
+              "worstX": -0.050000000000000044,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0,
+              "meanAbsolute": 0,
+              "rmse": 0,
+              "nrmse": 0,
+              "maxRelative": 0,
+              "p50": 0,
+              "p90": 0,
+              "p95": 0,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 3.784877609881182e-11,
+      "afterMaximumAbsoluteWaves": 3.0447289267977445e-11
+    },
+    {
+      "id": "0142-004-apochromat_prism-c1-edge-f1-w3-optical-path-difference",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "3",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "34be31185a0c36a4c4992c9dee63f10c5fd529c8c8ef60fda0c9ed93208939dd",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0142-004-apochromat_prism-c1-edge-f1-w3-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "9b172b81ed8b81abd1647e9b5de012bf517559299dce9876b0d847cba9f266c5",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0142-004-apochromat_prism-c1-edge-f1-w3-optical-path-difference/native/data.json",
+          "sha256": "be9d8f46a9ad9fe31bebbd78eef8c03d3209bcba6dc422333c93c7f8bd828757"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0142-004-apochromat_prism-c1-edge-f1-w3-optical-path-difference/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0142-004-apochromat_prism-c1-edge-f1-w3-optical-path-difference/native/captured-settings.json",
+          "sha256": "38a999d72e66b63d48d4585383651e726e2c5ac4f8cfee574eea0a174c313553"
+        }
+      ],
+      "before": {
+        "id": "0142-004-apochromat_prism-c1-edge-f1-w3-optical-path-difference",
+        "fingerprint": "34be31185a0c36a4c4992c9dee63f10c5fd529c8c8ef60fda0c9ed93208939dd",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.0105304604173214e-11,
+              "meanAbsolute": 8.83739436487102e-12,
+              "rmse": 1.1746092806444e-11,
+              "nrmse": 1.1746092806444e-06,
+              "maxRelative": 273.2000187778424,
+              "p50": 5.191991278670467e-12,
+              "p90": 1.959574878542097e-11,
+              "p95": 2.5773185770979317e-11,
+              "pearson": 0.09925643896634062,
+              "worstX": 0.8999999999999999,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0,
+              "meanAbsolute": 0,
+              "rmse": 0,
+              "nrmse": 0,
+              "maxRelative": 0,
+              "p50": 0,
+              "p90": 0,
+              "p95": 0,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0142-004-apochromat_prism-c1-edge-f1-w3-optical-path-difference",
+        "fingerprint": "34be31185a0c36a4c4992c9dee63f10c5fd529c8c8ef60fda0c9ed93208939dd",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 3.0105304604173214e-11,
+              "meanAbsolute": 8.83739436487102e-12,
+              "rmse": 1.1746092806444e-11,
+              "nrmse": 1.1746092806444e-06,
+              "maxRelative": 273.2000187778424,
+              "p50": 5.191991278670467e-12,
+              "p90": 1.959574878542097e-11,
+              "p95": 2.5773185770979317e-11,
+              "pearson": 0.09925643896634062,
+              "worstX": 0.8999999999999999,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0,
+              "meanAbsolute": 0,
+              "rmse": 0,
+              "nrmse": 0,
+              "maxRelative": 0,
+              "p50": 0,
+              "p90": 0,
+              "p95": 0,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 3.0105304604173214e-11,
+      "afterMaximumAbsoluteWaves": 3.0105304604173214e-11
+    },
+    {
+      "id": "0146-004-apochromat_prism-c1-edge-f1-w4-optical-path-difference",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 4,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "4",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "2469bcde82a5db4cd6ca84ec9a71ac8c3f4960576ef3d298e5a5146ab6f46753",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0146-004-apochromat_prism-c1-edge-f1-w4-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "72f941deb26dafdd9277ed9533ae60f37728f278245f4c9b843d2c7fc768b694",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0146-004-apochromat_prism-c1-edge-f1-w4-optical-path-difference/native/data.json",
+          "sha256": "e56f4582f6f31cf999a86a8d0127a011f54d9242860db40d116944bee7ec0e65"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0146-004-apochromat_prism-c1-edge-f1-w4-optical-path-difference/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0146-004-apochromat_prism-c1-edge-f1-w4-optical-path-difference/native/captured-settings.json",
+          "sha256": "72084534d496d4ea25cb808b8d073168389e79b11afff4dde8d4fc363e085a8d"
+        }
+      ],
+      "before": {
+        "id": "0146-004-apochromat_prism-c1-edge-f1-w4-optical-path-difference",
+        "fingerprint": "2469bcde82a5db4cd6ca84ec9a71ac8c3f4960576ef3d298e5a5146ab6f46753",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 2.7938258034806408e-11,
+              "meanAbsolute": 1.1486990507518812e-11,
+              "rmse": 1.3335875265762102e-11,
+              "nrmse": 1.3335875265762101e-06,
+              "maxRelative": 196.01434208054422,
+              "p50": 1.1522522347792822e-11,
+              "p90": 2.010839840811389e-11,
+              "p95": 2.0174632502354895e-11,
+              "pearson": -0.3233578091288279,
+              "worstX": 0.8500000000000001,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0,
+              "meanAbsolute": 0,
+              "rmse": 0,
+              "nrmse": 0,
+              "maxRelative": 0,
+              "p50": 0,
+              "p90": 0,
+              "p95": 0,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0146-004-apochromat_prism-c1-edge-f1-w4-optical-path-difference",
+        "fingerprint": "2469bcde82a5db4cd6ca84ec9a71ac8c3f4960576ef3d298e5a5146ab6f46753",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 2.60958219670224e-11,
+              "meanAbsolute": 1.2376088592084272e-11,
+              "rmse": 1.4451061346024196e-11,
+              "nrmse": 1.4451061346024195e-06,
+              "maxRelative": 197.689441721963,
+              "p50": 1.0792814757505873e-11,
+              "p90": 2.347344007898898e-11,
+              "p95": 2.5363605394559566e-11,
+              "pearson": -0.3564187479620141,
+              "worstX": -0.050000000000000044,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 0,
+              "meanAbsolute": 0,
+              "rmse": 0,
+              "nrmse": 0,
+              "maxRelative": 0,
+              "p50": 0,
+              "p90": 0,
+              "p95": 0,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 2.7938258034806408e-11,
+      "afterMaximumAbsoluteWaves": 2.60958219670224e-11
+    },
+    {
+      "id": "0150-004-apochromat_prism-c1-edge-f1-w5-optical-path-difference",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 5,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "5",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "requestFingerprint": "8d07c0f3deab696a2524bb7152137080b740b16bd01e832aea2628c96435c8c8",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0150-004-apochromat_prism-c1-edge-f1-w5-optical-path-difference/workbench/request.json",
+      "requestMemberSha256": "5612862a75f03f2cf44da00fbebd6f7f07508ec35d5e56f93ddff21ce181c3f6",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0150-004-apochromat_prism-c1-edge-f1-w5-optical-path-difference/native/data.json",
+          "sha256": "07c8706c25ec46769d357b57b8d4bd709e570cdae9af83b8f70376522e8a630a"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0150-004-apochromat_prism-c1-edge-f1-w5-optical-path-difference/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0150-004-apochromat_prism-c1-edge-f1-w5-optical-path-difference/native/captured-settings.json",
+          "sha256": "77c5c545ec249a1964d18cef5cc0805750a33c56d981736960ff9f64733e6e15"
+        }
+      ],
+      "before": {
+        "id": "0150-004-apochromat_prism-c1-edge-f1-w5-optical-path-difference",
+        "fingerprint": "8d07c0f3deab696a2524bb7152137080b740b16bd01e832aea2628c96435c8c8",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 2.1485677630166215e-11,
+              "meanAbsolute": 7.323807426715361e-12,
+              "rmse": 8.968198457519984e-12,
+              "nrmse": 8.968198457519983e-07,
+              "maxRelative": "Infinity",
+              "p50": 7.006997418800484e-12,
+              "p90": 1.4334509005940985e-11,
+              "p95": 1.763123870918031e-11,
+              "pearson": 0.29199538218537935,
+              "worstX": 0.1499999999999999,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.0831444142684453e-11,
+              "meanAbsolute": 1.029875016845407e-11,
+              "rmse": 1.0561739307002062e-11,
+              "nrmse": 1.0561739307002062e-06,
+              "maxRelative": "Infinity",
+              "p50": 1.0831444142684453e-11,
+              "p90": 1.0831444142684453e-11,
+              "p95": 1.0831444142684453e-11,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "after": {
+        "id": "0150-004-apochromat_prism-c1-edge-f1-w5-optical-path-difference",
+        "fingerprint": "8d07c0f3deab696a2524bb7152137080b740b16bd01e832aea2628c96435c8c8",
+        "violations": 0,
+        "curves": [
+          {
+            "curve": "tangential",
+            "violations": 0,
+            "metric": {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.763123870918039e-11,
+              "meanAbsolute": 7.142750959136245e-12,
+              "rmse": 8.637251401539569e-12,
+              "nrmse": 8.637251401539568e-07,
+              "maxRelative": "Infinity",
+              "p50": 7.006997418800467e-12,
+              "p90": 1.3214736614505843e-11,
+              "p95": 1.6069955558823934e-11,
+              "pearson": 0.3358633054541532,
+              "worstX": 0.7,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          },
+          {
+            "curve": "sagittal",
+            "violations": 0,
+            "metric": {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 61,
+              "maxAbsolute": 1.0831444142684453e-11,
+              "meanAbsolute": 1.029875016845407e-11,
+              "rmse": 1.0561739307002062e-11,
+              "nrmse": 1.0561739307002062e-06,
+              "maxRelative": "Infinity",
+              "p50": 1.0831444142684453e-11,
+              "p90": 1.0831444142684453e-11,
+              "p95": 1.0831444142684453e-11,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          }
+        ]
+      },
+      "beforeMaximumAbsoluteWaves": 2.1485677630166215e-11,
+      "afterMaximumAbsoluteWaves": 1.763123870918039e-11
+    }
+  ],
+  "decomposition": [
+    {
+      "id": "0005-001-afocal-riflescope-c1-primary-f1-w2-optical-path-difference",
+      "selectedWavelengthPupilPositionMm": -5.597340655330858e-11,
+      "primaryWavelengthPupilPositionMm": -5.597340655330858e-11,
+      "originalMaximumByFanWaves": [
+        4.534230269026551e-08,
+        4.534230269026551e-08
+      ],
+      "wrongPrimaryChiefMaximumByFanWaves": [
+        4.534230269026551e-08,
+        4.534230269026551e-08
+      ],
+      "onlyAxialDatumCorrectedMaximumByFanWaves": [
+        4.534230269026551e-08,
+        4.534230269026551e-08
+      ]
+    },
+    {
+      "id": "0022-001-afocal-riflescope-c1-edge-f3-w1-optical-path-difference",
+      "selectedWavelengthPupilPositionMm": -0.39791868121362994,
+      "primaryWavelengthPupilPositionMm": -5.597340655330858e-11,
+      "originalMaximumByFanWaves": [
+        0.03917309038750538,
+        0.000294499669307724
+      ],
+      "wrongPrimaryChiefMaximumByFanWaves": [
+        1.0044638564085098,
+        0.009614059378808992
+      ],
+      "onlyAxialDatumCorrectedMaximumByFanWaves": [
+        8.106964543230788e-06,
+        6.058515156226463e-08
+      ]
+    },
+    {
+      "id": "0026-001-afocal-riflescope-c1-edge-f3-w2-optical-path-difference",
+      "selectedWavelengthPupilPositionMm": -5.597340655330858e-11,
+      "primaryWavelengthPupilPositionMm": -5.597340655330858e-11,
+      "originalMaximumByFanWaves": [
+        3.2443586905905875e-06,
+        5.570490024808805e-08
+      ],
+      "wrongPrimaryChiefMaximumByFanWaves": [
+        3.2443586905905875e-06,
+        5.570490024808805e-08
+      ],
+      "onlyAxialDatumCorrectedMaximumByFanWaves": [
+        3.2443586905905875e-06,
+        5.570490024808805e-08
+      ]
+    },
+    {
+      "id": "0030-001-afocal-riflescope-c1-edge-f3-w3-optical-path-difference",
+      "selectedWavelengthPupilPositionMm": 0.2758259955412548,
+      "primaryWavelengthPupilPositionMm": -5.597340655330858e-11,
+      "originalMaximumByFanWaves": [
+        0.006425972535672786,
+        0.00022207331546719722
+      ],
+      "wrongPrimaryChiefMaximumByFanWaves": [
+        0.05850881247134221,
+        0.0005801809619847553
+      ],
+      "onlyAxialDatumCorrectedMaximumByFanWaves": [
+        1.91704036978102e-06,
+        6.773413196992095e-08
+      ]
+    }
+  ],
+  "finalTests": [
+    {
+      "file": "opd-final.trx",
+      "counters": {
+        "total": "117",
+        "executed": "117",
+        "passed": "117",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "1575866fd98cea571f308bdb26da9fb8e8d0ceb7bf49d83f4fd0788f8a77b51e"
+    },
+    {
+      "file": "opd-protection.trx",
+      "counters": {
+        "total": "54",
+        "executed": "54",
+        "passed": "54",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "6f53c7b5ffc75d83ec7bbcf786ad34893d936e40d12ba930d67b90f49fde2286"
+    }
+  ],
+  "distinctPassingTests": 171,
+  "coreBinaries": [
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "bb32743a712035a0e5e618370ed353940bd226dbcd3bef48358c5114382680ff"
+    },
+    {
+      "path": "tools/diagnostics/Opd20261029/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "bb32743a712035a0e5e618370ed353940bd226dbcd3bef48358c5114382680ff"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "bb32743a712035a0e5e618370ed353940bd226dbcd3bef48358c5114382680ff"
+    }
+  ],
+  "sourceIdentities": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs",
+      "sha256": "42a3e66ea280321b63b78e82f12760b2ace58cd684e1be0fda65614900738550"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalOpdPointwiseTests.cs",
+      "sha256": "c4db7751575f56086018d76b30727acd8e854ee3e51efc0dd9f429a03afc8b08"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalOpdReferencePlaneTests.cs",
+      "sha256": "0d75075eacdca2e843d63d4ecd0028229776c8ffc7988612e463960f826a1025"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/OpdReferenceDiagnostics.cs",
+      "sha256": "bf878520420420350e6b9aa4d6cb47ff099e8f5382e8c50b71f883fdc7a01f8d"
+    },
+    {
+      "path": "tools/diagnostics/Opd20261029/FocusedOpdRegression.csproj",
+      "sha256": "cae7df5b76a468bbbee4e063c25bb23f7fa6777989da9253140a7fe87027d619"
+    },
+    {
+      "path": "tools/diagnostics/Opd20261029/Collect-Evidence.py",
+      "sha256": "f52bc7e279646998c549d882966ef1c395c31c59c80c384cb428fceb8de0253a"
+    }
+  ],
+  "frozenIntegrity": {
+    "source": "HEAD",
+    "commit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "relocationMap": {
+      "path": "tools/validation/frozen-evidence-relocations.json",
+      "count": 4,
+      "expectedSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "actualSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "gitBlob": "54fb7863a30f8808fd335a62332dd3301c1243ea",
+      "gitLinkPath": null,
+      "matches": true
+    },
+    "relocations": [
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "gitBlob": "8ce33ef8a9c26d3b26cfef84d8f88e03acf30286",
+        "bytes": 10182,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "gitBlob": "16aefa0dc68de132b63abb9260bac174ad652b7b",
+        "bytes": 6098,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+        "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "gitBlob": "31bef72740c8acfb69c3ade3e0c03cc2a2f63b7a",
+        "bytes": 2010,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "gitBlob": "1356ccedaee37e9e41da3c9074ae375dbca33bab",
+        "bytes": 17236,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      }
+    ],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": [],
+      "relocationMap": {
+        "path": "tools/validation/frozen-evidence-relocations.json",
+        "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+        "count": 4
+      },
+      "relocations": [
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+          "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "matches": true
+        },
+        {
+          "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+          "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+          "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "matches": true
+        }
+      ]
+    }
+  },
+  "appBuild": {
+    "defaultOutput": true,
+    "exitCode": 0,
+    "warnings": 0,
+    "errors": 0,
+    "appLaunched": false
+  },
+  "earlierFailures": [
+    "Initial diagnostic compile used the wrong Vector3D namespace; no optical tests ran.",
+    "opd-before.trx includes diagnostic failures from unnormalized fields and non-finite JSON metrics; not an optical baseline.",
+    "opd-baseline.trx cleanly reproduces two pointwise failures and eighteen passes; historical aggregate NRMSE passed all twenty.",
+    "Independent-control compile used the wrong RayTraceSample namespace; corrected before running.",
+    "opd-targeted.trx has nine snapshot-serialization failures after optical assertions passed; corrected JSON number handling in the test."
+  ],
+  "limitations": [
+    "Residuals remain nonzero within unchanged absolute/relative and NRMSE gates.",
+    "Not a rerun of the full 150-request matrix, 95-file corpus, GUI/CUDA, native recapture or release."
+  ],
+  "evidenceArchiveSha256": "2d47a20bca4694fa9910db074b265b43564c1721776f876d24577fa744944546",
+  "evidenceMembers": [
+    {
+      "file": "opd-baseline.trx",
+      "sha256": "62eda3c570d67b3269947601b38ddf4002ff62d3f80430cbb4fe3013800ebf23",
+      "bytes": 84493
+    },
+    {
+      "file": "opd-before.trx",
+      "sha256": "f0dea38e2e77a79b564da710843c34e565a5d2a93ec6eac9c15990af332c7c1f",
+      "bytes": 137971
+    },
+    {
+      "file": "opd-final.trx",
+      "sha256": "1575866fd98cea571f308bdb26da9fb8e8d0ceb7bf49d83f4fd0788f8a77b51e",
+      "bytes": 259412
+    },
+    {
+      "file": "opd-protection.trx",
+      "sha256": "6f53c7b5ffc75d83ec7bbcf786ad34893d936e40d12ba930d67b90f49fde2286",
+      "bytes": 85396
+    },
+    {
+      "file": "opd-targeted.trx",
+      "sha256": "ff450bb00807056053a50efc3ed41403435b3e222d8394adaf7610c8b81a6615",
+      "bytes": 193256
+    },
+    {
+      "file": "decomposition.json",
+      "sha256": "480a5204314ff773595194d6b0390b8f1e64e94c0c13643be0732f46d15d2417",
+      "bytes": 2207
+    },
+    {
+      "file": "diagnostic-replay.json",
+      "sha256": "275358bdf6abce0756711f6c79fc7af06170f2ebe93eb71dfd2e0445b5605e65",
+      "bytes": 392842
+    },
+    {
+      "file": "frozen-integrity.json",
+      "sha256": "fd0572f2ff0ad3509d46bbfe610e2c9583edf52a5f633e4e81cd0b627670ce66",
+      "bytes": 5255
+    },
+    {
+      "file": "WavefrontEngine.before.cs",
+      "sha256": "72b7720287f64668013956dbc48918d7fa14133883f068015732b2960d63b3e2",
+      "bytes": 28129
+    },
+    {
+      "file": "core-before.json",
+      "sha256": "f6db0f944a805d8bdad6759b8d52c6ba51be03cc986c154e2eb174dfb7b415d1",
+      "bytes": 249
+    },
+    {
+      "file": "app-build.log",
+      "sha256": "e7548a0a148f672b1ec8cb7291dd11b9fa614bc82bf5a1d3cbbcfd21d4b3ab50",
+      "bytes": 1623
+    }
+  ],
+  "documentation": {
+    "Documents": 1248,
+    "BrokenLinks": [],
+    "MarkdownFenceIssues": [],
+    "LocalOnlyLinks": []
+  }
+}

@@ -1,0 +1,1306 @@
+{
+  "date": "2026-10-29",
+  "baseCommit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+  "scope": "Five original afocal RMS-vs-field requests; 16 calculated fields each, 50 distinct alignable coordinates overall.",
+  "rootCause": "Gaussian RMS integration used periodic angular endpoints instead of mirrored Gauss-Chebyshev half-pupil nodes. Twelve arms need a 15-degree midpoint phase; radial rings, arms, weights and captured controls are unchanged.",
+  "samplingControlsCountsRadiiWeightsUnchanged": true,
+  "angularNodePlacementCorrected": true,
+  "prescriptionReferenceAndToleranceUnchanged": true,
+  "comparisonPolicyLfSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "effectiveToleranceLedger": "validation/rechecks/2026-10-29/final-core-170/afocal-comparison.json",
+  "effectiveToleranceLedgerSha256": "4c8f88f7fbe2030d8e67970769049981c7b2ff5662b74ae2de0570844d960716",
+  "nativeArchive": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+  "nativeArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "cases": [
+    {
+      "id": "0017-001-afocal-riflescope-c1-primary-f1-w2-rms-vs-field",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "configuration": 1,
+      "requestFingerprint": "e5449319e41fc25cb95b43592b47f499ec55e40aaa81c371daa95f06caaf820f",
+      "request": {
+        "canonicalAnalysisKey": "RMS vs Field",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "FieldDensity": "15",
+          "ScanDirection": "+y",
+          "NumRings": "6",
+          "Method": "GQ",
+          "GaussianAzimuthalSamples": "12",
+          "Data": "spot",
+          "Distribution": "hexapolar",
+          "WavelengthNumber": "2",
+          "Reference": "centroid",
+          "ShowDiffractionLimit": "False",
+          "UsePolarization": "False",
+          "RemoveVignetting": "True",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "True",
+          "RayDensity": "6",
+          "RemoveVignettingFactors": "True",
+          "WaveDensity": "21",
+          "FocusDensity": "16",
+          "MinimumFocus": "-0.1",
+          "MaximumFocus": "0.1",
+          "ScanType": "+y"
+        },
+        "zemaxSettings": {
+          "Method": "GaussQuad",
+          "RayDensity": "RayDens_6",
+          "ReferTo": "ChiefRay",
+          "Data": "SpotRadius",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "PlotScale": 0,
+          "Wavelength": 2,
+          "FieldDensity": "FieldDens_75",
+          "Orientation": "Plus_Y",
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "effectiveTolerances": {
+        "absolute": 1.7453292519943293e-05,
+        "relative": 0.001,
+        "nrmse": 0.003,
+        "closeNrmse": 0.01,
+        "minimumCoverage": 0.95
+      },
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0017-001-afocal-riflescope-c1-primary-f1-w2-rms-vs-field/workbench/request.json",
+      "requestMemberSha256": "d336544624f63be9d3a623dfab3e1822e067c2dd30dd4f44d3164bea93651315",
+      "snapshotArchiveMember": "artifacts/validation/afocal-recompare-20261026/baseline-v4/models/001-afocal-riflescope-c1.json",
+      "snapshotSha256": "83905a19963065b1727927d3b2e28897c43deca293e66d89ca8a167331da54a7",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0017-001-afocal-riflescope-c1-primary-f1-w2-rms-vs-field/native/data.json",
+          "sha256": "6c473dcbbccd4e068556930fe5c5ecd907978a6bcfef4fbebbc39a2041613081"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0017-001-afocal-riflescope-c1-primary-f1-w2-rms-vs-field/native/data.txt",
+          "sha256": "06d1713cc6b695a883a1dd0fe1ed8d8c487f9fa3aa2e30aa50c9be3e46879f48"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0017-001-afocal-riflescope-c1-primary-f1-w2-rms-vs-field/native/model.json",
+          "sha256": "b11823e2361b0e783bc347df4d4975865eb6acacc6c91ed96b2114cadb6c5bc1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0017-001-afocal-riflescope-c1-primary-f1-w2-rms-vs-field/native/captured-settings.json",
+          "sha256": "145c95a01ea8f111bd0227b37d198c39f6885116e7694c3c5b53489fbd6241a7"
+        }
+      ],
+      "before": {
+        "id": "0017-001-afocal-riflescope-c1-primary-f1-w2-rms-vs-field",
+        "fingerprint": "e5449319e41fc25cb95b43592b47f499ec55e40aaa81c371daa95f06caaf820f",
+        "violations": 1,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 16,
+          "maxAbsolute": 0.002218114630527568,
+          "meanAbsolute": 0.00017557681733281968,
+          "rmse": 0.0005693357651363867,
+          "nrmse": 0.000654394300709818,
+          "maxRelative": 0.002549500069068358,
+          "p50": 4.1068126399590454e-09,
+          "p90": 0.00028969841107845395,
+          "p95": 0.000938083930930228,
+          "pearson": 0.9999966274781146,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      },
+      "after": {
+        "id": "0017-001-afocal-riflescope-c1-primary-f1-w2-rms-vs-field",
+        "fingerprint": "e5449319e41fc25cb95b43592b47f499ec55e40aaa81c371daa95f06caaf820f",
+        "violations": 0,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 16,
+          "maxAbsolute": 4.137330811282425e-09,
+          "meanAbsolute": 1.9925631179751324e-09,
+          "rmse": 2.3279379065076572e-09,
+          "nrmse": 2.6757308985498603e-09,
+          "maxRelative": 1.4385491008608259e-08,
+          "p50": 1.7440908162136282e-09,
+          "p90": 3.4735502807414775e-09,
+          "p95": 3.6958151539145945e-09,
+          "pearson": 1.0000000000000004,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      },
+      "independentValueAudit": {
+        "before": {
+          "alignedValues": 16,
+          "violations": 1,
+          "maximumAbsolute": 0.002218114630527568
+        },
+        "after": {
+          "alignedValues": 16,
+          "violations": 0,
+          "maximumAbsolute": 4.137330811282425e-09
+        }
+      }
+    },
+    {
+      "id": "0047-002-beam-expander-c1-primary-f1-w1-rms-vs-field",
+      "lens": "Afocal/Beam Expander.ZMX",
+      "configuration": 1,
+      "requestFingerprint": "d92ccad4ebe35d9744b2d41926febd2c6323d70e3d596e81251aaad2f565a3ea",
+      "request": {
+        "canonicalAnalysisKey": "RMS vs Field",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "FieldDensity": "15",
+          "ScanDirection": "+y",
+          "NumRings": "6",
+          "Method": "GQ",
+          "GaussianAzimuthalSamples": "12",
+          "Data": "spot",
+          "Distribution": "hexapolar",
+          "WavelengthNumber": "1",
+          "Reference": "centroid",
+          "ShowDiffractionLimit": "False",
+          "UsePolarization": "False",
+          "RemoveVignetting": "True",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "RayDensity": "6",
+          "RemoveVignettingFactors": "True",
+          "WaveDensity": "21",
+          "FocusDensity": "16",
+          "MinimumFocus": "-0.1",
+          "MaximumFocus": "0.1",
+          "ScanType": "+y"
+        },
+        "zemaxSettings": {
+          "Method": "GaussQuad",
+          "RayDensity": "RayDens_6",
+          "ReferTo": "ChiefRay",
+          "Data": "SpotRadius",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "PlotScale": 0,
+          "Wavelength": 1,
+          "FieldDensity": "FieldDens_75",
+          "Orientation": "Plus_Y",
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "effectiveTolerances": {
+        "absolute": 1.7453292519943293e-05,
+        "relative": 0.001,
+        "nrmse": 0.003,
+        "closeNrmse": 0.01,
+        "minimumCoverage": 0.95
+      },
+      "sourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0047-002-beam-expander-c1-primary-f1-w1-rms-vs-field/workbench/request.json",
+      "requestMemberSha256": "9b8a9a6883dc1e23abe26353f806570746d0025ccc0f2fb70daafb255fce7485",
+      "snapshotArchiveMember": "artifacts/validation/afocal-recompare-20261026/baseline-v4/models/002-beam-expander-c1.json",
+      "snapshotSha256": "483d5b6057a54bbf858ec51dbd551d372ed765460c71cca6e8cfc8beb888e638",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0047-002-beam-expander-c1-primary-f1-w1-rms-vs-field/native/data.json",
+          "sha256": "637e9ccdd75310228f01728097417d62942acf801e90c1ffb4bdd6e041590867"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0047-002-beam-expander-c1-primary-f1-w1-rms-vs-field/native/data.txt",
+          "sha256": "72baf27486031f7190916f5410bb5a2196687f6e53f9f407ca58b175b4672717"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0047-002-beam-expander-c1-primary-f1-w1-rms-vs-field/native/model.json",
+          "sha256": "700eaf0b6c96816327b6c4961fa8e330950c5333b0d67b5082415e3f6400f3ee"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0047-002-beam-expander-c1-primary-f1-w1-rms-vs-field/native/captured-settings.json",
+          "sha256": "a7621c62a3c9ca7bab7351e2d3b4aafd447df37a804acebd56c0eb08d12cbf4b"
+        }
+      ],
+      "before": {
+        "id": "0047-002-beam-expander-c1-primary-f1-w1-rms-vs-field",
+        "fingerprint": "d92ccad4ebe35d9744b2d41926febd2c6323d70e3d596e81251aaad2f565a3ea",
+        "violations": 0,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 1,
+          "maxAbsolute": 1.364793694724753e-15,
+          "meanAbsolute": 1.364793694724753e-15,
+          "rmse": 1.364793694724753e-15,
+          "nrmse": 4.719182798833358e-12,
+          "maxRelative": 4.719182798833358e-12,
+          "p50": 1.364793694724753e-15,
+          "p90": 1.364793694724753e-15,
+          "p95": 1.364793694724753e-15,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 0.0002892012776143587,
+            "zemax": 0.0002892012776157235
+          }
+        }
+      },
+      "after": {
+        "id": "0047-002-beam-expander-c1-primary-f1-w1-rms-vs-field",
+        "fingerprint": "d92ccad4ebe35d9744b2d41926febd2c6323d70e3d596e81251aaad2f565a3ea",
+        "violations": 0,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 1,
+          "maxAbsolute": 1.1801540647504716e-16,
+          "meanAbsolute": 1.1801540647504716e-16,
+          "rmse": 1.1801540647504716e-16,
+          "nrmse": 4.0807359997855975e-13,
+          "maxRelative": 4.0807359997855975e-13,
+          "p50": 1.1801540647504716e-16,
+          "p90": 1.1801540647504716e-16,
+          "p95": 1.1801540647504716e-16,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 0.0002892012776158415,
+            "zemax": 0.0002892012776157235
+          }
+        }
+      },
+      "independentValueAudit": {
+        "before": {
+          "alignedValues": 1,
+          "violations": 0,
+          "maximumAbsolute": 1.364793694724753e-15
+        },
+        "after": {
+          "alignedValues": 1,
+          "violations": 0,
+          "maximumAbsolute": 1.1801540647504716e-16
+        }
+      }
+    },
+    {
+      "id": "0069-003-binocular_system-c1-primary-f1-w2-rms-vs-field",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 1,
+      "requestFingerprint": "16d3e6de3048da269d92a2a7992eef32e41b57b02f86b4b02bb42bcef1a28f20",
+      "request": {
+        "canonicalAnalysisKey": "RMS vs Field",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "FieldDensity": "15",
+          "ScanDirection": "+y",
+          "NumRings": "6",
+          "Method": "GQ",
+          "GaussianAzimuthalSamples": "12",
+          "Data": "spot",
+          "Distribution": "hexapolar",
+          "WavelengthNumber": "2",
+          "Reference": "centroid",
+          "ShowDiffractionLimit": "False",
+          "UsePolarization": "False",
+          "RemoveVignetting": "True",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "RayDensity": "6",
+          "RemoveVignettingFactors": "True",
+          "WaveDensity": "21",
+          "FocusDensity": "16",
+          "MinimumFocus": "-0.1",
+          "MaximumFocus": "0.1",
+          "ScanType": "+y"
+        },
+        "zemaxSettings": {
+          "Method": "GaussQuad",
+          "RayDensity": "RayDens_6",
+          "ReferTo": "ChiefRay",
+          "Data": "SpotRadius",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "PlotScale": 0,
+          "Wavelength": 2,
+          "FieldDensity": "FieldDens_75",
+          "Orientation": "Plus_Y",
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "effectiveTolerances": {
+        "absolute": 1.7453292519943293e-05,
+        "relative": 0.001,
+        "nrmse": 0.003,
+        "closeNrmse": 0.01,
+        "minimumCoverage": 0.95
+      },
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0069-003-binocular_system-c1-primary-f1-w2-rms-vs-field/workbench/request.json",
+      "requestMemberSha256": "c005e3c0086e5b61e24a259f910427ca32cbd0c283101fad4863f1d4142acdb2",
+      "snapshotArchiveMember": "artifacts/validation/afocal-recompare-20261026/baseline-v4/models/003-binocular_system-c1.json",
+      "snapshotSha256": "c870650c51b74f9e09ccb010b6248f0f5c284cc2e287e1f0b4b8185e9500f970",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0069-003-binocular_system-c1-primary-f1-w2-rms-vs-field/native/data.json",
+          "sha256": "73a3d476c538000f14d2a8ca65660e91556b0002aab5b1783abc1671e6ec88b1"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0069-003-binocular_system-c1-primary-f1-w2-rms-vs-field/native/data.txt",
+          "sha256": "71bcb13fed69b28e12bbfca5f846fde7401c9acddbe365d2ca55b9988b629802"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0069-003-binocular_system-c1-primary-f1-w2-rms-vs-field/native/model.json",
+          "sha256": "10e5d9fce6777ff0d5b71053522b758fa4958a01f6f3b712ce4d7e55b1a39bd0"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0069-003-binocular_system-c1-primary-f1-w2-rms-vs-field/native/captured-settings.json",
+          "sha256": "deaf0c596dcf1a16868a91cb829f36d70a655519a4c0b8060486c5772f9a8e29"
+        }
+      ],
+      "before": {
+        "id": "0069-003-binocular_system-c1-primary-f1-w2-rms-vs-field",
+        "fingerprint": "16d3e6de3048da269d92a2a7992eef32e41b57b02f86b4b02bb42bcef1a28f20",
+        "violations": 0,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 16,
+          "maxAbsolute": 2.2400599930527676e-08,
+          "meanAbsolute": 1.6182987734592036e-08,
+          "rmse": 1.6899452471224397e-08,
+          "nrmse": 1.9719638232668474e-08,
+          "maxRelative": 5.870025850049009e-08,
+          "p50": 1.678704159013833e-08,
+          "p90": 2.1508470060549456e-08,
+          "p95": 2.1968062591248838e-08,
+          "pearson": 1,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      },
+      "after": {
+        "id": "0069-003-binocular_system-c1-primary-f1-w2-rms-vs-field",
+        "fingerprint": "16d3e6de3048da269d92a2a7992eef32e41b57b02f86b4b02bb42bcef1a28f20",
+        "violations": 0,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 16,
+          "maxAbsolute": 5.738742814287434e-13,
+          "meanAbsolute": 3.481642057989731e-13,
+          "rmse": 3.5972303230279947e-13,
+          "nrmse": 4.197537211959019e-13,
+          "maxRelative": 1.3289401543587247e-12,
+          "p50": 3.23116533529344e-13,
+          "p90": 4.762301664129609e-13,
+          "p95": 5.134226377379036e-13,
+          "pearson": 1.0000000000000002,
+          "worstX": 0.9333333333333332,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      },
+      "independentValueAudit": {
+        "before": {
+          "alignedValues": 16,
+          "violations": 0,
+          "maximumAbsolute": 2.2400599930527676e-08
+        },
+        "after": {
+          "alignedValues": 16,
+          "violations": 0,
+          "maximumAbsolute": 5.738742814287434e-13
+        }
+      }
+    },
+    {
+      "id": "0099-003-binocular_system-c2-primary-f1-w2-rms-vs-field",
+      "lens": "Afocal/Binocular_System.ZMX",
+      "configuration": 2,
+      "requestFingerprint": "9e1282f9881d9f808871172d909ac2a84aac08de99ec2deff9dfbefca82e8321",
+      "request": {
+        "canonicalAnalysisKey": "RMS vs Field",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "FieldDensity": "15",
+          "ScanDirection": "+y",
+          "NumRings": "6",
+          "Method": "GQ",
+          "GaussianAzimuthalSamples": "12",
+          "Data": "spot",
+          "Distribution": "hexapolar",
+          "WavelengthNumber": "2",
+          "Reference": "centroid",
+          "ShowDiffractionLimit": "False",
+          "UsePolarization": "False",
+          "RemoveVignetting": "True",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "RayDensity": "6",
+          "RemoveVignettingFactors": "True",
+          "WaveDensity": "21",
+          "FocusDensity": "16",
+          "MinimumFocus": "-0.1",
+          "MaximumFocus": "0.1",
+          "ScanType": "+y"
+        },
+        "zemaxSettings": {
+          "Method": "GaussQuad",
+          "RayDensity": "RayDens_6",
+          "ReferTo": "ChiefRay",
+          "Data": "SpotRadius",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "PlotScale": 0,
+          "Wavelength": 2,
+          "FieldDensity": "FieldDens_75",
+          "Orientation": "Plus_Y",
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "effectiveTolerances": {
+        "absolute": 1.7453292519943293e-05,
+        "relative": 0.001,
+        "nrmse": 0.003,
+        "closeNrmse": 0.01,
+        "minimumCoverage": 0.95
+      },
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0099-003-binocular_system-c2-primary-f1-w2-rms-vs-field/workbench/request.json",
+      "requestMemberSha256": "583e805da2e111f90ebfa10783c6e3b0e50bd8588b874b3eee2826c1bc8a66ca",
+      "snapshotArchiveMember": "artifacts/validation/afocal-recompare-20261026/baseline-v4/models/003-binocular_system-c2.json",
+      "snapshotSha256": "f9db7be807e3dcb36cd9809e5ab9de0e63f43f7cc3ae05fbb1dd2c2587e4f416",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0099-003-binocular_system-c2-primary-f1-w2-rms-vs-field/native/data.json",
+          "sha256": "478db52c52289b4fac9e9d21cd1681d0ce01c49b725129796af1f9f5735ad0a7"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0099-003-binocular_system-c2-primary-f1-w2-rms-vs-field/native/data.txt",
+          "sha256": "9954f67c3ebb26764f4f0a5265db621767c5d51b5db60790096f5617acfdcdb2"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0099-003-binocular_system-c2-primary-f1-w2-rms-vs-field/native/model.json",
+          "sha256": "5d40cd3dceb6242a6e3e9c7bc4b15fc3ba9f08f91c0716e613ca45a74c04dd3d"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0099-003-binocular_system-c2-primary-f1-w2-rms-vs-field/native/captured-settings.json",
+          "sha256": "3e9782bca193c7910dd58d7ad5b90d995ad6864638ea8feacb01afaad1cb8d91"
+        }
+      ],
+      "before": {
+        "id": "0099-003-binocular_system-c2-primary-f1-w2-rms-vs-field",
+        "fingerprint": "9e1282f9881d9f808871172d909ac2a84aac08de99ec2deff9dfbefca82e8321",
+        "violations": 0,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 16,
+          "maxAbsolute": 2.2400536647815272e-08,
+          "meanAbsolute": 1.6182972142897434e-08,
+          "rmse": 1.6899434256655444e-08,
+          "nrmse": 1.9719616978446185e-08,
+          "maxRelative": 5.8700066089237625e-08,
+          "p50": 1.6787005924223664e-08,
+          "p90": 2.1508468728281827e-08,
+          "p95": 2.1968021457485776e-08,
+          "pearson": 0.9999999999999998,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      },
+      "after": {
+        "id": "0099-003-binocular_system-c2-primary-f1-w2-rms-vs-field",
+        "fingerprint": "9e1282f9881d9f808871172d909ac2a84aac08de99ec2deff9dfbefca82e8321",
+        "violations": 0,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 16,
+          "maxAbsolute": 5.715428130770306e-13,
+          "meanAbsolute": 3.4101020618404476e-13,
+          "rmse": 3.5251337300001487e-13,
+          "nrmse": 4.113409117587927e-13,
+          "maxRelative": 1.2305193261403885e-12,
+          "p50": 3.137212711834536e-13,
+          "p90": 4.5258241598844506e-13,
+          "p95": 4.929390229335695e-13,
+          "pearson": 1,
+          "worstX": 0.9333333333333332,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      },
+      "independentValueAudit": {
+        "before": {
+          "alignedValues": 16,
+          "violations": 0,
+          "maximumAbsolute": 2.2400536647815272e-08
+        },
+        "after": {
+          "alignedValues": 16,
+          "violations": 0,
+          "maximumAbsolute": 5.715428130770306e-13
+        }
+      }
+    },
+    {
+      "id": "0129-004-apochromat_prism-c1-primary-f1-w3-rms-vs-field",
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "configuration": 1,
+      "requestFingerprint": "a3b0531589fb55fc51799f77e0e01ee781abf26f764021726f9d151ed3289d7e",
+      "request": {
+        "canonicalAnalysisKey": "RMS vs Field",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "FieldDensity": "15",
+          "ScanDirection": "+y",
+          "NumRings": "6",
+          "Method": "GQ",
+          "GaussianAzimuthalSamples": "12",
+          "Data": "spot",
+          "Distribution": "hexapolar",
+          "WavelengthNumber": "3",
+          "Reference": "centroid",
+          "ShowDiffractionLimit": "False",
+          "UsePolarization": "False",
+          "RemoveVignetting": "True",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "RayDensity": "6",
+          "RemoveVignettingFactors": "True",
+          "WaveDensity": "21",
+          "FocusDensity": "16",
+          "MinimumFocus": "-0.1",
+          "MaximumFocus": "0.1",
+          "ScanType": "+y"
+        },
+        "zemaxSettings": {
+          "Method": "GaussQuad",
+          "RayDensity": "RayDens_6",
+          "ReferTo": "ChiefRay",
+          "Data": "SpotRadius",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "PlotScale": 0,
+          "Wavelength": 3,
+          "FieldDensity": "FieldDens_75",
+          "Orientation": "Plus_Y",
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "effectiveTolerances": {
+        "absolute": 1.7453292519943293e-05,
+        "relative": 0.001,
+        "nrmse": 0.003,
+        "closeNrmse": 0.01,
+        "minimumCoverage": 0.95
+      },
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "requestArchiveMember": "artifacts/validation/afocal-fft-energy-20261027/final-150-v2/0129-004-apochromat_prism-c1-primary-f1-w3-rms-vs-field/workbench/request.json",
+      "requestMemberSha256": "3b1e750e334e2d7456111d695ebdbcf838ac9f952a47bd3d5ca6f77ba68ac359",
+      "snapshotArchiveMember": "artifacts/validation/afocal-recompare-20261026/baseline-v4/models/004-apochromat_prism-c1.json",
+      "snapshotSha256": "2634b29b2ef9b357dc2528df14973145d4c25dd202e93d9faaf46f001a942cc1",
+      "nativeMembers": [
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0129-004-apochromat_prism-c1-primary-f1-w3-rms-vs-field/native/data.json",
+          "sha256": "18629aaf92602454231e85478449c6693a845c3eba9d6c85a6e7f3d8bcc0b921"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0129-004-apochromat_prism-c1-primary-f1-w3-rms-vs-field/native/data.txt",
+          "sha256": "bf020f7c1ab6225a54640a6fa7ba2901bfce6bc37127518359585e8e1fb4c749"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0129-004-apochromat_prism-c1-primary-f1-w3-rms-vs-field/native/model.json",
+          "sha256": "bc6ecf89c39ea8e57b8b1fbd30f6678768c642033d3558f6058e6d783faa0f35"
+        },
+        {
+          "member": "artifacts/validation/afocal-recompare-20261026/expanded/0129-004-apochromat_prism-c1-primary-f1-w3-rms-vs-field/native/captured-settings.json",
+          "sha256": "4825b070161a69a9936862a34157a398b2538080bee5f26a6db409c4d0534f82"
+        }
+      ],
+      "before": {
+        "id": "0129-004-apochromat_prism-c1-primary-f1-w3-rms-vs-field",
+        "fingerprint": "a3b0531589fb55fc51799f77e0e01ee781abf26f764021726f9d151ed3289d7e",
+        "violations": 0,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 1,
+          "maxAbsolute": 1.8932661725304283e-28,
+          "meanAbsolute": 1.8932661725304283e-28,
+          "rmse": 1.8932661725304283e-28,
+          "nrmse": 1.084761611808807e-23,
+          "maxRelative": "Infinity",
+          "p50": 1.8932661725304283e-28,
+          "p90": 1.8932661725304283e-28,
+          "p95": 1.8932661725304283e-28,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1.8932661725304283e-28,
+            "zemax": 0
+          }
+        }
+      },
+      "after": {
+        "id": "0129-004-apochromat_prism-c1-primary-f1-w3-rms-vs-field",
+        "fingerprint": "a3b0531589fb55fc51799f77e0e01ee781abf26f764021726f9d151ed3289d7e",
+        "violations": 0,
+        "metric": {
+          "id": "curve:0",
+          "unit": "Milliradian",
+          "count": 1,
+          "maxAbsolute": 1.8932661725304283e-28,
+          "meanAbsolute": 1.8932661725304283e-28,
+          "rmse": 1.8932661725304283e-28,
+          "nrmse": 1.084761611808807e-23,
+          "maxRelative": "Infinity",
+          "p50": 1.8932661725304283e-28,
+          "p90": 1.8932661725304283e-28,
+          "p95": 1.8932661725304283e-28,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1.8932661725304283e-28,
+            "zemax": 0
+          }
+        }
+      },
+      "independentValueAudit": {
+        "before": {
+          "alignedValues": 1,
+          "violations": 0,
+          "maximumAbsolute": 1.8932661725304283e-28
+        },
+        "after": {
+          "alignedValues": 1,
+          "violations": 0,
+          "maximumAbsolute": 1.8932661725304283e-28
+        }
+      }
+    }
+  ],
+  "diagnosis": {
+    "legacyFieldsAudited": 6,
+    "raysPerField": 72,
+    "allLaunchesAlive": true,
+    "historySurfacesPerRay": 19,
+    "maximumStopResidualMm": 3.249622793077833e-13,
+    "halfStepControl": [
+      {
+        "fieldIndex": 0,
+        "physicalDegrees": 0.0,
+        "nodeCount": 72,
+        "alive": 72,
+        "phaseRadians": 0.2617993877991494,
+        "independentlyRecomputedRms": 0.2876044250643985,
+        "native": 0.28760442092707517,
+        "difference": 4.1373233172770085e-09
+      },
+      {
+        "fieldIndex": 13,
+        "physicalDegrees": 2.166666666666667,
+        "nodeCount": 72,
+        "alive": 72,
+        "phaseRadians": 0.2617993877991494,
+        "independentlyRecomputedRms": 0.6706274922958044,
+        "native": 0.670627493988957,
+        "difference": -1.6931526181096501e-09
+      },
+      {
+        "fieldIndex": 14,
+        "physicalDegrees": 2.3333333333333335,
+        "nodeCount": 72,
+        "alive": 72,
+        "phaseRadians": 0.2617993877991494,
+        "independentlyRecomputedRms": 0.5537677359861813,
+        "native": 0.5537677370274778,
+        "difference": -1.0412964934758406e-09
+      },
+      {
+        "fieldIndex": 15,
+        "physicalDegrees": 2.5,
+        "nodeCount": 72,
+        "alive": 72,
+        "phaseRadians": 0.2617993877991494,
+        "independentlyRecomputedRms": 0.8700194408243154,
+        "native": 0.8700194431993542,
+        "difference": -2.375038832269638e-09
+      }
+    ]
+  },
+  "finalTests": [
+    {
+      "file": "rms-field-final.trx",
+      "counters": {
+        "total": "112",
+        "executed": "112",
+        "passed": "112",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "fed5333df276f07e54497d142aebeaae7220a6e03fcd3e5eb54800cd91afe560"
+    },
+    {
+      "file": "rms-field-protection.trx",
+      "counters": {
+        "total": "47",
+        "executed": "47",
+        "passed": "47",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "12979dbee4ab8d7104608fdd28804d1a9d7cdacbfcc2a31486d783b01b2ff396"
+    }
+  ],
+  "distinctPassingTests": 159,
+  "coreBinaries": [
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "a71aa3339d02ced1a327a64c30e1aa1c43c9ebaf13a8fe696b706ae7fecb749b"
+    },
+    {
+      "path": "tools/diagnostics/RmsField20261029/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "a71aa3339d02ced1a327a64c30e1aa1c43c9ebaf13a8fe696b706ae7fecb749b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "a71aa3339d02ced1a327a64c30e1aa1c43c9ebaf13a8fe696b706ae7fecb749b"
+    }
+  ],
+  "sourceIdentities": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/ApertureSampler.cs",
+      "sha256": "a4433c7af961c97e5c28a3ca9bbfacecbade9a2f730cc5b9fbd18e8f319f2a05"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Rays/SpotAnalysisSupport.cs",
+      "sha256": "24b06d3f0a39d3776db8496df11041d046c37a0d25f70d4c2fba56d19237ff75"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/GaussianAzimuthQuadratureTests.cs",
+      "sha256": "3f489691176f4b7d5e68b18491383682529818d3c1a2f27438ec456349b34f18"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalRmsFieldPointwiseTests.cs",
+      "sha256": "0f869951189df5f417dbfa183330e2d05fc1e35d16b08f546a169085c59e68da"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/RmsFieldDiagnostics.cs",
+      "sha256": "a8bd0ec6655e178e0e03d5bb19b17e9f7edc093e8f8b111d17895a66939311d0"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/OpticalSystemDesign.ZemaxComparison.Tests.csproj",
+      "sha256": "9599ae0935bf07cab1ec41e01bd86f7e652b1b9c87dd7549662be7dcd9f866b9"
+    },
+    {
+      "path": "tools/diagnostics/RmsField20261029/FocusedRmsRegression.csproj",
+      "sha256": "87c910d740980887d9b0620a98a7e1f86c1fcdbd582b6b915047feada75a8c89"
+    },
+    {
+      "path": "tools/diagnostics/RmsField20261029/packages.lock.json",
+      "sha256": "231e8b023d917e0f84a8b4e0e7b20dae0804dc6d1ad8bd9693e8065afa1ff6b6"
+    },
+    {
+      "path": "tools/diagnostics/RmsField20261029/Collect-Evidence.py",
+      "sha256": "3d477ee22b5e8ff0f74dc3495fb78a566c4ab37c4caf74c9babfd530bf3e8d11"
+    }
+  ],
+  "frozenIntegrity": {
+    "source": "HEAD",
+    "commit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "relocationMap": {
+      "path": "tools/validation/frozen-evidence-relocations.json",
+      "count": 4,
+      "expectedSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "actualSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "gitBlob": "54fb7863a30f8808fd335a62332dd3301c1243ea",
+      "gitLinkPath": null,
+      "matches": true
+    },
+    "relocations": [
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "gitBlob": "8ce33ef8a9c26d3b26cfef84d8f88e03acf30286",
+        "bytes": 10182,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "gitBlob": "16aefa0dc68de132b63abb9260bac174ad652b7b",
+        "bytes": 6098,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+        "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "gitBlob": "31bef72740c8acfb69c3ade3e0c03cc2a2f63b7a",
+        "bytes": 2010,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "gitBlob": "1356ccedaee37e9e41da3c9074ae375dbca33bab",
+        "bytes": 17236,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      }
+    ],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": [],
+      "relocationMap": {
+        "path": "tools/validation/frozen-evidence-relocations.json",
+        "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+        "count": 4
+      },
+      "relocations": [
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+          "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "matches": true
+        },
+        {
+          "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+          "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+          "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "matches": true
+        }
+      ]
+    }
+  },
+  "appBuild": {
+    "defaultOutput": true,
+    "exitCode": 0,
+    "warnings": 0,
+    "errors": 0,
+    "appLaunched": false
+  },
+  "earlierFailures": [
+    "rms-field-before.trx: five fixture-path failures, corrected to existing expanded/native members before optical comparison.",
+    "rms-field-baseline.trx: original 0.002218114630527568 mrad and one pointwise failure reproduced; four controls pass.",
+    "rms-field-azimuth.trx: repeats the original failure while exporting independent midpoint-node diagnostics.",
+    "rms-field-targeted.trx: repeats the final five passing cases, not additional coverage."
+  ],
+  "limitations": [
+    "Angular convention inferred from Gaussian quadrature and verified on the listed frozen native captures; official documentation does not publish an explicit angular formula.",
+    "General periodic sampler default, explicit pupil nodes, polarized/RA spot paths and wavefront integration remain separate contracts.",
+    "No full 170-request rerun after this correction, 95-file corpus, independent Cooke/Tessar investigation, native recapture, GUI/GPU or release."
+  ],
+  "evidenceArchiveSha256": "a31495746f6e1b57c726d7f21dc0a0282a57eb3b3bc918599ab275b97fde20c0",
+  "evidenceMembers": [
+    {
+      "file": "rms-field-azimuth.trx",
+      "sha256": "6a3af59222bf14d35852f167872502ee163c9aaee9c5193eb94bf90e86cdb2a1",
+      "bytes": 7997
+    },
+    {
+      "file": "rms-field-baseline.trx",
+      "sha256": "c04a63c2396974439b34a860be38bfd53041e03ebc0c5a583899d97d42917028",
+      "bytes": 18977
+    },
+    {
+      "file": "rms-field-before.trx",
+      "sha256": "47920af05096265cbce4028d4418f2d5aa18ce99038f4db5d4bce54437d6621f",
+      "bytes": 24233
+    },
+    {
+      "file": "rms-field-final.trx",
+      "sha256": "fed5333df276f07e54497d142aebeaae7220a6e03fcd3e5eb54800cd91afe560",
+      "bytes": 277714
+    },
+    {
+      "file": "rms-field-protection.trx",
+      "sha256": "12979dbee4ab8d7104608fdd28804d1a9d7cdacbfcc2a31486d783b01b2ff396",
+      "bytes": 73102
+    },
+    {
+      "file": "rms-field-targeted.trx",
+      "sha256": "d278d430f2110be4d2fc6c25004fd36515db318e8959000f7cb9daf633282ba7",
+      "bytes": 15345
+    },
+    {
+      "file": "frozen-integrity.json",
+      "sha256": "fd0572f2ff0ad3509d46bbfe610e2c9583edf52a5f633e4e81cd0b627670ce66",
+      "bytes": 5255
+    },
+    {
+      "file": "ApertureSampler.before.cs",
+      "sha256": "7fe27efc0bb53b211907495d64fa3c442140bfa12e06985e0fd2cb7dd3e81eed",
+      "bytes": 15005
+    },
+    {
+      "file": "SpotAnalysisSupport.before.cs",
+      "sha256": "61bbc0e5acbf189323f31dd3124ccf655a8ad8aa7078ac877f86f2e4f6538805",
+      "bytes": 16072
+    },
+    {
+      "file": "core-before.json",
+      "sha256": "3f81c9db623ee101f4f02dc0bd1b311601c5db9b0e2c109f8644e0d4ba55d77c",
+      "bytes": 249
+    },
+    {
+      "file": "app-build.log",
+      "sha256": "9a9fb02823a0c05029a694743052770809dbf6fc8eb81a5652b847fa952b247c",
+      "bytes": 1623
+    },
+    {
+      "file": "documentation.json",
+      "sha256": "7d7514bdbb7d2a606e75af1a8fd02d55b4a194d97ada39ee3bd826d89b71f39d",
+      "bytes": 353937
+    },
+    {
+      "file": "documentation.log",
+      "sha256": "f8eebd7d1c90934d0ca973fa3263004a85e49ec5903568841a75f7d26b8c45f4",
+      "bytes": 246
+    }
+  ],
+  "documentation": {
+    "Documents": 1266,
+    "BrokenLinks": [],
+    "MarkdownFenceIssues": [],
+    "LocalOnlyLinks": []
+  }
+}

@@ -1,0 +1,528 @@
+{
+  "date": "2026-10-29",
+  "baseCommit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+  "scope": "Two existing Beam Expander FFT PSF grids; unchanged original requests, axes, reference bytes and tolerances. No native recapture.",
+  "officialSources": [
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_PSF.html",
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Apodization_Type.html"
+  ],
+  "comparisonPolicyCheckoutSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+  "comparisonPolicyLfSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "policyContentMatchesHEAD": true,
+  "nativeManifestSha256": "8b19e5b6e4094f5aa0ff0442e7e0de4a179d30fd296609f8bb1cd1df61da1d07",
+  "nativeArchive": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+  "nativeArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "beamSourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+  "coreBinaries": [
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "61bad43d2a2796addd143beda115577886f708586b69da8a039f5e57ac5de219"
+    },
+    {
+      "path": "tools/diagnostics/BeamFftPsf20261029/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "61bad43d2a2796addd143beda115577886f708586b69da8a039f5e57ac5de219"
+    }
+  ],
+  "cases": [
+    {
+      "id": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf",
+      "requestFingerprint": "60048576a66dcf650d2e45408b6cad35b6c91e3b9aa107324e553ce960356b25",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.005,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0.005",
+          "UsePolarization": "False",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False",
+          "PupilSampling": "64",
+          "ImageSampling": "128"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "before": {
+        "id": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf",
+        "samples": 16384,
+        "violations": 853,
+        "actualPeak": 0.7603254372034693,
+        "nativePeak": 0.9999776444108148,
+        "maximumAbsolute": 0.23965220720734548,
+        "windowSumRatio": 0.7613771417477813,
+        "metric": {
+          "Id": "grid",
+          "Unit": "Dimensionless",
+          "Count": 16384,
+          "MaxAbsolute": 0.23965220720734548,
+          "MeanAbsolute": 0.000335918616206998,
+          "Rmse": 0.00650432979848405,
+          "Nrmse": 0.006504475209859707,
+          "MaxRelative": 211.73609283867754,
+          "P50": 4.5919227405754934e-07,
+          "P90": 4.708980144717434e-06,
+          "P95": 1.1408191786943624e-05,
+          "Pearson": 0.999999696837634,
+          "WorstX": 0,
+          "WorstY": 0,
+          "Coverage": 1,
+          "Conclusion": 0,
+          "Extra": {}
+        }
+      },
+      "after": {
+        "id": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf",
+        "samples": 16384,
+        "violations": 140,
+        "actualPeak": 0.9999776537805211,
+        "nativePeak": 0.9999776444108148,
+        "maximumAbsolute": 0.0005141969640932165,
+        "windowSumRatio": 1.0013608523310917,
+        "idealPeakRatio": 0.7603424279822442,
+        "metric": {
+          "Id": "grid",
+          "Unit": "Dimensionless",
+          "Count": 16384,
+          "MaxAbsolute": 0.0005141969640932165,
+          "MeanAbsolute": 2.156293239282325e-06,
+          "Rmse": 2.760933407279171e-05,
+          "Nrmse": 2.760995130952061e-05,
+          "MaxRelative": 278.7898486386261,
+          "P50": 1.8412714968405955e-08,
+          "P90": 1.560188719798095e-07,
+          "P95": 5.208900479232773e-07,
+          "Pearson": 0.9999996968376252,
+          "WorstX": -0.014999999999999977,
+          "WorstY": 0,
+          "Coverage": 1,
+          "Conclusion": 0,
+          "Extra": {}
+        }
+      },
+      "peakAbsoluteDifference": 9.369706233108843e-09,
+      "peakRelativeDifference": 9.36991573219359e-09,
+      "remainingPointwiseViolations": 140
+    },
+    {
+      "id": "0037-002-beam-expander-c1-primary-f1-w1-psf",
+      "requestFingerprint": "f3e5b4d2ba268506d76e839f55ca6d97dca7acc026776db5380941ce543fdd0b",
+      "request": {
+        "canonicalAnalysisKey": "PSF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0",
+          "UsePolarization": "False",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "Type": "线性",
+          "DisplayAs": "伪彩色",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "before": {
+        "id": "0037-002-beam-expander-c1-primary-f1-w1-psf",
+        "samples": 16384,
+        "violations": 529,
+        "actualPeak": 0.7662612704827416,
+        "nativePeak": 0.9999794964009192,
+        "maximumAbsolute": 0.2337182259181776,
+        "windowSumRatio": 0.7669151255472032,
+        "metric": {
+          "Id": "grid",
+          "Unit": "Dimensionless",
+          "Count": 16384,
+          "MaxAbsolute": 0.2337182259181776,
+          "MeanAbsolute": 0.00020411558698519154,
+          "Rmse": 0.005007327158591047,
+          "Nrmse": 0.005007429828924685,
+          "MaxRelative": 6.1170981541525284,
+          "P50": 2.4683669749005323e-07,
+          "P90": 2.1813761745183488e-06,
+          "P95": 4.998990454758688e-06,
+          "Pearson": 0.9999998853776523,
+          "WorstX": 0,
+          "WorstY": 0,
+          "Coverage": 1,
+          "Conclusion": 0,
+          "Extra": {}
+        }
+      },
+      "after": {
+        "id": "0037-002-beam-expander-c1-primary-f1-w1-psf",
+        "samples": 16384,
+        "violations": 48,
+        "actualPeak": 0.9999795006150428,
+        "nativePeak": 0.9999794964009192,
+        "maximumAbsolute": 0.0003141822950956108,
+        "windowSumRatio": 1.0008327887636326,
+        "idealPeakRatio": 0.7662769786895116,
+        "metric": {
+          "Id": "grid",
+          "Unit": "Dimensionless",
+          "Count": 16384,
+          "MaxAbsolute": 0.0003141822950956108,
+          "MeanAbsolute": 8.250852965020434e-07,
+          "Rmse": 1.3399457703084177e-05,
+          "Nrmse": 1.3399732445826036e-05,
+          "MaxRelative": 8.287892435871171,
+          "P50": 5.2831452837405574e-09,
+          "P90": 4.519973893631233e-08,
+          "P95": 1.4210152934208672e-07,
+          "Pearson": 0.9999998853776376,
+          "WorstX": -0.0063710112749607315,
+          "WorstY": -0.012742022549921394,
+          "Coverage": 1,
+          "Conclusion": 0,
+          "Extra": {}
+        }
+      },
+      "peakAbsoluteDifference": 4.214123605628117e-09,
+      "peakRelativeDifference": 4.2142100920017356e-09,
+      "remainingPointwiseViolations": 48
+    }
+  ],
+  "sourceIdentities": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "d87102ad2f0b884098d2298df5fd4a669081599deaccd5db615a146f6b8d207e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+      "sha256": "fd3e79e637f305f4f6f0d634988013a2b38d00165b150a8f2ab7691a1c389d44"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalPsfContractTests.cs",
+      "sha256": "882033c43b5afd7a705a8199cb977b24e35e45589adbd183fc1f05592db3d9af"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/FftPsfNormalizationTests.cs",
+      "sha256": "3dc657931b929ba5d38eec09c7fb5e75001bce6bd4fc5592fc1f6717bcdce858"
+    }
+  ],
+  "finalTests": [
+    {
+      "file": "targeted.trx",
+      "counters": {
+        "total": "68",
+        "executed": "68",
+        "passed": "68",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "f5736541842abc27b042707f343538fc44969eea8d86a87b54e20e8953850c78"
+    },
+    {
+      "file": "spectral-final.trx",
+      "counters": {
+        "total": "8",
+        "executed": "8",
+        "passed": "8",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "babac6a89b13aaaaf73f8ca1e7a90b66e1b7977e09f99da3e16966abd37c1a43"
+    },
+    {
+      "file": "protection-focused.trx",
+      "counters": {
+        "total": "46",
+        "executed": "46",
+        "passed": "46",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "e837272503fb01e1be9d30fb0a4a788b9523dac0a461cc49d9fde232f0654257"
+    }
+  ],
+  "distinctPassingTestNames": 116,
+  "frozenIntegrity": {
+    "source": "HEAD",
+    "commit": "4ec6ababa1961c5e370242156f2233422dc285f5",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "relocationMap": {
+      "path": "tools/validation/frozen-evidence-relocations.json",
+      "count": 4,
+      "expectedSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "actualSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "gitBlob": "54fb7863a30f8808fd335a62332dd3301c1243ea",
+      "gitLinkPath": null,
+      "matches": true
+    },
+    "relocations": [
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "gitBlob": "8ce33ef8a9c26d3b26cfef84d8f88e03acf30286",
+        "bytes": 10182,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "gitBlob": "16aefa0dc68de132b63abb9260bac174ad652b7b",
+        "bytes": 6098,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+        "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "gitBlob": "31bef72740c8acfb69c3ade3e0c03cc2a2f63b7a",
+        "bytes": 2010,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "gitBlob": "1356ccedaee37e9e41da3c9074ae375dbca33bab",
+        "bytes": 17236,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      }
+    ],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": [],
+      "relocationMap": {
+        "path": "tools/validation/frozen-evidence-relocations.json",
+        "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+        "count": 4
+      },
+      "relocations": [
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+          "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "matches": true
+        },
+        {
+          "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+          "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+          "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "matches": true
+        }
+      ]
+    }
+  },
+  "earlierFailures": {
+    "before.trx": "Three optical Gaussian failures and two missing materialized source fixtures; fixture materialization was rerun before before-optical.trx.",
+    "before-optical.trx": "Five real optical failures; uniform pupil control passed.",
+    "after.trx": "Peak defect fixed; proposed stronger all-pixel gate still failed at 48/140 pixels. These residuals remain open; final peak-specific test applies the unchanged absolute+relative tolerance at the peak and audits all pixels.",
+    "spectral.trx": "An additional direct profile/raster point equality assertion failed because the existing cross-section has its own interpolation. Replaced with the intended independent ideal-Strehl and no-double-normalization checks; production interpolation unchanged.",
+    "defaultAppBuild": "Main test project build stopped before tests: concurrent report edits referenced missing DesignReportWordWriter/DesignReportPdfWriter and ReportExportResult.MarkdownPath. Original five optical test files were compiled separately, without modifying their assertions."
+  },
+  "limitations": [
+    "Smaller off-center pointwise residuals remain; no full-grid pointwise closure or absolute radiometry claim.",
+    "No complete 150-request matrix, 95-file corpus, native GUI, CUDA, installer or release validation.",
+    "Shared workspace includes unrelated ongoing report/Delano changes; this evidence certifies only the stated FFT scope."
+  ],
+  "evidenceArchiveSha256": "f21082af1cab4e0cdacc571e3d5deff876e2fd1227e2dc64f289126e173f2bf9",
+  "evidenceMembers": [
+    {
+      "file": "after.trx",
+      "sha256": "e2661dfd1b028c5405375d3ca3bfaec8843041ed063e4eb2d9020943537fb026",
+      "bytes": 17264
+    },
+    {
+      "file": "before-optical.trx",
+      "sha256": "8d3f99d85544cb1a87184a217ea69698860fd1eda0d4b5d604dac809508afed3",
+      "bytes": 22862
+    },
+    {
+      "file": "before.trx",
+      "sha256": "a21a505ec1399e4dc5a1447777338e8f1b31979daa1c9a8479cf3ebea17116f5",
+      "bytes": 28382
+    },
+    {
+      "file": "protection-focused.trx",
+      "sha256": "e837272503fb01e1be9d30fb0a4a788b9523dac0a461cc49d9fde232f0654257",
+      "bytes": 72080
+    },
+    {
+      "file": "spectral-final.trx",
+      "sha256": "babac6a89b13aaaaf73f8ca1e7a90b66e1b7977e09f99da3e16966abd37c1a43",
+      "bytes": 14166
+    },
+    {
+      "file": "spectral.trx",
+      "sha256": "fd74d4f4ea35bc455187b5843c577e0fd9011703c98b75b6226cc41e82dd9998",
+      "bytes": 18839
+    },
+    {
+      "file": "targeted.trx",
+      "sha256": "f5736541842abc27b042707f343538fc44969eea8d86a87b54e20e8953850c78",
+      "bytes": 139558
+    },
+    {
+      "file": "frozen-integrity.json",
+      "sha256": "fd0572f2ff0ad3509d46bbfe610e2c9583edf52a5f633e4e81cd0b627670ce66",
+      "bytes": 5255
+    }
+  ]
+}

@@ -925,7 +925,8 @@ internal static class MtfMethodEvaluator
             resolvedSettings.PixelPitchMillimeters,
             usePolarization: resolvedSettings.UsePolarization,
             aimAtStop: resolvedSettings.UseZemaxHuygensSemantics && optic.RayAimingEnabled,
-            defocus: optic.ImageSpaceAfocal ? defocus : 0);
+            defocus: optic.ImageSpaceAfocal ? defocus : 0,
+            useParaxialPupilDefocus: resolvedSettings.UseZemaxHuygensSemantics);
         return SampleHuygensMtf(
             DiffractionEngine.ComputePsfMtf(psf), psf.GridSize, spatialFrequency,
             resolvedSettings.UseZemaxHuygensSemantics);
@@ -1035,7 +1036,8 @@ internal static class MtfMethodEvaluator
             : ((double X, double Y)?)null;
         return HuygensPsfSynthesis.Compute(optic, field, wavelengths, pupilSampling,
             imageSize, pixelPitchMillimeters, settings.UsePolarization,
-            referenceWavelength, imageCenterOffset, defocus).Psf;
+            referenceWavelength, imageCenterOffset, defocus,
+            useParaxialPupilDefocus: settings.UseZemaxHuygensSemantics).Psf;
     }
 
     internal static double ResolveHuygensImageDeltaMillimeters(
