@@ -23,18 +23,20 @@ internal sealed partial class MarkdownReportWindow : Window
     private readonly List<Control> _editable = new();
     private readonly StackPanel _parameters = new() { Spacing = 8, Margin = new Thickness(0, 0, 16, 0) };
     private readonly TextBox _directory = new() { Name = "ReportOutputDirectory" };
+    private static readonly DesignReportFormat[] Formats = [DesignReportFormat.Word, DesignReportFormat.Pdf, DesignReportFormat.Markdown, DesignReportFormat.Html];
+    private readonly ComboBox _format = new() { Name = "ReportExportFormat", ItemsSource = new[] { "Word (.docx)", "PDF (.pdf)", "Markdown (.md)", "HTML (.html)" }, Width = 220 };
     private readonly CheckBox _twoD = new() { Content = "二维布局" };
     private readonly CheckBox _threeD = new() { Content = "三维布局" };
     private readonly CheckBox _allConfigurations = new() { Content = "逐一导出所有配置" };
     private readonly OperationStatusBar _operationStatus = new("ReportExportProgress");
     private readonly TextBlock _status = new() { Text = "就绪", TextWrapping = TextWrapping.Wrap };
-    private readonly Button _export = new() { Name = "ExportMarkdownReport", Content = "一键导出 Markdown", MinWidth = 170 };
+    private readonly Button _export = new() { Name = "ExportMarkdownReport", Content = "开始导出", MinWidth = 170 };
     private readonly Border _renderHost = new() { Width = 1200, Height = 900, Opacity = 0, IsHitTestVisible = false };
     private CancellationTokenSource? _cancellation;
     private string? _editingKey;
     private string _defaultDirectory;
 
-    public MarkdownReportWindow(IWorkbenchApplication application, AppSettings settings, bool exportImmediately = false)
+    public MarkdownReportWindow(IWorkbenchApplication application, AppSettings settings)
     {
         _application = application;
         _appSettings = settings;
@@ -44,6 +46,9 @@ internal sealed partial class MarkdownReportWindow : Window
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         _defaultDirectory = MarkdownReportExporter.SuggestedDirectory(application.Documents.CurrentPath);
         _directory.Text = _defaultDirectory;
+        var selectedFormat = Array.IndexOf(Formats, _options.Format);
+        _format.SelectedIndex = selectedFormat >= 0 ? selectedFormat : 2;
+        AutomationProperties.SetName(_format, "导出格式");
         _twoD.IsChecked = _options.Include2DLayout;
         _threeD.IsChecked = _options.Include3DLayout;
         _allConfigurations.IsChecked = _options.AllConfigurations;
@@ -102,12 +107,19 @@ internal sealed partial class MarkdownReportWindow : Window
         };
         _editable.Add(saveSettings);
         var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 10, HorizontalAlignment = HorizontalAlignment.Right, Children = { saveSettings, _export } };
-        var root = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto,Auto,*,Auto,Auto,Auto"), RowSpacing = 12, Margin = new Thickness(18), ClipToBounds = true };
+        var formatRow = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 12,
+            Children =
+            { new TextBlock { Text = "导出格式", VerticalAlignment = VerticalAlignment.Center }, _format }
+        };
+        var root = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,*,Auto,Auto,Auto"), RowSpacing = 12, Margin = new Thickness(18), ClipToBounds = true };
         Add(new TextBlock { Text = "导出镜头结构、系统设置、布局和所选分析的结果及截图。文件名自动包含时间。", TextWrapping = TextWrapping.Wrap }, 0);
-        Add(directoryRow, 1); Add(layout, 2); Add(columns, 3); Add(_operationStatus, 4); Add(_status, 5); Add(actions, 6);
+        Add(formatRow, 1); Add(directoryRow, 2); Add(layout, 3); Add(columns, 4); Add(_operationStatus, 5); Add(_status, 6); Add(actions, 7);
         var shell = new Grid { ClipToBounds = true };
         shell.Children.Add(_renderHost); shell.Children.Add(root); Content = shell;
-        _editable.AddRange([_directory, browse, _twoD, _threeD, _allConfigurations, _export]);
+        _editable.AddRange([_format, _directory, browse, _twoD, _threeD, _allConfigurations, _export]);
         _export.Click += async (_, _) => await ExportAsync();
         Closing += (_, args) =>
         {
@@ -118,7 +130,6 @@ internal sealed partial class MarkdownReportWindow : Window
         if (_analyses.Count > 0) EditParameters(_analyses.FirstOrDefault(item => item.Value.IsChecked == true).Key ?? _analyses.Keys.First());
         application.Events.Changed += OnSourceChanged;
         Closed += (_, _) => { application.Events.Changed -= OnSourceChanged; _operationStatus.Dispose(); };
-        if (exportImmediately) Opened += async (_, _) => await ExportAsync();
 
         void Add(Control control, int row) { Grid.SetRow(control, row); root.Children.Add(control); }
     }
@@ -199,14 +210,13 @@ internal sealed partial class MarkdownReportWindow : Window
         }
     }
 
-    internal Task StartExportAsync() => ExportAsync();
-
     private void CaptureOptions()
     {
         CaptureParameters();
         _options.AnalysisKeys = _analyses.Where(item => item.Value.IsChecked == true).Select(item => item.Key).ToList();
         _options.Include2DLayout = _twoD.IsChecked == true; _options.Include3DLayout = _threeD.IsChecked == true;
         _options.AllConfigurations = _allConfigurations.IsChecked == true;
+        _options.Format = Formats[Math.Clamp(_format.SelectedIndex, 0, Formats.Length - 1)];
     }
 
     private async Task ExportAsync()
@@ -239,7 +249,7 @@ internal sealed partial class MarkdownReportWindow : Window
             var saved = _appSettings.TrySave(out var saveError);
             if (result.Failed == 0) _operationStatus.MarkSynced(UiLocalization.Text("报告已导出"));
             else _operationStatus.MarkStale(UiLocalization.Text("失败或不适用") + $"：{result.Failed}");
-            _status.Text = $"{UiLocalization.Text("报告已导出")}：{result.MarkdownPath}\n{result.Succeeded} {UiLocalization.Text("成功")}；{result.Failed} {UiLocalization.Text("失败或不适用")}"
+            _status.Text = $"{UiLocalization.Text("报告已导出")}：{result.ReportPath}\n{result.Succeeded} {UiLocalization.Text("成功")}；{result.Failed} {UiLocalization.Text("失败或不适用")}"
                 + (saved ? "" : $"\n{saveError}");
         }
         catch (OperationCanceledException) { _status.Text = UiLocalization.Text("导出已取消"); _operationStatus.MarkIdle(_status.Text); }

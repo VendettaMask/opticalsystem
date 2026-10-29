@@ -8,6 +8,7 @@ public sealed record DifferentiableParaxialTransferMatrix(ParaxialTransferMatrix
     public DifferentialScalar? InverseFNumber { get; init; }
     /// <summary>Whole-system optical power, present when whole-system pupil metrics are requested.</summary>
     public DifferentialScalar? OpticalPowerPerMillimeter { get; init; }
+    public DifferentialScalar? EntrancePupilDiameterMillimeters { get; init; }
 }
 
 /// <summary>Forward centered fixed-plane transfer derivatives, with the same endpoint convention as Core's nominal matrix.</summary>
@@ -29,12 +30,14 @@ public static class DifferentiableParaxialMetrics
         OpticalDifferentialContext.Verify(matrix.D, nominal.D, "fixed-plane matrix D");
         DifferentialScalar? inverse = null;
         DifferentialScalar? power = null;
+        DifferentialScalar? pupil = null;
         if (includeInverseFNumber)
         {
             var firstOrder = context.Paraxial();
             var formalPower = optic.Paraxial.EstimateOpticalPower();
             OpticalDifferentialContext.Verify(firstOrder.Power, formalPower, "whole-system optical power");
             power = firstOrder.Power.WithValue(formalPower);
+            pupil = firstOrder.EntrancePupilDiameter;
             var measured = DifferentialScalar.Abs(firstOrder.Power) * firstOrder.EntrancePupilDiameter;
             var fNumber = optic.Paraxial.EstimateFNumber();
             if (fNumber > 0 && double.IsFinite(fNumber))
@@ -47,6 +50,6 @@ public static class DifferentiableParaxialMetrics
             inverse = measured;
         }
         return new(nominal, matrix.A.WithValue(nominal.A), matrix.B.WithValue(nominal.B), matrix.C.WithValue(nominal.C), matrix.D.WithValue(nominal.D))
-        { InverseFNumber = inverse, OpticalPowerPerMillimeter = power };
+        { InverseFNumber = inverse, OpticalPowerPerMillimeter = power, EntrancePupilDiameterMillimeters = pupil };
     }
 }

@@ -1,12 +1,12 @@
 using System.Globalization;
-using System.Text;
+using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.App.Services;
 
 internal sealed record ReportExportProgress(int Completed, int Total, string Item);
-internal sealed record ReportExportResult(string MarkdownPath, int Succeeded, int Failed);
+internal sealed record ReportExportResult(string ReportPath, int Succeeded, int Failed);
 internal sealed record ReportImageRequest(AnalysisResultDto? Analysis, SceneDto? Scene,
     OpticalDocumentSnapshot Document, DateTimeOffset CapturedAt, string Title);
 internal delegate Task<IReadOnlyList<string>> ReportImageWriter(
@@ -32,18 +32,27 @@ internal static class MarkdownReportExporter
         IProgress<ReportExportProgress>? progress = null, CancellationToken cancellationToken = default)
     {
         settings = settings.Copy();
+        var extension = settings.Format switch
+        {
+            DesignReportFormat.Word => ".docx",
+            DesignReportFormat.Pdf => ".pdf",
+            DesignReportFormat.Markdown => ".md",
+            DesignReportFormat.Html => ".html",
+            _ => throw new InvalidOperationException("请选择有效的报告格式。")
+        };
+        cancellationToken.ThrowIfCancellationRequested();
         var workspace = snapshot.Workspace;
         var source = snapshot.SourceDocument;
         var root = Path.GetFullPath(outputDirectory);
         Directory.CreateDirectory(root);
         var name = string.IsNullOrWhiteSpace(source.Path) ? source.Name : Path.GetFileNameWithoutExtension(source.Path);
         var stem = ReportStem(name, snapshot.CapturedAt);
-        while (File.Exists(Path.Combine(root, stem + ".md")) || Directory.Exists(Path.Combine(root, stem + "_assets")))
+        while (File.Exists(Path.Combine(root, stem + extension)) || Directory.Exists(Path.Combine(root, stem + "_assets")))
             stem = ReportStem(name, snapshot.CapturedAt) + "_" + Guid.NewGuid().ToString("N")[..8];
         var stage = Path.Combine(root, ".report-export-" + Guid.NewGuid().ToString("N"));
         var images = Path.Combine(stage, "assets");
         var finalImages = Path.Combine(root, stem + "_assets");
-        var reportPath = Path.Combine(root, stem + ".md");
+        var reportPath = Path.Combine(root, stem + extension);
         Directory.CreateDirectory(images);
         var publishedImages = false;
         var publishedReport = false;
@@ -58,13 +67,10 @@ internal static class MarkdownReportExporter
             .Select(workspace.Analyses.CanonicalKey).Distinct(StringComparer.Ordinal).ToArray();
         var layoutCount = (settings.Include2DLayout ? 1 : 0) + (settings.Include3DLayout ? 1 : 0);
         var total = configurations.Length * (analyses.Length + layoutCount + 1) + 1;
-        var text = new StringBuilder();
-        text.AppendLine($"# {Escape(source.Name)} — 光学设计报告\n")
-            .AppendLine($"- 导出时间：{snapshot.CapturedAt:yyyy-MM-dd HH:mm:ss.fff zzz}")
-            .AppendLine($"- 软件：Optical System Design {typeof(MarkdownReportExporter).Assembly.GetName().Version}")
-            .AppendLine($"- 源文件：{Escape(source.Path ?? "未保存工程")}")
-            .AppendLine($"- 工程修订：{source.Revision}；包含未保存修改：{(source.IsDirty ? "是" : "否")}")
-            .AppendLine("- 数据范围：导出开始时的工程快照；所有计算和截图均来自该快照。\n");
+        var text = new DesignReportContent();
+        var appendix = new DesignReportContent();
+        var outcomes = new List<string[]>();
+        var currentConfiguration = 0;
         try
         {
             foreach (var configuration in configurations)
@@ -73,11 +79,12 @@ internal static class MarkdownReportExporter
                 if (workspace.Modes.CurrentMode == OpticalWorkbenchMode.Sequential)
                     workspace.MultiConfiguration.Activate(configuration);
                 var document = workspace.Documents.GetSnapshot();
+                currentConfiguration = configuration + 1;
                 var prefix = $"c{configuration + 1:D3}";
-                text.AppendLine($"## 配置 {configuration + 1}\n");
+                text.Heading($"配置 {configuration + 1}", 2, newPage: true);
+                appendix.Heading($"配置 {configuration + 1} 完整处方", 3);
                 progress?.Report(new(completed, total, "镜头结构与系统参数"));
-                AppendStructure(text, workspace, document);
-                CheckLength();
+                AppendStructure(text, appendix, workspace, document);
                 completed++;
                 foreach (var dimension in new[] { SceneDimension.TwoDimensional, SceneDimension.ThreeDimensional })
                 {
@@ -104,30 +111,70 @@ internal static class MarkdownReportExporter
                         // never to a previously saved UI output path.
                         if (descriptors.Any(parameter => parameter.Key == "OutputFile" && parameter.Kind == AnalysisParameterKind.File))
                             merged["OutputFile"] = Path.Combine(images, $"{prefix}-output-{i + 1:D3}.png");
-                        text.AppendLine("分析设置：\n").AppendLine("| 参数 | 值 |\n| --- | --- |");
-                        foreach (var parameter in workspace.Analyses.GetParameters(key, merged))
-                            text.AppendLine($"| {Escape(parameter.DisplayName)} ({Escape(parameter.Key)}) | {Escape(parameter.Key == "OutputFile" ? "报告附件目录" : merged.GetValueOrDefault(parameter.Key, parameter.DefaultValue))} |");
-                        text.AppendLine();
+                        appendix.Heading($"配置 {configuration + 1} {title} 计算记录", 3);
+                        appendix.Paragraph("分析设置");
+                        appendix.Table(["参数", "值"], workspace.Analyses.GetParameters(key, merged).Select(parameter => new[]
+                        {
+                            $"{parameter.DisplayName} ({parameter.Key})",
+                            parameter.Key == "OutputFile" ? "报告附件目录" : merged.GetValueOrDefault(parameter.Key, parameter.DefaultValue)
+                        }));
                         var result = await workspace.Analyses.RunAsync(new(Guid.NewGuid(), 1, key, merged), cancellationToken).ConfigureAwait(false);
                         if (result.View.Outcome != AnalysisOutcome.Success)
                             throw new InvalidOperationException(result.View.OutcomeReason ?? result.View.Outcome.ToString());
-                        text.AppendLine($"计算来源：{Escape(result.ExecutorId)}；请求指纹：{Escape(result.RequestFingerprint)}\n");
+                        appendix.Paragraph($"计算来源：{result.ExecutorId}；请求指纹：{result.RequestFingerprint}", ReportTextStyle.Muted);
                         if (result.View.ConfigurationScope is { } scope)
-                            text.AppendLine($"分析配置：{string.Join(", ", scope.ConfigurationNumbers)}；显示方式：{scope.Display}。\n");
-                        AppendAnalysis(text, result.View);
-                        await Images(new(result, null, result.SourceDocument ?? document, snapshot.CapturedAt, title), $"{prefix}-analysis-{i + 1:D3}");
+                            appendix.Paragraph($"分析配置：{string.Join(", ", scope.ConfigurationNumbers)}；显示方式：{scope.Display}。");
+                        var hasPlot = AnalysisPanel.HasReportPlot(result);
+                        await Images(new(result, null, result.SourceDocument ?? document, snapshot.CapturedAt, title), $"{prefix}-analysis-{i + 1:D3}", hasPlot ? text : appendix);
+                        AppendAnalysis(text, appendix, result.View);
                     });
                 }
             }
             cancellationToken.ThrowIfCancellationRequested();
-            progress?.Report(new(completed, total, "写入 Markdown 报告"));
-            text.AppendLine($"## 导出结果\n\n成功项目：{succeeded}；失败或不适用项目：{failed}。\n");
-            var stagedReport = Path.Combine(stage, "report.md");
-            await BoundedApplicationFile.WriteAllTextAtomicAsync(stagedReport, text.ToString(),
-                BoundedApplicationFile.MaximumExportBytes, "Markdown optical design report", cancellationToken).ConfigureAwait(false);
+            progress?.Report(new(completed, total, settings.Format switch
+            {
+                DesignReportFormat.Word => "写入 Word 报告",
+                DesignReportFormat.Pdf => "写入 PDF 报告",
+                DesignReportFormat.Html => "写入 HTML 报告",
+                _ => "写入 Markdown 报告"
+            }));
+            text.Heading("导出结果", 2);
+            text.Paragraph($"成功项目：{succeeded}；失败或不适用项目：{failed}。");
+            if (outcomes.Count > 0) text.Table(["配置", "项目", "执行状态"], outcomes);
+            text.Heading("附录 完整参数与计算记录", 2, newPage: true);
+            text.BeginAppendix();
+            text.Append(appendix);
+            var report = new DesignReportContent();
+            report.Heading("光学设计报告", 1);
+            report.Paragraph(source.Name, ReportTextStyle.Subtitle);
+            report.Paragraph("当前工程的镜头结构、布局与所选光学分析。各图表和数据均来自导出开始时的同一工程快照。", ReportTextStyle.Muted);
+            report.Heading("报告概览", 2);
+            report.Table(["报告信息", "内容"], [
+                ["导出时间", snapshot.CapturedAt.ToString("yyyy-MM-dd HH:mm:ss zzz", CultureInfo.InvariantCulture)],
+                ["源文件", source.Path ?? "未保存工程"], ["工程修订", $"{source.Revision}；包含未保存修改：{(source.IsDirty ? "是" : "否")}"],
+                ["配置范围", string.Join("、", configurations.Select(value => (value + 1).ToString(CultureInfo.InvariantCulture)))],
+                ["所选分析", analyses.Length == 0 ? "仅工程结构与所选布局" : string.Join("、", analyses.Select(WorkbenchAnalysisCatalog.DisplayName))],
+                ["执行概况", $"{succeeded} 项完成；{failed} 项失败或不适用"],
+                ["软件版本", $"Optical System Design {typeof(MarkdownReportExporter).Assembly.GetName().Version}"]]);
+            report.Contents(text.Blocks.OfType<ReportHeading>());
+            report.Append(text);
+            var stagedReport = Path.Combine(stage, "report" + extension);
+            if (settings.Format == DesignReportFormat.Markdown)
+                await BoundedApplicationFile.WriteAllTextAtomicAsync(stagedReport, report.Markdown(stem + "_assets"),
+                    BoundedApplicationFile.MaximumExportBytes, "Markdown optical design report", cancellationToken).ConfigureAwait(false);
+            else
+                BoundedApplicationFile.WriteAtomic(stagedReport, BoundedApplicationFile.MaximumExportBytes, "Optical design report", stream =>
+                {
+                    if (settings.Format == DesignReportFormat.Word) DesignReportWordWriter.Write(stream, report, images, cancellationToken);
+                    else if (settings.Format == DesignReportFormat.Html) DesignReportHtmlWriter.Write(stream, report, images, cancellationToken);
+                    else DesignReportPdfWriter.Write(stream, report, images, cancellationToken);
+                });
             cancellationToken.ThrowIfCancellationRequested();
-            Directory.Move(images, finalImages);
-            publishedImages = true;
+            if (settings.Format == DesignReportFormat.Markdown)
+            {
+                Directory.Move(images, finalImages);
+                publishedImages = true;
+            }
             File.Move(stagedReport, reportPath, overwrite: false);
             publishedReport = true;
             progress?.Report(new(total, total, "导出完成"));
@@ -144,49 +191,45 @@ internal static class MarkdownReportExporter
         {
             cancellationToken.ThrowIfCancellationRequested();
             progress?.Report(new(completed, total, title));
-            text.AppendLine($"### {Escape(title)}\n");
-            try { await action(); succeeded++; }
+            text.Heading(title, 3);
+            try { await action(); succeeded++; outcomes.Add([currentConfiguration.ToString(CultureInfo.InvariantCulture), title, "完成"]); }
             catch (OperationCanceledException) { throw; }
             catch (Exception error)
             {
                 failed++;
-                text.AppendLine($"> 未完成：{Escape(error.Message)}\n");
+                text.Paragraph($"未完成：{error.Message}", ReportTextStyle.Warning);
+                outcomes.Add([currentConfiguration.ToString(CultureInfo.InvariantCulture), title, "未完成：" + error.Message]);
             }
             completed++;
-            CheckLength();
             progress?.Report(new(completed, total, title));
         }
 
-        async Task Images(ReportImageRequest request, string imageStem)
+        async Task Images(ReportImageRequest request, string imageStem, DesignReportContent? destination = null)
         {
             var files = await writeImages(request, images, imageStem, cancellationToken).ConfigureAwait(false);
             if (files.Count == 0) throw new InvalidOperationException("未生成截图。");
             foreach (var file in files)
-                text.AppendLine($"![{Escape(request.Title)}](<{Uri.EscapeDataString(stem + "_assets")}/{Uri.EscapeDataString(Path.GetFileName(file))}>)\n");
-        }
-
-        void CheckLength()
-        {
-            if (text.Length > BoundedApplicationFile.MaximumExportBytes / 4)
-                throw new InvalidOperationException("报告超过大小上限，请减少分析项目或配置数量。");
+                (destination ?? text).Picture(request.Title, Path.GetFileName(file));
         }
     }
 
-    private static void AppendStructure(StringBuilder text, IWorkbenchApplication workspace, OpticalDocumentSnapshot document)
+    private static void AppendStructure(DesignReportContent text, DesignReportContent appendix, IWorkbenchApplication workspace, OpticalDocumentSnapshot document)
     {
-        text.AppendLine("### 系统参数\n\n| 参数 | 值 |\n| --- | --- |")
-            .AppendLine($"| EFL / mm | {Number(document.EffectiveFocalLength)} |")
-            .AppendLine($"| F/# | {Number(document.FNumber)} |")
-            .AppendLine($"| TTL / mm | {Number(document.TotalTrack)} |")
-            .AppendLine($"| 入瞳直径 / mm | {Number(document.EntrancePupilDiameter)} |\n");
-        text.AppendLine("### 镜头结构\n\n| 面号 | 名称 | 面型 | 半径 / mm | 厚度 / mm | 材料 | 半口径 / mm | 圆锥系数 | 光阑 |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |");
-        foreach (var surface in workspace.Prescription.GetSurfaces())
-            text.AppendLine($"| {surface.Number} | {Escape(surface.Label)} | {Escape(surface.GeometryKind)} | {Number(surface.Radius)} | {Number(surface.Thickness)} | {Escape(surface.Material)} | {Number(surface.SemiDiameter)} | {Number(surface.Conic)} | {(surface.IsStop ? "STOP" : "")} |");
-        text.AppendLine("\n完整处方与系统设置：\n");
+        text.Heading("系统参数", 3);
+        text.Table(["参数", "值"], [
+            ["EFL / mm", Number(document.EffectiveFocalLength)], ["F/#", Number(document.FNumber)],
+            ["TTL / mm", Number(document.TotalTrack)], ["入瞳直径 / mm", Number(document.EntrancePupilDiameter)]]);
+        text.Heading("镜头结构", 3);
+        text.Table(["面号", "名称", "面型", "半径 / mm", "厚度 / mm", "材料", "半口径 / mm", "圆锥系数", "光阑"],
+            workspace.Prescription.GetSurfaces().Select(surface => new[]
+            {
+                surface.Number.ToString(CultureInfo.InvariantCulture), surface.Label, surface.GeometryKind,
+                Number(surface.Radius), Number(surface.Thickness), surface.Material, Number(surface.SemiDiameter),
+                Number(surface.Conic), surface.IsStop ? "STOP" : ""
+            }));
         // Detailed DTOs retain geometry parameters, solve definitions, coatings
         // and system settings beyond the compact surface table.
-        text.AppendLine("```json");
-        text.AppendLine(System.Text.Json.JsonSerializer.Serialize(new
+        appendix.Code(System.Text.Json.JsonSerializer.Serialize(new
         {
             System = workspace.Prescription.GetSystemSettings(),
             Environment = workspace.Prescription.GetEnvironmentSettings(),
@@ -194,24 +237,33 @@ internal static class MarkdownReportExporter
             Wavelengths = workspace.Prescription.GetWavelengths(),
             Surfaces = workspace.Prescription.GetSurfaces(),
             NonSequential = workspace.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential ? workspace.NonSequential.GetDocument() : null
-        }, new System.Text.Json.JsonSerializerOptions { WriteIndented = true, NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals }));
-        text.AppendLine("```\n");
+        }, new System.Text.Json.JsonSerializerOptions { WriteIndented = true, NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals }), "json");
     }
 
-    private static void AppendAnalysis(StringBuilder text, AnalysisViewDto view)
+    private static void AppendAnalysis(DesignReportContent text, DesignReportContent appendix, AnalysisViewDto view)
     {
+        if (view.Table is { Columns.Count: > 0 } table)
+        {
+            if (table.Rows.Count > 80)
+            {
+                text.Paragraph($"数值表节选：前 12 行，共 {table.Rows.Count} 行。完整数值表见附录。", ReportTextStyle.Muted);
+                text.Table(table.Columns.ToArray(), table.Rows.Take(12).Select(row => row.ToArray()));
+                appendix.Table(table.Columns.ToArray(), table.Rows.Select(row => row.ToArray()));
+            }
+            else text.Table(table.Columns.ToArray(), table.Rows.Select(row => row.ToArray()));
+        }
+        else if (view.Rows.Count > 0)
+        {
+            text.Table(["指标", "数值"], view.Rows.Take(8).Select(row => new[] { row.Metric, row.Value }));
+            if (view.Rows.Count > 8)
+            {
+                text.Paragraph($"正文显示前 8 项，共 {view.Rows.Count} 项。完整指标见附录。", ReportTextStyle.Muted);
+                appendix.Table(["指标", "数值"], view.Rows.Select(row => new[] { row.Metric, row.Value }));
+            }
+        }
         if (!string.IsNullOrWhiteSpace(view.ReportText))
         {
-            // A fence longer than any run in source text cannot be closed by source content.
-            var fence = new string('`', Math.Max(3, view.ReportText.Split('\n').Select(line => line.TrimStart(' ', '\t').TakeWhile(ch => ch == '`').Count() + 1).Max()));
-            text.AppendLine(fence + "text").AppendLine(view.ReportText).AppendLine(fence).AppendLine();
-        }
-        else if (view.Table is { } table)
-        {
-            text.AppendLine("| " + string.Join(" | ", table.Columns.Select(Escape)) + " |")
-                .AppendLine("| " + string.Join(" | ", table.Columns.Select(_ => "---")) + " |");
-            foreach (var row in table.Rows) text.AppendLine("| " + string.Join(" | ", row.Select(Escape)) + " |");
-            text.AppendLine();
+            appendix.Code(view.ReportText, "text");
         }
     }
 

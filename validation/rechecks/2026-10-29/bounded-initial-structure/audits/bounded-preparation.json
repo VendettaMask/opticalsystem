@@ -1,0 +1,59 @@
+{
+  "AdditionalFirstOrderMetricRequests": 12,
+  "AdditionalTracedRays": 0,
+  "Scope": "Read-only post-run first-order diagnosis, not optimization work",
+  "Metrics": [
+    {
+      "Index": 0,
+      "Outcome": "DenseGeometryRejected",
+      "Score": 61.004461452486055,
+      "FocalMillimeters": 25.05432975074196,
+      "FNumber": 3.892226507372623,
+      "FocusA": -0.00029217130471181907,
+      "FocalRelativeError": -0.01604745396552132,
+      "FNumberRelativeError": 0.16478144075986645,
+      "FocusPassed": true,
+      "FocalPassed": true,
+      "FNumberPassed": false
+    },
+    {
+      "Index": 1,
+      "Outcome": "FirstOrderTargetRejected",
+      "Score": 65.75631749916438,
+      "FocalMillimeters": 27.577110906392406,
+      "FNumber": 4.222176599221101,
+      "FocusA": -0.00022017141523877903,
+      "FocalRelativeError": 0.08302911147788472,
+      "FNumberRelativeError": 0.2635217742512872,
+      "FocusPassed": true,
+      "FocalPassed": false,
+      "FNumberPassed": false
+    },
+    {
+      "Index": 2,
+      "Outcome": "FirstOrderTargetRejected",
+      "Score": 45.51651034146428,
+      "FocalMillimeters": 27.492181954330174,
+      "FNumber": 4.066463715952128,
+      "FocusA": -0.000323736255582574,
+      "FocalRelativeError": 0.07969371757810584,
+      "FNumberRelativeError": 0.2169233873960117,
+      "FocusPassed": true,
+      "FocalPassed": false,
+      "FNumberPassed": false
+    },
+    {
+      "Index": 3,
+      "Outcome": "FirstOrderTargetRejected",
+      "Score": 278.8791353400489,
+      "FocalMillimeters": 21.386927237107848,
+      "FNumber": 3.8673751026813066,
+      "FocusA": 0.00013253581934247194,
+      "FocalRelativeError": -0.16007645320533004,
+      "FNumberRelativeError": 0.15734444938579606,
+      "FocusPassed": true,
+      "FocalPassed": false,
+      "FNumberPassed": false
+    }
+  ]
+}

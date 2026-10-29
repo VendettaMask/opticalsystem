@@ -92,7 +92,7 @@ Optical System Design is a non-commercial optical-design project maintained by S
     </td>
     <td width="50%" valign="top">
       <h3>🛠️ Projects, materials, and manufacturing data</h3>
-      <p>Use material and lens libraries and save complete STAROPT projects. Export prescription and analysis CSV, complete PNGs, Markdown design reports, manufacturing drawings, and faceted STEP, with scoped ZMX, SEQ, and LEN exchange.</p>
+      <p>Use material and lens libraries and save complete STAROPT projects. Export prescription and analysis CSV, complete PNGs, Word/PDF/Markdown/HTML design reports, manufacturing drawings, and faceted STEP, with scoped ZMX, SEQ, and LEN exchange.</p>
       <a href="docs/FILE_FORMATS_AND_PLUGINS.md">Files and exchange formats</a> · <a href="docs/MARKDOWN_REPORT_EXPORT.md">Design reports →</a>
     </td>
   </tr>
@@ -128,7 +128,7 @@ Interferograms display fringe intensity computed by the shared Core from wavefro
 1. **Open or create a system:** import a supported sequential file or choose a categorized example, then save the complete project as `.staropt`.
 2. **Check the prescription and layout:** adjust system options, materials, and surfaces, switch configurations, and inspect 2D/3D propagation.
 3. **Analyze and improve:** choose the actual fields, wavelengths, and sampling, compare image quality, and set variables, merit targets, and tolerances as needed.
-4. **Save and deliver:** save the project, or use **Database → Design Report** to select analyses and configurations for Markdown and image export; explicitly export STEP for mechanical exchange.
+4. **Save and deliver:** save the project, or use **Database → Design Report** to select Word, PDF, Markdown, or HTML, choose analyses and configurations, then click **Start Export**. Word/PDF/HTML embed images; Markdown needs its accompanying image folder. Explicitly export STEP for mechanical exchange.
 
 Open AI Initial Structure and Optical Coating Design from **Laboratory**; they maintain their own experiments and run records. Initial-structure candidates require independent acceptance against the design goals, and coating experiments do not automatically modify the current lens. The [GPU guide](docs/AUTOLENS_GPU.md) describes device support and fallback scope. Autonomous topology insertion/deletion and search currently provide experimental CPU library interfaces; progress is tracked in the [implementation plan](docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md).
 

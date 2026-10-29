@@ -1,0 +1,289 @@
+{
+  "Mode": "bounded-candidates",
+  "SourcePlanFingerprint": "ea50725ca36102358024755685fda992c74ca2e3ed5c7e3dd8c51c35e3ecb3c6",
+  "Preparation": {
+    "Termination": "Completed",
+    "Retained": 0,
+    "FallbackToOriginal": true,
+    "Work": {
+      "FunctionEvaluations": 120,
+      "GradientEvaluations": 0,
+      "ValidationEvaluations": 0,
+      "MatrixEvaluations": 84,
+      "DifferenceEvaluations": 0,
+      "JacobianBuilds": 67,
+      "TracedRays": 0,
+      "GeometryProbes": 67280,
+      "Elapsed": "00:00:05.9114679"
+    },
+    "DiagramEvaluations": 40,
+    "Outcomes": [
+      {
+        "Index": 0,
+        "Outcome": "DenseGeometryRejected",
+        "FunctionEvaluations": 30,
+        "Score": 61.004461452486055
+      },
+      {
+        "Index": 1,
+        "Outcome": "FirstOrderTargetRejected",
+        "FunctionEvaluations": 30,
+        "Score": 65.75631749916438
+      },
+      {
+        "Index": 2,
+        "Outcome": "FirstOrderTargetRejected",
+        "FunctionEvaluations": 30,
+        "Score": 45.51651034146428
+      },
+      {
+        "Index": 3,
+        "Outcome": "FirstOrderTargetRejected",
+        "FunctionEvaluations": 30,
+        "Score": 278.8791353400489
+      }
+    ]
+  },
+  "InitialQuality": [
+    {
+      "Id": "seed-0",
+      "Elements": 3,
+      "Assessment": {
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 25.012716195783153,
+        "FNumber": 3.4028450695876655,
+        "Fields": 35,
+        "RmsMicrometers": 49.29257176225859,
+        "MaximumMicrometers": 136.48802777710335,
+        "DistortionPercent": 1.4720274828050226,
+        "MinimumIntegrationValid": 960,
+        "MinimumChecksValid": 99,
+        "Violations": [],
+        "Failure": null,
+        "TracedRayCount": 425420
+      }
+    }
+  ],
+  "BestRetained": {
+    "Id": "seed-0",
+    "Elements": 3,
+    "Assessment": {
+      "Completed": true,
+      "MeetsTargets": true,
+      "EffectiveFocalLengthMillimeters": 25.012716195783153,
+      "FNumber": 3.4028450695876655,
+      "Fields": 35,
+      "RmsMicrometers": 49.29257176225859,
+      "MaximumMicrometers": 136.48802777710335,
+      "DistortionPercent": 1.4720274828050226,
+      "MinimumIntegrationValid": 960,
+      "MinimumChecksValid": 99,
+      "Violations": [],
+      "Failure": null,
+      "TracedRayCount": 425420
+    }
+  },
+  "LastAssessment": {
+    "Completed": true,
+    "MeetsTargets": false,
+    "EffectiveFocalLengthMillimeters": 24.61823114684237,
+    "FNumber": 3.394085619803208,
+    "Fields": 35,
+    "RmsMicrometers": 60.21886693065451,
+    "MaximumMicrometers": 143.79104535581877,
+    "DistortionPercent": 1.6500766384113776,
+    "MinimumIntegrationValid": 960,
+    "MinimumChecksValid": 99,
+    "Violations": [
+      {
+        "Code": "focal-length",
+        "Actual": 0.03317424745383546,
+        "Limit": 0.02
+      },
+      {
+        "Code": "field:32:rms",
+        "Actual": 0.05128582985487399,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:33:rms",
+        "Actual": 0.05562435808656771,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:34:rms",
+        "Actual": 0.06021886693065451,
+        "Limit": 0.05
+      }
+    ],
+    "Failure": null,
+    "TracedRayCount": 438336
+  },
+  "Endpoints": [
+    {
+      "TrialId": "seed-0",
+      "Operation": "seed",
+      "Phase": "Validation",
+      "Outcome": "Accepted",
+      "Detail": null,
+      "Elements": 3,
+      "AcceptedUpdates": null,
+      "Assessment": {
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 25.012716195783153,
+        "FNumber": 3.4028450695876655,
+        "Fields": 35,
+        "RmsMicrometers": 49.29257176225859,
+        "MaximumMicrometers": 136.48802777710335,
+        "DistortionPercent": 1.4720274828050226,
+        "MinimumIntegrationValid": 960,
+        "MinimumChecksValid": 99,
+        "Violations": [],
+        "Failure": null,
+        "TracedRayCount": 425420
+      }
+    },
+    {
+      "TrialId": "trial-0",
+      "Operation": "population-rebirth",
+      "Phase": "Screening",
+      "Outcome": "ScreenPassed",
+      "Detail": "Accepted after 1 formal geometry request(s).",
+      "Elements": 3,
+      "AcceptedUpdates": null,
+      "Assessment": null
+    },
+    {
+      "TrialId": "trial-0",
+      "Operation": "population-rebirth",
+      "Phase": "Local",
+      "Outcome": "UpdateLimit",
+      "Detail": null,
+      "Elements": 3,
+      "AcceptedUpdates": 3,
+      "Assessment": null
+    },
+    {
+      "TrialId": "trial-0",
+      "Operation": "population-rebirth",
+      "Phase": "Full",
+      "Outcome": "RayBudgetExhausted",
+      "Detail": null,
+      "Elements": 3,
+      "AcceptedUpdates": 9,
+      "Assessment": null
+    },
+    {
+      "TrialId": "trial-0",
+      "Operation": "population-rebirth",
+      "Phase": "Validation",
+      "Outcome": "UnmetTargets",
+      "Detail": null,
+      "Elements": 3,
+      "AcceptedUpdates": null,
+      "Assessment": {
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 24.61823114684237,
+        "FNumber": 3.394085619803208,
+        "Fields": 35,
+        "RmsMicrometers": 60.21886693065451,
+        "MaximumMicrometers": 143.79104535581877,
+        "DistortionPercent": 1.6500766384113776,
+        "MinimumIntegrationValid": 960,
+        "MinimumChecksValid": 99,
+        "Violations": [
+          {
+            "Code": "focal-length",
+            "Actual": 0.03317424745383546,
+            "Limit": 0.02
+          },
+          {
+            "Code": "field:32:rms",
+            "Actual": 0.05128582985487399,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:33:rms",
+            "Actual": 0.05562435808656771,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:34:rms",
+            "Actual": 0.06021886693065451,
+            "Limit": 0.05
+          }
+        ],
+        "Failure": null,
+        "TracedRayCount": 438336
+      }
+    }
+  ],
+  "SearchWork": {
+    "FunctionEvaluations": 31,
+    "GradientEvaluations": 28,
+    "ValidationEvaluations": 2,
+    "MatrixEvaluations": 0,
+    "DifferenceEvaluations": 0,
+    "JacobianBuilds": 0,
+    "TracedRays": 1346682,
+    "GeometryProbes": 5574,
+    "Elapsed": "00:00:15.9469043"
+  },
+  "CombinedFunctions": 151,
+  "CombinedGradients": 28,
+  "CombinedRays": 1346682,
+  "ComputeAndSaveWallSeconds": 22.4230711,
+  "WallLimitSeconds": 60,
+  "WithinWallLimit": true,
+  "Status": "BudgetExhausted",
+  "TrialCursor": 1,
+  "PopulationOperations": [
+    {
+      "Operation": "population-rebirth",
+      "Phase": "Screening",
+      "Outcome": "ScreenPassed"
+    },
+    {
+      "Operation": "population-rebirth",
+      "Phase": "Feasibility",
+      "Outcome": "StageValidationDeferred"
+    },
+    {
+      "Operation": "population-rebirth",
+      "Phase": "Local",
+      "Outcome": "UpdateLimit"
+    },
+    {
+      "Operation": "population-rebirth",
+      "Phase": "Feasibility",
+      "Outcome": "StageValidationDeferred"
+    },
+    {
+      "Operation": "population-rebirth",
+      "Phase": "Full",
+      "Outcome": "RayBudgetExhausted"
+    },
+    {
+      "Operation": "population-rebirth",
+      "Phase": "Validation",
+      "Outcome": "UnmetTargets"
+    }
+  ],
+  "QualifiedCandidates": 1,
+  "BoundedConclusion": {
+    "BestQualifiedId": "seed-0",
+    "Complexity": {
+      "Elements": 3,
+      "AsphericSurfaces": 6,
+      "PolynomialTerms": 0
+    },
+    "StopReason": "InsufficientCompleteTrialBudget",
+    "ScreenedTrials": 1,
+    "RejectedScreens": 0,
+    "EvaluatedTrials": 1,
+    "ConsecutiveUnsuccessfulTrials": 1
+  }
+}

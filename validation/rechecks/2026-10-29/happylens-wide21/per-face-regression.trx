@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b5263ab3-3e6b-4568-87d1-3c847c9b23b6" name="optics@LAPTOP-G4BBBCS0 2026-10-29 10:41:22" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-29T10:41:22.7585819+08:00" queuing="2026-10-29T10:41:22.7585822+08:00" start="2026-10-29T10:41:16.7105404+08:00" finish="2026-10-29T10:41:27.9384233+08:00" />
+  <TestSettings name="default" id="58937429-8f9b-4729-a8dc-46d6b9eda19e">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-29_10_41_22" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="18c382e6-ce25-4739-8dbd-d880c591e74e" testId="8498eb8b-491e-39b0-d8ee-90f15f25e5be" testName="OpticalSystemDesign.InitialStructure.Tests.TopologyProtocolPortabilityTests.RetainedPlatformEncodingsLoadWithoutRewritingPhysicsOrSpendingRays" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.1421844" startTime="2026-10-29T10:41:22.0589247+08:00" endTime="2026-10-29T10:41:27.1991894+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="18c382e6-ce25-4739-8dbd-d880c591e74e" />
+    <UnitTestResult executionId="5cb5225a-d213-4735-891d-ba4f8c5b3a42" testId="5347c43b-e08b-8ce2-50c0-931763198104" testName="OpticalSystemDesign.InitialStructure.Tests.HappyLensWorkflowTests.ExplicitPerFaceGenerationAperturesPreserveThePhysicalTaskAndRoundTrip" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1977314" startTime="2026-10-29T10:41:22.7472230+08:00" endTime="2026-10-29T10:41:22.9055100+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5cb5225a-d213-4735-891d-ba4f8c5b3a42" />
+    <UnitTestResult executionId="3017d12d-0111-4970-988f-8b6c44b6c496" testId="949fb16d-9484-64a3-5507-478820c6aaf4" testName="OpticalSystemDesign.InitialStructure.Tests.HappyLensWorkflowTests.DescriptorGenerationDoesNotDependOnTemplateLensShapesAndNeverCertifiesImageQuality(method: RandomPhysical)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0131379" startTime="2026-10-29T10:41:22.7375400+08:00" endTime="2026-10-29T10:41:22.7377383+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3017d12d-0111-4970-988f-8b6c44b6c496" />
+    <UnitTestResult executionId="900edc5b-4a45-4662-92cc-23e2be88ac61" testId="7aba4f03-d10f-687a-3cfb-62b25e831088" testName="OpticalSystemDesign.InitialStructure.Tests.TopologyProtocolPortabilityTests.HistoricalAliasesBindAllTargetsConstraintsAndFieldCoordinatesExactly" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5742052" startTime="2026-10-29T10:41:27.2041295+08:00" endTime="2026-10-29T10:41:27.7733892+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="900edc5b-4a45-4662-92cc-23e2be88ac61" />
+    <UnitTestResult executionId="f06d9cc3-c607-44da-8f3c-a7cea2dadbec" testId="86f96bed-7216-879d-3b65-5c929687534e" testName="OpticalSystemDesign.InitialStructure.Tests.HappyLensWorkflowTests.DescriptorGenerationDoesNotDependOnTemplateLensShapesAndNeverCertifiesImageQuality(method: Delano)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4879634" startTime="2026-10-29T10:41:21.2672217+08:00" endTime="2026-10-29T10:41:22.6850921+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f06d9cc3-c607-44da-8f3c-a7cea2dadbec" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.TopologyProtocolPortabilityTests.RetainedPlatformEncodingsLoadWithoutRewritingPhysicsOrSpendingRays" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="8498eb8b-491e-39b0-d8ee-90f15f25e5be">
+      <Execution id="18c382e6-ce25-4739-8dbd-d880c591e74e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.TopologyProtocolPortabilityTests" name="RetainedPlatformEncodingsLoadWithoutRewritingPhysicsOrSpendingRays" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.HappyLensWorkflowTests.DescriptorGenerationDoesNotDependOnTemplateLensShapesAndNeverCertifiesImageQuality(method: RandomPhysical)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="949fb16d-9484-64a3-5507-478820c6aaf4">
+      <Execution id="3017d12d-0111-4970-988f-8b6c44b6c496" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.HappyLensWorkflowTests" name="DescriptorGenerationDoesNotDependOnTemplateLensShapesAndNeverCertifiesImageQuality" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.TopologyProtocolPortabilityTests.HistoricalAliasesBindAllTargetsConstraintsAndFieldCoordinatesExactly" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="7aba4f03-d10f-687a-3cfb-62b25e831088">
+      <Execution id="900edc5b-4a45-4662-92cc-23e2be88ac61" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.TopologyProtocolPortabilityTests" name="HistoricalAliasesBindAllTargetsConstraintsAndFieldCoordinatesExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.HappyLensWorkflowTests.ExplicitPerFaceGenerationAperturesPreserveThePhysicalTaskAndRoundTrip" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="5347c43b-e08b-8ce2-50c0-931763198104">
+      <Execution id="5cb5225a-d213-4735-891d-ba4f8c5b3a42" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.HappyLensWorkflowTests" name="ExplicitPerFaceGenerationAperturesPreserveThePhysicalTaskAndRoundTrip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.HappyLensWorkflowTests.DescriptorGenerationDoesNotDependOnTemplateLensShapesAndNeverCertifiesImageQuality(method: Delano)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="86f96bed-7216-879d-3b65-5c929687534e">
+      <Execution id="f06d9cc3-c607-44da-8f3c-a7cea2dadbec" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.HappyLensWorkflowTests" name="DescriptorGenerationDoesNotDependOnTemplateLensShapesAndNeverCertifiesImageQuality" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8498eb8b-491e-39b0-d8ee-90f15f25e5be" executionId="18c382e6-ce25-4739-8dbd-d880c591e74e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5347c43b-e08b-8ce2-50c0-931763198104" executionId="5cb5225a-d213-4735-891d-ba4f8c5b3a42" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="949fb16d-9484-64a3-5507-478820c6aaf4" executionId="3017d12d-0111-4970-988f-8b6c44b6c496" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7aba4f03-d10f-687a-3cfb-62b25e831088" executionId="900edc5b-4a45-4662-92cc-23e2be88ac61" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86f96bed-7216-879d-3b65-5c929687534e" executionId="f06d9cc3-c607-44da-8f3c-a7cea2dadbec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="5" executed="5" passed="5" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.61]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.92]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.98]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:08.62]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-10-29T10:41:27.8634669+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

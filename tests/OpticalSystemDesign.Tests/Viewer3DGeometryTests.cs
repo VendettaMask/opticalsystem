@@ -135,7 +135,7 @@ public sealed class Viewer3DGeometryTests
     [Viewer3DRenderTheory]
     [InlineData("Light")]
     [InlineData("Dark")]
-    public async Task SolidModelRemovesTheLowerRightGizmoAndKeepsTheLabelledTriad(string theme)
+    public async Task BothViewersKeepOnlyTheLowerLeftLabelledTriad(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
         await session.Dispatch(() =>
@@ -165,7 +165,9 @@ public sealed class Viewer3DGeometryTests
                 control.Scene = null; Tick(window);
                 var layoutBackground = RenderPixels(control);
                 control.Scene = dto; Tick(window);
-                Assert.True(ChangedPixels(layoutBackground, RenderPixels(control), 600, right) > 500);
+                var layout = RenderPixels(control);
+                Assert.Equal(0, ChangedPixels(layoutBackground, layout, 600, right));
+                Assert.True(ChangedPixels(layoutBackground, layout, 600, left) > 80);
             }
             finally { window.Close(); }
         }, CancellationToken.None);
@@ -634,7 +636,9 @@ public sealed class Viewer3DGeometryTests
                     Assert.InRange(VisualBounds(button).Right, VisualBounds(toolbar).Left, VisualBounds(toolbar).Right);
                     Assert.InRange(VisualBounds(button).Bottom, VisualBounds(toolbar).Top, VisualBounds(toolbar).Bottom);
                 }
-                var pointer = scene.TranslatePoint(new Point(scene.Bounds.Width / 2, scene.Bounds.Height / 2), window)!.Value;
+                // Exercise the canvas outside the floating navigation, which can
+                // cover the center after a full caption reduces the viewport height.
+                var pointer = scene.TranslatePoint(new Point(40, scene.Bounds.Height * 0.4), window)!.Value;
                 window.MouseDown(pointer, MouseButton.Left);
                 window.MouseMove(pointer + new Vector(35, 15));
                 window.MouseUp(pointer + new Vector(35, 15), MouseButton.Left); Tick(window);

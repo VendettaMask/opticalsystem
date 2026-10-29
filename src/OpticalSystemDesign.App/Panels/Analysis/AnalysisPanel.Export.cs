@@ -56,23 +56,9 @@ public sealed partial class AnalysisPanel
         if (!double.IsFinite(size.Width) || !double.IsFinite(size.Height) || size.Width <= 0 || size.Height <= 0)
             throw new InvalidOperationException("分析图像尚未显示");
 
-        var pixels = new PixelSize(checked((int)Math.Ceiling(size.Width * scale)), checked((int)Math.Ceiling(size.Height * scale)));
-        if (pixels.Width > 32_768 || pixels.Height > 32_768 || (long)pixels.Width * pixels.Height > 33_554_432)
-            throw new InvalidOperationException("分析图片超过尺寸上限，请减少同时显示的子图数量后重试");
-        var bitmap = new RenderTargetBitmap(pixels, new Vector(96 * scale, 96 * scale));
-        try
-        {
-            // Render the existing page to retain its camera, zoom, legend and
-            // complete footer. The toolbar, settings overlay and result tabs
-            // are siblings/ancestors and never enter the exported image.
-            bitmap.Render(content);
-            return bitmap;
-        }
-        catch
-        {
-            bitmap.Dispose();
-            throw;
-        }
+        // Frame the complete page while retaining its camera, legend and footer.
+        // Toolbar, settings and result tabs remain outside the image.
+        return ExportImageFrame.Capture(content, scale, this);
     }
 
     internal static void SavePlotImage(RenderTargetBitmap bitmap, string path) =>

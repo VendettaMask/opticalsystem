@@ -9,16 +9,20 @@ internal static class TopologyDiversitySelection
     internal static ImmutableArray<string> Select(AutonomousSearchCheckpoint state)
     {
         var policy = state.Plan.Options;
+        var priority = Comparer<AutonomousSearchCandidate>.Create((a, b) => policy.BoundedSearch is not null
+            ? a.Assessment.MeetsTargets && b.Assessment.MeetsTargets ? AutonomousSearchService.CompareQualified(a, b)
+                : a.Assessment.MeetsTargets != b.Assessment.MeetsTargets ? b.Assessment.MeetsTargets.CompareTo(a.Assessment.MeetsTargets) : a.Score.CompareTo(b.Score)
+            : a.Score.CompareTo(b.Score));
         var eligible = state.Candidates.Where(candidate => policy.QualifiedReductionOnly != true || candidate.Assessment.MeetsTargets);
         if (policy.PoolDiversity is null)
             return eligible.GroupBy(candidate => candidate.Topology.Elements.Length)
-                .SelectMany(group => group.OrderBy(candidate => candidate.Score).ThenBy(candidate => candidate.Id, StringComparer.Ordinal)
+                .SelectMany(group => group.OrderBy(candidate => candidate, priority).ThenBy(candidate => candidate.Id, StringComparer.Ordinal)
                     .Take(policy.CandidatesPerElementCount)).Select(candidate => candidate.Id).ToImmutableArray();
         var result = ImmutableArray.CreateBuilder<string>();
         foreach (var group in eligible.GroupBy(candidate => candidate.Topology.Elements.Length))
         {
             var pool = group.OrderByDescending(candidate => candidate.Assessment.MeetsTargets)
-                .ThenBy(candidate => candidate.Score).ThenBy(candidate => candidate.Id, StringComparer.Ordinal)
+                .ThenBy(candidate => candidate, priority).ThenBy(candidate => candidate.Id, StringComparer.Ordinal)
                 .DistinctBy(candidate => PrescriptionIdentity(candidate.Topology))
                 .Take(policy.PoolDiversity.RankWindow).ToList();
             var selected = new List<AutonomousSearchCandidate>();
@@ -35,8 +39,16 @@ internal static class TopologyDiversitySelection
 
     internal static string PrescriptionIdentity(DesignTopology topology) => ContentFingerprint.Compute(new
     {
-        Elements = topology.Elements.Select(element => new { element.FrontZMillimeters, element.ThicknessMillimeters,
-            element.Material, element.Front, element.Back, element.Protected, element.Transition }).ToArray()
+        Elements = topology.Elements.Select(element => new
+        {
+            element.FrontZMillimeters,
+            element.ThicknessMillimeters,
+            element.Material,
+            element.Front,
+            element.Back,
+            element.Protected,
+            element.Transition
+        }).ToArray()
     });
 
     internal static double Distance(DesignTopology left, DesignTopology right, TopologyTargets targets)

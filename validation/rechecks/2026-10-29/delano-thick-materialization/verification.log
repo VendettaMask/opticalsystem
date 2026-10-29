@@ -1,0 +1,38 @@
+{
+  "source_unchanged": true,
+  "same_caps_and_original_acceptance": true,
+  "frozen_comparison_runs": 3,
+  "first_order_and_manufacturing_passes_before_after": [
+    0,
+    4
+  ],
+  "scoped_distinct_tests_finally_passed": 43,
+  "arms": [
+    {
+      "mode": "original",
+      "original_gates_and_caps_preserved": true,
+      "functions": 38,
+      "gradients": 27,
+      "rays": 1362694,
+      "wall_seconds": 18.991011
+    },
+    {
+      "mode": "bounded-candidates",
+      "original_gates_and_caps_preserved": true,
+      "functions": 151,
+      "gradients": 28,
+      "rays": 1346682,
+      "wall_seconds": 23.7165097
+    },
+    {
+      "mode": "thick-delano",
+      "original_gates_and_caps_preserved": true,
+      "functions": 77,
+      "gradients": 21,
+      "rays": 1637216,
+      "wall_seconds": 14.7234008
+    }
+  ],
+  "post_run_first_order_requests": 24,
+  "post_run_diagnostic_rays": 0
+}

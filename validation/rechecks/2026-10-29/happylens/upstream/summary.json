@@ -1,0 +1,59 @@
+{
+  "device": "cpu",
+  "torch": "2.11.0+cu128",
+  "seed": 42,
+  "delano": {
+    "population": 32,
+    "updates": 20,
+    "initial_min": 0.014689386435720415,
+    "final_min": 0.00010970198786910233,
+    "finite": 32
+  },
+  "paths": {
+    "delano": {
+      "local_updates": 4,
+      "shade_generations": 2,
+      "population": 4,
+      "stage_loss": [
+        10.443649071802788,
+        10.37038811639482
+      ],
+      "final_loss": [
+        10.66802100700672,
+        10.334080569193386,
+        11.044022915764916,
+        11.04572340010605
+      ],
+      "valid": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "finite": 4
+    },
+    "random": {
+      "local_updates": 4,
+      "shade_generations": 2,
+      "population": 4,
+      "stage_loss": [
+        10909.871545805472,
+        8456.454338988415
+      ],
+      "final_loss": [
+        18272.831861000144,
+        1562.2904629326185,
+        16258.976901493596,
+        28.10080221905716
+      ],
+      "valid": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "finite": 4
+    }
+  },
+  "elapsed_seconds": 8.438000000023749
+}

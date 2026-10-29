@@ -1,0 +1,1121 @@
+OpticalSystemDesign Cooke Triplet 光学设计报告 
+导出时间：2026-10-29 09:55:06.194 +08:00 
+软件：Optical System Design 1.0.4.0 
+源文件：未保存工程 
+工程修订：0；包含未保存修改：否 
+数据范围：导出开始时的工程快照；所有计算和截图均来自该快照。 
+配置 1 
+系统参数 
+参数 
+值 
+EFL / mm 
+49.9997830714 
+F/# 
+4.99997830714 
+TTL / mm 
+60.17675 
+入瞳直径 / mm 
+10 
+ 
+镜头结构 
+面号 
+名称 
+面型 
+半径 / mm 
+厚度 / mm 
+材料 
+半口径 / mm 
+圆锥系数 
+光阑 
+0 
+Object 
+平面 
+0 
+Infinity 
+Air 
+12.8297854321 0 
+ 
+1 
+Crown front 
+标准球面/
+圆锥 
+22.01359 
+3.25896 
+SK16 
+8.55958565438 0 
+ 
+2 
+Crown back 
+标准球面/
+圆锥 
+-435.76044 
+6.00755 
+Air 
+7.99879850709 0 
+ 
+3 
+Flint front 
+标准球面/
+圆锥 
+-22.21328 
+0.99997 
+SCHOTT:F
+2 
+3.99807960651 0 
+ 
+4 
+Flint back / stop 
+标准球面/
+圆锥 
+20.29192 
+4.75041 
+Air 
+3.86582417638 0 
+STOP 
+5 
+Rear crown 
+front 
+标准球面/
+圆锥 
+79.6836 
+2.95208 
+SK16 
+6.92518615963 0 
+ 
+6 
+Rear crown 
+back 
+标准球面/
+圆锥 
+-18.39533 
+42.20778 
+Air 
+7.28825803861 0 
+ 
+
+面号 
+名称 
+面型 
+半径 / mm 
+厚度 / mm 
+材料 
+半口径 / mm 
+圆锥系数 
+光阑 
+7 
+Image 
+平面 
+0 
+0 
+Air 
+18.1725715251 0 
+ 
+ 
+完整处方与系统设置： 
+{ 
+  "System": { 
+    "Backend": "managed-cpu", 
+    "ApertureKind": "\u5165\u77B3\u76F4\u5F84", 
+    "ApertureValue": 10, 
+    "FieldDefinition": "\u89D2\u5EA6", 
+    "ObjectSpaceTelecentric": false, 
+    "ApodizationKind": "\u65E0", 
+    "FirstApodizationParameter": 1, 
+    "SecondApodizationParameter": 1, 
+    "ImageSpaceAfocal": false 
+  }, 
+  "Environment": { 
+    "MatchRefractiveIndexData": true, 
+    "TemperatureCelsius": 20, 
+    "PressureAtmospheres": 1 
+  }, 
+  "Fields": [ 
+    { 
+      "Index": 0, 
+      "Label": "On axis", 
+      "X": 0, 
+      "Y": 0, 
+      "VignetteFactorX": 0, 
+      "VignetteFactorY": 0, 
+      "Weight": 1, 
+      "VignetteDecenterX": 0, 
+      "VignetteDecenterY": 0, 
+      "VignetteAngleDegrees": 0 
+    }, 
+    { 
+      "Index": 1, 
+      "Label": "14 deg", 
+      "X": 0, 
+      "Y": 14, 
+      "VignetteFactorX": 0, 
+      "VignetteFactorY": 0, 
+      "Weight": 1, 
+      "VignetteDecenterX": 0, 
+      "VignetteDecenterY": 0, 
+      "VignetteAngleDegrees": 0 
+    }, 
+    { 
+      "Index": 2, 
+      "Label": "20 deg", 
+      "X": 0, 
+      "Y": 20, 
+      "VignetteFactorX": 0, 
+      "VignetteFactorY": 0, 
+      "Weight": 1, 
+      "VignetteDecenterX": 0, 
+      "VignetteDecenterY": 0, 
+      "VignetteAngleDegrees": 0 
+    } 
+  ], 
+  "Wavelengths": [ 
+
+    { 
+      "Index": 0, 
+      "Label": "F", 
+      "Nanometers": 480, 
+      "Weight": 1, 
+      "IsPrimary": false 
+    }, 
+    { 
+      "Index": 1, 
+      "Label": "d", 
+      "Nanometers": 550, 
+      "Weight": 1, 
+      "IsPrimary": true 
+    }, 
+    { 
+      "Index": 2, 
+      "Label": "C", 
+      "Nanometers": 650, 
+      "Weight": 1, 
+      "IsPrimary": false 
+    } 
+  ], 
+  "Surfaces": [ 
+    { 
+      "Number": 0, 
+      "Label": "Object", 
+      "Radius": 0, 
+      "Thickness": "Infinity", 
+      "Material": "Air", 
+      "Coating": "None", 
+      "SemiDiameter": 12.829785432055338, 
+      "Conic": 0, 
+      "IsStop": false, 
+      "GeometryKind": "\u5E73\u9762", 
+      "CoatingKind": "\u65E0\u9540\u819C", 
+      "InteractionKind": "\u6298\u5C04", 
+      "ApertureKind": "\u65E0", 
+      "GratingOrder": 1, 
+      "GratingPeriodMicrometers": 1, 
+      "GrooveOrientationAngleDegrees": 0, 
+      "ThinLensFocalLength": 50, 
+      "RadiusVariable": false, 
+      "ThicknessVariable": false, 
+      "SemiDiameterFixed": false, 
+      "GeometryComputable": true, 
+      "Inspection": { 
+        "ScatteringKind": "none", 
+        "OriginX": 0, 
+        "OriginY": 0, 
+        "OriginZ": 0, 
+        "TiltXDegrees": 0, 
+        "TiltYDegrees": 0, 
+        "TiltZDegrees": 0 
+      }, 
+      "RadiusSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "PickupEditable": true 
+      }, 
+      "MechanicalSemiDiameter": 12.829785432055338, 
+      "ThicknessSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+
+        "Offset": 0 
+      }, 
+      "SemiDiameterSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1 
+      }, 
+      "ThermalExpansionPpmPerC": 0, 
+      "ChipZone": 0, 
+      "GeometryDefinition": { 
+        "Kind": "plane", 
+        "Numbers": {} 
+      }, 
+      "DrawingAperture": { 
+        "Kind": "none", 
+        "CircularRadius": null 
+      } 
+    }, 
+    { 
+      "Number": 1, 
+      "Label": "Crown front", 
+      "Radius": 22.01359, 
+      "Thickness": 3.25896, 
+      "Material": "SK16", 
+      "Coating": "None", 
+      "SemiDiameter": 8.559585654383241, 
+      "Conic": 0, 
+      "IsStop": false, 
+      "GeometryKind": "\u6807\u51C6\u7403\u9762/\u5706\u9525", 
+      "CoatingKind": "\u65E0\u9540\u819C", 
+      "InteractionKind": "\u6298\u5C04", 
+      "ApertureKind": "\u65E0", 
+      "GratingOrder": 1, 
+      "GratingPeriodMicrometers": 1, 
+      "GrooveOrientationAngleDegrees": 0, 
+      "ThinLensFocalLength": 50, 
+      "RadiusVariable": false, 
+      "ThicknessVariable": false, 
+      "SemiDiameterFixed": false, 
+      "GeometryComputable": true, 
+      "Inspection": { 
+        "ScatteringKind": "none", 
+        "OriginX": 0, 
+        "OriginY": 0, 
+        "OriginZ": 0, 
+        "TiltXDegrees": 0, 
+        "TiltYDegrees": 0, 
+        "TiltZDegrees": 0 
+      }, 
+      "RadiusSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "PickupEditable": true 
+      }, 
+      "MechanicalSemiDiameter": 8.559585654383241, 
+      "ThicknessSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "Offset": 0 
+      }, 
+      "SemiDiameterSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+
+        "ScaleFactor": 1 
+      }, 
+      "ThermalExpansionPpmPerC": 0, 
+      "ChipZone": 0, 
+      "GeometryDefinition": { 
+        "Kind": "standard", 
+        "Numbers": { 
+          "radius": 22.01359, 
+          "conic": 0 
+        } 
+      }, 
+      "DrawingAperture": { 
+        "Kind": "none", 
+        "CircularRadius": null 
+      } 
+    }, 
+    { 
+      "Number": 2, 
+      "Label": "Crown back", 
+      "Radius": -435.76044, 
+      "Thickness": 6.00755, 
+      "Material": "Air", 
+      "Coating": "None", 
+      "SemiDiameter": 7.998798507087743, 
+      "Conic": 0, 
+      "IsStop": false, 
+      "GeometryKind": "\u6807\u51C6\u7403\u9762/\u5706\u9525", 
+      "CoatingKind": "\u65E0\u9540\u819C", 
+      "InteractionKind": "\u6298\u5C04", 
+      "ApertureKind": "\u65E0", 
+      "GratingOrder": 1, 
+      "GratingPeriodMicrometers": 1, 
+      "GrooveOrientationAngleDegrees": 0, 
+      "ThinLensFocalLength": 50, 
+      "RadiusVariable": false, 
+      "ThicknessVariable": false, 
+      "SemiDiameterFixed": false, 
+      "GeometryComputable": true, 
+      "Inspection": { 
+        "ScatteringKind": "none", 
+        "OriginX": 0, 
+        "OriginY": 0, 
+        "OriginZ": 3.25896, 
+        "TiltXDegrees": 0, 
+        "TiltYDegrees": 0, 
+        "TiltZDegrees": 0 
+      }, 
+      "RadiusSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "PickupEditable": true 
+      }, 
+      "MechanicalSemiDiameter": 7.998798507087743, 
+      "ThicknessSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "Offset": 0 
+      }, 
+      "SemiDiameterSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1 
+      }, 
+
+      "ThermalExpansionPpmPerC": 0, 
+      "ChipZone": 0, 
+      "GeometryDefinition": { 
+        "Kind": "standard", 
+        "Numbers": { 
+          "radius": -435.76044, 
+          "conic": 0 
+        } 
+      }, 
+      "DrawingAperture": { 
+        "Kind": "none", 
+        "CircularRadius": null 
+      } 
+    }, 
+    { 
+      "Number": 3, 
+      "Label": "Flint front", 
+      "Radius": -22.21328, 
+      "Thickness": 0.99997, 
+      "Material": "SCHOTT:F2", 
+      "Coating": "None", 
+      "SemiDiameter": 3.9980796065114275, 
+      "Conic": 0, 
+      "IsStop": false, 
+      "GeometryKind": "\u6807\u51C6\u7403\u9762/\u5706\u9525", 
+      "CoatingKind": "\u65E0\u9540\u819C", 
+      "InteractionKind": "\u6298\u5C04", 
+      "ApertureKind": "\u65E0", 
+      "GratingOrder": 1, 
+      "GratingPeriodMicrometers": 1, 
+      "GrooveOrientationAngleDegrees": 0, 
+      "ThinLensFocalLength": 50, 
+      "RadiusVariable": false, 
+      "ThicknessVariable": false, 
+      "SemiDiameterFixed": false, 
+      "GeometryComputable": true, 
+      "Inspection": { 
+        "ScatteringKind": "none", 
+        "OriginX": 0, 
+        "OriginY": 0, 
+        "OriginZ": 9.26651, 
+        "TiltXDegrees": 0, 
+        "TiltYDegrees": 0, 
+        "TiltZDegrees": 0 
+      }, 
+      "RadiusSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "PickupEditable": true 
+      }, 
+      "MechanicalSemiDiameter": 3.9980796065114275, 
+      "ThicknessSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "Offset": 0 
+      }, 
+      "SemiDiameterSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1 
+      }, 
+      "ThermalExpansionPpmPerC": 0, 
+      "ChipZone": 0, 
+
+      "GeometryDefinition": { 
+        "Kind": "standard", 
+        "Numbers": { 
+          "radius": -22.21328, 
+          "conic": 0 
+        } 
+      }, 
+      "DrawingAperture": { 
+        "Kind": "none", 
+        "CircularRadius": null 
+      } 
+    }, 
+    { 
+      "Number": 4, 
+      "Label": "Flint back / stop", 
+      "Radius": 20.29192, 
+      "Thickness": 4.75041, 
+      "Material": "Air", 
+      "Coating": "None", 
+      "SemiDiameter": 3.865824176376087, 
+      "Conic": 0, 
+      "IsStop": true, 
+      "GeometryKind": "\u6807\u51C6\u7403\u9762/\u5706\u9525", 
+      "CoatingKind": "\u65E0\u9540\u819C", 
+      "InteractionKind": "\u6298\u5C04", 
+      "ApertureKind": "\u65E0", 
+      "GratingOrder": 1, 
+      "GratingPeriodMicrometers": 1, 
+      "GrooveOrientationAngleDegrees": 0, 
+      "ThinLensFocalLength": 50, 
+      "RadiusVariable": false, 
+      "ThicknessVariable": false, 
+      "SemiDiameterFixed": false, 
+      "GeometryComputable": true, 
+      "Inspection": { 
+        "ScatteringKind": "none", 
+        "OriginX": 0, 
+        "OriginY": 0, 
+        "OriginZ": 10.26648, 
+        "TiltXDegrees": 0, 
+        "TiltYDegrees": 0, 
+        "TiltZDegrees": 0 
+      }, 
+      "RadiusSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "PickupEditable": true 
+      }, 
+      "MechanicalSemiDiameter": 3.865824176376087, 
+      "ThicknessSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "Offset": 0 
+      }, 
+      "SemiDiameterSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1 
+      }, 
+      "ThermalExpansionPpmPerC": 0, 
+      "ChipZone": 0, 
+      "GeometryDefinition": { 
+        "Kind": "standard", 
+
+        "Numbers": { 
+          "radius": 20.29192, 
+          "conic": 0 
+        } 
+      }, 
+      "DrawingAperture": { 
+        "Kind": "none", 
+        "CircularRadius": null 
+      } 
+    }, 
+    { 
+      "Number": 5, 
+      "Label": "Rear crown front", 
+      "Radius": 79.6836, 
+      "Thickness": 2.95208, 
+      "Material": "SK16", 
+      "Coating": "None", 
+      "SemiDiameter": 6.925186159630974, 
+      "Conic": 0, 
+      "IsStop": false, 
+      "GeometryKind": "\u6807\u51C6\u7403\u9762/\u5706\u9525", 
+      "CoatingKind": "\u65E0\u9540\u819C", 
+      "InteractionKind": "\u6298\u5C04", 
+      "ApertureKind": "\u65E0", 
+      "GratingOrder": 1, 
+      "GratingPeriodMicrometers": 1, 
+      "GrooveOrientationAngleDegrees": 0, 
+      "ThinLensFocalLength": 50, 
+      "RadiusVariable": false, 
+      "ThicknessVariable": false, 
+      "SemiDiameterFixed": false, 
+      "GeometryComputable": true, 
+      "Inspection": { 
+        "ScatteringKind": "none", 
+        "OriginX": 0, 
+        "OriginY": 0, 
+        "OriginZ": 15.01689, 
+        "TiltXDegrees": 0, 
+        "TiltYDegrees": 0, 
+        "TiltZDegrees": 0 
+      }, 
+      "RadiusSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "PickupEditable": true 
+      }, 
+      "MechanicalSemiDiameter": 6.925186159630974, 
+      "ThicknessSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "Offset": 0 
+      }, 
+      "SemiDiameterSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1 
+      }, 
+      "ThermalExpansionPpmPerC": 0, 
+      "ChipZone": 0, 
+      "GeometryDefinition": { 
+        "Kind": "standard", 
+        "Numbers": { 
+          "radius": 79.6836, 
+
+          "conic": 0 
+        } 
+      }, 
+      "DrawingAperture": { 
+        "Kind": "none", 
+        "CircularRadius": null 
+      } 
+    }, 
+    { 
+      "Number": 6, 
+      "Label": "Rear crown back", 
+      "Radius": -18.39533, 
+      "Thickness": 42.20778, 
+      "Material": "Air", 
+      "Coating": "None", 
+      "SemiDiameter": 7.28825803861361, 
+      "Conic": 0, 
+      "IsStop": false, 
+      "GeometryKind": "\u6807\u51C6\u7403\u9762/\u5706\u9525", 
+      "CoatingKind": "\u65E0\u9540\u819C", 
+      "InteractionKind": "\u6298\u5C04", 
+      "ApertureKind": "\u65E0", 
+      "GratingOrder": 1, 
+      "GratingPeriodMicrometers": 1, 
+      "GrooveOrientationAngleDegrees": 0, 
+      "ThinLensFocalLength": 50, 
+      "RadiusVariable": false, 
+      "ThicknessVariable": false, 
+      "SemiDiameterFixed": false, 
+      "GeometryComputable": true, 
+      "Inspection": { 
+        "ScatteringKind": "none", 
+        "OriginX": 0, 
+        "OriginY": 0, 
+        "OriginZ": 17.96897, 
+        "TiltXDegrees": 0, 
+        "TiltYDegrees": 0, 
+        "TiltZDegrees": 0 
+      }, 
+      "RadiusSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "PickupEditable": true 
+      }, 
+      "MechanicalSemiDiameter": 7.28825803861361, 
+      "ThicknessSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "Offset": 0 
+      }, 
+      "SemiDiameterSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1 
+      }, 
+      "ThermalExpansionPpmPerC": 0, 
+      "ChipZone": 0, 
+      "GeometryDefinition": { 
+        "Kind": "standard", 
+        "Numbers": { 
+          "radius": -18.39533, 
+          "conic": 0 
+        } 
+
+      }, 
+      "DrawingAperture": { 
+        "Kind": "none", 
+        "CircularRadius": null 
+      } 
+    }, 
+    { 
+      "Number": 7, 
+      "Label": "Image", 
+      "Radius": 0, 
+      "Thickness": 0, 
+      "Material": "Air", 
+      "Coating": "None", 
+      "SemiDiameter": 18.172571525091573, 
+      "Conic": 0, 
+      "IsStop": false, 
+      "GeometryKind": "\u5E73\u9762", 
+      "CoatingKind": "\u65E0\u9540\u819C", 
+      "InteractionKind": "\u6298\u5C04", 
+      "ApertureKind": "\u65E0", 
+      "GratingOrder": 1, 
+      "GratingPeriodMicrometers": 1, 
+      "GrooveOrientationAngleDegrees": 0, 
+      "ThinLensFocalLength": 50, 
+      "RadiusVariable": false, 
+      "ThicknessVariable": false, 
+      "SemiDiameterFixed": false, 
+      "GeometryComputable": true, 
+      "Inspection": { 
+        "ScatteringKind": "none", 
+        "OriginX": 0, 
+        "OriginY": 0, 
+        "OriginZ": 60.17675, 
+        "TiltXDegrees": 0, 
+        "TiltYDegrees": 0, 
+        "TiltZDegrees": 0 
+      }, 
+      "RadiusSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "PickupEditable": true 
+      }, 
+      "MechanicalSemiDiameter": 18.172571525091573, 
+      "ThicknessSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1, 
+        "Offset": 0 
+      }, 
+      "SemiDiameterSolve": { 
+        "Kind": 0, 
+        "SourceSurface": 0, 
+        "ScaleFactor": 1 
+      }, 
+      "ThermalExpansionPpmPerC": 0, 
+      "ChipZone": 0, 
+      "GeometryDefinition": { 
+        "Kind": "plane", 
+        "Numbers": {} 
+      }, 
+      "DrawingAperture": { 
+        "Kind": "none", 
+        "CircularRadius": null 
+      } 
+
+    } 
+  ], 
+  "NonSequential": null 
+} 
+二维布局 
+ 
+二维布局 
+
+三维布局 
+ 
+三维布局 
+标准点列图 
+分析设置： 
+参数 
+值 
+光线密度 (RayDensity) 
+6 
+样式 (Pattern) 
+六边 
+颜色显示 (ColorRaysBy) 
+波长 
+参照 (Reference) 
+主光线 
+使用偏振 (UsePolarization) 
+false 
+方向余弦 (DirectionCosines) 
+false 
+显示艾里斑 (ShowAiryDisk) 
+false 
+波长 (WavelengthNumber) 
+所有 
+视场 (FieldNumber) 
+所有 
+表面 (SurfaceNumber) 
+像面 
+
+参数 
+值 
+显示缩放 (DisplayScale) 
+比例尺 
+图形缩放 (PlotScaleMicrometers) 
+0 
+散射光线 (ScatterRays) 
+false 
+使用标注 (UseSymbols) 
+true 
+ 
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：
+71AF5CC0E81E6E4B90E6D4399D838263D102BFFBD31C4E92503E2FBC582F0CD4 
+分析：标准点列图 
+光线数：1143 
+渐晕光线数：0 
+视场数：3 
+波长数：3 
+六角采样环数：6 
+光线密度：6 
+瞳孔采样分布：hexapolar 
+样式：hexapolar 
+波长序号：0 
+视场序号：0 
+表面序号：-1 
+颜色显示：波长 
+参考：主光线 
+使用偏振：False 
+方向余弦：False 
+ImageSpaceAfocal：False 
+ImageCoordinateUnit：mm 
+显示艾里斑：False 
+艾里斑半径 (mm)：0 
+显示缩放：比例尺 
+图形缩放 (µm)：0 
+PlotScaleMilliradians：0 
+散射光线：False 
+使用标注：True 
+忽略垂轴色差：False 
+最大几何点半径 (mm)：0.048 
+
+ 
+标准点列图 
+光线像差图 
+分析设置： 
+参数 
+值 
+图形缩放 (µm，0 为自动) (PlotScaleMicrometers) 
+0 
+光线数 (NumberOfRays) 
+20 
+使用虚线 (UseDashes) 
+false 
+渐晕光瞳 (VignettedPupil) 
+true 
+检查孔径 (CheckApertures) 
+true 
+波长 (WavelengthNumber) 
+所有 
+视场 (FieldNumber) 
+所有 
+子午 (TangentialAberration) 
+Y Aberration 
+弧矢 (SagittalAberration) 
+X Aberration 
+
+参数 
+值 
+表面 (SurfaceNumber) 
+像面 
+ 
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：
+C0FD9293CEABC274C0CAE2AA949D2AF1D0E8D5852D1E3E8A4D9B568EF629B72F 
+分析：光线像差图 
+采样点数：41 
+原点每侧光线数：20 
+视场数：3 
+波长数：3 
+视场序号：0 
+波长序号：0 
+子午分量：Y Aberration 
+弧矢分量：X Aberration 
+表面序号：7 
+表面标注：Image 
+图形缩放 (µm)：0 
+PlotScaleMilliradians：0 
+ImageSpaceAfocal：False 
+RayAberrationUnit：mm 
+使用虚线：False 
+渐晕光瞳：True 
+检查孔径：True 
+最小光线像差 (mm)：-0.034 
+最大光线像差 (mm)：0.048 
+
+ 
+光线像差图 
+傅里叶 MTF 
+分析设置： 
+参数 
+值 
+采样 (Sampling) 
+64 
+最大频率 (cycles/mm，0 为默认) (MaximumFrequency) 
+0 
+波长（0 为全部） (WavelengthNumber) 
+0 
+视场（0 为全部） (FieldNumber) 
+0 
+表面（0 为像面） (SurfaceNumber) 
+0 
+类型 (Type) 
+调制 
+显示衍射极限 (ShowDiffractionLimit) 
+false 
+偏振加权（标量近似，Experimental） (UsePolarization) 
+false 
+使用虚线 (UseDashes) 
+false 
+
+ 
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：
+69BBAA54A5943B0616F242824C9D19BFFFC9880646A59EE93FCCECF97275AD0E 
+分析：傅里叶 MTF 
+方法：FFT 
+瞳面采样数：64 
+网格尺寸：128 
+MaximumFrequency：366.067 
+截止频率 (cycles/mm)：366.067 
+FrequencyUnit：cycles/mm 
+ImageSpaceAfocal：False 
+波长序号：0 
+波长 (µm)：System.Double[] 
+视场序号：0 
+视场数：3 
+表面序号：0 
+Type：Modulation 
+显示衍射极限：False 
+使用偏振：False 
+使用虚线：False 
+ZemaxCompatible：True 
+曲线采样点数：300 
+ 
+傅里叶 MTF 
+
+场曲/畸变 
+分析设置： 
+参数 
+值 
+最大场曲（0=自动） (MaximumCurvature) 
+0 
+最大畸变（0=自动） (MaximumDistortion) 
+0 
+波长（0=所有） (WavelengthNumber) 
+0 
+畸变模型 (DistortionType) 
+F-Tan(Theta) 
+畸变显示为 (DisplayMode) 
+百分比 
+扫描方向 (ScanDirection) 
++y 
+参考视场 (ReferenceFieldNumber) 
+1 
+傍轴光瞳间隔 (ParabasalDelta) 
+0.001 
+以主光线为傍轴参考 (ChiefRayParabasal) 
+true 
+忽略渐晕因数 (IgnoreVignettingFactors) 
+true 
+ 
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：
+72382CBED7E09CAE09246849CDD2940B3AE43C0FD7408D32C5DD38DF956EDC53 
+分析：场曲/畸变 
+场曲.最大视场角 (deg)：20 
+场曲.采样点数：128 
+场曲.近轴光线间隔：0.001 
+场曲.ParabasalRayPair：ChiefAndPositive 
+场曲.最大场曲缩放：0 
+场曲.波长数：3 
+场曲.波长序号：0 
+场曲.扫描方向：+y 
+场曲.忽略渐晕因数：True 
+场曲.VignettingFactorsApplied：False 
+场曲.Applicability：Strictly valid for rotationally symmetric systems with plane object and image 
+surfaces; generalized otherwise. 
+场曲.最大子午场曲 (mm)：-0.499 
+场曲.最大弧矢场曲 (mm)：0.273 
+场曲.最大像面偏移 (mm)：0.499 
+畸变.最大视场角 (deg)：20 
+畸变.畸变模型：f-tan 
+畸变.显示方式：percent 
+畸变.扫描方向：+y 
+畸变.参考视场：1 
+畸变.波长序号：0 
+畸变.忽略渐晕因数：True 
+畸变.VignettingFactorsApplied：False 
+
+畸变.Applicability：Strictly valid for rotationally symmetric systems with plane object and image 
+surfaces; generalized otherwise. 
+畸变.采样点数：128 
+畸变.波长数：3 
+畸变.最大绝对畸变 (%)：0.064 
+ 
+场曲/畸变 
+赛德尔系数 
+分析设置： 
+参数 
+值 
+波长 (WavelengthNumber) 
+2 
+ 
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：
+724762E0E7A3A70D130159258D5C23C3ED13E4EE8F1F835ED7CDF5EF5139A44D 
+波长                    :       0.5500 µm 
+主光线斜率，物空间      :       0.3640 
+主光线斜率，像空间      :       0.3557 
+边缘光线斜率，物空间    :       0.0000 
+边缘光线斜率，像空间    :      -0.1000 
+佩兹伐半径              :    -128.7867 
+光学不变量              :       1.8199 
+ 
+
+赛德尔像差系数： 
+ 
+表面      SPHA S1       COMA S2       ASTI S3       FCUR S4       DIST S5       CLA (CL)      CTR (CT)       
+1       0.013855      0.010591      0.008096      0.057727      0.050318      -0.007438     -0.005686      
+2       0.011256      -0.035011     0.108897      0.002916      -0.347781     -0.004910     0.015272       
+3       -0.052115     0.081389      -0.127106     -0.057268     0.287939      0.013345      -0.020841      
+光阑      -0.024135     -0.043874     -0.079756     -0.062690     -0.258946     0.010899      0.019813       
+5       0.004080      0.016132      0.063784      0.015948      0.315255      -0.003498     -0.013830      
+6       0.054020      -0.030462     0.017178      0.069082      -0.048643     -0.009183     0.005178       
+像面      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000       
+累计      0.006960      -0.001235     -0.008907     0.025716      -0.001859     -0.000785     -0.000094      
+ 
+赛德尔像差系数（波长）： 
+ 
+表面      W040          W131          W222          W220P         W311          W020          W111           
+1       3.148780      9.628234      7.360223      26.239739     45.743963     -6.761645     -10.337767     
+2       2.558225      -31.828143    98.997411     1.325570      -316.164959   -4.463789     27.768105      
+3       -11.844399    73.990085     -115.551090   -26.030774    261.762409    12.131975     -37.893265     
+光阑      -5.485193     -39.885145    -72.505420    -28.495523    -235.405831   9.908142      36.023134      
+5       0.927262      14.665313     57.985605     7.249056      286.595458    -3.179853     -25.145826     
+6       12.277202     -27.692970    15.616355     31.400951     -44.220874    -8.348218     9.415295       
+像面      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000       
+累计      1.581878      -1.122625     -8.096915     11.689019     -1.689834     -0.713389     -0.170324      
+ 
+横向像差系数： 
+ 
+表面      TSPH          TSCO          TTCO          TAST          TPFC          TSFC          TTFC          
+TDIS          TAXC          TLAC           
+1       0.069273      0.052955      0.158865      0.080962      0.288636      0.329117      0.410079      
+0.251591      0.074378      0.056857       
+2       0.056281      -0.175054     -0.525162     1.088967      0.014581      0.559065      1.648031      
+-1.738900     0.049101      -0.152724      
+3       -0.260576     0.406944      1.220831      -1.271056     -0.286337     -0.921866     -2.192922     
+1.439687      -0.133451     0.208412       
+光阑      -0.120674     -0.219367     -0.658102     -0.797556     -0.313449     -0.712227     -1.509784     
+-1.294726     -0.108989     -0.198126      
+5       0.020400      0.080659      0.241977      0.637839      0.079739      0.398659      1.036498      
+1.576268      0.034978      0.138301       
+6       0.270097      -0.152311     -0.456932     0.171779      0.345409      0.431299      0.603078      
+-0.243214     0.091830      -0.051784      
+像面      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      
+0.000000      0.000000      0.000000       
+累计      0.034801      -0.006174     -0.018523     -0.089066     0.128579      0.084046      -0.005020     
+-0.009294     0.007847      0.000937       
+ 
+轴向像差系数： 
+ 
+表面      LSPH          LSCO          LTCO          LAST          LPFC          LSFC          LTFC          
+LDIS          LAXC          LLAC           
+1       0.692726      0.529548      1.588645      0.809618      2.886346      3.291155      4.100773      
+2.515896      -0.743775     -0.568572      
+2       0.562805      -1.750533     -5.251598     10.889621     0.145811      5.590622      16.480243     
+-17.388922    -0.491013     1.527232       
+3       -2.605745     4.069419      12.208258     -12.710510    -2.863360     -9.218615     -21.929125    
+14.396808     1.334506      -2.084111      
+光阑      -1.206732     -2.193664     -6.580992     -7.975527     -3.134480     -7.122244     -
+15.097771    -12.947208    1.089886      1.981255       
+5       0.203996      0.806585      2.419756      6.378361      0.797389      3.986570      10.364931     
+15.762613     -0.349781     -1.383008      
+6       2.700961      -1.523100     -4.569300     1.717784      3.454075      4.312967      6.030751      
+-2.432127     -0.918296     0.517837       
+
+像面      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      
+0.000000      0.000000      0.000000       
+累计      0.348010      -0.061744     -0.185232     -0.890653     1.285781      0.840455      -0.050198     
+-0.092940     -0.078472     -0.009368      
+ 
+波前像差系数汇总（波长）： 
+ 
+表面      W040          W131          W222          W220P         W311          W020          W111           
+累计      1.581878      -1.122625     -8.096915     11.689019     -1.689834     -0.713389     -0.170324      
+ 
+场曲波前系数汇总（波长）： 
+ 
+表面      W220S         W220M         W220T          
+累计      7.640562      3.592104      -0.456354 
+ 
+赛德尔系数 
+
+ 
+赛德尔系数 
+波前图 
+分析设置： 
+参数 
+值 
+采样 (Sampling) 
+64 x 64 
+旋转 (Rotation) 
+0 
+缩放 (DisplayScale) 
+1 
+偏振 (Apodization) 
+无 
+参考主光线 (ReferenceChiefRay) 
+false 
+使用出瞳形状 (UseExitPupilShape) 
+true 
+出瞳模型 (ExitPupilGeometry) 
+F 数近似 
+波长 (WavelengthNumber) 
+2 
+视场 (FieldNumber) 
+1 - 轴上视场 
+表面 (SurfaceNumber) 
+像面 
+显示为 (DisplayAs) 
+表面 
+除去倾斜 (RemoveTilt) 
+false 
+Sx (PupilSx) 
+0 
+Sy (PupilSy) 
+0 
+Sr (PupilSr) 
+1 
+ 
+
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：
+D763405C2B8B86B9CB5A856C673797B27F2CF98E0C98BF1C2B356FE27EA1025A 
+分析：波前图 
+光线数：3001 
+渐晕光线数：0 
+参考光程：23.706 
+平均光程差：-2.67E-4 
+RMS 光程差：1.005E-4 
+PV 光程差：3.53E-4 
+RMS 波数：0.183 
+波峰到波谷：0.642 
+参考球半径 (mm)：50.961 
+ReferenceGeometry：reference sphere 
+ImageSpaceAfocal：False 
+出瞳直径 (mm)：10.234 
+归一化视场 Hx：0 
+归一化视场 Hy：0 
+分析波长 (µm)：0.55 
+参考：reference_sphere 
+采样：64 x 64 
+旋转：0 
+显示缩放：1 
+偏振：无 
+参考主光线：False 
+使用出瞳形状：True 
+出瞳几何模式：WorkingFNumber 
+出瞳显示参考半径 (mm)：0 
+光阑像最大交会残差 (mm)：0 
+出瞳 X 显示比例：1 
+出瞳 Y 显示比例：1 
+出瞳显示模型：Approximate X/Y working-F-number projection; display only 
+ExitPupilWorkingFNumberX：4.978 
+ExitPupilWorkingFNumberY：4.978 
+UseRayAiming：False 
+波长序号：2 
+视场序号：1 
+表面序号：7 
+表面标注：Image 
+显示为：表面 
+除去倾斜：False 
+Sx：0 
+Sy：0 
+Sr：1 
+
+ 
+波前图 
+导出结果 
+成功项目：8；失败或不适用项目：0。 

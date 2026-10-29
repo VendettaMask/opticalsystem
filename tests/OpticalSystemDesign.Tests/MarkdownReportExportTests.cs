@@ -51,10 +51,10 @@ public sealed class MarkdownReportExportTests
         var result = await MarkdownReportExporter.ExportAsync(snapshot, options,
             MarkdownReportExporter.SuggestedDirectory(path), WritePlaceholder,
             new InlineProgress<ReportExportProgress>(progress.Add));
-        Assert.Equal(directory.Path, Path.GetDirectoryName(result.MarkdownPath));
-        Assert.Matches(@"_report_\d{8}_\d{6}_\d{3}\.md$", result.MarkdownPath);
+        Assert.Equal(directory.Path, Path.GetDirectoryName(result.ReportPath));
+        Assert.Matches(@"_report_\d{8}_\d{6}_\d{3}\.md$", result.ReportPath);
         Assert.Equal(3, result.Succeeded); Assert.Equal(0, result.Failed);
-        var markdown = await File.ReadAllTextAsync(result.MarkdownPath);
+        var markdown = await File.ReadAllTextAsync(result.ReportPath);
         Assert.Contains("镜头结构", markdown); Assert.Contains("RayDensity", markdown);
         Assert.Contains("计算来源", markdown); Assert.Contains("```json", markdown);
         var links = Regex.Matches(markdown, @"!\[[^\]]*\]\(<([^>]+)>\)");
@@ -66,12 +66,16 @@ public sealed class MarkdownReportExportTests
         Assert.Equal(initial, application.Documents.GetRecoveryState());
         using var repeat = application.CaptureReportSnapshot();
         var second = await MarkdownReportExporter.ExportAsync(repeat, options, directory.Path, WritePlaceholder);
-        Assert.NotEqual(result.MarkdownPath, second.MarkdownPath);
-        Assert.True(File.Exists(result.MarkdownPath));
+        Assert.NotEqual(result.ReportPath, second.ReportPath);
+        Assert.True(File.Exists(result.ReportPath));
     }
 
-    [Fact]
-    public async Task CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles()
+    [Theory]
+    [InlineData(DesignReportFormat.Markdown)]
+    [InlineData(DesignReportFormat.Word)]
+    [InlineData(DesignReportFormat.Pdf)]
+    [InlineData(DesignReportFormat.Html)]
+    public async Task CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(DesignReportFormat format)
     {
         using var directory = new ReportTestDirectory();
         var existing = Path.Combine(directory.Path, "existing.md");
@@ -80,7 +84,7 @@ public sealed class MarkdownReportExportTests
         using var snapshot = application.CaptureReportSnapshot();
         using var cancellation = new CancellationTokenSource();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => MarkdownReportExporter.ExportAsync(
-            snapshot, new() { AnalysisKeys = [] }, directory.Path,
+            snapshot, new() { Format = format, AnalysisKeys = [] }, directory.Path,
             async (request, output, stem, token) =>
             {
                 var result = await WritePlaceholder(request, output, stem, token);
@@ -113,7 +117,7 @@ public sealed class MarkdownReportExportTests
                 seen.Add(request.Analysis!.View.PresentationKind);
                 return WritePlaceholder(request, output, stem, token);
             });
-        var markdown = await File.ReadAllTextAsync(result.MarkdownPath);
+        var markdown = await File.ReadAllTextAsync(result.ReportPath);
         Assert.True(result.Succeeded == 3, string.Join(Environment.NewLine,
             markdown.Split('\n').Where(line => line.Contains("未完成", StringComparison.Ordinal))));
         Assert.Equal(0, result.Failed);
@@ -136,7 +140,7 @@ public sealed class MarkdownReportExportTests
             new() { AnalysisKeys = ["Unknown Analysis", "Spot Diagram"], Include2DLayout = false, Include3DLayout = false },
             directory.Path, WritePlaceholder);
         Assert.Equal(1, result.Succeeded); Assert.Equal(1, result.Failed);
-        var markdown = await File.ReadAllTextAsync(result.MarkdownPath);
+        var markdown = await File.ReadAllTextAsync(result.ReportPath);
         Assert.Contains("未完成", markdown); Assert.Contains("点列图", markdown);
         Assert.Empty(Directory.GetDirectories(directory.Path, ".report-export-*"));
     }
@@ -152,7 +156,7 @@ public sealed class MarkdownReportExportTests
         using var snapshot = application.CaptureReportSnapshot();
         var result = await MarkdownReportExporter.ExportAsync(snapshot,
             new() { AnalysisKeys = [], Include3DLayout = false, AllConfigurations = true }, directory.Path, WritePlaceholder);
-        var markdown = await File.ReadAllTextAsync(result.MarkdownPath);
+        var markdown = await File.ReadAllTextAsync(result.ReportPath);
         Assert.Contains("## 配置 1", markdown); Assert.Contains("## 配置 2", markdown);
         Assert.Contains("4.321", markdown); Assert.Equal(2, result.Succeeded);
         Assert.Equal(before, application.MultiConfiguration.GetNavigationState());

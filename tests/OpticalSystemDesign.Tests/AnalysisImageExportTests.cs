@@ -35,6 +35,49 @@ public sealed class AnalysisImageExportTests
     }
 
     [PlotImageTheory]
+    [InlineData("Light", 1)]
+    [InlineData("Light", 1.25)]
+    [InlineData("Light", 2)]
+    [InlineData("Dark", 1)]
+    [InlineData("Dark", 1.25)]
+    [InlineData("Dark", 2)]
+    public async Task BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(string theme, double scale)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisImageExportTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            var content = new Border
+            {
+                Width = 120,
+                Height = 80,
+                Background = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(220, 30, 40))
+            };
+            var window = new Window { Width = 120, Height = 80, Content = content };
+            try
+            {
+                window.Show(); Render(window);
+                var parent = content.Parent;
+                var bounds = content.Bounds;
+                using var image = ExportImageFrame.Capture(content, scale);
+                Assert.Same(parent, content.Parent);
+                Assert.Equal(bounds, content.Bounds);
+                Assert.Equal((int)Math.Ceiling(122 * scale), image.PixelSize.Width);
+                Assert.Equal((int)Math.Ceiling(82 * scale), image.PixelSize.Height);
+                ExportImageAssertions.HasCompleteBorder(image);
+                using var stream = new MemoryStream();
+                image.Save(stream, PngBitmapEncoderOptions.Default);
+                using var bitmap = SkiaSharp.SKBitmap.Decode(stream.ToArray());
+                var inset = (int)Math.Ceiling(scale);
+                var original = new SkiaSharp.SKColor(220, 30, 40);
+                Assert.Equal(original, bitmap.GetPixel(inset, inset));
+                Assert.Equal(original, bitmap.GetPixel(bitmap.Width - inset - 1, bitmap.Height - inset - 1));
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [PlotImageTheory]
     [InlineData(AnalysisPresentationKind.Standard, 840, 620)]
     [InlineData(AnalysisPresentationKind.WavefrontMap, 840, 620)]
     [InlineData(AnalysisPresentationKind.SpotDiagram, 840, 620)]
@@ -85,8 +128,9 @@ public sealed class AnalysisImageExportTests
                 var camera = (surface?.ViewYawDegrees, surface?.ViewPitchDegrees, surface?.ViewZoom);
                 using var image = panel.CapturePlotImage();
                 Assert.Equal(camera, (surface?.ViewYawDegrees, surface?.ViewPitchDegrees, surface?.ViewZoom));
-                Assert.Equal((int)Math.Ceiling(page.Child!.Bounds.Width * window.RenderScaling), image.PixelSize.Width);
-                Assert.Equal((int)Math.Ceiling(page.Child!.Bounds.Height * window.RenderScaling), image.PixelSize.Height);
+                Assert.Equal((int)Math.Ceiling((page.Child!.Bounds.Width + 2) * window.RenderScaling), image.PixelSize.Width);
+                Assert.Equal((int)Math.Ceiling((page.Child!.Bounds.Height + 2) * window.RenderScaling), image.PixelSize.Height);
+                ExportImageAssertions.HasCompleteBorder(image);
                 Assert.True(page.Bounds.Height < height); // No toolbar/tab strip; the exported content may scroll.
                 AssertHasInk(image, 0, image.PixelSize.Height / 2); // The plot.
                 AssertHasInk(image, image.PixelSize.Height * 4 / 5, image.PixelSize.Height); // The full footer.
@@ -445,7 +489,8 @@ public sealed class AnalysisImageExportTests
     private static void AssertHasInk(Bitmap image, int startRow, int endRow)
     {
         var bytes = Pixels(image);
-        var pixels = Enumerable.Range(startRow * image.PixelSize.Width, (endRow - startRow) * image.PixelSize.Width)
+        var pixels = Enumerable.Range(Math.Max(1, startRow), Math.Min(endRow, image.PixelSize.Height - 1) - Math.Max(1, startRow))
+            .SelectMany(y => Enumerable.Range(1, image.PixelSize.Width - 2).Select(x => y * image.PixelSize.Width + x))
             .Count(index => bytes[index * 4 + 3] > 0 && (bytes[index * 4] < 220 || bytes[index * 4 + 1] < 220 || bytes[index * 4 + 2] < 220));
         Assert.True(pixels > 40, "The exported plot/footer must contain rendered content.");
     }

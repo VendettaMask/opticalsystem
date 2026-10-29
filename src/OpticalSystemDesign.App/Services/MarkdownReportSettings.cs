@@ -1,5 +1,7 @@
 namespace OpticalSystemDesign.App.Services;
 
+public enum DesignReportFormat { Markdown, Word, Pdf, Html }
+
 public sealed class MarkdownReportSettings
 {
     public static readonly string[] CommonAnalyses =
@@ -10,6 +12,7 @@ public sealed class MarkdownReportSettings
     public bool Include2DLayout { get; set; } = true;
     public bool Include3DLayout { get; set; } = true;
     public bool AllConfigurations { get; set; }
+    public DesignReportFormat Format { get; set; } = DesignReportFormat.Markdown;
 
     public MarkdownReportSettings Copy() => new()
     {
@@ -18,6 +21,7 @@ public sealed class MarkdownReportSettings
             pair => new Dictionary<string, string>(pair.Value)),
         Include2DLayout = Include2DLayout,
         Include3DLayout = Include3DLayout,
-        AllConfigurations = AllConfigurations
+        AllConfigurations = AllConfigurations,
+        Format = Format
     };
 }

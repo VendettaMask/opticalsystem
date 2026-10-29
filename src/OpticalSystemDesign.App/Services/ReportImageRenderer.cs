@@ -34,8 +34,13 @@ internal sealed class ReportImageRenderer(Border host)
                         ShowRays = true,
                         ShowScaleBar = true
                     };
-                    var page = Page(request.Title, request.Document);
-                    page.Children.Add(canvas);
+                    var frame = new Border { Width = 1200, Height = 650, Child = canvas };
+                    frame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.PlotBackground);
+                    var page = new StackPanel
+                    {
+                        Width = 1200,
+                        Children = { frame, PlotCaption.ForLayoutScene(scene, request.CapturedAt) }
+                    };
                     Attach(page);
                     canvas.FitView();
                     await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.Render);
@@ -96,8 +101,7 @@ internal sealed class ReportImageRenderer(Border host)
                 if (pixels.Width <= 0 || pixels.Height <= 0 || pixels.Width > 32768 || pixels.Height > 32768
                     || (long)pixels.Width * pixels.Height > 33_554_432)
                     throw new InvalidOperationException("截图尺寸超过上限，请减少分析中同时显示的子图数量。");
-                using var bitmap = new RenderTargetBitmap(pixels, new Vector(96, 96));
-                bitmap.Render(control);
+                using var bitmap = ExportImageFrame.Capture(control);
                 var file = Path.Combine(directory, fileName);
                 AnalysisPanel.SavePlotImage(bitmap, file);
                 files.Add(fileName);

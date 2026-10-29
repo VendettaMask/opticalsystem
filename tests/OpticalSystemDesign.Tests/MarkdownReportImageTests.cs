@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Headless;
+using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -18,6 +19,97 @@ public sealed class MarkdownReportImageTests
 {
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OpticalSystemDesign.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
+
+    [Theory]
+    [InlineData(UiLocalization.Chinese, DesignReportFormat.Word, 0, ".docx")]
+    [InlineData(UiLocalization.English, DesignReportFormat.Pdf, 1, ".pdf")]
+    [InlineData(UiLocalization.Japanese, DesignReportFormat.Markdown, 2, ".md")]
+    [InlineData(UiLocalization.Chinese, DesignReportFormat.Html, 3, ".html")]
+    public async Task ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(string language, DesignReportFormat format, int index, string extension)
+    {
+        using var directory = new ReportTestDirectory();
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MarkdownReportImageTests));
+        await session.Dispatch(async () =>
+        {
+            var previous = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY");
+            Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", Path.Combine(directory.Path, "settings"));
+            using var application = WorkbenchApplication.Create("cooke");
+            var settings = new AppSettings
+            {
+                Language = language,
+                ReportExport = new() { AnalysisKeys = [], Include2DLayout = false, Include3DLayout = false }
+            };
+            var main = new global::OpticalSystemDesign.App.MainWindow(settings, application,
+                new WorkspaceSessionStore(Path.Combine(directory.Path, "workspace")));
+            try
+            {
+                await application.Documents.SaveAsync(Path.Combine(directory.Path, "source.staropt"));
+                main.Show(); Dispatcher.UIThread.RunJobs();
+                var ribbon = main.GetVisualDescendants().OfType<TabControl>().Single(item => item.Classes.Contains("ribbon-tabs"));
+                ribbon.SelectedItem = ribbon.Items.Cast<TabItem>().Single(item => AutomationProperties.GetName(item) == UiLocalization.Text("数据库"));
+                main.UpdateLayout(); Dispatcher.UIThread.RunJobs();
+                var buttons = main.GetVisualDescendants().OfType<Button>().ToArray();
+                var entry = Assert.Single(buttons, item => AutomationProperties.GetAutomationId(item) == "ribbon-export-markdown-report");
+                Assert.Equal(UiLocalization.Text("导出设计报告…"), AutomationProperties.GetName(entry));
+                Assert.DoesNotContain(buttons, item => AutomationProperties.GetAutomationId(item) == "ribbon-configure-markdown-report");
+
+                entry.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Dispatcher.UIThread.RunJobs();
+                var window = Assert.Single(main.OwnedWindows.OfType<MarkdownReportWindow>());
+                Assert.Same(main, window.Owner);
+                var controls = window.GetVisualDescendants().ToArray();
+                var start = controls.OfType<Button>().Single(item => item.Name == "ExportMarkdownReport");
+                var output = controls.OfType<TextBox>().Single(item => item.Name == "ReportOutputDirectory");
+                var progress = controls.OfType<ProgressBar>().Single(item => item.Name == "ReportExportProgress");
+                var formats = controls.OfType<ComboBox>().Single(item => item.Name == "ReportExportFormat");
+                Assert.Equal(new[] { "Word (.docx)", "PDF (.pdf)", "Markdown (.md)", "HTML (.html)" }, formats.Items.Cast<string>());
+                Assert.Equal(2, formats.SelectedIndex);
+                Assert.Equal(UiLocalization.Text("导出格式"), AutomationProperties.GetName(formats));
+                Assert.Equal(UiLocalization.Text("开始导出"), start.Content);
+                Assert.True(start.IsEnabled); Assert.False(progress.IsVisible);
+                Assert.Empty(Directory.GetFiles(directory.Path, "*.md"));
+
+                var chosen = Path.Combine(directory.Path, "chosen-output");
+                output.Text = chosen;
+                formats.SelectedIndex = index;
+                entry.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Dispatcher.UIThread.RunJobs();
+                Assert.Same(window, Assert.Single(main.OwnedWindows.OfType<MarkdownReportWindow>()));
+                Assert.Equal(chosen, output.Text);
+                Assert.Equal(index, formats.SelectedIndex);
+                Assert.True(start.IsEnabled); Assert.False(progress.IsVisible);
+                Assert.False(Directory.Exists(chosen));
+
+                start.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Assert.False(start.IsEnabled);
+                Assert.False(formats.IsEnabled);
+                entry.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Assert.Same(window, Assert.Single(main.OwnedWindows.OfType<MarkdownReportWindow>()));
+                for (var i = 0; i < 1000 && !start.IsEnabled; i++)
+                {
+                    Dispatcher.UIThread.RunJobs();
+                    await Task.Delay(10);
+                }
+                Assert.True(start.IsEnabled); Assert.False(progress.IsVisible);
+                Assert.Single(Directory.GetFiles(chosen, "*" + extension));
+                Assert.Empty(Directory.GetFiles(directory.Path, "*" + extension));
+                Assert.Equal(format, settings.ReportExport.Format);
+                window.Close();
+                entry.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Dispatcher.UIThread.RunJobs();
+                var reopened = Assert.Single(main.OwnedWindows.OfType<MarkdownReportWindow>());
+                Assert.Equal(index, reopened.GetVisualDescendants().OfType<ComboBox>().Single(item => item.Name == "ReportExportFormat").SelectedIndex);
+                Assert.True(reopened.GetVisualDescendants().OfType<Button>().Single(item => item.Name == "ExportMarkdownReport").IsEnabled);
+            }
+            finally
+            {
+                foreach (var window in main.OwnedWindows.ToArray()) window.Close();
+                main.Close();
+                Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", previous);
+                UiLocalization.Apply(UiLocalization.Chinese);
+            }
+        }, CancellationToken.None);
+    }
 
     [Fact]
     public async Task SharedProgressSupportsItemCountsAndResetsToIndeterminateForOtherOperations()
@@ -37,8 +129,12 @@ public sealed class MarkdownReportImageTests
         }, CancellationToken.None);
     }
 
-    [Fact]
-    public async Task FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels()
+    [Theory]
+    [InlineData(DesignReportFormat.Markdown)]
+    [InlineData(DesignReportFormat.Word)]
+    [InlineData(DesignReportFormat.Pdf)]
+    [InlineData(DesignReportFormat.Html)]
+    public async Task FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(DesignReportFormat format)
     {
         using var directory = new ReportTestDirectory();
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MarkdownReportImageTests));
@@ -52,16 +148,36 @@ public sealed class MarkdownReportImageTests
             try
             {
                 using var snapshot = application.CaptureReportSnapshot();
-                var options = new MarkdownReportSettings { AnalysisKeys = [.. MarkdownReportSettings.CommonAnalyses, "Seidel Coefficients", "Wavefront Map"] };
+                var options = new MarkdownReportSettings { Format = format, AnalysisKeys = [.. MarkdownReportSettings.CommonAnalyses, "Seidel Coefficients", "Wavefront Map"] };
                 var renderer = new ReportImageRenderer(host);
-                var result = await Task.Run(() => MarkdownReportExporter.ExportAsync(snapshot, options, directory.Path, renderer.WriteAsync));
+                var images = new List<(string Name, byte[] Bytes)>();
+                var result = await Task.Run(() => MarkdownReportExporter.ExportAsync(snapshot, options, directory.Path,
+                    async (request, output, stem, token) =>
+                    {
+                        var files = await renderer.WriteAsync(request, output, stem, token);
+                        foreach (var file in files)
+                        {
+                            var bytes = await File.ReadAllBytesAsync(Path.Combine(output, file), token);
+                            if (request.Scene is not null)
+                            {
+                                // The self-contained report image must retain its complete title block,
+                                // including the company mark in the right-hand region beneath the scene.
+                                using var bitmap = SkiaSharp.SKBitmap.Decode(bytes);
+                                Assert.True(bitmap.Height >= 650 + 132);
+                                Assert.True(Enumerable.Range(660, 40).SelectMany(y => Enumerable.Range(850, 330).Select(x => bitmap.GetPixel(x, y)))
+                                    .Count(color => color.Alpha > 0 && (color.Red < 180 || color.Green < 180 || color.Blue < 180)) > 100);
+                            }
+                            images.Add((file, bytes));
+                        }
+                        return files;
+                    }));
                 Assert.Equal(0, result.Failed);
                 Assert.Equal(8, result.Succeeded);
-                var images = Directory.GetFiles(directory.Path, "*.png", SearchOption.AllDirectories);
-                Assert.True(images.Length >= 8);
+                Assert.True(images.Count >= 8);
                 foreach (var image in images)
                 {
-                    using var bitmap = new Bitmap(image);
+                    using var bitmap = new Bitmap(new MemoryStream(image.Bytes));
+                    ExportImageAssertions.HasCompleteBorder(bitmap);
                     Assert.InRange(bitmap.PixelSize.Width, 100, 32768);
                     Assert.InRange(bitmap.PixelSize.Height, 100, 32768);
                     var pixels = new byte[bitmap.PixelSize.Width * bitmap.PixelSize.Height * 4];
@@ -75,14 +191,15 @@ public sealed class MarkdownReportImageTests
                 var evidence = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_REPORT_CAPTURE_DIR");
                 if (!string.IsNullOrWhiteSpace(evidence))
                 {
+                    evidence = Path.Combine(evidence, format.ToString());
                     Directory.CreateDirectory(evidence);
                     foreach (var image in images)
                     {
-                        var target = Path.Combine(evidence, Path.GetRelativePath(directory.Path, image));
+                        var target = Path.Combine(evidence, Path.GetFileNameWithoutExtension(result.ReportPath) + "_assets", image.Name);
                         Directory.CreateDirectory(Path.GetDirectoryName(target)!);
-                        File.Copy(image, target, true);
+                        File.WriteAllBytes(target, image.Bytes);
                     }
-                    File.Copy(result.MarkdownPath, Path.Combine(evidence, "report.md"), true);
+                    File.Copy(result.ReportPath, Path.Combine(evidence, Path.GetFileName(result.ReportPath)), true);
                 }
             }
             finally { window.Close(); }

@@ -1,0 +1,28 @@
+{
+  "source_unchanged": true,
+  "same_caps_and_original_acceptance": true,
+  "frozen_final_comparison_runs": 3,
+  "scoped_tests_passed": 30,
+  "arms": [
+    {
+      "mode": "original",
+      "caps_and_original_gates_preserved": true,
+      "wall_seconds": 17.298971,
+      "stop": null
+    },
+    {
+      "mode": "delano-population",
+      "caps_and_original_gates_preserved": true,
+      "wall_seconds": 12.8990796,
+      "stop": null
+    },
+    {
+      "mode": "bounded-candidates",
+      "caps_and_original_gates_preserved": true,
+      "wall_seconds": 22.4230711,
+      "stop": "insufficientCompleteTrialBudget"
+    }
+  ],
+  "post_run_first_order_requests": 27,
+  "post_run_diagnostic_rays": 0
+}

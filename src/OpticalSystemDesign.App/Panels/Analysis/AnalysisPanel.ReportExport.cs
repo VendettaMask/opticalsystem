@@ -10,11 +10,7 @@ public sealed partial class AnalysisPanel
         OpticalDocumentSnapshot document, DateTimeOffset generatedAt)
     {
         var view = result.View;
-        var hasPlot = view.Series.Any(series => series.Points.Count > 0)
-            || view.PlotPanes.Any(pane => pane.Series.Any(series => series.Points.Count > 0))
-            || view.PresentationKind == AnalysisPresentationKind.SeidelDiagram && view.Table?.Rows.Count > 0
-            || view.PresentationKind == AnalysisPresentationKind.CardinalPoints && result.ReferenceScene?.TwoDimensional is not null;
-        if (!hasPlot) return null;
+        if (!HasReportPlot(result)) return null;
         var content = BuildResultContent(view, document, generatedAt, result.ReferenceScene);
         if (content is ResponsiveAnalysisPlotHost page) return page;
         if (content is TabControl { ItemsSource: object[] tabs }
@@ -24,5 +20,14 @@ public sealed partial class AnalysisPanel
             return plot;
         }
         return null;
+    }
+
+    internal static bool HasReportPlot(AnalysisResultDto result)
+    {
+        var view = result.View;
+        return view.Series.Any(series => series.Points.Count > 0)
+            || view.PlotPanes.Any(pane => pane.Series.Any(series => series.Points.Count > 0))
+            || view.PresentationKind == AnalysisPresentationKind.SeidelDiagram && view.Table?.Rows.Count > 0
+            || view.PresentationKind == AnalysisPresentationKind.CardinalPoints && result.ReferenceScene?.TwoDimensional is not null;
     }
 }

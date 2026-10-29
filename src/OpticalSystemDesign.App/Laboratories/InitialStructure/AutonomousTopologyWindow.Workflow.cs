@@ -84,6 +84,7 @@ public sealed partial class AutonomousTopologyWindow
     }
     private async Task RunAsync(bool resume)
     {
+        CancelStructureLoad();
         var plan = resume ? _session.Checkpoint!.Plan : ReadPlan();
         _draft = plan;
         var generation = ++_generation;
@@ -152,6 +153,7 @@ public sealed partial class AutonomousTopologyWindow
 
     private void ApplyPlan(AutonomousSearchPlan plan)
     {
+        SetStructureSource(plan.Seeds[0], plan.Constraints, "已载入起点", force: true);
         ResetSeedSummary();
         var values = new Dictionary<string, decimal>();
         var source = plan.Seeds[0]; var target = plan.Targets; var options = plan.Options;
@@ -165,6 +167,18 @@ public sealed partial class AutonomousTopologyWindow
         Put("AutonomousReserve", options.FinalValidationRayReserve); Put("AutonomousMinutes", options.TimeLimit.TotalMinutes); Put("AutonomousSeed", options.Seed);
         Put("AutonomousAxialWindow", options.AxialCompensation?.MaximumDisplacementMillimeters ?? .25);
         var seedOptions = options.SeedPreparation ?? new();
+        Put("AutonomousLayerLimit", options.BoundedSearch?.MaximumAttemptsPerElementCount ?? 3);
+        Put("AutonomousStagnation", options.BoundedSearch?.MaximumUnsuccessfulTrials ?? 2);
+        var generation = seedOptions.Generation;
+        Put("AutonomousPoolSize", options.CandidatesPerElementCount);
+        Put("AutonomousGeneratedElements", generation?.Elements.Length ?? Math.Max(2, source.Elements.Length));
+        Put("AutonomousGeneratedStop", generation?.StopAfterElement ?? source.Elements.Count(element => element.BackZMillimeters < source.Stop.ZMillimeters));
+        Put("AutonomousGeneratedRadius", generation?.ClearSemiDiameterMillimeters ?? source.Elements.Max(element => element.ClearSemiDiameterMillimeters));
+        Put("AutonomousGeneratedMinThickness", generation?.MinimumThicknessMillimeters ?? Math.Max(1, plan.Constraints.MinimumCenterThicknessMillimeters));
+        Put("AutonomousGeneratedMaxThickness", generation?.MaximumThicknessMillimeters ?? Math.Max(4, plan.Constraints.MinimumCenterThicknessMillimeters));
+        Put("AutonomousGeneratedBackFocus", generation?.MinimumBackFocusMillimeters ?? Math.Max(5, plan.Constraints.MinimumBackFocusMillimeters));
+        Put("AutonomousAnnealing", generation?.AnnealingProposals ?? 8);
+        Put("AutonomousSeedPerStart", seedOptions.MaximumEvaluationsPerStart);
         Put("AutonomousSeedStarts", seedOptions.MaximumStarts); Put("AutonomousSeedRetained", seedOptions.RetainedSeeds);
         Put("AutonomousSeedFunctions", seedOptions.MaximumFunctionEvaluations); Put("AutonomousSeedSeconds", seedOptions.TimeLimit.TotalSeconds);
         Put("AutonomousLocalUpdates", options.Local.MaximumUpdates); Put("AutonomousFullUpdates", options.Full.MaximumUpdates);
@@ -173,6 +187,13 @@ public sealed partial class AutonomousTopologyWindow
         _choices["AutonomousStructure"].IsChecked = options.FixedTopologyOnly != true;
         _choices["AutonomousReductionOnly"].IsChecked = options.QualifiedReductionOnly == true;
         _choices["AutonomousDiversity"].IsChecked = options.PoolDiversity is not null;
+        _choices["AutonomousPopulation"].IsChecked = options.PopulationExploration is not null;
+        _choices["AutonomousBounded"].IsChecked = options.BoundedSearch is not null;
+        _choices["AutonomousGeometryScreen"].IsChecked = options.PopulationExploration?.Geometry is not null;
+        _choices["AutonomousFixedStopRecovery"].IsChecked = seedOptions.FixedStopRecoveryVersion == 2;
+        _choices["AutonomousDescriptor"].IsChecked = generation is not null;
+        _choices["AutonomousDelano"].IsChecked = generation?.Method == StructureGenerationMethod.Delano;
+        _choices["AutonomousThickDelano"].IsChecked = generation?.MaterializationVersion == 2;
         _choices["AutonomousGradual"].IsChecked = options.Expansion?.EnableGradualDeletion == true;
         _choices["AutonomousSplit"].IsChecked = options.Expansion?.EnableSplit == true;
         _choices["AutonomousMerge"].IsChecked = options.Expansion?.EnableMerge == true;
@@ -249,6 +270,16 @@ public sealed partial class AutonomousTopologyWindow
             QualifiedReductionOnly = ReadFlag("AutonomousReductionOnly", _draft.Options.QualifiedReductionOnly),
             PoolDiversity = _choices["AutonomousDiversity"].IsChecked == true ? _draft.Options.PoolDiversity ?? new TopologyDiversityOptions() : null,
             SeedPreparation = ReadSeedSettings(),
+            PopulationExploration = _choices["AutonomousPopulation"].IsChecked == true
+                ? (_draft.Options.PopulationExploration ?? new PopulationExplorationOptions()) with
+                { Geometry = _choices["AutonomousGeometryScreen"].IsChecked == true ? _draft.Options.PopulationExploration?.Geometry ?? new() : null } : null,
+            BoundedSearch = _choices["AutonomousBounded"].IsChecked == true
+                ? (_draft.Options.BoundedSearch ?? new()) with
+                {
+                    MaximumAttemptsPerElementCount = Whole("AutonomousLayerLimit"),
+                    MaximumUnsuccessfulTrials = Whole("AutonomousStagnation")
+                } : null,
+            CandidatesPerElementCount = Whole("AutonomousPoolSize"),
             Local = ReadStage("AutonomousLocalUpdates", _draft.Options.Local),
             Full = ReadStage("AutonomousFullUpdates", _draft.Options.Full),
             AxialCompensation = _choices["AutonomousAxial"].IsChecked == true
@@ -320,8 +351,13 @@ public sealed partial class AutonomousTopologyWindow
         if (_choices["AutonomousReductionOnly"].IsChecked == true && (original is not null || gradual))
             return (original ?? new TopologyExpansionOptions()) with
             {
-                EnableDeletion = true, EnableInsertion = false, EnableSplit = false, EnableMerge = false,
-                EnableMaterial = false, EnableProfile = false, EnableGradualDeletion = gradual
+                EnableDeletion = true,
+                EnableInsertion = false,
+                EnableSplit = false,
+                EnableMerge = false,
+                EnableMaterial = false,
+                EnableProfile = false,
+                EnableGradualDeletion = gradual
             };
         if (gradual == (original?.EnableGradualDeletion == true) && split == (original?.EnableSplit == true) && merge == (original?.EnableMerge == true)
             && material == (original?.EnableMaterial == true) && profile == (original?.EnableProfile == true)) return original;
@@ -370,6 +406,7 @@ public sealed partial class AutonomousTopologyWindow
 
     private void Refresh()
     {
+        RefreshStructureText();
         var state = _session.Checkpoint; var editable = !IsBusy && state is null;
         var readOnly = AutonomousSearchService.IsHistoricalReadOnlyPlan(state?.Plan ?? _draft);
         foreach (var number in _numbers.Values) { number.IsEnabled = editable; ToolTip.SetTip(number, editable ? null : UiLocalization.Text("请新建计划以修改输入，继续任务保持原计划")); }
@@ -389,7 +426,7 @@ public sealed partial class AutonomousTopologyWindow
         Hint("AutonomousProtectFullBudget", "可选阶段验收挤占补偿额度时延后检查，仍保留最终独立验收");
         Hint("AutonomousReductionOnly", "失败处方保留但不再派发结构分支；达到预算或限定尝试即停止");
         if (editable && _choices["AutonomousReductionOnly"].IsChecked == true)
-            foreach (var id in new[] { "AutonomousStructure", "AutonomousSplit", "AutonomousMerge", "AutonomousMaterial", "AutonomousProfile" })
+            foreach (var id in new[] { "AutonomousStructure", "AutonomousSplit", "AutonomousMerge", "AutonomousMaterial", "AutonomousProfile", "AutonomousPopulation" })
             {
                 _choices[id].IsEnabled = false;
                 ToolTip.SetTip(_choices[id], UiLocalization.Text("减片模式只允许从达标处方删除镜片"));
@@ -437,6 +474,7 @@ public sealed partial class AutonomousTopologyWindow
             + (unknown > 0 ? $"\n{UiLocalization.Text("未知中断阶段按预约计费，辅助工作只显示已记录数量")} · {unknown}" : "");
         ToolTip.SetTip(_budget, UiLocalization.Text("光线梯度与恢复矩阵 Jacobian 分别记录，不能按相同成本相加；未记录不代表零工作"));
         if (state.Plan.Options.QualifiedReductionOnly == true) _budget.Text += "\n" + ReductionConclusionText(state);
+        if (state.Plan.Options.BoundedSearch is not null) _budget.Text += "\n" + BoundedConclusionText(state);
         _record.Text = _session.RecordPath;
 
         void Hint(string id, string text)
@@ -462,11 +500,32 @@ public sealed partial class AutonomousTopologyWindow
             + " · " + UiLocalization.Text("不代表全局最少片数");
     }
 
+    internal static string BoundedConclusionText(AutonomousSearchCheckpoint checkpoint)
+    {
+        var summary = AutonomousSearchService.BoundedSummary(checkpoint);
+        var reason = summary.StopReason switch
+        {
+            BoundedSearchStopReason.NoImprovement => "连续尝试无合格改进，停止探索",
+            BoundedSearchStopReason.LayerLimit => "本层尝试已到上限，停止探索",
+            BoundedSearchStopReason.InsufficientCompleteTrialBudget => "剩余预算不足完整试验与终验",
+            BoundedSearchStopReason.TrialLimit => "结构尝试已到上限",
+            BoundedSearchStopReason.Cancelled => "已停止并保留合格方案",
+            BoundedSearchStopReason.TimeLimit => "已到运行时限",
+            BoundedSearchStopReason.NoEligibleBranch => "可用候选分支已结束",
+            _ => "正在筛检候选"
+        };
+        return UiLocalization.Text(reason) + " · " + UiLocalization.Text("最佳已验证结构") + ": "
+            + (summary.Complexity is { } c ? $"{c.Elements} / {c.AsphericSurfaces} / {c.PolynomialTerms}" : UiLocalization.Text("尚无达标处方"))
+            + $" · {UiLocalization.Text("筛检通过 / 拒绝")} {summary.ScreenedTrials - summary.RejectedScreens}/{summary.RejectedScreens}"
+            + " · " + UiLocalization.Text("不代表全局最少片数");
+    }
+
     private void ShowCandidate()
     {
         _prescriptionRows.Clear(); _fieldRows.Clear();
         if (_candidates.SelectedItem is not TopologyCandidateRow row) { Refresh(); return; }
         var candidate = row.Candidate; var state = _session.Checkpoint!;
+        SetStructureSource(candidate.Topology, state.Plan.Constraints, candidate.Id, candidate.Assessment.MeetsTargets ? "达标" : "未达标");
         var optic = TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints).CreateOptic();
         foreach (var element in candidate.Topology.Elements)
         {
@@ -492,12 +551,15 @@ public sealed partial class AutonomousTopologyWindow
     }
 
     private static string Operation(string value) => UiLocalization.Text(value switch
-    { "seed" => "起点验收", "optimize" => "连续优化", "insert" => "增片", "delete" => "删片", "gradual-delete" => "渐进删除", "split" => "拆片", "merge" => "并片", "material" => "替换材料", "profile" => "升级面型", _ => value });
+    { "population-rebirth" => "候选重生", "population-difference" => "群体差分", "seed" => "起点验收", "optimize" => "连续优化", "insert" => "增片", "delete" => "删片", "gradual-delete" => "渐进删除", "split" => "拆片", "merge" => "并片", "material" => "替换材料", "profile" => "升级面型", _ => value });
     private static string Phase(AutonomousSearchPhase? value) => UiLocalization.Text(value switch
-    { AutonomousSearchPhase.Feasibility => "阶段独立验收", AutonomousSearchPhase.Recovery => "一阶恢复", AutonomousSearchPhase.Local => "局部补偿", AutonomousSearchPhase.Full => "全目标优化", AutonomousSearchPhase.Validation => "独立验收", AutonomousSearchPhase.TransitionValidation => "过渡验收", _ => "—" });
+    { AutonomousSearchPhase.Screening => "候选几何筛检", AutonomousSearchPhase.Feasibility => "阶段独立验收", AutonomousSearchPhase.Recovery => "一阶恢复", AutonomousSearchPhase.Local => "局部补偿", AutonomousSearchPhase.Full => "全目标优化", AutonomousSearchPhase.Validation => "独立验收", AutonomousSearchPhase.TransitionValidation => "过渡验收", _ => "—" });
     private static string Outcome(string value) => UiLocalization.Text(value switch
     {
         "Accepted" => "达标",
+        "ScreenPassed" => "筛检通过",
+        "ScreenRejected" => "筛检拒绝",
+        "ScreenCancelled" => "筛检已停止",
         "Rejected" or "UnmetTargets" => "未达标",
         "EditRejected" => "结构操作被拒绝",
         "Recovered" => "一阶恢复完成",

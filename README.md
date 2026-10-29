@@ -92,7 +92,7 @@
     </td>
     <td width="50%" valign="top">
       <h3>🛠️ 工程、材料与制造资料</h3>
-      <p>使用材料与镜头库，以 STAROPT 保存完整工程；导出处方与分析 CSV、完整 PNG、Markdown 设计报告、制造图纸和分面 STEP。支持范围明确的 ZMX、SEQ、LEN 交换子集。</p>
+      <p>使用材料与镜头库，以 STAROPT 保存完整工程；导出处方与分析 CSV、完整 PNG、Word/PDF/Markdown/HTML 设计报告、制造图纸和分面 STEP。支持范围明确的 ZMX、SEQ、LEN 交换子集。</p>
       <a href="docs/FILE_FORMATS_AND_PLUGINS.md">文件与交换格式</a> · <a href="docs/MARKDOWN_REPORT_EXPORT.md">设计报告 →</a>
     </td>
   </tr>
@@ -128,7 +128,7 @@
 1. **打开或建立系统**：导入受支持的顺序文件，或从分类示例开始；正式工程保存为 `.staropt`。
 2. **检查处方与布局**：调整系统选项、材料和表面，切换多配置，查看二维/三维传播。
 3. **分析与改进**：配置实际视场、波长和采样，比较像质，再按需要设置变量、评价目标与公差。
-4. **保存与交付**：保存工程，或在“数据库 → 设计报告”选择分析及所有配置，导出 Markdown 和配套图片；需要机械交换时显式导出 STEP。
+4. **保存与交付**：保存工程，或在“数据库 → 设计报告”选择 Word/PDF/Markdown/HTML 格式、分析及配置，点击“开始导出”生成报告；Word/PDF/HTML 内嵌图片，Markdown 需携带配套图片目录。需要机械交换时显式导出 STEP。
 
 AI 初始结构与镀膜设计从“实验室”打开，使用各自的实验和运行记录。初始结构候选需要独立达标验收，镀膜实验不会自动应用到当前镜头。[GPU 说明](docs/AUTOLENS_GPU.md)列出设备支持和回退范围；自主拓扑增删/搜索目前提供实验性 CPU 库接口，开发进度见[实施计划](docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)。
 

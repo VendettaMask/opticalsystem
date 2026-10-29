@@ -1,0 +1,962 @@
+O ptical S ystem  D esign
+1
+Op ticalS ystem D esign Cooke T riplet 光学设计报告
+导出时间：2026-10-29 09:54:41.861 +08:00
+软件：Op tical S ystem D esign 1.0.4.0
+源⽂件：未保存⼯程
+⼯程修订：0；包含未保存修改：否
+数据范围：导出开始时的⼯程快照；所有计算和截图均来⾃该快照。
+配置 1
+系统参数
+参数 值
+EFL / mm 49.9997830714
+F/# 4.99997830714
+T T L / mm 60.17675
+⼊瞳直径 / m m 10
+镜头结构
+⾯号 名称 ⾯型 半径 / m m 厚度 / m m 材料 半⼝径 / m m 圆锥系数 光阑
+0 Ob ject 平⾯ 0 Infinity Air 12.82978543210
+1 Crow n front 标准球⾯
+/圆锥
+22.01359 3.25896 S K16 8.55958565438 0
+2 Crow n back 标准球⾯
+/圆锥
+-435.76044 6.00755 Air 7.99879850709 0
+3 Flint front 标准球⾯
+/圆锥
+-22.21328 0.99997 S CHO T T :F
+2
+3.99807960651 0
+4 Flint back /
+stop
+标准球⾯
+/圆锥
+20.29192 4.75041 Air 3.86582417638 0 S T O P
+5 Rear crow n
+front
+标准球⾯
+/圆锥
+79.6836 2.95208 S K16 6.92518615963 0
+6 Rear crow n
+back
+标准球⾯
+/圆锥
+-18.39533 42.20778 Air 7.28825803861 0
+7 Im age 平⾯ 0 0 Air 18.17257152510
+完整处⽅与系统设置：
+O ptical S ystem  D esign
+2
+{
+  "System": {
+    "Backend": "m anaged-cpu",
+    "ApertureK ind": "\u5165\u77B3\u76F4\u5F84",
+    "ApertureValue": 10,
+    "FieldD efinition": "\u89D 2\u5EA6",
+    "O bjectS paceT elecentric": false,
+    "ApodizationK ind": "\u65E0",
+    "FirstAp odizationParam eter": 1,
+    "S econdApodizationParam eter": 1,
+    "Im ageS paceAfocal": false
+  },
+  "Environm ent": {
+    "M atchRefractiveIndexD ata": true,
+    "T em peratureCelsius": 20,
+    "PressureAtm ospheres": 1
+  },
+  "Fields": [
+    {
+      "Index": 0,
+      "Labe l": "O n axis",
+      "X": 0,
+      "Y": 0,
+      "VignetteFactorX": 0,
+      "VignetteFactorY": 0,
+      "W eight": 1,
+      "VignetteD ecenterX": 0,
+      "VignetteD ecenterY": 0,
+      "VignetteAngleD egrees": 0
+    },
+    {
+      "Index": 1,
+      "Labe l": "14 deg",
+      "X": 0,
+      "Y": 14,
+      "VignetteFactorX": 0,
+      "VignetteFactorY": 0,
+      "W eight": 1,
+      "VignetteD ecenterX": 0,
+      "VignetteD ecenterY": 0,
+      "VignetteAngleD egrees": 0
+    },
+    {
+      "Index": 2,
+      "Labe l": "20 deg",
+      "X": 0,
+      "Y": 20,
+      "VignetteFactorX": 0,
+      "VignetteFactorY": 0,
+      "W eight": 1,
+      "VignetteD ecenterX": 0,
+      "VignetteD ecenterY": 0,
+      "VignetteAngleD egrees": 0
+    }
+  ],
+O ptical S ystem  D esign
+3
+  "Wavelengths": [
+    {
+      "Index": 0,
+      "Labe l": "F",
+      "Nanom eters": 480,
+      "W eight": 1,
+      "IsPrim ary": false
+    },
+    {
+      "Index": 1,
+      "Labe l": "d",
+      "Nanom eters": 550,
+      "W eight": 1,
+      "IsPrim ary": true
+    },
+    {
+      "Index": 2,
+      "Labe l": "C",
+      "Nanom eters": 650,
+      "W eight": 1,
+      "IsPrim ary": false
+    }
+  ],
+  "Su rfaces": [
+    {
+      "Num be r": 0,
+      "Labe l": "O bject",
+      "Radius": 0,
+      "T hickness": "Infinity",
+      "M aterial": "Air",
+      "Coating": "None",
+      "S em iD iam eter": 12.829785432055338,
+      "Conic": 0,
+      "IsS top": false,
+      "Ge om etryK ind": "\u5E73\u9762",
+      "CoatingK ind": "\u65E0\u9540\u819C",
+      "InteractionK ind": "\u6298\u5C04",
+      "ApertureK ind": "\u65E0",
+      "Gra tingO rder": 1,
+      "Gra tingPeriodM icrom eters": 1,
+      "Gro oveO rientationAngleD egrees": 0,
+      "T hinLensFocalLength": 50,
+      "RadiusVariable": false,
+      "T hicknessVariable": false,
+      "S em iD iam eterFixed": false,
+      "Ge om etryCompu table": true,
+      "Inspection": {
+        "ScatteringKind": "none",
+        "O riginX": 0,
+        "O riginY": 0,
+        "O riginZ": 0,
+        "TiltXDegrees": 0,
+        "TiltYDegrees": 0,
+        "TiltZDegrees": 0
+      },
+O ptical S ystem  D esign
+4
+      "RadiusS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "PickupEditable": true
+      },
+      "M echanicalS em iD iam eter": 12.829785432055338,
+      "T hicknessS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "O ffset": 0
+      },
+      "S em iD iam eterS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1
+      },
+      "T herma lExpansionPpm PerC": 0,
+      "ChipZone": 0,
+      "Ge om etryD efinition": {
+        "Kind": "plane",
+        "Numbers": {}
+      },
+      "D raw ingAperture": {
+        "Kind": "none",
+        "CircularRadius": null
+      }
+    },
+    {
+      "Num be r": 1,
+      "Labe l": "Crown  front",
+      "Radius": 22.01359,
+      "T hickness": 3.25896,
+      "M aterial": "S K 16",
+      "Coating": "None",
+      "S em iD iam eter": 8.559585654383241,
+      "Conic": 0,
+      "IsS top": false,
+      "Ge om etryK ind": "\u6807\u51C6\u7403\u9762/\u5706\u9525",
+      "CoatingK ind": "\u65E0\u9540\u819C",
+      "InteractionK ind": "\u6298\u5C04",
+      "ApertureK ind": "\u65E0",
+      "Gra tingO rder": 1,
+      "Gra tingPeriodM icrom eters": 1,
+      "Gro oveO rientationAngleD egrees": 0,
+      "T hinLensFocalLength": 50,
+      "RadiusVariable": false,
+      "T hicknessVariable": false,
+      "S em iD iam eterFixed": false,
+      "Ge om etryCompu table": true,
+      "Inspection": {
+        "ScatteringKind": "none",
+        "O riginX": 0,
+        "O riginY": 0,
+O ptical S ystem  D esign
+5
+        "O riginZ": 0,
+        "TiltXDegrees": 0,
+        "TiltYDegrees": 0,
+        "TiltZDegrees": 0
+      },
+      "RadiusS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "PickupEditable": true
+      },
+      "M echanicalS em iD iam eter": 8.559585654383241,
+      "T hicknessS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "O ffset": 0
+      },
+      "S em iD iam eterS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1
+      },
+      "T herma lExpansionPpm PerC": 0,
+      "ChipZone": 0,
+      "Ge om etryD efinition": {
+        "Kind": "standard",
+        "Numbers": {
+          "radius": 22.01359,
+          "conic": 0
+        }
+      },
+      "D raw ingAperture": {
+        "Kind": "none",
+        "CircularRadius": null
+      }
+    },
+    {
+      "Num be r": 2,
+      "Labe l": "Crown  ba ck",
+      "Radius": -435.76044,
+      "T hickness": 6.00755,
+      "M aterial": "Air",
+      "Coating": "None",
+      "S em iD iam eter": 7.998798507087743,
+      "Conic": 0,
+      "IsS top": false,
+      "Ge om etryK ind": "\u6807\u51C6\u7403\u9762/\u5706\u9525",
+      "CoatingK ind": "\u65E0\u9540\u819C",
+      "InteractionK ind": "\u6298\u5C04",
+      "ApertureK ind": "\u65E0",
+      "Gra tingO rder": 1,
+      "Gra tingPeriodM icrom eters": 1,
+      "Gro oveO rientationAngleD egrees": 0,
+      "T hinLensFocalLength": 50,
+O ptical S ystem  D esign
+6
+      "RadiusVariable": false,
+      "T hicknessVariable": false,
+      "S em iD iam eterFixed": false,
+      "Ge om etryCompu table": true,
+      "Inspection": {
+        "ScatteringKind": "none",
+        "O riginX": 0,
+        "O riginY": 0,
+        "O riginZ": 3.25896,
+        "TiltXDegrees": 0,
+        "TiltYDegrees": 0,
+        "TiltZDegrees": 0
+      },
+      "RadiusS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "PickupEditable": true
+      },
+      "M echanicalS em iD iam eter": 7.998798507087743,
+      "T hicknessS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "O ffset": 0
+      },
+      "S em iD iam eterS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1
+      },
+      "T herma lExpansionPpm PerC": 0,
+      "ChipZone": 0,
+      "Ge om etryD efinition": {
+        "Kind": "standard",
+        "Numbers": {
+          "radius": -435.76044,
+          "conic": 0
+        }
+      },
+      "D raw ingAperture": {
+        "Kind": "none",
+        "CircularRadius": null
+      }
+    },
+    {
+      "Num be r": 3,
+      "Labe l": "Flint front",
+      "Radius": -22.21328,
+      "T hickness": 0.99997,
+      "M aterial": "S CH O T T :F2",
+      "Coating": "None",
+      "S em iD iam eter": 3.9980796065114275,
+      "Conic": 0,
+      "IsS top": false,
+O ptical S ystem  D esign
+7
+      "Ge om etryK ind": "\u6807\u51C6\u7403\u9762/\u5706\u9525",
+      "CoatingK ind": "\u65E0\u9540\u819C",
+      "InteractionK ind": "\u6298\u5C04",
+      "ApertureK ind": "\u65E0",
+      "Gra tingO rder": 1,
+      "Gra tingPeriodM icrom eters": 1,
+      "Gro oveO rientationAngleD egrees": 0,
+      "T hinLensFocalLength": 50,
+      "RadiusVariable": false,
+      "T hicknessVariable": false,
+      "S em iD iam eterFixed": false,
+      "Ge om etryCompu table": true,
+      "Inspection": {
+        "ScatteringKind": "none",
+        "O riginX": 0,
+        "O riginY": 0,
+        "O riginZ": 9.26651,
+        "TiltXDegrees": 0,
+        "TiltYDegrees": 0,
+        "TiltZDegrees": 0
+      },
+      "RadiusS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "PickupEditable": true
+      },
+      "M echanicalS em iD iam eter": 3.9980796065114275,
+      "T hicknessS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "O ffset": 0
+      },
+      "S em iD iam eterS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1
+      },
+      "T herma lExpansionPpm PerC": 0,
+      "ChipZone": 0,
+      "Ge om etryD efinition": {
+        "Kind": "standard",
+        "Numbers": {
+          "radius": -22.21328,
+          "conic": 0
+        }
+      },
+      "D raw ingAperture": {
+        "Kind": "none",
+        "CircularRadius": null
+      }
+    },
+    {
+      "Num be r": 4,
+O ptical S ystem  D esign
+8
+      "Labe l": "Flint ba ck / stop",
+      "Radius": 20.29192,
+      "T hickness": 4.75041,
+      "M aterial": "Air",
+      "Coating": "None",
+      "S em iD iam eter": 3.865824176376087,
+      "Conic": 0,
+      "IsS top": true,
+      "Ge om etryK ind": "\u6807\u51C6\u7403\u9762/\u5706\u9525",
+      "CoatingK ind": "\u65E0\u9540\u819C",
+      "InteractionK ind": "\u6298\u5C04",
+      "ApertureK ind": "\u65E0",
+      "Gra tingO rder": 1,
+      "Gra tingPeriodM icrom eters": 1,
+      "Gro oveO rientationAngleD egrees": 0,
+      "T hinLensFocalLength": 50,
+      "RadiusVariable": false,
+      "T hicknessVariable": false,
+      "S em iD iam eterFixed": false,
+      "Ge om etryCompu table": true,
+      "Inspection": {
+        "ScatteringKind": "none",
+        "O riginX": 0,
+        "O riginY": 0,
+        "O riginZ": 10.26648,
+        "TiltXDegrees": 0,
+        "TiltYDegrees": 0,
+        "TiltZDegrees": 0
+      },
+      "RadiusS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "PickupEditable": true
+      },
+      "M echanicalS em iD iam eter": 3.865824176376087,
+      "T hicknessS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "O ffset": 0
+      },
+      "S em iD iam eterS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1
+      },
+      "T herma lExpansionPpm PerC": 0,
+      "ChipZone": 0,
+      "Ge om etryD efinition": {
+        "Kind": "standard",
+        "Numbers": {
+          "radius": 20.29192,
+          "conic": 0
+        }
+O ptical S ystem  D esign
+9
+      },
+      "D raw ingAperture": {
+        "Kind": "none",
+        "CircularRadius": null
+      }
+    },
+    {
+      "Num be r": 5,
+      "Labe l": "Rear crown  front",
+      "Radius": 79.6836,
+      "T hickness": 2.95208,
+      "M aterial": "S K 16",
+      "Coating": "None",
+      "S em iD iam eter": 6.925186159630974,
+      "Conic": 0,
+      "IsS top": false,
+      "Ge om etryK ind": "\u6807\u51C6\u7403\u9762/\u5706\u9525",
+      "CoatingK ind": "\u65E0\u9540\u819C",
+      "InteractionK ind": "\u6298\u5C04",
+      "ApertureK ind": "\u65E0",
+      "Gra tingO rder": 1,
+      "Gra tingPeriodM icrom eters": 1,
+      "Gro oveO rientationAngleD egrees": 0,
+      "T hinLensFocalLength": 50,
+      "RadiusVariable": false,
+      "T hicknessVariable": false,
+      "S em iD iam eterFixed": false,
+      "Ge om etryCompu table": true,
+      "Inspection": {
+        "ScatteringKind": "none",
+        "O riginX": 0,
+        "O riginY": 0,
+        "O riginZ": 15.01689,
+        "TiltXDegrees": 0,
+        "TiltYDegrees": 0,
+        "TiltZDegrees": 0
+      },
+      "RadiusS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "PickupEditable": true
+      },
+      "M echanicalS em iD iam eter": 6.925186159630974,
+      "T hicknessS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "O ffset": 0
+      },
+      "S em iD iam eterS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1
+      },
+O ptical S ystem  D esign
+10
+      "T herma lExpansionPpm PerC": 0,
+      "ChipZone": 0,
+      "Ge om etryD efinition": {
+        "Kind": "standard",
+        "Numbers": {
+          "radius": 79.6836,
+          "conic": 0
+        }
+      },
+      "D raw ingAperture": {
+        "Kind": "none",
+        "CircularRadius": null
+      }
+    },
+    {
+      "Num be r": 6,
+      "Labe l": "Rear crown  ba ck",
+      "Radius": -18.39533,
+      "T hickness": 42.20778,
+      "M aterial": "Air",
+      "Coating": "None",
+      "S em iD iam eter": 7.28825803861361,
+      "Conic": 0,
+      "IsS top": false,
+      "Ge om etryK ind": "\u6807\u51C6\u7403\u9762/\u5706\u9525",
+      "CoatingK ind": "\u65E0\u9540\u819C",
+      "InteractionK ind": "\u6298\u5C04",
+      "ApertureK ind": "\u65E0",
+      "Gra tingO rder": 1,
+      "Gra tingPeriodM icrom eters": 1,
+      "Gro oveO rientationAngleD egrees": 0,
+      "T hinLensFocalLength": 50,
+      "RadiusVariable": false,
+      "T hicknessVariable": false,
+      "S em iD iam eterFixed": false,
+      "Ge om etryCompu table": true,
+      "Inspection": {
+        "ScatteringKind": "none",
+        "O riginX": 0,
+        "O riginY": 0,
+        "O riginZ": 17.96897,
+        "TiltXDegrees": 0,
+        "TiltYDegrees": 0,
+        "TiltZDegrees": 0
+      },
+      "RadiusS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "PickupEditable": true
+      },
+      "M echanicalS em iD iam eter": 7.28825803861361,
+      "T hicknessS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+O ptical S ystem  D esign
+11
+        "ScaleFactor": 1,
+        "O ffset": 0
+      },
+      "S em iD iam eterS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1
+      },
+      "T herma lExpansionPpm PerC": 0,
+      "ChipZone": 0,
+      "Ge om etryD efinition": {
+        "Kind": "standard",
+        "Numbers": {
+          "radius": -18.39533,
+          "conic": 0
+        }
+      },
+      "D raw ingAperture": {
+        "Kind": "none",
+        "CircularRadius": null
+      }
+    },
+    {
+      "Num be r": 7,
+      "Labe l": "Im age",
+      "Radius": 0,
+      "T hickness": 0,
+      "M aterial": "Air",
+      "Coating": "None",
+      "S em iD iam eter": 18.172571525091573,
+      "Conic": 0,
+      "IsS top": false,
+      "Ge om etryK ind": "\u5E73\u9762",
+      "CoatingK ind": "\u65E0\u9540\u819C",
+      "InteractionK ind": "\u6298\u5C04",
+      "ApertureK ind": "\u65E0",
+      "Gra tingO rder": 1,
+      "Gra tingPeriodM icrom eters": 1,
+      "Gro oveO rientationAngleD egrees": 0,
+      "T hinLensFocalLength": 50,
+      "RadiusVariable": false,
+      "T hicknessVariable": false,
+      "S em iD iam eterFixed": false,
+      "Ge om etryCompu table": true,
+      "Inspection": {
+        "ScatteringKind": "none",
+        "O riginX": 0,
+        "O riginY": 0,
+        "O riginZ": 60.17675,
+        "TiltXDegrees": 0,
+        "TiltYDegrees": 0,
+        "TiltZDegrees": 0
+      },
+      "RadiusS olve": {
+        "Kind": 0,
+O ptical S ystem  D esign
+12
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "PickupEditable": true
+      },
+      "M echanicalS em iD iam eter": 18.172571525091573,
+      "T hicknessS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1,
+        "O ffset": 0
+      },
+      "S em iD iam eterS olve": {
+        "Kind": 0,
+        "Sourc eS urface": 0,
+        "ScaleFactor": 1
+      },
+      "T herma lExpansionPpm PerC": 0,
+      "ChipZone": 0,
+      "Ge om etryD efinition": {
+        "Kind": "plane",
+        "Numbers": {}
+      },
+      "D raw ingAperture": {
+        "Kind": "none",
+        "CircularRadius": null
+      }
+    }
+  ],
+  "NonS equential": null
+}
+⼆维布局
+O ptical S ystem  D esign
+13
+⼆维布局
+三维布局
+三维布局
+O ptical S ystem  D esign
+14
+标准点列图
+分析设置：
+参数 值
+光线密度 (RayDensity) 6
+样式 (Pattern) 六边
+颜⾊显⽰ (ColorRaysBy) 波⻓
+参照 (Reference) 主光线
+使⽤偏振 (UsePolarization) false
+⽅向余弦 (DirectionCosines) false
+显⽰艾⾥斑 (ShowAiryDisk) false
+波⻓ (W avelengthNum ber) 所有
+视场 (FieldNum ber) 所有
+表⾯ (S urfaceNum ber) 像⾯
+显⽰缩放 (DisplayScale) ⽐例尺
+图形缩放 (PlotScaleMicrometers) 0
+散射光线 (ScatterRays) false
+使⽤标注 (UseSym bols) true
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：71AF5CC0E81E6E4B90E6
+D4399D838263D102BFFBD31C4E92503E2FBC582F0CD4
+分析：标准点列图
+光线数：1143
+渐晕光线数：0
+视场数：3
+波⻓数：3
+六⻆采样环数：6
+光线密度：6
+瞳孔采样分布：hexapolar
+样式：hexapolar
+波⻓序号：0
+视场序号：0
+表⾯序号：-1
+颜⾊显⽰：波⻓
+参考：主光线
+使⽤偏振：False
+⽅向余弦：False
+ImageS paceAfocal：False
+ImageCoordinateU nit：m m
+显⽰艾⾥斑：False
+艾⾥斑半径 (mm)：0
+O ptical S ystem  D esign
+15
+显⽰缩放：⽐例尺
+图形缩放 (µm)：0
+PlotScaleMilliradians：0
+散射光线：False
+使⽤标注：True
+忽略垂轴⾊差：False
+最⼤⼏何点半径 (mm)：0.048
+标准点列图
+光线像差图
+分析设置：
+参数 值
+图形缩放 (µm，0 为⾃动) (PlotScaleMicrom eters) 0
+光线数 (Num berO fRays) 20
+使⽤虚线 (UseDashes) false
+渐晕光瞳 (VignettedPup il) true
+检查孔径 (CheckApertures) true
+波⻓ (W avelengthNum ber) 所有
+O ptical S ystem  D esign
+16
+参数 值
+视场 (FieldNum ber) 所有
+⼦午 (T angentialAberration) Y Aberration
+弧⽮ (S agittalAberration) X Aberration
+表⾯ (S urfaceNum ber) 像⾯
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：C0FD9293CEABC274C0CA
+E2AA 949D 2AF1D 0E8D 5852D 1E3E8A4D 9B568EF629B72F
+分析：光线像差图
+采样点数：41
+原点每侧光线数：20
+视场数：3
+波⻓数：3
+视场序号：0
+波⻓序号：0
+⼦午分量：Y Aberration
+弧⽮分量：X Aberration
+表⾯序号：7
+表⾯标注：Image
+图形缩放 (µm)：0
+PlotScaleMilliradians：0
+ImageS paceAfocal：False
+RayAbe rrationU nit：m m
+使⽤虚线：False
+渐晕光瞳：True
+检查孔径：True
+最⼩光线像差 (mm)：-0.034
+最⼤光线像差 (mm)：0.048
+O ptical S ystem  D esign
+17
+光线像差图
+傅⾥叶 MTF
+分析设置：
+参数 值
+采样 (S am pling) 64
+最⼤频率 (cycles/mm，0 为默认) (MaximumFrequency) 0
+波⻓（0 为全部） (WavelengthNumber) 0
+视场（0 为全部） (FieldNum ber) 0
+表⾯（0 为像⾯） (SurfaceNumber) 0
+类型 (T ype) 调制
+显⽰衍射极限 (ShowDiffractionLimit) false
+偏振加权（标量近似，Experim ental） (U sePolarization) false
+使⽤虚线 (UseDashes) false
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：69BBAA54A5943B0616F24
+O ptical S ystem  D esign
+18
+2824C9D19BFFFC9880646A59EE93FCCECF97275AD0E
+分析：傅⾥叶 M T F
+⽅法：FFT
+瞳⾯采样数：64
+⽹格尺⼨：128
+M axim um Frequency：366.067
+截⽌频率 (cycles/m m )：366.067
+FrequencyU nit：cycles/m m
+ImageS paceAfocal：False
+波⻓序号：0
+波⻓ (µm)：System.Double[]
+视场序号：0
+视场数：3
+表⾯序号：0
+T ype：M odulation
+显⽰衍射极限：False
+使⽤偏振：False
+使⽤虚线：False
+Zem axCompa tible：True
+曲线采样点数：300
+傅⾥叶 M T F
+O ptical S ystem  D esign
+19
+场曲/畸变
+分析设置：
+参数 值
+最⼤场曲（0=⾃动） (MaximumC urvature) 0
+最⼤畸变（0=⾃动） (MaximumDistortion) 0
+波⻓（0=所有） (WavelengthNumber) 0
+畸变模型 (DistortionT ype) F-Tan(T heta)
+畸变显⽰为 (DisplayMode) 百分⽐
+扫描⽅向 (ScanDirection) +y
+参考视场 (ReferenceFieldNum ber) 1
+傍轴光瞳间隔 (ParabasalDelta) 0.001
+以主光线为傍轴参考 (ChiefRayParabasal) true
+忽略渐晕因数 (IgnoreVignettingFactors) true
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：72382CBED7E09CAE0924
+6849CDD2940B3AE43C0FD7408D32C5DD38DF956EDC53
+分析：场曲/畸变
+场曲.最⼤视场⻆ (deg)：20
+场曲.采样点数：128
+场曲.近轴光线间隔：0.001
+场曲.Paraba salRayPair：ChiefAndPositive
+场曲.最⼤场曲缩放：0
+场曲.波⻓数：3
+场曲.波⻓序号：0
+场曲.扫描⽅向：+y
+场曲.忽略渐晕因数：True
+场曲.VignettingFactorsApplied：False
+场曲.Ap plicability：S trictly valid for rotationally sym m etric system s w ith plane object and im age surfaces; generalized otherw ise.
+场曲.最⼤⼦午场曲 (m m )：-0.499
+场曲.最⼤弧⽮场曲 (m m )：0.273
+场曲.最⼤像⾯偏移 (m m )：0.499
+畸变.最⼤视场⻆ (deg)：20
+畸变.畸变模型：f-tan
+畸变.显⽰⽅式：percent
+畸变.扫描⽅向：+y
+畸变.参考视场：1
+畸变.波⻓序号：0
+畸变.忽略渐晕因数：True
+畸变.VignettingFactorsApplied：False
+畸变.Ap plicability：S trictly valid for rotationally sym m etric system s w ith plane object and im age surfaces; generalized otherw ise.
+畸变.采样点数：128
+畸变.波⻓数：3
+畸变.最⼤绝对畸变 (% )：0.064
+O ptical S ystem  D esign
+20
+场曲/畸变
+赛德尔系数
+分析设置：
+参数 值
+波⻓ (W avelengthNum ber) 2
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：724762E0E7A3A70D13015
+9258D5C23C3ED13E4EE8F1F835ED7CDF5EF5139A44D
+波⻓                    :       0.5500 µm
+主光线斜率，物空间      :       0.3640
+主光线斜率，像空间      :       0.3557
+边缘光线斜率，物空间    :       0.0000
+边缘光线斜率，像空间    :      -0.1000
+佩兹伐半径              :    -128.7867
+光学不变量              :       1.8199
+赛德尔像差系数：
+表⾯      SPHA  S 1       CO M A S 2       AS T I S 3       FCU R S 4       D IS T  S 5       CLA (CL)      CT R (CT )
+1       0.013855      0.010591      0.008096      0.057727      0.050318      -0.007438     -0.005686
+O ptical S ystem  D esign
+21
+2       0.011256      -0.035011     0.108897      0.002916      -0.347781     -0.004910     0.015272
+3       -0.052115     0.081389      -0.127106     -0.057268     0.287939      0.013345      -0.020841
+光阑      -0.024135     -0.043874     -0.079756     -0.062690     -0.258946     0.010899      0.019813
+5       0.004080      0.016132      0.063784      0.015948      0.315255      -0.003498     -0.013830
+6       0.054020      -0.030462     0.017178      0.069082      -0.048643     -0.009183     0.005178
+像⾯      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+累计      0.006960      -0.001235     -0.008907     0.025716      -0.001859     -0.000785     -0.000094
+赛德尔像差系数（波⻓）：
+表⾯      W040          W131          W222          W220P         W311          W020          W111
+1       3.148780      9.628234      7.360223      26.239739     45.743963     -6.761645     -10.337767
+2       2.558225      -31.828143    98.997411     1.325570      -316.164959   -4.463789     27.768105
+3       -11.844399    73.990085     -115.551090   -26.030774    261.762409    12.131975     -37.893265
+光阑      -5.485193     -39.885145    -72.505420    -28.495523    -235.405831   9.908142      36.023134
+5       0.927262      14.665313     57.985605     7.249056      286.595458    -3.179853     -25.145826
+6       12.277202     -27.692970    15.616355     31.400951     -44.220874    -8.348218     9.415295
+像⾯      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+累计      1.581878      -1.122625     -8.096915     11.689019     -1.689834     -0.713389     -0.170324
+横向像差系数：
+表⾯      TSPH          TSCO          TTCO          TAST          T PFC          T S FC          T T FC          T D IS           T AXC          T LAC
+1       0.069273      0.052955      0.158865      0.080962      0.288636      0.329117      0.410079      0.251591      0.074378      0.056857
+2       0.056281      -0.175054     -0.525162     1.088967      0.014581      0.559065      1.648031      -1.738900     0.049101      -0.152724
+3       -0.260576     0.406944      1.220831      -1.271056     -0.286337     -0.921866     -2.192922     1.439687      -0.133451     0.208412
+光阑      -0.120674     -0.219367     -0.658102     -0.797556     -0.313449     -0.712227     -1.509784     -1.294726     -0.108989     -0.198126
+5       0.020400      0.080659      0.241977      0.637839      0.079739      0.398659      1.036498      1.576268      0.034978      0.138301
+6       0.270097      -0.152311     -0.456932     0.171779      0.345409      0.431299      0.603078      -0.243214     0.091830      -0.051784
+像⾯      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+累计      0.034801      -0.006174     -0.018523     -0.089066     0.128579      0.084046      -0.005020     -0.009294     0.007847      0.000937
+轴向像差系数：
+表⾯      LSPH          LSCO          LTCO          LAST           LPFC          LS FC          LT FC          LD IS           LAXC          LLAC
+1       0.692726      0.529548      1.588645      0.809618      2.886346      3.291155      4.100773      2.515896      -0.743775     -0.568572
+2       0.562805      -1.750533     -5.251598     10.889621     0.145811      5.590622      16.480243     -17.388922    -0.491013     1.527232
+3       -2.605745     4.069419      12.208258     -12.710510    -2.863360     -9.218615     -21.929125    14.396808     1.334506      -2.084111
+光阑      -1.206732     -2.193664     -6.580992     -7.975527     -3.134480     -7.122244     -15.097771    -12.947208    1.089886      1.981255
+5       0.203996      0.806585      2.419756      6.378361      0.797389      3.986570      10.364931     15.762613     -0.349781     -1.383008
+6       2.700961      -1.523100     -4.569300     1.717784      3.454075      4.312967      6.030751      -2.432127     -0.918296     0.517837
+像⾯      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+累计      0.348010      -0.061744     -0.185232     -0.890653     1.285781      0.840455      -0.050198     -0.092940     -0.078472     -0.009368
+波前像差系数汇总（波⻓）：
+表⾯      W040          W131          W222          W220P         W311          W020          W111
+累计      1.581878      -1.122625     -8.096915     11.689019     -1.689834     -0.713389     -0.170324
+场曲波前系数汇总（波⻓）：
+表⾯      W220S         W220M         W220T
+累计      7.640562      3.592104      -0.456354
+O ptical S ystem  D esign
+22
+赛德尔系数
+赛德尔系数
+波前图
+分析设置：
+O ptical S ystem  D esign
+23
+参数 值
+采样 (S am pling) 64 x 64
+旋转 (Rotation) 0
+缩放 (D isplayS cale) 1
+偏振 (Apodization) ⽆
+参考主光线 (ReferenceChiefRay) false
+使⽤出瞳形状 (UseExitPupilS hap e) true
+出瞳模型 (ExitPupilGeometry) F 数近似
+波⻓ (W avelengthNum ber) 2
+视场 (FieldNum ber) 1 - 轴上视场
+表⾯ (S urfaceNum ber) 像⾯
+显⽰为 (D isplayAs) 表⾯
+除去倾斜 (RemoveT ilt) false
+S x (PupilS x) 0
+S y (PupilS y) 0
+S r (PupilSr) 1
+计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：D763405C2B8B86B9CB5A
+856C673797B27F2CF98E0C98BF1C2B356FE27EA1025A
+分析：波前图
+光线数：3001
+渐晕光线数：0
+参考光程：23.706
+平均光程差：-2.67E-4
+RMS 光程 差：1.005E-4
+PV 光程差：3.53E-4
+RMS 波数：0.183
+波峰到波⾕：0.642
+参考球半径 (mm)：50.961
+ReferenceG eom etry：reference sphere
+ImageS paceAfocal：False
+出瞳直径 (mm)：10.234
+归⼀化视场 Hx：0
+归⼀化视场 Hy：0
+分析波⻓ (µm)：0.55
+参考：reference_sphere
+采样：64 x 64
+旋转：0
+显⽰缩放：1
+偏振：⽆
+参考主光线：False
+O ptical S ystem  D esign
+24
+使⽤出瞳形状：True
+出瞳⼏何模式：WorkingFNumber
+出瞳显⽰参考半径 (mm)：0
+光阑像最⼤交会残差 (mm)：0
+出瞳 X 显⽰⽐例：1
+出瞳 Y 显⽰⽐例：1
+出瞳显⽰模型：Approximate X/Y working-F-number projection; display only
+ExitPupilW orkingFNum be rX：4.978
+ExitPupilW orkingFNum be rY：4.978
+UseRayAiming：False
+波⻓序号：2
+视场序号：1
+表⾯序号：7
+表⾯标注：Image
+显⽰为：表⾯
+除去倾斜：False
+Sx ：0
+Sy：0
+Sr：1
+波前图
+导出结果
+成功项⽬：8；失败或不适⽤项⽬：0。

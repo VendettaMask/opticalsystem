@@ -70,8 +70,15 @@ public sealed partial class ViewerPanel
 
         // Draw the live scene with its actual viewport/camera. Export-only siblings
         // contain complete legends and wrapped metadata, never settings or navigation.
-        var page = new StackPanel { Width = size.Width, FlowDirection = FlowDirection };
-        page.Children.Add(new SceneImageCanvas(_scene) { Width = size.Width, Height = size.Height, ClipToBounds = true });
+        var page = new StackPanel { Width = size.Width, FlowDirection = FlowDirection, Background = _summaryBar.Background };
+        // Keep the footer origin on the output pixel grid so text is not resampled
+        // when the current viewport has a fractional logical height.
+        page.Children.Add(new SceneImageCanvas(_scene)
+        {
+            Width = size.Width,
+            Height = Math.Ceiling(size.Height * scale) / scale,
+            ClipToBounds = true
+        });
         if (_glassLegend.IsVisible)
         {
             var entries = new WrapPanel { Orientation = Orientation.Horizontal };
@@ -107,23 +114,33 @@ public sealed partial class ViewerPanel
                 Child = CopyImageLabel(_staleLayoutMessage)
             });
         if (_summaryBar.IsVisible)
-            page.Children.Add(new Border
+        {
+            if (UsesLayoutCaption)
             {
-                Background = _summaryBar.Background,
-                BorderBrush = _summaryBar.BorderBrush,
-                BorderThickness = _summaryBar.BorderThickness,
-                Padding = _summaryBar.Padding,
-                Child = CopyImageLabel(_summary)
-            });
+                // Reuse the complete laid-out caption to retain its exact theme,
+                // language, configured font and source timestamp in the captured image.
+                var caption = _summaryBar.Child!;
+                page.Children.Add(new CaptionImageCanvas(caption)
+                {
+                    Width = size.Width,
+                    Height = Math.Ceiling(caption.Bounds.Height * scale) / scale
+                });
+            }
+            else
+                page.Children.Add(new Border
+                {
+                    Background = _summaryBar.Background,
+                    BorderBrush = _summaryBar.BorderBrush,
+                    BorderThickness = _summaryBar.BorderThickness,
+                    Padding = _summaryBar.Padding,
+                    Child = CopyImageLabel(_summary)
+                });
+        }
 
         page.Measure(new Size(size.Width, double.PositiveInfinity));
         page.Arrange(new Rect(page.DesiredSize));
         page.UpdateLayout();
-        var pixels = new PixelSize(checked((int)Math.Ceiling(page.Bounds.Width * scale)),
-            checked((int)Math.Ceiling(page.Bounds.Height * scale)));
-        var bitmap = new RenderTargetBitmap(pixels, new Vector(96 * scale, 96 * scale));
-        try { bitmap.Render(page); return bitmap; }
-        catch { bitmap.Dispose(); throw; }
+        return ExportImageFrame.Capture(page, scale, this);
     }
 
     private static TextBlock CopyImageLabel(TextBlock source) => new()
@@ -142,6 +159,13 @@ public sealed partial class ViewerPanel
     private sealed class SceneImageCanvas(OpticSceneControl scene) : Control
     {
         public override void Render(DrawingContext context) => scene.RenderImageContent(context);
+    }
+
+    private sealed class CaptionImageCanvas(Control caption) : Control
+    {
+        public override void Render(DrawingContext context) =>
+            context.DrawRectangle(new VisualBrush(caption)
+            { Stretch = Stretch.None, AlignmentX = AlignmentX.Left, AlignmentY = AlignmentY.Top }, null, new Rect(Bounds.Size));
     }
 
     internal static void SaveViewerImage(RenderTargetBitmap bitmap, string path) =>

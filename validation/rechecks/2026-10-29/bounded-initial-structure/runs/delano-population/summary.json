@@ -1,0 +1,987 @@
+{
+  "Mode": "delano-population",
+  "SourcePlanFingerprint": "ea50725ca36102358024755685fda992c74ca2e3ed5c7e3dd8c51c35e3ecb3c6",
+  "Preparation": {
+    "Termination": "Completed",
+    "Retained": 0,
+    "FallbackToOriginal": true,
+    "Work": {
+      "FunctionEvaluations": 120,
+      "GradientEvaluations": 0,
+      "ValidationEvaluations": 0,
+      "MatrixEvaluations": 72,
+      "DifferenceEvaluations": 0,
+      "JacobianBuilds": 54,
+      "TracedRays": 0,
+      "GeometryProbes": 17252,
+      "Elapsed": "00:00:00.2508463"
+    },
+    "DiagramEvaluations": 40,
+    "Outcomes": [
+      {
+        "Index": 0,
+        "Outcome": "FirstOrderTargetRejected",
+        "FunctionEvaluations": 30,
+        "Score": 80.7181475847559
+      },
+      {
+        "Index": 1,
+        "Outcome": "FirstOrderTargetRejected",
+        "FunctionEvaluations": 30,
+        "Score": 96.63041589452031
+      },
+      {
+        "Index": 2,
+        "Outcome": "FirstOrderTargetRejected",
+        "FunctionEvaluations": 30,
+        "Score": 11.329154540683188
+      },
+      {
+        "Index": 3,
+        "Outcome": "FirstOrderTargetRejected",
+        "FunctionEvaluations": 30,
+        "Score": 2.8498350016532856
+      }
+    ]
+  },
+  "InitialQuality": [
+    {
+      "Id": "seed-0",
+      "Elements": 3,
+      "Assessment": {
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 25.012716195783153,
+        "FNumber": 3.4028450695876655,
+        "Fields": 35,
+        "RmsMicrometers": 49.29257176225859,
+        "MaximumMicrometers": 136.48802777710335,
+        "DistortionPercent": 1.4720274828050226,
+        "MinimumIntegrationValid": 960,
+        "MinimumChecksValid": 99,
+        "Violations": [],
+        "Failure": null,
+        "TracedRayCount": 425420
+      }
+    }
+  ],
+  "BestRetained": {
+    "Id": "seed-0",
+    "Elements": 3,
+    "Assessment": {
+      "Completed": true,
+      "MeetsTargets": true,
+      "EffectiveFocalLengthMillimeters": 25.012716195783153,
+      "FNumber": 3.4028450695876655,
+      "Fields": 35,
+      "RmsMicrometers": 49.29257176225859,
+      "MaximumMicrometers": 136.48802777710335,
+      "DistortionPercent": 1.4720274828050226,
+      "MinimumIntegrationValid": 960,
+      "MinimumChecksValid": 99,
+      "Violations": [],
+      "Failure": null,
+      "TracedRayCount": 425420
+    }
+  },
+  "LastAssessment": {
+    "Completed": true,
+    "MeetsTargets": false,
+    "EffectiveFocalLengthMillimeters": 25.012715766045194,
+    "FNumber": 3.4028451846803405,
+    "Fields": 35,
+    "RmsMicrometers": 318.0722366388162,
+    "MaximumMicrometers": 731.3113513550089,
+    "DistortionPercent": 3.5672202408170204,
+    "MinimumIntegrationValid": 960,
+    "MinimumChecksValid": 99,
+    "Violations": [
+      {
+        "Code": "field:0:rms",
+        "Actual": 0.0645373483247524,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:0:maximum",
+        "Actual": 0.18583015853451978,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:1:rms",
+        "Actual": 0.06434799718123911,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:1:maximum",
+        "Actual": 0.19020332232266401,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:2:rms",
+        "Actual": 0.06378904453329491,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:2:maximum",
+        "Actual": 0.1930270507894939,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:3:rms",
+        "Actual": 0.06288865523098693,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:3:maximum",
+        "Actual": 0.194295636745635,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:4:rms",
+        "Actual": 0.061696684611991966,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:4:maximum",
+        "Actual": 0.19401482699997719,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:5:rms",
+        "Actual": 0.06028913607967525,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:5:maximum",
+        "Actual": 0.19299795114230334,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:6:rms",
+        "Actual": 0.05877436255959087,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:6:maximum",
+        "Actual": 0.19180344095654328,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:7:rms",
+        "Actual": 0.05730035590602277,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:7:maximum",
+        "Actual": 0.19043476422289937,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:8:rms",
+        "Actual": 0.05606115174939352,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:8:maximum",
+        "Actual": 0.1887849281597798,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:9:rms",
+        "Actual": 0.055298132817343575,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:9:maximum",
+        "Actual": 0.18665479562230042,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:10:rms",
+        "Actual": 0.05528968324756911,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:10:maximum",
+        "Actual": 0.18476749965841588,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:11:rms",
+        "Actual": 0.05632333125466408,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:11:maximum",
+        "Actual": 0.18270331167648066,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:12:rms",
+        "Actual": 0.058652485747306714,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:12:maximum",
+        "Actual": 0.180391835159037,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:13:rms",
+        "Actual": 0.06245349234056595,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:13:maximum",
+        "Actual": 0.17787850479850933,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:14:rms",
+        "Actual": 0.06780477443390134,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:14:maximum",
+        "Actual": 0.17521740928673898,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:15:rms",
+        "Actual": 0.07469719159503552,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:15:maximum",
+        "Actual": 0.17247272878533115,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:16:rms",
+        "Actual": 0.08306458714890742,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:16:maximum",
+        "Actual": 0.17031717756640585,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:17:rms",
+        "Actual": 0.09281607298669588,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:17:maximum",
+        "Actual": 0.1972175006354675,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:18:rms",
+        "Actual": 0.10385883606392092,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:18:maximum",
+        "Actual": 0.2271372692948539,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:19:rms",
+        "Actual": 0.11610994801881294,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:19:maximum",
+        "Actual": 0.2603081296925298,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:20:rms",
+        "Actual": 0.12950037885841134,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:20:maximum",
+        "Actual": 0.2954956655111989,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:21:rms",
+        "Actual": 0.0641134295308591,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:21:maximum",
+        "Actual": 0.1918091954174478,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:22:rms",
+        "Actual": 0.061013926733892825,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:22:maximum",
+        "Actual": 0.19354525343789597,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:23:rms",
+        "Actual": 0.05663738047555452,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:23:maximum",
+        "Actual": 0.1896727486968038,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:24:rms",
+        "Actual": 0.055659046422380676,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:24:maximum",
+        "Actual": 0.18376885530532439,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:25:rms",
+        "Actual": 0.06493417480633613,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:25:maximum",
+        "Actual": 0.17656267039782303,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:26:rms",
+        "Actual": 0.08777326076229489,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:26:maximum",
+        "Actual": 0.1835922591806458,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:27:rms",
+        "Actual": 0.12266650881650931,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:27:maximum",
+        "Actual": 0.2777095355048713,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:28:rms",
+        "Actual": 0.14397481810137444,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:28:maximum",
+        "Actual": 0.3322222479970449,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:29:rms",
+        "Actual": 0.16762644450976089,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:29:maximum",
+        "Actual": 0.3901961851741671,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:30:rms",
+        "Actual": 0.19351194043986034,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:30:maximum",
+        "Actual": 0.4516227145715028,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:31:rms",
+        "Actual": 0.2215535708080851,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:31:maximum",
+        "Actual": 0.5164836824448971,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:32:rms",
+        "Actual": 0.25169272166153944,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:32:maximum",
+        "Actual": 0.5847496348000218,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:33:rms",
+        "Actual": 0.28388072743344045,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:33:maximum",
+        "Actual": 0.6563780126524286,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:33:distortion",
+        "Actual": 0.031823687412154154,
+        "Limit": 0.03
+      },
+      {
+        "Code": "field:34:rms",
+        "Actual": 0.31807223663881623,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:34:maximum",
+        "Actual": 0.7313113513550089,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:34:distortion",
+        "Actual": 0.035672202408170206,
+        "Limit": 0.03
+      }
+    ],
+    "Failure": null,
+    "TracedRayCount": 448116
+  },
+  "Endpoints": [
+    {
+      "TrialId": "seed-0",
+      "Operation": "seed",
+      "Phase": "Validation",
+      "Outcome": "Accepted",
+      "Detail": null,
+      "Elements": 3,
+      "AcceptedUpdates": null,
+      "Assessment": {
+        "Completed": true,
+        "MeetsTargets": true,
+        "EffectiveFocalLengthMillimeters": 25.012716195783153,
+        "FNumber": 3.4028450695876655,
+        "Fields": 35,
+        "RmsMicrometers": 49.29257176225859,
+        "MaximumMicrometers": 136.48802777710335,
+        "DistortionPercent": 1.4720274828050226,
+        "MinimumIntegrationValid": 960,
+        "MinimumChecksValid": 99,
+        "Violations": [],
+        "Failure": null,
+        "TracedRayCount": 425420
+      }
+    },
+    {
+      "TrialId": "trial-0",
+      "Operation": "population-rebirth",
+      "Phase": "Local",
+      "Outcome": "DomainFailure",
+      "Detail": null,
+      "Elements": 3,
+      "AcceptedUpdates": 0,
+      "Assessment": null
+    },
+    {
+      "TrialId": "trial-0",
+      "Operation": "population-rebirth",
+      "Phase": "Validation",
+      "Outcome": "ValidationUnavailable",
+      "Detail": "The conic profile derivative is singular or outside its domain.",
+      "Elements": 3,
+      "AcceptedUpdates": null,
+      "Assessment": {
+        "Completed": false,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 6.066417655974982,
+        "FNumber": 0.8386646483219002,
+        "Fields": 0,
+        "RmsMicrometers": null,
+        "MaximumMicrometers": null,
+        "DistortionPercent": null,
+        "MinimumIntegrationValid": null,
+        "MinimumChecksValid": null,
+        "Violations": [
+          {
+            "Code": "focal-length",
+            "Actual": 0.7617550675955189,
+            "Limit": 0.02
+          },
+          {
+            "Code": "f-number",
+            "Actual": 0.7490225670226571,
+            "Limit": 0.02
+          },
+          {
+            "Code": "geometry:element-001:edge:41",
+            "Actual": null,
+            "Limit": 0
+          }
+        ],
+        "Failure": "The conic profile derivative is singular or outside its domain.",
+        "TracedRayCount": 0
+      }
+    },
+    {
+      "TrialId": "trial-1",
+      "Operation": "delete",
+      "Phase": "Recovery",
+      "Outcome": "Recovered",
+      "Detail": null,
+      "Elements": 2,
+      "AcceptedUpdates": null,
+      "Assessment": null
+    },
+    {
+      "TrialId": "trial-1",
+      "Operation": "delete",
+      "Phase": "Local",
+      "Outcome": "UpdateLimit",
+      "Detail": null,
+      "Elements": 2,
+      "AcceptedUpdates": 0,
+      "Assessment": null
+    },
+    {
+      "TrialId": "trial-1",
+      "Operation": "delete",
+      "Phase": "Full",
+      "Outcome": "RayBudgetExhausted",
+      "Detail": null,
+      "Elements": 2,
+      "AcceptedUpdates": 0,
+      "Assessment": null
+    },
+    {
+      "TrialId": "trial-1",
+      "Operation": "delete",
+      "Phase": "Validation",
+      "Outcome": "UnmetTargets",
+      "Detail": null,
+      "Elements": 2,
+      "AcceptedUpdates": null,
+      "Assessment": {
+        "Completed": true,
+        "MeetsTargets": false,
+        "EffectiveFocalLengthMillimeters": 25.012715766045194,
+        "FNumber": 3.4028451846803405,
+        "Fields": 35,
+        "RmsMicrometers": 318.0722366388162,
+        "MaximumMicrometers": 731.3113513550089,
+        "DistortionPercent": 3.5672202408170204,
+        "MinimumIntegrationValid": 960,
+        "MinimumChecksValid": 99,
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.0645373483247524,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.18583015853451978,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:1:rms",
+            "Actual": 0.06434799718123911,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:1:maximum",
+            "Actual": 0.19020332232266401,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:2:rms",
+            "Actual": 0.06378904453329491,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:2:maximum",
+            "Actual": 0.1930270507894939,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:3:rms",
+            "Actual": 0.06288865523098693,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:3:maximum",
+            "Actual": 0.194295636745635,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:4:rms",
+            "Actual": 0.061696684611991966,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:4:maximum",
+            "Actual": 0.19401482699997719,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:5:rms",
+            "Actual": 0.06028913607967525,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:5:maximum",
+            "Actual": 0.19299795114230334,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:6:rms",
+            "Actual": 0.05877436255959087,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:6:maximum",
+            "Actual": 0.19180344095654328,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:7:rms",
+            "Actual": 0.05730035590602277,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:7:maximum",
+            "Actual": 0.19043476422289937,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:8:rms",
+            "Actual": 0.05606115174939352,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:8:maximum",
+            "Actual": 0.1887849281597798,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:9:rms",
+            "Actual": 0.055298132817343575,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:9:maximum",
+            "Actual": 0.18665479562230042,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:10:rms",
+            "Actual": 0.05528968324756911,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:10:maximum",
+            "Actual": 0.18476749965841588,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:11:rms",
+            "Actual": 0.05632333125466408,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:11:maximum",
+            "Actual": 0.18270331167648066,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:12:rms",
+            "Actual": 0.058652485747306714,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:12:maximum",
+            "Actual": 0.180391835159037,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:13:rms",
+            "Actual": 0.06245349234056595,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:13:maximum",
+            "Actual": 0.17787850479850933,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:14:rms",
+            "Actual": 0.06780477443390134,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:14:maximum",
+            "Actual": 0.17521740928673898,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:15:rms",
+            "Actual": 0.07469719159503552,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:15:maximum",
+            "Actual": 0.17247272878533115,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:16:rms",
+            "Actual": 0.08306458714890742,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:16:maximum",
+            "Actual": 0.17031717756640585,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:17:rms",
+            "Actual": 0.09281607298669588,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:17:maximum",
+            "Actual": 0.1972175006354675,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:18:rms",
+            "Actual": 0.10385883606392092,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:18:maximum",
+            "Actual": 0.2271372692948539,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:19:rms",
+            "Actual": 0.11610994801881294,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:19:maximum",
+            "Actual": 0.2603081296925298,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:20:rms",
+            "Actual": 0.12950037885841134,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:20:maximum",
+            "Actual": 0.2954956655111989,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:21:rms",
+            "Actual": 0.0641134295308591,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:21:maximum",
+            "Actual": 0.1918091954174478,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:22:rms",
+            "Actual": 0.061013926733892825,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:22:maximum",
+            "Actual": 0.19354525343789597,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:23:rms",
+            "Actual": 0.05663738047555452,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:23:maximum",
+            "Actual": 0.1896727486968038,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:24:rms",
+            "Actual": 0.055659046422380676,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:24:maximum",
+            "Actual": 0.18376885530532439,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:25:rms",
+            "Actual": 0.06493417480633613,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:25:maximum",
+            "Actual": 0.17656267039782303,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:26:rms",
+            "Actual": 0.08777326076229489,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:26:maximum",
+            "Actual": 0.1835922591806458,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:27:rms",
+            "Actual": 0.12266650881650931,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:27:maximum",
+            "Actual": 0.2777095355048713,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:28:rms",
+            "Actual": 0.14397481810137444,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:28:maximum",
+            "Actual": 0.3322222479970449,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:29:rms",
+            "Actual": 0.16762644450976089,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:29:maximum",
+            "Actual": 0.3901961851741671,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:30:rms",
+            "Actual": 0.19351194043986034,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:30:maximum",
+            "Actual": 0.4516227145715028,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:31:rms",
+            "Actual": 0.2215535708080851,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:31:maximum",
+            "Actual": 0.5164836824448971,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:32:rms",
+            "Actual": 0.25169272166153944,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:32:maximum",
+            "Actual": 0.5847496348000218,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:33:rms",
+            "Actual": 0.28388072743344045,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:33:maximum",
+            "Actual": 0.6563780126524286,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:33:distortion",
+            "Actual": 0.031823687412154154,
+            "Limit": 0.03
+          },
+          {
+            "Code": "field:34:rms",
+            "Actual": 0.31807223663881623,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field:34:maximum",
+            "Actual": 0.7313113513550089,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field:34:distortion",
+            "Actual": 0.035672202408170206,
+            "Limit": 0.03
+          }
+        ],
+        "Failure": null,
+        "TracedRayCount": 448116
+      }
+    }
+  ],
+  "SearchWork": {
+    "FunctionEvaluations": 40,
+    "GradientEvaluations": 28,
+    "ValidationEvaluations": 3,
+    "MatrixEvaluations": 9,
+    "DifferenceEvaluations": 0,
+    "JacobianBuilds": 8,
+    "TracedRays": 1414924,
+    "GeometryProbes": 4865,
+    "Elapsed": "00:00:12.2523979"
+  },
+  "CombinedFunctions": 160,
+  "CombinedGradients": 28,
+  "CombinedRays": 1414924,
+  "ComputeAndSaveWallSeconds": 12.8990796,
+  "WallLimitSeconds": 60,
+  "WithinWallLimit": true,
+  "Status": "BudgetExhausted",
+  "TrialCursor": 3,
+  "PopulationOperations": [
+    {
+      "Operation": "population-rebirth",
+      "Phase": "Local",
+      "Outcome": "DomainFailure"
+    },
+    {
+      "Operation": "population-rebirth",
+      "Phase": "Validation",
+      "Outcome": "ValidationUnavailable"
+    }
+  ],
+  "QualifiedCandidates": 1,
+  "BoundedConclusion": null
+}

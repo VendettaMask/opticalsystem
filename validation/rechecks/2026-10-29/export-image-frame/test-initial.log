@@ -1,0 +1,146 @@
+生成启动时间为 2026/10/29 13:45:50。
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:01.20]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:03.47]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:03.59]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: OpticalLayout) [5 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: TwoDimensional, mode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: SolidModel) [3 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False) [2 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True) [6 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False) [2 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False) [7 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False) [2 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: False, loaded: True, expectedState: "布局结果与当前场景一致") [796 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: False, expectedState: "布局结果已过期并隐藏") [776 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: False, stale: False, loaded: False, expectedState: "尚未准备布局光线") [724 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: True, expectedState: "警告：正在查看过期结果") [729 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Light", language: "en-US", width: 420, fontSize: 24) [734 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Light", language: "ja-JP", width: 360, fontSize: 13) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Light", language: "ja-JP", width: 360, fontSize: 13) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Light", language: "zh-CN", width: 840, fontSize: 13) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Dark", language: "en-US", width: 420, fontSize: 13) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Light", language: "en-US", width: 420, fontSize: 24) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Dark", language: "en-US", width: 420, fontSize: 13) [827 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Light", language: "zh-CN", width: 840, fontSize: 13) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel) [1 m 25 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout) [1 m 3 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: OpticalLayout) [1 m 10 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: TwoDimensional, mode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: SolidModel) [3 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: TwoDimensional, mode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: SolidModel) [3 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: TwoDimensional) [447 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: ThreeDimensional) [805 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata [832 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Pdf) [22 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Word) [6 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Markdown) [5 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Html) [5 s]
+[xUnit.net 00:05:27.38]     OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Light", scale: 1.25) [FAIL]
+[xUnit.net 00:05:27.38]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:05:27.38]                  ↓ (pos 0)
+[xUnit.net 00:05:27.38]       Expected: [126, 91, 55, 255]
+[xUnit.net 00:05:27.38]       Actual:   [78, 56, 34, 159]
+[xUnit.net 00:05:27.38]                  ↑ (pos 0)
+[xUnit.net 00:05:27.38]       Stack Trace:
+[xUnit.net 00:05:27.38]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(24,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)
+[xUnit.net 00:05:27.38]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(67,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass3_0.<BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales>b__0()
+[xUnit.net 00:05:27.38]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:05:27.38]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:05:27.38]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:05:27.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:05:27.38]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(47,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(String theme, Double scale)
+[xUnit.net 00:05:27.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:05:27.40]     OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Dark", scale: 1.25) [FAIL]
+[xUnit.net 00:05:27.40]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:05:27.40]                  ↓ (pos 0)
+[xUnit.net 00:05:27.40]       Expected: [156, 140, 128, 255]
+[xUnit.net 00:05:27.40]       Actual:   [97, 87, 80, 159]
+[xUnit.net 00:05:27.40]                  ↑ (pos 0)
+[xUnit.net 00:05:27.40]       Stack Trace:
+[xUnit.net 00:05:27.40]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(24,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)
+[xUnit.net 00:05:27.40]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(67,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass3_0.<BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales>b__0()
+[xUnit.net 00:05:27.40]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:05:27.40]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:05:27.40]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:05:27.40]         --- End of stack trace from previous location ---
+[xUnit.net 00:05:27.40]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(47,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(String theme, Double scale)
+[xUnit.net 00:05:27.40]         --- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Dark", scale: 2) [25 ms]
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Light", scale: 1.25) [24 ms]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+           ↓ (pos 0)
+Expected: [126, 91, 55, 255]
+Actual:   [78, 56, 34, 159]
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 24
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass3_0.<BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 67
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(String theme, Double scale) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 47
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Light", scale: 1) [9 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Light", scale: 2) [8 ms]
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Dark", scale: 1.25) [7 ms]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+           ↓ (pos 0)
+Expected: [156, 140, 128, 255]
+Actual:   [97, 87, 80, 159]
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 24
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass3_0.<BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 67
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(String theme, Double scale) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 47
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Dark", scale: 1) [36 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: "zh-CN") [545 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: "en-US") [574 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: "ja-JP") [714 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 840, height: 620, fontSize: 13) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 420, height: 280, fontSize: 32) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: Standard) [870 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: OpticalPathDifference) [687 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 840, height: 620) [2 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: SpotDiagram, width: 840, height: 620) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: FftPsf, width: 840, height: 620) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 840, height: 620) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 32769, height: 300) [731 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 8192, height: 8192) [554 ms]
+[xUnit.net 00:05:46.76]   Finished:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile [1 s]
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-29\export-image-frame\frame-final.trx
+
+测试运行失败。
+测试总数: 61
+     通过数: 59
+     失败数: 2
+总时间: 5.7960 分钟
+项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”在节点 1 上(VSTest 个目标)。
+_VSTestConsole:
+  MSB4181: “VSTestTask”任务返回了 false，但未记录错误。
+已完成生成项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”(VSTest 个目标)的操作 - 失败。
+
+生成失败。
+    0 个警告
+    0 个错误
+
+已用时间 00:05:49.53

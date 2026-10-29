@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -22,7 +21,7 @@ public sealed partial class AnalysisPanel
     internal static double AnalysisFooterTextSize => DisplayTypography.CompactBody;
     internal static double AnalysisFooterTitleSize => DisplayTypography.CardTitle;
     internal static double AnalysisFooterCaptionSize => DisplayTypography.Caption;
-    internal const double AnalysisFooterHeight = 132;
+    internal const double AnalysisFooterHeight = PlotCaption.MinimumHeight;
     internal const double AnalysisPlotMinimumHeight = 280;
 
     internal void PresentResult(
@@ -730,15 +729,6 @@ public sealed partial class AnalysisPanel
             resultLines += $"{Environment.NewLine}其余 {view.Rows.Count - visibleRows.Length} 项见“数据”页";
         }
 
-        var documentName = string.IsNullOrWhiteSpace(document.Path)
-            ? document.Name
-            : Path.GetFileName(document.Path);
-        var version = Assembly.GetExecutingAssembly()
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
-            .InformationalVersion?.Split('+')[0]
-            ?? Assembly.GetExecutingAssembly().GetName().Version?.ToString(3)
-            ?? "1.0.0";
-
         var left = new StackPanel
         {
             Spacing = 2,
@@ -807,95 +797,11 @@ public sealed partial class AnalysisPanel
             }
         }
 
-        var productLogo = new CompanyLogoControl
-        {
-            Name = "AnalysisCompanyLogo",
-            Width = 180,
-            Height = 28,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            Stretch = Stretch.Uniform
-        };
-        var productDescription = new TextBlock
-        {
-            Text = $"Optical System Design  {version}",
-            FontSize = AnalysisFooterCaptionSize,
-            TextWrapping = TextWrapping.Wrap,
-            TextAlignment = TextAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Center
-        };
-        productDescription.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
-        var product = new StackPanel
-        {
-            Spacing = 2,
-            MinHeight = 64,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            Children =
-            {
-                productLogo,
-                productDescription
-            }
-        };
-        var documentDescription = new TextBlock
-        {
-            Text = document.Name,
-            FontSize = AnalysisFooterCaptionSize,
-            TextWrapping = TextWrapping.Wrap,
-            TextAlignment = TextAlignment.Center
-        };
-        documentDescription.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
-        var documentNameText = new TextBlock
-        {
-            Text = documentName,
-            FontSize = AnalysisFooterTextSize,
-            FontWeight = FontWeight.Medium,
-            TextWrapping = TextWrapping.Wrap,
-            TextAlignment = TextAlignment.Center
-        };
-        documentNameText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
-        var documentInfo = new StackPanel
-        {
-            Spacing = 2,
-            Margin = new Thickness(12, 5),
-            HorizontalAlignment = HorizontalAlignment.Stretch,
-            VerticalAlignment = VerticalAlignment.Center,
-            Children =
-            {
-                documentNameText,
-                documentDescription
-            }
-        };
-        var right = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto") };
-        right.Children.Add(product);
-        var documentBorder = new Border
-        {
-            BorderThickness = new Thickness(0, 1, 0, 0),
-            Child = documentInfo
-        };
-        documentBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        Grid.SetRow(documentBorder, 1);
-        right.Children.Add(documentBorder);
-
         // Analysis-specific summaries occupy only the left region. Keep the brand
         // and document controls, typography and full-height layout shared.
         var summary = !overlay && view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion
             ? BuildFieldCurvatureAndDistortionSummary(view, generatedAt) : left;
-        var rightBorder = new Border
-        {
-            BorderThickness = new Thickness(1, 0, 0, 0),
-            Child = right
-        };
-        rightBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        var grid = new ResponsiveAnalysisFooterGrid(summary, rightBorder) { MinHeight = AnalysisFooterHeight };
-
-        var titleBorder = new Border
-        {
-            BorderThickness = new Thickness(0, 1, 0, 1),
-            Child = grid
-        };
-        titleBorder.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        titleBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        return titleBorder;
+        return PlotCaption.Create(summary, document, "AnalysisCompanyLogo");
     }
 
     private static string ConfigurationCaption(AnalysisViewDto view)

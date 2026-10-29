@@ -1,0 +1,64 @@
+生成启动时间为 2026/10/29 9:32:37。
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:01.22]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.57]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.65]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.UnknownFormatIsRejectedBeforeCreatingOutput [1 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Pdf) [1 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Markdown) [232 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Word, extension: ".docx") [609 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Word) [170 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue [462 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings [767 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource [438 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames [8 ms]
+[xUnit.net 00:00:11.33]     OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Pdf, extension: ".pdf") [FAIL]
+[xUnit.net 00:00:11.33]       Assert.Contains() Failure: Sub-string not found
+[xUnit.net 00:00:11.34]       String:    "%PDF-1.4\n%Óëéá\n1 0 obj\n<</Title <FEFF004F"···
+[xUnit.net 00:00:11.34]       Not found: "/FontFile"
+[xUnit.net 00:00:11.34]       Stack Trace:
+[xUnit.net 00:00:11.34]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DesignReportFormatTests.cs(54,0): at OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(DesignReportFormat format, String extension)
+[xUnit.net 00:00:11.34]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Pdf, extension: ".pdf") [6 s]
+  错误消息:
+   Assert.Contains() Failure: Sub-string not found
+String:    "%PDF-1.4\n%Óëéá\n1 0 obj\n<</Title <FEFF004F"···
+Not found: "/FontFile"
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(DesignReportFormat format, String extension) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DesignReportFormatTests.cs:line 54
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Word) [21 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Pdf) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Markdown) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedGenericZernikeSelectionsAreOmittedWithoutChangingExplicitCoefficientAnalyses [7 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnPrescriptionAndLayout [140 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Pdf) [5 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Word) [68 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "en-US", format: Pdf, index: 1, extension: ".pdf") [15 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "zh-CN", format: Word, index: 0, extension: ".docx") [6 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "ja-JP", format: Markdown, index: 2, extension: ".md") [8 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Pdf) [20 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Word) [4 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Markdown) [4 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.SharedProgressSupportsItemCountsAndResetsToIndeterminateForOtherOperations [9 ms]
+[xUnit.net 00:01:20.34]   Finished:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowListsEveryAnalysisAndShowsProgressAndDefaultDirectory [3 s]
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-29\report-formats\report-formats.trx
+
+测试运行失败。
+测试总数: 25
+     通过数: 24
+     失败数: 1
+总时间: 1.3499 分钟
+项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”在节点 1 上(VSTest 个目标)。
+_VSTestConsole:
+  MSB4181: “VSTestTask”任务返回了 false，但未记录错误。
+已完成生成项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”(VSTest 个目标)的操作 - 失败。
+
+生成失败。
+    0 个警告
+    0 个错误
+
+已用时间 00:01:21.96

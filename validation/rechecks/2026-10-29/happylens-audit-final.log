@@ -1,0 +1,69 @@
+{
+  "upstream_commit": "8456f7d9e1fb3264f86b05a4ca43c29173e059ea",
+  "distinct_passing_tests": 26,
+  "final_runs": 18,
+  "original_gates_and_ledgers": "passed",
+  "mean_best_worst_field_rms_micrometers_local_only": {
+    "Template": 19.782222924211098,
+    "RandomPhysical": 19.969447168209978,
+    "Delano": 17.144666677448647
+  },
+  "delano_vs_template_mean_improvement_fraction": 0.13332961906593388,
+  "all_search_batches_separate": [
+    {
+      "group": "comparison",
+      "runs": 18,
+      "traced_rays": 6318840,
+      "functions": 674
+    },
+    {
+      "group": "comparison-equal-updates",
+      "runs": 18,
+      "traced_rays": 6224664,
+      "functions": 530
+    },
+    {
+      "group": "comparison-final",
+      "runs": 18,
+      "traced_rays": 6224664,
+      "functions": 530
+    }
+  ],
+  "current_binary_sha256": {
+    "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll": "3dcf5fd447e5548f35f31ec660fb9b0991f925fa16e51787c046d746179b2aea",
+    "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll": "9dda47aa885e8638417445184400adfeb23aebdfda81fa034d1d67f1bcf5a9df",
+    "tools/diagnostics/HappyLens20261029/bin/Release/net10.0/OpticalSystemDesign.Core.dll": "3dcf5fd447e5548f35f31ec660fb9b0991f925fa16e51787c046d746179b2aea",
+    "tools/diagnostics/HappyLens20261029/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll": "9dda47aa885e8638417445184400adfeb23aebdfda81fa034d1d67f1bcf5a9df"
+  },
+  "additional_replay_work": {
+    "post-format-replay-final.json": {
+      "FunctionEvaluations": 32,
+      "GradientEvaluations": 24,
+      "ValidationEvaluations": 8,
+      "MatrixEvaluations": 0,
+      "DifferenceEvaluations": 0,
+      "JacobianBuilds": 0,
+      "TracedRays": 371856,
+      "GeometryProbes": 11936,
+      "Elapsed": "00:00:09.0089770"
+    },
+    "post-format-replay.json": {
+      "FunctionEvaluations": 32,
+      "GradientEvaluations": 24,
+      "ValidationEvaluations": 8,
+      "MatrixEvaluations": 0,
+      "DifferenceEvaluations": 0,
+      "JacobianBuilds": 0,
+      "TracedRays": 371856,
+      "GeometryProbes": 11936,
+      "Elapsed": "00:00:09.2281299"
+    }
+  },
+  "limits": [
+    "small three-singlet F/12.5 half-field 5-degree task only",
+    "no qualified two-element claim",
+    "no universal population benefit",
+    "no full upstream experiment",
+    "no Linux/macOS or native desktop acceptance"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "AdditionalFirstOrderMetricRequests": 6,
+  "AdditionalTracedRays": 0,
+  "Scope": "Read-only post-run first-order diagnosis, not optimization work",
+  "Metrics": [
+    {
+      "Index": 0,
+      "Outcome": "DenseGeometryRejected",
+      "Score": 60.12513098062585,
+      "FocalMillimeters": 25.09154564389687,
+      "FNumber": 3.8939770866949557,
+      "FocusA": 1.2569423726405127E-05,
+      "FocalRelativeError": -0.01458588332335975,
+      "FNumberRelativeError": 0.16530531631062595,
+      "FocusPassed": true,
+      "FocalPassed": true,
+      "FNumberPassed": false
+    },
+    {
+      "Index": 1,
+      "Outcome": "FirstOrderTargetRejected",
+      "Score": 121.9298825592623,
+      "FocalMillimeters": 24.744986578742857,
+      "FNumber": 4.155634341004422,
+      "FocusA": -0.000634603300529446,
+      "FocalRelativeError": -0.02819621247213766,
+      "FNumberRelativeError": 0.24360844514512525,
+      "FocusPassed": true,
+      "FocalPassed": false,
+      "FNumberPassed": false
+    }
+  ]
+}

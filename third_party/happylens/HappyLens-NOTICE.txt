@@ -1,0 +1,18 @@
+HappyLens reference and attribution
+===================================
+Source: https://github.com/WenguanZhang/HappyLens
+Reference revision: 8456f7d9e1fb3264f86b05a4ca43c29173e059ea
+License: Apache License 2.0 (HappyLens-LICENSE.txt).
+Original notice: HappyLens-UPSTREAM-NOTICE.txt.
+
+Optical System Design's descriptor generation, Delano proposal construction and
+population/local search workflow were developed with reference to HappyLens's
+lens/delano.py, lens/system.py, lens/optim.py and test_prime/test_gen_prime.py.
+The C# implementation uses Optical System Design's shared Core; it is not a
+Python port or a claim of identical algorithm, sampling or numerical behavior.
+No HappyLens Python runtime, networks or bundled third-party neural-network
+implementations are included in product computation.
+
+The separate tools/diagnostics/HappyLens20261029/run_upstream.py exercise runs
+the downloaded unmodified library with reduced finite budgets. Downloaded
+source and the task-local Python environment are not product dependencies.

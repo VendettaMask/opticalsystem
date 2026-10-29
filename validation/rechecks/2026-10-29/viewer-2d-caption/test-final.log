@@ -1,0 +1,96 @@
+生成启动时间为 2026/10/29 11:45:35。
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.19]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.19]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.28]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Light", language: "en-US", width: 420, fontSize: 24) [2 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Light", language: "zh-CN", width: 840, fontSize: 13) [780 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Light", language: "ja-JP", width: 360, fontSize: 13) [870 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Dark", language: "en-US", width: 420, fontSize: 13) [607 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True) [4 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False) [4 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout) [653 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout) [378 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: TwoDimensional, mode: OpticalLayout) [929 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: SolidModel) [2 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation [403 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: TwoDimensional, mode: OpticalLayout) [749 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: SolidModel) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: TwoDimensional, mode: OpticalLayout) [745 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: SolidModel) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata [599 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: TwoDimensional, active: 2, selected: 1) [90 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: ThreeDimensional, active: 0, selected: 2) [257 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: TwoDimensional, active: 1, selected: 0) [66 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: ThreeDimensional, active: 1, selected: 0) [203 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: ThreeDimensional, active: 2, selected: 1) [233 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(dimension: TwoDimensional, active: 0, selected: 2) [80 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.DefaultFollowsActiveButExplicitSelectionSurvivesEditsAndResetsOnFileSwitchEvenWhenLocked(dimension: ThreeDimensional, presentationMode: SolidModel) [3 s]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.DefaultFollowsActiveButExplicitSelectionSurvivesEditsAndResetsOnFileSwitchEvenWhenLocked(dimension: TwoDimensional, presentationMode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.DefaultFollowsActiveButExplicitSelectionSurvivesEditsAndResetsOnFileSwitchEvenWhenLocked(dimension: ThreeDimensional, presentationMode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.FieldAndWavelengthOptionsComeFromTheSelectedConfiguration [93 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: "Dark", language: "en-US", width: 360) [470 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: "Dark", language: "en-US", width: 360) [421 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: "Light", language: "ja-JP", width: 600) [532 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: "Light", language: "ja-JP", width: 600) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: "Light", language: "zh-CN", width: 1000) [599 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: "Light", language: "zh-CN", width: 1000) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: "Dark", language: "en-US", width: 360) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: "Light", language: "ja-JP", width: 600) [681 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: "Light", language: "zh-CN", width: 1000) [349 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.InvalidConfigurationIsRejectedWithoutChangingTheDocument(selected: 3) [19 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerConfigurationTests.InvalidConfigurationIsRejectedWithoutChangingTheDocument(selected: -1) [15 ms]
+  已通过 OpticalSystemDesign.Tests.RayFanFooterTests.MatchingTitleDoesNotGiveOtherAnalysesAnOpdFooter [21 ms]
+  已通过 OpticalSystemDesign.Tests.RayFanFooterTests.ScaleUsesTypedUnitsAndSurfaceFollowsTheSelectedSurface(unit: Wave, limit: 2.5, expected: "2.500 Waves", kind: OpticalPathDifference) [13 ms]
+  已通过 OpticalSystemDesign.Tests.RayFanFooterTests.ScaleUsesTypedUnitsAndSurfaceFollowsTheSelectedSurface(unit: Micrometer, limit: 5, expected: "5.000 µm", kind: RayFan) [3 ms]
+  已通过 OpticalSystemDesign.Tests.RayFanFooterTests.ScaleUsesTypedUnitsAndSurfaceFollowsTheSelectedSurface(unit: Millimeter, limit: 0.0050000000000000001, expected: "5.000 µm", kind: RayFan) [3 ms]
+  已通过 OpticalSystemDesign.Tests.RayFanFooterTests.ScaleUsesTypedUnitsAndSurfaceFollowsTheSelectedSurface(unit: Milliradian, limit: 5, expected: "5.000 mrad", kind: RayFan) [2 ms]
+  已通过 OpticalSystemDesign.Tests.RayFanFooterTests.ScaleUsesTypedUnitsAndSurfaceFollowsTheSelectedSurface(unit: Wave, limit: 0.75, expected: "0.750 Waves", kind: OpticalPathDifference) [3 ms]
+  已通过 OpticalSystemDesign.Tests.RayFanFooterTests.RealFanFooterShowsOnlyDateScaleWavelengthsAndSurfaceBelowTitle(analysisName: "Ray Fan", scaleKey: "PlotScaleMicrometers", unit: "µm", captureFile: "ray-fan-footer.png") [224 ms]
+  已通过 OpticalSystemDesign.Tests.RayFanFooterTests.RealFanFooterShowsOnlyDateScaleWavelengthsAndSurfaceBelowTitle(analysisName: "Optical Path Difference", scaleKey: "GraphScale", unit: "Waves", captureFile: "opd-fan-footer.png") [178 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Pdf) [12 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Word) [2 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Markdown) [2 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Html) [2 s]
+  已通过 OpticalSystemDesign.Tests.InterferogramFooterTests.MissingMetadataIsNotReportedAsZeroAndOtherKindsKeepTheirSummary [15 ms]
+  已通过 OpticalSystemDesign.Tests.InterferogramFooterTests.MetadataUsesActualSelectedFieldCoordinatesAndTypedUnits(fieldKind: Angle, unit: Degree) [12 ms]
+  已通过 OpticalSystemDesign.Tests.InterferogramFooterTests.MetadataUsesActualSelectedFieldCoordinatesAndTypedUnits(fieldKind: ObjectHeight, unit: Millimeter) [4 ms]
+  已通过 OpticalSystemDesign.Tests.InterferogramFooterTests.FooterUsesTypedSummaryWithoutGenericRowsOrFabricatedFringeSettings(width: 1200) [297 ms]
+  已通过 OpticalSystemDesign.Tests.InterferogramFooterTests.FooterUsesTypedSummaryWithoutGenericRowsOrFabricatedFringeSettings(width: 600) [289 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(width: 2048, theme: "Light") [551 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(width: 600, theme: "Light") [566 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(width: 1200, theme: "Dark") [532 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(width: 1200, theme: "Isekai") [539 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(width: 1200, theme: "Pixel") [57 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(width: 1200, theme: "Light") [563 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.SummaryUsesPlotUnitsAndDisplayedFieldInsteadOfLocalizedLabelsOrConvertedMetadata(fieldUnit: Degree, distortionUnit: Percent, expectedFieldUnit: "度", expectedDistortion: "0.4019%") [6 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.SummaryUsesPlotUnitsAndDisplayedFieldInsteadOfLocalizedLabelsOrConvertedMetadata(fieldUnit: Millimeter, distortionUnit: Millimeter, expectedFieldUnit: "毫米", expectedDistortion: "0.4019 毫米") [4 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.SummaryUsesPlotUnitsAndDisplayedFieldInsteadOfLocalizedLabelsOrConvertedMetadata(fieldUnit: Millimeter, distortionUnit: Percent, expectedFieldUnit: "毫米", expectedDistortion: "0.4019%") [3 ms]
+  已通过 OpticalSystemDesign.Tests.FieldCurvatureFooterTests.CombinedFooterShowsTwoCompactSummariesFromTheActualLensResult [601 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(theme: "Dark", fontSize: 20) [3 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(theme: "Light", fontSize: 32) [3 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(theme: "Light", fontSize: 13) [3 s]
+[xUnit.net 00:01:24.56]   Finished:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.AnalysisGuiContractTests.AnalysisFooterUsesOneSharedHeightAcrossRegularAndPupilLayouts [5 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisGuiContractTests.AngleVsImageHeightFooterOmitsDataWithoutChangingOtherAnalysisSummaries [4 ms]
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-29\viewer-2d-caption\caption-final.trx
+
+测试运行成功。
+测试总数: 76
+     通过数: 76
+总时间: 1.4192 分钟
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+已用时间 00:01:26.14

@@ -1,0 +1,148 @@
+生成启动时间为 2026/10/29 11:38:06。
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.59]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.05]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.08]   Starting:    OpticalSystemDesign.Tests
+[xUnit.net 00:00:04.47]     OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Light", language: "en-US", width: 420, fontSize: 24) [FAIL]
+[xUnit.net 00:00:04.47]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:00:04.47]                                 ↓ (pos 25496)
+[xUnit.net 00:00:04.47]       Expected: [···, 255, 255, 215, 235, 248, ···]
+[xUnit.net 00:00:04.47]       Actual:   [···, 255, 255, 238, 236, 235, ···]
+[xUnit.net 00:00:04.47]                                 ↑ (pos 25496)
+[xUnit.net 00:00:04.47]       Stack Trace:
+[xUnit.net 00:00:04.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(212,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:04.47]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.47]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:04.47]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.47]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:04.47]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(174,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:04.47]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Light", language: "en-US", width: 420, fontSize: 24) [2 s]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+                          ↓ (pos 25496)
+Expected: [···, 255, 255, 215, 235, 248, ···]
+Actual:   [···, 255, 255, 238, 236, 235, ···]
+                          ↑ (pos 25496)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 212
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 174
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:04.98]     OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Light", language: "zh-CN", width: 840, fontSize: 13) [FAIL]
+[xUnit.net 00:00:04.98]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:00:04.98]                                 ↓ (pos 26549)
+[xUnit.net 00:00:04.98]       Expected: [···, 255, 154, 139, 130, 255, ···]
+[xUnit.net 00:00:04.98]       Actual:   [···, 255, 154, 140, 130, 255, ···]
+[xUnit.net 00:00:04.98]                                 ↑ (pos 26549)
+[xUnit.net 00:00:04.98]       Stack Trace:
+[xUnit.net 00:00:04.98]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(212,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:04.98]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.98]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:04.98]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.98]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:04.98]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.98]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(174,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:04.98]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.66]     OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Light", language: "ja-JP", width: 360, fontSize: 13) [FAIL]
+[xUnit.net 00:00:05.66]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:00:05.66]                                 ↓ (pos 18908)
+[xUnit.net 00:00:05.66]       Expected: [···, 255, 255, 249, 255, 255, ···]
+[xUnit.net 00:00:05.66]       Actual:   [···, 255, 255, 255, 255, 255, ···]
+[xUnit.net 00:00:05.66]                                 ↑ (pos 18908)
+[xUnit.net 00:00:05.66]       Stack Trace:
+[xUnit.net 00:00:05.66]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(212,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:05.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.66]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:05.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.66]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:05.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.66]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(174,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:05.66]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Light", language: "zh-CN", width: 840, fontSize: 13) [512 ms]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+                          ↓ (pos 26549)
+Expected: [···, 255, 154, 139, 130, 255, ···]
+Actual:   [···, 255, 154, 140, 130, 255, ···]
+                          ↑ (pos 26549)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 212
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 174
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Light", language: "ja-JP", width: 360, fontSize: 13) [679 ms]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+                          ↓ (pos 18908)
+Expected: [···, 255, 255, 249, 255, 255, ···]
+Actual:   [···, 255, 255, 255, 255, 255, ···]
+                          ↑ (pos 18908)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 212
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 174
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:06.08]     OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Dark", language: "en-US", width: 420, fontSize: 13) [FAIL]
+[xUnit.net 00:00:06.08]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:00:06.08]                                ↓ (pos 20232)
+[xUnit.net 00:00:06.08]       Expected: [···, 28, 255, 88, 56, 28, ···]
+[xUnit.net 00:00:06.08]       Actual:   [···, 28, 255, 38, 32, 28, ···]
+[xUnit.net 00:00:06.08]                                ↑ (pos 20232)
+[xUnit.net 00:00:06.08]       Stack Trace:
+[xUnit.net 00:00:06.08]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(212,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:06.08]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.08]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:06.08]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.08]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:06.08]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.08]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(174,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:06.08]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.08]   Finished:    OpticalSystemDesign.Tests
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(theme: "Dark", language: "en-US", width: 420, fontSize: 13) [413 ms]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+                         ↓ (pos 20232)
+Expected: [···, 28, 255, 88, 56, 28, ···]
+Actual:   [···, 28, 255, 38, 32, 28, ···]
+                         ↑ (pos 20232)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 212
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.TwoDimensionalCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 174
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-29\viewer-2d-caption\caption-pixel-recheck.trx
+
+测试运行失败。
+测试总数: 4
+     失败数: 4
+总时间: 6.6649 秒
+项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”在节点 1 上(VSTest 个目标)。
+_VSTestConsole:
+  MSB4181: “VSTestTask”任务返回了 false，但未记录错误。
+已完成生成项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”(VSTest 个目标)的操作 - 失败。
+
+生成失败。
+    0 个警告
+    0 个错误
+
+已用时间 00:00:07.68

@@ -86,6 +86,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
 
     private int DefaultRayCount => _presentationMode == ViewerPresentationMode.SolidModel ? 21 : 7;
     private int DefaultLineWidthIndex => _presentationMode == ViewerPresentationMode.SolidModel ? 0 : 1;
+    private bool UsesLayoutCaption => _presentationMode == ViewerPresentationMode.OpticalLayout;
 
     public ViewerPanel(
         IVisualizationService visualization,
@@ -107,7 +108,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             ? "Viewer2DConfigurationPicker" : "Viewer3DConfigurationPicker";
         _scene = new OpticSceneControl
         {
-            MinHeight = presentationMode == ViewerPresentationMode.SolidModel ? 160 : 240,
+            MinHeight = UsesLayoutCaption ? 0
+                : presentationMode == ViewerPresentationMode.SolidModel ? 160 : 240,
             ViewMode = dimension == SceneDimension.TwoDimensional
                 ? OpticSceneViewMode.TwoDimensional
                 : OpticSceneViewMode.ThreeDimensional,
@@ -160,8 +162,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         var root = new DockPanel();
         _summaryBar = new Border
         {
-            BorderThickness = new Thickness(0, 1, 0, 0),
-            Padding = new Thickness(10, 5),
+            BorderThickness = UsesLayoutCaption ? default : new Thickness(0, 1, 0, 0),
+            Padding = UsesLayoutCaption ? default : new Thickness(10, 5),
             Child = _summary
         };
         _summaryBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
@@ -340,7 +342,25 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         };
         var sceneContent = SceneWithOverlay(_scene, topOverlay, presetToolbar, _staleLayoutBanner);
         if (_presentationMode != ViewerPresentationMode.SolidModel)
+        {
+            // A full caption leaves less vertical space in short panes. Keep the
+            // wrapping navigation inside the viewport and preserve access by scrolling.
+            var toolbar = (Border)presetToolbar;
+            var items = toolbar.Child;
+            toolbar.Child = null;
+            toolbar.Child = new ScrollViewer
+            {
+                Content = items,
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto
+            };
+            toolbar.ClipToBounds = true;
+            void ConstrainToolbar() => toolbar.MaxHeight = Math.Max(0,
+                sceneContent.Bounds.Height - topOverlay.DesiredSize.Height - toolbar.Margin.Bottom - 8);
+            sceneContent.SizeChanged += (_, _) => ConstrainToolbar();
+            topOverlay.SizeChanged += (_, _) => ConstrainToolbar();
             return ThemeChrome.WrapWithDecoration(sceneContent, ThemeChromeRole.Viewport);
+        }
 
         var workspace = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
         workspace.Children.Add(sceneContent);
@@ -812,6 +832,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         _scene.ResetView();
         _scene.InvalidateVisual();
         _summary.Text = string.Empty;
+        _summaryBar.Child = _summary;
     }
 
     private void OnSurfaceSelectionChanged(object? sender, SurfaceSelectionChangedEventArgs args)
@@ -892,12 +913,14 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
                         + $"显示光线 {scene.ThreeDimensional.Rays.Count}    "
                         + $"Z 范围 {NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMin)} 至 "
                         + $"{NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMax)} mm"
-                        + LayoutStateSummary(scene.NonSequentialLayoutResult)
+                        + PlotCaption.LayoutStateSummary(scene.NonSequentialLayoutResult)
                     : (scene.Configuration is { Count: > 1 } configuration
                         ? $"{UiLocalization.Text("结构")} {configuration.Number} / {configuration.Count}    " : string.Empty)
                         + $"有效焦距 {NumericDisplayFormatter.Format(scene.Summary.EffectiveFocalLength)} mm    "
                         + $"F 数 {NumericDisplayFormatter.Format(scene.Summary.FNumber)}    "
                         + $"系统总长 {NumericDisplayFormatter.Format(scene.Summary.TotalTrack)} mm";
+                if (UsesLayoutCaption)
+                    _summaryBar.Child = PlotCaption.ForLayoutScene(scene, DateTimeOffset.Now);
             });
         }
         catch (OperationCanceledException)
@@ -998,14 +1021,6 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
                 : "布局结果已过期，旧光线已隐藏。请重新准备布局光线。";
         }
     }
-
-    private static string LayoutStateSummary(NonSequentialLayoutResultDto? result) => result switch
-    {
-        null or { HasResult: false } => "    尚未准备布局光线",
-        { IsStale: true, RaysLoaded: true } => "    警告：正在查看过期结果",
-        { IsStale: true } => "    布局结果已过期并隐藏",
-        _ => "    布局结果与当前场景一致"
-    };
 
     private bool IsNonSequential3D() =>
         _dimension == SceneDimension.ThreeDimensional

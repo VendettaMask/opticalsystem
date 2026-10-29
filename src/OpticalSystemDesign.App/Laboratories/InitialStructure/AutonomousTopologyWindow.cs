@@ -3,6 +3,7 @@ using System.Globalization;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -48,6 +49,7 @@ public sealed partial class AutonomousTopologyWindow : Window
     private readonly Grid _results = new() { RowDefinitions = new("Auto,*,Auto"), RowSpacing = 8 };
     private readonly ScrollViewer _page = new() { HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled };
     private readonly DataGrid _candidates;
+    private ScrollViewer? _detailsHost;
     private bool _uiOperation, _closed, _allowClose, _closeRequested, _applyingPlan, _planEdited, _operationFailed;
     private bool? _narrow;
     private int _generation;
@@ -73,7 +75,7 @@ public sealed partial class AutonomousTopologyWindow : Window
             args.Cancel = true;
             _closeRequested = true; Cancel();
         };
-        Closed += (_, _) => { _closed = true; _generation++; };
+        Closed += (_, _) => { _closed = true; _generation++; CancelStructureLoad(); };
         UiLocalization.LanguageChanged += LanguageChanged;
         Closed += (_, _) => UiLocalization.LanguageChanged -= LanguageChanged;
         DisplayTypography.Apply(this); UiLocalization.Attach(this);
@@ -125,10 +127,28 @@ public sealed partial class AutonomousTopologyWindow : Window
         Number("AutonomousMinutes", "运行时限 (分钟)", 5, .01m, 240);
         Number("AutonomousSeed", "搜索种子", 42, 0, int.MaxValue);
         Choice("AutonomousDiversity", "保留不同结构与玻璃组合", false);
+        Choice("AutonomousPopulation", "群体探索与局部优化交替", false);
+        Choice("AutonomousBounded", "筛检候选并有界停止", false);
+        Number("AutonomousLayerLimit", "每片数层尝试上限", 3, 1, 128);
+        Number("AutonomousStagnation", "连续无改进尝试上限", 2, 1, 128);
+        Choice("AutonomousGeometryScreen", "重生候选几何筛检", false);
+        Number("AutonomousPoolSize", "每种片数保留候选数", 4, 1, 8);
         _inputs.Children.Add(Text("一阶起点准备（独立预算）"));
+        Choice("AutonomousDescriptor", "按结构描述生成新处方", false);
+        Choice("AutonomousDelano", "使用 Delano 一阶搜索", false);
+        Choice("AutonomousThickDelano", "按实际厚度与固定光阑构造 Delano 起点", false);
+        Choice("AutonomousFixedStopRecovery", "独立恢复固定光阑入瞳", false);
+        Number("AutonomousGeneratedElements", "生成镜片数", 3, 2, 16);
+        Number("AutonomousGeneratedStop", "光阑前镜片数", 0, 0, 16);
+        Number("AutonomousGeneratedRadius", "生成净半口径 (mm)", 5, .001m, 1000);
+        Number("AutonomousGeneratedMinThickness", "生成最小中心厚度 (mm)", 1, .001m, 1000);
+        Number("AutonomousGeneratedMaxThickness", "生成最大中心厚度 (mm)", 4, .001m, 1000);
+        Number("AutonomousGeneratedBackFocus", "生成最小后焦 (mm)", 5, .001m, 10000);
+        Number("AutonomousAnnealing", "Delano 退火提议上限", 8, 0, 100);
         Number("AutonomousSeedStarts", "一阶起点尝试上限", 12, 1, 64);
         Number("AutonomousSeedRetained", "一阶保留起点数", 4, 1, 8);
         Number("AutonomousSeedFunctions", "一阶评价尝试上限", 300, 2, 10000);
+        Number("AutonomousSeedPerStart", "每起点评价上限", 40, 2, 200);
         Number("AutonomousSeedSeconds", "一阶准备时限 (秒)", 15, .01m, 120);
         _inputs.Children.Add(_seedSummary);
         Choice("AutonomousStructure", "允许改变片数", true);
@@ -154,7 +174,12 @@ public sealed partial class AutonomousTopologyWindow : Window
         Number("AutonomousFullUpdates", "全目标更新上限", 12, 0, 400);
         _form.Content = _inputs; _body.Children.Add(_form);
         _results.Children.Add(_budget);
-        var tabs = Named(new TabControl(), "AutonomousTabs");
+        var tabs = Named(new TabControl
+        {
+            ItemsPanel = new FuncTemplate<Panel?>(() => new WrapPanel()),
+            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+            VerticalContentAlignment = VerticalAlignment.Stretch
+        }, "AutonomousTabs");
         tabs.Items.Add(new TabItem { Header = "候选与验收", Content = _candidates });
         var history = Table("AutonomousEvents", ("序号", "Sequence", 60), ("试验", "Trial", 110), ("父方案", "Parent", 130),
             ("操作", "Operation", 110), ("阶段", "Phase", 100), ("结果", "Outcome", 170), ("评价 / 光线梯度 / 追迹", "Work", 210),
@@ -169,8 +194,20 @@ public sealed partial class AutonomousTopologyWindow : Window
         var fields = Table("AutonomousFields", ("视场 X / Y", "Field", 170), ("RMS µm", "Rms", 130), ("最大半径 µm", "Maximum", 150),
             ("有效 / 尝试", "Valid", 140), ("边界 / 中心", "Checks", 140), ("畸变 %", "Distortion", 130));
         fields.ItemsSource = _fieldRows; tabs.Items.Add(new TabItem { Header = "独立视场验收", Content = fields });
+        var structureTab = Named(new TabItem { Header = "镜头结构", Content = BuildStructureView() }, "AutonomousStructureTab");
+        tabs.Items.Add(structureTab);
+        tabs.SelectionChanged += (_, args) =>
+        {
+            if (!ReferenceEquals(args.Source, tabs)) return;
+            _structureSelected = ReferenceEquals(tabs.SelectedItem, structureTab);
+            _budget.IsVisible = !_structureSelected;
+            if (_detailsHost is { } host) host.IsVisible = !_structureSelected;
+            if (_narrow == true) _results.Height = _structureSelected ? 700 : 550;
+            if (_structureSelected) StructurePendingLoad = RequestStructureDisplayAsync();
+        };
         Grid.SetRow(tabs, 1); _results.Children.Add(tabs);
         var details = new ScrollViewer { Content = _details, MaxHeight = 160, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled };
+        _detailsHost = details;
         Grid.SetRow(details, 2); _results.Children.Add(details);
         Grid.SetColumn(_results, 1); _body.Children.Add(_results);
         _page.Content = _body; Grid.SetRow(_page, 2); root.Children.Add(_page);
@@ -215,8 +252,18 @@ public sealed partial class AutonomousTopologyWindow : Window
         {
             if (_applyingPlan) return;
             MarkPlanEdited();
+            if (id == "AutonomousGeometryScreen" && control.IsChecked == true) _choices["AutonomousPopulation"].IsChecked = true;
+            if (id == "AutonomousDelano" && control.IsChecked == true) _choices["AutonomousDescriptor"].IsChecked = true;
+            if (id == "AutonomousThickDelano" && control.IsChecked == true)
+            {
+                _choices["AutonomousDelano"].IsChecked = true;
+                _choices["AutonomousFixedStopRecovery"].IsChecked = true;
+            }
+            if (id == "AutonomousDelano" && control.IsChecked != true) _choices["AutonomousThickDelano"].IsChecked = false;
+            if (id == "AutonomousDescriptor" && control.IsChecked != true) _choices["AutonomousDelano"].IsChecked = false;
             if (id == "AutonomousReductionOnly" && control.IsChecked == true)
             {
+                _choices["AutonomousPopulation"].IsChecked = false;
                 _choices["AutonomousStructure"].IsChecked = true;
                 foreach (var branch in new[] { "AutonomousSplit", "AutonomousMerge", "AutonomousMaterial", "AutonomousProfile" })
                     _choices[branch].IsChecked = false;
@@ -238,7 +285,7 @@ public sealed partial class AutonomousTopologyWindow : Window
         if (_narrow == narrow) return;
         _narrow = narrow;
         _body.ColumnDefinitions = new(narrow ? "*" : "320,*"); _body.RowDefinitions = new(narrow ? "Auto,Auto" : "*");
-        _form.Height = narrow ? 300 : double.NaN; _results.Height = narrow ? 550 : double.NaN;
+        _form.Height = narrow ? 300 : double.NaN; _results.Height = narrow ? _structureSelected ? 700 : 550 : double.NaN;
         Grid.SetColumn(_results, narrow ? 0 : 1); Grid.SetRow(_results, narrow ? 1 : 0);
         _page.VerticalScrollBarVisibility = narrow ? Avalonia.Controls.Primitives.ScrollBarVisibility.Auto : Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled;
     }

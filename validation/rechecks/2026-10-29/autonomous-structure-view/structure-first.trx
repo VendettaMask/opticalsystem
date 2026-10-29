@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="bfc855ec-ab45-4dc5-a4ba-92f812bcb616" name="optics@LAPTOP-G4BBBCS0 2026-10-29 13:36:32" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-29T13:36:32.8407335+08:00" queuing="2026-10-29T13:36:32.8407340+08:00" start="2026-10-29T13:36:28.3117802+08:00" finish="2026-10-29T13:36:52.8137840+08:00" />
+  <TestSettings name="default" id="0301d61f-cd11-4af3-aafb-bca17abfb8d2">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-29_13_36_32" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4671c8b3-931a-4598-afb4-4249aa1038fb" testId="76a3e307-d1cf-b2bb-1971-ab981afa4e21" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.StructureTabShowsActualSelectedCandidatesAndSupportsNavigationWithoutChangingTheSearchRecord" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.6829261" startTime="2026-10-29T13:36:40.9829612+08:00" endTime="2026-10-29T13:36:52.6609192+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4671c8b3-931a-4598-afb4-4249aa1038fb" />
+    <UnitTestResult executionId="a771c49a-7481-4147-9931-ae2ef9224421" testId="7f97ee58-7bb1-050f-affe-f5926b31263d" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousStructurePresentationTests.StructureDisplayUsesActualSharedCoreLayoutAndSeparateBoundedTraceAccounting" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.0748014" startTime="2026-10-29T13:36:30.6069342+08:00" endTime="2026-10-29T13:36:32.6568937+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a771c49a-7481-4147-9931-ae2ef9224421" />
+    <UnitTestResult executionId="1f916632-c34f-4dc9-9735-ce2f80d6bc1b" testId="0ecc6dc7-3957-a19b-8492-45f3ff9e17b7" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.InvalidDraftClearsTheStructureWithoutTracingAndNewDraftDoesNotRestoreStaleScene" computerName="LAPTOP-G4BBBCS0" duration="00:00:08.3109102" startTime="2026-10-29T13:36:32.6930843+08:00" endTime="2026-10-29T13:36:40.9770368+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1f916632-c34f-4dc9-9735-ce2f80d6bc1b" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousStructurePresentationTests.StructureDisplayUsesActualSharedCoreLayoutAndSeparateBoundedTraceAccounting" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="7f97ee58-7bb1-050f-affe-f5926b31263d">
+      <Execution id="a771c49a-7481-4147-9931-ae2ef9224421" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousStructurePresentationTests" name="StructureDisplayUsesActualSharedCoreLayoutAndSeparateBoundedTraceAccounting" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.StructureTabShowsActualSelectedCandidatesAndSupportsNavigationWithoutChangingTheSearchRecord" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="76a3e307-d1cf-b2bb-1971-ab981afa4e21">
+      <Execution id="4671c8b3-931a-4598-afb4-4249aa1038fb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="StructureTabShowsActualSelectedCandidatesAndSupportsNavigationWithoutChangingTheSearchRecord" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.InvalidDraftClearsTheStructureWithoutTracingAndNewDraftDoesNotRestoreStaleScene" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="0ecc6dc7-3957-a19b-8492-45f3ff9e17b7">
+      <Execution id="1f916632-c34f-4dc9-9735-ce2f80d6bc1b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="InvalidDraftClearsTheStructureWithoutTracingAndNewDraftDoesNotRestoreStaleScene" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="76a3e307-d1cf-b2bb-1971-ab981afa4e21" executionId="4671c8b3-931a-4598-afb4-4249aa1038fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7f97ee58-7bb1-050f-affe-f5926b31263d" executionId="a771c49a-7481-4147-9931-ae2ef9224421" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0ecc6dc7-3957-a19b-8492-45f3ff9e17b7" executionId="1f916632-c34f-4dc9-9735-ce2f80d6bc1b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.64]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.81]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.84]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:22.97]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-10-29T13:36:52.7607889+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

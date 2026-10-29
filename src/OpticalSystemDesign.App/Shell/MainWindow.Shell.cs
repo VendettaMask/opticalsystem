@@ -143,8 +143,7 @@ public sealed partial class MainWindow
                         RibbonButton("show-stock-lens-catalog", "package-search", "库存镜头查看"),
                         RibbonButton("show-stock-lens-matching", "scan-search", "库存镜头匹配")),
                     RibbonGroup("设计报告",
-                        RibbonButton("export-markdown-report", "file-down", "一键导出 Markdown"),
-                        RibbonButton("configure-markdown-report", "settings", "报告导出设置")))),
+                        RibbonButton("export-markdown-report", "file-down", "导出设计报告…")))),
                 BuildLaboratoryRibbonTab(),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",

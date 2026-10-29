@@ -7,6 +7,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Headless;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
@@ -55,16 +56,50 @@ public sealed class ViewerImageExportTests
                 fixture.Viewer.GetVisualDescendants().OfType<ComboBox>().Single(item => item.Name == "Viewer3DRenderMode").SelectedIndex = 1;
                 fixture.Viewer.GetVisualDescendants().OfType<CheckBox>().Single(item => item.Name == "Viewer3DCutaway").IsChecked = true;
             }
-            var pointer = scene.TranslatePoint(new Point(scene.Bounds.Width / 2, scene.Bounds.Height / 2), fixture.Window)!.Value;
+            var pointer = scene.TranslatePoint(dimension == SceneDimension.ThreeDimensional
+                ? new Point(40, scene.Bounds.Height * 0.4)
+                : new Point(scene.Bounds.Width / 2, scene.Bounds.Height / 2), fixture.Window)!.Value;
             fixture.Window.MouseDown(pointer, MouseButton.Left, RawInputModifiers.Shift);
             fixture.Window.MouseMove(pointer + new Vector(17, 9), RawInputModifiers.Shift);
             fixture.Window.MouseUp(pointer + new Vector(17, 9), MouseButton.Left, RawInputModifiers.Shift);
             fixture.Window.MouseWheel(pointer, new Vector(0, 1)); Tick(fixture.Window);
             var originalScene = scene.Scene;
+            if (mode == ViewerPresentationMode.OpticalLayout)
+            {
+                var caption = fixture.Viewer.GetVisualDescendants().OfType<Border>().Single(item =>
+                    item.Name == (dimension == SceneDimension.TwoDimensional ? "Viewer2DFooter" : "Viewer3DFooter"));
+                var sceneBottom = scene.TranslatePoint(new Point(0, scene.Bounds.Height), fixture.Viewer)!.Value.Y;
+                var captionTop = caption.TranslatePoint(default, fixture.Viewer)!.Value.Y;
+                Assert.True(sceneBottom <= captionTop + 1, $"Scene ends at {sceneBottom}; caption starts at {captionTop}.");
+                if (dimension == SceneDimension.ThreeDimensional)
+                {
+                    var toolbar = fixture.Viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == "Viewer3DViewPresets");
+                    var toolbarBottom = toolbar.TranslatePoint(new Point(0, toolbar.Bounds.Height), fixture.Viewer)!.Value.Y;
+                    Assert.True(toolbarBottom <= captionTop, "Navigation must stay above the caption.");
+                    var scroll = Assert.IsType<ScrollViewer>(toolbar.Child);
+                    if (scroll.Extent.Height > scroll.Viewport.Height)
+                    {
+                        var last = toolbar.GetVisualDescendants().OfType<ToggleButton>().Last();
+                        last.BringIntoView(); Tick(fixture.Window);
+                        Assert.True(scroll.Offset.Y > 0, "Clipped navigation buttons must remain reachable.");
+                    }
+                }
+                using var preview = new RenderTargetBitmap(new PixelSize(width, height), new Vector(96, 96));
+                preview.Render(fixture.Window);
+                Save(preview, $"{(dimension == SceneDimension.TwoDimensional ? "2d" : "3d")}-window-{width}x{height}.png");
+            }
+            else
+            {
+                Assert.Empty(fixture.Viewer.GetVisualDescendants().OfType<CompanyLogoControl>());
+                var bar = (Border)typeof(ViewerPanel).GetField("_summaryBar", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(fixture.Viewer)!;
+                Assert.IsType<TextBlock>(bar.Child);
+                Assert.True(bar.Bounds.Height < 132, "The Solid Model must retain its compact parameter bar.");
+            }
             var axes = scene.OrientationAxesForRendering();
             using var image = fixture.Viewer.CaptureViewerImage();
             var expected = Pixels(image);
-            Assert.Equal((int)Math.Ceiling(scene.Bounds.Width * fixture.Window.RenderScaling), image.PixelSize.Width);
+            Assert.Equal((int)Math.Ceiling((scene.Bounds.Width + 2) * fixture.Window.RenderScaling), image.PixelSize.Width);
+            ExportImageAssertions.HasCompleteBorder(image);
             Assert.True(image.PixelSize.Height > scene.Bounds.Height * fixture.Window.RenderScaling);
             AssertHasInk(image, image.PixelSize.Height - 30, image.PixelSize.Height);
             scene.Focus(); Tick(fixture.Window);
@@ -130,13 +165,16 @@ public sealed class ViewerImageExportTests
         }, CancellationToken.None);
     }
 
-    [ViewerImageFact]
-    public async Task PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch()
+    [ViewerImageTheory]
+    [InlineData(SceneDimension.TwoDimensional, ViewerPresentationMode.OpticalLayout)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel)]
+    public async Task PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(SceneDimension dimension, ViewerPresentationMode mode)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerImageExportTests));
         await session.Dispatch(async () =>
         {
-            using var fixture = await Fixture.Create(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel);
+            using var fixture = await Fixture.Create(dimension, mode);
             using var original = fixture.Viewer.CaptureViewerImage();
             var expected = Pixels(original);
             var pending = new TaskCompletionSource<IStorageFile?>();
@@ -156,6 +194,149 @@ public sealed class ViewerImageExportTests
                 Assert.Equal(expected, Pixels(saved)); Assert.False(fixture.Export.IsEnabled);
             }
             finally { File.Delete(path); }
+        }, CancellationToken.None);
+    }
+
+    [ViewerImageTheory]
+    [InlineData(SceneDimension.TwoDimensional, "Light", "zh-CN", 840, 13)]
+    [InlineData(SceneDimension.TwoDimensional, "Dark", "en-US", 420, 13)]
+    [InlineData(SceneDimension.TwoDimensional, "Light", "ja-JP", 360, 13)]
+    [InlineData(SceneDimension.TwoDimensional, "Light", "en-US", 420, 24)]
+    [InlineData(SceneDimension.ThreeDimensional, "Light", "zh-CN", 840, 13)]
+    [InlineData(SceneDimension.ThreeDimensional, "Dark", "en-US", 420, 13)]
+    [InlineData(SceneDimension.ThreeDimensional, "Light", "ja-JP", 360, 13)]
+    [InlineData(SceneDimension.ThreeDimensional, "Light", "en-US", 420, 24)]
+    public async Task LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(
+        SceneDimension dimension, string theme, string language, int width, int fontSize)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerImageExportTests));
+        await session.Dispatch(async () =>
+        {
+            var previousLanguage = UiLocalization.CurrentLanguage;
+            UiLocalization.Apply(language);
+            DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            try
+            {
+                var prefix = dimension == SceneDimension.TwoDimensional ? "2d" : "3d";
+                var footerName = dimension == SceneDimension.TwoDimensional ? "Viewer2DFooter" : "Viewer3DFooter";
+                using var fixture = await Fixture.Create(dimension, ViewerPresentationMode.OpticalLayout, width, 900);
+                var footer = fixture.Viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == footerName);
+                var snapshot = fixture.Scene.Scene!;
+                var texts = footer.GetVisualDescendants().OfType<TextBlock>().Select(item => item.Text).ToArray();
+                Assert.Contains(UiLocalization.Text(dimension == SceneDimension.TwoDimensional ? "二维图" : "三维布局"), texts);
+                Assert.Contains(Path.GetFileName(snapshot.Summary.Path), texts);
+                Assert.Contains(snapshot.Summary.Name, texts);
+                Assert.Contains(texts, value => value!.StartsWith("Optical System Design  ", StringComparison.Ordinal));
+                Assert.Contains(OpticalSystemDesign.Application.Formatting.NumericDisplayFormatter.Format(snapshot.Summary.TotalTrack) + " mm", texts);
+                var logo = Assert.Single(footer.GetVisualDescendants().OfType<CompanyLogoControl>());
+                Assert.Equal("S.T.A.R.Labs", AutomationProperties.GetName(logo));
+                Assert.True(logo.Bounds.Width > 0 && logo.Bounds.Height > 0);
+                var regions = Assert.IsType<ResponsiveAnalysisFooterGrid>(footer.Child);
+                Assert.True(footer.Bounds.Height >= 132);
+                if (width < DisplayTypography.Scale(600))
+                    Assert.True(regions.Children[1].Bounds.Top >= regions.Children[0].Bounds.Bottom);
+                else Assert.True(regions.Children[1].Bounds.Left >= regions.Children[0].Bounds.Right);
+                foreach (var label in footer.GetVisualDescendants().OfType<TextBlock>())
+                {
+                    var point = label.TranslatePoint(default, footer)!.Value;
+                    Assert.InRange(point.X, 0, footer.Bounds.Width);
+                    Assert.InRange(point.X + label.Bounds.Width, 0, footer.Bounds.Width + 1);
+                    Assert.InRange(point.Y + label.Bounds.Height, 0, footer.Bounds.Height + 1);
+                }
+                using var image = fixture.Viewer.CaptureViewerImage(1);
+                Assert.Equal((int)Math.Ceiling(fixture.Scene.Bounds.Height) + (int)Math.Ceiling(footer.Bounds.Height) + 2, image.PixelSize.Height);
+                using var windowImage = new RenderTargetBitmap(new PixelSize(width, 900), new Vector(96, 96));
+                windowImage.Render(fixture.Window);
+                var captionLength = width * (int)Math.Ceiling(footer.Bounds.Height) * 4;
+                var captionPixels = Pixels(windowImage)[^captionLength..];
+                var imagePixels = Pixels(image);
+                var exportedCaption = new byte[captionLength];
+                var captionHeight = (int)Math.Ceiling(footer.Bounds.Height);
+                for (var y = 0; y < captionHeight; y++)
+                    Array.Copy(imagePixels, ((image.PixelSize.Height - 1 - captionHeight + y) * image.PixelSize.Width + 1) * 4,
+                        exportedCaption, y * width * 4, width * 4);
+                Save(image, $"{prefix}-caption-{theme}-{language}-{width}-font{fontSize}.png");
+                Save(windowImage, $"{prefix}-window-{theme}-{language}-{width}-font{fontSize}.png");
+                // VisualBrush uses grayscale glyph edges while the native window uses LCD
+                // antialiasing. Compare luminance so those colored edge pixels do not count as lost text.
+                Assert.True(Enumerable.Range(0, captionPixels.Length / 4).All(index => exportedCaption[index * 4 + 3] == 255));
+                var changed = Enumerable.Range(0, captionPixels.Length / 4).Count(index => Math.Abs(
+                    (captionPixels[index * 4] - exportedCaption[index * 4]) * 0.0722
+                    + (captionPixels[index * 4 + 1] - exportedCaption[index * 4 + 1]) * 0.7152
+                    + (captionPixels[index * 4 + 2] - exportedCaption[index * 4 + 2]) * 0.2126) > 32);
+                Assert.True(changed < captionPixels.Length / 4 * 0.01, $"Caption differs at {changed} pixels.");
+
+                // The existing setting controls the complete caption in both the viewer and PNG.
+                var hide = (CheckBox)typeof(ViewerPanel).GetField("_suppressFrame", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(fixture.Viewer)!;
+                hide.IsChecked = true; Tick(fixture.Window); await fixture.WaitReady();
+                Assert.DoesNotContain(fixture.Viewer.GetVisualDescendants().OfType<Border>(),
+                    item => item.Name == footerName && item.IsEffectivelyVisible);
+                using var withoutCaption = fixture.Viewer.CaptureViewerImage(1);
+                Assert.Equal((int)Math.Ceiling(fixture.Scene.Bounds.Height) + 2, withoutCaption.PixelSize.Height);
+                ExportImageAssertions.HasCompleteBorder(withoutCaption);
+            }
+            finally { DisplayTypography.Configure(new AppSettings()); UiLocalization.Apply(previousLanguage); }
+        }, CancellationToken.None);
+    }
+
+    [ViewerImageTheory]
+    [InlineData(SceneDimension.TwoDimensional)]
+    [InlineData(SceneDimension.ThreeDimensional)]
+    public async Task LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(SceneDimension dimension)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerImageExportTests));
+        await session.Dispatch(async () =>
+        {
+            using var fixture = await Fixture.Create(dimension, ViewerPresentationMode.OpticalLayout);
+            var source = fixture.Scene.Scene!;
+            var longName = string.Concat(Enumerable.Repeat("多结构长工程名称 ", 16));
+            var caption = PlotCaption.ForLayoutScene(source with { Summary = source.Summary with { Name = longName, Path = longName + ".staropt" } }, DateTimeOffset.Now);
+            caption.Measure(new Size(320, double.PositiveInfinity));
+            caption.Arrange(new Rect(caption.DesiredSize));
+            Assert.True(caption.Bounds.Height > 250);
+            foreach (var text in caption.GetVisualDescendants().OfType<TextBlock>())
+            {
+                var location = text.TranslatePoint(default, caption)!.Value;
+                Assert.InRange(location.Y + text.Bounds.Height, 0, caption.Bounds.Height + 1);
+            }
+            Assert.Throws<InvalidOperationException>(() => fixture.Viewer.CaptureViewerImage(100));
+        }, CancellationToken.None);
+    }
+
+    [Theory]
+    [InlineData(false, false, false, "尚未准备布局光线")]
+    [InlineData(true, false, true, "布局结果与当前场景一致")]
+    [InlineData(true, true, false, "布局结果已过期并隐藏")]
+    [InlineData(true, true, true, "警告：正在查看过期结果")]
+    public async Task NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(
+        bool hasResult, bool stale, bool loaded, string expectedState)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerImageExportTests));
+        await session.Dispatch(async () =>
+        {
+            using var fixture = await Fixture.Create(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout);
+            var source = fixture.Scene.Scene!;
+            var model = source.ThreeDimensional!;
+            var caption = PlotCaption.ForLayoutScene(source with
+            {
+                ThreeDimensional = model with
+                {
+                    Surfaces = model.Surfaces.Select(surface => surface with { RenderRole = SceneSurfaceRenderRole.NonSequentialObject }).ToArray()
+                },
+                NonSequentialLayoutResult = new(hasResult, "current", "result", 1, stale, loaded, null)
+            }, DateTimeOffset.Now);
+            caption.Measure(new Size(420, double.PositiveInfinity));
+            caption.Arrange(new Rect(caption.DesiredSize));
+            var texts = caption.GetVisualDescendants().OfType<TextBlock>().Select(item => item.Text).ToArray();
+            Assert.Contains("非序列对象", texts);
+            Assert.Contains(model.Surfaces.Count.ToString(), texts);
+            Assert.Contains("显示光线", texts);
+            Assert.Contains(model.Rays.Count.ToString(), texts);
+            Assert.Contains("Z 范围", texts);
+            Assert.Contains(expectedState, texts);
+            Assert.DoesNotContain("有效焦距", texts);
+            Assert.Single(caption.GetVisualDescendants().OfType<CompanyLogoControl>());
         }, CancellationToken.None);
     }
 
@@ -217,6 +398,27 @@ public sealed class ViewerImageExportTests
 
     [ViewerImageTheory]
     [InlineData(SceneDimension.TwoDimensional, ViewerPresentationMode.OpticalLayout)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel)]
+    public async Task FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(SceneDimension dimension, ViewerPresentationMode mode)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerImageExportTests));
+        await session.Dispatch(async () =>
+        {
+            using var fixture = await Fixture.Create(dimension, mode);
+            var axes = fixture.Scene.OrientationAxesForRendering();
+            using var image = fixture.Viewer.CaptureViewerImage(1.25);
+            ExportImageAssertions.HasCompleteBorder(image);
+            Assert.Equal((int)Math.Ceiling((fixture.Scene.Bounds.Width + 2) * 1.25), image.PixelSize.Width);
+            Assert.True(image.PixelSize.Height > fixture.Scene.Bounds.Height * 1.25 + 2.5);
+            Assert.Equal(axes, fixture.Scene.OrientationAxesForRendering());
+            Save(image, $"{dimension}-{mode}-125percent.png");
+        }, CancellationToken.None);
+    }
+
+    [ViewerImageTheory]
+    [InlineData(SceneDimension.TwoDimensional, ViewerPresentationMode.OpticalLayout)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout)]
     [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel)]
     public async Task DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(SceneDimension dimension, ViewerPresentationMode mode)
     {
@@ -323,7 +525,8 @@ public sealed class ViewerImageExportTests
     private static void AssertHasInk(Bitmap image, int firstRow, int lastRow)
     {
         var pixels = Pixels(image);
-        Assert.True(Enumerable.Range(firstRow * image.PixelSize.Width, (lastRow - firstRow) * image.PixelSize.Width)
+        Assert.True(Enumerable.Range(Math.Max(1, firstRow), Math.Min(lastRow, image.PixelSize.Height - 1) - Math.Max(1, firstRow))
+            .SelectMany(y => Enumerable.Range(1, image.PixelSize.Width - 2).Select(x => y * image.PixelSize.Width + x))
             .Count(index => pixels[index * 4 + 3] > 0 && (pixels[index * 4] < 220 || pixels[index * 4 + 1] < 220 || pixels[index * 4 + 2] < 220)) > 40);
     }
     private static void Save(RenderTargetBitmap image, string name)

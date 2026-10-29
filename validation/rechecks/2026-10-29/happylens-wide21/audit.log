@@ -1,0 +1,33 @@
+{
+  "source_unchanged": true,
+  "gates_training_and_physical_envelope_unchanged": true,
+  "search_runs": 2,
+  "no_additional_optimization_runs": true,
+  "distinct_focused_tests_passed": 5,
+  "additional_diagnostic_first_order_requests": 12,
+  "additional_diagnostic_rays": 0,
+  "arms": [
+    {
+      "mode": "original",
+      "within_numeric_caps": true,
+      "within_wall_limit": true,
+      "wall_seconds": 29.806942,
+      "functions": 38,
+      "gradients": 27,
+      "rays": 1362694,
+      "new_seed_retained": null,
+      "status": "BudgetExhausted"
+    },
+    {
+      "mode": "delano-population",
+      "within_numeric_caps": true,
+      "within_wall_limit": true,
+      "wall_seconds": 25.0036199,
+      "functions": 160,
+      "gradients": 28,
+      "rays": 1414924,
+      "new_seed_retained": 0,
+      "status": "BudgetExhausted"
+    }
+  ]
+}

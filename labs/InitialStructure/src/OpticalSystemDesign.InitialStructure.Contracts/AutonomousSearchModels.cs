@@ -6,6 +6,10 @@ namespace OpticalSystemDesign.InitialStructure.Contracts;
 
 public sealed record AutonomousSearchOptions
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public BoundedCandidateSearchOptions? BoundedSearch { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public PopulationExplorationOptions? PopulationExploration { get; init; }
     /// <summary>Explicit preparation configuration. Only the separate seed-preparation command executes it.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ParaxialSeedSearchOptions? SeedPreparation { get; init; }
@@ -91,7 +95,7 @@ public sealed record AutonomousSearchWork
     public TimeSpan Elapsed { get; init; }
 }
 
-public enum AutonomousSearchPhase { Recovery, Local, Full, Validation, TransitionValidation, Feasibility }
+public enum AutonomousSearchPhase { Recovery, Local, Full, Validation, TransitionValidation, Feasibility, Screening }
 public enum AutonomousSearchStatus { Ready, Running, Cancelled, BudgetExhausted, Completed }
 
 public sealed record AutonomousSearchCandidate(string Id, string? ParentId, DesignTopology Topology,
@@ -99,6 +103,10 @@ public sealed record AutonomousSearchCandidate(string Id, string? ParentId, Desi
 
 public sealed record AutonomousSearchPending
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public PopulationCoordinateProposal? PopulationProposal { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public AutonomousSearchPhase? AfterScreening { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ImmutableArray<TopologyAxialAnchor>? AxialAnchors { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -134,6 +142,8 @@ public sealed record AutonomousSearchEvent(int Sequence, string TrialId, string?
 /// <summary>Independent durable schema. Loading never executes this state.</summary>
 public sealed record AutonomousSearchCheckpoint
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public BoundedSearchStopReason? StopReason { get; init; }
     public int SchemaVersion { get; init; } = 1;
     public string Algorithm { get; init; } = AutonomousTopologyIdentity.Name;
     public required string RunId { get; init; }

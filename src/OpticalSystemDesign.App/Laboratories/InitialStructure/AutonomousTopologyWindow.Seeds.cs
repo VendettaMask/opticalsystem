@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using System.Collections.Immutable;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.InitialStructure.Contracts;
@@ -64,7 +65,11 @@ public sealed partial class AutonomousTopologyWindow
         Directory.CreateDirectory(directory);
         var name = "paraxial-seeds-" + Guid.NewGuid().ToString("N");
         var reportPath = Path.Combine(directory, name + ".seed-search.json");
-        var prepared = result.Seeds.IsEmpty ? plan : plan with { Seeds = result.Seeds };
+        var prepared = result.Seeds.IsEmpty ? plan : plan with
+        {
+            Seeds = plan.Options.BoundedSearch is null ? result.Seeds
+            : plan.Seeds.Concat(result.Seeds).DistinctBy(TopologySeedIdentity).Take(8).ToImmutableArray()
+        };
         await ParaxialSeedSearchFiles.SaveAsync(result, reportPath);
         await AutonomousDesignFiles.SavePlanAsync(prepared, Path.Combine(directory, name + ".topology-plan.json"));
         _session.Reset(); _displayRevision = -1; _displayRun = null; _draft = prepared; ApplyPlan(prepared);
@@ -81,9 +86,51 @@ public sealed partial class AutonomousTopologyWindow
             throw new ArgumentException(UiLocalization.Text("请填写有效数字"));
         return original with
         {
-            MaximumStarts = Whole("AutonomousSeedStarts"), RetainedSeeds = Whole("AutonomousSeedRetained"),
+            MaximumStarts = Whole("AutonomousSeedStarts"),
+            RetainedSeeds = Whole("AutonomousSeedRetained"),
             MaximumFunctionEvaluations = Whole("AutonomousSeedFunctions"),
+            MaximumEvaluationsPerStart = Whole("AutonomousSeedPerStart"),
+            Generation = ReadGeneration(original.Generation),
+            FixedStopRecoveryVersion = _choices["AutonomousFixedStopRecovery"].IsChecked == true ? 2 : null,
             TimeLimit = seconds == (decimal)original.TimeLimit.TotalSeconds ? original.TimeLimit : TimeSpan.FromSeconds((double)seconds)
+        };
+    }
+
+    private static string TopologySeedIdentity(DesignTopology topology) => ContentFingerprint.Compute(topology with { Name = "seed" });
+
+    private StructureGenerationOptions? ReadGeneration(StructureGenerationOptions? original)
+    {
+        if (_choices["AutonomousDescriptor"].IsChecked != true) return null;
+        var count = Whole("AutonomousGeneratedElements");
+        var source = _draft.Seeds[0];
+        var elements = original?.Elements.Length == count ? original.Elements : Enumerable.Range(0, count).Select(i =>
+        {
+            var element = source.Elements[i % source.Elements.Length];
+            return new StructureElementDescriptor
+            {
+                Profile = element.Front.Profile.Kind == TopologyProfileKind.EvenAsphere
+                || element.Back.Profile.Kind == TopologyProfileKind.EvenAsphere ? TopologyProfileKind.EvenAsphere : TopologyProfileKind.Standard,
+                Materials = [element.Material]
+            };
+        }).ToImmutableArray();
+        double Number(string id, double? preserved)
+        {
+            var input = _numbers[id];
+            if (input.Value is not { } value || !decimal.TryParse(input.Text, out var text) || text != value)
+                throw new ArgumentException(UiLocalization.Text("请填写有效数字"));
+            return preserved is { } exact && value == (decimal)exact ? exact : (double)value;
+        }
+        return (original ?? new()) with
+        {
+            Elements = elements,
+            MaterializationVersion = _choices["AutonomousThickDelano"].IsChecked == true ? 2 : null,
+            Method = _choices["AutonomousDelano"].IsChecked == true ? StructureGenerationMethod.Delano : StructureGenerationMethod.RandomPhysical,
+            StopAfterElement = Whole("AutonomousGeneratedStop"),
+            ClearSemiDiameterMillimeters = Number("AutonomousGeneratedRadius", original?.ClearSemiDiameterMillimeters),
+            MinimumThicknessMillimeters = Number("AutonomousGeneratedMinThickness", original?.MinimumThicknessMillimeters),
+            MaximumThicknessMillimeters = Number("AutonomousGeneratedMaxThickness", original?.MaximumThicknessMillimeters),
+            MinimumBackFocusMillimeters = Number("AutonomousGeneratedBackFocus", original?.MinimumBackFocusMillimeters),
+            AnnealingProposals = Whole("AutonomousAnnealing")
         };
     }
 

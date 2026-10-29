@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "D:\optical system design\opticalsystem\tmp\report-formats-qa\inspect_reports.py", line 62, in <module>
+    assert pixels in original_pixels, ('PDF image was recompressed or changed', image.name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('PDF image was recompressed or changed', 'X76.png')
