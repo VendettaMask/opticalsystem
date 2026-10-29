@@ -13,6 +13,52 @@ namespace OpticalSystemDesign.Tests;
 public sealed class DesignReportFormatTests
 {
     [Theory]
+    [InlineData(DesignReportFormat.Markdown)]
+    [InlineData(DesignReportFormat.Word)]
+    [InlineData(DesignReportFormat.Pdf)]
+    [InlineData(DesignReportFormat.Html)]
+    public async Task ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(DesignReportFormat format)
+    {
+        using var directory = new ReportTestDirectory();
+        using var application = WorkbenchApplication.Create("cooke");
+        const string privateLabel = "PRESCRIPTION_ONLY_SURFACE_LABEL";
+        var surface = application.Prescription.GetSurfaces()[1];
+        application.Prescription.UpdateSurface(surface with { Label = privateLabel });
+        var before = application.Documents.GetRecoveryState();
+        using var snapshot = application.CaptureReportSnapshot();
+        var result = await MarkdownReportExporter.ExportAsync(snapshot,
+            new() { Format = format, AnalysisKeys = [], Include2DLayout = false, Include3DLayout = false },
+            directory.Path, (_, _, _, _) => throw new InvalidOperationException("No plot was requested."));
+        Assert.Equal(0, result.Failed);
+        Assert.Equal(before, application.Documents.GetRecoveryState());
+        string text;
+        if (format == DesignReportFormat.Pdf)
+        {
+            // The cover and compact summary fit two pages. A serialized prescription
+            // would introduce extra pages even when no analyses or layouts were selected.
+            var pdf = Encoding.Latin1.GetString(await File.ReadAllBytesAsync(result.ReportPath));
+            Assert.Equal(2, Regex.Matches(pdf, @"/Type /Page\b").Count);
+            return;
+        }
+        if (format == DesignReportFormat.Word)
+        {
+            using var zip = ZipFile.OpenRead(result.ReportPath);
+            using var stream = zip.GetEntry("word/document.xml")!.Open();
+            XNamespace w = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
+            text = string.Join("\n", XDocument.Load(stream).Descendants(w + "t").Select(element => element.Value));
+        }
+        else text = await File.ReadAllTextAsync(result.ReportPath);
+        Assert.Contains("系统参数", text);
+        Assert.Contains("EFL / mm", text);
+        Assert.DoesNotContain(privateLabel, text);
+        Assert.DoesNotContain("半径 / mm", text);
+        Assert.DoesNotContain("完整处方", text);
+        Assert.DoesNotContain("Surfaces", text);
+        Assert.DoesNotContain("RadiusSolve", text);
+        Assert.DoesNotContain("附录 完整参数与计算记录", text);
+    }
+
+    [Theory]
     [InlineData(DesignReportFormat.Word, ".docx")]
     [InlineData(DesignReportFormat.Pdf, ".pdf")]
     [InlineData(DesignReportFormat.Html, ".html")]
@@ -38,7 +84,7 @@ public sealed class DesignReportFormatTests
             XNamespace r = "http://schemas.openxmlformats.org/package/2006/relationships";
             using var documentStream = zip.GetEntry("word/document.xml")!.Open();
             var xml = XDocument.Load(documentStream);
-            Assert.Contains(label, xml.Descendants(w + "t").Select(text => text.Value));
+            Assert.DoesNotContain(label, xml.Descendants(w + "t").Select(text => text.Value));
             Assert.True(xml.Descendants(w + "tbl").Count() >= 2);
             Assert.Contains(xml.Descendants(w + "pStyle"), style => (string?)style.Attribute(w + "val") == "Title");
             Assert.Single(zip.Entries, entry => entry.FullName.StartsWith("word/media/", StringComparison.Ordinal));
@@ -63,7 +109,7 @@ public sealed class DesignReportFormatTests
         {
             var html = await File.ReadAllTextAsync(result.ReportPath);
             Assert.StartsWith("<!doctype html>", html);
-            Assert.Contains(WebUtility.HtmlEncode(label), html);
+            Assert.DoesNotContain(WebUtility.HtmlEncode(label), html);
             Assert.Contains("data:image/png;base64,", html);
             Assert.Contains("Content-Security-Policy", html);
             Assert.DoesNotContain("<script", html, StringComparison.OrdinalIgnoreCase);
@@ -134,7 +180,8 @@ public sealed class DesignReportFormatTests
         var markdown = await File.ReadAllTextAsync(result.ReportPath);
         var appendix = markdown.IndexOf("## 附录 完整参数与计算记录", StringComparison.Ordinal);
         Assert.True(markdown.IndexOf("![", StringComparison.Ordinal) < appendix);
-        Assert.True(markdown.IndexOf("```json", StringComparison.Ordinal) > appendix);
+        Assert.DoesNotContain("```json", markdown);
+        Assert.DoesNotContain("完整处方", markdown);
         Assert.Contains("计算来源", markdown[appendix..]);
         Assert.Contains("RayDensity", markdown[appendix..]);
         Assert.Contains("## 目录", markdown);

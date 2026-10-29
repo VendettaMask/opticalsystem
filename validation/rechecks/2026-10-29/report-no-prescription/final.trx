@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e5bfa757-dfad-47fc-b66a-61734e55de41" name="optics@LAPTOP-G4BBBCS0 2026-10-29 16:33:20" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-29T16:33:20.9595402+08:00" queuing="2026-10-29T16:33:20.9595404+08:00" start="2026-10-29T16:33:16.7662257+08:00" finish="2026-10-29T16:33:26.2775027+08:00" />
+  <TestSettings name="default" id="1b4124e8-e1d1-4d4c-b486-623a68c8fcd8">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-29_16_33_20" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ced8324b-0273-4e1f-a890-b3539ad388b0" testId="8f54728f-e448-58b1-59a1-984161b0a782" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedPrescriptionSelectionsCannotReintroduceSurfaceData" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4285535" startTime="2026-10-29T16:33:19.4247049+08:00" endTime="2026-10-29T16:33:20.8465660+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ced8324b-0273-4e1f-a890-b3539ad388b0" />
+    <UnitTestResult executionId="b112a24c-9206-4ea8-b7d9-abf6104db37f" testId="93bb60ca-5b5b-7e01-d2d5-8d38bd2cad2f" testName="OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.3027167" startTime="2026-10-29T16:33:20.8709856+08:00" endTime="2026-10-29T16:33:26.1620037+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b112a24c-9206-4ea8-b7d9-abf6104db37f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="93bb60ca-5b5b-7e01-d2d5-8d38bd2cad2f">
+      <Execution id="b112a24c-9206-4ea8-b7d9-abf6104db37f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportImageTests" name="ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedPrescriptionSelectionsCannotReintroduceSurfaceData" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8f54728f-e448-58b1-59a1-984161b0a782">
+      <Execution id="ced8324b-0273-4e1f-a890-b3539ad388b0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="SavedPrescriptionSelectionsCannotReintroduceSurfaceData" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8f54728f-e448-58b1-59a1-984161b0a782" executionId="ced8324b-0273-4e1f-a890-b3539ad388b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93bb60ca-5b5b-7e01-d2d5-8d38bd2cad2f" executionId="b112a24c-9206-4ea8-b7d9-abf6104db37f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.17]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.11]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.14]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:08.92]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

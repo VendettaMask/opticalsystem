@@ -207,7 +207,7 @@ public sealed class MarkdownReportImageTests
     }
 
     [Fact]
-    public async Task ConfigurationWindowListsEveryAnalysisAndShowsProgressAndDefaultDirectory()
+    public async Task ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MarkdownReportImageTests));
         await session.Dispatch(() =>
@@ -217,7 +217,7 @@ public sealed class MarkdownReportImageTests
             var settings = new AppSettings
             {
                 AnalysisSettings = new() { ["Spot Diagram"] = new() { ["RayDensity"] = "3" } },
-                ReportExport = new() { AnalysisKeys = [.. MarkdownReportSettings.CommonAnalyses, "Zernike", "Zernike 系数"] }
+                ReportExport = new() { AnalysisKeys = [.. MarkdownReportSettings.CommonAnalyses, "Zernike", "Zernike 系数", "Prescription Report", "处方报告"] }
             };
             var window = new MarkdownReportWindow(application, settings);
             try
@@ -228,7 +228,9 @@ public sealed class MarkdownReportImageTests
                 Assert.Single(controls.OfType<ProgressBar>(), item => item.Name == "ReportExportProgress");
                 Assert.True(controls.OfType<Button>().Single(item => item.Name == "ExportMarkdownReport").IsEnabled);
                 var checks = controls.OfType<CheckBox>().Where(item => AutomationProperties.GetAutomationId(item)?.StartsWith("report-analysis-") == true).ToArray();
-                Assert.Equal(application.Analyses.AnalysisNames.Count, checks.Length);
+                Assert.Equal(application.Analyses.AnalysisNames.Count(key => MarkdownReportExporter.IsSupportedAnalysis(application.Analyses.CanonicalKey(key))), checks.Length);
+                Assert.DoesNotContain(checks, check => AutomationProperties.GetAutomationId(check) == "report-analysis-Prescription Report");
+                Assert.Contains("Prescription Report", application.Analyses.AnalysisNames.Select(application.Analyses.CanonicalKey));
                 Assert.DoesNotContain(checks, check => AutomationProperties.GetAutomationId(check) is "report-analysis-Zernike" or "report-analysis-Zernike 系数");
                 foreach (var key in new[] { "Zernike Fringe", "Zernike Standard", "Zernike Annular" })
                     Assert.Contains(checks, check => AutomationProperties.GetAutomationId(check) == "report-analysis-" + key);

@@ -14,6 +14,9 @@ internal delegate Task<IReadOnlyList<string>> ReportImageWriter(
 
 internal static class MarkdownReportExporter
 {
+    internal static bool IsSupportedAnalysis(string canonicalKey) =>
+        !WorkbenchAnalysisCatalog.IsRetiredAnalysis(canonicalKey) && canonicalKey != "Prescription Report";
+
     internal static string SuggestedDirectory(string? sourcePath) => string.IsNullOrWhiteSpace(sourcePath)
         ? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         : Path.GetDirectoryName(Path.GetFullPath(sourcePath))!;
@@ -64,7 +67,7 @@ internal static class MarkdownReportExporter
             ? Enumerable.Range(0, navigation.Count).ToArray() : [navigation.ActiveIndex];
         var analyses = settings.AnalysisKeys
             .Where(key => !WorkbenchAnalysisCatalog.IsRetiredAnalysis(key))
-            .Select(workspace.Analyses.CanonicalKey).Distinct(StringComparer.Ordinal).ToArray();
+            .Select(workspace.Analyses.CanonicalKey).Where(IsSupportedAnalysis).Distinct(StringComparer.Ordinal).ToArray();
         var layoutCount = (settings.Include2DLayout ? 1 : 0) + (settings.Include3DLayout ? 1 : 0);
         var total = configurations.Length * (analyses.Length + layoutCount + 1) + 1;
         var text = new DesignReportContent();
@@ -82,9 +85,8 @@ internal static class MarkdownReportExporter
                 currentConfiguration = configuration + 1;
                 var prefix = $"c{configuration + 1:D3}";
                 text.Heading($"配置 {configuration + 1}", 2, newPage: true);
-                appendix.Heading($"配置 {configuration + 1} 完整处方", 3);
-                progress?.Report(new(completed, total, "镜头结构与系统参数"));
-                AppendStructure(text, appendix, workspace, document);
+                progress?.Report(new(completed, total, "系统参数概览"));
+                AppendSystemSummary(text, document);
                 completed++;
                 foreach (var dimension in new[] { SceneDimension.TwoDimensional, SceneDimension.ThreeDimensional })
                 {
@@ -141,19 +143,22 @@ internal static class MarkdownReportExporter
             text.Heading("导出结果", 2);
             text.Paragraph($"成功项目：{succeeded}；失败或不适用项目：{failed}。");
             if (outcomes.Count > 0) text.Table(["配置", "项目", "执行状态"], outcomes);
-            text.Heading("附录 完整参数与计算记录", 2, newPage: true);
-            text.BeginAppendix();
-            text.Append(appendix);
+            if (appendix.Blocks.Count > 0)
+            {
+                text.Heading("附录 完整参数与计算记录", 2, newPage: true);
+                text.BeginAppendix();
+                text.Append(appendix);
+            }
             var report = new DesignReportContent();
             report.Heading("光学设计报告", 1);
             report.Paragraph(source.Name, ReportTextStyle.Subtitle);
-            report.Paragraph("当前工程的镜头结构、布局与所选光学分析。各图表和数据均来自导出开始时的同一工程快照。", ReportTextStyle.Muted);
+            report.Paragraph("当前工程的系统概览、布局与所选光学分析。各图表和数据均来自导出开始时的同一工程快照。", ReportTextStyle.Muted);
             report.Heading("报告概览", 2);
             report.Table(["报告信息", "内容"], [
                 ["导出时间", snapshot.CapturedAt.ToString("yyyy-MM-dd HH:mm:ss zzz", CultureInfo.InvariantCulture)],
                 ["源文件", source.Path ?? "未保存工程"], ["工程修订", $"{source.Revision}；包含未保存修改：{(source.IsDirty ? "是" : "否")}"],
                 ["配置范围", string.Join("、", configurations.Select(value => (value + 1).ToString(CultureInfo.InvariantCulture)))],
-                ["所选分析", analyses.Length == 0 ? "仅工程结构与所选布局" : string.Join("、", analyses.Select(WorkbenchAnalysisCatalog.DisplayName))],
+                ["所选分析", analyses.Length == 0 ? "仅系统概览与所选布局" : string.Join("、", analyses.Select(WorkbenchAnalysisCatalog.DisplayName))],
                 ["执行概况", $"{succeeded} 项完成；{failed} 项失败或不适用"],
                 ["软件版本", $"Optical System Design {typeof(MarkdownReportExporter).Assembly.GetName().Version}"]]);
             report.Contents(text.Blocks.OfType<ReportHeading>());
@@ -213,31 +218,12 @@ internal static class MarkdownReportExporter
         }
     }
 
-    private static void AppendStructure(DesignReportContent text, DesignReportContent appendix, IWorkbenchApplication workspace, OpticalDocumentSnapshot document)
+    private static void AppendSystemSummary(DesignReportContent text, OpticalDocumentSnapshot document)
     {
         text.Heading("系统参数", 3);
         text.Table(["参数", "值"], [
             ["EFL / mm", Number(document.EffectiveFocalLength)], ["F/#", Number(document.FNumber)],
             ["TTL / mm", Number(document.TotalTrack)], ["入瞳直径 / mm", Number(document.EntrancePupilDiameter)]]);
-        text.Heading("镜头结构", 3);
-        text.Table(["面号", "名称", "面型", "半径 / mm", "厚度 / mm", "材料", "半口径 / mm", "圆锥系数", "光阑"],
-            workspace.Prescription.GetSurfaces().Select(surface => new[]
-            {
-                surface.Number.ToString(CultureInfo.InvariantCulture), surface.Label, surface.GeometryKind,
-                Number(surface.Radius), Number(surface.Thickness), surface.Material, Number(surface.SemiDiameter),
-                Number(surface.Conic), surface.IsStop ? "STOP" : ""
-            }));
-        // Detailed DTOs retain geometry parameters, solve definitions, coatings
-        // and system settings beyond the compact surface table.
-        appendix.Code(System.Text.Json.JsonSerializer.Serialize(new
-        {
-            System = workspace.Prescription.GetSystemSettings(),
-            Environment = workspace.Prescription.GetEnvironmentSettings(),
-            Fields = workspace.Prescription.GetFields(),
-            Wavelengths = workspace.Prescription.GetWavelengths(),
-            Surfaces = workspace.Prescription.GetSurfaces(),
-            NonSequential = workspace.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential ? workspace.NonSequential.GetDocument() : null
-        }, new System.Text.Json.JsonSerializerOptions { WriteIndented = true, NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals }), "json");
     }
 
     private static void AppendAnalysis(DesignReportContent text, DesignReportContent appendix, AnalysisViewDto view)

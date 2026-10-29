@@ -1,0 +1,103 @@
+生成启动时间为 2026/10/29 16:24:18。
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:01.14]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.63]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.72]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.UnknownFormatIsRejectedBeforeCreatingOutput [1 s]
+[xUnit.net 00:00:05.21]     OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedPrescriptionSelectionsCannotReintroduceSurfaceData [FAIL]
+[xUnit.net 00:00:05.21]       Assert.Contains() Failure: Item not found in collection
+[xUnit.net 00:00:05.21]       Collection: ["单光线追迹", "系统数据摘要", "赛德尔系数", "赛德尔图", "标准点列图", ···]
+[xUnit.net 00:00:05.21]       Not found:  "Prescription Report"
+[xUnit.net 00:00:05.21]       Stack Trace:
+[xUnit.net 00:00:05.22]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs(194,0): at OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedPrescriptionSelectionsCannotReintroduceSurfaceData()
+[xUnit.net 00:00:05.22]         --- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Pdf) [1 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Markdown) [293 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Html) [141 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Markdown) [137 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Word) [132 ms]
+  失败 OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedPrescriptionSelectionsCannotReintroduceSurfaceData [448 ms]
+  错误消息:
+   Assert.Contains() Failure: Item not found in collection
+Collection: ["单光线追迹", "系统数据摘要", "赛德尔系数", "赛德尔图", "标准点列图", ···]
+Not found:  "Prescription Report"
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedPrescriptionSelectionsCannotReintroduceSurfaceData() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs:line 194
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnSummaryAndLayoutWithoutExportingPrescription [360 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue [195 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings [876 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource [358 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames [9 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Pdf) [4 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Html) [171 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Word) [203 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReaderContentPrecedesCompleteAppendixWithoutLosingRawData [193 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.LongTablesAndOversizedRowsRemainPaginatedAndComplete(format: Pdf) [1 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.LongTablesAndOversizedRowsRemainPaginatedAndComplete(format: Word) [20 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Word, extension: ".docx") [335 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedGenericZernikeSelectionsAreOmittedWithoutChangingExplicitCoefficientAnalyses [8 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Pdf, extension: ".pdf") [10 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Html, extension: ".html") [148 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Html) [155 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Pdf) [5 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Word) [52 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Word) [21 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Pdf) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Html) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Markdown) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.HtmlEncodesUserContentAndKeepsNavigationAndPrintStylesOffline [2 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "en-US", format: Pdf, index: 1, extension: ".pdf") [15 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "zh-CN", format: Word, index: 0, extension: ".docx") [7 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "ja-JP", format: Markdown, index: 2, extension: ".md") [8 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "zh-CN", format: Html, index: 3, extension: ".html") [6 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Pdf) [23 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Word) [7 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Markdown) [6 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Html) [5 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.SharedProgressSupportsItemCountsAndResetsToIndeterminateForOtherOperations [11 ms]
+[xUnit.net 00:01:53.17]     OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory [FAIL]
+[xUnit.net 00:01:53.17]       Assert.Contains() Failure: Item not found in collection
+[xUnit.net 00:01:53.17]       Collection: ["单光线追迹", "系统数据摘要", "赛德尔系数", "赛德尔图", "标准点列图", ···]
+[xUnit.net 00:01:53.17]       Not found:  "Prescription Report"
+[xUnit.net 00:01:53.17]       Stack Trace:
+[xUnit.net 00:01:53.17]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportImageTests.cs(233,0): at OpticalSystemDesign.Tests.MarkdownReportImageTests.<>c.<ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory>b__4_0()
+[xUnit.net 00:01:53.17]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:01:53.17]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:01:53.17]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:01:53.17]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:53.17]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportImageTests.cs(213,0): at OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory()
+[xUnit.net 00:01:53.17]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:53.18]   Finished:    OpticalSystemDesign.Tests
+  失败 OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory [2 s]
+  错误消息:
+   Assert.Contains() Failure: Item not found in collection
+Collection: ["单光线追迹", "系统数据摘要", "赛德尔系数", "赛德尔图", "标准点列图", ···]
+Not found:  "Prescription Report"
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MarkdownReportImageTests.<>c.<ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory>b__4_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportImageTests.cs:line 233
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportImageTests.cs:line 213
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-29\report-no-prescription\report-no-prescription.trx
+
+测试运行失败。
+测试总数: 40
+     通过数: 38
+     失败数: 2
+总时间: 1.8978 分钟
+项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”在节点 1 上(VSTest 个目标)。
+_VSTestConsole:
+  MSB4181: “VSTestTask”任务返回了 false，但未记录错误。
+已完成生成项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”(VSTest 个目标)的操作 - 失败。
+
+生成失败。
+    0 个警告
+    0 个错误
+
+已用时间 00:01:54.85

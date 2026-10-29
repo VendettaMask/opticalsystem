@@ -55,8 +55,9 @@ public sealed class MarkdownReportExportTests
         Assert.Matches(@"_report_\d{8}_\d{6}_\d{3}\.md$", result.ReportPath);
         Assert.Equal(3, result.Succeeded); Assert.Equal(0, result.Failed);
         var markdown = await File.ReadAllTextAsync(result.ReportPath);
-        Assert.Contains("镜头结构", markdown); Assert.Contains("RayDensity", markdown);
-        Assert.Contains("计算来源", markdown); Assert.Contains("```json", markdown);
+        Assert.Contains("系统参数", markdown); Assert.Contains("RayDensity", markdown);
+        Assert.Contains("计算来源", markdown); Assert.DoesNotContain("```json", markdown);
+        Assert.DoesNotContain("完整处方", markdown); Assert.DoesNotContain("半径 / mm", markdown);
         var links = Regex.Matches(markdown, @"!\[[^\]]*\]\(<([^>]+)>\)");
         Assert.Equal(3, links.Count);
         foreach (Match link in links)
@@ -146,7 +147,7 @@ public sealed class MarkdownReportExportTests
     }
 
     [Fact]
-    public async Task EachConfigurationHasItsOwnPrescriptionAndLayout()
+    public async Task EachConfigurationHasItsOwnSummaryAndLayoutWithoutExportingPrescription()
     {
         using var directory = new ReportTestDirectory();
         using var application = WorkbenchApplication.Create("cooke");
@@ -154,12 +155,44 @@ public sealed class MarkdownReportExportTests
         application.MultiConfiguration.SetThickness(1, 1, 4.321);
         var before = application.MultiConfiguration.GetNavigationState();
         using var snapshot = application.CaptureReportSnapshot();
+        var scenes = new List<SceneDto>();
         var result = await MarkdownReportExporter.ExportAsync(snapshot,
-            new() { AnalysisKeys = [], Include3DLayout = false, AllConfigurations = true }, directory.Path, WritePlaceholder);
+            new() { AnalysisKeys = [], Include3DLayout = false, AllConfigurations = true }, directory.Path,
+            (request, output, stem, token) =>
+            {
+                scenes.Add(request.Scene!);
+                return WritePlaceholder(request, output, stem, token);
+            });
         var markdown = await File.ReadAllTextAsync(result.ReportPath);
         Assert.Contains("## 配置 1", markdown); Assert.Contains("## 配置 2", markdown);
-        Assert.Contains("4.321", markdown); Assert.Equal(2, result.Succeeded);
+        Assert.DoesNotContain("4.321", markdown); Assert.Equal(2, result.Succeeded);
+        Assert.Equal(2, scenes.Count);
+        Assert.NotEqual(scenes[0].Summary.TotalTrack, scenes[1].Summary.TotalTrack);
+        Assert.DoesNotContain("完整处方", markdown);
         Assert.Equal(before, application.MultiConfiguration.GetNavigationState());
+    }
+
+    [Fact]
+    public async Task SavedPrescriptionSelectionsCannotReintroduceSurfaceData()
+    {
+        using var directory = new ReportTestDirectory();
+        using var application = WorkbenchApplication.Create("cooke");
+        using var snapshot = application.CaptureReportSnapshot();
+        var options = new MarkdownReportSettings
+        {
+            AnalysisKeys = ["Prescription Report", "处方报告", "表面数据报告", "Spot Diagram"],
+            Include2DLayout = false,
+            Include3DLayout = false
+        };
+        var result = await MarkdownReportExporter.ExportAsync(snapshot, options, directory.Path, WritePlaceholder);
+        Assert.Equal(1, result.Succeeded); Assert.Equal(0, result.Failed);
+        var markdown = await File.ReadAllTextAsync(result.ReportPath);
+        Assert.Contains("RayDensity", markdown);
+        Assert.DoesNotContain("表面数据报告", markdown);
+        Assert.DoesNotContain("SurfacePrescription", markdown);
+        Assert.DoesNotContain("完整处方", markdown);
+        Assert.Contains("Prescription Report", application.Analyses.AnalysisNames.Select(application.Analyses.CanonicalKey));
+        Assert.Equal(4, options.AnalysisKeys.Count);
     }
 
     [Fact]

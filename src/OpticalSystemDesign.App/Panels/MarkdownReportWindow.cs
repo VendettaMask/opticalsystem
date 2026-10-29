@@ -65,7 +65,8 @@ internal sealed partial class MarkdownReportWindow : Window
             presets.Children.Add(button); _editable.Add(button);
         }
         selection.Children.Add(presets);
-        foreach (var key in application.Analyses.AnalysisNames.Select(application.Analyses.CanonicalKey).Distinct())
+        foreach (var key in application.Analyses.AnalysisNames.Select(application.Analyses.CanonicalKey)
+                     .Where(MarkdownReportExporter.IsSupportedAnalysis).Distinct())
         {
             if (!_options.AnalysisParameters.ContainsKey(key) && settings.AnalysisSettings.TryGetValue(key, out var cached))
                 _options.AnalysisParameters[key] = new(cached);
