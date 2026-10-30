@@ -1,0 +1,81 @@
+{
+  "gates": [
+    {
+      "name": "Converged",
+      "unchanged": true
+    },
+    {
+      "name": "Checks",
+      "unchanged": true
+    }
+  ],
+  "untouched": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmThicknessSensitivity.cs",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Examples.cs",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Data/films.json",
+      "unchanged": true
+    }
+  ],
+  "unchangedMeasurements": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmBandSensitivity.cs",
+      "unchanged": true
+    }
+  ],
+  "binaries": [
+    {
+      "name": "OpticalSystemDesign.Core",
+      "before": "a8089fa874b30b6f48c2fb0bbabdee8e0011ceddbb4d52b7debc4f3541e22806",
+      "after": "a8089fa874b30b6f48c2fb0bbabdee8e0011ceddbb4d52b7debc4f3541e22806",
+      "test": "a8089fa874b30b6f48c2fb0bbabdee8e0011ceddbb4d52b7debc4f3541e22806"
+    },
+    {
+      "name": "OpticalSystemDesign.Application",
+      "before": "329ead5f294893b1d3c436f2238ea36d2d732aed195129df5d61d9b9ea309228",
+      "after": "329ead5f294893b1d3c436f2238ea36d2d732aed195129df5d61d9b9ea309228",
+      "test": "329ead5f294893b1d3c436f2238ea36d2d732aed195129df5d61d9b9ea309228"
+    },
+    {
+      "name": "OpticalSystemDesign.CoatingDesign.Engine",
+      "before": "17cdc1beed83e47de78dd8fcae63cf2fc642c7c93934c293d894b9ceda6c353a",
+      "after": "3bcdcd4d47cc03851f364aef85781bb2ae93b78a3a8139fa92e45c504a0c9f69",
+      "test": "3bcdcd4d47cc03851f364aef85781bb2ae93b78a3a8139fa92e45c504a0c9f69"
+    }
+  ],
+  "binaryPassed": true,
+  "referenceSources": [
+    {
+      "path": "src/utils/physics/optimizer/lsqEngine.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/optimizers/newton.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/physics/optimizer/operandModel.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/synthesis/structuralOptimizer.js",
+      "unchanged": true
+    }
+  ],
+  "referencePassed": true,
+  "referenceDependencyIntact": true
+}

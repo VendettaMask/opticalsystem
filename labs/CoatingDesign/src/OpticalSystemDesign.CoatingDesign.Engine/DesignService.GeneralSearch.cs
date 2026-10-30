@@ -123,7 +123,10 @@ public sealed partial class DesignService
         if (d.Layers.Length > 0 && finalists.All(s => LayerIdentity(s.Layers) != LayerIdentity(d.Layers))) finalists.Add(evaluated[LayerIdentity(d.Layers)]);
         long evaluations = matches.Sum(m => m.Run.Evaluations) + screens.Sum(s => s.Run.Evaluations);
         var iterations = matches.Sum(m => m.Run.Iterations) + screens.Sum(s => s.Run.Iterations);
-        Experiment? selected = null; CoatingConstraintAssessment? selectedAssessment = null; var candidates = new List<Candidate>();
+        var original = d.Layers.Length > 0 ? Evaluate(d with { Result = null, Candidates = null, Tolerance = null }, progress: progress, token: token) : null;
+        var originalAssessment = original is null ? null : AssessGeneral(original, original.Result!.Spectrum);
+        if (original is not null) work.Dense++;
+        Experiment? selected = original; CoatingConstraintAssessment? selectedAssessment = originalAssessment; var candidates = new List<Candidate>();
         if (fullSearch)
         {
             var random = new Random(d.Settings.RandomSeed); var options = d.Settings.Search ?? new();
@@ -137,15 +140,13 @@ public sealed partial class DesignService
                 var r = candidate.Result!; var a = AssessGeneral(candidate, r.Spectrum); work.Add(r.Run.GeneralWork);
                 evaluations += r.Run.Evaluations; iterations += r.Run.Iterations;
                 candidates.Add(new(seed.Name, candidate.Layers, r.Merit, r.Passed, r.Run) { OriginPrototype = seed.Origin });
+                if (originalAssessment is not null && !WithinGeneralTargetEnvelope(a, originalAssessment)) { work.DenseRejections++; continue; }
                 if (selected is null || r.Passed && !selected.Result!.Passed || r.Passed == selected.Result!.Passed && PreferGeneral(a, selectedAssessment!))
                 { selected = candidate; selectedAssessment = a; }
             }
-            if (d.Layers.Length > 0)
+            if (original is not null)
             {
-                var original = Evaluate(d with { Result = null, Candidates = null, Tolerance = null }, progress: progress, token: token); var a = AssessGeneral(original, original.Result!.Spectrum);
-                work.Dense++;
-                candidates.Add(new("原结构完整复验", original.Layers, original.Result.Merit, original.Result.Passed));
-                if (original.Result.Passed && !selected!.Result!.Passed || original.Result.Passed == selected!.Result!.Passed && PreferGeneral(a, selectedAssessment!)) selected = original;
+                candidates.Add(new("原结构完整复验", original.Layers, original.Result!.Merit, original.Result.Passed));
             }
         }
         else
@@ -155,6 +156,7 @@ public sealed partial class DesignService
             {
                 var verified = Evaluate(d with { Layers = seed.Layers, Result = null, Candidates = null, Tolerance = null }, progress: progress, token: token);
                 work.Dense++; var assessment = AssessGeneral(verified, verified.Result!.Spectrum);
+                if (originalAssessment is not null && !WithinGeneralTargetEnvelope(assessment, originalAssessment)) { work.DenseRejections++; continue; }
                 if (selected is null || verified.Result.Passed && !selected.Result!.Passed
                     || verified.Result.Passed == selected.Result!.Passed && PreferGeneral(assessment, selectedAssessment!))
                 { selected = verified; selectedAssessment = assessment; }
@@ -168,7 +170,10 @@ public sealed partial class DesignService
             GeneralWork = work.Snapshot(),
             Screening = screens.ToArray(),
             TemplateEvaluations = discrete + matches.Count,
-            NarrowBandCompetition = new(initial, discrete, DiscreteEvaluationLimit, rounds, ShortCandidateLimit, matches.ToArray())
+            NarrowBandCompetition = new(initial, discrete, DiscreteEvaluationLimit, rounds, ShortCandidateLimit, matches.ToArray()),
+            TargetViolationCeilings = originalAssessment?.Violations,
+            TargetEnvelopeSampling = originalAssessment is null ? null : "dense-start",
+            TargetProtectionPhase = "candidate-selection"
         };
         return selected! with { Candidates = candidates.ToArray(), Result = selected.Result! with { Run = run } };
     }

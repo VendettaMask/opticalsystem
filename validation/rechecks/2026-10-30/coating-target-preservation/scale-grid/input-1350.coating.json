@@ -1,0 +1,175 @@
+{
+  "SchemaVersion": 1,
+  "Id": "1e4c6d67-371c-4139-8672-52c44a009f50",
+  "Name": "\u793A\u4F8B\u4E09 \u00B7 550 nm \u7A84\u5E26\u6EE4\u5149\u7247",
+  "Target": {
+    "Kind": "NarrowBand",
+    "CenterNm": 1350,
+    "MinimumNm": 1147.5,
+    "MaximumNm": 1552.4999999999998,
+    "Reflectance": 0.02,
+    "MaximumLayers": 39,
+    "AngleDegrees": 20,
+    "Polarization": "Unpolarized",
+    "FwhmNm": 40.5,
+    "PeakTransmittance": 0.75,
+    "BlockingOd": 1,
+    "StopBands": [
+      {
+        "MinimumNm": 1188,
+        "MaximumNm": 1242
+      },
+      {
+        "MinimumNm": 1458,
+        "MaximumNm": 1512.0000000000002
+      }
+    ],
+    "CenterToleranceNm": 1.35,
+    "FwhmToleranceNm": 4.05
+  },
+  "Settings": {
+    "PreviewIntervals": 400,
+    "OptimizationIntervals": 120,
+    "MaximumIterations": 12,
+    "Optimizer": "Damped Least Squares",
+    "MinimumThicknessNm": 2.7,
+    "MaximumThicknessNm": 2700,
+    "TolerancePercent": 1,
+    "ToleranceTrials": 20,
+    "RandomSeed": 1234,
+    "DesignProtocolVersion": 4
+  },
+  "IncidentId": "Air",
+  "SubstrateId": "generic substrate",
+  "LowId": "generic low",
+  "HighId": "generic high",
+  "Materials": [
+    {
+      "Id": "Air",
+      "Name": "Air",
+      "Source": "\u6B63\u5F0F Core \u6750\u6599\u76EE\u5F55\u5FEB\u7167\uFF1B\u65E0 k \u6570\u636E\u7684\u6A21\u578B\u6309 k=0 \u8BA1\u7B97",
+      "MinimumNm": 300,
+      "MaximumNm": 2500,
+      "Model": {
+        "Kind": "air",
+        "Numbers": {},
+        "Text": {},
+        "Children": null
+      }
+    },
+    {
+      "Id": "generic low",
+      "Name": "generic low",
+      "Source": "synthetic scale control",
+      "MinimumNm": 675,
+      "MaximumNm": 2700,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.43,
+          "extinction": 0.0008
+        },
+        "Text": {
+          "name": "generic low"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "generic high",
+      "Name": "generic high",
+      "Source": "synthetic scale control",
+      "MinimumNm": 675,
+      "MaximumNm": 2700,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 2.15,
+          "extinction": 0.004
+        },
+        "Text": {
+          "name": "generic high"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "generic substrate",
+      "Name": "generic substrate",
+      "Source": "synthetic scale control",
+      "MinimumNm": 675,
+      "MaximumNm": 2700,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.52,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "generic substrate"
+        },
+        "Children": null
+      }
+    }
+  ],
+  "Layers": [
+    {
+      "MaterialId": "generic high",
+      "ThicknessNm": 159.00148818396718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic low",
+      "ThicknessNm": 243.0686887892722,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic high",
+      "ThicknessNm": 159.00148818396718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic low",
+      "ThicknessNm": 243.0686887892722,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic high",
+      "ThicknessNm": 159.00148818396718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic low",
+      "ThicknessNm": 243.0686887892722,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic high",
+      "ThicknessNm": 636.0059527358687,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic low",
+      "ThicknessNm": 243.0686887892722,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic high",
+      "ThicknessNm": 159.00148818396718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic low",
+      "ThicknessNm": 243.0686887892722,
+      "Variable": true
+    },
+    {
+      "MaterialId": "generic high",
+      "ThicknessNm": 159.00148818396718,
+      "Variable": true
+    }
+  ],
+  "Result": null,
+  "Candidates": null,
+  "Tolerance": null
+}

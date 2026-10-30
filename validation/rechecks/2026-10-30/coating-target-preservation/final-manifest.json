@@ -1,0 +1,90 @@
+{
+  "tests": {
+    "total": 154,
+    "executed": 154,
+    "passed": 154,
+    "failed": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "inconclusive": 0,
+    "passedButRunAborted": 0,
+    "notRunnable": 0,
+    "notExecuted": 0,
+    "disconnected": 0,
+    "warning": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0
+  },
+  "pairs": 35,
+  "completedRuns": 70,
+  "guardFailures": [],
+  "localLinksChecked": true,
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmPeakRefinement.cs",
+      "sha256": "6b891ba7e0d63bd94aea393e4a3b0d232759b0edcf3f520b728f4ed17ec45850"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Balanced.cs",
+      "sha256": "9d154bc46f017ea82f13d2f399f907c893b7d5f11ce544494ba4d8a9ba63a2cd"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.cs",
+      "sha256": "be05a4c79cbf20d137b2491abd582eaa36621f306bbc27780ea626434f336b0a"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralMatching.cs",
+      "sha256": "60061f33aab5d6c2101eacf42c51ce2d2858c7f22d67c30988845b6b5df74d17"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralObjective.cs",
+      "sha256": "14d69537d6cfe6db269f76f18bb57f512f10a7f55963edeaaaa396987959abf1"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralSearch.cs",
+      "sha256": "45a0e0cc50af2a3193124e2228dd239ccb03f65709c13e6b6eed87971292b762"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.NarrowBand.cs",
+      "sha256": "bb94dd3345179aef1a813d0ba3d6c274317ae9c2504020542514dcfb3d25d9d4"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.ReflectanceQuality.cs",
+      "sha256": "5fbc67fa7113d60b0ef2e8c2eed8d78790f26889f5c3903cbe4e4d4722367ee8"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Search.cs",
+      "sha256": "9b942bba5b3f1bf1c4b7b7a367bc52324671380f7244e12f91c747949316f7fe"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.TargetProtection.cs",
+      "sha256": "3e896716857752fcbedb1f5544c266c9ba6e4c5d83a442a8bd5c9461aec17024"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Experiment.cs",
+      "sha256": "b6d9172a44dffd082fe5ebbda0b0fcbefef4ef2cab0b70887624401f81ce1aad"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/TargetPreservationTests.cs",
+      "sha256": "f402401b0263e7b5f5cd203167d255b1b9e4a31c6b273d62eee60b248152d710"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/CoatingPeakRefinementTests.cs",
+      "sha256": "fa300e2f641f2c7839bc16a604f7ab37ef518caef955977bde1975eb52092a39"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Fixtures/target-feasible-20261030.json",
+      "sha256": "7545c0a860e3e32a43dffa99b19ab18e05b8a042752a45e56f87c284330c2c4c"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/TargetProtectionAudit.cs",
+      "sha256": "006c70a5351c0299853c317f6473389cc075805b2a5e4fa57c3b0d4b5ebea1e4"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/summarize-target-preservation.mjs",
+      "sha256": "fedfe0cd5e4aed1b18254d049118e187efa83bce3276abcbea3c9e6e6ca2ff74"
+    }
+  ]
+}

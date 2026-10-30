@@ -1,0 +1,74 @@
+{
+  "gates": [
+    {
+      "name": "Converged",
+      "unchanged": true
+    },
+    {
+      "name": "Checks",
+      "unchanged": true
+    }
+  ],
+  "unchanged": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmThicknessSensitivity.cs",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Examples.cs",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Data/films.json",
+      "unchanged": true
+    }
+  ],
+  "binaries": [
+    {
+      "name": "OpticalSystemDesign.Core",
+      "before": "ca19b2c0417512d40d99f7129f496e323bc7686aef7f75927a315cf1d4b5abdd",
+      "after": "ca19b2c0417512d40d99f7129f496e323bc7686aef7f75927a315cf1d4b5abdd",
+      "test": "ca19b2c0417512d40d99f7129f496e323bc7686aef7f75927a315cf1d4b5abdd"
+    },
+    {
+      "name": "OpticalSystemDesign.Application",
+      "before": "9619fb663288fc07c67ff2827b45fe3fa81b91921c556669b564adb6229c6ca1",
+      "after": "9619fb663288fc07c67ff2827b45fe3fa81b91921c556669b564adb6229c6ca1",
+      "test": "9619fb663288fc07c67ff2827b45fe3fa81b91921c556669b564adb6229c6ca1"
+    },
+    {
+      "name": "OpticalSystemDesign.CoatingDesign.Engine",
+      "before": "dddf6bd891ceff10619393fe4c1bc9f062bfd67c3ea44721fc8848e416f0ee96",
+      "after": "17cdc1beed83e47de78dd8fcae63cf2fc642c7c93934c293d894b9ceda6c353a",
+      "test": "17cdc1beed83e47de78dd8fcae63cf2fc642c7c93934c293d894b9ceda6c353a"
+    }
+  ],
+  "binaryPassed": true,
+  "referenceSources": [
+    {
+      "path": "src/utils/physics/optimizer/lsqEngine.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/optimizers/newton.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/physics/optimizer/operandModel.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/filter/filterDesign/meritFunction.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/synthesis/structuralOptimizer.js",
+      "unchanged": true
+    }
+  ],
+  "referencePassed": true
+}

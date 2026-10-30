@@ -1,0 +1,2262 @@
+{
+  "SchemaVersion": 1,
+  "Id": "5716dd3d-ca38-4af9-bd23-d3ebe91b3040",
+  "Name": "heldout-ar-oblique",
+  "Target": {
+    "Kind": "Antireflection",
+    "CenterNm": 1064,
+    "MinimumNm": 1032.08,
+    "MaximumNm": 1095.92,
+    "Reflectance": 0.15,
+    "MaximumLayers": 32,
+    "AngleDegrees": 45,
+    "Polarization": "S",
+    "FwhmNm": 15,
+    "PeakTransmittance": 0.75,
+    "BlockingOd": 1,
+    "StopBands": null,
+    "CenterToleranceNm": 0.5,
+    "FwhmToleranceNm": 1
+  },
+  "Settings": {
+    "PreviewIntervals": 100,
+    "OptimizationIntervals": 40,
+    "MaximumIterations": 24,
+    "Optimizer": "Damped Least Squares",
+    "MinimumThicknessNm": 1.064,
+    "MaximumThicknessNm": 2128,
+    "TolerancePercent": 1,
+    "ToleranceTrials": 20,
+    "RandomSeed": 1234,
+    "DesignProtocolVersion": 4
+  },
+  "IncidentId": "incident",
+  "SubstrateId": "substrate",
+  "LowId": "low",
+  "HighId": "high",
+  "Materials": [
+    {
+      "Id": "incident",
+      "Name": "incident",
+      "Source": "Frozen synthetic comparison; not measured",
+      "MinimumNm": 532,
+      "MaximumNm": 2128,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "incident"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "substrate",
+      "Name": "substrate",
+      "Source": "Frozen synthetic comparison; not measured",
+      "MinimumNm": 532,
+      "MaximumNm": 2128,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.52,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "substrate"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "low",
+      "Name": "low",
+      "Source": "Frozen synthetic comparison; not measured",
+      "MinimumNm": 532,
+      "MaximumNm": 2128,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.46,
+          "extinction": 0.0024000000000000002
+        },
+        "Text": {
+          "name": "low"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "high",
+      "Name": "high",
+      "Source": "Frozen synthetic comparison; not measured",
+      "MinimumNm": 532,
+      "MaximumNm": 2128,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 2.2,
+          "extinction": 0.012
+        },
+        "Text": {
+          "name": "high"
+        },
+        "Children": null
+      }
+    }
+  ],
+  "Layers": [
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 187.42048734469597,
+      "Variable": true
+    }
+  ],
+  "Result": {
+    "Fingerprint": "D929B1F9C9476B2F26A5F8761C261948A3FADCAE1D1791610E3F83F349965D5B",
+    "Spectrum": [
+      {
+        "WavelengthNanometers": 1032.08,
+        "Power": {
+          "Reflectance": 0.06992783270611605,
+          "Transmittance": 0.9242918185799838,
+          "Absorptance": 0.0057803487139002074,
+          "LogTransmittance": -0.07872743622739042,
+          "OpticalDensity": 0.03419089112794582
+        }
+      },
+      {
+        "WavelengthNanometers": 1032.3991999999998,
+        "Power": {
+          "Reflectance": 0.06993120760180212,
+          "Transmittance": 0.9242903452713335,
+          "Absorptance": 0.005778447126864372,
+          "LogTransmittance": -0.07872903021512778,
+          "OpticalDensity": 0.034191583388024374
+        }
+      },
+      {
+        "WavelengthNanometers": 1032.7184,
+        "Power": {
+          "Reflectance": 0.06993459135417032,
+          "Transmittance": 0.9242888619668678,
+          "Absorptance": 0.00577654667896188,
+          "LogTransmittance": -0.07873063502000699,
+          "OpticalDensity": 0.034192280345927945
+        }
+      },
+      {
+        "WavelengthNanometers": 1033.0375999999999,
+        "Power": {
+          "Reflectance": 0.0699379839419364,
+          "Transmittance": 0.924287368688737,
+          "Absorptance": 0.0057746473693266465,
+          "LogTransmittance": -0.0787322506181155,
+          "OpticalDensity": 0.03419298199127145
+        }
+      },
+      {
+        "WavelengthNanometers": 1033.3568,
+        "Power": {
+          "Reflectance": 0.06994138534385243,
+          "Transmittance": 0.9242858654590533,
+          "Absorptance": 0.005772749197094251,
+          "LogTransmittance": -0.07873387698558187,
+          "OpticalDensity": 0.03419368831368764
+        }
+      },
+      {
+        "WavelengthNanometers": 1033.676,
+        "Power": {
+          "Reflectance": 0.06994479553870706,
+          "Transmittance": 0.9242843522998929,
+          "Absorptance": 0.005770852161400053,
+          "LogTransmittance": -0.07873551409857427,
+          "OpticalDensity": 0.034194399302826486
+        }
+      },
+      {
+        "WavelengthNanometers": 1033.9951999999998,
+        "Power": {
+          "Reflectance": 0.06994821450532522,
+          "Transmittance": 0.9242828292332936,
+          "Absorptance": 0.005768956261381186,
+          "LogTransmittance": -0.07873716193330216,
+          "OpticalDensity": 0.0341951149483559
+        }
+      },
+      {
+        "WavelengthNanometers": 1034.3144,
+        "Power": {
+          "Reflectance": 0.06995164222256846,
+          "Transmittance": 0.9242812962812574,
+          "Absorptance": 0.0057670614961741196,
+          "LogTransmittance": -0.07873882046601421,
+          "OpticalDensity": 0.0341958352399608
+        }
+      },
+      {
+        "WavelengthNanometers": 1034.6336,
+        "Power": {
+          "Reflectance": 0.06995507866933437,
+          "Transmittance": 0.9242797534657479,
+          "Absorptance": 0.005765167864917764,
+          "LogTransmittance": -0.07874048967300062,
+          "OpticalDensity": 0.03419656016734415
+        }
+      },
+      {
+        "WavelengthNanometers": 1034.9528,
+        "Power": {
+          "Reflectance": 0.06995852382455689,
+          "Transmittance": 0.9242782008086938,
+          "Absorptance": 0.005763275366749254,
+          "LogTransmittance": -0.07874216953058955,
+          "OpticalDensity": 0.034197289720225406
+        }
+      },
+      {
+        "WavelengthNanometers": 1035.272,
+        "Power": {
+          "Reflectance": 0.06996197766720634,
+          "Transmittance": 0.9242766383319848,
+          "Absorptance": 0.0057613840008088335,
+          "LogTransmittance": -0.07874386001515177,
+          "OpticalDensity": 0.03419802388834252
+        }
+      },
+      {
+        "WavelengthNanometers": 1035.5911999999998,
+        "Power": {
+          "Reflectance": 0.06996544017628911,
+          "Transmittance": 0.9242750660574752,
+          "Absorptance": 0.005759493766235635,
+          "LogTransmittance": -0.07874556110309638,
+          "OpticalDensity": 0.034198762661450104
+        }
+      },
+      {
+        "WavelengthNanometers": 1035.9104,
+        "Power": {
+          "Reflectance": 0.0699689113308477,
+          "Transmittance": 0.9242734840069815,
+          "Absorptance": 0.00575760466217079,
+          "LogTransmittance": -0.07874727277087334,
+          "OpticalDensity": 0.03419950602932049
+        }
+      },
+      {
+        "WavelengthNanometers": 1036.2296,
+        "Power": {
+          "Reflectance": 0.06997239110996074,
+          "Transmittance": 0.9242718922022842,
+          "Absorptance": 0.005755716687754986,
+          "LogTransmittance": -0.07874899499497212,
+          "OpticalDensity": 0.03420025398174319
+        }
+      },
+      {
+        "WavelengthNanometers": 1036.5488,
+        "Power": {
+          "Reflectance": 0.06997587949274305,
+          "Transmittance": 0.924270290665127,
+          "Absorptance": 0.0057538298421299094,
+          "LogTransmittance": -0.07875072775192193,
+          "OpticalDensity": 0.03420100650852497
+        }
+      },
+      {
+        "WavelengthNanometers": 1036.868,
+        "Power": {
+          "Reflectance": 0.06997937645834522,
+          "Transmittance": 0.9242686794172166,
+          "Absorptance": 0.005751944124438246,
+          "LogTransmittance": -0.0787524710182923,
+          "OpticalDensity": 0.034201763599490106
+        }
+      },
+      {
+        "WavelengthNanometers": 1037.1871999999998,
+        "Power": {
+          "Reflectance": 0.06998288198595395,
+          "Transmittance": 0.9242670584802234,
+          "Absorptance": 0.005750059533822682,
+          "LogTransmittance": -0.07875422477069216,
+          "OpticalDensity": 0.03420252524447999
+        }
+      },
+      {
+        "WavelengthNanometers": 1037.5064,
+        "Power": {
+          "Reflectance": 0.06998639605479187,
+          "Transmittance": 0.9242654278757806,
+          "Absorptance": 0.0057481760694275685,
+          "LogTransmittance": -0.07875598898577063,
+          "OpticalDensity": 0.03420329143335346
+        }
+      },
+      {
+        "WavelengthNanometers": 1037.8256,
+        "Power": {
+          "Reflectance": 0.06998991864411734,
+          "Transmittance": 0.9242637876254861,
+          "Absorptance": 0.00574629373039659,
+          "LogTransmittance": -0.07875776364021558,
+          "OpticalDensity": 0.03420406215598619
+        }
+      },
+      {
+        "WavelengthNanometers": 1038.1448,
+        "Power": {
+          "Reflectance": 0.06999344973322479,
+          "Transmittance": 0.9242621377509,
+          "Absorptance": 0.005744412515875208,
+          "LogTransmittance": -0.07875954871075574,
+          "OpticalDensity": 0.034204837402271586
+        }
+      },
+      {
+        "WavelengthNanometers": 1038.464,
+        "Power": {
+          "Reflectance": 0.06999698930144416,
+          "Transmittance": 0.9242604782735467,
+          "Absorptance": 0.005742532425009106,
+          "LogTransmittance": -0.07876134417415881,
+          "OpticalDensity": 0.03420561716212
+        }
+      },
+      {
+        "WavelengthNanometers": 1038.7831999999999,
+        "Power": {
+          "Reflectance": 0.07000053732814132,
+          "Transmittance": 0.9242588092149141,
+          "Absorptance": 0.005740653456944522,
+          "LogTransmittance": -0.07876315000723166,
+          "OpticalDensity": 0.03420640142545878
+        }
+      },
+      {
+        "WavelengthNanometers": 1039.1024,
+        "Power": {
+          "Reflectance": 0.0700040937927177,
+          "Transmittance": 0.9242571305964539,
+          "Absorptance": 0.005738775610828473,
+          "LogTransmittance": -0.07876496618682105,
+          "OpticalDensity": 0.034207190182232595
+        }
+      },
+      {
+        "WavelengthNanometers": 1039.4216,
+        "Power": {
+          "Reflectance": 0.07000765867461049,
+          "Transmittance": 0.9242554424395811,
+          "Absorptance": 0.005736898885808417,
+          "LogTransmittance": -0.07876679268981301,
+          "OpticalDensity": 0.034207983422403186
+        }
+      },
+      {
+        "WavelengthNanometers": 1039.7408,
+        "Power": {
+          "Reflectance": 0.07001123195329241,
+          "Transmittance": 0.9242537447656747,
+          "Absorptance": 0.005735023281032925,
+          "LogTransmittance": -0.07876862949313346,
+          "OpticalDensity": 0.03420878113594959
+        }
+      },
+      {
+        "WavelengthNanometers": 1040.06,
+        "Power": {
+          "Reflectance": 0.0700148136082718,
+          "Transmittance": 0.9242520375960775,
+          "Absorptance": 0.005733148795650678,
+          "LogTransmittance": -0.0787704765737468,
+          "OpticalDensity": 0.0342095833128676
+        }
+      },
+      {
+        "WavelengthNanometers": 1040.3791999999999,
+        "Power": {
+          "Reflectance": 0.07001840361909237,
+          "Transmittance": 0.9242503209520959,
+          "Absorptance": 0.0057312754288116885,
+          "LogTransmittance": -0.07877233390865768,
+          "OpticalDensity": 0.03421038994317044
+        }
+      },
+      {
+        "WavelengthNanometers": 1040.6984,
+        "Power": {
+          "Reflectance": 0.07002200196533345,
+          "Transmittance": 0.924248594855001,
+          "Absorptance": 0.0057294031796655265,
+          "LogTransmittance": -0.07877420147490843,
+          "OpticalDensity": 0.03421120101688773
+        }
+      },
+      {
+        "WavelengthNanometers": 1041.0176,
+        "Power": {
+          "Reflectance": 0.07002560862660971,
+          "Transmittance": 0.9242468593260266,
+          "Absorptance": 0.005727532047363759,
+          "LogTransmittance": -0.07877607924958252,
+          "OpticalDensity": 0.03421201652406695
+        }
+      },
+      {
+        "WavelengthNanometers": 1041.3368,
+        "Power": {
+          "Reflectance": 0.07002922358257122,
+          "Transmittance": 0.9242451143863711,
+          "Absorptance": 0.005725662031057621,
+          "LogTransmittance": -0.07877796720980113,
+          "OpticalDensity": 0.03421283645477194
+        }
+      },
+      {
+        "WavelengthNanometers": 1041.656,
+        "Power": {
+          "Reflectance": 0.07003284681290338,
+          "Transmittance": 0.9242433600571974,
+          "Absorptance": 0.005723793129899235,
+          "LogTransmittance": -0.07877986533272474,
+          "OpticalDensity": 0.03421366079908364
+        }
+      },
+      {
+        "WavelengthNanometers": 1041.9751999999999,
+        "Power": {
+          "Reflectance": 0.07003647829732684,
+          "Transmittance": 0.9242415963596318,
+          "Absorptance": 0.00572192534304139,
+          "LogTransmittance": -0.07878177359555327,
+          "OpticalDensity": 0.03421448954710009
+        }
+      },
+      {
+        "WavelengthNanometers": 1042.2944,
+        "Power": {
+          "Reflectance": 0.07004011801559745,
+          "Transmittance": 0.9242398233147646,
+          "Absorptance": 0.005720058669637984,
+          "LogTransmittance": -0.07878369197552537,
+          "OpticalDensity": 0.034215322688936164
+        }
+      },
+      {
+        "WavelengthNanometers": 1042.6136,
+        "Power": {
+          "Reflectance": 0.0700437659475064,
+          "Transmittance": 0.9242380409436509,
+          "Absorptance": 0.005718193108842695,
+          "LogTransmittance": -0.07878562044991844,
+          "OpticalDensity": 0.03421616021472357
+        }
+      },
+      {
+        "WavelengthNanometers": 1042.9328,
+        "Power": {
+          "Reflectance": 0.0700474220728799,
+          "Transmittance": 0.9242362492673096,
+          "Absorptance": 0.005716328659810421,
+          "LogTransmittance": -0.07878755899604895,
+          "OpticalDensity": 0.03421700211461096
+        }
+      },
+      {
+        "WavelengthNanometers": 1043.252,
+        "Power": {
+          "Reflectance": 0.07005108637157931,
+          "Transmittance": 0.9242344483067237,
+          "Absorptance": 0.005714465321696949,
+          "LogTransmittance": -0.07878950759127223,
+          "OpticalDensity": 0.0342178483787639
+        }
+      },
+      {
+        "WavelengthNanometers": 1043.5711999999999,
+        "Power": {
+          "Reflectance": 0.07005475882350105,
+          "Transmittance": 0.9242326380828412,
+          "Absorptance": 0.005712603093657731,
+          "LogTransmittance": -0.07879146621298194,
+          "OpticalDensity": 0.03421869899736456
+        }
+      },
+      {
+        "WavelengthNanometers": 1043.8904,
+        "Power": {
+          "Reflectance": 0.07005843940857645,
+          "Transmittance": 0.9242308186165735,
+          "Absorptance": 0.005710741974849998,
+          "LogTransmittance": -0.07879343483861101,
+          "OpticalDensity": 0.0342195539606122
+        }
+      },
+      {
+        "WavelengthNanometers": 1044.2096,
+        "Power": {
+          "Reflectance": 0.07006212810677202,
+          "Transmittance": 0.9242289899287971,
+          "Absorptance": 0.0057088819644308675,
+          "LogTransmittance": -0.07879541344563079,
+          "OpticalDensity": 0.03422041325872274
+        }
+      },
+      {
+        "WavelengthNanometers": 1044.5288,
+        "Power": {
+          "Reflectance": 0.07006582489808898,
+          "Transmittance": 0.9242271520403528,
+          "Absorptance": 0.005707023061558236,
+          "LogTransmittance": -0.07879740201155083,
+          "OpticalDensity": 0.03422127688192872
+        }
+      },
+      {
+        "WavelengthNanometers": 1044.848,
+        "Power": {
+          "Reflectance": 0.07006952976256349,
+          "Transmittance": 0.9242253049720452,
+          "Absorptance": 0.005705165265391221,
+          "LogTransmittance": -0.0787994005139202,
+          "OpticalDensity": 0.034222144820479805
+        }
+      },
+      {
+        "WavelengthNanometers": 1045.1671999999999,
+        "Power": {
+          "Reflectance": 0.07007324268026661,
+          "Transmittance": 0.9242234487446447,
+          "Absorptance": 0.005703308575088717,
+          "LogTransmittance": -0.07880140893032539,
+          "OpticalDensity": 0.034223017064641946
+        }
+      },
+      {
+        "WavelengthNanometers": 1045.4864,
+        "Power": {
+          "Reflectance": 0.07007696363130408,
+          "Transmittance": 0.9242215833788849,
+          "Absorptance": 0.005701452989810951,
+          "LogTransmittance": -0.07880342723839229,
+          "OpticalDensity": 0.03422389360469818
+        }
+      },
+      {
+        "WavelengthNanometers": 1045.8056,
+        "Power": {
+          "Reflectance": 0.07008069259581652,
+          "Transmittance": 0.9242197088954656,
+          "Absorptance": 0.005699598508717929,
+          "LogTransmittance": -0.07880545541578399,
+          "OpticalDensity": 0.034224774430947714
+        }
+      },
+      {
+        "WavelengthNanometers": 1046.1248,
+        "Power": {
+          "Reflectance": 0.07008442955397899,
+          "Transmittance": 0.9242178253150493,
+          "Absorptance": 0.005697745130971765,
+          "LogTransmittance": -0.07880749344020344,
+          "OpticalDensity": 0.03422565953370706
+        }
+      },
+      {
+        "WavelengthNanometers": 1046.444,
+        "Power": {
+          "Reflectance": 0.07008817448600156,
+          "Transmittance": 0.9242159326582647,
+          "Absorptance": 0.005695892855733686,
+          "LogTransmittance": -0.07880954128939066,
+          "OpticalDensity": 0.03422654890330885
+        }
+      },
+      {
+        "WavelengthNanometers": 1046.7631999999999,
+        "Power": {
+          "Reflectance": 0.07009192737212853,
+          "Transmittance": 0.924214030945705,
+          "Absorptance": 0.005694041682166473,
+          "LogTransmittance": -0.07881159894112455,
+          "OpticalDensity": 0.034227442530102556
+        }
+      },
+      {
+        "WavelengthNanometers": 1047.0824,
+        "Power": {
+          "Reflectance": 0.07009568819263899,
+          "Transmittance": 0.9242121201979274,
+          "Absorptance": 0.005692191609433572,
+          "LogTransmittance": -0.07881366637322229,
+          "OpticalDensity": 0.03422834040445431
+        }
+      },
+      {
+        "WavelengthNanometers": 1047.4016,
+        "Power": {
+          "Reflectance": 0.0700994569278465,
+          "Transmittance": 0.9242102004354554,
+          "Absorptance": 0.005690342636698098,
+          "LogTransmittance": -0.07881574356353815,
+          "OpticalDensity": 0.034229242516746354
+        }
+      },
+      {
+        "WavelengthNanometers": 1047.7208,
+        "Power": {
+          "Reflectance": 0.07010323355809905,
+          "Transmittance": 0.9242082716787762,
+          "Absorptance": 0.0056884947631247185,
+          "LogTransmittance": -0.0788178304899656,
+          "OpticalDensity": 0.034230148857377934
+        }
+      },
+      {
+        "WavelengthNanometers": 1048.04,
+        "Power": {
+          "Reflectance": 0.07010701806377907,
+          "Transmittance": 0.9242063339483416,
+          "Absorptance": 0.005686647987879323,
+          "LogTransmittance": -0.0788199271304365,
+          "OpticalDensity": 0.034231059416764985
+        }
+      },
+      {
+        "WavelengthNanometers": 1048.3591999999999,
+        "Power": {
+          "Reflectance": 0.07011081042530339,
+          "Transmittance": 0.92420438726457,
+          "Absorptance": 0.00568480231012658,
+          "LogTransmittance": -0.07882203346291905,
+          "OpticalDensity": 0.0342319741853392
+        }
+      },
+      {
+        "WavelengthNanometers": 1048.6784,
+        "Power": {
+          "Reflectance": 0.07011461062312306,
+          "Transmittance": 0.9242024316478433,
+          "Absorptance": 0.0056829577290336,
+          "LogTransmittance": -0.07882414946542093,
+          "OpticalDensity": 0.034232893153549465
+        }
+      },
+      {
+        "WavelengthNanometers": 1048.9976,
+        "Power": {
+          "Reflectance": 0.07011841863772356,
+          "Transmittance": 0.9242004671185094,
+          "Absorptance": 0.005681114243767049,
+          "LogTransmittance": -0.07882627511598683,
+          "OpticalDensity": 0.03423381631186069
+        }
+      },
+      {
+        "WavelengthNanometers": 1049.3168,
+        "Power": {
+          "Reflectance": 0.07012223444962458,
+          "Transmittance": 0.9241984936968808,
+          "Absorptance": 0.005679271853494594,
+          "LogTransmittance": -0.07882841039269983,
+          "OpticalDensity": 0.03423474365075448
+        }
+      },
+      {
+        "WavelengthNanometers": 1049.636,
+        "Power": {
+          "Reflectance": 0.07012605803937987,
+          "Transmittance": 0.9241965114032356,
+          "Absorptance": 0.005677430557384566,
+          "LogTransmittance": -0.0788305552736801,
+          "OpticalDensity": 0.034235675160728556
+        }
+      },
+      {
+        "WavelengthNanometers": 1049.9551999999999,
+        "Power": {
+          "Reflectance": 0.07012988938757754,
+          "Transmittance": 0.9241945202578165,
+          "Absorptance": 0.005675590354605964,
+          "LogTransmittance": -0.07883270973708634,
+          "OpticalDensity": 0.03423661083229734
+        }
+      },
+      {
+        "WavelengthNanometers": 1050.2744,
+        "Power": {
+          "Reflectance": 0.07013372847483967,
+          "Transmittance": 0.9241925202808318,
+          "Absorptance": 0.005673751244328562,
+          "LogTransmittance": -0.07883487376111464,
+          "OpticalDensity": 0.034237550655991544
+        }
+      },
+      {
+        "WavelengthNanometers": 1050.5936,
+        "Power": {
+          "Reflectance": 0.07013757528182231,
+          "Transmittance": 0.9241905114924555,
+          "Absorptance": 0.005671913225722247,
+          "LogTransmittance": -0.07883704732399832,
+          "OpticalDensity": 0.03423849462235799
+        }
+      },
+      {
+        "WavelengthNanometers": 1050.9128,
+        "Power": {
+          "Reflectance": 0.07014142978921575,
+          "Transmittance": 0.924188493912826,
+          "Absorptance": 0.0056700762979582375,
+          "LogTransmittance": -0.07883923040400909,
+          "OpticalDensity": 0.03423944272196022
+        }
+      },
+      {
+        "WavelengthNanometers": 1051.232,
+        "Power": {
+          "Reflectance": 0.07014529197774404,
+          "Transmittance": 0.9241864675620481,
+          "Absorptance": 0.005668240460207863,
+          "LogTransmittance": -0.07884142297945518,
+          "OpticalDensity": 0.03424039494537762
+        }
+      },
+      {
+        "WavelengthNanometers": 1051.5511999999999,
+        "Power": {
+          "Reflectance": 0.07014916182816544,
+          "Transmittance": 0.9241844324601916,
+          "Absorptance": 0.005666405711643008,
+          "LogTransmittance": -0.07884362502868303,
+          "OpticalDensity": 0.03424135128320615
+        }
+      },
+      {
+        "WavelengthNanometers": 1051.8704,
+        "Power": {
+          "Reflectance": 0.0701530393212716,
+          "Transmittance": 0.9241823886272916,
+          "Absorptance": 0.005664572051436778,
+          "LogTransmittance": -0.07884583653007615,
+          "OpticalDensity": 0.034242311726057906
+        }
+      },
+      {
+        "WavelengthNanometers": 1052.1896,
+        "Power": {
+          "Reflectance": 0.07015692443788858,
+          "Transmittance": 0.9241803360833487,
+          "Absorptance": 0.005662739478762724,
+          "LogTransmittance": -0.07884805746205603,
+          "OpticalDensity": 0.03424327626456145
+        }
+      },
+      {
+        "WavelengthNanometers": 1052.5088,
+        "Power": {
+          "Reflectance": 0.07016081715887573,
+          "Transmittance": 0.9241782748483299,
+          "Absorptance": 0.005660907992794395,
+          "LogTransmittance": -0.07885028780308034,
+          "OpticalDensity": 0.03424424488936107
+        }
+      },
+      {
+        "WavelengthNanometers": 1052.828,
+        "Power": {
+          "Reflectance": 0.07016471746512645,
+          "Transmittance": 0.9241762049421666,
+          "Absorptance": 0.005659077592707007,
+          "LogTransmittance": -0.0788525275316454,
+          "OpticalDensity": 0.03424521759111784
+        }
+      },
+      {
+        "WavelengthNanometers": 1053.1471999999999,
+        "Power": {
+          "Reflectance": 0.07016862533756768,
+          "Transmittance": 0.9241741263847568,
+          "Absorptance": 0.005657248277675442,
+          "LogTransmittance": -0.07885477662628348,
+          "OpticalDensity": 0.034246194360508436
+        }
+      },
+      {
+        "WavelengthNanometers": 1053.4664,
+        "Power": {
+          "Reflectance": 0.07017254075716002,
+          "Transmittance": 0.9241720391959638,
+          "Absorptance": 0.005655420046876136,
+          "LogTransmittance": -0.07885703506556496,
+          "OpticalDensity": 0.03424717518822609
+        }
+      },
+      {
+        "WavelengthNanometers": 1053.7856,
+        "Power": {
+          "Reflectance": 0.07017646370489788,
+          "Transmittance": 0.9241699433956164,
+          "Absorptance": 0.005653592899485749,
+          "LogTransmittance": -0.07885930282809706,
+          "OpticalDensity": 0.03424816006498005
+        }
+      },
+      {
+        "WavelengthNanometers": 1054.1048,
+        "Power": {
+          "Reflectance": 0.07018039416180895,
+          "Transmittance": 0.9241678390035105,
+          "Absorptance": 0.005651766834680494,
+          "LogTransmittance": -0.07886157989252329,
+          "OpticalDensity": 0.0342491489814953
+        }
+      },
+      {
+        "WavelengthNanometers": 1054.424,
+        "Power": {
+          "Reflectance": 0.0701843321089545,
+          "Transmittance": 0.9241657260394057,
+          "Absorptance": 0.005649941851639806,
+          "LogTransmittance": -0.07886386623752584,
+          "OpticalDensity": 0.03425014192851363
+        }
+      },
+      {
+        "WavelengthNanometers": 1054.7432,
+        "Power": {
+          "Reflectance": 0.07018827752742947,
+          "Transmittance": 0.9241636045230298,
+          "Absorptance": 0.005648117949540676,
+          "LogTransmittance": -0.07886616184182194,
+          "OpticalDensity": 0.034251138896792065
+        }
+      },
+      {
+        "WavelengthNanometers": 1055.0624,
+        "Power": {
+          "Reflectance": 0.07019223039836194,
+          "Transmittance": 0.9241614744740746,
+          "Absorptance": 0.005646295127563428,
+          "LogTransmittance": -0.07886846668416747,
+          "OpticalDensity": 0.03425213987710438
+        }
+      },
+      {
+        "WavelengthNanometers": 1055.3816,
+        "Power": {
+          "Reflectance": 0.07019619070291358,
+          "Transmittance": 0.9241593359121992,
+          "Absorptance": 0.005644473384887161,
+          "LogTransmittance": -0.07887078074335396,
+          "OpticalDensity": 0.03425314486023988
+        }
+      },
+      {
+        "WavelengthNanometers": 1055.7008,
+        "Power": {
+          "Reflectance": 0.07020015842227928,
+          "Transmittance": 0.924157188857028,
+          "Absorptance": 0.0056426527206926425,
+          "LogTransmittance": -0.07887310399821035,
+          "OpticalDensity": 0.03425415383700406
+        }
+      },
+      {
+        "WavelengthNanometers": 1056.02,
+        "Power": {
+          "Reflectance": 0.07020413353768726,
+          "Transmittance": 0.9241550333281516,
+          "Absorptance": 0.005640833134161083,
+          "LogTransmittance": -0.07887543642760253,
+          "OpticalDensity": 0.034255166798218516
+        }
+      },
+      {
+        "WavelengthNanometers": 1056.3392,
+        "Power": {
+          "Reflectance": 0.07020811603039899,
+          "Transmittance": 0.9241528693451274,
+          "Absorptance": 0.005639014624473582,
+          "LogTransmittance": -0.07887777801043194,
+          "OpticalDensity": 0.034256183734720246
+        }
+      },
+      {
+        "WavelengthNanometers": 1056.6584,
+        "Power": {
+          "Reflectance": 0.07021210588170908,
+          "Transmittance": 0.9241506969274779,
+          "Absorptance": 0.005637197190813015,
+          "LogTransmittance": -0.07888012872563821,
+          "OpticalDensity": 0.034257204637362856
+        }
+      },
+      {
+        "WavelengthNanometers": 1056.9776,
+        "Power": {
+          "Reflectance": 0.07021610307294537,
+          "Transmittance": 0.9241485160946926,
+          "Absorptance": 0.005635380832362036,
+          "LogTransmittance": -0.07888248855219648,
+          "OpticalDensity": 0.03425822949701536
+        }
+      },
+      {
+        "WavelengthNanometers": 1057.2968,
+        "Power": {
+          "Reflectance": 0.07022010758546873,
+          "Transmittance": 0.9241463268662271,
+          "Absorptance": 0.005633565548304187,
+          "LogTransmittance": -0.07888485746911889,
+          "OpticalDensity": 0.03425925830456285
+        }
+      },
+      {
+        "WavelengthNanometers": 1057.616,
+        "Power": {
+          "Reflectance": 0.07022411940067327,
+          "Transmittance": 0.9241441292615029,
+          "Absorptance": 0.005631751337823787,
+          "LogTransmittance": -0.07888723545545417,
+          "OpticalDensity": 0.034260291050906305
+        }
+      },
+      {
+        "WavelengthNanometers": 1057.9352,
+        "Power": {
+          "Reflectance": 0.07022813849998583,
+          "Transmittance": 0.9241419232999084,
+          "Absorptance": 0.005629938200105711,
+          "LogTransmittance": -0.0788896224902873,
+          "OpticalDensity": 0.03426132772696244
+        }
+      },
+      {
+        "WavelengthNanometers": 1058.2544,
+        "Power": {
+          "Reflectance": 0.07023216486486637,
+          "Transmittance": 0.9241397090007976,
+          "Absorptance": 0.005628126134336053,
+          "LogTransmittance": -0.0788920185527403,
+          "OpticalDensity": 0.034262368323664076
+        }
+      },
+      {
+        "WavelengthNanometers": 1058.5736,
+        "Power": {
+          "Reflectance": 0.07023619847680787,
+          "Transmittance": 0.9241374863834924,
+          "Absorptance": 0.0056263151396998,
+          "LogTransmittance": -0.07889442362196986,
+          "OpticalDensity": 0.03426341283195907
+        }
+      },
+      {
+        "WavelengthNanometers": 1058.8928,
+        "Power": {
+          "Reflectance": 0.070240239317336,
+          "Transmittance": 0.9241352554672797,
+          "Absorptance": 0.005624505215384268,
+          "LogTransmittance": -0.07889683767717093,
+          "OpticalDensity": 0.034264461242811906
+        }
+      },
+      {
+        "WavelengthNanometers": 1059.212,
+        "Power": {
+          "Reflectance": 0.07024428736800949,
+          "Transmittance": 0.9241330162714134,
+          "Absorptance": 0.005622696360577106,
+          "LogTransmittance": -0.0788992606975738,
+          "OpticalDensity": 0.03426551354720241
+        }
+      },
+      {
+        "WavelengthNanometers": 1059.5312,
+        "Power": {
+          "Reflectance": 0.07024834261041964,
+          "Transmittance": 0.9241307688151144,
+          "Absorptance": 0.005620888574465965,
+          "LogTransmittance": -0.07890169266244507,
+          "OpticalDensity": 0.034266569736126185
+        }
+      },
+      {
+        "WavelengthNanometers": 1059.8504,
+        "Power": {
+          "Reflectance": 0.0702524050261906,
+          "Transmittance": 0.9241285131175702,
+          "Absorptance": 0.005619081856239272,
+          "LogTransmittance": -0.07890413355108694,
+          "OpticalDensity": 0.03426762980059429
+        }
+      },
+      {
+        "WavelengthNanometers": 1060.1696,
+        "Power": {
+          "Reflectance": 0.07025647459697922,
+          "Transmittance": 0.9241262491979341,
+          "Absorptance": 0.005617276205086674,
+          "LogTransmittance": -0.07890658334283884,
+          "OpticalDensity": 0.03426869373163395
+        }
+      },
+      {
+        "WavelengthNanometers": 1060.4888,
+        "Power": {
+          "Reflectance": 0.07026055130447502,
+          "Transmittance": 0.9241239770753268,
+          "Absorptance": 0.005615471620198154,
+          "LogTransmittance": -0.07890904201707571,
+          "OpticalDensity": 0.03426976152028782
+        }
+      },
+      {
+        "WavelengthNanometers": 1060.808,
+        "Power": {
+          "Reflectance": 0.07026463513040006,
+          "Transmittance": 0.9241216967688355,
+          "Absorptance": 0.005613668100764468,
+          "LogTransmittance": -0.07891150955320847,
+          "OpticalDensity": 0.03427083315761418
+        }
+      },
+      {
+        "WavelengthNanometers": 1061.1272,
+        "Power": {
+          "Reflectance": 0.07026872605650909,
+          "Transmittance": 0.9241194082975152,
+          "Absorptance": 0.005611865645975711,
+          "LogTransmittance": -0.07891398593068333,
+          "OpticalDensity": 0.03427190863468662
+        }
+      },
+      {
+        "WavelengthNanometers": 1061.4464,
+        "Power": {
+          "Reflectance": 0.0702728240645892,
+          "Transmittance": 0.924117111680386,
+          "Absorptance": 0.005610064255024749,
+          "LogTransmittance": -0.07891647112898381,
+          "OpticalDensity": 0.03427298794259495
+        }
+      },
+      {
+        "WavelengthNanometers": 1061.7656,
+        "Power": {
+          "Reflectance": 0.07027692913646012,
+          "Transmittance": 0.9241148069364361,
+          "Absorptance": 0.005608263927103785,
+          "LogTransmittance": -0.0789189651276283,
+          "OpticalDensity": 0.03427407107244413
+        }
+      },
+      {
+        "WavelengthNanometers": 1062.0848,
+        "Power": {
+          "Reflectance": 0.07028104125397391,
+          "Transmittance": 0.9241124940846208,
+          "Absorptance": 0.005606464661405242,
+          "LogTransmittance": -0.07892146790617083,
+          "OpticalDensity": 0.03427515801535457
+        }
+      },
+      {
+        "WavelengthNanometers": 1062.404,
+        "Power": {
+          "Reflectance": 0.07028516039901513,
+          "Transmittance": 0.9241101731438612,
+          "Absorptance": 0.005604666457123653,
+          "LogTransmittance": -0.07892397944420215,
+          "OpticalDensity": 0.034276248762462665
+        }
+      },
+      {
+        "WavelengthNanometers": 1062.7232,
+        "Power": {
+          "Reflectance": 0.07028928655350056,
+          "Transmittance": 0.9241078441330468,
+          "Absorptance": 0.005602869313452663,
+          "LogTransmittance": -0.07892649972134769,
+          "OpticalDensity": 0.03427734330491984
+        }
+      },
+      {
+        "WavelengthNanometers": 1063.0424,
+        "Power": {
+          "Reflectance": 0.0702934196993793,
+          "Transmittance": 0.9241055070710332,
+          "Absorptance": 0.005601073229587472,
+          "LogTransmittance": -0.07892902871726915,
+          "OpticalDensity": 0.034278441633893285
+        }
+      },
+      {
+        "WavelengthNanometers": 1063.3616,
+        "Power": {
+          "Reflectance": 0.07029755981863277,
+          "Transmittance": 0.9241031619766434,
+          "Absorptance": 0.005599278204723834,
+          "LogTransmittance": -0.07893156641166377,
+          "OpticalDensity": 0.034279543740565625
+        }
+      },
+      {
+        "WavelengthNanometers": 1063.6808,
+        "Power": {
+          "Reflectance": 0.0703017068932745,
+          "Transmittance": 0.9241008088686681,
+          "Absorptance": 0.005597484238057393,
+          "LogTransmittance": -0.07893411278426388,
+          "OpticalDensity": 0.03428064961613472
+        }
+      },
+      {
+        "WavelengthNanometers": 1064,
+        "Power": {
+          "Reflectance": 0.0703058609053502,
+          "Transmittance": 0.924098447765864,
+          "Absorptance": 0.00559569132878579,
+          "LogTransmittance": -0.07893666781483821,
+          "OpticalDensity": 0.03428175925181425
+        }
+      },
+      {
+        "WavelengthNanometers": 1064.3192,
+        "Power": {
+          "Reflectance": 0.07031002183693777,
+          "Transmittance": 0.9240960786869566,
+          "Absorptance": 0.005593899476105557,
+          "LogTransmittance": -0.0789392314831896,
+          "OpticalDensity": 0.03428287263883269
+        }
+      },
+      {
+        "WavelengthNanometers": 1064.6384,
+        "Power": {
+          "Reflectance": 0.0703141896701471,
+          "Transmittance": 0.9240937016506374,
+          "Absorptance": 0.005592108679215446,
+          "LogTransmittance": -0.07894180376915771,
+          "OpticalDensity": 0.03428398976843452
+        }
+      },
+      {
+        "WavelengthNanometers": 1064.9576,
+        "Power": {
+          "Reflectance": 0.07031836438712019,
+          "Transmittance": 0.9240913166755658,
+          "Absorptance": 0.005590318937314098,
+          "LogTransmittance": -0.078944384652617,
+          "OpticalDensity": 0.03428511063187932
+        }
+      },
+      {
+        "WavelengthNanometers": 1065.2768,
+        "Power": {
+          "Reflectance": 0.07032254597003089,
+          "Transmittance": 0.9240889237803689,
+          "Absorptance": 0.005588530249600265,
+          "LogTransmittance": -0.07894697411347629,
+          "OpticalDensity": 0.034286235220441615
+        }
+      },
+      {
+        "WavelengthNanometers": 1065.596,
+        "Power": {
+          "Reflectance": 0.07032673440108517,
+          "Transmittance": 0.9240865229836409,
+          "Absorptance": 0.005586742615273921,
+          "LogTransmittance": -0.07894957213168097,
+          "OpticalDensity": 0.03428736352541179
+        }
+      },
+      {
+        "WavelengthNanometers": 1065.9152,
+        "Power": {
+          "Reflectance": 0.07033092966252066,
+          "Transmittance": 0.9240841143039429,
+          "Absorptance": 0.005584956033536481,
+          "LogTransmittance": -0.0789521786872115,
+          "OpticalDensity": 0.03428849553809547
+        }
+      },
+      {
+        "WavelengthNanometers": 1066.2344,
+        "Power": {
+          "Reflectance": 0.07033513173660705,
+          "Transmittance": 0.9240816977598045,
+          "Absorptance": 0.005583170503588475,
+          "LogTransmittance": -0.07895479376008274,
+          "OpticalDensity": 0.034289631249813234
+        }
+      },
+      {
+        "WavelengthNanometers": 1066.5536,
+        "Power": {
+          "Reflectance": 0.07033934060564573,
+          "Transmittance": 0.9240792733697226,
+          "Absorptance": 0.0055813860246316516,
+          "LogTransmittance": -0.078957417330345,
+          "OpticalDensity": 0.03429077065190102
+        }
+      },
+      {
+        "WavelengthNanometers": 1066.8728,
+        "Power": {
+          "Reflectance": 0.07034355625196982,
+          "Transmittance": 0.9240768411521615,
+          "Absorptance": 0.005579602595868649,
+          "LogTransmittance": -0.07896004937808387,
+          "OpticalDensity": 0.03429191373571011
+        }
+      },
+      {
+        "WavelengthNanometers": 1067.192,
+        "Power": {
+          "Reflectance": 0.07034777865794427,
+          "Transmittance": 0.9240744011255532,
+          "Absorptance": 0.005577820216502549,
+          "LogTransmittance": -0.0789626898834197,
+          "OpticalDensity": 0.0342930604926069
+        }
+      },
+      {
+        "WavelengthNanometers": 1067.5112,
+        "Power": {
+          "Reflectance": 0.07035200780596551,
+          "Transmittance": 0.9240719533082975,
+          "Absorptance": 0.005576038885736989,
+          "LogTransmittance": -0.0789653388265078,
+          "OpticalDensity": 0.03429421091397294
+        }
+      },
+      {
+        "WavelengthNanometers": 1067.8304,
+        "Power": {
+          "Reflectance": 0.07035624367846177,
+          "Transmittance": 0.9240694977187618,
+          "Absorptance": 0.005574258602776494,
+          "LogTransmittance": -0.07896799618753858,
+          "OpticalDensity": 0.03429536499120503
+        }
+      },
+      {
+        "WavelengthNanometers": 1068.1496,
+        "Power": {
+          "Reflectance": 0.07036048625789286,
+          "Transmittance": 0.9240670343752819,
+          "Absorptance": 0.005572479366825256,
+          "LogTransmittance": -0.07897066194673674,
+          "OpticalDensity": 0.03429652271571487
+        }
+      },
+      {
+        "WavelengthNanometers": 1068.4688,
+        "Power": {
+          "Reflectance": 0.07036473552674992,
+          "Transmittance": 0.9240645632961604,
+          "Absorptance": 0.0055707011770896875,
+          "LogTransmittance": -0.07897333608436274,
+          "OpticalDensity": 0.0342976840789297
+        }
+      },
+      {
+        "WavelengthNanometers": 1068.788,
+        "Power": {
+          "Reflectance": 0.07036899146755579,
+          "Transmittance": 0.924062084499669,
+          "Absorptance": 0.005568924032775202,
+          "LogTransmittance": -0.07897601858071035,
+          "OpticalDensity": 0.034298849072291186
+        }
+      },
+      {
+        "WavelengthNanometers": 1069.1072,
+        "Power": {
+          "Reflectance": 0.07037325406286463,
+          "Transmittance": 0.9240595980040461,
+          "Absorptance": 0.0055671479330892115,
+          "LogTransmittance": -0.07897870941610985,
+          "OpticalDensity": 0.0343000176872569
+        }
+      },
+      {
+        "WavelengthNanometers": 1069.4264,
+        "Power": {
+          "Reflectance": 0.0703775232952621,
+          "Transmittance": 0.9240571038274988,
+          "Absorptance": 0.0055653728772390165,
+          "LogTransmittance": -0.07898140857092484,
+          "OpticalDensity": 0.03430118991529885
+        }
+      },
+      {
+        "WavelengthNanometers": 1069.7456,
+        "Power": {
+          "Reflectance": 0.07038179914736517,
+          "Transmittance": 0.9240546019882023,
+          "Absorptance": 0.005563598864432473,
+          "LogTransmittance": -0.078984116025554,
+          "OpticalDensity": 0.0343023657479043
+        }
+      },
+      {
+        "WavelengthNanometers": 1070.0648,
+        "Power": {
+          "Reflectance": 0.07038608160182203,
+          "Transmittance": 0.9240520925043,
+          "Absorptance": 0.005561825893877992,
+          "LogTransmittance": -0.07898683176042998,
+          "OpticalDensity": 0.03430354517657525
+        }
+      },
+      {
+        "WavelengthNanometers": 1070.384,
+        "Power": {
+          "Reflectance": 0.07039037064131229,
+          "Transmittance": 0.9240495753939021,
+          "Absorptance": 0.0055600539647856495,
+          "LogTransmittance": -0.07898955575602129,
+          "OpticalDensity": 0.03430472819282929
+        }
+      },
+      {
+        "WavelengthNanometers": 1070.7032,
+        "Power": {
+          "Reflectance": 0.07039466624854666,
+          "Transmittance": 0.924047050675089,
+          "Absorptance": 0.005558283076364412,
+          "LogTransmittance": -0.0789922879928292,
+          "OpticalDensity": 0.034305914788198215
+        }
+      },
+      {
+        "WavelengthNanometers": 1071.0224,
+        "Power": {
+          "Reflectance": 0.07039896840626717,
+          "Transmittance": 0.9240445183659078,
+          "Absorptance": 0.005556513227825022,
+          "LogTransmittance": -0.07899502845139039,
+          "OpticalDensity": 0.03430710495422922
+        }
+      },
+      {
+        "WavelengthNanometers": 1071.3416,
+        "Power": {
+          "Reflectance": 0.0704032770972467,
+          "Transmittance": 0.9240419784843742,
+          "Absorptance": 0.0055547444183791095,
+          "LogTransmittance": -0.07899777711227607,
+          "OpticalDensity": 0.0343082986824845
+        }
+      },
+      {
+        "WavelengthNanometers": 1071.6608,
+        "Power": {
+          "Reflectance": 0.0704075923042896,
+          "Transmittance": 0.9240394310484725,
+          "Absorptance": 0.005552976647237862,
+          "LogTransmittance": -0.07900053395609097,
+          "OpticalDensity": 0.034309495964540776
+        }
+      },
+      {
+        "WavelengthNanometers": 1071.98,
+        "Power": {
+          "Reflectance": 0.07041191401023103,
+          "Transmittance": 0.9240368760761555,
+          "Absorptance": 0.005551209913613464,
+          "LogTransmittance": -0.07900329896347436,
+          "OpticalDensity": 0.0343106967919898
+        }
+      },
+      {
+        "WavelengthNanometers": 1072.2992,
+        "Power": {
+          "Reflectance": 0.07041624219793703,
+          "Transmittance": 0.9240343135853429,
+          "Absorptance": 0.00554944421671999,
+          "LogTransmittance": -0.07900607211510058,
+          "OpticalDensity": 0.034311901156438555
+        }
+      },
+      {
+        "WavelengthNanometers": 1072.6184,
+        "Power": {
+          "Reflectance": 0.07042057685030496,
+          "Transmittance": 0.924031743593925,
+          "Absorptance": 0.005547679555769958,
+          "LogTransmittance": -0.07900885339167663,
+          "OpticalDensity": 0.03431310904950818
+        }
+      },
+      {
+        "WavelengthNanometers": 1072.9376,
+        "Power": {
+          "Reflectance": 0.07042491795026276,
+          "Transmittance": 0.9240291661197594,
+          "Absorptance": 0.005545915929977885,
+          "LogTransmittance": -0.07901164277394446,
+          "OpticalDensity": 0.034314320462835016
+        }
+      },
+      {
+        "WavelengthNanometers": 1073.2568,
+        "Power": {
+          "Reflectance": 0.07042926548076942,
+          "Transmittance": 0.9240265811806715,
+          "Absorptance": 0.005544153338559066,
+          "LogTransmittance": -0.07901444024268056,
+          "OpticalDensity": 0.0343155353880704
+        }
+      },
+      {
+        "WavelengthNanometers": 1073.576,
+        "Power": {
+          "Reflectance": 0.0704336194248146,
+          "Transmittance": 0.9240239887944574,
+          "Absorptance": 0.005542391780728018,
+          "LogTransmittance": -0.07901724577869385,
+          "OpticalDensity": 0.03431675381687975
+        }
+      },
+      {
+        "WavelengthNanometers": 1073.8952,
+        "Power": {
+          "Reflectance": 0.07043797976541895,
+          "Transmittance": 0.9240213889788794,
+          "Absorptance": 0.005540631255701589,
+          "LogTransmittance": -0.07902005936282885,
+          "OpticalDensity": 0.03431797574094396
+        }
+      },
+      {
+        "WavelengthNanometers": 1074.2144,
+        "Power": {
+          "Reflectance": 0.07044234648563358,
+          "Transmittance": 0.9240187817516701,
+          "Absorptance": 0.005538871762696296,
+          "LogTransmittance": -0.07902288097596333,
+          "OpticalDensity": 0.03431920115195833
+        }
+      },
+      {
+        "WavelengthNanometers": 1074.5336,
+        "Power": {
+          "Reflectance": 0.07044671956854055,
+          "Transmittance": 0.9240161671305305,
+          "Absorptance": 0.005537113300928986,
+          "LogTransmittance": -0.07902571059900831,
+          "OpticalDensity": 0.03432043004163263
+        }
+      },
+      {
+        "WavelengthNanometers": 1074.8528000000001,
+        "Power": {
+          "Reflectance": 0.07045109899725241,
+          "Transmittance": 0.9240135451331294,
+          "Absorptance": 0.005535355869618175,
+          "LogTransmittance": -0.07902854821290994,
+          "OpticalDensity": 0.03432166240169188
+        }
+      },
+      {
+        "WavelengthNanometers": 1075.172,
+        "Power": {
+          "Reflectance": 0.0704554847549124,
+          "Transmittance": 0.9240109157771055,
+          "Absorptance": 0.005533599467982153,
+          "LogTransmittance": -0.07903139379864699,
+          "OpticalDensity": 0.034322898223875256
+        }
+      },
+      {
+        "WavelengthNanometers": 1075.4912,
+        "Power": {
+          "Reflectance": 0.07045987682469418,
+          "Transmittance": 0.9240082790800658,
+          "Absorptance": 0.0055318440952399905,
+          "LogTransmittance": -0.07903424733723263,
+          "OpticalDensity": 0.0343241374999369
+        }
+      },
+      {
+        "WavelengthNanometers": 1075.8104,
+        "Power": {
+          "Reflectance": 0.07046427518980207,
+          "Transmittance": 0.9240056350595864,
+          "Absorptance": 0.005530089750611533,
+          "LogTransmittance": -0.07903710880971304,
+          "OpticalDensity": 0.03432538022164526
+        }
+      },
+      {
+        "WavelengthNanometers": 1076.1296,
+        "Power": {
+          "Reflectance": 0.0704686798334708,
+          "Transmittance": 0.9240029837332123,
+          "Absorptance": 0.005528336433316849,
+          "LogTransmittance": -0.07903997819716835,
+          "OpticalDensity": 0.03432662638078354
+        }
+      },
+      {
+        "WavelengthNanometers": 1076.4488000000001,
+        "Power": {
+          "Reflectance": 0.07047309073896546,
+          "Transmittance": 0.9240003251184571,
+          "Absorptance": 0.005526584142577451,
+          "LogTransmittance": -0.07904285548071277,
+          "OpticalDensity": 0.03432787596914976
+        }
+      },
+      {
+        "WavelengthNanometers": 1076.768,
+        "Power": {
+          "Reflectance": 0.07047750788958168,
+          "Transmittance": 0.9239976592328037,
+          "Absorptance": 0.005524832877614627,
+          "LogTransmittance": -0.07904574064149317,
+          "OpticalDensity": 0.03432912897855609
+        }
+      },
+      {
+        "WavelengthNanometers": 1077.0872,
+        "Power": {
+          "Reflectance": 0.07048193126864523,
+          "Transmittance": 0.9239949860937045,
+          "Absorptance": 0.005523082637650334,
+          "LogTransmittance": -0.07904863366069004,
+          "OpticalDensity": 0.03433038540082933
+        }
+      },
+      {
+        "WavelengthNanometers": 1077.4064,
+        "Power": {
+          "Reflectance": 0.07048636085951226,
+          "Transmittance": 0.9239923057185798,
+          "Absorptance": 0.005521333421907859,
+          "LogTransmittance": -0.07905153451951785,
+          "OpticalDensity": 0.03433164522781103
+        }
+      },
+      {
+        "WavelengthNanometers": 1077.7256,
+        "Power": {
+          "Reflectance": 0.07049079664556926,
+          "Transmittance": 0.9239896181248204,
+          "Absorptance": 0.00551958522961038,
+          "LogTransmittance": -0.07905444319922383,
+          "OpticalDensity": 0.03433290845135696
+        }
+      },
+      {
+        "WavelengthNanometers": 1078.0448000000001,
+        "Power": {
+          "Reflectance": 0.07049523861023277,
+          "Transmittance": 0.923986923329785,
+          "Absorptance": 0.005517838059982183,
+          "LogTransmittance": -0.07905735968108918,
+          "OpticalDensity": 0.03433417506333765
+        }
+      },
+      {
+        "WavelengthNanometers": 1078.364,
+        "Power": {
+          "Reflectance": 0.07049968673694962,
+          "Transmittance": 0.9239842213508032,
+          "Absorptance": 0.005516091912247223,
+          "LogTransmittance": -0.07906028394642706,
+          "OpticalDensity": 0.034335445055637515
+        }
+      },
+      {
+        "WavelengthNanometers": 1078.6832,
+        "Power": {
+          "Reflectance": 0.07050414100919662,
+          "Transmittance": 0.9239815122051718,
+          "Absorptance": 0.005514346785631563,
+          "LogTransmittance": -0.07906321597658561,
+          "OpticalDensity": 0.03433671842015615
+        }
+      },
+      {
+        "WavelengthNanometers": 1079.0024,
+        "Power": {
+          "Reflectance": 0.07050860141048068,
+          "Transmittance": 0.9239787959101585,
+          "Absorptance": 0.005512602679360823,
+          "LogTransmittance": -0.07906615575294473,
+          "OpticalDensity": 0.03433799514880694
+        }
+      },
+      {
+        "WavelengthNanometers": 1079.3216,
+        "Power": {
+          "Reflectance": 0.0705130679243389,
+          "Transmittance": 0.9239760724829994,
+          "Absorptance": 0.005510859592661732,
+          "LogTransmittance": -0.07906910325691874,
+          "OpticalDensity": 0.03433927523351824
+        }
+      },
+      {
+        "WavelengthNanometers": 1079.6408000000001,
+        "Power": {
+          "Reflectance": 0.0705175405343382,
+          "Transmittance": 0.9239733419409013,
+          "Absorptance": 0.005509117524760465,
+          "LogTransmittance": -0.07907205846995302,
+          "OpticalDensity": 0.03434055866623188
+        }
+      },
+      {
+        "WavelengthNanometers": 1079.96,
+        "Power": {
+          "Reflectance": 0.07052201922407543,
+          "Transmittance": 0.9239706043010388,
+          "Absorptance": 0.00550737647488575,
+          "LogTransmittance": -0.07907502137352818,
+          "OpticalDensity": 0.03434184543890498
+        }
+      },
+      {
+        "WavelengthNanometers": 1080.2792,
+        "Power": {
+          "Reflectance": 0.07052650397717748,
+          "Transmittance": 0.9239678595805573,
+          "Absorptance": 0.005505636442265205,
+          "LogTransmittance": -0.07907799194915632,
+          "OpticalDensity": 0.03434313554350836
+        }
+      },
+      {
+        "WavelengthNanometers": 1080.5984,
+        "Power": {
+          "Reflectance": 0.07053099477730095,
+          "Transmittance": 0.9239651077965705,
+          "Absorptance": 0.005503897426128557,
+          "LogTransmittance": -0.07908097017838356,
+          "OpticalDensity": 0.034344428972027594
+        }
+      },
+      {
+        "WavelengthNanometers": 1080.9176,
+        "Power": {
+          "Reflectance": 0.07053549160813224,
+          "Transmittance": 0.9239623489661634,
+          "Absorptance": 0.005502159425704423,
+          "LogTransmittance": -0.0790839560427875,
+          "OpticalDensity": 0.03434572571646194
+        }
+      },
+      {
+        "WavelengthNanometers": 1081.2368000000001,
+        "Power": {
+          "Reflectance": 0.07053999445338774,
+          "Transmittance": 0.9239595831063891,
+          "Absorptance": 0.005500422440223085,
+          "LogTransmittance": -0.07908694952397988,
+          "OpticalDensity": 0.034347025768825465
+        }
+      },
+      {
+        "WavelengthNanometers": 1081.556,
+        "Power": {
+          "Reflectance": 0.07054450329681318,
+          "Transmittance": 0.9239568102342709,
+          "Absorptance": 0.0054986864689159365,
+          "LogTransmittance": -0.07908995060360469,
+          "OpticalDensity": 0.03434832912114627
+        }
+      },
+      {
+        "WavelengthNanometers": 1081.8752,
+        "Power": {
+          "Reflectance": 0.07054901812218432,
+          "Transmittance": 0.9239540303668018,
+          "Absorptance": 0.0054969515110139255,
+          "LogTransmittance": -0.0790929592633387,
+          "OpticalDensity": 0.03434963576546668
+        }
+      },
+      {
+        "WavelengthNanometers": 1082.1944,
+        "Power": {
+          "Reflectance": 0.07055353891330644,
+          "Transmittance": 0.9239512435209447,
+          "Absorptance": 0.005495217565748889,
+          "LogTransmittance": -0.07909597548489133,
+          "OpticalDensity": 0.034350945693843185
+        }
+      },
+      {
+        "WavelengthNanometers": 1082.5136,
+        "Power": {
+          "Reflectance": 0.07055806565401428,
+          "Transmittance": 0.9239484497136321,
+          "Absorptance": 0.005493484632353662,
+          "LogTransmittance": -0.07909899925000452,
+          "OpticalDensity": 0.034352258898346415
+        }
+      },
+      {
+        "WavelengthNanometers": 1082.8328000000001,
+        "Power": {
+          "Reflectance": 0.07056259832817231,
+          "Transmittance": 0.9239456489617665,
+          "Absorptance": 0.005491752710061193,
+          "LogTransmittance": -0.07910203054045317,
+          "OpticalDensity": 0.03435357537106131
+        }
+      },
+      {
+        "WavelengthNanometers": 1083.152,
+        "Power": {
+          "Reflectance": 0.0705671369196744,
+          "Transmittance": 0.92394284128222,
+          "Absorptance": 0.005490021798105538,
+          "LogTransmittance": -0.07910506933804429,
+          "OpticalDensity": 0.03435489510408675
+        }
+      },
+      {
+        "WavelengthNanometers": 1083.4712,
+        "Power": {
+          "Reflectance": 0.07057168141244394,
+          "Transmittance": 0.9239400266918352,
+          "Absorptance": 0.005488291895720865,
+          "LogTransmittance": -0.0791081156246175,
+          "OpticalDensity": 0.034356218089535796
+        }
+      },
+      {
+        "WavelengthNanometers": 1083.7904,
+        "Power": {
+          "Reflectance": 0.07057623179043364,
+          "Transmittance": 0.9239372052074242,
+          "Absorptance": 0.005486563002142231,
+          "LogTransmittance": -0.07911116938204499,
+          "OpticalDensity": 0.034357544319535624
+        }
+      },
+      {
+        "WavelengthNanometers": 1084.1096,
+        "Power": {
+          "Reflectance": 0.07058078803762573,
+          "Transmittance": 0.9239343768457694,
+          "Absorptance": 0.005484835116604914,
+          "LogTransmittance": -0.0791142305922311,
+          "OpticalDensity": 0.0343588737862274
+        }
+      },
+      {
+        "WavelengthNanometers": 1084.4288000000001,
+        "Power": {
+          "Reflectance": 0.07058535013803158,
+          "Transmittance": 0.9239315416236229,
+          "Absorptance": 0.005483108238345524,
+          "LogTransmittance": -0.07911729923711297,
+          "OpticalDensity": 0.03436020648176651
+        }
+      },
+      {
+        "WavelengthNanometers": 1084.748,
+        "Power": {
+          "Reflectance": 0.07058991807569208,
+          "Transmittance": 0.9239286995577072,
+          "Absorptance": 0.005481382366600784,
+          "LogTransmittance": -0.07912037529865956,
+          "OpticalDensity": 0.0343615423983222
+        }
+      },
+      {
+        "WavelengthNanometers": 1085.0672,
+        "Power": {
+          "Reflectance": 0.07059449183467709,
+          "Transmittance": 0.9239258506647147,
+          "Absorptance": 0.005479657500608304,
+          "LogTransmittance": -0.07912345875887261,
+          "OpticalDensity": 0.03436288152807789
+        }
+      },
+      {
+        "WavelengthNanometers": 1085.3864,
+        "Power": {
+          "Reflectance": 0.07059907139908582,
+          "Transmittance": 0.9239229949613084,
+          "Absorptance": 0.005477933639605803,
+          "LogTransmittance": -0.07912654959978527,
+          "OpticalDensity": 0.034364223863230695
+        }
+      },
+      {
+        "WavelengthNanometers": 1085.7056,
+        "Power": {
+          "Reflectance": 0.07060365675304675,
+          "Transmittance": 0.9239201324641214,
+          "Absorptance": 0.005476210782831781,
+          "LogTransmittance": -0.07912964780346343,
+          "OpticalDensity": 0.03436556939599194
+        }
+      },
+      {
+        "WavelengthNanometers": 1086.0248000000001,
+        "Power": {
+          "Reflectance": 0.07060824788071725,
+          "Transmittance": 0.9239172631897571,
+          "Absorptance": 0.005474488929525623,
+          "LogTransmittance": -0.07913275335200476,
+          "OpticalDensity": 0.03436691811858672
+        }
+      },
+      {
+        "WavelengthNanometers": 1086.344,
+        "Power": {
+          "Reflectance": 0.07061284476628395,
+          "Transmittance": 0.9239143871547888,
+          "Absorptance": 0.00547276807892727,
+          "LogTransmittance": -0.07913586622753943,
+          "OpticalDensity": 0.03436827002325428
+        }
+      },
+      {
+        "WavelengthNanometers": 1086.6632,
+        "Power": {
+          "Reflectance": 0.07061744739396221,
+          "Transmittance": 0.9239115043757603,
+          "Absorptance": 0.005471048230277442,
+          "LogTransmittance": -0.0791389864122296,
+          "OpticalDensity": 0.03436962510224774
+        }
+      },
+      {
+        "WavelengthNanometers": 1086.9824,
+        "Power": {
+          "Reflectance": 0.07062205574799683,
+          "Transmittance": 0.923908614869187,
+          "Absorptance": 0.00546932938281619,
+          "LogTransmittance": -0.0791421138882683,
+          "OpticalDensity": 0.03437098334783363
+        }
+      },
+      {
+        "WavelengthNanometers": 1087.3016,
+        "Power": {
+          "Reflectance": 0.07062666981266115,
+          "Transmittance": 0.9239057186515528,
+          "Absorptance": 0.00546761153578601,
+          "LogTransmittance": -0.07914524863788208,
+          "OpticalDensity": 0.03437234475229304
+        }
+      },
+      {
+        "WavelengthNanometers": 1087.6208000000001,
+        "Power": {
+          "Reflectance": 0.07063128957225759,
+          "Transmittance": 0.9239028157393137,
+          "Absorptance": 0.00546589468842873,
+          "LogTransmittance": -0.07914839064332813,
+          "OpticalDensity": 0.03437370930792037
+        }
+      },
+      {
+        "WavelengthNanometers": 1087.94,
+        "Power": {
+          "Reflectance": 0.07063591501111734,
+          "Transmittance": 0.923899906148895,
+          "Absorptance": 0.005464178839987732,
+          "LogTransmittance": -0.07915153988689638,
+          "OpticalDensity": 0.03437507700702423
+        }
+      },
+      {
+        "WavelengthNanometers": 1088.2592,
+        "Power": {
+          "Reflectance": 0.07064054611360053,
+          "Transmittance": 0.9238969898966939,
+          "Absorptance": 0.005462463989705624,
+          "LogTransmittance": -0.07915469635090755,
+          "OpticalDensity": 0.03437644784192661
+        }
+      },
+      {
+        "WavelengthNanometers": 1088.5784,
+        "Power": {
+          "Reflectance": 0.07064518286409593,
+          "Transmittance": 0.9238940669990771,
+          "Absorptance": 0.005460750136827008,
+          "LogTransmittance": -0.07915786001771485,
+          "OpticalDensity": 0.0343778218049636
+        }
+      },
+      {
+        "WavelengthNanometers": 1088.8976,
+        "Power": {
+          "Reflectance": 0.07064982524702099,
+          "Transmittance": 0.9238911374723825,
+          "Absorptance": 0.00545903728059649,
+          "LogTransmittance": -0.07916103086970294,
+          "OpticalDensity": 0.03437919888848496
+        }
+      },
+      {
+        "WavelengthNanometers": 1089.2168000000001,
+        "Power": {
+          "Reflectance": 0.0706544732468221,
+          "Transmittance": 0.923888201332919,
+          "Absorptance": 0.005457325420258896,
+          "LogTransmittance": -0.07916420888928766,
+          "OpticalDensity": 0.03438057908485398
+        }
+      },
+      {
+        "WavelengthNanometers": 1089.536,
+        "Power": {
+          "Reflectance": 0.07065912684797397,
+          "Transmittance": 0.9238852585969656,
+          "Absorptance": 0.005455614555060495,
+          "LogTransmittance": -0.07916739405891726,
+          "OpticalDensity": 0.03438196238644805
+        }
+      },
+      {
+        "WavelengthNanometers": 1089.8552,
+        "Power": {
+          "Reflectance": 0.07066378603498012,
+          "Transmittance": 0.9238823092807723,
+          "Absorptance": 0.005453904684247557,
+          "LogTransmittance": -0.079170586361071,
+          "OpticalDensity": 0.03438334878565798
+        }
+      },
+      {
+        "WavelengthNanometers": 1090.1744,
+        "Power": {
+          "Reflectance": 0.07066845079237251,
+          "Transmittance": 0.9238793534005603,
+          "Absorptance": 0.005452195807067239,
+          "LogTransmittance": -0.07917378577825962,
+          "OpticalDensity": 0.034384738274888305
+        }
+      },
+      {
+        "WavelengthNanometers": 1090.4936,
+        "Power": {
+          "Reflectance": 0.07067312110471173,
+          "Transmittance": 0.9238763909725215,
+          "Absorptance": 0.005450487922766811,
+          "LogTransmittance": -0.07917699229302522,
+          "OpticalDensity": 0.034386130846557145
+        }
+      },
+      {
+        "WavelengthNanometers": 1090.8128000000002,
+        "Power": {
+          "Reflectance": 0.07067779695658664,
+          "Transmittance": 0.9238734220128182,
+          "Absorptance": 0.005448781030595207,
+          "LogTransmittance": -0.07918020588794206,
+          "OpticalDensity": 0.0343875264930966
+        }
+      },
+      {
+        "WavelengthNanometers": 1091.132,
+        "Power": {
+          "Reflectance": 0.07068247833261479,
+          "Transmittance": 0.9238704465375849,
+          "Absorptance": 0.005447075129800361,
+          "LogTransmittance": -0.07918342654561428,
+          "OpticalDensity": 0.03438892520695175
+        }
+      },
+      {
+        "WavelengthNanometers": 1091.4512,
+        "Power": {
+          "Reflectance": 0.07068716521744185,
+          "Transmittance": 0.9238674645629261,
+          "Absorptance": 0.005445370219631984,
+          "LogTransmittance": -0.07918665424867855,
+          "OpticalDensity": 0.03439032698058178
+        }
+      },
+      {
+        "WavelengthNanometers": 1091.7704,
+        "Power": {
+          "Reflectance": 0.07069185759574201,
+          "Transmittance": 0.9238644761049174,
+          "Absorptance": 0.005443666299340566,
+          "LogTransmittance": -0.07918988897980261,
+          "OpticalDensity": 0.0343917318064594
+        }
+      },
+      {
+        "WavelengthNanometers": 1092.0896,
+        "Power": {
+          "Reflectance": 0.0706965554522176,
+          "Transmittance": 0.9238614811796061,
+          "Absorptance": 0.005441963368176261,
+          "LogTransmittance": -0.07919313072168488,
+          "OpticalDensity": 0.034393139677070625
+        }
+      },
+      {
+        "WavelengthNanometers": 1092.4088000000002,
+        "Power": {
+          "Reflectance": 0.07070125877159944,
+          "Transmittance": 0.9238584798030101,
+          "Absorptance": 0.005440261425390558,
+          "LogTransmittance": -0.07919637945705538,
+          "OpticalDensity": 0.034394550584915196
+        }
+      },
+      {
+        "WavelengthNanometers": 1092.728,
+        "Power": {
+          "Reflectance": 0.07070596753864623,
+          "Transmittance": 0.9238554719911187,
+          "Absorptance": 0.005438560470235054,
+          "LogTransmittance": -0.07919963516867501,
+          "OpticalDensity": 0.034395964522506275
+        }
+      },
+      {
+        "WavelengthNanometers": 1093.0472,
+        "Power": {
+          "Reflectance": 0.0707106817381452,
+          "Transmittance": 0.9238524577598924,
+          "Absorptance": 0.005436860501962348,
+          "LogTransmittance": -0.0792028978393361,
+          "OpticalDensity": 0.03439738148237065
+        }
+      },
+      {
+        "WavelengthNanometers": 1093.3664,
+        "Power": {
+          "Reflectance": 0.07071540135491139,
+          "Transmittance": 0.9238494371252635,
+          "Absorptance": 0.005435161519825149,
+          "LogTransmittance": -0.07920616745186104,
+          "OpticalDensity": 0.0343988014570482
+        }
+      },
+      {
+        "WavelengthNanometers": 1093.6856,
+        "Power": {
+          "Reflectance": 0.07072012637378815,
+          "Transmittance": 0.9238464101031347,
+          "Absorptance": 0.005433463523077164,
+          "LogTransmittance": -0.07920944398910423,
+          "OpticalDensity": 0.034400224439092665
+        }
+      },
+      {
+        "WavelengthNanometers": 1094.0048000000002,
+        "Power": {
+          "Reflectance": 0.07072485677964672,
+          "Transmittance": 0.9238433767093804,
+          "Absorptance": 0.00543176651097288,
+          "LogTransmittance": -0.0792127274339508,
+          "OpticalDensity": 0.03440165042107116
+        }
+      },
+      {
+        "WavelengthNanometers": 1094.324,
+        "Power": {
+          "Reflectance": 0.07072959255738641,
+          "Transmittance": 0.9238403369598469,
+          "Absorptance": 0.005430070482766669,
+          "LogTransmittance": -0.0792160177693162,
+          "OpticalDensity": 0.03440307939556397
+        }
+      },
+      {
+        "WavelengthNanometers": 1094.6432,
+        "Power": {
+          "Reflectance": 0.07073433369193445,
+          "Transmittance": 0.9238372908703512,
+          "Absorptance": 0.00542837543771435,
+          "LogTransmittance": -0.07921931497814727,
+          "OpticalDensity": 0.034404511355164986
+        }
+      },
+      {
+        "WavelengthNanometers": 1094.9624000000001,
+        "Power": {
+          "Reflectance": 0.07073908016824608,
+          "Transmittance": 0.9238342384566826,
+          "Absorptance": 0.005426681375071407,
+          "LogTransmittance": -0.07922261904342087,
+          "OpticalDensity": 0.03440594629248116
+        }
+      },
+      {
+        "WavelengthNanometers": 1095.2816,
+        "Power": {
+          "Reflectance": 0.0707438319713043,
+          "Transmittance": 0.9238311797346012,
+          "Absorptance": 0.005424988294094546,
+          "LogTransmittance": -0.0792259299481457,
+          "OpticalDensity": 0.034407384200133256
+        }
+      },
+      {
+        "WavelengthNanometers": 1095.6008000000002,
+        "Power": {
+          "Reflectance": 0.07074858908611992,
+          "Transmittance": 0.9238281147198389,
+          "Absorptance": 0.005423296194041138,
+          "LogTransmittance": -0.07922924767536021,
+          "OpticalDensity": 0.03440882507075498
+        }
+      },
+      {
+        "WavelengthNanometers": 1095.92,
+        "Power": {
+          "Reflectance": 0.07075335149773165,
+          "Transmittance": 0.9238250434280996,
+          "Absorptance": 0.005421605074168778,
+          "LogTransmittance": -0.07923257220813396,
+          "OpticalDensity": 0.03441026889699352
+        }
+      }
+    ],
+    "Metrics": {
+      "PeakWavelengthNanometers": 1032.08,
+      "PeakTransmittance": 0.9242918185799838,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.06992783270611605,
+      "MaximumReflectance": 0.07075335149773165
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 1,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.064\u20132128",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u5927 R (%)",
+        "Actual": 7.075335149773165,
+        "Requirement": "\u2264 15",
+        "Passed": true
+      }
+    ],
+    "SamplingConverged": true,
+    "VerificationSamples": 201,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "ConstraintGuidanceSatisfied",
+      "Evaluations": 1,
+      "Iterations": 0,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 82,
+        "SensitivityEvaluations": 41,
+        "AnalyticJacobians": 1,
+        "ConstraintPasses": 1,
+        "AdaptiveRefinements": 0,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2
+      }
+    },
+    "Merit": 0,
+    "Warnings": [
+      "\u6750\u6599 low\uFF1A\u4E2D\u5FC3 k=0.0024\uFF1B64 \u533A\u95F4\u53CA\u4E2D\u5FC3\u951A\u70B9\u91C7\u6837\u5185\u6700\u5927 k=0.0024\uFF081032.08 nm\uFF09\uFF0C\u987B\u5173\u6CE8\u5B9E\u9645\u5438\u6536\u3002",
+      "\u6750\u6599 high\uFF1A\u4E2D\u5FC3 k=0.012\uFF1B64 \u533A\u95F4\u53CA\u4E2D\u5FC3\u951A\u70B9\u91C7\u6837\u5185\u6700\u5927 k=0.012\uFF081032.08 nm\uFF09\uFF0C\u987B\u5173\u6CE8\u5B9E\u9645\u5438\u6536\u3002",
+      "\u4E2D\u5FC3\u80FD\u91CF\uFF1AR=7.03059 %\uFF0CT=92.40984 %\uFF0C\u6709\u9650\u819C\u5C42 A=0.55957 %\uFF1BT \u4E3A\u8FDB\u5165\u57FA\u677F\u7684\u529F\u7387\u3002"
+    ],
+    "SpectrumMetricsVersion": "log-scaled-half-maximum/2",
+    "Passed": true,
+    "MaterialSuitability": {
+      "ReferenceLosslessThreshold": 1E-05,
+      "ReferenceLosslessPrototypeApplicable": false,
+      "Films": [
+        {
+          "MaterialId": "low",
+          "Name": "low",
+          "Source": "Frozen synthetic comparison; not measured",
+          "CenterIndex": 1.46,
+          "CenterExtinction": 0.0024000000000000002,
+          "MaximumSampledExtinction": 0.0024000000000000002,
+          "MaximumExtinctionWavelengthNm": 1032.08
+        },
+        {
+          "MaterialId": "high",
+          "Name": "high",
+          "Source": "Frozen synthetic comparison; not measured",
+          "CenterIndex": 2.2,
+          "CenterExtinction": 0.012,
+          "MaximumSampledExtinction": 0.012,
+          "MaximumExtinctionWavelengthNm": 1032.08
+        }
+      ],
+      "CenterPower": {
+        "Reflectance": 0.0703058609053502,
+        "Transmittance": 0.924098447765864,
+        "Absorptance": 0.00559569132878579,
+        "LogTransmittance": -0.07893666781483821,
+        "OpticalDensity": 0.03428175925181425
+      },
+      "Messages": [
+        "\u6750\u6599 low\uFF1A\u4E2D\u5FC3 k=0.0024\uFF1B64 \u533A\u95F4\u53CA\u4E2D\u5FC3\u951A\u70B9\u91C7\u6837\u5185\u6700\u5927 k=0.0024\uFF081032.08 nm\uFF09\uFF0C\u987B\u5173\u6CE8\u5B9E\u9645\u5438\u6536\u3002",
+        "\u6750\u6599 high\uFF1A\u4E2D\u5FC3 k=0.012\uFF1B64 \u533A\u95F4\u53CA\u4E2D\u5FC3\u951A\u70B9\u91C7\u6837\u5185\u6700\u5927 k=0.012\uFF081032.08 nm\uFF09\uFF0C\u987B\u5173\u6CE8\u5B9E\u9645\u5438\u6536\u3002",
+        "\u4E2D\u5FC3\u80FD\u91CF\uFF1AR=7.03059 %\uFF0CT=92.40984 %\uFF0C\u6709\u9650\u819C\u5C42 A=0.55957 %\uFF1BT \u4E3A\u8FDB\u5165\u57FA\u677F\u7684\u529F\u7387\u3002"
+      ],
+      "SampledWorstReflectance": null
+    }
+  },
+  "Candidates": [
+    {
+      "Name": "\u4F18\u5316\u7ED3\u679C",
+      "Layers": [
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 187.42048734469597,
+          "Variable": true
+        }
+      ],
+      "Merit": 0,
+      "Passed": true,
+      "Run": {
+        "Algorithm": "Damped Least Squares",
+        "AlgorithmVersion": "general-constraint-coating/4",
+        "StopReason": "ConstraintGuidanceSatisfied",
+        "Evaluations": 1,
+        "Iterations": 0,
+        "RandomSeed": 1234,
+        "SolverVersion": "coherent-scattering/2",
+        "DesignProtocol": "general-constraint-coating/4",
+        "GeneralWork": {
+          "SpectrumEvaluations": 82,
+          "SensitivityEvaluations": 41,
+          "AnalyticJacobians": 1,
+          "ConstraintPasses": 1,
+          "AdaptiveRefinements": 0,
+          "AdaptiveLimitReached": false,
+          "DenseValidations": 2
+        }
+      }
+    }
+  ],
+  "Tolerance": null
+}

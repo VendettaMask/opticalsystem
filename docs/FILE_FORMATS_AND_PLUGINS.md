@@ -42,6 +42,12 @@ CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚
 
 ## 镀膜实验文件
 
+2026-10-30 反射率质量阶段：协议 4 的 `GeneralWork.QualityProtocol` 当前记录 `worst-reflectance/3`，`QualityRestarts`记录局部未可行路径的至多一次实际重启；顶层搜索累计各局部工作。历史组件版本保持原身份。`QualityPasses`、`QualityIterations`分别是约束阶段数与总迭代的子集。`Run.QualityStartLayers`保存质量起点，用于必要的独立密集复验。窄带可选`PassbandProtocol="measured-passband-constraints/1"`、`BandMetricEvaluations`、`BandSensitivityBatches`记录带指标批次及其中的膜厚导数批次，后者不能与前者相加。
+
+逐项目标保护可记录`GeneralWork.TargetProtectionProtocol="target-violation-envelope/1"`、`TargetProtectionPasses`、`ProtectedTrialRejections`、`DenseProtectionRejections`；保护阶段是原约束阶段的子集，拒绝次数不等于额外光学评价次数。`Run.TargetViolationCeilings`保存峰值T、宽度、峰位、依序各截止OD的起点归一化超限界；`TargetEnvelopeSampling`区分`dense-start`和短筛选`guidance-start`，`TargetProtectionPhase`区分`joint-targets`、`shape-restoration`和`candidate-selection`。`DenseValidations`包括实际指导复验/反馈及最终候选保护调用。旧记录缺字段保持空/零，不补造历史；这些结果字段不进入输入指纹。详见[当前逐项目标保护](COATING_TARGET_PRESERVATION_2026-10-30.md)和[历史质量阶段](COATING_REFLECTANCE_QUALITY_2026-10-30.md)。
+
+2026-10-30 光谱测量身份：新计算的 `Result.SpectrumMetricsVersion` 为 `log-scaled-half-maximum/2`，从原始 log(T) 量取相对半高宽，绝对 T 不归一化。旧结果缺此可空字段时不补造历史身份，输入指纹不变。全反射无通带时边缘/FWHM 为 null；有限 log(T) 的绝对数值下溢与全反射分开，见[边界修复](COATING_SPECTRUM_EDGE_REVIEW_2026-10-30.md)。
+
 2026-10-30 兼容扩展：schema 1 可保存 `Settings.DesignProtocolVersion`（空旧协议、2、窄带专用3、通用试验4）、旧试验 `Target.Structure.PrototypeFamilyVersion`，以及运行记录的 `DesignProtocol`、`Screening`、`TemplateEvaluations`、`NarrowBandCompetition`、`GeneralWork`。协议 4 的身份为 `general-constraint-coating/4`，工作量分别记录指导光谱点、灵敏度点、解析导数批次、约束/加密次数与完整复验次数，不将这些异质工作相加冒充等价计算量。匹配试验可选 `InitialMatchingLayers` 保存各相位起点，`Before` 仍指裸滤光片。短程记录/候选的 `OriginPrototype` 保存连续优化前的镜段/腔阶及材料顺序；不能当作优化后处方。结果的 `MaterialSuitability` 保存可复算的材料诊断和能量。新增可空字段省略，旧输入指纹不变；打开/编辑保留版本并按材料快照重算，不自动升级旧模式。新建窄带默认仍为协议3，协议4须显式选择，见[通用修正](COATING_GENERAL_FIXES_2026-10-30.md)。
 
 内置镀膜模块使用 `.coating.json` schema 1，实验编辑状态与镜头 `.staropt` 分开；文件隔离不是独立产品或进程。保存膜系、完整材料公式/n/k 表和来源/有效范围、目标、采样/约束、候选、运行算法与版本、停止原因、评价次数、求解器版本、输入 SHA-256、光谱和逐项指标；公差结果还记录种子与输入哈希。正式 `BoundedFile` 提供有界读取和原子替换；格式/输入非法或结果哈希不匹配明确拒绝。重开有结果的实验后以冻结快照重新计算。此格式不承诺兼容 TFStudio 文件，也不进入当前镜头。

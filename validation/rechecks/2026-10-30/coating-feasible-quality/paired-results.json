@@ -1,0 +1,1225 @@
+{
+  "pairs": 17,
+  "completedRuns": 34,
+  "previouslyFeasible": 15,
+  "improvedFeasible": 15,
+  "oldPassed": 15,
+  "newPassed": 15,
+  "unchangedFailed": 2,
+  "comparison": {
+    "R": 2.1094237467877974e-15,
+    "T": 1.9984014443252818e-15,
+    "A": 1.9984014443252818e-15
+  },
+  "integrityPassed": true,
+  "results": [
+    {
+      "name": "ar-blue",
+      "file": "ar-blue.coating.json",
+      "inputSha256": "e6761bc35e3f95c23e4a974356a83e037c09c0b5c82395b2415f522daec78469",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.014129338988718878,
+      "newLoss": 0.01279154530122517,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 56,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 12494,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 427.5,
+        "PeakTransmittance": 0.9871884146748084,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.01281158532519132,
+        "MaximumReflectance": 0.014129338988718878
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 448.875,
+        "PeakTransmittance": 0.9873992094671342,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.012600790532865665,
+        "MaximumReflectance": 0.01279154530122517
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 1,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "0.45–900",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 1.279154530122517,
+          "Requirement": "≤ 10",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "ar-ir",
+      "file": "ar-ir.coating.json",
+      "inputSha256": "36f8abb7aeaafc15575e121d4b869ff702b0cf6a25a8ab4613bce8809cf61391",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.019552418934604146,
+      "newLoss": 0.018215483866605823,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 58,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 12937,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 1235,
+        "PeakTransmittance": 0.9777286739581251,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.018271008189200952,
+        "MaximumReflectance": 0.019552418934604146
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 1339.65,
+        "PeakTransmittance": 0.9777741276786704,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.01803578192958581,
+        "MaximumReflectance": 0.018215483866605823
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 1,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "1.3–2600",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 1.8215483866605824,
+          "Requirement": "≤ 10",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "ar-nearir",
+      "file": "ar-nearir.coating.json",
+      "inputSha256": "c5392d4465770689c5da4b510224f23eb01035c3e6689c75830f9517bdf017aa",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.005140704229544404,
+      "newLoss": 0.0036787401792804006,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 55,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 12734,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 760,
+        "PeakTransmittance": 0.9953265421359906,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0037085459706119096,
+        "MaximumReflectance": 0.005140704229544404
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 803.6,
+        "PeakTransmittance": 0.9955045415369039,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0034731207888365084,
+        "MaximumReflectance": 0.0036787401792804006
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 1,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "0.8–1600",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 0.3678740179280401,
+          "Requirement": "≤ 10",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "fixed-films",
+      "file": "fixed-films.coating.json",
+      "inputSha256": "974c6b7f6459f45b5ebd44f48ac066a52debd5e35e26f647a810e65385a57650",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.031221144034959014,
+      "newLoss": 0.026882039790152357,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 55,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 12334,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 987,
+        "PeakTransmittance": 0.020115618172061055,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.968778855965041,
+        "MaximumReflectance": 0.9800336860839476
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 893,
+        "PeakTransmittance": 0.018298827119803667,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9731179602098476,
+        "MaximumReflectance": 0.9800859470953733
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 16,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "0.94–1880",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 97.31179602098476,
+          "Requirement": "≥ 80",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "heldout-ar-oblique",
+      "file": "heldout-ar-oblique.coating.json",
+      "inputSha256": "bf8d1bafdebdffe373b40b5b00c8580bdbdce409e20d675c99674529af9d995a",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.07075335149773165,
+      "newLoss": 0.06948904944833974,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 60,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 12695,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 1032.08,
+        "PeakTransmittance": 0.9242918185799838,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.06992783270611605,
+        "MaximumReflectance": 0.07075335149773165
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 1095.92,
+        "PeakTransmittance": 0.9243657910727099,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.06941989983771567,
+        "MaximumReflectance": 0.06948904944833974
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 1,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "1.064–2128",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 6.9489049448339735,
+          "Requirement": "≤ 15",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "heldout-ar-red",
+      "file": "heldout-ar-red.coating.json",
+      "inputSha256": "d1d81b618f72b1c1a5f5cf6660536b761bde48644de87e3838f605ad86ef5c5a",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.022178116652137453,
+      "newLoss": 0.020977583528604193,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 58,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 13617,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 557.2959999999999,
+        "PeakTransmittance": 0.9779980464703629,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.02025309365130768,
+        "MaximumReflectance": 0.022178116652137453
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 612.928,
+        "PeakTransmittance": 0.9779980566173251,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.020253101951922068,
+        "MaximumReflectance": 0.020977583528604193
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 1,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "0.61–1220",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 2.0977583528604193,
+          "Requirement": "≤ 8",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "heldout-ar-wide",
+      "file": "heldout-ar-wide.coating.json",
+      "inputSha256": "93a51678b157c736dd0e0e79e3a115e55c70114bed802a2feb5d778a6740f186",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.007532042510541506,
+      "newLoss": 0.004833880212006051,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 29,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 6788,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 666.4,
+        "PeakTransmittance": 0.9878023563193588,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.00040788395339520664,
+        "MaximumReflectance": 0.007532042510541506
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 718.2,
+        "PeakTransmittance": 0.987802320022258,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0004078945761099188,
+        "MaximumReflectance": 0.004833880212006051
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 1,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "0.7–1400",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 0.48338802120060514,
+          "Requirement": "≤ 4",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "heldout-hr-oblique",
+      "file": "heldout-hr-oblique.coating.json",
+      "inputSha256": "6aedb0b3f0e6340ac125e83bd887117479a33e70d81afe79cb90017140744ec7",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.03997983557042417,
+      "newLoss": 0.03633553404582979,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 61,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 15824,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 1122,
+        "PeakTransmittance": 0.003576468249127595,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9600201644295758,
+        "MaximumReflectance": 0.9637064237645028
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 1078,
+        "PeakTransmittance": 0.003971708163475804,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9636644659541702,
+        "MaximumReflectance": 0.9643648865425147
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 16,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "1.1–2200",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 96.36644659541702,
+          "Requirement": "≥ 85",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "heldout-hr-red",
+      "file": "heldout-hr-red.coating.json",
+      "inputSha256": "44dd88c5aca3df1d171cc7966f732dded522270a61c6604074a4e4a6db168215",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.10389844368062895,
+      "newLoss": 0.08748872758827797,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 55,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 12494,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 683.6400000000001,
+        "PeakTransmittance": 0.07197740146361005,
+        "LeftHalfMaximumNanometers": 664.4343908498626,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.896101556319371,
+        "MaximumReflectance": 0.9646351730072071
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 582.36,
+        "PeakTransmittance": 0.06578477992377531,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 597.54285606844,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.912511272411722,
+        "MaximumReflectance": 0.9647286083269545
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 16,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "0.633–1266",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 91.2511272411722,
+          "Requirement": "≥ 75",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "heldout-hr-wide",
+      "file": "heldout-hr-wide.coating.json",
+      "inputSha256": "6fcf1932525d4f32b582a41161adc77cac751313f0dbb208b0b38bdc8938a08a",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.0940727994385262,
+      "newLoss": 0.08504152890955341,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 57,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 12976,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 1980.0000000000002,
+        "PeakTransmittance": 0.0111699695817678,
+        "LeftHalfMaximumNanometers": 1927.5133324745034,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9059272005614738,
+        "MaximumReflectance": 0.9512539113152599
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 1620,
+        "PeakTransmittance": 0.019185519856828682,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 1686.096960252808,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9149584710904466,
+        "MaximumReflectance": 0.946773901171776
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 16,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "1.8–3600",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 91.49584710904466,
+          "Requirement": "≥ 70",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "hr-green",
+      "file": "hr-green.coating.json",
+      "inputSha256": "572258d43672d54e9c831eceecdd163ca6a986cfbfeaa54ef7c065dd618ca03e",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.00147775537046535,
+      "newLoss": 0.0012988702703201627,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 60,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 13739,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 546,
+        "PeakTransmittance": 0.001477755370465281,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9985222446295346,
+        "MaximumReflectance": 0.9990423686756323
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 546,
+        "PeakTransmittance": 0.0012988702703201275,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9987011297296798,
+        "MaximumReflectance": 0.9990588027776831
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 16,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "0.52–1040",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 99.87011297296799,
+          "Requirement": "≥ 80",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "hr-ir",
+      "file": "hr-ir.coating.json",
+      "inputSha256": "a22c585397f79ab81be64a0c2b808df0e78798c87c7cf8f5440a23ee40ab6ebc",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.03294670660188248,
+      "newLoss": 0.02830825304872897,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 58,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 13538,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 1627.5,
+        "PeakTransmittance": 0.0023576859068388622,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9670532933981175,
+        "MaximumReflectance": 0.974311532854778
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 1472.5,
+        "PeakTransmittance": 0.0030115088213214813,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.971691746951271,
+        "MaximumReflectance": 0.9748216753825392
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 16,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "1.55–3100",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 97.1691746951271,
+          "Requirement": "≥ 80",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "hr-nearir",
+      "file": "hr-nearir.coating.json",
+      "inputSha256": "de07a5b71a1c47584ab5e63ded0012cd91f840b016fd2791a939a12c14a82394",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.031221144034959236,
+      "newLoss": 0.02669892886065084,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 59,
+      "quality": {
+        "SpectrumEvaluations": 4335,
+        "SensitivityEvaluations": 13139,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 987,
+        "PeakTransmittance": 0.020115618172061037,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9687788559650408,
+        "MaximumReflectance": 0.9800336860839469
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 893,
+        "PeakTransmittance": 0.01821100809400034,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9733010711393492,
+        "MaximumReflectance": 0.980156498554274
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 16,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "0.94–1880",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 97.33010711393491,
+          "Requirement": "≥ 80",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "real-ar-polished",
+      "file": "real-ar-polished.coating.json",
+      "inputSha256": "93992a8a0fa56ade8d75e349fc14a75a69f78e06f90a35febaf116c16502e44c",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.0008496749109621816,
+      "newLoss": 0.0005904080963536647,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 0,
+      "newIterations": 24,
+      "oldEvaluations": 1,
+      "newEvaluations": 49,
+      "quality": {
+        "SpectrumEvaluations": 12975,
+        "SensitivityEvaluations": 34608,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 600,
+        "PeakTransmittance": 0.9778399490793205,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.00026258981988912396,
+        "MaximumReflectance": 0.0008496749109621816
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 600,
+        "PeakTransmittance": 0.9774177229686356,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.00039671327514617574,
+        "MaximumReflectance": 0.0005904080963536647
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 4,
+          "Requirement": "≤ 8",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 0.05904080963536647,
+          "Requirement": "≤ 2",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "real-ar-threshold",
+      "file": "real-ar-threshold.coating.json",
+      "inputSha256": "0ff91e2590c0aca02014f406e16384f9c18e2396fcd315435f0a27fe170a1dcc",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": true,
+      "improved": true,
+      "oldLoss": 0.01999999970585608,
+      "newLoss": 0.010321468593872968,
+      "oldPassed": true,
+      "newPassed": true,
+      "oldIterations": 17,
+      "newIterations": 24,
+      "oldEvaluations": 24,
+      "newEvaluations": 50,
+      "quality": {
+        "SpectrumEvaluations": 12975,
+        "SensitivityEvaluations": 35449,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2,
+        "QualityPasses": 5,
+        "QualityIterations": 24,
+        "QualityProtocol": "feasible-worst-reflectance/1"
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 569,
+        "PeakTransmittance": 0.9653729825229428,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.010359523999271565,
+        "MaximumReflectance": 0.01999999970585608
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 571.875,
+        "PeakTransmittance": 0.9730410591029123,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0002482965834290971,
+        "MaximumReflectance": 0.010321468593872968
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 2,
+          "Requirement": "≤ 8",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 1.0321468593872969,
+          "Requirement": "≤ 2",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "real-hr-original-target",
+      "file": "real-hr-original-target.coating.json",
+      "inputSha256": "cf6dbdbcda64d3560c5a0ad4b57b62bff369db2d28b2f9cd9359075254c1f3db",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": false,
+      "improved": false,
+      "oldLoss": 0.04043715177116958,
+      "newLoss": 0.04043715177116958,
+      "oldPassed": false,
+      "newPassed": false,
+      "oldIterations": 24,
+      "newIterations": 24,
+      "oldEvaluations": 64,
+      "newEvaluations": 64,
+      "quality": {
+        "SpectrumEvaluations": 4330,
+        "SensitivityEvaluations": 48067,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 2
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.00007258558760884649,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 528.4431427999319,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9595628482288304,
+        "MaximumReflectance": 0.9658765064684119
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.00007258558760884649,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 528.4431427999319,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9595628482288304,
+        "MaximumReflectance": 0.9658765064684119
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 32,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 95.95628482288305,
+          "Requirement": "≥ 98",
+          "Passed": false
+        }
+      ],
+      "narrowBandUnchanged": true
+    },
+    {
+      "name": "real-narrowband-control",
+      "file": "real-narrowband-control.coating.json",
+      "inputSha256": "21c4ddecf4d7239d2c8a1177870deba1ee8ee3423ecaab3aa15f46df160fb8ca",
+      "sameInput": true,
+      "materialsUnchanged": true,
+      "targetUnchanged": true,
+      "fixedPreserved": true,
+      "eligible": false,
+      "improved": false,
+      "oldLoss": 0.010920637136874932,
+      "newLoss": 0.010920637136874932,
+      "oldPassed": false,
+      "newPassed": false,
+      "oldIterations": 24,
+      "newIterations": 24,
+      "oldEvaluations": 50,
+      "newEvaluations": 50,
+      "quality": {
+        "SpectrumEvaluations": 6137,
+        "SensitivityEvaluations": 48250,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 2
+      },
+      "oldMetrics": {
+        "PeakWavelengthNanometers": 549.9707357859531,
+        "PeakTransmittance": 0.7105549984522395,
+        "LeftHalfMaximumNanometers": 541.4366987413091,
+        "RightHalfMaximumNanometers": 558.6067261403501,
+        "FwhmNanometers": 17.170027399041032,
+        "MinimumReflectance": 0.061236839655424244,
+        "MaximumReflectance": 0.891065087270878
+      },
+      "newMetrics": {
+        "PeakWavelengthNanometers": 549.9707357859531,
+        "PeakTransmittance": 0.7105549984522395,
+        "LeftHalfMaximumNanometers": 541.4366987413091,
+        "RightHalfMaximumNanometers": 558.6067261403501,
+        "FwhmNanometers": 17.170027399041032,
+        "MinimumReflectance": 0.061236839655424244,
+        "MaximumReflectance": 0.891065087270878
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 12,
+          "Requirement": "≤ 39",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "峰值位置 (nm)",
+          "Actual": 549.9707357859531,
+          "Requirement": "550 ± 0.5",
+          "Passed": true
+        },
+        {
+          "Name": "FWHM (nm)",
+          "Actual": 17.170027399041032,
+          "Requirement": "15 ± 1",
+          "Passed": false
+        },
+        {
+          "Name": "峰值 T (%)",
+          "Actual": 71.05549984522395,
+          "Requirement": "≥ 75",
+          "Passed": false
+        },
+        {
+          "Name": "截止 OD：490–510 nm",
+          "Actual": 0.9544995246691982,
+          "Requirement": "≥ 1",
+          "Passed": false
+        },
+        {
+          "Name": "截止 OD：590–610 nm",
+          "Actual": 1.2430063378232983,
+          "Requirement": "≥ 1",
+          "Passed": true
+        }
+      ],
+      "narrowBandUnchanged": true
+    }
+  ]
+}

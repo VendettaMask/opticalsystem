@@ -1,0 +1,273 @@
+{
+  "SchemaVersion": 1,
+  "Id": "c5023801-e981-4825-945a-9294cc953cef",
+  "Name": "red-low-contrast",
+  "Target": {
+    "Kind": "NarrowBand",
+    "CenterNm": 680,
+    "MinimumNm": 578,
+    "MaximumNm": 781.9999999999999,
+    "Reflectance": 0.02,
+    "MaximumLayers": 39,
+    "AngleDegrees": 0,
+    "Polarization": "Unpolarized",
+    "FwhmNm": 27.2,
+    "PeakTransmittance": 0.75,
+    "BlockingOd": 1,
+    "StopBands": [
+      {
+        "MinimumNm": 598.4,
+        "MaximumNm": 625.6
+      },
+      {
+        "MinimumNm": 734.4000000000001,
+        "MaximumNm": 761.6
+      }
+    ],
+    "CenterToleranceNm": 0.68,
+    "FwhmToleranceNm": 2.04,
+    "Structure": {
+      "Cavities": 2
+    }
+  },
+  "Settings": {
+    "PreviewIntervals": 400,
+    "OptimizationIntervals": 120,
+    "MaximumIterations": 48,
+    "Optimizer": "Damped Least Squares",
+    "MinimumThicknessNm": 1.36,
+    "MaximumThicknessNm": 1360,
+    "TolerancePercent": 1,
+    "ToleranceTrials": 20,
+    "RandomSeed": 1234,
+    "Search": {
+      "Starts": 4,
+      "JitterPercent": 12,
+      "VaryStructure": true
+    },
+    "DesignProtocolVersion": 4
+  },
+  "IncidentId": "Air",
+  "SubstrateId": "control S",
+  "LowId": "control L",
+  "HighId": "control H",
+  "Materials": [
+    {
+      "Id": "Air",
+      "Name": "Air",
+      "Source": "正式 Core 材料目录快照；无 k 数据的模型按 k=0 计算",
+      "MinimumNm": 300,
+      "MaximumNm": 2500,
+      "Model": {
+        "Kind": "air",
+        "Numbers": {},
+        "Text": {},
+        "Children": null
+      }
+    },
+    {
+      "Id": "control L",
+      "Name": "control L",
+      "Source": "synthetic holdout control",
+      "MinimumNm": 340,
+      "MaximumNm": 1360,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.5,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "control L"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "control H",
+      "Name": "control H",
+      "Source": "synthetic holdout control",
+      "MinimumNm": 340,
+      "MaximumNm": 1360,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.95,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "control H"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "control S",
+      "Name": "control S",
+      "Source": "synthetic holdout control",
+      "MinimumNm": 340,
+      "MaximumNm": 1360,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.52,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "control S"
+        },
+        "Children": null
+      }
+    }
+  ],
+  "Layers": [
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 149.0438055672955,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 213.92365498764678,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 174.35897435897436,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 226.66666666666666,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control H",
+      "ThicknessNm": 87.17948717948718,
+      "Variable": true
+    },
+    {
+      "MaterialId": "control L",
+      "ThicknessNm": 113.33333333333333,
+      "Variable": true
+    }
+  ],
+  "Result": null,
+  "Candidates": null,
+  "Tolerance": null
+}

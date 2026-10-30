@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="07363d08-7a44-4fec-8899-a5c082a13f8d" name="allen@DESKTOP-SET3SNR 2026-10-30 20:31:38" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-30T20:31:38.8915053+08:00" queuing="2026-10-30T20:31:38.8915056+08:00" start="2026-10-30T20:31:37.8641884+08:00" finish="2026-10-30T20:31:38.9208080+08:00" />
+  <TestSettings name="default" id="9a82f416-1703-4540-94ad-a61824688578">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-30_20_31_38" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6454f969-17c4-4e89-9e77-b8f3bd830e9e" testId="0f176d95-5610-e97d-68ca-be8e7483f8e4" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: Unpolarized, tir: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0105698" startTime="2026-10-30T20:31:38.8192581+08:00" endTime="2026-10-30T20:31:38.8197154+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6454f969-17c4-4e89-9e77-b8f3bd830e9e">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 19&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 191&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 152&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fe589c6d-569e-40f6-b0fa-0bc960f318f4" testId="ca16635b-6042-7695-306d-4da87887ccb3" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -690)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0005664" startTime="2026-10-30T20:31:38.8504401+08:00" endTime="2026-10-30T20:31:38.8509439+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fe589c6d-569e-40f6-b0fa-0bc960f318f4" />
+    <UnitTestResult executionId="9d59bc10-9df1-42dc-883a-4a82ba0cee60" testId="5bc1bcaf-5c0c-79cd-ff10-679a3d416bbf" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: P)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0002242" startTime="2026-10-30T20:31:38.8707122+08:00" endTime="2026-10-30T20:31:38.8707425+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d59bc10-9df1-42dc-883a-4a82ba0cee60">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Null() Failure: Value of type 'Nullable&lt;double&gt;' has a value&#xD;
+Expected: null&#xD;
+Actual:   NaN</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(ThinFilmPolarization pol) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 37&#xD;
+   at InvokeStub_CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e6bd00b9-9845-4ab8-aa2b-ce1ae84744a4" testId="321ca1b0-f23b-5855-59d0-47fb79806c30" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: P, tir: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0056628" startTime="2026-10-30T20:31:38.8411743+08:00" endTime="2026-10-30T20:31:38.8467155+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e6bd00b9-9845-4ab8-aa2b-ce1ae84744a4">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 19&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 191&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 152&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5e4800aa-7187-4315-af7b-a03f074c866a" testId="4762f389-b3e2-2942-88ed-fbbdc9126cfd" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -745)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0027526" startTime="2026-10-30T20:31:38.8477420+08:00" endTime="2026-10-30T20:31:38.8501244+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e4800aa-7187-4315-af7b-a03f074c866a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+Expected: 525 (rounded from 525)&#xD;
+Actual:   500 (rounded from 500)</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(Double logPeak) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 20&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="22430109-31c0-4e37-ab38-d899984e6f03" testId="f90b59c8-33b2-9c7c-04e3-9cbd8faa376b" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: S)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000540" startTime="2026-10-30T20:31:38.8709222+08:00" endTime="2026-10-30T20:31:38.8709464+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="22430109-31c0-4e37-ab38-d899984e6f03">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Null() Failure: Value of type 'Nullable&lt;double&gt;' has a value&#xD;
+Expected: null&#xD;
+Actual:   NaN</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(ThinFilmPolarization pol) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 37&#xD;
+   at InvokeStub_CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f51b6f32-2a90-4071-9326-a78f21cb09ee" testId="f7c8968b-0103-315e-9cbc-ee7ad003966e" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -1000)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0006613" startTime="2026-10-30T20:31:38.8699708+08:00" endTime="2026-10-30T20:31:38.8700155+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f51b6f32-2a90-4071-9326-a78f21cb09ee">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 550&#xD;
+Actual:   500</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(Double logPeak) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 19&#xD;
+   at InvokeStub_CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="13c2cce3-8cfe-4a93-8cb6-c80edfce327b" testId="1facbf37-9937-ccb8-772b-40f5ce6ed526" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: Unpolarized)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0020019" startTime="2026-10-30T20:31:38.8704118+08:00" endTime="2026-10-30T20:31:38.8704423+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13c2cce3-8cfe-4a93-8cb6-c80edfce327b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Null() Failure: Value of type 'Nullable&lt;double&gt;' has a value&#xD;
+Expected: null&#xD;
+Actual:   NaN</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(ThinFilmPolarization pol) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 37&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="86daf2b7-0f0d-4285-83cf-c316a545615d" testId="901b85f0-249b-795c-3f5a-4e7fde07ea0b" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: S, tir: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0052099" startTime="2026-10-30T20:31:38.8304133+08:00" endTime="2026-10-30T20:31:38.8353208+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="86daf2b7-0f0d-4285-83cf-c316a545615d">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 19&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 191&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 152&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8ff74a90-1eb3-410b-b306-ddc0913feb68" testId="6fc61e6e-9536-7100-9654-17d5a846f9b5" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: Unpolarized, tir: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0100428" startTime="2026-10-30T20:31:38.8204409+08:00" endTime="2026-10-30T20:31:38.8300313+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8ff74a90-1eb3-410b-b306-ddc0913feb68">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 19&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 191&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 152&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6f9cd3b3-d665-4adb-9211-3aaa5024413e" testId="b5b55312-0ac5-f89a-ed7e-66af371122f3" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000110" startTime="2026-10-30T20:31:38.8515567+08:00" endTime="2026-10-30T20:31:38.8515947+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f9cd3b3-d665-4adb-9211-3aaa5024413e" />
+    <UnitTestResult executionId="d4f89062-bf69-4b4f-9f12-5c1ddefb6e40" testId="e785a549-4e97-a0a0-3d92-c2b30a85bd1f" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: P, tir: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4637371" startTime="2026-10-30T20:31:38.3354213+08:00" endTime="2026-10-30T20:31:38.8091716+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d4f89062-bf69-4b4f-9f12-5c1ddefb6e40">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 19&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 191&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 152&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="90b07415-312b-4128-bda1-0d23e979857d" testId="1835b79b-680f-5e71-0088-f79af94fe625" testName="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: S, tir: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0054017" startTime="2026-10-30T20:31:38.8356426+08:00" endTime="2026-10-30T20:31:38.8408717+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90b07415-312b-4128-bda1-0d23e979857d">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 19&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 191&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 152&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs:line 60&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: Unpolarized, tir: False)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="6fc61e6e-9536-7100-9654-17d5a846f9b5">
+      <Execution id="8ff74a90-1eb3-410b-b306-ddc0913feb68" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: P)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="5bc1bcaf-5c0c-79cd-ff10-679a3d416bbf">
+      <Execution id="9d59bc10-9df1-42dc-883a-4a82ba0cee60" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: P, tir: False)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="e785a549-4e97-a0a0-3d92-c2b30a85bd1f">
+      <Execution id="d4f89062-bf69-4b4f-9f12-5c1ddefb6e40" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: Unpolarized)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="1facbf37-9937-ccb8-772b-40f5ce6ed526">
+      <Execution id="13c2cce3-8cfe-4a93-8cb6-c80edfce327b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: Unpolarized, tir: True)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="0f176d95-5610-e97d-68ca-be8e7483f8e4">
+      <Execution id="6454f969-17c4-4e89-9e77-b8f3bd830e9e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: S)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="f90b59c8-33b2-9c7c-04e3-9cbd8faa376b">
+      <Execution id="22430109-31c0-4e37-ab38-d899984e6f03" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: 0)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="b5b55312-0ac5-f89a-ed7e-66af371122f3">
+      <Execution id="6f9cd3b3-d665-4adb-9211-3aaa5024413e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -745)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="4762f389-b3e2-2942-88ed-fbbdc9126cfd">
+      <Execution id="5e4800aa-7187-4315-af7b-a03f074c866a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -1000)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="f7c8968b-0103-315e-9cbc-ee7ad003966e">
+      <Execution id="f51b6f32-2a90-4071-9326-a78f21cb09ee" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: P, tir: True)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="321ca1b0-f23b-5855-59d0-47fb79806c30">
+      <Execution id="e6bd00b9-9845-4ab8-aa2b-ce1ae84744a4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -690)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="ca16635b-6042-7695-306d-4da87887ccb3">
+      <Execution id="fe589c6d-569e-40f6-b0fa-0bc960f318f4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: S, tir: True)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="901b85f0-249b-795c-3f5a-4e7fde07ea0b">
+      <Execution id="86daf2b7-0f0d-4285-83cf-c316a545615d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: S, tir: False)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="1835b79b-680f-5e71-0088-f79af94fe625">
+      <Execution id="90b07415-312b-4128-bda1-0d23e979857d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests" name="DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0f176d95-5610-e97d-68ca-be8e7483f8e4" executionId="6454f969-17c4-4e89-9e77-b8f3bd830e9e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ca16635b-6042-7695-306d-4da87887ccb3" executionId="fe589c6d-569e-40f6-b0fa-0bc960f318f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5bc1bcaf-5c0c-79cd-ff10-679a3d416bbf" executionId="9d59bc10-9df1-42dc-883a-4a82ba0cee60" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="321ca1b0-f23b-5855-59d0-47fb79806c30" executionId="e6bd00b9-9845-4ab8-aa2b-ce1ae84744a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4762f389-b3e2-2942-88ed-fbbdc9126cfd" executionId="5e4800aa-7187-4315-af7b-a03f074c866a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f90b59c8-33b2-9c7c-04e3-9cbd8faa376b" executionId="22430109-31c0-4e37-ab38-d899984e6f03" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f7c8968b-0103-315e-9cbc-ee7ad003966e" executionId="f51b6f32-2a90-4071-9326-a78f21cb09ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1facbf37-9937-ccb8-772b-40f5ce6ed526" executionId="13c2cce3-8cfe-4a93-8cb6-c80edfce327b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="901b85f0-249b-795c-3f5a-4e7fde07ea0b" executionId="86daf2b7-0f0d-4285-83cf-c316a545615d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6fc61e6e-9536-7100-9654-17d5a846f9b5" executionId="8ff74a90-1eb3-410b-b306-ddc0913feb68" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b5b55312-0ac5-f89a-ed7e-66af371122f3" executionId="6f9cd3b3-d665-4adb-9211-3aaa5024413e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e785a549-4e97-a0a0-3d92-c2b30a85bd1f" executionId="d4f89062-bf69-4b4f-9f12-5c1ddefb6e40" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1835b79b-680f-5e71-0088-f79af94fe625" executionId="90b07415-312b-4128-bda1-0d23e979857d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="2" failed="11" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.07]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.11]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.13]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.62]       System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。&#xD;
+[xUnit.net 00:00:00.62]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.62]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(19,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals)&#xD;
+[xUnit.net 00:00:00.62]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(191,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;)&#xD;
+[xUnit.net 00:00:00.62]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(152,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token)&#xD;
+[xUnit.net 00:00:00.62]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(60,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir)&#xD;
+[xUnit.net 00:00:00.62]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:00.63]       System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。&#xD;
+[xUnit.net 00:00:00.63]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.63]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(19,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals)&#xD;
+[xUnit.net 00:00:00.63]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(191,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;)&#xD;
+[xUnit.net 00:00:00.63]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(152,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token)&#xD;
+[xUnit.net 00:00:00.63]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(60,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir)&#xD;
+[xUnit.net 00:00:00.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:00.64]       System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。&#xD;
+[xUnit.net 00:00:00.64]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.64]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(19,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals)&#xD;
+[xUnit.net 00:00:00.64]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(191,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;)&#xD;
+[xUnit.net 00:00:00.64]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(152,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token)&#xD;
+[xUnit.net 00:00:00.64]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(60,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir)&#xD;
+[xUnit.net 00:00:00.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:00.64]       System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。&#xD;
+[xUnit.net 00:00:00.64]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.64]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(19,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals)&#xD;
+[xUnit.net 00:00:00.64]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(191,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;)&#xD;
+[xUnit.net 00:00:00.64]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(152,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token)&#xD;
+[xUnit.net 00:00:00.64]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(60,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir)&#xD;
+[xUnit.net 00:00:00.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:00.65]       System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。&#xD;
+[xUnit.net 00:00:00.65]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.65]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(19,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals)&#xD;
+[xUnit.net 00:00:00.65]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(191,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;)&#xD;
+[xUnit.net 00:00:00.65]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(152,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token)&#xD;
+[xUnit.net 00:00:00.65]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(60,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir)&#xD;
+[xUnit.net 00:00:00.65]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:00.66]       System.ArgumentException : 光谱范围或采样数无效；每次最多 200001 个点。&#xD;
+[xUnit.net 00:00:00.66]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.66]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(19,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Grid(Double minimum, Double maximum, Int32 intervals)&#xD;
+[xUnit.net 00:00:00.66]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(191,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;Evaluate&gt;g__Scan|12_0(Int32 count, &lt;&gt;c__DisplayClass12_0&amp;)&#xD;
+[xUnit.net 00:00:00.66]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs(152,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Evaluate(Experiment input, RunRecord run, IProgress`1 progress, CancellationToken token)&#xD;
+[xUnit.net 00:00:00.66]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(60,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(ThinFilmPolarization pol, Boolean tir)&#xD;
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:00.66]       Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+[xUnit.net 00:00:00.66]       Expected: 525 (rounded from 525)&#xD;
+[xUnit.net 00:00:00.66]       Actual:   500 (rounded from 500)&#xD;
+[xUnit.net 00:00:00.66]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.66]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(20,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(Double logPeak)&#xD;
+[xUnit.net 00:00:00.66]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:00.66]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:00.68]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:00.68]       Expected: 550&#xD;
+[xUnit.net 00:00:00.68]       Actual:   500&#xD;
+[xUnit.net 00:00:00.68]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.68]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(19,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(Double logPeak)&#xD;
+[xUnit.net 00:00:00.68]            at InvokeStub_CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(Object, Span`1)&#xD;
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:00.68]       Assert.Null() Failure: Value of type 'Nullable&lt;double&gt;' has a value&#xD;
+[xUnit.net 00:00:00.68]       Expected: null&#xD;
+[xUnit.net 00:00:00.68]       Actual:   NaN&#xD;
+[xUnit.net 00:00:00.68]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.68]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(37,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(ThinFilmPolarization pol)&#xD;
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:00.68]       Assert.Null() Failure: Value of type 'Nullable&lt;double&gt;' has a value&#xD;
+[xUnit.net 00:00:00.68]       Expected: null&#xD;
+[xUnit.net 00:00:00.68]       Actual:   NaN&#xD;
+[xUnit.net 00:00:00.68]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.68]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(37,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(ThinFilmPolarization pol)&#xD;
+[xUnit.net 00:00:00.68]            at InvokeStub_CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(Object, Span`1)&#xD;
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:00.68]       Assert.Null() Failure: Value of type 'Nullable&lt;double&gt;' has a value&#xD;
+[xUnit.net 00:00:00.68]       Expected: null&#xD;
+[xUnit.net 00:00:00.68]       Actual:   NaN&#xD;
+[xUnit.net 00:00:00.68]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.68]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\CoatingSpectrumEdgeTests.cs(37,0): at OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(ThinFilmPolarization pol)&#xD;
+[xUnit.net 00:00:00.68]            at InvokeStub_CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(Object, Span`1)&#xD;
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:00.68]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8113051+08:00">
+        <Text>[xUnit.net 00:00:00.62]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: P, tir: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8200028+08:00">
+        <Text>[xUnit.net 00:00:00.63]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: Unpolarized, tir: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8302884+08:00">
+        <Text>[xUnit.net 00:00:00.64]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: Unpolarized, tir: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8355926+08:00">
+        <Text>[xUnit.net 00:00:00.64]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: S, tir: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8411375+08:00">
+        <Text>[xUnit.net 00:00:00.65]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: S, tir: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8470404+08:00">
+        <Text>[xUnit.net 00:00:00.66]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: P, tir: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8504053+08:00">
+        <Text>[xUnit.net 00:00:00.66]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -745) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8988043+08:00">
+        <Text>[xUnit.net 00:00:00.68]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -1000) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8988315+08:00">
+        <Text>[xUnit.net 00:00:00.68]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: Unpolarized) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8988535+08:00">
+        <Text>[xUnit.net 00:00:00.68]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: P) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:31:38.8988777+08:00">
+        <Text>[xUnit.net 00:00:00.68]     OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: S) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

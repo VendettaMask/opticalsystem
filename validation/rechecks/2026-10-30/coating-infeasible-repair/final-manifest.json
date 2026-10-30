@@ -1,0 +1,37 @@
+{
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs",
+      "sha256": "91242413813373277c503cc1da56f31b6c9e258a62ed3089cad502eb7a800bbf"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmBandSensitivity.cs",
+      "sha256": "1a6c49f19420dede96fa473cc68af85342019a221c186926f577e9514877a0b1"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralObjective.cs",
+      "sha256": "0577b520a13a4c043bf301580c143f63a070d2c06eedd99a13ef4358ec4eb303"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.ReflectanceQuality.cs",
+      "sha256": "8ccbfd6fca25df8e2ec666c9b64e219ade0839307d391fbde7f633ef18afda95"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/CoatingBandSensitivityTests.cs",
+      "sha256": "dc3924b05abbec224da2b032abd257c50b6750fccd615aeba145e0ef5a3bbcc2"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/InfeasibleCoatingTests.cs",
+      "sha256": "f121039dd6f46cc373c4b4fdec103d41f3f172e4c266a68ad7fbcf532c87f0aa"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Fixtures/coating-infeasible-20261030.json",
+      "sha256": "ac54198bba40395f41682f874b1e57f42dba95eece95ab83ea4bbc0e5e01ebf2"
+    }
+  ],
+  "tests": "final-tests/coating-infeasible-final.trx",
+  "passed": 140,
+  "referenceRuns": 14,
+  "referencePassed": 2,
+  "localLinksChecked": true
+}

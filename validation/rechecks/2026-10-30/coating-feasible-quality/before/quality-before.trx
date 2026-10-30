@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0304a876-2ae8-44fb-a889-f3c13b8c6b3e" name="allen@DESKTOP-SET3SNR 2026-10-30 20:56:56" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-30T20:56:56.9758857+08:00" queuing="2026-10-30T20:56:56.9758858+08:00" start="2026-10-30T20:56:55.5713199+08:00" finish="2026-10-30T20:56:56.9821267+08:00" />
+  <TestSettings name="default" id="673a8beb-0d59-4992-9fc4-71f747d7c291">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-30_20_56_56" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1684cc9d-fb23-4fc5-9fef-ac5014940823" testId="0cfac991-e65b-b212-acbc-8df8395819d2" testName="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 1300, nl: 1.3999999999999999, nh: 2.25, k: 0.0080000000000000002, angle: 35, pol: Unpolarized, kind: Antireflection)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0059204" startTime="2026-10-30T20:56:56.8767486+08:00" endTime="2026-10-30T20:56:56.8822785+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1684cc9d-fb23-4fc5-9fef-ac5014940823">
+      <Output>
+        <ErrorInfo>
+          <Message>Worst loss did not improve: 0.019552418934604146 -&gt; 0.019552418934604146</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs:line 23&#xD;
+   at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4524a398-673d-438e-a603-b3b58dc4ac74" testId="f4328fe6-3422-3eb7-6fd4-7040974e8c58" testName="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 520, nl: 1.3999999999999999, nh: 2.2999999999999998, k: 0, angle: 0, pol: S, kind: HighReflector)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0150953" startTime="2026-10-30T20:56:56.8614412+08:00" endTime="2026-10-30T20:56:56.8762673+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4524a398-673d-438e-a603-b3b58dc4ac74">
+      <Output>
+        <ErrorInfo>
+          <Message>Worst loss did not improve: 0.0014777553704653501 -&gt; 0.0014777553704653501</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs:line 23&#xD;
+   at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8162dda8-cbe6-4b9f-96fd-0782a6f3e04e" testId="26559f33-3aa1-9714-2724-a2509f7cbfb7" testName="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 1550, nl: 1.3999999999999999, nh: 2.25, k: 0.01, angle: 25, pol: Unpolarized, kind: HighReflector)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0226412" startTime="2026-10-30T20:56:56.8386504+08:00" endTime="2026-10-30T20:56:56.8609747+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8162dda8-cbe6-4b9f-96fd-0782a6f3e04e">
+      <Output>
+        <ErrorInfo>
+          <Message>Worst loss did not improve: 0.032946706601882481 -&gt; 0.032946706601882481</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs:line 23&#xD;
+   at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="828e76f5-b91f-4771-9e47-c7b035bedb8d" testId="55c86f96-f224-f15e-8d5c-b0c673d546a6" testName="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 800, nl: 1.3200000000000001, nh: 2.1499999999999999, k: 0.002, angle: 20, pol: P, kind: Antireflection)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5960445" startTime="2026-10-30T20:56:56.2042691+08:00" endTime="2026-10-30T20:56:56.8100374+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="828e76f5-b91f-4771-9e47-c7b035bedb8d">
+      <Output>
+        <ErrorInfo>
+          <Message>Worst loss did not improve: 0.0051407042295444037 -&gt; 0.0051407042295444037</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs:line 23&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4804c88b-5307-44c0-b36e-c95c8494e61f" testId="cb572f8a-e7f7-87f8-cc20-76bd86038984" testName="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 940, nl: 1.45, nh: 2.1499999999999999, k: 0.002, angle: 35, pol: P, kind: HighReflector)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0220553" startTime="2026-10-30T20:56:56.8211813+08:00" endTime="2026-10-30T20:56:56.8322436+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4804c88b-5307-44c0-b36e-c95c8494e61f">
+      <Output>
+        <ErrorInfo>
+          <Message>Worst loss did not improve: 0.031221144034959236 -&gt; 0.031221144034959236</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs:line 23&#xD;
+   at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d5ddb8ec-c848-4bd0-88b5-998c25948091" testId="4a2c5cd2-9b58-aa7d-2c53-9659f2c3bc68" testName="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 450, nl: 1.3799999999999999, nh: 2.2999999999999998, k: 0, angle: 0, pol: S, kind: Antireflection)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0057666" startTime="2026-10-30T20:56:56.8331225+08:00" endTime="2026-10-30T20:56:56.8381632+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5ddb8ec-c848-4bd0-88b5-998c25948091">
+      <Output>
+        <ErrorInfo>
+          <Message>Worst loss did not improve: 0.014129338988718878 -&gt; 0.014129338988718878</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs:line 23&#xD;
+   at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 520, nl: 1.3999999999999999, nh: 2.2999999999999998, k: 0, angle: 0, pol: S, kind: HighReflector)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="f4328fe6-3422-3eb7-6fd4-7040974e8c58">
+      <Execution id="4524a398-673d-438e-a603-b3b58dc4ac74" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests" name="FeasibleReflectanceTargetsContinueImprovingWorstBandQuality" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 1550, nl: 1.3999999999999999, nh: 2.25, k: 0.01, angle: 25, pol: Unpolarized, kind: HighReflector)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="26559f33-3aa1-9714-2724-a2509f7cbfb7">
+      <Execution id="8162dda8-cbe6-4b9f-96fd-0782a6f3e04e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests" name="FeasibleReflectanceTargetsContinueImprovingWorstBandQuality" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 1300, nl: 1.3999999999999999, nh: 2.25, k: 0.0080000000000000002, angle: 35, pol: Unpolarized, kind: Antireflection)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="0cfac991-e65b-b212-acbc-8df8395819d2">
+      <Execution id="1684cc9d-fb23-4fc5-9fef-ac5014940823" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests" name="FeasibleReflectanceTargetsContinueImprovingWorstBandQuality" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 940, nl: 1.45, nh: 2.1499999999999999, k: 0.002, angle: 35, pol: P, kind: HighReflector)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="cb572f8a-e7f7-87f8-cc20-76bd86038984">
+      <Execution id="4804c88b-5307-44c0-b36e-c95c8494e61f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests" name="FeasibleReflectanceTargetsContinueImprovingWorstBandQuality" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 450, nl: 1.3799999999999999, nh: 2.2999999999999998, k: 0, angle: 0, pol: S, kind: Antireflection)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="4a2c5cd2-9b58-aa7d-2c53-9659f2c3bc68">
+      <Execution id="d5ddb8ec-c848-4bd0-88b5-998c25948091" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests" name="FeasibleReflectanceTargetsContinueImprovingWorstBandQuality" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 800, nl: 1.3200000000000001, nh: 2.1499999999999999, k: 0.002, angle: 20, pol: P, kind: Antireflection)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="55c86f96-f224-f15e-8d5c-b0c673d546a6">
+      <Execution id="828e76f5-b91f-4771-9e47-c7b035bedb8d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests" name="FeasibleReflectanceTargetsContinueImprovingWorstBandQuality" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0cfac991-e65b-b212-acbc-8df8395819d2" executionId="1684cc9d-fb23-4fc5-9fef-ac5014940823" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f4328fe6-3422-3eb7-6fd4-7040974e8c58" executionId="4524a398-673d-438e-a603-b3b58dc4ac74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26559f33-3aa1-9714-2724-a2509f7cbfb7" executionId="8162dda8-cbe6-4b9f-96fd-0782a6f3e04e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55c86f96-f224-f15e-8d5c-b0c673d546a6" executionId="828e76f5-b91f-4771-9e47-c7b035bedb8d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb572f8a-e7f7-87f8-cc20-76bd86038984" executionId="4804c88b-5307-44c0-b36e-c95c8494e61f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4a2c5cd2-9b58-aa7d-2c53-9659f2c3bc68" executionId="d5ddb8ec-c848-4bd0-88b5-998c25948091" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="0" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.19]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.24]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.26]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.88]       Worst loss did not improve: 0.0051407042295444037 -&gt; 0.0051407042295444037&#xD;
+[xUnit.net 00:00:00.88]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.88]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs(23,0): at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind)&#xD;
+[xUnit.net 00:00:00.88]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:00.88]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:00.90]       Worst loss did not improve: 0.031221144034959236 -&gt; 0.031221144034959236&#xD;
+[xUnit.net 00:00:00.90]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.90]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs(23,0): at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind)&#xD;
+[xUnit.net 00:00:00.90]            at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+[xUnit.net 00:00:00.90]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:00.91]       Worst loss did not improve: 0.014129338988718878 -&gt; 0.014129338988718878&#xD;
+[xUnit.net 00:00:00.91]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.91]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs(23,0): at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind)&#xD;
+[xUnit.net 00:00:00.91]            at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+[xUnit.net 00:00:00.91]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:00.93]       Worst loss did not improve: 0.032946706601882481 -&gt; 0.032946706601882481&#xD;
+[xUnit.net 00:00:00.93]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.93]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs(23,0): at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind)&#xD;
+[xUnit.net 00:00:00.93]            at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+[xUnit.net 00:00:00.93]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:00.95]       Worst loss did not improve: 0.0014777553704653501 -&gt; 0.0014777553704653501&#xD;
+[xUnit.net 00:00:00.95]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.95]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs(23,0): at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind)&#xD;
+[xUnit.net 00:00:00.95]            at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+[xUnit.net 00:00:00.95]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:00.95]       Worst loss did not improve: 0.019552418934604146 -&gt; 0.019552418934604146&#xD;
+[xUnit.net 00:00:00.95]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.95]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReflectanceQualityTests.cs(23,0): at OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Double wave, Double nl, Double nh, Double k, Double angle, ThinFilmPolarization pol, DesignKind kind)&#xD;
+[xUnit.net 00:00:00.95]            at InvokeStub_ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(Object, Span`1)&#xD;
+[xUnit.net 00:00:00.95]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:00.96]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:56:56.8120621+08:00">
+        <Text>[xUnit.net 00:00:00.88]     OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 800, nl: 1.3200000000000001, nh: 2.1499999999999999, k: 0.002, angle: 20, pol: P, kind: Antireflection) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:56:56.8326098+08:00">
+        <Text>[xUnit.net 00:00:00.90]     OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 940, nl: 1.45, nh: 2.1499999999999999, k: 0.002, angle: 35, pol: P, kind: HighReflector) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:56:56.8385110+08:00">
+        <Text>[xUnit.net 00:00:00.91]     OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 450, nl: 1.3799999999999999, nh: 2.2999999999999998, k: 0, angle: 0, pol: S, kind: Antireflection) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:56:56.8612956+08:00">
+        <Text>[xUnit.net 00:00:00.93]     OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 1550, nl: 1.3999999999999999, nh: 2.25, k: 0.01, angle: 25, pol: Unpolarized, kind: HighReflector) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:56:56.8766058+08:00">
+        <Text>[xUnit.net 00:00:00.95]     OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 520, nl: 1.3999999999999999, nh: 2.2999999999999998, k: 0, angle: 0, pol: S, kind: HighReflector) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-30T20:56:56.8824934+08:00">
+        <Text>[xUnit.net 00:00:00.95]     OpticalSystemDesign.CoatingDesign.Tests.ReflectanceQualityTests.FeasibleReflectanceTargetsContinueImprovingWorstBandQuality(wave: 1300, nl: 1.3999999999999999, nh: 2.25, k: 0.0080000000000000002, angle: 35, pol: Unpolarized, kind: Antireflection) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -78,6 +78,14 @@ public sealed record RunRecord(string Algorithm, string AlgorithmVersion, string
     int Iterations, int? RandomSeed, string SolverVersion = CoherentThinFilmSolver.Version)
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? QualityStartLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double[]? TargetViolationCeilings { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? TargetEnvelopeSampling { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? TargetProtectionPhase { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? DesignProtocol { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ScreeningRun[]? Screening { get; init; }
@@ -97,6 +105,8 @@ public sealed record DesignResult(string Fingerprint, ThinFilmSample[] Spectrum,
     RequirementCheck[] Checks, bool SamplingConverged, int VerificationSamples, RunRecord Run,
     double Merit, string[] Warnings)
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SpectrumMetricsVersion { get; init; }
     public bool Passed => SamplingConverged && Checks.All(x => x.Passed);
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public MaterialSuitabilityReport? MaterialSuitability { get; init; }

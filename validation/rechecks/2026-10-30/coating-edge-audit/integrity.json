@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "gates": [
+    {
+      "name": "Converged",
+      "unchanged": true
+    },
+    {
+      "name": "Checks",
+      "unchanged": true
+    }
+  ],
+  "frozen": [
+    {
+      "path": "third_party/coating-reference/TFStudio-8b942b3.tar.gz",
+      "sha256": "055391199312d1ce1a3d30e5640aad1375b58b77ec88f2c3b55cda56d721cbe6",
+      "unchanged": true
+    },
+    {
+      "path": "third_party/coating-reference/tmmcore-0.4.2.tgz",
+      "sha256": "fc16f4a16149c971178b6a354ecf094dc0511a2bdfa0630c977178c29b262f44",
+      "unchanged": true
+    }
+  ],
+  "unchanged": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmThicknessSensitivity.cs",
+      "unchanged": true
+    },
+    {
+      "path": "validation/coating/tmmcore-0.4.2.json",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralSearch.cs",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralObjective.cs",
+      "unchanged": true
+    }
+  ],
+  "binaries": [
+    {
+      "name": "OpticalSystemDesign.Core",
+      "test": "1d0e0f4dee6e5681c208d6a040ad9b3be15444569982e7ac4b367049cc1b41bd",
+      "diagnostic": "1d0e0f4dee6e5681c208d6a040ad9b3be15444569982e7ac4b367049cc1b41bd",
+      "identical": true
+    },
+    {
+      "name": "OpticalSystemDesign.CoatingDesign.Engine",
+      "test": "26b96da43a81dfebe1df679d7d1eef92f3d05c427243055c7af783277be3c0db",
+      "diagnostic": "26b96da43a81dfebe1df679d7d1eef92f3d05c427243055c7af783277be3c0db",
+      "identical": true
+    }
+  ]
+}

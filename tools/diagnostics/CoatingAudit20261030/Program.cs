@@ -8,6 +8,13 @@ using OpticalSystemDesign.Core.Materials;
 if (args[0] == "deep") { await CoatingDeepAudit.Run(args.Skip(1).ToArray()); return; }
 if (args[0] == "competition") { await CompetitionAudit.Run(args.Skip(1).ToArray()); return; }
 if (args[0] == "general-matrix") { await GeneralAudit.Run(args.Skip(1).ToArray()); return; }
+if (args[0] == "spectrum-edges") { await SpectrumEdgeAudit.Run(args.Skip(1).ToArray()); return; }
+if (args[0] == "quality-freeze") { await ReflectanceQualityAudit.Freeze(args[1]); return; }
+if (args[0] == "quality-run") { await ReflectanceQualityAudit.Run(args[1], args[2]); return; }
+if (args[0] == "infeasible-export") { await InfeasibleRepairAudit.Export(args[1], args[2]); return; }
+if (args[0] == "infeasible-reference") { await InfeasibleRepairAudit.ValidateReference(args[1], args[2], args[3]); return; }
+if (args[0] == "target-freeze") { await TargetProtectionAudit.Freeze(args[1]); return; }
+if (args[0] == "target-scale") { await TargetProtectionAudit.Scale(args[1]); return; }
 
 var protocol = args[0]; var directory = Path.GetFullPath(args[1]); Directory.CreateDirectory(directory);
 var summaries = new List<object>(); var referenceCases = new List<object>();

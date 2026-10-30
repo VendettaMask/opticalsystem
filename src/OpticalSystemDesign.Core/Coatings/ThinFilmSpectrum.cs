@@ -8,8 +8,9 @@ public sealed record ThinFilmBandMetrics(double PeakWavelengthNanometers, double
     double? LeftHalfMaximumNanometers, double? RightHalfMaximumNanometers,
     double? FwhmNanometers, double MinimumReflectance, double MaximumReflectance);
 
-public static class ThinFilmSpectrum
+public static partial class ThinFilmSpectrum
 {
+    public const string MetricsVersion = "log-scaled-half-maximum/2";
     public const int MaximumSamples = 200001;
 
     public static double[] Grid(double minimum, double maximum, int intervals)
@@ -35,18 +36,31 @@ public static class ThinFilmSpectrum
     public static ThinFilmBandMetrics Measure(IReadOnlyList<ThinFilmSample> samples)
     {
         if (samples.Count < 3) throw new ArgumentException("光谱至少需要三个采样点。");
-        var peak = 0;
-        for (var i = 1; i < samples.Count; i++)
-            if (samples[i].Power.Transmittance > samples[peak].Power.Transmittance) peak = i;
-        var half = samples[peak].Power.Transmittance / 2;
-        double? left = null, right = null;
-        for (var i = peak - 1; i >= 0; i--)
-            if (samples[i].Power.Transmittance <= half) { left = Crossing(samples[i], samples[i + 1], half); break; }
-        for (var i = peak + 1; i < samples.Count; i++)
-            if (samples[i].Power.Transmittance <= half) { right = Crossing(samples[i - 1], samples[i], half); break; }
+        var (peak, leftIndex, rightIndex, relative) = LocateBand(samples);
+        // Use the solver's untruncated log(T) for relative shape. Absolute T can underflow,
+        // and even a representable subnormal peak can lose its half-height when divided by two.
+        double? Edge(int i) => i < 0 ? null : Crossing(samples[i], samples[i + 1], relative[i], relative[i + 1]);
+        var left = Edge(leftIndex); var right = Edge(rightIndex);
         return new(samples[peak].WavelengthNanometers, samples[peak].Power.Transmittance, left, right,
             left is not null && right is not null ? right - left : null,
             samples.Min(x => x.Power.Reflectance), samples.Max(x => x.Power.Reflectance));
+    }
+
+    private static (int Peak, int Left, int Right, double[] Relative) LocateBand(IReadOnlyList<ThinFilmSample> samples)
+    {
+        var peak = 0;
+        for (var i = 1; i < samples.Count; i++)
+            if (samples[i].Power.LogTransmittance > samples[peak].Power.LogTransmittance) peak = i;
+        var relative = new double[samples.Count]; var left = -1; var right = -1;
+        var logPeak = samples[peak].Power.LogTransmittance;
+        // A truly evanescent exit has no transmission peak or FWHM.
+        if (!double.IsNegativeInfinity(logPeak))
+        {
+            for (var i = 0; i < samples.Count; i++) relative[i] = Math.Exp(samples[i].Power.LogTransmittance - logPeak);
+            for (var i = peak - 1; i >= 0; i--) if (relative[i] <= .5) { left = i; break; }
+            for (var i = peak + 1; i < samples.Count; i++) if (relative[i] <= .5) { right = i - 1; break; }
+        }
+        return (peak, left, right, relative);
     }
 
     public static AnalysisSeries[] ToSeries(IReadOnlyList<ThinFilmSample> samples) =>
@@ -56,7 +70,7 @@ public static class ThinFilmSpectrum
             XQuantity: AnalysisAxisQuantity.Wavelength, XUnit: AnalysisAxisUnit.Nanometer,
             YQuantity: AnalysisAxisQuantity.EnergyFraction, YUnit: AnalysisAxisUnit.Percent)).ToArray();
 
-    private static double Crossing(ThinFilmSample a, ThinFilmSample b, double level) =>
+    private static double Crossing(ThinFilmSample a, ThinFilmSample b, double relativeA, double relativeB) =>
         a.WavelengthNanometers + (b.WavelengthNanometers - a.WavelengthNanometers)
-        * (level - a.Power.Transmittance) / (b.Power.Transmittance - a.Power.Transmittance);
+        * ((.5 - relativeA) / (relativeB - relativeA));
 }

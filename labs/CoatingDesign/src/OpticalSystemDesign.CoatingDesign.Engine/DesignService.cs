@@ -173,7 +173,7 @@ public sealed partial class DesignService
             (run ?? new("光谱复验", CoherentThinFilmSolver.Version, "计算完成", samples.Length, 0, null)) with
             { DesignProtocol = Protocol(d) },
             d.Settings.DesignProtocolVersion == 4 ? AssessGeneral(d, samples).Merit : ObjectiveMerit(d, Objective(d, solver, ObjectiveGrid(d))), warnings.ToArray())
-        { MaterialSuitability = suitability };
+        { MaterialSuitability = suitability, SpectrumMetricsVersion = ThinFilmSpectrum.MetricsVersion };
         return d with { Result = result, Tolerance = d.Tolerance?.Fingerprint == d.Fingerprint() ? d.Tolerance : null };
 
         ThinFilmSample[] Scan(int count)
@@ -206,17 +206,36 @@ public sealed partial class DesignService
         if (d.Layers.Length > d.Target.MaximumLayers) throw new ArgumentException("当前层数超过上限，请先删除膜层或提高上限。");
         if (d.Layers.Any(l => l.ThicknessNm < d.Settings.MinimumThicknessNm || l.ThicknessNm > d.Settings.MaximumThicknessNm))
             throw new ArgumentException("当前膜层厚度超出高级设置中的约束，请先修正。");
-        var refined = RefineThickness(d, materials, ObjectiveGrid(d), d.Settings.MaximumIterations, progress, token);
+        var validatedStart = d.Settings.DesignProtocolVersion == 4 ? Evaluate(d with { Result = null }, progress: progress, token: token) : null;
+        var refined = RefineThickness(d, materials, ObjectiveGrid(d), d.Settings.MaximumIterations, progress, token, validatedStart);
         var optimized = Evaluate(d with { Layers = refined.Layers, Result = null }, refined.Run, progress, token);
         if (d.Settings.DesignProtocolVersion == 4)
         {
             // Only a few finalists reach this stage. Coarse guidance must not overwrite a better certified starting point.
-            var original = Evaluate(d with { Result = null }, progress: progress, token: token);
+            var original = validatedStart!;
             var a = AssessGeneral(original, original.Result!.Spectrum); var b = AssessGeneral(optimized, optimized.Result!.Spectrum);
-            if (original.Result.Passed && !optimized.Result.Passed || original.Result.Passed == optimized.Result.Passed && PreferGeneral(a, b))
+            var protectionRejected = !WithinGeneralTargetEnvelope(b, a);
+            if (protectionRejected || original.Result.Passed && !optimized.Result.Passed || original.Result.Passed == optimized.Result.Passed && PreferGeneral(a, b))
                 optimized = original with { Result = original.Result with { Run = refined.Run with { StopReason = "DenseValidationRetainedInput" } } };
-            optimized = optimized with { Result = optimized.Result with { Run = optimized.Result.Run with
-            { GeneralWork = refined.Run.GeneralWork! with { DenseValidations = 2 } } } };
+            var denseValidations = refined.Run.GeneralWork!.DenseValidations + 2;
+            if (refined.Run.QualityStartLayers is { } qualityStart && !qualityStart.SequenceEqual(d.Layers)
+                && !qualityStart.SequenceEqual(refined.Layers))
+            {
+                // A quality attempt must not discard a newly feasible result from the preceding phase.
+                var baseline = Evaluate(d with { Layers = qualityStart, Result = null }, progress: progress, token: token);
+                denseValidations++;
+                if (baseline.Result!.Passed && !optimized.Result!.Passed || baseline.Result.Passed == optimized.Result!.Passed
+                    && PreferGeneral(AssessGeneral(baseline, baseline.Result.Spectrum), AssessGeneral(optimized, optimized.Result.Spectrum)))
+                    optimized = baseline with { Result = baseline.Result with { Run = refined.Run with { StopReason = "DenseValidationRetainedQualityStart" } } };
+            }
+            optimized = optimized with
+            {
+                Result = optimized.Result with
+                {
+                    Run = optimized.Result.Run with
+                    { GeneralWork = refined.Run.GeneralWork! with { DenseValidations = denseValidations, DenseProtectionRejections = protectionRejected ? 1 : 0 } }
+                }
+            };
         }
         var origin = d.Candidates?.FirstOrDefault(c => c.Layers.SequenceEqual(d.Layers))?.OriginPrototype;
         var candidates = (d.Candidates ?? []).Append(new Candidate("优化结果", optimized.Layers, optimized.Result!.Merit, optimized.Result.Passed, optimized.Result.Run)
@@ -228,9 +247,9 @@ public sealed partial class DesignService
     // Search screening uses exactly the same Core optimizer and objective, without dense certification per seed.
     private (FilmLayer[] Layers, double Merit, RunRecord Run) RefineThickness(Experiment d,
         IReadOnlyDictionary<string, IMaterial> materials, double[] grid, int maximumIterations,
-        IProgress<DesignProgress>? progress, CancellationToken token)
+        IProgress<DesignProgress>? progress, CancellationToken token, Experiment? validatedStart = null)
     {
-        if (d.Settings.DesignProtocolVersion == 4) return RefineGeneralThickness(d, materials, grid, maximumIterations, progress, token);
+        if (d.Settings.DesignProtocolVersion == 4) return RefineGeneralThickness(d, materials, grid, maximumIterations, progress, token, validatedStart);
         var indices = d.Layers.Select((l, i) => (l, i)).Where(x => x.l.Variable).Select(x => x.i).ToArray();
         if (indices.Length == 0)
             return (d.Layers, ObjectiveMerit(d, Objective(d, Solver(d, materials), grid)),

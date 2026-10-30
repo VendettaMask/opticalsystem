@@ -1,0 +1,53 @@
+{
+  "gates": [
+    {
+      "name": "Converged",
+      "unchanged": true
+    },
+    {
+      "name": "Checks",
+      "unchanged": true
+    }
+  ],
+  "untouched": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmThicknessSensitivity.cs",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Examples.cs",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Data/films.json",
+      "unchanged": true
+    }
+  ],
+  "binaries": [
+    {
+      "name": "OpticalSystemDesign.Core",
+      "before": "03c251c875d01aab0eccfe72c6a9112c5c67464f2387ca3f51e6dd8ad04c3e52",
+      "after": "03c251c875d01aab0eccfe72c6a9112c5c67464f2387ca3f51e6dd8ad04c3e52",
+      "test": "03c251c875d01aab0eccfe72c6a9112c5c67464f2387ca3f51e6dd8ad04c3e52"
+    },
+    {
+      "name": "OpticalSystemDesign.Application",
+      "before": "b29c7cfcc3e0499313f2eb786301f2570049312515473a7d1e72eb542fbdd6f5",
+      "after": "b29c7cfcc3e0499313f2eb786301f2570049312515473a7d1e72eb542fbdd6f5",
+      "test": "b29c7cfcc3e0499313f2eb786301f2570049312515473a7d1e72eb542fbdd6f5"
+    },
+    {
+      "name": "OpticalSystemDesign.CoatingDesign.Engine",
+      "before": "26b96da43a81dfebe1df679d7d1eef92f3d05c427243055c7af783277be3c0db",
+      "after": "dddf6bd891ceff10619393fe4c1bc9f062bfd67c3ea44721fc8848e416f0ee96",
+      "test": "dddf6bd891ceff10619393fe4c1bc9f062bfd67c3ea44721fc8848e416f0ee96"
+    }
+  ],
+  "sameCore": true,
+  "sameNewEngine": true,
+  "referenceIntact": true
+}

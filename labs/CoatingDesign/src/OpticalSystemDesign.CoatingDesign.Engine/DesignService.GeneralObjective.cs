@@ -1,6 +1,7 @@
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
+using System.Text.Json.Serialization;
 
 namespace OpticalSystemDesign.CoatingDesign.Engine;
 
@@ -8,6 +9,28 @@ public sealed record GeneralCoatingWork(long SpectrumEvaluations, long Sensitivi
     int ConstraintPasses, int AdaptiveRefinements, bool AdaptiveLimitReached)
 {
     public int DenseValidations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int QualityPasses { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int QualityIterations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? QualityProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public long BandMetricEvaluations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public long BandSensitivityBatches { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PassbandProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? TargetProtectionProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int TargetProtectionPasses { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public long ProtectedTrialRejections { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int DenseProtectionRejections { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int QualityRestarts { get; init; }
 }
 public sealed record CoatingConstraintAssessment(double[] Violations)
 {
@@ -20,17 +43,37 @@ public sealed record CoatingConstraintAssessment(double[] Violations)
 public sealed partial class DesignService
 {
     public const string GeneralCoatingProtocol = "general-constraint-coating/4";
+    public const string PassbandConstraintProtocol = "measured-passband-constraints/1";
     // Strict interior guidance at the square-root floating-point precision scale; formal limits stay exact.
     private static readonly double GeneralConstraintInteriorGuard = Math.Sqrt(Math.BitIncrement(1.0) - 1.0);
     private sealed class GeneralCounter
     {
-        internal long Spectrum, Sensitivity, Jacobians; internal int Passes, Refinements, Dense; internal bool Limit;
+        internal long Spectrum, Sensitivity, Jacobians, BandMetrics, BandSensitivities, ProtectedRejections;
+        internal int Passes, Refinements, Dense, QualityPasses, QualityIterations, ProtectionPasses, DenseRejections, QualityRestarts; internal bool Limit;
         internal void Add(GeneralCoatingWork? w)
         {
             if (w is null) return; Spectrum += w.SpectrumEvaluations; Sensitivity += w.SensitivityEvaluations; Jacobians += w.AnalyticJacobians;
             Passes += w.ConstraintPasses; Refinements += w.AdaptiveRefinements; Dense += w.DenseValidations; Limit |= w.AdaptiveLimitReached;
+            QualityPasses += w.QualityPasses; QualityIterations += w.QualityIterations;
+            BandMetrics += w.BandMetricEvaluations; BandSensitivities += w.BandSensitivityBatches;
+            ProtectionPasses += w.TargetProtectionPasses; ProtectedRejections += w.ProtectedTrialRejections;
+            DenseRejections += w.DenseProtectionRejections; QualityRestarts += w.QualityRestarts;
         }
-        internal GeneralCoatingWork Snapshot() => new(Spectrum, Sensitivity, Jacobians, Passes, Refinements, Limit) { DenseValidations = Dense };
+        internal GeneralCoatingWork Snapshot() => new(Spectrum, Sensitivity, Jacobians, Passes, Refinements, Limit)
+        {
+            DenseValidations = Dense,
+            QualityPasses = QualityPasses,
+            QualityIterations = QualityIterations,
+            QualityProtocol = QualityPasses > 0 ? ReflectanceQualityProtocol : null,
+            BandMetricEvaluations = BandMetrics,
+            BandSensitivityBatches = BandSensitivities,
+            PassbandProtocol = BandMetrics > 0 ? PassbandConstraintProtocol : null,
+            TargetProtectionProtocol = ProtectionPasses > 0 ? DesignService.TargetProtectionProtocol : null,
+            TargetProtectionPasses = ProtectionPasses,
+            ProtectedTrialRejections = ProtectedRejections,
+            DenseProtectionRejections = DenseRejections,
+            QualityRestarts = QualityRestarts
+        };
     }
     private static GeneralCoatingWork SumGeneralWork(IEnumerable<RunRecord> records)
     { var work = new GeneralCounter(); foreach (var record in records) work.Add(record.GeneralWork); return work.Snapshot(); }
@@ -52,8 +95,22 @@ public sealed partial class DesignService
         var anchors = new[] { t.CenterNm, t.CenterNm - t.CenterToleranceNm, t.CenterNm + t.CenterToleranceNm,
             t.CenterNm - (t.FwhmNm + t.FwhmToleranceNm) / 2, t.CenterNm + (t.FwhmNm + t.FwhmToleranceNm) / 2,
             t.CenterNm - Math.Max(0, t.FwhmNm - t.FwhmToleranceNm) / 2, t.CenterNm + Math.Max(0, t.FwhmNm - t.FwhmToleranceNm) / 2 };
-        return initial.Concat(anchors.Select(w => Math.Clamp(w, t.MinimumNm, t.MaximumNm)))
+        var declared = anchors.Select(w => Math.Clamp(w, t.MinimumNm, t.MaximumNm))
+            .Concat(t.StopBands!.SelectMany(b => new[] { b.MinimumNm, b.MaximumNm })).Append(t.MinimumNm).Append(t.MaximumNm).ToHashSet();
+        var ordered = initial.Concat(declared)
+            .Concat(ThinFilmSpectrum.Grid(Math.Max(t.MinimumNm, t.CenterNm - 2 * t.FwhmNm), Math.Min(t.MaximumNm, t.CenterNm + 2 * t.FwhmNm), 256))
             .Concat(t.StopBands!.SelectMany(b => ThinFilmSpectrum.Grid(b.MinimumNm, b.MaximumNm, 8))).Distinct().Order().ToArray();
+        var merged = new List<double>();
+        foreach (var wave in ordered)
+        {
+            // Four arithmetic operations generate a uniform grid node. Coalesce roundoff duplicates,
+            // retaining exact declared anchors and never merging two distinct requested anchors.
+            var roundoff = merged.Count == 0 ? 0 : Math.Min(4 * (Math.BitIncrement(1.0) - 1) * Math.Max(wave, merged[^1]),
+                Math.Min(t.CenterToleranceNm, t.FwhmToleranceNm) * GeneralConstraintInteriorGuard);
+            if (merged.Count == 0 || wave - merged[^1] > roundoff || declared.Contains(wave) && declared.Contains(merged[^1])) merged.Add(wave);
+            else if (declared.Contains(wave)) merged[^1] = wave;
+        }
+        return merged.ToArray();
     }
 
     private static GeneralSystem GeneralConstraintSystem(Experiment d, CoherentThinFilmSolver solver, double[] grid,
@@ -83,7 +140,9 @@ public sealed partial class DesignService
         }
         int At(double w) => Array.BinarySearch(grid, Math.Clamp(w, t.MinimumNm, t.MaximumNm)) is var index && index >= 0
             ? index : throw new InvalidOperationException("约束光谱缺少目标锚点。");
-        var centerIndex = At(t.CenterNm); var center = points[centerIndex].Power.Transmittance;
+        var centerIndex = Enumerable.Range(0, grid.Length).Where(i => Math.Abs(grid[i] - t.CenterNm) <= 2 * t.FwhmNm)
+            .MaxBy(i => points[i].Power.LogTransmittance);
+        var center = points[centerIndex].Power.Transmittance;
         var values = new List<double>(); var rows = new List<double[]>(); var keys = new List<GeneralConstraintKey>();
         void Row(GeneralConstraintKey key, double value, params (int Point, double Factor, bool Log)[] terms)
         {
@@ -95,27 +154,67 @@ public sealed partial class DesignService
                     ? sensitivity![term.Point].Layers[j].LogTransmittance : sensitivity![term.Point].Layers[j].Transmittance);
             rows.Add(row);
         }
+        void Inactive(GeneralConstraintKey key)
+        { values.Add(double.NegativeInfinity); keys.Add(key); if (derivatives) rows.Add(new double[d.Layers.Length]); }
         var peakScale = t.PeakTransmittance;
         Row(new(0, t.CenterNm), (peakScale - center) / peakScale, (centerIndex, -1 / peakScale, false));
+        var bandIndices = Enumerable.Range(0, grid.Length).Where(i => Math.Abs(grid[i] - t.CenterNm) <= 2 * t.FwhmNm).ToArray();
+        var bandSensitivity = derivatives ? ThinFilmSpectrum.MeasureThicknessSensitivity(bandIndices.Select(i => grid[i]).ToArray(),
+            bandIndices.Select(i => sensitivity![i]).ToArray()) : null;
+        var bandMetrics = bandSensitivity?.Metrics ?? ThinFilmSpectrum.Measure(bandIndices.Select(i => points[i]).ToArray());
+        if (work is not null) { work.BandMetrics++; if (derivatives) work.BandSensitivities++; }
+        var peakEstimate = derivatives ? bandSensitivity!.PeakWavelengthEstimateNanometers
+            : ThinFilmSpectrum.EstimatePeakWavelength(bandIndices.Select(i => points[i]).ToArray());
+        if (peakEstimate is { } location && (!derivatives || bandSensitivity!.PeakWavelengthNanometers is not null))
+            foreach (var sign in new[] { -1, 1 })
+            {
+                values.Add((sign * (location - t.CenterNm) - t.CenterToleranceNm) / t.FwhmNm + GeneralConstraintInteriorGuard);
+                keys.Add(new(sign < 0 ? -4 : -5, t.CenterNm));
+                if (derivatives) rows.Add(bandSensitivity!.PeakWavelengthNanometers!.Select(v => sign * v / t.FwhmNm).ToArray());
+            }
+        else { Inactive(new(-4, t.CenterNm)); Inactive(new(-5, t.CenterNm)); }
+        if (bandMetrics.FwhmNanometers is { } width && (!derivatives || bandSensitivity!.FwhmNanometers is not null))
+        {
+            // Differentiate the same sampled, log-scaled half-height crossings used by formal metrics.
+            // Bracket/peak switches are piecewise smooth; the guide is re-evaluated at every trial.
+            foreach (var sign in new[] { -1, 1 })
+            {
+                values.Add((sign * (width - t.FwhmNm) - t.FwhmToleranceNm) / t.FwhmNm + GeneralConstraintInteriorGuard);
+                keys.Add(new(sign < 0 ? -2 : -3, t.CenterNm));
+                if (derivatives) rows.Add(bandSensitivity!.FwhmNanometers!.Select(v => sign * v / t.FwhmNm).ToArray());
+            }
+        }
+        else { Inactive(new(-2, t.CenterNm)); Inactive(new(-3, t.CenterNm)); }
+        var needsShapeGuide = bandMetrics.FwhmNanometers is not { } measuredWidth || Math.Abs(measuredWidth - t.FwhmNm) > t.FwhmToleranceNm
+            || peakEstimate is not { } measuredCenter || Math.Abs(measuredCenter - t.CenterNm) > t.CenterToleranceNm;
         foreach (var side in new[] { -1, 1 })
         {
+            // Target-edge guidance supplies a passband shape direction alongside the measured metrics.
             var inner = At(t.CenterNm + side * Math.Max(0, t.FwhmNm - t.FwhmToleranceNm) / 2);
             var outer = At(t.CenterNm + side * (t.FwhmNm + t.FwhmToleranceNm) / 2);
-            // Both allowed edges are signed inequalities; no measured grid-peak/FWHM derivative is taken.
-            Row(new(side < 0 ? 1 : 2, grid[inner]), (center / 2 - points[inner].Power.Transmittance) / peakScale, (centerIndex, .5 / peakScale, false), (inner, -1 / peakScale, false));
-            Row(new(side < 0 ? 3 : 4, grid[outer]), (points[outer].Power.Transmittance - center / 2) / peakScale, (outer, 1 / peakScale, false), (centerIndex, -.5 / peakScale, false));
+            if (needsShapeGuide)
+            {
+                Row(new(side < 0 ? 1 : 2, grid[inner]), (center / 2 - points[inner].Power.Transmittance) / peakScale, (centerIndex, .5 / peakScale, false), (inner, -1 / peakScale, false));
+                Row(new(side < 0 ? 3 : 4, grid[outer]), (points[outer].Power.Transmittance - center / 2) / peakScale, (outer, 1 / peakScale, false), (centerIndex, -.5 / peakScale, false));
+            }
+            else { Inactive(new(side < 0 ? 1 : 2, grid[inner])); Inactive(new(side < 0 ? 3 : 4, grid[outer])); }
         }
         var envelope = Enumerable.Range(0, points.Length).Where(i => Math.Abs(grid[i] - t.CenterNm) > t.CenterToleranceNm
             && Math.Abs(grid[i] - t.CenterNm) <= 2 * t.FwhmNm).ToArray();
-        var envelopeScale = peakScale * Math.Sqrt(Math.Max(1, envelope.Length));
-        foreach (var i in envelope)
-            Row(new(5, grid[i]), (points[i].Power.Transmittance - center) / envelopeScale, (i, 1 / envelopeScale, false), (centerIndex, -1 / envelopeScale, false));
+        if (peakEstimate is null && envelope.Length > 0)
+        {
+            var i = envelope.MaxBy(i => points[i].Power.LogTransmittance);
+            var anchor = At(t.CenterNm);
+            Row(new(5, t.CenterNm), (points[i].Power.Transmittance - points[anchor].Power.Transmittance) / peakScale, (i, 1 / peakScale, false), (anchor, -1 / peakScale, false));
+        }
+        else Inactive(new(5, t.CenterNm));
         for (var bandIndex = 0; bandIndex < t.StopBands!.Length; bandIndex++)
         {
             var band = t.StopBands[bandIndex];
             var indices = Enumerable.Range(0, points.Length).Where(i => grid[i] >= band.MinimumNm && grid[i] <= band.MaximumNm).ToArray();
-            var scale = Math.Max(1, t.BlockingOd) * Math.Sqrt(indices.Length);
-            foreach (var i in indices) Row(new(6 + bandIndex, grid[i]), (t.BlockingOd + points[i].Power.LogTransmittance / Math.Log(10)) / scale,
+            var scale = Math.Max(1, t.BlockingOd);
+            var i = indices.MaxBy(i => points[i].Power.LogTransmittance);
+            Row(new(6 + bandIndex, band.MinimumNm), (t.BlockingOd + points[i].Power.LogTransmittance / Math.Log(10)) / scale,
                 (i, sensitivity is not null && !sensitivity[i].HasLogTransmissionDerivative ? 0 : 1 / (Math.Log(10) * scale), true));
         }
         double[,]? jacobian = null;
@@ -151,14 +250,23 @@ public sealed partial class DesignService
 
     private (FilmLayer[] Layers, double Merit, RunRecord Run) RefineGeneralThickness(Experiment d,
         IReadOnlyDictionary<string, IMaterial> materials, double[] initialGrid, int maximumIterations,
-        IProgress<DesignProgress>? progress, CancellationToken token)
+        IProgress<DesignProgress>? progress, CancellationToken token, Experiment? validatedStart = null)
     {
         var work = new GeneralCounter(); var indices = Enumerable.Range(0, d.Layers.Length).Where(i => d.Layers[i].Variable).ToArray();
         var grid = GeneralGrid(d, initialGrid); var referenceGrid = grid;
         var original = GeneralConstraintSystem(d, Solver(d, materials), referenceGrid, false, work);
         var bestAssessment = AssessGeneral(d, original.Samples); var best = d.Layers;
+        var startingAssessment = bestAssessment;
         if (indices.Length == 0 || d.Settings.MinimumThicknessNm == d.Settings.MaximumThicknessNm) return (best, bestAssessment.Merit,
             new("无变量", GeneralCoatingProtocol, "全部膜层固定", 1, 0, null) { DesignProtocol = GeneralCoatingProtocol, GeneralWork = work.Snapshot() });
+        // If peak T or a stop band is unfinished, protect its starting violation during the solve.
+        // With those quality targets already met, retain the established target-restoration direction
+        // for width/centering and apply the same componentwise envelope to every retained candidate.
+        var qualityState = validatedStart is null ? bestAssessment : AssessGeneral(validatedStart, validatedStart.Result!.Spectrum);
+        if (d.Target.Kind == DesignKind.NarrowBand && (qualityState.Violations[0] > 0 || qualityState.Violations.Skip(3).Any(v => v > 0)))
+            return RefineProtectedGeneralThickness(d, materials, grid, maximumIterations, work, validatedStart, progress, token);
+        if (d.Target.Kind != DesignKind.NarrowBand && bestAssessment.CoarselyFeasible)
+            return RefineGeneralReflectanceQuality(d, materials, grid, maximumIterations, work, progress, token);
         var units = indices.Select(i => CoherentThinFilmSolver.CharacteristicThickness(materials[d.Layers[i].MaterialId], materials[d.IncidentId],
             d.Target.CenterNm, d.Target.AngleDegrees)).ToArray();
         var phase = indices.Select((i, k) => d.Layers[i].ThicknessNm / units[k]).ToArray();
@@ -173,6 +281,7 @@ public sealed partial class DesignService
         while (remaining > 0)
         {
             token.ThrowIfCancellationRequested(); work.Passes++;
+            if (d.Target.Kind == DesignKind.NarrowBand) work.ProtectionPasses++;
             var problem = new OptimizationProblem(); problem.DisableBatching(); problem.EnableBoundActiveSet();
             for (var j = 0; j < phase.Length; j++)
             {
@@ -186,7 +295,16 @@ public sealed partial class DesignService
                 token.ThrowIfCancellationRequested();
                 if (cachedPhase is not null && cachedPhase.SequenceEqual(phase)) return cached!;
                 var current = d with { Layers = Layers() };
-                cached = GeneralConstraintSystem(current, Solver(current, materials), grid, analytic, work); cachedPhase = phase.ToArray(); return cached;
+                cached = GeneralConstraintSystem(current, Solver(current, materials), grid, analytic, work); cachedPhase = phase.ToArray();
+                // The AL merit and the formal feasibility rank are different. Retain physical improvements
+                // seen inside a pass as well as its final iterate, using one fixed ranking grid.
+                var ranking = ReferenceEquals(grid, referenceGrid) ? cached
+                    : GeneralConstraintSystem(current, Solver(current, materials), referenceGrid, false, work);
+                var assessment = AssessGeneral(current, ranking.Samples);
+                if (WithinGeneralTargetEnvelope(assessment, startingAssessment) && PreferGeneral(assessment, bestAssessment))
+                { best = current.Layers; bestAssessment = assessment; }
+                else if (!WithinGeneralTargetEnvelope(assessment, startingAssessment)) work.ProtectedRejections++;
+                return cached;
             }
             var raw = Current(); multipliers = raw.Keys.Select(key => multiplierMap.GetValueOrDefault(key)).ToArray();
             double Value(int i)
@@ -212,8 +330,16 @@ public sealed partial class DesignService
             work.Jacobians += problem.AnalyticJacobianEvaluations; reason = report.StopReason;
             var result = Layers(); var assessmentSystem = GeneralConstraintSystem(d with { Layers = result }, Solver(d, materials, result), referenceGrid, false, work);
             var assessment = AssessGeneral(d, assessmentSystem.Samples);
-            if (PreferGeneral(assessment, bestAssessment)) { best = result; bestAssessment = assessment; }
+            if (WithinGeneralTargetEnvelope(assessment, startingAssessment) && PreferGeneral(assessment, bestAssessment)) { best = result; bestAssessment = assessment; }
             progress?.Report(new("通用约束膜厚优化", evaluations, assessment.Merit));
+            // Keep the target-based feasibility step as a preconditioner (also for short screening).
+            // Remaining work minimizes the actual worst reflectance even if feasibility was not reached.
+            if (d.Target.Kind != DesignKind.NarrowBand && remaining > 0)
+            {
+                var polished = RefineGeneralReflectanceQuality(d with { Layers = best }, materials, grid, remaining, work, progress, token);
+                return (polished.Layers, polished.Merit, polished.Run with
+                { Evaluations = evaluations + polished.Run.Evaluations, Iterations = iterations + polished.Run.Iterations });
+            }
             var currentSystem = Current(); var violation = currentSystem.Values.Max(v => Math.Max(0, v));
             for (var i = 0; i < multipliers.Length; i++) multipliers[i] = double.IsNegativeInfinity(currentSystem.Values[i]) ? 0
                 : Math.Min(1e12, Math.Max(0, multipliers[i] + penalty * currentSystem.Values[i]));
@@ -234,6 +360,13 @@ public sealed partial class DesignService
         }
         return (best, bestAssessment.Merit,
             new(d.Settings.Optimizer, GeneralCoatingProtocol, reason, evaluations, iterations, d.Settings.RandomSeed)
-            { DesignProtocol = GeneralCoatingProtocol, GeneralWork = work.Snapshot() });
+            {
+                DesignProtocol = GeneralCoatingProtocol,
+                GeneralWork = work.Snapshot(),
+                TargetViolationCeilings = d.Target.Kind != DesignKind.NarrowBand ? null
+                    : validatedStart is null ? startingAssessment.Violations : AssessGeneral(validatedStart, validatedStart.Result!.Spectrum).Violations,
+                TargetEnvelopeSampling = d.Target.Kind != DesignKind.NarrowBand ? null : validatedStart is null ? "guidance-start" : "dense-start",
+                TargetProtectionPhase = d.Target.Kind == DesignKind.NarrowBand ? "shape-restoration" : null
+            });
     }
 }
