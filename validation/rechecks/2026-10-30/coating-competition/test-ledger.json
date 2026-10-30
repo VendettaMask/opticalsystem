@@ -1,0 +1,473 @@
+{
+  "Scope": "Latest outcomes per current full test identity; initial run and affected final rerun are distinct batches, not one all-green full run.",
+  "Total": 75,
+  "Passed": 75,
+  "Failed": 0,
+  "RetiredIdentityReason": "Single matching Fact was expanded to six current parameterized reference controls; original failure and repair records retained.",
+  "Retired": [
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.ActualMediumMatchingRestoresLosslessTransmissionWithoutChangingTheFilterAndHonorsFixedLayers",
+      "Outcome": "Failed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0385721"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.ActualMediumMatchingRestoresLosslessTransmissionWithoutChangingTheFilterAndHonorsFixedLayers",
+      "Outcome": "Passed",
+      "Source": "attempt-1/matching-recheck/matching.trx",
+      "Duration": "00:00:01.0517198"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ConstantIndexCavityProposalsMatchTheActualPinnedTfStudioLayerBuilder",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:04.2111755"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ConstantPhysicalResponseDoesNotGainOrLoseWeightWhenObjectiveGridDensityChanges(kind: Antireflection)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.9524399"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ConstantPhysicalResponseDoesNotGainOrLoseWeightWhenObjectiveGridDensityChanges(kind: NarrowBand)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.3201210"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ModernSearchReusesScreenedTemplatesAccountsForEveryRefinementAndPreservesFixedLayers",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:01.8722157"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.NullProtocolPreservesLegacyGenerationAndUnknownProtocolsAreRejected",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0674307"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.RefinedTemplatesProduceAPromisingArSeedAndKeepUnverifiedCandidatesUnqualified",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:01.4269724"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyVersionOneExampleRemainsReadableWithOriginalFingerprint",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0678380"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: False)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.6277150"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: True)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.6643297"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintStillRejectsChangedInputs",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.5389741"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MaterialImportPreservesUnitsExtinctionAndExactTableOnRoundTrip",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.4538971"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MultipleCavitiesGenerateRealStacksWithinLayerLimitAndDenseGridAgrees(cavities: 2)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:01.9886597"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MultipleCavitiesGenerateRealStacksWithinLayerLimitAndDenseGridAgrees(cavities: 3)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:02.6765329"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.SearchIsDeterministicRecordsEveryStartAndPreservesFixedLayers",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.3477687"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.ToleranceCorrelationsReproduceActualTrialsAndSurviveExport(correlation: Common)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:02.1819766"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.ToleranceCorrelationsReproduceActualTrialsAndSurviveExport(correlation: Independent)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:02.8791224"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.ToleranceCorrelationsReproduceActualTrialsAndSurviveExport(correlation: SameMaterial)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:03.2966157"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"cancel\", canClose: False)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:03.4747960"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"changed-during-save\", canClose: False)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:03.9281365"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"clean\", canClose: True)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:03.1143252"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"discard\", canClose: True)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:03.2786387"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"save-cancel\", canClose: False)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:03.1816937"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"save-failed\", canClose: False)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:06.2276533"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"save-ok\", canClose: True)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:03.2844875"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.MaterialDialogCreatesIndependentSnapshotAndInvalidatesOldResult",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:09.8935169"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: 2)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:04.9810006"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: 3)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:04.7979459"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: null)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:04.0734613"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 1200, height: 900)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:33.2832892"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 640)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:32.9686607"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 900)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:36.7799548"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SaveOpenExportButtonsPreserveSnapshotAndBrokenFileClearsOldContent",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:07.5176925"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 0)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:05.5991668"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 1)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:05.9954143"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 2)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:05.2738847"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 3)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:04.8671384"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 4)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:04.7459474"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ThicknessFormattingDoesNotRoundStoredValuesAndInvalidEditsRemainInvalid",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0008918"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.AbsorbingMaterialDiagnosisIsInformationalAndNeverChangesInputOrAcceptance",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:01.0862650"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.ActualMediumMatchingRestoresLosslessTransmissionWithoutChangingTheFilterAndHonorsFixedLayers(referenceCase: 0)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.0754584"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.ActualMediumMatchingRestoresLosslessTransmissionWithoutChangingTheFilterAndHonorsFixedLayers(referenceCase: 1)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.0581024"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.ActualMediumMatchingRestoresLosslessTransmissionWithoutChangingTheFilterAndHonorsFixedLayers(referenceCase: 2)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.0825729"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.ActualMediumMatchingRestoresLosslessTransmissionWithoutChangingTheFilterAndHonorsFixedLayers(referenceCase: 3)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.1153710"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.ActualMediumMatchingRestoresLosslessTransmissionWithoutChangingTheFilterAndHonorsFixedLayers(referenceCase: 4)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.0994001"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.ActualMediumMatchingRestoresLosslessTransmissionWithoutChangingTheFilterAndHonorsFixedLayers(referenceCase: 5)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.0713223"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.CompetitionPreservesBoundsWorkProvenanceAndOriginalDenseAcceptanceOnSaveAndReopen",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:05.6600989"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.FixedLayerSearchCannotRegenerateOrAddMatchingLayersAndCancellationPublishesNoResult",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.4526606"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.HighReflectorDiagnosisUsesTheWorstVerifiedPointAndAccountsForFilmAbsorption",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.2317049"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.PublicPrototypeBuilderAgreesWithEveryFrozenPinnedReferenceLayerIncludingParityAndSpacerOrder",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.1212344"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.NarrowBandCompetitionTests.StructuralSearchRecordsEveryCompleteFinalistAndRetainsIndependentAcceptance",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:04.3663066"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.BareFresnelAndBrewsterAnalyticChecks",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0003842"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.FixedUpstreamReferenceMatchesAllCases",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0317996"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.HighReflectorMatchesQuarterWaveAnalyticSolution",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0005437"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 0)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.2356600"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 35)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0025867"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 70)",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0031623"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.SingleQuarterWaveCancelsAndZeroThicknessIsIdentity",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0009564"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.ThickAbsorberAndThousandLayersRemainFiniteWithoutClippingTransmission",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0023539"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.TotalInternalReflectionAndPassiveInputValidation",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0046605"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.AbsorbingSubstrateFresnelAndThickFilmLimitAreIndependentAnalyticChecks",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0003136"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.CancelAndParameterEditInvalidatePendingTask",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0150670"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.CancellationDuringOptimizationStopsAtEvaluationBoundary",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:10.3184647"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.FixedLayersAndThicknessBoundsArePreserved",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.6433128"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.ImpossibleGoalReportsSpecificFailureInsteadOfOptimizerSuccess",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0916618"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.InputMaterialSnapshotsAreDetachedFromCallerArrays",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0087474"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.InvalidInputsAndOutOfRangeMaterialsAreNotSilentlyCoerced",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0103481"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.NarrowBandDenseSamplingConvergesAgainstIndependentDenserGrid",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:26.8986214"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.OdUsesRawLogTransmissionAndDisplayDoesNotAffectAcceptance",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0004741"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.OldTaskCannotOverwriteEditedOrSwitchedExperimentEvenIfItIgnoresCancellation",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.0179304"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.PreCancelledGenerationOptimizationAndToleranceStop",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:00.5594553"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: Antireflection)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:00.7622231"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: HighReflector)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:19.0568288"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: NarrowBand)",
+      "Outcome": "Passed",
+      "Source": "final/test-results/affected.trx",
+      "Duration": "00:00:27.6478815"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.SaveOpenRecalculatesIdenticallyAndExportPreservesPrecision",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:01.4837613"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.ToleranceUsesSameSolverAndDeterministicSharedSampler",
+      "Outcome": "Passed",
+      "Source": "attempt-1/test-results/module.trx",
+      "Duration": "00:00:02.0398280"
+    }
+  ]
+}

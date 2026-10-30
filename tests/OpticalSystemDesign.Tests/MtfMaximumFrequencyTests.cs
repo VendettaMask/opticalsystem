@@ -7,7 +7,7 @@ namespace OpticalSystemDesign.Tests;
 public sealed class MtfMaximumFrequencyTests
 {
     [Fact]
-    public void MtfCurvesUseDeclaredFieldNamesAndCoordinates()
+    public void MtfCurvesUseFieldNumbersAndShortDirectionLabels()
     {
         var optic = Optic.CreateCookeTriplet();
 
@@ -19,12 +19,12 @@ public sealed class MtfMaximumFrequencyTests
 
         Assert.Equal(new[]
         {
-            "On axis (Y=0 °), Tangential",
-            "On axis (Y=0 °), Sagittal",
-            "14 deg (Y=14 °), Tangential",
-            "14 deg (Y=14 °), Sagittal",
-            "20 deg (Y=20 °), Tangential",
-            "20 deg (Y=20 °), Sagittal"
+            "Field 1, T",
+            "Field 1, S",
+            "Field 2, T",
+            "Field 2, S",
+            "Field 3, T",
+            "Field 3, S"
         }, data.PlotSeries.Select(series => series.Name));
         for (var fieldIndex = 0; fieldIndex < optic.Fields.Count; fieldIndex++)
         {
@@ -38,7 +38,7 @@ public sealed class MtfMaximumFrequencyTests
     }
 
     [Fact]
-    public void RealImageHeightMtfLegendUsesMillimetersInsteadOfNormalizedFields()
+    public void RealImageHeightMtfLegendUsesFieldNumbersInsteadOfCustomLabels()
     {
         var optic = Optic.CreateCookeTriplet();
         optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
@@ -56,18 +56,18 @@ public sealed class MtfMaximumFrequencyTests
             maximumFrequency: 20).GenerateData();
 
         Assert.Equal(10, data.PlotSeries.Count);
-        Assert.Equal("轴上视场 (Y=0 mm), Tangential", data.PlotSeries[0].Name);
-        Assert.Equal("视场 2 (Y=1.125 mm), Tangential", data.PlotSeries[2].Name);
-        Assert.Equal("视场 3 (Y=2.25 mm), Tangential", data.PlotSeries[4].Name);
-        Assert.Equal("视场 4 (Y=3.375 mm), Tangential", data.PlotSeries[6].Name);
-        Assert.Equal("最大Y视场 (Y=4.5 mm), Tangential", data.PlotSeries[8].Name);
+        Assert.Equal("Field 1, T", data.PlotSeries[0].Name);
+        Assert.Equal("Field 2, T", data.PlotSeries[2].Name);
+        Assert.Equal("Field 3, T", data.PlotSeries[4].Name);
+        Assert.Equal("Field 4, T", data.PlotSeries[6].Name);
+        Assert.Equal("Field 5, T", data.PlotSeries[8].Name);
         Assert.DoesNotContain(data.PlotSeries, series =>
             series.Name?.Contains("Hx:", StringComparison.Ordinal) == true
             || series.Name?.Contains("Hy:", StringComparison.Ordinal) == true);
     }
 
     [Fact]
-    public void ThroughFocusMtfLegendsUseDeclaredRealImageHeightFields()
+    public void ThroughFocusMtfLegendsUseDeclaredRealImageHeightFieldNumbers()
     {
         var optic = Optic.CreateCookeTriplet();
         optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
@@ -97,11 +97,11 @@ public sealed class MtfMaximumFrequencyTests
         foreach (var data in new[] { methodSpecific, sampled })
         {
             Assert.Equal(10, data.PlotSeries.Count);
-            Assert.Equal("Field 1 (Y=0 mm), Tangential", data.PlotSeries[0].Name);
-            Assert.Equal("Field 2 (Y=4.5 mm), Tangential", data.PlotSeries[2].Name);
-            Assert.Equal("Field 3 (Y=3.375 mm), Tangential", data.PlotSeries[4].Name);
-            Assert.Equal("Field 4 (Y=2.25 mm), Tangential", data.PlotSeries[6].Name);
-            Assert.Equal("Field 5 (Y=1.125 mm), Tangential", data.PlotSeries[8].Name);
+            Assert.Equal("Field 1, T", data.PlotSeries[0].Name);
+            Assert.Equal("Field 2, T", data.PlotSeries[2].Name);
+            Assert.Equal("Field 3, T", data.PlotSeries[4].Name);
+            Assert.Equal("Field 4, T", data.PlotSeries[6].Name);
+            Assert.Equal("Field 5, T", data.PlotSeries[8].Name);
             Assert.DoesNotContain(data.PlotSeries, series =>
                 series.Name?.Contains("Hx", StringComparison.Ordinal) == true
                 || series.Name?.Contains("Hy", StringComparison.Ordinal) == true);
@@ -223,7 +223,7 @@ public sealed class MtfMaximumFrequencyTests
             fieldNumber: 2).GenerateData();
 
         Assert.Equal(2, data.PlotSeries.Count);
-        Assert.StartsWith("14 deg (Y=14 °)", data.PlotSeries[0].Name);
+        Assert.Equal("Field 2, T", data.PlotSeries[0].Name);
         Assert.Equal(
             new[] { optic.Wavelengths[1].Micrometers },
             Assert.IsType<double[]>(data.Values["WavelengthsMicrometers"]));

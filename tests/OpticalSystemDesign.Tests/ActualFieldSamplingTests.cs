@@ -11,12 +11,13 @@ public sealed class ActualFieldSamplingTests
     {
         var optic = Optic.CreateCookeTriplet();
         var expectedCoordinates = new[] { 0.0, 2.75, 9.125 };
-        var expectedLabels = new[] { "Center", "Actual 2.75 deg", "Actual 9.125 deg" };
+        var customLabels = new[] { "Center", "Actual 2.75 deg", "Actual 9.125 deg" };
+        var expectedLabels = new[] { "Field 1", "Field 2", "Field 3" };
         for (var index = 0; index < optic.Fields.Count; index++)
         {
             optic.Fields[index].X = 0;
             optic.Fields[index].Y = expectedCoordinates[index];
-            optic.Fields[index].Label = expectedLabels[index];
+            optic.Fields[index].Label = customLabels[index];
         }
 
         var rms = new RmsVsFieldAnalysis(

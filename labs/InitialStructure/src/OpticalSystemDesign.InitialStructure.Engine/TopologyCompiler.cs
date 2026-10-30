@@ -81,10 +81,14 @@ public static class TopologyCompiler
                 MechanicalSemiDiameterMillimeters = topology.Stop.MechanicalSemiDiameterMillimeters }, "Air", Stop: true),
             new(topology.Image.Id, topology.Image.ZMillimeters, null, "Air", Image: true)
         };
-        foreach (var element in topology.Elements)
+        for (var elementIndex = 0; elementIndex < topology.Elements.Length; elementIndex++)
         {
-            nodes.Add(new(element.FrontSurfaceId, element.FrontZMillimeters, element.Front, materialByElement[element.Id].Name));
-            nodes.Add(new(element.BackSurfaceId, element.BackZMillimeters, element.Back, "Air"));
+            var element = topology.Elements[elementIndex];
+            var leftContact = topology.CementedInterfaces?.Interfaces.Any(contact => contact.RightElementId == element.Id) == true;
+            var rightContact = topology.CementedInterfaces?.Interfaces.Any(contact => contact.LeftElementId == element.Id) == true;
+            if (!leftContact) nodes.Add(new(element.FrontSurfaceId, element.FrontZMillimeters, element.Front, materialByElement[element.Id].Name));
+            nodes.Add(new(element.BackSurfaceId, element.BackZMillimeters, element.Back,
+                rightContact ? materialByElement[topology.Elements[elementIndex + 1].Id].Name : "Air"));
         }
         // Only the non-refracting reference and independent stop may coincide.
         nodes = nodes.OrderBy(node => node.Z).ThenBy(node => node.Reference ? 0 : 1).ToList();
@@ -192,11 +196,15 @@ public static class TopologyCompiler
             var back = optic.SurfaceGroup.Items[map.BackIndex];
             var originalFront = originalOptic.SurfaceGroup.Items[map.FrontIndex];
             var originalBack = originalOptic.SurfaceGroup.Items[map.BackIndex];
-            Require(front.MaterialAfter is CatalogGlassMaterial && back.MaterialAfter is AirMaterial,
+            var rightContact = source.Topology.CementedInterfaces?.Interfaces.Any(contact => contact.LeftElementId == element.Id) == true;
+            Require(front.MaterialAfter is CatalogGlassMaterial && (rightContact ? back.MaterialAfter is CatalogGlassMaterial : back.MaterialAfter is AirMaterial),
                 TopologyFailureCode.IdentityMismatch, "An element's material/air topology changed without rebuilding its mapping.");
             Require(ContentFingerprint.Compute(snapshot.Surfaces[map.FrontIndex].Components!.MaterialAfterComponent!)
                 == ContentFingerprint.Compute(originalSnapshot.Surfaces[map.FrontIndex].Components!.MaterialAfterComponent!),
                 TopologyFailureCode.IdentityMismatch, "A material branch requires a new compiled template and binding.");
+            Require(ContentFingerprint.Compute(snapshot.Surfaces[map.BackIndex].Components!.MaterialAfterComponent!)
+                == ContentFingerprint.Compute(originalSnapshot.Surfaces[map.BackIndex].Components!.MaterialAfterComponent!),
+                TopologyFailureCode.IdentityMismatch, "The material after the back/shared interface changed without rebuilding its binding.");
             var sameFrontZ = front.CoordinateSystem.Origin.Z == originalFront.CoordinateSystem.Origin.Z;
             var sameBackZ = back.CoordinateSystem.Origin.Z == originalBack.CoordinateSystem.Origin.Z;
             var updated = element with
@@ -219,7 +227,7 @@ public static class TopologyCompiler
         return Compile(model, source.Constraints);
     }
 
-    /// <summary>Import only the declared independent-singlet, stop-sized, centered infinite-conjugate support domain.</summary>
+    /// <summary>Import centered, stop-sized, infinite-conjugate catalog singlets and explicit shared glass interfaces.</summary>
     public static CompiledTopology Import(OpticSnapshot snapshot, TopologyConstraints? constraints = null, double referenceZMillimeters = 0)
     {
         var optic = SupportedOptic(snapshot);
@@ -232,6 +240,8 @@ public static class TopologyCompiler
         Require(PlaneEquivalent(stop.Geometry) && stop.MaterialBefore is AirMaterial && stop.MaterialAfter is AirMaterial,
             TopologyFailureCode.UnsupportedFeature, "The stop must be a planar independent interface in air.");
         var elements = ImmutableArray.CreateBuilder<LensElement>();
+        var contacts = ImmutableArray.CreateBuilder<TopologyCementedInterface>();
+        var continuedGlass = false;
         var importedMaterials = new List<string>();
         var normalizedSnapshot = optic.ToSnapshot();
         for (var index = 1; index + 1 < surfaces.Count; index++)
@@ -239,16 +249,19 @@ public static class TopologyCompiler
             var front = surfaces[index];
             if (index == stopIndex) continue;
             if (index == 1 && PlaneEquivalent(front.Geometry) && front.PhysicalAperture is null && front.MaterialAfter is AirMaterial) continue;
-            Require(front.MaterialBefore is AirMaterial && front.MaterialAfter is CatalogGlassMaterial && index + 2 < surfaces.Count,
-                TopologyFailureCode.UnsupportedFeature, "Only unambiguous air-separated catalog singlets can be imported.");
+            Require((continuedGlass ? front.MaterialBefore is CatalogGlassMaterial : front.MaterialBefore is AirMaterial)
+                && front.MaterialAfter is CatalogGlassMaterial && index + 2 < surfaces.Count,
+                TopologyFailureCode.UnsupportedFeature, "Only unambiguous catalog glass regions and shared cemented interfaces can be imported.");
             var back = surfaces[index + 1];
-            Require(!back.IsStop && back.MaterialAfter is AirMaterial && back.MaterialBefore.Name == front.MaterialAfter.Name,
-                TopologyFailureCode.UnsupportedFeature, "Cemented, interrupted or incorrectly connected glass regions are not supported.");
+            Require(!back.IsStop && back.MaterialAfter is AirMaterial or CatalogGlassMaterial && back.MaterialBefore.Name == front.MaterialAfter.Name,
+                TopologyFailureCode.UnsupportedFeature, "Interrupted or incorrectly connected glass regions are not supported.");
             var id = "element-" + (elements.Count + 1).ToString("D3", System.Globalization.CultureInfo.InvariantCulture);
+            var frontId = continuedGlass ? elements[^1].BackSurfaceId : id + ":front";
+            if (continuedGlass) contacts.Add(new(elements[^1].Id, id, frontId));
             elements.Add(new()
             {
                 Id = id,
-                FrontSurfaceId = id + ":front",
+                FrontSurfaceId = frontId,
                 BackSurfaceId = id + ":back",
                 FrontZMillimeters = front.CoordinateSystem.Origin.Z + referenceZMillimeters,
                 ThicknessMillimeters = back.CoordinateSystem.Origin.Z - front.CoordinateSystem.Origin.Z,
@@ -257,7 +270,8 @@ public static class TopologyCompiler
                 Back = Face(back, snapshot.Surfaces[index + 1])
             });
             importedMaterials.Add(ContentFingerprint.Compute(normalizedSnapshot.Surfaces[index].Components!.MaterialAfterComponent!));
-            index++;
+            continuedGlass = back.MaterialAfter is CatalogGlassMaterial;
+            if (!continuedGlass) index++;
         }
         var model = new DesignTopology
         {
@@ -266,6 +280,7 @@ public static class TopologyCompiler
             Stop = new("stop", stop.CoordinateSystem.Origin.Z + referenceZMillimeters, Aperture(stop), snapshot.Surfaces[stopIndex].MechanicalSemiDiameter),
             Image = new("image", surfaces[^1].CoordinateSystem.Origin.Z + referenceZMillimeters),
             Elements = elements.ToImmutable(),
+            CementedInterfaces = contacts.Count == 0 ? null : new() { Interfaces = contacts.ToImmutable() },
             Fields = optic.Fields.Select(field => new TopologyField(field.Label, field.XAngleDegrees, field.YAngleDegrees, field.Weight)).ToImmutableArray(),
             Wavelengths = optic.Wavelengths.Select(wave => new WavelengthSpecification { Label = wave.Label, Nanometers = wave.Nanometers, Weight = wave.Weight, IsPrimary = wave.IsPrimary }).ToImmutableArray(),
             GlassCatalogs = optic.GlassCatalogs.ToImmutableArray(),

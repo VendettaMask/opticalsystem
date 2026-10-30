@@ -64,7 +64,7 @@ public static partial class CameraContinuousSpectrum
 {
     public const int MaximumNodes = 36864;
     public const long MaximumPixelNodes = 100_000_000;
-    private const double Hc = 6.62607015e-34 * 299792458;
+    private const double Hc = PhotonRadiometry.PlanckTimesLightSpeed;
 
     public static SpectralIntegrationPlan BuildPlan(ScalarSpectrum illuminant, ScalarSpectrum reflectance,
         SensorSpectralResponse qe, ContinuousSpectrumSettings settings)
@@ -114,17 +114,18 @@ public static partial class CameraContinuousSpectrum
     }
 
     public static ContinuousImageResult Integrate(RgbImage linearSource, CameraSensorSettings sensor,
-        SpectralIntegrationPlan plan, Func<RgbImage, double, RgbImage>? propagate = null)
+        SpectralIntegrationPlan plan, Func<RgbImage, double, RgbImage>? propagate = null, CameraPixelSampling? pixelSampling = null)
     {
         ArgumentNullException.ThrowIfNull(linearSource); ArgumentNullException.ThrowIfNull(plan);
-        CameraSensorPipeline.Validate(sensor, new()); CameraSensorPipeline.ValidateDimensions(linearSource.Width, linearSource.Height);
+        CameraSensorPipeline.Validate(sensor, new());
+        var (width, height) = CameraPixelAperture.OutputDimensions(linearSource.Width, linearSource.Height, pixelSampling);
         if (linearSource.Channels != 3 || plan.Nodes.Count is < 3 or > MaximumNodes
             || propagate is not null && (long)linearSource.Width * linearSource.Height * plan.Nodes.Count > MaximumPixelNodes)
             throw new ArgumentException("Invalid continuous source or pixel × node work exceeds 100 million.");
-        var width = linearSource.Width; var height = linearSource.Height;
-        var mask = new double[1, height, width]; var displayMask = new double[3, height, width];
+        var sampleWidth = linearSource.Width; var sampleHeight = linearSource.Height;
+        var mask = new double[1, sampleHeight, sampleWidth]; var displayMask = new double[3, sampleHeight, sampleWidth];
         var preview = new double[3, height, width]; var photo = new double[width * height];
-        for (var y = 0; y < height; y++) for (var x = 0; x < width; x++)
+        for (var y = 0; y < sampleHeight; y++) for (var x = 0; x < sampleWidth; x++)
         {
             for (var c = 0; c < 3; c++)
                 if (!double.IsFinite(linearSource[c, y, x]) || linearSource[c, y, x] is < 0 or > 1)
@@ -133,7 +134,10 @@ public static partial class CameraContinuousSpectrum
             for (var c = 0; c < 3; c++) displayMask[c, y, x] = mask[0, y, x];
         }
         var input = new RgbImage(mask);
-        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000;
+        var sourcePreview = CameraPixelAperture.Average(new(displayMask), pixelSampling is null ? null : pixelSampling with { FillFactor = 1 });
+        var sampledMask = CameraPixelAperture.Average(input, pixelSampling);
+        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000
+            * CameraPixelAperture.ChargeScale(pixelSampling);
         if (propagate is null)
         {
             // Identity optical transfer is wavelength independent: sum spectra once, preserving
@@ -153,19 +157,20 @@ public static partial class CameraContinuousSpectrum
                 for (var x = 0; x < width; x++)
                 {
                     var i = y * width + x;
-                    photo[i] = mask[0, y, x] * coefficients[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)];
+                    photo[i] = sampledMask[0, y, x] * coefficients[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)];
                     if (!double.IsFinite(photo[i]) || photo[i] > 1e10) throw new ArgumentOutOfRangeException(nameof(plan), "Integrated photocharge exceeds 1e10 electrons.");
-                    for (var c = 0; c < 3; c++) preview[c, y, x] = mask[0, y, x] * transfer;
+                    for (var c = 0; c < 3; c++) preview[c, y, x] = sampledMask[0, y, x] * transfer;
                 }
             }
-            return new(new(displayMask), new(preview), photo);
+            return new(sourcePreview, new(preview), photo);
         }
         foreach (var node in plan.Nodes)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var optical = propagate(input, node.WavelengthNanometers);
-            if (optical.Channels != 1 || optical.Width != width || optical.Height != height)
+            if (optical.Channels != 1 || optical.Width != sampleWidth || optical.Height != sampleHeight)
                 throw new ArgumentException("Monochromatic optical result must match the spatial mask.");
+            optical = CameraPixelAperture.Average(optical, pixelSampling);
             var energyWeight = node.IrradianceWattsPerSquareMeterPerNanometer * node.Reflectance * node.WeightNanometers;
             var photonWeight = energyWeight * node.WavelengthNanometers * 1e-9 / Hc * areaTime;
             var efficiencies = new[] { node.RedQe, node.GreenQe, node.BlueQe };
@@ -184,6 +189,6 @@ public static partial class CameraContinuousSpectrum
                 }
             }
         }
-        return new(new(displayMask), new(preview), photo);
+        return new(sourcePreview, new(preview), photo);
     }
 }

@@ -13,6 +13,7 @@ public sealed class MarkdownReportSettings
     public bool Include3DLayout { get; set; } = true;
     public bool AllConfigurations { get; set; }
     public DesignReportFormat Format { get; set; } = DesignReportFormat.Markdown;
+    public bool PdfIncludeDetails { get; set; }
 
     public MarkdownReportSettings Copy() => new()
     {
@@ -22,6 +23,7 @@ public sealed class MarkdownReportSettings
         Include2DLayout = Include2DLayout,
         Include3DLayout = Include3DLayout,
         AllConfigurations = AllConfigurations,
-        Format = Format
+        Format = Format,
+        PdfIncludeDetails = PdfIncludeDetails
     };
 }

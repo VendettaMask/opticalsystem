@@ -1,0 +1,76 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tmp\cross-format-tests\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:13.19]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word) [FAIL]
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word) [7 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 2
+Actual:   0
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 98
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:22.11]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf) [FAIL]
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf) [8 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 2
+Actual:   0
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 98
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:22.80]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown) [FAIL]
+[xUnit.net 00:00:23.43]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html) [FAIL]
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown) [680 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 2
+Actual:   0
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 98
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html) [620 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 2
+Actual:   0
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 98
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-30\all-format-analysis-repairs\cross-format-final.trx
+
+失败!  - 失败:     4，通过:     0，已跳过:     0，总计:     4，持续时间: 17 s - OpticalSystemDesign.Tests.dll (net10.0)

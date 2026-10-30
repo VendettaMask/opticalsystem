@@ -22,6 +22,12 @@ public static class ParaxialSeedSearch
     {
         options ??= plan.Options.SeedPreparation ?? new();
         ValidateOptions(options);
+        if (options.Retrieval is not null)
+            return LensRetrievalSearch.Run(plan, options, cancellationToken, progress);
+        if (options.Evolution is not null)
+            return StructureEvolutionSearch.Run(plan, options, cancellationToken, progress);
+        if (options.Competition is not null)
+            return StructureCompetitionSearch.Run(plan, options, cancellationToken, progress);
         _ = AutonomousSearchService.Create("seed-preparation-check", plan);
         if (AutonomousSearchService.IsHistoricalReadOnlyPlan(plan))
             throw new NotSupportedException("Historical read-only optimizer plans cannot prepare new seeds. Create a new versioned plan.");
@@ -30,6 +36,7 @@ public static class ParaxialSeedSearch
         var protocol = ContentFingerprint.Compute(new
         {
             Identity = options.ImageScreening is not null ? "initial-structure-real-ray-ranked-seeds-v1"
+                : options.Generation?.MaterializationVersion == 3 ? "initial-structure-feasible-thick-seeds-v3"
                 : options.Generation?.MaterializationVersion == 2 ? "initial-structure-thick-delano-seeds-v2"
                 : options.Generation is null ? "initial-structure-paraxial-seeds-v1" : "initial-structure-descriptor-seeds-v1",
             plan,
@@ -63,11 +70,13 @@ public static class ParaxialSeedSearch
                 var before = functions;
                 var outcome = "NoFirstOrderSeed";
                 Sample? last = null, accepted = null;
+                StructureGenerationWork? constructionWork = null;
                 try
                 {
                     if (options.Generation is { } generation)
                     {
                         var generationWork = new StructureGenerationWork();
+                        constructionWork = generationWork;
                         try
                         {
                             template = StructureSeedGenerator.Create(plan, generation, ref random, () =>
@@ -234,7 +243,12 @@ public static class ParaxialSeedSearch
                 finally
                 {
                     attempts.Add(new(start, ContentFingerprint.Compute(template), outcome, functions - before,
-                        accepted is null ? null : accepted.Residuals.Take(3).Sum(value => value * value), accepted?.Source.Topology));
+                        accepted is null ? null : accepted.Residuals.Take(3).Sum(value => value * value), accepted?.Source.Topology)
+                    {
+                        Construction = options.Generation?.MaterializationVersion == 3 && constructionWork is { } work
+                            ? new(work.AttemptedLayouts, work.FeasibleLayouts, work.RejectedGeometryProposals,
+                                work.SelectedStopAfterElement, work.MinimumClearanceMarginMillimeters) : null
+                    });
                     progress?.Invoke(start + 1, functions);
                 }
             }
@@ -279,6 +293,7 @@ public static class ParaxialSeedSearch
         return new()
         {
             Algorithm = options.ImageScreening is not null ? "initial-structure-real-ray-ranked-seeds-v1"
+                : options.Generation?.MaterializationVersion == 3 ? "initial-structure-feasible-thick-seeds-v3"
                 : options.Generation?.MaterializationVersion == 2 ? "initial-structure-thick-delano-seeds-v2"
                 : options.FixedStopRecoveryVersion == 2 ? "initial-structure-fixed-stop-seeds-v2"
                 : options.Generation is null ? "initial-structure-paraxial-seeds-v1" : "initial-structure-descriptor-seeds-v1",
@@ -337,6 +352,9 @@ public static class ParaxialSeedSearch
     public static void ValidateOptions(ParaxialSeedSearchOptions options)
     {
         ArgumentNullException.ThrowIfNull(options);
+        if (options.Retrieval is not null) LensRetrievalSearch.ValidateOptions(options);
+        if (options.Evolution is not null) StructureEvolutionSearch.ValidateOptions(options);
+        if (options.Competition is not null) StructureCompetitionSearch.Validate(options);
         if (options.Generation is { } generation) StructureSeedGenerator.Validate(generation);
         if (options.ImageScreening is { } screening)
         {
@@ -345,8 +363,9 @@ public static class ParaxialSeedSearch
         }
         if (options.FixedStopRecoveryVersion is not (null or 2) || options.Version != 1 || options.MaximumStarts is < 1 or > 64 || options.RetainedSeeds is < 1 or > 8
             || options.MaximumFunctionEvaluations is < 2 or > 10_000 || options.MaximumEvaluationsPerStart is < 2 or > 200
-            || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromMinutes(2)
-            || options.MaximumTracedRays is < 1 or > 1_000_000 || !double.IsFinite(options.FocusATolerance) || options.FocusATolerance is <= 0 or > .1)
+            || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromMinutes(options.Evolution is null && options.Retrieval is null ? 2 : 10)
+            || options.MaximumTracedRays < 1 || options.MaximumTracedRays > (options.Evolution is null && options.Retrieval is null ? 1_000_000 : 10_000_000)
+            || !double.IsFinite(options.FocusATolerance) || options.FocusATolerance is <= 0 or > .1)
             throw new ArgumentException("Invalid bounded first-order seed preparation protocol.");
     }
 

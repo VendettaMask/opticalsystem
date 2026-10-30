@@ -444,7 +444,7 @@ public sealed class AnalysisGuiContractTests
             view.PlotPanes.Take(optic.Wavelengths.Count).Select(pane => pane.Title));
         Assert.All(view.PlotPanes, pane =>
         {
-            Assert.Matches(@"^-?\d+\.\d{4} mm$", pane.Footer);
+            Assert.Matches(@"^Field \d+$", pane.Footer);
             Assert.Empty(pane.PlotOptions.Title);
             Assert.True(pane.PlotOptions.HideTickLabels);
             Assert.Null(pane.Metrics);

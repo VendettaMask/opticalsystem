@@ -9,7 +9,7 @@ namespace OpticalSystemDesign.App.Laboratories;
 
 public sealed partial class CameraImagingWindow
 {
-    private readonly ComboBox _spectralModel = Choice("camera-spectral-model", "三波段模型", "连续光谱积分");
+    private readonly ComboBox _spectralModel = Choice("camera-spectral-model", "三波段模型", "连续光谱积分", "场景绝对波段");
     private CameraSpectrumCurve? _illuminant, _reflectance, _plottedIlluminant, _plottedReflectance;
     private readonly TextBlock _sceneSpectraInfo = new() { Name = "camera-scene-spectra-info", TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _scenePageInfo = new() { TextWrapping = TextWrapping.Wrap };
@@ -72,6 +72,7 @@ public sealed partial class CameraImagingWindow
 
     private string? SpectrumReadiness()
     {
+        if (!IsScene3D && _spectralModel.SelectedIndex == (int)CameraSpectralModel.SceneBands) return "场景绝对波段需要选择三维场景与照明。";
         if (!IsContinuous) return _spectralResponse is not null
             && (_spectralResponse.Samples[0].WavelengthNanometers > 450 || _spectralResponse.Samples[^1].WavelengthNanometers < 650)
             ? "三波段模式需要 QE 覆盖 450–650 nm；此曲线可用于其覆盖范围内的连续光谱。" : null;
@@ -90,6 +91,13 @@ public sealed partial class CameraImagingWindow
     }
     private void UpdateSceneSpectra()
     {
+        if (IsScene3D)
+        {
+            _scenePageInfo.Text = "当前：三维场景绝对波段 650/550/450 nm。点光源功率为 W/波段，材质为各波段反射率；二维光源 CSV 与灰度材质分区不参与计算。实际输入见三维场景卡及导出 JSON。";
+            _illuminantPlot.IsVisible = _illuminantLegend.IsVisible = _reflectancePlot.IsVisible = _reflectanceLegend.IsVisible = false;
+            _plottedIlluminant = _plottedReflectance = null; _plottedMaterialScene = null;
+            return;
+        }
         var info = "光源：" + CurveInfo(_illuminant) + "\n反射率：" + (IsMaterialMode ? MaterialSceneSummary() : CurveInfo(_reflectance));
         _sceneSpectraInfo.Text = info; _scenePageInfo.Text = (IsContinuous ? "当前：连续光谱积分" : "当前：三波段模型（以下曲线暂不参与计算）") + "\n" + info;
         if (!ReferenceEquals(_plottedIlluminant, _illuminant))
@@ -122,7 +130,9 @@ public sealed partial class CameraImagingWindow
         check.IsCheckedChanged += (_, _) => plot.SetVisibleSeries(check.IsChecked == true ? series : Array.Empty<AnalysisSeriesDto>());
         legend.Children.Add(check);
     }
-    private static string SpectrumDescription(CameraImagingResult result) => result.Integration is not { } integration
+    private static string SpectrumDescription(CameraImagingResult result) => result.Scene3D is { } direct
+        ? $"三维{(direct.Diffraction is null ? "几何" : "标量衍射")} · {result.Request.Scene3D!.Name} · 650/550/450 nm · 总感光功率 {direct.TotalPowerWatts:G6} W\n光线 {direct.LaunchedRays} · 穿过镜头 {direct.PassedLensRays} · 可见贡献 {direct.SceneHitRays} · 遮光 {direct.ShadowedLightSamples}/{direct.ShadowQueries}"
+        : result.Integration is not { } integration
         ? "三波段模型 · 650/550/450 nm"
         : $"连续光谱 · {result.Request.Integration!.MinimumNanometers:G5}–{result.Request.Integration.MaximumNanometers:G5} nm · {integration.Nodes.Count} 节点 · "
             + $"光源 {result.Request.Illuminant!.Name} · 反射率 {(integration.Materials is null ? result.Request.Reflectance!.Name : result.Request.MaterialScene!.Name + "（" + integration.Materials.Count + " 材质）")} · "

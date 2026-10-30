@@ -360,7 +360,11 @@ public sealed class AutonomousTopologyFoundationTests(ITestOutputHelper output)
         var cemented = source.CreateOptic();
         cemented.SurfaceGroup.Items[4].MaterialAfter = cemented.Materials.Resolve("N-F2");
         OpticalDesignParameters.SynchronizeIncidentMedia(cemented);
-        Failure(TopologyFailureCode.UnsupportedFeature, () => TopologyCompiler.Import(cemented.ToSnapshot()));
+        // Filling the former air gap now imports three real glass regions and two shared boundaries.
+        var shared = TopologyCompiler.Import(cemented.ToSnapshot());
+        Assert.Equal(3, shared.Topology.Elements.Length);
+        Assert.Equal(2, shared.Topology.CementedInterfaces!.Interfaces.Length);
+        AssertSameOptics(cemented, shared.CreateOptic());
         var substituted = source.CreateOptic();
         substituted.SurfaceGroup.Items[3].MaterialAfter = new CatalogGlassMaterial("N-BK7", "Test", "tabulated n", 400, 700,
             refractiveIndexWavelengthsNanometers: [400, 700], refractiveIndices: [1.8, 1.7]);

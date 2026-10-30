@@ -167,6 +167,12 @@ public sealed partial class AutonomousTopologyWindow
         Put("AutonomousReserve", options.FinalValidationRayReserve); Put("AutonomousMinutes", options.TimeLimit.TotalMinutes); Put("AutonomousSeed", options.Seed);
         Put("AutonomousAxialWindow", options.AxialCompensation?.MaximumDisplacementMillimeters ?? .25);
         var seedOptions = options.SeedPreparation ?? new();
+        _lensLibrary = seedOptions.Retrieval?.Library ?? new();
+        RefreshLensLibrarySummary();
+        Put("AutonomousRetrievalCandidates", seedOptions.Retrieval?.MaximumCandidates ?? 4);
+        Put("AutonomousRetrievalMinScale", seedOptions.Retrieval?.MinimumScale ?? .5);
+        Put("AutonomousRetrievalMaxScale", seedOptions.Retrieval?.MaximumScale ?? 2);
+        Put("AutonomousRetrievalRays", seedOptions.Retrieval is null ? 1_000_000 : seedOptions.MaximumTracedRays);
         Put("AutonomousLayerLimit", options.BoundedSearch?.MaximumAttemptsPerElementCount ?? 3);
         Put("AutonomousStagnation", options.BoundedSearch?.MaximumUnsuccessfulTrials ?? 2);
         var generation = seedOptions.Generation;
@@ -178,10 +184,17 @@ public sealed partial class AutonomousTopologyWindow
         Put("AutonomousGeneratedMaxThickness", generation?.MaximumThicknessMillimeters ?? Math.Max(4, plan.Constraints.MinimumCenterThicknessMillimeters));
         Put("AutonomousGeneratedBackFocus", generation?.MinimumBackFocusMillimeters ?? Math.Max(5, plan.Constraints.MinimumBackFocusMillimeters));
         Put("AutonomousAnnealing", generation?.AnnealingProposals ?? 8);
+        Put("AutonomousConstructionLayouts", generation?.FeasibleLayouts?.MaximumLayouts ?? 3);
         Put("AutonomousSeedPerStart", seedOptions.MaximumEvaluationsPerStart);
         Put("AutonomousSeedStarts", seedOptions.MaximumStarts); Put("AutonomousSeedRetained", seedOptions.RetainedSeeds);
         Put("AutonomousSeedFunctions", seedOptions.MaximumFunctionEvaluations); Put("AutonomousSeedSeconds", seedOptions.TimeLimit.TotalSeconds);
         Put("AutonomousScreenRays", seedOptions.ImageScreening?.MaximumTracedRaysPerCandidate ?? 2500);
+        Put("AutonomousCompetitionUpdates", seedOptions.Competition?.UpdatesPerStage ?? 4);
+        Put("AutonomousCompetitionRays", seedOptions.Competition is not null ? seedOptions.MaximumTracedRays : 500000);
+        Put("AutonomousEvolutionParents", seedOptions.Evolution?.MaximumParents ?? 1);
+        Put("AutonomousEvolutionBranches", seedOptions.Evolution?.MaximumBranches ?? 8);
+        Put("AutonomousEvolutionRecoveryFunctions", seedOptions.Evolution?.RecoveryFunctionsPerBranch ?? 24);
+        Put("AutonomousEvolutionUpdates", seedOptions.Evolution?.CompensationUpdatesPerBranch ?? 3);
         Put("AutonomousLocalUpdates", options.Local.MaximumUpdates); Put("AutonomousFullUpdates", options.Full.MaximumUpdates);
         _applyingPlan = true;
         _choices["AutonomousImage"].IsChecked = !source.Image.Protected;
@@ -193,9 +206,19 @@ public sealed partial class AutonomousTopologyWindow
         _choices["AutonomousGeometryScreen"].IsChecked = options.PopulationExploration?.Geometry is not null;
         _choices["AutonomousFixedStopRecovery"].IsChecked = seedOptions.FixedStopRecoveryVersion == 2;
         _choices["AutonomousImageScreening"].IsChecked = seedOptions.ImageScreening is not null;
+        _choices["AutonomousCompetition"].IsChecked = seedOptions.Competition is not null;
+        _choices["AutonomousRetrieval"].IsChecked = seedOptions.Retrieval is not null;
+        _choices["AutonomousPowerSigns"].IsChecked = seedOptions.Competition?.SearchStrategy?.PowerSigns is not null;
+        _choices["AutonomousQuickAberration"].IsChecked = seedOptions.Competition?.SearchStrategy?.QuickEvaluation is not null;
+        _choices["AutonomousEvolution"].IsChecked = seedOptions.Evolution is not null;
+        _choices["AutonomousPowerAllocation"].IsChecked = seedOptions.Evolution?.PowerAllocation is not null;
+        _choices["AutonomousEvolutionRecovery"].IsChecked = seedOptions.Evolution?.Mode != StructureEvolutionMode.DirectCompensation;
+        _choices["AutonomousEvolutionCompetition"].IsChecked = seedOptions.Evolution is null || seedOptions.Evolution.Mode == StructureEvolutionMode.RecoveryAndCompetition;
         _choices["AutonomousDescriptor"].IsChecked = generation is not null;
         _choices["AutonomousDelano"].IsChecked = generation?.Method == StructureGenerationMethod.Delano;
         _choices["AutonomousThickDelano"].IsChecked = generation?.MaterializationVersion == 2;
+        _choices["AutonomousFeasibleThickDelano"].IsChecked = generation?.MaterializationVersion == 3;
+        _choices["AutonomousStopPartitions"].IsChecked = generation?.FeasibleLayouts is { StopAfterElementCandidates.IsEmpty: false };
         _choices["AutonomousGradual"].IsChecked = options.Expansion?.EnableGradualDeletion == true;
         _choices["AutonomousSplit"].IsChecked = options.Expansion?.EnableSplit == true;
         _choices["AutonomousMerge"].IsChecked = options.Expansion?.EnableMerge == true;
@@ -451,6 +474,7 @@ public sealed partial class AutonomousTopologyWindow
             var enabled = !IsBusy;
             if (pair.Key == "AutonomousCancel") enabled = _session.IsBusy || _seedCancellation is not null;
             else if (pair.Key is "AutonomousImport" or "AutonomousCheck") enabled &= state is null;
+            else if (pair.Key is "AutonomousLibraryOpen" or "AutonomousLibraryImport" or "AutonomousLibraryAdd") enabled &= state is null && !readOnly;
             else if (pair.Key == "AutonomousPrepareSeeds") enabled &= state is null && !readOnly;
             else if (pair.Key == "AutonomousRun") enabled &= state is null && !readOnly;
             else if (pair.Key == "AutonomousResume") enabled &= !readOnly && state?.Status is AutonomousSearchStatus.Ready or AutonomousSearchStatus.Cancelled or AutonomousSearchStatus.Running;
@@ -586,7 +610,7 @@ public sealed partial class AutonomousTopologyWindow
     private async Task<string?> PickOpen(string kind)
     {
         if (_settings.OpenPicker is { } picker) return await picker(this, kind);
-        var patterns = kind switch { "plan" => new[] { "*.topology-plan.json" }, "record" => ["*.autonomous.json"], _ => ["*.staropt", "*.topology.json", "*.optic.json", "*.json"] };
+        var patterns = kind switch { "lens-library" => new[] { "*.lens-library.json" }, "plan" => ["*.topology-plan.json"], "record" => ["*.autonomous.json"], _ => ["*.staropt", "*.topology.json", "*.optic.json", "*.json"] };
         var selected = await StorageProvider.OpenFilePickerAsync(new()
         {
             AllowMultiple = false,
@@ -598,7 +622,7 @@ public sealed partial class AutonomousTopologyWindow
     private async Task<string?> PickSave(string kind)
     {
         if (_settings.SavePicker is { } picker) return await picker(this, kind);
-        var extension = kind switch { "plan" => ".topology-plan.json", "record" => ".autonomous.json", _ => ".staropt" };
+        var extension = kind switch { "lens-library" => ".lens-library.json", "plan" => ".topology-plan.json", "record" => ".autonomous.json", _ => ".staropt" };
         var selected = await StorageProvider.SaveFilePickerAsync(new()
         {
             Title = UiLocalization.Text("保存设计文件"),

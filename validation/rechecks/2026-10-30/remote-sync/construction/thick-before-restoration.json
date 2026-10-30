@@ -1,0 +1,722 @@
+{
+  "Scope": "Four generated thick proposals before least-squares restoration; separate from the final comparison",
+  "TracedRays": 0,
+  "Starts": [
+    {
+      "Index": 0,
+      "Focal": 25.46294519152962,
+      "FNumber": 3.341593857156118,
+      "FocusA": 0,
+      "EntrancePupilDiameter": 7.62,
+      "Functions": 10,
+      "GenerationMatrixRequests": 30,
+      "GeometryProbes": 6412,
+      "AdditionalDiagnosticRequests": 4,
+      "Seed": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Descriptor Thick Delano",
+        "Conjugate": "Infinite",
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 12.547600000000001,
+          "ClearSemiDiameterMillimeters": 2.4880530821461484,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 35.50469404012648,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "generated-0",
+            "FrontSurfaceId": "generated-0:front",
+            "BackSurfaceId": "generated-0:back",
+            "FrontZMillimeters": 0.7884902403653065,
+            "ThicknessMillimeters": 3.3140256712827494,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.08120511802593759,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.031075462802771042,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-1",
+            "FrontSurfaceId": "generated-1:front",
+            "BackSurfaceId": "generated-1:back",
+            "FrontZMillimeters": 7.466700890181288,
+            "ThicknessMillimeters": 3.732794109223547,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.020585972595432826,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.037218818504445826,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 6.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-2",
+            "FrontSurfaceId": "generated-2:front",
+            "BackSurfaceId": "generated-2:back",
+            "FrontZMillimeters": 13.553431149720648,
+            "ThicknessMillimeters": 3.964209375431868,
+            "Material": "LAK09",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.13504955842676014,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.14357591582018858,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "On axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 2",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 14,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 3",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 21,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "W1",
+            "Nanometers": 486.1327,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "W2",
+            "Nanometers": 587.5618000000001,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "W3",
+            "Nanometers": 656.2725,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [
+          "SCHOTT",
+          "HIKARI",
+          "SUMITA"
+        ],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      }
+    },
+    {
+      "Index": 1,
+      "Focal": 25.462945191529613,
+      "FNumber": 3.341593857156117,
+      "FocusA": -6.661338147750939E-16,
+      "EntrancePupilDiameter": 7.620000000000001,
+      "Functions": 10,
+      "GenerationMatrixRequests": 30,
+      "GeometryProbes": 6991,
+      "AdditionalDiagnosticRequests": 4,
+      "Seed": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Descriptor Thick Delano",
+        "Conjugate": "Infinite",
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 12.547600000000001,
+          "ClearSemiDiameterMillimeters": 2.4880530821461484,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 35.50469404012648,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "generated-0",
+            "FrontSurfaceId": "generated-0:front",
+            "BackSurfaceId": "generated-0:back",
+            "FrontZMillimeters": 1.480314040692819,
+            "ThicknessMillimeters": 2.8418328648766287,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.047559429894532,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.001056517114764581,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-1",
+            "FrontSurfaceId": "generated-1:front",
+            "BackSurfaceId": "generated-1:back",
+            "FrontZMillimeters": 6.406351292659221,
+            "ThicknessMillimeters": 5.65180357048885,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.060879035495270656,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.08670290137341523,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 6.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-2",
+            "FrontSurfaceId": "generated-2:front",
+            "BackSurfaceId": "generated-2:back",
+            "FrontZMillimeters": 13.277199901409459,
+            "ThicknessMillimeters": 5.162135022185008,
+            "Material": "LAK09",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.08589744535749079,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.10522128296664554,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "On axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 2",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 14,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 3",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 21,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "W1",
+            "Nanometers": 486.1327,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "W2",
+            "Nanometers": 587.5618000000001,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "W3",
+            "Nanometers": 656.2725,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [
+          "SCHOTT",
+          "HIKARI",
+          "SUMITA"
+        ],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      }
+    },
+    {
+      "Index": 2,
+      "Focal": 25.46294519152962,
+      "FNumber": 3.341593857156118,
+      "FocusA": -1.1102230246251565E-16,
+      "EntrancePupilDiameter": 7.62,
+      "Functions": 10,
+      "GenerationMatrixRequests": 30,
+      "GeometryProbes": 7923,
+      "AdditionalDiagnosticRequests": 4,
+      "Seed": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Descriptor Thick Delano",
+        "Conjugate": "Infinite",
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 12.547600000000001,
+          "ClearSemiDiameterMillimeters": 2.4880530821461484,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 35.50469404012648,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "generated-0",
+            "FrontSurfaceId": "generated-0:front",
+            "BackSurfaceId": "generated-0:back",
+            "FrontZMillimeters": 0.9745318087949344,
+            "ThicknessMillimeters": 4.2247229609928745,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.0716512392687239,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.021932502216379695,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-1",
+            "FrontSurfaceId": "generated-1:front",
+            "BackSurfaceId": "generated-1:back",
+            "FrontZMillimeters": 7.50232907138266,
+            "ThicknessMillimeters": 3.6543955596105615,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.03833962191599813,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.04808730606676008,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 6.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-2",
+            "FrontSurfaceId": "generated-2:front",
+            "BackSurfaceId": "generated-2:back",
+            "FrontZMillimeters": 13.052566510919556,
+            "ThicknessMillimeters": 5.6557725671491355,
+            "Material": "LAK09",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.07977057328995452,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.09507224632225138,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "On axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 2",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 14,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 3",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 21,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "W1",
+            "Nanometers": 486.1327,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "W2",
+            "Nanometers": 587.5618000000001,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "W3",
+            "Nanometers": 656.2725,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [
+          "SCHOTT",
+          "HIKARI",
+          "SUMITA"
+        ],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      }
+    },
+    {
+      "Index": 3,
+      "Focal": 25.46294519152962,
+      "FNumber": 3.3415938571561186,
+      "FocusA": 2.220446049250313E-16,
+      "EntrancePupilDiameter": 7.619999999999999,
+      "Functions": 10,
+      "GenerationMatrixRequests": 30,
+      "GeometryProbes": 7053,
+      "AdditionalDiagnosticRequests": 4,
+      "Seed": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Descriptor Thick Delano",
+        "Conjugate": "Infinite",
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 12.547600000000001,
+          "ClearSemiDiameterMillimeters": 2.4880530821461484,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 35.50469404012648,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "generated-0",
+            "FrontSurfaceId": "generated-0:front",
+            "BackSurfaceId": "generated-0:back",
+            "FrontZMillimeters": 0.828358696342656,
+            "ThicknessMillimeters": 4.0577195172908285,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.090225480558939,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.06675697707853571,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 10,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-1",
+            "FrontSurfaceId": "generated-1:front",
+            "BackSurfaceId": "generated-1:back",
+            "FrontZMillimeters": 5.632664508764259,
+            "ThicknessMillimeters": 6.05348145006386,
+            "Material": "SK4",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.05534865441353625,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.09181713919375255,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 6.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-2",
+            "FrontSurfaceId": "generated-2:front",
+            "BackSurfaceId": "generated-2:back",
+            "FrontZMillimeters": 13.512889840179652,
+            "ThicknessMillimeters": 5.621327624933743,
+            "Material": "LAK09",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.024946814181462634,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 3.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.08384161323639808,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "On axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 2",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 14,
+            "Weight": 1
+          },
+          {
+            "Label": "Field 3",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 21,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "W1",
+            "Nanometers": 486.1327,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "W2",
+            "Nanometers": 587.5618000000001,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "W3",
+            "Nanometers": 656.2725,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [
+          "SCHOTT",
+          "HIKARI",
+          "SUMITA"
+        ],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      }
+    }
+  ]
+}

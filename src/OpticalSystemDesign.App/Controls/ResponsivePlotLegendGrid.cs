@@ -8,6 +8,10 @@ internal sealed class ResponsivePlotLegendGrid : Grid
     internal const double MaximumLegendWidth = 240;
     internal const double LegendInset = 12;
     private readonly Control _legend;
+    // Auto-sized legends reserve their measured rail, not the maximum allowed
+    // for long labels. DesiredSize includes the shared 12-DIP side insets.
+    internal double LegendWidth => _legend.IsMeasureValid ? _legend.DesiredSize.Width
+        : MaximumLegendWidth + 2 * LegendInset;
 
     public ResponsivePlotLegendGrid(Control plot, Control legend)
     {

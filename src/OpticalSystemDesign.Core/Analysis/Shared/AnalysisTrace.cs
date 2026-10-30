@@ -12,7 +12,7 @@ internal static class AnalysisTrace
         var maximumField = FieldCoordinates.MaximumRadius(optic.Fields);
         return optic.Fields.Select((field, index) => new AnalysisFieldSample(
             index,
-            field.Label,
+            MtfPresentation.FieldName(index + 1),
             field.X,
             field.Y,
             maximumField <= 1e-12 ? 0 : field.X / maximumField,

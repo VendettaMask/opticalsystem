@@ -8,6 +8,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Laboratories.CoatingDesign;
 using OpticalSystemDesign.CoatingDesign.Engine;
+using OpticalSystemDesign.Tests;
 
 namespace OpticalSystemDesign.CoatingDesign.Tests;
 
@@ -15,7 +16,7 @@ namespace OpticalSystemDesign.CoatingDesign.Tests;
 public sealed class DesktopCollection { public const string Name = "Coating desktop"; }
 
 [Collection(DesktopCollection.Name)]
-public sealed class DesktopTests
+public sealed partial class DesktopTests
 {
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OpticalSystemDesign.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
@@ -37,12 +38,13 @@ public sealed class DesktopTests
                 Assert.NotNull(window.CurrentExperiment.Result);
                 var table = window.GetLogicalDescendants().OfType<DataGrid>().Single();
                 var rows = (IEnumerable<LayerRow>)table.ItemsSource;
+                var originalCount = rows.Count();
                 table.SelectedItem = rows.First();
                 Click(window, "复制"); await window.PendingOperation;
                 Assert.Null(window.CurrentExperiment.Result);
-                Assert.Equal(3, rows.Count());
+                Assert.Equal(originalCount + 1, rows.Count());
                 Click(window, "删除"); await window.PendingOperation;
-                Assert.Equal(2, rows.Count());
+                Assert.Equal(originalCount, rows.Count());
                 Click(window, "计算 / 复验"); await window.PendingOperation;
                 Assert.NotNull(window.CurrentExperiment.Result);
                 Click(window, "1 生成膜系"); await window.PendingOperation;
@@ -276,7 +278,7 @@ public sealed class DesktopTests
     }
     private sealed class Host : IDisposable
     {
-        private readonly HeadlessUnitTestSession _session = HeadlessUnitTestSession.StartNew(typeof(DesktopTests));
+        private readonly SafeHeadlessUnitTestSession _session = SafeHeadlessUnitTestSession.StartNew(typeof(DesktopTests));
         public Task Run(Func<Task> test) => _session.Dispatch(async () => { await test(); return true; }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(2));
         public void Dispose()
         {

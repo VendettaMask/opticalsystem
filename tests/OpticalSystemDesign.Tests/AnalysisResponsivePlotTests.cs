@@ -129,7 +129,7 @@ public sealed class AnalysisResponsivePlotTests
     [InlineData("Light", 13)]
     [InlineData("Dark", 20)]
     [InlineData("Light", 32)]
-    public async Task EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(string theme, double fontSize)
+    public async Task EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(string theme, double fontSize)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
@@ -160,8 +160,24 @@ public sealed class AnalysisResponsivePlotTests
                     foreach (var (width, height) in new[] { (420, 280), (1400, 360), (900, 900), (420, 280) })
                     {
                         window.Width = width; window.Height = height; Render(window);
-                        AssertFits(tabs, window);
                         var host = Assert.Single(tabs.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
+                        var page = Assert.IsType<UniformDiagramPage>(host.Child);
+                        Assert.Equal(new Size(1200, 900), page.Bounds.Size);
+                        if (page.HasOverflow)
+                        {
+                            // Six field summaries with two named metrics each also exceed
+                            // the fixed caption at normal font size; preserve them and fail explicitly.
+                            Assert.True(fontSize > 13 || kind == AnalysisPresentationKind.SpotDiagram, kind.ToString());
+                            if (kind == AnalysisPresentationKind.SpotDiagram)
+                            {
+                                Assert.Equal(6, view.PlotPanes.Count);
+                                Assert.All(view.PlotPanes, pane => Assert.Equal(2, pane.Metrics!.Count));
+                            }
+                            Assert.Throws<InvalidOperationException>(page.ValidateForExport);
+                            continue;
+                        }
+                        page.ValidateForExport();
+                        AssertFits(tabs, window);
                         foreach (var plot in host.GetVisualDescendants().OfType<AnalysisPlotControl>())
                             foreach (var field in new[] { "_xTickLabelBounds", "_yTickLabelBounds" })
                             {
@@ -170,7 +186,6 @@ public sealed class AnalysisResponsivePlotTests
                                     for (var other = index + 1; other < labels.Count; other++)
                                         Assert.False(labels[index].Intersects(labels[other]), $"{kind} {fontSize}: tick labels overlap");
                             }
-                        var page = Assert.IsType<Grid>(host.Child);
                         var footer = page.Children[1];
                         foreach (var label in footer.GetVisualDescendants().OfType<TextBlock>().Where(label => label.IsEffectivelyVisible))
                         {
@@ -240,7 +255,7 @@ public sealed class AnalysisResponsivePlotTests
         {
             using var application = WorkbenchApplication.Create();
             var tabs = Build(View(AnalysisPresentationKind.ColorFocusShift), application);
-            var window = new Window { Width = 620, Height = 300, Content = tabs };
+            var window = new Window { Width = 1400, Height = 1000, Content = tabs };
             try
             {
                 window.Show(); Render(window);
@@ -286,7 +301,7 @@ public sealed class AnalysisResponsivePlotTests
                 Assert.Null(host.Child!.RenderTransform);
                 Assert.True(host.Extent.Height > host.Viewport.Height);
                 host.Offset = new Vector(0, host.Extent.Height); Render(window);
-                var footer = Assert.IsType<Grid>(host.Child).Children[1];
+                var footer = Assert.IsType<UniformDiagramPage>(host.Child).Caption;
                 var bounds = VisualBounds(footer, host);
                 Assert.InRange(bounds.Bottom, host.Viewport.Height - 1, host.Viewport.Height + 1);
                 Assert.True(host.Offset.Y > 0);
@@ -296,7 +311,7 @@ public sealed class AnalysisResponsivePlotTests
     }
 
     [Fact]
-    public async Task UnfittedLayoutReproducesOverflowAndFittedLayoutRemovesIt()
+    public async Task ScrollHostPreservesTheOriginalSheetAndKeepsItsOffscreenFooterReachable()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
@@ -305,15 +320,14 @@ public sealed class AnalysisResponsivePlotTests
             var tabs = Build(View(AnalysisPresentationKind.ColorFocusShift), application);
             var plotTab = Assert.IsType<TabItem>(tabs.Items[0]);
             var host = Assert.IsType<ResponsiveAnalysisPlotHost>(plotTab.Content);
-            var page = Assert.IsType<Grid>(host.Child);
+            var page = Assert.IsType<UniformDiagramPage>(host.Child);
             host.Child = null;
             plotTab.Content = page;
             var window = new Window { Width = 640, Height = 320, Content = tabs };
             try
             {
                 window.Show(); Render(window);
-                // The outer star-sized grid fits, but its minimum-height canvas
-                // is the descendant that draws over the following footer row.
+                // A direct sheet is intentionally larger than a small window.
                 var plotBounds = VisualBounds(Assert.Single(page.GetVisualDescendants().OfType<AnalysisPlotControl>()), window);
                 var footerBounds = VisualBounds(page.Children[1], window);
                 Assert.True(plotBounds.Bottom > footerBounds.Top + 20 || footerBounds.Bottom > window.Height + 20);
@@ -322,6 +336,9 @@ public sealed class AnalysisResponsivePlotTests
                 host.Child = page;
                 plotTab.Content = host; Render(window);
                 AssertFits(tabs, window);
+                Assert.Equal(new Size(1200, 900), page.Bounds.Size);
+                Assert.True(host.Extent.Width > host.Viewport.Width);
+                Assert.True(host.Extent.Height > host.Viewport.Height);
                 Capture(window, "fitted-no-overlap.png");
             }
             finally { window.Close(); }
@@ -354,6 +371,7 @@ public sealed class AnalysisResponsivePlotTests
                 window.Show(); Render(window); AssertFits(upper, window); AssertFits(lower, window);
                 var checkbox = Assert.Single(lower.GetVisualDescendants().OfType<CheckBox>());
                 var plot = Assert.Single(lower.GetVisualDescendants().OfType<AnalysisPlotControl>());
+                checkbox.BringIntoView(); Render(window);
                 var point = checkbox.TranslatePoint(new Point(checkbox.Bounds.Width / 2, checkbox.Bounds.Height / 2), window)!.Value;
                 window.MouseMove(point); window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left); Render(window);
                 Assert.Empty(plot.Series);
@@ -369,7 +387,7 @@ public sealed class AnalysisResponsivePlotTests
     {
         var host = Assert.IsType<ResponsiveAnalysisPlotHost>(Assert.IsType<TabItem>(tabs.Items[0]).Content);
         var page = host.Child!;
-        var grid = Assert.IsType<Grid>(page);
+        var grid = Assert.IsAssignableFrom<Grid>(page);
         var plotRoot = grid.Children[0];
         var footer = grid.Children[1];
         var pageBounds = VisualBounds(page, window);

@@ -120,7 +120,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 RadiusAxisLabel(),
                 "\u5708\u5165\u80fd\u91cf\u5206\u6570",
                 points,
-                Name: FieldSeriesName(curve.FieldIndex, curve.Field),
+                Name: MtfPresentation.FieldName(curve.FieldIndex + 1),
                 ColorIndex: curve.FieldIndex,
                 LineWidth: 1.25,
                 XQuantity: AnalysisAxisQuantity.Radius,
@@ -182,23 +182,6 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         return _reference.Equals("centroid", StringComparison.OrdinalIgnoreCase)
             ? $"\u534a\u5f84\uff08\u4ece\u8d28\u5fc3\u8d77\uff0c{unit}\uff09"
             : $"\u534a\u5f84\uff08{unit}\uff09";
-    }
-
-    private string FieldSeriesName(int fieldIndex, (double Hx, double Hy) field)
-    {
-        var actual = FieldCoordinates.Denormalize(Optic.Fields, field.Hx, field.Hy);
-        var unit = Optic.FieldDefinition == FieldDefinitionKind.Angle ? "\u00b0" : "mm";
-        if (Math.Abs(actual.X) <= 1e-12)
-        {
-            return $"{actual.Y:0.0000} {unit}";
-        }
-
-        if (Math.Abs(actual.Y) <= 1e-12)
-        {
-            return $"{actual.X:0.0000} {unit}";
-        }
-
-        return $"F{fieldIndex + 1}: ({actual.X:0.0000}, {actual.Y:0.0000}) {unit}";
     }
 
     private static bool IsRadialEncircledEnergy(string type)

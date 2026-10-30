@@ -1,0 +1,2471 @@
+{
+  "name": "competition-8-F4-full25",
+  "seed": 45,
+  "arm": "retrieval",
+  "termination": "completed",
+  "work": {
+    "functionEvaluations": 34,
+    "gradientEvaluations": 0,
+    "validationEvaluations": 1,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 44520,
+    "geometryProbes": 2131,
+    "elapsed": "00:00:00.3810027"
+  },
+  "acquisition": {
+    "functionEvaluations": 92,
+    "gradientEvaluations": 25,
+    "validationEvaluations": 2,
+    "matrixEvaluations": 87,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 107938,
+    "geometryProbes": 136384,
+    "elapsed": "00:00:09.9201248"
+  },
+  "retained": 1,
+  "qualifiedExisting": 0,
+  "qualifiedChanged": 0,
+  "originalInputReused": 0,
+  "endToEnd": {
+    "functionEvaluations": 126,
+    "gradientEvaluations": 25,
+    "validationEvaluations": 0,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 152458,
+    "geometryProbes": 0,
+    "elapsed": "00:00:10.3011275"
+  },
+  "retrieval": {
+    "algorithm": "initial-structure-lens-retrieval-v1",
+    "libraryFingerprint": "09757b02b892a073a865a3e326e4a375ad5d95a6af1065663f39f3acbf6d430d",
+    "stopReason": "Completed",
+    "trials": [
+      {
+        "entryId": "existing-000",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed42/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "c4368d0008c98e17aeb50397af2a90a0a5d084178f644768236f5d76caa230b4"
+        },
+        "entryFingerprint": "9f727c4c28e0472e628787a7f0f2001005761e40eb3851f69b31d43088fad074",
+        "outcome": "SourcePupilTooSlow",
+        "detail": null,
+        "rankScore": 0.6931471805599452,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0031179"
+        }
+      },
+      {
+        "entryId": "existing-001",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed42/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "b1986cc58d1f715fd002b4ed12e0be37dc60d002a867df968c58c343bfc6767e"
+        },
+        "entryFingerprint": "bbcb0511f6c7256620d70c31e6910e747a55213d7d2ae920c7bcf50eab5a9702",
+        "outcome": "TransferRejected",
+        "detail": "The transfer exceeds the original per-element axial displacement permission.",
+        "rankScore": 1.1102230246251565E-16,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 2,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0046012"
+        }
+      },
+      {
+        "entryId": "existing-002",
+        "provenance": {
+          "kind": "userProvidedLocalUse",
+          "title": "Imported Zemax ZMX",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed42/original-half21.seed-search.json",
+          "usageAuthority": "Previously user-provided prescription; local design use only, original creation cost unknown; no redistribution grant asserted.",
+          "sourceDocumentSha256": "1b99d96785e2a2566d7443ad7494fe300195c8ff8380040a002ca3dacbb65dab"
+        },
+        "entryFingerprint": "93818e2442160bfe1e36209115f43ff90a8a6553081e0a30659a4bcd8791a797",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.854321156280537,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0015622"
+        }
+      },
+      {
+        "entryId": "existing-003",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed42/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "286756c5b1eeaf230a451f5b8418dbf2d2c6a63cc90f1430196f5520b757b6df"
+        },
+        "entryFingerprint": "ec483a6bd8d4173f5f69817330742c0fd2e4a7d983e63bed5bff8a9d588e44bd",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6931471805599453,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0012984"
+        }
+      },
+      {
+        "entryId": "existing-004",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed42/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "286756c5b1eeaf230a451f5b8418dbf2d2c6a63cc90f1430196f5520b757b6df"
+        },
+        "entryFingerprint": "e4c0807a443664d8c98055d9d596877538e1b73e7dcb332a026490e7f1937533",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6931471805599452,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0014008"
+        }
+      },
+      {
+        "entryId": "existing-005",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed42/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "f16fad80920e2851106c497cf8c7b9c347996ce041af364c4e9a6b49df7b89d2"
+        },
+        "entryFingerprint": "4c483e2bfe2c1730ff0b6d4b2bfeda0a9852b3575bc6f813ca16a6762974567e",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6965952452672248,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0016203"
+        }
+      },
+      {
+        "entryId": "existing-006",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed42/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "f16fad80920e2851106c497cf8c7b9c347996ce041af364c4e9a6b49df7b89d2"
+        },
+        "entryFingerprint": "e1bdd19ab6de4340defef4bcd56a1d476373b9b67570a2b7d6b5c788a93545da",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6978121189727933,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0013861"
+        }
+      },
+      {
+        "entryId": "existing-007",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed43/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "4386dbd7856bc4bff072286f028f4961c6a35fb5b9d7d7ac417eae424ef8aebc"
+        },
+        "entryFingerprint": "095200cfd045f4560ccf3d5236f1fdd97426530114e8eded86ceb04e56de1191",
+        "outcome": "SourcePupilTooSlow",
+        "detail": null,
+        "rankScore": 0.6931471805599448,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0032238"
+        }
+      },
+      {
+        "entryId": "existing-008",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed43/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "3840a7e4bda203fa3017a7d387fdc37e9e3c570a6d1c2d6c6b480bc0c68ba827"
+        },
+        "entryFingerprint": "6e2c19b0fb393339d68945936ca2e33bfd6669bbf5be5be4ac67869073f2bf96",
+        "outcome": "TransferRejected",
+        "detail": "The transfer exceeds the original per-element axial displacement permission.",
+        "rankScore": 2.2204460492503128E-16,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 2,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0047121"
+        }
+      },
+      {
+        "entryId": "existing-009",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed43/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "48095688267c9f6407c58ef4495e674a814f916267d64133a16298e26b18e5fe"
+        },
+        "entryFingerprint": "93fe11c8e421388274659596c8ec3ca43d2c5a1aed46876284b30fef8be7cca0",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6931471805599453,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0018829"
+        }
+      },
+      {
+        "entryId": "existing-010",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed43/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "48095688267c9f6407c58ef4495e674a814f916267d64133a16298e26b18e5fe"
+        },
+        "entryFingerprint": "874c682078dd1854de473f41448184ae5aedfc32e42d9502540aaa4144af3364",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6931471805599455,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0014624"
+        }
+      },
+      {
+        "entryId": "existing-011",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed43/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "82a8bc6c0377807f413046177bd0bf06cf8803dd4fde5eeccd8f71d2e59035e5"
+        },
+        "entryFingerprint": "30ce1497e5d16089b1f78cfada8be7f3599884adbe7b7544137d05444347d061",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.7112051641417646,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0013715"
+        }
+      },
+      {
+        "entryId": "existing-012",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed43/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "82a8bc6c0377807f413046177bd0bf06cf8803dd4fde5eeccd8f71d2e59035e5"
+        },
+        "entryFingerprint": "a2cd462a68be3484d4ee4d3c1de381c07db85e304f1fb4438cc6ea799d7f12a1",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6942929438432699,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0014108"
+        }
+      },
+      {
+        "entryId": "existing-013",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed44/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "9954bdac52da9803b5e7762f2019f5287a788141371c9349dddca3f773f7b3f8"
+        },
+        "entryFingerprint": "6083e168a50e2cbcaea8a4be3b925246d9581e4d53c426ede7d7cab3fd9bfc91",
+        "outcome": "SourcePupilTooSlow",
+        "detail": null,
+        "rankScore": 0.6931471805599453,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0030514"
+        }
+      },
+      {
+        "entryId": "existing-014",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed44/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "3ebde6d635febc253a5c800a3131e62b66108cbc88d2e420718dd480a984bd48"
+        },
+        "entryFingerprint": "a2f30743112bdf0a3fd7070effbd97242853c2f54a596ce4fbbd57b2e1290758",
+        "outcome": "TransferRejected",
+        "detail": "The transfer exceeds the original per-element axial displacement permission.",
+        "rankScore": 2.2204460492503128E-16,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 2,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0067813"
+        }
+      },
+      {
+        "entryId": "existing-015",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed44/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "fa07fb74e9ce7506f63305fae225e04ad6bb84a8514aca6852562af9766d2226"
+        },
+        "entryFingerprint": "6f72e736ac79301f63a8356bdd8f2af0086ffe2d5c7871a51826a66827bd9cbd",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6931471805599452,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0015062"
+        }
+      },
+      {
+        "entryId": "existing-016",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed44/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "73bb57ec9efe6132924aba87e94606e4aa4c303e4dade3307f61fb37e0444634"
+        },
+        "entryFingerprint": "507d5cd6600c4ea0dd32951b920c6f963638b14e21f2cec06df35dace4ede5fc",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6972057926305797,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0012882"
+        }
+      },
+      {
+        "entryId": "existing-017",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed44/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "73bb57ec9efe6132924aba87e94606e4aa4c303e4dade3307f61fb37e0444634"
+        },
+        "entryFingerprint": "aa6b0093fd1556876c668f10961cfcb5afd2a4d66012227838732532270513b4",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.7111172854537262,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0017023"
+        }
+      },
+      {
+        "entryId": "existing-018",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed45/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "581fc2bbbdef5c401dc333d5cf6ef2c403f16bdc72fb887d2e4630a02a223b50"
+        },
+        "entryFingerprint": "3e0d04c901d33d6245c4ffaa5051fb199de733238066b5e2a1ebf453d36ba9f3",
+        "outcome": "SourcePupilTooSlow",
+        "detail": null,
+        "rankScore": 0.6931471805599452,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0030550"
+        }
+      },
+      {
+        "entryId": "existing-019",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed45/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "ddae1401396f67df32c53155ffb6053be5f37ace81a232d3c1f6fee18c876904"
+        },
+        "entryFingerprint": "2635167b4025d3034438c1f0de14197ef9bbccc64d5de93ff1ea1786d18ab516",
+        "outcome": "WorkingSeedImageTargetsFailed",
+        "detail": null,
+        "rankScore": 1.1102230246251565E-16,
+        "transform": {
+          "uniformScale": 1,
+          "stopAnchoredTranslationMillimeters": 0,
+          "scaledSourceImageZMillimeters": 65,
+          "fixedTaskImageZMillimeters": 65,
+          "fixedApertures": [
+            {
+              "surfaceId": "generated-0:front",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-0:back",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-1:front",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-1:back",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-2:front",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-2:back",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-3:front",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-3:back",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-4:front",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-4:back",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-5:front",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-5:back",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-6:front",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-6:back",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-7:front",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            },
+            {
+              "surfaceId": "generated-7:back",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": 5
+            }
+          ]
+        },
+        "topology": {
+          "schemaVersion": 1,
+          "algorithm": "AutonomousTopologyV1",
+          "name": "Descriptor Thick Delano",
+          "conjugate": "infinite",
+          "reference": {
+            "id": "reference",
+            "zMillimeters": 0
+          },
+          "stop": {
+            "id": "stop",
+            "zMillimeters": 0,
+            "clearSemiDiameterMillimeters": 6.25,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "image": {
+            "id": "image",
+            "zMillimeters": 65,
+            "protected": true
+          },
+          "elements": [
+            {
+              "id": "generated-0",
+              "frontSurfaceId": "generated-0:front",
+              "backSurfaceId": "generated-0:back",
+              "frontZMillimeters": 6.317616934308534,
+              "thicknessMillimeters": 1.9729529484964203,
+              "material": "N-BK7",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": 0.007689574473514702,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.01047967926602955,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "protected": false,
+              "transition": false
+            },
+            {
+              "id": "generated-1",
+              "frontSurfaceId": "generated-1:front",
+              "backSurfaceId": "generated-1:back",
+              "frontZMillimeters": 12.388554567902453,
+              "thicknessMillimeters": 1.296789090267957,
+              "material": "N-F2",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.006510966618950856,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.007046182690117585,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "protected": false,
+              "transition": false
+            },
+            {
+              "id": "generated-2",
+              "frontSurfaceId": "generated-2:front",
+              "backSurfaceId": "generated-2:back",
+              "frontZMillimeters": 16.473646721098994,
+              "thicknessMillimeters": 1.7782034040376757,
+              "material": "N-BK7",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.0027389064522949026,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.015365123846972948,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "protected": false,
+              "transition": false
+            },
+            {
+              "id": "generated-3",
+              "frontSurfaceId": "generated-3:front",
+              "backSurfaceId": "generated-3:back",
+              "frontZMillimeters": 23.460600356222734,
+              "thicknessMillimeters": 0.528209020621837,
+              "material": "N-F2",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.01211925479004819,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.008944067093147778,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "protected": false,
+              "transition": false
+            },
+            {
+              "id": "generated-4",
+              "frontSurfaceId": "generated-4:front",
+              "backSurfaceId": "generated-4:back",
+              "frontZMillimeters": 26.59831050741647,
+              "thicknessMillimeters": 1.0668932187202778,
+              "material": "N-BK7",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.004261608740391555,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.011372345686275804,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "protected": false,
+              "transition": false
+            },
+            {
+              "id": "generated-5",
+              "frontSurfaceId": "generated-5:front",
+              "backSurfaceId": "generated-5:back",
+              "frontZMillimeters": 30.659181523092798,
+              "thicknessMillimeters": 1.5769616735767045,
+              "material": "N-F2",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.004217622507891304,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.019088082162570037,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "protected": false,
+              "transition": false
+            },
+            {
+              "id": "generated-6",
+              "frontSurfaceId": "generated-6:front",
+              "backSurfaceId": "generated-6:back",
+              "frontZMillimeters": 38.07971224281668,
+              "thicknessMillimeters": 1.0173319570494144,
+              "material": "N-BK7",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.0222217397609252,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.03822669012478756,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "protected": false,
+              "transition": false
+            },
+            {
+              "id": "generated-7",
+              "frontSurfaceId": "generated-7:front",
+              "backSurfaceId": "generated-7:back",
+              "frontZMillimeters": 46.47165018366965,
+              "thicknessMillimeters": 0.5345301851106612,
+              "material": "N-F2",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.04207501700468409,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.0067189794189675325,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": 5
+              },
+              "protected": false,
+              "transition": false
+            }
+          ],
+          "fields": [
+            {
+              "label": "axis",
+              "xAngleDegrees": 0,
+              "yAngleDegrees": 0,
+              "weight": 1
+            },
+            {
+              "label": "edge",
+              "xAngleDegrees": 0,
+              "yAngleDegrees": 12.5,
+              "weight": 1
+            }
+          ],
+          "wavelengths": [
+            {
+              "label": "F",
+              "nanometers": 486.1,
+              "weight": 1,
+              "isPrimary": false
+            },
+            {
+              "label": "d",
+              "nanometers": 587.6,
+              "weight": 1,
+              "isPrimary": true
+            },
+            {
+              "label": "C",
+              "nanometers": 656.3,
+              "weight": 1,
+              "isPrimary": false
+            }
+          ],
+          "glassCatalogs": [],
+          "rayAimingEnabled": true,
+          "matchRefractiveIndexData": true,
+          "temperatureCelsius": 20,
+          "pressureAtmospheres": 1
+        },
+        "assessment": {
+          "opticFingerprint": "49ac834761ed6d016c5594d6b6287a5730f694ea5c8b57d09a7e15f9bb3666f3",
+          "protocolFingerprint": "60f4758fd22cebe09089a39b81f7816d3a2c63d7b11eda5d380ce83c64a2b58e",
+          "targets": {
+            "effectiveFocalLengthMillimeters": 50,
+            "fNumber": 4,
+            "focalLengthRelativeTolerance": 0.02,
+            "fNumberRelativeTolerance": 0.02,
+            "maximumRmsRadiusMillimeters": 0.05,
+            "maximumSpotRadiusMillimeters": 0.15,
+            "maximumDistortionFraction": 0.03,
+            "minimumValidRayFraction": 0.98,
+            "minimumEdgeThicknessMillimeters": 0.1,
+            "minimumEdgeAirGapMillimeters": 0.05,
+            "maximumOpticalTrackMillimeters": 65,
+            "maximumAbsoluteSurfaceSlope": 10
+          },
+          "structuralConstraints": {
+            "minimumElementCount": 2,
+            "maximumElementCount": 8,
+            "minimumCenterThicknessMillimeters": 0.1,
+            "minimumAirGapMillimeters": 0.05,
+            "minimumBackFocusMillimeters": 15,
+            "maximumMechanicalTrackMillimeters": 65,
+            "allowTransitionElements": false,
+            "allowedGlassNames": []
+          },
+          "effectiveFocalLengthMillimeters": 49.99999999999999,
+          "fNumber": 3.9999999999999996,
+          "fields": [
+            {
+              "field": {
+                "x": 0,
+                "y": 0
+              },
+              "attemptedRays": 960,
+              "validRays": 576,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.06483417973081686,
+              "maximumRadiusMillimeters": 0.1440998959248589,
+              "distortionFraction": 0,
+              "wavelengthValidFractions": [
+                0.6,
+                0.6,
+                0.6
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.05
+              },
+              "attemptedRays": 960,
+              "validRays": 576,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.0650330128773188,
+              "maximumRadiusMillimeters": 0.14449074843362775,
+              "distortionFraction": 1.5204923859101944E-05,
+              "wavelengthValidFractions": [
+                0.6,
+                0.6,
+                0.6
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.1
+              },
+              "attemptedRays": 960,
+              "validRays": 576,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.06563048509899536,
+              "maximumRadiusMillimeters": 0.14563999227202373,
+              "distortionFraction": 6.082731816843247E-05,
+              "wavelengthValidFractions": [
+                0.6,
+                0.6,
+                0.6
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.15
+              },
+              "attemptedRays": 960,
+              "validRays": 576,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.06662943967064668,
+              "maximumRadiusMillimeters": 0.14754655347913737,
+              "distortionFraction": 0.00013689004106330252,
+              "wavelengthValidFractions": [
+                0.6,
+                0.6,
+                0.6
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.2
+              },
+              "attemptedRays": 960,
+              "validRays": 561,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.06600867424836776,
+              "maximumRadiusMillimeters": 0.15245031340415915,
+              "distortionFraction": 0.00024343115580166812,
+              "wavelengthValidFractions": [
+                0.584375,
+                0.584375,
+                0.584375
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.25
+              },
+              "attemptedRays": 960,
+              "validRays": 564,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.07039154667053098,
+              "maximumRadiusMillimeters": 0.18888351652479554,
+              "distortionFraction": 0.00038050387983439964,
+              "wavelengthValidFractions": [
+                0.5875,
+                0.5875,
+                0.5875
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.3
+              },
+              "attemptedRays": 960,
+              "validRays": 564,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.07345615751538728,
+              "maximumRadiusMillimeters": 0.19092328832480662,
+              "distortionFraction": 0.0005481765125968344,
+              "wavelengthValidFractions": [
+                0.5875,
+                0.5875,
+                0.5875
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.35
+              },
+              "attemptedRays": 960,
+              "validRays": 570,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.07780916184770084,
+              "maximumRadiusMillimeters": 0.19491520046467592,
+              "distortionFraction": 0.0007465323410662617,
+              "wavelengthValidFractions": [
+                0.59375,
+                0.59375,
+                0.59375
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.4
+              },
+              "attemptedRays": 960,
+              "validRays": 543,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.07872675397548054,
+              "maximumRadiusMillimeters": 0.195431122631603,
+              "distortionFraction": 0.0009756695218908006,
+              "wavelengthValidFractions": [
+                0.565625,
+                0.565625,
+                0.565625
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.45
+              },
+              "attemptedRays": 960,
+              "validRays": 543,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.08346831100208182,
+              "maximumRadiusMillimeters": 0.20005240416490064,
+              "distortionFraction": 0.0012357009385802504,
+              "wavelengthValidFractions": [
+                0.565625,
+                0.565625,
+                0.565625
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.5
+              },
+              "attemptedRays": 960,
+              "validRays": 516,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.0866916191391857,
+              "maximumRadiusMillimeters": 0.20259520391177874,
+              "distortionFraction": 0.0015267540319678025,
+              "wavelengthValidFractions": [
+                0.5375,
+                0.5375,
+                0.5375
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.55
+              },
+              "attemptedRays": 960,
+              "validRays": 500,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.09324616808391153,
+              "maximumRadiusMillimeters": 0.24805041506935588,
+              "distortionFraction": 0.0018489706018214118,
+              "wavelengthValidFractions": [
+                0.525,
+                0.51875,
+                0.51875
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.6
+              },
+              "attemptedRays": 960,
+              "validRays": 480,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.1001162572663245,
+              "maximumRadiusMillimeters": 0.24875553244317405,
+              "distortionFraction": 0.0022025065771786147,
+              "wavelengthValidFractions": [
+                0.5,
+                0.5,
+                0.5
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.65
+              },
+              "attemptedRays": 960,
+              "validRays": 431,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.10601280880839092,
+              "maximumRadiusMillimeters": 0.24604030957573092,
+              "distortionFraction": 0.0025875317526013993,
+              "wavelengthValidFractions": [
+                0.453125,
+                0.446875,
+                0.446875
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.7
+              },
+              "attemptedRays": 960,
+              "validRays": 338,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.1126085409463818,
+              "maximumRadiusMillimeters": 0.24055884518091425,
+              "distortionFraction": 0.0030042294871972554,
+              "wavelengthValidFractions": [
+                0.35625,
+                0.35,
+                0.35
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.75
+              },
+              "attemptedRays": 960,
+              "validRays": 236,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 0,
+              "rmsRadiusMillimeters": 0.11720748383419222,
+              "maximumRadiusMillimeters": null,
+              "distortionFraction": null,
+              "wavelengthValidFractions": [
+                0.25,
+                0.24375,
+                0.24375
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.8
+              },
+              "attemptedRays": 960,
+              "validRays": 177,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 0,
+              "rmsRadiusMillimeters": 0.12015510170459653,
+              "maximumRadiusMillimeters": null,
+              "distortionFraction": null,
+              "wavelengthValidFractions": [
+                0.184375,
+                0.184375,
+                0.184375
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.85
+              },
+              "attemptedRays": 960,
+              "validRays": 122,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 0,
+              "rmsRadiusMillimeters": 0.1174767904426552,
+              "maximumRadiusMillimeters": null,
+              "distortionFraction": null,
+              "wavelengthValidFractions": [
+                0.13125,
+                0.125,
+                0.125
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.9
+              },
+              "attemptedRays": 960,
+              "validRays": 75,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 3,
+              "rmsRadiusMillimeters": 0.10234895927263438,
+              "maximumRadiusMillimeters": 0.1896074220535755,
+              "distortionFraction": null,
+              "wavelengthValidFractions": [
+                0.078125,
+                0.078125,
+                0.078125
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.95
+              },
+              "attemptedRays": 960,
+              "validRays": 41,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 9,
+              "rmsRadiusMillimeters": 0.08851412227352141,
+              "maximumRadiusMillimeters": 0.17188312740175876,
+              "distortionFraction": null,
+              "wavelengthValidFractions": [
+                0.040625,
+                0.04375,
+                0.04375
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 1
+              },
+              "attemptedRays": 960,
+              "validRays": 0,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 0,
+              "rmsRadiusMillimeters": null,
+              "maximumRadiusMillimeters": null,
+              "distortionFraction": null,
+              "wavelengthValidFractions": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "violations": [
+            {
+              "code": "field:0:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:0:wave:0:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:0:wave:1:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:0:wave:2:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:0:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:0:rms",
+              "actual": 0.06483417973081686,
+              "limit": 0.05
+            },
+            {
+              "code": "field:1:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:1:wave:0:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:1:wave:1:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:1:wave:2:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:1:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:1:rms",
+              "actual": 0.0650330128773188,
+              "limit": 0.05
+            },
+            {
+              "code": "field:2:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:2:wave:0:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:2:wave:1:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:2:wave:2:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:2:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:2:rms",
+              "actual": 0.06563048509899536,
+              "limit": 0.05
+            },
+            {
+              "code": "field:3:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:3:wave:0:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:3:wave:1:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:3:wave:2:lost-fraction",
+              "actual": 0.4,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:3:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:3:rms",
+              "actual": 0.06662943967064668,
+              "limit": 0.05
+            },
+            {
+              "code": "field:4:lost-fraction",
+              "actual": 0.415625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:4:wave:0:lost-fraction",
+              "actual": 0.415625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:4:wave:1:lost-fraction",
+              "actual": 0.415625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:4:wave:2:lost-fraction",
+              "actual": 0.415625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:4:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:4:rms",
+              "actual": 0.06600867424836776,
+              "limit": 0.05
+            },
+            {
+              "code": "field:4:maximum",
+              "actual": 0.15245031340415915,
+              "limit": 0.15
+            },
+            {
+              "code": "field:5:lost-fraction",
+              "actual": 0.4125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:5:wave:0:lost-fraction",
+              "actual": 0.4125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:5:wave:1:lost-fraction",
+              "actual": 0.4125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:5:wave:2:lost-fraction",
+              "actual": 0.4125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:5:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:5:rms",
+              "actual": 0.07039154667053098,
+              "limit": 0.05
+            },
+            {
+              "code": "field:5:maximum",
+              "actual": 0.18888351652479554,
+              "limit": 0.15
+            },
+            {
+              "code": "field:6:lost-fraction",
+              "actual": 0.4125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:6:wave:0:lost-fraction",
+              "actual": 0.4125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:6:wave:1:lost-fraction",
+              "actual": 0.4125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:6:wave:2:lost-fraction",
+              "actual": 0.4125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:6:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:6:rms",
+              "actual": 0.07345615751538728,
+              "limit": 0.05
+            },
+            {
+              "code": "field:6:maximum",
+              "actual": 0.19092328832480662,
+              "limit": 0.15
+            },
+            {
+              "code": "field:7:lost-fraction",
+              "actual": 0.40625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:7:wave:0:lost-fraction",
+              "actual": 0.40625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:7:wave:1:lost-fraction",
+              "actual": 0.40625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:7:wave:2:lost-fraction",
+              "actual": 0.40625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:7:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:7:rms",
+              "actual": 0.07780916184770084,
+              "limit": 0.05
+            },
+            {
+              "code": "field:7:maximum",
+              "actual": 0.19491520046467592,
+              "limit": 0.15
+            },
+            {
+              "code": "field:8:lost-fraction",
+              "actual": 0.43437499999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:8:wave:0:lost-fraction",
+              "actual": 0.43437499999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:8:wave:1:lost-fraction",
+              "actual": 0.43437499999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:8:wave:2:lost-fraction",
+              "actual": 0.43437499999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:8:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:8:rms",
+              "actual": 0.07872675397548054,
+              "limit": 0.05
+            },
+            {
+              "code": "field:8:maximum",
+              "actual": 0.195431122631603,
+              "limit": 0.15
+            },
+            {
+              "code": "field:9:lost-fraction",
+              "actual": 0.43437499999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:9:wave:0:lost-fraction",
+              "actual": 0.43437499999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:9:wave:1:lost-fraction",
+              "actual": 0.43437499999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:9:wave:2:lost-fraction",
+              "actual": 0.43437499999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:9:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:9:rms",
+              "actual": 0.08346831100208182,
+              "limit": 0.05
+            },
+            {
+              "code": "field:9:maximum",
+              "actual": 0.20005240416490064,
+              "limit": 0.15
+            },
+            {
+              "code": "field:10:lost-fraction",
+              "actual": 0.4625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:10:wave:0:lost-fraction",
+              "actual": 0.4625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:10:wave:1:lost-fraction",
+              "actual": 0.4625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:10:wave:2:lost-fraction",
+              "actual": 0.4625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:10:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:10:rms",
+              "actual": 0.0866916191391857,
+              "limit": 0.05
+            },
+            {
+              "code": "field:10:maximum",
+              "actual": 0.20259520391177874,
+              "limit": 0.15
+            },
+            {
+              "code": "field:11:lost-fraction",
+              "actual": 0.47916666666666663,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:11:wave:0:lost-fraction",
+              "actual": 0.475,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:11:wave:1:lost-fraction",
+              "actual": 0.48124999999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:11:wave:2:lost-fraction",
+              "actual": 0.48124999999999996,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:11:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:11:rms",
+              "actual": 0.09324616808391153,
+              "limit": 0.05
+            },
+            {
+              "code": "field:11:maximum",
+              "actual": 0.24805041506935588,
+              "limit": 0.15
+            },
+            {
+              "code": "field:12:lost-fraction",
+              "actual": 0.5,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:12:wave:0:lost-fraction",
+              "actual": 0.5,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:12:wave:1:lost-fraction",
+              "actual": 0.5,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:12:wave:2:lost-fraction",
+              "actual": 0.5,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:12:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:12:rms",
+              "actual": 0.1001162572663245,
+              "limit": 0.05
+            },
+            {
+              "code": "field:12:maximum",
+              "actual": 0.24875553244317405,
+              "limit": 0.15
+            },
+            {
+              "code": "field:13:lost-fraction",
+              "actual": 0.5510416666666667,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:13:wave:0:lost-fraction",
+              "actual": 0.546875,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:13:wave:1:lost-fraction",
+              "actual": 0.553125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:13:wave:2:lost-fraction",
+              "actual": 0.553125,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:13:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:13:rms",
+              "actual": 0.10601280880839092,
+              "limit": 0.05
+            },
+            {
+              "code": "field:13:maximum",
+              "actual": 0.24604030957573092,
+              "limit": 0.15
+            },
+            {
+              "code": "field:14:lost-fraction",
+              "actual": 0.6479166666666667,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:14:wave:0:lost-fraction",
+              "actual": 0.64375,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:14:wave:1:lost-fraction",
+              "actual": 0.65,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:14:wave:2:lost-fraction",
+              "actual": 0.65,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:14:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:14:rms",
+              "actual": 0.1126085409463818,
+              "limit": 0.05
+            },
+            {
+              "code": "field:14:maximum",
+              "actual": 0.24055884518091425,
+              "limit": 0.15
+            },
+            {
+              "code": "field:15:lost-fraction",
+              "actual": 0.7541666666666667,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:15:wave:0:lost-fraction",
+              "actual": 0.75,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:15:wave:1:lost-fraction",
+              "actual": 0.75625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:15:wave:2:lost-fraction",
+              "actual": 0.75625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:15:check-lost",
+              "actual": 99,
+              "limit": 0
+            },
+            {
+              "code": "field:15:rms",
+              "actual": 0.11720748383419222,
+              "limit": 0.05
+            },
+            {
+              "code": "field:15:maximum",
+              "actual": null,
+              "limit": 0.15
+            },
+            {
+              "code": "field:15:distortion",
+              "actual": null,
+              "limit": 0.03
+            },
+            {
+              "code": "field:16:lost-fraction",
+              "actual": 0.815625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:16:wave:0:lost-fraction",
+              "actual": 0.815625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:16:wave:1:lost-fraction",
+              "actual": 0.815625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:16:wave:2:lost-fraction",
+              "actual": 0.815625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:16:check-lost",
+              "actual": 99,
+              "limit": 0
+            },
+            {
+              "code": "field:16:rms",
+              "actual": 0.12015510170459653,
+              "limit": 0.05
+            },
+            {
+              "code": "field:16:maximum",
+              "actual": null,
+              "limit": 0.15
+            },
+            {
+              "code": "field:16:distortion",
+              "actual": null,
+              "limit": 0.03
+            },
+            {
+              "code": "field:17:lost-fraction",
+              "actual": 0.8729166666666667,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:17:wave:0:lost-fraction",
+              "actual": 0.86875,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:17:wave:1:lost-fraction",
+              "actual": 0.875,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:17:wave:2:lost-fraction",
+              "actual": 0.875,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:17:check-lost",
+              "actual": 99,
+              "limit": 0
+            },
+            {
+              "code": "field:17:rms",
+              "actual": 0.1174767904426552,
+              "limit": 0.05
+            },
+            {
+              "code": "field:17:maximum",
+              "actual": null,
+              "limit": 0.15
+            },
+            {
+              "code": "field:17:distortion",
+              "actual": null,
+              "limit": 0.03
+            },
+            {
+              "code": "field:18:lost-fraction",
+              "actual": 0.921875,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:18:wave:0:lost-fraction",
+              "actual": 0.921875,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:18:wave:1:lost-fraction",
+              "actual": 0.921875,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:18:wave:2:lost-fraction",
+              "actual": 0.921875,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:18:check-lost",
+              "actual": 96,
+              "limit": 0
+            },
+            {
+              "code": "field:18:rms",
+              "actual": 0.10234895927263438,
+              "limit": 0.05
+            },
+            {
+              "code": "field:18:maximum",
+              "actual": 0.1896074220535755,
+              "limit": 0.15
+            },
+            {
+              "code": "field:18:distortion",
+              "actual": null,
+              "limit": 0.03
+            },
+            {
+              "code": "field:19:lost-fraction",
+              "actual": 0.9572916666666667,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:19:wave:0:lost-fraction",
+              "actual": 0.959375,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:19:wave:1:lost-fraction",
+              "actual": 0.95625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:19:wave:2:lost-fraction",
+              "actual": 0.95625,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:19:check-lost",
+              "actual": 90,
+              "limit": 0
+            },
+            {
+              "code": "field:19:rms",
+              "actual": 0.08851412227352141,
+              "limit": 0.05
+            },
+            {
+              "code": "field:19:maximum",
+              "actual": 0.17188312740175876,
+              "limit": 0.15
+            },
+            {
+              "code": "field:19:distortion",
+              "actual": null,
+              "limit": 0.03
+            },
+            {
+              "code": "field:20:lost-fraction",
+              "actual": 1,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:20:wave:0:lost-fraction",
+              "actual": 1,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:20:wave:1:lost-fraction",
+              "actual": 1,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:20:wave:2:lost-fraction",
+              "actual": 1,
+              "limit": 0.020000000000000018
+            },
+            {
+              "code": "field:20:check-lost",
+              "actual": 99,
+              "limit": 0
+            },
+            {
+              "code": "field:20:rms",
+              "actual": null,
+              "limit": 0.05
+            },
+            {
+              "code": "field:20:maximum",
+              "actual": null,
+              "limit": 0.15
+            },
+            {
+              "code": "field:20:distortion",
+              "actual": null,
+              "limit": 0.03
+            }
+          ],
+          "completed": true,
+          "meetsTargets": false,
+          "tracedRayCount": 44520,
+          "geometryProbes": 2131,
+          "failure": null
+        },
+        "matchesOriginalInput": true,
+        "work": {
+          "functionEvaluations": 3,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 1,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 44520,
+          "geometryProbes": 2131,
+          "elapsed": "00:00:00.3131438"
+        }
+      },
+      {
+        "entryId": "existing-020",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed45/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "997d1663ad6c82438763d86d2bf9bda1206cb8ee97445bd0076499843042a13a"
+        },
+        "entryFingerprint": "b9708368ad7e5ebdeeb6ff4069b1ac9229a5005186420e950fb43a3e3d103979",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6931471805599453,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0015340"
+        }
+      },
+      {
+        "entryId": "existing-021",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed45/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "997d1663ad6c82438763d86d2bf9bda1206cb8ee97445bd0076499843042a13a"
+        },
+        "entryFingerprint": "4fb878336572b4cd8c68e5cdea19d37fd45c7c10661a26fa92f3e04914c46161",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6931471805599452,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0014387"
+        }
+      },
+      {
+        "entryId": "existing-022",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed45/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "c1a75362f2abac0c184f05deec45ae7365821e634754132441106300df288566"
+        },
+        "entryFingerprint": "035140851e7158b1e9023cb141606fef55fe85da4b93bb8e7e9a53d5ba36f884",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6984544213111403,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0012370"
+        }
+      },
+      {
+        "entryId": "existing-023",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed45/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "c1a75362f2abac0c184f05deec45ae7365821e634754132441106300df288566"
+        },
+        "entryFingerprint": "36934d776a528b6dad0c104eaa141acc63bda6e23b7007c2af27d6e6f2ee85c9",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.7089410330556819,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0013837"
+        }
+      },
+      {
+        "entryId": "existing-024",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed46/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "5549c614d866f00df581569ca6d3ccf091bb77a3dc233e4a7e55e8f95736c23d"
+        },
+        "entryFingerprint": "44588522fa4bc6aa0d698d926522e1f9b338f8d2f38163cc756a52eb2c4ef397",
+        "outcome": "SourcePupilTooSlow",
+        "detail": null,
+        "rankScore": 0.6931471805599448,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0028769"
+        }
+      },
+      {
+        "entryId": "existing-025",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed46/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "a1569457365b95db13619eee8cc8b5174120f4776ef253ce560cdda80fde599f"
+        },
+        "entryFingerprint": "938c2e505ef3c3ad709dea0bed4b97f9bcb5b3fd2a59cc9e20a1d256758fa311",
+        "outcome": "TransferRejected",
+        "detail": "The transfer exceeds the original per-element axial displacement permission.",
+        "rankScore": 4.440892098500627E-16,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 2,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0045493"
+        }
+      },
+      {
+        "entryId": "existing-026",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed46/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "1ca0667044ccbbc66f314b7cbf03bdd382b9cc3cb2d568df71c30dd10b0bc2e9"
+        },
+        "entryFingerprint": "8eaa2da92f233bc4cf98cddfd8f26c79f6aad1e0d6a2c47e107beb85a24df7c7",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6931471805599455,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0014763"
+        }
+      },
+      {
+        "entryId": "existing-027",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed46/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "b8b510c0e32ccd969550bf908db0160ceca14fc91781e2a10046d3c63d7ded14"
+        },
+        "entryFingerprint": "a80017d9f3072a7a1e25cb0581a041b2741b799e58fd9df0071b20603319470f",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.6997899096973358,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0015216"
+        }
+      }
+    ],
+    "qualifiedEntryIds": [],
+    "retainedEntryIds": [
+      "existing-019"
+    ],
+    "descriptorEvaluations": 33,
+    "unknownAcquisitionCosts": 1,
+    "knownSourceAcquisitionWork": {
+      "functionEvaluations": 1698,
+      "gradientEvaluations": 262,
+      "validationEvaluations": 40,
+      "matrixEvaluations": 2955,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 0,
+      "tracedRays": 1994340,
+      "geometryProbes": 1887983,
+      "elapsed": "00:02:45.4099293"
+    },
+    "libraryIndexingWork": {
+      "functionEvaluations": 28,
+      "gradientEvaluations": 0,
+      "validationEvaluations": 0,
+      "matrixEvaluations": 0,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 0,
+      "tracedRays": 0,
+      "geometryProbes": 0,
+      "elapsed": "00:00:00.0771628"
+    }
+  }
+}

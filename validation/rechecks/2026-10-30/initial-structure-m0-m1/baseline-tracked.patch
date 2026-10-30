@@ -1,0 +1,644 @@
+diff --git a/labs/InitialStructure/README.md b/labs/InitialStructure/README.md
+index 879d8c8f..5be47457 100644
+--- a/labs/InitialStructure/README.md
++++ b/labs/InitialStructure/README.md
+@@ -1,7 +1,13 @@
+ # 初始结构（产品内置模块）
+ 
++后续按用户确认的[自动初始结构搜索实施计划](../../docs/INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)推进：先做 M0 失光和成本诊断、M1 低成本像差筛选与多结构竞争，再接入 M2 结构演化和 M3 胶合、检索及性能扩展。计划任务与下述已有功能分别记录，新任务完成后补充实际验证。
++
++自主拓扑的一阶准备新增显式 `initial-structure-competition-v1`：保留多套原生厚透镜结构，按视场/孔径逐步恢复原规格，每轮同额优化后竞争淘汰，最后用原 `TopologyValidator` 完整终验。工作起点与原规格合格名单分别记录，旧空配置不改变行为。入口、分阶段额度和限制见[竞争流程说明](../../docs/INITIAL_STRUCTURE_COMPETITION_2026-10-30.md)。
++
+ “生成一阶起点”可启用“按真实像差筛选并排序起点”：在原准备额度内，用共享 Core 多波长光斑和独立边缘通光检查比较候选，完整检查后的最差 RMS/最大半径优先，近似像质内再保留结构多样性。粗筛与密集终验分开，旧空配置保持原行为；用法、采样及费用见[真实像差起点排序](../../docs/INITIAL_STRUCTURE_IMAGE_RANKING_2026-10-29.md)。
+ 
++C# 新增显式可选的厚透镜多布局构造 v3：在原函数额度中搜索有限套布局，几何通过后才进入一阶补偿，以玻璃/空气间隙余量选优；可在固定光阑两侧轮换镜片分配，光阑和像面坐标不变。旧 null/v2 路径保持。入口与限制见[用户指南](../../docs/USER_GUIDE.md#自动初始结构)，本次六规格检查见[验证记录](../../validation/rechecks/2026-10-29/feasible-thick-v3/README.md)。
++
+ 自主入口的“镜头结构”页可查看载入起点或所选候选的实际剖面、光阑/像面和分视场光线，支持等比例适配、平移缩放。显示复用Core布局，在用户打开/刷新时后台生成，单独限额计数，不改变搜索预算或验收；默认载入不追迹。用法和离屏预览见[结构显示](../../docs/AUTONOMOUS_STRUCTURE_VIEW_2026-10-29.md)。
+ 
+ 可选候选筛检与有界停止按层限次、有效尝试无收益及最低完整试验额度停止，保留原合格方案，不要求删至指定片数。重生在原界内局部扰动、最多8次正式Core密集几何回缩后进入补偿；准备可选择独立固定光阑入瞳恢复、原允许锥常数及结构/制造联合求步。原规则和前次复验见[有界探索记录](../../docs/BOUNDED_INITIAL_STRUCTURE_2026-10-29.md)。
+diff --git a/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologySeedSearchModels.cs b/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologySeedSearchModels.cs
+index d7837b08..6fdb7fc3 100644
+--- a/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologySeedSearchModels.cs
++++ b/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologySeedSearchModels.cs
+@@ -12,6 +12,8 @@ public sealed record TopologyDiversityOptions
+ /// <summary>Separate finite preparation budget, never borrowed from an autonomous run or final validation reserve.</summary>
+ public sealed record ParaxialSeedSearchOptions
+ {
++    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
++    public StructureCompetitionOptions? Competition { get; init; }
+     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+     public SeedImageScreeningOptions? ImageScreening { get; init; }
+     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+@@ -65,6 +67,8 @@ public sealed record StructureApertureDescriptor(double ClearSemiDiameterMillime
+ 
+ public sealed record StructureGenerationOptions
+ {
++    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
++    public FeasibleThickLayoutOptions? FeasibleLayouts { get; init; }
+     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+     public int? MaterializationVersion { get; init; }
+     public int Version { get; init; } = 1;
+@@ -78,6 +82,18 @@ public sealed record StructureGenerationOptions
+     public int AnnealingProposals { get; init; } = 24;
+ }
+ 
++/// <summary>Bounded thick layouts inside the original reference/stop/image envelope.
++/// Stop partitions change the number of lenses on either side, never the fixed stop itself.</summary>
++public sealed record FeasibleThickLayoutOptions
++{
++    public int Version { get; init; } = 1;
++    public int MaximumLayouts { get; init; } = 3;
++    public ImmutableArray<int> StopAfterElementCandidates { get; init; } = [];
++}
++
++public sealed record ThickLayoutPreparation(int AttemptedLayouts, int FeasibleLayouts,
++    int RejectedGeometryProposals, int? SelectedStopAfterElement, double? MinimumClearanceMarginMillimeters);
++
+ public sealed record PopulationExplorationOptions
+ {
+     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+@@ -118,11 +134,17 @@ public sealed record PopulationCoordinateProposal(string BindingFingerprint,
+ 
+ public enum ParaxialSeedTermination { Completed, BudgetExhausted, Cancelled, TimeLimit }
+ public sealed record ParaxialSeedAttempt(int Index, string SourceFingerprint, string Outcome,
+-    int FunctionEvaluations, double? Score, DesignTopology? Endpoint);
++    int FunctionEvaluations, double? Score, DesignTopology? Endpoint)
++{
++    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
++    public ThickLayoutPreparation? Construction { get; init; }
++}
+ 
+ /// <summary>First-order feasibility only. Every returned seed still needs full independent physical acceptance.</summary>
+ public sealed record ParaxialSeedSearchResult
+ {
++    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
++    public StructureCompetitionResult? Competition { get; init; }
+     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+     public ImmutableArray<SeedImageScreeningResult>? ImageScreens { get; init; }
+     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+diff --git a/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialSeedSearch.cs b/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialSeedSearch.cs
+index 17559150..f927a2dc 100644
+--- a/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialSeedSearch.cs
++++ b/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialSeedSearch.cs
+@@ -22,6 +22,8 @@ public static class ParaxialSeedSearch
+     {
+         options ??= plan.Options.SeedPreparation ?? new();
+         ValidateOptions(options);
++        if (options.Competition is not null)
++            return StructureCompetitionSearch.Run(plan, options, cancellationToken, progress);
+         _ = AutonomousSearchService.Create("seed-preparation-check", plan);
+         if (AutonomousSearchService.IsHistoricalReadOnlyPlan(plan))
+             throw new NotSupportedException("Historical read-only optimizer plans cannot prepare new seeds. Create a new versioned plan.");
+@@ -30,6 +32,7 @@ public static class ParaxialSeedSearch
+         var protocol = ContentFingerprint.Compute(new
+         {
+             Identity = options.ImageScreening is not null ? "initial-structure-real-ray-ranked-seeds-v1"
++                : options.Generation?.MaterializationVersion == 3 ? "initial-structure-feasible-thick-seeds-v3"
+                 : options.Generation?.MaterializationVersion == 2 ? "initial-structure-thick-delano-seeds-v2"
+                 : options.Generation is null ? "initial-structure-paraxial-seeds-v1" : "initial-structure-descriptor-seeds-v1",
+             plan,
+@@ -63,11 +66,13 @@ public static class ParaxialSeedSearch
+                 var before = functions;
+                 var outcome = "NoFirstOrderSeed";
+                 Sample? last = null, accepted = null;
++                StructureGenerationWork? constructionWork = null;
+                 try
+                 {
+                     if (options.Generation is { } generation)
+                     {
+                         var generationWork = new StructureGenerationWork();
++                        constructionWork = generationWork;
+                         try
+                         {
+                             template = StructureSeedGenerator.Create(plan, generation, ref random, () =>
+@@ -234,7 +239,12 @@ public static class ParaxialSeedSearch
+                 finally
+                 {
+                     attempts.Add(new(start, ContentFingerprint.Compute(template), outcome, functions - before,
+-                        accepted is null ? null : accepted.Residuals.Take(3).Sum(value => value * value), accepted?.Source.Topology));
++                        accepted is null ? null : accepted.Residuals.Take(3).Sum(value => value * value), accepted?.Source.Topology)
++                    {
++                        Construction = options.Generation?.MaterializationVersion == 3 && constructionWork is { } work
++                            ? new(work.AttemptedLayouts, work.FeasibleLayouts, work.RejectedGeometryProposals,
++                                work.SelectedStopAfterElement, work.MinimumClearanceMarginMillimeters) : null
++                    });
+                     progress?.Invoke(start + 1, functions);
+                 }
+             }
+@@ -279,6 +289,7 @@ public static class ParaxialSeedSearch
+         return new()
+         {
+             Algorithm = options.ImageScreening is not null ? "initial-structure-real-ray-ranked-seeds-v1"
++                : options.Generation?.MaterializationVersion == 3 ? "initial-structure-feasible-thick-seeds-v3"
+                 : options.Generation?.MaterializationVersion == 2 ? "initial-structure-thick-delano-seeds-v2"
+                 : options.FixedStopRecoveryVersion == 2 ? "initial-structure-fixed-stop-seeds-v2"
+                 : options.Generation is null ? "initial-structure-paraxial-seeds-v1" : "initial-structure-descriptor-seeds-v1",
+@@ -337,6 +348,7 @@ public static class ParaxialSeedSearch
+     public static void ValidateOptions(ParaxialSeedSearchOptions options)
+     {
+         ArgumentNullException.ThrowIfNull(options);
++        if (options.Competition is not null) StructureCompetitionSearch.Validate(options);
+         if (options.Generation is { } generation) StructureSeedGenerator.Validate(generation);
+         if (options.ImageScreening is { } screening)
+         {
+diff --git a/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/StructureSeedGenerator.cs b/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/StructureSeedGenerator.cs
+index c9af9d1f..ec935003 100644
+--- a/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/StructureSeedGenerator.cs
++++ b/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/StructureSeedGenerator.cs
+@@ -11,6 +11,11 @@ internal sealed class StructureGenerationWork
+ {
+     internal int MatrixRequests { get; set; }
+     internal long GeometryProbes { get; set; }
++    internal int AttemptedLayouts { get; set; }
++    internal int FeasibleLayouts { get; set; }
++    internal int RejectedGeometryProposals { get; set; }
++    internal int? SelectedStopAfterElement { get; set; }
++    internal double? MinimumClearanceMarginMillimeters { get; set; }
+ }
+ 
+ /// <summary>Descriptor proposals, independent of source lens coordinates/shapes. All optical
+@@ -22,6 +27,8 @@ internal static class StructureSeedGenerator
+         StructureGenerationWork? work = null)
+     {
+         Validate(descriptor);
++        if (descriptor.MaterializationVersion == 3)
++            return FeasibleThickSeedGenerator.Create(plan, descriptor, ref random, charge, work ?? new(), token);
+         if (descriptor.MaterializationVersion == 2)
+             return ThickStructureSeedGenerator.Create(plan, descriptor, ref random, charge, work ?? new(), token);
+         var envelope = plan.Seeds[0];
+@@ -146,7 +153,13 @@ internal static class StructureSeedGenerator
+ 
+     internal static void Validate(StructureGenerationOptions options)
+     {
+-        if (options.MaterializationVersion is not (null or 2) || options.MaterializationVersion == 2 && options.Method != StructureGenerationMethod.Delano
++        if (options.Elements.IsDefaultOrEmpty || options.MaterializationVersion is not (null or 2 or 3) || options.MaterializationVersion is 2 or 3 && options.Method != StructureGenerationMethod.Delano
++            || options.MaterializationVersion == 3 && options.FeasibleLayouts is null
++            || options.FeasibleLayouts is { } layouts && (options.MaterializationVersion != 3 || layouts.Version != 1
++                || layouts.MaximumLayouts is < 1 or > 8 || layouts.StopAfterElementCandidates.IsDefault
++                || layouts.StopAfterElementCandidates.Length > 17
++                || layouts.StopAfterElementCandidates.Distinct().Count() != layouts.StopAfterElementCandidates.Length
++                || layouts.StopAfterElementCandidates.Any(value => value < 0 || value > options.Elements.Length))
+             || options.Version != 1 || !Enum.IsDefined(options.Method) || options.Elements.IsDefaultOrEmpty || options.Elements.Length is < 2 or > 16
+             || options.StopAfterElement < 0 || options.StopAfterElement > options.Elements.Length
+             || !double.IsFinite(options.ClearSemiDiameterMillimeters) || options.ClearSemiDiameterMillimeters is <= 0 or > 1000
+diff --git a/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ThickStructureSeedGenerator.cs b/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ThickStructureSeedGenerator.cs
+index a430ee26..e29d623d 100644
+--- a/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ThickStructureSeedGenerator.cs
++++ b/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ThickStructureSeedGenerator.cs
+@@ -8,7 +8,8 @@ namespace OpticalSystemDesign.InitialStructure.Engine;
+ internal static class ThickStructureSeedGenerator
+ {
+     internal static DesignTopology Create(AutonomousSearchPlan plan, StructureGenerationOptions descriptor,
+-        ref DeterministicRandom random, Action charge, StructureGenerationWork work, CancellationToken token)
++        ref DeterministicRandom random, Action charge, StructureGenerationWork work, CancellationToken token,
++        bool requireFeasibleGeometry = false, double[]? initialShape = null)
+     {
+         var envelope = plan.Seeds[0]; var count = descriptor.Elements.Length;
+         if (envelope.Elements.Any(e => e.Protected) || envelope.HasTransitionElements
+@@ -32,7 +33,11 @@ internal static class ThickStructureSeedGenerator
+             materials[i] = choices[random.NextInt32(choices.Length)];
+             segments[i] = new(positions[i], thickness[i], context.Materials.Resolve(materials[i]).RefractiveIndex(wavelength));
+         }
+-        var shape = Enumerable.Repeat(1.0, 2 * count - 1).ToArray();
++        double[]? feasibleShape = null; var feasibleScore = double.PositiveInfinity;
++        work.MinimumClearanceMarginMillimeters = null;
++        var shape = initialShape?.ToArray() ?? Enumerable.Repeat(1.0, 2 * count - 1).ToArray();
++        if (shape.Length != 2 * count - 1 || shape.Any(v => !double.IsFinite(v) || Math.Abs(v) > 4))
++            throw new ArgumentException("A finite bounded marginal-path proposal is required.");
+         var current = Evaluate(shape); var best = current; var bestShape = shape;
+         for (var step = 0; step < descriptor.AnnealingProposals; step++)
+         {
+@@ -46,7 +51,9 @@ internal static class ThickStructureSeedGenerator
+             if (sample.Score < best.Score) { best = sample; bestShape = proposed; }
+         }
+         // Reconstruct/recheck once, just as the legacy diagram path charges its final construction.
+-        var final = Evaluate(bestShape);
++        if (requireFeasibleGeometry && feasibleShape is null)
++            throw new ArithmeticException("This thick layout has no geometrically feasible realization within its proposal budget.");
++        var final = Evaluate(requireFeasibleGeometry ? feasibleShape! : bestShape);
+         return final.Topology ?? throw new ArithmeticException("No bounded thick Delano realization was constructible.");
+ 
+         (DesignTopology? Topology, double Score) Evaluate(double[] candidate)
+@@ -94,14 +101,34 @@ internal static class ThickStructureSeedGenerator
+                 var score = Math.Pow((focal / plan.Targets.EffectiveFocalLengthMillimeters - 1) / plan.Targets.FocalLengthRelativeTolerance, 2)
+                     + Math.Pow((fNumber / plan.Targets.FNumber - 1) / plan.Targets.FNumberRelativeTolerance, 2)
+                     + Math.Pow(matrix.A / .001, 2);
++                var feasible = double.IsFinite(focal) && focal > 0 && double.IsFinite(fNumber) && fNumber > 0
++                    && Math.Abs(focal / plan.Targets.EffectiveFocalLengthMillimeters - 1) <= plan.Targets.FocalLengthRelativeTolerance
++                    && Math.Abs(fNumber / plan.Targets.FNumber - 1) <= plan.Targets.FNumberRelativeTolerance
++                    && Math.Abs(matrix.A) <= 1e-8;
++                var clearanceMargin = double.PositiveInfinity;
+                 foreach (var row in TopologyEvaluationPlan.Geometry(source, plan.Targets, 64))
+                 {
+                     token.ThrowIfCancellationRequested(); work.GeometryProbes++;
+                     var value = TopologyEvaluationPlan.FormalMeasure(optic, row);
+                     if (!double.IsFinite(value)) return (null, double.PositiveInfinity);
+                     var violation = row.Upper ? value - row.Limit : row.Limit - value;
++                    feasible &= violation <= 0;
++                    if (!row.Upper) clearanceMargin = Math.Min(clearanceMargin, -violation);
+                     score += Math.Pow(Math.Max(0, violation + 1e-6) / .01, 2);
+                 }
++                if (requireFeasibleGeometry)
++                {
++                    if (!feasible) work.RejectedGeometryProposals++;
++                    else if (-clearanceMargin < feasibleScore)
++                    {
++                        feasibleScore = -clearanceMargin;
++                        feasibleShape = candidate.ToArray();
++                        work.MinimumClearanceMarginMillimeters = clearanceMargin;
++                    }
++                    // Hard feasibility governs return eligibility; the continuous
++                    // penalty still guides proposals that have not reached it.
++                    if (feasible) score = -clearanceMargin;
++                }
+                 return double.IsFinite(score) ? (topology, score) : (null, double.PositiveInfinity);
+             }
+             catch (Exception error) when (TopologyEvaluationPlan.DomainError(error)) { return (null, double.PositiveInfinity); }
+diff --git a/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Seeds.cs b/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Seeds.cs
+index 1a200d94..eef5143d 100644
+--- a/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Seeds.cs
++++ b/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Seeds.cs
+@@ -42,6 +42,22 @@ public sealed partial class AutonomousTopologyWindow
+         if (result.ImageScreens is { } screens)
+             _seedSummary.Text += "\n" + UiLocalization.Text("真实像差筛选，仅用于起点排序")
+                 + $" · {screens.Count(screen => screen.Outcome == "Screened")}/{screens.Length}";
++        if (result.Competition is { } competition)
++        {
++            _seedSummary.Text += "\n" + UiLocalization.Text("竞争候选 / 工作起点 / 原规格合格")
++                + $" {competition.Candidates.Length} / {competition.SelectedIds.Length} / {competition.QualifiedIds.Length}"
++                + " · " + UiLocalization.Text("阶段评价") + $" {competition.Rounds.Length} · {competition.StopReason}";
++            foreach (var round in competition.Rounds.GroupBy(r => r.StageIndex))
++            {
++                var stage = round.First().Stage;
++                _seedSummary.Text += $"\n{stage.Name} · {UiLocalization.Text("视场 / 孔径比例")} {stage.FieldFraction:P0} / {stage.PupilFraction:P0}"
++                    + $" · {round.Count()} → {round.Count(r => r.Selected)}";
++            }
++        }
++        if (result.Options.Generation?.MaterializationVersion == 3)
++            _seedSummary.Text += "\n" + UiLocalization.Text("构造布局 / 可行布局") + " "
++                + result.Attempts.Sum(a => a.Construction?.AttemptedLayouts ?? 0) + " / "
++                + result.Attempts.Sum(a => a.Construction?.FeasibleLayouts ?? 0);
+     }
+ 
+     private async Task PrepareSeedsAsync()
+@@ -79,6 +95,7 @@ public sealed partial class AutonomousTopologyWindow
+         _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear();
+         _seedResult = result; _seedReportPath = reportPath; RefreshSeedSummary();
+         _status.Text = UiLocalization.Text(result.Termination == ParaxialSeedTermination.Cancelled ? "一阶准备已停止并保存"
++            : result.Competition is not null ? "竞争准备已保存，合格状态见原规格终验"
+             : result.Seeds.IsEmpty ? result.ImageScreens is not null ? "像差筛选未得到完整有效结果，原起点保留" : "未找到满足一阶条件的起点，原起点保留" : "一阶起点已保存，尚未运行完整光学搜索");
+     }
+ 
+@@ -89,6 +106,10 @@ public sealed partial class AutonomousTopologyWindow
+             throw new ArgumentException(UiLocalization.Text("请填写有效数字"));
+         return original with
+         {
++            Competition = _choices["AutonomousCompetition"].IsChecked == true
++                ? (original.Competition ?? new()) with { UpdatesPerStage = Whole("AutonomousCompetitionUpdates") } : null,
++            MaximumTracedRays = _choices["AutonomousCompetition"].IsChecked == true
++                ? Whole("AutonomousCompetitionRays") : original.MaximumTracedRays,
+             MaximumStarts = Whole("AutonomousSeedStarts"),
+             RetainedSeeds = Whole("AutonomousSeedRetained"),
+             MaximumFunctionEvaluations = Whole("AutonomousSeedFunctions"),
+@@ -129,7 +150,17 @@ public sealed partial class AutonomousTopologyWindow
+         return (original ?? new()) with
+         {
+             Elements = elements,
+-            MaterializationVersion = _choices["AutonomousThickDelano"].IsChecked == true ? 2 : null,
++            MaterializationVersion = _choices["AutonomousFeasibleThickDelano"].IsChecked == true ? 3
++                : _choices["AutonomousThickDelano"].IsChecked == true ? 2 : null,
++            FeasibleLayouts = _choices["AutonomousFeasibleThickDelano"].IsChecked == true ? new()
++            {
++                MaximumLayouts = Whole("AutonomousConstructionLayouts"),
++                StopAfterElementCandidates = _choices["AutonomousStopPartitions"].IsChecked == true
++                    ? original?.Elements.Length == count && original.StopAfterElement == Whole("AutonomousGeneratedStop")
++                        && original.FeasibleLayouts is { StopAfterElementCandidates.IsEmpty: false } saved
++                        ? saved.StopAfterElementCandidates
++                        : new[] { Whole("AutonomousGeneratedStop"), 0, count / 2, count }.Distinct().ToImmutableArray() : []
++            } : null,
+             Method = _choices["AutonomousDelano"].IsChecked == true ? StructureGenerationMethod.Delano : StructureGenerationMethod.RandomPhysical,
+             StopAfterElement = Whole("AutonomousGeneratedStop"),
+             ClearSemiDiameterMillimeters = Number("AutonomousGeneratedRadius", original?.ClearSemiDiameterMillimeters),
+diff --git a/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs b/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs
+index f1b349de..d6f16ef2 100644
+--- a/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs
++++ b/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs
+@@ -178,10 +178,13 @@ public sealed partial class AutonomousTopologyWindow
+         Put("AutonomousGeneratedMaxThickness", generation?.MaximumThicknessMillimeters ?? Math.Max(4, plan.Constraints.MinimumCenterThicknessMillimeters));
+         Put("AutonomousGeneratedBackFocus", generation?.MinimumBackFocusMillimeters ?? Math.Max(5, plan.Constraints.MinimumBackFocusMillimeters));
+         Put("AutonomousAnnealing", generation?.AnnealingProposals ?? 8);
++        Put("AutonomousConstructionLayouts", generation?.FeasibleLayouts?.MaximumLayouts ?? 3);
+         Put("AutonomousSeedPerStart", seedOptions.MaximumEvaluationsPerStart);
+         Put("AutonomousSeedStarts", seedOptions.MaximumStarts); Put("AutonomousSeedRetained", seedOptions.RetainedSeeds);
+         Put("AutonomousSeedFunctions", seedOptions.MaximumFunctionEvaluations); Put("AutonomousSeedSeconds", seedOptions.TimeLimit.TotalSeconds);
+         Put("AutonomousScreenRays", seedOptions.ImageScreening?.MaximumTracedRaysPerCandidate ?? 2500);
++        Put("AutonomousCompetitionUpdates", seedOptions.Competition?.UpdatesPerStage ?? 4);
++        Put("AutonomousCompetitionRays", seedOptions.Competition is not null ? seedOptions.MaximumTracedRays : 500000);
+         Put("AutonomousLocalUpdates", options.Local.MaximumUpdates); Put("AutonomousFullUpdates", options.Full.MaximumUpdates);
+         _applyingPlan = true;
+         _choices["AutonomousImage"].IsChecked = !source.Image.Protected;
+@@ -193,9 +196,12 @@ public sealed partial class AutonomousTopologyWindow
+         _choices["AutonomousGeometryScreen"].IsChecked = options.PopulationExploration?.Geometry is not null;
+         _choices["AutonomousFixedStopRecovery"].IsChecked = seedOptions.FixedStopRecoveryVersion == 2;
+         _choices["AutonomousImageScreening"].IsChecked = seedOptions.ImageScreening is not null;
++        _choices["AutonomousCompetition"].IsChecked = seedOptions.Competition is not null;
+         _choices["AutonomousDescriptor"].IsChecked = generation is not null;
+         _choices["AutonomousDelano"].IsChecked = generation?.Method == StructureGenerationMethod.Delano;
+         _choices["AutonomousThickDelano"].IsChecked = generation?.MaterializationVersion == 2;
++        _choices["AutonomousFeasibleThickDelano"].IsChecked = generation?.MaterializationVersion == 3;
++        _choices["AutonomousStopPartitions"].IsChecked = generation?.FeasibleLayouts is { StopAfterElementCandidates.IsEmpty: false };
+         _choices["AutonomousGradual"].IsChecked = options.Expansion?.EnableGradualDeletion == true;
+         _choices["AutonomousSplit"].IsChecked = options.Expansion?.EnableSplit == true;
+         _choices["AutonomousMerge"].IsChecked = options.Expansion?.EnableMerge == true;
+diff --git a/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.cs b/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.cs
+index 9d74d1ee..eb19fb74 100644
+--- a/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.cs
++++ b/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.cs
+@@ -137,9 +137,15 @@ public sealed partial class AutonomousTopologyWindow : Window
+         Choice("AutonomousDescriptor", "按结构描述生成新处方", false);
+         Choice("AutonomousDelano", "使用 Delano 一阶搜索", false);
+         Choice("AutonomousThickDelano", "按实际厚度与固定光阑构造 Delano 起点", false);
++        Choice("AutonomousFeasibleThickDelano", "多布局厚透镜构造：先通过几何再补偿", false);
++        Choice("AutonomousStopPartitions", "固定光阑下尝试前、中、后镜片分配", false);
++        Number("AutonomousConstructionLayouts", "每个起点最多尝试布局数", 3, 1, 8);
+         Choice("AutonomousFixedStopRecovery", "独立恢复固定光阑入瞳", false);
+         Choice("AutonomousImageScreening", "按真实像差筛选并排序起点", false);
+         Number("AutonomousScreenRays", "每候选像差筛选追迹上限", 2500, 1, 1000000);
++        Choice("AutonomousCompetition", "多结构候选竞争与分阶段优化", false);
++        Number("AutonomousCompetitionUpdates", "竞争每阶段更新上限", 4, 0, 40);
++        Number("AutonomousCompetitionRays", "竞争准备总追迹上限", 500000, 1, 1000000);
+         Number("AutonomousGeneratedElements", "生成镜片数", 3, 2, 16);
+         Number("AutonomousGeneratedStop", "光阑前镜片数", 0, 0, 16);
+         Number("AutonomousGeneratedRadius", "生成净半口径 (mm)", 5, .001m, 1000);
+@@ -254,14 +260,39 @@ public sealed partial class AutonomousTopologyWindow : Window
+         {
+             if (_applyingPlan) return;
+             MarkPlanEdited();
++            if (id == "AutonomousCompetition" && control.IsChecked == true)
++            {
++                _choices["AutonomousFeasibleThickDelano"].IsChecked = true;
++                _choices["AutonomousImageScreening"].IsChecked = false;
++            }
++            if (id == "AutonomousImageScreening" && control.IsChecked == true)
++                _choices["AutonomousCompetition"].IsChecked = false;
+             if (id == "AutonomousGeometryScreen" && control.IsChecked == true) _choices["AutonomousPopulation"].IsChecked = true;
+             if (id == "AutonomousDelano" && control.IsChecked == true) _choices["AutonomousDescriptor"].IsChecked = true;
+             if (id == "AutonomousThickDelano" && control.IsChecked == true)
+             {
++                _choices["AutonomousFeasibleThickDelano"].IsChecked = false;
++                _choices["AutonomousDelano"].IsChecked = true;
++                _choices["AutonomousFixedStopRecovery"].IsChecked = true;
++            }
++            if (id == "AutonomousFeasibleThickDelano" && control.IsChecked == true)
++            {
++                _choices["AutonomousThickDelano"].IsChecked = false;
+                 _choices["AutonomousDelano"].IsChecked = true;
+                 _choices["AutonomousFixedStopRecovery"].IsChecked = true;
+             }
+-            if (id == "AutonomousDelano" && control.IsChecked != true) _choices["AutonomousThickDelano"].IsChecked = false;
++            if (id == "AutonomousStopPartitions" && control.IsChecked == true)
++                _choices["AutonomousFeasibleThickDelano"].IsChecked = true;
++            if (id == "AutonomousFeasibleThickDelano" && control.IsChecked != true)
++            {
++                _choices["AutonomousStopPartitions"].IsChecked = false;
++                _choices["AutonomousCompetition"].IsChecked = false;
++            }
++            if (id == "AutonomousDelano" && control.IsChecked != true)
++            {
++                _choices["AutonomousThickDelano"].IsChecked = false;
++                _choices["AutonomousFeasibleThickDelano"].IsChecked = false;
++            }
+             if (id == "AutonomousDescriptor" && control.IsChecked != true) _choices["AutonomousDelano"].IsChecked = false;
+             if (id == "AutonomousReductionOnly" && control.IsChecked == true)
+             {
+diff --git a/src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs b/src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs
+index 18c1bd7e..fc558820 100644
+--- a/src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs
++++ b/src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs
+@@ -4,6 +4,13 @@ internal static partial class UiLocalization
+ {
+     private static void AddAutonomousTopologyTexts(Action<string, string, string> add)
+     {
++        add("多结构候选竞争与分阶段优化", "Compete multiple structures with staged optimization", "複数構成の競争と段階最適化");
++        add("竞争每阶段更新上限", "Competition updates per stage", "競争の各段階の更新上限");
++        add("竞争准备总追迹上限", "Competition preparation ray budget", "競争準備の総追跡上限");
++        add("竞争候选 / 工作起点 / 原规格合格", "Candidates / working seeds / original-spec qualified", "候補 / 作業用初期処方 / 元の仕様に適合");
++        add("阶段评价", "Stage evaluations", "段階評価");
++        add("视场 / 孔径比例", "Field / pupil fractions", "画角 / 瞳の比率");
++        add("竞争准备已保存，合格状态见原规格终验", "Competition saved; qualification uses original-spec validation", "競争結果を保存。適合判定は元の仕様の最終検証を使用");
+         add("按真实像差筛选并排序起点", "Screen and rank seeds by physical aberrations", "実光線の収差で初期処方を選別・順位付け");
+         add("每候选像差筛选追迹上限", "Screening ray budget per candidate", "候補ごとの収差選別追跡上限");
+         add("真实像差筛选，仅用于起点排序", "Physical aberration screening, for seed ranking only", "実光線収差の選別（初期処方の順位付けのみ）");
+@@ -226,6 +233,10 @@ internal static partial class UiLocalization
+         add("优先保留全目标补偿额度", "Prioritize Full Compensation Budget", "全目標補償枠を優先");
+         add("局部补偿更新上限", "Local Update Limit", "局所補償の更新上限");
+         add("按实际厚度与固定光阑构造 Delano 起点", "Construct Delano Seeds with Actual Thickness and Fixed Stop", "実際の厚さと固定絞りで Delano 初期処方を構成");
++        add("多布局厚透镜构造：先通过几何再补偿", "Thick Layout Search: Geometry before Refinement", "厚レンズ配置探索：幾何条件を満たしてから補償");
++        add("固定光阑下尝试前、中、后镜片分配", "Try Front, Middle and Rear Lens Partitions at Fixed Stop", "固定絞りで前・中・後のレンズ配分を試行");
++        add("每个起点最多尝试布局数", "Maximum Layouts per Start", "初期点あたりの最大配置数");
++        add("构造布局 / 可行布局", "Constructed / Feasible Layouts", "構成配置 / 実行可能配置");
+         add("全目标更新上限", "Full Update Limit", "全目標補償の更新上限");
+         add("启用瞳倍率恢复会同时启用矩阵自动求导；关闭自动求导会关闭瞳倍率恢复", "Enabling pupil restoration also enables automatic matrix derivatives; disabling those derivatives turns pupil restoration off", "瞳倍率の復元は行列の自動微分も有効にします。自動微分を解除すると瞳倍率の復元も解除します");
+         add("不新增面型分支时独立释放已有面的锥常数；面型分支已有的变量规则保持", "Release existing conic coordinates without adding profile branches; existing profile-branch variable rules are preserved", "面型の分岐を追加せず既存面の円錐定数を解放します。面型分岐の既存変数規則は保持します");
+diff --git a/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraContinuousSpectrum.cs b/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraContinuousSpectrum.cs
+index ac5525d0..c4abd2ca 100644
+--- a/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraContinuousSpectrum.cs
++++ b/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraContinuousSpectrum.cs
+@@ -64,7 +64,7 @@ public static partial class CameraContinuousSpectrum
+ {
+     public const int MaximumNodes = 36864;
+     public const long MaximumPixelNodes = 100_000_000;
+-    private const double Hc = 6.62607015e-34 * 299792458;
++    private const double Hc = PhotonRadiometry.PlanckTimesLightSpeed;
+ 
+     public static SpectralIntegrationPlan BuildPlan(ScalarSpectrum illuminant, ScalarSpectrum reflectance,
+         SensorSpectralResponse qe, ContinuousSpectrumSettings settings)
+@@ -114,17 +114,18 @@ public static partial class CameraContinuousSpectrum
+     }
+ 
+     public static ContinuousImageResult Integrate(RgbImage linearSource, CameraSensorSettings sensor,
+-        SpectralIntegrationPlan plan, Func<RgbImage, double, RgbImage>? propagate = null)
++        SpectralIntegrationPlan plan, Func<RgbImage, double, RgbImage>? propagate = null, CameraPixelSampling? pixelSampling = null)
+     {
+         ArgumentNullException.ThrowIfNull(linearSource); ArgumentNullException.ThrowIfNull(plan);
+-        CameraSensorPipeline.Validate(sensor, new()); CameraSensorPipeline.ValidateDimensions(linearSource.Width, linearSource.Height);
++        CameraSensorPipeline.Validate(sensor, new());
++        var (width, height) = CameraPixelAperture.OutputDimensions(linearSource.Width, linearSource.Height, pixelSampling);
+         if (linearSource.Channels != 3 || plan.Nodes.Count is < 3 or > MaximumNodes
+             || propagate is not null && (long)linearSource.Width * linearSource.Height * plan.Nodes.Count > MaximumPixelNodes)
+             throw new ArgumentException("Invalid continuous source or pixel × node work exceeds 100 million.");
+-        var width = linearSource.Width; var height = linearSource.Height;
+-        var mask = new double[1, height, width]; var displayMask = new double[3, height, width];
++        var sampleWidth = linearSource.Width; var sampleHeight = linearSource.Height;
++        var mask = new double[1, sampleHeight, sampleWidth]; var displayMask = new double[3, sampleHeight, sampleWidth];
+         var preview = new double[3, height, width]; var photo = new double[width * height];
+-        for (var y = 0; y < height; y++) for (var x = 0; x < width; x++)
++        for (var y = 0; y < sampleHeight; y++) for (var x = 0; x < sampleWidth; x++)
+         {
+             for (var c = 0; c < 3; c++)
+                 if (!double.IsFinite(linearSource[c, y, x]) || linearSource[c, y, x] is < 0 or > 1)
+@@ -133,7 +134,10 @@ public static partial class CameraContinuousSpectrum
+             for (var c = 0; c < 3; c++) displayMask[c, y, x] = mask[0, y, x];
+         }
+         var input = new RgbImage(mask);
+-        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000;
++        var sourcePreview = CameraPixelAperture.Average(new(displayMask), pixelSampling is null ? null : pixelSampling with { FillFactor = 1 });
++        var sampledMask = CameraPixelAperture.Average(input, pixelSampling);
++        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000
++            * CameraPixelAperture.ChargeScale(pixelSampling);
+         if (propagate is null)
+         {
+             // Identity optical transfer is wavelength independent: sum spectra once, preserving
+@@ -153,19 +157,20 @@ public static partial class CameraContinuousSpectrum
+                 for (var x = 0; x < width; x++)
+                 {
+                     var i = y * width + x;
+-                    photo[i] = mask[0, y, x] * coefficients[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)];
++                    photo[i] = sampledMask[0, y, x] * coefficients[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)];
+                     if (!double.IsFinite(photo[i]) || photo[i] > 1e10) throw new ArgumentOutOfRangeException(nameof(plan), "Integrated photocharge exceeds 1e10 electrons.");
+-                    for (var c = 0; c < 3; c++) preview[c, y, x] = mask[0, y, x] * transfer;
++                    for (var c = 0; c < 3; c++) preview[c, y, x] = sampledMask[0, y, x] * transfer;
+                 }
+             }
+-            return new(new(displayMask), new(preview), photo);
++            return new(sourcePreview, new(preview), photo);
+         }
+         foreach (var node in plan.Nodes)
+         {
+             ComputationCancellation.ThrowIfCancellationRequested();
+             var optical = propagate(input, node.WavelengthNanometers);
+-            if (optical.Channels != 1 || optical.Width != width || optical.Height != height)
++            if (optical.Channels != 1 || optical.Width != sampleWidth || optical.Height != sampleHeight)
+                 throw new ArgumentException("Monochromatic optical result must match the spatial mask.");
++            optical = CameraPixelAperture.Average(optical, pixelSampling);
+             var energyWeight = node.IrradianceWattsPerSquareMeterPerNanometer * node.Reflectance * node.WeightNanometers;
+             var photonWeight = energyWeight * node.WavelengthNanometers * 1e-9 / Hc * areaTime;
+             var efficiencies = new[] { node.RedQe, node.GreenQe, node.BlueQe };
+@@ -184,6 +189,6 @@ public static partial class CameraContinuousSpectrum
+                 }
+             }
+         }
+-        return new(new(displayMask), new(preview), photo);
++        return new(sourcePreview, new(preview), photo);
+     }
+ }
+diff --git a/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraMaterialSpectrum.cs b/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraMaterialSpectrum.cs
+index bb8eeb83..733d481f 100644
+--- a/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraMaterialSpectrum.cs
++++ b/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraMaterialSpectrum.cs
+@@ -77,15 +77,16 @@ public static partial class CameraContinuousSpectrum
+     }
+ 
+     public static ContinuousImageResult IntegrateMaterials(RgbImage linearSource, CameraSensorSettings sensor,
+-        MaterialSpectralPlan plan, Func<RgbImage, double, RgbImage>? propagate = null)
++        MaterialSpectralPlan plan, Func<RgbImage, double, RgbImage>? propagate = null, CameraPixelSampling? pixelSampling = null)
+     {
+         ArgumentNullException.ThrowIfNull(linearSource); ArgumentNullException.ThrowIfNull(plan);
+-        CameraSensorPipeline.Validate(sensor, new()); CameraSensorPipeline.ValidateDimensions(linearSource.Width, linearSource.Height);
++        CameraSensorPipeline.Validate(sensor, new());
++        var (outputWidth, outputHeight) = CameraPixelAperture.OutputDimensions(linearSource.Width, linearSource.Height, pixelSampling);
+         var width = linearSource.Width; var height = linearSource.Height;
+         if (linearSource.Channels != 3 || propagate is not null && (long)width * height * plan.Common.Nodes.Count > MaximumPixelNodes)
+             throw new ArgumentException("Invalid source or material image exceeds pixel × node budget.");
+         var mask = new double[height, width]; var displayMask = new double[3, height, width];
+-        var preview = new double[3, height, width]; var photo = new double[width * height]; var labels = new int[width * height];
++        var preview = new double[3, outputHeight, outputWidth]; var photo = new double[outputWidth * outputHeight]; var labels = new int[width * height];
+         for (var y = 0; y < height; y++)
+         {
+             ComputationCancellation.ThrowIfCancellationRequested();
+@@ -99,7 +100,8 @@ public static partial class CameraContinuousSpectrum
+             }
+         }
+         var coefficients = new double[SpectralMaterialScene.MaximumMaterials, 3];
+-        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000;
++        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000
++            * CameraPixelAperture.ChargeScale(pixelSampling);
+         var materialById = plan.Scene.Materials.ToDictionary(m => m.Id);
+         var transferById = new double[SpectralMaterialScene.MaximumMaterials];
+         for (var index = 0; index < plan.Scene.Materials.Count; index++)
+@@ -132,14 +134,15 @@ public static partial class CameraContinuousSpectrum
+             var optical = propagate(new(radiance!), node.WavelengthNanometers);
+             if (optical.Channels != 1 || optical.Width != width || optical.Height != height)
+                 throw new ArgumentException("Monochromatic optical result must match material source dimensions.");
+-            for (var y = 0; y < height; y++)
++            optical = CameraPixelAperture.Average(optical, pixelSampling);
++            for (var y = 0; y < outputHeight; y++)
+             {
+                 ComputationCancellation.ThrowIfCancellationRequested();
+-                for (var x = 0; x < width; x++)
++                for (var x = 0; x < outputWidth; x++)
+                 {
+                     var value = optical[0, y, x];
+                     if (!double.IsFinite(value) || value < 0) throw new ArgumentException("Optical transfer must be finite and nonnegative.");
+-                    var i = y * width + x; photo[i] += value * photonWeight * efficiencies[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)];
++                    var i = y * outputWidth + x; photo[i] += value * photonWeight * efficiencies[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)];
+                     CheckCharge(photo[i]);
+                     var energy = plan.Common.IlluminantIrradiance > 0 ? value * energyWeight / plan.Common.IlluminantIrradiance : 0;
+                     for (var c = 0; c < 3; c++) preview[c, y, x] += energy;
+@@ -147,17 +150,29 @@ public static partial class CameraContinuousSpectrum
+             }
+         }
+         if (propagate is null)
++        {
++            var chargeByCfa = new double[3, height, width]; var finePreview = new double[3, height, width];
+             for (var y = 0; y < height; y++)
+             {
+                 ComputationCancellation.ThrowIfCancellationRequested();
+                 for (var x = 0; x < width; x++)
+                 {
+                     var i = y * width + x; var id = labels[i];
+-                    photo[i] = mask[y, x] * coefficients[id, CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)]; CheckCharge(photo[i]);
+-                    for (var c = 0; c < 3; c++) preview[c, y, x] = mask[y, x] * transferById[id];
++                    for (var c = 0; c < 3; c++)
++                    {
++                        chargeByCfa[c, y, x] = mask[y, x] * coefficients[id, c];
++                        finePreview[c, y, x] = mask[y, x] * transferById[id];
++                    }
+                 }
+             }
+-        return new(new(displayMask), new(preview), photo);
++            var charge = CameraPixelAperture.Average(new(chargeByCfa), pixelSampling);
++            preview = CameraPixelAperture.Average(new(finePreview), pixelSampling).Values;
++            for (var y = 0; y < outputHeight; y++) for (var x = 0; x < outputWidth; x++)
++            {
++                var i = y * outputWidth + x; photo[i] = charge[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x), y, x]; CheckCharge(photo[i]);
++            }
++        }
++        return new(CameraPixelAperture.Average(new(displayMask), pixelSampling is null ? null : pixelSampling with { FillFactor = 1 }), new(preview), photo);
+         static void CheckCharge(double value)
+         { if (!double.IsFinite(value) || value > 1e10) throw new ArgumentOutOfRangeException(nameof(plan), "Integrated photocharge exceeds 1e10 electrons."); }
+     }
+diff --git a/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraSensorPipeline.cs b/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraSensorPipeline.cs
+index de7f9b13..77c80fd5 100644
+--- a/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraSensorPipeline.cs
++++ b/src/OpticalSystemDesign.Core/Analysis/Imaging/CameraSensorPipeline.cs
+@@ -28,7 +28,7 @@ public static class CameraSensorPipeline
+ {
+     public const int MaximumPixels = 262144;
+     public static readonly IReadOnlyList<double> BandWavelengthsNanometers = Array.AsReadOnly(new[] { 650d, 550d, 450d });
+-    private const double PlanckTimesLightSpeed = 6.62607015e-34 * 299792458;
++    private const double PlanckTimesLightSpeed = PhotonRadiometry.PlanckTimesLightSpeed;
+ 
+     public static void Validate(CameraSensorSettings s, CameraIspSettings isp)
+     {
+@@ -51,15 +51,17 @@ public static class CameraSensorPipeline
+     }
+ 
+     public static CameraSensorResult Simulate(RgbImage opticalLinear, CameraSensorSettings sensor, CameraIspSettings isp,
+-        SensorSpectralResponse? spectralResponse = null)
++        SensorSpectralResponse? spectralResponse = null, CameraPixelSampling? pixelSampling = null)
+     {
+         Validate(sensor, isp); ArgumentNullException.ThrowIfNull(opticalLinear);
+-        ValidateDimensions(opticalLinear.Width, opticalLinear.Height);
++        CameraPixelAperture.OutputDimensions(opticalLinear.Width, opticalLinear.Height, pixelSampling);
++        opticalLinear = CameraPixelAperture.Average(opticalLinear, pixelSampling);
+         if (opticalLinear.Channels != 3) throw new ArgumentException("Three linear narrow-band channels are required.");
+         spectralResponse?.ValidateCameraCoverage();
+         var width = opticalLinear.Width; var height = opticalLinear.Height; var count = width * height;
+         var photo = new double[count];
+-        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000;
++        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000
++            * CameraPixelAperture.ChargeScale(pixelSampling);
+         var efficiencies = new[] { sensor.RedQe, sensor.GreenQe, sensor.BlueQe };
+         var spectralWeights = new double[3, 3];
+         if (spectralResponse is not null)

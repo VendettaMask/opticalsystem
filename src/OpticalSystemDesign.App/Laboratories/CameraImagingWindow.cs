@@ -19,10 +19,10 @@ public sealed partial class CameraImagingWindow : Window
 {
     private readonly IWorkbenchApplication _application;
     private readonly Dictionary<string, NumericUpDown> _numbers = new();
-    private readonly ComboBox _source = Choice("camera-source", "彩色色卡", "分辨率测试图", "畸变网格", "西门子星", "外部图片");
+    private readonly ComboBox _source = Choice("camera-source", "彩色色卡", "分辨率测试图", "畸变网格", "西门子星", "外部图片", "三维场景与照明");
     private readonly ComboBox _optics = Choice("camera-optics", "当前镜头", "理想光学对照");
     private readonly ComboBox _aberration = Choice("camera-aberration", "几何像差", "衍射像差");
-    private readonly ComboBox _size = Choice("camera-size", "128 × 96", "256 × 192", "512 × 384");
+    private readonly ComboBox _size = Choice("camera-size", SizeLabels);
     private readonly ComboBox _bayer = Choice("camera-bayer", "RGGB", "BGGR", "GRBG", "GBRG");
     private readonly CheckBox _noise = new() { Name = "camera-noise", Content = "启用噪声与非均匀性", IsChecked = true };
     private readonly CheckBox _isp = new() { Name = "camera-isp", Content = "启用基础 ISP", IsChecked = true };
@@ -68,6 +68,7 @@ public sealed partial class CameraImagingWindow : Window
 
         var settings = new StackPanel { Spacing = 12 };
         settings.Children.Add(BuildExperimentCard());
+        settings.Children.Add(BuildSamplingCard());
         settings.Children.Add(Group("输入与光学", new Control[]
         {
             Field("源图像", _source), _fileInfo, Field("光学模型", _optics), Field("像差模型", _aberration),
@@ -75,8 +76,10 @@ public sealed partial class CameraImagingWindow : Window
             _opticsInputInfo
         }));
         settings.Children.Add(BuildSensorFilesCard());
-        settings.Children.Add(BuildSceneSpectraCard());
-        settings.Children.Add(BuildMaterialSceneCard());
+        settings.Children.Add(BuildPixelSamplingCard());
+        settings.Children.Add(BuildScene3DCard());
+        _legacySpectraCard = BuildSceneSpectraCard(); settings.Children.Add(_legacySpectraCard);
+        _legacyMaterialsCard = BuildMaterialSceneCard(); settings.Children.Add(_legacyMaterialsCard);
         settings.Children.Add(Group("曝光与传感器", new Control[]
         {
             Number("exposure", "曝光 (ms)", 10, 0.001m, 10000, 1),
@@ -139,14 +142,15 @@ public sealed partial class CameraImagingWindow : Window
                         + "支持 JSON 传感器参数和 CSV 绝对 QE 曲线。导入响应后，每类 CFA 像元对 650/550/450 nm 三输入波段分别响应并累加光电子；曲线替代固定 QE，不重复相乘。无曲线时沿用原三波段独立响应。\n\n"
                         + "连续光谱：导入光源 W/m²/nm、材质反射率和 QE；支持单材质或最多 16 类源平面标签分区。每波长先施加各材质反射率，再调用共享光学，使模糊可跨材质边界传播。合并全部折点作分段三点 Gauss-Legendre 积分。图片转线性灰度空间图样，不从 RGB 反演光谱。\n\n"
                         + "支持完整实验保存/打开及冻结镜头、输入、光源、材质、传感器、ISP 和 A/B 复算；支持已知增益 RAW 暗场/平场的标量参数估计，保留测量条件和原始帧。尚无逐像元校正或内置实测传感器库。\n\n"
-                        + "像面强度采用像素中心样本；尚无像元面积积分、填充因子、角度 QE、像素串扰、3D 光源/BRDF、动态快门、杂散光耦合或厂商 ISP。导入文件保留来源与哈希，不代表已核实测量。\n\n"
+                        + "三维场景：不透明矩形/球体/长方体、点光源、Lambertian 直接反射、遮挡和不同物深，支持几何或有限单元标量 Huygens 衍射。衍射使用实际物点和镜头光程，同点同波长先叠加复场，不同点/波长再叠加强度，接入感光面积、RAW/ISP。实际感光区可作 2×2/4×4 Gauss 积分；源、瞳面、像元和有限窗口需分别检查收敛。V5/V6/V7 保留原规则复算。尚无一般 BSDF/多次反射、矢量偏振衍射、角度 QE、微透镜、动态快门、杂散光耦合或厂商 ISP。导入来源不代表已核实测量。\n\n"
                         + "对照：无噪声结果使用相同光学像、曝光、ADC 与 ISP，仅关闭随机噪声及固定非均匀性；A/B 保存各自参数与镜头修订。同种子可重复。电子图/RAW 不做逐图峰值归一化。\n\n"
                         + "公开功能参考（非数值认证）：\nDeepO Sensor & ISP — https://www.ai4optics.com/deepo/manual/image-simulation/sensor/\n"
                         + "Keysight ImSym — https://www.keysight.com/us/en/products/software/optical-solutions-software/optical-design-solutions/imsym-imaging-system-simulator.html\n"
                         + "Speos sensor examples — https://optics.ansys.com/hc/en-us/articles/20419350770067\n"
                         + "EMVA 1288 — https://www.emva.org/standards-technology/emva-1288/\n\n"
                         + "验收依据：独立光子/电子数公式、曝光与增益控制、暗场/平场统计、Bayer 已知色块及无噪声/A-B 对照。未宣称 EMVA 合规或与商业软件结果一致。"
-                }) }
+                }) },
+                new TabItem { Header = "采样检查", Content = Scroll(_samplingInfo) }
             }
         };
         var body = new Grid { Name = "CameraWorkspace", ColumnDefinitions = new ColumnDefinitions("310,*"), ColumnSpacing = 14 };
@@ -162,19 +166,22 @@ public sealed partial class CameraImagingWindow : Window
         {
             _stages.Columns = _comparisons.Columns = tabs.Bounds.Width >= 880 ? 3 : tabs.Bounds.Width >= 550 ? 2 : 1;
         };
-        _run.Click += async (_, _) => await RunAsync(); _cancel.Click += (_, _) => Invalidate("计算已取消");
+        _run.Click += async (_, _) => await RunAsync(); _cancel.Click += (_, _) =>
+        { if (_samplingBusy) CancelSampling(); else Invalidate("计算已取消"); };
         _pin.Click += (_, _) => PinComparison(); _export.Click += async (_, _) => await ExportAsync();
         import.Click += async (_, _) => await ImportAsync();
         foreach (var (key, number) in _numbers) number.ValueChanged += (_, _) =>
         {
             if (_applyingSensor) return;
-            if (!key.StartsWith("wb-") && !key.StartsWith("spectrum-") && key is not ("gamma" or "denoise" or "sharpen")) MarkSensorModified();
+            if (key.StartsWith("sampling-")) { UpdateSamplingControls(); return; }
+            if (!key.StartsWith("wb-") && !key.StartsWith("spectrum-") && !key.StartsWith("scene3d-") && key is not ("gamma" or "denoise" or "sharpen" or "fill-factor")) MarkSensorModified();
             Invalidate("参数已改变，请运行 B；A 对照保留。");
         };
-        foreach (var choice in new[] { _source, _optics, _aberration, _size, _bayer, _spectralModel })
+        foreach (var choice in new[] { _source, _optics, _aberration, _size, _bayer, _spectralModel, _pixelSampling, _qeArea })
             choice.SelectionChanged += (_, _) =>
             {
                 if (_applyingSensor) return; if (choice == _bayer) MarkSensorModified();
+                SynchronizeScene3DMode();
                 Invalidate("设置已改变，请重新运行。");
             };
         _noise.IsCheckedChanged += (_, _) =>

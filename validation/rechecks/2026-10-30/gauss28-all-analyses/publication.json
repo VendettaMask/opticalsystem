@@ -1,0 +1,653 @@
+{
+  "Source": "D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Double Gauss 28 degree field.zmx",
+  "Sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+  "Snapshot": {
+    "Name": "DOUBLE GAUSS",
+    "Path": "D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Double Gauss 28 degree field.zmx",
+    "Revision": 1,
+    "Status": "已打开 Double Gauss 28 degree field.zmx（zemax-zmx）。",
+    "CanUndo": false,
+    "CanRedo": false,
+    "EffectiveFocalLength": 99.50067904919332,
+    "FNumber": 2.9853189033661365,
+    "ApertureValue": 33.33,
+    "TotalTrack": 132.988419345,
+    "SurfaceCount": 13,
+    "FieldCount": 3,
+    "WavelengthCount": 3,
+    "EntrancePupilDiameter": 33.33,
+    "IsDirty": false
+  },
+  "CapturedAt": "2026-10-30T12:43:14.0035428+08:00",
+  "SourceUnchanged": true,
+  "SelectedCount": 73,
+  "Analyses": [
+    "Single Ray Trace",
+    "First Order",
+    "Seidel Coefficients",
+    "Seidel Diagram",
+    "Spot Diagram",
+    "Full Field Spot Diagram",
+    "Matrix Spot Diagram",
+    "Configuration Matrix Spot Diagram",
+    "Ray Fan",
+    "Footprint Diagram",
+    "Grid Distortion",
+    "Field Curvature and Distortion",
+    "Field Curvature",
+    "Color Focus Shift",
+    "Lateral Color",
+    "Axial Aberration",
+    "Full Field Aberration",
+    "Encircled Energy",
+    "Diffraction Encircled Energy",
+    "Geometric Line Edge Spread",
+    "Extended Source Encircled Energy",
+    "Pupil Aberration",
+    "RMS vs Field",
+    "RMS vs Wavelength",
+    "RMS vs Focus",
+    "RMS Field Map",
+    "RMS Wavefront vs Field",
+    "Zernike vs Field",
+    "Through Focus",
+    "Fourier Through Focus MTF",
+    "Huygens Through Focus MTF",
+    "Geometric Through Focus MTF",
+    "Fourier MTF vs Field",
+    "Huygens MTF vs Field",
+    "Geometric MTF vs Field",
+    "Angle vs Image Height",
+    "Angle vs Image Height - Through Pupil",
+    "Angle vs Image Height - Through Field",
+    "Cardinal Points Data",
+    "Vignetting Diagram",
+    "Relative Illumination",
+    "Incoherent Irradiance",
+    "Radiant Intensity",
+    "Y-Ybar",
+    "PSF",
+    "FFT PSF Cross Section",
+    "FFT Line Edge Spread",
+    "Huygens PSF",
+    "Huygens PSF Cross Section",
+    "MTF",
+    "Huygens MTF",
+    "Geometric MTF",
+    "Sampled MTF",
+    "Contrast Loss Map",
+    "Optical Path Difference",
+    "Foucault Analysis",
+    "Wavefront Map",
+    "Interferogram",
+    "Wavefront",
+    "Centroid Sphere Wavefront",
+    "Best Fit Sphere Wavefront",
+    "Zernike Fringe",
+    "Zernike Standard",
+    "Zernike Annular",
+    "Image Simulation",
+    "Geometric Image Analysis",
+    "Geometric Bitmap Image Analysis",
+    "Light Source Analysis",
+    "Partially Coherent Image Analysis",
+    "Extended Diffraction Image Analysis",
+    "Jones Pupil",
+    "System Data Report",
+    "Classified Data Report"
+  ],
+  "ElapsedSeconds": 920.513591,
+  "Result": {
+    "ReportPath": "D:\\optical system design\\opticalsystem\\tmp\\gauss28-all-analysis\\final-output\\publication\\高斯28度全分析检查报告.pdf",
+    "Succeeded": 73,
+    "Failed": 2
+  },
+  "Images": [
+    {
+      "Title": "二维布局",
+      "File": "c001-TwoDimensional.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "81836A7E6067A0BAF47423B41C27B696AD8843211A7CA6D8AEC6143DDD3D546E",
+      "Frame": "complete"
+    },
+    {
+      "Title": "三维布局",
+      "File": "c001-ThreeDimensional.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "DFC8376420F773A21C4226F8003D3FD62F656B04CF0CD0EC72875A6D4C58B6FF",
+      "Frame": "complete"
+    },
+    {
+      "Title": "单光线追迹",
+      "File": "c001-analysis-001.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "47646E7D2E59FABECC2790A31956E6A07B7549AD351300CD1B945B979A038C63",
+      "Frame": "complete"
+    },
+    {
+      "Title": "赛德尔图",
+      "File": "c001-analysis-004.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "63BD70BBA6E1F0476D8F92E8A9D949B0AF479D46219EC6D3C731EB4955AC8233",
+      "Frame": "complete"
+    },
+    {
+      "Title": "标准点列图",
+      "File": "c001-analysis-005.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "B944D7E2A5C709368972F002DF571429770FE3B994F6BEBAA4F88B37361CF5EF",
+      "Frame": "complete"
+    },
+    {
+      "Title": "全视场点列图",
+      "File": "c001-analysis-006.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "8D8C99513262C23CAC0E05E736765C3B4CC832B899827F0E804E42B69337E6DE",
+      "Frame": "complete"
+    },
+    {
+      "Title": "矩阵点列图",
+      "File": "c001-analysis-007.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "D8CD3AAECA317989E5013C12F4877406181AD220709F3B41E46C5719617D9E22",
+      "Frame": "complete"
+    },
+    {
+      "Title": "结构矩阵点列图",
+      "File": "c001-analysis-008.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "0F9C95F2AE3A4F81081B81694ECBECC2EEE0C2957B62705888B79297956BB97E",
+      "Frame": "complete"
+    },
+    {
+      "Title": "光线像差图",
+      "File": "c001-analysis-009.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "CC290792DE8289CD7E2F371CEF6B7255EA6835CB5A49810474EAAE3B999C5905",
+      "Frame": "complete"
+    },
+    {
+      "Title": "光迹图",
+      "File": "c001-analysis-010.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "85E1FBF6ED2AFB63D7860174232A028778EFC9D9F3EC88632B8655E6FA0E4CD2",
+      "Frame": "complete"
+    },
+    {
+      "Title": "网格畸变",
+      "File": "c001-analysis-011.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "9DC7B46ECB900C363643AB735365D9D8472D98E503A2E47518224A8F753C6193",
+      "Frame": "complete"
+    },
+    {
+      "Title": "场曲/畸变",
+      "File": "c001-analysis-012.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "93F8EF1D0221DC2892F9F5281E4ECD01BA6DF5D483F5F945D8A6E4720FAA56BA",
+      "Frame": "complete"
+    },
+    {
+      "Title": "场曲",
+      "File": "c001-analysis-013.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "425D1C6E1527A91C85B01F0263403C6A7CA2A09358146B654358D221EBB40D65",
+      "Frame": "complete"
+    },
+    {
+      "Title": "色焦移",
+      "File": "c001-analysis-014.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "ECBDEBD7C3F161E88F53F92FB9790FECDB5A9638171048D8D879F7988D2B1DA1",
+      "Frame": "complete"
+    },
+    {
+      "Title": "垂轴色差",
+      "File": "c001-analysis-015.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "7C5E959232F9BEBCFC0A4EC06059154F5A790572599445FDFF550A4CE4504517",
+      "Frame": "complete"
+    },
+    {
+      "Title": "轴向像差",
+      "File": "c001-analysis-016.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "3244DC9D654D128C0F9ED93302A44D1A5CB5889C2DA71C3015F40AAC0D5822E4",
+      "Frame": "complete"
+    },
+    {
+      "Title": "全视场像差",
+      "File": "c001-analysis-017.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "4000A1725917919420CF7B016E9CB4AAC9CEF8E7962AF59AC36B2CE4F6266CEE",
+      "Frame": "complete"
+    },
+    {
+      "Title": "几何",
+      "File": "c001-analysis-018.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "7170FAA4AC935C66A013476F42DB2CE43194FFFD277B1864BE188B9CDCEA1C81",
+      "Frame": "complete"
+    },
+    {
+      "Title": "衍射",
+      "File": "c001-analysis-019.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "D1B49E10EDC5B721091CA0F8ACC7A6C13735BBA6D8883B52EC96D8DCB9D2ADD1",
+      "Frame": "complete"
+    },
+    {
+      "Title": "几何线/边缘扩散",
+      "File": "c001-analysis-020.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "42448D8643E6129D16D2B96CB688D78AE5683DA6AA17BBEEC5A53A6578832FCA",
+      "Frame": "complete"
+    },
+    {
+      "Title": "扩展光源",
+      "File": "c001-analysis-021.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "85662566C3BCEB8BBE31476B63AC56B7DC6041C9AC1F9E84DD35B584615B80EF",
+      "Frame": "complete"
+    },
+    {
+      "Title": "瞳孔像差",
+      "File": "c001-analysis-022.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "E13B149566F32925C7190726861CEB081886303010B7EAB80BF78B66ACD6C21B",
+      "Frame": "complete"
+    },
+    {
+      "Title": "RMS vs. 视场",
+      "File": "c001-analysis-023.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "220E673656765B856855BC7CA2D7236CC5F6F5445A46C31CE9621EA9B10D28AD",
+      "Frame": "complete"
+    },
+    {
+      "Title": "RMS vs. 波长",
+      "File": "c001-analysis-024.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "117111626BBBF4699EED3DC876ED95CE54F80397607F5D5970832B7E8950C958",
+      "Frame": "complete"
+    },
+    {
+      "Title": "RMS vs. 离焦",
+      "File": "c001-analysis-025.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "51E62BB959F0C0DDA4C44C01085C0860BB2A0D55E6B528F3E923048332DCC60E",
+      "Frame": "complete"
+    },
+    {
+      "Title": "二维视场RMS图",
+      "File": "c001-analysis-026.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "FD8BB2416D8A26641CE0A985D062EF7CEC5DB7722DAC1834E70F4D4DA1837718",
+      "Frame": "complete"
+    },
+    {
+      "Title": "RMS 波前-视场",
+      "File": "c001-analysis-027.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "C9F437FFC081FA5B1BC5B3FA10F6DBEEFC2DC0E2C5183254F82AD5670329391F",
+      "Frame": "complete"
+    },
+    {
+      "Title": "Zernike系数 vs. 视场",
+      "File": "c001-analysis-028.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "5F9462D2366E93C0A9B72967A555CF89D947ED02597B63DDEC19EABF6D1DEB7F",
+      "Frame": "complete"
+    },
+    {
+      "Title": "傅里叶离焦 MTF",
+      "File": "c001-analysis-030.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "95165C3B39DF3F6EE087C045C7B7E0C7B26453A0471A17934E3B128178325F02",
+      "Frame": "complete"
+    },
+    {
+      "Title": "惠更斯离焦 MTF",
+      "File": "c001-analysis-031.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "D93E8834551DEDAF1889FDC9B1CA78AD4744A9DFE5A9264B04F47E3E1887E0D8",
+      "Frame": "complete"
+    },
+    {
+      "Title": "几何离焦 MTF",
+      "File": "c001-analysis-032.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "7DFC7DB822707ECB229331C809E9EC6A6BAB188817758E2CCD7938740EABE1E1",
+      "Frame": "complete"
+    },
+    {
+      "Title": "傅里叶 MTF VS 视场",
+      "File": "c001-analysis-033.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "4DC354A688D85C4A188CCF8CB674046F9357439702964863F5A120A4CDE93B04",
+      "Frame": "complete"
+    },
+    {
+      "Title": "惠更斯 MTF VS 视场",
+      "File": "c001-analysis-034.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "2248A19743DB1B457E62671A93106C3CE33FCAF9246AB3A440C4B13C9AAD9B8C",
+      "Frame": "complete"
+    },
+    {
+      "Title": "几何 MTF VS 视场",
+      "File": "c001-analysis-035.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "70D35DA4B4BEEE16C02DF020855E46052ED01AFF47A694D4F569F618FFA72762",
+      "Frame": "complete"
+    },
+    {
+      "Title": "入射角 vs. 像高",
+      "File": "c001-analysis-036.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "0F6DB1E0E6DBA7A4AB149AD0DB86D51C48E29DABA36DD8F8AB4EAB63038C5B79",
+      "Frame": "complete"
+    },
+    {
+      "Title": "入射角-像高（扫描瞳孔）",
+      "File": "c001-analysis-037.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "6AF1AE97800555017F015E4BC546600C4F1F938BE24C9A71CF92A6085A557561",
+      "Frame": "complete"
+    },
+    {
+      "Title": "入射角-像高（扫描视场）",
+      "File": "c001-analysis-038.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "FFF4A1531B313D4C98C456910A089DE0B03F37DCFCCDAE5E448D41EF0EEFA9A3",
+      "Frame": "complete"
+    },
+    {
+      "Title": "基面数据",
+      "File": "c001-analysis-039.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "7EABF40D2C9E8D04571B65137CB155CE82287F76FD40C19A69F2177BB56A4727",
+      "Frame": "complete"
+    },
+    {
+      "Title": "渐晕图",
+      "File": "c001-analysis-040.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "54AE650331CAD376FCE19438977DE11E5546C5E804C6A918223754EEAB58242E",
+      "Frame": "complete"
+    },
+    {
+      "Title": "相对照度",
+      "File": "c001-analysis-041.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "C56D98EF5B71EBED2493EC6CA03455D9C90AC1026AD0AB7C7CC66E19F477B928",
+      "Frame": "complete"
+    },
+    {
+      "Title": "辐射强度",
+      "File": "c001-analysis-043.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "51B5E129FE34B462B3173827022806ECF9C868D8FA9F9C31698BBC770EF2F005",
+      "Frame": "complete"
+    },
+    {
+      "Title": "Y-Ybar",
+      "File": "c001-analysis-044.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "F63F365A5D512EB78762675487FAF034543A4527A91E4D4438984784FEA477A6",
+      "Frame": "complete"
+    },
+    {
+      "Title": "FFT PSF",
+      "File": "c001-analysis-045.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "BB6D7F3D449501B487DC41EB26CE6EBCB70D3CA00B3FD67AE9E7E6242D2886F4",
+      "Frame": "complete"
+    },
+    {
+      "Title": "FFT PSF截面图",
+      "File": "c001-analysis-046.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "2DB7305E13AA9A65CFC819D7CFD9EFFA97BFF0FFF52DF27BA3228AC33093B103",
+      "Frame": "complete"
+    },
+    {
+      "Title": "FFT 线/边缘扩散",
+      "File": "c001-analysis-047.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "383F954243FDD49F73F121C3F172434E1DC8B5F83E829BE12240D893577B756E",
+      "Frame": "complete"
+    },
+    {
+      "Title": "惠更斯PSF",
+      "File": "c001-analysis-048.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "882A3A5730623A0F82FEE4AB176872836057B0069F62F386453D3A4D5269F12C",
+      "Frame": "complete"
+    },
+    {
+      "Title": "惠更斯PSF截面图",
+      "File": "c001-analysis-049.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "DE63762A37C233F878F1CD4A1814D38979FA0B94D43D3D83C4EB2518A607DCFB",
+      "Frame": "complete"
+    },
+    {
+      "Title": "傅里叶 MTF",
+      "File": "c001-analysis-050.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "546613FB0F0551684DD064F9E10CC87CA31C08366B5AA39054BF51BD4F742464",
+      "Frame": "complete"
+    },
+    {
+      "Title": "惠更斯 MTF",
+      "File": "c001-analysis-051.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "EC67CFF3415347095FCB0CA7FDECD93CD860AC984A0532DD60F337C30AA3E69A",
+      "Frame": "complete"
+    },
+    {
+      "Title": "几何 MTF",
+      "File": "c001-analysis-052.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "37423C43D2A5DF7F314C03037D601392E9C1768B2E4FC4DD9E2121CEEE99A822",
+      "Frame": "complete"
+    },
+    {
+      "Title": "采样 MTF",
+      "File": "c001-analysis-053.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "50AA58F8DFE26CF78004CB57CE5DBA33FCD10788E2CF8853643CDD97C6E60C12",
+      "Frame": "complete"
+    },
+    {
+      "Title": "对比度损失图",
+      "File": "c001-analysis-054.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "E0C1A6EE423F1097F79FDB0DCBBDA08D947BAF2EF5CBC38D2B1C07A219479918",
+      "Frame": "complete"
+    },
+    {
+      "Title": "光程差图",
+      "File": "c001-analysis-055.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "E7E81CDABEB59C4471A40624C98C1A506194E56BB4637E21DA07D99C150551C5",
+      "Frame": "complete"
+    },
+    {
+      "Title": "傅科分析",
+      "File": "c001-analysis-056.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "552F7C64B2B8C1FEF766DCDEE12FE1E106A8C1A5225D66D293D9C7BEBDF4E275",
+      "Frame": "complete"
+    },
+    {
+      "Title": "波前图",
+      "File": "c001-analysis-057.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "186FA60C3B5D179EA715F1C2CEE707E80F76D71294AE58DFE775A7927349ADF9",
+      "Frame": "complete"
+    },
+    {
+      "Title": "干涉图",
+      "File": "c001-analysis-058.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "1B8ED09DD58DE53E7D377981D86F173EFA0A0A1E494C7835CCB0CFE6ABE4081C",
+      "Frame": "complete"
+    },
+    {
+      "Title": "波前",
+      "File": "c001-analysis-059.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "5A993825F2D0B1C43C5129CB5EF1D38DBDBE5A59CAA343EBBA0350BC0115ACA8",
+      "Frame": "complete"
+    },
+    {
+      "Title": "质心参考球波前",
+      "File": "c001-analysis-060.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "E61F87E39F404325E32AF48FCFD6CFBBB8E4B229CD84E1A1ABEC8B9FD48CAAF5",
+      "Frame": "complete"
+    },
+    {
+      "Title": "最佳拟合球波前",
+      "File": "c001-analysis-061.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "F2D2301BCBBB6FFACE59307E9268FB8558C89F0ABC27DFBC8861B8EC7910F156",
+      "Frame": "complete"
+    },
+    {
+      "Title": "图像模拟",
+      "File": "c001-analysis-065.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "CFCD0FB70AE4768069B4E26A7D7B47258A76B5541A71C7F0E8013B250A5EFC11",
+      "Frame": "complete"
+    },
+    {
+      "Title": "几何图像分析",
+      "File": "c001-analysis-066.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "52B959D18D6439BADA112CD2979C2D04510557951B262F57722858F5C4719AF2",
+      "Frame": "complete"
+    },
+    {
+      "Title": "几何位图图像分析",
+      "File": "c001-analysis-067.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "1B2601EF8F4EA33C115606C70F2CDAA5D40D0AB51C01C346BE4EE89F5D7CF5F9",
+      "Frame": "complete"
+    },
+    {
+      "Title": "光源分析",
+      "File": "c001-analysis-068.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "09F44CD6B464BC38B2662F15C780AF63624BF3FCB64432A10798545715485376",
+      "Frame": "complete"
+    },
+    {
+      "Title": "部分相干图像分析",
+      "File": "c001-analysis-069.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "5DF8500ADB7ACE2E315254FDB4582C3BA4D8701729E70D46BC54B09C16D45219",
+      "Frame": "complete"
+    },
+    {
+      "Title": "扩展图像分析",
+      "File": "c001-analysis-070.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "4777E5A163E90F8DF699122F1D169D6C5A5626114AB05F3A60DCCC50063A4E25",
+      "Frame": "complete"
+    },
+    {
+      "Title": "Jones 瞳",
+      "File": "c001-analysis-071.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "2686083FFA73FDF2451405A2BDFDC563FAD3AE945212AD6794EE88C110D35745",
+      "Frame": "complete"
+    }
+  ],
+  "RenderFailures": [
+    {
+      "Title": "离焦点列图",
+      "Error": "当前内容超出统一图框，请减少同时显示的视场或子图，或减小文字后刷新。"
+    }
+  ],
+  "InitialReportPath": "D:\\optical system design\\opticalsystem\\tmp\\gauss28-all-analysis\\final-output\\Pdf\\Double Gauss 28 degree field_report_20261030_124314_003.pdf",
+  "CoefficientTableRepair": {
+    "report": "D:\\optical system design\\opticalsystem\\tmp\\gauss28-coefficient-repair\\output\\Double Gauss 28 degree field_report_20261030_131216_366.pdf",
+    "terms": 111,
+    "original_sections": [
+      64,
+      65,
+      66
+    ],
+    "source_sha256": "F994005D633D4AF742402469C9E4E2E0C289A57AED3AE876FB3231D1D3F95460",
+    "assembly": "Only coefficient data pages replaced and page numbers updated; original figure contents not rearranged or rerendered."
+  }
+}

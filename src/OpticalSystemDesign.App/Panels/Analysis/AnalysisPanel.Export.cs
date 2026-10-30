@@ -44,14 +44,16 @@ public sealed partial class AnalysisPanel
         _exportImageButton.IsEnabled = !_isRunning && !_disposed;
         var explanation = _isRunning ? "正在计算，完成后可导出图片" : "导出图片（PNG）";
         ControlAvailability.Explain(_exportImageButton, explanation);
+        UpdateCurveWidthButton();
     }
 
-    internal RenderTargetBitmap CapturePlotImage()
+    internal RenderTargetBitmap CapturePlotImage(double? renderScale = null)
     {
         var page = ImageExportPage() ?? throw new InvalidOperationException("请先显示分析绘图页");
         page.UpdateLayout();
         var content = page.Child ?? throw new InvalidOperationException("分析图像尚未显示");
-        var scale = TopLevel.GetTopLevel(this)?.RenderScaling ?? 1;
+        if (content is UniformDiagramPage source) source.ValidateForExport();
+        var scale = renderScale ?? UniformDiagramPage.ExportScale;
         var size = content.Bounds.Size;
         if (!double.IsFinite(size.Width) || !double.IsFinite(size.Height) || size.Width <= 0 || size.Height <= 0)
             throw new InvalidOperationException("分析图像尚未显示");

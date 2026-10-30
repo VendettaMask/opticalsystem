@@ -31,6 +31,7 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
     }
 
     internal double ContentScale => 1;
+    internal static double MinimumReadableWidth(Control control) => PlotPagePresenter.MinimumReadableWidth(control);
 
     protected override Size MeasureOverride(Size availableSize)
     {
@@ -63,6 +64,11 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
         protected override Size MeasureOverride(Size availableSize)
         {
             if (Child is null) return default;
+            if (Child is UniformDiagramPage)
+            {
+                Child.Measure(new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
+                return new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight);
+            }
             var width = Math.Max(Math.Max(320, _viewport.Width), MinimumReadableWidth(Child));
             Child.Measure(new Size(width, double.PositiveInfinity));
             width = Math.Max(width, Child.DesiredSize.Width);
@@ -74,7 +80,7 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
 
         // DesiredSize is clipped to the measure constraint by Avalonia. Keep
         // explicit canvas minima when an ancestor grid has less available width.
-        private static double MinimumReadableWidth(Control control)
+        internal static double MinimumReadableWidth(Control control)
         {
             var children = control switch
             {
@@ -83,7 +89,7 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
                 _ => Enumerable.Empty<Control>()
             };
             var minimum = control is ResponsivePlotLegendGrid legend
-                ? MinimumReadableWidth(legend.Children[0]) + ResponsivePlotLegendGrid.MaximumLegendWidth + 2 * ResponsivePlotLegendGrid.LegendInset
+                ? MinimumReadableWidth(legend.Children[0]) + legend.LegendWidth
                 : children.Select(MinimumReadableWidth).DefaultIfEmpty(0).Max();
             return Math.Max(control.MinWidth, minimum) + control.Margin.Left + control.Margin.Right;
         }

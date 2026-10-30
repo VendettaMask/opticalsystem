@@ -1,0 +1,1002 @@
+{
+  "date": "2026-10-30",
+  "sourceHead": "3c32f781482b6ae6ba6a710a36732479723653ea",
+  "sourceIncludesUncommittedChanges": true,
+  "scope": "Camera models and workflow; no full repository or native desktop acceptance",
+  "latestDistinctCameraPassed": 140,
+  "latestCameraOutcomes": {
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.UnsupportedSamplingIsRejectedBeforeAllocation(n: 2, fill: NaN)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0000189"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.ContinuousAndMaterialIntegrationSelectTheOutputCfaAfterAreaAveraging(activeQe: False)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0133159"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.MaterialBoundaryInsideAPixelMixesSourceReflectanceBeforeDetection": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0020121"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.UnsupportedSamplingIsRejectedBeforeAllocation(n: 3, fill: 1)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0000157"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.AreaAveragePrecedesPhysicalPixelCfaSelection(pattern: RGGB)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0014499"
+    },
+    "OpticalSystemDesign.Tests.CameraPublishedSensorTests.ReportedReadNoiseAndWellCapacityRemainPhysicalElectronParameters(row: 1)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0320695"
+    },
+    "OpticalSystemDesign.Tests.CameraPublishedSensorTests.PublishedQeAtItsActualWavelengthProducesTheExpectedPhotocharge(row: 0)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0177222"
+    },
+    "OpticalSystemDesign.Tests.CameraPublishedSensorTests.PublishedQeAtItsActualWavelengthProducesTheExpectedPhotocharge(row: 3)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0003743"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.ExpandedGridBudgetCancellationAndLegacyIdentityArePreserved": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0043004"
+    },
+    "OpticalSystemDesign.Tests.CameraPublishedSensorTests.ReportedReadNoiseAndWellCapacityRemainPhysicalElectronParameters(row: 0)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0689562"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.CenteredApertureHasCorrectAreaWeightsAndSinusoidConvergesTowardBoxIntegral": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0011858"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.UnsupportedSamplingIsRejectedBeforeAllocation(n: 4, fill: 1.01)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0012042"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.WholePixelQeDoesNotCountFillLossTwiceButActiveAreaQeDoes(n: 4)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0039370"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.AreaExperimentFreezesSettingsAndReplaysBothModelsWithVersionGuards": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.2791789"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.UnsupportedSamplingIsRejectedBeforeAllocation(n: 1, fill: 0.5)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0000159"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.ExpandedOpticalWorkIsRejectedBeforeTracing": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0019531"
+    },
+    "OpticalSystemDesign.Tests.CameraPublishedSensorTests.PublishedQeAtItsActualWavelengthProducesTheExpectedPhotocharge(row: 1)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0003974"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.AreaAveragePrecedesPhysicalPixelCfaSelection(pattern: BGGR)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0005354"
+    },
+    "OpticalSystemDesign.Tests.CameraPublishedSensorTests.PublishedQeAtItsActualWavelengthProducesTheExpectedPhotocharge(row: 2)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0007349"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.ContinuousAndMaterialIntegrationSelectTheOutputCfaAfterAreaAveraging(activeQe: True)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0024670"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.UnsupportedSamplingIsRejectedBeforeAllocation(n: 4, fill: 0)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0003808"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.WholePixelQeDoesNotCountFillLossTwiceButActiveAreaQeDoes(n: 2)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0006403"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.AreaAveragePrecedesPhysicalPixelCfaSelection(pattern: GBRG)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0001593"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.AreaAveragePrecedesPhysicalPixelCfaSelection(pattern: GRBG)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0001477"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.RealLensAreaPropagationKeepsTheSensorFieldAndWorkingPrescription": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:01:12.2242446"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.IncorrectUnitsInvalidNumbersAndOrderingCannotSilentlyChangeMeaning(light: True, content: \"wavelength_nm,irradiance_w_m2_nm\\n400,NaN\\n700,0\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0099094"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.NonuniformityDarkCurrentAndSpatialFiltersHaveMeasuredEffects": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0265434"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.LaboratoryRibbonOpensOneOwnedWindow": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:06.0678409"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.PhotoelectronsMatchIndependentPhotonEnergyAreaExposureAndQe": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0714803"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: \"Light\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:04.5571172"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 1, g: 1, b: 1, alpha: 255, valid: True)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0130408"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.InvalidSceneSchemasAndLabelAssignmentsAreRejected(kind: \"kind\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0245827"
+    },
+    "OpticalSystemDesign.Tests.CameraCalibrationTests.InvalidCalibrationIsRejected(kind: \"tampered-summary\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0039737"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.LegacyAndContinuousABKeepFrozenOriginsAndExportReimportableSpectra": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0690410"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.ClosingOrChangingParametersCancelsPendingWorkWithoutResurrectingResults": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:04.2172143"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.InvalidSceneSchemasAndLabelAssignmentsAreRejected(kind: \"dimensions\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0139623"
+    },
+    "OpticalSystemDesign.Tests.CameraSpectralResponseTests.CurvesAreFrozenAndInvalidSamplesAreRejected": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0014785"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingServiceTests.ModeEmptyLensMissingImageAndCancellationHaveExplicitFailures": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.6701918"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.DarkReadoutRetainsNegativeFluctuationsBelowBlackAndRepeatsWithSeed": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0357619"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.ContinuousSceneImportsAndModeSwitchKeepLegacyReferenceAndTypedSpectralPlots(theme: \"Light\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:05.0024473"
+    },
+    "OpticalSystemDesign.Tests.CameraCalibrationTests.RawCalibrationCreatesReusableTemplateWithEvidenceAndPreservesUnmeasuredParameters": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.7646185"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.ImportAndExportFreezeABResponsesAndPreserveCancelledFiles": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0716849"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousSpectrumTests.NonlinearWavelengthTransferConvergesAgainstClosedFormIntegral": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0054960"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousSpectrumTests.NarrowPeakBetweenUniformGridPointsIsPreservedByMergedBreakpoints": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0021399"
+    },
+    "OpticalSystemDesign.Tests.CameraSpectralResponseTests.AllThreeBandsContributeThroughEachCfaResponseWithIndependentPhotonReference": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0490475"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.ImportedProfilesAndResponsePlotsPreserveFrozenABAndRejectBadFiles(theme: \"Dark\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:05.0774473"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialSpectrumTests.OneMaterialEqualsExistingUniformModelAndStreamedIdentity": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0018124"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: \"Dark\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:06.1580044"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidProfilesCannotSilentlyFillMissingFieldsOrAcceptTypos(kind: \"duplicate\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0130243"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.PoissonAndReadNoiseMatchIndependentFlatFieldMeanAndVariance(expected: 4)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0412241"
+    },
+    "OpticalSystemDesign.Tests.CameraExperimentTests.ContinuousMaterialInputsAndEditedIspRecomputeIndependentlyOfSourceFiles": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.7713351"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.DemosaicPreservesKnownConstantChannelLevelsIncludingBorders(pattern: RGGB)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0003122"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaWindowTests.AreaControlsKeepABAndRestoreSavedSamplingAcrossThemesAndLanguages(theme: \"Light\", language: \"ja-JP\")": {
+      "outcome": "Passed",
+      "run": "pixel-area-ui-final.trx",
+      "duration": "00:00:09.8770297"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidUnitsOrderCoverageAndNumbersAreRejected(text: \"wavelength_nm,response_r,response_g,response_b\\n45\"···)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0126984"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.InvalidSceneSchemasAndLabelAssignmentsAreRejected(kind: \"missing\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0113871"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.PoissonAndReadNoiseMatchIndependentFlatFieldMeanAndVariance(expected: 5000)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0537438"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidUnitsOrderCoverageAndNumbersAreRejected(text: \"wavelength_nm,qe_r,qe_g,qe_b\\n100,.5,.2,.1\\n650,.6\"···)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0099451"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.ExposureAndAreaScaleElectronsWhileGainChangesOnlyDigitalNumbers": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0108116"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.DemosaicPreservesKnownConstantChannelLevelsIncludingBorders(pattern: BGGR)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0000904"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousSpectrumTests.ProductOfThreeLinearCurvesMatchesIndependentPolynomialAntiderivative": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0031116"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingServiceTests.IdealControlRunsWithoutLensAndExportsOriginalRawAndBothConfigurations": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0607519"
+    },
+    "OpticalSystemDesign.Tests.CameraCalibrationTests.InvalidCalibrationIsRejected(kind: \"clipped\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0143636"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.InvalidSceneSchemasAndLabelAssignmentsAreRejected(kind: \"duplicate-id\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0132168"
+    },
+    "OpticalSystemDesign.Tests.CameraCalibrationTests.InvalidCalibrationIsRejected(kind: \"missing-dark\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0143734"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidUnitsOrderCoverageAndNumbersAreRejected(text: \"wavelength_nm,qe_r,qe_g,qe_b\\n450,NaN,.2,.1\\n650,.\"···)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0233200"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 16, g: 16, b: 16, alpha: 255, valid: False)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0128703"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialSpectrumTests.EachMaterialAndBayerPixelMatchesIndependentPhotonIntegral(pattern: GRBG)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0004427"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaWindowTests.AreaControlsKeepABAndRestoreSavedSamplingAcrossThemesAndLanguages(theme: \"Dark\", language: \"en-US\")": {
+      "outcome": "Passed",
+      "run": "pixel-area-ui-final.trx",
+      "duration": "00:00:10.5689997"
+    },
+    "OpticalSystemDesign.Tests.CameraCalibrationTests.InvalidCalibrationIsRejected(kind: \"wrong-exposure\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0120691"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.OneAssignedMaterialMatchesUniformSharedLensPropagation": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:06:06.5763205"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidUnitsOrderCoverageAndNumbersAreRejected(text: \"wavelength_nm,qe_r,qe_g,qe_b\\n650,.5,.2,.1\\n450,.6\"···)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0101499"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.ImportedProfilesAndResponsePlotsPreserveFrozenABAndRejectBadFiles(theme: \"Light\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:05.0075062"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.CurrentLensAtDefaultResolutionUsesSharedOpticalStageAndExplainsSizeLimit": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:25.9027147"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.SceneRoundTripsAndABFreezeMapCurvesOriginsAndExportReimportableData": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0795235"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.SixteenBitAndAnimatedPngAreRejectedBeforeAnyIdConversion(animation: False)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0082520"
+    },
+    "OpticalSystemDesign.Tests.CameraExperimentTests.CorruptUnknownAndCancelledExperimentsPreserveExistingFiles": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0471456"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.InvalidSceneSchemasAndLabelAssignmentsAreRejected(kind: \"version\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0114565"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousSpectrumTests.ExposureReflectanceAndLightScaleChargeWithoutPeakNormalization": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0011268"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.IncorrectUnitsInvalidNumbersAndOrderingCannotSilentlyChangeMeaning(light: True, content: \"wavelength_nm,irradiance_w_m2_nm\\n400,.01\\n400,.01\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.6247195"
+    },
+    "OpticalSystemDesign.Tests.CameraCalibrationTests.InvalidCalibrationIsRejected(kind: \"unknown-field\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0137687"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialSpectrumTests.EachMaterialAndBayerPixelMatchesIndependentPhotonIntegral(pattern: RGGB)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0083559"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.FullWellAndAdcSaturateIndependentlyAndNeverWrap": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0033107"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousSpectrumTests.IntegratedChargeUsesSameShotAndReadNoiseStatistics": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0642699"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.ImportsAreAbsoluteAndPercentReflectanceMatchesFraction": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0247105"
+    },
+    "OpticalSystemDesign.Tests.CameraExperimentTests.ExternalInputAndBothLensSnapshotsSurviveDeletionAndWorkspaceReplacement": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:05:48.2353480"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialSpectrumTests.EachMaterialAndBayerPixelMatchesIndependentPhotonIntegral(pattern: BGGR)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0006436"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.BundledFractionAndPercentCurvesHaveEquivalentAbsoluteResponseAndFingerprints": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0351208"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.InvalidSceneSchemasAndLabelAssignmentsAreRejected(kind: \"duplicate-key\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.6289091"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialSpectrumTests.CancellationAndNonIdentityPixelBudgetRemainEnforced": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0521457"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidProfilesCannotSilentlyFillMissingFieldsOrAcceptTypos(kind: \"schema\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0139489"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousSpectrumTests.InvalidUnitsCoverageDataBudgetAndCancellationAreExplicit": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0011910"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialSpectrumTests.CategoricalNearestNeighborAndFrozenLabelsRejectInvalidMaps": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0029229"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.ExperimentOpenEditedReplayAndCalibrationPreserveAAndRejectInvalidImports(theme: \"Light\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:04.4403491"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.IncorrectUnitsInvalidNumbersAndOrderingCannotSilentlyChangeMeaning(light: False, content: \"wavelength_nm,irradiance_w_m2_nm\\n400,1\\n700,1\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0124437"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.InvalidSceneSchemasAndLabelAssignmentsAreRejected(kind: \"unknown\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0110191"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 0, g: 0, b: 0, alpha: 128, valid: False)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0301901"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingServiceTests.ImportedSrgbIsLinearizedBeforePhysicalExposureAndInvalidExportPreservesFile": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0502058"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.IncorrectUnitsInvalidNumbersAndOrderingCannotSilentlyChangeMeaning(light: False, content: \"wavelength_nm,reflectance\\n400,50\\n700,50\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0103816"
+    },
+    "OpticalSystemDesign.Tests.CameraSpectralResponseTests.DiagonalCurveMatchesLegacyNarrowBandsAndResponseScalingScalesCharge": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0192868"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.CurrentLensRunsEveryQuadratureWavelengthOnSnapshot": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:04:56.8238790"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.IncorrectUnitsInvalidNumbersAndOrderingCannotSilentlyChangeMeaning(light: True, content: \"wavelength_nm,relative_power\\n400,1\\n700,1\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0099401"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.InvalidInputsAndCancelledWorkAreRejected": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0008595"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.InvalidSceneSchemasAndLabelAssignmentsAreRejected(kind: \"unknown-label\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0136423"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.IncorrectUnitsInvalidNumbersAndOrderingCannotSilentlyChangeMeaning(light: False, content: \"wavelength_nm,reflectance\\n700,1\\n400,1\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0116956"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.SixteenBitAndAnimatedPngAreRejectedBeforeAnyIdConversion(animation: True)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0197991"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.ContinuousSceneImportsAndModeSwitchKeepLegacyReferenceAndTypedSpectralPlots(theme: \"Dark\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:05.0392279"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.DemosaicPreservesKnownConstantChannelLevelsIncludingBorders(pattern: GRBG)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0004096"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingServiceTests.MaximumOfferedResolutionsFitTheSharedBudgetAndOversizedOpticsAreRejected": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:01:30.7214086"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.PoissonAndReadNoiseMatchIndependentFlatFieldMeanAndVariance(expected: 100)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0375144"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialSpectrumTests.NarrowMaterialPeakIsIncludedInSharedQuadratureKnots": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0006842"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousSpectrumTests.DenseOneNanometerCurvesKeepEveryKnotAndUseIdenticalIdealAndStreamedIntegrals": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0184894"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaWindowTests.AreaControlsKeepABAndRestoreSavedSamplingAcrossThemesAndLanguages(theme: \"Light\", language: \"zh-CN\")": {
+      "outcome": "Passed",
+      "run": "pixel-area-ui-final.trx",
+      "duration": "00:00:07.4804125"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidUnitsOrderCoverageAndNumbersAreRejected(text: \"wavelength_nm,qe_r,qe_g,qe_b\\n450,.5,.2,.1\\n450,.6\"···)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0108613"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidUnitsOrderCoverageAndNumbersAreRejected(text: \"wavelength_nm,qe_r,qe_g,qe_b\\n450,50,20,10\\n650,60\"···)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0127504"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidProfilesCannotSilentlyFillMissingFieldsOrAcceptTypos(kind: \"enum\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.6375902"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidProfilesCannotSilentlyFillMissingFieldsOrAcceptTypos(kind: \"missing\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0116905"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousSpectrumTests.FlatContinuousSpectrumMatchesIndependentIntegralWithCorrectPerNanometerUnits": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0736300"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.SensorProfileRoundTripsWithEmbeddedResponseAndRunsWithImportedParameters": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0327697"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidProfilesCannotSilentlyFillMissingFieldsOrAcceptTypos(kind: \"negative\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0127680"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingServiceTests.CurrentLensUsesSnapshotAndSharedOpticsWithoutChangingPrescription": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:03:27.5729588"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialSpectrumTests.ReflectionHappensBeforeBlurAndOnlyOneOpticalCallPerWavelength": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0190907"
+    },
+    "OpticalSystemDesign.Tests.CameraSpectralResponseTests.OverlappingResponseNoiseAgreesWithPredictedShotPlusReadVariance": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0642276"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.IncorrectUnitsInvalidNumbersAndOrderingCannotSilentlyChangeMeaning(light: False, content: \"wavelength_nm,reflectance_percent\\n400,101\\n700,0\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0128947"
+    },
+    "OpticalSystemDesign.Tests.CameraSpectralResponseTests.InterpolationUsesAbsoluteValuesAndRejectsUnmeasuredWavelengths": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0004627"
+    },
+    "OpticalSystemDesign.Tests.CameraCalibrationTests.DarkFlatEstimatesMatchIndependentAnalyticMomentsAndSeparateCfaPhases": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0016903"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.IncorrectUnitsInvalidNumbersAndOrderingCannotSilentlyChangeMeaning(light: True, content: \"wavelength_nm,irradiance_w_m2_nm\\n400,-1\\n700,0\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0108766"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialSpectrumTests.EachMaterialAndBayerPixelMatchesIndependentPhotonIntegral(pattern: GBRG)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0008747"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.MaterialScenesPreserveABAndAllowCurveAssignmentWithoutPhotoClassification(theme: \"Light\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:05.3457872"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.ContinuousInfraredRangeUsesImportedCoverageWithoutRequiringLegacyVisibleBands": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0199033"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.IspGainGammaAndBypassAreObservableWithoutChangingInput": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0002700"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.MaterialScenesPreserveABAndAllowCurveAssignmentWithoutPhotoClassification(theme: \"Dark\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:06.8344875"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorPipelineTests.DemosaicPreservesKnownConstantChannelLevelsIncludingBorders(pattern: GBRG)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0000855"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(r: 0, g: 1, b: 0, alpha: 255, valid: False)": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0120020"
+    },
+    "OpticalSystemDesign.Tests.CameraImagingWindowTests.ExperimentOpenEditedReplayAndCalibrationPreserveAAndRejectInvalidImports(theme: \"Dark\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:04.6077403"
+    },
+    "OpticalSystemDesign.Tests.CameraContinuousServiceTests.MissingCoverageSwappedKindsAndGlobalWorkBudgetAreRejected": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:01.0567951"
+    },
+    "OpticalSystemDesign.Tests.CameraMaterialServiceTests.MissingCoverageCancellationAndOversizedInputRemainSafe": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0101827"
+    },
+    "OpticalSystemDesign.Tests.CameraSensorFileTests.InvalidProfilesCannotSilentlyFillMissingFieldsOrAcceptTypos(kind: \"unknown\")": {
+      "outcome": "Passed",
+      "run": "camera-regression.trx",
+      "duration": "00:00:00.0141673"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.ImportedTotalQeCannotBeSilentlyReinterpretedAsActiveAreaQe": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0059885"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.ContinuousAreaExperimentsFreezeSamplingAndMaterialCellCounts(materials: False)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0231063"
+    },
+    "OpticalSystemDesign.Tests.CameraPixelAreaTests.ContinuousAreaExperimentsFreezeSamplingAndMaterialCellCounts(materials: True)": {
+      "outcome": "Passed",
+      "run": "pixel-area-final.trx",
+      "duration": "00:00:00.0773677"
+    }
+  },
+  "runs": [
+    {
+      "file": "pixel-area-first.trx",
+      "allCounters": {
+        "total": "25",
+        "executed": "25",
+        "passed": "25",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "cameraCount": 25,
+      "incidental": []
+    },
+    {
+      "file": "camera-regression.trx",
+      "allCounters": {
+        "total": "144",
+        "executed": "143",
+        "passed": "142",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "cameraCount": 137,
+      "incidental": [
+        {
+          "executionId": "03c6c2c1-aa66-416f-b372-ef1210749fa9",
+          "testId": "5f35850f-7a82-cd55-0d99-3f774e16a4dc",
+          "testName": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: \"Light\", language: \"ja-JP\", width: 400, fontSize: 18)",
+          "computerName": "LAPTOP-G4BBBCS0",
+          "duration": "00:00:03.4852103",
+          "startTime": "2026-10-30T10:46:06.0991922+08:00",
+          "endTime": "2026-10-30T10:46:09.5844452+08:00",
+          "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+          "outcome": "Passed",
+          "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+          "relativeResultsDirectory": "03c6c2c1-aa66-416f-b372-ef1210749fa9"
+        },
+        {
+          "executionId": "e79dc210-0ad3-4792-a844-b5ba2e40ce55",
+          "testId": "e32f7291-b4f1-8700-8f23-29280538db0a",
+          "testName": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: \"Light\", language: \"zh-CN\", width: 1100, fontSize: 13)",
+          "computerName": "LAPTOP-G4BBBCS0",
+          "duration": "00:00:08.2185558",
+          "startTime": "2026-10-30T10:45:44.2829788+08:00",
+          "endTime": "2026-10-30T10:45:52.5014929+08:00",
+          "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+          "outcome": "Passed",
+          "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+          "relativeResultsDirectory": "e79dc210-0ad3-4792-a844-b5ba2e40ce55"
+        },
+        {
+          "executionId": "97e4cb5a-3aff-412e-8305-ad2d3347aa9f",
+          "testId": "759fcc25-cb4a-36bf-dba4-5e9e6bf8317f",
+          "testName": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: \"Light\", language: \"ja-JP\", width: 400, fontSize: 18)",
+          "computerName": "LAPTOP-G4BBBCS0",
+          "duration": "00:00:10.2854316",
+          "startTime": "2026-10-30T10:45:33.9990469+08:00",
+          "endTime": "2026-10-30T10:45:44.2826238+08:00",
+          "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+          "outcome": "Passed",
+          "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+          "relativeResultsDirectory": "97e4cb5a-3aff-412e-8305-ad2d3347aa9f"
+        },
+        {
+          "executionId": "d54aa8bc-8e98-4ade-b843-3c8cf5f49db6",
+          "testId": "ac2c494d-ca5f-1729-7c5d-69d2991ec177",
+          "testName": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: \"Light\", language: \"zh-CN\", width: 1100, fontSize: 13)",
+          "computerName": "LAPTOP-G4BBBCS0",
+          "duration": "00:00:03.3644649",
+          "startTime": "2026-10-30T10:45:55.3757449+08:00",
+          "endTime": "2026-10-30T10:45:58.7402284+08:00",
+          "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+          "outcome": "Passed",
+          "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+          "relativeResultsDirectory": "d54aa8bc-8e98-4ade-b843-3c8cf5f49db6"
+        },
+        {
+          "executionId": "14bc0b42-4c38-4374-b681-daaad0453023",
+          "testId": "e455172f-2c78-a88e-70e6-ab1aae7068f1",
+          "testName": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: \"Dark\", language: \"en-US\", width: 400, fontSize: 13)",
+          "computerName": "LAPTOP-G4BBBCS0",
+          "duration": "00:00:07.3582969",
+          "startTime": "2026-10-30T10:45:58.7404933+08:00",
+          "endTime": "2026-10-30T10:46:06.0988816+08:00",
+          "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+          "outcome": "Passed",
+          "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+          "relativeResultsDirectory": "14bc0b42-4c38-4374-b681-daaad0453023"
+        },
+        {
+          "executionId": "07e22ac2-223d-4cf4-bd4c-3bc5d8d209cd",
+          "testId": "f952e83d-7454-104c-8e02-a51993d69939",
+          "testName": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera",
+          "computerName": "LAPTOP-G4BBBCS0",
+          "duration": "00:00:00.0010000",
+          "startTime": "2026-10-30T10:45:33.9967318+08:00",
+          "endTime": "2026-10-30T10:45:33.9972805+08:00",
+          "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+          "outcome": "NotExecuted",
+          "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+          "relativeResultsDirectory": "07e22ac2-223d-4cf4-bd4c-3bc5d8d209cd"
+        },
+        {
+          "executionId": "131fa160-164f-47d9-a7ad-e0276d04943d",
+          "testId": "4034af47-7877-020c-a188-43624fbf9c9d",
+          "testName": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: \"Dark\", language: \"en-US\", width: 400, fontSize: 13)",
+          "computerName": "LAPTOP-G4BBBCS0",
+          "duration": "00:00:02.8736163",
+          "startTime": "2026-10-30T10:45:52.5018334+08:00",
+          "endTime": "2026-10-30T10:45:55.3754314+08:00",
+          "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+          "outcome": "Passed",
+          "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+          "relativeResultsDirectory": "131fa160-164f-47d9-a7ad-e0276d04943d"
+        }
+      ]
+    },
+    {
+      "file": "pixel-area-final-v1.trx",
+      "allCounters": {
+        "total": "30",
+        "executed": "30",
+        "passed": "30",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "cameraCount": 30,
+      "incidental": []
+    },
+    {
+      "file": "pixel-area-final.trx",
+      "allCounters": {
+        "total": "32",
+        "executed": "32",
+        "passed": "32",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "cameraCount": 32,
+      "incidental": []
+    },
+    {
+      "file": "pixel-area-ui-final.trx",
+      "allCounters": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "cameraCount": 3,
+      "incidental": []
+    }
+  ],
+  "sourcesSha256": {
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Actions.cs": "9a2631fe269bf9561d383ef21dfa52ce9954480519f4f917918519eeeb9f9147",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.cs": "8b06f9dc5a38676ff9814926566bf4d7563a9cac2dc54cf0f42ad084b6edafb4",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Experiments.cs": "2a006d3ad3a8eaa923c1301e8b82b0965978c57f0730e79bfcf0a5978166948b",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Materials.cs": "fe4fc4fe9eea36e9d9cf4237ec35d47df073b96ef28681a429e267d39750a538",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.PixelSampling.cs": "60ec977dfe30e476ae7884cff451bde3cfa606698503b7ab16eeeb924c7ff283",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneSpectra.cs": "473dbf6f3b0ae89f25b64938cb4cf4b425cd86e18b059595f88276b5871ef62a",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SensorFiles.cs": "6b75cad39b9ff6505a79a47fb3f79082965354b73c1c16e5164f14e2be05d35b",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.CameraPixelSampling.cs": "27394be4e10eb3e1f2fa9a9a5193ca23fb51ad635a44abc318f20f62e8a58a7d",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.cs": "7aaab388443d458fe93e670a81afa754e2473d067fc2d3c0f36fd5aec0bc8d16",
+    "src/OpticalSystemDesign.Application/Contracts/CameraImagingContracts.cs": "1b0205b167bca73e391239735bd73dffcfcea227d8008c3c805900944f8eb64f",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Calibration.cs": "99f757a009c67afdc72888f5e5b38521040c3d35a0014dc32955b1869f7ec9e9",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Continuous.cs": "fb4821ac271d41a0b66c9c479cff4d0d60b5966e76b3e27e3eab19f40bafe268",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.cs": "22a44570737b7f4fe4ffb36eda89318f444d260f767cb8ee7757c08fa8dbebf0",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Experiments.cs": "5c52026eaedc2504ff56caf2dce449d18831ce3dcfa03050488be67fa34ce895",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Files.cs": "4cef58a9d441181d15e1401ce3734e025d8000efb1c07000616fc1dd3bd81eb2",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.MaterialFiles.cs": "0ae3a66e744fbe4ce597c2335227c494784c3c74fd05203736deff0201faf29f",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.SpectrumFiles.cs": "8a94c5d0fe220d957b032dc65ce2c4d4aa302d4591338eb7c2bcf06d7fe292c0",
+    "src/OpticalSystemDesign.Core/Analysis/AnalysisResourceLimits.cs": "4e32db69d911604fd22fa2e4abb364860843f0009ef6af54514a7332898aab95",
+    "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs": "5fd010e771e7a1cb8348c79c5f0bd0314b6f9316f7043ae2faeb6799251b41d7",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/CameraContinuousSpectrum.cs": "851bd8979019b58c536f7e96f482558d090a8a4984cc2c7484e0647fb41f02a2",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/CameraMaterialSpectrum.cs": "370f64f5c7cc4d5e66cea1304cae186db1741828e9a2eb9252170bb1cdb1ed28",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/CameraPixelAperture.cs": "af920dce86d9e74ab70c8a44a518eb34a5af188b1973319a109dabc720301a38",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/CameraSensorCalibration.cs": "81f7fd93cb1cd12586fbfff168d3f91933810d69de5489eba34ee4e1d68cfd7e",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/CameraSensorPipeline.cs": "bcdf841718141384aa8be2de5463e61b33502355c73141f0f333de3c3e89e679",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/SensorSpectralResponse.cs": "38ccd6964f06be6379d7e2539b88c8fde124c71c5d3c6b390a0755ea11ffb62f",
+    "tests/OpticalSystemDesign.Tests/CameraCalibrationTests.cs": "9cd0d78f7c96e1420cc257c6ca84258e4e505fef77cb0089db37b76e27cd5045",
+    "tests/OpticalSystemDesign.Tests/CameraContinuousServiceTests.cs": "b88dd8646fdef5ad1184d6886c28c3d711ea736a5041df169585604c24d8942f",
+    "tests/OpticalSystemDesign.Tests/CameraContinuousSpectrumTests.cs": "2e2a50d7953a1dcf5e30b63be5a761b43897d4072c2a7cc55e42df4ba4b6b851",
+    "tests/OpticalSystemDesign.Tests/CameraExperimentTests.cs": "c10bda10245f60d556c52b88e7e1df3954d63f89b3d2b2c565edf834bbf5077a",
+    "tests/OpticalSystemDesign.Tests/CameraImagingServiceTests.cs": "644deeead5389d5020743a679a6f28eabacb8461cbfb0fb4109e327352c5f887",
+    "tests/OpticalSystemDesign.Tests/CameraImagingWindowTests.cs": "7991f4c0c96006704c00b6651043f313aa253abfc7b7c6c5cd8ed7c13c3dece9",
+    "tests/OpticalSystemDesign.Tests/CameraMaterialServiceTests.cs": "2c1e1488f1e43677d79d5d8fc960ef8a5dfd4d3b35691f8805178f678b413b22",
+    "tests/OpticalSystemDesign.Tests/CameraMaterialSpectrumTests.cs": "d1c83b68025306e90b8c5a403bff268900f037b11082af3d998c32bbe5317e35",
+    "tests/OpticalSystemDesign.Tests/CameraPixelAreaTests.cs": "6d5b01e0dff1bf67fdc47c6b6b4078718089eab4512372709f1764588f97acd9",
+    "tests/OpticalSystemDesign.Tests/CameraPixelAreaWindowTests.cs": "a6eefcfcb44d1aa4c283953c8d56e5247af8f5a3b6d9b3ad3d043409bd8a58b3",
+    "tests/OpticalSystemDesign.Tests/CameraPublishedSensorTests.cs": "6608e397650f8cf39e17988c5ee2f015b44c736c0dd074158d6b59cd36a51dab",
+    "tests/OpticalSystemDesign.Tests/CameraSensorFileTests.cs": "e29bf5d34ef1bee2bfb796775301c2d86d8104296bcef202e92ae69fc37e84fe",
+    "tests/OpticalSystemDesign.Tests/CameraSensorPipelineTests.cs": "0d760662055abdbb0037d4b22f2c6034c0346b09206eac074de366c14d08ec5b",
+    "tests/OpticalSystemDesign.Tests/CameraSpectralResponseTests.cs": "1d85b10a698156fe9e1384db8a069bef01c236e63d1ab44bfa045cddb81d75a6",
+    "tests/OpticalSystemDesign.Tests/Fixtures/camera-flir-bfs-u3-23s6-points.json": "55ad68162c34130ae2795e16f695d8c10a6be4171401a3a150d81abcd2f24b96",
+    "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj": "c997a8e4292108239d1e2eda60d44301f525caefac5a0c08493329a6bbc3d9a3"
+  },
+  "binariesSha256": {
+    "OpticalSystemDesign.Core.dll": "aa9d195a7df210fb6d1cfacf3110cd1d7f162099990d604b6f7d6567bab27aa2",
+    "OpticalSystemDesign.Application.dll": "ea2625ed906f5284a02d3992a1407a4b3d8b44c99822f6a8fde741be5cfc31b1",
+    "OpticalSystemDesign.App.dll": "11c2942784be5db6358a2bfaa93c6fab190da4960376a2f110b644bb45f2ec75"
+  },
+  "testedBinariesSha256": {
+    "OpticalSystemDesign.Core.dll": "aa9d195a7df210fb6d1cfacf3110cd1d7f162099990d604b6f7d6567bab27aa2",
+    "OpticalSystemDesign.Application.dll": "ea2625ed906f5284a02d3992a1407a4b3d8b44c99822f6a8fde741be5cfc31b1",
+    "OpticalSystemDesign.App.dll": "11c2942784be5db6358a2bfaa93c6fab190da4960376a2f110b644bb45f2ec75"
+  },
+  "documentation": {
+    "cameraBrokenLinks": [],
+    "repositoryBrokenLinks": [
+      {
+        "Path": "docs/INITIAL_STRUCTURE_COMPETITION_2026-10-30.md",
+        "Category": "Historical",
+        "Line": 32,
+        "Target": "../validation/rechecks/2026-10-30/structure-competition-v1/README.md",
+        "Resolved": "validation/rechecks/2026-10-30/structure-competition-v1/README.md",
+        "Issue": "MissingFile"
+      }
+    ],
+    "scope": "Other concurrent initial-structure work is preserved and reported separately"
+  },
+  "publishedData": {
+    "url": "https://softwareservices.flir.com/BFS-U3-23S6/latest/EMVA/EMVA.html",
+    "retrievedDate": "2026-10-30",
+    "sha256": "a8b85214231aaa5688326cfc4bc8bdeb898a67065fd21b5740a3861a5ed1496c",
+    "bytes": 2678,
+    "acquisition": "Web tool text extraction; not original HTML bytes",
+    "directDownload": "HTTP 403; original HTML was not captured",
+    "fixture": "tests/OpticalSystemDesign.Tests/Fixtures/camera-flir-bfs-u3-23s6-points.json",
+    "fixtureSha256": "55ad68162c34130ae2795e16f695d8c10a6be4171401a3a150d81abcd2f24b96",
+    "scope": "Manufacturer-reported measured points. No raw frame data or complete spectral curve. No simulated frame is labeled measured."
+  },
+  "limits": [
+    "Published parameter-point controls, not measured RAW replay or a full sensor profile",
+    "Current-lens area sampling is 2x2 within original work limits; 4x4 is ideal-optics only",
+    "Finite centered-square quadrature; no universal convergence claim",
+    "No per-pixel correction or EMVA certification"
+  ]
+}

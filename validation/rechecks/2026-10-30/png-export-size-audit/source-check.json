@@ -1,0 +1,95 @@
+{
+  "ProductCodeChangedByThisAudit": false,
+  "NativeExportPathsMatchHead": true,
+  "BaseCommit": "3c32f781482b6ae6ba6a710a36732479723653ea",
+  "NativeFiles": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Export.cs",
+      "Sha256": "7B520FAD4262B03AD5BB5A4E1C4EED107DDFD168307CE812CB688A4C5AE0F903"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs",
+      "Sha256": "ACD344C2CF0AB7BD35270B06500FD62AE4A8A19F12F63035E30412D2EF739768"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/ExportImageFrame.cs",
+      "Sha256": "F09A5DD0F8BE00A58BBDAF245066970A9C14D3C071FCBDB030AB4CBBEC43F3E0"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPlotHost.cs",
+      "Sha256": "6798DB330BCE1420CE8FC0B23442165D0A2CDBC97E7E989CBCF8F69824C030AD"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisFooterGrid.cs",
+      "Sha256": "FEF3568E291B00B498C6A31BB245143DC606ADD6F146A464AE1DD014FEF5DF82"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/ResponsivePlotLegendGrid.cs",
+      "Sha256": "86875DE34EE2E57B99302650743E4B93F538E1CAACBFD4A842D9070CD6FE5B10"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPaneGrid.cs",
+      "Sha256": "F421632D20C501FE378610C8297250B81427F871B53EF27EA08F1AC23DEFF31D"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/OptionalSquarePlotHost.cs",
+      "Sha256": "EA41BB6DECE8F242515C52BFD1294BD9F5F849865295A61B06082793E2B14ACC"
+    }
+  ],
+  "PreviousReportSnapshotComparison": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/DesignReportPdfModel.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/DesignReportPdfWriter.Paper.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/DesignReportPdfWriter.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/MarkdownReportExporter.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/MarkdownReportSettings.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/ReportImageRenderer.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Unchanged": false
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/MarkdownReportWindow.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/AnalysisPlotControl.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/WavefrontSurfaceControl.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/DesignReportFormatTests.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MarkdownReportImageTests.cs",
+      "Unchanged": true
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/PdfPaperReportTests.cs",
+      "Unchanged": true
+    }
+  ],
+  "ConcurrentDifference": "UiLocalization.cs adds a camera pixel-sampling translation registration in other ongoing work; native PNG export paths unchanged",
+  "ProbeSha256": "58F31C3B736159907592052B52E82DBA3E3B0448E6F7215673F0C8605DAFE02C"
+}

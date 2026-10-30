@@ -200,13 +200,7 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
         return new[] { fields[Math.Clamp(_fieldNumber - 1, 0, fields.Length - 1)] };
     }
 
-    private string FieldLegendLabel(SelectedField field)
-    {
-        var unit = Optic.FieldDefinition == FieldDefinitionKind.Angle ? "\u00B0" : "mm";
-        return $"F{field.Number}  " +
-            $"({field.X.ToString("0.####", CultureInfo.InvariantCulture)}, " +
-            $"{field.Y.ToString("0.####", CultureInfo.InvariantCulture)}) {unit}";
-    }
+    private static string FieldLegendLabel(SelectedField field) => MtfPresentation.FieldName(field.Number);
 
     private AnalysisPoint? FootprintPoint(
         RequestedTrace trace,

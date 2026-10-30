@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "status": "frozen-before-formal-runs",
+  "seeds": [42, 43, 44, 45, 46],
+  "arms": ["off", "signs", "quick", "combined"],
+  "cases": ["competition-3-F8-full10", "competition-8-F8-full25", "competition-8-F4-full25", "original-half21"],
+  "backend": "Core CPU double; below-normal process priority; nested parallelism suppressed; serial runs",
+  "budgetPerRun": { "functions": 200, "gradients": 200, "rays": 500000, "seconds": 110, "functionsPerCandidate": 50 },
+  "pool": { "maximumStarts": 4, "updatesPerStage": 2, "maximumStageSecondsPerCandidate": 2, "finalists": 2 },
+  "experimentalStrategy": {
+    "version": 1, "nativeAndSignSlots": "alternating; native family rotation preserved",
+    "maximumSignPatterns": 16, "quickProposalsPerStage": 2, "coordinateStep": 0.01,
+    "challengeCandidatesPerRound": 1, "challengeDispatch": "replace lowest retained slot, protect best, round-rotate ordered eliminated geometry-complete candidates",
+    "finalRayRecoveryFactor": { "competitionFixtures": 2, "originalHalf21": 12 },
+    "finalSecondsPerCandidate": 8,
+    "calibration": "M0 actual original-half21 validation 425420 rays; 12x nominal estimate 447300. Simple fixture estimate 44730 vs 44520 actual. Estimates do not guarantee completion; actual aiming/recovery charged."
+  },
+  "off": "SearchStrategy=null, legacy competition-v1; unchanged legacy reserve and optimizer; same total limits and original validator",
+  "originalHalf21Descriptor": "Original targets/fields/stop/image/materials/face apertures/constraints unchanged; 3 elements, fixed partition 2, thickness 0.5..6.5 mm allowed within original constraints, original minimum BFL. Same frozen descriptor for all arms.",
+  "selection": "Geometry, all-field throughput, boundary checks, sparse worst normalized physical quality, existing topology diversity; third-order values never qualify.",
+  "timing": "Record first completed original qualification and total elapsed; unsuccessful trials remain censored with all costs. Report all seeds, completed/incomplete finals, quality and actual resources.",
+  "scope": "Preparation-only ablation. No autonomous-search or offline training cost hidden in this comparison. Historical frozen baseline reruns and development pilots remain separate."
+}

@@ -325,7 +325,7 @@ public sealed class FrozenAnalysisRegressionTests
             var center = (X: expected.GetProperty("x")[field][0][0].GetDouble() - pane.Series[0].Points[0].X,
                 Y: expected.GetProperty("y")[field][0][0].GetDouble() - pane.Series[0].Points[0].Y);
             Assert.Equal(
-                $"{optic.Fields[field].Label} (Y={optic.Fields[field].Y:0.###} \u00B0)",
+                $"Field {field + 1}",
                 pane.Title);
             for (var wavelength = 0; wavelength < pane.Series.Count; wavelength++)
             {

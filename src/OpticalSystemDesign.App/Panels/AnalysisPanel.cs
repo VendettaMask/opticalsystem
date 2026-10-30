@@ -34,6 +34,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
     private readonly OperationStatusBar _operationStatus = new();
     private readonly Button _syncButton;
     private readonly Button _exportImageButton;
+    private readonly DropDownButton _curveWidthButton;
     private readonly Border _settingsHost;
     private readonly CheckBox _parameterAutoApply = new()
     {
@@ -88,6 +89,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         _exportImageButton.Name = "ExportAnalysisImage";
         _exportImageButton.IsVisible = false;
         _exportImageButton.Click += async (_, _) => await ExportImageAsync();
+        _curveWidthButton = CreateCurveWidthButton();
 
         var settingsButton = SettingsPanelChrome.CreateToggleButton();
         _settingsHost = new Border
@@ -120,13 +122,15 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 copyButton,
                 exportButton,
                 _exportImageButton,
+                _curveWidthButton,
                 _operationStatus
             }
         };
         _syncButton.Margin = new Thickness(2, 0, 0, 0);
         copyButton.Margin = new Thickness(2, 0, 0, 0);
         exportButton.Margin = new Thickness(2, 0, 2, 0);
-        _exportImageButton.Margin = new Thickness(2, 0, 8, 0);
+        _exportImageButton.Margin = new Thickness(2, 0, 2, 0);
+        _curveWidthButton.Margin = new Thickness(2, 0, 8, 0);
 
         var toolbar = new StackPanel
         {

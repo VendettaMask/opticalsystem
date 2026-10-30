@@ -14,6 +14,8 @@ public sealed record ToleranceResult(int Trials, int Passed, int Seed, double Pe
 public sealed partial class DesignService
 {
     public const string GeneratorVersion = "coating-templates/2";
+    public const string TargetBalancedProtocol = "target-balanced-coating/2";
+    public const string ExtendedGeneratorVersion = "coating-templates/3";
     private readonly MaterialRegistry _registry = new();
 
     private Dictionary<string, IMaterial> Materials(Experiment experiment)
@@ -37,6 +39,8 @@ public sealed partial class DesignService
         using var scope = ComputationCancellation.Push(token);
         var d = input.Snapshot();
         var materials = Materials(d);
+        if (d.Settings.DesignProtocolVersion == 4 && d.Target.Kind == DesignKind.NarrowBand) return GenerateGeneralNarrowBand(d, materials, false, progress, token);
+        if (d.Settings.DesignProtocolVersion == 3) return GenerateNarrowBand(d, materials, false, progress, token);
         var t = d.Target;
         var seeds = new List<FilmLayer[]>();
         if (t.Kind != DesignKind.Antireflection && materials[d.HighId].RefractiveIndex(t.CenterNm) <= materials[d.LowId].RefractiveIndex(t.CenterNm))
@@ -76,21 +80,56 @@ public sealed partial class DesignService
                 seeds.Add(stack.ToArray());
             }
             if (seeds.Count == 0) throw new ArgumentException($"{cavities} 腔窄带初始结构至少需要 {4 * cavities + 3} 层，请提高层数上限。");
+            if (d.Target.Structure?.PrototypeFamilyVersion == 2)
+                seeds.AddRange(NarrowBandPrototypes(d, Layer));
         }
         var grid = ObjectiveGrid(d);
         var ranked = new List<Candidate>();
-        foreach (var layers in seeds.Where(x => x.Length <= t.MaximumLayers))
+        var eligible = seeds.Where(x => x.Length <= t.MaximumLayers);
+        if (d.Settings.DesignProtocolVersion is 2 or 4) eligible = eligible.DistinctBy(LayerIdentity);
+        foreach (var layers in eligible)
         {
             token.ThrowIfCancellationRequested();
             if (layers.Any(l => l.ThicknessNm < d.Settings.MinimumThicknessNm || l.ThicknessNm > d.Settings.MaximumThicknessNm)) continue;
-            var merit = Merit(Objective(d, Solver(d, materials, layers), grid));
+            var merit = ObjectiveMerit(d, Objective(d, Solver(d, materials, layers), grid));
             ranked.Add(new Candidate($"初始结构 {layers.Length} 层", layers, merit, false));
             progress?.Report(new("生成初始结构", ranked.Count, merit));
         }
         if (ranked.Count == 0) throw new ArgumentException("厚度或层数限制排除了全部初始结构，请调整约束。");
         ranked = ranked.OrderBy(x => x.Merit).ThenBy(x => x.Layers.Length).ToList();
-        var selected = d with { Layers = ranked[0].Layers, Result = null, Tolerance = null, Candidates = ranked.Take(32).ToArray() };
-        return Evaluate(selected, new("模板结构枚举", GeneratorVersion, "模板枚举完成", ranked.Count, 0, null), progress, token);
+        var templateEvaluations = ranked.Count;
+        var screening = new List<ScreeningRun>();
+        if (d.Settings.DesignProtocolVersion is 2 or 4)
+        {
+            foreach (var layers in DiverseScreenPool(ranked.Select(c => c.Layers).ToArray(), 16))
+            {
+                token.ThrowIfCancellationRequested();
+                progress?.Report(new($"模板短程优化 {screening.Count + 1}", screening.Sum(s => s.Run.Evaluations)));
+                var refined = RefineThickness(d with { Layers = layers }, materials, grid,
+                    Math.Min(2, d.Settings.MaximumIterations), progress, token);
+                screening.Add(new(screening.Count + 1, layers, refined.Layers, refined.Merit, refined.Run));
+            }
+            ranked = screening.OrderBy(s => s.Merit).ThenBy(s => s.Layers.Length)
+                .Select(s => new Candidate($"初始结构 {s.Layers.Length} 层 · 短程优化", s.Layers, s.Merit, false, s.Run)).ToList();
+        }
+        var generalRankWork = new GeneralCounter();
+        if (d.Settings.DesignProtocolVersion == 4)
+            ranked = ranked.OrderBy(c => GeneralReflectanceRank(d, materials, c.Layers, grid, generalRankWork)).ToList();
+        generalRankWork.Add(d.Settings.DesignProtocolVersion == 4 ? SumGeneralWork(screening.Select(s => s.Run)) : null);
+        var retained = d.Settings.DesignProtocolVersion is 2 or 4
+            ? DiverseScreenPool(ranked.Select(c => c.Layers).ToArray(), 32)
+                .Select(layers => ranked.First(c => ReferenceEquals(c.Layers, layers))).ToArray()
+            : ranked.Take(32).ToArray();
+        var selected = d with { Layers = ranked[0].Layers, Result = null, Tolerance = null, Candidates = retained };
+        return Evaluate(selected, new("模板结构枚举", d.Settings.DesignProtocolVersion == 4 ? GeneralCoatingProtocol : d.Settings.DesignProtocolVersion == 2 ? ExtendedGeneratorVersion : GeneratorVersion,
+            screening.Count > 0 ? "模板枚举及候选短程优化完成" : "模板枚举完成",
+            screening.Count > 0 ? screening.Sum(s => s.Run.Evaluations) : ranked.Count,
+            screening.Sum(s => s.Run.Iterations), d.Settings.DesignProtocolVersion == 2 ? d.Settings.RandomSeed : null)
+        {
+            Screening = screening.Count > 0 ? screening.ToArray() : null,
+            TemplateEvaluations = d.Settings.DesignProtocolVersion is 2 or 4 ? templateEvaluations : null,
+            GeneralWork = d.Settings.DesignProtocolVersion == 4 ? generalRankWork.Snapshot() with { DenseValidations = 1 } : null
+        }, progress, token);
     }
 
     public Experiment Evaluate(Experiment input, RunRecord? run = null, IProgress<DesignProgress>? progress = null, CancellationToken token = default)
@@ -126,11 +165,15 @@ public sealed partial class DesignService
         var metrics = Metrics(d, samples);
         var checks = Checks(d, samples, metrics);
         var warnings = new List<string>();
+        var suitability = AssessMaterials(d, materials, token, samples);
+        warnings.AddRange(suitability.Messages);
         if (!converged) warnings.Add("采样尚未收敛，不能确认设计达标。请增加采样或缩小范围。");
         if (t.Kind == DesignKind.NarrowBand && metrics.FwhmNanometers is null) warnings.Add("未找到完整的半高通带边缘，FWHM 未定义。");
         var result = new DesignResult(d.Fingerprint(), samples, metrics, checks, converged, samples.Length,
-            run ?? new("光谱复验", CoherentThinFilmSolver.Version, "计算完成", samples.Length, 0, null),
-            Merit(Objective(d, solver, ObjectiveGrid(d))), warnings.ToArray());
+            (run ?? new("光谱复验", CoherentThinFilmSolver.Version, "计算完成", samples.Length, 0, null)) with
+            { DesignProtocol = Protocol(d) },
+            d.Settings.DesignProtocolVersion == 4 ? AssessGeneral(d, samples).Merit : ObjectiveMerit(d, Objective(d, solver, ObjectiveGrid(d))), warnings.ToArray())
+        { MaterialSuitability = suitability };
         return d with { Result = result, Tolerance = d.Tolerance?.Fingerprint == d.Fingerprint() ? d.Tolerance : null };
 
         ThinFilmSample[] Scan(int count)
@@ -163,8 +206,37 @@ public sealed partial class DesignService
         if (d.Layers.Length > d.Target.MaximumLayers) throw new ArgumentException("当前层数超过上限，请先删除膜层或提高上限。");
         if (d.Layers.Any(l => l.ThicknessNm < d.Settings.MinimumThicknessNm || l.ThicknessNm > d.Settings.MaximumThicknessNm))
             throw new ArgumentException("当前膜层厚度超出高级设置中的约束，请先修正。");
+        var refined = RefineThickness(d, materials, ObjectiveGrid(d), d.Settings.MaximumIterations, progress, token);
+        var optimized = Evaluate(d with { Layers = refined.Layers, Result = null }, refined.Run, progress, token);
+        if (d.Settings.DesignProtocolVersion == 4)
+        {
+            // Only a few finalists reach this stage. Coarse guidance must not overwrite a better certified starting point.
+            var original = Evaluate(d with { Result = null }, progress: progress, token: token);
+            var a = AssessGeneral(original, original.Result!.Spectrum); var b = AssessGeneral(optimized, optimized.Result!.Spectrum);
+            if (original.Result.Passed && !optimized.Result.Passed || original.Result.Passed == optimized.Result.Passed && PreferGeneral(a, b))
+                optimized = original with { Result = original.Result with { Run = refined.Run with { StopReason = "DenseValidationRetainedInput" } } };
+            optimized = optimized with { Result = optimized.Result with { Run = optimized.Result.Run with
+            { GeneralWork = refined.Run.GeneralWork! with { DenseValidations = 2 } } } };
+        }
+        var origin = d.Candidates?.FirstOrDefault(c => c.Layers.SequenceEqual(d.Layers))?.OriginPrototype;
+        var candidates = (d.Candidates ?? []).Append(new Candidate("优化结果", optimized.Layers, optimized.Result!.Merit, optimized.Result.Passed, optimized.Result.Run)
+        { OriginPrototype = origin })
+            .TakeLast(12).ToArray();
+        return optimized with { Candidates = candidates };
+    }
+
+    // Search screening uses exactly the same Core optimizer and objective, without dense certification per seed.
+    private (FilmLayer[] Layers, double Merit, RunRecord Run) RefineThickness(Experiment d,
+        IReadOnlyDictionary<string, IMaterial> materials, double[] grid, int maximumIterations,
+        IProgress<DesignProgress>? progress, CancellationToken token)
+    {
+        if (d.Settings.DesignProtocolVersion == 4) return RefineGeneralThickness(d, materials, grid, maximumIterations, progress, token);
+        var indices = d.Layers.Select((l, i) => (l, i)).Where(x => x.l.Variable).Select(x => x.i).ToArray();
+        if (indices.Length == 0)
+            return (d.Layers, ObjectiveMerit(d, Objective(d, Solver(d, materials), grid)),
+                new("无变量", "none", "全部膜层固定", 1, 0, null)
+                { DesignProtocol = Protocol(d) });
         var values = indices.Select(i => d.Layers[i].ThicknessNm).ToArray();
-        var grid = ObjectiveGrid(d);
         var problem = new OptimizationProblem();
         problem.DisableBatching();
         for (var j = 0; j < values.Length; j++)
@@ -184,7 +256,7 @@ public sealed partial class DesignService
             var layers = d.Layers.ToArray();
             for (var j = 0; j < indices.Length; j++) layers[indices[j]] = layers[indices[j]] with { ThicknessNm = values[j] };
             var residuals = Objective(d, Solver(d, materials, layers), grid);
-            var merit = Merit(residuals);
+            var merit = ObjectiveMerit(d, residuals);
             if (merit < best) { best = merit; bestLayers = layers; }
             cacheVector = values.ToArray(); cacheResiduals = residuals;
             evaluations++;
@@ -198,14 +270,12 @@ public sealed partial class DesignService
             problem.AddOperand(new Operand($"光谱目标 {i + 1}", 0, 1, () => Residuals()[index]));
         }
         var optimizer = OptimizerCatalog.Create(d.Settings.Optimizer);
-        var report = optimizer.Optimize(problem, d.Settings.MaximumIterations);
+        var report = optimizer.Optimize(problem, maximumIterations);
         token.ThrowIfCancellationRequested();
         var record = new RunRecord(report.Algorithm, report.AlgorithmVersion, report.StopReason,
-            report.FunctionEvaluations, report.Iterations, report.RandomSeed);
-        var optimized = Evaluate(d with { Layers = bestLayers, Result = null }, record, progress, token);
-        var candidates = (d.Candidates ?? []).Append(new Candidate("优化结果", bestLayers, optimized.Result!.Merit, optimized.Result.Passed, record))
-            .TakeLast(12).ToArray();
-        return optimized with { Candidates = candidates };
+            report.FunctionEvaluations, report.Iterations, report.RandomSeed)
+        { DesignProtocol = Protocol(d) };
+        return (bestLayers, best, record);
     }
 
     public ToleranceResult Tolerance(Experiment input, IProgress<DesignProgress>? progress = null, CancellationToken token = default)
@@ -260,12 +330,21 @@ public sealed partial class DesignService
             var t = d.Target;
             grid = grid.Concat(ThinFilmSpectrum.Grid(Math.Max(t.MinimumNm, t.CenterNm - 2 * t.FwhmNm),
                 Math.Min(t.MaximumNm, t.CenterNm + 2 * t.FwhmNm), 64));
+            if (d.Settings.DesignProtocolVersion == 2)
+                grid = grid.Concat(t.StopBands!.SelectMany(b => ThinFilmSpectrum.Grid(b.MinimumNm, b.MaximumNm, 16)));
+            if (d.Settings.DesignProtocolVersion == 3)
+                grid = grid.Concat(t.StopBands!.SelectMany(b => ThinFilmSpectrum.Grid(b.MinimumNm, b.MaximumNm, 8)))
+                    .Concat(new[] { t.CenterNm - t.FwhmNm / 2, t.CenterNm + t.FwhmNm / 2 });
+            if (d.Settings.DesignProtocolVersion == 4) return GeneralGrid(d, grid);
         }
         return grid.Distinct().Order().ToArray();
     }
 
     private static double[] Objective(Experiment d, CoherentThinFilmSolver solver, double[] grid)
     {
+        if (d.Settings.DesignProtocolVersion == 4) return AssessGeneral(d, GeneralConstraintSystem(d, solver, grid, false).Samples).Violations;
+        if (d.Settings.DesignProtocolVersion == 3) return CompetitiveNarrowBandObjective(d, solver, grid);
+        if (d.Settings.DesignProtocolVersion == 2) return BalancedObjective(d, solver, grid);
         var t = d.Target;
         var samples = ThinFilmSpectrum.Sample(solver, grid, t.AngleDegrees, t.Polarization);
         if (t.Kind == DesignKind.Antireflection)

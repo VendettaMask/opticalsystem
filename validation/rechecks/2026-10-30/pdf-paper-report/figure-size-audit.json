@@ -1,0 +1,66 @@
+{
+  "Status": "Confirmed, unresolved",
+  "Scope": "Physical drawing-frame consistency in the delivered PDF",
+  "DocumentSha256": "6B69D7F34272CFA2E4D5DFD1272132766DE8267B7448CE5D4399BFF857F1D861",
+  "Findings": [
+    "Different portrait and landscape source canvases",
+    "Whole-image fitting against remaining page height scales caption and lettering too",
+    "Existing functional checks do not assert uniform physical figure dimensions"
+  ],
+  "Figures": [
+    {
+      "Page": 2,
+      "Orientation": "portrait",
+      "WidthMm": 184.6,
+      "HeightMm": 178.3
+    },
+    {
+      "Page": 3,
+      "Orientation": "portrait",
+      "WidthMm": 184.6,
+      "HeightMm": 178.3
+    },
+    {
+      "Page": 4,
+      "Orientation": "landscape",
+      "WidthMm": 218.5,
+      "HeightMm": 103.5
+    },
+    {
+      "Page": 5,
+      "Orientation": "landscape",
+      "WidthMm": 218.5,
+      "HeightMm": 103.5
+    },
+    {
+      "Page": 6,
+      "Orientation": "landscape",
+      "WidthMm": 218.5,
+      "HeightMm": 103.5
+    },
+    {
+      "Page": 7,
+      "Orientation": "landscape",
+      "WidthMm": 218.5,
+      "HeightMm": 103.5
+    },
+    {
+      "Page": 8,
+      "Orientation": "portrait",
+      "WidthMm": 184.6,
+      "HeightMm": 184.6
+    },
+    {
+      "Page": 9,
+      "Orientation": "landscape",
+      "WidthMm": 218.5,
+      "HeightMm": 103.5
+    },
+    {
+      "Page": 10,
+      "Orientation": "portrait",
+      "WidthMm": 184.6,
+      "HeightMm": 184.6
+    }
+  ]
+}

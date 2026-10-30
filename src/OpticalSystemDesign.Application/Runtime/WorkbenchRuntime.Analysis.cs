@@ -680,7 +680,8 @@ public partial class WorkbenchRuntime
                 Int("ResolutionY", 128),
                 Int("DetectorSurfaceIndex", -1),
                 Text("Distribution", "random"),
-                Bool("Normalized", true)),
+                Bool("Normalized", true),
+                useSurfaceSamplingWindow: Bool("UseSurfaceSamplingWindow", true)),
             "Radiant Intensity" => new RadiantIntensityAnalysis(
                 CurrentOptic,
                 Int("AngularBinsX", 101),

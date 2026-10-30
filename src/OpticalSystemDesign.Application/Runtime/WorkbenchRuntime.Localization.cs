@@ -494,6 +494,8 @@ public partial class WorkbenchRuntime
         ["FoldedCellCounts"] = "方向余弦折叠单元数",
         ["DetectorSurfaceIndex"] = "探测器表面序号",
         ["DetectorExtent"] = "探测器范围",
+        ["DetectorWindowSource"] = "探测器窗口来源",
+        ["UseSurfaceSamplingWindow"] = "无物理孔径时按表面半口径采样",
         ["Resolution"] = "探测器分辨率",
         ["Normalized"] = "归一化显示",
         ["PeakIrradiance"] = "峰值照度 (W/mm²)",

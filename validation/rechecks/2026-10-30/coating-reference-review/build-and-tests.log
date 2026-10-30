@@ -1,0 +1,23 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Debug\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Debug\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Debug\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Debug\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.CoatingDesign.Tests -> D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll
+D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+  失败 OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ConstantPhysicalResponseDoesNotGainOrLoseWeightWhenObjectiveGridDensityChanges(kind: NarrowBand) [297 ms]
+  错误消息:
+   Assert.Equal() Failure: Values are not within 9 decimal places
+Expected: 14779.891355051001 (rounded from 14779.891355051441)
+Actual:   14779.891355051999 (rounded from 14779.891355051514)
+  堆栈跟踪:
+     at OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ConstantPhysicalResponseDoesNotGainOrLoseWeightWhenObjectiveGridDensityChanges(DesignKind kind) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\BalancedDesignTests.cs:line 73
+   at InvokeStub_BalancedDesignTests.ConstantPhysicalResponseDoesNotGainOrLoseWeightWhenObjectiveGridDensityChanges(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-30\coating-reference-review\coating-final.trx
+
+失败!  - 失败:     1，通过:    61，已跳过:     0，总计:    62，持续时间: 4 m 43 s - OpticalSystemDesign.CoatingDesign.Tests.dll (net10.0)

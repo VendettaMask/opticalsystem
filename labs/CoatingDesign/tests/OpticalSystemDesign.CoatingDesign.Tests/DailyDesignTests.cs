@@ -28,7 +28,11 @@ public sealed class DailyDesignTests
     public void MultipleCavitiesGenerateRealStacksWithinLayerLimitAndDenseGridAgrees(int cavities)
     {
         var d = Examples.Create(DesignKind.NarrowBand);
-        d = d with { Target = d.Target with { Structure = new(cavities), MaximumLayers = 4 * cavities + 3 } };
+        d = d with
+        {
+            Settings = d.Settings with { DesignProtocolVersion = null },
+            Target = d.Target with { Structure = new(cavities), MaximumLayers = 4 * cavities + 3 }
+        };
         d = new DesignService().Generate(d);
         Assert.Equal(4 * cavities + 3, d.Layers.Length);
         Assert.Equal(cavities, d.Layers.Count(l => l.ThicknessNm > d.Layers.First(x => x.MaterialId == d.LowId).ThicknessNm * 1.5));
@@ -47,7 +51,8 @@ public sealed class DailyDesignTests
     public void SearchIsDeterministicRecordsEveryStartAndPreservesFixedLayers()
     {
         var service = new DesignService();
-        var d = service.Generate(Examples.Create(DesignKind.Antireflection));
+        var original = Examples.Create(DesignKind.Antireflection);
+        var d = service.Generate(original with { Settings = original.Settings with { DesignProtocolVersion = null } });
         d = d with
         {
             Layers = d.Layers.Select((l, i) => l with { Variable = i != 0 }).ToArray(),

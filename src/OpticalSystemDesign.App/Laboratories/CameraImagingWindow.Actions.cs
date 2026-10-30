@@ -18,13 +18,14 @@ public sealed partial class CameraImagingWindow
         {
             var sensor = ReadSensor();
             var isp = new CameraIspParameters(_isp.IsChecked == true, V("wb-r"), V("wb-g"), V("wb-b"), V("gamma"), V("denoise"), V("sharpen"));
-            var width = 128 << _size.SelectedIndex; var height = 96 << _size.SelectedIndex;
+            var (width, height) = SelectedSize;
             var request = new CameraImagingRequest((CameraSource)_source.SelectedIndex, _sourceFile, width, height,
                 (CameraOptics)_optics.SelectedIndex, (CameraAberration)_aberration.SelectedIndex, sensor, isp,
                 _spectralResponse, _sensorIdentity, (CameraSpectralModel)_spectralModel.SelectedIndex, _illuminant, _reflectance,
-                new(V("spectrum-min"), V("spectrum-max"), V("spectrum-step")), (CameraSceneMode)_sceneMode.SelectedIndex, _materialScene);
-            if (_size.SelectedIndex == 3 && _savedSize is { } savedSize)
-                request = request with { Width = savedSize.Width, Height = savedSize.Height };
+                new(V("spectrum-min"), V("spectrum-max"), V("spectrum-step")), IsScene3D ? CameraSceneMode.Uniform : (CameraSceneMode)_sceneMode.SelectedIndex, IsScene3D ? null : _materialScene,
+                ReadPixelSampling(), IsScene3D ? ReadScene3D() : null, IsScene3D ? new((int)V("scene3d-rings"), (int)V("scene3d-arms"), _scene3DFresnel.IsChecked == true,
+                    _aberration.SelectedIndex == (int)CameraAberration.Diffraction
+                        ? new((int)V("scene3d-pupil-grid"), (int)V("scene3d-subdivide"), (int)V("scene3d-psf-radius"), (int)V("scene3d-guard")) : null) : null);
             var result = UsingExperimentInputs
                 ? await _application.CameraImaging.RecomputeAsync(_experimentRun!, request, operation.Token)
                 : await _application.CameraImaging.SimulateAsync(request, operation.Token);
@@ -46,6 +47,9 @@ public sealed partial class CameraImagingWindow
     {
         var sensor = result.Request.Sensor!; var width = result.Request.Width; var height = result.Request.Height;
         _result = result;
+        ResetSampling(result);
+        _stageViews[0].Title = result.Scene3D is null ? "输入图 · sRGB 解码后预览" : "可见表面反射率 · 几何预览";
+        _stageViews[1].Title = result.Scene3D is null ? "光学像 · 固定 Gamma 2.2" : "像面辐照度 · 满白每波段 0.02 W/m²";
         foreach (var (view, frame) in _stageViews.Zip(new[] { result.Source, result.Optical, result.Electrons, result.Raw, result.Noiseless, result.Developed })) view.Set(frame);
         _metrics.Text = $"{width} × {height} · 平均光电子 {result.MeanPhotoElectrons:G5} e⁻/像元 · "
             + $"RAW 对无噪声 RMSE {result.RawNoiseRmseDn:G4} DN · 饱和 {result.SaturatedPixels}/{width * height}\n"
@@ -53,6 +57,9 @@ public sealed partial class CameraImagingWindow
             + $"像元 {sensor.PixelPitchMicrometers:G4} µm · {sensor.BitDepth} bit · seed {sensor.Seed}\n"
             + $"传感器：{result.Request.SensorIdentity?.Name ?? "通用参数"} · QE：{result.Request.SpectralResponse?.Name ?? "固定三波段"}";
         _metrics.Text += "\n" + SpectrumDescription(result);
+        if (result.Request.PixelSampling is { } p) _metrics.Text += $"\n像元面积 {p.SamplesPerAxis} × {p.SamplesPerAxis} · 填充因子 {p.FillFactor:G4} · "
+            + (p.QeIncludesFillFactor ? "整像元总 QE" : "感光区 QE");
+        if (result.Scene3D?.Diffraction is { } wave) _metrics.Text += $"\n表面点 {wave.SurfaceSamples} · 复场单元求和 {wave.ScalarCellEvaluations} · 被遮瞳面单元 {wave.OccludedPupilCells} · 有限窗口未归一化";
         UpdateComparison(); UpdateAvailability();
     }
 
@@ -132,20 +139,24 @@ public sealed partial class CameraImagingWindow
 
     private void Invalidate(string message, bool clearComparison = false)
     {
-        Cancel(); _result = null; _metrics.Text = "";
+        Cancel(); _result = null; _metrics.Text = ""; ResetSampling(null);
         _fileInfo.Text = _source.SelectedIndex == (int)CameraSource.ExternalImage
-            ? (string.IsNullOrWhiteSpace(_sourceFile) ? "请导入图片" : System.IO.Path.GetFileName(_sourceFile)) : "内置测试图";
+            ? (string.IsNullOrWhiteSpace(_sourceFile) ? "请导入图片" : System.IO.Path.GetFileName(_sourceFile))
+            : IsScene3D ? "三维场景：" + _scene3D?.Name : "内置测试图";
         foreach (var view in _stageViews) view.Set(null);
         if (clearComparison) { _comparison = null; _comparisonInfo.Text = "镜头或工作模式已改变，A/B 旧结果已清除。"; }
         UpdateComparison(); _status.Text = message; UpdateAvailability();
     }
-    private void Cancel() { _generation++; _operation?.Cancel(); _operation = null; _busy = false; }
+    private void Cancel() { _generation++; _operation?.Cancel(); _operation = null; _busy = false; _samplingBusy = false; }
     private void UpdateSource()
     {
         _document.Text = "相机成像仿真 · " + (UsingExperimentInputs ? "实验快照：" + _experimentRun!.DocumentName : _application.Documents.GetSnapshot().Name);
         _opticsInputInfo.Text = UsingExperimentInputs
             ? "当前镜头使用实验快照；像面视场按像元尺寸与分辨率采样。取消上方勾选后使用当前工程。"
             : "当前镜头沿用未保存处方；像面视场按像元尺寸与分辨率采样。";
+        if (IsScene3D) _opticsInputInfo.Text = UsingExperimentInputs
+            ? "三维场景使用实验镜头和实际像面；物体坐标相对第一镜面，不自动调焦。"
+            : "三维场景使用当前未保存镜头和实际像面；物体坐标相对第一镜面，不自动调焦。";
     }
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args) => OnUi(() =>
     { UpdateSource(); if (!UsingExperimentInputs) Invalidate("镜头已改变，旧结果已清除，请重新运行。", true); });
@@ -158,12 +169,15 @@ public sealed partial class CameraImagingWindow
         var validLens = UsingExperimentInputs ? _experimentRun!.Inputs?.LensSnapshotJson is not null
             : _application.Modes.CurrentMode == OpticalWorkbenchMode.Sequential && _application.Documents.GetSnapshot().SurfaceCount >= 4;
         var sourceReady = _source.SelectedIndex != (int)CameraSource.ExternalImage || !string.IsNullOrWhiteSpace(_sourceFile);
-        var sizeReady = _optics.SelectedIndex == 1 || _size.SelectedIndex < 2
-            || _size.SelectedIndex == 3 && _savedSize is { Width: <= 256, Height: <= 256 };
-        var spectrumReason = SpectrumReadiness();
-        var canRun = !_busy && sourceReady && sizeReady && spectrumReason is null && (_optics.SelectedIndex == 1 || validLens);
+        var sizeReady = _optics.SelectedIndex == 1 || SelectedSize is { Width: <= 256, Height: <= 256 };
+        var pixelReady = IsScene3D || _optics.SelectedIndex == 1 || _pixelSampling.SelectedIndex != 2;
+        var fillReady = IsScene3D || _pixelSampling.SelectedIndex == 0 || _numbers["fill-factor"].Value == 1;
+        var spectrumReason = Scene3DReadiness() ?? SpectrumReadiness();
+        var canRun = !_busy && sourceReady && sizeReady && pixelReady && fillReady && spectrumReason is null && (_optics.SelectedIndex == 1 || validLens);
         ControlAvailability.Set(_run, canRun, _busy ? "正在计算，可取消后修改。" : !sourceReady ? "请先导入图片。"
             : !sizeReady ? "当前镜头首批支持到 256 × 192；512 × 384 用于理想光学对照。"
+            : !pixelReady ? "保留原物理 PSF 范围和计算预算时，当前镜头使用 2×2；4×4 用于理想光学对照。"
+            : !fillReady ? "二维旧网格不能正确表示非满填充；请选择三维场景的感光区积分，或恢复填充因子 1。"
             : spectrumReason ?? "请选择有效顺序镜头，或切换为理想光学对照。");
         ControlAvailability.Set(_cancel, _busy, "当前没有计算任务。");
         ControlAvailability.Set(_pin, !_busy && _result is not null, "请先完成当前仿真。");
@@ -172,6 +186,16 @@ public sealed partial class CameraImagingWindow
         UpdateSceneSpectra();
         UpdateMaterialControls();
         UpdateExperimentControls();
+        ControlAvailability.Set(_numbers["fill-factor"], _pixelSampling.SelectedIndex > 0, "填充因子用于面积采样；中心采样保持原模型。");
+        if (_spectralResponse is not null && _qeArea.SelectedIndex != 0)
+        {
+            var applying = _applyingSensor; _applyingSensor = true;
+            try { _qeArea.SelectedIndex = 0; } finally { _applyingSensor = applying; }
+        }
+        ControlAvailability.Set(_qeArea, _pixelSampling.SelectedIndex > 0 && _spectralResponse is null,
+            _spectralResponse is not null ? "导入曲线定义为整像元总 QE，填充损失不会重复计算。" : "QE 面积口径用于面积采样；中心采样保持原模型。");
+        UpdateScene3DControls();
+        UpdateSamplingControls();
     }
     private double V(string key) => (double)(_numbers[key].Value ?? throw new InvalidOperationException("请输入有效数值。"));
 }

@@ -1,0 +1,1769 @@
+{
+  "name": "original-half21",
+  "seed": 42,
+  "arm": "retrieval",
+  "termination": "completed",
+  "work": {
+    "functionEvaluations": 30,
+    "gradientEvaluations": 0,
+    "validationEvaluations": 1,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 425420,
+    "geometryProbes": 841,
+    "elapsed": "00:00:05.0812264"
+  },
+  "acquisition": {
+    "functionEvaluations": 0,
+    "gradientEvaluations": 0,
+    "validationEvaluations": 0,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 0,
+    "geometryProbes": 0,
+    "elapsed": "00:00:00"
+  },
+  "retained": 1,
+  "qualifiedExisting": 1,
+  "qualifiedChanged": 0,
+  "originalInputReused": 1,
+  "endToEnd": {
+    "functionEvaluations": 30,
+    "gradientEvaluations": 0,
+    "validationEvaluations": 0,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 425420,
+    "geometryProbes": 0,
+    "elapsed": "00:00:05.0812264"
+  },
+  "retrieval": {
+    "algorithm": "initial-structure-lens-retrieval-v1",
+    "libraryFingerprint": "09757b02b892a073a865a3e326e4a375ad5d95a6af1065663f39f3acbf6d430d",
+    "stopReason": "Completed",
+    "trials": [
+      {
+        "entryId": "existing-000",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed42/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "c4368d0008c98e17aeb50397af2a90a0a5d084178f644768236f5d76caa230b4"
+        },
+        "entryFingerprint": "9f727c4c28e0472e628787a7f0f2001005761e40eb3851f69b31d43088fad074",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 1.5477923855995386,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0027366"
+        }
+      },
+      {
+        "entryId": "existing-001",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed42/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "b1986cc58d1f715fd002b4ed12e0be37dc60d002a867df968c58c343bfc6767e"
+        },
+        "entryFingerprint": "bbcb0511f6c7256620d70c31e6910e747a55213d7d2ae920c7bcf50eab5a9702",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.8546452050395933,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0028278"
+        }
+      },
+      {
+        "entryId": "existing-002",
+        "provenance": {
+          "kind": "userProvidedLocalUse",
+          "title": "Imported Zemax ZMX",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed42/original-half21.seed-search.json",
+          "usageAuthority": "Previously user-provided prescription; local design use only, original creation cost unknown; no redistribution grant asserted.",
+          "sourceDocumentSha256": "1b99d96785e2a2566d7443ad7494fe300195c8ff8380040a002ca3dacbb65dab"
+        },
+        "entryFingerprint": "93818e2442160bfe1e36209115f43ff90a8a6553081e0a30659a4bcd8791a797",
+        "outcome": "QualifiedRetrievedPrescription",
+        "detail": null,
+        "rankScore": 0.018163970980487512,
+        "transform": {
+          "uniformScale": 1,
+          "stopAnchoredTranslationMillimeters": 0,
+          "scaledSourceImageZMillimeters": 35.50469404012648,
+          "fixedTaskImageZMillimeters": 35.50469404012648,
+          "fixedApertures": [
+            {
+              "surfaceId": "element-001:front",
+              "scaledSourceClearMillimeters": 10,
+              "taskClearMillimeters": 10,
+              "taskMechanicalMillimeters": null
+            },
+            {
+              "surfaceId": "element-001:back",
+              "scaledSourceClearMillimeters": 10,
+              "taskClearMillimeters": 10,
+              "taskMechanicalMillimeters": null
+            },
+            {
+              "surfaceId": "element-002:front",
+              "scaledSourceClearMillimeters": 8,
+              "taskClearMillimeters": 8,
+              "taskMechanicalMillimeters": null
+            },
+            {
+              "surfaceId": "element-002:back",
+              "scaledSourceClearMillimeters": 6.5,
+              "taskClearMillimeters": 6.5,
+              "taskMechanicalMillimeters": null
+            },
+            {
+              "surfaceId": "element-003:front",
+              "scaledSourceClearMillimeters": 3.5,
+              "taskClearMillimeters": 3.5,
+              "taskMechanicalMillimeters": null
+            },
+            {
+              "surfaceId": "element-003:back",
+              "scaledSourceClearMillimeters": 5,
+              "taskClearMillimeters": 5,
+              "taskMechanicalMillimeters": null
+            }
+          ]
+        },
+        "topology": {
+          "schemaVersion": 1,
+          "algorithm": "AutonomousTopologyV1",
+          "name": "Imported Zemax ZMX",
+          "conjugate": "infinite",
+          "reference": {
+            "id": "reference",
+            "zMillimeters": 0
+          },
+          "stop": {
+            "id": "stop",
+            "zMillimeters": 12.547600000000001,
+            "clearSemiDiameterMillimeters": 2.4880530821461484,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "image": {
+            "id": "image",
+            "zMillimeters": 35.50469404012648,
+            "protected": true
+          },
+          "elements": [
+            {
+              "id": "element-001",
+              "frontSurfaceId": "element-001:front",
+              "backSurfaceId": "element-001:back",
+              "frontZMillimeters": 4.9352324111432355E-06,
+              "thicknessMillimeters": 3.1114766308814295,
+              "material": "SK4",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": 0.06184025903036124,
+                  "conic": 0.0995756599812612,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 10,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": 0.01323797979419628,
+                  "conic": -0.00961266441930442,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 10,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "protected": false,
+              "transition": false
+            },
+            {
+              "id": "element-002",
+              "frontSurfaceId": "element-002:front",
+              "backSurfaceId": "element-002:back",
+              "frontZMillimeters": 3.2840331631571424,
+              "thicknessMillimeters": 2.7498247326519976,
+              "material": "SK4",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": 0.06527742348786483,
+                  "conic": -0.06329259639999026,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 8,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": 0.09560049919440974,
+                  "conic": 0.5756186222718881,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 6.5,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "protected": false,
+              "transition": false
+            },
+            {
+              "id": "element-003",
+              "frontSurfaceId": "element-003:front",
+              "backSurfaceId": "element-003:back",
+              "frontZMillimeters": 13.40591348123793,
+              "thicknessMillimeters": 6.278056565995103,
+              "material": "LAK09",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.04021646860558148,
+                  "conic": 0.029693938932638907,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 3.5,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.08176205381558782,
+                  "conic": 0.17005593203846747,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "protected": false,
+              "transition": false
+            }
+          ],
+          "fields": [
+            {
+              "label": "On axis",
+              "xAngleDegrees": 0,
+              "yAngleDegrees": 0,
+              "weight": 1
+            },
+            {
+              "label": "Field 2",
+              "xAngleDegrees": 0,
+              "yAngleDegrees": 14,
+              "weight": 1
+            },
+            {
+              "label": "Field 3",
+              "xAngleDegrees": 0,
+              "yAngleDegrees": 21,
+              "weight": 1
+            }
+          ],
+          "wavelengths": [
+            {
+              "label": "W1",
+              "nanometers": 486.1327,
+              "weight": 1,
+              "isPrimary": false
+            },
+            {
+              "label": "W2",
+              "nanometers": 587.5618000000001,
+              "weight": 1,
+              "isPrimary": true
+            },
+            {
+              "label": "W3",
+              "nanometers": 656.2725,
+              "weight": 1,
+              "isPrimary": false
+            }
+          ],
+          "glassCatalogs": [
+            "SCHOTT",
+            "HIKARI",
+            "SUMITA"
+          ],
+          "rayAimingEnabled": true,
+          "matchRefractiveIndexData": true,
+          "temperatureCelsius": 20,
+          "pressureAtmospheres": 1
+        },
+        "assessment": {
+          "opticFingerprint": "5d0b64bdb6cc7615ef54eb9dc373641b4d3b427b1693d15ded838b1241077078",
+          "protocolFingerprint": "233c8a3914f4510f55c201c0acb91b521f2cbb02bd28cd6c3f15df95c728feee",
+          "targets": {
+            "effectiveFocalLengthMillimeters": 25.462945191529624,
+            "fNumber": 3.3415938571561186,
+            "focalLengthRelativeTolerance": 0.02,
+            "fNumberRelativeTolerance": 0.02,
+            "maximumRmsRadiusMillimeters": 0.05,
+            "maximumSpotRadiusMillimeters": 0.15,
+            "maximumDistortionFraction": 0.03,
+            "minimumValidRayFraction": 0.98,
+            "minimumEdgeThicknessMillimeters": 0.1,
+            "minimumEdgeAirGapMillimeters": 0.01,
+            "maximumOpticalTrackMillimeters": 10000,
+            "maximumAbsoluteSurfaceSlope": 10
+          },
+          "structuralConstraints": {
+            "minimumElementCount": 1,
+            "maximumElementCount": 8,
+            "minimumCenterThicknessMillimeters": 0.1,
+            "minimumAirGapMillimeters": 0.05,
+            "minimumBackFocusMillimeters": 0.1,
+            "maximumMechanicalTrackMillimeters": 10000,
+            "allowTransitionElements": false,
+            "allowedGlassNames": []
+          },
+          "effectiveFocalLengthMillimeters": 25.012716195783153,
+          "fNumber": 3.4028450695876655,
+          "fields": [
+            {
+              "field": {
+                "x": 0,
+                "y": 0
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030909573987722608,
+              "maximumRadiusMillimeters": 0.049859863518712175,
+              "distortionFraction": 0,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.03333333333333333
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030894354210975365,
+              "maximumRadiusMillimeters": 0.050508026363228875,
+              "distortionFraction": 1.2349257967999946E-05,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.06666666666666667
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030849290202678244,
+              "maximumRadiusMillimeters": 0.05118119347355288,
+              "distortionFraction": 4.9431576775479064E-05,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.1
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030776173832858692,
+              "maximumRadiusMillimeters": 0.051879711407236795,
+              "distortionFraction": 0.00011135101887260508,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.13333333333333333
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030678010581381233,
+              "maximumRadiusMillimeters": 0.05260421790989067,
+              "distortionFraction": 0.00019828245695088865,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.16666666666666666
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.03055904572911516,
+              "maximumRadiusMillimeters": 0.05335563006702193,
+              "distortionFraction": 0.0003104737585430253,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.2
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030424796053947177,
+              "maximumRadiusMillimeters": 0.05413512771577267,
+              "distortionFraction": 0.0004482489091532812,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.2333333333333333
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030282081475629313,
+              "maximumRadiusMillimeters": 0.05494413166254697,
+              "distortionFraction": 0.0006120121409227786,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.26666666666666666
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030139048771291886,
+              "maximumRadiusMillimeters": 0.05578427607535685,
+              "distortionFraction": 0.0008022531566052761,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.3
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030005176826369117,
+              "maximumRadiusMillimeters": 0.05665737421941763,
+              "distortionFraction": 0.0010195535643180895,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.3333333333333333
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.029891250133608323,
+              "maximumRadiusMillimeters": 0.05756537647140991,
+              "distortionFraction": 0.0012645946679713093,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.36666666666666664
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.02980928491202702,
+              "maximumRadiusMillimeters": 0.05851031927158967,
+              "distortionFraction": 0.001538166792797678,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.4
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.029772391120237243,
+              "maximumRadiusMillimeters": 0.059494263340540865,
+              "distortionFraction": 0.0018411803660712354,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.4333333333333333
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.02979455491609815,
+              "maximumRadiusMillimeters": 0.06051921908124447,
+              "distortionFraction": 0.002174679021967795,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.4666666666666666
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.029890330999612337,
+              "maximumRadiusMillimeters": 0.06158705658479313,
+              "distortionFraction": 0.002539855058499718,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.5
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030074443660550204,
+              "maximumRadiusMillimeters": 0.06371087149854629,
+              "distortionFraction": 0.0029380676463737166,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.5333333333333333
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030361309134075976,
+              "maximumRadiusMillimeters": 0.06720564848147502,
+              "distortionFraction": 0.0033708642780927323,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.5666666666666667
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030764508306749695,
+              "maximumRadiusMillimeters": 0.07090016536783288,
+              "distortionFraction": 0.00384000605536613,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.6
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.031296254340129864,
+              "maximumRadiusMillimeters": 0.07479041823793148,
+              "distortionFraction": 0.004347497549635627,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.6333333333333333
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.03196690970355566,
+              "maximumRadiusMillimeters": 0.07887223681398337,
+              "distortionFraction": 0.0048956221429464165,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.6666666666666666
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.03278460735175659,
+              "maximumRadiusMillimeters": 0.0831412965436302,
+              "distortionFraction": 0.005486983974760787,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.05
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030875468936847443,
+              "maximumRadiusMillimeters": 0.050841469657984195,
+              "distortionFraction": 2.779392106584404E-05,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.15
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030620813745071508,
+              "maximumRadiusMillimeters": 0.05297649297151241,
+              "distortionFraction": 0.000251202203008299,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.25
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.030210043560719473,
+              "maximumRadiusMillimeters": 0.05536020172784184,
+              "distortionFraction": 0.0007037888135759337,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.35
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.02984547647344794,
+              "maximumRadiusMillimeters": 0.058033101271101284,
+              "distortionFraction": 0.0013977604088833077,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.45
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.029832319862619822,
+              "maximumRadiusMillimeters": 0.061047669038922336,
+              "distortionFraction": 0.0023532265647694737,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.55
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.03054756558894512,
+              "maximumRadiusMillimeters": 0.06902818567300277,
+              "distortionFraction": 0.003600772829047552,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.65
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.032356964483616336,
+              "maximumRadiusMillimeters": 0.08098363739694772,
+              "distortionFraction": 0.005185721811650485,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.7
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.03375501998215592,
+              "maximumRadiusMillimeters": 0.0875931370352423,
+              "distortionFraction": 0.006124557899529605,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.75
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.03550321716379873,
+              "maximumRadiusMillimeters": 0.09460359813495747,
+              "distortionFraction": 0.007175150626074869,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.8
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.03760237581516037,
+              "maximumRadiusMillimeters": 0.10199937762741944,
+              "distortionFraction": 0.008351202800793704,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.85
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.040043742022925884,
+              "maximumRadiusMillimeters": 0.10997101394106092,
+              "distortionFraction": 0.009669672826264075,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.9
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.04281308884781974,
+              "maximumRadiusMillimeters": 0.11838144904249345,
+              "distortionFraction": 0.01115171305225783,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 0.95
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.045896920331165644,
+              "maximumRadiusMillimeters": 0.1272169597852505,
+              "distortionFraction": 0.012823951550241084,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "field": {
+                "x": 0,
+                "y": 1
+              },
+              "attemptedRays": 960,
+              "validRays": 960,
+              "checkAttemptedRays": 99,
+              "checkValidRays": 99,
+              "rmsRadiusMillimeters": 0.04929257176225859,
+              "maximumRadiusMillimeters": 0.13648802777710337,
+              "distortionFraction": 0.014720274828050226,
+              "wavelengthValidFractions": [
+                1,
+                1,
+                1
+              ]
+            }
+          ],
+          "violations": [],
+          "completed": true,
+          "meetsTargets": true,
+          "tracedRayCount": 425420,
+          "geometryProbes": 841,
+          "failure": null
+        },
+        "matchesOriginalInput": true,
+        "work": {
+          "functionEvaluations": 3,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 1,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 425420,
+          "geometryProbes": 841,
+          "elapsed": "00:00:04.9986369"
+        }
+      },
+      {
+        "entryId": "existing-003",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed42/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "286756c5b1eeaf230a451f5b8418dbf2d2c6a63cc90f1430196f5520b757b6df"
+        },
+        "entryFingerprint": "ec483a6bd8d4173f5f69817330742c0fd2e4a7d983e63bed5bff8a9d588e44bd",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.547792385599539,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0016490"
+        }
+      },
+      {
+        "entryId": "existing-004",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed42/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "286756c5b1eeaf230a451f5b8418dbf2d2c6a63cc90f1430196f5520b757b6df"
+        },
+        "entryFingerprint": "e4c0807a443664d8c98055d9d596877538e1b73e7dcb332a026490e7f1937533",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.5477923855995386,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0015865"
+        }
+      },
+      {
+        "entryId": "existing-005",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed42/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "f16fad80920e2851106c497cf8c7b9c347996ce041af364c4e9a6b49df7b89d2"
+        },
+        "entryFingerprint": "4c483e2bfe2c1730ff0b6d4b2bfeda0a9852b3575bc6f813ca16a6762974567e",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.554688515014098,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0011942"
+        }
+      },
+      {
+        "entryId": "existing-006",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed42/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "f16fad80920e2851106c497cf8c7b9c347996ce041af364c4e9a6b49df7b89d2"
+        },
+        "entryFingerprint": "e1bdd19ab6de4340defef4bcd56a1d476373b9b67570a2b7d6b5c788a93545da",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.557122262425235,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0021499"
+        }
+      },
+      {
+        "entryId": "existing-007",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed43/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "4386dbd7856bc4bff072286f028f4961c6a35fb5b9d7d7ac417eae424ef8aebc"
+        },
+        "entryFingerprint": "095200cfd045f4560ccf3d5236f1fdd97426530114e8eded86ceb04e56de1191",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 1.547792385599538,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0027183"
+        }
+      },
+      {
+        "entryId": "existing-008",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed43/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "3840a7e4bda203fa3017a7d387fdc37e9e3c570a6d1c2d6c6b480bc0c68ba827"
+        },
+        "entryFingerprint": "6e2c19b0fb393339d68945936ca2e33bfd6669bbf5be5be4ac67869073f2bf96",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.8546452050395941,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0025740"
+        }
+      },
+      {
+        "entryId": "existing-009",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed43/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "48095688267c9f6407c58ef4495e674a814f916267d64133a16298e26b18e5fe"
+        },
+        "entryFingerprint": "93fe11c8e421388274659596c8ec3ca43d2c5a1aed46876284b30fef8be7cca0",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.547792385599539,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0016506"
+        }
+      },
+      {
+        "entryId": "existing-010",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed43/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "48095688267c9f6407c58ef4495e674a814f916267d64133a16298e26b18e5fe"
+        },
+        "entryFingerprint": "874c682078dd1854de473f41448184ae5aedfc32e42d9502540aaa4144af3364",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.5477923855995395,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0012964"
+        }
+      },
+      {
+        "entryId": "existing-011",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed43/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "82a8bc6c0377807f413046177bd0bf06cf8803dd4fde5eeccd8f71d2e59035e5"
+        },
+        "entryFingerprint": "30ce1497e5d16089b1f78cfada8be7f3599884adbe7b7544137d05444347d061",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.5839083527631774,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0014851"
+        }
+      },
+      {
+        "entryId": "existing-012",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed43/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "82a8bc6c0377807f413046177bd0bf06cf8803dd4fde5eeccd8f71d2e59035e5"
+        },
+        "entryFingerprint": "a2cd462a68be3484d4ee4d3c1de381c07db85e304f1fb4438cc6ea799d7f12a1",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.5500839121661882,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0020591"
+        }
+      },
+      {
+        "entryId": "existing-013",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed44/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "9954bdac52da9803b5e7762f2019f5287a788141371c9349dddca3f773f7b3f8"
+        },
+        "entryFingerprint": "6083e168a50e2cbcaea8a4be3b925246d9581e4d53c426ede7d7cab3fd9bfc91",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 1.547792385599539,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0225399"
+        }
+      },
+      {
+        "entryId": "existing-014",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed44/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "3ebde6d635febc253a5c800a3131e62b66108cbc88d2e420718dd480a984bd48"
+        },
+        "entryFingerprint": "a2f30743112bdf0a3fd7070effbd97242853c2f54a596ce4fbbd57b2e1290758",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.8546452050395941,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0081707"
+        }
+      },
+      {
+        "entryId": "existing-015",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed44/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "fa07fb74e9ce7506f63305fae225e04ad6bb84a8514aca6852562af9766d2226"
+        },
+        "entryFingerprint": "6f72e736ac79301f63a8356bdd8f2af0086ffe2d5c7871a51826a66827bd9cbd",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.5477923855995386,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0015942"
+        }
+      },
+      {
+        "entryId": "existing-016",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed44/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "73bb57ec9efe6132924aba87e94606e4aa4c303e4dade3307f61fb37e0444634"
+        },
+        "entryFingerprint": "507d5cd6600c4ea0dd32951b920c6f963638b14e21f2cec06df35dace4ede5fc",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.5559096097408078,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0013092"
+        }
+      },
+      {
+        "entryId": "existing-017",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed44/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "73bb57ec9efe6132924aba87e94606e4aa4c303e4dade3307f61fb37e0444634"
+        },
+        "entryFingerprint": "aa6b0093fd1556876c668f10961cfcb5afd2a4d66012227838732532270513b4",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.5837325953871009,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0012186"
+        }
+      },
+      {
+        "entryId": "existing-018",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed45/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "581fc2bbbdef5c401dc333d5cf6ef2c403f16bdc72fb887d2e4630a02a223b50"
+        },
+        "entryFingerprint": "3e0d04c901d33d6245c4ffaa5051fb199de733238066b5e2a1ebf453d36ba9f3",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 1.5477923855995386,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0026980"
+        }
+      },
+      {
+        "entryId": "existing-019",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed45/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "ddae1401396f67df32c53155ffb6053be5f37ace81a232d3c1f6fee18c876904"
+        },
+        "entryFingerprint": "2635167b4025d3034438c1f0de14197ef9bbccc64d5de93ff1ea1786d18ab516",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.8546452050395933,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0023752"
+        }
+      },
+      {
+        "entryId": "existing-020",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed45/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "997d1663ad6c82438763d86d2bf9bda1206cb8ee97445bd0076499843042a13a"
+        },
+        "entryFingerprint": "b9708368ad7e5ebdeeb6ff4069b1ac9229a5005186420e950fb43a3e3d103979",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.547792385599539,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0026545"
+        }
+      },
+      {
+        "entryId": "existing-021",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed45/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "997d1663ad6c82438763d86d2bf9bda1206cb8ee97445bd0076499843042a13a"
+        },
+        "entryFingerprint": "4fb878336572b4cd8c68e5cdea19d37fd45c7c10661a26fa92f3e04914c46161",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.5477923855995386,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0014151"
+        }
+      },
+      {
+        "entryId": "existing-022",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed45/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "c1a75362f2abac0c184f05deec45ae7365821e634754132441106300df288566"
+        },
+        "entryFingerprint": "035140851e7158b1e9023cb141606fef55fe85da4b93bb8e7e9a53d5ba36f884",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.558406867101929,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0011983"
+        }
+      },
+      {
+        "entryId": "existing-023",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed45/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "c1a75362f2abac0c184f05deec45ae7365821e634754132441106300df288566"
+        },
+        "entryFingerprint": "36934d776a528b6dad0c104eaa141acc63bda6e23b7007c2af27d6e6f2ee85c9",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.579380090591012,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0011739"
+        }
+      },
+      {
+        "entryId": "existing-024",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed46/competition-8-F8-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "5549c614d866f00df581569ca6d3ccf091bb77a3dc233e4a7e55e8f95736c23d"
+        },
+        "entryFingerprint": "44588522fa4bc6aa0d698d926522e1f9b338f8d2f38163cc756a52eb2c4ef397",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 1.547792385599538,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0041579"
+        }
+      },
+      {
+        "entryId": "existing-025",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m2/formal/fixed-seed46/competition-8-F4-full25.seed-search.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "a1569457365b95db13619eee8cc8b5174120f4776ef253ce560cdda80fde599f"
+        },
+        "entryFingerprint": "938c2e505ef3c3ad709dea0bed4b97f9bcb5b3fd2a59cc9e20a1d256758fa311",
+        "outcome": "FixedApertureMappingRequiresSameCount",
+        "detail": null,
+        "rankScore": 0.8546452050395927,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0026989"
+        }
+      },
+      {
+        "entryId": "existing-026",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/off-seed46/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "1ca0667044ccbbc66f314b7cbf03bdd382b9cc3cb2d568df71c30dd10b0bc2e9"
+        },
+        "entryFingerprint": "8eaa2da92f233bc4cf98cddfd8f26c79f6aad1e0d6a2c47e107beb85a24df7c7",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.5477923855995395,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0011425"
+        }
+      },
+      {
+        "entryId": "existing-027",
+        "provenance": {
+          "kind": "projectAuthored",
+          "title": "Descriptor Thick Delano",
+          "origin": "validation/rechecks/2026-10-30/initial-structure-m0-m1/formal/combined-seed46/competition-3-F8-full10.json",
+          "usageAuthority": "Repository-authored construction; local product verification use.",
+          "sourceDocumentSha256": "b8b510c0e32ccd969550bf908db0160ceca14fc91781e2a10046d3c63d7ded14"
+        },
+        "entryFingerprint": "a80017d9f3072a7a1e25cb0581a041b2741b799e58fd9df0071b20603319470f",
+        "outcome": "SourceFieldTooSmall",
+        "detail": null,
+        "rankScore": 1.56107784387432,
+        "transform": null,
+        "topology": null,
+        "assessment": null,
+        "matchesOriginalInput": false,
+        "work": {
+          "functionEvaluations": 1,
+          "gradientEvaluations": 0,
+          "validationEvaluations": 0,
+          "matrixEvaluations": 0,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 0,
+          "geometryProbes": 0,
+          "elapsed": "00:00:00.0010684"
+        }
+      }
+    ],
+    "qualifiedEntryIds": [
+      "existing-002"
+    ],
+    "retainedEntryIds": [
+      "existing-002"
+    ],
+    "descriptorEvaluations": 29,
+    "unknownAcquisitionCosts": 1,
+    "knownSourceAcquisitionWork": {
+      "functionEvaluations": 1698,
+      "gradientEvaluations": 262,
+      "validationEvaluations": 40,
+      "matrixEvaluations": 2955,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 0,
+      "tracedRays": 1994340,
+      "geometryProbes": 1887983,
+      "elapsed": "00:02:45.4099293"
+    },
+    "libraryIndexingWork": {
+      "functionEvaluations": 28,
+      "gradientEvaluations": 0,
+      "validationEvaluations": 0,
+      "matrixEvaluations": 0,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 0,
+      "tracedRays": 0,
+      "geometryProbes": 0,
+      "elapsed": "00:00:00.0771628"
+    }
+  }
+}

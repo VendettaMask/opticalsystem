@@ -1,4 +1,3 @@
-using System.Globalization;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Analysis;
@@ -81,7 +80,7 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             {
                 var fieldNumber = _settings.FieldNumber > 0 ? _settings.FieldNumber : fieldIndex + 1;
                 var source = sourcePanes[configurationIndex].ElementAtOrDefault(fieldIndex);
-                var fieldLabel = source?.Title ?? $"视场 {fieldNumber}";
+                var fieldLabel = source?.Title ?? MtfPresentation.FieldName(fieldNumber);
                 var title = $"结构 {configurationIndex + 1} · {fieldLabel}";
                 source ??= new AnalysisPlotPane(fieldLabel, [], new AnalysisPlotOptions(), Footer: "此结构未定义该视场");
                 var options = source.PlotOptions with { Title = title, HideTickLabels = true };
@@ -316,7 +315,7 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
                         Title = string.Empty,
                         HideTickLabels = true
                     },
-                    Footer: MatrixFieldLabel(pane.Title))))
+                    Footer: pane.Title)))
                 .ToArray();
         var matrixValues = values.ToDictionary(item => item.Key, item => item.Value);
         var imageSpaceAfocal = matrixValues.TryGetValue("ImageSpaceAfocal", out var afocalValue)
@@ -338,35 +337,5 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             firstSeries is null ? null : new[] { firstSeries },
             PlotPanes: panes,
             PlotPaneColumns: Math.Max(1, sourcePanes.FirstOrDefault()?.Series.Count ?? 1));
-    }
-
-    private static string MatrixFieldLabel(string title)
-    {
-        foreach (var prefix in new[] { "Y=", "X=" })
-        {
-            var start = title.LastIndexOf(prefix, StringComparison.Ordinal);
-            if (start < 0)
-            {
-                continue;
-            }
-
-            var valueStart = start + prefix.Length;
-            var valueEnd = title.IndexOfAny(new[] { ' ', ',', ')' }, valueStart);
-            if (valueEnd < 0)
-            {
-                valueEnd = title.Length;
-            }
-
-            if (double.TryParse(
-                title[valueStart..valueEnd],
-                NumberStyles.Float,
-                CultureInfo.InvariantCulture,
-                out var value))
-            {
-                return $"{value:0.0000} mm";
-            }
-        }
-
-        return title;
     }
 }

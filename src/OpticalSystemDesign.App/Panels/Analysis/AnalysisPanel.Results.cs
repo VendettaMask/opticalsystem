@@ -47,7 +47,8 @@ public sealed partial class AnalysisPanel
     {
         if (IsCardinalPointsView(view) && cardinalScene?.TwoDimensional is not null)
         {
-            return new ResponsiveAnalysisPlotHost { Child = BuildCardinalPointsScene(view, cardinalScene) };
+            return new ResponsiveAnalysisPlotHost { Child = new UniformDiagramPage(
+                BuildCardinalPointsScene(view, cardinalScene), BuildAnalysisTitleBlock(view, document, generatedAt)) };
         }
 
         if (IsSeidelCoefficientsView(view))
@@ -91,12 +92,8 @@ public sealed partial class AnalysisPanel
                 : IsFullFieldAberrationView(view)
                     ? BuildFullFieldAberrationPlot(view)
                 : BuildSinglePlot(view);
-        var plotPage = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
-        plotPage.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.PlotBackground);
-        plotPage.Children.Add(plotRoot);
         var titleBlock = BuildAnalysisTitleBlock(view, document, generatedAt);
-        Grid.SetRow(titleBlock, 1);
-        plotPage.Children.Add(titleBlock);
+        var plotPage = new UniformDiagramPage(plotRoot, titleBlock);
         var resultsGrid = BuildResultsGrid(view);
         var report = new TextBox
         {

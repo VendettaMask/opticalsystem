@@ -21,7 +21,7 @@ public static class Examples
             DesignKind.Antireflection => "示例一 · 可见光减反膜",
             DesignKind.HighReflector => "示例二 · 550 nm 高反膜",
             _ => "示例三 · 550 nm 窄带滤光片"
-        }, target, new CalculationSettings(), incident.Id, substrate.Id, low.Id, high.Id,
+        }, target, new CalculationSettings { DesignProtocolVersion = kind == DesignKind.NarrowBand ? 3 : 2 }, incident.Id, substrate.Id, low.Id, high.Id,
             [incident, substrate, low, high], []);
     }
 }

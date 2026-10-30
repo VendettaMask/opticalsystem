@@ -1,0 +1,456 @@
+{
+  "date": "2026-10-30",
+  "head": "3c32f781482b6ae6ba6a710a36732479723653ea",
+  "includesUncommittedChanges": true,
+  "passedDistinctLatest": 21,
+  "failedLatest": 0,
+  "skippedLatest": 0,
+  "batches": [
+    {
+      "file": "first.trx",
+      "counts": {
+        "Failed": 1,
+        "Passed": 7
+      }
+    },
+    {
+      "file": "integration.trx",
+      "counts": {
+        "Failed": 2,
+        "Passed": 9
+      }
+    },
+    {
+      "file": "final.trx",
+      "counts": {
+        "Failed": 2,
+        "Passed": 15
+      }
+    },
+    {
+      "file": "scalar.trx",
+      "counts": {
+        "Passed": 6
+      }
+    },
+    {
+      "file": "ui-final.trx",
+      "counts": {
+        "Passed": 2
+      }
+    }
+  ],
+  "results": [
+    {
+      "executionId": "c5b5e358-1edc-45ac-97c1-d7f8192e78e2",
+      "testId": "7e5a7a29-e66f-0965-f99d-7e6ca279adaa",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingTests.PreparedFieldIsImmutableAndBitwiseIdenticalAtFixedPhysicalCoordinates",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:00.0166519",
+      "startTime": "2026-10-30T14:54:24.4015995+08:00",
+      "endTime": "2026-10-30T14:54:24.4179745+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "c5b5e358-1edc-45ac-97c1-d7f8192e78e2",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "990e9503-30e6-4074-92f2-95dad68938fc",
+      "testId": "0ce54d40-f963-751c-3cb6-129088880d49",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingTests.ResourceFailuresAndMaximumSamplingAreExplicitAndCancellationPreservesTheSource",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:01:33.2386003",
+      "startTime": "2026-10-30T14:51:34.8718002+08:00",
+      "endTime": "2026-10-30T14:53:08.0404331+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "990e9503-30e6-4074-92f2-95dad68938fc",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "9eeed60f-c65e-4f52-a782-f484b391233c",
+      "testId": "5482889d-319c-5e9f-a3cc-00288c97ef00",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingTests.OddRegionOriginsRetainOriginalCfaAndEverySavedBaselineCharge(pattern: GBRG)",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:10.9080503",
+      "startTime": "2026-10-30T14:53:26.2376757+08:00",
+      "endTime": "2026-10-30T14:53:37.1521200+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "9eeed60f-c65e-4f52-a782-f484b391233c",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "0f302ec8-d322-4f66-bbfe-5433b6e66e36",
+      "testId": "9ddc6ab7-5204-e410-9d96-1ba2afebfe3a",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingTests.IndependentAxesAccumulateSaveReplayAndRejectReportOrSourceTampering",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:19.8568727",
+      "startTime": "2026-10-30T14:54:24.4181814+08:00",
+      "endTime": "2026-10-30T14:54:44.2747098+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "0f302ec8-d322-4f66-bbfe-5433b6e66e36",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "3bb590b6-ce33-4593-8f4b-5dba2120b126",
+      "testId": "88217940-c8cc-03ba-c100-cd719f1afe5b",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingTests.RegionalRenderRetainsFullSensorCoordinatesInsteadOfRecenteringTheOptics",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:02.7946068",
+      "startTime": "2026-10-30T14:53:48.7204821+08:00",
+      "endTime": "2026-10-30T14:53:51.4778638+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "3bb590b6-ce33-4593-8f4b-5dba2120b126",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "41e04bcf-7fcf-4031-a52f-fc38b683fb7d",
+      "testId": "fc6d4aec-86cd-2d8b-d094-7d15ff7e339c",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingTests.OddRegionOriginsRetainOriginalCfaAndEverySavedBaselineCharge(pattern: RGGB)",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:05.8255774",
+      "startTime": "2026-10-30T14:53:08.0412937+08:00",
+      "endTime": "2026-10-30T14:53:13.8798030+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "41e04bcf-7fcf-4031-a52f-fc38b683fb7d",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "b8b810b9-4e84-4fdc-9bc1-a46eb25aa6e3",
+      "testId": "6fede473-e6b7-1257-708f-f781488695c5",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingTests.OddRegionOriginsRetainOriginalCfaAndEverySavedBaselineCharge(pattern: BGGR)",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:12.3527308",
+      "startTime": "2026-10-30T14:53:13.8807804+08:00",
+      "endTime": "2026-10-30T14:53:26.2370005+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "b8b810b9-4e84-4fdc-9bc1-a46eb25aa6e3",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "964e0077-6bea-4102-b187-63ae42a92e34",
+      "testId": "408df6f2-6166-9bbf-4850-1139c46584e2",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingTests.OddRegionOriginsRetainOriginalCfaAndEverySavedBaselineCharge(pattern: GRBG)",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:11.4671299",
+      "startTime": "2026-10-30T14:53:37.1528690+08:00",
+      "endTime": "2026-10-30T14:53:48.7189926+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "964e0077-6bea-4102-b187-63ae42a92e34",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "ec02ca14-6572-4876-87b9-3e2018507315",
+      "testId": "9967c55a-bd3b-6da3-e234-3b6c94d1fb14",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingTests.FrozenV8EveryOriginalBandElectronRawAndIspValueReplaysAndRegionalBaselineMatches",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:32.9182249",
+      "startTime": "2026-10-30T14:53:51.4787339+08:00",
+      "endTime": "2026-10-30T14:54:24.4009623+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "ec02ca14-6572-4876-87b9-3e2018507315",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "06cc37f9-c1e3-491e-9260-a557453071f8",
+      "testId": "865d7af4-b7bc-b6cb-befb-3d3fd6fb1d7c",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingWindowTests.FrozenSamplingRegionControlsReportOpenAndCancelPreserveAB(theme: \"Light\")",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:18.4208589",
+      "startTime": "2026-10-30T14:59:26.7625428+08:00",
+      "endTime": "2026-10-30T14:59:45.1715601+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "06cc37f9-c1e3-491e-9260-a557453071f8",
+      "batch": "ui-final.trx"
+    },
+    {
+      "executionId": "b40ba8d5-b3f7-463f-b999-a467e8671e0e",
+      "testId": "df5410ab-0e79-33c0-3e80-17f3e3b6ccb5",
+      "testName": "OpticalSystemDesign.Tests.CameraSamplingWindowTests.FrozenSamplingRegionControlsReportOpenAndCancelPreserveAB(theme: \"Dark\")",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:12.4620836",
+      "startTime": "2026-10-30T14:59:45.1997917+08:00",
+      "endTime": "2026-10-30T14:59:57.6354543+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "b40ba8d5-b3f7-463f-b999-a467e8671e0e",
+      "batch": "ui-final.trx"
+    },
+    {
+      "executionId": "be271475-f411-4efe-85b1-359b469409ca",
+      "testId": "104a350a-eba5-ed97-95d6-d5d16b89ebe2",
+      "testName": "OpticalSystemDesign.Tests.CameraExperimentTests.ContinuousMaterialInputsAndEditedIspRecomputeIndependentlyOfSourceFiles",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:02.8632406",
+      "startTime": "2026-10-30T14:51:34.8760526+08:00",
+      "endTime": "2026-10-30T14:51:37.7724785+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "be271475-f411-4efe-85b1-359b469409ca",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "a12d0e75-3f03-4989-b674-842a81d7a389",
+      "testId": "b7fb0d07-03cb-8bdc-3cb2-36a170faae4e",
+      "testName": "OpticalSystemDesign.Tests.CameraSceneDiffractionTests.SurfaceDiffractionUsesRealDepthOcclusionAbsolutePowerAndTheUnmodifiedPrescription",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:29.0921162",
+      "startTime": "2026-10-30T14:51:45.6299243+08:00",
+      "endTime": "2026-10-30T14:52:14.7216474+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "a12d0e75-3f03-4989-b674-842a81d7a389",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "1074d3c2-5346-4b07-92fe-72ba00c92d24",
+      "testId": "2e77c64e-ab22-758c-0894-90987886a460",
+      "testName": "OpticalSystemDesign.Tests.CameraSceneDiffractionTests.TracedFiniteConjugatePointQuadratureMatchesAiryShapeWithoutPeakOrEnergyFitting",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:00.4053759",
+      "startTime": "2026-10-30T14:52:14.7226497+08:00",
+      "endTime": "2026-10-30T14:52:15.1272082+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "1074d3c2-5346-4b07-92fe-72ba00c92d24",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "e072d3cd-9963-4d7f-843b-2610056a759e",
+      "testId": "fbbdfeca-1330-6ef1-e112-c49f17b09cd3",
+      "testName": "OpticalSystemDesign.Tests.CameraExperimentTests.CorruptUnknownAndCancelledExperimentsPreserveExistingFiles",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:00.4481737",
+      "startTime": "2026-10-30T14:51:38.0502296+08:00",
+      "endTime": "2026-10-30T14:51:38.2903006+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "e072d3cd-9963-4d7f-843b-2610056a759e",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "783080e5-21c2-4635-840c-63f92861e1af",
+      "testId": "41eb7c31-20ea-229d-e058-b8315d7ebdfa",
+      "testName": "OpticalSystemDesign.Tests.CameraSceneDiffractionTests.FrozenV7OriginalMixedExposureFixtureRetainsItsVersionAndEveryStoredRawValue",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:10.8139572",
+      "startTime": "2026-10-30T14:51:34.8761622+08:00",
+      "endTime": "2026-10-30T14:51:45.6289900+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "783080e5-21c2-4635-840c-63f92861e1af",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "a4cf7f6a-0d42-4688-bef3-8d5633bb6f8a",
+      "testId": "549c060f-beb9-7d23-d416-4c8eee47228e",
+      "testName": "OpticalSystemDesign.Tests.CameraExperimentTests.ExternalInputAndBothLensSnapshotsSurviveDeletionAndWorkspaceReplacement",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:04:45.1984921",
+      "startTime": "2026-10-30T14:51:38.2952362+08:00",
+      "endTime": "2026-10-30T14:56:23.5009319+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "a4cf7f6a-0d42-4688-bef3-8d5633bb6f8a",
+      "batch": "final.trx"
+    },
+    {
+      "executionId": "a05c58b9-7824-4e39-8bd9-6d04e0cf077b",
+      "testId": "5750a579-eb9e-19d2-fa6e-f5199f4b3834",
+      "testName": "OpticalSystemDesign.Tests.CameraSceneDiffractionTests.AbsoluteSquarePupilMatchesIndependentFraunhoferPeakAndFirstZero(wavelength: 550)",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:00.0005947",
+      "startTime": "2026-10-30T14:57:45.1425508+08:00",
+      "endTime": "2026-10-30T14:57:45.1426131+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "a05c58b9-7824-4e39-8bd9-6d04e0cf077b",
+      "batch": "scalar.trx"
+    },
+    {
+      "executionId": "bc08e517-900e-4451-a150-5fa1b314c5be",
+      "testId": "08b848fa-b43f-a1ac-5e77-237cdade698a",
+      "testName": "OpticalSystemDesign.Tests.CameraSceneDiffractionTests.PupilPhaseIsCoherentAndOutputCropDoesNotRenormalizeTheField",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:00.0039981",
+      "startTime": "2026-10-30T14:57:45.1437371+08:00",
+      "endTime": "2026-10-30T14:57:45.1437898+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "bc08e517-900e-4451-a150-5fa1b314c5be",
+      "batch": "scalar.trx"
+    },
+    {
+      "executionId": "bbbf9b92-5819-446c-a519-b0cee115a19a",
+      "testId": "6ac0d59a-8bac-07f7-79a5-4f724077251f",
+      "testName": "OpticalSystemDesign.Tests.CameraSceneDiffractionTests.AbsoluteSquarePupilMatchesIndependentFraunhoferPeakAndFirstZero(wavelength: 650)",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:00.0008268",
+      "startTime": "2026-10-30T14:57:45.1417978+08:00",
+      "endTime": "2026-10-30T14:57:45.1418983+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "bbbf9b92-5819-446c-a519-b0cee115a19a",
+      "batch": "scalar.trx"
+    },
+    {
+      "executionId": "5cb95654-1938-43aa-b67a-7000f20f0f37",
+      "testId": "7bfec18b-e253-5344-a938-dfd4bbe4a62c",
+      "testName": "OpticalSystemDesign.Tests.CameraSceneDiffractionTests.AbsoluteSquarePupilMatchesIndependentFraunhoferPeakAndFirstZero(wavelength: 450)",
+      "computerName": "LAPTOP-G4BBBCS0",
+      "duration": "00:00:00.0091647",
+      "startTime": "2026-10-30T14:57:45.1296706+08:00",
+      "endTime": "2026-10-30T14:57:45.1319326+08:00",
+      "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+      "outcome": "Passed",
+      "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+      "relativeResultsDirectory": "5cb95654-1938-43aa-b67a-7000f20f0f37",
+      "batch": "scalar.trx"
+    }
+  ],
+  "sourceSha256": {
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Actions.cs": "cc738a8e885b6eb3f965ae9a83be2069388f112d5a2fa5dcd938ab6b9dd711de",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Experiments.cs": "55baa2e0274c51f84813af42780b6404552cdbb9d34b2ba6cf77de4bf09e371f",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Materials.cs": "fe4fc4fe9eea36e9d9cf4237ec35d47df073b96ef28681a429e267d39750a538",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.PixelSampling.cs": "a984d00fcf124e9a3e4ebaeafc2fac56323ad70f8eb93b48794ec2f4d76f4cbb",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Sampling.cs": "6bb2ee5e603389a7b851ed918e8296b118ff680d4caef684943656fc2b60ec0a",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Scene3D.cs": "75bc545fb6de3c8b93a40d22014b178e4342848491fb65d875bc794715c0268e",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneSpectra.cs": "4befb30a818603cf03eb54c4f732d144efe98aa51e41d011b2fd3fd3af037336",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SensorFiles.cs": "ddbfdabdadee0285b5487ebb367773f069d1a891f0a613f3a5ae394014d95566",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.cs": "ec7be9585bc4eec02429b4741941704bf5ba908dacb7f393ad7da89834a687c9",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.CameraPixelSampling.cs": "cd26b18c146359634948b18e533369eaa844a80f8f26f61397132ff262ebd3e9",
+    "src/OpticalSystemDesign.Application/Contracts/CameraImagingContracts.cs": "0ff000652648db0cf2c12d35460ffafd9f6bcb6c0c7798805c0bcd3b8cee2767",
+    "src/OpticalSystemDesign.Application/Contracts/CameraSamplingContracts.cs": "28529dbd6e9a2a5748bd782b5f21ee41d671785036626ba2d6816bf5723d22c2",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Experiments.cs": "281830ec8d8c7b87cf8886b6a384d1db54f52857ae44936d96df72d6b20b4ca1",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Sampling.cs": "8bf0600c885186d433b5529d13757793a33e726780906bfb85a8e3336a357459",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.Scene3D.cs": "325740d8b88c7b501e47cba598879e8eddcffbdd6c903ffdb7e3e82557266b2d",
+    "src/OpticalSystemDesign.Core/Analysis/Imaging/DiffractionCameraRenderer.cs": "2f4846c911f84f75508088ef797e21918219aaa67f9042f4550ae4987a9884c8",
+    "src/OpticalSystemDesign.Core/Analysis/ScalarHuygensIntegral.cs": "78bf5ca72c5d5b1274a0a35602c60919a8b8fcbb0a8b2a706c94840c4662b18c",
+    "tests/OpticalSystemDesign.Tests/CameraExperimentTests.cs": "c10bda10245f60d556c52b88e7e1df3954d63f89b3d2b2c565edf834bbf5077a",
+    "tests/OpticalSystemDesign.Tests/CameraSamplingTests.cs": "7f520c2768f830aa60d95717e9206f041d39a1a3d9d4ace490a965a8823c1ef5",
+    "tests/OpticalSystemDesign.Tests/CameraSamplingWindowTests.cs": "a6256c4fd4c818d221472a7343bbbc43528015968e1b70a5e5f145eba31edf6d",
+    "tests/OpticalSystemDesign.Tests/CameraSceneDiffractionTests.cs": "791a0332d3816ed2812fe9b42b539176a81187e50c6ac1a9cd04487f38eda117",
+    "tests/OpticalSystemDesign.Tests/Fixtures/camera-scene-v7-frozen.zip": "beca679d7fae325d9470bdafd04bf58926f0eb3065682ff59f385166d9367ff9",
+    "tests/OpticalSystemDesign.Tests/Fixtures/camera-scene-v8-frozen.zip": "4df8e955258c85f8694b5f0921f1bf6bc8bbf40adac624e11c17eabbc10eae46",
+    "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj": "0921f4a54e763b64d1293cd7bc01a8e6dc67d33e3e16568b157e5b6d0c2d2509",
+    "tools/diagnostics/CameraSampling20261030/CameraSampling20261030.csproj": "5ac1d2864f936e07d198eaffec78d82fe119525de1960122578f34627634d081",
+    "tools/diagnostics/CameraSampling20261030/Program.cs": "912d48cf476ff0c50c28f3c3bb5ed51de6d4a9ea9637652fa93fa27cafad3480",
+    "tools/diagnostics/CameraSampling20261030/verify_evidence.py": "3357b78242edb96f3d59a0568dd9441df9697cd1fb60ce4ee9a4f3c5c7eb00c9"
+  },
+  "coreSha256": {
+    "default": "86836bfb3d796afc3c22fc0e9f50c1cd1f7b8a61ddced679e97f09cb59b115a1",
+    "app": "86836bfb3d796afc3c22fc0e9f50c1cd1f7b8a61ddced679e97f09cb59b115a1",
+    "tested": "86836bfb3d796afc3c22fc0e9f50c1cd1f7b8a61ddced679e97f09cb59b115a1"
+  },
+  "evidenceSha256": "fa5dfc2a4c2ed26bc65fafed158e53205e8aa58e8fc4f80bba728ed7ad9c53d7",
+  "originalV8FixtureSha256": "4df8e955258c85f8694b5f0921f1bf6bc8bbf40adac624e11c17eabbc10eae46",
+  "region": {
+    "X": 14,
+    "Y": 10,
+    "Width": 4,
+    "Height": 4
+  },
+  "sourceRunSha256": "5621dbd6d098f6b980e5c15bcbb931b033a01e10714a5dda1228d227f405e69b",
+  "sampling": [
+    {
+      "axis": "Pupil",
+      "status": "Unavailable",
+      "message": "三维衍射追迹超过原主光线工作上限。",
+      "electrons": null
+    },
+    {
+      "axis": "Scene",
+      "status": "Unavailable",
+      "message": "三维衍射追迹超过原主光线工作上限。",
+      "electrons": null
+    },
+    {
+      "axis": "Pixel",
+      "status": "Compared",
+      "message": "只比较指定区域，差异不是精度认证；噪声/ISP 不参与判据，原物理容差未改动。",
+      "electrons": {
+        "MeanAbsolute": 18.054149195559766,
+        "MaximumAbsolute": 24.804797640959464,
+        "Rms": 20.367273222856568,
+        "RelativeL1": 0.0180735719528769,
+        "RelativeRms": 0.01958920172962184,
+        "BaselineSum": 15982.805606003929,
+        "RefinedSum": 15892.05013775023,
+        "WorstX": 14,
+        "WorstY": 12
+      }
+    },
+    {
+      "axis": "Window",
+      "status": "Compared",
+      "message": "只比较指定区域，差异不是精度认证；噪声/ISP 不参与判据，原物理容差未改动。",
+      "electrons": {
+        "MeanAbsolute": 7.688787977326804,
+        "MaximumAbsolute": 10.362574178636123,
+        "Rms": 8.19810200648182,
+        "RelativeL1": 0.007697059619558675,
+        "RelativeRms": 0.007884917742683776,
+        "BaselineSum": 15982.805606003929,
+        "RefinedSum": 16105.826213641156,
+        "WorstX": 15,
+        "WorstY": 10
+      }
+    },
+    {
+      "axis": "Guard",
+      "status": "Compared",
+      "message": "只比较指定区域，差异不是精度认证；噪声/ISP 不参与判据，原物理容差未改动。",
+      "electrons": {
+        "MeanAbsolute": 0,
+        "MaximumAbsolute": 0,
+        "Rms": 0,
+        "RelativeL1": 0,
+        "RelativeRms": 0,
+        "BaselineSum": 15982.805606003929,
+        "RefinedSum": 15982.805606003929,
+        "WorstX": 14,
+        "WorstY": 10
+      }
+    }
+  ],
+  "unchangedTrackedPaths": [
+    "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+    "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs",
+    "src/OpticalSystemDesign.Core/Optic.cs",
+    "validation/zemax"
+  ],
+  "scope": "Local original-coordinate sampling diagnostics, frozen full-frame B, original sensor/ISP, saved report/recheck and offscreen UI",
+  "limitations": [
+    "Local diagnostics do not certify whole-frame convergence or change physical tolerances",
+    "Original full-render budgets unchanged; no high-resolution tiling",
+    "No native desktop, commercial certification, full repository run, release or push"
+  ]
+}

@@ -134,7 +134,7 @@ internal static class DesignReportWordWriter
         var result = new XElement(W + "tbl",
             new XElement(W + "tblPr", new XElement(W + "tblW", Attribute("w", ContentWidth), Attribute("type", "dxa")),
                 new XElement(W + "tblBorders", new[] { "top", "left", "bottom", "right", "insideH", "insideV" }.Select(edge =>
-                    new XElement(W + edge, Attribute("val", "single"), Attribute("sz", 4), Attribute("color", "D9D9D9")))),
+                    new XElement(W + edge, Attribute("val", "single"), Attribute("sz", 4), Attribute("color", "D9E3DE")))),
                 new XElement(W + "tblLayout", Attribute("type", "fixed")),
                 new XElement(W + "tblCellMar", new[] { "top", "left", "bottom", "right" }.Select(edge =>
                     new XElement(W + edge, Attribute("w", 80), Attribute("type", "dxa"))))),
@@ -148,7 +148,7 @@ internal static class DesignReportWordWriter
             result.Add(new XElement(W + "tr", header ? new XElement(W + "trPr", new XElement(W + "tblHeader")) : null,
                 cells.Select((cell, column) => new XElement(W + "tc",
                     new XElement(W + "tcPr", new XElement(W + "tcW", Attribute("w", widths[column]), Attribute("type", "dxa")),
-                        new XElement(W + "shd", Attribute("fill", header ? "183B60" : index % 2 == 0 ? "FFFFFF" : "F4F7FB")),
+                        new XElement(W + "shd", Attribute("fill", header ? "EAF1EF" : index % 2 == 0 ? "FFFFFF" : "F7FAF8")),
                         new XElement(W + "vAlign", Attribute("val", "center"))),
                     Paragraph(cell, header ? "TableHeader" : "TableBody")))));
         }
@@ -208,7 +208,7 @@ internal static class DesignReportWordWriter
                 new XElement(W + "rPr", bold ? new XElement(W + "b") : null,
                     id == "Code" ? new XElement(W + "rFonts", Attribute("ascii", "Courier New"), Attribute("hAnsi", "Courier New")) : null,
                     new XElement(W + "sz", Attribute("val", size)), new XElement(W + "color", Attribute("val", id switch
-                    { "TableHeader" => "FFFFFF", "Muted" or "Caption" or "Header" or "Footer" => "637186", "Warning" => "9B352F", "Code" => "38485B", _ => "000000" })))));
+                    { "TableHeader" => "2F4B42", "TableBody" => "2D3431", "Muted" or "Caption" or "Header" or "Footer" => "637186", "Warning" => "9B352F", "Code" => "38485B", _ => "000000" })))));
         }
     }
 

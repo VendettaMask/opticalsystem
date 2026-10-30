@@ -25,6 +25,9 @@ public sealed partial class AnalysisPanel
     internal static bool HasReportPlot(AnalysisResultDto result)
     {
         var view = result.View;
+        if (view.PresentationKind is AnalysisPresentationKind.SeidelCoefficients
+            or AnalysisPresentationKind.ZernikeFringe or AnalysisPresentationKind.ZernikeStandard
+            or AnalysisPresentationKind.ZernikeAnnular) return false;
         return view.Series.Any(series => series.Points.Count > 0)
             || view.PlotPanes.Any(pane => pane.Series.Any(series => series.Points.Count > 0))
             || view.PresentationKind == AnalysisPresentationKind.SeidelDiagram && view.Table?.Rows.Count > 0

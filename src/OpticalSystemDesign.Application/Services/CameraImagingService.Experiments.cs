@@ -80,7 +80,10 @@ internal sealed partial class CameraImagingService
     private static void RequireRunProperties(JsonElement run)
     {
         var request = Property(run, "Request");
-        RequireProperties(request, JsonSerializer.SerializeToElement(new CameraImagingRequest(), ExperimentJsonOptions).EnumerateObject().Select(p => p.Name));
+        var version = Property(Property(run, "Inputs"), "EngineVersion").GetString();
+        RequireProperties(request, JsonSerializer.SerializeToElement(new CameraImagingRequest(), ExperimentJsonOptions).EnumerateObject()
+            .Select(p => p.Name).Where(name => !(name == "PixelSampling" && version == CameraExperiment.LegacyEngineVersion)
+                && !(name is "Scene3D" or "Render3D" && version is not (CameraExperiment.CurrentEngineVersion or CameraExperiment.DirectSceneEngineVersion))));
         RequireProperties(Property(request, "Sensor"), JsonSerializer.SerializeToElement(new CameraSensorParameters(), ExperimentJsonOptions).EnumerateObject().Select(p => p.Name));
         RequireProperties(Property(request, "Isp"), JsonSerializer.SerializeToElement(new CameraIspParameters(), ExperimentJsonOptions).EnumerateObject().Select(p => p.Name));
         _ = Property(run, "Inputs");
@@ -93,6 +96,7 @@ internal sealed partial class CameraImagingService
             throw new InvalidDataException("不支持的相机实验格式或版本。");
         ValidateRun(experiment.B);
         if (experiment.A is not null) ValidateRun(experiment.A);
+        if (experiment.SamplingReport is { } sampling) ValidateSamplingReport(sampling, experiment.B);
     }
 
     private static void ValidateRun(CameraImagingResult run)
@@ -106,12 +110,25 @@ internal sealed partial class CameraImagingService
             || !Enum.IsDefined(r.SpectralModel) || !Enum.IsDefined(r.SceneMode))
             throw new InvalidDataException("实验参数或图像尺寸无效。");
         CameraSensorPipeline.Validate(ToCore(r.Sensor), ToCore(r.Isp));
+        var pixelSampling = ToCore(r.PixelSampling); CameraPixelAperture.Validate(pixelSampling);
+        ValidateQeArea(r);
+        CameraPixelAperture.OutputDimensions(checked(r.Width * (pixelSampling?.SamplesPerAxis ?? 1)),
+            checked(r.Height * (pixelSampling?.SamplesPerAxis ?? 1)), pixelSampling);
+        if (run.Inputs?.EngineVersion == CameraExperiment.LegacyEngineVersion && r.PixelSampling is not null)
+            throw new InvalidDataException("旧模型记录不允许包含新增像元面积采样设置。");
         if (r.Integration is not { } settings || !double.IsFinite(settings.MinimumNanometers) || !double.IsFinite(settings.MaximumNanometers)
             || settings.MinimumNanometers < 200 || settings.MaximumNanometers > 20000 || settings.MinimumNanometers >= settings.MaximumNanometers
             || !double.IsFinite(settings.MaximumIntervalNanometers) || settings.MaximumIntervalNanometers is < 1 or > 1000)
             throw new InvalidDataException("实验积分设置无效。");
         _ = FreezeResponse(r.SpectralResponse); _ = FreezeSpectrum(r.Illuminant); _ = FreezeSpectrum(r.Reflectance);
         _ = FreezeMaterialScene(r.MaterialScene);
+        if (r.Source == CameraSource.Scene3D)
+        {
+            ValidateSceneMode(r, run.Inputs?.EngineVersion ?? ""); _ = FreezeScene3D(r.Scene3D);
+            ValidateSceneDiagnostics(run);
+        }
+        else if (r.SpectralModel == CameraSpectralModel.SceneBands || r.Scene3D is not null || r.Render3D is not null || run.Scene3D is not null)
+            throw new InvalidDataException("二维实验不允许包含三维模式或三维结果。");
         if (r.SpectralModel == CameraSpectralModel.Continuous)
         { if (r.SceneMode == CameraSceneMode.MaterialMap) _ = MaterialPlan(r); else _ = ContinuousPlan(r); }
         else ToCore(r.SpectralResponse)?.ValidateCameraCoverage();
@@ -125,6 +142,42 @@ internal sealed partial class CameraImagingService
             || !double.IsFinite(run.MeanPhotoElectrons) || !double.IsFinite(run.RawNoiseRmseDn)
             || run.MeanPhotoElectrons < 0 || run.RawNoiseRmseDn < 0 || run.SaturatedPixels < 0 || run.SaturatedPixels > r.Width * r.Height)
             throw new InvalidDataException("实验包含无效传感器结果。");
+    }
+
+    private static void ValidateSceneDiagnostics(CameraImagingResult run)
+    {
+        var d = run.Scene3D ?? throw new InvalidDataException("三维实验缺少绝对功率结果。");
+        if (d.Bands is null || d.Bands.Count != 3 || !double.IsFinite(d.PupilPlaneZMillimeters)
+            || !double.IsFinite(d.PupilPlaneRadiusMillimeters) || d.PupilPlaneRadiusMillimeters <= 0
+            || d.LaunchedRays <= 0 || d.LaunchedRays > DirectCameraRenderer.MaximumRays
+            || d.PassedLensRays < 0 || d.PassedLensRays > d.LaunchedRays || d.SceneHitRays < 0 || d.SceneHitRays > d.PassedLensRays
+            || d.SurfaceInteractions < 0 || d.SurfaceInteractions > DirectCameraRenderer.MaximumSurfaceInteractions
+            || d.ShadowQueries < 0 || d.ShadowedLightSamples < 0 || d.ShadowedLightSamples > d.ShadowQueries)
+            throw new InvalidDataException("三维追迹统计无效。");
+        for (var b = 0; b < 3; b++)
+            if (d.Bands[b] is not { } band || band.WavelengthNanometers != SceneBands[b] || band.PixelPowerWatts is null
+                || band.PixelPowerWatts.Count != run.Request.Width * run.Request.Height
+                || band.PixelPowerWatts.Any(v => !double.IsFinite(v) || v < 0))
+                throw new InvalidDataException("三维绝对功率平面无效。");
+        var total = d.Bands.Sum(b => b.PixelPowerWatts.Sum());
+        if (!double.IsFinite(d.TotalPowerWatts) || Math.Abs(total - d.TotalPowerWatts) > 1e-12 * Math.Max(total, 1e-300))
+            throw new InvalidDataException("三维探测功率总和不一致。");
+        if (run.Request.Aberration == CameraAberration.Diffraction)
+        {
+            var waveSettings = run.Request.Render3D?.Diffraction ?? throw new InvalidDataException("衍射实验缺少冻结的采样设置。");
+            var wave = d.Diffraction ?? throw new InvalidDataException("衍射实验缺少复场积分诊断。");
+            if (wave.Algorithm != "ScalarHuygensSurfaceCells/1" || wave.SurfaceSamples < 0 || wave.SurfaceSamples > DiffractionCameraRenderer.MaximumSurfaceSamples
+                || wave.ScalarCellEvaluations < 0 || wave.ScalarCellEvaluations > DiffractionCameraRenderer.MaximumCellEvaluations
+                || wave.OccludedPupilCells < 0 || wave.OccludedPupilCells > d.LaunchedRays
+                || !double.IsFinite(wave.SourceAreaSquareMillimeters) || wave.SourceAreaSquareMillimeters < 0
+                || !double.IsFinite(wave.CollectedPowerWatts) || wave.CollectedPowerWatts < 0
+                || !double.IsFinite(wave.MaximumGeometricSpreadPixels) || wave.MaximumGeometricSpreadPixels < 0
+                || wave.RequiredSourceGuardPixels < 0 || wave.RequiredSourceGuardPixels > waveSettings.SourceGuardPixels
+                || wave.SamplesPerObject is null || wave.SamplesPerObject.Count != run.Request.Scene3D!.Objects.Count
+                || wave.SamplesPerObject.Any(n => n < 0) || wave.SamplesPerObject.Sum(n => (long)n) != wave.SurfaceSamples)
+                throw new InvalidDataException("衍射实验的采样/功率诊断无效。");
+        }
+        else if (d.Diffraction is not null) throw new InvalidDataException("几何实验不允许包含衍射结果。");
     }
 
     private static CameraExperimentInputs FreezeInputs(CameraExperimentInputs inputs)

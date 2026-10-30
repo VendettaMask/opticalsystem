@@ -1,0 +1,1451 @@
+{
+  "Case": "feasible-8-8-12.5-42",
+  "Candidate": 2,
+  "ShapeFingerprint": "60e19fd7b9417a9438bfd4afa327206e59d54ecd5b05591ca6bb4313c0360a01",
+  "Scope": "Read-only C#/Core audit; expanded apertures are diagnostic counterfactuals, never accepted prescriptions",
+  "DefaultScreen": {
+    "TopologyFingerprint": "9ec81c18e2246657e664da8383793c76d8f75605faeb8f74b8c3e9a19a59035f",
+    "Outcome": "UnavailablePhysicalMetrics",
+    "CompletedFields": 1,
+    "ExpectedFields": 2,
+    "WorstRmsMillimeters": 0.016172247218071284,
+    "WorstMaximumMillimeters": 0.0420298490743992,
+    "MinimumValidFraction": 1,
+    "BoundaryChecksPassed": true,
+    "QualityScore": null,
+    "TracedRays": 588
+  },
+  "GenerousFiveFieldScreen": {
+    "TopologyFingerprint": "9ec81c18e2246657e664da8383793c76d8f75605faeb8f74b8c3e9a19a59035f",
+    "Outcome": "UnavailablePhysicalMetrics",
+    "CompletedFields": 4,
+    "ExpectedFields": 5,
+    "WorstRmsMillimeters": 0.04404350234036228,
+    "WorstMaximumMillimeters": 0.12217891217758607,
+    "MinimumValidFraction": 0.0625,
+    "BoundaryChecksPassed": false,
+    "QualityScore": null,
+    "TracedRays": 1470
+  },
+  "OriginalPhysical": {
+    "OpticFingerprint": "008bbbe1fa37ad259d5ab625f8f8e5f9759fa52799092c31aa64988677dddd2d",
+    "ProtocolFingerprint": "320f8825d4dba6415cfbe846be3712461f4ac39f9ba57c7d087c75e44980232e",
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 8,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 0.05,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.03,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.05,
+      "MaximumOpticalTrackMillimeters": 65,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "StructuralConstraints": {
+      "MinimumElementCount": 2,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 15,
+      "MaximumMechanicalTrackMillimeters": 65,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "EffectiveFocalLengthMillimeters": 49.99999999999998,
+    "FNumber": 7.9999999999999964,
+    "Fields": [
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.01617268891550583,
+        "MaximumRadiusMillimeters": 0.04202984907439918,
+        "DistortionFraction": 0,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.05
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.016433003202614174,
+        "MaximumRadiusMillimeters": 0.04617305015809381,
+        "DistortionFraction": 4.122322205541067E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.1
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.01723156999969192,
+        "MaximumRadiusMillimeters": 0.051561135675008085,
+        "DistortionFraction": 0.00016493324300884474,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.15
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.018613862662227008,
+        "MaximumRadiusMillimeters": 0.058201364058300786,
+        "DistortionFraction": 0.0003712511897176546,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.2
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.020635817446020648,
+        "MaximumRadiusMillimeters": 0.06610283508240666,
+        "DistortionFraction": 0.0006603791487481012,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.25
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.023346945188110438,
+        "MaximumRadiusMillimeters": 0.07527651936753577,
+        "DistortionFraction": 0.0010326004798127716,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.3
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.026781746340258865,
+        "MaximumRadiusMillimeters": 0.08573529465141894,
+        "DistortionFraction": 0.001488280255960398,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.35
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.030959859142271534,
+        "MaximumRadiusMillimeters": 0.09749398910095364,
+        "DistortionFraction": 0.002027865832006914,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.4
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.03589065975361373,
+        "MaximumRadiusMillimeters": 0.1105694319994841,
+        "DistortionFraction": 0.002651887543091049,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.45
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.041578261683590675,
+        "MaximumRadiusMillimeters": 0.12498051221302386,
+        "DistortionFraction": 0.003360959535752097,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.5
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 901,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 78,
+        "RmsRadiusMillimeters": 0.04534453617546019,
+        "MaximumRadiusMillimeters": 0.12487603015497141,
+        "DistortionFraction": 0.004155780734505136,
+        "WavelengthValidFractions": [
+          0.946875,
+          0.9375,
+          0.93125
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.55
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 784,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 66,
+        "RmsRadiusMillimeters": 0.04345399685442342,
+        "MaximumRadiusMillimeters": 0.11608668389621676,
+        "DistortionFraction": 0.005037135947445212,
+        "WavelengthValidFractions": [
+          0.81875,
+          0.81875,
+          0.8125
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.6
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 631,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 54,
+        "RmsRadiusMillimeters": 0.040246094394226696,
+        "MaximumRadiusMillimeters": 0.10230554284787924,
+        "DistortionFraction": 0.0060058971151127506,
+        "WavelengthValidFractions": [
+          0.659375,
+          0.659375,
+          0.653125
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.65
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 426,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 43,
+        "RmsRadiusMillimeters": 0.037999389938175185,
+        "MaximumRadiusMillimeters": 0.10047831924397453,
+        "DistortionFraction": null,
+        "WavelengthValidFractions": [
+          0.45,
+          0.44375,
+          0.4375
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.7
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 228,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 33,
+        "RmsRadiusMillimeters": 0.03126692472558851,
+        "MaximumRadiusMillimeters": 0.07660483349578313,
+        "DistortionFraction": null,
+        "WavelengthValidFractions": [
+          0.2375,
+          0.2375,
+          0.2375
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.75
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 95,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 21,
+        "RmsRadiusMillimeters": 0.02301091549260911,
+        "MaximumRadiusMillimeters": 0.04965022618887926,
+        "DistortionFraction": null,
+        "WavelengthValidFractions": [
+          0.103125,
+          0.096875,
+          0.096875
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.8
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 3,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 3,
+        "RmsRadiusMillimeters": 0.0036348319526687874,
+        "MaximumRadiusMillimeters": 0.004999132870931788,
+        "DistortionFraction": null,
+        "WavelengthValidFractions": [
+          0.003125,
+          0.003125,
+          0.003125
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.85
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 0,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 0,
+        "RmsRadiusMillimeters": null,
+        "MaximumRadiusMillimeters": null,
+        "DistortionFraction": null,
+        "WavelengthValidFractions": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.9
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 0,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 0,
+        "RmsRadiusMillimeters": null,
+        "MaximumRadiusMillimeters": null,
+        "DistortionFraction": null,
+        "WavelengthValidFractions": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.95
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 0,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 0,
+        "RmsRadiusMillimeters": null,
+        "MaximumRadiusMillimeters": null,
+        "DistortionFraction": null,
+        "WavelengthValidFractions": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 1
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 0,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 0,
+        "RmsRadiusMillimeters": null,
+        "MaximumRadiusMillimeters": null,
+        "DistortionFraction": null,
+        "WavelengthValidFractions": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "Violations": [
+      {
+        "Code": "field:10:lost-fraction",
+        "Actual": 0.06145833333333328,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:10:wave:0:lost-fraction",
+        "Actual": 0.05312499999999998,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:10:wave:1:lost-fraction",
+        "Actual": 0.0625,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:10:wave:2:lost-fraction",
+        "Actual": 0.06874999999999998,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:10:check-lost",
+        "Actual": 21,
+        "Limit": 0
+      },
+      {
+        "Code": "field:11:lost-fraction",
+        "Actual": 0.18333333333333335,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:11:wave:0:lost-fraction",
+        "Actual": 0.18125000000000002,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:11:wave:1:lost-fraction",
+        "Actual": 0.18125000000000002,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:11:wave:2:lost-fraction",
+        "Actual": 0.1875,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:11:check-lost",
+        "Actual": 33,
+        "Limit": 0
+      },
+      {
+        "Code": "field:12:lost-fraction",
+        "Actual": 0.3427083333333333,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:12:wave:0:lost-fraction",
+        "Actual": 0.34062499999999996,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:12:wave:1:lost-fraction",
+        "Actual": 0.34062499999999996,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:12:wave:2:lost-fraction",
+        "Actual": 0.34687500000000004,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:12:check-lost",
+        "Actual": 45,
+        "Limit": 0
+      },
+      {
+        "Code": "field:13:lost-fraction",
+        "Actual": 0.55625,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:13:wave:0:lost-fraction",
+        "Actual": 0.55,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:13:wave:1:lost-fraction",
+        "Actual": 0.55625,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:13:wave:2:lost-fraction",
+        "Actual": 0.5625,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:13:check-lost",
+        "Actual": 56,
+        "Limit": 0
+      },
+      {
+        "Code": "field:13:distortion",
+        "Actual": null,
+        "Limit": 0.03
+      },
+      {
+        "Code": "field:14:lost-fraction",
+        "Actual": 0.7625,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:14:wave:0:lost-fraction",
+        "Actual": 0.7625,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:14:wave:1:lost-fraction",
+        "Actual": 0.7625,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:14:wave:2:lost-fraction",
+        "Actual": 0.7625,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:14:check-lost",
+        "Actual": 66,
+        "Limit": 0
+      },
+      {
+        "Code": "field:14:distortion",
+        "Actual": null,
+        "Limit": 0.03
+      },
+      {
+        "Code": "field:15:lost-fraction",
+        "Actual": 0.9010416666666666,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:15:wave:0:lost-fraction",
+        "Actual": 0.896875,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:15:wave:1:lost-fraction",
+        "Actual": 0.903125,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:15:wave:2:lost-fraction",
+        "Actual": 0.903125,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:15:check-lost",
+        "Actual": 78,
+        "Limit": 0
+      },
+      {
+        "Code": "field:15:distortion",
+        "Actual": null,
+        "Limit": 0.03
+      },
+      {
+        "Code": "field:16:lost-fraction",
+        "Actual": 0.996875,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:16:wave:0:lost-fraction",
+        "Actual": 0.996875,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:16:wave:1:lost-fraction",
+        "Actual": 0.996875,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:16:wave:2:lost-fraction",
+        "Actual": 0.996875,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:16:check-lost",
+        "Actual": 96,
+        "Limit": 0
+      },
+      {
+        "Code": "field:16:distortion",
+        "Actual": null,
+        "Limit": 0.03
+      },
+      {
+        "Code": "field:17:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:17:wave:0:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:17:wave:1:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:17:wave:2:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:17:check-lost",
+        "Actual": 99,
+        "Limit": 0
+      },
+      {
+        "Code": "field:17:rms",
+        "Actual": null,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:17:maximum",
+        "Actual": null,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:17:distortion",
+        "Actual": null,
+        "Limit": 0.03
+      },
+      {
+        "Code": "field:18:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:18:wave:0:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:18:wave:1:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:18:wave:2:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:18:check-lost",
+        "Actual": 99,
+        "Limit": 0
+      },
+      {
+        "Code": "field:18:rms",
+        "Actual": null,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:18:maximum",
+        "Actual": null,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:18:distortion",
+        "Actual": null,
+        "Limit": 0.03
+      },
+      {
+        "Code": "field:19:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:19:wave:0:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:19:wave:1:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:19:wave:2:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:19:check-lost",
+        "Actual": 99,
+        "Limit": 0
+      },
+      {
+        "Code": "field:19:rms",
+        "Actual": null,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:19:maximum",
+        "Actual": null,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:19:distortion",
+        "Actual": null,
+        "Limit": 0.03
+      },
+      {
+        "Code": "field:20:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:20:wave:0:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:20:wave:1:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:20:wave:2:lost-fraction",
+        "Actual": 1,
+        "Limit": 0.020000000000000018
+      },
+      {
+        "Code": "field:20:check-lost",
+        "Actual": 99,
+        "Limit": 0
+      },
+      {
+        "Code": "field:20:rms",
+        "Actual": null,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:20:maximum",
+        "Actual": null,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:20:distortion",
+        "Actual": null,
+        "Limit": 0.03
+      }
+    ],
+    "Completed": true,
+    "MeetsTargets": false,
+    "TracedRayCount": 44520,
+    "GeometryProbes": 2131,
+    "Failure": null
+  },
+  "EdgeDiagnostics": {
+    "circular-aperture-clipping": 147,
+    "nominal-first-invalid:generated-4:front:no-interaction": 31,
+    "first-blocked:generated-4:front": 31,
+    "nominal-first-invalid:generated-5:front:no-interaction": 12,
+    "first-blocked:generated-5:front": 12,
+    "nominal-first-invalid:generated-5:back:no-interaction": 9,
+    "first-blocked:generated-5:back": 9,
+    "nominal-first-invalid:generated-2:front:no-interaction": 14,
+    "first-blocked:generated-2:front": 14,
+    "nominal-first-invalid:generated-1:back:no-interaction": 7,
+    "first-blocked:generated-1:back": 7,
+    "nominal-first-invalid:generated-6:front:no-interaction": 12,
+    "first-blocked:generated-6:front": 12,
+    "nominal-first-invalid:generated-7:front:no-interaction": 24,
+    "first-blocked:generated-7:front": 24,
+    "nominal-first-invalid:generated-4:back:no-interaction": 9,
+    "first-blocked:generated-4:back": 9,
+    "nominal-first-invalid:generated-3:front:no-interaction": 6,
+    "first-blocked:generated-3:front": 6,
+    "nominal-first-invalid:generated-1:front:no-interaction": 12,
+    "first-blocked:generated-1:front": 12,
+    "nominal-first-invalid:generated-0:back:no-interaction": 9,
+    "first-blocked:generated-0:back": 9,
+    "nominal-first-invalid:generated-3:back:no-interaction": 2,
+    "first-blocked:generated-3:back": 2
+  },
+  "Envelope": {
+    "AttemptedRays": 735,
+    "CompletedRays": 735,
+    "Applied": true,
+    "Surfaces": [
+      {
+        "SurfaceIndex": 3,
+        "SampledRadiusMillimeters": 4.958352680118875,
+        "SemiDiameterMillimeters": 5.092694894440961,
+        "MechanicalSemiDiameterMillimeters": 5.092694894440961
+      },
+      {
+        "SurfaceIndex": 4,
+        "SampledRadiusMillimeters": 5.042272172713822,
+        "SemiDiameterMillimeters": 5.092694894440961,
+        "MechanicalSemiDiameterMillimeters": 5.092694894440961
+      },
+      {
+        "SurfaceIndex": 5,
+        "SampledRadiusMillimeters": 5.299405068985217,
+        "SemiDiameterMillimeters": 5.4755995529144705,
+        "MechanicalSemiDiameterMillimeters": 5.4755995529144705
+      },
+      {
+        "SurfaceIndex": 6,
+        "SampledRadiusMillimeters": 5.421385695954921,
+        "SemiDiameterMillimeters": 5.4755995529144705,
+        "MechanicalSemiDiameterMillimeters": 5.4755995529144705
+      },
+      {
+        "SurfaceIndex": 7,
+        "SampledRadiusMillimeters": 5.832021666698648,
+        "SemiDiameterMillimeters": 5.9540316051558255,
+        "MechanicalSemiDiameterMillimeters": 5.9540316051558255
+      },
+      {
+        "SurfaceIndex": 8,
+        "SampledRadiusMillimeters": 5.895080797183986,
+        "SemiDiameterMillimeters": 5.9540316051558255,
+        "MechanicalSemiDiameterMillimeters": 5.9540316051558255
+      },
+      {
+        "SurfaceIndex": 9,
+        "SampledRadiusMillimeters": 6.202631938947708,
+        "SemiDiameterMillimeters": 6.385127242657427,
+        "MechanicalSemiDiameterMillimeters": 6.385127242657427
+      },
+      {
+        "SurfaceIndex": 10,
+        "SampledRadiusMillimeters": 6.321908161046958,
+        "SemiDiameterMillimeters": 6.385127242657427,
+        "MechanicalSemiDiameterMillimeters": 6.385127242657427
+      },
+      {
+        "SurfaceIndex": 11,
+        "SampledRadiusMillimeters": 7.036558007173266,
+        "SemiDiameterMillimeters": 7.175683977719642,
+        "MechanicalSemiDiameterMillimeters": 7.175683977719642
+      },
+      {
+        "SurfaceIndex": 12,
+        "SampledRadiusMillimeters": 7.104637601702616,
+        "SemiDiameterMillimeters": 7.175683977719642,
+        "MechanicalSemiDiameterMillimeters": 7.175683977719642
+      },
+      {
+        "SurfaceIndex": 13,
+        "SampledRadiusMillimeters": 7.5744636486799095,
+        "SemiDiameterMillimeters": 7.710671872623678,
+        "MechanicalSemiDiameterMillimeters": 7.710671872623678
+      },
+      {
+        "SurfaceIndex": 14,
+        "SampledRadiusMillimeters": 7.634328586756117,
+        "SemiDiameterMillimeters": 7.710671872623678,
+        "MechanicalSemiDiameterMillimeters": 7.710671872623678
+      },
+      {
+        "SurfaceIndex": 15,
+        "SampledRadiusMillimeters": 7.849518140137984,
+        "SemiDiameterMillimeters": 7.987170747604996,
+        "MechanicalSemiDiameterMillimeters": 7.987170747604996
+      },
+      {
+        "SurfaceIndex": 16,
+        "SampledRadiusMillimeters": 7.908089849113857,
+        "SemiDiameterMillimeters": 7.987170747604996,
+        "MechanicalSemiDiameterMillimeters": 7.987170747604996
+      },
+      {
+        "SurfaceIndex": 17,
+        "SampledRadiusMillimeters": 8.969032360512383,
+        "SemiDiameterMillimeters": 9.107997280392542,
+        "MechanicalSemiDiameterMillimeters": 9.107997280392542
+      },
+      {
+        "SurfaceIndex": 18,
+        "SampledRadiusMillimeters": 9.017819089497566,
+        "SemiDiameterMillimeters": 9.107997280392542,
+        "MechanicalSemiDiameterMillimeters": 9.107997280392542
+      }
+    ]
+  },
+  "ExpandedGeometryFailures": [],
+  "ExpandedPhysical": {
+    "OpticFingerprint": "53379d37f506c37cf537e75334941e0883cf0c6e7a45931616d7da0deed50cb7",
+    "ProtocolFingerprint": "320f8825d4dba6415cfbe846be3712461f4ac39f9ba57c7d087c75e44980232e",
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 8,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 0.05,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.03,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.05,
+      "MaximumOpticalTrackMillimeters": 65,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "StructuralConstraints": {
+      "MinimumElementCount": 2,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 15,
+      "MaximumMechanicalTrackMillimeters": 65,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "EffectiveFocalLengthMillimeters": 49.99999999999998,
+    "FNumber": 7.9999999999999964,
+    "Fields": [
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.01617268891550583,
+        "MaximumRadiusMillimeters": 0.04202984907439918,
+        "DistortionFraction": 0,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.05
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.016433003202614174,
+        "MaximumRadiusMillimeters": 0.04617305015809381,
+        "DistortionFraction": 4.122322205541067E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.1
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.01723156999969192,
+        "MaximumRadiusMillimeters": 0.051561135675008085,
+        "DistortionFraction": 0.00016493324300884474,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.15
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.018613862662227008,
+        "MaximumRadiusMillimeters": 0.058201364058300786,
+        "DistortionFraction": 0.0003712511897176546,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.2
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.020635817446020648,
+        "MaximumRadiusMillimeters": 0.06610283508240666,
+        "DistortionFraction": 0.0006603791487481012,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.25
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.023346945188110438,
+        "MaximumRadiusMillimeters": 0.07527651936753577,
+        "DistortionFraction": 0.0010326004798127716,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.3
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.026781746340258865,
+        "MaximumRadiusMillimeters": 0.08573529465141894,
+        "DistortionFraction": 0.001488280255960398,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.35
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.030959859142271534,
+        "MaximumRadiusMillimeters": 0.09749398910095364,
+        "DistortionFraction": 0.002027865832006914,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.4
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.03589065975361373,
+        "MaximumRadiusMillimeters": 0.1105694319994841,
+        "DistortionFraction": 0.002651887543091049,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.45
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.041578261683590675,
+        "MaximumRadiusMillimeters": 0.12498051221302386,
+        "DistortionFraction": 0.003360959535752097,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.5
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.04802512322834237,
+        "MaximumRadiusMillimeters": 0.1407482449111619,
+        "DistortionFraction": 0.004155780734505136,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.55
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.05523412831296121,
+        "MaximumRadiusMillimeters": 0.15789584709863647,
+        "DistortionFraction": 0.005037135947445212,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.6
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.06320959454861375,
+        "MaximumRadiusMillimeters": 0.1764488225993155,
+        "DistortionFraction": 0.0060058971151127506,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.65
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.07195767066065412,
+        "MaximumRadiusMillimeters": 0.196435057232053,
+        "DistortionFraction": 0.007063024707660649,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.7
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.08148643488868906,
+        "MaximumRadiusMillimeters": 0.21788492502294243,
+        "DistortionFraction": 0.008209569276151546,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.75
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.0918058696247431,
+        "MaximumRadiusMillimeters": 0.24083140641856726,
+        "DistortionFraction": 0.009446673164912907,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.8
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.10292780021393787,
+        "MaximumRadiusMillimeters": 0.2653102195966479,
+        "DistortionFraction": 0.01077557239297497,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.85
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.11486583780833663,
+        "MaximumRadiusMillimeters": 0.2913599661205257,
+        "DistortionFraction": 0.01219759871394894,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.9
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.12763534212342595,
+        "MaximumRadiusMillimeters": 0.3190222923502155,
+        "DistortionFraction": 0.0137141818653086,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.95
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.14125340884744272,
+        "MaximumRadiusMillimeters": 0.34834206821255087,
+        "DistortionFraction": 0.015326852019782886,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 1
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.15573888183828843,
+        "MaximumRadiusMillimeters": 0.3793675851448519,
+        "DistortionFraction": 0.017037242453708162,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "Violations": [
+      {
+        "Code": "field:11:rms",
+        "Actual": 0.05523412831296121,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:11:maximum",
+        "Actual": 0.15789584709863647,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:12:rms",
+        "Actual": 0.06320959454861375,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:12:maximum",
+        "Actual": 0.1764488225993155,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:13:rms",
+        "Actual": 0.07195767066065412,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:13:maximum",
+        "Actual": 0.196435057232053,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:14:rms",
+        "Actual": 0.08148643488868906,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:14:maximum",
+        "Actual": 0.21788492502294243,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:15:rms",
+        "Actual": 0.0918058696247431,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:15:maximum",
+        "Actual": 0.24083140641856726,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:16:rms",
+        "Actual": 0.10292780021393787,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:16:maximum",
+        "Actual": 0.2653102195966479,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:17:rms",
+        "Actual": 0.11486583780833663,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:17:maximum",
+        "Actual": 0.2913599661205257,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:18:rms",
+        "Actual": 0.12763534212342595,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:18:maximum",
+        "Actual": 0.3190222923502155,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:19:rms",
+        "Actual": 0.14125340884744272,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:19:maximum",
+        "Actual": 0.34834206821255087,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:20:rms",
+        "Actual": 0.15573888183828843,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:20:maximum",
+        "Actual": 0.3793675851448519,
+        "Limit": 0.15
+      }
+    ],
+    "Completed": true,
+    "MeetsTargets": false,
+    "TracedRayCount": 44520,
+    "GeometryProbes": 2131,
+    "Failure": null
+  },
+  "AdditionalTracedRays": 93156
+}

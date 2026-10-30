@@ -28,7 +28,7 @@ public static class CameraSensorPipeline
 {
     public const int MaximumPixels = 262144;
     public static readonly IReadOnlyList<double> BandWavelengthsNanometers = Array.AsReadOnly(new[] { 650d, 550d, 450d });
-    private const double PlanckTimesLightSpeed = 6.62607015e-34 * 299792458;
+    private const double PlanckTimesLightSpeed = PhotonRadiometry.PlanckTimesLightSpeed;
 
     public static void Validate(CameraSensorSettings s, CameraIspSettings isp)
     {
@@ -51,15 +51,17 @@ public static class CameraSensorPipeline
     }
 
     public static CameraSensorResult Simulate(RgbImage opticalLinear, CameraSensorSettings sensor, CameraIspSettings isp,
-        SensorSpectralResponse? spectralResponse = null)
+        SensorSpectralResponse? spectralResponse = null, CameraPixelSampling? pixelSampling = null)
     {
         Validate(sensor, isp); ArgumentNullException.ThrowIfNull(opticalLinear);
-        ValidateDimensions(opticalLinear.Width, opticalLinear.Height);
+        CameraPixelAperture.OutputDimensions(opticalLinear.Width, opticalLinear.Height, pixelSampling);
+        opticalLinear = CameraPixelAperture.Average(opticalLinear, pixelSampling);
         if (opticalLinear.Channels != 3) throw new ArgumentException("Three linear narrow-band channels are required.");
         spectralResponse?.ValidateCameraCoverage();
         var width = opticalLinear.Width; var height = opticalLinear.Height; var count = width * height;
         var photo = new double[count];
-        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000;
+        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000
+            * CameraPixelAperture.ChargeScale(pixelSampling);
         var efficiencies = new[] { sensor.RedQe, sensor.GreenQe, sensor.BlueQe };
         var spectralWeights = new double[3, 3];
         if (spectralResponse is not null)

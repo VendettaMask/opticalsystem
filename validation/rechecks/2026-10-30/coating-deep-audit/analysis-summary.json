@@ -1,0 +1,2238 @@
+{
+  "scope": "Diagnostic measurements and counterfactual controls; numericTargetsOnly does not assert dense sampling convergence or product acceptance.",
+  "conditions": [
+    {
+      "name": "HR",
+      "target": {
+        "Kind": "HighReflector",
+        "CenterNm": 550,
+        "MinimumNm": 520,
+        "MaximumNm": 580,
+        "Reflectance": 0.98,
+        "MaximumLayers": 32,
+        "AngleDegrees": 0,
+        "Polarization": "Unpolarized",
+        "FwhmNm": 15,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": null,
+        "CenterToleranceNm": 0.5,
+        "FwhmToleranceNm": 1
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 24,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 2,
+        "MaximumThicknessNm": 2000,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 2
+      },
+      "materials": [
+        {
+          "id": "Air",
+          "n550": 1,
+          "k550": 0
+        },
+        {
+          "id": "N-BK7",
+          "n550": 1.5185223876207927,
+          "k550": 7.235011764705883e-9
+        },
+        {
+          "id": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+          "n550": 1.4661364520547946,
+          "k550": 0.0019240684931506851
+        },
+        {
+          "id": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+          "n550": 2.115741983953033,
+          "k550": 0.010931516438356164
+        }
+      ]
+    },
+    {
+      "name": "NBF1",
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 550,
+        "MinimumNm": 480,
+        "MaximumNm": 620,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 0,
+        "Polarization": "Unpolarized",
+        "FwhmNm": 15,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 490,
+            "MaximumNm": 510
+          },
+          {
+            "MinimumNm": 590,
+            "MaximumNm": 610
+          }
+        ],
+        "CenterToleranceNm": 0.5,
+        "FwhmToleranceNm": 1
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 24,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 2,
+        "MaximumThicknessNm": 2000,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        }
+      },
+      "materials": [
+        {
+          "id": "Air",
+          "n550": 1,
+          "k550": 0
+        },
+        {
+          "id": "N-BK7",
+          "n550": 1.5185223876207927,
+          "k550": 7.235011764705883e-9
+        },
+        {
+          "id": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+          "n550": 1.4661364520547946,
+          "k550": 0.0019240684931506851
+        },
+        {
+          "id": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+          "n550": 2.115741983953033,
+          "k550": 0.010931516438356164
+        }
+      ]
+    },
+    {
+      "name": "NBF2",
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 550,
+        "MinimumNm": 480,
+        "MaximumNm": 620,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 0,
+        "Polarization": "Unpolarized",
+        "FwhmNm": 15,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 490,
+            "MaximumNm": 510
+          },
+          {
+            "MinimumNm": 590,
+            "MaximumNm": 610
+          }
+        ],
+        "CenterToleranceNm": 0.5,
+        "FwhmToleranceNm": 1,
+        "Structure": {
+          "Cavities": 2
+        }
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 24,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 2,
+        "MaximumThicknessNm": 2000,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        }
+      },
+      "materials": [
+        {
+          "id": "Air",
+          "n550": 1,
+          "k550": 0
+        },
+        {
+          "id": "N-BK7",
+          "n550": 1.5185223876207927,
+          "k550": 7.235011764705883e-9
+        },
+        {
+          "id": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+          "n550": 1.4661364520547946,
+          "k550": 0.0019240684931506851
+        },
+        {
+          "id": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+          "n550": 2.115741983953033,
+          "k550": 0.010931516438356164
+        }
+      ]
+    }
+  ],
+  "independentRta": {
+    "scans": {
+      "cases": 960,
+      "maximumErrors": {
+        "R": 1.865174681370263e-14,
+        "T": 2.0761170560490427e-14,
+        "A": 9.547918011776346e-15
+      }
+    },
+    "referenceGeometries": {
+      "cases": 240,
+      "R": 1.5432100042289676e-14,
+      "T": 1.4876988529977098e-14,
+      "A": 6.8833827526759706e-15
+    }
+  },
+  "scanCount": 160,
+  "referenceGeometryCount": 80,
+  "endpointControls": [
+    {
+      "name": "HR:endpoint",
+      "loss": "real",
+      "embedded": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.0001055948617895612,
+        "fwhmNm": null,
+        "minimumR": 0.959844799291613
+      },
+      "center": {
+        "Reflectance": 0.9657398106151847,
+        "Transmittance": 0.000021042783843549454,
+        "Absorptance": 0.03423914660097179,
+        "LogTransmittance": -10.768952866891448,
+        "OpticalDensity": 4.67689680596716
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.959844799291613,
+        "Transmittance": 0.000049390035571129504,
+        "Absorptance": 0.040105810672815836,
+        "LogTransmittance": -9.915761863202858,
+        "OpticalDensity": 4.306360661055708
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:endpoint",
+      "loss": "no-high-k",
+      "embedded": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.00011154550452439658,
+        "fwhmNm": null,
+        "minimumR": 0.990626599850737
+      },
+      "center": {
+        "Reflectance": 0.9948404099176544,
+        "Transmittance": 0.00002195518817200202,
+        "Absorptance": 0.0051376348941735645,
+        "LogTransmittance": -10.726507083183314,
+        "OpticalDensity": 4.658462836322658
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.990626599850737,
+        "Transmittance": 0.000051621720807689245,
+        "Absorptance": 0.009321778428455333,
+        "LogTransmittance": -9.871568028164171,
+        "OpticalDensity": 4.287167522364264
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:endpoint",
+      "loss": "no-low-k",
+      "embedded": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.00010643076948645269,
+        "fwhmNm": null,
+        "minimumR": 0.9636105850663096
+      },
+      "center": {
+        "Reflectance": 0.9707255535837528,
+        "Transmittance": 0.00002126640414285789,
+        "Absorptance": 0.029253180012104356,
+        "LogTransmittance": -10.758382000737555,
+        "OpticalDensity": 4.672305937127586
+      },
+      "worstReflectanceWavelength": 580,
+      "worstReflectancePower": {
+        "Reflectance": 0.9636105850663096,
+        "Transmittance": 0.00010643076948645269,
+        "Absorptance": 0.03628298416420396,
+        "LogTransmittance": -9.148015835960452,
+        "OpticalDensity": 3.9729327979211875
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:endpoint",
+      "loss": "no-film-k",
+      "embedded": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.00011229461825053134,
+        "fwhmNm": null,
+        "minimumR": 0.9998877053817493
+      },
+      "center": {
+        "Reflectance": 0.9999778380666694,
+        "Transmittance": 0.000022161933331178585,
+        "Absorptance": -5.785709368197334e-16,
+        "LogTransmittance": -10.717134455703984,
+        "OpticalDensity": 4.654392355927451
+      },
+      "worstReflectanceWavelength": 580,
+      "worstReflectancePower": {
+        "Reflectance": 0.9998877053817493,
+        "Transmittance": 0.00011229461825053134,
+        "Absorptance": 1.5431585046257745e-16,
+        "LogTransmittance": -9.094384620337664,
+        "OpticalDensity": 3.949641056918447
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF1:endpoint",
+      "loss": "real",
+      "embedded": false,
+      "layers": 11,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 550,
+        "peakT": 0.7260317805323822,
+        "fwhmNm": 27.22825698559916,
+        "minimumR": 0.08430137747003624
+      },
+      "center": {
+        "Reflectance": 0.08480923361705511,
+        "Transmittance": 0.7260317805323822,
+        "Absorptance": 0.18915898585056273,
+        "LogTransmittance": -0.32016149027743923,
+        "OpticalDensity": 0.13904436854541347
+      },
+      "worstReflectanceWavelength": 549.7,
+      "worstReflectancePower": {
+        "Reflectance": 0.08430137747003624,
+        "Transmittance": 0.725660089715226,
+        "Absorptance": 0.19003853281473776,
+        "LogTransmittance": -0.32067356977984085,
+        "OpticalDensity": 0.13926676184760223
+      },
+      "minimumOds": [
+        1.0332679057368774,
+        0.9471830277172031
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF1:endpoint",
+      "loss": "no-high-k",
+      "embedded": false,
+      "layers": 11,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 549.6,
+        "peakT": 0.88714494176318,
+        "fwhmNm": 24.823908769685204,
+        "minimumR": 0.05395581290872199
+      },
+      "center": {
+        "Reflectance": 0.05490706027075068,
+        "Transmittance": 0.8861099384408337,
+        "Absorptance": 0.05898300128841555,
+        "LogTransmittance": -0.1209142520558415,
+        "OpticalDensity": 0.05251239245131088
+      },
+      "worstReflectanceWavelength": 549.6,
+      "worstReflectancePower": {
+        "Reflectance": 0.05395581290872199,
+        "Transmittance": 0.88714494176318,
+        "Absorptance": 0.05889924532809793,
+        "LogTransmittance": -0.11974690329911813,
+        "OpticalDensity": 0.052005419327809305
+      },
+      "minimumOds": [
+        1.0026660498228026,
+        0.9335223009880166
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF1:endpoint",
+      "loss": "no-low-k",
+      "embedded": false,
+      "layers": 11,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 550,
+        "peakT": 0.7795859926498288,
+        "fwhmNm": 26.271114256233318,
+        "minimumR": 0.07182728648792636
+      },
+      "center": {
+        "Reflectance": 0.07236075154506108,
+        "Transmittance": 0.7795859926498288,
+        "Absorptance": 0.1480532558051102,
+        "LogTransmittance": -0.2489922788654197,
+        "OpticalDensity": 0.10813597274776743
+      },
+      "worstReflectanceWavelength": 549.7,
+      "worstReflectancePower": {
+        "Reflectance": 0.07182728648792636,
+        "Transmittance": 0.779075652186912,
+        "Absorptance": 0.14909706132516165,
+        "LogTransmittance": -0.24964712333771988,
+        "OpticalDensity": 0.10842036808859225
+      },
+      "minimumOds": [
+        1.027824768228765,
+        0.9416546756471551
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF1:endpoint",
+      "loss": "no-film-k",
+      "embedded": false,
+      "layers": 11,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 549.6,
+        "peakT": 0.9578945453477996,
+        "fwhmNm": 23.889740769103128,
+        "minimumR": 0.04210545465220148
+      },
+      "center": {
+        "Reflectance": 0.043111110025559535,
+        "Transmittance": 0.956888889974443,
+        "Absorptance": -2.4980018054066022e-15,
+        "LogTransmittance": -0.04406799669964084,
+        "OpticalDensity": 0.01913848779518473
+      },
+      "worstReflectanceWavelength": 549.6,
+      "worstReflectancePower": {
+        "Reflectance": 0.04210545465220148,
+        "Transmittance": 0.9578945453477996,
+        "Absorptance": -1.0547118733938987e-15,
+        "LogTransmittance": -0.04301758499534852,
+        "OpticalDensity": 0.018682299788283986
+      },
+      "minimumOds": [
+        0.997645706899461,
+        0.9282385981688516
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF1:endpoint-embedded",
+      "loss": "real",
+      "embedded": true,
+      "layers": 11,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 550,
+        "peakT": 0.7862224282348109,
+        "fwhmNm": 33.26471120685244,
+        "minimumR": 0.008140943899361224
+      },
+      "center": {
+        "Reflectance": 0.008936625201709587,
+        "Transmittance": 0.7862224282348109,
+        "Absorptance": 0.2048409465634795,
+        "LogTransmittance": -0.2405155390102668,
+        "OpticalDensity": 0.10445457140414516
+      },
+      "worstReflectanceWavelength": 549.5,
+      "worstReflectancePower": {
+        "Reflectance": 0.008140943899361224,
+        "Transmittance": 0.7854451539701557,
+        "Absorptance": 0.20641390213048305,
+        "LogTransmittance": -0.2415046468048479,
+        "OpticalDensity": 0.10488413546133923
+      },
+      "minimumOds": [
+        0.8721255142698797,
+        0.7832096299309875
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF1:endpoint-embedded",
+      "loss": "no-film-k",
+      "embedded": true,
+      "layers": 11,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 549.5,
+        "peakT": 0.9999973936959311,
+        "fwhmNm": 29.781065307339645,
+        "minimumR": 0.0000026063040693879955
+      },
+      "center": {
+        "Reflectance": 0.001084076822501516,
+        "Transmittance": 0.998915923177502,
+        "Absorptance": -3.552713678800501e-15,
+        "LogTransmittance": -0.0010846648587992669,
+        "OpticalDensity": 0.00047106396289089134
+      },
+      "worstReflectanceWavelength": 549.5,
+      "worstReflectancePower": {
+        "Reflectance": 0.0000026063040693879955,
+        "Transmittance": 0.9999973936959311,
+        "Absorptance": -4.440892098500626e-16,
+        "LogTransmittance": -0.0000026063074652915574,
+        "OpticalDensity": 0.0000011319049503193743
+      },
+      "minimumOds": [
+        0.8300166603643088,
+        0.7608952972021332
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF2:endpoint",
+      "loss": "real",
+      "embedded": false,
+      "layers": 17,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 549.9,
+        "peakT": 0.689458692620196,
+        "fwhmNm": 20.29808647747211,
+        "minimumR": 0.011450907811027464
+      },
+      "center": {
+        "Reflectance": 0.012816905178982117,
+        "Transmittance": 0.6894174562402973,
+        "Absorptance": 0.2977656385807206,
+        "LogTransmittance": -0.37190830430277055,
+        "OpticalDensity": 0.16151772433268866
+      },
+      "worstReflectanceWavelength": 549.6,
+      "worstReflectancePower": {
+        "Reflectance": 0.011450907811027464,
+        "Transmittance": 0.6887347000453096,
+        "Absorptance": 0.29981439214366296,
+        "LogTransmittance": -0.37289913285204396,
+        "OpticalDensity": 0.16194803570415028
+      },
+      "minimumOds": [
+        0.9482988386280822,
+        1.0145780721644424
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF2:endpoint",
+      "loss": "no-high-k",
+      "embedded": false,
+      "layers": 17,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 549.6,
+        "peakT": 0.886214268807981,
+        "fwhmNm": 18.059265698468607,
+        "minimumR": 0.00010070845879387057
+      },
+      "center": {
+        "Reflectance": 0.0019433239655987278,
+        "Transmittance": 0.8844576092153593,
+        "Absorptance": 0.11359906681904192,
+        "LogTransmittance": -0.12278069279946968,
+        "OpticalDensity": 0.053322977367068
+      },
+      "worstReflectanceWavelength": 549.6,
+      "worstReflectancePower": {
+        "Reflectance": 0.00010070845879387057,
+        "Transmittance": 0.886214268807981,
+        "Absorptance": 0.11368502273322506,
+        "LogTransmittance": -0.1207965192315183,
+        "OpticalDensity": 0.05246126173536843
+      },
+      "minimumOds": [
+        0.9034137810133377,
+        0.990536867610472
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF2:endpoint",
+      "loss": "no-low-k",
+      "embedded": false,
+      "layers": 17,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 549.9,
+        "peakT": 0.768696456038558,
+        "fwhmNm": 19.286980305396924,
+        "minimumR": 0.0043274378849886014
+      },
+      "center": {
+        "Reflectance": 0.005808845967624664,
+        "Transmittance": 0.7686695246961597,
+        "Absorptance": 0.2255216293362156,
+        "LogTransmittance": -0.2630941486631595,
+        "OpticalDensity": 0.11426033698544395
+      },
+      "worstReflectanceWavelength": 549.6,
+      "worstReflectancePower": {
+        "Reflectance": 0.0043274378849886014,
+        "Transmittance": 0.7677356017186907,
+        "Absorptance": 0.22793696039632066,
+        "LogTransmittance": -0.26430987370395714,
+        "OpticalDensity": 0.11478831966217398
+      },
+      "minimumOds": [
+        0.9306676230329503,
+        1.0040640513105608
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF2:endpoint",
+      "loss": "no-film-k",
+      "embedded": false,
+      "layers": 17,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 549.6,
+        "peakT": 0.9981974443183947,
+        "fwhmNm": 17.079628406051597,
+        "minimumR": 0.0018025556816085673
+      },
+      "center": {
+        "Reflectance": 0.0037706707201526643,
+        "Transmittance": 0.9962293292798499,
+        "Absorptance": -2.55351295663786e-15,
+        "LogTransmittance": -0.003777797620092782,
+        "OpticalDensity": 0.0016406766601535325
+      },
+      "worstReflectanceWavelength": 549.6,
+      "worstReflectancePower": {
+        "Reflectance": 0.0018025556816085673,
+        "Transmittance": 0.9981974443183947,
+        "Absorptance": -3.2751579226442118e-15,
+        "LogTransmittance": -0.0018041822400333696,
+        "OpticalDensity": 0.0007835463911943405
+      },
+      "minimumOds": [
+        0.8865583392175077,
+        0.9801304941414257
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF2:endpoint-embedded",
+      "loss": "real",
+      "embedded": true,
+      "layers": 17,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 550,
+        "peakT": 0.6903178217060166,
+        "fwhmNm": 26.066554996737068,
+        "minimumR": 0.010207678639211888
+      },
+      "center": {
+        "Reflectance": 0.011527662626026978,
+        "Transmittance": 0.6903178217060166,
+        "Absorptance": 0.2981545156679565,
+        "LogTransmittance": -0.37060317627145256,
+        "OpticalDensity": 0.16095091443051
+      },
+      "worstReflectanceWavelength": 549.5,
+      "worstReflectancePower": {
+        "Reflectance": 0.010207678639211888,
+        "Transmittance": 0.6891857909263182,
+        "Absorptance": 0.30060653043446994,
+        "LogTransmittance": -0.37224439130479364,
+        "OpticalDensity": 0.1616636850631067
+      },
+      "minimumOds": [
+        0.8202963267334121,
+        0.8559535470419429
+      ],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "NBF2:endpoint-embedded",
+      "loss": "no-film-k",
+      "embedded": true,
+      "layers": 17,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": true,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 549.6,
+        "peakT": 0.9394411671606446,
+        "fwhmNm": 22.598817672724522,
+        "minimumR": 0.060558832839357125
+      },
+      "center": {
+        "Reflectance": 0.06171521981098912,
+        "Transmittance": 0.938284780189012,
+        "Absorptance": -1.1102230246251565e-15,
+        "LogTransmittance": -0.06370177244114403,
+        "OpticalDensity": 0.02766532825864549
+      },
+      "worstReflectanceWavelength": 549.6,
+      "worstReflectancePower": {
+        "Reflectance": 0.060558832839357125,
+        "Transmittance": 0.9394411671606446,
+        "Absorptance": -1.7763568394002505e-15,
+        "LogTransmittance": -0.06247008352566938,
+        "OpticalDensity": 0.027130412559233447
+      },
+      "minimumOds": [
+        0.7534499369516309,
+        0.8190021621290903
+      ],
+      "numericTargetsOnly": false
+    }
+  ],
+  "hrLayerSweep": [
+    {
+      "name": "HR:quarter:pairs4:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 8,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.14706098178396304,
+        "fwhmNm": null,
+        "minimumR": 0.8204977841002374
+      },
+      "center": {
+        "Reflectance": 0.8428448101175358,
+        "Transmittance": 0.12529950820178354,
+        "Absorptance": 0.0318556816806807,
+        "LogTransmittance": -2.077048342053631,
+        "OpticalDensity": 0.9020506336001899
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.8204977841002374,
+        "Transmittance": 0.14230973883149406,
+        "Absorptance": 0.037192477068268504,
+        "LogTransmittance": -1.9497493374966421,
+        "OpticalDensity": 0.8467653783693126
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs4:reverseTrue",
+      "loss": "real",
+      "embedded": false,
+      "layers": 8,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.2790964404111728,
+        "fwhmNm": null,
+        "minimumR": 0.6574882343516273
+      },
+      "center": {
+        "Reflectance": 0.6689879433712782,
+        "Transmittance": 0.26007648867350874,
+        "Absorptance": 0.07093556795521308,
+        "LogTransmittance": -1.3467795040253776,
+        "OpticalDensity": 0.5848989069386198
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.6574882343516273,
+        "Transmittance": 0.2651838606041905,
+        "Absorptance": 0.0773279050441821,
+        "LogTransmittance": -1.3273318799725813,
+        "OpticalDensity": 0.5764529111263613
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs8:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 16,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.011797543078416307,
+        "fwhmNm": null,
+        "minimumR": 0.9483254694581497
+      },
+      "center": {
+        "Reflectance": 0.958947533958849,
+        "Transmittance": 0.007075712354025475,
+        "Absorptance": 0.03397675368712551,
+        "LogTransmittance": -4.95108715444,
+        "OpticalDensity": 2.150229830595365
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9483254694581497,
+        "Transmittance": 0.011656889504784228,
+        "Absorptance": 0.040017641037066114,
+        "LogTransmittance": -4.451857899961785,
+        "OpticalDensity": 1.9334173201708018
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs8:reverseTrue",
+      "loss": "real",
+      "embedded": false,
+      "layers": 16,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.023545257012948077,
+        "fwhmNm": null,
+        "minimumR": 0.8891688000536774
+      },
+      "center": {
+        "Reflectance": 0.9018168513705823,
+        "Transmittance": 0.0158655011707559,
+        "Absorptance": 0.08231764745866178,
+        "LogTransmittance": -4.143608264735497,
+        "OpticalDensity": 1.7995462045433348
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.8891688000536774,
+        "Transmittance": 0.022712260559384443,
+        "Absorptance": 0.08811893938693818,
+        "LogTransmittance": -3.7848503875549575,
+        "OpticalDensity": 1.643739638144502
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs12:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 24,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 0.000921045880123559,
+        "fwhmNm": null,
+        "minimumR": 0.9587477812668985
+      },
+      "center": {
+        "Reflectance": 0.9655238503611048,
+        "Transmittance": 0.0003770129668740983,
+        "Absorptance": 0.03409913667202113,
+        "LogTransmittance": -7.883230976216247,
+        "OpticalDensity": 3.4236437125395005
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9587477812668985,
+        "Transmittance": 0.000921045880123559,
+        "Absorptance": 0.040331172852977916,
+        "LogTransmittance": -6.99000070739754,
+        "OpticalDensity": 3.035718735722578
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs12:reverseTrue",
+      "loss": "real",
+      "embedded": false,
+      "layers": 24,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.001819105840825259,
+        "fwhmNm": null,
+        "minimumR": 0.9090526325704432
+      },
+      "center": {
+        "Reflectance": 0.9161481171678936,
+        "Transmittance": 0.0008490135684978246,
+        "Absorptance": 0.0830028692636086,
+        "LogTransmittance": -7.0714353900399685,
+        "OpticalDensity": 3.0710853690297273
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9090526325704432,
+        "Transmittance": 0.001800046244802421,
+        "Absorptance": 0.08914732118475435,
+        "LogTransmittance": -6.31994292285314,
+        "OpticalDensity": 2.744716337338627
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs15:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 30,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 0.00013700116721159685,
+        "fwhmNm": null,
+        "minimumR": 0.9595013432556021
+      },
+      "center": {
+        "Reflectance": 0.965852315602069,
+        "Transmittance": 0.00004171471067124599,
+        "Absorptance": 0.03410596968725979,
+        "LogTransmittance": -10.084656717478806,
+        "OpticalDensity": 4.379710764289606
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9595013432556021,
+        "Transmittance": 0.00013700116721159685,
+        "Absorptance": 0.0403616555771863,
+        "LogTransmittance": -8.895521112379765,
+        "OpticalDensity": 3.8632757327604077
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs15:reverseTrue",
+      "loss": "real",
+      "embedded": false,
+      "layers": 30,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 0.000267804945896875,
+        "fwhmNm": null,
+        "minimumR": 0.9104957946391077
+      },
+      "center": {
+        "Reflectance": 0.9168672196415453,
+        "Transmittance": 0.00009395959872325464,
+        "Absorptance": 0.08303882075973147,
+        "LogTransmittance": -9.272645668901555,
+        "OpticalDensity": 4.027058846648033
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9104957946391077,
+        "Transmittance": 0.000267804945896875,
+        "Absorptance": 0.0892364004149955,
+        "LogTransmittance": -8.225251656256106,
+        "OpticalDensity": 3.572181406577609
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs16:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 0.00007258558760884649,
+        "fwhmNm": null,
+        "minimumR": 0.9595628482288304
+      },
+      "center": {
+        "Reflectance": 0.9658735235992736,
+        "Transmittance": 0.000020025389393163325,
+        "Absorptance": 0.03410645101133325,
+        "LogTransmittance": -10.818509619847433,
+        "OpticalDensity": 4.698419030316987
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9595628482288304,
+        "Transmittance": 0.00007258558760884649,
+        "Absorptance": 0.04036456618356073,
+        "LogTransmittance": -9.530744173625271,
+        "OpticalDensity": 4.139149603037023
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs16:reverseTrue",
+      "loss": "real",
+      "embedded": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 0.0001418900969170476,
+        "fwhmNm": null,
+        "minimumR": 0.9106136391806073
+      },
+      "center": {
+        "Reflectance": 0.9169136607044939,
+        "Transmittance": 0.000045106479149604973,
+        "Absorptance": 0.08304123281635653,
+        "LogTransmittance": -10.006484659920249,
+        "OpticalDensity": 4.345761071052901
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9106136391806073,
+        "Transmittance": 0.0001418900969170476,
+        "Absorptance": 0.08924447072247561,
+        "LogTransmittance": -8.860457765401748,
+        "OpticalDensity": 3.848047914650796
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs24:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 48,
+      "withinLayerBudget": false,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 4.506221199149837e-7,
+        "fwhmNm": null,
+        "minimumR": 0.959631321880874
+      },
+      "center": {
+        "Reflectance": 0.9658930152963563,
+        "Transmittance": 5.647836332447195e-8,
+        "Absorptance": 0.03410692822528038,
+        "LogTransmittance": -16.689408222147442,
+        "OpticalDensity": 7.248117897109394
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.959631321880874,
+        "Transmittance": 4.506221199149837e-7,
+        "Absorptance": 0.040368227497006116,
+        "LogTransmittance": -14.612636720239726,
+        "OpticalDensity": 6.346187493656944
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs24:reverseTrue",
+      "loss": "real",
+      "embedded": false,
+      "layers": 48,
+      "withinLayerBudget": false,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 8.808911765195021e-7,
+        "fwhmNm": null,
+        "minimumR": 0.9107448665704481
+      },
+      "center": {
+        "Reflectance": 0.9169563445834248,
+        "Transmittance": 1.272171361860389e-7,
+        "Absorptance": 0.08304352819943903,
+        "LogTransmittance": -15.877370476670402,
+        "OpticalDensity": 6.895454385151558
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9107448665704481,
+        "Transmittance": 8.808911765195021e-7,
+        "Absorptance": 0.08925425253837548,
+        "LogTransmittance": -13.942331741319126,
+        "OpticalDensity": 6.055077740119453
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs32:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 64,
+      "withinLayerBudget": false,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 2.7974815416254574e-9,
+        "fwhmNm": null,
+        "minimumR": 0.9596317370907844
+      },
+      "center": {
+        "Reflectance": 0.9658930697470033,
+        "Transmittance": 1.592865106642251e-10,
+        "Absorptance": 0.03410693009371021,
+        "LogTransmittance": -22.560316581416423,
+        "OpticalDensity": 9.797821001299585
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9596317370907844,
+        "Transmittance": 2.7974815416254574e-9,
+        "Absorptance": 0.040368260111734035,
+        "LogTransmittance": -19.69454627393208,
+        "OpticalDensity": 8.553232770356951
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs32:reverseTrue",
+      "loss": "real",
+      "embedded": false,
+      "layers": 64,
+      "withinLayerBudget": false,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 5.4686109654873995e-9,
+        "fwhmNm": null,
+        "minimumR": 0.9107456629406233
+      },
+      "center": {
+        "Reflectance": 0.9169564638236349,
+        "Transmittance": 3.5879181425865145e-10,
+        "Absorptance": 0.08304353581757325,
+        "LogTransmittance": -21.74827880022196,
+        "OpticalDensity": 9.445157473829871
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9107456629406233,
+        "Transmittance": 5.4686109654873995e-9,
+        "Absorptance": 0.08925433159076572,
+        "LogTransmittance": -19.02424118959954,
+        "OpticalDensity": 8.262122971039634
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs48:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 96,
+      "withinLayerBudget": false,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 1.0781435595858952e-13,
+        "fwhmNm": null,
+        "minimumR": 0.9596317396193489
+      },
+      "center": {
+        "Reflectance": 0.9658930698989342,
+        "Transmittance": 1.2669887731975032e-15,
+        "Absorptance": 0.03410693010106453,
+        "LogTransmittance": -34.302133354544246,
+        "OpticalDensity": 14.897227233388046
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9596317396193489,
+        "Transmittance": 1.0781435595858952e-13,
+        "Absorptance": 0.040368260380543294,
+        "LogTransmittance": -29.858365573144813,
+        "OpticalDensity": 12.967323407066816
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs48:reverseTrue",
+      "loss": "real",
+      "embedded": false,
+      "layers": 96,
+      "withinLayerBudget": false,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 2.1075912774057125e-13,
+        "fwhmNm": null,
+        "minimumR": 0.9107456677943795
+      },
+      "center": {
+        "Reflectance": 0.9169564641563445,
+        "Transmittance": 2.8538838520007345e-15,
+        "Absorptance": 0.08304353584365268,
+        "LogTransmittance": -33.49009557325014,
+        "OpticalDensity": 14.544563705875055
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9107456677943795,
+        "Transmittance": 2.1075912774057125e-13,
+        "Absorptance": 0.08925433220540975,
+        "LogTransmittance": -29.188060488216564,
+        "OpticalDensity": 12.676213607490787
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs64:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 128,
+      "withinLayerBudget": false,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 4.155142820983967e-18,
+        "fwhmNm": null,
+        "minimumR": 0.9596317396194415
+      },
+      "center": {
+        "Reflectance": 0.9658930698989348,
+        "Transmittance": 1.007781854591585e-20,
+        "Absorptance": 0.03410693010106525,
+        "LogTransmittance": -46.043950127748296,
+        "OpticalDensity": 19.99663346550961
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9596317396194415,
+        "Transmittance": 4.155142820983967e-18,
+        "Absorptance": 0.04036826038055851,
+        "LogTransmittance": -40.02218487289482,
+        "OpticalDensity": 17.381414044010015
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs64:reverseTrue",
+      "loss": "real",
+      "embedded": false,
+      "layers": 128,
+      "withinLayerBudget": false,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 8.122612882132793e-18,
+        "fwhmNm": null,
+        "minimumR": 0.9107456677945559
+      },
+      "center": {
+        "Reflectance": 0.9169564641563459,
+        "Transmittance": 2.270021978095255e-20,
+        "Absorptance": 0.08304353584365409,
+        "LogTransmittance": -45.23191234645419,
+        "OpticalDensity": 19.64396993799662
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9107456677945559,
+        "Transmittance": 8.122612882132793e-18,
+        "Absorptance": 0.08925433220544408,
+        "LogTransmittance": -39.35187978796656,
+        "OpticalDensity": 17.090304244433984
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    }
+  ],
+  "hrBestWithinBounds": [
+    {
+      "name": "HR:endpoint",
+      "loss": "real",
+      "embedded": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 580,
+        "peakT": 0.0001055948617895612,
+        "fwhmNm": null,
+        "minimumR": 0.959844799291613
+      },
+      "center": {
+        "Reflectance": 0.9657398106151847,
+        "Transmittance": 0.000021042783843549454,
+        "Absorptance": 0.03423914660097179,
+        "LogTransmittance": -10.768952866891448,
+        "OpticalDensity": 4.67689680596716
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.959844799291613,
+        "Transmittance": 0.000049390035571129504,
+        "Absorptance": 0.040105810672815836,
+        "LogTransmittance": -9.915761863202858,
+        "OpticalDensity": 4.306360661055708
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs16:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 0.00007258558760884649,
+        "fwhmNm": null,
+        "minimumR": 0.9595628482288304
+      },
+      "center": {
+        "Reflectance": 0.9658735235992736,
+        "Transmittance": 0.000020025389393163325,
+        "Absorptance": 0.03410645101133325,
+        "LogTransmittance": -10.818509619847433,
+        "OpticalDensity": 4.698419030316987
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9595628482288304,
+        "Transmittance": 0.00007258558760884649,
+        "Absorptance": 0.04036456618356073,
+        "LogTransmittance": -9.530744173625271,
+        "OpticalDensity": 4.139149603037023
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs15:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 30,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 0.00013700116721159685,
+        "fwhmNm": null,
+        "minimumR": 0.9595013432556021
+      },
+      "center": {
+        "Reflectance": 0.965852315602069,
+        "Transmittance": 0.00004171471067124599,
+        "Absorptance": 0.03410596968725979,
+        "LogTransmittance": -10.084656717478806,
+        "OpticalDensity": 4.379710764289606
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9595013432556021,
+        "Transmittance": 0.00013700116721159685,
+        "Absorptance": 0.0403616555771863,
+        "LogTransmittance": -8.895521112379765,
+        "OpticalDensity": 3.8632757327604077
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    },
+    {
+      "name": "HR:quarter:pairs12:reverseFalse",
+      "loss": "real",
+      "embedded": false,
+      "layers": 24,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "counterfactual": false,
+      "screenOnly": true,
+      "metrics": {
+        "peakNm": 520,
+        "peakT": 0.000921045880123559,
+        "fwhmNm": null,
+        "minimumR": 0.9587477812668985
+      },
+      "center": {
+        "Reflectance": 0.9655238503611048,
+        "Transmittance": 0.0003770129668740983,
+        "Absorptance": 0.03409913667202113,
+        "LogTransmittance": -7.883230976216247,
+        "OpticalDensity": 3.4236437125395005
+      },
+      "worstReflectanceWavelength": 520,
+      "worstReflectancePower": {
+        "Reflectance": 0.9587477812668985,
+        "Transmittance": 0.000921045880123559,
+        "Absorptance": 0.040331172852977916,
+        "LogTransmittance": -6.99000070739754,
+        "OpticalDensity": 3.035718735722578
+      },
+      "minimumOds": [],
+      "numericTargetsOnly": false
+    }
+  ],
+  "nbfSweepCounts": [
+    {
+      "name": "NBF1",
+      "screens": 60,
+      "originalRealAirScreens": 28,
+      "numericPassesReal": [],
+      "numericPassesCounterfactual": []
+    },
+    {
+      "name": "NBF2",
+      "screens": 36,
+      "originalRealAirScreens": 16,
+      "numericPassesReal": [],
+      "numericPassesCounterfactual": []
+    }
+  ],
+  "residuals": [
+    {
+      "name": "NBF1",
+      "Scope": "Actual current private objective rows, no alternative optical model",
+      "SourceFingerprint": "0115C9DDE67714E4E8107F89FC15D2D3B18CCDCB9665D864B6FA3E0A2233DE66",
+      "Rows": 54,
+      "MeanSquares": 0.022121267917490292,
+      "Groups": [
+        {
+          "Name": "center-minimum",
+          "Count": 1,
+          "SumSquares": 0.03676643484466529,
+          "FractionOfTotal": 0.030778520791410576
+        },
+        {
+          "Name": "left-half-height",
+          "Count": 1,
+          "SumSquares": 0.5500491898271038,
+          "FractionOfTotal": 0.46046619687001045
+        },
+        {
+          "Name": "right-half-height",
+          "Count": 1,
+          "SumSquares": 0.6014541451792162,
+          "FractionOfTotal": 0.50349915597445
+        },
+        {
+          "Name": "stopband-0",
+          "Count": 19,
+          "SumSquares": 0,
+          "FractionOfTotal": 0
+        },
+        {
+          "Name": "center-shape",
+          "Count": 13,
+          "SumSquares": 0,
+          "FractionOfTotal": 0
+        },
+        {
+          "Name": "stopband-1",
+          "Count": 19,
+          "SumSquares": 0.006278697693490508,
+          "FractionOfTotal": 0.005256126364129078
+        }
+      ]
+    },
+    {
+      "name": "NBF2",
+      "Scope": "Actual current private objective rows, no alternative optical model",
+      "SourceFingerprint": "4556803E26F2CEC9B665551BB56F485115C2EE392EE4B15DA3D4ED9E8B8AB647",
+      "Rows": 54,
+      "MeanSquares": 0.010052502374657192,
+      "Groups": [
+        {
+          "Name": "center-minimum",
+          "Count": 1,
+          "SumSquares": 0.23489565493736297,
+          "FractionOfTotal": 0.43272007046160305
+        },
+        {
+          "Name": "left-half-height",
+          "Count": 1,
+          "SumSquares": 0.13500286151348034,
+          "FractionOfTotal": 0.24869956731302267
+        },
+        {
+          "Name": "right-half-height",
+          "Count": 1,
+          "SumSquares": 0.16838376974888697,
+          "FractionOfTotal": 0.31019320782991194
+        },
+        {
+          "Name": "stopband-0",
+          "Count": 19,
+          "SumSquares": 0.004552842031758119,
+          "FractionOfTotal": 0.008387154395462393
+        },
+        {
+          "Name": "center-shape",
+          "Count": 13,
+          "SumSquares": 0,
+          "FractionOfTotal": 0
+        },
+        {
+          "Name": "stopband-1",
+          "Count": 19,
+          "SumSquares": 0,
+          "FractionOfTotal": 0
+        }
+      ]
+    }
+  ],
+  "additionalNativeOptimization": [
+    {
+      "name": "HR",
+      "scope": "Additional bounded 80-iteration native optimization from previous endpoint",
+      "seconds": 14.4849763,
+      "before": {
+        "peakNm": 580,
+        "peakT": 0.0001055948617895612,
+        "fwhmNm": null,
+        "minimumR": 0.959844799291613
+      },
+      "after": {
+        "peakNm": 580,
+        "peakT": 0.00010558848484268387,
+        "fwhmNm": null,
+        "minimumR": 0.9598449096980249
+      },
+      "beforeMerit": 0.8341237741141765,
+      "afterMerit": 0.8341196481709575,
+      "passed": false,
+      "samplingConverged": true,
+      "run": {
+        "Algorithm": "Damped Least Squares",
+        "AlgorithmVersion": "damped-least-squares/2",
+        "StopReason": "StepOrMeritStagnation",
+        "Evaluations": 480,
+        "Iterations": 14,
+        "RandomSeed": null,
+        "SolverVersion": "coherent-scattering/2",
+        "DesignProtocol": "target-balanced-coating/2"
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 32,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 95.9844909698025,
+          "Requirement": "≥ 98",
+          "Passed": false
+        }
+      ]
+    },
+    {
+      "name": "NBF1",
+      "scope": "Additional bounded 80-iteration native optimization from previous endpoint",
+      "seconds": 15.9908201,
+      "before": {
+        "peakNm": 550,
+        "peakT": 0.7260317805323822,
+        "fwhmNm": 27.228173800459217,
+        "minimumR": 0.08430569482272245
+      },
+      "after": {
+        "peakNm": 549.9707357859531,
+        "peakT": 0.727133635533717,
+        "fwhmNm": 27.219410571411913,
+        "minimumR": 0.08379882446922252
+      },
+      "beforeMerit": 0.022121267917490292,
+      "afterMerit": 0.022097650011481403,
+      "passed": false,
+      "samplingConverged": true,
+      "run": {
+        "Algorithm": "Damped Least Squares",
+        "AlgorithmVersion": "damped-least-squares/2",
+        "StopReason": "MaximumIterations",
+        "Evaluations": 1001,
+        "Iterations": 80,
+        "RandomSeed": null,
+        "SolverVersion": "coherent-scattering/2"
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 11,
+          "Requirement": "≤ 39",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "峰值位置 (nm)",
+          "Actual": 549.9707357859531,
+          "Requirement": "550 ± 0.5",
+          "Passed": true
+        },
+        {
+          "Name": "FWHM (nm)",
+          "Actual": 27.219410571411913,
+          "Requirement": "15 ± 1",
+          "Passed": false
+        },
+        {
+          "Name": "峰值 T (%)",
+          "Actual": 72.7133635533717,
+          "Requirement": "≥ 75",
+          "Passed": false
+        },
+        {
+          "Name": "截止 OD：490–510 nm",
+          "Actual": 1.0277924228024322,
+          "Requirement": "≥ 1",
+          "Passed": true
+        },
+        {
+          "Name": "截止 OD：590–610 nm",
+          "Actual": 0.9502726347393571,
+          "Requirement": "≥ 1",
+          "Passed": false
+        }
+      ]
+    },
+    {
+      "name": "NBF2",
+      "scope": "Additional bounded 80-iteration native optimization from previous endpoint",
+      "seconds": 22.6894713,
+      "before": {
+        "peakNm": 549.9268394648828,
+        "peakT": 0.6894614757136329,
+        "fwhmNm": 20.297744962676802,
+        "minimumR": 0.01144678179302792
+      },
+      "after": {
+        "peakNm": 549.8975752508361,
+        "peakT": 0.694888604729967,
+        "fwhmNm": 20.04061624408814,
+        "minimumR": 0.01223589405521116
+      },
+      "beforeMerit": 0.010052502374657192,
+      "afterMerit": 0.009010115859096604,
+      "passed": false,
+      "samplingConverged": true,
+      "run": {
+        "Algorithm": "Damped Least Squares",
+        "AlgorithmVersion": "damped-least-squares/2",
+        "StopReason": "MaximumIterations",
+        "Evaluations": 1482,
+        "Iterations": 80,
+        "RandomSeed": null,
+        "SolverVersion": "coherent-scattering/2"
+      },
+      "checks": [
+        {
+          "Name": "层数",
+          "Actual": 17,
+          "Requirement": "≤ 39",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "峰值位置 (nm)",
+          "Actual": 549.8975752508361,
+          "Requirement": "550 ± 0.5",
+          "Passed": true
+        },
+        {
+          "Name": "FWHM (nm)",
+          "Actual": 20.04061624408814,
+          "Requirement": "15 ± 1",
+          "Passed": false
+        },
+        {
+          "Name": "峰值 T (%)",
+          "Actual": 69.4888604729967,
+          "Requirement": "≥ 75",
+          "Passed": false
+        },
+        {
+          "Name": "截止 OD：490–510 nm",
+          "Actual": 0.9509776266931349,
+          "Requirement": "≥ 1",
+          "Passed": false
+        },
+        {
+          "Name": "截止 OD：590–610 nm",
+          "Actual": 1.0864689696906586,
+          "Requirement": "≥ 1",
+          "Passed": true
+        }
+      ]
+    }
+  ],
+  "hrMatchedObjective": {
+    "native": {
+      "seconds": 50.5661289,
+      "report": {
+        "initialMeanSquare": 0.001301269833248488,
+        "finalMeanSquare": 0.0011808166812167747,
+        "initialRms": 0.03607311787534435,
+        "finalRms": 0.03436301327323864,
+        "iterations": 80,
+        "evaluations": 2684,
+        "stopReason": "MaximumIterations"
+      },
+      "originalAssessment": {
+        "peakNm": 520,
+        "peakT": 0.00013339376110979752,
+        "fwhmNm": null,
+        "minimumR": 0.9561208741608335
+      },
+      "actualPassed": false
+    },
+    "reference": [
+      {
+        "name": "HR-LM",
+        "scope": "Same 121-point R=1 squared objective and thickness bounds as diagnostic native run; differs from product v2 merit",
+        "initial": 0.036073117875344334,
+        "final": 0.03452885798112862,
+        "iterations": 80,
+        "converged": false,
+        "reason": null,
+        "analyticCalls": 51,
+        "fdFallbackCalls": 0,
+        "lmCalls": 0,
+        "seconds": 1.3563324
+      },
+      {
+        "name": "HR-Newton",
+        "scope": "Same 121-point R=1 squared objective and thickness bounds as diagnostic native run; differs from product v2 merit",
+        "initial": 0.036073117875344334,
+        "final": 0.03205259983343237,
+        "iterations": 22,
+        "converged": true,
+        "reason": null,
+        "analyticCalls": 8,
+        "fdFallbackCalls": 0,
+        "lmCalls": 0,
+        "seconds": 2.4019002
+      }
+    ]
+  },
+  "selectedReferenceGeometries": [
+    {
+      "name": "HR-LM",
+      "counterfactual": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 520,
+        "peakT": 0.0001283430498857739,
+        "fwhmNm": null,
+        "minimumR": 0.9559963407751053
+      },
+      "intendedOds": [],
+      "originalRealAir": {
+        "peakNm": 520,
+        "peakT": 0.0001283430498857739,
+        "fwhmNm": null,
+        "minimumR": 0.9559963407751053
+      },
+      "originalRealAirOds": [],
+      "actualPassed": false
+    },
+    {
+      "name": "HR-Newton",
+      "counterfactual": false,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 520,
+        "peakT": 0.0002178218606194456,
+        "fwhmNm": null,
+        "minimumR": 0.9588240712851451
+      },
+      "intendedOds": [],
+      "originalRealAir": {
+        "peakNm": 520,
+        "peakT": 0.0002178218606194456,
+        "fwhmNm": null,
+        "minimumR": 0.9588240712851451
+      },
+      "originalRealAirOds": [],
+      "actualPassed": false
+    },
+    {
+      "name": "NBF1-level0.5-m7-order1-embedded",
+      "counterfactual": true,
+      "layers": 15,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 550,
+        "peakT": 1.0000000000000027,
+        "fwhmNm": 12.588885494948045,
+        "minimumR": 2.3214261212688753e-28
+      },
+      "intendedOds": [
+        1.3370744833758341,
+        1.3158114489042394
+      ],
+      "originalRealAir": {
+        "peakNm": 550.225,
+        "peakT": 0.5477199399066346,
+        "fwhmNm": 13.446365704586356,
+        "minimumR": 0.14509340346756888
+      },
+      "originalRealAirOds": [
+        1.5092723929433185,
+        1.506882268644483
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF1-level0.5-m7-order1-air",
+      "counterfactual": true,
+      "layers": 15,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 550,
+        "peakT": 0.9576119544052266,
+        "fwhmNm": 10.294125616056135,
+        "minimumR": 0.04238804559477579
+      },
+      "intendedOds": [
+        1.4710684495023352,
+        1.4874291226641587
+      ],
+      "originalRealAir": {
+        "peakNm": 550.225,
+        "peakT": 0.5477199399066346,
+        "fwhmNm": 13.446365704586356,
+        "minimumR": 0.14509340346756888
+      },
+      "originalRealAirOds": [
+        1.5092723929433185,
+        1.506882268644483
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF1-level0.5-m7-order1-matched",
+      "counterfactual": true,
+      "layers": 16,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 550,
+        "peakT": 1.0000000000000027,
+        "fwhmNm": 12.512389520735383,
+        "minimumR": 2.2387497839036646e-29
+      },
+      "intendedOds": [
+        1.3055748250438768,
+        1.2664564484581198
+      ],
+      "originalRealAir": {
+        "peakNm": 550.275,
+        "peakT": 0.6103025122407308,
+        "fwhmNm": 15.749522618409856,
+        "minimumR": 0.03622042668762723
+      },
+      "originalRealAirOds": [
+        1.3579034192559996,
+        1.2939640690871737
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF1-integer0-matched",
+      "counterfactual": true,
+      "layers": 14,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 550,
+        "peakT": 1.0000000000000024,
+        "fwhmNm": 18.6797290818987,
+        "minimumR": 2.395484017282941e-29
+      },
+      "intendedOds": [
+        1.1453433139025964,
+        0.9920032958615235
+      ],
+      "originalRealAir": {
+        "peakNm": 550.425,
+        "peakT": 0.6490704446861895,
+        "fwhmNm": 22.945598359795667,
+        "minimumR": 0.02764441000511987
+      },
+      "originalRealAirOds": [
+        1.198044995530894,
+        1.0213940751921593
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF2-level0.8913-m6-order1-embedded",
+      "counterfactual": true,
+      "layers": 27,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 550,
+        "peakT": 0.9987685055239901,
+        "fwhmNm": 11.952433583745005,
+        "minimumR": 0.0012314944760158867
+      },
+      "intendedOds": [
+        2.4772585465090042,
+        2.6271947711162493
+      ],
+      "originalRealAir": {
+        "peakNm": 550.675,
+        "peakT": 0.37579012599724176,
+        "fwhmNm": 12.021545317790242,
+        "minimumR": 0.05910799029928073
+      },
+      "originalRealAirOds": [
+        2.666805510993751,
+        2.8282197158766147
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF2-level0.8913-m6-order1-air",
+      "counterfactual": true,
+      "layers": 27,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 551.975,
+        "peakT": 0.9877214052578296,
+        "fwhmNm": 11.597851664904965,
+        "minimumR": 0.01227859474217175
+      },
+      "intendedOds": [
+        2.619510940357624,
+        2.8049782388613065
+      ],
+      "originalRealAir": {
+        "peakNm": 550.675,
+        "peakT": 0.37579012599724176,
+        "fwhmNm": 12.021545317790242,
+        "minimumR": 0.05910799029928073
+      },
+      "originalRealAirOds": [
+        2.666805510993751,
+        2.8282197158766147
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF2-level0.8913-m6-order1-matched",
+      "counterfactual": true,
+      "layers": 28,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 550,
+        "peakT": 1.0000000000000058,
+        "fwhmNm": 11.84874484387683,
+        "minimumR": 8.633121246528648e-31
+      },
+      "intendedOds": [
+        2.4685114821411256,
+        2.606078265033776
+      ],
+      "originalRealAir": {
+        "peakNm": 550.6,
+        "peakT": 0.3919296267699074,
+        "fwhmNm": 12.50619607983765,
+        "minimumR": 0.005829479339514447
+      },
+      "originalRealAirOds": [
+        2.528727363783415,
+        2.637164986803362
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF2-level0.5-m7-order1-embedded",
+      "counterfactual": true,
+      "layers": 31,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 550,
+        "peakT": 0.9987685055239898,
+        "fwhmNm": 8.17347047206681,
+        "minimumR": 0.0012314944760158418
+      },
+      "intendedOds": [
+        2.6943778382184935,
+        3.0596902312831453
+      ],
+      "originalRealAir": {
+        "peakNm": 550.4,
+        "peakT": 0.32296493485827343,
+        "fwhmNm": 8.335556056268274,
+        "minimumR": 0.06802624452040437
+      },
+      "originalRealAirOds": [
+        2.875229258622169,
+        3.2388318400826277
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF2-level0.5-m7-order1-air",
+      "counterfactual": true,
+      "layers": 31,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 551.375,
+        "peakT": 0.987965157304393,
+        "fwhmNm": 7.955378331073575,
+        "minimumR": 0.012034842695608334
+      },
+      "intendedOds": [
+        2.8268007352355657,
+        3.216063206311229
+      ],
+      "originalRealAir": {
+        "peakNm": 550.4,
+        "peakT": 0.32296493485827343,
+        "fwhmNm": 8.335556056268274,
+        "minimumR": 0.06802624452040437
+      },
+      "originalRealAirOds": [
+        2.875229258622169,
+        3.2388318400826277
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF2-level0.5-m7-order1-matched",
+      "counterfactual": true,
+      "layers": 32,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 550,
+        "peakT": 1.0000000000000058,
+        "fwhmNm": 8.122437156408182,
+        "minimumR": 1.7170963323829768e-31
+      },
+      "intendedOds": [
+        2.6732520955384733,
+        3.004851806319138
+      ],
+      "originalRealAir": {
+        "peakNm": 550.375,
+        "peakT": 0.33911640882903016,
+        "fwhmNm": 8.681047499719512,
+        "minimumR": 0.008991844660127191
+      },
+      "originalRealAirOds": [
+        2.7353160999101513,
+        3.0360220500478774
+      ],
+      "actualPassed": null
+    },
+    {
+      "name": "NBF2-integer0-matched",
+      "counterfactual": true,
+      "layers": 23,
+      "withinLayerBudget": true,
+      "withinThicknessBounds": true,
+      "intended": {
+        "peakNm": 550,
+        "peakT": 1.0000000000000036,
+        "fwhmNm": 26.83559542520527,
+        "minimumR": 2.278753446043492e-30
+      },
+      "intendedOds": [
+        1.7008281893135164,
+        1.4711882908652987
+      ],
+      "originalRealAir": {
+        "peakNm": 551.225,
+        "peakT": 0.6680819594959151,
+        "fwhmNm": 27.59640270697321,
+        "minimumR": 0.00214096428562792
+      },
+      "originalRealAirOds": [
+        1.7793126750784733,
+        1.5125165335263817
+      ],
+      "actualPassed": null
+    }
+  ],
+  "referenceGeometryNumericCounts": [
+    {
+      "name": "NBF1",
+      "rowsWithinOriginalBounds": 33,
+      "intendedNumericPasses": [],
+      "originalRealAirNumericPasses": []
+    },
+    {
+      "name": "NBF2",
+      "rowsWithinOriginalBounds": 36,
+      "intendedNumericPasses": [],
+      "originalRealAirNumericPasses": []
+    }
+  ]
+}

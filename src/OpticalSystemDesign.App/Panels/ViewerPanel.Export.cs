@@ -62,6 +62,7 @@ public sealed partial class ViewerPanel
         if (ImageExportUnavailableReason() is { } reason)
             throw new InvalidOperationException(UiLocalization.Text(reason));
         _scene.UpdateLayout();
+        if (_diagramPage is not null) return CaptureUniformViewerImage(renderScale ?? UniformDiagramPage.ExportScale);
         var size = _scene.Bounds.Size;
         var scale = renderScale ?? TopLevel.GetTopLevel(this)?.RenderScaling ?? 1;
         if (!double.IsFinite(scale) || scale <= 0) throw new ArgumentOutOfRangeException(nameof(renderScale));
@@ -140,6 +141,39 @@ public sealed partial class ViewerPanel
         page.Measure(new Size(size.Width, double.PositiveInfinity));
         page.Arrange(new Rect(page.DesiredSize));
         page.UpdateLayout();
+        return ExportImageFrame.Capture(page, scale, this);
+    }
+
+    private RenderTargetBitmap CaptureUniformViewerImage(double scale)
+    {
+        _diagramPage!.ValidateForExport();
+        var page = new Grid
+        {
+            Width = UniformDiagramPage.SheetWidth,
+            Height = UniformDiagramPage.SheetHeight,
+            RowDefinitions = new RowDefinitions($"{UniformDiagramPage.PlotHeight},{UniformDiagramPage.CaptionHeight}"),
+            Background = _summaryBar.Background
+        };
+        page.Children.Add(new SceneImageCanvas(_scene));
+        if (_staleLayoutBanner.IsVisible)
+            page.Children.Add(new Border
+            {
+                Background = _staleLayoutBanner.Background,
+                Padding = new Thickness(10, 5),
+                Margin = _staleLayoutBanner.Margin,
+                VerticalAlignment = VerticalAlignment.Top,
+                Child = CopyImageLabel(_staleLayoutMessage)
+            });
+        if (_summaryBar.IsVisible)
+        {
+            var caption = new CaptionImageCanvas(_summaryBar.Child!);
+            Grid.SetRow(caption, 1);
+            page.Children.Add(caption);
+        }
+        // Only composite the already laid-out scene and caption. Never remeasure,
+        // reparent, resize or replace the live drawing and its camera here.
+        page.Measure(new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
+        page.Arrange(new Rect(0, 0, UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
         return ExportImageFrame.Capture(page, scale, this);
     }
 

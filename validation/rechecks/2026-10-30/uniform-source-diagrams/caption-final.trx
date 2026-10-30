@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="10fd48b6-72ed-4b05-98be-828e4708afe3" name="optics@LAPTOP-G4BBBCS0 2026-10-30 11:48:49" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-30T11:48:49.0952874+08:00" queuing="2026-10-30T11:48:49.0952878+08:00" start="2026-10-30T11:48:39.3677989+08:00" finish="2026-10-30T11:48:57.5071524+08:00" />
+  <TestSettings name="default" id="fca64b93-ecb0-4a40-90fb-13250a53db5a">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-30_11_48_49" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d1408c55-278d-42a1-bd93-db27ba225f38" testId="0b3016ad-51d4-8afc-da0d-b0dd0eeeb4a8" testName="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Light&quot;, fontSize: 32)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.2134320" startTime="2026-10-30T11:48:49.0284654+08:00" endTime="2026-10-30T11:48:54.2227102+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d1408c55-278d-42a1-bd93-db27ba225f38" />
+    <UnitTestResult executionId="33f9a14a-da0d-405f-ba7c-4ed006f9798f" testId="1a3542fa-9a06-3447-d3d4-321f56c4c3c0" testName="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Light&quot;, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.1476312" startTime="2026-10-30T11:48:42.8757150+08:00" endTime="2026-10-30T11:48:49.0082785+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33f9a14a-da0d-405f-ba7c-4ed006f9798f" />
+    <UnitTestResult executionId="04ab993c-5e78-4bcb-bfd7-b171c5b3a92d" testId="6d16454e-83ee-da6f-6e86-38ebd43d1d18" testName="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Dark&quot;, fontSize: 20)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.1784933" startTime="2026-10-30T11:48:54.2243271+08:00" endTime="2026-10-30T11:48:57.4013560+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04ab993c-5e78-4bcb-bfd7-b171c5b3a92d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Light&quot;, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1a3542fa-9a06-3447-d3d4-321f56c4c3c0">
+      <Execution id="33f9a14a-da0d-405f-ba7c-4ed006f9798f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests" name="EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Dark&quot;, fontSize: 20)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6d16454e-83ee-da6f-6e86-38ebd43d1d18">
+      <Execution id="04ab993c-5e78-4bcb-bfd7-b171c5b3a92d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests" name="EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Light&quot;, fontSize: 32)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0b3016ad-51d4-8afc-da0d-b0dd0eeeb4a8">
+      <Execution id="d1408c55-278d-42a1-bd93-db27ba225f38" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests" name="EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0b3016ad-51d4-8afc-da0d-b0dd0eeeb4a8" executionId="d1408c55-278d-42a1-bd93-db27ba225f38" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a3542fa-9a06-3447-d3d4-321f56c4c3c0" executionId="33f9a14a-da0d-405f-ba7c-4ed006f9798f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d16454e-83ee-da6f-6e86-38ebd43d1d18" executionId="04ab993c-5e78-4bcb-bfd7-b171c5b3a92d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.44]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.76]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.80]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:17.38]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

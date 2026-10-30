@@ -16,16 +16,13 @@ public sealed class FootprintDiagramLegendTests
             optic,
             rayDensity: 2).GenerateData();
         var fieldSeries = ScatterSeries(fieldData);
-        var unit = optic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm";
 
         Assert.Equal("field", fieldData.Values["ColorRaysBy"]);
         Assert.Equal(
             Enumerable.Range(1, optic.Fields.Count).Select(index => $"field:{index}"),
             fieldSeries.Select(series => series.LegendKey).Distinct());
         Assert.Equal(
-            optic.Fields.Select((field, index) =>
-                $"F{index + 1}  ({field.X.ToString("0.####", CultureInfo.InvariantCulture)}, " +
-                $"{field.Y.ToString("0.####", CultureInfo.InvariantCulture)}) {unit}"),
+            Enumerable.Range(1, optic.Fields.Count).Select(index => $"Field {index}"),
             fieldSeries.Select(series => series.LegendLabel).Distinct());
         Assert.All(
             fieldSeries.GroupBy(series => series.LegendKey),

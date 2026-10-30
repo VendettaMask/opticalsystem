@@ -47,6 +47,7 @@ public sealed partial class MainWindow : Window
     private readonly TextBlock _materialSource = new() { TextWrapping = TextWrapping.Wrap };
     private readonly OperationStatusBar _operationStatus = new();
     private readonly StackPanel _narrowFields = new() { Spacing = 8 };
+    private readonly ComboBox _narrowProtocol = new() { ItemsSource = new[] { "原始设计流程", "候选竞争（兼容）", "通用约束优化（试验）" } };
     private Control? _reflectanceField;
     private bool _loading, _busy;
     private long _uiRevision;
@@ -206,6 +207,7 @@ public sealed partial class MainWindow : Window
         _narrowFields.Children.Add(Number("fwhm", "目标 FWHM (nm)"));
         _narrowFields.Children.Add(Number("peak", "最低峰值透过率 (%)"));
         _narrowFields.Children.Add(Number("od", "截止深度 OD（0–12）"));
+        targets.Children.Add(Field("设计流程", _narrowProtocol));
         _narrowFields.Children.Add(Field("截止波段 (nm)，例 490-510;590-610", _stopBands));
         targets.Children.Add(_narrowFields);
         panel.Children.Add(LaboratoryPresentation.Section("设计目标", "sliders-horizontal", targets));
@@ -229,12 +231,16 @@ public sealed partial class MainWindow : Window
         advanced.Children.Add(Number("cavities", "窄带腔数 (1–5)"));
         _distribution.SelectionChanged += (_, _) => Changed(); _correlation.SelectionChanged += (_, _) => Changed();
         _varyStructure.IsCheckedChanged += (_, _) => Changed();
+        _narrowProtocol.SelectionChanged += (_, _) => Changed();
         AddCompute("公差复验", () => RunAsync("tolerance"), advanced);
         panel.Children.Add(new Expander { Header = "高级设置", Content = advanced, HorizontalAlignment = HorizontalAlignment.Stretch });
         panel.Children.Add(new Expander { Header = "材料来源与计算边界", Content = _materialSource, HorizontalAlignment = HorizontalAlignment.Stretch });
         Watch(_name, TextBox.TextProperty); Watch(_stopBands, TextBox.TextProperty);
         foreach (var picker in new[] { _incident, _substrate, _low, _high }) Watch(picker, AutoCompleteBox.TextProperty);
-        _kind.SelectionChanged += (_, _) => { Visibility(); Changed(); };
+        _kind.SelectionChanged += (_, _) =>
+        {
+            Visibility(); Changed();
+        };
         _polarization.SelectionChanged += (_, _) => Changed(); _algorithm.SelectionChanged += (_, _) => Changed();
         return panel;
     }
@@ -327,13 +333,20 @@ public sealed partial class MainWindow : Window
             return named.SingleOrDefault() ?? _materials.Select(name);
         }
         var incident = Select(_incident); var substrate = Select(_substrate); var low = Select(_low); var high = Select(_high);
+        var cavityCount = Integer("cavities");
+        var structure = current.Target.Structure is { } originalStructure ? originalStructure with { Cavities = cavityCount }
+            : cavityCount == 1 ? null : new StructureOptions(cavityCount);
+        var protocol = _narrowProtocol.SelectedIndex switch
+        { 2 => 4, 1 => current.Settings.DesignProtocolVersion == 2 ? 2 : _kind.SelectedIndex == (int)DesignKind.NarrowBand ? 3 : 2, _ => (int?)null };
+        if (protocol != 2 && structure is not null) structure = structure with { PrototypeFamilyVersion = null };
         var target = CoatingPresentation.Target((DesignKind)_kind.SelectedIndex, Value("center"), Value("min"), Value("max"), Value("r") / 100,
             Integer("layers"), Value("angle"), _polarization.SelectedIndex, Value("fwhm"), Value("peak") / 100,
-            Value("od"), _kind.SelectedIndex == 2 ? ParseBands(_stopBands.Text) : null, Value("ctol"), Value("ftol"), Integer("cavities") == 1 ? null : new StructureOptions(Integer("cavities")));
+            Value("od"), _kind.SelectedIndex == 2 ? ParseBands(_stopBands.Text) : null, Value("ctol"), Value("ftol"), structure);
         var settings = new CalculationSettings(Integer("preview"), Integer("samples"), Integer("iterations"),
             _algorithm.SelectedIndex >= 0 ? AlgorithmNames[_algorithm.SelectedIndex] : "", Value("dmin"), Value("dmax"), Value("tolerance"), Integer("trials"), Integer("seed"),
             new SearchOptions(Integer("starts"), Value("jitter"), _varyStructure.IsChecked == true),
-            new ToleranceOptions((ToleranceDistribution)_distribution.SelectedIndex, (ThicknessCorrelation)_correlation.SelectedIndex, Value("angleTolerance")));
+            new ToleranceOptions((ToleranceDistribution)_distribution.SelectedIndex, (ThicknessCorrelation)_correlation.SelectedIndex, Value("angleTolerance")))
+        { DesignProtocolVersion = protocol };
         if (current.Settings.Search is null && settings.Search == new SearchOptions()) settings = settings with { Search = null };
         if (current.Settings.Tolerancing is null && settings.Tolerancing == new ToleranceOptions()) settings = settings with { Tolerancing = null };
         var materials = current.Materials.Concat([incident, substrate, low, high]).GroupBy(m => m.Id).Select(g => g.First()).ToArray();
@@ -385,6 +398,7 @@ public sealed partial class MainWindow : Window
             _distribution.SelectedIndex = (int)(s.Tolerancing?.Distribution ?? ToleranceDistribution.Uniform);
             _correlation.SelectedIndex = (int)(s.Tolerancing?.Correlation ?? ThicknessCorrelation.Independent);
             _varyStructure.IsChecked = s.Search?.VaryStructure ?? true;
+            _narrowProtocol.SelectedIndex = s.DesignProtocolVersion switch { 4 => 2, 2 or 3 => 1, _ => 0 };
             RefreshMaterials(d);
             _stopBands.Text = string.Join(';', (t.StopBands ?? [new SpectralBand(490, 510), new SpectralBand(590, 610)])
                 .Select(b => $"{b.MinimumNm.ToString("G17", CultureInfo.InvariantCulture)}-{b.MaximumNm.ToString("G17", CultureInfo.InvariantCulture)}"));
@@ -402,7 +416,11 @@ public sealed partial class MainWindow : Window
 
     private static string Summary(Experiment d)
     {
-        if (d.Result is not { } r) return "尚无当前输入的计算结果。";
+        if (d.Result is not { } r)
+        {
+            try { return "尚无当前输入的计算结果。\n材料适用性诊断：\n" + string.Join("\n", new DesignService().AssessMaterials(d).Messages); }
+            catch (ArgumentException error) { return "材料适用性诊断：" + error.Message; }
+        }
         var text = (r.Passed ? "✓ 全部目标达标" : "未全部达标 · 保留当前有效结果") + $"    复验采样 {r.VerificationSamples} 点 / {(r.SamplingConverged ? "收敛" : "未收敛")}\n";
         foreach (var check in r.Checks)
         {
@@ -410,6 +428,18 @@ public sealed partial class MainWindow : Window
                 ? "≥12（显示饱和）" : NumericDisplayFormatter.Format(check.Actual.Value)) : "—";
             text += $"{(check.Passed ? "✓" : "✗")} {check.Name}：{value}；要求 {check.Requirement}\n";
         }
+        if (r.Run.DesignProtocol == DesignService.TargetBalancedProtocol)
+            text += "评价：按目标分组平衡（与旧版评价值不直接比较）\n";
+        if (r.Run.DesignProtocol == DesignService.NarrowBandCompetitionProtocol)
+            text += "评价：实际峰位/FWHM/峰值与截止约束；原密集验收保持（与旧版评价值不直接比较）\n";
+        if (r.Run.DesignProtocol == DesignService.GeneralCoatingProtocol)
+            text += "评价：可行性优先的通用约束；多个匹配解参与整谱竞争，原验收保持\n";
+        if (r.Run.GeneralWork is { } work)
+            text += $"指导计算：光谱点 {work.SpectrumEvaluations}，灵敏度点 {work.SensitivityEvaluations}，解析导数批次 {work.AnalyticJacobians}；约束更新 {work.ConstraintPasses} 次，完整复验 {work.DenseValidations} 次\n";
+        if (r.Run.NarrowBandCompetition is { } competition)
+            text += $"镜段/腔阶：初始 {competition.InitialStructures} 组，实际比较 {competition.DiscreteEvaluations}/{competition.DiscreteEvaluationLimit}；入射侧匹配 {competition.MatchingTrials.Length} 组\n";
+        if (r.Run.Screening is { } screens)
+            text += $"短程候选 {screens.Length} 组；模板比较 {r.Run.TemplateEvaluations ?? 0} 次\n";
         text += $"算法：{r.Run.Algorithm} / {r.Run.AlgorithmVersion}；停止：{StopReason(r.Run.StopReason)}；评估 {r.Run.Evaluations}\n"
             + string.Join("\n", r.Warnings);
         if (d.Tolerance is { } tolerance) text += $"\n公差：{tolerance.Percent}% {((tolerance.Options?.Distribution ?? ToleranceDistribution.Uniform) == ToleranceDistribution.Normal ? "正态 1σ" : "均匀 ±")}厚度扰动（{tolerance.Options?.Correlation ?? ThicknessCorrelation.Independent}），{tolerance.Passed}/{tolerance.Trials} 达标；种子 {tolerance.Seed}。";
@@ -421,6 +451,8 @@ public sealed partial class MainWindow : Window
         "GradientTolerance" => "梯度达到停止阈值",
         "StepOrMeritStagnation" => "步长或评价函数停滞",
         "SimplexTolerance" => "单纯形达到停止阈值",
+        "ConstraintGuidanceSatisfied" => "指导约束已满足，仍以完整复验为准",
+        "DenseValidationRetainedInput" => "完整复验后保留原结构",
         _ => reason
     };
     private void AddRow(FilmLayer layer)

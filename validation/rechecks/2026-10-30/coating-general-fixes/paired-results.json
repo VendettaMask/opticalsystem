@@ -1,0 +1,1217 @@
+[
+  {
+    "name": "ir-absorbing-s",
+    "path": "final-runtime\\matrix\\ir-absorbing-s\\general\\summary.json",
+    "protocol": 4,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 1300,
+      "MinimumNm": 1105,
+      "MaximumNm": 1494.9999999999998,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 25,
+      "Polarization": "S",
+      "FwhmNm": 45.50000000000001,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 1144,
+          "MaximumNm": 1196
+        },
+        {
+          "MinimumNm": 1404,
+          "MaximumNm": 1456.0000000000002
+        }
+      ],
+      "CenterToleranceNm": 1.3,
+      "FwhmToleranceNm": 3.9,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 12,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2.6,
+      "MaximumThicknessNm": 2600,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 1301.3985655737704,
+      "PeakTransmittance": 0.7347348911205018,
+      "LeftHalfMaximumNanometers": 1275.0080797458843,
+      "RightHalfMaximumNanometers": 1324.9998796071684,
+      "FwhmNanometers": 49.99179986128411,
+      "MinimumReflectance": 0.011591599790920634,
+      "MaximumReflectance": 0.9220027970805529
+    },
+    "passed": false,
+    "failed": [
+      {
+        "Name": "峰值位置 (nm)",
+        "Actual": 1301.3985655737704,
+        "Requirement": "1300 ± 1.3",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 49.99179986128411,
+        "Requirement": "45.5 ± 3.9",
+        "Passed": false
+      },
+      {
+        "Name": "峰值 T (%)",
+        "Actual": 73.47348911205019,
+        "Requirement": "≥ 75",
+        "Passed": false
+      }
+    ],
+    "samplingConverged": true,
+    "seconds": 4.0850357,
+    "generationWork": {
+      "SpectrumEvaluations": 193157,
+      "SensitivityEvaluations": 47440,
+      "AnalyticJacobians": 1190,
+      "ConstraintPasses": 24,
+      "AdaptiveRefinements": 12,
+      "AdaptiveLimitReached": true,
+      "DenseValidations": 4
+    },
+    "finalWork": {
+      "SpectrumEvaluations": 1912,
+      "SensitivityEvaluations": 11389,
+      "AnalyticJacobians": 12,
+      "ConstraintPasses": 3,
+      "AdaptiveRefinements": 2,
+      "AdaptiveLimitReached": false,
+      "DenseValidations": 2
+    }
+  },
+  {
+    "name": "ir-absorbing-s",
+    "path": "final-runtime\\matrix\\ir-absorbing-s\\modern\\summary.json",
+    "protocol": 3,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 1300,
+      "MinimumNm": 1105,
+      "MaximumNm": 1494.9999999999998,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 25,
+      "Polarization": "S",
+      "FwhmNm": 45.50000000000001,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 1144,
+          "MaximumNm": 1196
+        },
+        {
+          "MinimumNm": 1404,
+          "MaximumNm": 1456.0000000000002
+        }
+      ],
+      "CenterToleranceNm": 1.3,
+      "FwhmToleranceNm": 3.9,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 12,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2.6,
+      "MaximumThicknessNm": 2600,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 3
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 1300.2219945355191,
+      "PeakTransmittance": 0.6978186716888097,
+      "LeftHalfMaximumNanometers": 1276.0414294791328,
+      "RightHalfMaximumNanometers": 1323.9832906673346,
+      "FwhmNanometers": 47.941861188201756,
+      "MinimumReflectance": 0.005441600493835274,
+      "MaximumReflectance": 0.9077721649218868
+    },
+    "passed": false,
+    "failed": [
+      {
+        "Name": "峰值 T (%)",
+        "Actual": 69.78186716888098,
+        "Requirement": "≥ 75",
+        "Passed": false
+      }
+    ],
+    "samplingConverged": true,
+    "seconds": 3.114965
+  },
+  {
+    "name": "near-ir-oblique-p",
+    "path": "final-runtime\\matrix\\near-ir-oblique-p\\general\\summary.json",
+    "protocol": 4,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 940,
+      "MinimumNm": 799,
+      "MaximumNm": 1081,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 35,
+      "Polarization": "P",
+      "FwhmNm": 23.5,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 827.2,
+          "MaximumNm": 864.8000000000001
+        },
+        {
+          "MinimumNm": 1015.2,
+          "MaximumNm": 1052.8000000000002
+        }
+      ],
+      "CenterToleranceNm": 0.9400000000000001,
+      "FwhmToleranceNm": 2.82,
+      "Structure": {
+        "Cavities": 1
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 12,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 1.8800000000000001,
+      "MaximumThicknessNm": 1880,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 940,
+      "PeakTransmittance": 0.8924904956315087,
+      "LeftHalfMaximumNanometers": 927.6937257033176,
+      "RightHalfMaximumNanometers": 952.8469648289004,
+      "FwhmNanometers": 25.153239125582786,
+      "MinimumReflectance": 0.001108798124163104,
+      "MaximumReflectance": 0.9129166049886888
+    },
+    "passed": true,
+    "failed": [],
+    "samplingConverged": true,
+    "seconds": 2.0052864,
+    "generationWork": {
+      "SpectrumEvaluations": 110966,
+      "SensitivityEvaluations": 12078,
+      "AnalyticJacobians": 1599,
+      "ConstraintPasses": 13,
+      "AdaptiveRefinements": 1,
+      "AdaptiveLimitReached": false,
+      "DenseValidations": 4
+    },
+    "finalWork": {
+      "SpectrumEvaluations": 384,
+      "SensitivityEvaluations": 192,
+      "AnalyticJacobians": 1,
+      "ConstraintPasses": 1,
+      "AdaptiveRefinements": 0,
+      "AdaptiveLimitReached": false,
+      "DenseValidations": 2
+    }
+  },
+  {
+    "name": "near-ir-oblique-p",
+    "path": "final-runtime\\matrix\\near-ir-oblique-p\\modern\\summary.json",
+    "protocol": 3,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 940,
+      "MinimumNm": 799,
+      "MaximumNm": 1081,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 35,
+      "Polarization": "P",
+      "FwhmNm": 23.5,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 827.2,
+          "MaximumNm": 864.8000000000001
+        },
+        {
+          "MinimumNm": 1015.2,
+          "MaximumNm": 1052.8000000000002
+        }
+      ],
+      "CenterToleranceNm": 0.9400000000000001,
+      "FwhmToleranceNm": 2.82,
+      "Structure": {
+        "Cavities": 1
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 12,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 1.8800000000000001,
+      "MaximumThicknessNm": 1880,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 3
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 940.0458984375,
+      "PeakTransmittance": 0.8909140798672529,
+      "LeftHalfMaximumNanometers": 928.2501652304348,
+      "RightHalfMaximumNanometers": 951.7498373748298,
+      "FwhmNanometers": 23.499672144394935,
+      "MinimumReflectance": 0.015401184186797602,
+      "MaximumReflectance": 0.9244077408049217
+    },
+    "passed": true,
+    "failed": [],
+    "samplingConverged": true,
+    "seconds": 3.0931766
+  },
+  {
+    "name": "red-low-contrast",
+    "path": "final-runtime\\matrix\\red-low-contrast\\general\\summary.json",
+    "protocol": 4,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 680,
+      "MinimumNm": 578,
+      "MaximumNm": 781.9999999999999,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 27.2,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 598.4,
+          "MaximumNm": 625.6
+        },
+        {
+          "MinimumNm": 734.4000000000001,
+          "MaximumNm": 761.6
+        }
+      ],
+      "CenterToleranceNm": 0.68,
+      "FwhmToleranceNm": 2.04,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 12,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 1.36,
+      "MaximumThicknessNm": 1360,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 680,
+      "PeakTransmittance": 0.9987926949148342,
+      "LeftHalfMaximumNanometers": 665.7746732243795,
+      "RightHalfMaximumNanometers": 694.9884615269339,
+      "FwhmNanometers": 29.21378830255435,
+      "MinimumReflectance": 0.001207305085164007,
+      "MaximumReflectance": 0.9782187293954226
+    },
+    "passed": true,
+    "failed": [],
+    "samplingConverged": true,
+    "seconds": 9.3224631,
+    "generationWork": {
+      "SpectrumEvaluations": 171970,
+      "SensitivityEvaluations": 11449,
+      "AnalyticJacobians": 1379,
+      "ConstraintPasses": 16,
+      "AdaptiveRefinements": 4,
+      "AdaptiveLimitReached": true,
+      "DenseValidations": 4
+    },
+    "finalWork": {
+      "SpectrumEvaluations": 16400,
+      "SensitivityEvaluations": 15196,
+      "AnalyticJacobians": 13,
+      "ConstraintPasses": 10,
+      "AdaptiveRefinements": 9,
+      "AdaptiveLimitReached": true,
+      "DenseValidations": 2
+    }
+  },
+  {
+    "name": "red-low-contrast",
+    "path": "final-runtime\\matrix\\red-low-contrast\\modern\\summary.json",
+    "protocol": 3,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 680,
+      "MinimumNm": 578,
+      "MaximumNm": 781.9999999999999,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 27.2,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 598.4,
+          "MaximumNm": 625.6
+        },
+        {
+          "MinimumNm": 734.4000000000001,
+          "MaximumNm": 761.6
+        }
+      ],
+      "CenterToleranceNm": 0.68,
+      "FwhmToleranceNm": 2.04,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 12,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 1.36,
+      "MaximumThicknessNm": 1360,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 3
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 679.946875,
+      "PeakTransmittance": 0.9954729203369502,
+      "LeftHalfMaximumNanometers": 666.4000078356198,
+      "RightHalfMaximumNanometers": 693.5999913052864,
+      "FwhmNanometers": 27.199983469666563,
+      "MinimumReflectance": 0.004527079663045695,
+      "MaximumReflectance": 0.9835760062100684
+    },
+    "passed": false,
+    "failed": [
+      {
+        "Name": "截止 OD：598.4–625.6 nm",
+        "Actual": 0.9999999998989271,
+        "Requirement": "≥ 1",
+        "Passed": false
+      }
+    ],
+    "samplingConverged": true,
+    "seconds": 10.8531378
+  },
+  {
+    "name": "visible-low-loss",
+    "path": "final-runtime\\matrix\\visible-low-loss\\general\\summary.json",
+    "protocol": 4,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 450,
+      "MinimumNm": 382.5,
+      "MaximumNm": 517.5,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "S",
+      "FwhmNm": 13.5,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 396,
+          "MaximumNm": 414
+        },
+        {
+          "MinimumNm": 486.00000000000006,
+          "MaximumNm": 504.00000000000006
+        }
+      ],
+      "CenterToleranceNm": 0.45,
+      "FwhmToleranceNm": 1.35,
+      "Structure": {
+        "Cavities": 1
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 12,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 0.9,
+      "MaximumThicknessNm": 900,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 450,
+      "PeakTransmittance": 0.9999999999997606,
+      "LeftHalfMaximumNanometers": 443.53132932141426,
+      "RightHalfMaximumNanometers": 456.51575863186866,
+      "FwhmNanometers": 12.984429310454402,
+      "MinimumReflectance": 2.3850590300726885e-13,
+      "MaximumReflectance": 0.939107627895431
+    },
+    "passed": true,
+    "failed": [],
+    "samplingConverged": true,
+    "seconds": 1.6668964,
+    "generationWork": {
+      "SpectrumEvaluations": 111482,
+      "SensitivityEvaluations": 8893,
+      "AnalyticJacobians": 1303,
+      "ConstraintPasses": 15,
+      "AdaptiveRefinements": 3,
+      "AdaptiveLimitReached": false,
+      "DenseValidations": 4
+    },
+    "finalWork": {
+      "SpectrumEvaluations": 368,
+      "SensitivityEvaluations": 184,
+      "AnalyticJacobians": 1,
+      "ConstraintPasses": 1,
+      "AdaptiveRefinements": 0,
+      "AdaptiveLimitReached": false,
+      "DenseValidations": 2
+    }
+  },
+  {
+    "name": "visible-low-loss",
+    "path": "final-runtime\\matrix\\visible-low-loss\\modern\\summary.json",
+    "protocol": 3,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 450,
+      "MinimumNm": 382.5,
+      "MaximumNm": 517.5,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "S",
+      "FwhmNm": 13.5,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 396,
+          "MaximumNm": 414
+        },
+        {
+          "MinimumNm": 486.00000000000006,
+          "MaximumNm": 504.00000000000006
+        }
+      ],
+      "CenterToleranceNm": 0.45,
+      "FwhmToleranceNm": 1.35,
+      "Structure": {
+        "Cavities": 1
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 12,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 0.9,
+      "MaximumThicknessNm": 900,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 3
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 450,
+      "PeakTransmittance": 0.9436521927718964,
+      "LeftHalfMaximumNanometers": 443.2500000382388,
+      "RightHalfMaximumNanometers": 456.74999996783316,
+      "FwhmNanometers": 13.499999929594367,
+      "MinimumReflectance": 0.05634780722810364,
+      "MaximumReflectance": 0.9326842481571784
+    },
+    "passed": true,
+    "failed": [],
+    "samplingConverged": true,
+    "seconds": 2.8225001
+  },
+  {
+    "name": "ar",
+    "path": "final-runtime\\real\\ar\\general\\summary.json",
+    "protocol": 4,
+    "targets": {
+      "Kind": "Antireflection",
+      "CenterNm": 550,
+      "MinimumNm": 500,
+      "MaximumNm": 600,
+      "Reflectance": 0.02,
+      "MaximumLayers": 8,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": null,
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 569,
+      "PeakTransmittance": 0.9653729825229428,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.010359523999271565,
+      "MaximumReflectance": 0.01999999970585608
+    },
+    "passed": true,
+    "failed": [],
+    "samplingConverged": true,
+    "seconds": 2.7167467,
+    "generationWork": {
+      "SpectrumEvaluations": 3267,
+      "SensitivityEvaluations": 4598,
+      "AnalyticJacobians": 18,
+      "ConstraintPasses": 9,
+      "AdaptiveRefinements": 0,
+      "AdaptiveLimitReached": false,
+      "DenseValidations": 1
+    },
+    "finalWork": {
+      "SpectrumEvaluations": 36865,
+      "SensitivityEvaluations": 35050,
+      "AnalyticJacobians": 24,
+      "ConstraintPasses": 20,
+      "AdaptiveRefinements": 19,
+      "AdaptiveLimitReached": true,
+      "DenseValidations": 2
+    }
+  },
+  {
+    "name": "ar",
+    "path": "final-runtime\\real\\ar\\modern\\summary.json",
+    "protocol": 2,
+    "targets": {
+      "Kind": "Antireflection",
+      "CenterNm": 550,
+      "MinimumNm": 500,
+      "MaximumNm": 600,
+      "Reflectance": 0.02,
+      "MaximumLayers": 8,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": null,
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 2
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 600,
+      "PeakTransmittance": 0.9778399490793205,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.00026258981988912396,
+      "MaximumReflectance": 0.0008496749109621816
+    },
+    "passed": true,
+    "failed": [],
+    "samplingConverged": true,
+    "seconds": 1.3522627
+  },
+  {
+    "name": "hr",
+    "path": "final-runtime\\real\\hr\\general\\summary.json",
+    "protocol": 4,
+    "targets": {
+      "Kind": "HighReflector",
+      "CenterNm": 550,
+      "MinimumNm": 520,
+      "MaximumNm": 580,
+      "Reflectance": 0.98,
+      "MaximumLayers": 32,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": null,
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 520,
+      "PeakTransmittance": 0.00007258558760884649,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": 528.4431427999319,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9595628482288304,
+      "MaximumReflectance": 0.9658765064684119
+    },
+    "passed": false,
+    "failed": [
+      {
+        "Name": "波段最低 R (%)",
+        "Actual": 95.95628482288305,
+        "Requirement": "≥ 98",
+        "Passed": false
+      }
+    ],
+    "samplingConverged": true,
+    "seconds": 27.1347184,
+    "generationWork": {
+      "SpectrumEvaluations": 5808,
+      "SensitivityEvaluations": 16456,
+      "AnalyticJacobians": 32,
+      "ConstraintPasses": 16,
+      "AdaptiveRefinements": 0,
+      "AdaptiveLimitReached": false,
+      "DenseValidations": 1
+    },
+    "finalWork": {
+      "SpectrumEvaluations": 4330,
+      "SensitivityEvaluations": 48067,
+      "AnalyticJacobians": 24,
+      "ConstraintPasses": 5,
+      "AdaptiveRefinements": 4,
+      "AdaptiveLimitReached": false,
+      "DenseValidations": 2
+    }
+  },
+  {
+    "name": "hr",
+    "path": "final-runtime\\real\\hr\\modern\\summary.json",
+    "protocol": 2,
+    "targets": {
+      "Kind": "HighReflector",
+      "CenterNm": 550,
+      "MinimumNm": 520,
+      "MaximumNm": 580,
+      "Reflectance": 0.98,
+      "MaximumLayers": 32,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": null,
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 2
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 580,
+      "PeakTransmittance": 0.0001055948617895612,
+      "LeftHalfMaximumNanometers": 571.4098716856719,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.959844799291613,
+      "MaximumReflectance": 0.9657528192029429
+    },
+    "passed": false,
+    "failed": [
+      {
+        "Name": "波段最低 R (%)",
+        "Actual": 95.98447992916131,
+        "Requirement": "≥ 98",
+        "Passed": false
+      }
+    ],
+    "samplingConverged": true,
+    "seconds": 24.4048805
+  },
+  {
+    "name": "real1",
+    "path": "final-runtime\\real\\real1\\general\\summary.json",
+    "protocol": 4,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 549.9561036789298,
+      "PeakTransmittance": 0.7096300940789582,
+      "LeftHalfMaximumNanometers": 541.414067306742,
+      "RightHalfMaximumNanometers": 558.6089217988936,
+      "FwhmNanometers": 17.194854492151535,
+      "MinimumReflectance": 0.06137722199444069,
+      "MaximumReflectance": 0.8908918922370366
+    },
+    "passed": false,
+    "failed": [
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.194854492151535,
+        "Requirement": "15 ± 1",
+        "Passed": false
+      },
+      {
+        "Name": "峰值 T (%)",
+        "Actual": 70.96300940789581,
+        "Requirement": "≥ 75",
+        "Passed": false
+      },
+      {
+        "Name": "截止 OD：490–510 nm",
+        "Actual": 0.9543170464975821,
+        "Requirement": "≥ 1",
+        "Passed": false
+      }
+    ],
+    "samplingConverged": true,
+    "seconds": 28.427644,
+    "generationWork": {
+      "SpectrumEvaluations": 176279,
+      "SensitivityEvaluations": 50641,
+      "AnalyticJacobians": 1896,
+      "ConstraintPasses": 24,
+      "AdaptiveRefinements": 12,
+      "AdaptiveLimitReached": true,
+      "DenseValidations": 4
+    },
+    "finalWork": {
+      "SpectrumEvaluations": 6137,
+      "SensitivityEvaluations": 49066,
+      "AnalyticJacobians": 24,
+      "ConstraintPasses": 5,
+      "AdaptiveRefinements": 4,
+      "AdaptiveLimitReached": true,
+      "DenseValidations": 2
+    }
+  },
+  {
+    "name": "real1",
+    "path": "final-runtime\\real\\real1\\modern\\summary.json",
+    "protocol": 3,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 3
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 549.8097826086956,
+      "PeakTransmittance": 0.705635634115598,
+      "LeftHalfMaximumNanometers": 542.283848110425,
+      "RightHalfMaximumNanometers": 557.875231584905,
+      "FwhmNanometers": 15.59138347448004,
+      "MinimumReflectance": 0.03350720592604674,
+      "MaximumReflectance": 0.8881988115966858
+    },
+    "passed": false,
+    "failed": [
+      {
+        "Name": "峰值 T (%)",
+        "Actual": 70.5635634115598,
+        "Requirement": "≥ 75",
+        "Passed": false
+      },
+      {
+        "Name": "截止 OD：490–510 nm",
+        "Actual": 0.9519421801589264,
+        "Requirement": "≥ 1",
+        "Passed": false
+      },
+      {
+        "Name": "截止 OD：590–610 nm",
+        "Actual": 0.9689447066469793,
+        "Requirement": "≥ 1",
+        "Passed": false
+      }
+    ],
+    "samplingConverged": true,
+    "seconds": 23.7763857
+  },
+  {
+    "name": "real2",
+    "path": "final-runtime\\real\\real2\\general\\summary.json",
+    "protocol": 4,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 551.0827759197325,
+      "PeakTransmittance": 0.6609607874496719,
+      "LeftHalfMaximumNanometers": 541.0356372296188,
+      "RightHalfMaximumNanometers": 558.8482994509815,
+      "FwhmNanometers": 17.812662221362643,
+      "MinimumReflectance": 0.000086844770020253,
+      "MaximumReflectance": 0.918587629026352
+    },
+    "passed": false,
+    "failed": [
+      {
+        "Name": "峰值位置 (nm)",
+        "Actual": 551.0827759197325,
+        "Requirement": "550 ± 0.5",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.812662221362643,
+        "Requirement": "15 ± 1",
+        "Passed": false
+      },
+      {
+        "Name": "峰值 T (%)",
+        "Actual": 66.09607874496719,
+        "Requirement": "≥ 75",
+        "Passed": false
+      },
+      {
+        "Name": "截止 OD：490–510 nm",
+        "Actual": 0.9696048443040636,
+        "Requirement": "≥ 1",
+        "Passed": false
+      }
+    ],
+    "samplingConverged": true,
+    "seconds": 39.9974181,
+    "generationWork": {
+      "SpectrumEvaluations": 264225,
+      "SensitivityEvaluations": 54963,
+      "AnalyticJacobians": 2393,
+      "ConstraintPasses": 24,
+      "AdaptiveRefinements": 12,
+      "AdaptiveLimitReached": true,
+      "DenseValidations": 4
+    },
+    "finalWork": {
+      "SpectrumEvaluations": 6144,
+      "SensitivityEvaluations": 54261,
+      "AnalyticJacobians": 24,
+      "ConstraintPasses": 5,
+      "AdaptiveRefinements": 4,
+      "AdaptiveLimitReached": true,
+      "DenseValidations": 2
+    }
+  },
+  {
+    "name": "real2",
+    "path": "final-runtime\\real\\real2\\modern\\summary.json",
+    "protocol": 3,
+    "targets": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 3
+    },
+    "metrics": {
+      "PeakWavelengthNanometers": 550.2048494983277,
+      "PeakTransmittance": 0.6281703080359722,
+      "LeftHalfMaximumNanometers": 541.9865032467377,
+      "RightHalfMaximumNanometers": 557.9822225257466,
+      "FwhmNanometers": 15.995719279008881,
+      "MinimumReflectance": 0.0023452218876390736,
+      "MaximumReflectance": 0.9425987553219434
+    },
+    "passed": false,
+    "failed": [
+      {
+        "Name": "峰值 T (%)",
+        "Actual": 62.81703080359722,
+        "Requirement": "≥ 75",
+        "Passed": false
+      }
+    ],
+    "samplingConverged": true,
+    "seconds": 41.922467
+  }
+]

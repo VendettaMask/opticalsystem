@@ -18,6 +18,13 @@ public sealed record ParaxialTransferMatrix(double A, double B, double C, double
 
 public sealed partial class Paraxial
 {
+    /// <summary>Equivalent centered thick-element power in inverse millimeters, including both refractions.</summary>
+    public double ElementOpticalPower(int frontSurfaceIndex, int backSurfaceIndex, double? wavelengthNanometers = null)
+    {
+        var matrix = GetTransferMatrix(frontSurfaceIndex, backSurfaceIndex, wavelengthNanometers);
+        return -matrix.OutputIndex * matrix.C;
+    }
+
     /// <summary>Read the existing Core transfer matrix immediately before input refraction
     /// through immediately after output refraction. Use an explicit fixed reference-plane
     /// surface for structure comparisons; the first real lens need not be that plane.</summary>

@@ -13,6 +13,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
     private readonly int _detectorSurfaceIndex;
     private readonly string _distribution;
     private readonly bool _normalize;
+    private readonly bool _useSurfaceSamplingWindow;
 
     public IncoherentIrradianceAnalysis(
         Optic optic,
@@ -21,7 +22,8 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         int resolutionY = 128,
         int detectorSurfaceIndex = -1,
         string distribution = "random",
-        bool normalize = true) : base(optic)
+        bool normalize = true,
+        bool useSurfaceSamplingWindow = false) : base(optic)
     {
         if (numRays is < 1 or > ApertureSampler.MaximumPupilSampleCount)
         {
@@ -37,6 +39,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         _detectorSurfaceIndex = detectorSurfaceIndex;
         _distribution = distribution;
         _normalize = normalize;
+        _useSurfaceSamplingWindow = useSurfaceSamplingWindow;
     }
 
     public override string Name => "Incoherent Irradiance";
@@ -57,9 +60,18 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         }
 
         var detector = Optic.SurfaceGroup.Items[detectorIndex];
+        var windowSource = "Physical aperture";
         if (!TryGetExtent(detector.PhysicalAperture, out var extent))
         {
-            return Status("Detector surface has no supported physical aperture");
+            // A binning window is not an optical mask. Only an explicit caller
+            // option may use the surface profile bounds; never add an aperture
+            // or bypass an existing unsupported physical aperture.
+            var radius = detector.SemiDiameter;
+            if (!_useSurfaceSamplingWindow || detector.PhysicalAperture is not null
+                || !double.IsFinite(radius) || radius <= 0)
+                return Status("Detector surface has no supported physical aperture");
+            extent = (-radius, radius, -radius, radius);
+            windowSource = "Surface semi-diameter sampling window (no physical aperture added)";
         }
 
         var fields = SpotAnalysisEngine.DefinedFields(Optic);
@@ -176,6 +188,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         {
             ["DetectorSurfaceIndex"] = detectorIndex,
             ["DetectorExtent"] = $"[{extent.XMinimum:R}, {extent.XMaximum:R}] x [{extent.YMinimum:R}, {extent.YMaximum:R}] mm",
+            ["DetectorWindowSource"] = windowSource,
             ["Resolution"] = $"{_resolutionX} x {_resolutionY}",
             ["NumRays"] = _numRays,
             ["Distribution"] = _distribution,
@@ -193,7 +206,9 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Status"] = message,
-            ["DetectorApertureRequirement"] = "Set a physical aperture on the detector surface"
+            ["DetectorApertureRequirement"] = _useSurfaceSamplingWindow
+                ? "Set a supported physical aperture on the detector surface"
+                : "Set a physical aperture on the detector surface"
         }, Outcome: AnalysisOutcome.Unavailable, OutcomeReason: message);
     }
 

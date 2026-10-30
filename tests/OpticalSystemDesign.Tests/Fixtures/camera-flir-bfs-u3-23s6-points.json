@@ -1,0 +1,15 @@
+{
+  "source": "https://softwareservices.flir.com/BFS-U3-23S6/latest/EMVA/EMVA.html",
+  "retrievedDate": "2026-10-30",
+  "reportDate": "11/3/2025 (as printed)",
+  "firmware": "2509.0.46.0",
+  "conditions": "20 C; ISP disabled; 16-bit pixel format. ADC bit depth is a separate report column.",
+  "scope": "Manufacturer-reported measurement points only. Not RAW frames, a full spectral QE curve, or a complete calibrated camera profile. Reported DN gain/noise are not used to infer a consistent ADC scale.",
+  "pixelPitchMicrometers": 5.86,
+  "points": [
+    { "model": "BFS-U3-23S6M", "channel": "mono", "wavelengthNanometers": 523, "qe": 0.6771, "readNoiseElectrons": 6.30, "wellElectrons": 33843 },
+    { "model": "BFS-U3-23S6C", "channel": "blue", "wavelengthNanometers": 457, "qe": 0.5562, "readNoiseElectrons": 10.25, "wellElectrons": 33279 },
+    { "model": "BFS-U3-23S6C", "channel": "green", "wavelengthNanometers": 523, "qe": 0.6175, "readNoiseElectrons": 10.25, "wellElectrons": 33279 },
+    { "model": "BFS-U3-23S6C", "channel": "red", "wavelengthNanometers": 628, "qe": 0.3874, "readNoiseElectrons": 10.25, "wellElectrons": 33279 }
+  ]
+}

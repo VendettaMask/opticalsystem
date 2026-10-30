@@ -1,0 +1,127 @@
+{
+  "SchemaVersion": 1,
+  "Id": "9fd70229-8de6-4fc1-8765-c82395856c61",
+  "Name": "\u793A\u4F8B\u4E09 \u00B7 550 nm \u7A84\u5E26\u6EE4\u5149\u7247",
+  "Target": {
+    "Kind": "NarrowBand",
+    "CenterNm": 1300,
+    "MinimumNm": 1105,
+    "MaximumNm": 1494.9999999999998,
+    "Reflectance": 0.02,
+    "MaximumLayers": 39,
+    "AngleDegrees": 25,
+    "Polarization": "S",
+    "FwhmNm": 45.50000000000001,
+    "PeakTransmittance": 0.75,
+    "BlockingOd": 1,
+    "StopBands": [
+      {
+        "MinimumNm": 1144,
+        "MaximumNm": 1196
+      },
+      {
+        "MinimumNm": 1404,
+        "MaximumNm": 1456.0000000000002
+      }
+    ],
+    "CenterToleranceNm": 1.3,
+    "FwhmToleranceNm": 3.9,
+    "Structure": {
+      "Cavities": 2
+    }
+  },
+  "Settings": {
+    "PreviewIntervals": 400,
+    "OptimizationIntervals": 120,
+    "MaximumIterations": 12,
+    "Optimizer": "Damped Least Squares",
+    "MinimumThicknessNm": 2.6,
+    "MaximumThicknessNm": 2600,
+    "TolerancePercent": 1,
+    "ToleranceTrials": 20,
+    "RandomSeed": 1234,
+    "Search": {
+      "Starts": 4,
+      "JitterPercent": 12,
+      "VaryStructure": true
+    },
+    "DesignProtocolVersion": 4
+  },
+  "IncidentId": "Air",
+  "SubstrateId": "control S",
+  "LowId": "control L",
+  "HighId": "control H",
+  "Materials": [
+    {
+      "Id": "Air",
+      "Name": "Air",
+      "Source": "\u6B63\u5F0F Core \u6750\u6599\u76EE\u5F55\u5FEB\u7167\uFF1B\u65E0 k \u6570\u636E\u7684\u6A21\u578B\u6309 k=0 \u8BA1\u7B97",
+      "MinimumNm": 300,
+      "MaximumNm": 2500,
+      "Model": {
+        "Kind": "air",
+        "Numbers": {},
+        "Text": {},
+        "Children": null
+      }
+    },
+    {
+      "Id": "control L",
+      "Name": "control L",
+      "Source": "synthetic holdout control",
+      "MinimumNm": 650,
+      "MaximumNm": 2600,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.4,
+          "extinction": 0.002
+        },
+        "Text": {
+          "name": "control L"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "control H",
+      "Name": "control H",
+      "Source": "synthetic holdout control",
+      "MinimumNm": 650,
+      "MaximumNm": 2600,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 2.25,
+          "extinction": 0.01
+        },
+        "Text": {
+          "name": "control H"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "control S",
+      "Name": "control S",
+      "Source": "synthetic holdout control",
+      "MinimumNm": 650,
+      "MaximumNm": 2600,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.52,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "control S"
+        },
+        "Children": null
+      }
+    }
+  ],
+  "Layers": [],
+  "Result": null,
+  "Candidates": null,
+  "Tolerance": null
+}

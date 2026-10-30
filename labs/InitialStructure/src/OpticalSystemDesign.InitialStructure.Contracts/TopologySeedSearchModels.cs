@@ -13,6 +13,12 @@ public sealed record TopologyDiversityOptions
 public sealed record ParaxialSeedSearchOptions
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public LensRetrievalOptions? Retrieval { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public StructureEvolutionOptions? Evolution { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public StructureCompetitionOptions? Competition { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public SeedImageScreeningOptions? ImageScreening { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? FixedStopRecoveryVersion { get; init; }
@@ -66,6 +72,8 @@ public sealed record StructureApertureDescriptor(double ClearSemiDiameterMillime
 public sealed record StructureGenerationOptions
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FeasibleThickLayoutOptions? FeasibleLayouts { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? MaterializationVersion { get; init; }
     public int Version { get; init; } = 1;
     public StructureGenerationMethod Method { get; init; } = StructureGenerationMethod.RandomPhysical;
@@ -77,6 +85,18 @@ public sealed record StructureGenerationOptions
     public double MinimumBackFocusMillimeters { get; init; } = 5;
     public int AnnealingProposals { get; init; } = 24;
 }
+
+/// <summary>Bounded thick layouts inside the original reference/stop/image envelope.
+/// Stop partitions change the number of lenses on either side, never the fixed stop itself.</summary>
+public sealed record FeasibleThickLayoutOptions
+{
+    public int Version { get; init; } = 1;
+    public int MaximumLayouts { get; init; } = 3;
+    public ImmutableArray<int> StopAfterElementCandidates { get; init; } = [];
+}
+
+public sealed record ThickLayoutPreparation(int AttemptedLayouts, int FeasibleLayouts,
+    int RejectedGeometryProposals, int? SelectedStopAfterElement, double? MinimumClearanceMarginMillimeters);
 
 public sealed record PopulationExplorationOptions
 {
@@ -118,11 +138,21 @@ public sealed record PopulationCoordinateProposal(string BindingFingerprint,
 
 public enum ParaxialSeedTermination { Completed, BudgetExhausted, Cancelled, TimeLimit }
 public sealed record ParaxialSeedAttempt(int Index, string SourceFingerprint, string Outcome,
-    int FunctionEvaluations, double? Score, DesignTopology? Endpoint);
+    int FunctionEvaluations, double? Score, DesignTopology? Endpoint)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ThickLayoutPreparation? Construction { get; init; }
+}
 
 /// <summary>First-order feasibility only. Every returned seed still needs full independent physical acceptance.</summary>
 public sealed record ParaxialSeedSearchResult
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public LensRetrievalResult? Retrieval { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public StructureEvolutionResult? Evolution { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public StructureCompetitionResult? Competition { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ImmutableArray<SeedImageScreeningResult>? ImageScreens { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

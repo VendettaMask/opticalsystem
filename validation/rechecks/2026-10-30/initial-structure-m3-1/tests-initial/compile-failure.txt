@@ -1,0 +1,8 @@
+Initial scoped test invocation failed during compilation, before test execution (exit 1).
+This note preserves the errors observed in the tool output; it is not a captured raw build log or a passing TRX.
+
+CementedTopologyTests.cs(44,35): CS0246: PupilSample type/namespace could not be found.
+CementedTopologyTests.cs(45,76): CS1503: PupilSample[] could not convert to IReadOnlyList<OpticalSystemDesign.Core.Raytrace.PupilSample>.
+
+Correction: add using OpticalSystemDesign.Core.Raytrace to the new test file.
+Follow-up results remain in tests-round2, tests-regression, tests-regression-v2 and tests-final.

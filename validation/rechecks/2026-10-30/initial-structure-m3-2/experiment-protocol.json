@@ -1,0 +1,23 @@
+{
+  "identity": "initial-structure-m3-2-retrieval-comparison-v1",
+  "frozenBeforeFormalExecution": true,
+  "seeds": [42, 43, 44, 45, 46],
+  "cases": ["controlled-3-F8-full10", "competition-8-F8-full25", "competition-8-F4-full25", "original-half21"],
+  "arms": ["fixed", "retrieval"],
+  "library": "inputs/sources.lens-library.json",
+  "libraryEntries": 28,
+  "librarySource": "Existing frozen repository-authored construction results plus the previously user-provided 21-degree prescription. Source files, SHA-256, usage authority and acquisition costs are recorded; no web scraping or automatic commercial-corpus ingestion.",
+  "controlledCase": "A recorded qualified project-authored 3-element F/8 full10 source with +0.0005/mm applied to the query front curvature; this is a deliberate retrieval sanity case, not a held-out generalization/new-design benchmark.",
+  "historicalCases": "Original M2 source plans and inherited acquisition work, with unchanged fields, wavelengths, materials/profile/axial permissions, protected/fixed planes, element bounds, apertures, targets and manufacturing limits.",
+  "unifiedEndToEndBudgetPerRun": { "functions": 600, "gradients": 200, "rays": 2000000, "seconds": 110 },
+  "inheritedInputAcquisition": "Frozen M0/M1 preparation cost is subtracted from online budget and added to both arms' end-to-end totals; original provided inputs have no new preparation dispatch, but their original design cost is not assumed known.",
+  "offlineLibraryCosts": "Source acquisition cost deduplicated by source-document SHA-256; original 21-degree creation cost unknown; measured library indexing separately. Both remain separate from warm online query cost; no free cold-start or general speed claim.",
+  "fixedArm": "M2 parent-only recovery/competition, one parent, one branch, no structure operation, original final validation; each query's complete options are frozen under inputs/.",
+  "retrievalArm": { "version": 1, "maximumStarts": 16, "maximumFinalCandidates": 2, "retainedSeeds": 2, "minimumScale": 0.5, "maximumScale": 2, "maximumSourceSlowerFraction": 0.25, "finalRayRecoveryFactor": 12 },
+  "retrievalTransform": "Use scale 1 if source EFL is already inside the original focal tolerance; otherwise uniform Core dimensional scaling. Anchor the stop, retain original task reference/stop/image/settings and ordinal face apertures; honor original material/profile/axial/protection bounds. Source descriptor roundoff tolerance is 1e-12 and affects index checking only; actual Core descriptor controls transfer and original physical thresholds stay strict.",
+  "finalAcceptance": "Unchanged TopologyValidator Core CPU/double: original fields sampled21, Gaussian10x32 plus center+32 rim checks, all positive-weight wavelengths, original first-order and manufacturing checks.",
+  "qualification": "Only completed original assessment with all gates passed qualifies. Retrieved historical prescriptions and original-input reuse are distinct from new generated designs. Incomplete/failed candidates retain evidence; working seeds must satisfy the unchanged original first-order/manufacturing boundary.",
+  "independentVerification": "Every saved content hash, all source receipts, fixed settings/apertures/permissions, per-entry and total work/budgets, qualification and retained-seed boundary; independently replay every distinct saved original assessment. Verifier replay cost is separate.",
+  "execution": "One bounded background CPU run at a time, nested parallelism suppressed; no desktop interaction, no GPU claim. Five seed labels are engineering comparisons; retrieval itself is deterministic. Report all outcomes and actual costs without a universal-success or acceleration claim.",
+  "developmentPilots": ["pilot-retrieval-seed42", "pilot-fixed-seed42"]
+}

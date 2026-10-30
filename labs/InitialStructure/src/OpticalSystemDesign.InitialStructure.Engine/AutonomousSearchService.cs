@@ -579,6 +579,8 @@ public static partial class AutonomousSearchService
     private static void ValidatePlan(AutonomousSearchPlan plan)
     {
         ArgumentNullException.ThrowIfNull(plan);
+        if (plan.Seeds.Any(seed => seed.CementedInterfaces is not null))
+            throw new NotSupportedException("Cemented topology compilation, explicit parameter binding and physical validation are available; autonomous structure scheduling requires a separately versioned cemented policy.");
         var options = plan.Options;
         if (options.BoundedSearch is { } bounded) ValidateBoundedOptions(bounded);
         if (options.PoolDiversity is { } diversity && (diversity.Version != 1 || diversity.RankWindow is < 8 or > 128))

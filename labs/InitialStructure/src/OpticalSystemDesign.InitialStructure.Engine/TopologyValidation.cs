@@ -26,12 +26,15 @@ public static class TopologyValidation
         Aperture(topology.Stop.ClearSemiDiameterMillimeters, topology.Stop.MechanicalSemiDiameterMillimeters);
         var ids = new HashSet<string>(StringComparer.Ordinal);
         AddId(topology.Reference.Id); AddId(topology.Stop.Id); AddId(topology.Image.Id);
+        var contacts = ValidateCementedInterfaces(topology);
         double? previousBack = null;
         foreach (var element in topology.Elements)
         {
             Require(element is not null && element.Front is not null && element.Back is not null && Identifier(element.Material, InitialStructureLimits.MaximumIdentifierLength),
                 TopologyFailureCode.InvalidInput, "Every element requires two faces and a material name.");
-            AddId(element.Id); AddId(element.FrontSurfaceId); AddId(element.BackSurfaceId);
+            AddId(element.Id);
+            if (!contacts.ContainsKey(element.Id)) AddId(element.FrontSurfaceId);
+            AddId(element.BackSurfaceId);
             Require(!element.Transition || constraints.AllowTransitionElements, TopologyFailureCode.TransitionNotAllowed, "Transition elements require an explicit exploration constraint.");
             var scoped = element.Transition && constraints.TransitionAllowance?.ElementId == element.Id ? constraints.TransitionAllowance : null;
             Require(constraints.TransitionAllowance is null || !element.Transition || scoped is not null,
@@ -43,7 +46,7 @@ public static class TopologyValidation
                 TopologyFailureCode.CenterThickness, "An element has nonrepresentable, nonpositive or insufficient center thickness.");
             Require(element.FrontZMillimeters >= topology.Reference.ZMillimeters && element.BackZMillimeters < topology.Image.ZMillimeters,
                 TopologyFailureCode.AxialOrder, "Element vertices must lie within the mechanical reference and image interval.");
-            if (previousBack.HasValue)
+            if (previousBack.HasValue && !contacts.ContainsKey(element.Id))
                 Require(element.FrontZMillimeters > previousBack.Value && element.FrontZMillimeters - previousBack.Value >= constraints.MinimumAirGapMillimeters,
                     TopologyFailureCode.AirGap, "Elements must already be in nonintersecting axial order with the requested air gap.");
             Require(topology.Stop.ZMillimeters < element.FrontZMillimeters || topology.Stop.ZMillimeters > element.BackZMillimeters,
@@ -83,6 +86,36 @@ public static class TopologyValidation
         }
     }
 
+    // Key by the element to the right of the common interface. Null keeps the original singlet contract.
+    private static Dictionary<string, TopologyCementedInterface> ValidateCementedInterfaces(DesignTopology topology)
+    {
+        var result = new Dictionary<string, TopologyCementedInterface>(StringComparer.Ordinal);
+        if (topology.CementedInterfaces is not { } cemented) return result;
+        Require(cemented.Version == 1 && !cemented.Interfaces.IsDefaultOrEmpty
+            && cemented.Interfaces.Length < topology.Elements.Length,
+            TopologyFailureCode.UnsupportedFeature, "A version 1 nonempty bounded cemented-interface declaration is required.");
+        var surfaces = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var contact in cemented.Interfaces)
+        {
+            Require(contact is not null && Identifier(contact.LeftElementId, InitialStructureLimits.MaximumIdentifierLength)
+                && Identifier(contact.RightElementId, InitialStructureLimits.MaximumIdentifierLength)
+                && Identifier(contact.SurfaceId, InitialStructureLimits.MaximumIdentifierLength),
+                TopologyFailureCode.InvalidIdentity, "Cemented boundaries need stable element and shared-surface identities.");
+            var index = -1;
+            for (var i = 0; i + 1 < topology.Elements.Length; i++)
+                if (topology.Elements[i]?.Id == contact.LeftElementId && topology.Elements[i + 1]?.Id == contact.RightElementId) { index = i; break; }
+            Require(index >= 0 && surfaces.Add(contact.SurfaceId) && result.TryAdd(contact.RightElementId, contact),
+                TopologyFailureCode.InvalidIdentity, "Each cemented boundary must connect two adjacent elements exactly once.");
+            var left = topology.Elements[index]; var right = topology.Elements[index + 1];
+            Require(left.Back is not null && right.Front is not null && !left.Transition && !right.Transition
+                && left.BackSurfaceId == contact.SurfaceId && right.FrontSurfaceId == contact.SurfaceId
+                && left.BackZMillimeters == right.FrontZMillimeters
+                && ContentFingerprint.Compute(left.Back) == ContentFingerprint.Compute(right.Front),
+                TopologyFailureCode.IdentityMismatch, "Cemented faces must share one identity, exact position, profile and physical/mechanical aperture.");
+        }
+        return result;
+    }
+
     public static IReadOnlyList<TopologyAirInterval> AirIntervals(DesignTopology topology, TopologyConstraints? constraints = null)
     {
         Validate(topology, constraints);
@@ -96,7 +129,7 @@ public static class TopologyValidation
         var position = topology.Reference.ZMillimeters;
         foreach (var element in topology.Elements)
         {
-            Add(element.FrontSurfaceId, element.FrontZMillimeters);
+            if (left != element.FrontSurfaceId) Add(element.FrontSurfaceId, element.FrontZMillimeters);
             left = element.BackSurfaceId;
             position = element.BackZMillimeters;
         }

@@ -1,0 +1,4294 @@
+[
+  {
+    "Name": "HR-LM",
+    "Source": "HR",
+    "Counterfactual": false,
+    "LayerCount": 32,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0001283430498857739,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 526.3801135245402,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9559963407751053,
+        "MaximumReflectance": 0.9678026564074362
+      },
+      "CenterPower": {
+        "Reflectance": 0.967627565946589,
+        "Transmittance": 2.2013594749835838E-05,
+        "Absorptance": 0.032350420458661114,
+        "LogTransmittance": -10.723850352279868,
+        "OpticalDensity": 4.65730903275139
+      },
+      "MinimumOd": []
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0001283430498857739,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 526.3801135245402,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9559963407751053,
+        "MaximumReflectance": 0.9678026564074362
+      },
+      "CenterPower": {
+        "Reflectance": 0.967627565946589,
+        "Transmittance": 2.2013594749835838E-05,
+        "Absorptance": 0.032350420458661114,
+        "LogTransmittance": -10.723850352279868,
+        "OpticalDensity": 4.65730903275139
+      },
+      "MinimumOd": []
+    },
+    "OriginalAssessment": {
+      "Passed": false,
+      "SamplingConverged": true,
+      "Metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0001283430498857739,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 526.3800957928967,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9559963407751053,
+        "MaximumReflectance": 0.9678026582640147
+      },
+      "Checks": [
+        {
+          "Name": "\u5C42\u6570",
+          "Actual": 32,
+          "Requirement": "\u2264 32",
+          "Passed": true
+        },
+        {
+          "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+          "Actual": null,
+          "Requirement": "2\u20132000",
+          "Passed": true
+        },
+        {
+          "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+          "Actual": 95.59963407751053,
+          "Requirement": "\u2265 98",
+          "Passed": false
+        }
+      ]
+    }
+  },
+  {
+    "Name": "HR-Newton",
+    "Source": "HR",
+    "Counterfactual": false,
+    "LayerCount": 32,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0002178218606194456,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 525.7899871996115,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9588240712851451,
+        "MaximumReflectance": 0.9701788453816516
+      },
+      "CenterPower": {
+        "Reflectance": 0.9701609031910028,
+        "Transmittance": 3.098550888929309E-05,
+        "Absorptance": 0.02980811130010792,
+        "LogTransmittance": -10.381990917954457,
+        "OpticalDensity": 4.508841366837297
+      },
+      "MinimumOd": []
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0002178218606194456,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 525.7899871996115,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9588240712851451,
+        "MaximumReflectance": 0.9701788453816516
+      },
+      "CenterPower": {
+        "Reflectance": 0.9701609031910028,
+        "Transmittance": 3.098550888929309E-05,
+        "Absorptance": 0.02980811130010792,
+        "LogTransmittance": -10.381990917954457,
+        "OpticalDensity": 4.508841366837297
+      },
+      "MinimumOd": []
+    },
+    "OriginalAssessment": {
+      "Passed": false,
+      "SamplingConverged": true,
+      "Metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0002178218606194456,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 525.7900258135286,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9588240712851451,
+        "MaximumReflectance": 0.9701788455994171
+      },
+      "Checks": [
+        {
+          "Name": "\u5C42\u6570",
+          "Actual": 32,
+          "Requirement": "\u2264 32",
+          "Passed": true
+        },
+        {
+          "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+          "Actual": null,
+          "Requirement": "2\u20132000",
+          "Passed": true
+        },
+        {
+          "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+          "Actual": 95.88240712851452,
+          "Requirement": "\u2265 98",
+          "Passed": false
+        }
+      ]
+    }
+  },
+  {
+    "Name": "NBF1-level0.8913-m4-order1-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 9,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 527.5901547944386,
+        "RightHalfMaximumNanometers": 575.4008296471213,
+        "FwhmNanometers": 47.81067485268272,
+        "MinimumReflectance": 1.7118415241310584E-29,
+        "MaximumReflectance": 0.6331633381508525
+      },
+      "CenterPower": {
+        "Reflectance": 1.7118415241310584E-29,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -8.881784197001252E-16,
+        "LogTransmittance": 8.881784197001252E-16,
+        "OpticalDensity": -3.857309866213148E-16
+      },
+      "MinimumOd": [
+        0.5793550792041315,
+        0.4805580126780898
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.675,
+        "PeakTransmittance": 0.7535087582818398,
+        "LeftHalfMaximumNanometers": 530.7653079714022,
+        "RightHalfMaximumNanometers": 573.0657360529756,
+        "FwhmNanometers": 42.300428081573386,
+        "MinimumReflectance": 0.07737973543109741,
+        "MaximumReflectance": 0.6781805883532883
+      },
+      "CenterPower": {
+        "Reflectance": 0.07740890144387688,
+        "Transmittance": 0.7526740121944918,
+        "Absorptance": 0.16991708636163128,
+        "LogTransmittance": -0.2841230636510269,
+        "OpticalDensity": 0.12339307872508735
+      },
+      "MinimumOd": [
+        0.7845868286446189,
+        0.656048422841078
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m4-order1-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 9,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9576119544052251,
+        "LeftHalfMaximumNanometers": 532.1318972706742,
+        "RightHalfMaximumNanometers": 569.6910831458324,
+        "FwhmNanometers": 37.559185875158164,
+        "MinimumReflectance": 0.042388045594775985,
+        "MaximumReflectance": 0.7386436891255457
+      },
+      "CenterPower": {
+        "Reflectance": 0.042388045594775985,
+        "Transmittance": 0.9576119544052251,
+        "Absorptance": -9.43689570931383E-16,
+        "LogTransmittance": -0.043312641101565075,
+        "OpticalDensity": 0.018810441027065694
+      },
+      "MinimumOd": [
+        0.7400724297521625,
+        0.6328383076266043
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.675,
+        "PeakTransmittance": 0.7535087582818398,
+        "LeftHalfMaximumNanometers": 530.7653079714022,
+        "RightHalfMaximumNanometers": 573.0657360529756,
+        "FwhmNanometers": 42.300428081573386,
+        "MinimumReflectance": 0.07737973543109741,
+        "MaximumReflectance": 0.6781805883532883
+      },
+      "CenterPower": {
+        "Reflectance": 0.07740890144387688,
+        "Transmittance": 0.7526740121944918,
+        "Absorptance": 0.16991708636163128,
+        "LogTransmittance": -0.2841230636510269,
+        "OpticalDensity": 0.12339307872508735
+      },
+      "MinimumOd": [
+        0.7845868286446189,
+        0.656048422841078
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m4-order1-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 10,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 528.7672054553344,
+        "RightHalfMaximumNanometers": 576.1758246207474,
+        "FwhmNanometers": 47.40861916541303,
+        "MinimumReflectance": 4.1500292057449086E-30,
+        "MaximumReflectance": 0.6587349542790726
+      },
+      "CenterPower": {
+        "Reflectance": 4.1500292057449086E-30,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -9.992007221626409E-16,
+        "LogTransmittance": 8.881784197001252E-16,
+        "OpticalDensity": -3.857309866213148E-16
+      },
+      "MinimumOd": [
+        0.6138819209363265,
+        0.4490717584574871
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.9,
+        "PeakTransmittance": 0.8019297784765707,
+        "LeftHalfMaximumNanometers": 527.5871711280518,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.006149339028150684,
+        "MaximumReflectance": 0.5754169113539712
+      },
+      "CenterPower": {
+        "Reflectance": 0.006164612058786901,
+        "Transmittance": 0.8008295451869243,
+        "Absorptance": 0.19300584275428884,
+        "LogTransmittance": -0.2221071570726486,
+        "OpticalDensity": 0.09645991270787009
+      },
+      "MinimumOd": [
+        0.6673103713183388,
+        0.4800932172390153
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m3-order2-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 7,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 523.0783159990491,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 1.282661729333478E-29,
+        "MaximumReflectance": 0.5487662462156747
+      },
+      "CenterPower": {
+        "Reflectance": 1.282661729333478E-29,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -9.992007221626409E-16,
+        "LogTransmittance": 1.1102230246251565E-15,
+        "OpticalDensity": -4.821637332766435E-16
+      },
+      "MinimumOd": [
+        0.4698982018382571,
+        0.3882402284219301
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.575,
+        "PeakTransmittance": 0.8253179564772759,
+        "LeftHalfMaximumNanometers": 528.0548035561195,
+        "RightHalfMaximumNanometers": 576.1329540328215,
+        "FwhmNanometers": 48.078150476702035,
+        "MinimumReflectance": 0.06071893879699138,
+        "MaximumReflectance": 0.6276105837748163
+      },
+      "CenterPower": {
+        "Reflectance": 0.0607350159034672,
+        "Transmittance": 0.8248053886461998,
+        "Absorptance": 0.11445959545033302,
+        "LogTransmittance": -0.19260781302454077,
+        "OpticalDensity": 0.08364851036801133
+      },
+      "MinimumOd": [
+        0.6589825221475963,
+        0.5501784967759369
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m3-order2-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 7,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9576119544052253,
+        "LeftHalfMaximumNanometers": 528.8650775206627,
+        "RightHalfMaximumNanometers": 573.6085401803504,
+        "FwhmNanometers": 44.74346265968768,
+        "MinimumReflectance": 0.04238804559477586,
+        "MaximumReflectance": 0.6706203498945595
+      },
+      "CenterPower": {
+        "Reflectance": 0.04238804559477586,
+        "Transmittance": 0.9576119544052253,
+        "Absorptance": -1.0547118733938987E-15,
+        "LogTransmittance": -0.04331264110156485,
+        "OpticalDensity": 0.018810441027065597
+      },
+      "MinimumOd": [
+        0.6234229765363165,
+        0.5317527114330657
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.575,
+        "PeakTransmittance": 0.8253179564772759,
+        "LeftHalfMaximumNanometers": 528.0548035561195,
+        "RightHalfMaximumNanometers": 576.1329540328215,
+        "FwhmNanometers": 48.078150476702035,
+        "MinimumReflectance": 0.06071893879699138,
+        "MaximumReflectance": 0.6276105837748163
+      },
+      "CenterPower": {
+        "Reflectance": 0.0607350159034672,
+        "Transmittance": 0.8248053886461998,
+        "Absorptance": 0.11445959545033302,
+        "LogTransmittance": -0.19260781302454077,
+        "OpticalDensity": 0.08364851036801133
+      },
+      "MinimumOd": [
+        0.6589825221475963,
+        0.5501784967759369
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m3-order2-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 8,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000013,
+        "LeftHalfMaximumNanometers": 524.7973670414952,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 6.191074713501468E-31,
+        "MaximumReflectance": 0.5796254668136155
+      },
+      "CenterPower": {
+        "Reflectance": 6.191074713501468E-31,
+        "Transmittance": 1.0000000000000013,
+        "Absorptance": -1.4432899320127035E-15,
+        "LogTransmittance": 1.3322676295501878E-15,
+        "OpticalDensity": -5.785964799319722E-16
+      },
+      "MinimumOd": [
+        0.5053368905519628,
+        0.360622223821338
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.775,
+        "PeakTransmittance": 0.866024524104192,
+        "LeftHalfMaximumNanometers": 524.1134474998603,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0020133476611333694,
+        "MaximumReflectance": 0.5202910165874681
+      },
+      "CenterPower": {
+        "Reflectance": 0.0020192824575835963,
+        "Transmittance": 0.8653580334307859,
+        "Absorptance": 0.13262268411163047,
+        "LogTransmittance": -0.14461194620730722,
+        "OpticalDensity": 0.0628041702551234
+      },
+      "MinimumOd": [
+        0.548652640238493,
+        0.3858839612815384
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m2-order4-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 5,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 521.7168271872684,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 1.2378785141428964E-29,
+        "MaximumReflectance": 0.5214781524655447
+      },
+      "CenterPower": {
+        "Reflectance": 1.2378785141428964E-29,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -7.771561172376096E-16,
+        "LogTransmittance": 8.326672684688674E-16,
+        "OpticalDensity": -3.6162279995748265E-16
+      },
+      "MinimumOd": [
+        0.34569481964364174,
+        0.3447627339259986
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.875,
+        "PeakTransmittance": 0.7242539599294402,
+        "LeftHalfMaximumNanometers": 526.5099461233203,
+        "RightHalfMaximumNanometers": 579.8438608141911,
+        "FwhmNanometers": 53.333914690870756,
+        "MinimumReflectance": 0.07959721488758745,
+        "MaximumReflectance": 0.5837659574353475
+      },
+      "CenterPower": {
+        "Reflectance": 0.07963203321540939,
+        "Transmittance": 0.7232698566231275,
+        "Absorptance": 0.19709811016146317,
+        "LogTransmittance": -0.32397288078707,
+        "OpticalDensity": 0.14069963441212452
+      },
+      "MinimumOd": [
+        0.550276008541534,
+        0.5211259564580267
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m2-order4-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 5,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.957611954405225,
+        "LeftHalfMaximumNanometers": 528.8277272646459,
+        "RightHalfMaximumNanometers": 573.7818194607974,
+        "FwhmNanometers": 44.954092196151464,
+        "MinimumReflectance": 0.04238804559477584,
+        "MaximumReflectance": 0.6508658188331535
+      },
+      "CenterPower": {
+        "Reflectance": 0.04238804559477584,
+        "Transmittance": 0.957611954405225,
+        "Absorptance": -7.771561172376096E-16,
+        "LogTransmittance": -0.04331264110156513,
+        "OpticalDensity": 0.01881044102706572
+      },
+      "MinimumOd": [
+        0.4650806376518986,
+        0.4858603002683616
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.875,
+        "PeakTransmittance": 0.7242539599294402,
+        "LeftHalfMaximumNanometers": 526.5099461233203,
+        "RightHalfMaximumNanometers": 579.8438608141911,
+        "FwhmNanometers": 53.333914690870756,
+        "MinimumReflectance": 0.07959721488758745,
+        "MaximumReflectance": 0.5837659574353475
+      },
+      "CenterPower": {
+        "Reflectance": 0.07963203321540939,
+        "Transmittance": 0.7232698566231275,
+        "Absorptance": 0.19709811016146317,
+        "LogTransmittance": -0.32397288078707,
+        "OpticalDensity": 0.14069963441212452
+      },
+      "MinimumOd": [
+        0.550276008541534,
+        0.5211259564580267
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m2-order4-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 6,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 523.8230082515308,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 6.165805020793295E-30,
+        "MaximumReflectance": 0.5512882863484613
+      },
+      "CenterPower": {
+        "Reflectance": 6.165805020793295E-30,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -7.771561172376096E-16,
+        "LogTransmittance": 8.326672684688674E-16,
+        "OpticalDensity": -3.6162279995748265E-16
+      },
+      "MinimumOd": [
+        0.3359560032666694,
+        0.3150139097811701
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.225,
+        "PeakTransmittance": 0.7722896679138695,
+        "LeftHalfMaximumNanometers": 521.4792989271481,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0068220276998403025,
+        "MaximumReflectance": 0.46496568369724683
+      },
+      "CenterPower": {
+        "Reflectance": 0.0068456763496536925,
+        "Transmittance": 0.7708979558296434,
+        "Absorptance": 0.22225636782070296,
+        "LogTransmittance": -0.26019926718778175,
+        "OpticalDensity": 0.11300310593492345
+      },
+      "MinimumOd": [
+        0.4388593986526306,
+        0.3599401391860649
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m1-order6-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 3,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000004,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 1.1803766128639E-29,
+        "MaximumReflectance": 0.3344706799645114
+      },
+      "CenterPower": {
+        "Reflectance": 1.1803766128639E-29,
+        "Transmittance": 1.0000000000000004,
+        "Absorptance": -5.551115123125783E-16,
+        "LogTransmittance": 6.661338147750939E-16,
+        "OpticalDensity": -2.892982399659861E-16
+      },
+      "MinimumOd": [
+        0.07448633431366923,
+        0.1554307787966901
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.45,
+        "PeakTransmittance": 0.8622100502371064,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.051918638953917934,
+        "MaximumReflectance": 0.46443880606541577
+      },
+      "CenterPower": {
+        "Reflectance": 0.05192694929777703,
+        "Transmittance": 0.8619780315148603,
+        "Absorptance": 0.08609501918736268,
+        "LogTransmittance": -0.14852549412480498,
+        "OpticalDensity": 0.06450380252035665
+      },
+      "MinimumOd": [
+        0.17856280519481482,
+        0.2784853835302933
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m1-order6-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 3,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9576119544052248,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.04238804559477586,
+        "MaximumReflectance": 0.4893780083551039
+      },
+      "CenterPower": {
+        "Reflectance": 0.04238804559477586,
+        "Transmittance": 0.9576119544052248,
+        "Absorptance": -6.106226635438361E-16,
+        "LogTransmittance": -0.0433126411015653,
+        "OpticalDensity": 0.018810441027065788
+      },
+      "MinimumOd": [
+        0.12947866174094333,
+        0.255295890543501
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.45,
+        "PeakTransmittance": 0.8622100502371064,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.051918638953917934,
+        "MaximumReflectance": 0.46443880606541577
+      },
+      "CenterPower": {
+        "Reflectance": 0.05192694929777703,
+        "Transmittance": 0.8619780315148603,
+        "Absorptance": 0.08609501918736268,
+        "LogTransmittance": -0.14852549412480498,
+        "OpticalDensity": 0.06450380252035665
+      },
+      "MinimumOd": [
+        0.17856280519481482,
+        0.2784853835302933
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.8913-m1-order6-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 4,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 8.17329569069146E-30,
+        "MaximumReflectance": 0.36765592752480614
+      },
+      "CenterPower": {
+        "Reflectance": 8.17329569069146E-30,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -9.992007221626409E-16,
+        "LogTransmittance": 8.881784197001252E-16,
+        "OpticalDensity": -3.857309866213148E-16
+      },
+      "MinimumOd": [
+        0.05682057788918171,
+        0.11740183347613954
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.675,
+        "PeakTransmittance": 0.8973565535338559,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0006489238006329885,
+        "MaximumReflectance": 0.3359588385674043
+      },
+      "CenterPower": {
+        "Reflectance": 0.0006519762939299993,
+        "Transmittance": 0.8970200906721918,
+        "Absorptance": 0.10232793303387822,
+        "LogTransmittance": -0.10867701954630254,
+        "OpticalDensity": 0.04719782989865103
+      },
+      "MinimumOd": [
+        0.11741350341795764,
+        0.1466342994243598
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m7-order1-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 15,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000027,
+        "LeftHalfMaximumNanometers": 543.8153958542179,
+        "RightHalfMaximumNanometers": 556.4042813491659,
+        "FwhmNanometers": 12.588885494948045,
+        "MinimumReflectance": 2.3214261212688753E-28,
+        "MaximumReflectance": 0.9493548190255859
+      },
+      "CenterPower": {
+        "Reflectance": 2.3214261212688753E-28,
+        "Transmittance": 1.0000000000000027,
+        "Absorptance": -2.6645352591003757E-15,
+        "LogTransmittance": 2.6645352591003757E-15,
+        "OpticalDensity": -1.1571929598639444E-15
+      },
+      "MinimumOd": [
+        1.3370744833758341,
+        1.3158114489042394
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.225,
+        "PeakTransmittance": 0.5477199399066346,
+        "LeftHalfMaximumNanometers": 543.6242057969221,
+        "RightHalfMaximumNanometers": 557.0705715015084,
+        "FwhmNanometers": 13.446365704586356,
+        "MinimumReflectance": 0.14509340346756888,
+        "MaximumReflectance": 0.9224386499852782
+      },
+      "CenterPower": {
+        "Reflectance": 0.1451121028179802,
+        "Transmittance": 0.5471382078063745,
+        "Absorptance": 0.3077496893756454,
+        "LogTransmittance": -0.6030538433806847,
+        "OpticalDensity": 0.2619029564707792
+      },
+      "MinimumOd": [
+        1.5092723929433185,
+        1.506882268644483
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m7-order1-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 15,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9576119544052266,
+        "LeftHalfMaximumNanometers": 544.9266354476679,
+        "RightHalfMaximumNanometers": 555.220761063724,
+        "FwhmNanometers": 10.294125616056135,
+        "MinimumReflectance": 0.04238804559477579,
+        "MaximumReflectance": 0.96618297793737
+      },
+      "CenterPower": {
+        "Reflectance": 0.04238804559477579,
+        "Transmittance": 0.9576119544052266,
+        "Absorptance": -2.4980018054066022E-15,
+        "LogTransmittance": -0.0433126411015633,
+        "OpticalDensity": 0.01881044102706492
+      },
+      "MinimumOd": [
+        1.4710684495023352,
+        1.4874291226641587
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.225,
+        "PeakTransmittance": 0.5477199399066346,
+        "LeftHalfMaximumNanometers": 543.6242057969221,
+        "RightHalfMaximumNanometers": 557.0705715015084,
+        "FwhmNanometers": 13.446365704586356,
+        "MinimumReflectance": 0.14509340346756888,
+        "MaximumReflectance": 0.9224386499852782
+      },
+      "CenterPower": {
+        "Reflectance": 0.1451121028179802,
+        "Transmittance": 0.5471382078063745,
+        "Absorptance": 0.3077496893756454,
+        "LogTransmittance": -0.6030538433806847,
+        "OpticalDensity": 0.2619029564707792
+      },
+      "MinimumOd": [
+        1.5092723929433185,
+        1.506882268644483
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m7-order1-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 16,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000027,
+        "LeftHalfMaximumNanometers": 543.9065635626207,
+        "RightHalfMaximumNanometers": 556.4189530833561,
+        "FwhmNanometers": 12.512389520735383,
+        "MinimumReflectance": 2.2387497839036646E-29,
+        "MaximumReflectance": 0.9518291570010682
+      },
+      "CenterPower": {
+        "Reflectance": 2.2387497839036646E-29,
+        "Transmittance": 1.0000000000000027,
+        "Absorptance": -2.55351295663786E-15,
+        "LogTransmittance": 2.609024107869118E-15,
+        "OpticalDensity": -1.1330847732001123E-15
+      },
+      "MinimumOd": [
+        1.3055748250438768,
+        1.2664564484581198
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.275,
+        "PeakTransmittance": 0.6103025122407308,
+        "LeftHalfMaximumNanometers": 542.6651358653872,
+        "RightHalfMaximumNanometers": 558.4146584837971,
+        "FwhmNanometers": 15.749522618409856,
+        "MinimumReflectance": 0.03622042668762723,
+        "MaximumReflectance": 0.8632963435944223
+      },
+      "CenterPower": {
+        "Reflectance": 0.03623257574429837,
+        "Transmittance": 0.6095433590806549,
+        "Absorptance": 0.35422406517504673,
+        "LogTransmittance": -0.4950451938204955,
+        "OpticalDensity": 0.21499539596896697
+      },
+      "MinimumOd": [
+        1.3579034192559996,
+        1.2939640690871737
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m6-order2-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 13,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000022,
+        "LeftHalfMaximumNanometers": 543.2341199622728,
+        "RightHalfMaximumNanometers": 557.0297509105404,
+        "FwhmNanometers": 13.795630948267672,
+        "MinimumReflectance": 1.8632779976274843E-28,
+        "MaximumReflectance": 0.938959719213958
+      },
+      "CenterPower": {
+        "Reflectance": 1.8632779976274843E-28,
+        "Transmittance": 1.0000000000000022,
+        "Absorptance": -2.220446049250313E-15,
+        "LogTransmittance": 2.220446049250313E-15,
+        "OpticalDensity": -9.64327466553287E-16
+      },
+      "MinimumOd": [
+        1.212693060717239,
+        1.2314044242119546
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.275,
+        "PeakTransmittance": 0.4868034236960371,
+        "LeftHalfMaximumNanometers": 542.627484664662,
+        "RightHalfMaximumNanometers": 558.2892999627459,
+        "FwhmNanometers": 15.661815298083866,
+        "MinimumReflectance": 0.1719785873579443,
+        "MaximumReflectance": 0.9081890709712706
+      },
+      "CenterPower": {
+        "Reflectance": 0.17200475244345528,
+        "Transmittance": 0.4861633858706935,
+        "Absorptance": 0.3418318616858512,
+        "LogTransmittance": -0.7212105266600086,
+        "OpticalDensity": 0.3132177520189798
+      },
+      "MinimumOd": [
+        1.390705992026911,
+        1.4250884769893617
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m6-order2-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 13,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9576119544052263,
+        "LeftHalfMaximumNanometers": 544.4586363830676,
+        "RightHalfMaximumNanometers": 555.717948333323,
+        "FwhmNanometers": 11.259311950255324,
+        "MinimumReflectance": 0.04238804559477579,
+        "MaximumReflectance": 0.9592036696481312
+      },
+      "CenterPower": {
+        "Reflectance": 0.04238804559477579,
+        "Transmittance": 0.9576119544052263,
+        "Absorptance": -2.1094237467877974E-15,
+        "LogTransmittance": -0.04331264110156374,
+        "OpticalDensity": 0.018810441027065115
+      },
+      "MinimumOd": [
+        1.3453380815107088,
+        1.40275610480829
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.275,
+        "PeakTransmittance": 0.4868034236960371,
+        "LeftHalfMaximumNanometers": 542.627484664662,
+        "RightHalfMaximumNanometers": 558.2892999627459,
+        "FwhmNanometers": 15.661815298083866,
+        "MinimumReflectance": 0.1719785873579443,
+        "MaximumReflectance": 0.9081890709712706
+      },
+      "CenterPower": {
+        "Reflectance": 0.17200475244345528,
+        "Transmittance": 0.4861633858706935,
+        "Absorptance": 0.3418318616858512,
+        "LogTransmittance": -0.7212105266600086,
+        "OpticalDensity": 0.3132177520189798
+      },
+      "MinimumOd": [
+        1.390705992026911,
+        1.4250884769893617
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m6-order2-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 14,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000024,
+        "LeftHalfMaximumNanometers": 543.3433978746198,
+        "RightHalfMaximumNanometers": 557.0489505772811,
+        "FwhmNanometers": 13.705552702661294,
+        "MinimumReflectance": 5.930838304333065E-29,
+        "MaximumReflectance": 0.9420109172872861
+      },
+      "CenterPower": {
+        "Reflectance": 5.930838304333065E-29,
+        "Transmittance": 1.0000000000000024,
+        "Absorptance": -2.4424906541753444E-15,
+        "LogTransmittance": 2.3869795029440866E-15,
+        "OpticalDensity": -1.0366520265447835E-15
+      },
+      "MinimumOd": [
+        1.181035993227007,
+        1.1825233280592573
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.35,
+        "PeakTransmittance": 0.5508778603449205,
+        "LeftHalfMaximumNanometers": 541.5963342726877,
+        "RightHalfMaximumNanometers": 559.8487624436016,
+        "FwhmNanometers": 18.252428170913845,
+        "MinimumReflectance": 0.05209316238508871,
+        "MaximumReflectance": 0.8433447256649269
+      },
+      "CenterPower": {
+        "Reflectance": 0.05211774862636123,
+        "Transmittance": 0.5500027175857165,
+        "Absorptance": 0.3978795337879222,
+        "LogTransmittance": -0.5978320597028883,
+        "OpticalDensity": 0.2596351646338198
+      },
+      "MinimumOd": [
+        1.2415507522895282,
+        1.2135246688738541
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m5-order4-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 11,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000018,
+        "LeftHalfMaximumNanometers": 543.0781084289154,
+        "RightHalfMaximumNanometers": 557.182622940594,
+        "FwhmNanometers": 14.104514511678644,
+        "MinimumReflectance": 1.9262521263392792E-28,
+        "MaximumReflectance": 0.9269178126062775
+      },
+      "CenterPower": {
+        "Reflectance": 1.9262521263392792E-28,
+        "Transmittance": 1.0000000000000018,
+        "Absorptance": -1.7763568394002505E-15,
+        "LogTransmittance": 1.7763568394002505E-15,
+        "OpticalDensity": -7.714619732426296E-16
+      },
+      "MinimumOd": [
+        0.8148743485725737,
+        1.047013249273807
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.175,
+        "PeakTransmittance": 0.646546511435098,
+        "LeftHalfMaximumNanometers": 543.4018369470506,
+        "RightHalfMaximumNanometers": 557.2223168534008,
+        "FwhmNanometers": 13.820479906350215,
+        "MinimumReflectance": 0.10806341879383431,
+        "MaximumReflectance": 0.9083981823778909
+      },
+      "CenterPower": {
+        "Reflectance": 0.1080777130529591,
+        "Transmittance": 0.6460893836963901,
+        "Absorptance": 0.24583290325065077,
+        "LogTransmittance": -0.4368174199159758,
+        "OpticalDensity": 0.1897073950687239
+      },
+      "MinimumOd": [
+        0.9724543319554031,
+        1.2168885689907927
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m5-order4-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 11,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9576119544052258,
+        "LeftHalfMaximumNanometers": 544.3445108303519,
+        "RightHalfMaximumNanometers": 555.8287979701552,
+        "FwhmNanometers": 11.484287139803314,
+        "MinimumReflectance": 0.04238804559477579,
+        "MaximumReflectance": 0.9510030373205726
+      },
+      "CenterPower": {
+        "Reflectance": 0.04238804559477579,
+        "Transmittance": 0.9576119544052258,
+        "Absorptance": -1.6653345369377348E-15,
+        "LogTransmittance": -0.04331264110156419,
+        "OpticalDensity": 0.018810441027065306
+      },
+      "MinimumOd": [
+        0.925433596546914,
+        1.1938672552478722
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.175,
+        "PeakTransmittance": 0.646546511435098,
+        "LeftHalfMaximumNanometers": 543.4018369470506,
+        "RightHalfMaximumNanometers": 557.2223168534008,
+        "FwhmNanometers": 13.820479906350215,
+        "MinimumReflectance": 0.10806341879383431,
+        "MaximumReflectance": 0.9083981823778909
+      },
+      "CenterPower": {
+        "Reflectance": 0.1080777130529591,
+        "Transmittance": 0.6460893836963901,
+        "Absorptance": 0.24583290325065077,
+        "LogTransmittance": -0.4368174199159758,
+        "OpticalDensity": 0.1897073950687239
+      },
+      "MinimumOd": [
+        0.9724543319554031,
+        1.2168885689907927
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m5-order4-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 12,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000018,
+        "LeftHalfMaximumNanometers": 543.193209132325,
+        "RightHalfMaximumNanometers": 557.2040717118043,
+        "FwhmNanometers": 14.010862579479294,
+        "MinimumReflectance": 4.3548794195840856E-30,
+        "MaximumReflectance": 0.9304350644487979
+      },
+      "CenterPower": {
+        "Reflectance": 4.3548794195840856E-30,
+        "Transmittance": 1.0000000000000018,
+        "Absorptance": -1.887379141862766E-15,
+        "LogTransmittance": 1.7763568394002505E-15,
+        "OpticalDensity": -7.714619732426296E-16
+      },
+      "MinimumOd": [
+        0.7705688538828448,
+        0.97914376940909
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.225,
+        "PeakTransmittance": 0.7036330678434977,
+        "LeftHalfMaximumNanometers": 542.2913534620373,
+        "RightHalfMaximumNanometers": 558.7348459631776,
+        "FwhmNanometers": 16.443492501140327,
+        "MinimumReflectance": 0.01765311972240921,
+        "MaximumReflectance": 0.8497706561871545
+      },
+      "CenterPower": {
+        "Reflectance": 0.017658912598127838,
+        "Transmittance": 0.7030639760703212,
+        "Absorptance": 0.279277111331551,
+        "LogTransmittance": -0.352307386944663,
+        "OpticalDensity": 0.15300515408382087
+      },
+      "MinimumOd": [
+        0.8335273130048596,
+        1.0107590175670094
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m4-order6-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 9,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 542.5691912761724,
+        "RightHalfMaximumNanometers": 557.7374046750926,
+        "FwhmNanometers": 15.168213398920216,
+        "MinimumReflectance": 2.2691379491091306E-28,
+        "MaximumReflectance": 0.8894866804753041
+      },
+      "CenterPower": {
+        "Reflectance": 2.2691379491091306E-28,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -8.881784197001252E-16,
+        "LogTransmittance": 8.881784197001252E-16,
+        "OpticalDensity": -3.857309866213148E-16
+      },
+      "MinimumOd": [
+        1.0486163330820782E-06,
+        0.5201144435527828
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.325,
+        "PeakTransmittance": 0.4623154280521937,
+        "LeftHalfMaximumNanometers": 541.6875461288877,
+        "RightHalfMaximumNanometers": 559.4180011389548,
+        "FwhmNanometers": 17.73045501006709,
+        "MinimumReflectance": 0.17768756954187914,
+        "MaximumReflectance": 0.8621938855174139
+      },
+      "CenterPower": {
+        "Reflectance": 0.17772101776365934,
+        "Transmittance": 0.46170035073995863,
+        "Absorptance": 0.36057863149638203,
+        "LogTransmittance": -0.77283918979879,
+        "OpticalDensity": 0.33563979552819434
+      },
+      "MinimumOd": [
+        0.441395944708547,
+        0.6964545183127535
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m4-order6-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 9,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9576119544052251,
+        "LeftHalfMaximumNanometers": 543.9690616675699,
+        "RightHalfMaximumNanometers": 556.2320278806859,
+        "FwhmNanometers": 12.262966213115988,
+        "MinimumReflectance": 0.042388045594775985,
+        "MaximumReflectance": 0.9251428531780042
+      },
+      "CenterPower": {
+        "Reflectance": 0.042388045594775985,
+        "Transmittance": 0.9576119544052251,
+        "Absorptance": -9.43689570931383E-16,
+        "LogTransmittance": -0.043312641101565075,
+        "OpticalDensity": 0.018810441027065694
+      },
+      "MinimumOd": [
+        0.014199290866845989,
+        0.6267254669686454
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.325,
+        "PeakTransmittance": 0.4623154280521937,
+        "LeftHalfMaximumNanometers": 541.6875461288877,
+        "RightHalfMaximumNanometers": 559.4180011389548,
+        "FwhmNanometers": 17.73045501006709,
+        "MinimumReflectance": 0.17768756954187914,
+        "MaximumReflectance": 0.8621938855174139
+      },
+      "CenterPower": {
+        "Reflectance": 0.17772101776365934,
+        "Transmittance": 0.46170035073995863,
+        "Absorptance": 0.36057863149638203,
+        "LogTransmittance": -0.77283918979879,
+        "OpticalDensity": 0.33563979552819434
+      },
+      "MinimumOd": [
+        0.441395944708547,
+        0.6964545183127535
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m4-order6-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 10,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 542.7040242641873,
+        "RightHalfMaximumNanometers": 557.7673264179648,
+        "FwhmNanometers": 15.0633021537775,
+        "MinimumReflectance": 1.2348346034789995E-28,
+        "MaximumReflectance": 0.8941665842576157
+      },
+      "CenterPower": {
+        "Reflectance": 1.2348346034789995E-28,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -7.771561172376096E-16,
+        "LogTransmittance": 7.771561172376096E-16,
+        "OpticalDensity": -3.3751461329365047E-16
+      },
+      "MinimumOd": [
+        2.7670663171106904E-05,
+        0.46887251201162
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.4,
+        "PeakTransmittance": 0.524830099582754,
+        "LeftHalfMaximumNanometers": 540.4666102743275,
+        "RightHalfMaximumNanometers": 561.3906386796442,
+        "FwhmNanometers": 20.924028405316676,
+        "MinimumReflectance": 0.05567529829155811,
+        "MaximumReflectance": 0.7727787318048907
+      },
+      "CenterPower": {
+        "Reflectance": 0.0557119517761799,
+        "Transmittance": 0.5239631630275212,
+        "Absorptance": 0.4203248851962989,
+        "LogTransmittance": -0.6463338966980244,
+        "OpticalDensity": 0.28069924480297836
+      },
+      "MinimumOd": [
+        0.3886784429291876,
+        0.5478999103348609
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m3-order9-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 7,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 541.2327385542283,
+        "RightHalfMaximumNanometers": 559.1668386942368,
+        "FwhmNanometers": 17.93410014000858,
+        "MinimumReflectance": 1.1095757637524658E-28,
+        "MaximumReflectance": 0.7940035282302861
+      },
+      "CenterPower": {
+        "Reflectance": 1.1095757637524658E-28,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -9.992007221626409E-16,
+        "LogTransmittance": 1.1102230246251565E-15,
+        "OpticalDensity": -4.821637332766435E-16
+      },
+      "MinimumOd": [
+        3.5802440960522037E-09,
+        9.24054801001822E-09
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.15,
+        "PeakTransmittance": 0.7177874801986267,
+        "LeftHalfMaximumNanometers": 542.1272130325159,
+        "RightHalfMaximumNanometers": 558.5454511704528,
+        "FwhmNanometers": 16.418238137936896,
+        "MinimumReflectance": 0.08465973765731902,
+        "MaximumReflectance": 0.8131624829141284
+      },
+      "CenterPower": {
+        "Reflectance": 0.08466927619340392,
+        "Transmittance": 0.7174992840480436,
+        "Absorptance": 0.19783143975855239,
+        "LogTransmittance": -0.3319833291913066,
+        "OpticalDensity": 0.14417852795165517
+      },
+      "MinimumOd": [
+        0.1679671995893561,
+        0.11004228349325894
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m3-order9-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 7,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9576119544052253,
+        "LeftHalfMaximumNanometers": 543.0073182022952,
+        "RightHalfMaximumNanometers": 557.2414573124342,
+        "FwhmNanometers": 14.23413911013904,
+        "MinimumReflectance": 0.04238804559477586,
+        "MaximumReflectance": 0.858600924887884
+      },
+      "CenterPower": {
+        "Reflectance": 0.04238804559477586,
+        "Transmittance": 0.9576119544052253,
+        "Absorptance": -1.0547118733938987E-15,
+        "LogTransmittance": -0.04331264110156485,
+        "OpticalDensity": 0.018810441027065597
+      },
+      "MinimumOd": [
+        0.016980265369575982,
+        0.01671192785500397
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.15,
+        "PeakTransmittance": 0.7177874801986267,
+        "LeftHalfMaximumNanometers": 542.1272130325159,
+        "RightHalfMaximumNanometers": 558.5454511704528,
+        "FwhmNanometers": 16.418238137936896,
+        "MinimumReflectance": 0.08465973765731902,
+        "MaximumReflectance": 0.8131624829141284
+      },
+      "CenterPower": {
+        "Reflectance": 0.08466927619340392,
+        "Transmittance": 0.7174992840480436,
+        "Absorptance": 0.19783143975855239,
+        "LogTransmittance": -0.3319833291913066,
+        "OpticalDensity": 0.14417852795165517
+      },
+      "MinimumOd": [
+        0.1679671995893561,
+        0.11004228349325894
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m3-order9-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 8,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000013,
+        "LeftHalfMaximumNanometers": 541.4279889545192,
+        "RightHalfMaximumNanometers": 559.2287156212843,
+        "FwhmNanometers": 17.800726666765172,
+        "MinimumReflectance": 5.915262231450652E-29,
+        "MaximumReflectance": 0.8021470930411061
+      },
+      "CenterPower": {
+        "Reflectance": 5.915262231450652E-29,
+        "Transmittance": 1.0000000000000013,
+        "Absorptance": -1.2212453270876722E-15,
+        "LogTransmittance": 1.27675647831893E-15,
+        "OpticalDensity": -5.544882932681401E-16
+      },
+      "MinimumOd": [
+        0.00018135122197661334,
+        0.003003098404632541
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.2,
+        "PeakTransmittance": 0.7680893545677709,
+        "LeftHalfMaximumNanometers": 540.5228221506569,
+        "RightHalfMaximumNanometers": 560.8112918422593,
+        "FwhmNanometers": 20.28846969160236,
+        "MinimumReflectance": 0.00848376797550406,
+        "MaximumReflectance": 0.7252288622441053
+      },
+      "CenterPower": {
+        "Reflectance": 0.008486986036566061,
+        "Transmittance": 0.767733927200005,
+        "Absorptance": 0.2237790867634289,
+        "LogTransmittance": -0.2643120548200967,
+        "OpticalDensity": 0.11478926690887777
+      },
+      "MinimumOd": [
+        0.14310772272135824,
+        0.0832139324063738
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m2-order14-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 5,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 540.4511780340381,
+        "RightHalfMaximumNanometers": 560.0720681348006,
+        "FwhmNanometers": 19.620890100762495,
+        "MinimumReflectance": 1.4151159530793903E-28,
+        "MaximumReflectance": 0.6223435088322611
+      },
+      "CenterPower": {
+        "Reflectance": 1.4151159530793903E-28,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -7.771561172376096E-16,
+        "LogTransmittance": 8.326672684688674E-16,
+        "OpticalDensity": -3.6162279995748265E-16
+      },
+      "MinimumOd": [
+        5.847488891685822E-12,
+        0.03948327175340152
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.375,
+        "PeakTransmittance": 0.4325492291572597,
+        "LeftHalfMaximumNanometers": 538.6262839673043,
+        "RightHalfMaximumNanometers": 564.7353347874231,
+        "FwhmNanometers": 26.109050820118796,
+        "MinimumReflectance": 0.1599908254243143,
+        "MaximumReflectance": 0.6147829132893328
+      },
+      "CenterPower": {
+        "Reflectance": 0.1600232509939613,
+        "Transmittance": 0.43190492833423644,
+        "Absorptance": 0.40807182067180225,
+        "LogTransmittance": -0.8395497882580876,
+        "OpticalDensity": 0.3646118403235309
+      },
+      "MinimumOd": [
+        0.5635650797356795,
+        0.31602454226711496
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m2-order14-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 5,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.957611954405225,
+        "LeftHalfMaximumNanometers": 542.8124364147534,
+        "RightHalfMaximumNanometers": 557.4628910320384,
+        "FwhmNanometers": 14.65045461728505,
+        "MinimumReflectance": 0.04238804559477584,
+        "MaximumReflectance": 0.7322134702141837
+      },
+      "CenterPower": {
+        "Reflectance": 0.04238804559477584,
+        "Transmittance": 0.957611954405225,
+        "Absorptance": -7.771561172376096E-16,
+        "LogTransmittance": -0.04331264110156513,
+        "OpticalDensity": 0.01881044102706572
+      },
+      "MinimumOd": [
+        0.017362887897362213,
+        0.08827569821917865
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.375,
+        "PeakTransmittance": 0.4325492291572597,
+        "LeftHalfMaximumNanometers": 538.6262839673043,
+        "RightHalfMaximumNanometers": 564.7353347874231,
+        "FwhmNanometers": 26.109050820118796,
+        "MinimumReflectance": 0.1599908254243143,
+        "MaximumReflectance": 0.6147829132893328
+      },
+      "CenterPower": {
+        "Reflectance": 0.1600232509939613,
+        "Transmittance": 0.43190492833423644,
+        "Absorptance": 0.40807182067180225,
+        "LogTransmittance": -0.8395497882580876,
+        "OpticalDensity": 0.3646118403235309
+      },
+      "MinimumOd": [
+        0.5635650797356795,
+        0.31602454226711496
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m2-order14-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 6,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000009,
+        "LeftHalfMaximumNanometers": 540.7218695977882,
+        "RightHalfMaximumNanometers": 560.2343073585396,
+        "FwhmNanometers": 19.512437760751368,
+        "MinimumReflectance": 8.521271787000659E-29,
+        "MaximumReflectance": 0.6329007183167605
+      },
+      "CenterPower": {
+        "Reflectance": 8.521271787000659E-29,
+        "Transmittance": 1.0000000000000009,
+        "Absorptance": -9.992007221626409E-16,
+        "LogTransmittance": 9.43689570931383E-16,
+        "OpticalDensity": -4.0983917328514697E-16
+      },
+      "MinimumOd": [
+        0.00029217617920914725,
+        0.04025241411756905
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.525,
+        "PeakTransmittance": 0.4863342545540308,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.044777354781856626,
+        "MaximumReflectance": 0.457273191140529
+      },
+      "CenterPower": {
+        "Reflectance": 0.044819071033840245,
+        "Transmittance": 0.48535900458887016,
+        "Absorptance": 0.46982192437728965,
+        "LogTransmittance": -0.7228664462219833,
+        "OpticalDensity": 0.313936908747221
+      },
+      "MinimumOd": [
+        0.5102579239095324,
+        0.25052619533947235
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m1-order21-embedded",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 3,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": false,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000004,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 1.0407243478390075E-28,
+        "MaximumReflectance": 0.36613252203841606
+      },
+      "CenterPower": {
+        "Reflectance": 1.0407243478390075E-28,
+        "Transmittance": 1.0000000000000004,
+        "Absorptance": -5.551115123125783E-16,
+        "LogTransmittance": 6.661338147750939E-16,
+        "OpticalDensity": -2.892982399659861E-16
+      },
+      "MinimumOd": [
+        8.252479098492333E-07,
+        1.5807872851849318E-07
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 576.525,
+        "PeakTransmittance": 0.7505317084478859,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0669798274692478,
+        "MaximumReflectance": 0.46842063710054294
+      },
+      "CenterPower": {
+        "Reflectance": 0.07038393707206438,
+        "Transmittance": 0.7292357905793534,
+        "Absorptance": 0.2003802723485822,
+        "LogTransmittance": -0.3157581554027443,
+        "OpticalDensity": 0.1371320245073613
+      },
+      "MinimumOd": [
+        0.16386645177557463,
+        0.11280648013212007
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m1-order21-air",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 3,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": false,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 576.4,
+        "PeakTransmittance": 0.9579106362369268,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.04208936376307276,
+        "MaximumReflectance": 0.52011298027975
+      },
+      "CenterPower": {
+        "Reflectance": 0.04238804559477586,
+        "Transmittance": 0.9576119544052248,
+        "Absorptance": -6.106226635438361E-16,
+        "LogTransmittance": -0.0433126411015653,
+        "OpticalDensity": 0.018810441027065788
+      },
+      "MinimumOd": [
+        0.018704911778602933,
+        0.0184195791571086
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 576.525,
+        "PeakTransmittance": 0.7505317084478859,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0669798274692478,
+        "MaximumReflectance": 0.46842063710054294
+      },
+      "CenterPower": {
+        "Reflectance": 0.07038393707206438,
+        "Transmittance": 0.7292357905793534,
+        "Absorptance": 0.2003802723485822,
+        "LogTransmittance": -0.3157581554027443,
+        "OpticalDensity": 0.1371320245073613
+      },
+      "MinimumOd": [
+        0.16386645177557463,
+        0.11280648013212007
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-level0.5-m1-order21-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 4,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": false,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000004,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 1.2076758976765808E-28,
+        "MaximumReflectance": 0.3772018529373924
+      },
+      "CenterPower": {
+        "Reflectance": 1.2076758976765808E-28,
+        "Transmittance": 1.0000000000000004,
+        "Absorptance": -5.551115123125783E-16,
+        "LogTransmittance": 5.551115123125783E-16,
+        "OpticalDensity": -2.4108186663832173E-16
+      },
+      "MinimumOd": [
+        0.0008079378562125926,
+        0.00240202989062506
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 576.425,
+        "PeakTransmittance": 0.7952450784388447,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0005663936602568992,
+        "MaximumReflectance": 0.3163484264508855
+      },
+      "CenterPower": {
+        "Reflectance": 0.0041991615874508005,
+        "Transmittance": 0.7714715719792121,
+        "Absorptance": 0.22432926643333706,
+        "LogTransmittance": -0.25945545558404753,
+        "OpticalDensity": 0.11268007265984607
+      },
+      "MinimumOd": [
+        0.1427649588204654,
+        0.088630981737159
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-integer0-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 14,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000024,
+        "LeftHalfMaximumNanometers": 541.0257308273627,
+        "RightHalfMaximumNanometers": 559.7054599092614,
+        "FwhmNanometers": 18.6797290818987,
+        "MinimumReflectance": 2.395484017282941E-29,
+        "MaximumReflectance": 0.9066922190359784
+      },
+      "CenterPower": {
+        "Reflectance": 2.395484017282941E-29,
+        "Transmittance": 1.0000000000000024,
+        "Absorptance": -2.4424906541753444E-15,
+        "LogTransmittance": 2.3869795029440866E-15,
+        "OpticalDensity": -1.0366520265447835E-15
+      },
+      "MinimumOd": [
+        1.1453433139025964,
+        0.9920032958615235
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.425,
+        "PeakTransmittance": 0.6490704446861895,
+        "LeftHalfMaximumNanometers": 539.5340615809957,
+        "RightHalfMaximumNanometers": 562.4796599407914,
+        "FwhmNanometers": 22.945598359795667,
+        "MinimumReflectance": 0.02764441000511987,
+        "MaximumReflectance": 0.808962839924374
+      },
+      "CenterPower": {
+        "Reflectance": 0.02766322896678557,
+        "Transmittance": 0.6481246190483665,
+        "Absorptance": 0.32421215198484793,
+        "LogTransmittance": -0.4336722877734588,
+        "OpticalDensity": 0.1883414815343722
+      },
+      "MinimumOd": [
+        1.198044995530894,
+        1.0213940751921593
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-integer1-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 12,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000018,
+        "LeftHalfMaximumNanometers": 539.7209712437817,
+        "RightHalfMaximumNanometers": 561.2335636826514,
+        "FwhmNanometers": 21.51259243886966,
+        "MinimumReflectance": 4.130144857384384E-30,
+        "MaximumReflectance": 0.8797143112947807
+      },
+      "CenterPower": {
+        "Reflectance": 4.130144857384384E-30,
+        "Transmittance": 1.0000000000000018,
+        "Absorptance": -1.887379141862766E-15,
+        "LogTransmittance": 1.7763568394002505E-15,
+        "OpticalDensity": -7.714619732426296E-16
+      },
+      "MinimumOd": [
+        1.014526632233991,
+        0.8857795889435588
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.375,
+        "PeakTransmittance": 0.750325436299812,
+        "LeftHalfMaximumNanometers": 538.7506585787556,
+        "RightHalfMaximumNanometers": 563.2787114848171,
+        "FwhmNanometers": 24.528052906061475,
+        "MinimumReflectance": 0.01135285352158149,
+        "MaximumReflectance": 0.7947711642924769
+      },
+      "CenterPower": {
+        "Reflectance": 0.011360402145921045,
+        "Transmittance": 0.7496130531066041,
+        "Absorptance": 0.2390265447474748,
+        "LogTransmittance": -0.2881981347802355,
+        "OpticalDensity": 0.1251628596298659
+      },
+      "MinimumOd": [
+        1.0619726566621863,
+        0.9119712274667786
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF1-integer2-matched",
+    "Source": "NBF1",
+    "Counterfactual": true,
+    "LayerCount": 12,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.000000000000002,
+        "LeftHalfMaximumNanometers": 536.1745335830427,
+        "RightHalfMaximumNanometers": 565.6518144046108,
+        "FwhmNanometers": 29.477280821568115,
+        "MinimumReflectance": 4.3695855522257246E-30,
+        "MaximumReflectance": 0.8125476618585334
+      },
+      "CenterPower": {
+        "Reflectance": 4.3695855522257246E-30,
+        "Transmittance": 1.000000000000002,
+        "Absorptance": -1.9984014443252818E-15,
+        "LogTransmittance": 1.9984014443252818E-15,
+        "OpticalDensity": -8.678947198979583E-16
+      },
+      "MinimumOd": [
+        0.8803377865342966,
+        0.7033418177438931
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.525,
+        "PeakTransmittance": 0.7754413097247519,
+        "LeftHalfMaximumNanometers": 535.1303816543151,
+        "RightHalfMaximumNanometers": 568.3515007562177,
+        "FwhmNanometers": 33.22111910190256,
+        "MinimumReflectance": 0.008598107449839822,
+        "MaximumReflectance": 0.7252253178989029
+      },
+      "CenterPower": {
+        "Reflectance": 0.00860847290414226,
+        "Transmittance": 0.7745999995110052,
+        "Absorptance": 0.21679152758485254,
+        "LogTransmittance": -0.2554085125327721,
+        "OpticalDensity": 0.11092250762410044
+      },
+      "MinimumOd": [
+        0.9247060309209445,
+        0.7303944820809057
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m6-order1-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 27,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239901,
+        "LeftHalfMaximumNanometers": 544.1187383395176,
+        "RightHalfMaximumNanometers": 556.0711719232626,
+        "FwhmNanometers": 11.952433583745005,
+        "MinimumReflectance": 0.0012314944760158867,
+        "MaximumReflectance": 0.9973810868456958
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158867,
+        "Transmittance": 0.9987685055239901,
+        "Absorptance": -5.9396931817445875E-15,
+        "LogTransmittance": -0.001232253388460447,
+        "OpticalDensity": 0.0005351608469149563
+      },
+      "MinimumOd": [
+        2.4772585465090042,
+        2.6271947711162493
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.675,
+        "PeakTransmittance": 0.37579012599724176,
+        "LeftHalfMaximumNanometers": 544.3898530866259,
+        "RightHalfMaximumNanometers": 556.4113984044161,
+        "FwhmNanometers": 12.021545317790242,
+        "MinimumReflectance": 0.05910799029928073,
+        "MaximumReflectance": 0.9527006317565899
+      },
+      "CenterPower": {
+        "Reflectance": 0.059183298878503855,
+        "Transmittance": 0.37374402928963363,
+        "Absorptance": 0.5670726718318626,
+        "LogTransmittance": -0.9841841295496379,
+        "OpticalDensity": 0.4274257366401628
+      },
+      "MinimumOd": [
+        2.666805510993751,
+        2.8282197158766147
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m6-order1-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 27,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.975,
+        "PeakTransmittance": 0.9877214052578296,
+        "LeftHalfMaximumNanometers": 544.2902885623948,
+        "RightHalfMaximumNanometers": 555.8881402272998,
+        "FwhmNanometers": 11.597851664904965,
+        "MinimumReflectance": 0.01227859474217175,
+        "MaximumReflectance": 0.9982732111859874
+      },
+      "CenterPower": {
+        "Reflectance": 0.02959564974583876,
+        "Transmittance": 0.970404350254167,
+        "Absorptance": -5.717648576819556E-15,
+        "LogTransmittance": -0.03004243841287374,
+        "OpticalDensity": 0.013047265225629351
+      },
+      "MinimumOd": [
+        2.619510940357624,
+        2.8049782388613065
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.675,
+        "PeakTransmittance": 0.37579012599724176,
+        "LeftHalfMaximumNanometers": 544.3898530866259,
+        "RightHalfMaximumNanometers": 556.4113984044161,
+        "FwhmNanometers": 12.021545317790242,
+        "MinimumReflectance": 0.05910799029928073,
+        "MaximumReflectance": 0.9527006317565899
+      },
+      "CenterPower": {
+        "Reflectance": 0.059183298878503855,
+        "Transmittance": 0.37374402928963363,
+        "Absorptance": 0.5670726718318626,
+        "LogTransmittance": -0.9841841295496379,
+        "OpticalDensity": 0.4274257366401628
+      },
+      "MinimumOd": [
+        2.666805510993751,
+        2.8282197158766147
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m6-order1-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 28,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000058,
+        "LeftHalfMaximumNanometers": 544.1735400493079,
+        "RightHalfMaximumNanometers": 556.0222848931847,
+        "FwhmNanometers": 11.84874484387683,
+        "MinimumReflectance": 8.633121246528648E-31,
+        "MaximumReflectance": 0.9976951465886312
+      },
+      "CenterPower": {
+        "Reflectance": 8.633121246528648E-31,
+        "Transmittance": 1.0000000000000058,
+        "Absorptance": -5.88418203051333E-15,
+        "LogTransmittance": 5.88418203051333E-15,
+        "OpticalDensity": -2.5554677863662105E-15
+      },
+      "MinimumOd": [
+        2.4685114821411256,
+        2.606078265033776
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.6,
+        "PeakTransmittance": 0.3919296267699074,
+        "LeftHalfMaximumNanometers": 544.1935234882212,
+        "RightHalfMaximumNanometers": 556.6997195680589,
+        "FwhmNanometers": 12.50619607983765,
+        "MinimumReflectance": 0.005829479339514447,
+        "MaximumReflectance": 0.9157250469936125
+      },
+      "CenterPower": {
+        "Reflectance": 0.005832822220509485,
+        "Transmittance": 0.3901131275518156,
+        "Absorptance": 0.6040540502276749,
+        "LogTransmittance": -0.9413185112751199,
+        "OpticalDensity": 0.4088094351601685
+      },
+      "MinimumOd": [
+        2.528727363783415,
+        2.637164986803362
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m5-order2-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 23,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239882,
+        "LeftHalfMaximumNanometers": 543.3148588471719,
+        "RightHalfMaximumNanometers": 556.9202896725386,
+        "FwhmNanometers": 13.605430825366739,
+        "MinimumReflectance": 0.0012314944760158418,
+        "MaximumReflectance": 0.9955516848127216
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158418,
+        "Transmittance": 0.9987685055239882,
+        "Absorptance": -4.107825191113079E-15,
+        "LogTransmittance": -0.0012322533884623343,
+        "OpticalDensity": 0.0005351608469157759
+      },
+      "MinimumOd": [
+        2.221744957646215,
+        2.4088656708940803
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.975,
+        "PeakTransmittance": 0.5320769128547793,
+        "LeftHalfMaximumNanometers": 543.6934345705506,
+        "RightHalfMaximumNanometers": 557.0666956987461,
+        "FwhmNanometers": 13.373261128195509,
+        "MinimumReflectance": 0.041455926555752254,
+        "MaximumReflectance": 0.9564314774144625
+      },
+      "CenterPower": {
+        "Reflectance": 0.04278623798384883,
+        "Transmittance": 0.5289217024917874,
+        "Absorptance": 0.4282920595243638,
+        "LogTransmittance": -0.6369148684909598,
+        "OpticalDensity": 0.2766086128277591
+      },
+      "MinimumOd": [
+        2.406839542444305,
+        2.607788080325069
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m5-order2-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 23,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 552.25,
+        "PeakTransmittance": 0.9875988300991291,
+        "LeftHalfMaximumNanometers": 543.5199096021057,
+        "RightHalfMaximumNanometers": 556.700243504062,
+        "FwhmNanometers": 13.18033390195626,
+        "MinimumReflectance": 0.012401169900867781,
+        "MaximumReflectance": 0.9970691514816424
+      },
+      "CenterPower": {
+        "Reflectance": 0.02959564974583898,
+        "Transmittance": 0.970404350254165,
+        "Absorptance": -3.941291737419306E-15,
+        "LogTransmittance": -0.030042438412875794,
+        "OpticalDensity": 0.013047265225630243
+      },
+      "MinimumOd": [
+        2.364107695301288,
+        2.58731595605708
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.975,
+        "PeakTransmittance": 0.5320769128547793,
+        "LeftHalfMaximumNanometers": 543.6934345705506,
+        "RightHalfMaximumNanometers": 557.0666956987461,
+        "FwhmNanometers": 13.373261128195509,
+        "MinimumReflectance": 0.041455926555752254,
+        "MaximumReflectance": 0.9564314774144625
+      },
+      "CenterPower": {
+        "Reflectance": 0.04278623798384883,
+        "Transmittance": 0.5289217024917874,
+        "Absorptance": 0.4282920595243638,
+        "LogTransmittance": -0.6369148684909598,
+        "OpticalDensity": 0.2766086128277591
+      },
+      "MinimumOd": [
+        2.406839542444305,
+        2.607788080325069
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m5-order2-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 24,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000044,
+        "LeftHalfMaximumNanometers": 543.385818859802,
+        "RightHalfMaximumNanometers": 556.8579597722021,
+        "FwhmNanometers": 13.47214091240005,
+        "MinimumReflectance": 6.628116120175544E-32,
+        "MaximumReflectance": 0.9960998856051246
+      },
+      "CenterPower": {
+        "Reflectance": 6.628116120175544E-32,
+        "Transmittance": 1.0000000000000044,
+        "Absorptance": -4.3298697960381105E-15,
+        "LogTransmittance": 4.274358644806853E-15,
+        "OpticalDensity": -1.8563303731150775E-15
+      },
+      "MinimumOd": [
+        2.21336913968743,
+        2.384132894910983
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.7,
+        "PeakTransmittance": 0.5470109662708562,
+        "LeftHalfMaximumNanometers": 543.5137588460061,
+        "RightHalfMaximumNanometers": 557.3338686937925,
+        "FwhmNanometers": 13.820109847786398,
+        "MinimumReflectance": 0.0014887606395216405,
+        "MaximumReflectance": 0.9213676535137245
+      },
+      "CenterPower": {
+        "Reflectance": 0.001489480274513256,
+        "Transmittance": 0.5448151155305603,
+        "Absorptance": 0.45369540419492654,
+        "LogTransmittance": -0.6073087794315754,
+        "OpticalDensity": 0.26375085171853224
+      },
+      "MinimumOd": [
+        2.2685909032688474,
+        2.413185401093609
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m4-order4-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 19,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239858,
+        "LeftHalfMaximumNanometers": 543.640139883574,
+        "RightHalfMaximumNanometers": 556.5754950110394,
+        "FwhmNanometers": 12.935355127465414,
+        "MinimumReflectance": 0.0012314944760158238,
+        "MaximumReflectance": 0.9946993723950202
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158238,
+        "Transmittance": 0.9987685055239858,
+        "Absorptance": -1.5543122344752192E-15,
+        "LogTransmittance": -0.0012322533884647768,
+        "OpticalDensity": 0.0005351608469168367
+      },
+      "MinimumOd": [
+        1.0135759079381508,
+        1.940712397162573
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.7,
+        "PeakTransmittance": 0.3327834094731078,
+        "LeftHalfMaximumNanometers": 543.8591731497713,
+        "RightHalfMaximumNanometers": 557.0607486525248,
+        "FwhmNanometers": 13.201575502753485,
+        "MinimumReflectance": 0.06526407795086568,
+        "MaximumReflectance": 0.9363436233349183
+      },
+      "CenterPower": {
+        "Reflectance": 0.06532253119727903,
+        "Transmittance": 0.3310515406112534,
+        "Absorptance": 0.6036259281914675,
+        "LogTransmittance": -1.1054812039104254,
+        "OpticalDensity": 0.4801043867060612
+      },
+      "MinimumOd": [
+        1.3303604824905606,
+        2.132232735247644
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m4-order4-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 19,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 552.125,
+        "PeakTransmittance": 0.9875299552825039,
+        "LeftHalfMaximumNanometers": 543.8417077674846,
+        "RightHalfMaximumNanometers": 556.3597160978857,
+        "FwhmNanometers": 12.518008330401017,
+        "MinimumReflectance": 0.012470044717497492,
+        "MaximumReflectance": 0.9965005011754311
+      },
+      "CenterPower": {
+        "Reflectance": 0.029595649745839066,
+        "Transmittance": 0.9704043502541624,
+        "Absorptance": -1.4988010832439613E-15,
+        "LogTransmittance": -0.03004243841287846,
+        "OpticalDensity": 0.0130472652256314
+      },
+      "MinimumOd": [
+        1.0937038837940718,
+        2.0919906757018887
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.7,
+        "PeakTransmittance": 0.3327834094731078,
+        "LeftHalfMaximumNanometers": 543.8591731497713,
+        "RightHalfMaximumNanometers": 557.0607486525248,
+        "FwhmNanometers": 13.201575502753485,
+        "MinimumReflectance": 0.06526407795086568,
+        "MaximumReflectance": 0.9363436233349183
+      },
+      "CenterPower": {
+        "Reflectance": 0.06532253119727903,
+        "Transmittance": 0.3310515406112534,
+        "Absorptance": 0.6036259281914675,
+        "LogTransmittance": -1.1054812039104254,
+        "OpticalDensity": 0.4801043867060612
+      },
+      "MinimumOd": [
+        1.3303604824905606,
+        2.132232735247644
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m4-order4-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 20,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000018,
+        "LeftHalfMaximumNanometers": 543.7070890494224,
+        "RightHalfMaximumNanometers": 556.516785554842,
+        "FwhmNanometers": 12.809696505419652,
+        "MinimumReflectance": 1.9304388200011273E-31,
+        "MaximumReflectance": 0.9953230093167933
+      },
+      "CenterPower": {
+        "Reflectance": 1.9304388200011273E-31,
+        "Transmittance": 1.0000000000000018,
+        "Absorptance": -1.6653345369377348E-15,
+        "LogTransmittance": 1.609823385706477E-15,
+        "OpticalDensity": -6.991374132511331E-16
+      },
+      "MinimumOd": [
+        0.9490433517328245,
+        1.8856375913331616
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.65,
+        "PeakTransmittance": 0.34872894628108153,
+        "LeftHalfMaximumNanometers": 543.6243956168241,
+        "RightHalfMaximumNanometers": 557.4150148111679,
+        "FwhmNanometers": 13.790619194343776,
+        "MinimumReflectance": 0.007955562803065377,
+        "MaximumReflectance": 0.8917231175003744
+      },
+      "CenterPower": {
+        "Reflectance": 0.007963475056160386,
+        "Transmittance": 0.3471100138823845,
+        "Absorptance": 0.6449265110614553,
+        "LogTransmittance": -1.0581135063940383,
+        "OpticalDensity": 0.45953285705423197
+      },
+      "MinimumOd": [
+        1.2181799326608536,
+        1.9376257119974654
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m3-order6-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 15,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239859,
+        "LeftHalfMaximumNanometers": 542.5845461227678,
+        "RightHalfMaximumNanometers": 557.6853207361727,
+        "FwhmNanometers": 15.100774613404838,
+        "MinimumReflectance": 0.0012314944760158015,
+        "MaximumReflectance": 0.9854146581321088
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158015,
+        "Transmittance": 0.9987685055239859,
+        "Absorptance": -1.6653345369377348E-15,
+        "LogTransmittance": -0.0012322533884646658,
+        "OpticalDensity": 0.0005351608469167885
+      },
+      "MinimumOd": [
+        1.5465011903415894E-07,
+        0.9150809046216117
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.275,
+        "PeakTransmittance": 0.6320391715315478,
+        "LeftHalfMaximumNanometers": 542.9668417374378,
+        "RightHalfMaximumNanometers": 557.7056892728916,
+        "FwhmNanometers": 14.738847535453829,
+        "MinimumReflectance": 0.032812509780207756,
+        "MaximumReflectance": 0.944991524912377
+      },
+      "CenterPower": {
+        "Reflectance": 0.03678452697164791,
+        "Transmittance": 0.628513044554422,
+        "Absorptance": 0.33470242847393,
+        "LogTransmittance": -0.46439849610847184,
+        "OpticalDensity": 0.20168570426407806
+      },
+      "MinimumOd": [
+        0.25940024265830636,
+        1.0831808432495682
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m3-order6-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 15,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 552.45,
+        "PeakTransmittance": 0.987143418455563,
+        "LeftHalfMaximumNanometers": 542.8576438863334,
+        "RightHalfMaximumNanometers": 557.3912440031253,
+        "FwhmNanometers": 14.533600116791831,
+        "MinimumReflectance": 0.012856581544437954,
+        "MaximumReflectance": 0.9903439215272986
+      },
+      "CenterPower": {
+        "Reflectance": 0.02959564974583917,
+        "Transmittance": 0.9704043502541626,
+        "Absorptance": -1.7208456881689926E-15,
+        "LogTransmittance": -0.030042438412878347,
+        "OpticalDensity": 0.013047265225631351
+      },
+      "MinimumOd": [
+        0.0034234723077409567,
+        1.0157177187160877
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.275,
+        "PeakTransmittance": 0.6320391715315478,
+        "LeftHalfMaximumNanometers": 542.9668417374378,
+        "RightHalfMaximumNanometers": 557.7056892728916,
+        "FwhmNanometers": 14.738847535453829,
+        "MinimumReflectance": 0.032812509780207756,
+        "MaximumReflectance": 0.944991524912377
+      },
+      "CenterPower": {
+        "Reflectance": 0.03678452697164791,
+        "Transmittance": 0.628513044554422,
+        "Absorptance": 0.33470242847393,
+        "LogTransmittance": -0.46439849610847184,
+        "OpticalDensity": 0.20168570426407806
+      },
+      "MinimumOd": [
+        0.25940024265830636,
+        1.0831808432495682
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m3-order6-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 16,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000018,
+        "LeftHalfMaximumNanometers": 542.6821180233345,
+        "RightHalfMaximumNanometers": 557.6028325919118,
+        "FwhmNanometers": 14.920714568577296,
+        "MinimumReflectance": 4.401483361054071E-31,
+        "MaximumReflectance": 0.9870856716654354
+      },
+      "CenterPower": {
+        "Reflectance": 4.401483361054071E-31,
+        "Transmittance": 1.0000000000000018,
+        "Absorptance": -1.6653345369377348E-15,
+        "LogTransmittance": 1.7208456881689926E-15,
+        "OpticalDensity": -7.473537865787974E-16
+      },
+      "MinimumOd": [
+        0.0029544826823800128,
+        0.8654360516301728
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.725,
+        "PeakTransmittance": 0.6456366472836815,
+        "LeftHalfMaximumNanometers": 542.7633313578915,
+        "RightHalfMaximumNanometers": 558.0038218914475,
+        "FwhmNanometers": 15.240490533555999,
+        "MinimumReflectance": 0.0005348406350477926,
+        "MaximumReflectance": 0.9043156233485883
+      },
+      "CenterPower": {
+        "Reflectance": 0.0005348406350477926,
+        "Transmittance": 0.6438771314566814,
+        "Absorptance": 0.35558802790827077,
+        "LogTransmittance": -0.44024736074398474,
+        "OpticalDensity": 0.19119699944358284
+      },
+      "MinimumOd": [
+        0.24210718262140135,
+        0.9444777886781205
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m2-order10-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 11,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239857,
+        "LeftHalfMaximumNanometers": 542.9756156302863,
+        "RightHalfMaximumNanometers": 557.2725080987741,
+        "FwhmNanometers": 14.29689246848784,
+        "MinimumReflectance": 0.0012314944760158137,
+        "MaximumReflectance": 0.9479557806828829
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158137,
+        "Transmittance": 0.9987685055239857,
+        "Absorptance": -1.4432899320127035E-15,
+        "LogTransmittance": -0.0012322533884648879,
+        "OpticalDensity": 0.000535160846916885
+      },
+      "MinimumOd": [
+        1.1437462330212054E-08,
+        9.005025852847378E-10
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.775,
+        "PeakTransmittance": 0.299300524937002,
+        "LeftHalfMaximumNanometers": 543.01145994677,
+        "RightHalfMaximumNanometers": 558.0709717099256,
+        "FwhmNanometers": 15.059511763155683,
+        "MinimumReflectance": 0.06552044521598223,
+        "MaximumReflectance": 0.8222224250844479
+      },
+      "CenterPower": {
+        "Reflectance": 0.0655638391740312,
+        "Transmittance": 0.29777006425664865,
+        "Absorptance": 0.6366660965693202,
+        "LogTransmittance": -1.2114336867646907,
+        "OpticalDensity": 0.5261189653536176
+      },
+      "MinimumOd": [
+        0.7133506433581877,
+        0.35926229721497127
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m2-order10-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 11,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 552.225,
+        "PeakTransmittance": 0.986433987534151,
+        "LeftHalfMaximumNanometers": 543.3100200624023,
+        "RightHalfMaximumNanometers": 556.9131291786163,
+        "FwhmNanometers": 13.603109116214,
+        "MinimumReflectance": 0.01356601246584948,
+        "MaximumReflectance": 0.9653792627115547
+      },
+      "CenterPower": {
+        "Reflectance": 0.029595649745839114,
+        "Transmittance": 0.9704043502541626,
+        "Absorptance": -1.7208456881689926E-15,
+        "LogTransmittance": -0.030042438412878347,
+        "OpticalDensity": 0.013047265225631351
+      },
+      "MinimumOd": [
+        0.011506311019302672,
+        0.004174971605074315
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.775,
+        "PeakTransmittance": 0.299300524937002,
+        "LeftHalfMaximumNanometers": 543.01145994677,
+        "RightHalfMaximumNanometers": 558.0709717099256,
+        "FwhmNanometers": 15.059511763155683,
+        "MinimumReflectance": 0.06552044521598223,
+        "MaximumReflectance": 0.8222224250844479
+      },
+      "CenterPower": {
+        "Reflectance": 0.0655638391740312,
+        "Transmittance": 0.29777006425664865,
+        "Absorptance": 0.6366660965693202,
+        "LogTransmittance": -1.2114336867646907,
+        "OpticalDensity": 0.5261189653536176
+      },
+      "MinimumOd": [
+        0.7133506433581877,
+        0.35926229721497127
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m2-order10-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 12,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000016,
+        "LeftHalfMaximumNanometers": 543.0859436692966,
+        "RightHalfMaximumNanometers": 557.1820010909919,
+        "FwhmNanometers": 14.096057421695264,
+        "MinimumReflectance": 6.12479355229971E-31,
+        "MaximumReflectance": 0.9533812424482183
+      },
+      "CenterPower": {
+        "Reflectance": 6.12479355229971E-31,
+        "Transmittance": 1.0000000000000016,
+        "Absorptance": -1.5543122344752192E-15,
+        "LogTransmittance": 1.4988010832439613E-15,
+        "OpticalDensity": -6.509210399234687E-16
+      },
+      "MinimumOd": [
+        0.002963442870019454,
+        0.0006341401231688413
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.725,
+        "PeakTransmittance": 0.31375560812532666,
+        "LeftHalfMaximumNanometers": 542.645834797593,
+        "RightHalfMaximumNanometers": 558.6581504832279,
+        "FwhmNanometers": 16.012315685634917,
+        "MinimumReflectance": 0.008038553989594502,
+        "MaximumReflectance": 0.7341763919582214
+      },
+      "CenterPower": {
+        "Reflectance": 0.008049899926445095,
+        "Transmittance": 0.31226903984065446,
+        "Absorptance": 0.6796810602329004,
+        "LogTransmittance": -1.163890155564316,
+        "OpticalDensity": 0.5054710721030997
+      },
+      "MinimumOd": [
+        0.6890048048356832,
+        0.3348983955785822
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m1-order15-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 7,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": false,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239852,
+        "LeftHalfMaximumNanometers": 541.6292234518897,
+        "RightHalfMaximumNanometers": 558.6948140489685,
+        "FwhmNanometers": 17.065590597078767,
+        "MinimumReflectance": 0.0012314944760158176,
+        "MaximumReflectance": 0.7971807605839689
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158176,
+        "Transmittance": 0.9987685055239852,
+        "Absorptance": -9.992007221626409E-16,
+        "LogTransmittance": -0.001232253388465332,
+        "OpticalDensity": 0.0005351608469170778
+      },
+      "MinimumOd": [
+        4.317372645982678E-08,
+        0.011848094044684742
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.375,
+        "PeakTransmittance": 0.6562629740699638,
+        "LeftHalfMaximumNanometers": 542.1386975782847,
+        "RightHalfMaximumNanometers": 558.4384082380445,
+        "FwhmNanometers": 16.299710659759853,
+        "MinimumReflectance": 0.030739395573200556,
+        "MaximumReflectance": 0.7661271413358817
+      },
+      "CenterPower": {
+        "Reflectance": 0.034700134299229884,
+        "Transmittance": 0.653781420655029,
+        "Absorptance": 0.31151844504574117,
+        "LogTransmittance": -0.42498220257052954,
+        "OpticalDensity": 0.18456742548347094
+      },
+      "MinimumOd": [
+        0.2400929548291148,
+        0.16644405703933304
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m1-order15-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 7,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": false,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 520.225,
+        "PeakTransmittance": 0.9865863384783148,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 524.9747592061219,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.013413661521684602,
+        "MaximumReflectance": 0.861441379870003
+      },
+      "CenterPower": {
+        "Reflectance": 0.029595649745839094,
+        "Transmittance": 0.9704043502541622,
+        "Absorptance": -1.1657341758564144E-15,
+        "LogTransmittance": -0.03004243841287879,
+        "OpticalDensity": 0.013047265225631545
+      },
+      "MinimumOd": [
+        0.00574825103302153,
+        0.011193593505770582
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.375,
+        "PeakTransmittance": 0.6562629740699638,
+        "LeftHalfMaximumNanometers": 542.1386975782847,
+        "RightHalfMaximumNanometers": 558.4384082380445,
+        "FwhmNanometers": 16.299710659759853,
+        "MinimumReflectance": 0.030739395573200556,
+        "MaximumReflectance": 0.7661271413358817
+      },
+      "CenterPower": {
+        "Reflectance": 0.034700134299229884,
+        "Transmittance": 0.653781420655029,
+        "Absorptance": 0.31151844504574117,
+        "LogTransmittance": -0.42498220257052954,
+        "OpticalDensity": 0.18456742548347094
+      },
+      "MinimumOd": [
+        0.2400929548291148,
+        0.16644405703933304
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.8913-m1-order15-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 8,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": false,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000013,
+        "LeftHalfMaximumNanometers": 541.8644431543054,
+        "RightHalfMaximumNanometers": 558.5201774134173,
+        "FwhmNanometers": 16.65573425911191,
+        "MinimumReflectance": 4.732889167062847E-31,
+        "MaximumReflectance": 0.8158108281912073
+      },
+      "CenterPower": {
+        "Reflectance": 4.732889167062847E-31,
+        "Transmittance": 1.0000000000000013,
+        "Absorptance": -1.2212453270876722E-15,
+        "LogTransmittance": 1.27675647831893E-15,
+        "OpticalDensity": -5.544882932681401E-16
+      },
+      "MinimumOd": [
+        0.001534211024319784,
+        0.018330460213042344
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.6,
+        "PeakTransmittance": 0.6692721518359028,
+        "LeftHalfMaximumNanometers": 541.6097724296527,
+        "RightHalfMaximumNanometers": 559.1888088292202,
+        "FwhmNanometers": 17.579036399567485,
+        "MinimumReflectance": 0.00030563739241809367,
+        "MaximumReflectance": 0.6746496818499429
+      },
+      "CenterPower": {
+        "Reflectance": 0.00030563739241809367,
+        "Transmittance": 0.66842915973263,
+        "Absorptance": 0.33126520287495204,
+        "LogTransmittance": -0.40282485704159166,
+        "OpticalDensity": 0.17494461258662952
+      },
+      "MinimumOd": [
+        0.2345142594500606,
+        0.16720484806644276
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m7-order1-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 31,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239898,
+        "LeftHalfMaximumNanometers": 545.9587490900841,
+        "RightHalfMaximumNanometers": 554.1322195621509,
+        "FwhmNanometers": 8.17347047206681,
+        "MinimumReflectance": 0.0012314944760158418,
+        "MaximumReflectance": 0.9993121379438681
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158418,
+        "Transmittance": 0.9987685055239898,
+        "Absorptance": -5.662137425588298E-15,
+        "LogTransmittance": -0.00123225338846078,
+        "OpticalDensity": 0.0005351608469151009
+      },
+      "MinimumOd": [
+        2.6943778382184935,
+        3.0596902312831453
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.4,
+        "PeakTransmittance": 0.32296493485827343,
+        "LeftHalfMaximumNanometers": 546.081884820961,
+        "RightHalfMaximumNanometers": 554.4174408772293,
+        "FwhmNanometers": 8.335556056268274,
+        "MinimumReflectance": 0.06802624452040437,
+        "MaximumReflectance": 0.9619439223782673
+      },
+      "CenterPower": {
+        "Reflectance": 0.06807108847075383,
+        "Transmittance": 0.32155089052289054,
+        "Absorptance": 0.6103780210063556,
+        "LogTransmittance": -1.1345994569356843,
+        "OpticalDensity": 0.49275028331759385
+      },
+      "MinimumOd": [
+        2.875229258622169,
+        3.2388318400826277
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m7-order1-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 31,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.375,
+        "PeakTransmittance": 0.987965157304393,
+        "LeftHalfMaximumNanometers": 546.06529321835,
+        "RightHalfMaximumNanometers": 554.0206715494236,
+        "FwhmNanometers": 7.955378331073575,
+        "MinimumReflectance": 0.012034842695608334,
+        "MaximumReflectance": 0.9995444035277076
+      },
+      "CenterPower": {
+        "Reflectance": 0.02959564974583898,
+        "Transmittance": 0.9704043502541666,
+        "Absorptance": -5.495603971894525E-15,
+        "LogTransmittance": -0.03004243841287424,
+        "OpticalDensity": 0.013047265225629568
+      },
+      "MinimumOd": [
+        2.8268007352355657,
+        3.216063206311229
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.4,
+        "PeakTransmittance": 0.32296493485827343,
+        "LeftHalfMaximumNanometers": 546.081884820961,
+        "RightHalfMaximumNanometers": 554.4174408772293,
+        "FwhmNanometers": 8.335556056268274,
+        "MinimumReflectance": 0.06802624452040437,
+        "MaximumReflectance": 0.9619439223782673
+      },
+      "CenterPower": {
+        "Reflectance": 0.06807108847075383,
+        "Transmittance": 0.32155089052289054,
+        "Absorptance": 0.6103780210063556,
+        "LogTransmittance": -1.1345994569356843,
+        "OpticalDensity": 0.49275028331759385
+      },
+      "MinimumOd": [
+        2.875229258622169,
+        3.2388318400826277
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m7-order1-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 32,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000058,
+        "LeftHalfMaximumNanometers": 545.9853894023872,
+        "RightHalfMaximumNanometers": 554.1078265587954,
+        "FwhmNanometers": 8.122437156408182,
+        "MinimumReflectance": 1.7170963323829768E-31,
+        "MaximumReflectance": 0.9993879053613975
+      },
+      "CenterPower": {
+        "Reflectance": 1.7170963323829768E-31,
+        "Transmittance": 1.0000000000000058,
+        "Absorptance": -5.662137425588298E-15,
+        "LogTransmittance": 5.6066262743570405E-15,
+        "OpticalDensity": -2.43492685304705E-15
+      },
+      "MinimumOd": [
+        2.6732520955384733,
+        3.004851806319138
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.375,
+        "PeakTransmittance": 0.33911640882903016,
+        "LeftHalfMaximumNanometers": 545.9349193630833,
+        "RightHalfMaximumNanometers": 554.6159668628028,
+        "FwhmNanometers": 8.681047499719512,
+        "MinimumReflectance": 0.008991844660127191,
+        "MaximumReflectance": 0.9290824123818201
+      },
+      "CenterPower": {
+        "Reflectance": 0.008993879822744914,
+        "Transmittance": 0.33780514903605774,
+        "Absorptance": 0.6532009711411974,
+        "LogTransmittance": -1.085286031870678,
+        "OpticalDensity": 0.47133373492811215
+      },
+      "MinimumOd": [
+        2.7353160999101513,
+        3.0360220500478774
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m6-order2-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 27,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239901,
+        "LeftHalfMaximumNanometers": 545.6016627314278,
+        "RightHalfMaximumNanometers": 554.5065071346501,
+        "FwhmNanometers": 8.904844403222228,
+        "MinimumReflectance": 0.0012314944760158867,
+        "MaximumReflectance": 0.9989992565281706
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158867,
+        "Transmittance": 0.9987685055239901,
+        "Absorptance": -5.9396931817445875E-15,
+        "LogTransmittance": -0.001232253388460447,
+        "OpticalDensity": 0.0005351608469149563
+      },
+      "MinimumOd": [
+        2.4332515082443527,
+        2.8619423076207795
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.425,
+        "PeakTransmittance": 0.25034358691682573,
+        "LeftHalfMaximumNanometers": 545.6422853604876,
+        "RightHalfMaximumNanometers": 554.9815973935482,
+        "FwhmNanometers": 9.33931203306065,
+        "MinimumReflectance": 0.08521201044037177,
+        "MaximumReflectance": 0.9549733895977749
+      },
+      "CenterPower": {
+        "Reflectance": 0.08525072726579466,
+        "Transmittance": 0.24921149634492287,
+        "Absorptance": 0.6655377763892825,
+        "LogTransmittance": -1.3894533601276249,
+        "OpticalDensity": 0.6034319271653592
+      },
+      "MinimumOd": [
+        2.6247276489996,
+        3.043941650838935
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m6-order2-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 27,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.5,
+        "PeakTransmittance": 0.987903747426507,
+        "LeftHalfMaximumNanometers": 545.7206687239141,
+        "RightHalfMaximumNanometers": 554.3813827496253,
+        "FwhmNanometers": 8.660714025711286,
+        "MinimumReflectance": 0.012096252573496252,
+        "MaximumReflectance": 0.9993377097264977
+      },
+      "CenterPower": {
+        "Reflectance": 0.02959564974583876,
+        "Transmittance": 0.970404350254167,
+        "Absorptance": -5.717648576819556E-15,
+        "LogTransmittance": -0.03004243841287374,
+        "OpticalDensity": 0.013047265225629351
+      },
+      "MinimumOd": [
+        2.563593600625249,
+        3.018406521894896
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.425,
+        "PeakTransmittance": 0.25034358691682573,
+        "LeftHalfMaximumNanometers": 545.6422853604876,
+        "RightHalfMaximumNanometers": 554.9815973935482,
+        "FwhmNanometers": 9.33931203306065,
+        "MinimumReflectance": 0.08521201044037177,
+        "MaximumReflectance": 0.9549733895977749
+      },
+      "CenterPower": {
+        "Reflectance": 0.08525072726579466,
+        "Transmittance": 0.24921149634492287,
+        "Absorptance": 0.6655377763892825,
+        "LogTransmittance": -1.3894533601276249,
+        "OpticalDensity": 0.6034319271653592
+      },
+      "MinimumOd": [
+        2.6247276489996,
+        3.043941650838935
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m6-order2-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 28,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000058,
+        "LeftHalfMaximumNanometers": 545.6331028822965,
+        "RightHalfMaximumNanometers": 554.4778508188493,
+        "FwhmNanometers": 8.844747936552835,
+        "MinimumReflectance": 9.049449790327173E-31,
+        "MaximumReflectance": 0.9991109408697931
+      },
+      "CenterPower": {
+        "Reflectance": 9.049449790327173E-31,
+        "Transmittance": 1.0000000000000058,
+        "Absorptance": -5.88418203051333E-15,
+        "LogTransmittance": 5.88418203051333E-15,
+        "OpticalDensity": -2.5554677863662105E-15
+      },
+      "MinimumOd": [
+        2.409810838798781,
+        2.807137663253643
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.4,
+        "PeakTransmittance": 0.26594551774303893,
+        "LeftHalfMaximumNanometers": 545.4661817699025,
+        "RightHalfMaximumNanometers": 555.2286161583171,
+        "FwhmNanometers": 9.76243438841459,
+        "MinimumReflectance": 0.0162925676407501,
+        "MaximumReflectance": 0.918797407097365
+      },
+      "CenterPower": {
+        "Reflectance": 0.01629879192051461,
+        "Transmittance": 0.2648153937142304,
+        "Absorptance": 0.7188858143652549,
+        "LogTransmittance": -1.328722323247065,
+        "OpticalDensity": 0.5770567729678692
+      },
+      "MinimumOd": [
+        2.486121736034259,
+        2.8415962827267336
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m5-order4-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 23,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239882,
+        "LeftHalfMaximumNanometers": 545.5272486832866,
+        "RightHalfMaximumNanometers": 554.5781854496172,
+        "FwhmNanometers": 9.050936766330551,
+        "MinimumReflectance": 0.0012314944760158418,
+        "MaximumReflectance": 0.9985323817439363
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158418,
+        "Transmittance": 0.9987685055239882,
+        "Absorptance": -4.107825191113079E-15,
+        "LogTransmittance": -0.0012322533884623343,
+        "OpticalDensity": 0.0005351608469157759
+      },
+      "MinimumOd": [
+        1.3397832674972108,
+        2.356633272710372
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.5,
+        "PeakTransmittance": 0.4567626473691814,
+        "LeftHalfMaximumNanometers": 545.7294580944325,
+        "RightHalfMaximumNanometers": 554.719732465397,
+        "FwhmNanometers": 8.990274370964471,
+        "MinimumReflectance": 0.048890184613448504,
+        "MaximumReflectance": 0.9621330744948243
+      },
+      "CenterPower": {
+        "Reflectance": 0.049122660401599044,
+        "Transmittance": 0.4548755551958358,
+        "Absorptance": 0.49600178440256515,
+        "LogTransmittance": -0.7877314025046152,
+        "OpticalDensity": 0.3421074013296637
+      },
+      "MinimumOd": [
+        1.5305201631303744,
+        2.5341115258347684
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m5-order4-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 23,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.5,
+        "PeakTransmittance": 0.9878484667773608,
+        "LeftHalfMaximumNanometers": 545.6515907052153,
+        "RightHalfMaximumNanometers": 554.447771172598,
+        "FwhmNanometers": 8.79618046738267,
+        "MinimumReflectance": 0.012151533222641231,
+        "MaximumReflectance": 0.9990274687307373
+      },
+      "CenterPower": {
+        "Reflectance": 0.02959564974583898,
+        "Transmittance": 0.970404350254165,
+        "Absorptance": -3.941291737419306E-15,
+        "LogTransmittance": -0.030042438412875794,
+        "OpticalDensity": 0.013047265225630243
+      },
+      "MinimumOd": [
+        1.4298730087947569,
+        2.5049738253118927
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.5,
+        "PeakTransmittance": 0.4567626473691814,
+        "LeftHalfMaximumNanometers": 545.7294580944325,
+        "RightHalfMaximumNanometers": 554.719732465397,
+        "FwhmNanometers": 8.990274370964471,
+        "MinimumReflectance": 0.048890184613448504,
+        "MaximumReflectance": 0.9621330744948243
+      },
+      "CenterPower": {
+        "Reflectance": 0.049122660401599044,
+        "Transmittance": 0.4548755551958358,
+        "Absorptance": 0.49600178440256515,
+        "LogTransmittance": -0.7877314025046152,
+        "OpticalDensity": 0.3421074013296637
+      },
+      "MinimumOd": [
+        1.5305201631303744,
+        2.5341115258347684
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m5-order4-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 24,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.000000000000004,
+        "LeftHalfMaximumNanometers": 545.5604090882763,
+        "RightHalfMaximumNanometers": 554.5481956553494,
+        "FwhmNanometers": 8.987786567073158,
+        "MinimumReflectance": 1.2262014822324755E-31,
+        "MaximumReflectance": 0.9986931308609742
+      },
+      "CenterPower": {
+        "Reflectance": 1.2262014822324755E-31,
+        "Transmittance": 1.000000000000004,
+        "Absorptance": -4.107825191113079E-15,
+        "LogTransmittance": 4.052314039881821E-15,
+        "OpticalDensity": -1.7598976264597487E-15
+      },
+      "MinimumOd": [
+        1.2797026105763007,
+        2.301073011782836
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.4,
+        "PeakTransmittance": 0.4725553563308898,
+        "LeftHalfMaximumNanometers": 545.5920395365032,
+        "RightHalfMaximumNanometers": 554.9040283128826,
+        "FwhmNanometers": 9.311988776379394,
+        "MinimumReflectance": 0.002901781930457469,
+        "MaximumReflectance": 0.9293614839741915
+      },
+      "CenterPower": {
+        "Reflectance": 0.002901781930457469,
+        "Transmittance": 0.4710680401206796,
+        "Absorptance": 0.526030177948863,
+        "LogTransmittance": -0.7527527365439489,
+        "OpticalDensity": 0.3269163597186093
+      },
+      "MinimumOd": [
+        1.4025196948851673,
+        2.339824082445234
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m4-order6-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 19,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239858,
+        "LeftHalfMaximumNanometers": 545.2777550902609,
+        "RightHalfMaximumNanometers": 554.8417204981477,
+        "FwhmNanometers": 9.563965407886712,
+        "MinimumReflectance": 0.0012314944760158238,
+        "MaximumReflectance": 0.9964064651017386
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158238,
+        "Transmittance": 0.9987685055239858,
+        "Absorptance": -1.5543122344752192E-15,
+        "LogTransmittance": -0.0012322533884647768,
+        "OpticalDensity": 0.0005351608469168367
+      },
+      "MinimumOd": [
+        7.642714216113754E-08,
+        0.8897482790082255
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.45,
+        "PeakTransmittance": 0.22434516579715558,
+        "LeftHalfMaximumNanometers": 545.228494494016,
+        "RightHalfMaximumNanometers": 555.4607726350087,
+        "FwhmNanometers": 10.232278140992662,
+        "MinimumReflectance": 0.09120714997182383,
+        "MaximumReflectance": 0.9331501632400001
+      },
+      "CenterPower": {
+        "Reflectance": 0.09124526252661565,
+        "Transmittance": 0.2233998140040228,
+        "Absorptance": 0.6853549234693616,
+        "LogTransmittance": -1.4987922249166634,
+        "OpticalDensity": 0.6509171928008044
+      },
+      "MinimumOd": [
+        0.7873937801682863,
+        1.1472310805269654
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m4-order6-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 19,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.575,
+        "PeakTransmittance": 0.9876910416020177,
+        "LeftHalfMaximumNanometers": 545.4188027057228,
+        "RightHalfMaximumNanometers": 554.6931638805646,
+        "FwhmNanometers": 9.274361174841829,
+        "MinimumReflectance": 0.012308958397982416,
+        "MaximumReflectance": 0.9976127634856745
+      },
+      "CenterPower": {
+        "Reflectance": 0.029595649745839066,
+        "Transmittance": 0.9704043502541624,
+        "Absorptance": -1.4988010832439613E-15,
+        "LogTransmittance": -0.03004243841287846,
+        "OpticalDensity": 0.0130472652256314
+      },
+      "MinimumOd": [
+        0.002975701200881756,
+        0.9657224977549457
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.45,
+        "PeakTransmittance": 0.22434516579715558,
+        "LeftHalfMaximumNanometers": 545.228494494016,
+        "RightHalfMaximumNanometers": 555.4607726350087,
+        "FwhmNanometers": 10.232278140992662,
+        "MinimumReflectance": 0.09120714997182383,
+        "MaximumReflectance": 0.9331501632400001
+      },
+      "CenterPower": {
+        "Reflectance": 0.09124526252661565,
+        "Transmittance": 0.2233998140040228,
+        "Absorptance": 0.6853549234693616,
+        "LogTransmittance": -1.4987922249166634,
+        "OpticalDensity": 0.6509171928008044
+      },
+      "MinimumOd": [
+        0.7873937801682863,
+        1.1472310805269654
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m4-order6-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 20,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000013,
+        "LeftHalfMaximumNanometers": 545.3165289126806,
+        "RightHalfMaximumNanometers": 554.806967839664,
+        "FwhmNanometers": 9.490438926983416,
+        "MinimumReflectance": 8.724257843181059E-31,
+        "MaximumReflectance": 0.9967839721968907
+      },
+      "CenterPower": {
+        "Reflectance": 8.724257843181059E-31,
+        "Transmittance": 1.0000000000000013,
+        "Absorptance": -1.4432899320127035E-15,
+        "LogTransmittance": 1.3877787807814457E-15,
+        "OpticalDensity": -6.027046665958044E-16
+      },
+      "MinimumOd": [
+        0.002651419655277546,
+        0.8443803187351371
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.425,
+        "PeakTransmittance": 0.23924689574435323,
+        "LeftHalfMaximumNanometers": 545.0217215991015,
+        "RightHalfMaximumNanometers": 555.7568539455422,
+        "FwhmNanometers": 10.73513234644065,
+        "MinimumReflectance": 0.01914138167493603,
+        "MaximumReflectance": 0.8866075412887031
+      },
+      "CenterPower": {
+        "Reflectance": 0.01915354169763865,
+        "Transmittance": 0.23827398314237136,
+        "Absorptance": 0.74257247515999,
+        "LogTransmittance": -1.434334077747571,
+        "OpticalDensity": 0.6229233751715598
+      },
+      "MinimumOd": [
+        0.7441308693269175,
+        1.0381933780476718
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m3-order9-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 15,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239859,
+        "LeftHalfMaximumNanometers": 544.656161779795,
+        "RightHalfMaximumNanometers": 555.483333381768,
+        "FwhmNanometers": 10.827171601973077,
+        "MinimumReflectance": 0.0012314944760158015,
+        "MaximumReflectance": 0.9869724887693202
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158015,
+        "Transmittance": 0.9987685055239859,
+        "Absorptance": -1.6653345369377348E-15,
+        "LogTransmittance": -0.0012322533884646658,
+        "OpticalDensity": 0.0005351608469167885
+      },
+      "MinimumOd": [
+        1.9293610729837235E-07,
+        2.5369677955548765E-08
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.675,
+        "PeakTransmittance": 0.5626086235052675,
+        "LeftHalfMaximumNanometers": 544.8868423261574,
+        "RightHalfMaximumNanometers": 555.5403944005054,
+        "FwhmNanometers": 10.653552074348,
+        "MinimumReflectance": 0.03835174570490883,
+        "MaximumReflectance": 0.939503700941166
+      },
+      "CenterPower": {
+        "Reflectance": 0.04028542477639206,
+        "Transmittance": 0.5606176105867602,
+        "Absorptance": 0.3990969646368478,
+        "LogTransmittance": -0.5787162269261583,
+        "OpticalDensity": 0.25133326394190064
+      },
+      "MinimumOd": [
+        0.2931891477324053,
+        0.19495656687859095
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m3-order9-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 15,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.75,
+        "PeakTransmittance": 0.9873074440635048,
+        "LeftHalfMaximumNanometers": 544.8430631667527,
+        "RightHalfMaximumNanometers": 555.2861523257114,
+        "FwhmNanometers": 10.443089158958742,
+        "MinimumReflectance": 0.012692555936497093,
+        "MaximumReflectance": 0.9913723676684773
+      },
+      "CenterPower": {
+        "Reflectance": 0.02959564974583917,
+        "Transmittance": 0.9704043502541626,
+        "Absorptance": -1.7208456881689926E-15,
+        "LogTransmittance": -0.030042438412878347,
+        "OpticalDensity": 0.013047265225631351
+      },
+      "MinimumOd": [
+        0.00335387880739208,
+        0.00332274899153645
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.675,
+        "PeakTransmittance": 0.5626086235052675,
+        "LeftHalfMaximumNanometers": 544.8868423261574,
+        "RightHalfMaximumNanometers": 555.5403944005054,
+        "FwhmNanometers": 10.653552074348,
+        "MinimumReflectance": 0.03835174570490883,
+        "MaximumReflectance": 0.939503700941166
+      },
+      "CenterPower": {
+        "Reflectance": 0.04028542477639206,
+        "Transmittance": 0.5606176105867602,
+        "Absorptance": 0.3990969646368478,
+        "LogTransmittance": -0.5787162269261583,
+        "OpticalDensity": 0.25133326394190064
+      },
+      "MinimumOd": [
+        0.2931891477324053,
+        0.19495656687859095
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m3-order9-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 16,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000018,
+        "LeftHalfMaximumNanometers": 544.7108415277964,
+        "RightHalfMaximumNanometers": 555.4358128306036,
+        "FwhmNanometers": 10.724971302807148,
+        "MinimumReflectance": 4.774314892813945E-31,
+        "MaximumReflectance": 0.9883461807310152
+      },
+      "CenterPower": {
+        "Reflectance": 4.774314892813945E-31,
+        "Transmittance": 1.0000000000000018,
+        "Absorptance": -1.6653345369377348E-15,
+        "LogTransmittance": 1.7208456881689926E-15,
+        "OpticalDensity": -7.473537865787974E-16
+      },
+      "MinimumOd": [
+        0.0014156839847941061,
+        3.81713127812288E-05
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.425,
+        "PeakTransmittance": 0.5774130144216143,
+        "LeftHalfMaximumNanometers": 544.7200746948259,
+        "RightHalfMaximumNanometers": 555.7637651750761,
+        "FwhmNanometers": 11.04369048025012,
+        "MinimumReflectance": 0.0010417169466195122,
+        "MaximumReflectance": 0.8973869969223898
+      },
+      "CenterPower": {
+        "Reflectance": 0.0010417169466195122,
+        "Transmittance": 0.5761802438406437,
+        "Absorptance": 0.4227780392127368,
+        "LogTransmittance": -0.55133474390209,
+        "OpticalDensity": 0.23944163695822018
+      },
+      "MinimumOd": [
+        0.2761726611111294,
+        0.16841982353957116
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m2-order14-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 11,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 0.9987685055239857,
+        "LeftHalfMaximumNanometers": 544.8042680288797,
+        "RightHalfMaximumNanometers": 555.331595239541,
+        "FwhmNanometers": 10.52732721066127,
+        "MinimumReflectance": 0.0012314944760158137,
+        "MaximumReflectance": 0.948645412040025
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158137,
+        "Transmittance": 0.9987685055239857,
+        "Absorptance": -1.4432899320127035E-15,
+        "LogTransmittance": -0.0012322533884648879,
+        "OpticalDensity": 0.000535160846916885
+      },
+      "MinimumOd": [
+        7.061999351989367E-07,
+        0.0833365708052491
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.5,
+        "PeakTransmittance": 0.19759596117008155,
+        "LeftHalfMaximumNanometers": 544.5008945751337,
+        "RightHalfMaximumNanometers": 556.3368277436127,
+        "FwhmNanometers": 11.835933168479073,
+        "MinimumReflectance": 0.0885055918859991,
+        "MaximumReflectance": 0.7757701923501872
+      },
+      "CenterPower": {
+        "Reflectance": 0.08853824687969927,
+        "Transmittance": 0.19675588279330028,
+        "Absorptance": 0.7147058703270004,
+        "LogTransmittance": -1.6257914922927323,
+        "OpticalDensity": 0.7060722738279868
+      },
+      "MinimumOd": [
+        1.0714342297068762,
+        0.6242594109955297
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m2-order14-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 11,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 520.575,
+        "PeakTransmittance": 0.989984162246554,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 523.4533216392276,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.01001583775344694,
+        "MaximumReflectance": 0.9658615805338107
+      },
+      "CenterPower": {
+        "Reflectance": 0.029595649745839114,
+        "Transmittance": 0.9704043502541626,
+        "Absorptance": -1.7208456881689926E-15,
+        "LogTransmittance": -0.030042438412878347,
+        "OpticalDensity": 0.013047265225631351
+      },
+      "MinimumOd": [
+        0.004169291872777444,
+        0.09271990833932862
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.5,
+        "PeakTransmittance": 0.19759596117008155,
+        "LeftHalfMaximumNanometers": 544.5008945751337,
+        "RightHalfMaximumNanometers": 556.3368277436127,
+        "FwhmNanometers": 11.835933168479073,
+        "MinimumReflectance": 0.0885055918859991,
+        "MaximumReflectance": 0.7757701923501872
+      },
+      "CenterPower": {
+        "Reflectance": 0.08853824687969927,
+        "Transmittance": 0.19675588279330028,
+        "Absorptance": 0.7147058703270004,
+        "LogTransmittance": -1.6257914922927323,
+        "OpticalDensity": 0.7060722738279868
+      },
+      "MinimumOd": [
+        1.0714342297068762,
+        0.6242594109955297
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m2-order14-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 12,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000016,
+        "LeftHalfMaximumNanometers": 544.8723602350964,
+        "RightHalfMaximumNanometers": 555.2739010693654,
+        "FwhmNanometers": 10.401540834268985,
+        "MinimumReflectance": 8.434277762923377E-31,
+        "MaximumReflectance": 0.9536081320496568
+      },
+      "CenterPower": {
+        "Reflectance": 8.434277762923377E-31,
+        "Transmittance": 1.0000000000000016,
+        "Absorptance": -1.5543122344752192E-15,
+        "LogTransmittance": 1.4988010832439613E-15,
+        "OpticalDensity": -6.509210399234687E-16
+      },
+      "MinimumOd": [
+        0.002336659335101418,
+        0.0987103680581256
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.525,
+        "PeakTransmittance": 0.21040316777628404,
+        "LeftHalfMaximumNanometers": 544.1743955519479,
+        "RightHalfMaximumNanometers": 556.8396066159819,
+        "FwhmNanometers": 12.665211064033997,
+        "MinimumReflectance": 0.017825724733213602,
+        "MaximumReflectance": 0.6768566645966787
+      },
+      "CenterPower": {
+        "Reflectance": 0.01784181420198399,
+        "Transmittance": 0.20950771606883245,
+        "Absorptance": 0.7726504697291836,
+        "LogTransmittance": -1.5629947094207028,
+        "OpticalDensity": 0.6787999775453877
+      },
+      "MinimumOd": [
+        1.0358966525880562,
+        0.5867951322230771
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m1-order21-embedded",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 7,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": false,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 576,
+        "PeakTransmittance": 0.9991915463975752,
+        "LeftHalfMaximumNanometers": 569.1920483237716,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0008084536024233974,
+        "MaximumReflectance": 0.7971584612569136
+      },
+      "CenterPower": {
+        "Reflectance": 0.0012314944760158176,
+        "Transmittance": 0.9987685055239852,
+        "Absorptance": -9.992007221626409E-16,
+        "LogTransmittance": -0.001232253388465332,
+        "OpticalDensity": 0.0005351608469170778
+      },
+      "MinimumOd": [
+        3.44097781337825E-05,
+        3.669016197183801E-05
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 576.75,
+        "PeakTransmittance": 0.6075931607059246,
+        "LeftHalfMaximumNanometers": 569.4643155002351,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.03319194645849114,
+        "MaximumReflectance": 0.7395644777508146
+      },
+      "CenterPower": {
+        "Reflectance": 0.03748467802619892,
+        "Transmittance": 0.574956163068975,
+        "Absorptance": 0.3875591589048261,
+        "LogTransmittance": -0.5534614792319745,
+        "OpticalDensity": 0.24036526637645772
+      },
+      "MinimumOd": [
+        0.28998413509399484,
+        0.19512493265553937
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m1-order21-air",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 7,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": false,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 573.95,
+        "PeakTransmittance": 0.9862614517239956,
+        "LeftHalfMaximumNanometers": 569.7055566290736,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0137385482760041,
+        "MaximumReflectance": 0.8614250755415773
+      },
+      "CenterPower": {
+        "Reflectance": 0.029595649745839094,
+        "Transmittance": 0.9704043502541622,
+        "Absorptance": -1.1657341758564144E-15,
+        "LogTransmittance": -0.03004243841287879,
+        "OpticalDensity": 0.013047265225631545
+      },
+      "MinimumOd": [
+        0.005725872837896973,
+        0.00572543793829217
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 576.75,
+        "PeakTransmittance": 0.6075931607059246,
+        "LeftHalfMaximumNanometers": 569.4643155002351,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.03319194645849114,
+        "MaximumReflectance": 0.7395644777508146
+      },
+      "CenterPower": {
+        "Reflectance": 0.03748467802619892,
+        "Transmittance": 0.574956163068975,
+        "Absorptance": 0.3875591589048261,
+        "LogTransmittance": -0.5534614792319745,
+        "OpticalDensity": 0.24036526637645772
+      },
+      "MinimumOd": [
+        0.28998413509399484,
+        0.19512493265553937
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-level0.5-m1-order21-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 8,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": false,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000013,
+        "LeftHalfMaximumNanometers": 544.0464496744671,
+        "RightHalfMaximumNanometers": 556.1560532948117,
+        "FwhmNanometers": 12.109603620344615,
+        "MinimumReflectance": 1.4623281190137292E-30,
+        "MaximumReflectance": 0.8142595607337986
+      },
+      "CenterPower": {
+        "Reflectance": 1.4623281190137292E-30,
+        "Transmittance": 1.0000000000000013,
+        "Absorptance": -1.2212453270876722E-15,
+        "LogTransmittance": 1.27675647831893E-15,
+        "OpticalDensity": -5.544882932681401E-16
+      },
+      "MinimumOd": [
+        0.0007007736076644848,
+        0.0018605891661277619
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 576.2,
+        "PeakTransmittance": 0.623484358752092,
+        "LeftHalfMaximumNanometers": 568.7572032061672,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.00019612776033969825,
+        "MaximumReflectance": 0.6404943986619465
+      },
+      "CenterPower": {
+        "Reflectance": 0.0006240116593224537,
+        "Transmittance": 0.5893988331519656,
+        "Absorptance": 0.4099771551887119,
+        "LogTransmittance": -0.5286521884023115,
+        "OpticalDensity": 0.22959072826920215
+      },
+      "MinimumOd": [
+        0.2816527816890661,
+        0.18218786495358533
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-integer0-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 23,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000036,
+        "LeftHalfMaximumNanometers": 537.0421841497542,
+        "RightHalfMaximumNanometers": 563.8777795749595,
+        "FwhmNanometers": 26.83559542520527,
+        "MinimumReflectance": 2.278753446043492E-30,
+        "MaximumReflectance": 0.9509634849797332
+      },
+      "CenterPower": {
+        "Reflectance": 2.278753446043492E-30,
+        "Transmittance": 1.0000000000000036,
+        "Absorptance": -3.4416913763379853E-15,
+        "LogTransmittance": 3.4416913763379853E-15,
+        "OpticalDensity": -1.4947075731575949E-15
+      },
+      "MinimumOd": [
+        1.7008281893135164,
+        1.4711882908652987
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.225,
+        "PeakTransmittance": 0.6680819594959151,
+        "LeftHalfMaximumNanometers": 537.2891107860383,
+        "RightHalfMaximumNanometers": 564.8855134930116,
+        "FwhmNanometers": 27.59640270697321,
+        "MinimumReflectance": 0.00214096428562792,
+        "MaximumReflectance": 0.7728258923334392
+      },
+      "CenterPower": {
+        "Reflectance": 0.0021426943183831624,
+        "Transmittance": 0.6656363255439356,
+        "Absorptance": 0.33222098013768125,
+        "LogTransmittance": -0.4070118153274117,
+        "OpticalDensity": 0.17676298546612026
+      },
+      "MinimumOd": [
+        1.7793126750784733,
+        1.5125165335263817
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-integer1-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 24,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.000000000000004,
+        "LeftHalfMaximumNanometers": 541.2325892633833,
+        "RightHalfMaximumNanometers": 559.2033379142608,
+        "FwhmNanometers": 17.970748650877567,
+        "MinimumReflectance": 1.543108284228369E-31,
+        "MaximumReflectance": 0.9899524712033672
+      },
+      "CenterPower": {
+        "Reflectance": 1.543108284228369E-31,
+        "Transmittance": 1.000000000000004,
+        "Absorptance": -4.107825191113079E-15,
+        "LogTransmittance": 4.052314039881821E-15,
+        "OpticalDensity": -1.7598976264597487E-15
+      },
+      "MinimumOd": [
+        2.1861026553579004,
+        2.0120017778026553
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 551.05,
+        "PeakTransmittance": 0.5891575391791575,
+        "LeftHalfMaximumNanometers": 541.4480564689751,
+        "RightHalfMaximumNanometers": 559.8252141885407,
+        "FwhmNanometers": 18.377157719565616,
+        "MinimumReflectance": 0.0009976236605851673,
+        "MaximumReflectance": 0.90148915365766
+      },
+      "CenterPower": {
+        "Reflectance": 0.0009986278358042181,
+        "Transmittance": 0.5863619236187738,
+        "Absorptance": 0.412639448545422,
+        "LogTransmittance": -0.5338180629551862,
+        "OpticalDensity": 0.23183423908172004
+      },
+      "MinimumOd": [
+        2.2383132384922177,
+        2.0413750045442773
+      ]
+    },
+    "OriginalAssessment": null
+  },
+  {
+    "Name": "NBF2-integer2-matched",
+    "Source": "NBF2",
+    "Counterfactual": true,
+    "LayerCount": 29,
+    "WithinOriginalLayerBudget": true,
+    "WithinOriginalThicknessBounds": true,
+    "IntendedScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550,
+        "PeakTransmittance": 1.0000000000000047,
+        "LeftHalfMaximumNanometers": 545.181537888892,
+        "RightHalfMaximumNanometers": 554.8878749865485,
+        "FwhmNanometers": 9.706337097656501,
+        "MinimumReflectance": 1.5701908754098633E-30,
+        "MaximumReflectance": 0.9986873748821214
+      },
+      "CenterPower": {
+        "Reflectance": 1.5701908754098633E-30,
+        "Transmittance": 1.0000000000000047,
+        "Absorptance": -4.6629367034256575E-15,
+        "LogTransmittance": 4.6629367034256575E-15,
+        "OpticalDensity": -2.025087679761903E-15
+      },
+      "MinimumOd": [
+        2.6602077125433015,
+        2.929603472905473
+      ]
+    },
+    "OriginalAirAndRealMaterialsScreen": {
+      "Metrics": {
+        "PeakWavelengthNanometers": 550.325,
+        "PeakTransmittance": 0.37791607567291197,
+        "LeftHalfMaximumNanometers": 545.1114021976582,
+        "RightHalfMaximumNanometers": 555.6314721749302,
+        "FwhmNanometers": 10.520069977271987,
+        "MinimumReflectance": 0.0015417587860271633,
+        "MaximumReflectance": 0.8281000469769892
+      },
+      "CenterPower": {
+        "Reflectance": 0.0015417587860271633,
+        "Transmittance": 0.3768677046096587,
+        "Absorptance": 0.6215905366043142,
+        "LogTransmittance": -0.9758610692743596,
+        "OpticalDensity": 0.4238110774900613
+      },
+      "MinimumOd": [
+        2.725625170277656,
+        2.970911747744995
+      ]
+    },
+    "OriginalAssessment": null
+  }
+]

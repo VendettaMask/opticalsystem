@@ -51,6 +51,18 @@ internal static class DampedLeastSquaresSearch
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var jacobian = EstimateJacobian(problem, current, evaluation);
+            if (problem.BoundActiveSetEnabled && evaluation.ConstraintResiduals.Length == 0)
+            {
+                var actual = problem.VariableVectorFromScaled(current);
+                for (var column = 0; column < actual.Length; column++)
+                {
+                    var gradient = 0.0;
+                    for (var row = 0; row < evaluation.ObjectiveResiduals.Length; row++) gradient += jacobian.Objective[row, column] * evaluation.ObjectiveResiduals[row];
+                    var variable = problem.Variables[column];
+                    if (actual[column] <= variable.LowerBound && gradient > 0 || actual[column] >= variable.UpperBound && gradient < 0)
+                        for (var row = 0; row < evaluation.ObjectiveResiduals.Length; row++) jacobian.Objective[row, column] = 0;
+                }
+            }
             var gradientNorm = GradientNorm(jacobian.Objective, evaluation.ObjectiveResiduals);
             finalGradientNorm = gradientNorm;
             OptimizationGuards.RequireFiniteState(gradientNorm, "Optimization gradient norm");
@@ -135,6 +147,8 @@ internal static class DampedLeastSquaresSearch
         IReadOnlyList<double> origin,
         OptimizationEvaluation baseline)
     {
+        if (problem.AnalyticJacobianAtScaled(origin) is { } analytic)
+            return new Jacobian(analytic.Objective, analytic.Constraints);
         var objectiveColumns = new double[origin.Count][];
         var constraintColumns = new double[origin.Count][];
         void EvaluateColumn(int column)

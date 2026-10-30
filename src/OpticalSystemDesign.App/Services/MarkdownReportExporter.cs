@@ -8,7 +8,8 @@ namespace OpticalSystemDesign.App.Services;
 internal sealed record ReportExportProgress(int Completed, int Total, string Item);
 internal sealed record ReportExportResult(string ReportPath, int Succeeded, int Failed);
 internal sealed record ReportImageRequest(AnalysisResultDto? Analysis, SceneDto? Scene,
-    OpticalDocumentSnapshot Document, DateTimeOffset CapturedAt, string Title);
+    OpticalDocumentSnapshot Document, DateTimeOffset CapturedAt, string Title,
+    bool ForPrint = false, bool Landscape = false);
 internal delegate Task<IReadOnlyList<string>> ReportImageWriter(
     ReportImageRequest request, string directory, string stem, CancellationToken cancellationToken);
 
@@ -74,6 +75,13 @@ internal static class MarkdownReportExporter
         var appendix = new DesignReportContent();
         var outcomes = new List<string[]>();
         var currentConfiguration = 0;
+        var pdf = new DesignReportPdfModel(source.Name, source.Path is null ? "未保存工程" : Path.GetFileName(source.Path), snapshot.CapturedAt)
+        {
+            FieldLabel = string.Equals(workspace.Prescription.GetSystemSettings().FieldDefinition, "Angle", StringComparison.OrdinalIgnoreCase) ? "视场角 / °" : "视场坐标",
+            Fields = string.Join("；", workspace.Prescription.GetFields().Select(field => $"({DesignReportPdfModel.Number(field.X)}, {DesignReportPdfModel.Number(field.Y)})")),
+            Wavelengths = string.Join(" / ", workspace.Prescription.GetWavelengths().Select(wave => DesignReportPdfModel.Number(wave.Nanometers))) + " nm"
+        };
+        DesignReportPdfSection? pdfSection = null;
         try
         {
             foreach (var configuration in configurations)
@@ -83,6 +91,7 @@ internal static class MarkdownReportExporter
                     workspace.MultiConfiguration.Activate(configuration);
                 var document = workspace.Documents.GetSnapshot();
                 currentConfiguration = configuration + 1;
+                pdf.Configurations.Add((currentConfiguration, document));
                 var prefix = $"c{configuration + 1:D3}";
                 text.Heading($"配置 {configuration + 1}", 2, newPage: true);
                 progress?.Report(new(completed, total, "系统参数概览"));
@@ -95,6 +104,13 @@ internal static class MarkdownReportExporter
                     await Item(title, async () =>
                     {
                         var scene = await workspace.Visualization.BuildSceneAsync(dimension, cancellationToken).ConfigureAwait(false);
+                        pdfSection!.Conditions = "长度单位：mm · 标准布局视角";
+                        pdfSection.Metrics.AddRange(new[]
+                        {
+                            new[] { "有效焦距 / mm", DesignReportPdfModel.Number(document.EffectiveFocalLength) },
+                            new[] { "F 数", DesignReportPdfModel.Number(document.FNumber) },
+                            new[] { "系统总长 / mm", DesignReportPdfModel.Number(document.TotalTrack) }
+                        });
                         await Images(new(null, scene, document, snapshot.CapturedAt, title), $"{prefix}-{dimension}");
                     });
                 }
@@ -127,7 +143,17 @@ internal static class MarkdownReportExporter
                         if (result.View.ConfigurationScope is { } scope)
                             appendix.Paragraph($"分析配置：{string.Join(", ", scope.ConfigurationNumbers)}；显示方式：{scope.Display}。");
                         var hasPlot = AnalysisPanel.HasReportPlot(result);
-                        await Images(new(result, null, result.SourceDocument ?? document, snapshot.CapturedAt, title), $"{prefix}-analysis-{i + 1:D3}", hasPlot ? text : appendix);
+                        pdfSection!.Landscape = !hasPlot && result.View.Table?.Columns.Count > 5;
+                        pdfSection.Conditions = string.Join(" · ", descriptors.Where(parameter =>
+                            new[] { "Field", "Wave", "Sample", "Sampling", "Surface", "Reference" }.Any(part => parameter.Key.Contains(part, StringComparison.OrdinalIgnoreCase)))
+                            .Take(5).Select(parameter => DesignReportPdfModel.Condition(parameter, merged)));
+                        pdfSection.Metrics.AddRange(DesignReportPdfModel.KeyMetrics(result.View));
+                        var detectorWindow = result.View.Rows.Where(row => row.Metric is "探测器窗口来源" or "探测器范围").ToArray();
+                        if (detectorWindow.Length > 0)
+                            pdfSection.Conditions += " · " + string.Join(" · ", detectorWindow.Select(row => row.Metric + "：" + DesignReportPdfModel.ReadableValue(row.Value)));
+                        pdfSection.Table = DesignReportPdfModel.NumericalTable(result.View);
+                        if (settings.Format != DesignReportFormat.Pdf || hasPlot)
+                            await Images(new(result, null, result.SourceDocument ?? document, snapshot.CapturedAt, title), $"{prefix}-analysis-{i + 1:D3}", hasPlot ? text : appendix);
                         AppendAnalysis(text, appendix, result.View);
                     });
                 }
@@ -172,7 +198,8 @@ internal static class MarkdownReportExporter
                 {
                     if (settings.Format == DesignReportFormat.Word) DesignReportWordWriter.Write(stream, report, images, cancellationToken);
                     else if (settings.Format == DesignReportFormat.Html) DesignReportHtmlWriter.Write(stream, report, images, cancellationToken);
-                    else DesignReportPdfWriter.Write(stream, report, images, cancellationToken);
+                    else DesignReportPdfWriter.Write(stream, report, images, cancellationToken, pdf,
+                        settings.PdfIncludeDetails ? appendix : null);
                 });
             cancellationToken.ThrowIfCancellationRequested();
             if (settings.Format == DesignReportFormat.Markdown)
@@ -197,11 +224,14 @@ internal static class MarkdownReportExporter
             cancellationToken.ThrowIfCancellationRequested();
             progress?.Report(new(completed, total, title));
             text.Heading(title, 3);
+            pdfSection = new(currentConfiguration, title);
+            pdf.Sections.Add(pdfSection);
             try { await action(); succeeded++; outcomes.Add([currentConfiguration.ToString(CultureInfo.InvariantCulture), title, "完成"]); }
             catch (OperationCanceledException) { throw; }
             catch (Exception error)
             {
                 failed++;
+                pdfSection.Failure = error.Message;
                 text.Paragraph($"未完成：{error.Message}", ReportTextStyle.Warning);
                 outcomes.Add([currentConfiguration.ToString(CultureInfo.InvariantCulture), title, "未完成：" + error.Message]);
             }
@@ -211,10 +241,14 @@ internal static class MarkdownReportExporter
 
         async Task Images(ReportImageRequest request, string imageStem, DesignReportContent? destination = null)
         {
+            request = request with { ForPrint = settings.Format == DesignReportFormat.Pdf, Landscape = pdfSection?.Landscape == true };
             var files = await writeImages(request, images, imageStem, cancellationToken).ConfigureAwait(false);
             if (files.Count == 0) throw new InvalidOperationException("未生成截图。");
             foreach (var file in files)
+            {
+                pdfSection?.Images.Add(Path.GetFileName(file));
                 (destination ?? text).Picture(request.Title, Path.GetFileName(file));
+            }
         }
     }
 

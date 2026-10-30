@@ -58,7 +58,7 @@ public sealed class ViewerImageExportTests
             }
             var pointer = scene.TranslatePoint(dimension == SceneDimension.ThreeDimensional
                 ? new Point(40, scene.Bounds.Height * 0.4)
-                : new Point(scene.Bounds.Width / 2, scene.Bounds.Height / 2), fixture.Window)!.Value;
+                : new Point(Math.Min(scene.Bounds.Width / 2, fixture.Window.Width * .4), Math.Min(scene.Bounds.Height / 2, fixture.Window.Height * .4)), fixture.Window)!.Value;
             fixture.Window.MouseDown(pointer, MouseButton.Left, RawInputModifiers.Shift);
             fixture.Window.MouseMove(pointer + new Vector(17, 9), RawInputModifiers.Shift);
             fixture.Window.MouseUp(pointer + new Vector(17, 9), MouseButton.Left, RawInputModifiers.Shift);
@@ -98,7 +98,7 @@ public sealed class ViewerImageExportTests
             var axes = scene.OrientationAxesForRendering();
             using var image = fixture.Viewer.CaptureViewerImage();
             var expected = Pixels(image);
-            Assert.Equal((int)Math.Ceiling((scene.Bounds.Width + 2) * fixture.Window.RenderScaling), image.PixelSize.Width);
+            Assert.Equal(mode == ViewerPresentationMode.OpticalLayout ? 2404 : (int)Math.Ceiling((scene.Bounds.Width + 2) * fixture.Window.RenderScaling), image.PixelSize.Width);
             ExportImageAssertions.HasCompleteBorder(image);
             Assert.True(image.PixelSize.Height > scene.Bounds.Height * fixture.Window.RenderScaling);
             AssertHasInk(image, image.PixelSize.Height - 30, image.PixelSize.Height);
@@ -206,7 +206,7 @@ public sealed class ViewerImageExportTests
     [InlineData(SceneDimension.ThreeDimensional, "Dark", "en-US", 420, 13)]
     [InlineData(SceneDimension.ThreeDimensional, "Light", "ja-JP", 360, 13)]
     [InlineData(SceneDimension.ThreeDimensional, "Light", "en-US", 420, 24)]
-    public async Task LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(
+    public async Task LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(
         SceneDimension dimension, string theme, string language, int width, int fontSize)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerImageExportTests));
@@ -233,10 +233,17 @@ public sealed class ViewerImageExportTests
                 Assert.Equal("S.T.A.R.Labs", AutomationProperties.GetName(logo));
                 Assert.True(logo.Bounds.Width > 0 && logo.Bounds.Height > 0);
                 var regions = Assert.IsType<ResponsiveAnalysisFooterGrid>(footer.Child);
-                Assert.True(footer.Bounds.Height >= 132);
-                if (width < DisplayTypography.Scale(600))
-                    Assert.True(regions.Children[1].Bounds.Top >= regions.Children[0].Bounds.Bottom);
-                else Assert.True(regions.Children[1].Bounds.Left >= regions.Children[0].Bounds.Right);
+                var sheet = Assert.Single(fixture.Viewer.GetVisualDescendants().OfType<UniformDiagramPage>());
+                Assert.Equal(new Size(1200, 900), sheet.Bounds.Size);
+                Assert.Equal(new Size(1200, 160), footer.Bounds.Size);
+                if (sheet.HasOverflow)
+                {
+                    Assert.True(fontSize > 13);
+                    Assert.Throws<InvalidOperationException>(() => fixture.Viewer.CaptureViewerImage(1));
+                    return;
+                }
+                // The caption follows the original sheet width, never the narrow window width.
+                Assert.True(regions.Children[1].Bounds.Left >= regions.Children[0].Bounds.Right);
                 foreach (var label in footer.GetVisualDescendants().OfType<TextBlock>())
                 {
                     var point = label.TranslatePoint(default, footer)!.Value;
@@ -248,14 +255,17 @@ public sealed class ViewerImageExportTests
                 Assert.Equal((int)Math.Ceiling(fixture.Scene.Bounds.Height) + (int)Math.Ceiling(footer.Bounds.Height) + 2, image.PixelSize.Height);
                 using var windowImage = new RenderTargetBitmap(new PixelSize(width, 900), new Vector(96, 96));
                 windowImage.Render(fixture.Window);
-                var captionLength = width * (int)Math.Ceiling(footer.Bounds.Height) * 4;
-                var captionPixels = Pixels(windowImage)[^captionLength..];
+                var captionWidth = (int)Math.Ceiling(footer.Bounds.Width);
+                var captionHeight = (int)Math.Ceiling(footer.Bounds.Height);
+                using var liveCaption = new RenderTargetBitmap(new PixelSize(captionWidth, captionHeight), new Vector(96, 96));
+                liveCaption.Render(footer);
+                var captionLength = captionWidth * captionHeight * 4;
+                var captionPixels = Pixels(liveCaption);
                 var imagePixels = Pixels(image);
                 var exportedCaption = new byte[captionLength];
-                var captionHeight = (int)Math.Ceiling(footer.Bounds.Height);
                 for (var y = 0; y < captionHeight; y++)
                     Array.Copy(imagePixels, ((image.PixelSize.Height - 1 - captionHeight + y) * image.PixelSize.Width + 1) * 4,
-                        exportedCaption, y * width * 4, width * 4);
+                        exportedCaption, y * captionWidth * 4, captionWidth * 4);
                 Save(image, $"{prefix}-caption-{theme}-{language}-{width}-font{fontSize}.png");
                 Save(windowImage, $"{prefix}-window-{theme}-{language}-{width}-font{fontSize}.png");
                 // VisualBrush uses grayscale glyph edges while the native window uses LCD
@@ -273,7 +283,7 @@ public sealed class ViewerImageExportTests
                 Assert.DoesNotContain(fixture.Viewer.GetVisualDescendants().OfType<Border>(),
                     item => item.Name == footerName && item.IsEffectivelyVisible);
                 using var withoutCaption = fixture.Viewer.CaptureViewerImage(1);
-                Assert.Equal((int)Math.Ceiling(fixture.Scene.Bounds.Height) + 2, withoutCaption.PixelSize.Height);
+                Assert.Equal(902, withoutCaption.PixelSize.Height);
                 ExportImageAssertions.HasCompleteBorder(withoutCaption);
             }
             finally { DisplayTypography.Configure(new AppSettings()); UiLocalization.Apply(previousLanguage); }

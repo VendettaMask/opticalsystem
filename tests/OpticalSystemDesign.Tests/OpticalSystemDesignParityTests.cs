@@ -79,8 +79,8 @@ public sealed class OpticalSystemDesignParityTests
             var tangential = data.PlotSeries[(fieldIndex * 2)];
             var sagittal = data.PlotSeries[(fieldIndex * 2) + 1];
 
-            Assert.Contains("Tangential", tangential.Name);
-            Assert.Contains("Sagittal", sagittal.Name);
+            Assert.Equal($"Field {fieldIndex + 1}, T", tangential.Name);
+            Assert.Equal($"Field {fieldIndex + 1}, S", sagittal.Name);
             Assert.Equal(evaluator.Calculate(0, frequency / 2), tangential.Points[1].Y, precision: 12);
             Assert.Equal(evaluator.Calculate(frequency / 2, 0), sagittal.Points[1].Y, precision: 12);
         }

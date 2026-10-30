@@ -1,0 +1,97 @@
+using System.Security.Cryptography;
+using System.Text.Json;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Headless;
+using Avalonia.Threading;
+using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.Tests;
+
+namespace Gauss28ReportSample;
+
+public static class SampleApplication
+{
+    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<OpticalSystemDesign.App.App>()
+        .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
+}
+
+internal static class Program
+{
+    private static readonly JsonSerializerOptions Json = new() { WriteIndented = true };
+
+    public static async Task Main(string[] args)
+    {
+        var source = Path.GetFullPath(args[0]);
+        var output = Path.GetFullPath(args[1]);
+        Directory.CreateDirectory(output);
+        var before = SHA256.HashData(await File.ReadAllBytesAsync(source));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SampleApplication));
+        await session.Dispatch(async () =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
+            UiLocalization.Apply(UiLocalization.Chinese);
+            DisplayTypography.Configure(new AppSettings { Theme = "Light", Language = "zh-CN" });
+            using var application = WorkbenchApplication.Create();
+            await application.Documents.OpenAsync(source);
+            var document = application.Documents.GetSnapshot();
+            Console.WriteLine(JsonSerializer.Serialize(document, Json));
+            var host = new Border { Width = 1200, Height = 900, Opacity = 0 };
+            var window = new Window { Width = 900, Height = 700, Content = host };
+            var results = new List<object>();
+            var images = new List<object>();
+            window.Show(); Dispatcher.UIThread.RunJobs();
+            try
+            {
+                using var snapshot = application.CaptureReportSnapshot();
+                var renderer = new ReportImageRenderer(host);
+                foreach (var format in new[] { DesignReportFormat.Pdf })
+                {
+                    var settings = new MarkdownReportSettings
+                    {
+                        Format = format,
+                        AnalysisKeys = [.. MarkdownReportSettings.CommonAnalyses, "Wavefront Map", "Seidel Coefficients"]
+                    };
+                    using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(10));
+                    var result = await Task.Run(() => MarkdownReportExporter.ExportAsync(snapshot, settings,
+                        Path.Combine(output, format.ToString()), async (request, directory, stem, token) =>
+                        {
+                            var files = await renderer.WriteAsync(request, directory, stem, token);
+                            foreach (var file in files)
+                            {
+                                var bytes = await File.ReadAllBytesAsync(Path.Combine(directory, file), token);
+                                using var bitmap = SkiaSharp.SKBitmap.Decode(bytes);
+                                var corner = bitmap.GetPixel(0, 0);
+                                if (corner.Alpha != 255) throw new InvalidOperationException("The image frame is not opaque.");
+                                for (var x = 0; x < bitmap.Width; x++)
+                                    if (bitmap.GetPixel(x, 0) != corner || bitmap.GetPixel(x, bitmap.Height - 1) != corner)
+                                        throw new InvalidOperationException("The top or bottom image border is incomplete.");
+                                for (var y = 0; y < bitmap.Height; y++)
+                                    if (bitmap.GetPixel(0, y) != corner || bitmap.GetPixel(bitmap.Width - 1, y) != corner)
+                                        throw new InvalidOperationException("The left or right image border is incomplete.");
+                                images.Add(new { Format = format.ToString(), File = file, bitmap.Width, bitmap.Height, Frame = "complete" });
+                                var capture = Path.Combine(output, "source-images", format.ToString());
+                                Directory.CreateDirectory(capture);
+                                await File.WriteAllBytesAsync(Path.Combine(capture, file), bytes, token);
+                            }
+                            return files;
+                        }, new Progress<ReportExportProgress>(value => Console.WriteLine($"{format}: {value.Completed}/{value.Total} {value.Item}")), timeout.Token));
+                    if (result.Failed != 0 || result.Succeeded != 8)
+                        throw new InvalidOperationException($"{format}: {result.Succeeded} succeeded; {result.Failed} failed.");
+                    results.Add(new { Format = format.ToString(), result.ReportPath, result.Succeeded, result.Failed });
+                }
+                var after = SHA256.HashData(await File.ReadAllBytesAsync(source));
+                if (!before.SequenceEqual(after)) throw new InvalidOperationException("The source lens changed.");
+                await File.WriteAllTextAsync(Path.Combine(output, "generation.json"), JsonSerializer.Serialize(new
+                {
+                    Source = source, Sha256 = Convert.ToHexString(before).ToLowerInvariant(),
+                    Snapshot = document, snapshot.CapturedAt, SourceUnchanged = true,
+                    Analyses = new[] { "Spot Diagram", "Ray Fan", "MTF", "Field Curvature and Distortion", "Wavefront Map", "Seidel Coefficients" },
+                    Results = results, Images = images
+                }, Json));
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+}

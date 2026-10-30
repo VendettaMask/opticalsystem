@@ -62,6 +62,8 @@ public static partial class TopologyOperators
         try
         {
             Validate(parent, constraints);
+            Require(parent.CementedInterfaces is null, TopologyFailureCode.UnsupportedFeature,
+                "Legacy structure edits require air-separated elements; cemented group edits need an explicit shared-interface policy.");
             var (child, created, removed) = edit();
             Validate(child, constraints);
             return new(child, new(operation, ContentFingerprint.Compute(parent), ContentFingerprint.Compute(child), created, removed), null);

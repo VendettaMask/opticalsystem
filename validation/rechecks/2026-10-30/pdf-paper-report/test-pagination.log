@@ -1,0 +1,46 @@
+生成启动时间为 2026/10/30 9:45:15。
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.58]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.17]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.21]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.UnknownFormatIsRejectedBeforeCreatingOutput [774 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Markdown) [174 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Pdf) [3 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Html) [135 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Word) [115 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReaderContentPrecedesCompleteAppendixWithoutLosingRawData [172 ms]
+  已通过 OpticalSystemDesign.Tests.PdfPaperReportTests.NumericalReportsUseSelectableTablesWithoutRequiringTextScreenshots [5 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.LongTablesAndOversizedRowsRemainPaginatedAndComplete(format: Pdf) [1 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.LongTablesAndOversizedRowsRemainPaginatedAndComplete(format: Word) [4 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Word, extension: ".docx") [234 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Pdf, extension: ".pdf") [7 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Html, extension: ".html") [89 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Html) [28 ms]
+  已通过 OpticalSystemDesign.Tests.PdfPaperReportTests.PaperPagesUseLandscapeForGroupedPlotsAndDetailsAreExplicitAndSnapshotSafe [10 s]
+  已通过 OpticalSystemDesign.Tests.PdfPaperReportTests.PaperDisplayPrecisionKeepsSmallValuesAndLeavesNonNumericLabelsIntact [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Pdf) [2 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Word) [19 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Word) [2 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Pdf) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Html) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Markdown) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.HtmlEncodesUserContentAndKeepsNavigationAndPrintStylesOffline [1 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Pdf) [9 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Word) [3 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Markdown) [3 s]
+[xUnit.net 00:00:39.59]   Finished:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Html) [3 s]
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-30\pdf-paper-report\final.trx
+
+测试运行成功。
+测试总数: 26
+     通过数: 26
+总时间: 40.1770 秒
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+已用时间 00:00:41.14

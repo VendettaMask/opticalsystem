@@ -6,18 +6,45 @@ using SkiaSharp;
 namespace OpticalSystemDesign.App.Services;
 
 /// <summary>A4 report with selectable embedded-font text, repeating table headers and embedded images.</summary>
-internal static class DesignReportPdfWriter
+internal static partial class DesignReportPdfWriter
 {
-    internal static void Write(Stream output, DesignReportContent content, string images, CancellationToken token)
+    internal static void Write(Stream output, DesignReportContent content, string images, CancellationToken token,
+        DesignReportPdfModel? paper = null, DesignReportContent? details = null)
     {
         using var fontStream = typeof(DesignReportPdfWriter).Assembly.GetManifestResourceStream("OpticalSystemDesign.App.Assets.Fonts.NotoSansCJKsc-Regular.otf")
             ?? throw new InvalidOperationException("报告字体不可用。");
         using var typeface = SKTypeface.FromStream(fontStream) ?? throw new InvalidOperationException("报告字体不可用。");
+        using var pagination = paper is null ? null : new Writer(null, typeface, token);
+        if (pagination is not null) Render(pagination, content, images, token, paper, details);
         using var document = SKDocument.CreatePdf(output, new SKDocumentPdfMetadata(144f, 101)
         { Title = content.Blocks.OfType<ReportHeading>().FirstOrDefault()?.Text ?? "光学设计报告", Author = "S.T.A.R.Labs" })
             ?? throw new InvalidOperationException("无法创建 PDF 报告。");
-        var writer = new Writer(document, typeface, token);
-        writer.StartPage();
+        using var writer = new Writer(document, typeface, token, pagination?.SectionStartPages, pagination?.AppendixPage);
+        Render(writer, content, images, token, paper, details);
+        if (pagination is not null && (!pagination.SectionStartPages.SequenceEqual(writer.SectionStartPages)
+            || pagination.AppendixPage != writer.AppendixPage))
+            throw new InvalidDataException("目录页码与实际分页不一致。");
+        token.ThrowIfCancellationRequested();
+        document.Close();
+    }
+
+    private static void Render(Writer writer, DesignReportContent content, string images, CancellationToken token,
+        DesignReportPdfModel? paper, DesignReportContent? details)
+    {
+        if (paper is not null)
+        {
+            writer.PaperReport(paper, images, details is { Blocks.Count: > 0 });
+            if (details is null || details.Blocks.Count == 0)
+            {
+                writer.End();
+                return;
+            }
+            content = details;
+            writer.Section(false);
+            writer.MarkAppendix();
+            writer.Text("附录 详细计算记录", 17, true, 12);
+        }
+        else writer.StartPage();
         var figure = 0;
         long imageBytes = 0;
         for (var blockIndex = 0; blockIndex < content.Blocks.Count; blockIndex++)
@@ -28,13 +55,8 @@ internal static class DesignReportPdfWriter
             {
                 case ReportHeading heading:
                     if (heading.NewPage) writer.Section();
-                    if (blockIndex + 1 < content.Blocks.Count && content.Blocks[blockIndex + 1] is ReportPicture next)
-                    {
-                        using var source = DesignReportImage.Open(images, next.FileName);
-                        using var data = SKData.Create(source);
-                        using var image = DesignReportImage.Decode(data);
-                        writer.KeepFigureHeading(image);
-                    }
+                    if (blockIndex + 1 < content.Blocks.Count && content.Blocks[blockIndex + 1] is ReportPicture)
+                        writer.KeepFigureHeading();
                     writer.Text(heading.Text, heading.Level == 1 ? 25 : heading.Level == 2 ? 17 : 13, true, 12, keepNext: true);
                     break;
                 case ReportParagraph paragraph:
@@ -65,24 +87,34 @@ internal static class DesignReportPdfWriter
             }
         }
         writer.End();
-        token.ThrowIfCancellationRequested();
-        document.Close();
     }
 
-    private sealed class Writer(SKDocument document, SKTypeface typeface, CancellationToken token)
+    private sealed partial class Writer(SKDocument? document, SKTypeface typeface, CancellationToken token,
+        IReadOnlyList<int>? contentsPages = null, int? appendixPage = null) : IDisposable
     {
-        private const float PageWidth = 595.28f, PageHeight = 841.89f, Margin = 44, Top = 55, Bottom = PageHeight - 48;
-        private const float Width = PageWidth - 2 * Margin;
+        private const float Margin = 36, Top = 52;
+        private float PageWidth = 595.28f, PageHeight = 841.89f;
+        private float Bottom => PageHeight - 42;
+        private float Width => PageWidth - 2 * Margin;
         private SKCanvas? _canvas;
         private float _y;
         private int _pages;
+        private readonly SKPictureRecorder? _pagination = document is null ? new SKPictureRecorder() : null;
+        internal List<int> SectionStartPages { get; } = [];
+        internal int? AppendixPage { get; private set; }
 
-        internal void StartPage()
+        internal void StartPage(bool? landscape = null)
         {
             token.ThrowIfCancellationRequested();
             End();
+            if (landscape is { } wide)
+            {
+                PageWidth = wide ? 841.89f : 595.28f;
+                PageHeight = wide ? 595.28f : 841.89f;
+            }
             if (++_pages > 1000) throw new InvalidOperationException("报告超过页数上限，请减少分析项目或配置数量。");
-            _canvas = document.BeginPage(PageWidth, PageHeight);
+            _canvas = document is null ? _pagination!.BeginRecording(new SKRect(0, 0, PageWidth, PageHeight))
+                : document.BeginPage(PageWidth, PageHeight);
             _canvas.Clear(SKColors.White);
             using var font = new SKFont(typeface, 8);
             using var paint = new SKPaint { Color = new SKColor(99, 113, 134), IsAntialias = true };
@@ -100,11 +132,10 @@ internal static class DesignReportPdfWriter
             if (_y + height > Bottom) StartPage();
         }
 
-        internal void Section() { if (_y > Top + 1) StartPage(); }
-        internal void KeepFigureHeading(SKImage image)
+        internal void Section(bool? landscape = null) { if (_y > Top + 1) StartPage(landscape); }
+        internal void KeepFigureHeading()
         {
-            var height = image.Height * Math.Min(Width / image.Width, (Bottom - Top - 80) / image.Height);
-            Reserve(height + 74);
+            Reserve(FigureHeight + 74);
         }
 
         internal void Text(string text, float size, bool bold, float after, bool keepNext = false, SKColor? color = null, bool centered = false)
@@ -125,12 +156,7 @@ internal static class DesignReportPdfWriter
 
         internal void Picture(SKImage image, string title)
         {
-            var scale = Math.Min(Width / image.Width, (Bottom - Top - 80) / image.Height);
-            var width = image.Width * scale; var height = image.Height * scale;
-            Reserve(height + 38);
-            _canvas!.DrawImage(image, new SKRect(Margin + (Width - width) / 2, _y, Margin + (Width + width) / 2, _y + height), new SKSamplingOptions(SKFilterMode.Linear));
-            _y += height + 5;
-            Text(title, 9, false, 16, color: new SKColor(99, 113, 134), centered: true);
+            UniformPicture(image, title, 16);
         }
 
         internal void Table(ReportTable table)
@@ -176,9 +202,9 @@ internal static class DesignReportPdfWriter
                 token.ThrowIfCancellationRequested();
                 var height = count * lineHeight + 10;
                 var x = Margin;
-                using var fill = new SKPaint { Color = isHeader ? new SKColor(24, 59, 96) : alternate ? new SKColor(244, 247, 251) : SKColors.White };
-                using var border = new SKPaint { Color = new SKColor(217, 217, 217), Style = SKPaintStyle.Stroke, StrokeWidth = 0.5f };
-                using var textPaint = new SKPaint { Color = isHeader ? SKColors.White : SKColors.Black, IsAntialias = true };
+                using var fill = new SKPaint { Color = isHeader ? new SKColor(234, 241, 239) : alternate ? new SKColor(247, 250, 248) : SKColors.White };
+                using var border = new SKPaint { Color = new SKColor(217, 227, 222), Style = SKPaintStyle.Stroke, StrokeWidth = 0.5f };
+                using var textPaint = new SKPaint { Color = isHeader ? new SKColor(47, 75, 66) : new SKColor(45, 52, 49), IsAntialias = true };
                 for (var column = 0; column < cells.Length; column++)
                 {
                     var rect = new SKRect(x, _y, x + widths[column], _y + height);
@@ -240,6 +266,20 @@ internal static class DesignReportPdfWriter
             using var blob = builder.Build();
             _canvas!.DrawText(blob, x, top + (height - font.Metrics.Descent - font.Metrics.Ascent) / 2, paint);
         }
-        internal void End() { if (_canvas is not null) { document.EndPage(); _canvas = null; } }
+        internal void MarkAppendix()
+        {
+            AppendixPage = _pages;
+            _canvas!.DrawNamedDestinationAnnotation(new SKPoint(Margin, _y), "report-appendix");
+        }
+
+        internal void End()
+        {
+            if (_canvas is null) return;
+            if (document is not null) document.EndPage();
+            else _pagination!.EndRecording().Dispose();
+            _canvas = null;
+        }
+
+        public void Dispose() { End(); _pagination?.Dispose(); }
     }
 }

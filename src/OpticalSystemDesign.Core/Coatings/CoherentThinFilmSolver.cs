@@ -34,7 +34,7 @@ public sealed record ThinFilmAmplitude(Complex Reflection, Complex? PowerTransmi
 /// Layer order: transparent incident medium -> finite films -> semi-infinite substrate.
 /// No connection to the legacy empirical ray coating model.
 /// </summary>
-public sealed class CoherentThinFilmSolver
+public sealed partial class CoherentThinFilmSolver
 {
     public const string Version = "coherent-scattering/2";
     public const int MaximumLayers = 4096;

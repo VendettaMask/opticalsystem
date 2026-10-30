@@ -1,0 +1,20 @@
+{
+  "Format": "OpticalSystemDesign.Camera3DScene",
+  "SchemaVersion": 1,
+  "Name": "近景色块与遮挡",
+  "Source": "Analytical demonstration; specified narrow-band powers and reflectances, not measured data",
+  "Objects": [
+    { "Name": "棋盘靶", "Shape": "Rectangle", "X": 0, "Y": 0, "Z": -10000,
+      "SizeX": 1000, "SizeY": 800, "SizeZ": 10, "Reflectance": [0.8, 0.8, 0.8],
+      "DarkReflectance": [0.04, 0.04, 0.04], "CheckerSize": 7 },
+    { "Name": "近景红块", "Shape": "Rectangle", "X": -20, "Y": 10, "Z": -8500,
+      "SizeX": 20, "SizeY": 20, "SizeZ": 10, "Reflectance": [0.8, 0.08, 0.04] },
+    { "Name": "蓝球", "Shape": "Sphere", "X": 20, "Y": -10, "Z": -9000,
+      "SizeX": 12, "SizeY": 12, "SizeZ": 12, "Reflectance": [0.04, 0.1, 0.75] },
+    { "Name": "遮挡体", "Shape": "Box", "X": 10, "Y": 20, "Z": -7000,
+      "SizeX": 6, "SizeY": 20, "SizeZ": 10, "Reflectance": [0.02, 0.02, 0.02] }
+  ],
+  "Lights": [
+    { "Name": "各向同性点光源", "X": 400, "Y": 600, "Z": -6000, "BandPowerWatts": [300, 400, 300] }
+  ]
+}

@@ -13,16 +13,16 @@ internal sealed partial class CameraImagingService
         + "Each quadrature wavelength uses shared Core PSF/distortion/relative illumination, or explicit ideal optics. "
         + "Absolute CFA QE and wavelength-dependent photon energy; no spectral peak normalization. "
         + "Legacy per-band irradiance and scalar QE are inactive. Optical preview is integrated reflected energy divided by input illuminant energy. "
-        + "No RGB-to-spectrum reconstruction, per-pixel material library, 3D source geometry/BRDF, absolute lens throughput calibration, angular QE, pixel-area integration or vendor ISP. "
+        + "No RGB-to-spectrum reconstruction, per-pixel material library, 3D source geometry/BRDF, absolute lens throughput calibration, angular QE or vendor ISP. Detector sampling is declared separately. "
         + "Not an EMVA, Zemax or ImSym/Speos certification.";
 
     private const string MaterialScope = "CameraLabV4-Materials: 1–16 explicitly labeled source-plane reflectance spectra; "
-        + "8-bit PNG labels or self-contained JSON, pixel-center nearest-neighbor label sampling, linear grayscale spatial modulation. "
+        + "8-bit PNG labels or self-contained JSON, optical-cell-center nearest-neighbor label sampling, linear grayscale spatial modulation. "
         + "At each merged-knot Gauss-Legendre wavelength apply material reflectance BEFORE one shared Core optical propagation, "
         + "allowing PSF/distortion to mix material boundaries; integrate charge before one noise/ADC/ISP operation. "
         + "Absolute ideal-white image-plane W/m^2/nm illuminant and absolute CFA QE; no normalization or RGB-to-spectrum reconstruction. "
         + "Integration metadata reflectance/irradiance are label-area averages, excluding grayscale modulation and optics; per-material values retained. "
-        + "No BRDF, 3D geometry, pixel-area integration, measured material library or vendor ISP; not an external numerical certification.";
+        + "No BRDF, 3D geometry, measured material library or vendor ISP; detector sampling is declared separately; not an external numerical certification.";
 
     private static MaterialSpectralPlan MaterialPlan(CameraImagingRequest request)
     {
@@ -32,12 +32,12 @@ internal sealed partial class CameraImagingService
         return CameraContinuousSpectrum.BuildMaterialPlan(ToCore(request.Illuminant), ToCore(request.MaterialScene), ToCore(request.SpectralResponse)!,
             new(settings.MinimumNanometers, settings.MaximumNanometers, settings.MaximumIntervalNanometers));
     }
-    private static CameraIntegrationDiagnostics Diagnostics(CameraMaterialScene scene, MaterialSpectralPlan plan, MaterialSamplingSummary sampling) => new(
+    private static CameraIntegrationDiagnostics Diagnostics(CameraMaterialScene scene, MaterialSpectralPlan plan, MaterialSamplingSummary sampling, int samplesPerAxis = 1) => new(
         plan.Common.Intervals, Array.AsReadOnly(plan.Common.Nodes.Select((n, i) => new CameraIntegrationNode(n.WavelengthNanometers, n.WeightNanometers,
             n.IrradianceWattsPerSquareMeterPerNanometer, sampling.MeanReflectanceAtNodes[i], n.RedQe, n.GreenQe, n.BlueQe)).ToArray()),
         plan.Common.IlluminantIrradiance, sampling.MeanReflectedIrradiance,
         Array.AsReadOnly(scene.Materials.Select((m, i) => new CameraMaterialDiagnostics(m.Id, m.Name, sampling.PixelCountsById[m.Id], plan.MaterialReflectedIrradiance[i])).ToArray()),
-        "Label-area average, excluding grayscale modulation and optics; categorical source labels applied before propagation");
+        "Label-area average, excluding grayscale modulation and optics; categorical source labels applied before propagation; counts are optical sampling cells", samplesPerAxis);
 
     private static SpectralIntegrationPlan ContinuousPlan(CameraImagingRequest request)
     {
@@ -47,24 +47,24 @@ internal sealed partial class CameraImagingService
         return CameraContinuousSpectrum.BuildPlan(ToCore(request.Illuminant), ToCore(request.Reflectance), ToCore(request.SpectralResponse)!,
             new(settings.MinimumNanometers, settings.MaximumNanometers, settings.MaximumIntervalNanometers));
     }
-    private static CameraIntegrationDiagnostics Diagnostics(SpectralIntegrationPlan plan) => new(plan.Intervals,
+    private static CameraIntegrationDiagnostics Diagnostics(SpectralIntegrationPlan plan, int samplesPerAxis = 1) => new(plan.Intervals,
         Array.AsReadOnly(plan.Nodes.Select(n => new CameraIntegrationNode(n.WavelengthNanometers, n.WeightNanometers,
             n.IrradianceWattsPerSquareMeterPerNanometer, n.Reflectance, n.RedQe, n.GreenQe, n.BlueQe)).ToArray()),
-        plan.IlluminantIrradiance, plan.ReflectedIrradiance);
+        plan.IlluminantIrradiance, plan.ReflectedIrradiance, PixelSamplesPerAxis: samplesPerAxis);
 
     private static (RgbImage Image, string Mode, int Fallbacks) Propagate(Optic optic, RgbImage source,
-        CameraImagingRequest request, CameraSensorSettings sensor, IReadOnlyList<double> wavelengths)
+        CameraImagingRequest request, CameraSensorSettings sensor, IReadOnlyList<double> wavelengths, int samplesPerAxis = 1)
     {
         var image = ImageSimulationEngine.Simulate(optic, source, new ImageSimulationConfig
         {
             ImageWidth = request.Width,
             ImageHeight = request.Height,
-            OutputWidth = request.Width + 16,
-            OutputHeight = request.Height + 16,
+            OutputWidth = request.Width + 16 * samplesPerAxis,
+            OutputHeight = request.Height + 16 * samplesPerAxis,
             PixelSizeMillimeters = sensor.PixelPitchMicrometers * .001,
             FieldHeight = request.Height * sensor.PixelPitchMicrometers * .001,
-            Padding = 8,
-            PsfSize = 16,
+            Padding = 8 * samplesPerAxis,
+            PsfSize = 16 * samplesPerAxis,
             PsfGridColumns = 3,
             PsfGridRows = 3,
             NumRays = 12,
@@ -77,7 +77,7 @@ internal sealed partial class CameraImagingService
         });
         var active = new double[wavelengths.Count, request.Height, request.Width];
         for (var c = 0; c < wavelengths.Count; c++) for (var y = 0; y < request.Height; y++) for (var x = 0; x < request.Width; x++)
-            active[c, y, x] = image.Simulated[c, y + 8, x + 8];
+            active[c, y, x] = image.Simulated[c, y + 8 * samplesPerAxis, x + 8 * samplesPerAxis];
         return (new(active), image.EffectiveAberrationMode, image.GeometricFallbackCount);
     }
 }

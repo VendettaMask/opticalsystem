@@ -1,0 +1,37 @@
+using System.Security.Cryptography;
+using System.Text.Json;
+using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Services;
+
+var source = Path.GetFullPath(args[0]);
+var output = Path.GetFullPath(args[1]);
+Directory.CreateDirectory(output);
+var selection = JsonDocument.Parse(await File.ReadAllTextAsync(args[2]));
+var keys = new[] { "Zernike Fringe", "Zernike Standard", "Zernike Annular" };
+var settings = new MarkdownReportSettings { Format = DesignReportFormat.Pdf, AnalysisKeys = [.. keys], Include2DLayout = false, Include3DLayout = false };
+foreach (var item in selection.RootElement.EnumerateArray().Where(item => keys.Contains(item.GetProperty("Key").GetString())))
+    settings.AnalysisParameters[item.GetProperty("Key").GetString()!] = item.GetProperty("Parameters").EnumerateObject()
+        .ToDictionary(property => property.Name, property => property.Value.GetString()!);
+var before = SHA256.HashData(await File.ReadAllBytesAsync(source));
+using var app = WorkbenchApplication.Create();
+await app.Documents.OpenAsync(source);
+var expected = new List<object>();
+foreach (var key in keys)
+{
+    var analysis = await app.Analyses.RunAsync(new(Guid.NewGuid(), 1, key, settings.AnalysisParameters[key]));
+    var table = DesignReportPdfModel.NumericalTable(analysis.View) ?? throw new InvalidOperationException("No coefficient table");
+    if (table.Rows.Length != 37) throw new InvalidOperationException("Incomplete coefficient table");
+    expected.Add(new { Key = key, Title = WorkbenchAnalysisCatalog.DisplayName(key), table.Columns, table.Rows, analysis.RequestFingerprint });
+}
+using var snapshot = app.CaptureReportSnapshot();
+var result = await MarkdownReportExporter.ExportAsync(snapshot, settings, output,
+    (_, _, _, _) => throw new InvalidOperationException("Coefficient reports must not use screenshots"));
+if (result.Succeeded != 3 || result.Failed != 0) throw new InvalidOperationException("Coefficient report failed");
+var after = SHA256.HashData(await File.ReadAllBytesAsync(source));
+if (!before.SequenceEqual(after)) throw new InvalidOperationException("Source changed");
+await File.WriteAllTextAsync(Path.Combine(output, "repair.json"), JsonSerializer.Serialize(new
+{
+    Source = source, SourceSha256 = Convert.ToHexString(before), SourceUnchanged = true,
+    Result = result, Coefficients = expected
+}, new JsonSerializerOptions { WriteIndented = true }));
+Console.WriteLine($"3 complete coefficient tables, 111 actual terms: {result.ReportPath}");

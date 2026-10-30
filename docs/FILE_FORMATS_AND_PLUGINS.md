@@ -28,11 +28,25 @@ CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚
 
 按用户决定不提供旧名称兼容。原生 JSON 路由只接受大小写不敏感的 `.optic.json`；普通 `.json`、旧品牌后缀和退役外部格式均在工程读取/写入前拒绝，不通过内容嗅探绕过后缀边界。底层 `OpticJsonStore` 仍校验当前原生快照结构，它不是通用外部字典读取器。
 
+## 初始结构共享界面和过渡实验文件
+
+自主拓扑数据的可空 `cementedInterfaces` v1 扩展显式列出相邻元件和唯一共享面 ID；两侧面型、顶点、净/机械口径必须一致，实际编译为一个玻璃—玻璃界面。空值不写入，保持原单片记录的序列化和内容指纹。当前自主调度仍拒绝胶合组，需要后续版本接入。
+
+`SpcTransitionFiles` 使用独立 `InitialStructureSpcTransitionV1` 身份、冻结父绑定与 SHA-256 包装，有界原子保存零厚度实验状态。该 API 文件不属于普通 `.optic.json`、拓扑计划或自主检查点，不增加产品文件关联，也不提供搜索断点恢复；实体化后须重新走原普通物理/制造验收。范围见[M3.1 说明](INITIAL_STRUCTURE_M3_1_2026-10-30.md)。
+
+## 初始结构镜头库与检索准备记录
+
+`.lens-library.json` 使用 `InitialStructureLensLibraryV1` v1 和 SHA-256 包装，有界读取/原子保存。条目保存明确的来源种类、标题、位置/任务身份、使用依据、源文件哈希、拓扑/结构限制、源编译快照指纹、实际描述符，以及分开的已知取得费用和描述符索引费用。来源为空、条目身份重复、数据不合法或包装哈希不一致均拒绝；未知的原设计费用保持未知。载入库不计算描述符或追迹，显式收录才建索引。
+
+准备配置/结果增加可空 `Retrieval` v1，空值省略，旧计划、记录与内容指纹保持。启用时计划嵌入完整冻结库，准备报告保存库身份、来源、筛选和拒绝、尺寸/固定逐面口径变换、原输入复用、完整原规格验收和实际费用。文件不是可恢复准备检查点，也不新增普通 `.optic.json` 的读取路由。入口与原验收边界见[M3.2](INITIAL_STRUCTURE_M3_2_2026-10-30.md)。
+
 ## 镀膜实验文件
+
+2026-10-30 兼容扩展：schema 1 可保存 `Settings.DesignProtocolVersion`（空旧协议、2、窄带专用3、通用试验4）、旧试验 `Target.Structure.PrototypeFamilyVersion`，以及运行记录的 `DesignProtocol`、`Screening`、`TemplateEvaluations`、`NarrowBandCompetition`、`GeneralWork`。协议 4 的身份为 `general-constraint-coating/4`，工作量分别记录指导光谱点、灵敏度点、解析导数批次、约束/加密次数与完整复验次数，不将这些异质工作相加冒充等价计算量。匹配试验可选 `InitialMatchingLayers` 保存各相位起点，`Before` 仍指裸滤光片。短程记录/候选的 `OriginPrototype` 保存连续优化前的镜段/腔阶及材料顺序；不能当作优化后处方。结果的 `MaterialSuitability` 保存可复算的材料诊断和能量。新增可空字段省略，旧输入指纹不变；打开/编辑保留版本并按材料快照重算，不自动升级旧模式。新建窄带默认仍为协议3，协议4须显式选择，见[通用修正](COATING_GENERAL_FIXES_2026-10-30.md)。
 
 内置镀膜模块使用 `.coating.json` schema 1，实验编辑状态与镜头 `.staropt` 分开；文件隔离不是独立产品或进程。保存膜系、完整材料公式/n/k 表和来源/有效范围、目标、采样/约束、候选、运行算法与版本、停止原因、评价次数、求解器版本、输入 SHA-256、光谱和逐项指标；公差结果还记录种子与输入哈希。正式 `BoundedFile` 提供有界读取和原子替换；格式/输入非法或结果哈希不匹配明确拒绝。重开有结果的实验后以冻结快照重新计算。此格式不承诺兼容 TFStudio 文件，也不进入当前镜头。
 
-导出目录含 `layers.csv`、`spectrum.csv`、`metrics.csv`、`run.json`、`experiment.coating.json`。CSV 使用 nm、原始 R/T/A 比例以及 ln(T)/OD，保留 G17 数值，不使用界面舍入值或 OD 显示饱和值；每个文件原子写入，整个导出目录不是多文件事务。参见[镀膜实验室说明](../labs/CoatingDesign/README.md)。
+导出目录含 `layers.csv`、`spectrum.csv`、`metrics.csv`、`run.json`、`material-suitability.json`、`experiment.coating.json`。CSV 使用 nm、原始 R/T/A 比例以及 ln(T)/OD，保留 G17 数值，不使用界面舍入值或 OD 显示饱和值；每个文件原子写入，整个导出目录不是多文件事务。参见[镀膜实验室说明](../labs/CoatingDesign/README.md)。
 
 ## 公差文件
 

@@ -97,6 +97,10 @@ public sealed partial class AutonomousTopologyWindow : Window
         var bar = new WrapPanel { Orientation = Orientation.Horizontal };
         Add("AutonomousNew", "新建示例任务", NewDraft);
         Add("AutonomousImport", "导入起点", ImportAsync);
+        Add("AutonomousLibraryOpen", "打开镜头库", OpenLensLibraryAsync);
+        Add("AutonomousLibraryImport", "镜头库收录文件", ImportLensLibraryEntryAsync);
+        Add("AutonomousLibraryAdd", "镜头库收录当前起点", AddCurrentLensAsync);
+        Add("AutonomousLibrarySave", "保存镜头库", SaveLensLibraryAsync);
         Add("AutonomousPrepareSeeds", "生成一阶起点", PrepareSeedsAsync);
         Add("AutonomousOpenPlan", "打开设计计划", OpenPlanAsync);
         Add("AutonomousSavePlan", "保存设计计划", SavePlanAsync);
@@ -134,12 +138,34 @@ public sealed partial class AutonomousTopologyWindow : Window
         Choice("AutonomousGeometryScreen", "重生候选几何筛检", false);
         Number("AutonomousPoolSize", "每种片数保留候选数", 4, 1, 8);
         _inputs.Children.Add(Text("一阶起点准备（独立预算）"));
+        Choice("AutonomousRetrieval", "从已有镜头库检索起点", false);
+        _inputs.Children.Add(_librarySummary);
+        Number("AutonomousRetrievalCandidates", "检索完整验收候选上限", 4, 1, 8);
+        Number("AutonomousRetrievalMinScale", "镜头库最小缩放比例", .5m, .001m, 1000);
+        Number("AutonomousRetrievalMaxScale", "镜头库最大缩放比例", 2, .001m, 1000);
+        Number("AutonomousRetrievalRays", "镜头库检索总追迹上限", 1_000_000, 1, 10_000_000);
         Choice("AutonomousDescriptor", "按结构描述生成新处方", false);
         Choice("AutonomousDelano", "使用 Delano 一阶搜索", false);
         Choice("AutonomousThickDelano", "按实际厚度与固定光阑构造 Delano 起点", false);
+        Choice("AutonomousFeasibleThickDelano", "多布局厚透镜构造：先通过几何再补偿", false);
+        Choice("AutonomousStopPartitions", "固定光阑下尝试前、中、后镜片分配", false);
+        Number("AutonomousConstructionLayouts", "每个起点最多尝试布局数", 3, 1, 8);
         Choice("AutonomousFixedStopRecovery", "独立恢复固定光阑入瞳", false);
         Choice("AutonomousImageScreening", "按真实像差筛选并排序起点", false);
         Number("AutonomousScreenRays", "每候选像差筛选追迹上限", 2500, 1, 1000000);
+        Choice("AutonomousCompetition", "多结构候选竞争与分阶段优化", false);
+        Choice("AutonomousPowerSigns", "实验：光焦度符号覆盖", false);
+        Choice("AutonomousQuickAberration", "实验：三阶像差快筛与挑战复核", false);
+        Choice("AutonomousEvolution", "实验：对当前处方做结构演化", false);
+        Choice("AutonomousEvolutionRecovery", "结构变化后先恢复一阶目标", true);
+        Choice("AutonomousEvolutionCompetition", "恢复补偿后进入多轮竞争", true);
+        Choice("AutonomousPowerAllocation", "实验：光焦度分配与目标闭合起点", false);
+        Number("AutonomousEvolutionParents", "结构演化父方案上限", 1, 1, 8);
+        Number("AutonomousEvolutionBranches", "结构演化分支上限", 8, 1, 32);
+        Number("AutonomousEvolutionRecoveryFunctions", "每分支一阶恢复评价上限", 24, 2, 128);
+        Number("AutonomousEvolutionUpdates", "每分支实光线补偿更新上限", 3, 0, 40);
+        Number("AutonomousCompetitionUpdates", "竞争每阶段更新上限", 4, 0, 40);
+        Number("AutonomousCompetitionRays", "竞争准备总追迹上限", 500000, 1, 10000000);
         Number("AutonomousGeneratedElements", "生成镜片数", 3, 2, 16);
         Number("AutonomousGeneratedStop", "光阑前镜片数", 0, 0, 16);
         Number("AutonomousGeneratedRadius", "生成净半口径 (mm)", 5, .001m, 1000);
@@ -151,7 +177,7 @@ public sealed partial class AutonomousTopologyWindow : Window
         Number("AutonomousSeedRetained", "一阶保留起点数", 4, 1, 8);
         Number("AutonomousSeedFunctions", "一阶评价尝试上限", 300, 2, 10000);
         Number("AutonomousSeedPerStart", "每起点评价上限", 40, 2, 200);
-        Number("AutonomousSeedSeconds", "一阶准备时限 (秒)", 15, .01m, 120);
+        Number("AutonomousSeedSeconds", "一阶准备时限 (秒)", 15, .01m, 600);
         _inputs.Children.Add(_seedSummary);
         Choice("AutonomousStructure", "允许改变片数", true);
         Choice("AutonomousReductionOnly", "仅从达标处方减片", false);
@@ -254,14 +280,56 @@ public sealed partial class AutonomousTopologyWindow : Window
         {
             if (_applyingPlan) return;
             MarkPlanEdited();
+            if (id == "AutonomousRetrieval" && control.IsChecked == true)
+                foreach (var other in new[] { "AutonomousEvolution", "AutonomousCompetition", "AutonomousDescriptor", "AutonomousImageScreening", "AutonomousFixedStopRecovery" })
+                    _choices[other].IsChecked = false;
+            else if (id is "AutonomousEvolution" or "AutonomousCompetition" or "AutonomousDescriptor" or "AutonomousImageScreening" or "AutonomousFixedStopRecovery" && control.IsChecked == true)
+                _choices["AutonomousRetrieval"].IsChecked = false;
+            if (id is "AutonomousPowerSigns" or "AutonomousQuickAberration" or "AutonomousEvolution" && control.IsChecked == true)
+                _choices["AutonomousCompetition"].IsChecked = true;
+            if (id == "AutonomousPowerAllocation" && control.IsChecked == true) _choices["AutonomousEvolution"].IsChecked = true;
+            if (id == "AutonomousEvolution" && control.IsChecked != true) _choices["AutonomousPowerAllocation"].IsChecked = false;
+            if (id == "AutonomousEvolutionCompetition" && control.IsChecked == true) _choices["AutonomousEvolutionRecovery"].IsChecked = true;
+            if (id == "AutonomousEvolutionRecovery" && control.IsChecked != true) _choices["AutonomousEvolutionCompetition"].IsChecked = false;
+            if (id == "AutonomousCompetition" && control.IsChecked == true)
+            {
+                _choices["AutonomousFeasibleThickDelano"].IsChecked = true;
+                _choices["AutonomousImageScreening"].IsChecked = false;
+            }
+            if (id == "AutonomousCompetition" && control.IsChecked != true)
+            {
+                _choices["AutonomousPowerSigns"].IsChecked = false;
+                _choices["AutonomousQuickAberration"].IsChecked = false;
+                _choices["AutonomousEvolution"].IsChecked = false;
+            }
+            if (id == "AutonomousImageScreening" && control.IsChecked == true)
+                _choices["AutonomousCompetition"].IsChecked = false;
             if (id == "AutonomousGeometryScreen" && control.IsChecked == true) _choices["AutonomousPopulation"].IsChecked = true;
             if (id == "AutonomousDelano" && control.IsChecked == true) _choices["AutonomousDescriptor"].IsChecked = true;
             if (id == "AutonomousThickDelano" && control.IsChecked == true)
             {
+                _choices["AutonomousFeasibleThickDelano"].IsChecked = false;
                 _choices["AutonomousDelano"].IsChecked = true;
                 _choices["AutonomousFixedStopRecovery"].IsChecked = true;
             }
-            if (id == "AutonomousDelano" && control.IsChecked != true) _choices["AutonomousThickDelano"].IsChecked = false;
+            if (id == "AutonomousFeasibleThickDelano" && control.IsChecked == true)
+            {
+                _choices["AutonomousThickDelano"].IsChecked = false;
+                _choices["AutonomousDelano"].IsChecked = true;
+                _choices["AutonomousFixedStopRecovery"].IsChecked = true;
+            }
+            if (id == "AutonomousStopPartitions" && control.IsChecked == true)
+                _choices["AutonomousFeasibleThickDelano"].IsChecked = true;
+            if (id == "AutonomousFeasibleThickDelano" && control.IsChecked != true)
+            {
+                _choices["AutonomousStopPartitions"].IsChecked = false;
+                _choices["AutonomousCompetition"].IsChecked = false;
+            }
+            if (id == "AutonomousDelano" && control.IsChecked != true)
+            {
+                _choices["AutonomousThickDelano"].IsChecked = false;
+                _choices["AutonomousFeasibleThickDelano"].IsChecked = false;
+            }
             if (id == "AutonomousDescriptor" && control.IsChecked != true) _choices["AutonomousDelano"].IsChecked = false;
             if (id == "AutonomousReductionOnly" && control.IsChecked == true)
             {

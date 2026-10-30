@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="82cba6b9-cb84-48da-8ef8-c1914a8b5975" name="optics@LAPTOP-G4BBBCS0 2026-10-30 10:55:17" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-30T10:55:17.3240185+08:00" queuing="2026-10-30T10:55:17.3240188+08:00" start="2026-10-30T10:55:13.8454075+08:00" finish="2026-10-30T10:55:52.0984903+08:00" />
+  <TestSettings name="default" id="b3e3045f-5b02-4105-affa-cc08136640b2">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-30_10_55_17" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8d2457d7-a5a3-47d0-9f72-c63d2979e15a" testId="307dd706-5bf3-aabb-9ee8-8757d651b5cd" testName="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.StagesRestoreOriginalSpecificationAndRejectPartialFinalSpecifications" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0272725" startTime="2026-10-30T10:55:16.3496204+08:00" endTime="2026-10-30T10:55:16.3536990+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d2457d7-a5a3-47d0-9f72-c63d2979e15a" />
+    <UnitTestResult executionId="914a197e-c91f-480a-9398-6fba1f109ba2" testId="3c5f1f71-3a1e-3104-3813-a0be8a3eac10" testName="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(count: 3, halfField: 5, fNumber: 8)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.5521401" startTime="2026-10-30T10:55:49.3951738+08:00" endTime="2026-10-30T10:55:51.9457938+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="914a197e-c91f-480a-9398-6fba1f109ba2">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(Int32 count, Double halfField, Double fNumber) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs:line 79&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1a5addaf-84a8-4ce7-991e-baaf178293b0" testId="79f26d96-f3f1-04db-146a-c1e7208b6f91" testName="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(count: 8, halfField: 12.5, fNumber: 4)" computerName="LAPTOP-G4BBBCS0" duration="00:00:13.1948085" startTime="2026-10-30T10:55:16.3549555+08:00" endTime="2026-10-30T10:55:29.5548230+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1a5addaf-84a8-4ce7-991e-baaf178293b0">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(Int32 count, Double halfField, Double fNumber) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs:line 79&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="797c247f-45d3-4794-9b63-4e42ab6bd5e4" testId="d6d6599d-c9b6-f179-02fe-6f6ee27512b9" testName="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(count: 8, halfField: 12.5, fNumber: 8)" computerName="LAPTOP-G4BBBCS0" duration="00:00:19.8339123" startTime="2026-10-30T10:55:29.5587215+08:00" endTime="2026-10-30T10:55:49.3933454+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="797c247f-45d3-4794-9b63-4e42ab6bd5e4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(Int32 count, Double halfField, Double fNumber) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs:line 79&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fd02555d-e28d-484e-9c59-0459dae52e09" testId="5b9aa6db-ae7e-3278-1ecf-93a2e5c70d37" testName="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.AllPathFamiliesUseTheSameBoundedNativeLayoutAndPreserveReproducibility" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0067187" startTime="2026-10-30T10:55:51.9490927+08:00" endTime="2026-10-30T10:55:51.9657951+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd02555d-e28d-484e-9c59-0459dae52e09">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArithmeticException : This thick layout has no geometrically feasible realization within its proposal budget.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Engine.ThickStructureSeedGenerator.Create(AutonomousSearchPlan plan, StructureGenerationOptions descriptor, DeterministicRandom&amp; random, Action charge, StructureGenerationWork work, CancellationToken token, Boolean requireFeasibleGeometry, Double[] initialShape) in D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ThickStructureSeedGenerator.cs:line 55&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.AllPathFamiliesUseTheSameBoundedNativeLayoutAndPreserveReproducibility() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs:line 151&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7bf6242b-d236-4aff-8052-0b303ca41bc7" testId="dc4fe0a8-358c-33af-d03c-4c01743a9e3c" testName="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.CancellationAndSmallBudgetsRetainWorkWithoutQualifyingIntermediateResults" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2914609" startTime="2026-10-30T10:55:15.0205920+08:00" endTime="2026-10-30T10:55:16.3261129+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7bf6242b-d236-4aff-8052-0b303ca41bc7">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (1 - 5)&#xD;
+Actual: 0</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.CancellationAndSmallBudgetsRetainWorkWithoutQualifyingIntermediateResults() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs:line 137&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.StagesRestoreOriginalSpecificationAndRejectPartialFinalSpecifications" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="307dd706-5bf3-aabb-9ee8-8757d651b5cd">
+      <Execution id="8d2457d7-a5a3-47d0-9f72-c63d2979e15a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests" name="StagesRestoreOriginalSpecificationAndRejectPartialFinalSpecifications" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(count: 8, halfField: 12.5, fNumber: 8)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="d6d6599d-c9b6-f179-02fe-6f6ee27512b9">
+      <Execution id="797c247f-45d3-4794-9b63-4e42ab6bd5e4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests" name="NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.CancellationAndSmallBudgetsRetainWorkWithoutQualifyingIntermediateResults" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="dc4fe0a8-358c-33af-d03c-4c01743a9e3c">
+      <Execution id="7bf6242b-d236-4aff-8052-0b303ca41bc7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests" name="CancellationAndSmallBudgetsRetainWorkWithoutQualifyingIntermediateResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(count: 3, halfField: 5, fNumber: 8)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="3c5f1f71-3a1e-3104-3813-a0be8a3eac10">
+      <Execution id="914a197e-c91f-480a-9398-6fba1f109ba2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests" name="NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(count: 8, halfField: 12.5, fNumber: 4)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="79f26d96-f3f1-04db-146a-c1e7208b6f91">
+      <Execution id="1a5addaf-84a8-4ce7-991e-baaf178293b0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests" name="NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.AllPathFamiliesUseTheSameBoundedNativeLayoutAndPreserveReproducibility" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="5b9aa6db-ae7e-3278-1ecf-93a2e5c70d37">
+      <Execution id="fd02555d-e28d-484e-9c59-0459dae52e09" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests" name="AllPathFamiliesUseTheSameBoundedNativeLayoutAndPreserveReproducibility" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="307dd706-5bf3-aabb-9ee8-8757d651b5cd" executionId="8d2457d7-a5a3-47d0-9f72-c63d2979e15a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3c5f1f71-3a1e-3104-3813-a0be8a3eac10" executionId="914a197e-c91f-480a-9398-6fba1f109ba2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="79f26d96-f3f1-04db-146a-c1e7208b6f91" executionId="1a5addaf-84a8-4ce7-991e-baaf178293b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6d6599d-c9b6-f179-02fe-6f6ee27512b9" executionId="797c247f-45d3-4794-9b63-4e42ab6bd5e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5b9aa6db-ae7e-3278-1ecf-93a2e5c70d37" executionId="fd02555d-e28d-484e-9c59-0459dae52e09" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dc4fe0a8-358c-33af-d03c-4c01743a9e3c" executionId="7bf6242b-d236-4aff-8052-0b303ca41bc7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="1" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.53]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.65]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.68]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:02.01]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:02.01]       Range:  (1 - 5)&#xD;
+[xUnit.net 00:00:02.01]       Actual: 0&#xD;
+[xUnit.net 00:00:02.01]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.02]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs(137,0): at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.CancellationAndSmallBudgetsRetainWorkWithoutQualifyingIntermediateResults()&#xD;
+[xUnit.net 00:00:02.02]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.24]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:15.24]       Expected: True&#xD;
+[xUnit.net 00:00:15.24]       Actual:   False&#xD;
+[xUnit.net 00:00:15.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:15.24]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs(79,0): at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(Int32 count, Double halfField, Double fNumber)&#xD;
+[xUnit.net 00:00:15.24]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:35.08]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:35.08]       Expected: True&#xD;
+[xUnit.net 00:00:35.08]       Actual:   False&#xD;
+[xUnit.net 00:00:35.08]       Stack Trace:&#xD;
+[xUnit.net 00:00:35.08]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs(79,0): at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(Int32 count, Double halfField, Double fNumber)&#xD;
+[xUnit.net 00:00:35.08]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:37.63]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:37.63]       Expected: True&#xD;
+[xUnit.net 00:00:37.63]       Actual:   False&#xD;
+[xUnit.net 00:00:37.63]       Stack Trace:&#xD;
+[xUnit.net 00:00:37.63]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs(79,0): at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(Int32 count, Double halfField, Double fNumber)&#xD;
+[xUnit.net 00:00:37.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:37.65]       System.ArithmeticException : This thick layout has no geometrically feasible realization within its proposal budget.&#xD;
+[xUnit.net 00:00:37.65]       Stack Trace:&#xD;
+[xUnit.net 00:00:37.65]         D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ThickStructureSeedGenerator.cs(55,0): at OpticalSystemDesign.InitialStructure.Engine.ThickStructureSeedGenerator.Create(AutonomousSearchPlan plan, StructureGenerationOptions descriptor, DeterministicRandom&amp; random, Action charge, StructureGenerationWork work, CancellationToken token, Boolean requireFeasibleGeometry, Double[] initialShape)&#xD;
+[xUnit.net 00:00:37.65]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureCompetitionTests.cs(151,0): at OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.AllPathFamiliesUseTheSameBoundedNativeLayoutAndPreserveReproducibility()&#xD;
+[xUnit.net 00:00:37.65]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:37.65]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:37.65]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:37.66]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-30T10:55:16.3289170+08:00">
+        <Text>[xUnit.net 00:00:02.01]     OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.CancellationAndSmallBudgetsRetainWorkWithoutQualifyingIntermediateResults [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-30T10:55:29.5558581+08:00">
+        <Text>[xUnit.net 00:00:15.24]     OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(count: 8, halfField: 12.5, fNumber: 4) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-30T10:55:49.3939639+08:00">
+        <Text>[xUnit.net 00:00:35.08]     OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(count: 8, halfField: 12.5, fNumber: 8) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-30T10:55:51.9463205+08:00">
+        <Text>[xUnit.net 00:00:37.63]     OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.NativeCandidatesCompeteInEqualRoundsAndOnlyOriginalValidationQualifies(count: 3, halfField: 5, fNumber: 8) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-30T10:55:51.9662440+08:00">
+        <Text>[xUnit.net 00:00:37.65]     OpticalSystemDesign.InitialStructure.Tests.StructureCompetitionTests.AllPathFamiliesUseTheSameBoundedNativeLayoutAndPreserveReproducibility [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -116,6 +116,7 @@ public static partial class TopologyOperators
     {
         constraints ??= new();
         Validate(parent, constraints);
+        Require(parent.CementedInterfaces is null, TopologyFailureCode.UnsupportedFeature, "Gradual deletion of a cemented member requires an explicit group policy.");
         var original = parent.Elements[ElementIndex(parent, elementId)];
         Require(!parent.HasTransitionElements && constraints.TransitionAllowance is null && !original.Protected
             && parent.Elements.Length > constraints.MinimumElementCount, TopologyFailureCode.TransitionNotAllowed, "Gradual deletion requires an ordinary, removable original element.");

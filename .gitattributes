@@ -74,6 +74,9 @@ docs/design-inputs/** -text -whitespace
 validation/rechecks/2026-10-26/** -whitespace
 validation/rechecks/2026-10-27/** -whitespace
 validation/rechecks/2026-10-29/** -whitespace
+# Preserve this batch's frozen console output, patches and exported report bytes.
+validation/rechecks/2026-10-30/** -whitespace
+output/gauss28-four-formats-20261030_153352/** -text -whitespace
 # Keep upstream attribution and license bytes unchanged when publishing references.
 third_party/happylens/*.txt -text -whitespace
 labs/InitialStructure/benchmarks/autonomous-topology-v1/*.json -text whitespace=cr-at-eol

@@ -34,10 +34,9 @@ public sealed class DesignReportFormatTests
         string text;
         if (format == DesignReportFormat.Pdf)
         {
-            // The cover and compact summary fit two pages. A serialized prescription
-            // would introduce extra pages even when no analyses or layouts were selected.
+            // The paper overview and system summary share one page.
             var pdf = Encoding.Latin1.GetString(await File.ReadAllBytesAsync(result.ReportPath));
-            Assert.Equal(2, Regex.Matches(pdf, @"/Type /Page\b").Count);
+            Assert.Single(Regex.Matches(pdf, @"/Type /Page\b").Cast<Match>());
             return;
         }
         if (format == DesignReportFormat.Word)

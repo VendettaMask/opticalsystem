@@ -39,6 +39,8 @@ internal sealed record SpotAnalysisResult(
 
 internal static class MtfPresentation
 {
+    public static string FieldName(int number) => $"Field {Math.Max(1, number)}";
+
     public static string FieldName(
         Optic optic,
         (double Hx, double Hy) normalizedField)
@@ -52,25 +54,7 @@ internal static class MtfPresentation
             .OrderBy(candidate => candidate.Distance)
             .ThenBy(candidate => candidate.Index)
             .FirstOrDefault();
-        var declaredField = matchedIndex.Distance <= 1e-18
-            && matchedIndex.Index >= 0
-            && matchedIndex.Index < optic.Fields.Count
-                ? optic.Fields[matchedIndex.Index]
-                : null;
-        var actual = FieldCoordinates.Denormalize(
-            optic.Fields,
-            normalizedField.Hx,
-            normalizedField.Hy);
-        var fieldName = !string.IsNullOrWhiteSpace(declaredField?.Label)
-            ? declaredField.Label
-            : $"Field {Math.Max(1, matchedIndex.Index + 1)}";
-        var unit = optic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm";
-        var coordinates = Math.Abs(actual.X) <= 1e-12
-            ? $"Y={actual.Y:0.###} {unit}"
-            : Math.Abs(actual.Y) <= 1e-12
-                ? $"X={actual.X:0.###} {unit}"
-                : $"X={actual.X:0.###}, Y={actual.Y:0.###} {unit}";
-        return $"{fieldName} ({coordinates})";
+        return FieldName(matchedIndex.Index + 1);
     }
 
     public static string SeriesName(
@@ -78,7 +62,13 @@ internal static class MtfPresentation
         (double Hx, double Hy) normalizedField,
         string direction)
     {
-        return $"{FieldName(optic, normalizedField)}, {direction}";
+        var directionLabel = direction switch
+        {
+            "Tangential" => "T",
+            "Sagittal" => "S",
+            _ => direction
+        };
+        return $"{FieldName(optic, normalizedField)}, {directionLabel}";
     }
 }
 

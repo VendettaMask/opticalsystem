@@ -1,0 +1,2354 @@
+{
+  "DiagramEvaluations": 99,
+  "Algorithm": "initial-structure-feasible-thick-seeds-v3",
+  "ProtocolFingerprint": "2d96146f51c617c616586e8d643aba9e6893c7c06586f242b0506fd33907cdcb",
+  "SourcePlan": {
+    "Seeds": [
+      {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Infinite three-element example",
+        "Conjugate": "Infinite",
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 3.125,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 65,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "EvenAsphere",
+                "CurvaturePerMillimeter": 0.022222222222222223,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.01818181818181818,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.015384615384615385,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.014285714285714285,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.016666666666666666,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.02,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "edge",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 12.5,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      }
+    ],
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 8,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 0.05,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.03,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.05,
+      "MaximumOpticalTrackMillimeters": 65,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "Constraints": {
+      "MinimumElementCount": 2,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 15,
+      "MaximumMechanicalTrackMillimeters": 65,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "Options": {
+      "CheckStageFeasibility": true,
+      "ProtectCompensationRayBudget": true,
+      "Expansion": {
+        "EnableInsertion": true,
+        "EnableDeletion": true,
+        "EnableGradualDeletion": true,
+        "EnableSplit": true,
+        "EnableMerge": true,
+        "EnableMaterial": true,
+        "EnableProfile": true,
+        "MaterialAlternatives": [
+          "N-BK7",
+          "N-F2"
+        ],
+        "DeletionScales": [
+          0.7,
+          0.4,
+          0.2,
+          0.1,
+          0.02
+        ],
+        "DirectDeletionRecoveryMaximumFunctionEvaluations": null,
+        "SplitAirGapMillimeters": 0.05,
+        "SplitFirstFraction": 0.55,
+        "MaximumEvenPower": 8,
+        "MaximumAbsoluteConic": 2,
+        "CoefficientCoordinateSagMillimeters": 0.02
+      },
+      "MaximumTrials": 12,
+      "CandidatesPerElementCount": 4,
+      "BranchesPerParent": 6,
+      "MaximumFunctionEvaluations": 1000,
+      "MaximumGradientEvaluations": 200,
+      "MaximumTracedRays": 2000000,
+      "MaximumStageTracedRays": 400000,
+      "FinalValidationRayReserve": 200000,
+      "TimeLimit": "00:05:00",
+      "Seed": 73,
+      "CurvatureBoundPerMillimeter": 0.08,
+      "InsertionMaterials": [
+        "N-BK7"
+      ],
+      "Recovery": {
+        "MaximumAcceptedSteps": 30,
+        "MaximumFunctionEvaluations": 400,
+        "TimeLimit": "00:01:00",
+        "AScale": 0.01,
+        "FocalCScale": 0.01,
+        "ATolerance": 0.0001,
+        "FocalCTolerance": 0.0001,
+        "MinimumChangeWeight": 1E-06,
+        "RelativeDifferenceStep": 6.055454452393343E-06,
+        "RelativeRankTolerance": 1E-08,
+        "ProfileRadialSamples": 64
+      },
+      "Local": {
+        "TransmissionFirst": true,
+        "ActiveParameterLimit": 2,
+        "TransmissionPolicyVersion": 4,
+        "RequireDescent": true,
+        "MaximumUpdates": 8,
+        "MaximumFunctionEvaluations": 9,
+        "MaximumGradientEvaluations": 9,
+        "TimeLimit": "00:05:00",
+        "LearningRate": 0.01,
+        "ComputeMode": "Cpu",
+        "Sampling": {
+          "IncludeBoundaryClearance": true,
+          "IncludeBoundaryMaximum": true,
+          "FieldsPerDirection": 3,
+          "PupilRings": 4,
+          "PupilArms": 16,
+          "ProfileRadialSamples": 64
+        },
+        "PerformFinalAssessment": false
+      },
+      "Full": {
+        "TransmissionFirst": true,
+        "TransmissionPolicyVersion": 4,
+        "RequireDescent": true,
+        "MaximumUpdates": 12,
+        "MaximumFunctionEvaluations": 13,
+        "MaximumGradientEvaluations": 13,
+        "TimeLimit": "00:05:00",
+        "LearningRate": 0.01,
+        "ComputeMode": "Cpu",
+        "Sampling": {
+          "IncludeBoundaryClearance": true,
+          "IncludeBoundaryMaximum": true,
+          "FieldsPerDirection": 3,
+          "PupilRings": 4,
+          "PupilArms": 16,
+          "ProfileRadialSamples": 64
+        },
+        "PerformFinalAssessment": false
+      }
+    }
+  },
+  "Options": {
+    "FixedStopRecoveryVersion": 2,
+    "Generation": {
+      "FeasibleLayouts": {
+        "Version": 1,
+        "MaximumLayouts": 3,
+        "StopAfterElementCandidates": []
+      },
+      "MaterializationVersion": 3,
+      "Version": 1,
+      "Method": "Delano",
+      "Elements": [
+        {
+          "Kind": "S",
+          "Profile": "Standard",
+          "Materials": [
+            "N-BK7"
+          ]
+        },
+        {
+          "Kind": "S",
+          "Profile": "Standard",
+          "Materials": [
+            "N-F2"
+          ]
+        },
+        {
+          "Kind": "S",
+          "Profile": "Standard",
+          "Materials": [
+            "N-BK7"
+          ]
+        },
+        {
+          "Kind": "S",
+          "Profile": "Standard",
+          "Materials": [
+            "N-F2"
+          ]
+        },
+        {
+          "Kind": "S",
+          "Profile": "Standard",
+          "Materials": [
+            "N-BK7"
+          ]
+        },
+        {
+          "Kind": "S",
+          "Profile": "Standard",
+          "Materials": [
+            "N-F2"
+          ]
+        },
+        {
+          "Kind": "S",
+          "Profile": "Standard",
+          "Materials": [
+            "N-BK7"
+          ]
+        },
+        {
+          "Kind": "S",
+          "Profile": "Standard",
+          "Materials": [
+            "N-F2"
+          ]
+        }
+      ],
+      "StopAfterElement": 0,
+      "ClearSemiDiameterMillimeters": 5,
+      "MinimumThicknessMillimeters": 0.5,
+      "MaximumThicknessMillimeters": 2,
+      "MinimumBackFocusMillimeters": 15,
+      "AnnealingProposals": 24
+    },
+    "Version": 1,
+    "MaximumStarts": 3,
+    "RetainedSeeds": 3,
+    "MaximumFunctionEvaluations": 180,
+    "MaximumEvaluationsPerStart": 60,
+    "TimeLimit": "00:00:30",
+    "MaximumTracedRays": 10000,
+    "FocusATolerance": 0.001
+  },
+  "Termination": "Completed",
+  "Work": {
+    "FunctionEvaluations": 105,
+    "GradientEvaluations": 0,
+    "ValidationEvaluations": 0,
+    "MatrixEvaluations": 183,
+    "DifferenceEvaluations": 0,
+    "JacobianBuilds": 3,
+    "TracedRays": 0,
+    "GeometryProbes": 136384,
+    "Elapsed": "00:00:01.1887337"
+  },
+  "MatrixRequests": 183,
+  "Seeds": [
+    {
+      "SchemaVersion": 1,
+      "Algorithm": "AutonomousTopologyV1",
+      "Name": "Feasible Thick Delano",
+      "Conjugate": "Infinite",
+      "Reference": {
+        "Id": "reference",
+        "ZMillimeters": 0
+      },
+      "Stop": {
+        "Id": "stop",
+        "ZMillimeters": 0,
+        "ClearSemiDiameterMillimeters": 3.125,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Image": {
+        "Id": "image",
+        "ZMillimeters": 65,
+        "Protected": true
+      },
+      "Elements": [
+        {
+          "Id": "generated-0",
+          "FrontSurfaceId": "generated-0:front",
+          "BackSurfaceId": "generated-0:back",
+          "FrontZMillimeters": 2.534700348987353,
+          "ThicknessMillimeters": 1.6359296041786942,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.036667529278871014,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.010763749366632947,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-1",
+          "FrontSurfaceId": "generated-1:front",
+          "BackSurfaceId": "generated-1:back",
+          "FrontZMillimeters": 10.844802352611737,
+          "ThicknessMillimeters": 1.4780324791246076,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.010173664688299838,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.005193281958061501,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-2",
+          "FrontSurfaceId": "generated-2:front",
+          "BackSurfaceId": "generated-2:back",
+          "FrontZMillimeters": 16.118720275098724,
+          "ThicknessMillimeters": 1.4037829356624751,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.006676235849171216,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.01325939451193173,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-3",
+          "FrontSurfaceId": "generated-3:front",
+          "BackSurfaceId": "generated-3:back",
+          "FrontZMillimeters": 24.024384385203415,
+          "ThicknessMillimeters": 0.9085507011361293,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.013261353763512966,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.0038722535278450515,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-4",
+          "FrontSurfaceId": "generated-4:front",
+          "BackSurfaceId": "generated-4:back",
+          "FrontZMillimeters": 27.201614958376865,
+          "ThicknessMillimeters": 0.9655224521713734,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.004714581550799142,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.016573850630424602,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-5",
+          "FrontSurfaceId": "generated-5:front",
+          "BackSurfaceId": "generated-5:back",
+          "FrontZMillimeters": 34.432832777490745,
+          "ThicknessMillimeters": 0.8630330651911408,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.01628466319010891,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.01154703679678376,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-6",
+          "FrontSurfaceId": "generated-6:front",
+          "BackSurfaceId": "generated-6:back",
+          "FrontZMillimeters": 39.81738795248716,
+          "ThicknessMillimeters": 1.1840730497591807,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.014934255247093811,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.012249176073446805,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-7",
+          "FrontSurfaceId": "generated-7:front",
+          "BackSurfaceId": "generated-7:back",
+          "FrontZMillimeters": 44.752761017545375,
+          "ThicknessMillimeters": 1.1498371309860125,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.012073171313662754,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.0029183989268285714,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        }
+      ],
+      "Fields": [
+        {
+          "Label": "axis",
+          "XAngleDegrees": 0,
+          "YAngleDegrees": 0,
+          "Weight": 1
+        },
+        {
+          "Label": "edge",
+          "XAngleDegrees": 0,
+          "YAngleDegrees": 12.5,
+          "Weight": 1
+        }
+      ],
+      "Wavelengths": [
+        {
+          "Label": "F",
+          "Nanometers": 486.1,
+          "Weight": 1,
+          "IsPrimary": false
+        },
+        {
+          "Label": "d",
+          "Nanometers": 587.6,
+          "Weight": 1,
+          "IsPrimary": true
+        },
+        {
+          "Label": "C",
+          "Nanometers": 656.3,
+          "Weight": 1,
+          "IsPrimary": false
+        }
+      ],
+      "GlassCatalogs": [],
+      "RayAimingEnabled": true,
+      "MatchRefractiveIndexData": true,
+      "TemperatureCelsius": 20,
+      "PressureAtmospheres": 1
+    },
+    {
+      "SchemaVersion": 1,
+      "Algorithm": "AutonomousTopologyV1",
+      "Name": "Feasible Thick Delano",
+      "Conjugate": "Infinite",
+      "Reference": {
+        "Id": "reference",
+        "ZMillimeters": 0
+      },
+      "Stop": {
+        "Id": "stop",
+        "ZMillimeters": 0,
+        "ClearSemiDiameterMillimeters": 3.125,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Image": {
+        "Id": "image",
+        "ZMillimeters": 65,
+        "Protected": true
+      },
+      "Elements": [
+        {
+          "Id": "generated-0",
+          "FrontSurfaceId": "generated-0:front",
+          "BackSurfaceId": "generated-0:back",
+          "FrontZMillimeters": 5.409178501153772,
+          "ThicknessMillimeters": 1.6887479323087593,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.03032319239282744,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.002682495989250396,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-1",
+          "FrontSurfaceId": "generated-1:front",
+          "BackSurfaceId": "generated-1:back",
+          "FrontZMillimeters": 9.704973374357047,
+          "ThicknessMillimeters": 1.4854274337289213,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.0003619703386739828,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.0017921036580027248,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-2",
+          "FrontSurfaceId": "generated-2:front",
+          "BackSurfaceId": "generated-2:back",
+          "FrontZMillimeters": 17.314797956873253,
+          "ThicknessMillimeters": 1.2287318324192733,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.02399309363502357,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.028433478216259175,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-3",
+          "FrontSurfaceId": "generated-3:front",
+          "BackSurfaceId": "generated-3:back",
+          "FrontZMillimeters": 23.164732397277735,
+          "ThicknessMillimeters": 1.4910722294477,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.0200606631728614,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.024118315871917706,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-4",
+          "FrontSurfaceId": "generated-4:front",
+          "BackSurfaceId": "generated-4:back",
+          "FrontZMillimeters": 27.994796073371916,
+          "ThicknessMillimeters": 1.1703166750716698,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.026258087845616496,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.05281388552891108,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-5",
+          "FrontSurfaceId": "generated-5:front",
+          "BackSurfaceId": "generated-5:back",
+          "FrontZMillimeters": 32.197261153311935,
+          "ThicknessMillimeters": 1.332524822935183,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.036122915708115814,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.02560547147381792,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-6",
+          "FrontSurfaceId": "generated-6:front",
+          "BackSurfaceId": "generated-6:back",
+          "FrontZMillimeters": 37.418580209348015,
+          "ThicknessMillimeters": 1.850345693567593,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.018728346424429415,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.025761615256969985,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-7",
+          "FrontSurfaceId": "generated-7:front",
+          "BackSurfaceId": "generated-7:back",
+          "FrontZMillimeters": 45.49258702380905,
+          "ThicknessMillimeters": 1.9120919975728907,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.0684211713770441,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.04409677638818926,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        }
+      ],
+      "Fields": [
+        {
+          "Label": "axis",
+          "XAngleDegrees": 0,
+          "YAngleDegrees": 0,
+          "Weight": 1
+        },
+        {
+          "Label": "edge",
+          "XAngleDegrees": 0,
+          "YAngleDegrees": 12.5,
+          "Weight": 1
+        }
+      ],
+      "Wavelengths": [
+        {
+          "Label": "F",
+          "Nanometers": 486.1,
+          "Weight": 1,
+          "IsPrimary": false
+        },
+        {
+          "Label": "d",
+          "Nanometers": 587.6,
+          "Weight": 1,
+          "IsPrimary": true
+        },
+        {
+          "Label": "C",
+          "Nanometers": 656.3,
+          "Weight": 1,
+          "IsPrimary": false
+        }
+      ],
+      "GlassCatalogs": [],
+      "RayAimingEnabled": true,
+      "MatchRefractiveIndexData": true,
+      "TemperatureCelsius": 20,
+      "PressureAtmospheres": 1
+    },
+    {
+      "SchemaVersion": 1,
+      "Algorithm": "AutonomousTopologyV1",
+      "Name": "Feasible Thick Delano",
+      "Conjugate": "Infinite",
+      "Reference": {
+        "Id": "reference",
+        "ZMillimeters": 0
+      },
+      "Stop": {
+        "Id": "stop",
+        "ZMillimeters": 0,
+        "ClearSemiDiameterMillimeters": 3.125,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Image": {
+        "Id": "image",
+        "ZMillimeters": 65,
+        "Protected": true
+      },
+      "Elements": [
+        {
+          "Id": "generated-0",
+          "FrontSurfaceId": "generated-0:front",
+          "BackSurfaceId": "generated-0:back",
+          "FrontZMillimeters": 8.121385734224795,
+          "ThicknessMillimeters": 1.2651014270198218,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.053813422646166974,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.025917809057920082,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-1",
+          "FrontSurfaceId": "generated-1:front",
+          "BackSurfaceId": "generated-1:back",
+          "FrontZMillimeters": 13.086532815028281,
+          "ThicknessMillimeters": 1.0876981343877192,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.0017862017922493957,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.009037798224412327,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-2",
+          "FrontSurfaceId": "generated-2:front",
+          "BackSurfaceId": "generated-2:back",
+          "FrontZMillimeters": 16.750529997322225,
+          "ThicknessMillimeters": 1.5165001835693035,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.015522605921828256,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.022667623490520677,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-3",
+          "FrontSurfaceId": "generated-3:front",
+          "BackSurfaceId": "generated-3:back",
+          "FrontZMillimeters": 28.248973086131617,
+          "ThicknessMillimeters": 1.2377669537435136,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.0018118573952930089,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.030892831708879857,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-4",
+          "FrontSurfaceId": "generated-4:front",
+          "BackSurfaceId": "generated-4:back",
+          "FrontZMillimeters": 33.503240505394565,
+          "ThicknessMillimeters": 0.5211667642402533,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.048880641592958275,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.010038123287441435,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-5",
+          "FrontSurfaceId": "generated-5:front",
+          "BackSurfaceId": "generated-5:back",
+          "FrontZMillimeters": 37.65440608624909,
+          "ThicknessMillimeters": 1.6808969615582896,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.018307697128065837,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.02802830475019795,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-6",
+          "FrontSurfaceId": "generated-6:front",
+          "BackSurfaceId": "generated-6:back",
+          "FrontZMillimeters": 42.42235907656135,
+          "ThicknessMillimeters": 1.823791039838939,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.003302519872999603,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": -0.020583211593538077,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "generated-7",
+          "FrontSurfaceId": "generated-7:front",
+          "BackSurfaceId": "generated-7:back",
+          "FrontZMillimeters": 46.51406890334569,
+          "ThicknessMillimeters": 1.7521143742774048,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.024331673290855064,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Back": {
+            "Profile": {
+              "Kind": "Standard",
+              "CurvaturePerMillimeter": 0.022727355610392894,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 5,
+            "MechanicalSemiDiameterMillimeters": 5
+          },
+          "Protected": false,
+          "Transition": false
+        }
+      ],
+      "Fields": [
+        {
+          "Label": "axis",
+          "XAngleDegrees": 0,
+          "YAngleDegrees": 0,
+          "Weight": 1
+        },
+        {
+          "Label": "edge",
+          "XAngleDegrees": 0,
+          "YAngleDegrees": 12.5,
+          "Weight": 1
+        }
+      ],
+      "Wavelengths": [
+        {
+          "Label": "F",
+          "Nanometers": 486.1,
+          "Weight": 1,
+          "IsPrimary": false
+        },
+        {
+          "Label": "d",
+          "Nanometers": 587.6,
+          "Weight": 1,
+          "IsPrimary": true
+        },
+        {
+          "Label": "C",
+          "Nanometers": 656.3,
+          "Weight": 1,
+          "IsPrimary": false
+        }
+      ],
+      "GlassCatalogs": [],
+      "RayAimingEnabled": true,
+      "MatchRefractiveIndexData": true,
+      "TemperatureCelsius": 20,
+      "PressureAtmospheres": 1
+    }
+  ],
+  "Attempts": [
+    {
+      "Index": 0,
+      "SourceFingerprint": "0185dad7a840b4d4ed45d988253e8d412f4c24e9969bc43851294cca18f0e8d4",
+      "Outcome": "FirstOrderFeasibleOnly",
+      "FunctionEvaluations": 35,
+      "Score": 1.5148594570572242E-25,
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Feasible Thick Delano",
+        "Conjugate": "Infinite",
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 3.125,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 65,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "generated-0",
+            "FrontSurfaceId": "generated-0:front",
+            "BackSurfaceId": "generated-0:back",
+            "FrontZMillimeters": 8.121385734224795,
+            "ThicknessMillimeters": 1.2651014270198218,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.053813422646166974,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.025917809057920082,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-1",
+            "FrontSurfaceId": "generated-1:front",
+            "BackSurfaceId": "generated-1:back",
+            "FrontZMillimeters": 13.086532815028281,
+            "ThicknessMillimeters": 1.0876981343877192,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.0017862017922493957,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.009037798224412327,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-2",
+            "FrontSurfaceId": "generated-2:front",
+            "BackSurfaceId": "generated-2:back",
+            "FrontZMillimeters": 16.750529997322225,
+            "ThicknessMillimeters": 1.5165001835693035,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.015522605921828256,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.022667623490520677,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-3",
+            "FrontSurfaceId": "generated-3:front",
+            "BackSurfaceId": "generated-3:back",
+            "FrontZMillimeters": 28.248973086131617,
+            "ThicknessMillimeters": 1.2377669537435136,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.0018118573952930089,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.030892831708879857,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-4",
+            "FrontSurfaceId": "generated-4:front",
+            "BackSurfaceId": "generated-4:back",
+            "FrontZMillimeters": 33.503240505394565,
+            "ThicknessMillimeters": 0.5211667642402533,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.048880641592958275,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.010038123287441435,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-5",
+            "FrontSurfaceId": "generated-5:front",
+            "BackSurfaceId": "generated-5:back",
+            "FrontZMillimeters": 37.65440608624909,
+            "ThicknessMillimeters": 1.6808969615582896,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.018307697128065837,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.02802830475019795,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-6",
+            "FrontSurfaceId": "generated-6:front",
+            "BackSurfaceId": "generated-6:back",
+            "FrontZMillimeters": 42.42235907656135,
+            "ThicknessMillimeters": 1.823791039838939,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.003302519872999603,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.020583211593538077,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-7",
+            "FrontSurfaceId": "generated-7:front",
+            "BackSurfaceId": "generated-7:back",
+            "FrontZMillimeters": 46.51406890334569,
+            "ThicknessMillimeters": 1.7521143742774048,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.024331673290855064,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.022727355610392894,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "edge",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 12.5,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Construction": {
+        "AttemptedLayouts": 3,
+        "FeasibleLayouts": 3,
+        "RejectedGeometryProposals": 3,
+        "SelectedStopAfterElement": 0,
+        "MinimumClearanceMarginMillimeters": 0.421166764240256
+      }
+    },
+    {
+      "Index": 1,
+      "SourceFingerprint": "0b64f6c531ca1ff9dd24ed7afcdb73fc84933e9500a8cf4a56d23e617c37f3fa",
+      "Outcome": "FirstOrderFeasibleOnly",
+      "FunctionEvaluations": 35,
+      "Score": 4.942706609275402E-26,
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Feasible Thick Delano",
+        "Conjugate": "Infinite",
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 3.125,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 65,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "generated-0",
+            "FrontSurfaceId": "generated-0:front",
+            "BackSurfaceId": "generated-0:back",
+            "FrontZMillimeters": 5.409178501153772,
+            "ThicknessMillimeters": 1.6887479323087593,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.03032319239282744,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.002682495989250396,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-1",
+            "FrontSurfaceId": "generated-1:front",
+            "BackSurfaceId": "generated-1:back",
+            "FrontZMillimeters": 9.704973374357047,
+            "ThicknessMillimeters": 1.4854274337289213,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.0003619703386739828,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.0017921036580027248,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-2",
+            "FrontSurfaceId": "generated-2:front",
+            "BackSurfaceId": "generated-2:back",
+            "FrontZMillimeters": 17.314797956873253,
+            "ThicknessMillimeters": 1.2287318324192733,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.02399309363502357,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.028433478216259175,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-3",
+            "FrontSurfaceId": "generated-3:front",
+            "BackSurfaceId": "generated-3:back",
+            "FrontZMillimeters": 23.164732397277735,
+            "ThicknessMillimeters": 1.4910722294477,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.0200606631728614,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.024118315871917706,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-4",
+            "FrontSurfaceId": "generated-4:front",
+            "BackSurfaceId": "generated-4:back",
+            "FrontZMillimeters": 27.994796073371916,
+            "ThicknessMillimeters": 1.1703166750716698,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.026258087845616496,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.05281388552891108,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-5",
+            "FrontSurfaceId": "generated-5:front",
+            "BackSurfaceId": "generated-5:back",
+            "FrontZMillimeters": 32.197261153311935,
+            "ThicknessMillimeters": 1.332524822935183,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.036122915708115814,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.02560547147381792,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-6",
+            "FrontSurfaceId": "generated-6:front",
+            "BackSurfaceId": "generated-6:back",
+            "FrontZMillimeters": 37.418580209348015,
+            "ThicknessMillimeters": 1.850345693567593,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.018728346424429415,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.025761615256969985,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-7",
+            "FrontSurfaceId": "generated-7:front",
+            "BackSurfaceId": "generated-7:back",
+            "FrontZMillimeters": 45.49258702380905,
+            "ThicknessMillimeters": 1.9120919975728907,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.0684211713770441,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.04409677638818926,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "edge",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 12.5,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Construction": {
+        "AttemptedLayouts": 3,
+        "FeasibleLayouts": 3,
+        "RejectedGeometryProposals": 0,
+        "SelectedStopAfterElement": 0,
+        "MinimumClearanceMarginMillimeters": 1.070316675071671
+      }
+    },
+    {
+      "Index": 2,
+      "SourceFingerprint": "bbad58178c8d4518840743c4636bd6221c86522e49742cad0c7fae11c7e70744",
+      "Outcome": "FirstOrderFeasibleOnly",
+      "FunctionEvaluations": 35,
+      "Score": 4.930380657631324E-26,
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Feasible Thick Delano",
+        "Conjugate": "Infinite",
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 3.125,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 65,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "generated-0",
+            "FrontSurfaceId": "generated-0:front",
+            "BackSurfaceId": "generated-0:back",
+            "FrontZMillimeters": 2.534700348987353,
+            "ThicknessMillimeters": 1.6359296041786942,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.036667529278871014,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.010763749366632947,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-1",
+            "FrontSurfaceId": "generated-1:front",
+            "BackSurfaceId": "generated-1:back",
+            "FrontZMillimeters": 10.844802352611737,
+            "ThicknessMillimeters": 1.4780324791246076,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.010173664688299838,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.005193281958061501,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-2",
+            "FrontSurfaceId": "generated-2:front",
+            "BackSurfaceId": "generated-2:back",
+            "FrontZMillimeters": 16.118720275098724,
+            "ThicknessMillimeters": 1.4037829356624751,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.006676235849171216,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.01325939451193173,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-3",
+            "FrontSurfaceId": "generated-3:front",
+            "BackSurfaceId": "generated-3:back",
+            "FrontZMillimeters": 24.024384385203415,
+            "ThicknessMillimeters": 0.9085507011361293,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.013261353763512966,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.0038722535278450515,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-4",
+            "FrontSurfaceId": "generated-4:front",
+            "BackSurfaceId": "generated-4:back",
+            "FrontZMillimeters": 27.201614958376865,
+            "ThicknessMillimeters": 0.9655224521713734,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.004714581550799142,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.016573850630424602,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-5",
+            "FrontSurfaceId": "generated-5:front",
+            "BackSurfaceId": "generated-5:back",
+            "FrontZMillimeters": 34.432832777490745,
+            "ThicknessMillimeters": 0.8630330651911408,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.01628466319010891,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.01154703679678376,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-6",
+            "FrontSurfaceId": "generated-6:front",
+            "BackSurfaceId": "generated-6:back",
+            "FrontZMillimeters": 39.81738795248716,
+            "ThicknessMillimeters": 1.1840730497591807,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.014934255247093811,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.012249176073446805,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "generated-7",
+            "FrontSurfaceId": "generated-7:front",
+            "BackSurfaceId": "generated-7:back",
+            "FrontZMillimeters": 44.752761017545375,
+            "ThicknessMillimeters": 1.1498371309860125,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": 0.012073171313662754,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Back": {
+              "Profile": {
+                "Kind": "Standard",
+                "CurvaturePerMillimeter": -0.0029183989268285714,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 5,
+              "MechanicalSemiDiameterMillimeters": 5
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          },
+          {
+            "Label": "edge",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 12.5,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Construction": {
+        "AttemptedLayouts": 3,
+        "FeasibleLayouts": 3,
+        "RejectedGeometryProposals": 2,
+        "SelectedStopAfterElement": 0,
+        "MinimumClearanceMarginMillimeters": 0.6910088812916599
+      }
+    }
+  ]
+}

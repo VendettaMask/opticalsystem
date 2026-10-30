@@ -28,6 +28,7 @@ internal sealed partial class MarkdownReportWindow : Window
     private readonly CheckBox _twoD = new() { Content = "二维布局" };
     private readonly CheckBox _threeD = new() { Content = "三维布局" };
     private readonly CheckBox _allConfigurations = new() { Content = "逐一导出所有配置" };
+    private readonly CheckBox _pdfDetails = new() { Name = "ReportPdfDetails", Content = "附加详细计算记录（增加页数）", Margin = new Thickness(14, 0, 0, 0) };
     private readonly OperationStatusBar _operationStatus = new("ReportExportProgress");
     private readonly TextBlock _status = new() { Text = "就绪", TextWrapping = TextWrapping.Wrap };
     private readonly Button _export = new() { Name = "ExportMarkdownReport", Content = "开始导出", MinWidth = 170 };
@@ -48,6 +49,9 @@ internal sealed partial class MarkdownReportWindow : Window
         _directory.Text = _defaultDirectory;
         var selectedFormat = Array.IndexOf(Formats, _options.Format);
         _format.SelectedIndex = selectedFormat >= 0 ? selectedFormat : 2;
+        _pdfDetails.IsChecked = _options.PdfIncludeDetails;
+        _pdfDetails.IsVisible = _options.Format == DesignReportFormat.Pdf;
+        _format.SelectionChanged += (_, _) => _pdfDetails.IsVisible = _format.SelectedIndex == Array.IndexOf(Formats, DesignReportFormat.Pdf);
         AutomationProperties.SetName(_format, "导出格式");
         _twoD.IsChecked = _options.Include2DLayout;
         _threeD.IsChecked = _options.Include3DLayout;
@@ -108,19 +112,18 @@ internal sealed partial class MarkdownReportWindow : Window
         };
         _editable.Add(saveSettings);
         var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 10, HorizontalAlignment = HorizontalAlignment.Right, Children = { saveSettings, _export } };
-        var formatRow = new StackPanel
+        var formatRow = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
-            Spacing = 12,
             Children =
-            { new TextBlock { Text = "导出格式", VerticalAlignment = VerticalAlignment.Center }, _format }
+            { new TextBlock { Text = "导出格式", VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 12, 0) }, _format, _pdfDetails }
         };
         var root = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,*,Auto,Auto,Auto"), RowSpacing = 12, Margin = new Thickness(18), ClipToBounds = true };
-        Add(new TextBlock { Text = "导出镜头结构、系统设置、布局和所选分析的结果及截图。文件名自动包含时间。", TextWrapping = TextWrapping.Wrap }, 0);
+        Add(new TextBlock { Text = "导出系统概览、布局和所选分析。PDF 默认采用精简图文排版，可选附加详细计算记录。文件名自动包含时间。", TextWrapping = TextWrapping.Wrap }, 0);
         Add(formatRow, 1); Add(directoryRow, 2); Add(layout, 3); Add(columns, 4); Add(_operationStatus, 5); Add(_status, 6); Add(actions, 7);
         var shell = new Grid { ClipToBounds = true };
         shell.Children.Add(_renderHost); shell.Children.Add(root); Content = shell;
-        _editable.AddRange([_format, _directory, browse, _twoD, _threeD, _allConfigurations, _export]);
+        _editable.AddRange([_format, _directory, browse, _twoD, _threeD, _allConfigurations, _pdfDetails, _export]);
         _export.Click += async (_, _) => await ExportAsync();
         Closing += (_, args) =>
         {
@@ -217,6 +220,7 @@ internal sealed partial class MarkdownReportWindow : Window
         _options.AnalysisKeys = _analyses.Where(item => item.Value.IsChecked == true).Select(item => item.Key).ToList();
         _options.Include2DLayout = _twoD.IsChecked == true; _options.Include3DLayout = _threeD.IsChecked == true;
         _options.AllConfigurations = _allConfigurations.IsChecked == true;
+        _options.PdfIncludeDetails = _pdfDetails.IsChecked == true;
         _options.Format = Formats[Math.Clamp(_format.SelectedIndex, 0, Formats.Length - 1)];
     }
 

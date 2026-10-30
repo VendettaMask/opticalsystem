@@ -46,7 +46,8 @@ public static class ExperimentStore
         var metrics = new StringBuilder("指标,实际值,要求,达标\n");
         foreach (var c in d.Result.Checks) metrics.AppendLine($"{Csv(c.Name)},{(c.Actual.HasValue ? Number(c.Actual.Value) : "")},{Csv(c.Requirement)},{c.Passed}");
         foreach (var (name, content) in new[] { ("layers.csv", layers.ToString()), ("spectrum.csv", spectrum.ToString()), ("metrics.csv", metrics.ToString()),
-            ("run.json", JsonSerializer.Serialize(d.Result.Run, Experiment.JsonOptions)) })
+            ("run.json", JsonSerializer.Serialize(d.Result.Run, Experiment.JsonOptions)),
+            ("material-suitability.json", JsonSerializer.Serialize(d.Result.MaterialSuitability, Experiment.JsonOptions)) })
             await BoundedFile.WriteAllTextAtomicAsync(Path.Combine(directory, name), content, BoundedFile.MaximumExportBytes, "镀膜结果导出", token);
         if (d.Tolerance is { } tolerance)
         {

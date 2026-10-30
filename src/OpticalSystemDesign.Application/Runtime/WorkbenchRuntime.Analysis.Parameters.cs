@@ -728,6 +728,7 @@ public partial class WorkbenchRuntime
                 IntParameter("ResolutionX", "X 分辨率", "128", 1, 1024),
                 IntParameter("ResolutionY", "Y 分辨率", "128", 1, 1024),
                 IntParameter("DetectorSurfaceIndex", "探测器表面序号", "-1", -128, 128),
+                BoolParameter("UseSurfaceSamplingWindow", "无物理孔径时按表面半口径采样", "true"),
                 ChoiceParameter("Distribution", "瞳孔采样分布", "random", distributionChoices),
                 BoolParameter("Normalized", "归一化显示", "true")
             },

@@ -1161,6 +1161,12 @@ internal static partial class UiLocalization
         Add("操作失败", "Operation Failed", "操作に失敗しました");
         Add("正在计算…", "Calculating…", "計算中…");
         Add("导出图片（PNG）", "Export image (PNG)", "画像を書き出す（PNG）");
+        Add("线宽", "Line width", "線幅");
+        Add("细", "Thin", "細い");
+        Add("标准", "Standard", "標準");
+        Add("粗", "Thick", "太い");
+        Add("曲线线宽：细、标准、粗", "Curve width: thin, standard, thick", "曲線の線幅：細い、標準、太い");
+        Add("正在计算，完成后可调整线宽", "Calculating; line width can be changed when complete", "計算中です。完了後に線幅を変更できます");
         Add("导出分析图片", "Export analysis image", "解析画像を書き出す");
         Add("PNG 图片", "PNG image", "PNG 画像");
         Add("分析图片已导出", "Analysis image exported", "解析画像を書き出しました");
@@ -1203,6 +1209,9 @@ internal static partial class UiLocalization
         Add("导出设置已保存", "Export Settings Saved", "書き出し設定を保存しました");
         Add("开始导出", "Start Export", "書き出し開始");
         Add("导出格式", "Export Format", "書き出し形式");
+        Add("当前内容超出统一图框，请减少同时显示的视场或子图，或减小文字后刷新。", "The content exceeds the drawing sheet. Reduce the visible fields or plots, or use smaller text and refresh.", "内容が共通図枠を超えています。表示する視野や図を減らすか、文字を小さくして更新してください。");
+        Add("附加详细计算记录（增加页数）", "Include Detailed Calculation Records (More Pages)", "詳細計算記録を追加（ページ数増加）");
+        Add("导出系统概览、布局和所选分析。PDF 默认采用精简图文排版，可选附加详细计算记录。文件名自动包含时间。", "Export the system overview, layouts and selected analyses. PDF uses a compact layout with optional detailed calculation records. File names include a timestamp.", "システム概要、レイアウト、選択した解析を書き出します。PDF は簡潔な図表形式で、詳細計算記録を追加できます。ファイル名に日時が付きます。");
         Add("写入 Word 报告", "Writing Word report", "Word レポートを書き込み中");
         Add("写入 PDF 报告", "Writing PDF report", "PDF レポートを書き込み中");
         Add("写入 HTML 报告", "Writing HTML report", "HTML レポートを書き込み中");
@@ -1236,6 +1245,7 @@ internal static partial class UiLocalization
             "クリップボードを利用できないため貼り付けませんでした。再試行するか、直接入力してください。");
 
         AddAutonomousTopologyTexts(Add);
+        AddCameraPixelSamplingTexts(Add);
         AddManufacturabilityTexts(Add);
         return values;
     }

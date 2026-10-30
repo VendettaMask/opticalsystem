@@ -27,7 +27,7 @@ public sealed partial class CameraImagingWindow
         };
         _saveExperiment.Click += async (_, _) =>
         {
-            var result = _result; var comparison = _comparison;
+            var result = _result; var comparison = _comparison; var sampling = _samplingReport;
             if (result is null || _busy) return;
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
@@ -37,7 +37,7 @@ public sealed partial class CameraImagingWindow
             if (file is null || _closed) return;
             try
             {
-                await _application.CameraImaging.SaveExperimentAsync(new(CameraExperiment.FormatIdentifier, 1, result, comparison), file.Path.LocalPath);
+                await _application.CameraImaging.SaveExperimentAsync(new(CameraExperiment.FormatIdentifier, 1, result, comparison, sampling), file.Path.LocalPath);
                 if (!_closed) _status.Text = "完整实验已保存：A/B 各自的镜头、输入、光谱、传感器、ISP 和数值结果均已归档。";
             }
             catch (Exception ex) { if (!_closed) _status.Text = "实验保存失败：" + ex.Message; }
@@ -68,6 +68,7 @@ public sealed partial class CameraImagingWindow
             try { _useExperiment.IsVisible = true; _useExperiment.IsChecked = true; }
             finally { _applyingSensor = false; }
             PresentResult(experiment.B); UpdateSource();
+            RestoreSampling(experiment.SamplingReport);
             _status.Text = "实验已打开。使用保存的镜头与输入，不依赖原始文件路径；可复算 A/B 或修改参数运行 B。";
             return true;
         }
@@ -85,12 +86,26 @@ public sealed partial class CameraImagingWindow
                 request.SensorIdentity?.Origin, request.SensorIdentity?.Calibration));
             _sensorIdentity = request.SensorIdentity;
             _source.SelectedIndex = (int)request.Source; _sourceFile = request.SourceFile;
+            if (request.Scene3D is { } scene3d) _scene3D = scene3d;
+            _scene3DWasActive = request.Source == CameraSource.Scene3D;
+            _numbers["scene3d-depth"].Value = 0; _numbers["scene3d-power"].Value = 1;
+            _numbers["scene3d-rings"].Value = request.Render3D?.PupilRings ?? 2;
+            _numbers["scene3d-arms"].Value = request.Render3D?.PupilArms ?? 8;
+            _scene3DFresnel.IsChecked = request.Render3D?.BareInterfaceFresnel ?? true;
+            var diffraction = request.Render3D?.Diffraction ?? new();
+            _numbers["scene3d-pupil-grid"].Value = diffraction.PupilSamplesAcross;
+            _numbers["scene3d-subdivide"].Value = diffraction.SceneSubdivisions;
+            _numbers["scene3d-psf-radius"].Value = diffraction.PsfRadiusPixels;
+            _numbers["scene3d-guard"].Value = diffraction.SourceGuardPixels;
             _optics.SelectedIndex = (int)request.Optics; _aberration.SelectedIndex = (int)request.Aberration;
             _savedSize = (request.Width, request.Height);
-            var sizes = new[] { (128, 96), (256, 192), (512, 384) }; var index = Array.IndexOf(sizes, (request.Width, request.Height));
-            _size.ItemsSource = index < 0 ? new[] { "128 × 96", "256 × 192", "512 × 384", $"{request.Width} × {request.Height}（实验）" }
-                : new[] { "128 × 96", "256 × 192", "512 × 384" };
-            _size.SelectedIndex = index < 0 ? 3 : index;
+            var index = Array.IndexOf(StandardSizes, (request.Width, request.Height));
+            _size.ItemsSource = index < 0 ? SizeLabels.Append($"{request.Width} × {request.Height}（实验）").ToArray() : SizeLabels;
+            _size.SelectedIndex = index < 0 ? StandardSizes.Length : index;
+            var pixel = request.PixelSampling;
+            _pixelSampling.SelectedIndex = pixel?.SamplesPerAxis == 4 ? 2 : pixel?.SamplesPerAxis == 2 ? 1 : 0;
+            _numbers["fill-factor"].Value = (decimal)(pixel?.FillFactor ?? 1);
+            _qeArea.SelectedIndex = pixel?.QeIncludesFillFactor == false ? 1 : 0;
             _spectralModel.SelectedIndex = (int)request.SpectralModel; _sceneMode.SelectedIndex = (int)request.SceneMode;
             _illuminant = request.Illuminant; _reflectance = request.Reflectance; _materialScene = request.MaterialScene;
             _materialChoice.ItemsSource = _materialScene?.Materials.Select(m => $"{m.Id} · {m.Name}").ToArray() ?? Array.Empty<string>();
@@ -103,7 +118,8 @@ public sealed partial class CameraImagingWindow
                 ("wb-b", isp.BlueGain), ("gamma", isp.Gamma), ("denoise", isp.Denoise), ("sharpen", isp.Sharpen)
             }) _numbers[key].Value = (decimal)value;
             _isp.IsChecked = isp.Enabled;
-            _fileInfo.Text = request.Source == CameraSource.ExternalImage ? Path.GetFileName(request.SourceFile) + "（实验内嵌）" : "内置测试图";
+            _fileInfo.Text = request.Source == CameraSource.ExternalImage ? Path.GetFileName(request.SourceFile) + "（实验内嵌）"
+                : request.Source == CameraSource.Scene3D ? "三维场景：" + request.Scene3D?.Name : "内置测试图";
         }
         finally { _applyingSensor = false; _applyingMaterialScene = false; }
     }
@@ -135,8 +151,8 @@ public sealed partial class CameraImagingWindow
     private void UpdateExperimentControls()
     {
         ControlAvailability.Set(_saveExperiment, !_busy && _result?.Inputs is not null, "请先完成仿真，再保存完整实验。");
-        var sameVersion = _result?.Inputs?.EngineVersion == CameraExperiment.CurrentEngineVersion
-            && (_comparison is null || _comparison.Inputs?.EngineVersion == CameraExperiment.CurrentEngineVersion);
+        var sameVersion = CameraExperiment.CanRecompute(_result?.Inputs?.EngineVersion)
+            && (_comparison is null || CameraExperiment.CanRecompute(_comparison.Inputs?.EngineVersion));
         ControlAvailability.Set(_recomputeExperiment, !_busy && _result?.Inputs is not null && sameVersion,
             !sameVersion && _result is not null ? "计算模型版本不同，可查看结果，不能按当前模型复算。" : "请先完成仿真或打开完整实验。");
         _experimentInfo.Text = UsingExperimentInputs ? $"使用实验镜头与内嵌输入 · {_experimentRun!.Inputs!.EngineVersion}" : "使用当前工程镜头与输入";

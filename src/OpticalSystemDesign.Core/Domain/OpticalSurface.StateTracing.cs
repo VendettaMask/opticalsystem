@@ -2,9 +2,11 @@ using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.Interactions;
+using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Domain;
@@ -72,7 +74,7 @@ public sealed partial class OpticalSurface
                 intersection = Geometry.DistanceToIntersection(localOrigin, -localDirection);
                 signedDistance = -intersection.Distance;
             }
-            if (!intersection.IsHit) return Miss(refractiveIndexBefore);
+            if (!intersection.IsHit) return Miss(refractiveIndexBefore, intersection.Status);
             segmentLength = allowVirtualIntersection ? signedDistance : Math.Max(0, intersection.Distance);
             segmentOpticalPathLength = allowVirtualIntersection
                 ? segmentLength * refractiveIndexBefore : Math.Abs(segmentLength * refractiveIndexBefore);
@@ -96,10 +98,15 @@ public sealed partial class OpticalSurface
             Intensity = ray.Intensity * attenuation
         };
 
-        SurfaceRayTraceStateResult Miss(double index) => new(ray with { Intensity = 0 },
+        SurfaceRayTraceStateResult Miss(double index, IntersectionStatus? status = null) => new(ray with { Intensity = 0 },
             new RayTraceSampleValue(Number, Label, ray.Origin, ray.Direction, 0, true,
                 CumulativePathLength: cumulativePathLength, CumulativeOpticalPathLength: cumulativeOpticalPathLength),
-            index, materialBefore, null, cumulativePathLength, cumulativeOpticalPathLength, true);
+            index, materialBefore, null, cumulativePathLength, cumulativeOpticalPathLength, true)
+        {
+            Failure = status is IntersectionStatus.DomainError or IntersectionStatus.InvalidInput or IntersectionStatus.InvalidNormal
+                ? SurfaceTraceFailure.DomainError : SurfaceTraceFailure.IntersectionMiss,
+            IntersectionStatus = status
+        };
         var vignetted = !ignorePhysicalAperture
             && PhysicalAperture is not null
             && !PhysicalAperture.Contains(localHit);
@@ -126,7 +133,8 @@ public sealed partial class OpticalSurface
                 null,
                 nextCumulativePathLength,
                 nextCumulativeOpticalPathLength,
-                true);
+                true)
+            { Failure = SurfaceTraceFailure.ApertureClipping };
         }
 
         if (stopBeforeInteraction)
@@ -264,4 +272,8 @@ internal readonly record struct SurfaceRayTraceStateResult(
     RayInteractionKind? InteractionKind,
     double CumulativePathLength,
     double CumulativeOpticalPathLength,
-    bool StopTracing);
+    bool StopTracing)
+{
+    internal SurfaceTraceFailure Failure { get; init; }
+    internal IntersectionStatus? IntersectionStatus { get; init; }
+}

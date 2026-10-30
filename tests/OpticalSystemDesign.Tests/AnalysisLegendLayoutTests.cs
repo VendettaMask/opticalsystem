@@ -370,7 +370,7 @@ public sealed class AnalysisLegendLayoutTests
     private static void AssertAnchor(TabControl tabs, StackPanel legend)
     {
         var host = Assert.Single(tabs.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
-        var page = Assert.IsType<Grid>(host.Child);
+        var page = Assert.IsType<UniformDiagramPage>(host.Child);
         var layout = Assert.IsAssignableFrom<Grid>(legend.Parent);
         Assert.Same(page.Children[0], layout);
         var legendBounds = Bounds(legend, layout);
@@ -379,8 +379,8 @@ public sealed class AnalysisLegendLayoutTests
         var plotBounds = Bounds(layout.Children[0], layout);
         Assert.True(plotBounds.Right <= legendBounds.Left - 11.9);
         Assert.True(legendBounds.Bottom <= layout.Bounds.Height + 0.1);
-        var visibleLegend = Bounds(legend, host);
-        var footer = Bounds(page.Children[1], host);
+        var visibleLegend = Bounds(legend, page);
+        var footer = Bounds(page.Children[1], page);
         Assert.True(visibleLegend.Top >= 0);
         Assert.True(visibleLegend.Right <= page.Bounds.Width + 0.1);
         Assert.True(visibleLegend.Bottom <= footer.Top + 0.1);
@@ -425,6 +425,7 @@ public sealed class AnalysisLegendLayoutTests
 
     private static void Click(Window window, CheckBox checkbox)
     {
+        checkbox.BringIntoView(); Render(window);
         var point = checkbox.TranslatePoint(new Point(checkbox.Bounds.Width / 2, checkbox.Bounds.Height / 2), window)!.Value;
         window.MouseMove(point); window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left); Render(window);
     }

@@ -9,6 +9,22 @@ public sealed record ThickDelanoConstruction(double[] FrontCurvaturesPerMillimet
 /// marginal ray meets a fixed stop, image plane and output slope; this is an initializer, not physical acceptance.</summary>
 public static class FixedStopDelano
 {
+    /// <summary>Bounded marginal-slope proposal for desired element power signs. Projection can change signs;
+    /// callers must verify actual thick-element powers after construction.</summary>
+    public static double[] ProposePowerSignShape(IReadOnlyList<int> signs)
+    {
+        if (signs.Count is < 2 or > 16 || signs.Any(s => s is not (-1 or 1)))
+            throw new ArgumentException("Require 2..16 explicit nonzero power signs.", nameof(signs));
+        var shape = new double[2 * signs.Count - 1];
+        var scale = 1.0 / signs.Count; double slope = 0;
+        for (var i = 0; i < signs.Count; i++)
+        {
+            shape[2 * i] = slope + .5 * signs[i] * scale;
+            slope += signs[i] * scale;
+            if (i < signs.Count - 1) shape[2 * i + 1] = slope;
+        }
+        return shape;
+    }
     public static ThickDelanoConstruction Construct(IReadOnlyList<ThickDelanoElement> elements,
         double entranceSemiDiameterMillimeters, double stopZMillimeters, double stopSemiDiameterMillimeters,
         double imageZMillimeters, double focalLengthMillimeters, IReadOnlyList<double> slopeShape)

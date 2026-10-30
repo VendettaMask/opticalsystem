@@ -1,0 +1,57 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Debug\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Debug\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Debug\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Debug\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.CoatingDesign.Tests -> D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll
+D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.29]   Discovering: OpticalSystemDesign.CoatingDesign.Tests
+[xUnit.net 00:00:00.34]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests
+[xUnit.net 00:00:00.38]   Starting:    OpticalSystemDesign.CoatingDesign.Tests
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 0) [252 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 35) [2 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 70) [2 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.FixedUpstreamReferenceMatchesAllCases [27 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.BareFresnelAndBrewsterAnalyticChecks [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.SingleQuarterWaveCancelsAndZeroThicknessIsIdentity [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.HighReflectorMatchesQuarterWaveAnalyticSolution [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.ThickAbsorberAndThousandLayersRemainFiniteWithoutClippingTransmission [2 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.TotalInternalReflectionAndPassiveInputValidation [4 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ConstantPhysicalResponseDoesNotGainOrLoseWeightWhenObjectiveGridDensityChanges(kind: Antireflection) [997 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ConstantPhysicalResponseDoesNotGainOrLoseWeightWhenObjectiveGridDensityChanges(kind: NarrowBand) [283 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.RefinedTemplatesProduceAPromisingArSeedAndKeepUnverifiedCandidatesUnqualified [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.ToleranceCorrelationsReproduceActualTrialsAndSurviveExport(correlation: Independent) [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ModernSearchReusesScreenedTemplatesAccountsForEveryRefinementAndPreservesFixedLayers [2 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.ToleranceCorrelationsReproduceActualTrialsAndSurviveExport(correlation: Common) [2 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.NarrowBandDenseSamplingConvergesAgainstIndependentDenserGrid [6 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.ToleranceCorrelationsReproduceActualTrialsAndSurviveExport(correlation: SameMaterial) [2 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.ConstantIndexCavityProposalsMatchTheActualPinnedTfStudioLayerBuilder [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.BalancedDesignTests.NullProtocolPreservesLegacyGenerationAndUnknownProtocolsAreRejected [122 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MultipleCavitiesGenerateRealStacksWithinLayerLimitAndDenseGridAgrees(cavities: 2) [2 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MultipleCavitiesGenerateRealStacksWithinLayerLimitAndDenseGridAgrees(cavities: 3) [2 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.SearchIsDeterministicRecordsEveryStartAndPreservesFixedLayers [335 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MaterialImportPreservesUnitsExtinctionAndExactTableOnRoundTrip [459 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyVersionOneExampleRemainsReadableWithOriginalFingerprint [44 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: True) [631 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: False) [610 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintStillRejectsChangedInputs [528 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.CancellationDuringOptimizationStopsAtEvaluationBoundary [10 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: Antireflection) [720 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: HighReflector) [18 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: NarrowBand) [2 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.FixedLayersAndThicknessBoundsArePreserved [635 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.PreCancelledGenerationOptimizationAndToleranceStop [508 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: 2) [9 s]
+[xUnit.net 00:00:55.60]   Finished:    OpticalSystemDesign.CoatingDesign.Tests
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: null) [5 s]
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-30\coating-reference-review\verified\focused.trx
+
+测试运行成功。
+测试总数: 35
+     通过数: 35
+总时间: 56.2152 秒

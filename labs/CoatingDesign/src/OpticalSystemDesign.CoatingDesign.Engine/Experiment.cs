@@ -8,7 +8,11 @@ using OpticalSystemDesign.Core.Serialization;
 namespace OpticalSystemDesign.CoatingDesign.Engine;
 
 public enum DesignKind { Antireflection, HighReflector, NarrowBand }
-public sealed record StructureOptions(int Cavities = 1);
+public sealed record StructureOptions(int Cavities = 1)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? PrototypeFamilyVersion { get; init; }
+}
 public sealed record SearchOptions(int Starts = 6, double JitterPercent = 12, bool VaryStructure = true);
 public enum ToleranceDistribution { Uniform, Normal }
 public enum ThicknessCorrelation { Independent, SameMaterial, Common }
@@ -27,7 +31,11 @@ public sealed record CalculationSettings(int PreviewIntervals = 400, int Optimiz
     double MinimumThicknessNm = 2, double MaximumThicknessNm = 2000,
     double TolerancePercent = 1, int ToleranceTrials = 20, int RandomSeed = 1234,
     [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] SearchOptions? Search = null,
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] ToleranceOptions? Tolerancing = null);
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] ToleranceOptions? Tolerancing = null)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? DesignProtocolVersion { get; init; }
+}
 public sealed record FilmLayer(string MaterialId, double ThicknessNm, bool Variable = true);
 
 public sealed record MaterialSnapshot(string Id, string Name, string Source, double MinimumNm, double MaximumNm,
@@ -67,15 +75,38 @@ public sealed record MaterialSnapshot(string Id, string Name, string Source, dou
 
 public sealed record RequirementCheck(string Name, double? Actual, string Requirement, bool Passed);
 public sealed record RunRecord(string Algorithm, string AlgorithmVersion, string StopReason, long Evaluations,
-    int Iterations, int? RandomSeed, string SolverVersion = CoherentThinFilmSolver.Version);
+    int Iterations, int? RandomSeed, string SolverVersion = CoherentThinFilmSolver.Version)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? DesignProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ScreeningRun[]? Screening { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? TemplateEvaluations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public NarrowBandCompetitionRecord? NarrowBandCompetition { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GeneralCoatingWork? GeneralWork { get; init; }
+}
+public sealed record ScreeningRun(int Number, FilmLayer[] InitialLayers, FilmLayer[] Layers, double Merit, RunRecord Run)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public NarrowBandPrototype? OriginPrototype { get; init; }
+}
 public sealed record DesignResult(string Fingerprint, ThinFilmSample[] Spectrum, ThinFilmBandMetrics Metrics,
     RequirementCheck[] Checks, bool SamplingConverged, int VerificationSamples, RunRecord Run,
     double Merit, string[] Warnings)
 {
     public bool Passed => SamplingConverged && Checks.All(x => x.Passed);
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public MaterialSuitabilityReport? MaterialSuitability { get; init; }
 }
 public sealed record Candidate(string Name, FilmLayer[] Layers, double Merit, bool Passed,
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] RunRecord? Run = null);
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] RunRecord? Run = null)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public NarrowBandPrototype? OriginPrototype { get; init; }
+}
 public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignTarget Target,
     CalculationSettings Settings, string IncidentId, string SubstrateId, string LowId, string HighId,
     MaterialSnapshot[] Materials, FilmLayer[] Layers, DesignResult? Result = null, Candidate[]? Candidates = null,
@@ -108,6 +139,12 @@ public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignT
             || Target.StopBands?.Any(b => b is null) == true)
             throw new InvalidDataException("材料、膜层或截止波段不能包含空元素。");
         var t = Target; var s = Settings;
+        if (s.DesignProtocolVersion is not (null or 2 or 3 or 4)
+            || s.DesignProtocolVersion == 3 && t.Kind != DesignKind.NarrowBand)
+            throw new ArgumentException("不支持的镀膜设计协议版本；协议 3 仅用于窄带结构竞争。");
+        if (t.Structure?.PrototypeFamilyVersion is not (null or 2)
+            || t.Structure?.PrototypeFamilyVersion == 2 && s.DesignProtocolVersion != 2)
+            throw new ArgumentException("扩展镜层与腔阶提议需要显式的结构版本 2 和设计协议 2。");
         var search = s.Search ?? new(); var tolerance = s.Tolerancing ?? new();
         if ((t.Structure?.Cavities ?? 1) is < 1 or > 5 || search.Starts is < 1 or > 32
             || !double.IsFinite(search.JitterPercent) || search.JitterPercent is < 0 or > 50

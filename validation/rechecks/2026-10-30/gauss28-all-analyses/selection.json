@@ -1,0 +1,1000 @@
+[
+  {
+    "Key": "Single Ray Trace",
+    "Title": "\u5355\u5149\u7EBF\u8FFD\u8FF9",
+    "Parameters": {
+      "FieldNumber": "1",
+      "Hx": "0",
+      "Hy": "0",
+      "WavelengthNumber": "1",
+      "Px": "0",
+      "Py": "0",
+      "GlobalCoordinates": "false",
+      "Type": "\u65B9\u5411\u4F59\u5F26",
+      "UseRayAiming": "true",
+      "ShowRaySegments": "false"
+    }
+  },
+  {
+    "Key": "First Order",
+    "Title": "\u7CFB\u7EDF\u6570\u636E\u6458\u8981",
+    "Parameters": {}
+  },
+  {
+    "Key": "Seidel Coefficients",
+    "Title": "\u8D5B\u5FB7\u5C14\u7CFB\u6570",
+    "Parameters": {
+      "WavelengthNumber": "2"
+    }
+  },
+  {
+    "Key": "Seidel Diagram",
+    "Title": "\u8D5B\u5FB7\u5C14\u56FE",
+    "Parameters": {
+      "WavelengthNumber": "2",
+      "MaximumAberration": "0",
+      "GridInterval": "0.01"
+    }
+  },
+  {
+    "Key": "Spot Diagram",
+    "Title": "\u6807\u51C6\u70B9\u5217\u56FE",
+    "Parameters": {
+      "RayDensity": "6",
+      "Pattern": "\u516D\u8FB9",
+      "ColorRaysBy": "\u6CE2\u957F",
+      "Reference": "\u4E3B\u5149\u7EBF",
+      "UsePolarization": "false",
+      "DirectionCosines": "false",
+      "ShowAiryDisk": "false",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "\u6240\u6709",
+      "SurfaceNumber": "\u50CF\u9762",
+      "DisplayScale": "\u6BD4\u4F8B\u5C3A",
+      "PlotScaleMicrometers": "0",
+      "ScatterRays": "false",
+      "UseSymbols": "true"
+    }
+  },
+  {
+    "Key": "Full Field Spot Diagram",
+    "Title": "\u5168\u89C6\u573A\u70B9\u5217\u56FE",
+    "Parameters": {
+      "RayDensity": "6",
+      "Pattern": "\u516D\u8FB9",
+      "ColorRaysBy": "\u6CE2\u957F",
+      "Reference": "\u4E3B\u5149\u7EBF",
+      "Magnification": "1",
+      "UsePolarization": "false",
+      "ShowAiryDisk": "false",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "\u6240\u6709",
+      "SurfaceNumber": "\u50CF\u9762",
+      "DisplayScale": "\u6BD4\u4F8B\u5C3A",
+      "PlotScaleMicrometers": "0",
+      "ScatterRays": "false",
+      "UseSymbols": "true"
+    }
+  },
+  {
+    "Key": "Matrix Spot Diagram",
+    "Title": "\u77E9\u9635\u70B9\u5217\u56FE",
+    "Parameters": {
+      "RayDensity": "6",
+      "Pattern": "\u516D\u8FB9",
+      "ColorRaysBy": "\u6CE2\u957F",
+      "Reference": "\u4E3B\u5149\u7EBF",
+      "UsePolarization": "false",
+      "DirectionCosines": "false",
+      "ShowAiryDisk": "false",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "\u6240\u6709",
+      "SurfaceNumber": "\u50CF\u9762",
+      "DisplayScale": "\u6BD4\u4F8B\u5C3A",
+      "PlotScaleMicrometers": "0",
+      "ScatterRays": "false",
+      "UseSymbols": "true",
+      "IgnoreLateralColor": "false"
+    }
+  },
+  {
+    "Key": "Configuration Matrix Spot Diagram",
+    "Title": "\u7ED3\u6784\u77E9\u9635\u70B9\u5217\u56FE",
+    "Parameters": {
+      "RayDensity": "6",
+      "Pattern": "\u516D\u8FB9",
+      "ColorRaysBy": "\u6CE2\u957F",
+      "Reference": "\u4E3B\u5149\u7EBF",
+      "UsePolarization": "false",
+      "DirectionCosines": "false",
+      "ShowAiryDisk": "false",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "\u6240\u6709",
+      "SurfaceNumber": "\u50CF\u9762",
+      "DisplayScale": "\u6BD4\u4F8B\u5C3A",
+      "PlotScaleMicrometers": "0",
+      "ScatterRays": "false",
+      "UseSymbols": "true"
+    }
+  },
+  {
+    "Key": "Ray Fan",
+    "Title": "\u5149\u7EBF\u50CF\u5DEE\u56FE",
+    "Parameters": {
+      "PlotScaleMicrometers": "0",
+      "NumberOfRays": "20",
+      "UseDashes": "false",
+      "VignettedPupil": "true",
+      "CheckApertures": "true",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "\u6240\u6709",
+      "TangentialAberration": "Y Aberration",
+      "SagittalAberration": "X Aberration",
+      "SurfaceNumber": "\u50CF\u9762"
+    }
+  },
+  {
+    "Key": "Footprint Diagram",
+    "Title": "\u5149\u8FF9\u56FE",
+    "Parameters": {
+      "RayDensity": "10",
+      "SurfaceNumber": "-1",
+      "WavelengthNumber": "0",
+      "FieldNumber": "0",
+      "DeleteVignetted": "false",
+      "UseSymbols": "true",
+      "ColorRaysBy": "\u89C6\u573A"
+    }
+  },
+  {
+    "Key": "Grid Distortion",
+    "Title": "\u7F51\u683C\u7578\u53D8",
+    "Parameters": {
+      "DisplayMode": "\u622A\u9762",
+      "NumPoints": "12",
+      "Scale": "1",
+      "SymmetricMagnification": "false",
+      "WavelengthNumber": "1",
+      "ReferenceFieldNumber": "1",
+      "HeightWidthAspect": "1",
+      "FieldWidth": "0"
+    }
+  },
+  {
+    "Key": "Field Curvature and Distortion",
+    "Title": "\u573A\u66F2/\u7578\u53D8",
+    "Parameters": {
+      "MaximumCurvature": "0",
+      "MaximumDistortion": "0",
+      "WavelengthNumber": "0",
+      "DistortionType": "F-Tan(Theta)",
+      "DisplayMode": "\u767E\u5206\u6BD4",
+      "ScanDirection": "\u002By",
+      "ReferenceFieldNumber": "1",
+      "ParabasalDelta": "0.001",
+      "ChiefRayParabasal": "true",
+      "IgnoreVignettingFactors": "true"
+    }
+  },
+  {
+    "Key": "Field Curvature",
+    "Title": "\u573A\u66F2",
+    "Parameters": {
+      "MaximumCurvature": "0",
+      "WavelengthNumber": "0",
+      "ScanDirection": "\u002By",
+      "ParabasalDelta": "0.001",
+      "ChiefRayParabasal": "true",
+      "IgnoreVignettingFactors": "true"
+    }
+  },
+  {
+    "Key": "Color Focus Shift",
+    "Title": "\u8272\u7126\u79FB",
+    "Parameters": {
+      "MaximumShift": "0",
+      "PupilZone": "0"
+    }
+  },
+  {
+    "Key": "Lateral Color",
+    "Title": "\u5782\u8F74\u8272\u5DEE",
+    "Parameters": {
+      "GraphScale": "0",
+      "AllWavelengths": "false",
+      "UseRealRays": "true",
+      "ShowAiryDisk": "true"
+    }
+  },
+  {
+    "Key": "Axial Aberration",
+    "Title": "\u8F74\u5411\u50CF\u5DEE",
+    "Parameters": {
+      "GraphScale": "0",
+      "WavelengthNumber": "\u6240\u6709",
+      "UseDashes": "false"
+    }
+  },
+  {
+    "Key": "Full Field Aberration",
+    "Title": "\u5168\u89C6\u573A\u50CF\u5DEE",
+    "Parameters": {
+      "FieldShape": "\u692D\u5706",
+      "XFieldWidth": "14",
+      "YFieldWidth": "14",
+      "MaximumTerm": "37",
+      "Aberration": "\u79BB\u7126",
+      "FieldNumber": "1 - On axis",
+      "WavelengthNumber": "2",
+      "XFieldSamples": "11",
+      "YFieldSamples": "11",
+      "PupilSampling": "32 x 32",
+      "DisplayAs": "\u56FE\u6807",
+      "DisplayMode": "\u7EDD\u5BF9\u503C"
+    }
+  },
+  {
+    "Key": "Encircled Energy",
+    "Title": "\u51E0\u4F55",
+    "Parameters": {
+      "NumRays": "10000",
+      "NumPoints": "256",
+      "Distribution": "sobol",
+      "WavelengthNumber": "0",
+      "Reference": "centroid",
+      "MaximumDistanceMicrometers": "0",
+      "MultiplyByDiffractionLimit": "true"
+    }
+  },
+  {
+    "Key": "Diffraction Encircled Energy",
+    "Title": "\u884D\u5C04",
+    "Parameters": {
+      "PupilSampling": "64 x 64",
+      "ImageSampling": "128 x 128",
+      "NumPoints": "401",
+      "WavelengthNumber": "0",
+      "FieldNumber": "0",
+      "Type": "encircled",
+      "Reference": "centroid",
+      "MaximumDistanceMicrometers": "0"
+    }
+  },
+  {
+    "Key": "Geometric Line Edge Spread",
+    "Title": "\u51E0\u4F55\u7EBF/\u8FB9\u7F18\u6269\u6563",
+    "Parameters": {
+      "PupilSampling": "32 x 32",
+      "NumPoints": "257",
+      "WavelengthNumber": "0",
+      "FieldNumber": "1",
+      "Orientation": "X",
+      "Display": "line and edge",
+      "MaximumRadiusMicrometers": "0"
+    }
+  },
+  {
+    "Key": "Extended Source Encircled Energy",
+    "Title": "\u6269\u5C55\u5149\u6E90",
+    "Parameters": {
+      "SourceFile": "",
+      "FieldSize": "0",
+      "SourceSampling": "5",
+      "NumRays": "5000",
+      "NumPoints": "256",
+      "WavelengthNumber": "0",
+      "FieldNumber": "1",
+      "Type": "encircled",
+      "Reference": "centroid",
+      "MaximumDistanceMicrometers": "0"
+    }
+  },
+  {
+    "Key": "Pupil Aberration",
+    "Title": "\u77B3\u5B54\u50CF\u5DEE",
+    "Parameters": {
+      "NumberOfRays": "20"
+    }
+  },
+  {
+    "Key": "RMS vs Field",
+    "Title": "RMS vs. \u89C6\u573A",
+    "Parameters": {
+      "FieldDensity": "15",
+      "ScanDirection": "\u002By",
+      "NumRings": "6",
+      "Method": "GQ",
+      "GaussianAzimuthalSamples": "6",
+      "Data": "wavefront",
+      "Distribution": "hexapolar",
+      "WavelengthNumber": "0",
+      "Reference": "chief",
+      "ShowDiffractionLimit": "false",
+      "UsePolarization": "false",
+      "RemoveVignetting": "true"
+    }
+  },
+  {
+    "Key": "RMS vs Wavelength",
+    "Title": "RMS vs. \u6CE2\u957F",
+    "Parameters": {
+      "WaveDensity": "21",
+      "NumRings": "6",
+      "Method": "GQ",
+      "GaussianAzimuthalSamples": "6",
+      "Data": "spot",
+      "Distribution": "hexapolar",
+      "FieldNumber": "0",
+      "Reference": "centroid",
+      "ShowDiffractionLimit": "false",
+      "UsePolarization": "false",
+      "RemoveVignetting": "true"
+    }
+  },
+  {
+    "Key": "RMS vs Focus",
+    "Title": "RMS vs. \u79BB\u7126",
+    "Parameters": {
+      "FocusDensity": "16",
+      "MinimumFocus": "-0.01",
+      "MaximumFocus": "0.01",
+      "NumRings": "6",
+      "Method": "GQ",
+      "GaussianAzimuthalSamples": "6",
+      "Data": "wavefront",
+      "Distribution": "hexapolar",
+      "WavelengthNumber": "0",
+      "Reference": "chief",
+      "ShowDiffractionLimit": "false",
+      "UsePolarization": "false",
+      "RemoveVignetting": "true"
+    }
+  },
+  {
+    "Key": "RMS Field Map",
+    "Title": "\u4E8C\u7EF4\u89C6\u573ARMS\u56FE",
+    "Parameters": {
+      "XFieldSamples": "11",
+      "YFieldSamples": "11",
+      "XFieldWidth": "0",
+      "YFieldWidth": "0",
+      "NumRings": "6",
+      "Method": "GQ",
+      "GaussianAzimuthalSamples": "6",
+      "Data": "spot",
+      "Distribution": "hexapolar",
+      "WavelengthNumber": "0",
+      "Reference": "centroid",
+      "UsePolarization": "false",
+      "RemoveVignetting": "true"
+    }
+  },
+  {
+    "Key": "RMS Wavefront vs Field",
+    "Title": "RMS \u6CE2\u524D-\u89C6\u573A",
+    "Parameters": {
+      "RayDensity": "6",
+      "FieldDensity": "15",
+      "Method": "GQ",
+      "GaussianAzimuthalSamples": "6",
+      "Reference": "chief",
+      "WavelengthNumber": "0",
+      "ScanType": "\u002By",
+      "RemoveVignettingFactors": "true",
+      "UsePolarization": "false"
+    }
+  },
+  {
+    "Key": "Zernike vs Field",
+    "Title": "Zernike\u7CFB\u6570 vs. \u89C6\u573A",
+    "Parameters": {
+      "FieldDensity": "20",
+      "NumRings": "12",
+      "ZernikeTerms": "8",
+      "WavelengthNumber": "2"
+    }
+  },
+  {
+    "Key": "Through Focus",
+    "Title": "\u79BB\u7126\u70B9\u5217\u56FE",
+    "Parameters": {
+      "RayDensity": "6",
+      "Pattern": "\u516D\u8FB9",
+      "ColorRaysBy": "\u6CE2\u957F",
+      "Reference": "\u4E3B\u5149\u7EBF",
+      "DefocusStepMicrometers": "50",
+      "UsePolarization": "false",
+      "ShowAiryDisk": "false",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "\u6240\u6709",
+      "SurfaceNumber": "\u50CF\u9762",
+      "DisplayScale": "\u6BD4\u4F8B\u5C3A",
+      "PlotScaleMicrometers": "0",
+      "ScatterRays": "false",
+      "UseSymbols": "true"
+    }
+  },
+  {
+    "Key": "Fourier Through Focus MTF",
+    "Title": "\u5085\u91CC\u53F6\u79BB\u7126 MTF",
+    "Parameters": {
+      "Sampling": "64",
+      "DeltaFocus": "0.1",
+      "Frequency": "0",
+      "NumberOfSteps": "5",
+      "WavelengthNumber": "0",
+      "FieldNumber": "0",
+      "Type": "\u8C03\u5236",
+      "UsePolarization": "false",
+      "UseDashes": "false"
+    }
+  },
+  {
+    "Key": "Huygens Through Focus MTF",
+    "Title": "\u60E0\u66F4\u65AF\u79BB\u7126 MTF",
+    "Parameters": {
+      "PupilSampling": "64",
+      "ImageSampling": "32",
+      "ImageDeltaMicrometers": "0",
+      "DeltaFocus": "0.1",
+      "SpatialFrequency": "20",
+      "Steps": "5",
+      "WavelengthNumber": "0",
+      "FieldNumber": "0"
+    }
+  },
+  {
+    "Key": "Geometric Through Focus MTF",
+    "Title": "\u51E0\u4F55\u79BB\u7126 MTF",
+    "Parameters": {
+      "Sampling": "64",
+      "DeltaFocus": "0.1",
+      "SpatialFrequency": "50",
+      "Steps": "5",
+      "WavelengthNumber": "0",
+      "FieldNumber": "0",
+      "Distribution": "uniform",
+      "ScaleByDiffractionLimit": "true"
+    }
+  },
+  {
+    "Key": "Fourier MTF vs Field",
+    "Title": "\u5085\u91CC\u53F6 MTF VS \u89C6\u573A",
+    "Parameters": {
+      "SpatialFrequency": "20",
+      "PupilSampling": "32",
+      "ImageSize": "64",
+      "PixelPitchMillimeters": "0.005",
+      "WavelengthNumber": "0",
+      "Distribution": "uniform",
+      "ScaleByDiffractionLimit": "true"
+    }
+  },
+  {
+    "Key": "Huygens MTF vs Field",
+    "Title": "\u60E0\u66F4\u65AF MTF VS \u89C6\u573A",
+    "Parameters": {
+      "Sampling": "64",
+      "Frequency1": "10",
+      "Frequency2": "20",
+      "Frequency3": "30",
+      "Frequency4": "40",
+      "Frequency5": "50",
+      "Frequency6": "60",
+      "WavelengthNumber": "0",
+      "UsePolarization": "false",
+      "UseDashes": "false",
+      "RemoveVignettingFactors": "true",
+      "FieldDensity": "10",
+      "ScanType": "\u002By"
+    }
+  },
+  {
+    "Key": "Geometric MTF vs Field",
+    "Title": "\u51E0\u4F55 MTF VS \u89C6\u573A",
+    "Parameters": {
+      "SpatialFrequency": "20",
+      "PupilSampling": "32",
+      "ImageSize": "64",
+      "PixelPitchMillimeters": "0.005",
+      "WavelengthNumber": "0",
+      "Distribution": "uniform",
+      "ScaleByDiffractionLimit": "true"
+    }
+  },
+  {
+    "Key": "Angle vs Image Height",
+    "Title": "\u5165\u5C04\u89D2 vs. \u50CF\u9AD8",
+    "Parameters": {
+      "FieldDensity": "20",
+      "WavelengthNumber": "2"
+    }
+  },
+  {
+    "Key": "Angle vs Image Height - Through Pupil",
+    "Title": "\u5165\u5C04\u89D2-\u50CF\u9AD8\uFF08\u626B\u63CF\u77B3\u5B54\uFF09",
+    "Parameters": {
+      "SurfaceIndex": "-1",
+      "Axis": "Y",
+      "NumPoints": "128"
+    }
+  },
+  {
+    "Key": "Angle vs Image Height - Through Field",
+    "Title": "\u5165\u5C04\u89D2-\u50CF\u9AD8\uFF08\u626B\u63CF\u89C6\u573A\uFF09",
+    "Parameters": {
+      "SurfaceIndex": "-1",
+      "Axis": "Y"
+    }
+  },
+  {
+    "Key": "Cardinal Points Data",
+    "Title": "\u57FA\u9762\u6570\u636E",
+    "Parameters": {
+      "ReferenceSurfaceNumber": "12"
+    }
+  },
+  {
+    "Key": "Vignetting Diagram",
+    "Title": "\u6E10\u6655\u56FE",
+    "Parameters": {}
+  },
+  {
+    "Key": "Relative Illumination",
+    "Title": "\u76F8\u5BF9\u7167\u5EA6",
+    "Parameters": {
+      "RayDensity": "10",
+      "FieldDensity": "21",
+      "WavelengthNumber": "0",
+      "ScanDirection": "\u002By",
+      "RemoveVignettingFactors": "true",
+      "UsePolarization": "false"
+    }
+  },
+  {
+    "Key": "Incoherent Irradiance",
+    "Title": "\u975E\u76F8\u5E72\u7167\u5EA6",
+    "Parameters": {
+      "NumRays": "5",
+      "ResolutionX": "128",
+      "ResolutionY": "128",
+      "DetectorSurfaceIndex": "-1",
+      "Distribution": "random",
+      "Normalized": "true"
+    }
+  },
+  {
+    "Key": "Radiant Intensity",
+    "Title": "\u8F90\u5C04\u5F3A\u5EA6",
+    "Parameters": {
+      "AngularBinsX": "101",
+      "AngularBinsY": "101",
+      "NumRays": "2048",
+      "ReferenceSurfaceIndex": "-1",
+      "Distribution": "random",
+      "UseAbsoluteUnits": "true"
+    }
+  },
+  {
+    "Key": "Y-Ybar",
+    "Title": "Y-Ybar",
+    "Parameters": {}
+  },
+  {
+    "Key": "PSF",
+    "Title": "FFT PSF",
+    "Parameters": {
+      "Sampling": "64 x 64",
+      "Display": "128 x 128",
+      "Rotation": "0",
+      "ImageDeltaMicrometers": "0",
+      "UsePolarization": "false",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A",
+      "Type": "\u7EBF\u6027",
+      "DisplayAs": "\u4F2A\u5F69\u8272",
+      "SurfaceNumber": "\u50CF\u9762",
+      "Normalized": "false"
+    }
+  },
+  {
+    "Key": "FFT PSF Cross Section",
+    "Title": "FFT PSF\u622A\u9762\u56FE",
+    "Parameters": {
+      "Sampling": "64 x 64",
+      "Row": "\u4E2D\u5FC3",
+      "GraphScaleMicrometers": "0",
+      "UsePolarization": "false",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A",
+      "Type": "X-\u7EBF\u6027",
+      "Normalized": "false"
+    }
+  },
+  {
+    "Key": "FFT Line Edge Spread",
+    "Title": "FFT \u7EBF/\u8FB9\u7F18\u6269\u6563",
+    "Parameters": {
+      "Sampling": "64 x 64",
+      "Spread": "\u7EBF",
+      "GraphScaleMicrometers": "0",
+      "UsePolarization": "false",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A",
+      "Type": "X-\u7EBF\u6027",
+      "UseCoherentPsf": "false"
+    }
+  },
+  {
+    "Key": "Huygens PSF",
+    "Title": "\u60E0\u66F4\u65AFPSF",
+    "Parameters": {
+      "PupilSampling": "32 x 32",
+      "ImageSampling": "32 x 32",
+      "ImageDeltaMicrometers": "0",
+      "Rotation": "0",
+      "UsePolarization": "false",
+      "UseCentroid": "false",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A",
+      "Type": "\u7EBF\u6027",
+      "DisplayAs": "\u4F2A\u5F69\u8272",
+      "Normalized": "false"
+    }
+  },
+  {
+    "Key": "Huygens PSF Cross Section",
+    "Title": "\u60E0\u66F4\u65AFPSF\u622A\u9762\u56FE",
+    "Parameters": {
+      "PupilSampling": "32",
+      "ImageSampling": "32",
+      "ImageDeltaMicrometers": "0",
+      "WavelengthNumber": "0",
+      "FieldNumber": "1",
+      "ProfileType": "X",
+      "UsePolarization": "false",
+      "UseCentroid": "false"
+    }
+  },
+  {
+    "Key": "MTF",
+    "Title": "\u5085\u91CC\u53F6 MTF",
+    "Parameters": {
+      "Sampling": "64",
+      "MaximumFrequency": "0",
+      "WavelengthNumber": "0",
+      "FieldNumber": "0",
+      "SurfaceNumber": "0",
+      "Type": "\u8C03\u5236",
+      "ShowDiffractionLimit": "false",
+      "UsePolarization": "false",
+      "UseDashes": "false"
+    }
+  },
+  {
+    "Key": "Huygens MTF",
+    "Title": "\u60E0\u66F4\u65AF MTF",
+    "Parameters": {
+      "PupilSampling": "32",
+      "ImageSampling": "32",
+      "ImageDeltaMicrometers": "0",
+      "MaximumFrequency": "0",
+      "WavelengthNumber": "0",
+      "FieldNumber": "0"
+    }
+  },
+  {
+    "Key": "Geometric MTF",
+    "Title": "\u51E0\u4F55 MTF",
+    "Parameters": {
+      "NumRays": "32",
+      "PlotPointCount": "128",
+      "Distribution": "uniform",
+      "MaximumFrequency": "0",
+      "WavelengthNumber": "0",
+      "FieldNumber": "0",
+      "ScaleByDiffractionLimit": "true"
+    }
+  },
+  {
+    "Key": "Sampled MTF",
+    "Title": "\u91C7\u6837 MTF",
+    "Parameters": {
+      "PupilSampling": "32",
+      "ZernikeTerms": "37",
+      "PlotPointCount": "128",
+      "MaximumFrequency": "0"
+    }
+  },
+  {
+    "Key": "Contrast Loss Map",
+    "Title": "\u5BF9\u6BD4\u5EA6\u635F\u5931\u56FE",
+    "Parameters": {
+      "Sampling": "13",
+      "Frequency": "100",
+      "Normalize": "false",
+      "WavelengthNumber": "2",
+      "FieldNumber": "1",
+      "ShowOPD": "false"
+    }
+  },
+  {
+    "Key": "Optical Path Difference",
+    "Title": "\u5149\u7A0B\u5DEE\u56FE",
+    "Parameters": {
+      "GraphScale": "0",
+      "NumberOfRays": "20",
+      "UseDashes": "false",
+      "VignettedPupil": "true",
+      "CheckApertures": "true",
+      "WavelengthNumber": "\u6240\u6709",
+      "FieldNumber": "\u6240\u6709",
+      "SurfaceNumber": "\u50CF\u9762"
+    }
+  },
+  {
+    "Key": "Foucault Analysis",
+    "Title": "\u5085\u79D1\u5206\u6790",
+    "Parameters": {
+      "FoucaultPropagation": "\u7126\u9762 FFT \u518D\u6210\u50CF",
+      "KnifeDistanceMillimeters": "0",
+      "ObservationDistanceMillimeters": "0",
+      "ObservationHalfWidthMillimeters": "0",
+      "Sampling": "32 x 32",
+      "Type": "\u7EBF\u6027",
+      "DisplayAs": "\u7070\u5EA6",
+      "KnifeEdge": "\u6C34\u5E73\u7EBF\u4E0A",
+      "DataSource": "\u8BA1\u7B97\u7684",
+      "WavelengthNumber": "2",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A",
+      "YPositionMicrometers": "0",
+      "UsePolarization": "false"
+    }
+  },
+  {
+    "Key": "Wavefront Map",
+    "Title": "\u6CE2\u524D\u56FE",
+    "Parameters": {
+      "Sampling": "64 x 64",
+      "Rotation": "0",
+      "DisplayScale": "1",
+      "Apodization": "\u65E0",
+      "ReferenceChiefRay": "false",
+      "UseExitPupilShape": "true",
+      "ExitPupilGeometry": "F \u6570\u8FD1\u4F3C",
+      "WavelengthNumber": "2",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A",
+      "SurfaceNumber": "\u50CF\u9762",
+      "DisplayAs": "\u8868\u9762",
+      "RemoveTilt": "false",
+      "PupilSx": "0",
+      "PupilSy": "0",
+      "PupilSr": "1"
+    }
+  },
+  {
+    "Key": "Interferogram",
+    "Title": "\u5E72\u6D89\u56FE",
+    "Parameters": {
+      "Sampling": "64 x 64",
+      "SurfaceNumber": "-1 - \u50CF\u9762",
+      "ScaleFactor": "1",
+      "ShowAs": "\u7070\u5EA6",
+      "WavelengthNumber": "2",
+      "FieldNumber": "1",
+      "XTilt": "0",
+      "YTilt": "0",
+      "Beam1": "-1 - \u5F53\u524D\u7ED3\u6784",
+      "Beam2": "0 - \u53C2\u8003\u5149\u675F",
+      "RefBeamToVertex": "false",
+      "UseExitPupilShape": "true",
+      "ConsiderPathLengthDifference": "false",
+      "ContourFormat": "",
+      "PupilSx": "0",
+      "PupilSy": "0",
+      "PupilSr": "1"
+    }
+  },
+  {
+    "Key": "Wavefront",
+    "Title": "\u6CE2\u524D",
+    "Parameters": {
+      "Sampling": "64 x 64",
+      "Rotation": "0",
+      "DisplayScale": "1",
+      "Apodization": "\u65E0",
+      "ReferenceChiefRay": "false",
+      "UseExitPupilShape": "true",
+      "ExitPupilGeometry": "F \u6570\u8FD1\u4F3C",
+      "WavelengthNumber": "2",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A",
+      "SurfaceNumber": "\u50CF\u9762",
+      "DisplayAs": "\u8868\u9762",
+      "RemoveTilt": "false",
+      "PupilSx": "0",
+      "PupilSy": "0",
+      "PupilSr": "1"
+    }
+  },
+  {
+    "Key": "Centroid Sphere Wavefront",
+    "Title": "\u8D28\u5FC3\u53C2\u8003\u7403\u6CE2\u524D",
+    "Parameters": {
+      "NumRings": "8",
+      "MapSize": "65",
+      "RobustTrimStandardDeviations": "3",
+      "WavelengthNumber": "0",
+      "FieldNumber": "1"
+    }
+  },
+  {
+    "Key": "Best Fit Sphere Wavefront",
+    "Title": "\u6700\u4F73\u62DF\u5408\u7403\u6CE2\u524D",
+    "Parameters": {
+      "NumRings": "8",
+      "MapSize": "65",
+      "RobustTrimStandardDeviations": "3",
+      "WavelengthNumber": "0",
+      "FieldNumber": "1"
+    }
+  },
+  {
+    "Key": "Zernike Fringe",
+    "Title": "Zernike Fringe\u7CFB\u6570",
+    "Parameters": {
+      "PupilSampling": "32 x 32",
+      "ZernikeTerms": "37",
+      "WavelengthNumber": "2",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A"
+    }
+  },
+  {
+    "Key": "Zernike Standard",
+    "Title": "Zernike Standard\u7CFB\u6570",
+    "Parameters": {
+      "PupilSampling": "32 x 32",
+      "ZernikeTerms": "37",
+      "WavelengthNumber": "2",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A"
+    }
+  },
+  {
+    "Key": "Zernike Annular",
+    "Title": "Zernike Annular\u7CFB\u6570",
+    "Parameters": {
+      "PupilSampling": "32 x 32",
+      "ZernikeTerms": "37",
+      "ObscurationRatio": "0.5",
+      "WavelengthNumber": "2",
+      "FieldNumber": "1 - \u8F74\u4E0A\u89C6\u573A"
+    }
+  },
+  {
+    "Key": "Image Simulation",
+    "Title": "\u56FE\u50CF\u6A21\u62DF",
+    "Parameters": {
+      "SourceImage": "\u5F69\u8272\u6D4B\u8BD5\u5361",
+      "SourceMode": "\u5185\u7F6E\u56FE\u50CF",
+      "SourceFile": "",
+      "ImageWidth": "64",
+      "ImageHeight": "48",
+      "FieldHeight": "14",
+      "Oversampling": "\u65E0",
+      "SourceFlip": "\u65E0",
+      "GuardBand": "\u65E0",
+      "SourceRotation": "\u65E0",
+      "WavelengthNumber": "RGB",
+      "FieldNumber": "1 - On axis",
+      "NumRays": "32 x 32",
+      "PsfSize": "32 x 32",
+      "PsfGridColumns": "3",
+      "PsfGridRows": "3",
+      "UsePolarization": "false",
+      "AberrationMode": "\u51E0\u4F55\u7684",
+      "ApplyFixedApertures": "true",
+      "RelativeIllumination": "true",
+      "DisplayAs": "\u4EFF\u771F\u56FE",
+      "Reference": "\u4E3B\u5149\u7EBF",
+      "ImageFlip": "\u65E0",
+      "PixelSize": "0",
+      "DetectorXPixels": "0",
+      "DetectorYPixels": "0",
+      "CompressFrame": "false",
+      "OutputFile": "",
+      "EigenPsfComponents": "3",
+      "DistortionGridSize": "9",
+      "DistortionPolynomialDegree": "5"
+    }
+  },
+  {
+    "Key": "Geometric Image Analysis",
+    "Title": "\u51E0\u4F55\u56FE\u50CF\u5206\u6790",
+    "Parameters": {
+      "SourceImage": "\u5206\u8FA8\u7387\u9776\u6807",
+      "ImageSize": "64",
+      "NumRays": "8",
+      "FieldHeight": "0",
+      "Oversampling": "1",
+      "GuardBand": "4",
+      "RelativeIllumination": "true",
+      "AberrationMode": "Geometric"
+    }
+  },
+  {
+    "Key": "Geometric Bitmap Image Analysis",
+    "Title": "\u51E0\u4F55\u4F4D\u56FE\u56FE\u50CF\u5206\u6790",
+    "Parameters": {
+      "ImageSize": "64",
+      "RaysPerPixel": "8",
+      "FieldHeight": "0",
+      "Oversampling": "1",
+      "GuardBand": "4",
+      "RelativeIllumination": "true",
+      "AberrationMode": "Geometric"
+    }
+  },
+  {
+    "Key": "Light Source Analysis",
+    "Title": "\u5149\u6E90\u5206\u6790",
+    "Parameters": {
+      "Resolution": "65",
+      "NumRays": "2048"
+    }
+  },
+  {
+    "Key": "Partially Coherent Image Analysis",
+    "Title": "\u90E8\u5206\u76F8\u5E72\u56FE\u50CF\u5206\u6790",
+    "Parameters": {
+      "WavelengthNumber": "2",
+      "ImageSize": "64",
+      "PupilSampling": "16 x 16",
+      "CoherenceFunction": "Uniform",
+      "CoherenceMethod": "ExactSourcePairs",
+      "CoherenceFraction": "0.98",
+      "PsfEnergyFraction": "0",
+      "CoherenceSampling": "64 x 64",
+      "Coherence": "0.5",
+      "Alpha": "0.001",
+      "FileSize": "0",
+      "NormalizeImagePeak": "false",
+      "PsfSize": "32",
+      "PixelSize": "0",
+      "FieldHeight": "0",
+      "Oversampling": "1",
+      "GuardBand": "16",
+      "RelativeIllumination": "true"
+    }
+  },
+  {
+    "Key": "Extended Diffraction Image Analysis",
+    "Title": "\u6269\u5C55\u56FE\u50CF\u5206\u6790",
+    "Parameters": {
+      "SourceImage": "\u5206\u8FA8\u7387\u9776\u6807",
+      "ImageSize": "64",
+      "PupilSampling": "16 x 16",
+      "FieldGrid": "5",
+      "FieldHeight": "0",
+      "Oversampling": "1",
+      "GuardBand": "16",
+      "RelativeIllumination": "true",
+      "AberrationMode": "Diffraction"
+    }
+  },
+  {
+    "Key": "Jones Pupil",
+    "Title": "Jones \u77B3",
+    "Parameters": {
+      "GridSize": "65"
+    }
+  },
+  {
+    "Key": "System Data Report",
+    "Title": "\u7CFB\u7EDF\u6570\u636E\u62A5\u544A",
+    "Parameters": {}
+  },
+  {
+    "Key": "Classified Data Report",
+    "Title": "\u5206\u7C7B\u6570\u636E\u62A5\u544A",
+    "Parameters": {}
+  }
+]

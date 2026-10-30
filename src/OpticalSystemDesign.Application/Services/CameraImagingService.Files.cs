@@ -17,7 +17,7 @@ internal sealed partial class CameraImagingService
         + "imported absolute total QE including CFA, linearly interpolated without extrapolation; "
         + "each CFA type sums electrons from all input bands. Scalar R/G/B QE is replaced, not multiplied. "
         + "User-specified per-band image-plane irradiance; sRGB input; no continuous scene spectrum reconstruction, "
-        + "spectral quadrature, pixel-area integration, angular QE, measured calibration verification or vendor ISP. "
+        + "spectral quadrature, angular QE, measured calibration verification or vendor ISP. Detector sampling is declared separately. "
         + "Not an ImSym/Speos numerical comparison or EMVA certification.";
     private static readonly JsonSerializerOptions SensorJsonOptions = new()
     {

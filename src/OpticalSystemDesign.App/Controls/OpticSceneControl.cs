@@ -735,7 +735,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                     System.Globalization.CultureInfo.CurrentCulture,
                     FlowDirection.LeftToRight,
                     OpticalSystemDesign.App.Services.DisplayTypography.Typeface(FontWeight.SemiBold),
-                    11.5,
+                    DisplayTypography.CompactBody,
                     brush);
                 var x = mapZ(annotation.Z);
                 var labelX = Math.Clamp(
@@ -1856,7 +1856,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             System.Globalization.CultureInfo.CurrentCulture,
             FlowDirection.LeftToRight,
             DisplayTypography.Typeface(),
-            12,
+            VisualStyle == OpticSceneVisualStyle.OpticalLayout ? DisplayTypography.CompactBody : 12,
             darkBackground ? ThemeBrush(ThemeResourceBindings.TextOnAccent, Brushes.White) : ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(label, new Point(centerX - (label.Width / 2.0), y - 21));
     }

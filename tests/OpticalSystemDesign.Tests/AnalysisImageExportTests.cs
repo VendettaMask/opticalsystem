@@ -128,8 +128,8 @@ public sealed class AnalysisImageExportTests
                 var camera = (surface?.ViewYawDegrees, surface?.ViewPitchDegrees, surface?.ViewZoom);
                 using var image = panel.CapturePlotImage();
                 Assert.Equal(camera, (surface?.ViewYawDegrees, surface?.ViewPitchDegrees, surface?.ViewZoom));
-                Assert.Equal((int)Math.Ceiling((page.Child!.Bounds.Width + 2) * window.RenderScaling), image.PixelSize.Width);
-                Assert.Equal((int)Math.Ceiling((page.Child!.Bounds.Height + 2) * window.RenderScaling), image.PixelSize.Height);
+                Assert.IsType<UniformDiagramPage>(page.Child);
+                Assert.Equal(new PixelSize(2404, 1804), image.PixelSize);
                 ExportImageAssertions.HasCompleteBorder(image);
                 Assert.True(page.Bounds.Height < height); // No toolbar/tab strip; the exported content may scroll.
                 AssertHasInk(image, 0, image.PixelSize.Height / 2); // The plot.
@@ -194,12 +194,21 @@ public sealed class AnalysisImageExportTests
             {
                 window.Show(); Render(window);
                 Assert.True(panel.GetVisualDescendants().OfType<Button>().Single(item => item.Name == "ExportAnalysisImage").IsVisible);
+                var sheet = Assert.Single(panel.GetVisualDescendants().OfType<UniformDiagramPage>());
+                Assert.Equal(new Size(1200, 900), sheet.Bounds.Size);
+                if (fontSize == 32)
+                {
+                    Assert.True(sheet.HasOverflow);
+                    Assert.Throws<InvalidOperationException>(() => panel.CapturePlotImage());
+                    return;
+                }
+                Assert.False(sheet.HasOverflow);
                 using var image = panel.CapturePlotImage();
                 AssertHasInk(image, 0, image.PixelSize.Height / 2);
                 AssertHasInk(image, image.PixelSize.Height * 4 / 5, image.PixelSize.Height);
                 var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>()).Child!;
                 Assert.Equal(255, Pixels(image)[((image.PixelSize.Height - 20) * image.PixelSize.Width + 20) * 4 + 3]);
-                foreach (var label in page.GetVisualDescendants().OfType<TextBlock>())
+                foreach (var label in page.GetVisualDescendants().OfType<TextBlock>().Where(label => label.IsEffectivelyVisible))
                 {
                     Assert.True(label.TextLayout.Height <= label.Bounds.Height + 1);
                     Assert.True(label.TextLayout.Width <= label.Bounds.Width + 1);

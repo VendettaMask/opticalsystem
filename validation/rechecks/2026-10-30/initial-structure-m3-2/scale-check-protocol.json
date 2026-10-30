@@ -1,0 +1,14 @@
+{
+  "identity": "initial-structure-m32-scale-gates-v1",
+  "frozenBeforeExecution": true,
+  "purpose": "The primary 40-run comparison selected only unit-scale transfers. Supplement it with actual 0.5x/2x original-gate checks, without changing that comparison or historical tasks.",
+  "sourceEntry": "existing-010",
+  "sourceSelection": "Existing qualified authored 3-element source, maximum curvature 0.0252352/mm and back working space 37.1923 mm, so half-size remains inside the original 0.08/mm curvature bound and 15 mm minimum back space.",
+  "seeds": [42, 43, 44, 45, 46],
+  "scales": [0.5, 2],
+  "queryDefinition": "Explicitly new size queries formed by uniform Core source scaling, EFL multiplied by scale, and declared maximum track expanded only for the 2x case. Fields, F number, 50/150 micrometer image limits, focal/F-number relative tolerances, minimum valid fraction, center/edge/air/back-focus manufacturing minima and original variable permissions retained.",
+  "comparison": "Direct validation of the declared query versus single-entry library retrieval and complete validation. Require actual requested scale, original image/manufacturing limits and exact entire-assessment content-hash agreement.",
+  "budgetsPerRetrieval": { "functions": 8, "rays": 1000000, "seconds": 30, "finalRayRecoveryFactor": 12 },
+  "qualification": "Record all gates and failures. Geometrical similarity must not imply success under fixed absolute spot/manufacturing thresholds. No thresholds are fitted to outcomes.",
+  "interpretation": "Deterministic repeatability/integration checks, not ten independent lenses, new design success, cold-start performance or historical wide-angle improvement. The main algorithm remains frozen and unchanged."
+}

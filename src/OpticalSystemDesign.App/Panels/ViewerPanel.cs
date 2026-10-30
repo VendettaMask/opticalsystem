@@ -30,6 +30,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
     private readonly SceneDimension _dimension;
     private readonly ViewerPresentationMode _presentationMode;
     private readonly OpticSceneControl _scene;
+    private readonly UniformDiagramPage? _diagramPage;
     private readonly Dictionary<OpticSceneViewPreset, ToggleButton> _viewPresetButtons = new();
     private readonly WrapPanel _glassLegendItems = new() { Orientation = Orientation.Horizontal };
     private readonly Border _glassLegend = new() { Name = "Viewer3DGlassLegend", IsVisible = false };
@@ -169,11 +170,26 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         _summaryBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         _summaryBar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         DockPanel.SetDock(_summaryBar, Avalonia.Controls.Dock.Bottom);
-        root.Children.Add(_summaryBar);
-        root.Children.Add(dimension == SceneDimension.TwoDimensional
+        var workspace = dimension == SceneDimension.TwoDimensional
             ? Build2DWorkspace()
-            : Build3DWorkspace());
-        Content = root;
+            : Build3DWorkspace();
+        if (UsesLayoutCaption)
+        {
+            _diagramPage = new UniformDiagramPage(workspace, _summaryBar);
+            Content = new ScrollViewer
+            {
+                Name = "ViewerDiagramScroll",
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                Content = _diagramPage
+            };
+        }
+        else
+        {
+            root.Children.Add(_summaryBar);
+            root.Children.Add(workspace);
+            Content = root;
+        }
 
         ApplyDisplaySettings();
         _events.Changed += OnWorkspaceChanged;

@@ -268,6 +268,63 @@ public sealed class ImageRadiometryRepairTests
         optic, numRays: 32, resolutionX: 9, resolutionY: 9, detectorSurfaceIndex: detector,
         distribution: "sobol", normalize: false).GenerateData();
 
+    [Fact]
+    public void ExplicitSurfaceWindowBinsIncidentPowerWithoutAddingAPhysicalAperture()
+    {
+        var optic = Cone();
+        var detector = optic.SurfaceGroup.Items[^1];
+        detector.PhysicalAperture = null;
+        detector.SemiDiameter = 10;
+        Assert.Equal(AnalysisOutcome.Unavailable, new IncoherentIrradianceAnalysis(optic).GenerateData().Outcome);
+        var result = new IncoherentIrradianceAnalysis(optic, 32, 9, 9, distribution: "sobol",
+            normalize: false, useSurfaceSamplingWindow: true).GenerateData();
+        Assert.NotEqual(AnalysisOutcome.Unavailable, result.Outcome);
+        Assert.Contains("sampling window", result.Values["DetectorWindowSource"].ToString());
+        var series = Assert.Single(result.PlotPanes!).Series[0];
+        Assert.Equal(AnalysisAxisUnit.WattsPerSquareMillimeter, series.ValueUnit);
+        // This unit-power, lossless cone sends every one of its 32 rays into
+        // the 20-by-20-mm window. Integrating bins must recover that power.
+        Assert.Equal(32, result.Values["ValidRayCount"]);
+        Assert.Equal(32, series.Points.Sum(point => point.Value!.Value) * 400 / 81, 10);
+        Assert.Null(detector.PhysicalAperture);
+        Assert.Equal(10, detector.SemiDiameter);
+        Assert.False(detector.SemiDiameterDefinesPhysicalAperture);
+    }
+
+    [Fact]
+    public void SurfaceWindowOptionStillPrefersTheActualDetectorMask()
+    {
+        var optic = Cone();
+        var detector = optic.SurfaceGroup.Items[^1];
+        var aperture = new OffsetRadialAperture(.01, offsetX: 100);
+        detector.PhysicalAperture = aperture;
+        var result = new IncoherentIrradianceAnalysis(optic, 32, 9, 9, distribution: "sobol",
+            normalize: false, useSurfaceSamplingWindow: true).GenerateData();
+        Assert.Equal("Physical aperture", result.Values["DetectorWindowSource"]);
+        Assert.Equal(0, result.Values["ValidRayCount"]);
+        Assert.Equal(0, Convert.ToDouble(result.Values["PeakIrradiance"]));
+        Assert.Same(aperture, detector.PhysicalAperture);
+    }
+
+    [Fact]
+    public void SurfaceWindowOptionDoesNotBypassUnsupportedPhysicalApertures()
+    {
+        var optic = Cone();
+        var aperture = new UnsupportedDetectorAperture();
+        optic.SurfaceGroup.Items[^1].PhysicalAperture = aperture;
+        var result = new IncoherentIrradianceAnalysis(optic, useSurfaceSamplingWindow: true).GenerateData();
+        Assert.Equal(AnalysisOutcome.Unavailable, result.Outcome);
+        Assert.Empty(result.PlotSeries);
+        Assert.Same(aperture, optic.SurfaceGroup.Items[^1].PhysicalAperture);
+    }
+
+    private sealed class UnsupportedDetectorAperture : IPhysicalAperture
+    {
+        public string Kind => "unsupported-test-aperture";
+        public bool Contains(Vector3D point) => true;
+        public IPhysicalAperture Clone() => new UnsupportedDetectorAperture();
+    }
+
     internal static double IndependentSolidAngle(double x0, double x1, double y0, double y1)
     {
         static Vector3D Corner(double x, double y)

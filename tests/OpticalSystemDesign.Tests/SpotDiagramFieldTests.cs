@@ -24,12 +24,7 @@ public sealed class SpotDiagramFieldTests
 
         for (var index = 0; index < optic.Fields.Count; index++)
         {
-            var field = optic.Fields[index];
-            Assert.Equal(
-                Math.Abs(field.X) <= 1e-12
-                    ? $"{field.Label} (Y={field.Y:0.###} \u00B0)"
-                    : $"{field.Label} (X={field.X:0.###}, Y={field.Y:0.###} \u00B0)",
-                result.PlotPanes[index].Title);
+            Assert.Equal($"Field {index + 1}", result.PlotPanes[index].Title);
             Assert.Collection(
                 result.PlotPanes[index].Metrics!,
                 metric =>
@@ -68,7 +63,7 @@ public sealed class SpotDiagramFieldTests
 
         for (var index = 0; index < optic.Fields.Count; index++)
         {
-            var expectedTitle = $"{optic.Fields[index].Label} (Y={optic.Fields[index].Y:0.###} \u00B0)";
+            var expectedTitle = $"Field {index + 1}";
             Assert.Equal(expectedTitle, result.PlotPanes[index * 2].Title);
             Assert.Equal(expectedTitle, result.PlotPanes[(index * 2) + 1].Title);
         }
@@ -130,7 +125,7 @@ public sealed class SpotDiagramFieldTests
 
         for (var index = 0; index < optic.Fields.Count; index++)
         {
-            var expectedTitle = $"{optic.Fields[index].Label} (Y={optic.Fields[index].Y:0.###} \u00B0)";
+            var expectedTitle = $"Field {index + 1}";
             Assert.Equal(expectedTitle, result.PlotPanes[index * 2].Title);
             Assert.Equal(expectedTitle, result.PlotPanes[(index * 2) + 1].Title);
         }

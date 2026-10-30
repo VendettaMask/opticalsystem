@@ -1,0 +1,32 @@
+{
+  "scope": "Process notes reconstructed from actual tool results; these are not raw captured logs or passing test results.",
+  "interruptions": [
+    {
+      "stage": "First development Engine build",
+      "result": "Compilation failed before tests: CS1061 ObservableCollection<FieldPoint> has no Definition, CS0103 FieldDefinition not found in CenteredPrescriptionScaling.cs.",
+      "resolution": "Used the existing Optic.FieldDefinition / FieldDefinitionKind.Angle API; following build succeeded."
+    },
+    {
+      "stage": "First off-screen UI test request",
+      "result": "Automatic approval review timed out before execution. Tool allowed one retry; no unsafe-action conclusion and no tests executed.",
+      "resolution": "The allowed retry was approved. Subsequent actual compilation hit an unrelated output lock; final off-screen tests later completed."
+    },
+    {
+      "stage": "Retried default-output UI test build",
+      "result": "CS2012: App obj/Release/net10.0/OpticalSystemDesign.App.dll was in use by VBCSCompiler (63332). No test run completed.",
+      "resolution": "Did not stop any process; moved tests to this task's separate artifact output. Default App output was built successfully afterward."
+    },
+    {
+      "stage": "First isolated test build",
+      "result": "Parallel coating edit temporarily referenced missing GeneralCoatingWork from Experiment.cs. No tests executed.",
+      "resolution": "Preserved the other task's edits. After the defining file appeared, isolated tests succeeded: 24, then 121, and finally 122 scoped cases."
+    },
+    {
+      "stage": "Derived PowerShell summary draft",
+      "result": "Grouping OrderedDictionary rows by property produced blank groups.",
+      "resolution": "Retained formal-summary-draft-hashtable.json; re-read the correct raw formal-runs.json into structured objects, asserted eight groups of five, and regenerated formal-summary.json. Formal inputs and numerical records were untouched."
+    }
+  ],
+  "parallelSourceChange": "After main execution freeze, another task added an opt-in BoundActiveSetEnabled flag and guarded branch to two shared optimization files, and changed a thin-film thickness-sensitivity service. The flag defaults false and is not enabled in the InitialStructure route; the thin-film service is not called by the uncoated no-surface-transmission retrieval validator. Main formal results bind the original archived runtime; the supplementary scale run has its own archived current source/runtime. No other task files were reverted. Default App build is rechecked after these changes.",
+  "final": "122 scoped cases passed; default App Release build passed with zero warnings/errors; 40 main comparisons plus ten direct/retrieval scale pairs completed. Main independent replay covers 59 distinct complete assessments; all failures remain failures."
+}

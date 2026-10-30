@@ -109,7 +109,7 @@ public sealed record NonSequentialDocumentTraceResult(
     public int SegmentCount => Branches.Sum(branch => branch.Segments.Count);
 }
 
-public sealed class NonSequentialDocumentTracer
+public sealed partial class NonSequentialDocumentTracer
 {
     private const double OriginOffset = 1e-7;
 

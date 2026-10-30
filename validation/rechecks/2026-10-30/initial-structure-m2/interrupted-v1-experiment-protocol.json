@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "status": "frozen-before-formal-dispatch",
+  "seeds": [42, 43, 44, 45, 46],
+  "cases": ["competition-8-F8-full25", "competition-8-F4-full25", "original-half21"],
+  "arms": ["fixed", "direct", "recover", "compete", "power", "combined"],
+  "dispatch": "Serial seeds and processes; rotate arm order by (seed-42) modulo six; each process evaluates the three cases in the listed order. Core CPU/double, below-normal priority, nested parallelism suppressed.",
+  "unifiedBudgetPerCase": { "functions": 600, "gradients": 200, "rays": 2000000, "seconds": 110 },
+  "candidateBudget": { "maximumFunctions": 160, "maximumParents": 1, "maximumCompetitionCandidates": 4, "maximumFinalists": 2 },
+  "shortCompensation": { "updates": 3, "rays": 20000, "maximumPhaseSeconds": 4, "fieldsPerDirection": 3, "pupilRings": 1, "pupilArms": 4, "profileRadialSamples": 64, "boundaryChecks": true },
+  "recovery": { "maximumFunctions": 24, "maximumPhaseSeconds": 4, "automaticCoreMatrixDerivatives": true, "parentAAndCAndFixedStopPupil": true, "geometryConstraintTangents": true, "freshBinding": true },
+  "competition": { "updatesPerStage": 4, "maximumStageSeconds": 3, "maximumStageRays": 30000, "stages": [[0.5,0.7],[0.75,0.85],[1,1]], "quickProposals": 2, "challengeQuota": 1, "finalRayRecoveryFactors": { "eightElementFixtures": 2, "originalHalf21": 12 } },
+  "powerAllocation": { "maximumAttempts": 1, "closureFunctions": 80, "maximumAbsoluteNormalizedPower": 1, "perturbationFraction": 0.25, "spacing": "rigid lens shifts within original explicit axial windows and mechanical frame", "closure": "assign and freeze front editable element powers with shared Core; leave last two editable lenses free; close original A/focal/pupil through existing Core-backed target solver; independently recheck powers and targets" },
+  "armDefinitions": {
+    "fixed": "One existing-parent optimization branch, then shared competition and independent original validation; no structural proposal or power allocation.",
+    "direct": "Parent control plus six requested structural operations; short compensation and original validation, no explicit recovery or competition.",
+    "recover": "Same proposals plus fresh paraxial recovery, short compensation and original validation; no competition.",
+    "compete": "Same seven branches plus recovery and shared multi-round competition before original validation.",
+    "power": "Parent control plus one power-allocation/closure branch, short compensation and shared competition; no structural edits.",
+    "combined": "Seven structural/control branches plus one power-allocation branch, recovery, compensation and shared competition."
+  },
+  "inputPolicy": "Eight-element inputs are actual completed finalists from frozen M0/M1 off-seed42..46 results, selected deterministically by worst throughput then worst RMS. Original-half21 is the unchanged frozen original three-element SK4/SK4/LAK09 prescription. All arms for a case/seed receive identical inputs, apertures, materials, fixed planes, fields, wavelengths, original target and permissions.",
+  "permissions": "Original expansion flags, protected elements, min/max element count and material/profile permissions remain authoritative. Eight-element fixtures cannot insert/split beyond the original maximum of eight. Original-half21 permits deletion only; forbidden edits are recorded and do not execute. No aperture enlargement, stop/image motion or extra asphere permission.",
+  "acquisitionAccounting": "Frozen M0/M1 actual functions/gradients/rays/elapsed are subtracted from the eight-element unified limit and added back for end-to-end billing; no free preparation. The original-half21 input is user-provided and has zero search acquisition charge. M2 revalidates every parent independently and charges that work. Historical acquisition wall time is disclosed separately from current measured M2 time.",
+  "qualification": "Only completed unchanged TopologyValidator original-spec CPU results qualify. Preserve existing qualified parents, distinguish newly changed prescriptions and structural reductions, and retain a separate complexity/quality Pareto frontier. Coarse or course results never qualify.",
+  "interpretation": "Ninety bounded engineering runs, all seeds/failures/incomplete validations retained. Compare direct/recovery/competition and native-parent/power sources; failed construction is not a proof of infeasibility or a speed success. No Cooke/Tessar or native desktop certification."
+}

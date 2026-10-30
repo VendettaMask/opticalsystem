@@ -1,0 +1,121 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tmp\cross-format-tests\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:05.26]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word) [FAIL]
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word) [3 s]
+  错误消息:
+   System.InvalidOperationException: The calling thread cannot access this object because a different thread owns it.
+   at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)
+   at Avalonia.Controls.Decorator.set_Child(Control value)
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 77
+System.InvalidOperationException: The calling thread cannot access this object because a different thread owns it.
+   at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)
+   at Avalonia.Controls.Decorator.set_Child(Control value)
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 77
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 110
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:11.72]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf) [FAIL]
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf) [6 s]
+  错误消息:
+   System.InvalidOperationException: The calling thread cannot access this object because a different thread owns it.
+   at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)
+   at Avalonia.Controls.Decorator.set_Child(Control value)
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 77
+System.InvalidOperationException: The calling thread cannot access this object because a different thread owns it.
+   at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)
+   at Avalonia.Controls.Decorator.set_Child(Control value)
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 77
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 110
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:12.40]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown) [FAIL]
+[xUnit.net 00:00:12.93]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html) [FAIL]
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown) [676 ms]
+  错误消息:
+   System.ArgumentException : Destination array was not long enough. Check the destination index, length, and the array's lower bounds. (Parameter 'destinationArray')
+  堆栈跟踪:
+     at System.Array.CopyImpl(Array sourceArray, Int32 sourceIndex, Array destinationArray, Int32 destinationIndex, Int32 length, Boolean reliable)
+   at System.Array.Copy(Array sourceArray, Int32 sourceIndex, Array destinationArray, Int32 destinationIndex, Int32 length)
+   at Avalonia.Utilities.AvaloniaPropertyDictionary`1.InsertEntry(Entry entry, Int32 entryIndex)
+   at Avalonia.Utilities.AvaloniaPropertyDictionary`1.Add(AvaloniaProperty property, TValue value)
+   at Avalonia.PropertyStore.ValueStore.AddEffectiveValue(AvaloniaProperty property, EffectiveValue effectiveValue)
+   at Avalonia.PropertyStore.ValueStore.AddEffectiveValueAndRaise(AvaloniaProperty property, IValueEntry entry, BindingPriority priority)
+   at Avalonia.PropertyStore.ValueStore.OnBindingValueChanged(IValueEntry entry, BindingPriority priority)
+   at Avalonia.PropertyStore.BindingEntryBase`2.<SetValue>g__Execute|35_0(BindingEntryBase`2 instance, BindingValue`1 value)
+   at Avalonia.PropertyStore.BindingEntryBase`2.<>c__DisplayClass35_0.<SetValue>b__1()
+   at Avalonia.Threading.DispatcherOperation.InvokeCore()
+   at Avalonia.Threading.DispatcherOperation.<>c.<Execute>b__56_0(Object s)
+   at Avalonia.Threading.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at Avalonia.Threading.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at Avalonia.Threading.DispatcherOperation.Execute()
+   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+   at Avalonia.Threading.Dispatcher.ExecuteJobsCore(Boolean fromExplicitBackgroundProcessingCallback)
+   at Avalonia.Controls.Platform.ManagedDispatcherImpl.RunLoop(CancellationToken token)
+   at Avalonia.Threading.DispatcherFrame.Run(IControlledDispatcherImpl impl)
+   at Avalonia.Threading.Dispatcher.PushFrame(DispatcherFrame frame)
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html) [528 ms]
+  错误消息:
+   System.InvalidOperationException: The calling thread cannot access this object because a different thread owns it.
+   at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)
+   at Avalonia.Controls.Decorator.set_Child(Control value)
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 77
+System.InvalidOperationException: The calling thread cannot access this object because a different thread owns it.
+   at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)
+   at Avalonia.Controls.Decorator.set_Child(Control value)
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_1.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__2>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 77
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 110
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-30\all-format-analysis-repairs\cross-format-diagnostic.trx
+
+失败!  - 失败:     4，通过:     0，已跳过:     0，总计:     4，持续时间: 10 s - OpticalSystemDesign.Tests.dll (net10.0)

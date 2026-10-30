@@ -77,15 +77,16 @@ public static partial class CameraContinuousSpectrum
     }
 
     public static ContinuousImageResult IntegrateMaterials(RgbImage linearSource, CameraSensorSettings sensor,
-        MaterialSpectralPlan plan, Func<RgbImage, double, RgbImage>? propagate = null)
+        MaterialSpectralPlan plan, Func<RgbImage, double, RgbImage>? propagate = null, CameraPixelSampling? pixelSampling = null)
     {
         ArgumentNullException.ThrowIfNull(linearSource); ArgumentNullException.ThrowIfNull(plan);
-        CameraSensorPipeline.Validate(sensor, new()); CameraSensorPipeline.ValidateDimensions(linearSource.Width, linearSource.Height);
+        CameraSensorPipeline.Validate(sensor, new());
+        var (outputWidth, outputHeight) = CameraPixelAperture.OutputDimensions(linearSource.Width, linearSource.Height, pixelSampling);
         var width = linearSource.Width; var height = linearSource.Height;
         if (linearSource.Channels != 3 || propagate is not null && (long)width * height * plan.Common.Nodes.Count > MaximumPixelNodes)
             throw new ArgumentException("Invalid source or material image exceeds pixel × node budget.");
         var mask = new double[height, width]; var displayMask = new double[3, height, width];
-        var preview = new double[3, height, width]; var photo = new double[width * height]; var labels = new int[width * height];
+        var preview = new double[3, outputHeight, outputWidth]; var photo = new double[outputWidth * outputHeight]; var labels = new int[width * height];
         for (var y = 0; y < height; y++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
@@ -99,7 +100,8 @@ public static partial class CameraContinuousSpectrum
             }
         }
         var coefficients = new double[SpectralMaterialScene.MaximumMaterials, 3];
-        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000;
+        var areaTime = Math.Pow(sensor.PixelPitchMicrometers * 1e-6, 2) * sensor.ExposureMilliseconds / 1000
+            * CameraPixelAperture.ChargeScale(pixelSampling);
         var materialById = plan.Scene.Materials.ToDictionary(m => m.Id);
         var transferById = new double[SpectralMaterialScene.MaximumMaterials];
         for (var index = 0; index < plan.Scene.Materials.Count; index++)
@@ -132,14 +134,15 @@ public static partial class CameraContinuousSpectrum
             var optical = propagate(new(radiance!), node.WavelengthNanometers);
             if (optical.Channels != 1 || optical.Width != width || optical.Height != height)
                 throw new ArgumentException("Monochromatic optical result must match material source dimensions.");
-            for (var y = 0; y < height; y++)
+            optical = CameraPixelAperture.Average(optical, pixelSampling);
+            for (var y = 0; y < outputHeight; y++)
             {
                 ComputationCancellation.ThrowIfCancellationRequested();
-                for (var x = 0; x < width; x++)
+                for (var x = 0; x < outputWidth; x++)
                 {
                     var value = optical[0, y, x];
                     if (!double.IsFinite(value) || value < 0) throw new ArgumentException("Optical transfer must be finite and nonnegative.");
-                    var i = y * width + x; photo[i] += value * photonWeight * efficiencies[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)];
+                    var i = y * outputWidth + x; photo[i] += value * photonWeight * efficiencies[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)];
                     CheckCharge(photo[i]);
                     var energy = plan.Common.IlluminantIrradiance > 0 ? value * energyWeight / plan.Common.IlluminantIrradiance : 0;
                     for (var c = 0; c < 3; c++) preview[c, y, x] += energy;
@@ -147,17 +150,29 @@ public static partial class CameraContinuousSpectrum
             }
         }
         if (propagate is null)
+        {
+            var chargeByCfa = new double[3, height, width]; var finePreview = new double[3, height, width];
             for (var y = 0; y < height; y++)
             {
                 ComputationCancellation.ThrowIfCancellationRequested();
                 for (var x = 0; x < width; x++)
                 {
                     var i = y * width + x; var id = labels[i];
-                    photo[i] = mask[y, x] * coefficients[id, CameraSensorPipeline.ColorAt(sensor.Pattern, y, x)]; CheckCharge(photo[i]);
-                    for (var c = 0; c < 3; c++) preview[c, y, x] = mask[y, x] * transferById[id];
+                    for (var c = 0; c < 3; c++)
+                    {
+                        chargeByCfa[c, y, x] = mask[y, x] * coefficients[id, c];
+                        finePreview[c, y, x] = mask[y, x] * transferById[id];
+                    }
                 }
             }
-        return new(new(displayMask), new(preview), photo);
+            var charge = CameraPixelAperture.Average(new(chargeByCfa), pixelSampling);
+            preview = CameraPixelAperture.Average(new(finePreview), pixelSampling).Values;
+            for (var y = 0; y < outputHeight; y++) for (var x = 0; x < outputWidth; x++)
+            {
+                var i = y * outputWidth + x; photo[i] = charge[CameraSensorPipeline.ColorAt(sensor.Pattern, y, x), y, x]; CheckCharge(photo[i]);
+            }
+        }
+        return new(CameraPixelAperture.Average(new(displayMask), pixelSampling is null ? null : pixelSampling with { FillFactor = 1 }), new(preview), photo);
         static void CheckCharge(double value)
         { if (!double.IsFinite(value) || value > 1e10) throw new ArgumentOutOfRangeException(nameof(plan), "Integrated photocharge exceeds 1e10 electrons."); }
     }

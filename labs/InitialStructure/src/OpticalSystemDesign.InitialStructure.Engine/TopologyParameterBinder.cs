@@ -46,9 +46,10 @@ public static class TopologyParameterBinder
                 && double.IsFinite(request.UpperBound) && request.LowerBound <= request.UpperBound,
                 TopologyFailureCode.InvalidVariableBounds, "Physical bounds and positive scales must be finite.");
             var image = request.SurfaceId == source.Topology.Image.Id;
-            var element = source.Topology.Elements.SingleOrDefault(item => item.FrontSurfaceId == request.SurfaceId || item.BackSurfaceId == request.SurfaceId);
+            var owners = source.Topology.Elements.Where(item => item.FrontSurfaceId == request.SurfaceId || item.BackSurfaceId == request.SurfaceId).ToArray();
+            var element = owners.FirstOrDefault();
             Require(image || element is not null, TopologyFailureCode.ProtectedElement, "The reference and independent stop are not optimization variables.");
-            Require(image ? !source.Topology.Image.Protected : !element!.Protected, TopologyFailureCode.ProtectedElement, "The requested element or image plane is protected.");
+            Require(image ? !source.Topology.Image.Protected : owners.All(owner => !owner.Protected), TopologyFailureCode.ProtectedElement, "Every owner of a shared face, or the requested image plane, must permit this variable.");
             Require(!image || request.Kind == OpticalDesignParameterKind.AxialPosition && request.Power == 0,
                 TopologyFailureCode.UnsupportedVariable, "Only an explicitly unprotected image position is supported.");
             if (!image)

@@ -56,6 +56,15 @@ public sealed record TopologyStop(string Id, double ZMillimeters, double ClearSe
 public sealed record TopologyImagePlane(string Id, double ZMillimeters, bool Protected = true);
 public sealed record TopologyField(string Label, double XAngleDegrees, double YAngleDegrees, double Weight = 1);
 
+/// <summary>An explicit adjacent glass/glass boundary. Both elements name the same physical surface.</summary>
+public sealed record TopologyCementedInterface(string LeftElementId, string RightElementId, string SurfaceId);
+
+public sealed record TopologyCementedInterfaces
+{
+    public int Version { get; init; } = 1;
+    public ImmutableArray<TopologyCementedInterface> Interfaces { get; init; } = [];
+}
+
 /// <summary>Immutable lens-level prescription. Positions use one fixed mechanical coordinate frame.</summary>
 public sealed record DesignTopology
 {
@@ -67,6 +76,8 @@ public sealed record DesignTopology
     public TopologyStop Stop { get; init; } = new("stop", 0, 5);
     public TopologyImagePlane Image { get; init; } = new("image", 60);
     public ImmutableArray<LensElement> Elements { get; init; } = [];
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TopologyCementedInterfaces? CementedInterfaces { get; init; }
     public ImmutableArray<TopologyField> Fields { get; init; } = [new("Axis", 0, 0), new("Edge", 0, 5)];
     public ImmutableArray<WavelengthSpecification> Wavelengths { get; init; } =
     [

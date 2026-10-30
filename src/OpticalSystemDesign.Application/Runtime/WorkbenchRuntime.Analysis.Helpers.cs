@@ -226,6 +226,9 @@ public partial class WorkbenchRuntime
             double number => NumericDisplayFormatter.Format(number),
             float number => NumericDisplayFormatter.Format(number),
             string text when text == "linear-height" => "线性高度",
+            string text when text == "Physical aperture" => "物理孔径",
+            string text when text == "Surface semi-diameter sampling window (no physical aperture added)"
+                => "表面半口径采样窗口（未添加物理孔径）",
             _ => value.ToString() ?? string.Empty
         };
     }

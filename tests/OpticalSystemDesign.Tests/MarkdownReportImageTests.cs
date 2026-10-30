@@ -3,6 +3,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -17,6 +18,23 @@ namespace OpticalSystemDesign.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class MarkdownReportImageTests
 {
+    [Fact]
+    public async Task ReportsUseTheSameOriginalSheetAndKeepEveryFanPaneAndLegend()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MarkdownReportImageTests));
+        await session.Dispatch(async () =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            var result = await application.Analyses.RunAsync(new(Guid.NewGuid(), 1, "Ray Fan", new Dictionary<string, string>()));
+            var original = AnalysisPanel.CreateReportPlot(result, application.Documents.GetSnapshot(), DateTimeOffset.Now)!;
+            Assert.NotEmpty(original.GetLogicalDescendants().OfType<CheckBox>());
+            var source = Assert.IsType<UniformDiagramPage>(original.Child);
+            Assert.Equal(UniformDiagramPage.SheetWidth, source.Width);
+            Assert.Equal(UniformDiagramPage.SheetHeight, source.Height);
+            Assert.Equal(result.View.PlotPanes.Count, source.GetVisualDescendants().OfType<AnalysisPlotControl>().Count());
+        }, CancellationToken.None);
+    }
+
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OpticalSystemDesign.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
@@ -64,6 +82,9 @@ public sealed class MarkdownReportImageTests
                 var formats = controls.OfType<ComboBox>().Single(item => item.Name == "ReportExportFormat");
                 Assert.Equal(new[] { "Word (.docx)", "PDF (.pdf)", "Markdown (.md)", "HTML (.html)" }, formats.Items.Cast<string>());
                 Assert.Equal(2, formats.SelectedIndex);
+                var pdfDetails = controls.OfType<CheckBox>().Single(item => item.Name == "ReportPdfDetails");
+                Assert.False(pdfDetails.IsChecked == true);
+                Assert.False(pdfDetails.IsVisible);
                 Assert.Equal(UiLocalization.Text("导出格式"), AutomationProperties.GetName(formats));
                 Assert.Equal(UiLocalization.Text("开始导出"), start.Content);
                 Assert.True(start.IsEnabled); Assert.False(progress.IsVisible);
@@ -80,6 +101,9 @@ public sealed class MarkdownReportImageTests
                 Assert.True(start.IsEnabled); Assert.False(progress.IsVisible);
                 Assert.False(Directory.Exists(chosen));
 
+                Assert.Equal(format == DesignReportFormat.Pdf, pdfDetails.IsVisible);
+                if (format == DesignReportFormat.Pdf) pdfDetails.IsChecked = true;
+
                 start.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Assert.False(start.IsEnabled);
                 Assert.False(formats.IsEnabled);
@@ -94,11 +118,14 @@ public sealed class MarkdownReportImageTests
                 Assert.Single(Directory.GetFiles(chosen, "*" + extension));
                 Assert.Empty(Directory.GetFiles(directory.Path, "*" + extension));
                 Assert.Equal(format, settings.ReportExport.Format);
+                Assert.Equal(format == DesignReportFormat.Pdf, settings.ReportExport.PdfIncludeDetails);
                 window.Close();
                 entry.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Dispatcher.UIThread.RunJobs();
                 var reopened = Assert.Single(main.OwnedWindows.OfType<MarkdownReportWindow>());
                 Assert.Equal(index, reopened.GetVisualDescendants().OfType<ComboBox>().Single(item => item.Name == "ReportExportFormat").SelectedIndex);
+                Assert.Equal(format == DesignReportFormat.Pdf,
+                    reopened.GetVisualDescendants().OfType<CheckBox>().Single(item => item.Name == "ReportPdfDetails").IsChecked == true);
                 Assert.True(reopened.GetVisualDescendants().OfType<Button>().Single(item => item.Name == "ExportMarkdownReport").IsEnabled);
             }
             finally
@@ -130,17 +157,18 @@ public sealed class MarkdownReportImageTests
     }
 
     [Theory]
-    [InlineData(DesignReportFormat.Markdown)]
-    [InlineData(DesignReportFormat.Word)]
-    [InlineData(DesignReportFormat.Pdf)]
-    [InlineData(DesignReportFormat.Html)]
-    public async Task FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(DesignReportFormat format)
+    [InlineData(DesignReportFormat.Markdown, "Light")]
+    [InlineData(DesignReportFormat.Word, "Light")]
+    [InlineData(DesignReportFormat.Pdf, "Light")]
+    [InlineData(DesignReportFormat.Pdf, "Dark")]
+    [InlineData(DesignReportFormat.Html, "Light")]
+    public async Task FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(DesignReportFormat format, string theme)
     {
         using var directory = new ReportTestDirectory();
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MarkdownReportImageTests));
         await session.Dispatch(async () =>
         {
-            ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             using var application = WorkbenchApplication.Create("cooke");
             var host = new Border { Width = 1200, Height = 900, Opacity = 0 };
             var window = new Window { Width = 900, Height = 700, Content = host };
@@ -158,13 +186,20 @@ public sealed class MarkdownReportImageTests
                         foreach (var file in files)
                         {
                             var bytes = await File.ReadAllBytesAsync(Path.Combine(output, file), token);
+                            if (request.ForPrint)
+                            {
+                                using var printBitmap = SkiaSharp.SKBitmap.Decode(bytes);
+                                var background = printBitmap.GetPixel(10, 10);
+                                Assert.True(background.Red > 230 && background.Green > 230 && background.Blue > 230);
+                            }
                             if (request.Scene is not null)
                             {
                                 // The self-contained report image must retain its complete title block,
                                 // including the company mark in the right-hand region beneath the scene.
                                 using var bitmap = SkiaSharp.SKBitmap.Decode(bytes);
-                                Assert.True(bitmap.Height >= 650 + 132);
-                                Assert.True(Enumerable.Range(660, 40).SelectMany(y => Enumerable.Range(850, 330).Select(x => bitmap.GetPixel(x, y)))
+                                var sceneHeight = (int)(UniformDiagramPage.PlotHeight * UniformDiagramPage.ExportScale);
+                                Assert.Equal(new PixelSize(2404, 1804), new PixelSize(bitmap.Width, bitmap.Height));
+                                Assert.True(Enumerable.Range(sceneHeight + 10, 60).SelectMany(y => Enumerable.Range((int)(bitmap.Width * .7), (int)(bitmap.Width * .27)).Select(x => bitmap.GetPixel(x, y)))
                                     .Count(color => color.Alpha > 0 && (color.Red < 180 || color.Green < 180 || color.Blue < 180)) > 100);
                             }
                             images.Add((file, bytes));
@@ -173,7 +208,7 @@ public sealed class MarkdownReportImageTests
                     }));
                 Assert.Equal(0, result.Failed);
                 Assert.Equal(8, result.Succeeded);
-                Assert.True(images.Count >= 8);
+                Assert.True(images.Count >= (format == DesignReportFormat.Pdf ? 7 : 8));
                 foreach (var image in images)
                 {
                     using var bitmap = new Bitmap(new MemoryStream(image.Bytes));

@@ -15,4 +15,8 @@ SiO2/Ta2O5 YAML 原始数据来自 https://github.com/polyanskiy/refractiveindex
 
 ## 产品边界和相关文档
 
+2026-10-30 后续实现参考了镜段/腔阶、耦合阶和入射侧匹配流程；本地通过共享Core的实际复反射振幅及正式优化器做数值匹配，未移植上游无吸收解析公式。10个新原型、6组匹配控制和实际输出546点独立对照见[窄带竞争证据](../../validation/rechecks/2026-10-30/coating-competition/README.md)。源归档/许可证与真实材料k保持。
+
+2026-10-30 复核另外阅读了 `seedGenerator/rank.js`、`filterDesign/filterTarget.js`、`meritFunction.js`、`prototypeLayers.js` 和 `coupledPrototype.js`。C# 新协议借鉴先短程优化后排序与目标缩放，有限结构提议用实际固定生成器核对；没有移植上游优化器或解析匹配综合。原归档/许可证不变，新增离线证据见[本轮记录](../../validation/rechecks/2026-10-30/coating-reference-review/README.md)。
+
 完整源归档保持上游原样；MIT 许可证与 CC0 来源声明不作改写。实验室输出复制 `*LICENSE.txt` / `*NOTICE.txt`；生产程序不加载归档、上游桌面环境或 Node。实际代码复用边界见[本地审计](../../docs/COATING_DESIGN_LAB.md)，数值对照和独立物理检查见[验收记录](../../validation/coating/README.md)，启动与示例见[实验室说明](../../labs/CoatingDesign/README.md)。

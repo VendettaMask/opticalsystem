@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
@@ -24,24 +25,22 @@ internal sealed class ReportImageRenderer(Border host)
             {
                 if (request.Scene is { } scene)
                 {
+                    var width = UniformDiagramPage.SheetWidth;
+                    var height = UniformDiagramPage.PlotHeight;
                     var canvas = new OpticSceneControl
                     {
                         Scene = scene,
-                        Width = 1200,
-                        Height = 650,
+                        Width = width,
+                        Height = height,
                         ViewMode = scene.Dimension == SceneDimension.TwoDimensional
                             ? OpticSceneViewMode.TwoDimensional : OpticSceneViewMode.ThreeDimensional,
                         ShowRays = true,
                         ShowScaleBar = true
                     };
-                    var frame = new Border { Width = 1200, Height = 650, Child = canvas };
+                    var frame = new Border { Width = width, Height = height, Child = canvas };
                     frame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.PlotBackground);
-                    var page = new StackPanel
-                    {
-                        Width = 1200,
-                        Children = { frame, PlotCaption.ForLayoutScene(scene, request.CapturedAt) }
-                    };
-                    Attach(page);
+                    var page = new UniformDiagramPage(frame, PlotCaption.ForLayoutScene(scene, request.CapturedAt));
+                    Attach(page, print: request.ForPrint);
                     canvas.FitView();
                     await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.Render);
                     Save(page, stem + ".png");
@@ -51,7 +50,7 @@ internal sealed class ReportImageRenderer(Border host)
                     var plot = AnalysisPanel.CreateReportPlot(analysis, request.Document, request.CapturedAt);
                     if (plot is not null)
                     {
-                        Attach(plot);
+                        Attach(plot, UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight, request.ForPrint);
                         await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.Render);
                         plot.UpdateLayout();
                         Save(plot.Child!, stem + ".png");
@@ -101,7 +100,9 @@ internal sealed class ReportImageRenderer(Border host)
                 if (pixels.Width <= 0 || pixels.Height <= 0 || pixels.Width > 32768 || pixels.Height > 32768
                     || (long)pixels.Width * pixels.Height > 33_554_432)
                     throw new InvalidOperationException("截图尺寸超过上限，请减少分析中同时显示的子图数量。");
-                using var bitmap = ExportImageFrame.Capture(control);
+                if (control is UniformDiagramPage source) source.ValidateForExport();
+                using var bitmap = ExportImageFrame.Capture(control,
+                    control is UniformDiagramPage ? UniformDiagramPage.ExportScale : 1);
                 var file = Path.Combine(directory, fileName);
                 AnalysisPanel.SavePlotImage(bitmap, file);
                 files.Add(fileName);
@@ -109,13 +110,13 @@ internal sealed class ReportImageRenderer(Border host)
         });
     }
 
-    private void Attach(Control control)
+    private void Attach(Control control, double defaultWidth = 1200, double height = 900, bool print = false)
     {
-        var width = double.IsFinite(control.Width) ? control.Width : 1200;
-        host.Width = width; host.Height = 900;
-        host.Child = control;
-        host.Measure(new Size(width, 900));
-        host.Arrange(new Rect(0, 0, width, 900));
+        var width = double.IsFinite(control.Width) ? control.Width : defaultWidth;
+        host.Width = width; host.Height = height;
+        host.Child = print ? new ThemeVariantScope { RequestedThemeVariant = ThemeVariant.Light, Child = control } : control;
+        host.Measure(new Size(width, height));
+        host.Arrange(new Rect(0, 0, width, height));
         host.UpdateLayout();
         if (control is StackPanel)
         {

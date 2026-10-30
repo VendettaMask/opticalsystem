@@ -1,0 +1,36 @@
+0.0s 材料适用性诊断：满足参考无吸收前提
+0.1s 镜段/腔阶竞争（粗采样，不判达标）
+1.1s 空气侧匹配（实际材料与角度）
+1.4s 窄带候选短程优化 1
+1.5s 窄带候选短程优化 2
+1.7s 窄带候选短程优化 3
+1.8s 窄带候选短程优化 4
+1.9s 窄带候选短程优化 5
+2.1s 窄带候选短程优化 6
+2.3s 窄带候选短程优化 7
+2.4s 窄带候选短程优化 8
+2.5s 窄带候选短程优化 9
+2.6s 窄带候选短程优化 10
+2.6s 窄带候选短程优化 11
+2.7s 窄带候选短程优化 12
+2.8s 独立密集采样复验
+DONE visible-low-loss modern: T=94.365219%, width=13.49999993, passed=True; 2.97s
+0.0s 材料适用性诊断：真实材料通用约束竞争
+0.1s 通用结构约束竞争（未认证）
+0.9s 实际透射目标多根匹配
+Unhandled exception. System.InvalidOperationException: 匹配候选规范化后违反约束。
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.<>c__DisplayClass24_3.<MatchGeneralIncidentMedium>g__Current|9() in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.GeneralMatching.cs:line 54
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.<>c__DisplayClass24_3.<MatchGeneralIncidentMedium>g__Loss|10() in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.GeneralMatching.cs:line 61
+   at OpticalSystemDesign.Core.Optimization.OptimizationProblem.<>c.<EvaluateCurrent>b__39_0(Operand operand) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Optimization\OptimizationFramework.cs:line 424
+   at System.Linq.Enumerable.ListSelectIterator`2.ToArray()
+   at OpticalSystemDesign.Core.Optimization.OptimizationProblem.EvaluateCurrent() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Optimization\OptimizationFramework.cs:line 424
+   at OpticalSystemDesign.Core.Optimization.OptimizationProblem.EvaluateAtScaled(IReadOnlyList`1 scaledValues) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Optimization\OptimizationFramework.cs:line 397
+   at OpticalSystemDesign.Core.Optimization.DampedLeastSquaresSearch.Run(OptimizationProblem problem, String name, Int32 maxIterations) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Optimization\NumericalOptimizers.cs:line 95
+   at OpticalSystemDesign.Core.Optimization.DampedLeastSquaresOptimizer.Optimize(OptimizationProblem problem, Int32 maxIterations) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Optimization\NumericalOptimizers.cs:line 13
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.MatchGeneralIncidentMedium(Experiment d, IReadOnlyDictionary`2 materials, CancellationToken token) in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.GeneralMatching.cs:line 75
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.GenerateGeneralNarrowBand(Experiment d, IReadOnlyDictionary`2 materials, Boolean fullSearch, IProgress`1 progress, CancellationToken token) in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.GeneralSearch.cs:line 104
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Generate(Experiment input, IProgress`1 progress, CancellationToken token) in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 42
+   at CompetitionAudit.Run(String[] args) in D:\optical system design\opticalsystem\tools\diagnostics\CoatingAudit20261030\CompetitionAudit.cs:line 41
+   at GeneralAudit.Run(String[] args) in D:\optical system design\opticalsystem\tools\diagnostics\CoatingAudit20261030\GeneralAudit.cs:line 33
+   at Program.<Main>$(String[] args) in D:\optical system design\opticalsystem\tools\diagnostics\CoatingAudit20261030\Program.cs:line 10
+   at Program.<Main>(String[] args)

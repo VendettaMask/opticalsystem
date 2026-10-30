@@ -1,0 +1,36 @@
+diff --git a/.tmp/initial-search-m32-parallel-source-audit/OptimizationFramework.cs b/src/OpticalSystemDesign.Core/Optimization/OptimizationFramework.cs
+index ed51aef4..ff35242b 100644
+--- a/.tmp/initial-search-m32-parallel-source-audit/OptimizationFramework.cs
++++ b/src/OpticalSystemDesign.Core/Optimization/OptimizationFramework.cs
+@@ -275,6 +275,8 @@ public sealed class OptimizationProblem
+     private Func<IReadOnlyList<double>, double[]>? _independentValueEvaluator;
+     private Func<IReadOnlyList<double>, double[,]?>? _valueJacobianEvaluator;
+     public long AnalyticJacobianEvaluations { get; private set; }
++    public bool BoundActiveSetEnabled { get; private set; }
++    public void EnableBoundActiveSet() => BoundActiveSetEnabled = true;
+     private long _functionEvaluationCount;
+ 
+     public IReadOnlyList<IOptimizationVariable> Variables => _variables;
+diff --git a/.tmp/initial-search-m32-parallel-source-audit/NumericalOptimizers.cs b/src/OpticalSystemDesign.Core/Optimization/NumericalOptimizers.cs
+index 2b0a10c5..64bf21a6 100644
+--- a/.tmp/initial-search-m32-parallel-source-audit/NumericalOptimizers.cs
++++ b/src/OpticalSystemDesign.Core/Optimization/NumericalOptimizers.cs
+@@ -51,6 +51,18 @@ internal static class DampedLeastSquaresSearch
+         {
+             ComputationCancellation.ThrowIfCancellationRequested();
+             var jacobian = EstimateJacobian(problem, current, evaluation);
++            if (problem.BoundActiveSetEnabled && evaluation.ConstraintResiduals.Length == 0)
++            {
++                var actual = problem.VariableVectorFromScaled(current);
++                for (var column = 0; column < actual.Length; column++)
++                {
++                    var gradient = 0.0;
++                    for (var row = 0; row < evaluation.ObjectiveResiduals.Length; row++) gradient += jacobian.Objective[row, column] * evaluation.ObjectiveResiduals[row];
++                    var variable = problem.Variables[column];
++                    if (actual[column] <= variable.LowerBound && gradient > 0 || actual[column] >= variable.UpperBound && gradient < 0)
++                        for (var row = 0; row < evaluation.ObjectiveResiduals.Length; row++) jacobian.Objective[row, column] = 0;
++                }
++            }
+             var gradientNorm = GradientNorm(jacobian.Objective, evaluation.ObjectiveResiduals);
+             finalGradientNorm = gradientNorm;
+             OptimizationGuards.RequireFiniteState(gradientNorm, "Optimization gradient norm");

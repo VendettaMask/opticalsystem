@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Fixtures/camera-scene-v7-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-scene-v8-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-sampling-v1-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\camera-flir-bfs-u3-23s6-points.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\054-interferogram\data.json"
           Link="Fixtures\zemax-123456-interferogram.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\054-interferogram\data.txt"

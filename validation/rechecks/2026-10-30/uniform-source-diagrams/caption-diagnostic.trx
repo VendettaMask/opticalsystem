@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="055a8360-6b2c-46d9-be1a-88abf9f28d46" name="optics@LAPTOP-G4BBBCS0 2026-10-30 11:46:07" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-30T11:46:07.8955169+08:00" queuing="2026-10-30T11:46:07.8955172+08:00" start="2026-10-30T11:46:00.9355562+08:00" finish="2026-10-30T11:46:15.5147416+08:00" />
+  <TestSettings name="default" id="c34eac71-60c4-4976-8df7-44395773ace3">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-30_11_46_07" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5d038a99-a255-46b7-b484-ccdb4d674346" testId="1a3542fa-9a06-3447-d3d4-321f56c4c3c0" testName="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Light&quot;, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.1825270" startTime="2026-10-30T11:46:03.6533049+08:00" endTime="2026-10-30T11:46:07.8285019+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d038a99-a255-46b7-b484-ccdb4d674346">
+      <Output>
+        <ErrorInfo>
+          <Message>SpotDiagram: plot minimum 464x668.715, caption 160</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.&lt;&gt;c__DisplayClass5_0.&lt;EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 168&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(String theme, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 135&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b273da0b-bda4-4e16-b8b7-f1181725a04a" testId="6d16454e-83ee-da6f-6e86-38ebd43d1d18" testName="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Dark&quot;, fontSize: 20)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.6003588" startTime="2026-10-30T11:46:11.8119382+08:00" endTime="2026-10-30T11:46:15.4090549+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b273da0b-bda4-4e16-b8b7-f1181725a04a" />
+    <UnitTestResult executionId="e007bcac-1b3f-4f2a-b5d5-19644e52b229" testId="0b3016ad-51d4-8afc-da0d-b0dd0eeeb4a8" testName="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Light&quot;, fontSize: 32)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.9790216" startTime="2026-10-30T11:46:07.8807549+08:00" endTime="2026-10-30T11:46:11.8087954+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e007bcac-1b3f-4f2a-b5d5-19644e52b229" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Light&quot;, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1a3542fa-9a06-3447-d3d4-321f56c4c3c0">
+      <Execution id="5d038a99-a255-46b7-b484-ccdb4d674346" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests" name="EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Dark&quot;, fontSize: 20)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6d16454e-83ee-da6f-6e86-38ebd43d1d18">
+      <Execution id="b273da0b-bda4-4e16-b8b7-f1181725a04a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests" name="EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: &quot;Light&quot;, fontSize: 32)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0b3016ad-51d4-8afc-da0d-b0dd0eeeb4a8">
+      <Execution id="e007bcac-1b3f-4f2a-b5d5-19644e52b229" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResponsivePlotTests" name="EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1a3542fa-9a06-3447-d3d4-321f56c4c3c0" executionId="5d038a99-a255-46b7-b484-ccdb4d674346" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d16454e-83ee-da6f-6e86-38ebd43d1d18" executionId="b273da0b-bda4-4e16-b8b7-f1181725a04a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0b3016ad-51d4-8afc-da0d-b0dd0eeeb4a8" executionId="e007bcac-1b3f-4f2a-b5d5-19644e52b229" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.19]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.18]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.21]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:06.43]       SpotDiagram: plot minimum 464x668.715, caption 160&#xD;
+[xUnit.net 00:00:06.43]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.43]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(168,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.&lt;&gt;c__DisplayClass5_0.&lt;EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize&gt;b__0()&#xD;
+[xUnit.net 00:00:06.43]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:06.43]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:06.43]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.43]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.43]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(135,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(String theme, Double fontSize)&#xD;
+[xUnit.net 00:00:06.43]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.02]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-30T11:46:07.8312071+08:00">
+        <Text>[xUnit.net 00:00:06.43]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: "Light", fontSize: 13) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

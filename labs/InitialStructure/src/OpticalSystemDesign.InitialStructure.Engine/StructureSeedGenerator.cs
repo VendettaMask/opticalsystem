@@ -9,8 +9,14 @@ internal sealed record StructureGenerationTrace(double[] Marginal, double[] Chie
 
 internal sealed class StructureGenerationWork
 {
+    internal TimeSpan MatrixTime, GeometryTime;
     internal int MatrixRequests { get; set; }
     internal long GeometryProbes { get; set; }
+    internal int AttemptedLayouts { get; set; }
+    internal int FeasibleLayouts { get; set; }
+    internal int RejectedGeometryProposals { get; set; }
+    internal int? SelectedStopAfterElement { get; set; }
+    internal double? MinimumClearanceMarginMillimeters { get; set; }
 }
 
 /// <summary>Descriptor proposals, independent of source lens coordinates/shapes. All optical
@@ -22,6 +28,8 @@ internal static class StructureSeedGenerator
         StructureGenerationWork? work = null)
     {
         Validate(descriptor);
+        if (descriptor.MaterializationVersion == 3)
+            return FeasibleThickSeedGenerator.Create(plan, descriptor, ref random, charge, work ?? new(), token);
         if (descriptor.MaterializationVersion == 2)
             return ThickStructureSeedGenerator.Create(plan, descriptor, ref random, charge, work ?? new(), token);
         var envelope = plan.Seeds[0];
@@ -146,7 +154,13 @@ internal static class StructureSeedGenerator
 
     internal static void Validate(StructureGenerationOptions options)
     {
-        if (options.MaterializationVersion is not (null or 2) || options.MaterializationVersion == 2 && options.Method != StructureGenerationMethod.Delano
+        if (options.Elements.IsDefaultOrEmpty || options.MaterializationVersion is not (null or 2 or 3) || options.MaterializationVersion is 2 or 3 && options.Method != StructureGenerationMethod.Delano
+            || options.MaterializationVersion == 3 && options.FeasibleLayouts is null
+            || options.FeasibleLayouts is { } layouts && (options.MaterializationVersion != 3 || layouts.Version != 1
+                || layouts.MaximumLayouts is < 1 or > 8 || layouts.StopAfterElementCandidates.IsDefault
+                || layouts.StopAfterElementCandidates.Length > 17
+                || layouts.StopAfterElementCandidates.Distinct().Count() != layouts.StopAfterElementCandidates.Length
+                || layouts.StopAfterElementCandidates.Any(value => value < 0 || value > options.Elements.Length))
             || options.Version != 1 || !Enum.IsDefined(options.Method) || options.Elements.IsDefaultOrEmpty || options.Elements.Length is < 2 or > 16
             || options.StopAfterElement < 0 || options.StopAfterElement > options.Elements.Length
             || !double.IsFinite(options.ClearSemiDiameterMillimeters) || options.ClearSemiDiameterMillimeters is <= 0 or > 1000

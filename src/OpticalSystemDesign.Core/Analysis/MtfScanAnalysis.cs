@@ -475,7 +475,7 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
                     value,
                     tangentialDisplay[index],
                     Label: _zemaxCompatibleOutput ? string.Empty : fields[index].Label)).ToArray(),
-                Name: $"{frequency:0.###} {frequencyUnitLabel}, Tangential",
+                Name: $"{frequency:0.###} {frequencyUnitLabel}, T",
                 LineStyle: _useDashes && frequencyIndex % 2 == 1
                     ? AnalysisLineStyle.Dashed
                     : AnalysisLineStyle.Solid,
@@ -491,7 +491,7 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
                     value,
                     sagittalDisplay[index],
                     Label: _zemaxCompatibleOutput ? string.Empty : fields[index].Label)).ToArray(),
-                Name: $"{frequency:0.###} {frequencyUnitLabel}, Sagittal",
+                Name: $"{frequency:0.###} {frequencyUnitLabel}, S",
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: frequencyIndex,
                 XQuantity: _zemaxCompatibleOutput ? AnalysisAxisQuantity.NormalizedField : AnalysisTrace.FieldAxisQuantity(Optic),

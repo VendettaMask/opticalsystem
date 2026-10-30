@@ -1,0 +1,962 @@
+{
+  "scope": "Focused original-sheet, live scrolling/interaction, native PNG and four-format report regressions; not a full-suite run",
+  "uniqueLatestCases": 183,
+  "latestPassed": 183,
+  "renamedContracts": {
+    "LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping": "LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow",
+    "EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize": "EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize",
+    "UnfittedLayoutReproducesOverflowAndFittedLayoutRemovesIt": "ScrollHostPreservesTheOriginalSheetAndKeepsItsOffscreenFooterReachable"
+  },
+  "runs": [
+    {
+      "file": "source-initial.trx",
+      "outcomes": {
+        "Passed": 8
+      }
+    },
+    {
+      "file": "integration-initial.trx",
+      "outcomes": {
+        "Failed": 43,
+        "Passed": 140
+      }
+    },
+    {
+      "file": "integration-regressions.trx",
+      "outcomes": {
+        "Passed": 128,
+        "Failed": 1
+      }
+    },
+    {
+      "file": "caption-diagnostic.trx",
+      "outcomes": {
+        "Failed": 1,
+        "Passed": 2
+      }
+    },
+    {
+      "file": "caption-final.trx",
+      "outcomes": {
+        "Passed": 3
+      }
+    }
+  ],
+  "latest": [
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: OpticalPathDifference)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: Standard)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Dark\", scale: 1)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Dark\", scale: 1.25)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Dark\", scale: 2)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Light\", scale: 1)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Light\", scale: 1.25)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Light\", scale: 2)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 420, height: 280, fontSize: 32)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 840, height: 620, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: FftPsf, width: 840, height: 620)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: SpotDiagram, width: 840, height: 620)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 840, height: 620)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 840, height: 620)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: \"en-US\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: \"ja-JP\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: \"zh-CN\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 32769, height: 300)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 8192, height: 8192)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"Fourier MTF vs Field\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"Fourier Through Focus MTF\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"Geometric MTF vs Field\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"Geometric MTF\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"Geometric Through Focus MTF\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"Huygens MTF vs Field\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"Huygens MTF\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"Huygens Through Focus MTF\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"MTF\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: \"Sampled MTF\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.FilteringKeepsTypedAxesAndZoomButClearingAResultDropsItsContext",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: \"Dark\", language: \"en-US\", fontSize: 18)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: \"Isekai\", language: \"zh-CN\", fontSize: 18)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: \"Light\", language: \"zh-CN\", fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: \"Lumen\", language: \"en-US\", fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: \"Pixel\", language: \"ja-JP\", fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.NamedCurvePositionsSeparateDuplicateLabelsAndKeepUnnamedReferences",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: ConfigurationMatrixSpot, legacyLegendBelow: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: FieldCurvatureAndDistortion, legacyLegendBelow: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: MatrixSpot, legacyLegendBelow: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: OpticalPathDifference, legacyLegendBelow: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: PupilAberration, legacyLegendBelow: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: RayFan, legacyLegendBelow: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: SpotDiagram, legacyLegendBelow: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: Standard, legacyLegendBelow: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: Standard, legacyLegendBelow: True)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: ThroughFocusSpot, legacyLegendBelow: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: SeidelCoefficients)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: ZernikeAnnular)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: ZernikeFringe)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: ZernikeStandard)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: AngleVsImageHeight)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: AxialAberration)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: ColorFocusShift)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: ConfigurationMatrixSpot)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FftPsf)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FieldCurvature)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FieldCurvatureAndDistortion)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FootprintDiagram)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Foucault)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FullFieldAberration)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FullFieldSpot)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: HuygensPsf)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Interferogram)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: LateralColor)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: MatrixSpot)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: OpticalPathDifference)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: PupilAberration)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: RayFan)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: SeidelDiagram)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: SpotDiagram)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Standard)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: ThroughFocusSpot)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: WavefrontMap)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.DataAndReportTabsScrollWithinTheAvailableHeight",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: \"Dark\", fontSize: 20)",
+      "outcome": "Passed",
+      "run": "caption-final.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: \"Light\", fontSize: 13)",
+      "outcome": "Passed",
+      "run": "caption-final.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: \"Light\", fontSize: 32)",
+      "outcome": "Passed",
+      "run": "caption-final.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.FittedPlotsRetainInteractiveZoomAcrossResize",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 1200, height: 360)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 420, height: 260)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 640, height: 320)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 900, height: 700)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.ScrollHostPreservesTheOriginalSheetAndKeepsItsOffscreenFooterReachable",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.SmallViewportScrollsAtReadableSizeAndCanReachTheFullFooter",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: \"Dark\", language: \"en-US\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: \"Isekai\", language: \"zh-CN\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: \"Light\", language: \"zh-CN\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: \"Pixel\", language: \"ja-JP\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Html, extension: \".html\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Pdf, extension: \".pdf\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Word, extension: \".docx\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Html)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Markdown)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Pdf)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Word)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.HtmlEncodesUserContentAndKeepsNavigationAndPrintStylesOffline",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.LongTablesAndOversizedRowsRemainPaginatedAndComplete(format: Pdf)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.LongTablesAndOversizedRowsRemainPaginatedAndComplete(format: Word)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Html)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Pdf)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Word)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.ReaderContentPrecedesCompleteAppendixWithoutLosingRawData",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Html)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Markdown)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Pdf)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Word)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DesignReportFormatTests.UnknownFormatIsRejectedBeforeCreatingOutput",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Html)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Markdown)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Pdf)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Word)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnSummaryAndLayoutWithoutExportingPrescription",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedGenericZernikeSelectionsAreOmittedWithoutChangingExplicitCoefficientAnalyses",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedPrescriptionSelectionsCannotReintroduceSurfaceData",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportExportTests.SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Html, theme: \"Light\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Markdown, theme: \"Light\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Pdf, theme: \"Dark\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Pdf, theme: \"Light\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Word, theme: \"Light\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: \"en-US\", format: Pdf, index: 1, extension: \".pdf\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: \"ja-JP\", format: Markdown, index: 2, extension: \".md\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: \"zh-CN\", format: Html, index: 3, extension: \".html\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: \"zh-CN\", format: Word, index: 0, extension: \".docx\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportsUseTheSameOriginalSheetAndKeepEveryFanPaneAndLegend",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MarkdownReportImageTests.SharedProgressSupportsItemCountsAndResetsToIndeterminateForOtherOperations",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.PdfPaperReportTests.NumericalReportsUseSelectableTablesWithoutRequiringTextScreenshots",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.PdfPaperReportTests.PaperDisplayPrecisionKeepsSmallValuesAndLeavesNonNumericLabelsIntact",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.PdfPaperReportTests.PaperPagesUseLandscapeForGroupedPlotsAndDetailsAreExplicitAndSnapshotSafe",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.PdfPaperReportTests.SummaryPrefersOpticalResultsAndOmitsDebugObjectsWhileKeepingFullSourceRows",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Field Curvature and Distortion\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"MTF\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Ray Fan\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Spot Diagram\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Wavefront Map\")",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OversizedSourceIsExplicitlyRejectedWithoutClippingShrinkingOrChangingTheResult",
+      "outcome": "Passed",
+      "run": "integration-initial.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: False, stale: False, loaded: False, expectedState: \"尚未准备布局光线\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: False, loaded: True, expectedState: \"布局结果与当前场景一致\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: False, expectedState: \"布局结果已过期并隐藏\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: True, expectedState: \"警告：正在查看过期结果\")",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata",
+      "outcome": "Passed",
+      "run": "integration-regressions.trx"
+    }
+  ]
+}

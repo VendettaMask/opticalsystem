@@ -17,6 +17,26 @@ namespace OpticalSystemDesign.App.Controls;
 
 public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationSource
 {
+    public static readonly AttachedProperty<AnalysisCurveWidth> CurveWidthProperty =
+        AvaloniaProperty.RegisterAttached<AnalysisPlotControl, Control, AnalysisCurveWidth>(
+            "CurveWidth", AnalysisCurveWidth.Standard, inherits: true);
+
+    static AnalysisPlotControl()
+    {
+        AffectsRender<AnalysisPlotControl>(CurveWidthProperty);
+    }
+
+    public AnalysisCurveWidth CurveWidth
+    {
+        get => GetValue(CurveWidthProperty);
+        set => SetValue(CurveWidthProperty, value);
+    }
+
+    private double CurveStrokeWidth(AnalysisSeries series) => series.LineWidth *
+        (series.Kind is AnalysisSeriesKind.Line or AnalysisSeriesKind.ColoredLine
+            ? CurveWidth switch { AnalysisCurveWidth.Thin => 1, AnalysisCurveWidth.Thick => 2, _ => 1.5 }
+            : 1);
+
     internal const double PlotTextSize = 11.5;
 
     private static readonly IBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255));
@@ -836,7 +856,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             color.R,
             color.G,
             color.B));
-        var pen = new Pen(brush, series.LineWidth, DashFor(series.LineStyle));
+        var pen = new Pen(brush, CurveStrokeWidth(series), DashFor(series.LineStyle));
         if (series.Kind == AnalysisSeriesKind.Heatmap)
         {
             DrawHeatmap(context, series, points, mapX, mapY);
@@ -851,7 +871,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
 
         if (series.Kind == AnalysisSeriesKind.ColoredLine)
         {
-            DrawColoredLine(context, points, mapX, mapY, series.LineWidth, series.ColorMap);
+            DrawColoredLine(context, points, mapX, mapY, CurveStrokeWidth(series), series.ColorMap);
             return;
         }
 
@@ -1324,7 +1344,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         foreach (var item in legendItems)
         {
             var brush = new SolidColorBrush(SeriesColor(item.Series));
-            var pen = new Pen(brush, item.Series.LineWidth, DashFor(item.Series.LineStyle));
+            var pen = new Pen(brush, CurveStrokeWidth(item.Series), DashFor(item.Series.LineStyle));
             context.DrawLine(pen, new Point(x, y + 8), new Point(x + 28, y + 8));
             if (item.Series.Kind == AnalysisSeriesKind.Scatter || item.Series.ShowMarkers)
             {
@@ -1354,7 +1374,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         {
             var color = SeriesColor(entry.Series);
             var brush = new SolidColorBrush(color);
-            var pen = new Pen(brush, entry.Series.LineWidth, DashFor(entry.Series.LineStyle));
+            var pen = new Pen(brush, CurveStrokeWidth(entry.Series), DashFor(entry.Series.LineStyle));
             context.DrawLine(pen, new Point(x, y + 8), new Point(x + 26, y + 8));
             if (entry.Series.Kind == AnalysisSeriesKind.Scatter || entry.Series.ShowMarkers)
             {

@@ -1,0 +1,84 @@
+ M AGENTS.md
+ M docs/CAMERA_IMAGING_LAB.md
+ M docs/CURRENT_STATUS.md
+ M docs/MARKDOWN_REPORT_EXPORT.md
+ M docs/NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md
+ M docs/README.md
+ M docs/USER_GUIDE.md
+ M labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Search.cs
+ M labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.cs
+ M labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Examples.cs
+ M labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Experiment.cs
+ M labs/InitialStructure/README.md
+ M labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologySeedSearchModels.cs
+ M labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialSeedSearch.cs
+ M labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/StructureSeedGenerator.cs
+ M labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ThickStructureSeedGenerator.cs
+ M samples/camera-imaging/README.md
+ M src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs
+ M src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPlotHost.cs
+ M src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Actions.cs
+ M src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Experiments.cs
+ M src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.cs
+ M src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.cs
+ M src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Seeds.cs
+ M src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs
+ M src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.cs
+ M src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Export.cs
+ M src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs
+ M src/OpticalSystemDesign.App/Panels/MarkdownReportWindow.cs
+ M src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs
+ M src/OpticalSystemDesign.App/Panels/ViewerPanel.cs
+ M src/OpticalSystemDesign.App/Services/DesignReportPdfWriter.cs
+ M src/OpticalSystemDesign.App/Services/MarkdownReportExporter.cs
+ M src/OpticalSystemDesign.App/Services/MarkdownReportSettings.cs
+ M src/OpticalSystemDesign.App/Services/ReportImageRenderer.cs
+ M src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs
+ M src/OpticalSystemDesign.App/Services/UiLocalization.cs
+ M src/OpticalSystemDesign.Application/Contracts/CameraImagingContracts.cs
+ M src/OpticalSystemDesign.Application/Services/CameraImagingService.Continuous.cs
+ M src/OpticalSystemDesign.Application/Services/CameraImagingService.Experiments.cs
+ M src/OpticalSystemDesign.Application/Services/CameraImagingService.Files.cs
+ M src/OpticalSystemDesign.Application/Services/CameraImagingService.cs
+ M src/OpticalSystemDesign.Core/Analysis/Imaging/CameraContinuousSpectrum.cs
+ M src/OpticalSystemDesign.Core/Analysis/Imaging/CameraMaterialSpectrum.cs
+ M src/OpticalSystemDesign.Core/Analysis/Imaging/CameraSensorPipeline.cs
+ M tests/OpticalSystemDesign.Tests/AnalysisImageExportTests.cs
+ M tests/OpticalSystemDesign.Tests/AnalysisLegendLayoutTests.cs
+ M tests/OpticalSystemDesign.Tests/AnalysisResponsivePlotTests.cs
+ M tests/OpticalSystemDesign.Tests/DesignReportFormatTests.cs
+ M tests/OpticalSystemDesign.Tests/MarkdownReportImageTests.cs
+ M tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj
+ M tests/OpticalSystemDesign.Tests/ViewerImageExportTests.cs
+?? docs/INITIAL_STRUCTURE_COMPETITION_2026-10-30.md
+?? docs/INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md
+?? labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Balanced.cs
+?? labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/StructureCompetitionModels.cs
+?? labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FeasibleThickSeedGenerator.cs
+?? labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/StructureCompetitionSearch.Screen.cs
+?? labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/StructureCompetitionSearch.cs
+?? labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutonomousDesktopCompetitionTests.cs
+?? labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutonomousDesktopFeasibleLayoutTests.cs
+?? labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/FeasibleThickLayoutTests.cs
+?? labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/StructureCompetitionTests.cs
+?? src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs
+?? src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.PixelSampling.cs
+?? src/OpticalSystemDesign.App/Services/DesignReportPdfModel.cs
+?? src/OpticalSystemDesign.App/Services/DesignReportPdfWriter.Paper.cs
+?? src/OpticalSystemDesign.App/Services/UiLocalization.CameraPixelSampling.cs
+?? src/OpticalSystemDesign.Core/Analysis/Imaging/CameraPixelAperture.cs
+?? src/OpticalSystemDesign.Core/Analysis/Imaging/SpectralDetectorPower.cs
+?? src/OpticalSystemDesign.Core/NonSequential/NonSequentialCameraSensor.cs
+?? tests/OpticalSystemDesign.Tests/CameraPixelAreaTests.cs
+?? tests/OpticalSystemDesign.Tests/CameraPixelAreaWindowTests.cs
+?? tests/OpticalSystemDesign.Tests/CameraPublishedSensorTests.cs
+?? tests/OpticalSystemDesign.Tests/Fixtures/camera-flir-bfs-u3-23s6-points.json
+?? tests/OpticalSystemDesign.Tests/NonSequentialCameraSensorTests.cs
+?? tests/OpticalSystemDesign.Tests/PdfPaperReportTests.cs
+?? tests/OpticalSystemDesign.Tests/UniformDiagramExportTests.cs
+?? tools/diagnostics/CameraPixelArea20261030/
+?? tools/diagnostics/CoatingAudit20261030/
+?? tools/diagnostics/HybridCameraBridge20261030/
+?? tools/diagnostics/InitialSeedAudit20261030/
+?? validation/rechecks/2026-10-29/feasible-thick-v3/
+?? validation/rechecks/2026-10-30/

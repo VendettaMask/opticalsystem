@@ -1,0 +1,1272 @@
+生成启动时间为 2026/10/30 11:34:34。
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.58]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.12]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.23]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.UnknownFormatIsRejectedBeforeCreatingOutput [716 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Pdf) [821 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Markdown) [148 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Html) [57 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Markdown) [55 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles(format: Word) [55 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedPrescriptionSelectionsCannotReintroduceSurfaceData [239 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnSummaryAndLayoutWithoutExportingPrescription [171 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue [101 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings [370 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource [152 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames [5 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Pdf) [2 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Html) [95 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReportContainsSystemSummaryWithoutSurfacePrescriptionOrEmptyAppendix(format: Word) [99 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ReaderContentPrecedesCompleteAppendixWithoutLosingRawData [964 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.LongTablesAndOversizedRowsRemainPaginatedAndComplete(format: Pdf) [1 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.LongTablesAndOversizedRowsRemainPaginatedAndComplete(format: Word) [3 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Word, extension: ".docx") [233 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportExportTests.SavedGenericZernikeSelectionsAreOmittedWithoutChangingExplicitCoefficientAnalyses [4 s]
+  已通过 OpticalSystemDesign.Tests.PdfPaperReportTests.NumericalReportsUseSelectableTablesWithoutRequiringTextScreenshots [3 s]
+  已通过 OpticalSystemDesign.Tests.PdfPaperReportTests.SummaryPrefersOpticalResultsAndOmitsDebugObjectsWhileKeepingFullSourceRows [10 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Pdf, extension: ".pdf") [6 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.ExportProducesSelfContainedDocumentsAndPreservesSource(format: Html, extension: ".html") [65 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Html) [28 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Pdf) [3 s]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.PackagingFailureCleansOnlyItsOwnFiles(format: Word) [19 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Word) [2 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Pdf) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Html) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.FormatSurvivesSettingsCopyAndSerialization(format: Markdown) [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.DesignReportFormatTests.HtmlEncodesUserContentAndKeepsNavigationAndPrintStylesOffline [1 ms]
+  已通过 OpticalSystemDesign.Tests.PdfPaperReportTests.PaperPagesUseLandscapeForGroupedPlotsAndDetailsAreExplicitAndSnapshotSafe [8 s]
+  已通过 OpticalSystemDesign.Tests.PdfPaperReportTests.PaperDisplayPrecisionKeepsSmallValuesAndLeavesNonNumericLabelsIntact [< 1 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: OpticalLayout) [2 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: TwoDimensional, mode: OpticalLayout) [987 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: SolidModel) [2 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True) [3 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False) [2 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False) [4 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: False, loaded: True, expectedState: "布局结果与当前场景一致") [499 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: False, expectedState: "布局结果已过期并隐藏") [519 ms]
+[xUnit.net 00:00:45.41]     OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Light", language: "en-US", width: 420, fontSize: 24) [FAIL]
+[xUnit.net 00:00:45.41]       Assert.True() Failure
+[xUnit.net 00:00:45.41]       Expected: True
+[xUnit.net 00:00:45.41]       Actual:   False
+[xUnit.net 00:00:45.41]       Stack Trace:
+[xUnit.net 00:00:45.41]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(238,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:45.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:45.41]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:45.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:45.41]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:45.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:45.41]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(213,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:45.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:45.85]     OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Light", language: "ja-JP", width: 360, fontSize: 13) [FAIL]
+[xUnit.net 00:00:45.86]       Assert.True() Failure
+[xUnit.net 00:00:45.86]       Expected: True
+[xUnit.net 00:00:45.86]       Actual:   False
+[xUnit.net 00:00:45.86]       Stack Trace:
+[xUnit.net 00:00:45.86]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(238,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:45.86]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:45.86]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:45.86]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:45.86]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:45.86]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:45.86]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(213,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:45.86]         --- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: False, stale: False, loaded: False, expectedState: "尚未准备布局光线") [540 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: True, expectedState: "警告：正在查看过期结果") [551 ms]
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Light", language: "en-US", width: 420, fontSize: 24) [272 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 238
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 213
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Light", language: "ja-JP", width: 360, fontSize: 13) [448 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 238
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 213
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:46.60]     OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Light", language: "ja-JP", width: 360, fontSize: 13) [FAIL]
+[xUnit.net 00:00:46.60]       Assert.True() Failure
+[xUnit.net 00:00:46.60]       Expected: True
+[xUnit.net 00:00:46.60]       Actual:   False
+[xUnit.net 00:00:46.60]       Stack Trace:
+[xUnit.net 00:00:46.60]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(238,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:46.60]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:46.60]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:46.60]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:46.60]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:46.60]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:46.60]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(213,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:46.60]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Light", language: "ja-JP", width: 360, fontSize: 13) [745 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 238
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 213
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:48.45]     OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Dark", language: "en-US", width: 420, fontSize: 13) [FAIL]
+[xUnit.net 00:00:48.45]       Assert.True() Failure
+[xUnit.net 00:00:48.45]       Expected: True
+[xUnit.net 00:00:48.45]       Actual:   False
+[xUnit.net 00:00:48.45]       Stack Trace:
+[xUnit.net 00:00:48.45]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(238,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:48.45]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:48.45]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:48.45]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:48.45]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:48.45]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:48.45]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(213,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:48.45]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:48.78]     OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Light", language: "en-US", width: 420, fontSize: 24) [FAIL]
+[xUnit.net 00:00:48.78]       Assert.True() Failure
+[xUnit.net 00:00:48.78]       Expected: True
+[xUnit.net 00:00:48.78]       Actual:   False
+[xUnit.net 00:00:48.78]       Stack Trace:
+[xUnit.net 00:00:48.78]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(238,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:48.78]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:48.78]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:48.78]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:48.78]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:48.78]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:48.78]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(213,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:48.78]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:49.11]     OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Dark", language: "en-US", width: 420, fontSize: 13) [FAIL]
+[xUnit.net 00:00:49.11]       Assert.True() Failure
+[xUnit.net 00:00:49.11]       Expected: True
+[xUnit.net 00:00:49.11]       Actual:   False
+[xUnit.net 00:00:49.11]       Stack Trace:
+[xUnit.net 00:00:49.11]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(238,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext()
+[xUnit.net 00:00:49.11]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:49.11]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:49.11]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:49.11]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:49.11]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:49.11]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(213,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize)
+[xUnit.net 00:00:49.11]         --- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Light", language: "zh-CN", width: 840, fontSize: 13) [1 s]
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Dark", language: "en-US", width: 420, fontSize: 13) [347 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 238
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 213
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Light", language: "en-US", width: 420, fontSize: 24) [331 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 238
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 213
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: TwoDimensional, theme: "Dark", language: "en-US", width: 420, fontSize: 13) [324 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c__DisplayClass7_0.<<LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 238
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(SceneDimension dimension, String theme, String language, Int32 width, Int32 fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 213
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsLogoSourceMetricsAndReflowsWithoutClipping(dimension: ThreeDimensional, theme: "Light", language: "zh-CN", width: 840, fontSize: 13) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout) [759 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout) [391 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: TwoDimensional, mode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: SolidModel) [2 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: TwoDimensional, mode: OpticalLayout) [512 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: OpticalLayout) [841 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: SolidModel) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: OpticalLayout) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: TwoDimensional, mode: OpticalLayout) [916 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: SolidModel) [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: TwoDimensional) [410 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: ThreeDimensional) [526 ms]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport [1 s]
+  已通过 OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata [803 ms]
+  已通过 OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: TwoDimensional) [792 ms]
+  已通过 OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: ThreeDimensional) [878 ms]
+  已通过 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Spot Diagram") [1 s]
+  已通过 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Field Curvature and Distortion") [2 s]
+  已通过 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Wavefront Map") [3 s]
+  已通过 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "MTF") [2 s]
+  已通过 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Ray Fan") [1 s]
+  已通过 OpticalSystemDesign.Tests.UniformDiagramExportTests.OversizedSourceIsExplicitlyRejectedWithoutClippingShrinkingOrChangingTheResult [871 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "en-US", format: Pdf, index: 1, extension: ".pdf") [5 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "zh-CN", format: Word, index: 0, extension: ".docx") [4 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "ja-JP", format: Markdown, index: 2, extension: ".md") [5 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportRibbonOpensOneIdleSettingsWindowAndExportsOnlyOnStart(language: "zh-CN", format: Html, index: 3, extension: ".html") [3 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Html, theme: "Light") [5 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Pdf, theme: "Dark") [10 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Markdown, theme: "Light") [4 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Word, theme: "Light") [4 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels(format: Pdf, theme: "Light") [9 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.SharedProgressSupportsItemCountsAndResetsToIndeterminateForOtherOperations [7 ms]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowExcludesPrescriptionAndShowsProgressAndDefaultDirectory [2 s]
+  已通过 OpticalSystemDesign.Tests.MarkdownReportImageTests.ReportsUseTheSameOriginalSheetAndKeepEveryFanPaneAndLegend [43 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: ThroughFocusSpot) [366 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: HuygensPsf) [358 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: ConfigurationMatrixSpot) [521 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Interferogram) [441 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: OpticalPathDifference) [344 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Foucault) [347 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FootprintDiagram) [447 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: MatrixSpot) [428 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FullFieldSpot) [547 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FftPsf) [266 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: SeidelDiagram) [459 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: WavefrontMap) [568 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: RayFan) [359 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: LateralColor) [582 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FieldCurvature) [448 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: AxialAberration) [511 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: AngleVsImageHeight) [477 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FieldCurvatureAndDistortion) [537 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Standard) [417 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: PupilAberration) [401 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: ColorFocusShift) [587 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FullFieldAberration) [571 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: SpotDiagram) [431 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: ZernikeFringe) [406 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: SeidelCoefficients) [231 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: ZernikeStandard) [374 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: ZernikeAnnular) [619 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.DataAndReportTabsScrollWithinTheAvailableHeight [551 ms]
+[xUnit.net 00:02:29.65]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: "Light", language: "zh-CN") [FAIL]
+[xUnit.net 00:02:29.65]       Assert.Empty() Failure: Collection was not empty
+[xUnit.net 00:02:29.65]       Collection: [AnalysisSeriesDto { XAxisLabel = 焦移, YAxisLabel = 波长, Points = OpticalSystemDesign.Application.Contracts.AnalysisPointDto[], Kind = Line, Name = 色焦移, LineStyle = Solid, ColorIndex = 0, ShowMarkers = False, LineWidth = 1.5, MarkerStyle = Circle, MarkerSize = 3.2, Opacity = 1, ValueLabel = , ColorMap = Viridis, ValueMinimum = , ValueMaximum = , LegendKey = wavelength:0.55, LegendLabel = 0.55 µm, XQuantity = Defocus, XUnit = Micrometer, YQuantity = Wavelength, YUnit = Micrometer, ValueQuantity = Unspecified, ValueUnit = Unspecified, ConfigurationNumber =  }]
+[xUnit.net 00:02:29.65]       Stack Trace:
+[xUnit.net 00:02:29.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(359,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass10_0.<StackedPlotsAndTheirLegendsRemainUsableAcrossThemes>b__0()
+[xUnit.net 00:02:29.65]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:29.65]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:29.65]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:29.65]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:29.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(339,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(String theme, String language)
+[xUnit.net 00:02:29.65]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:30.36]       Assert.Empty() Failure: Collection was not empty
+[xUnit.net 00:02:30.36]       Collection: [AnalysisSeriesDto { XAxisLabel = 焦移, YAxisLabel = 波长, Points = OpticalSystemDesign.Application.Contracts.AnalysisPointDto[], Kind = Line, Name = 色焦移, LineStyle = Solid, ColorIndex = 0, ShowMarkers = False, LineWidth = 1.5, MarkerStyle = Circle, MarkerSize = 3.2, Opacity = 1, ValueLabel = , ColorMap = Viridis, ValueMinimum = , ValueMaximum = , LegendKey = wavelength:0.55, LegendLabel = 0.55 µm, XQuantity = Defocus, XUnit = Micrometer, YQuantity = Wavelength, YUnit = Micrometer, ValueQuantity = Unspecified, ValueUnit = Unspecified, ConfigurationNumber =  }]
+[xUnit.net 00:02:30.36]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: "Isekai", language: "zh-CN") [FAIL]
+[xUnit.net 00:02:30.36]       Stack Trace:
+[xUnit.net 00:02:30.36]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(359,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass10_0.<StackedPlotsAndTheirLegendsRemainUsableAcrossThemes>b__0()
+[xUnit.net 00:02:30.36]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:30.36]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:30.36]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:30.36]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:30.36]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(339,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(String theme, String language)
+[xUnit.net 00:02:30.36]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: "Light", language: "zh-CN") [725 ms]
+  错误消息:
+   Assert.Empty() Failure: Collection was not empty
+Collection: [AnalysisSeriesDto { XAxisLabel = 焦移, YAxisLabel = 波长, Points = OpticalSystemDesign.Application.Contracts.AnalysisPointDto[], Kind = Line, Name = 色焦移, LineStyle = Solid, ColorIndex = 0, ShowMarkers = False, LineWidth = 1.5, MarkerStyle = Circle, MarkerSize = 3.2, Opacity = 1, ValueLabel = , ColorMap = Viridis, ValueMinimum = , ValueMaximum = , LegendKey = wavelength:0.55, LegendLabel = 0.55 µm, XQuantity = Defocus, XUnit = Micrometer, YQuantity = Wavelength, YUnit = Micrometer, ValueQuantity = Unspecified, ValueUnit = Unspecified, ConfigurationNumber =  }]
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass10_0.<StackedPlotsAndTheirLegendsRemainUsableAcrossThemes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 359
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(String theme, String language) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 339
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: "Isekai", language: "zh-CN") [708 ms]
+  错误消息:
+   Assert.Empty() Failure: Collection was not empty
+Collection: [AnalysisSeriesDto { XAxisLabel = 焦移, YAxisLabel = 波长, Points = OpticalSystemDesign.Application.Contracts.AnalysisPointDto[], Kind = Line, Name = 色焦移, LineStyle = Solid, ColorIndex = 0, ShowMarkers = False, LineWidth = 1.5, MarkerStyle = Circle, MarkerSize = 3.2, Opacity = 1, ValueLabel = , ColorMap = Viridis, ValueMinimum = , ValueMaximum = , LegendKey = wavelength:0.55, LegendLabel = 0.55 µm, XQuantity = Defocus, XUnit = Micrometer, YQuantity = Wavelength, YUnit = Micrometer, ValueQuantity = Unspecified, ValueUnit = Unspecified, ConfigurationNumber =  }]
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass10_0.<StackedPlotsAndTheirLegendsRemainUsableAcrossThemes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 359
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(String theme, String language) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 339
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:31.05]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: "Dark", language: "en-US") [FAIL]
+[xUnit.net 00:02:31.05]       Assert.Empty() Failure: Collection was not empty
+[xUnit.net 00:02:31.05]       Collection: [AnalysisSeriesDto { XAxisLabel = 焦移, YAxisLabel = 波长, Points = OpticalSystemDesign.Application.Contracts.AnalysisPointDto[], Kind = Line, Name = 色焦移, LineStyle = Solid, ColorIndex = 0, ShowMarkers = False, LineWidth = 1.5, MarkerStyle = Circle, MarkerSize = 3.2, Opacity = 1, ValueLabel = , ColorMap = Viridis, ValueMinimum = , ValueMaximum = , LegendKey = wavelength:0.55, LegendLabel = 0.55 µm, XQuantity = Defocus, XUnit = Micrometer, YQuantity = Wavelength, YUnit = Micrometer, ValueQuantity = Unspecified, ValueUnit = Unspecified, ConfigurationNumber =  }]
+[xUnit.net 00:02:31.05]       Stack Trace:
+[xUnit.net 00:02:31.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(359,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass10_0.<StackedPlotsAndTheirLegendsRemainUsableAcrossThemes>b__0()
+[xUnit.net 00:02:31.05]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:31.05]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:31.05]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:31.05]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:31.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(339,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(String theme, String language)
+[xUnit.net 00:02:31.05]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:31.10]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: "Pixel", language: "ja-JP") [FAIL]
+[xUnit.net 00:02:31.10]       Assert.Empty() Failure: Collection was not empty
+[xUnit.net 00:02:31.10]       Collection: [AnalysisSeriesDto { XAxisLabel = 焦移, YAxisLabel = 波长, Points = OpticalSystemDesign.Application.Contracts.AnalysisPointDto[], Kind = Line, Name = 色焦移, LineStyle = Solid, ColorIndex = 0, ShowMarkers = False, LineWidth = 1.5, MarkerStyle = Circle, MarkerSize = 3.2, Opacity = 1, ValueLabel = , ColorMap = Viridis, ValueMinimum = , ValueMaximum = , LegendKey = wavelength:0.55, LegendLabel = 0.55 µm, XQuantity = Defocus, XUnit = Micrometer, YQuantity = Wavelength, YUnit = Micrometer, ValueQuantity = Unspecified, ValueUnit = Unspecified, ConfigurationNumber =  }]
+[xUnit.net 00:02:31.10]       Stack Trace:
+[xUnit.net 00:02:31.10]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(359,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass10_0.<StackedPlotsAndTheirLegendsRemainUsableAcrossThemes>b__0()
+[xUnit.net 00:02:31.10]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:31.10]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:31.10]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:31.10]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:31.10]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(339,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(String theme, String language)
+[xUnit.net 00:02:31.10]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:32.18]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(theme: "Dark", fontSize: 20) [FAIL]
+[xUnit.net 00:02:32.18]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:32.18]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:32.18]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:32.18]       Stack Trace:
+[xUnit.net 00:02:32.18]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(173,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass5_0.<EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize>b__0()
+[xUnit.net 00:02:32.18]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:32.18]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:32.18]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:32.18]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:32.18]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(135,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(String theme, Double fontSize)
+[xUnit.net 00:02:32.18]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: "Dark", language: "en-US") [690 ms]
+  错误消息:
+   Assert.Empty() Failure: Collection was not empty
+Collection: [AnalysisSeriesDto { XAxisLabel = 焦移, YAxisLabel = 波长, Points = OpticalSystemDesign.Application.Contracts.AnalysisPointDto[], Kind = Line, Name = 色焦移, LineStyle = Solid, ColorIndex = 0, ShowMarkers = False, LineWidth = 1.5, MarkerStyle = Circle, MarkerSize = 3.2, Opacity = 1, ValueLabel = , ColorMap = Viridis, ValueMinimum = , ValueMaximum = , LegendKey = wavelength:0.55, LegendLabel = 0.55 µm, XQuantity = Defocus, XUnit = Micrometer, YQuantity = Wavelength, YUnit = Micrometer, ValueQuantity = Unspecified, ValueUnit = Unspecified, ConfigurationNumber =  }]
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass10_0.<StackedPlotsAndTheirLegendsRemainUsableAcrossThemes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 359
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(String theme, String language) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 339
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: "Pixel", language: "ja-JP") [45 ms]
+  错误消息:
+   Assert.Empty() Failure: Collection was not empty
+Collection: [AnalysisSeriesDto { XAxisLabel = 焦移, YAxisLabel = 波长, Points = OpticalSystemDesign.Application.Contracts.AnalysisPointDto[], Kind = Line, Name = 色焦移, LineStyle = Solid, ColorIndex = 0, ShowMarkers = False, LineWidth = 1.5, MarkerStyle = Circle, MarkerSize = 3.2, Opacity = 1, ValueLabel = , ColorMap = Viridis, ValueMinimum = , ValueMaximum = , LegendKey = wavelength:0.55, LegendLabel = 0.55 µm, XQuantity = Defocus, XUnit = Micrometer, YQuantity = Wavelength, YUnit = Micrometer, ValueQuantity = Unspecified, ValueUnit = Unspecified, ConfigurationNumber =  }]
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass10_0.<StackedPlotsAndTheirLegendsRemainUsableAcrossThemes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 359
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(String theme, String language) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 339
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(theme: "Dark", fontSize: 20) [1 s]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass5_0.<EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 173
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(String theme, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 135
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:33.29]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:33.29]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:33.29]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:33.29]       Stack Trace:
+[xUnit.net 00:02:33.29]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(173,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass5_0.<EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize>b__0()
+[xUnit.net 00:02:33.29]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(theme: "Light", fontSize: 32) [FAIL]
+[xUnit.net 00:02:33.29]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:33.29]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:33.29]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:33.29]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:33.29]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(135,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(String theme, Double fontSize)
+[xUnit.net 00:02:33.29]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(theme: "Light", fontSize: 32) [1 s]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass5_0.<EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 173
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(String theme, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 135
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:34.00]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(theme: "Light", fontSize: 13) [FAIL]
+[xUnit.net 00:02:34.00]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:34.00]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:34.00]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:34.00]       Stack Trace:
+[xUnit.net 00:02:34.00]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(173,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass5_0.<EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize>b__0()
+[xUnit.net 00:02:34.00]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:34.00]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:34.00]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:34.00]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:34.00]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(135,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(String theme, Double fontSize)
+[xUnit.net 00:02:34.00]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(theme: "Light", fontSize: 13) [712 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c__DisplayClass5_0.<EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 173
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(String theme, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 135
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 900, height: 700) [643 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 640, height: 320) [589 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 420, height: 260) [610 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 1200, height: 360) [609 ms]
+[xUnit.net 00:02:37.07]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.FittedPlotsRetainInteractiveZoomAcrossResize [FAIL]
+[xUnit.net 00:02:37.07]       Assert.NotNull() Failure: Value is null
+[xUnit.net 00:02:37.07]       Stack Trace:
+[xUnit.net 00:02:37.07]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(254,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c.<FittedPlotsRetainInteractiveZoomAcrossResize>b__7_0()
+[xUnit.net 00:02:37.07]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:37.07]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:37.07]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:37.07]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:37.07]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(239,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.FittedPlotsRetainInteractiveZoomAcrossResize()
+[xUnit.net 00:02:37.07]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:37.65]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.SmallViewportScrollsAtReadableSizeAndCanReachTheFullFooter [FAIL]
+[xUnit.net 00:02:37.65]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:37.65]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:37.65]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:37.65]       Stack Trace:
+[xUnit.net 00:02:37.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(289,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c.<SmallViewportScrollsAtReadableSizeAndCanReachTheFullFooter>b__8_0()
+[xUnit.net 00:02:37.65]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:37.65]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:37.65]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:37.65]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:37.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(276,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.SmallViewportScrollsAtReadableSizeAndCanReachTheFullFooter()
+[xUnit.net 00:02:37.65]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:37.66]     OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.UnfittedLayoutReproducesOverflowAndFittedLayoutRemovesIt [FAIL]
+[xUnit.net 00:02:37.66]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:37.66]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:37.66]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:37.66]       Stack Trace:
+[xUnit.net 00:02:37.66]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(308,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c.<UnfittedLayoutReproducesOverflowAndFittedLayoutRemovesIt>b__9_0()
+[xUnit.net 00:02:37.66]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:37.66]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:37.66]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:37.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:37.66]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs(302,0): at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.UnfittedLayoutReproducesOverflowAndFittedLayoutRemovesIt()
+[xUnit.net 00:02:37.66]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.FittedPlotsRetainInteractiveZoomAcrossResize [614 ms]
+  错误消息:
+   Assert.NotNull() Failure: Value is null
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c.<FittedPlotsRetainInteractiveZoomAcrossResize>b__7_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 254
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.FittedPlotsRetainInteractiveZoomAcrossResize() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 239
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.SmallViewportScrollsAtReadableSizeAndCanReachTheFullFooter [578 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c.<SmallViewportScrollsAtReadableSizeAndCanReachTheFullFooter>b__8_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 289
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.SmallViewportScrollsAtReadableSizeAndCanReachTheFullFooter() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 276
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.UnfittedLayoutReproducesOverflowAndFittedLayoutRemovesIt [5 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.<>c.<UnfittedLayoutReproducesOverflowAndFittedLayoutRemovesIt>b__9_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 308
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.UnfittedLayoutReproducesOverflowAndFittedLayoutRemovesIt() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResponsivePlotTests.cs:line 302
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:38.32]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Geometric Through Focus MTF") [FAIL]
+[xUnit.net 00:02:38.32]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:38.32]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:38.32]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:38.32]       Stack Trace:
+[xUnit.net 00:02:38.32]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:38.32]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:38.32]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:38.32]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:38.32]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:38.32]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:38.32]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:38.32]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Geometric Through Focus MTF") [659 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:39.91]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Fourier Through Focus MTF") [FAIL]
+[xUnit.net 00:02:39.91]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:39.91]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:39.91]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:39.91]       Stack Trace:
+[xUnit.net 00:02:39.91]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:39.91]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:39.91]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:39.91]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:39.91]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:39.91]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:39.91]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:39.91]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:40.54]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Huygens MTF vs Field") [FAIL]
+[xUnit.net 00:02:40.54]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:40.54]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:40.54]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:40.54]       Stack Trace:
+[xUnit.net 00:02:40.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:40.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:40.54]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:40.54]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:40.54]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:40.54]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:40.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:40.54]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Fourier Through Focus MTF") [1 s]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Huygens MTF vs Field") [631 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:41.54]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Geometric MTF") [FAIL]
+[xUnit.net 00:02:41.54]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:41.54]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:41.54]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:41.54]       Stack Trace:
+[xUnit.net 00:02:41.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:41.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:41.54]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:41.54]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:41.54]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:41.54]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:41.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:41.54]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:42.19]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "MTF") [FAIL]
+[xUnit.net 00:02:42.19]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:42.19]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:42.19]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:42.19]       Stack Trace:
+[xUnit.net 00:02:42.19]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:42.19]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:42.19]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:42.19]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:42.19]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:42.19]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:42.19]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:42.19]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:42.73]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Huygens Through Focus MTF") [FAIL]
+[xUnit.net 00:02:42.73]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:42.73]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:42.73]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:42.73]       Stack Trace:
+[xUnit.net 00:02:42.73]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:42.73]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:42.73]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:42.73]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:42.73]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:42.73]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:42.73]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:42.73]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Geometric MTF") [1 s]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "MTF") [642 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Huygens Through Focus MTF") [543 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:43.22]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Fourier MTF vs Field") [FAIL]
+[xUnit.net 00:02:43.22]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:43.22]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:43.22]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:43.22]       Stack Trace:
+[xUnit.net 00:02:43.22]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:43.22]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:43.22]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:43.22]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:43.22]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:43.22]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:43.22]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:43.22]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:43.65]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Huygens MTF") [FAIL]
+[xUnit.net 00:02:43.65]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:43.65]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:43.65]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:43.65]       Stack Trace:
+[xUnit.net 00:02:43.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:43.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:43.65]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:43.65]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:43.65]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:43.65]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:43.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:43.65]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:44.13]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Sampled MTF") [FAIL]
+[xUnit.net 00:02:44.13]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:44.13]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:44.13]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:44.13]       Stack Trace:
+[xUnit.net 00:02:44.13]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:44.13]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:44.13]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:44.13]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:44.13]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:44.13]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:44.13]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:44.13]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Fourier MTF vs Field") [493 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Huygens MTF") [427 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Sampled MTF") [478 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:44.57]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Geometric MTF vs Field") [FAIL]
+[xUnit.net 00:02:44.57]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:44.57]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:44.57]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:44.57]       Stack Trace:
+[xUnit.net 00:02:44.57]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:44.57]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(299,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0()
+[xUnit.net 00:02:44.57]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:44.57]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:44.57]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:44.57]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:44.57]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(260,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis)
+[xUnit.net 00:02:44.57]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:44.84]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: RayFan, legacyLegendBelow: False) [FAIL]
+[xUnit.net 00:02:44.84]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:44.84]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:44.84]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:44.84]       Stack Trace:
+[xUnit.net 00:02:44.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:44.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:44.84]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:44.84]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:44.84]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:44.84]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:44.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:44.84]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:45.26]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:45.26]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: FieldCurvatureAndDistortion, legacyLegendBelow: False) [FAIL]
+[xUnit.net 00:02:45.26]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:45.26]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:45.26]       Stack Trace:
+[xUnit.net 00:02:45.26]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:45.26]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:45.26]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:45.26]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:45.26]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:45.26]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:45.26]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:45.26]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:45.84]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: MatrixSpot, legacyLegendBelow: False) [FAIL]
+[xUnit.net 00:02:45.84]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:45.84]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:45.84]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:45.84]       Stack Trace:
+[xUnit.net 00:02:45.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:45.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:45.84]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:45.84]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:45.84]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:45.84]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:45.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:45.84]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(analysis: "Geometric MTF vs Field") [435 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass9_0.<EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 299
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.EveryMtfFamilyCanToggleEachCurveAndKeepItsAxes(String analysis) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 260
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: RayFan, legacyLegendBelow: False) [275 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: FieldCurvatureAndDistortion, legacyLegendBelow: False) [416 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: MatrixSpot, legacyLegendBelow: False) [574 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:46.49]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:46.49]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:46.49]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:46.49]       Stack Trace:
+[xUnit.net 00:02:46.49]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:46.49]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:46.49]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: ConfigurationMatrixSpot, legacyLegendBelow: False) [FAIL]
+[xUnit.net 00:02:46.49]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:46.49]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:46.49]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:46.49]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:46.49]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:46.49]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:46.90]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: Standard, legacyLegendBelow: False) [FAIL]
+[xUnit.net 00:02:46.90]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:46.90]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:46.90]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:46.90]       Stack Trace:
+[xUnit.net 00:02:46.90]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:46.90]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:46.90]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:46.90]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:46.90]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:46.90]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:46.90]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:46.90]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:47.28]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: Standard, legacyLegendBelow: True) [FAIL]
+[xUnit.net 00:02:47.28]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:47.28]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:47.28]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:47.28]       Stack Trace:
+[xUnit.net 00:02:47.28]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:47.28]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:47.28]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:47.28]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:47.28]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:47.28]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:47.28]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:47.28]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: ConfigurationMatrixSpot, legacyLegendBelow: False) [654 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: Standard, legacyLegendBelow: False) [405 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: Standard, legacyLegendBelow: True) [382 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:47.50]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: OpticalPathDifference, legacyLegendBelow: False) [FAIL]
+[xUnit.net 00:02:47.50]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:47.50]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:47.50]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:47.50]       Stack Trace:
+[xUnit.net 00:02:47.50]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:47.50]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:47.50]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:47.50]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:47.50]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:47.50]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:47.50]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:47.50]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:47.74]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: SpotDiagram, legacyLegendBelow: False) [FAIL]
+[xUnit.net 00:02:47.74]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:47.74]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:47.74]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:47.74]       Stack Trace:
+[xUnit.net 00:02:47.74]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:47.74]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:47.74]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:02:47.74]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:47.74]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:47.74]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:47.74]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:47.74]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:48.07]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:48.07]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: ThroughFocusSpot, legacyLegendBelow: False) [FAIL]
+[xUnit.net 00:02:48.07]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:48.07]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:48.07]       Stack Trace:
+[xUnit.net 00:02:48.07]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:48.07]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:48.07]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:48.07]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:48.07]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:48.07]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:48.07]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:48.41]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: PupilAberration, legacyLegendBelow: False) [FAIL]
+[xUnit.net 00:02:48.41]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:48.41]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:48.41]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:48.41]       Stack Trace:
+[xUnit.net 00:02:48.41]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:48.41]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(60,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0()
+[xUnit.net 00:02:48.41]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:48.41]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:48.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:48.41]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(49,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow)
+[xUnit.net 00:02:48.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:48.71]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Dark", language: "en-US", fontSize: 18) [FAIL]
+[xUnit.net 00:02:48.71]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:48.71]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:48.71]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:48.71]       Stack Trace:
+[xUnit.net 00:02:48.71]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:48.71]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(220,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0()
+[xUnit.net 00:02:48.71]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:48.71]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:48.71]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:48.71]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(197,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize)
+[xUnit.net 00:02:48.71]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: OpticalPathDifference, legacyLegendBelow: False) [219 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: SpotDiagram, legacyLegendBelow: False) [235 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: ThroughFocusSpot, legacyLegendBelow: False) [330 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(kind: PupilAberration, legacyLegendBelow: False) [345 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass1_0.<SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 60
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.SelectableLegendsKeepTheSameTopRightAnchorAcrossPlotFamilies(AnalysisPresentationKind kind, Boolean legacyLegendBelow) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 49
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Dark", language: "en-US", fontSize: 18) [301 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 220
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 197
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:49.04]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Isekai", language: "zh-CN", fontSize: 18) [FAIL]
+[xUnit.net 00:02:49.04]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:49.04]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:49.04]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:49.04]       Stack Trace:
+[xUnit.net 00:02:49.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:49.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(220,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0()
+[xUnit.net 00:02:49.04]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:49.04]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:49.04]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:49.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(197,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize)
+[xUnit.net 00:02:49.04]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:49.34]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Light", language: "zh-CN", fontSize: 13) [FAIL]
+[xUnit.net 00:02:49.34]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:49.34]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:49.34]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:49.34]       Stack Trace:
+[xUnit.net 00:02:49.34]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:49.34]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(220,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0()
+[xUnit.net 00:02:49.34]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:49.34]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:49.34]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:49.34]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(197,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize)
+[xUnit.net 00:02:49.34]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:49.55]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Pixel", language: "ja-JP", fontSize: 13) [FAIL]
+[xUnit.net 00:02:49.55]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:49.55]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:49.55]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:49.55]       Stack Trace:
+[xUnit.net 00:02:49.55]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:49.55]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(220,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0()
+[xUnit.net 00:02:49.55]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:49.55]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:49.55]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:49.55]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(197,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize)
+[xUnit.net 00:02:49.55]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:49.84]     OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Lumen", language: "en-US", fontSize: 13) [FAIL]
+[xUnit.net 00:02:49.84]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:02:49.84]       Expected: typeof(Avalonia.Controls.Grid)
+[xUnit.net 00:02:49.84]       Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+[xUnit.net 00:02:49.84]       Stack Trace:
+[xUnit.net 00:02:49.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(373,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend)
+[xUnit.net 00:02:49.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(220,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0()
+[xUnit.net 00:02:49.84]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:49.84]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:49.84]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:49.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs(197,0): at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize)
+[xUnit.net 00:02:49.84]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Isekai", language: "zh-CN", fontSize: 18) [322 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 220
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 197
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Light", language: "zh-CN", fontSize: 13) [299 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 220
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 197
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Pixel", language: "ja-JP", fontSize: 13) [210 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 220
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 197
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(theme: "Lumen", language: "en-US", fontSize: 13) [293 ms]
+  错误消息:
+   Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(Avalonia.Controls.Grid)
+Actual:   typeof(OpticalSystemDesign.App.Controls.UniformDiagramPage)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.AssertAnchor(TabControl tabs, StackPanel legend) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 373
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.<>c__DisplayClass8_0.<LongConfigurationLegendsRemainInsideTheRailAcrossThemes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 220
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.LongConfigurationLegendsRemainInsideTheRailAcrossThemes(String theme, String language, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisLegendLayoutTests.cs:line 197
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.NamedCurvePositionsSeparateDuplicateLabelsAndKeepUnnamedReferences [506 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisLegendLayoutTests.FilteringKeepsTypedAxesAndZoomButClearingAResultDropsItsContext [217 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Dark", scale: 2) [13 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Light", scale: 1.25) [6 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Light", scale: 1) [20 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Light", scale: 2) [5 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Dark", scale: 1.25) [4 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: "Dark", scale: 1) [4 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults [629 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: "zh-CN") [543 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: "en-US") [350 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: "ja-JP") [425 ms]
+[xUnit.net 00:02:53.38]     OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 840, height: 620, fontSize: 13) [FAIL]
+[xUnit.net 00:02:53.38]       Assert.True() Failure
+[xUnit.net 00:02:53.38]       Expected: True
+[xUnit.net 00:02:53.38]       Actual:   False
+[xUnit.net 00:02:53.38]       Stack Trace:
+[xUnit.net 00:02:53.38]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(204,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass5_0.<CardinalSceneExportsItsGraphicAndDataTableWithoutSeries>b__0()
+[xUnit.net 00:02:53.38]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:53.38]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:53.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:53.38]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(175,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(Int32 width, Int32 height, Double fontSize)
+[xUnit.net 00:02:53.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:54.10]     OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 420, height: 280, fontSize: 32) [FAIL]
+[xUnit.net 00:02:54.10]       System.InvalidOperationException : 当前内容超出统一图框，请减少同时显示的视场或子图，或减小文字后刷新。
+[xUnit.net 00:02:54.10]       Stack Trace:
+[xUnit.net 00:02:54.10]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Controls\UniformDiagramPage.cs(73,0): at OpticalSystemDesign.App.Controls.UniformDiagramPage.ValidateForExport()
+[xUnit.net 00:02:54.10]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\Analysis\AnalysisPanel.Export.cs(53,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.CapturePlotImage(Nullable`1 renderScale)
+[xUnit.net 00:02:54.10]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(197,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass5_0.<CardinalSceneExportsItsGraphicAndDataTableWithoutSeries>b__0()
+[xUnit.net 00:02:54.10]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:02:54.10]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:02:54.10]         --- End of stack trace from previous location ---
+[xUnit.net 00:02:54.10]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs(175,0): at OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(Int32 width, Int32 height, Double fontSize)
+[xUnit.net 00:02:54.10]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 840, height: 620, fontSize: 13) [799 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass5_0.<CardinalSceneExportsItsGraphicAndDataTableWithoutSeries>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 204
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(Int32 width, Int32 height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 175
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 420, height: 280, fontSize: 32) [721 ms]
+  错误消息:
+   System.InvalidOperationException : 当前内容超出统一图框，请减少同时显示的视场或子图，或减小文字后刷新。
+  堆栈跟踪:
+     at OpticalSystemDesign.App.Controls.UniformDiagramPage.ValidateForExport() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Controls\UniformDiagramPage.cs:line 73
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.CapturePlotImage(Nullable`1 renderScale) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\Analysis\AnalysisPanel.Export.cs:line 53
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass5_0.<CardinalSceneExportsItsGraphicAndDataTableWithoutSeries>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 197
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(Int32 width, Int32 height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 175
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: Standard) [957 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: OpticalPathDifference) [892 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 840, height: 620) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: SpotDiagram, width: 840, height: 620) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: FftPsf, width: 840, height: 620) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 840, height: 620) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280) [1 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 32769, height: 300) [385 ms]
+[xUnit.net 00:03:07.35]   Finished:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 8192, height: 8192) [370 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile [950 ms]
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-30\uniform-source-diagrams\integration-initial.trx
+
+测试总数: 183
+     通过数: 140
+     失败数: 43
+测试运行失败。
+总时间: 3.1324 分钟
+     1>项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”在节点 1 上(VSTest 个目标)。
+     1>_VSTestConsole:
+         MSB4181: “VSTestTask”任务返回了 false，但未记录错误。
+     1>已完成生成项目“D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj”(VSTest 个目标)的操作 - 失败。
+
+生成失败。
+    0 个警告
+    0 个错误
+
+已用时间 00:03:08.90

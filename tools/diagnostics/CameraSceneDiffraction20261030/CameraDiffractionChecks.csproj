@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="../../../tests/OpticalSystemDesign.Tests/Fixtures/camera-scene-v7-frozen.zip" Link="Fixtures/camera-scene-v7-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <ProjectReference Include="../../../src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj" />
+    <ProjectReference Include="../../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <Using Include="Xunit" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/CameraSceneDiffractionTests.cs" Link="CameraSceneDiffractionTests.cs" />
+  </ItemGroup>
+</Project>

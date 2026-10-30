@@ -54,7 +54,8 @@ internal static class TopologyEvaluationPlan
             var mapping = source.Elements.Single(item => item.ElementId == element.Id);
             var radius = Math.Max(element.Front.MechanicalSemiDiameterMillimeters ?? element.Front.ClearSemiDiameterMillimeters,
                 element.Back.MechanicalSemiDiameterMillimeters ?? element.Back.ClearSemiDiameterMillimeters);
-            bodies[mapping.FrontIndex] = bodies[mapping.BackIndex] = radius;
+            bodies[mapping.FrontIndex] = Math.Max(bodies.GetValueOrDefault(mapping.FrontIndex), radius);
+            bodies[mapping.BackIndex] = Math.Max(bodies.GetValueOrDefault(mapping.BackIndex), radius);
             var allowance = element.Transition && source.Constraints.TransitionAllowance?.ElementId == element.Id ? source.Constraints.TransitionAllowance : null;
             rows.Add(new(element.Id + ":center", mapping.FrontIndex, mapping.BackIndex, 0,
                 allowance?.MinimumCenterThicknessMillimeters ?? source.Constraints.MinimumCenterThicknessMillimeters));
@@ -63,8 +64,9 @@ internal static class TopologyEvaluationPlan
                 var radial = radius * sample / points;
                 rows.Add(new(element.Id + ":edge:" + sample, mapping.FrontIndex, mapping.BackIndex, radial,
                     allowance?.MinimumEdgeThicknessMillimeters ?? targets.MinimumEdgeThicknessMillimeters));
-                rows.Add(new(element.FrontSurfaceId + ":slope:" + sample, mapping.FrontIndex, mapping.FrontIndex, radial, targets.MaximumAbsoluteSurfaceSlope, true, true));
-                rows.Add(new(element.BackSurfaceId + ":slope:" + sample, mapping.BackIndex, mapping.BackIndex, radial, targets.MaximumAbsoluteSurfaceSlope, true, true));
+                var scope = source.Topology.CementedInterfaces is null ? "" : element.Id + ":";
+                rows.Add(new(scope + element.FrontSurfaceId + ":slope:" + sample, mapping.FrontIndex, mapping.FrontIndex, radial, targets.MaximumAbsoluteSurfaceSlope, true, true));
+                rows.Add(new(scope + element.BackSurfaceId + ":slope:" + sample, mapping.BackIndex, mapping.BackIndex, radial, targets.MaximumAbsoluteSurfaceSlope, true, true));
             }
         }
         var stopIndex = source.SurfaceIndices[source.Topology.Stop.Id];

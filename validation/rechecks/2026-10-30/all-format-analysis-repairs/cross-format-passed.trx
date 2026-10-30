@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="9bea7895-366b-4892-bf23-47cc5bd71e92" name="optics@LAPTOP-G4BBBCS0 2026-10-30 14:58:49" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-30T14:58:49.2507696+08:00" queuing="2026-10-30T14:58:49.2507699+08:00" start="2026-10-30T14:58:32.6995245+08:00" finish="2026-10-30T14:59:12.3103871+08:00" />
+  <TestSettings name="default" id="a8a076cd-3e29-4d3b-bdd0-41b5425c104a">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-30_14_58_49" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c7be1db5-a7cc-4ee2-b20d-dc3970e74456" testId="3bcbdee8-d4ed-5a05-108e-7aa76e716f2e" testName="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf)" computerName="LAPTOP-G4BBBCS0" duration="00:00:09.3304744" startTime="2026-10-30T14:58:49.2370158+08:00" endTime="2026-10-30T14:58:58.5521728+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c7be1db5-a7cc-4ee2-b20d-dc3970e74456" />
+    <UnitTestResult executionId="fb7b346e-7aa3-47e1-9f3d-b3f2c764010f" testId="bc4e9270-cbe9-989b-ae1f-14e733bafa72" testName="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html)" computerName="LAPTOP-G4BBBCS0" duration="00:00:08.0811584" startTime="2026-10-30T14:59:04.0432511+08:00" endTime="2026-10-30T14:59:12.1244467+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fb7b346e-7aa3-47e1-9f3d-b3f2c764010f" />
+    <UnitTestResult executionId="d744499e-b1e0-42c1-b6f2-e181ef14bcd2" testId="98ebd63c-b414-3a50-d047-24c91b450eb5" testName="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word)" computerName="LAPTOP-G4BBBCS0" duration="00:00:13.8665552" startTime="2026-10-30T14:58:35.3711222+08:00" endTime="2026-10-30T14:58:49.2207881+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d744499e-b1e0-42c1-b6f2-e181ef14bcd2" />
+    <UnitTestResult executionId="606119fa-87eb-4f01-b1fc-46079479e85d" testId="4291c959-37a2-c7e8-8f55-c2303221d0e6" testName="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.4897452" startTime="2026-10-30T14:58:58.5537109+08:00" endTime="2026-10-30T14:59:04.0424518+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="606119fa-87eb-4f01-b1fc-46079479e85d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown)" storage="d:\optical system design\opticalsystem\tmp\cross-format-tests\opticalsystemdesign.tests.dll" id="4291c959-37a2-c7e8-8f55-c2303221d0e6">
+      <Execution id="606119fa-87eb-4f01-b1fc-46079479e85d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests" name="GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf)" storage="d:\optical system design\opticalsystem\tmp\cross-format-tests\opticalsystemdesign.tests.dll" id="3bcbdee8-d4ed-5a05-108e-7aa76e716f2e">
+      <Execution id="c7be1db5-a7cc-4ee2-b20d-dc3970e74456" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests" name="GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word)" storage="d:\optical system design\opticalsystem\tmp\cross-format-tests\opticalsystemdesign.tests.dll" id="98ebd63c-b414-3a50-d047-24c91b450eb5">
+      <Execution id="d744499e-b1e0-42c1-b6f2-e181ef14bcd2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests" name="GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html)" storage="d:\optical system design\opticalsystem\tmp\cross-format-tests\opticalsystemdesign.tests.dll" id="bc4e9270-cbe9-989b-ae1f-14e733bafa72">
+      <Execution id="fb7b346e-7aa3-47e1-9f3d-b3f2c764010f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tmp\cross-format-tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests" name="GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3bcbdee8-d4ed-5a05-108e-7aa76e716f2e" executionId="c7be1db5-a7cc-4ee2-b20d-dc3970e74456" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bc4e9270-cbe9-989b-ae1f-14e733bafa72" executionId="fb7b346e-7aa3-47e1-9f3d-b3f2c764010f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98ebd63c-b414-3a50-d047-24c91b450eb5" executionId="d744499e-b1e0-42c1-b6f2-e181ef14bcd2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4291c959-37a2-c7e8-8f55-c2303221d0e6" executionId="606119fa-87eb-4f01-b1fc-46079479e85d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.19]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.12]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.15]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:38.97]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

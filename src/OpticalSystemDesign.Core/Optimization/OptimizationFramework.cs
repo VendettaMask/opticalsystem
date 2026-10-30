@@ -273,6 +273,10 @@ public sealed class OptimizationProblem
     private readonly List<IOptimizationVariable> _variables = new();
     private readonly List<Operand> _operands = new();
     private Func<IReadOnlyList<double>, double[]>? _independentValueEvaluator;
+    private Func<IReadOnlyList<double>, double[,]?>? _valueJacobianEvaluator;
+    public long AnalyticJacobianEvaluations { get; private set; }
+    public bool BoundActiveSetEnabled { get; private set; }
+    public void EnableBoundActiveSet() => BoundActiveSetEnabled = true;
     private long _functionEvaluationCount;
 
     public IReadOnlyList<IOptimizationVariable> Variables => _variables;
@@ -305,6 +309,37 @@ public sealed class OptimizationProblem
     public void SetIndependentValueEvaluator(Func<IReadOnlyList<double>, double[]> evaluator)
     {
         _independentValueEvaluator = evaluator ?? throw new ArgumentNullException(nameof(evaluator));
+    }
+
+    /// <summary>Optional raw operand-value Jacobian with respect to scaled variables; null requests the original finite-difference path.</summary>
+    public void SetValueJacobianEvaluator(Func<IReadOnlyList<double>, double[,]?> evaluator) =>
+        _valueJacobianEvaluator = evaluator ?? throw new ArgumentNullException(nameof(evaluator));
+
+    internal (double[,] Objective, double[,] Constraints)? AnalyticJacobianAtScaled(IReadOnlyList<double> vector)
+    {
+        if (_valueJacobianEvaluator is null) return null;
+        ComputationCancellation.ThrowIfCancellationRequested();
+        var raw = _valueJacobianEvaluator(vector);
+        if (raw is null) return null;
+        if (raw.GetLength(0) != _operands.Count || raw.GetLength(1) != _variables.Count)
+            throw new InvalidOperationException("解析值Jacobian的行列与操作数/变量不一致。");
+        var objective = new double[_operands.Count(o => o.Weight > 0), _variables.Count];
+        var constraints = new double[_operands.Count(o => o.Weight < 0), _variables.Count];
+        var weightSum = _operands.Sum(o => Math.Abs(o.Weight)); var oi = 0; var ci = 0;
+        for (var i = 0; i < _operands.Count; i++)
+        {
+            var weight = _operands[i].Weight; if (weight == 0) continue;
+            var scale = Math.Sqrt(Math.Abs(weight) / weightSum);
+            for (var j = 0; j < _variables.Count; j++)
+            {
+                OptimizationGuards.RequireFiniteState(raw[i, j], "Analytic optimization Jacobian");
+                var derivative = _variables[j].LowerBound == _variables[j].UpperBound ? 0 : scale * raw[i, j];
+                if (weight > 0) objective[oi, j] = derivative; else constraints[ci, j] = derivative;
+            }
+            if (weight > 0) oi++; else ci++;
+        }
+        AnalyticJacobianEvaluations++;
+        return (objective, constraints);
     }
 
     public void DisableBatching() => BatchingEnabled = false;
