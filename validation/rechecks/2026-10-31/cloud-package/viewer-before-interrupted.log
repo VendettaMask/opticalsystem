@@ -1,0 +1,35 @@
+D:\Projects\opticalsystem\.tmp\cloud-package-20261031\preflight\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:14.85]     OpticalSystemDesign.Tests.ViewerSettingsInputThemeTests.NumericFramesFitCompactInputsAndOnlyPickersUseShadedSurfaces [FAIL]
+  失败 OpticalSystemDesign.Tests.ViewerSettingsInputThemeTests.NumericFramesFitCompactInputsAndOnlyPickersUseShadedSurfaces [10 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 3
+Actual:   7
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerSettingsInputThemeTests.<>c.<NumericFramesFitCompactInputsAndOnlyPickersUseShadedSurfaces>b__2_0() in /_/.tmp/cloud-package-20261031/preflight/tests/OpticalSystemDesign.Tests/ViewerSettingsInputThemeTests.cs:line 120
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in /_/.tmp/cloud-package-20261031/preflight/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerSettingsInputThemeTests.NumericFramesFitCompactInputsAndOnlyPickersUseShadedSurfaces() in /_/.tmp/cloud-package-20261031/preflight/tests/OpticalSystemDesign.Tests/ViewerSettingsInputThemeTests.cs:line 40
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:40.32]     OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: "Dark", language: "en-US", width: 400, fontSize: 13) [FAIL]
+  失败 OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: "Dark", language: "en-US", width: 400, fontSize: 13) [1 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: Front
+Actual:   Isometric
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.Viewer3DGeometryTests.<>c__DisplayClass13_1.<ViewButtonsShowLabelsAndTrackTheActualCamera>g__AssertSelected|8(OpticSceneViewPreset expected, <>c__DisplayClass13_2&) in /_/.tmp/cloud-package-20261031/preflight/tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs:line 686
+   at OpticalSystemDesign.Tests.Viewer3DGeometryTests.<>c__DisplayClass13_0.<<ViewButtonsShowLabelsAndTrackTheActualCamera>b__0>d.MoveNext() in /_/.tmp/cloud-package-20261031/preflight/tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs:line 633
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(ViewerPresentationMode mode, String theme, String language, Int32 width, Double fontSize) in /_/.tmp/cloud-package-20261031/preflight/tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs:line 592
+--- End of stack trace from previous location ---
+活动的测试运行已中止。原因: 测试主机进程崩溃
+结果文件: D:\Projects\opticalsystem\.tmp\cloud-package-20261031\preflight-results\viewer-gate-before.trx
+
+测试运行已中止。
+失败!  - 失败:     2，通过:     2，已跳过:     0，总计:     4，持续时间: 1 m 36 s - OpticalSystemDesign.Tests.dll (net10.0)

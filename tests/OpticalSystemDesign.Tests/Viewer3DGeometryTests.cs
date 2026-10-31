@@ -585,6 +585,7 @@ public sealed class Viewer3DGeometryTests
     [InlineData(ViewerPresentationMode.SolidModel, "Light", "ja-JP", 400, 18)]
     [InlineData(ViewerPresentationMode.OpticalLayout, "Light", "zh-CN", 1100, 13)]
     [InlineData(ViewerPresentationMode.OpticalLayout, "Dark", "en-US", 400, 13)]
+    [InlineData(ViewerPresentationMode.OpticalLayout, "Light", "ja-JP", 400, 13)]
     [InlineData(ViewerPresentationMode.OpticalLayout, "Light", "ja-JP", 400, 18)]
     public async Task ViewButtonsShowLabelsAndTrackTheActualCamera(ViewerPresentationMode mode, string theme, string language, int width, double fontSize)
     {
@@ -615,6 +616,23 @@ public sealed class Viewer3DGeometryTests
                 Assert.Equal(7, buttons.Length);
                 AssertSelected(OpticSceneViewPreset.Isometric);
                 Capture(window, $"{capturePrefix}-initial.png");
+                if (viewer.GetVisualDescendants().OfType<UniformDiagramPage>()
+                    .SingleOrDefault() is { HasOverflow: true } overflowingSheet)
+                {
+                    // A large caption must report overflow and reject export;
+                    // its warning intentionally covers the drawing controls.
+                    Assert.True(fontSize > 13);
+                    Assert.Equal(new Size(1200, 900), overflowingSheet.Bounds.Size);
+                    Assert.Throws<InvalidOperationException>(() => viewer.CaptureViewerImage(1));
+                    var warning = overflowingSheet.GetVisualDescendants().OfType<TextBlock>().Single(item =>
+                        item.Text == UiLocalization.Text("当前内容超出统一图框，请减少同时显示的视场或子图，或减小文字后刷新。"));
+                    Assert.True(warning.IsEffectivelyVisible);
+                    Assert.All(buttons, button => Assert.Equal(fontSize,
+                        button.GetVisualDescendants().OfType<TextBlock>().Single().FontSize));
+                    Assert.Same(originalScene, scene.Scene);
+                    Assert.Equal(revision, app.Events.Revision);
+                    return true;
+                }
                 var captureDirectory = Environment.GetEnvironmentVariable(CaptureDirectory);
                 if (!string.IsNullOrWhiteSpace(captureDirectory) && toolbar.Child is Control row)
                 {
@@ -638,6 +656,15 @@ public sealed class Viewer3DGeometryTests
                 }
                 // Exercise the canvas outside the floating navigation, which can
                 // cover the center after a full caption reduces the viewport height.
+                if (viewer.GetVisualDescendants().OfType<ScrollViewer>()
+                    .SingleOrDefault(item => item.Name == "ViewerDiagramScroll") is { } diagramScroll)
+                {
+                    diagramScroll.Offset = default;
+                    Tick(window);
+                    var sheet = viewer.GetVisualDescendants().OfType<UniformDiagramPage>().Single();
+                    Assert.Equal(UniformDiagramPage.SheetWidth, sheet.Bounds.Width);
+                    Assert.Equal(UniformDiagramPage.SheetHeight, sheet.Bounds.Height);
+                }
                 var pointer = scene.TranslatePoint(new Point(40, scene.Bounds.Height * 0.4), window)!.Value;
                 window.MouseDown(pointer, MouseButton.Left);
                 window.MouseMove(pointer + new Vector(35, 15));
@@ -646,6 +673,7 @@ public sealed class Viewer3DGeometryTests
                 Assert.DoesNotContain(buttons, item => item.IsChecked == true);
                 Capture(window, $"{capturePrefix}-free-rotation.png");
                 var front = buttons.Single(item => item.Name == $"{namePrefix}ViewFront");
+                front.BringIntoView(); Tick(window);
                 front.Focus();
                 window.KeyPress(Key.Space, RawInputModifiers.None, PhysicalKey.Space, " ");
                 window.KeyRelease(Key.Space, RawInputModifiers.None, PhysicalKey.Space, " "); Tick(window);
@@ -678,7 +706,15 @@ public sealed class Viewer3DGeometryTests
                 Rect VisualBounds(Control control) => new Rect(control.Bounds.Size).TransformToAABB(control.TransformToVisual(window)!.Value);
                 void Click(Control control)
                 {
+                    // Fixed sheets scroll in short/narrow panes. Click the visible
+                    // control, retaining real hit testing rather than raising Click.
+                    control.BringIntoView(); Tick(window);
                     var point = control.TranslatePoint(new Point(control.Bounds.Width / 2, control.Bounds.Height / 2), window)!.Value;
+                    Assert.InRange(point.X, 0, window.ClientSize.Width);
+                    Assert.InRange(point.Y, 0, window.ClientSize.Height);
+                    var hit = window.InputHitTest(point) as Visual;
+                    Assert.True(hit == control || hit?.GetVisualAncestors().Contains(control) == true,
+                        $"{control.Name} at {point} hit {hit?.GetType().Name}/{(hit as Control)?.Name}; bounds {VisualBounds(control)}");
                     window.MouseMove(point); window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left); Tick(window);
                 }
                 void AssertSelected(OpticSceneViewPreset expected)

@@ -52,6 +52,8 @@ Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完
 
 镜头结构导航由 [test-lens-navigation-release.ps1](../scripts/test-lens-navigation-release.ps1) 动态发现全部用例，再按测试方法启动独立测试进程，避免完整 Dock 工作区与其他方法共用原生 Skia 状态。每组必须与发现的用例数相同、全部通过且运行完整结束，失败、漏跑或跳过直接拒绝；TRX 与 `lens-navigation-isolation.json` 随平台检查产物保留。图表页脚构建测试也须在独立真实绘图会话中创建矢量品牌控件，不能依赖其他测试留下的渲染平台。
 
+固定图纸的窄窗口门禁保留 1200×900 原始尺寸，通过滚动将视角按钮带入可见区域，再验证真实鼠标命中及键盘切换。设置表单的紧凑排布直接约束表单宽度，不能以缩小窗口来要求整张图纸重排。文字超出固定图框时，门禁验证可见提示及导出拒绝；另用可读字号检查完整交互，不绕过提示层或缩小产品字体。
+
 手动输入 `validation_only=true` 时仍执行所选平台全部验证，但不生成安装包、不上传 `cloud-package-*`、不执行发布任务；默认值为 false，正常交付流程不变。经用户于 2026-10-27 明确授权，失败的 Mac 云任务仅保留临时构建机上 `testhost` / `dotnet` 的系统崩溃报告，最多五份、每份不超过 20 MiB，随已有检查工件按 30 天保留；不读取维护者本机报告，不采集进程内存转储。导航步骤同时启用 .NET `DOTNET_EnableCrashReportOnly=1`，只生成 JSON 线程/调用栈报告，不生成 dump，并保留不含处方数据的测试阶段标记。该开关的无转储语义依据 [.NET runtime 实现](https://github.com/dotnet/runtime/blob/v10.0.0/src/coreclr/debug/createdump/createdumpmain.cpp)。
 
 仅验证的 Mac 任务还可通过 [后台原生栈观察器](../scripts/test-macos-navigation-backtrace.py) 在已知导航阶段附加 LLDB。目标 PID 必须由该测试写入且进程命令包含 `testhost.dll`，仅输出线程调用栈和栈指针寄存器，完成后分离调试器；不保存内存、不改测试断言，常规发布不附加调试器。该脚本拒绝在用户本机运行。
