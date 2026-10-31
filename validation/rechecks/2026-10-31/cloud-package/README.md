@@ -1,13 +1,13 @@
 # 三平台远端打包（2026-10-31）
 
-按用户“让远端打包一次”的要求，手动触发既有 `Desktop build and publish` 流程。
+已按用户要求完成三平台远端打包和测试发布替换。最终流程成功，公开附件、源码身份、Windows 更新签名及 Mac 活动更新清单于 2026-10-31 19:10（UTC+8）核对通过。
 
-- 运行：[41190757031](https://github.com/VendettaMask/opticalsystem/actions/runs/41190757031)。
-- 固定源码：`8fc9112019e7a9b8369b0eeaefed3f85b68da46f`，分支 `cloud-release/desktop-f7bcb90a-20261031`。分支名保留最初快照短码；最终源码以完整提交为准。
+- 成功运行：[41194312708](https://github.com/VendettaMask/opticalsystem/actions/runs/41194312708)。
+- 实际构建源码：`8f4ffd473169f28561514d65d85371ae32c79dcb`，分支 `cloud-release/desktop-f7bcb90a-20261031`。分支名保留最初快照短码；构建来源以完整提交为准。后续交付账目提交不改变该来源。
 - 输入：`release_tag=v1.0.4-test.20261019`、`runtime=all`、`replace_existing=true`、`validation_only=false`。
 - 平台：Windows x64、Windows ARM64、Apple Silicon Mac。沿用原测试发布及签名身份，标签保持不动。
 - 在独立 Git 索引固定当前产品源码、测试、文档和必要夹具，没有切换共享 main 或更改其暂存区。新增验证数据仅纳入文档直接引用和构建所需的 124 份文件，约 66 MiB；其余大型原始运行数据保留本地。
-- 三个审阅修复及其回归测试均在该快照中。独立目录锁定还原、完整 Release 解决方案构建通过，零警告、零错误；固定快照上的修复回归 11/11 通过。构建与测试发生在最后一次仅补充文档的提交之前，产品源码没有随后修改。
+- 三个审阅修复及其回归测试均在该快照中。独立目录锁定还原、完整 Release 解决方案构建通过，零警告、零错误；修复回归 11/11 通过。首轮固定源码为 `8fc91120`，之后只修改测试和说明；Git 已确认最终提交的 `src/`、`labs/`、`scripts/` 与首轮一致。本包未滚动纳入其他任务在冻结后继续完成的修改。
 - 初次文档门禁发现三条链接指向同一份缺失的镀膜余量说明，已补齐该说明。首次 Windows tar 导出对中文名称报错，已从同一源码归档补全缺失成员后才执行预检。未改变冻结证据和数值门槛。
 
 ## 首轮失败与门禁修正
@@ -18,7 +18,7 @@
 
 修复前离屏采集曾由本任务测试进程锁住 DLL；过早启动的编译失败后，仅停止该独立目录的采集 testhost，随后顺序编译与测试。该次采集为中止，不称完整通过。两个自动触发的重复 CI 已请求取消，限于本次独立分支，不影响其他分支的任务。
 
-后续最终状态、安装文件及发布回执待云端运行结束后补充；启动流程和本地预检不等于远端交付已经完成。不把此处定向检查视为全仓数值认证或用户本机安装验收。
+前三轮未交付；最终成功及附件核对见下文。不把此处定向检查视为全仓数值认证或用户本机安装验收。
 
 更新后的门禁定向复验 **8/8 通过，0 失败、0 跳过**，测试项目 Release 构建零警告、零错误。仅修改测试与说明，产品、模块和打包脚本保持首轮固定源码。第二轮以新提交重新运行同一三平台流程；不把重跑任务视为已发布。
 
@@ -41,3 +41,17 @@
 本地后续文档预检曾因导出目录漏复制本轮账目而有一条 MissingFile，已定位并补全；远端提交本已包含该目录。该次失败 JSON/log 保留，不算通过。冻结证据检查 **2668/2668** 工作区及原提交一致。
 
 后续全部预检通过：分析契约 **202/202**、独立完整页面渲染 **42/42**、独立 PNG 导出 **23/23**，各组均零失败、零跳过；分组可能重叠，不相加为独立用例数。严格文档检查 **0 坏链、0 围栏问题、0 当前指南重复段落组**。TRX、日志、冻结检查及最终文档 JSON 随本目录保留；随后再次执行既有三平台远端流程。
+
+## 最终交付与独立核对
+
+成功运行的三个打包任务和发布任务均为 `success`，云端重新执行了完整发布门禁。原测试标签保持不动，三平台附件均来自上述同一构建源码；Windows 文件名末尾为 `-Setup-8f4ffd47.exe`。
+
+| 平台 | 文件大小（字节） | 下载 |
+| --- | ---: | --- |
+| Windows x64 | 327,664,532 | [完整 EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-8f4ffd47.exe) |
+| Windows ARM64 | 337,247,033 | [完整 EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-8f4ffd47.exe) |
+| Mac Apple Silicon | 121,583,741 | [完整 DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg) |
+
+[公开发布页](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)与[独立核对结果](published-verification.json)记录完整 SHA-256。读取实际发布后，两份 Windows RSA-PSS 更新签名、完整源码、构建编号 `41194312708`、文件名、大小及 GitHub 服务端摘要均匹配。Mac 公开 DMG 的摘要与来源记录一致，活动 Appcast 的地址、大小与发布附件匹配，签名 XML 按原字节保留在 `published-appcast.xml`；Mac 归档/Appcast 密码学验证由已成功的云发布任务执行，本地没有另行宣称独立验签。
+
+完整成功日志与 run/jobs/release 元数据见 `final-run/`。[只读复核脚本](Verify-PublishedPackage.ps1)支持指定源码与运行编号重验。未再次下载整个安装文件，未安装、重启用户软件或做本机原生交互验收；Windows ARM64 为既有交叉打包范围。包内两个必装模块保持集成，现有签名身份未改变。

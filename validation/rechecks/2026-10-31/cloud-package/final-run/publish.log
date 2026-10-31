@@ -1,0 +1,398 @@
+﻿2026-10-31T11:06:45.5685640Z Current runner version: '2.338.2'
+2026-10-31T11:06:45.5701800Z ##[group]Runner Image Provisioner
+2026-10-31T11:06:45.5702790Z Hosted Compute Agent
+2026-10-31T11:06:45.5703540Z Version: 20261021.618
+2026-10-31T11:06:45.5704300Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-31T11:06:45.5705110Z Build Date: 2026-10-21T00:45:21Z
+2026-10-31T11:06:45.5705880Z Worker ID: {55f4251b-6dd4-4149-8d5c-f49cd70cd7bd}
+2026-10-31T11:06:45.5706620Z Region: westus
+2026-10-31T11:06:45.5707230Z Cloud: MacCloud
+2026-10-31T11:06:45.5707840Z ##[endgroup]
+2026-10-31T11:06:45.5709270Z ##[group]Operating System
+2026-10-31T11:06:45.5710040Z macOS
+2026-10-31T11:06:45.5710720Z 15.8.2
+2026-10-31T11:06:45.5711360Z 24H232
+2026-10-31T11:06:45.5712100Z ##[endgroup]
+2026-10-31T11:06:45.5712770Z ##[group]Runner Image
+2026-10-31T11:06:45.5713530Z Image: macos-15-arm64
+2026-10-31T11:06:45.5714290Z Version: 20261028.0489.1
+2026-10-31T11:06:45.5715790Z Included Software: https://github.com/actions/runner-images/blob/macos-15-arm64/20261028.0489/images/macos/macos-15-arm64-Readme.md
+2026-10-31T11:06:45.5717370Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-15-arm64%2F20261028.0489
+2026-10-31T11:06:45.5718520Z ##[endgroup]
+2026-10-31T11:06:45.5719750Z ##[group]GITHUB_TOKEN Permissions
+2026-10-31T11:06:45.5721400Z Contents: write
+2026-10-31T11:06:45.5722050Z Metadata: read
+2026-10-31T11:06:45.5722700Z ##[endgroup]
+2026-10-31T11:06:45.5724340Z Secret source: Actions
+2026-10-31T11:06:45.5725420Z Cache mode: write
+2026-10-31T11:06:45.5726150Z Prepare workflow directory
+2026-10-31T11:06:45.5986560Z Prepare all required actions
+2026-10-31T11:06:45.6023710Z Getting action download info
+2026-10-31T11:06:45.8841320Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-31T11:06:46.2441280Z Download action repository 'actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+2026-10-31T11:06:46.6945650Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-31T11:06:46.9645740Z Complete job name: publish
+2026-10-31T11:06:47.0330880Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-10-31T11:06:47.0332310Z with:
+2026-10-31T11:06:47.0332920Z   repository: VendettaMask/opticalsystem
+2026-10-31T11:06:47.0336380Z   token: ***
+2026-10-31T11:06:47.0337020Z   ssh-strict: true
+2026-10-31T11:06:47.0337620Z   ssh-user: git
+2026-10-31T11:06:47.0338230Z   persist-credentials: true
+2026-10-31T11:06:47.0338880Z   clean: true
+2026-10-31T11:06:47.0339490Z   sparse-checkout-cone-mode: true
+2026-10-31T11:06:47.0340170Z   fetch-depth: 1
+2026-10-31T11:06:47.0340770Z   fetch-tags: false
+2026-10-31T11:06:47.0341370Z   show-progress: true
+2026-10-31T11:06:47.0341990Z   lfs: false
+2026-10-31T11:06:47.0342570Z   submodules: false
+2026-10-31T11:06:47.0343180Z   set-safe-directory: true
+2026-10-31T11:06:47.0343890Z   allow-unsafe-pr-checkout: false
+2026-10-31T11:06:47.0344900Z ##[endgroup]
+2026-10-31T11:06:47.4403310Z Syncing repository: VendettaMask/opticalsystem
+2026-10-31T11:06:47.4405600Z ##[group]Getting Git version info
+2026-10-31T11:06:47.4406640Z Working directory is '/Users/runner/work/opticalsystem/opticalsystem'
+2026-10-31T11:06:47.4407970Z [command]/opt/homebrew/bin/git version
+2026-10-31T11:06:47.4647660Z git version 2.56.0
+2026-10-31T11:06:47.4658620Z ##[endgroup]
+2026-10-31T11:06:47.4665260Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/aad15470-ac97-44f8-983b-d89fb2708cd3/.gitconfig'
+2026-10-31T11:06:47.4671280Z Temporarily overriding HOME='/Users/runner/work/_temp/aad15470-ac97-44f8-983b-d89fb2708cd3' before making global git config changes
+2026-10-31T11:06:47.4672930Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-31T11:06:47.4674760Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/opticalsystem/opticalsystem
+2026-10-31T11:06:47.4772300Z Deleting the contents of '/Users/runner/work/opticalsystem/opticalsystem'
+2026-10-31T11:06:47.4776860Z ##[group]Initializing the repository
+2026-10-31T11:06:47.4780400Z [command]/opt/homebrew/bin/git init /Users/runner/work/opticalsystem/opticalsystem
+2026-10-31T11:06:47.4972700Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-31T11:06:47.4974160Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-31T11:06:47.4975500Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-31T11:06:47.4976580Z hint: call:
+2026-10-31T11:06:47.4977460Z hint:
+2026-10-31T11:06:47.4978410Z hint: 	git config --global init.defaultBranch <name>
+2026-10-31T11:06:47.4979290Z hint:
+2026-10-31T11:06:47.4980070Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-31T11:06:47.4981150Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-31T11:06:47.4982100Z hint:
+2026-10-31T11:06:47.4982810Z hint: 	git branch -m <name>
+2026-10-31T11:06:47.4983570Z hint:
+2026-10-31T11:06:47.4984470Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-31T11:06:47.4985790Z Initialized empty Git repository in /Users/runner/work/opticalsystem/opticalsystem/.git/
+2026-10-31T11:06:47.4987900Z [command]/opt/homebrew/bin/git remote add origin https://github.com/VendettaMask/opticalsystem
+2026-10-31T11:06:47.5069690Z ##[endgroup]
+2026-10-31T11:06:47.5070820Z ##[group]Disabling automatic garbage collection
+2026-10-31T11:06:47.5071760Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-31T11:06:47.5148520Z ##[endgroup]
+2026-10-31T11:06:47.5149780Z ##[group]Setting up auth
+2026-10-31T11:06:47.5151420Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-31T11:06:47.5223880Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-31T11:06:47.6305010Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-31T11:06:47.6378980Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-31T11:06:47.7539650Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-31T11:06:47.7691980Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-31T11:06:47.8668620Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-31T11:06:47.8740760Z ##[endgroup]
+2026-10-31T11:06:47.8742090Z ##[group]Fetching the repository
+2026-10-31T11:06:47.8747530Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8f4ffd473169f28561514d65d85371ae32c79dcb:refs/remotes/origin/cloud-release/desktop-f7bcb90a-20261031
+2026-10-31T11:08:06.2409150Z From https://github.com/VendettaMask/opticalsystem
+2026-10-31T11:08:06.2414430Z  * [new ref]           8f4ffd473169f28561514d65d85371ae32c79dcb -> origin/cloud-release/desktop-f7bcb90a-20261031
+2026-10-31T11:08:06.2454720Z ##[endgroup]
+2026-10-31T11:08:06.2456170Z ##[group]Determining the checkout info
+2026-10-31T11:08:06.2474170Z ##[endgroup]
+2026-10-31T11:08:06.2518290Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-31T11:08:06.2585070Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-31T11:08:06.2664380Z ##[group]Checking out the ref
+2026-10-31T11:08:06.2706250Z [command]/opt/homebrew/bin/git checkout --progress --force -B cloud-release/desktop-f7bcb90a-20261031 refs/remotes/origin/cloud-release/desktop-f7bcb90a-20261031
+2026-10-31T11:08:07.5422770Z Updating files:   2% (502/19163)
+2026-10-31T11:08:07.9496750Z Updating files:   3% (575/19163)
+2026-10-31T11:08:08.2145870Z Updating files:   4% (767/19163)
+2026-10-31T11:08:08.3138250Z Updating files:   5% (959/19163)
+2026-10-31T11:08:08.4978740Z Updating files:   5% (1040/19163)
+2026-10-31T11:08:08.8708690Z Updating files:   6% (1150/19163)
+2026-10-31T11:08:08.9786150Z Updating files:   7% (1342/19163)
+2026-10-31T11:08:09.1029630Z Updating files:   8% (1534/19163)
+2026-10-31T11:08:09.2122320Z Updating files:   9% (1725/19163)
+2026-10-31T11:08:09.3209240Z Updating files:  10% (1917/19163)
+2026-10-31T11:08:09.3728290Z Updating files:  10% (1963/19163)
+2026-10-31T11:08:09.4564460Z Updating files:  11% (2108/19163)
+2026-10-31T11:08:09.7504500Z Updating files:  12% (2300/19163)
+2026-10-31T11:08:10.2448540Z Updating files:  13% (2492/19163)
+2026-10-31T11:08:10.3150630Z Updating files:  14% (2683/19163)
+2026-10-31T11:08:10.3806430Z Updating files:  14% (2700/19163)
+2026-10-31T11:08:10.5265780Z Updating files:  15% (2875/19163)
+2026-10-31T11:08:10.6484860Z Updating files:  16% (3067/19163)
+2026-10-31T11:08:10.7952330Z Updating files:  17% (3258/19163)
+2026-10-31T11:08:10.9174650Z Updating files:  18% (3450/19163)
+2026-10-31T11:08:11.0445480Z Updating files:  19% (3641/19163)
+2026-10-31T11:08:11.2238200Z Updating files:  20% (3833/19163)
+2026-10-31T11:08:11.3139490Z Updating files:  21% (4025/19163)
+2026-10-31T11:08:11.3293640Z Updating files:  21% (4099/19163)
+2026-10-31T11:08:11.3856210Z Updating files:  22% (4216/19163)
+2026-10-31T11:08:11.4278240Z Updating files:  23% (4408/19163)
+2026-10-31T11:08:11.4612520Z Updating files:  24% (4600/19163)
+2026-10-31T11:08:11.5046840Z Updating files:  25% (4791/19163)
+2026-10-31T11:08:11.9813660Z Updating files:  26% (4983/19163)
+2026-10-31T11:08:12.0385540Z Updating files:  27% (5175/19163)
+2026-10-31T11:08:12.0726240Z Updating files:  28% (5366/19163)
+2026-10-31T11:08:12.1007850Z Updating files:  29% (5558/19163)
+2026-10-31T11:08:12.1603960Z Updating files:  30% (5749/19163)
+2026-10-31T11:08:12.2018920Z Updating files:  31% (5941/19163)
+2026-10-31T11:08:12.2815490Z Updating files:  32% (6133/19163)
+2026-10-31T11:08:12.3465170Z Updating files:  33% (6324/19163)
+2026-10-31T11:08:12.3594450Z Updating files:  33% (6441/19163)
+2026-10-31T11:08:12.4285440Z Updating files:  34% (6516/19163)
+2026-10-31T11:08:12.4509590Z Updating files:  35% (6708/19163)
+2026-10-31T11:08:12.7132780Z Updating files:  36% (6899/19163)
+2026-10-31T11:08:12.7565510Z Updating files:  37% (7091/19163)
+2026-10-31T11:08:12.8849930Z Updating files:  38% (7282/19163)
+2026-10-31T11:08:12.9516860Z Updating files:  39% (7474/19163)
+2026-10-31T11:08:13.0195230Z Updating files:  40% (7666/19163)
+2026-10-31T11:08:13.0423930Z Updating files:  41% (7857/19163)
+2026-10-31T11:08:13.4255510Z Updating files:  42% (8049/19163)
+2026-10-31T11:08:14.3611010Z Updating files:  42% (8076/19163)
+2026-10-31T11:08:14.3923200Z Updating files:  42% (8236/19163)
+2026-10-31T11:08:15.3954770Z Updating files:  43% (8241/19163)
+2026-10-31T11:08:16.0504240Z Updating files:  43% (8390/19163)
+2026-10-31T11:08:16.2079050Z Updating files:  44% (8432/19163)
+2026-10-31T11:08:16.2605160Z Updating files:  45% (8624/19163)
+2026-10-31T11:08:16.3133750Z Updating files:  46% (8815/19163)
+2026-10-31T11:08:16.4531250Z Updating files:  46% (8880/19163)
+2026-10-31T11:08:17.3171310Z Updating files:  47% (9007/19163)
+2026-10-31T11:08:17.4538280Z Updating files:  47% (9052/19163)
+2026-10-31T11:08:17.8889350Z Updating files:  48% (9199/19163)
+2026-10-31T11:08:18.3251510Z Updating files:  49% (9390/19163)
+2026-10-31T11:08:18.5596010Z Updating files:  49% (9492/19163)
+2026-10-31T11:08:18.6542580Z Updating files:  50% (9582/19163)
+2026-10-31T11:08:18.7213970Z Updating files:  51% (9774/19163)
+2026-10-31T11:08:19.0747010Z Updating files:  52% (9965/19163)
+2026-10-31T11:08:19.3156360Z Updating files:  53% (10157/19163)
+2026-10-31T11:08:19.9722180Z Updating files:  53% (10177/19163)
+2026-10-31T11:08:20.1323180Z Updating files:  54% (10349/19163)
+2026-10-31T11:08:20.2102570Z Updating files:  55% (10540/19163)
+2026-10-31T11:08:20.3969100Z Updating files:  56% (10732/19163)
+2026-10-31T11:08:20.5398010Z Updating files:  56% (10855/19163)
+2026-10-31T11:08:20.7501450Z Updating files:  57% (10923/19163)
+2026-10-31T11:08:21.0608800Z Updating files:  58% (11115/19163)
+2026-10-31T11:08:21.2590890Z Updating files:  59% (11307/19163)
+2026-10-31T11:08:21.3163490Z Updating files:  60% (11498/19163)
+2026-10-31T11:08:21.5606720Z Updating files:  60% (11553/19163)
+2026-10-31T11:08:21.7921430Z Updating files:  61% (11690/19163)
+2026-10-31T11:08:21.9740420Z Updating files:  62% (11882/19163)
+2026-10-31T11:08:22.3161350Z Updating files:  63% (12073/19163)
+2026-10-31T11:08:22.3406940Z Updating files:  63% (12247/19163)
+2026-10-31T11:08:22.5615680Z Updating files:  64% (12265/19163)
+2026-10-31T11:08:22.7481860Z Updating files:  65% (12456/19163)
+2026-10-31T11:08:22.9978300Z Updating files:  66% (12648/19163)
+2026-10-31T11:08:23.1726490Z Updating files:  67% (12840/19163)
+2026-10-31T11:08:23.3137640Z Updating files:  68% (13031/19163)
+2026-10-31T11:08:23.4167950Z Updating files:  68% (13142/19163)
+2026-10-31T11:08:23.5671160Z Updating files:  69% (13223/19163)
+2026-10-31T11:08:23.7458630Z Updating files:  70% (13415/19163)
+2026-10-31T11:08:23.8954130Z Updating files:  71% (13606/19163)
+2026-10-31T11:08:24.2290120Z Updating files:  72% (13798/19163)
+2026-10-31T11:08:24.3122160Z Updating files:  73% (13989/19163)
+2026-10-31T11:08:24.3616010Z Updating files:  73% (14069/19163)
+2026-10-31T11:08:24.4734220Z Updating files:  74% (14181/19163)
+2026-10-31T11:08:24.5447270Z Updating files:  75% (14373/19163)
+2026-10-31T11:08:24.6277900Z Updating files:  76% (14564/19163)
+2026-10-31T11:08:24.7307490Z Updating files:  77% (14756/19163)
+2026-10-31T11:08:24.8359340Z Updating files:  78% (14948/19163)
+2026-10-31T11:08:25.3147550Z Updating files:  79% (15139/19163)
+2026-10-31T11:08:25.3486230Z Updating files:  79% (15307/19163)
+2026-10-31T11:08:26.3613150Z Updating files:  80% (15331/19163)
+2026-10-31T11:08:27.3214330Z Updating files:  80% (15487/19163)
+2026-10-31T11:08:28.3578330Z Updating files:  80% (15491/19163)
+2026-10-31T11:08:29.1947160Z Updating files:  80% (15496/19163)
+2026-10-31T11:08:29.3143530Z Updating files:  81% (15523/19163)
+2026-10-31T11:08:29.3258290Z Updating files:  81% (15697/19163)
+2026-10-31T11:08:29.3925400Z Updating files:  82% (15714/19163)
+2026-10-31T11:08:29.4767690Z Updating files:  83% (15906/19163)
+2026-10-31T11:08:29.5609460Z Updating files:  84% (16097/19163)
+2026-10-31T11:08:29.6445060Z Updating files:  85% (16289/19163)
+2026-10-31T11:08:29.7328330Z Updating files:  86% (16481/19163)
+2026-10-31T11:08:29.7949140Z Updating files:  87% (16672/19163)
+2026-10-31T11:08:29.8703340Z Updating files:  88% (16864/19163)
+2026-10-31T11:08:29.9589500Z Updating files:  89% (17056/19163)
+2026-10-31T11:08:30.0096800Z Updating files:  90% (17247/19163)
+2026-10-31T11:08:30.0835710Z Updating files:  91% (17439/19163)
+2026-10-31T11:08:30.1234830Z Updating files:  92% (17630/19163)
+2026-10-31T11:08:30.1907850Z Updating files:  93% (17822/19163)
+2026-10-31T11:08:30.3407910Z Updating files:  94% (18014/19163)
+2026-10-31T11:08:30.7399870Z Updating files:  94% (18129/19163)
+2026-10-31T11:08:31.3153230Z Updating files:  95% (18205/19163)
+2026-10-31T11:08:31.3743190Z Updating files:  95% (18325/19163)
+2026-10-31T11:08:31.4095930Z Updating files:  96% (18397/19163)
+2026-10-31T11:08:31.6560730Z Updating files:  97% (18589/19163)
+2026-10-31T11:08:32.0653900Z Updating files:  98% (18780/19163)
+2026-10-31T11:08:32.4436800Z Updating files:  99% (18972/19163)
+2026-10-31T11:08:32.6752130Z Updating files:  99% (19156/19163)
+2026-10-31T11:08:32.6763560Z Updating files: 100% (19163/19163)
+2026-10-31T11:08:32.6766870Z Updating files: 100% (19163/19163), done.
+2026-10-31T11:08:32.7166550Z Switched to a new branch 'cloud-release/desktop-f7bcb90a-20261031'
+2026-10-31T11:08:32.7173170Z branch 'cloud-release/desktop-f7bcb90a-20261031' set up to track 'origin/cloud-release/desktop-f7bcb90a-20261031'.
+2026-10-31T11:08:32.9868300Z ##[endgroup]
+2026-10-31T11:08:33.0086680Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-31T11:08:33.0329150Z 8f4ffd473169f28561514d65d85371ae32c79dcb
+2026-10-31T11:08:33.0935520Z ##[group]Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+2026-10-31T11:08:33.0936230Z with:
+2026-10-31T11:08:33.0936720Z   pattern: cloud-package-*
+2026-10-31T11:08:33.0937180Z   path: distribution
+2026-10-31T11:08:33.0937680Z   merge-multiple: true
+2026-10-31T11:08:33.0938120Z   repository: VendettaMask/opticalsystem
+2026-10-31T11:08:33.0938470Z   run-id: 41194312708
+2026-10-31T11:08:33.0938740Z ##[endgroup]
+2026-10-31T11:08:33.4122990Z (node:9652) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-31T11:08:33.4137070Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-31T11:08:33.6259500Z Found 6 artifact(s)
+2026-10-31T11:08:33.6261820Z Filtering artifacts by pattern 'cloud-package-*'
+2026-10-31T11:08:33.6285630Z Preparing to download the following artifacts:
+2026-10-31T11:08:33.6296180Z - cloud-package-win-x64 (ID: 13041150602, Size: 144408772, Expected Digest: sha256:ff10f3d4a08ce1bd8fab278bbdffd357611e7cec5ac92cbdc9a9579d4b02d7e8)
+2026-10-31T11:08:33.6301060Z - cloud-package-win-arm64 (ID: 13041040057, Size: 142053534, Expected Digest: sha256:e7eeced967529defab4346c49c5ae0f9394c4f9f94f73b13e868fab5fa21a6cb)
+2026-10-31T11:08:33.6306970Z - cloud-package-osx-arm64 (ID: 13040585590, Size: 117983572, Expected Digest: sha256:8bf62179e46dedf47b4061b9a7320cabcd35434f8298ffa2b413e947beb495db)
+2026-10-31T11:08:33.8376680Z Redirecting to blob download url: https://productionresultssa13.blob.core.windows.net/actions-results/f3af274b-5beb-4027-a693-487426d55e0d/workflow-job-run-effc6084-b704-51aa-9e24-391a4844cf99/artifacts/bd285ef33124aa024e992bce357102183cde169264c50865a9f24e7f5c6c7595.zip
+2026-10-31T11:08:33.8381170Z Starting download of artifact to: /Users/runner/work/opticalsystem/opticalsystem/distribution
+2026-10-31T11:08:33.9058990Z Redirecting to blob download url: https://productionresultssa13.blob.core.windows.net/actions-results/f3af274b-5beb-4027-a693-487426d55e0d/workflow-job-run-a4d8d249-ff3f-555f-bbfb-595748aeaeab/artifacts/80ae33c95f1e3e7e2cb3f1ab9d1f42ee1d57290751e0b3954fc783ce24da528d.zip
+2026-10-31T11:08:33.9060610Z Starting download of artifact to: /Users/runner/work/opticalsystem/opticalsystem/distribution
+2026-10-31T11:08:33.9316210Z Redirecting to blob download url: https://productionresultssa13.blob.core.windows.net/actions-results/f3af274b-5beb-4027-a693-487426d55e0d/workflow-job-run-f676b389-f688-5958-8e29-cc5e2b09b43b/artifacts/c29a870ddb7eb613abef7a292a7f27d66c82476491548936e668fb9bbb693d04.zip
+2026-10-31T11:08:33.9323630Z Starting download of artifact to: /Users/runner/work/opticalsystem/opticalsystem/distribution
+2026-10-31T11:08:34.0514830Z (node:9652) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-10-31T11:08:39.1665930Z SHA256 digest of downloaded artifact is 8bf62179e46dedf47b4061b9a7320cabcd35434f8298ffa2b413e947beb495db
+2026-10-31T11:08:39.1667160Z Artifact download completed successfully.
+2026-10-31T11:08:40.8302000Z SHA256 digest of downloaded artifact is ff10f3d4a08ce1bd8fab278bbdffd357611e7cec5ac92cbdc9a9579d4b02d7e8
+2026-10-31T11:08:40.8315420Z Artifact download completed successfully.
+2026-10-31T11:08:42.7657860Z SHA256 digest of downloaded artifact is e7eeced967529defab4346c49c5ae0f9394c4f9f94f73b13e868fab5fa21a6cb
+2026-10-31T11:08:42.7875020Z Artifact download completed successfully.
+2026-10-31T11:08:42.7976860Z Total of 3 artifact(s) downloaded
+2026-10-31T11:08:42.8078160Z Download artifact has finished successfully
+2026-10-31T11:08:42.8187980Z ##[group]Run if (-not (Test-Path distribution/release-osx-arm64.json)) { return }
+2026-10-31T11:08:42.8188740Z [36;1mif (-not (Test-Path distribution/release-osx-arm64.json)) { return }[0m
+2026-10-31T11:08:42.8189840Z [36;1m[void][IO.Directory]::CreateDirectory('distribution/release-evidence')[0m
+2026-10-31T11:08:42.8191010Z [36;1m$headers = @{ Authorization = "***"; Accept = 'application/vnd.github+json'; 'User-Agent' = 'OpticalSystemDesign-MacOTA' }[0m
+2026-10-31T11:08:42.8192130Z [36;1m$base = Invoke-RestMethod -Uri 'https://api.github.com/repos/VendettaMask/opticalsystem/contents/updates/macos/appcast.xml?ref=main' -Headers $headers[0m
+2026-10-31T11:08:42.8193160Z [36;1m@{ sha = $base.sha } | ConvertTo-Json | Set-Content distribution/release-evidence/macos-feed-base.json -Encoding utf8[0m
+2026-10-31T11:08:42.8193880Z [36;1m$feed = Join-Path $env:RUNNER_TEMP 'macos-feed-before.xml'[0m
+2026-10-31T11:08:42.8194530Z [36;1m[IO.File]::WriteAllBytes($feed, [Convert]::FromBase64String($base.content))[0m
+2026-10-31T11:08:42.8195490Z [36;1m./scripts/prepare-macos-ota-release.ps1 -DistributionDirectory distribution -Tag $env:RELEASE_TAG -ExistingFeed $feed -OutputDirectory distribution/release-evidence[0m
+2026-10-31T11:08:42.8388390Z shell: /usr/local/bin/pwsh -command ". '{0}'"
+2026-10-31T11:08:42.8389500Z env:
+2026-10-31T11:08:42.8396120Z   GH_TOKEN: ***
+2026-10-31T11:08:42.8424230Z   OPTICAL_OTA_SIGNING_KEY: ***
+2026-10-31T11:08:42.8425330Z   OPTICAL_OTA_ENCRYPTED_BACKUP: 
+2026-10-31T11:08:42.8425690Z   OPTICAL_OTA_RECOVERY_PASSWORD: 
+2026-10-31T11:08:42.8426060Z   RELEASE_TAG: v1.0.4-test.20261019
+2026-10-31T11:08:42.8426400Z ##[endgroup]
+2026-10-31T11:08:52.6308540Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-10-31T11:08:52.6309710Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-10-31T11:08:52.6310170Z 
+2026-10-31T11:08:52.8268730Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-10-31T11:08:52.8370090Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-10-31T11:08:53.0797050Z 
+2026-10-31T11:08:53.0798250Z 100 15.5M  100 15.5M    0     0  34.6M      0 --:--:-- --:--:-- --:--:-- 34.6M
+2026-10-31T11:08:53.2004350Z /var/folders/y3/p6x0rn5562l5qyxy7x6jqrsc0000gn/T/7e536cba618b4edd8dd84c8c9b3db018/dependency/Sparkle-2.10.1.tar.xz: OK
+2026-10-31T11:08:56.9684100Z <!-- Updated signature inside appcast.xml and added warning for making further modifications. -->
+2026-10-31T11:08:57.1226650Z ##[group]Run ./scripts/publish-github-exe.ps1 -Repository $env:GITHUB_REPOSITORY -Tag $env:RELEASE_TAG -DistributionDirectory distribution -ReplaceExisting:($env:REPLACE_EXISTING -eq 'true') -NotesFile packaging/windows/RELEASE_NOTES.md
+2026-10-31T11:08:57.1228470Z [36;1m./scripts/publish-github-exe.ps1 -Repository $env:GITHUB_REPOSITORY -Tag $env:RELEASE_TAG -DistributionDirectory distribution -ReplaceExisting:($env:REPLACE_EXISTING -eq 'true') -NotesFile packaging/windows/RELEASE_NOTES.md[0m
+2026-10-31T11:08:57.1255440Z shell: /usr/local/bin/pwsh -command ". '{0}'"
+2026-10-31T11:08:57.1256120Z env:
+2026-10-31T11:08:57.1258840Z   GH_TOKEN: ***
+2026-10-31T11:08:57.1271540Z   OPTICAL_OTA_SIGNING_KEY: ***
+2026-10-31T11:08:57.1272140Z   OPTICAL_OTA_ENCRYPTED_BACKUP: 
+2026-10-31T11:08:57.1272920Z   OPTICAL_OTA_RECOVERY_PASSWORD: 
+2026-10-31T11:08:57.1273520Z   RELEASE_TAG: v1.0.4-test.20261019
+2026-10-31T11:08:57.1274060Z   REPLACE_EXISTING: true
+2026-10-31T11:08:57.1274730Z ##[endgroup]
+2026-10-31T11:09:58.1544670Z Published and verified desktop release: https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019
+2026-10-31T11:09:58.2444360Z ##[group]Run ./scripts/publish-macos-appcast.ps1 -DistributionDirectory distribution
+2026-10-31T11:09:58.2445550Z [36;1m./scripts/publish-macos-appcast.ps1 -DistributionDirectory distribution[0m
+2026-10-31T11:09:58.2593450Z shell: /usr/local/bin/pwsh -command ". '{0}'"
+2026-10-31T11:09:58.2594120Z env:
+2026-10-31T11:09:58.2634290Z   GH_TOKEN: ***
+2026-10-31T11:09:58.2634870Z ##[endgroup]
+2026-10-31T11:10:00.6610360Z Verified Mac archive and signed appcast are published.
+2026-10-31T11:10:00.7331090Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-31T11:10:00.7331710Z with:
+2026-10-31T11:10:00.7332050Z   name: cloud-release-receipt
+2026-10-31T11:10:00.7332480Z   path: distribution/release-evidence
+2026-10-31T11:10:00.7332910Z   if-no-files-found: warn
+2026-10-31T11:10:00.7333290Z   retention-days: 30
+2026-10-31T11:10:00.7333660Z   compression-level: 6
+2026-10-31T11:10:00.7334900Z   overwrite: false
+2026-10-31T11:10:00.7335960Z   include-hidden-files: false
+2026-10-31T11:10:00.7337040Z ##[endgroup]
+2026-10-31T11:10:01.2964440Z (node:12152) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-31T11:10:01.2966810Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-31T11:10:01.3027010Z With the provided path, there will be 11 files uploaded
+2026-10-31T11:10:01.3028950Z Artifact name is valid!
+2026-10-31T11:10:01.3030070Z Root directory input is valid!
+2026-10-31T11:10:01.6514280Z Beginning upload of artifact content to blob storage
+2026-10-31T11:10:01.9259130Z (node:12152) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-31T11:10:02.5917110Z Uploaded bytes 8388608
+2026-10-31T11:10:02.9299810Z Uploaded bytes 16777216
+2026-10-31T11:10:03.1814520Z Uploaded bytes 25165824
+2026-10-31T11:10:03.2810190Z Uploaded bytes 33554432
+2026-10-31T11:10:03.5340560Z Uploaded bytes 41943040
+2026-10-31T11:10:03.8692520Z Uploaded bytes 50331648
+2026-10-31T11:10:04.1982870Z Uploaded bytes 58720256
+2026-10-31T11:10:04.7195690Z Uploaded bytes 67108864
+2026-10-31T11:10:05.0708420Z Uploaded bytes 75497472
+2026-10-31T11:10:05.3229490Z Uploaded bytes 83886080
+2026-10-31T11:10:05.6860300Z Uploaded bytes 92274688
+2026-10-31T11:10:05.9940700Z Uploaded bytes 100663296
+2026-10-31T11:10:06.3191420Z Uploaded bytes 109051904
+2026-10-31T11:10:06.6445800Z Uploaded bytes 117440512
+2026-10-31T11:10:07.2823640Z Uploaded bytes 125829120
+2026-10-31T11:10:08.0817920Z Uploaded bytes 134217728
+2026-10-31T11:10:08.8505760Z Uploaded bytes 142606336
+2026-10-31T11:10:09.8469090Z Uploaded bytes 150994944
+2026-10-31T11:10:10.9092500Z Uploaded bytes 159383552
+2026-10-31T11:10:11.6941280Z Uploaded bytes 167772160
+2026-10-31T11:10:12.1062210Z Uploaded bytes 176160768
+2026-10-31T11:10:12.4438010Z Uploaded bytes 184549376
+2026-10-31T11:10:12.9636950Z Uploaded bytes 192937984
+2026-10-31T11:10:13.3879730Z Uploaded bytes 201326592
+2026-10-31T11:10:13.8464060Z Uploaded bytes 209715200
+2026-10-31T11:10:14.1572370Z Uploaded bytes 218103808
+2026-10-31T11:10:14.7789340Z Uploaded bytes 226492416
+2026-10-31T11:10:15.3480530Z Uploaded bytes 234881024
+2026-10-31T11:10:16.0384990Z Uploaded bytes 243269632
+2026-10-31T11:10:16.5188030Z Uploaded bytes 251658240
+2026-10-31T11:10:16.9742210Z Uploaded bytes 260046848
+2026-10-31T11:10:17.7221460Z Uploaded bytes 268435456
+2026-10-31T11:10:18.5552670Z Uploaded bytes 276824064
+2026-10-31T11:10:19.5443700Z Uploaded bytes 285212672
+2026-10-31T11:10:20.5898620Z Uploaded bytes 293601280
+2026-10-31T11:10:21.5784460Z Uploaded bytes 301989888
+2026-10-31T11:10:22.0906410Z Uploaded bytes 310378496
+2026-10-31T11:10:22.4098840Z Uploaded bytes 318767104
+2026-10-31T11:10:22.8389960Z Uploaded bytes 327155712
+2026-10-31T11:10:23.1979860Z Uploaded bytes 335544320
+2026-10-31T11:10:23.6250900Z Uploaded bytes 343932928
+2026-10-31T11:10:23.8957640Z Uploaded bytes 352321536
+2026-10-31T11:10:24.4066270Z Uploaded bytes 360710144
+2026-10-31T11:10:24.8655890Z Uploaded bytes 369098752
+2026-10-31T11:10:25.5054140Z Uploaded bytes 377487360
+2026-10-31T11:10:26.2088430Z Uploaded bytes 385875968
+2026-10-31T11:10:26.8426700Z Uploaded bytes 394264576
+2026-10-31T11:10:27.2772020Z Uploaded bytes 402653184
+2026-10-31T11:10:27.3276050Z Uploaded bytes 402747839
+2026-10-31T11:10:27.3777950Z Finished uploading artifact content to blob storage!
+2026-10-31T11:10:27.3890420Z SHA256 digest of uploaded artifact zip is 28b06aa77c3196e5c1c3c07b0ae7db5a5fee35919e75d3114617d4a27857f793
+2026-10-31T11:10:27.3978600Z Finalizing artifact upload
+2026-10-31T11:10:27.9449840Z Artifact cloud-release-receipt.zip successfully finalized. Artifact ID 13040770955
+2026-10-31T11:10:27.9477900Z Artifact cloud-release-receipt has been successfully uploaded! Final size is 402747839 bytes. Artifact ID is 13040770955
+2026-10-31T11:10:27.9497140Z Artifact download URL: https://github.com/VendettaMask/opticalsystem/actions/runs/41194312708/artifacts/13040770955
+2026-10-31T11:10:27.9967000Z Post job cleanup.
+2026-10-31T11:10:28.2194190Z [command]/opt/homebrew/bin/git version
+2026-10-31T11:10:28.2492410Z git version 2.56.0
+2026-10-31T11:10:28.2518770Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/c8a2cc6c-24c0-400c-acb8-8ba9466a58b4/.gitconfig'
+2026-10-31T11:10:28.2538870Z Temporarily overriding HOME='/Users/runner/work/_temp/c8a2cc6c-24c0-400c-acb8-8ba9466a58b4' before making global git config changes
+2026-10-31T11:10:28.2542370Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-31T11:10:28.2544650Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/opticalsystem/opticalsystem
+2026-10-31T11:10:28.2677920Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-31T11:10:28.2840800Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-31T11:10:28.4385700Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-31T11:10:28.4525790Z http.https://github.com/.extraheader
+2026-10-31T11:10:28.4540600Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-31T11:10:28.4670590Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-31T11:10:28.5581060Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-31T11:10:28.5650180Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-31T11:10:28.8096260Z Cleaning up orphan processes
+2026-10-31T11:10:29.7925100Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

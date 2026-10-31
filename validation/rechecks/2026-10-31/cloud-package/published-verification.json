@@ -1,0 +1,44 @@
+{
+  "VerifiedAt": "2026-10-31T19:10:52.3064693+08:00",
+  "SourceCommit": "8f4ffd473169f28561514d65d85371ae32c79dcb",
+  "RunId": 41194312708,
+  "RunUrl": "https://github.com/VendettaMask/opticalsystem/actions/runs/41194312708",
+  "ReleaseUrl": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+  "Tag": "v1.0.4-test.20261019",
+  "RunConclusion": "success",
+  "Windows": [
+    {
+      "Runtime": "win-arm64",
+      "Name": "OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-8f4ffd47.exe",
+      "Bytes": 337247033,
+      "Sha256": "7afe018b6359efc0239a1a4aa6916ad63c85c2db404921a7c5a2a91e498b9256",
+      "SourceCommit": "8f4ffd473169f28561514d65d85371ae32c79dcb",
+      "BuildSequence": 41194312708,
+      "OtaSignatureVerified": true,
+      "Url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-8f4ffd47.exe"
+    },
+    {
+      "Runtime": "win-x64",
+      "Name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-8f4ffd47.exe",
+      "Bytes": 327664532,
+      "Sha256": "ff17727665737c744fcf4a09730cf4a4a3e8a2ece0b54bcdaec58502c29a1e41",
+      "SourceCommit": "8f4ffd473169f28561514d65d85371ae32c79dcb",
+      "BuildSequence": 41194312708,
+      "OtaSignatureVerified": true,
+      "Url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-8f4ffd47.exe"
+    }
+  ],
+  "Mac": {
+    "Name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+    "Bytes": 121583741,
+    "Sha256": "2518a7a58e8806a3f74de00e5e5a26cd035e89c84e0e42e279e83ea9d818a2d6",
+    "Url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+    "ActiveFeedAttachmentVerified": true,
+    "SignatureVerification": "Sparkle archive/appcast signature validation performed by the successful cloud publish workflow; local check preserves feed bytes and verifies published attachment identity."
+  },
+  "Limitations": [
+    "GitHub server digests checked against signed Windows metadata and published Mac provenance; complete installers were not downloaded again.",
+    "No local installation, restart or native user desktop acceptance.",
+    "The release workflow performs scoped delivery checks, not complete numerical certification."
+  ]
+}
