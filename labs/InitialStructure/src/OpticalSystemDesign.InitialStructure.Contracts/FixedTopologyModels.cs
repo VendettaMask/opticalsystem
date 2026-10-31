@@ -38,6 +38,10 @@ public sealed record TopologyTrainingSampling
 
 public sealed record FixedTopologyOptions
 {
+    /// <summary>Explicit experimental compensation: 1 frozen projected QR; 2 joint Core inequality step, failed gates first.
+    /// Null preserves historical Adam/transmission policies.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? GateCompensationVersion { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? TransmissionFirst { get; init; }
     /// <summary>Choose up to this many independent boundary/constraint sensitivity columns per proposal.</summary>

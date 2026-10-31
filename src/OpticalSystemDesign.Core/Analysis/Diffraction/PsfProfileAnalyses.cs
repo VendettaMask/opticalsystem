@@ -170,6 +170,8 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
 
     public override string Name => "Huygens PSF Cross Section";
 
+    public AfocalHuygensIntegration AfocalIntegration { get; init; } = AfocalHuygensIntegration.NativeFiniteCell;
+
     public override AnalysisData GenerateData()
     {
         var source = new HuygensPsfAnalysis(
@@ -183,7 +185,7 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             displayAs: "截面",
             usePolarization: _usePolarization,
             normalize: false,
-            useCentroid: _useCentroid).GenerateData();
+            useCentroid: _useCentroid) { AfocalIntegration = AfocalIntegration }.GenerateData();
         var extentKey = Optic.ImageSpaceAfocal ? "ImageExtentMilliradians" : "ImageExtentMicrometers";
         var graphScaleMicrometers = source.Values.TryGetValue(extentKey, out var extent)
             ? Convert.ToDouble(extent) / 2

@@ -22,7 +22,7 @@ public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 2;
-    public const int ProjectFormatVersion = 7;
+    public const int ProjectFormatVersion = 12;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
@@ -54,7 +54,11 @@ public static class StarOptProjectStore
         }
 
         var project = new StarOptProjectSnapshot(
-            ProjectFormatVersion,
+            document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.EnhancedProtocol) == true ? ProjectFormatVersion
+                : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.SpecularProtocol) == true ? 11
+                : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.FixedAxisProtocol) == true ? 10
+                : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.Kind == NonSequentialBsdfKind.Measured) == true ? 9
+                : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf is not null) == true ? 8 : 7,
             "Optical System Design",
             document.ActiveConfigurationIndex,
             configurations,
@@ -250,6 +254,16 @@ public static class StarOptProjectStore
         ValidateOperandPickups(project.OperandPickups, project.OperandVariables, project.OperandRows, configurations, project.BrokenLinks);
         var nonSequentialDocument = project.NonSequentialDocument
             ?? CreateDefaultNonSequentialDocument(configurations[project.ActiveConfigurationIndex]);
+        if (project.FormatVersion < 8 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf is not null))
+            throw new InvalidDataException("Surface BSDF models require STAROPT project version 8.");
+        if (project.FormatVersion < 9 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.Kind == NonSequentialBsdfKind.Measured))
+            throw new InvalidDataException("Measured BSDF models require STAROPT project version 9.");
+        if (project.FormatVersion < 10 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.FixedAxisProtocol))
+            throw new InvalidDataException("Commercial/fixed-axis BSDF models require STAROPT project version 10.");
+        if (project.FormatVersion < 12 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.EnhancedProtocol))
+            throw new InvalidDataException("Enhanced/calibrated XYZ BSDF requires STAROPT project version 12.");
+        if (project.FormatVersion < 11 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.SpecularProtocol))
+            throw new InvalidDataException("Projected/specular-centred BSDF requires STAROPT project version 11.");
         if (containerVersion == 1 && nonSequentialDocument.MeshAssets.Count > 0)
         {
             throw new InvalidDataException("STAROPT container version 1 cannot contain embedded mesh assets.");

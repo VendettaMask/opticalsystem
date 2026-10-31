@@ -1,0 +1,521 @@
+{
+  "role": "Unchanged original five geometric-energy requests and original gates; physical angular CDF remains a separate contract",
+  "sourceArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "cases": [
+    {
+      "id": "0013-001-afocal-riflescope-c1-primary-f1-w2-encircled-energy",
+      "request": {
+        "canonicalAnalysisKey": "Encircled Energy",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "NumRays": "32",
+          "NumPoints": "401",
+          "Distribution": "uniform",
+          "WavelengthNumber": "2",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "1.454441043328608",
+          "MultiplyByDiffractionLimit": "False",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "MaximumRadiusMicrometers": "5",
+          "ZemaxCompatibleOutput": "True"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "Field": 0,
+          "Surface": -1,
+          "SampleSize": "S_32x32",
+          "UsePolarization": false,
+          "RadiusMaximum": 5,
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "HuygensSample": "S_64x64",
+          "HuygensDelta": 0
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "fingerprint": "b02c5dbabf7bd154922777bad3b7bd25edbca26a4ea840dfd163292ecf7a5dfe",
+      "nativeDataSha256": "fb8c07403a68fdb14cd3c7d6b893ef99a0f7ac35305bdb51f5162596146d4c78",
+      "snapshotSha256": "83905a19963065b1727927d3b2e28897c43deca293e66d89ca8a167331da54a7",
+      "originalConclusion": "Difference",
+      "effectiveTolerances": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      }
+    },
+    {
+      "id": "0043-002-beam-expander-c1-primary-f1-w1-encircled-energy",
+      "request": {
+        "canonicalAnalysisKey": "Encircled Energy",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "NumRays": "32",
+          "NumPoints": "401",
+          "Distribution": "uniform",
+          "WavelengthNumber": "1",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "0.0242406840554768",
+          "MultiplyByDiffractionLimit": "False",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "MaximumRadiusMicrometers": "5",
+          "ZemaxCompatibleOutput": "True"
+        },
+        "zemaxSettings": {
+          "Wavelength": 1,
+          "Field": 0,
+          "Surface": -1,
+          "SampleSize": "S_32x32",
+          "UsePolarization": false,
+          "RadiusMaximum": 5,
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "HuygensSample": "S_64x64",
+          "HuygensDelta": 0
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "fingerprint": "be5f527e350dc319e12cd0183ca144d3b0c4affd01b3303272f7e83af5a564ed",
+      "nativeDataSha256": "54dc24c1f413a85bc4bdde5095736da895d3fe3e65588f2e1c9252b5ec5401d6",
+      "snapshotSha256": "483d5b6057a54bbf858ec51dbd551d372ed765460c71cca6e8cfc8beb888e638",
+      "originalConclusion": "Pass",
+      "effectiveTolerances": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      }
+    },
+    {
+      "id": "0065-003-binocular_system-c1-primary-f1-w2-encircled-energy",
+      "request": {
+        "canonicalAnalysisKey": "Encircled Energy",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "NumRays": "32",
+          "NumPoints": "401",
+          "Distribution": "uniform",
+          "WavelengthNumber": "2",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "MaximumRadiusMicrometers": "5",
+          "ZemaxCompatibleOutput": "True"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "Field": 0,
+          "Surface": -1,
+          "SampleSize": "S_32x32",
+          "UsePolarization": false,
+          "RadiusMaximum": 5,
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "HuygensSample": "S_64x64",
+          "HuygensDelta": 0
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "fingerprint": "5554c1ded8900634de1de5224cb6a2ebba6cd3accce5bd385c191d43ef5af409",
+      "nativeDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "snapshotSha256": "c870650c51b74f9e09ccb010b6248f0f5c284cc2e287e1f0b4b8185e9500f970",
+      "originalConclusion": "Difference",
+      "effectiveTolerances": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      }
+    },
+    {
+      "id": "0095-003-binocular_system-c2-primary-f1-w2-encircled-energy",
+      "request": {
+        "canonicalAnalysisKey": "Encircled Energy",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 0,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "NumRays": "32",
+          "NumPoints": "401",
+          "Distribution": "uniform",
+          "WavelengthNumber": "2",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "MaximumRadiusMicrometers": "5",
+          "ZemaxCompatibleOutput": "True"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "Field": 0,
+          "Surface": -1,
+          "SampleSize": "S_32x32",
+          "UsePolarization": false,
+          "RadiusMaximum": 5,
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "HuygensSample": "S_64x64",
+          "HuygensDelta": 0
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "fingerprint": "b69d1e4f807d5451b210c5dcd97c4a438a258578dc80887cf6aa433d4def5271",
+      "nativeDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "snapshotSha256": "f9db7be807e3dcb36cd9809e5ab9de0e63f43f7cc3ae05fbb1dd2c2587e4f416",
+      "originalConclusion": "Difference",
+      "effectiveTolerances": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      }
+    },
+    {
+      "id": "0125-004-apochromat_prism-c1-primary-f1-w3-encircled-energy",
+      "request": {
+        "canonicalAnalysisKey": "Encircled Energy",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "Centroid",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "NumRays": "32",
+          "NumPoints": "401",
+          "Distribution": "uniform",
+          "WavelengthNumber": "3",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "MaximumRadiusMicrometers": "5",
+          "ZemaxCompatibleOutput": "True"
+        },
+        "zemaxSettings": {
+          "Wavelength": 3,
+          "Field": 0,
+          "Surface": -1,
+          "SampleSize": "S_32x32",
+          "UsePolarization": false,
+          "RadiusMaximum": 5,
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "HuygensSample": "S_64x64",
+          "HuygensDelta": 0
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "fingerprint": "8090dc57f1b16008085605ff5a88b8752afcd26feec59d71589b72f0258d59ec",
+      "nativeDataSha256": "159ecb09fed7f4862685e2d63e4c818e3333e49994b8e78c02b9803b2813a788",
+      "snapshotSha256": "2634b29b2ef9b357dc2528df14973145d4c25dd202e93d9faaf46f001a942cc1",
+      "originalConclusion": "Pass",
+      "effectiveTolerances": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      }
+    }
+  ]
+}

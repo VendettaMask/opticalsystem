@@ -187,7 +187,12 @@ public sealed partial class Paraxial
             return 0;
         }
 
-        var relativeLocation = matrix.B / matrix.A;
+        // TraceMatrix(0, ...) includes the virtual Object row's unit-index
+        // incident convention. The pupil position is measured inside the actual
+        // object medium: undo its 1/n angular factor before converting B/A into
+        // a physical distance. Unit-index paths keep their exact old value.
+        var objectIndex = objectSurface?.MaterialAfter.RefractiveIndex(wavelengthNanometers) ?? 1;
+        var relativeLocation = objectIndex * (matrix.B / matrix.A);
         return ObjectConjugate.IsInfinite(objectSurface)
             ? relativeLocation
             : (objectSurface?.CoordinateSystem.Origin.Z ?? 0) + relativeLocation;

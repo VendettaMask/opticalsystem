@@ -117,14 +117,18 @@ public sealed class NonSequentialPathFilter
                 {
                     result.Add(new PathEvent(AtomKind.Detected, number));
                 }
-                if (segment.InteractionKind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection)
+                if (segment.InteractionKind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection or RayInteractionKind.DiffuseReflection)
                 {
                     result.Add(new PathEvent(AtomKind.Reflected, number));
                 }
-                else if (segment.InteractionKind == RayInteractionKind.Transmitted)
+                else if (segment.InteractionKind is RayInteractionKind.Transmitted or RayInteractionKind.DiffuseTransmission)
                 {
                     result.Add(new PathEvent(AtomKind.Transmitted, number));
                 }
+                if (segment.InteractionKind is RayInteractionKind.DiffuseReflection or RayInteractionKind.DiffuseTransmission)
+                    result.Add(new PathEvent(AtomKind.Scattered, number));
+                if (segment.InteractionKind == RayInteractionKind.DiffuseTransmission)
+                    result.Add(new PathEvent(AtomKind.ScatteredTransmission, number));
             }
 
             result.Add(new PathEvent(branch.TerminationReason switch
@@ -202,6 +206,8 @@ public sealed class NonSequentialPathFilter
         Source,
         Hit,
         Reflected,
+        Scattered,
+        ScatteredTransmission,
         Transmitted,
         Detected,
         Miss,
@@ -312,6 +318,8 @@ public sealed class NonSequentialPathFilter
                 'Q' => AtomKind.Source,
                 'H' => AtomKind.Hit,
                 'R' => AtomKind.Reflected,
+                'S' => AtomKind.Scattered,
+                'B' => AtomKind.ScatteredTransmission,
                 'T' => AtomKind.Transmitted,
                 'D' => AtomKind.Detected,
                 'M' => AtomKind.Miss,
@@ -451,6 +459,8 @@ public static class NonSequentialPathAnalyzer
                 : segment.InteractionKind switch
                 {
                     RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection => "R",
+                    RayInteractionKind.DiffuseReflection => "S",
+                    RayInteractionKind.DiffuseTransmission => "B",
                     RayInteractionKind.Transmitted => "T",
                     _ => "H"
                 };

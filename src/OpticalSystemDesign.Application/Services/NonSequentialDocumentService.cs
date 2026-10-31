@@ -129,7 +129,8 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
                     template.TiltZDegrees),
                 template.ReferenceObjectId,
                 template.ContainingObjectId,
-                ToCore(template.Parameters));
+                ToCore(template.Parameters),
+                ToCore(template.SurfaceBsdf));
             document.Insert(insertionIndex, pasted);
             ValidateMaterials(document);
             Runtime.ReplaceNonSequentialDocument(document, $"已粘贴非序列对象“{pasted.Name}”。");
@@ -180,7 +181,8 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
                     update.TiltZDegrees),
                 update.ReferenceObjectId,
                 update.ContainingObjectId,
-                parameters);
+                parameters,
+                ToCore(update.SurfaceBsdf));
             document.Replace(existing.Id, replacement);
             ValidateMaterials(document);
             Runtime.ReplaceNonSequentialDocument(document, $"已更新非序列对象“{replacement.Name}”。");
@@ -391,6 +393,32 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
     public NonSequentialRayDatabaseDto OpenRayDatabase(string path, string? pathFilterExpression = null)
         => _analysisService.OpenRayDatabase(path, pathFilterExpression);
 
+    public async Task<NonSequentialSurfaceBsdf> ImportMeasuredBsdfAsync(Guid objectId, string path, CancellationToken cancellationToken = default, BsdfImportOptions? options = null)
+    {
+        long generation, revision;
+        lock (Gate) { generation = Workspace.DocumentGeneration; revision = Workspace.Revision; }
+        var data = await Task.Run(() =>
+        {
+            using var scope = Core.Services.ComputationCancellation.Push(cancellationToken);
+            return Core.Scattering.BsdfFileImporter.Read(path, options is null ? null : new((Core.Scattering.BsdfImportSides)(int)options.Sides,
+                options.ZemaxWavelengthNanometers, options.ZemaxRadiometric, options.IncidentIndex, options.TransmittedIndex, options.ZemaxXyzCalibrationPath, options.SpeosPeak), cancellationToken);
+        }, cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+        return MutateTransactional(WorkspaceChangeCategory.NonSequential, () =>
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (generation != Workspace.DocumentGeneration || revision != Workspace.Revision)
+                throw new OperationCanceledException("BSDF 导入期间工程已改变，原对象保持不变。", cancellationToken);
+            var document = Runtime.CurrentNonSequentialDocument.Clone();
+            var original = document.Objects.Single(o => o.Id == objectId);
+            var model = new Core.NonSequential.NonSequentialSurfaceBsdf(Core.NonSequential.NonSequentialBsdfKind.Measured, 0, data,
+                data.Coordinates == Core.Scattering.BsdfCoordinates.FixedMaterialAxes ? original.SurfaceBsdf?.MaterialAxis ?? new() : null);
+            document.Replace(objectId, original with { SurfaceBsdf = model }); ValidateMaterials(document);
+            Runtime.ReplaceNonSequentialDocument(document, $"已导入实测 BSDF：{data.Name}");
+            return NonSequentialBsdfMapper.ToDto(model)!;
+        });
+    }
+
     private void ValidateMaterials(CoreDocument document)
     {
         _ = Runtime.CurrentOptic.Materials.Resolve(document.AmbientMaterial);
@@ -429,7 +457,11 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         item.LocalCoordinateSystem.RotationZDegrees,
         MaterialNames(item).FirstOrDefault() ?? string.Empty,
         ToDto(item.Parameters, document),
-        Summary(item.Parameters));
+        Summary(item.Parameters) + (item.SurfaceBsdf is { } bsdf ? bsdf.MeasuredData is { } d ? $" · BSDF {d.Name}" : $" · Lambertian ρ={bsdf.Reflectance:G5}" : ""),
+        NonSequentialBsdfMapper.ToDto(item.SurfaceBsdf));
+
+    private static OpticalSystemDesign.Core.NonSequential.NonSequentialSurfaceBsdf? ToCore(NonSequentialSurfaceBsdf? bsdf) =>
+        NonSequentialBsdfMapper.ToCore(bsdf);
 
     private static string Role(CoreObjectKind kind) => kind switch
     {

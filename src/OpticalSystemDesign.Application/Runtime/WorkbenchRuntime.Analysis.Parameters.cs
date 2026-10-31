@@ -879,6 +879,8 @@ public partial class WorkbenchRuntime
             },
             "Huygens PSF" => new[]
             {
+                ChoiceParameter("AfocalIntegration", "无焦瞳孔积分（标量）", "原生有限单元",
+                    CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
                 ChoiceParameter(
                     "PupilSampling",
                     "光瞳采样",
@@ -926,6 +928,8 @@ public partial class WorkbenchRuntime
             },
             "Huygens PSF Cross Section" => new[]
             {
+                ChoiceParameter("AfocalIntegration", "无焦瞳孔积分（标量）", "原生有限单元",
+                    CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
                 ChoiceParameter("PupilSampling", "光瞳采样", "32", new[] { "16", "32", "64", "128" }),
                 ChoiceParameter("ImageSampling", "像面采样", "32", new[] { "16", "32", "64", "128" }),
                 DoubleParameter("ImageDeltaMicrometers", "像面采样间距 (µm，0 为自动)", "0", 0, 1000, 0.1),
@@ -937,6 +941,8 @@ public partial class WorkbenchRuntime
             },
             "Huygens MTF" => new[]
             {
+                ChoiceParameter("AfocalIntegration", "无焦瞳孔积分（标量）", "原生有限单元",
+                    CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
                 ChoiceParameter("PupilSampling", "瞳面采样", "32", new[] { "32", "64", "128", "256", "512" }),
                 ChoiceParameter("ImageSampling", "图像采样", "32", new[] { "32", "64", "128", "256", "512" }),
                 DoubleParameter("ImageDeltaMicrometers", "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),

@@ -6,13 +6,13 @@ namespace OpticalSystemDesign.CoatingDesign.Engine;
 
 public sealed partial class DesignService
 {
-    public const string ReflectanceQualityProtocol = "worst-reflectance/3";
+    public const string ReflectanceQualityProtocol = "worst-reflectance/7";
 
     // Minimize the epigraph of R (AR) or 1-R (HR), on either side of the original acceptance threshold.
     // The level is bounded by the starting worst loss; no empirical feasible-side weight is added.
     private (FilmLayer[] Layers, double Merit, RunRecord Run) RefineGeneralReflectanceQuality(Experiment d,
         IReadOnlyDictionary<string, IMaterial> materials, double[] initialGrid, int maximumIterations, GeneralCounter work,
-        IProgress<DesignProgress>? progress, CancellationToken token)
+        IProgress<DesignProgress>? progress, CancellationToken token, bool certifiedRefinement = false)
     {
         var indices = Enumerable.Range(0, d.Layers.Length).Where(i => d.Layers[i].Variable).ToArray();
         var units = indices.Select(i => CoherentThinFilmSolver.CharacteristicThickness(materials[d.Layers[i].MaterialId],
@@ -46,6 +46,8 @@ public sealed partial class DesignService
         if (scale <= 0) return (best, 0, new(d.Settings.Optimizer, GeneralCoatingProtocol, "ReflectancePhysicalLimit", 0, 0, d.Settings.RandomSeed)
         { DesignProtocol = GeneralCoatingProtocol, GeneralWork = work.Snapshot() });
         var requestedLoss = d.Target.Kind == DesignKind.Antireflection ? d.Target.Reflectance : 1 - d.Target.Reflectance;
+        if (bestLoss > requestedLoss && d.Settings.Optimizer == "Damped Least Squares")
+            return RefineFeasibleReflectanceQuality(d, materials, initialGrid, maximumIterations, work, progress, token, certifiedRefinement: certifiedRefinement);
         var level = 1.0; var penalty = 1.0; var remaining = maximumIterations;
         var multiplierMap = new Dictionary<double, double>();
         // For a violated target, initialize the active worst-point duals to support z=1:

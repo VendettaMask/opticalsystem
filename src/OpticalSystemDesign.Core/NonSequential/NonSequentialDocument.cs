@@ -283,7 +283,8 @@ public sealed record NonSequentialObjectDefinition(
     CoordinateSystem LocalCoordinateSystem,
     Guid? ReferenceObjectId,
     Guid? ContainingObjectId,
-    NonSequentialObjectParameters Parameters)
+    NonSequentialObjectParameters Parameters,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] NonSequentialSurfaceBsdf? SurfaceBsdf = null)
 {
     public static NonSequentialObjectDefinition Create(NonSequentialObjectKind kind, string? name = null, Guid? id = null) => new(
         id ?? Guid.NewGuid(),
@@ -571,6 +572,8 @@ public sealed class NonSequentialDocument
 
     public void Validate()
     {
+        if (_objects.Sum(o => (long)(o.SurfaceBsdf?.MeasuredData?.PayloadPointCount ?? 0)) > Scattering.MeasuredBsdfData.MaximumDocumentPoints)
+            throw new InvalidDataException("工程的实测 BSDF 节点总数超过 262144。");
         if (_wavelengths.Count == 0 || _wavelengths.Count > MaximumWavelengthCount)
         {
             throw new InvalidDataException("非序列波长表必须包含 1 到 1024 个波长。");
@@ -655,6 +658,7 @@ public sealed class NonSequentialDocument
         }
 
         ValidateParameters(item.Name, item.Parameters, meshAssetsById);
+        item.SurfaceBsdf?.Validate(item.Parameters);
     }
 
     private static void ValidateAcyclicLinks(

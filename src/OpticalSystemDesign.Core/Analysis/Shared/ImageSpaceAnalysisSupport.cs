@@ -214,12 +214,14 @@ internal static class ImageSpaceAnalysisSupport
     public static double AfocalDiffractionPupilDiameterMillimeters(Optic optic)
     {
         if (optic.SurfaceGroup.Items.Any(s => s.Geometry is PolygonGroupGeometry))
-            return CompoundExitPupil(optic).Diameter;
+            return TangentialExitPupilDiameter(optic);
         var image = optic.SurfaceGroup.Items[^1].CoordinateSystem;
         var axis = image.ToGlobalDirection(new Vector3D(0, 0, 1));
         if (optic.SurfaceGroup.Items.Skip(1).Any(surface =>
             Math.Abs(Dot(surface.CoordinateSystem.ToGlobalDirection(new Vector3D(0, 0, 1)), axis)) < 1 - 1e-12))
             return TangentialExitPupilDiameter(optic);
+        if (OpticalSystemDesign.Core.Services.AfocalParabasalPupilScale.TryCompute(optic, out var tracedDiameter, out _))
+            return tracedDiameter;
         var exit = Math.Abs(optic.Paraxial.EstimateExitPupilDiameter());
         if (double.IsFinite(exit) && exit > 1e-12)
         {
@@ -236,8 +238,12 @@ internal static class ImageSpaceAnalysisSupport
         // The scalar sequential Y-Ybar estimate omits that projection. Measure
         // the tangential image of an infinitesimal pupil pencil instead.
         const double probe = 1e-3;
+        // Diffraction uses the traced tangential beam on the chief-normal pupil
+        // plane. A geometric stop-image fit provides its axial datum, not its
+        // display radius; a one-sided compound pencil avoids a seam jump.
+        var compound = optic.SurfaceGroup.Items.Any(s => s.Geometry is PolygonGroupGeometry);
         var wave = optic.Wavelengths.FirstOrDefault(w => w.IsPrimary) ?? optic.Wavelengths[0];
-        var pupils = new[] { new OpticalSystemDesign.Core.Raytrace.PupilSample(0, -probe, 1),
+        var pupils = new[] { new OpticalSystemDesign.Core.Raytrace.PupilSample(0, compound ? 0 : -probe, 1),
             new OpticalSystemDesign.Core.Raytrace.PupilSample(0, probe, 1),
             new OpticalSystemDesign.Core.Raytrace.PupilSample(0, 0, 1) };
         var rays = optic.SequentialRayTracer.TraceFinalSamples(
@@ -247,7 +253,8 @@ internal static class ImageSpaceAnalysisSupport
             throw new AnalysisDataUnavailableException("Afocal pupil", "tangential pupil pencil is blocked");
         var frame = optic.SurfaceGroup.Items[^1].CoordinateSystem;
         var normal = Normalize(rays[2]!.Direction);
-        var distance = optic.Paraxial.EstimateExitPupilLocation(wave.Micrometers);
+        var distance = compound ? CompoundExitPupil(optic).Position
+            : optic.Paraxial.EstimateExitPupilLocation(wave.Micrometers);
         var axialCosine = frame.ToLocalDirection(normal).Z;
         if (!double.IsFinite(distance) || Math.Abs(axialCosine) <= 1e-12)
             throw new AnalysisDataUnavailableException("Afocal pupil", "no finite exit reference plane");
@@ -260,7 +267,10 @@ internal static class ImageSpaceAnalysisSupport
                 throw new AnalysisDataUnavailableException("Afocal pupil", "pupil ray is tangent to its reference plane");
             return frame.ToLocalPoint(ray.Position + ray.Direction * (Dot(origin - ray.Position, normal) / denominator));
         }
-        var diameter = Math.Abs(Project(rays[1]!).Y - Project(rays[0]!).Y) / probe;
+        var interval = Project(rays[1]!) - Project(rays[0]!);
+        // A compound train may rotate the entrance-Y pencil within the pupil
+        // plane. Its physical interval must not depend on image-axis rotation.
+        var diameter = compound ? 2 * interval.Length / probe : Math.Abs(interval.Y) / probe;
         if (!double.IsFinite(diameter) || diameter <= 1e-12)
             throw new AnalysisDataUnavailableException("Afocal pupil", "no finite tangential pupil diameter");
         return diameter;
@@ -284,18 +294,24 @@ internal static class ImageSpaceAnalysisSupport
         // entrance-pupil orientation and trace the aspect before building the
         // FFT grid, rather than resizing its intensity after the transform.
         const double probe = 1e-3;
+        // A finite difference across a triangulation seam mixes two paths.
+        // Compound pupils use the same chief-to-positive pencil for both axes.
+        var positivePencil = optic.SurfaceGroup.Items.Any(surface => surface.Geometry is PolygonGroupGeometry);
         var pencil = WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
-            new[] { (-probe, 0d), (probe, 0d), (0d, -probe), (0d, probe) },
+            positivePencil ? new[] { (0d, 0d), (probe, 0d), (0d, probe) }
+                : new[] { (-probe, 0d), (probe, 0d), (0d, -probe), (0d, probe) },
             aimAtStop: aimAtStop, referenceWavelength: wavelength);
         if (pencil.Samples.Any(sample => sample.Intensity <= 0))
             throw new AnalysisDataUnavailableException("FFT PSF", "exit-pupil aspect pencil is blocked");
         Vector3D Point(int index) => new(pencil.Samples[index].PupilX,
             pencil.Samples[index].PupilY, pencil.Samples[index].PupilZ);
         var x = (Point(1) - Point(0)).Length;
-        var y = (Point(3) - Point(2)).Length;
+        var y = positivePencil ? (Point(2) - Point(0)).Length : (Point(3) - Point(2)).Length;
         if (!double.IsFinite(x) || !double.IsFinite(y) || x <= 1e-15 || y <= 1e-15)
             throw new AnalysisDataUnavailableException("FFT PSF", "no finite exit-pupil aspect");
-        if (Math.Abs(x / y - 1) <= 1e-12) return (1, 1);
+        // Even a small nonzero stretch affects the discrete circular boundary;
+        // do not snap distinct physical intervals to a common unit interval.
+        if (x == y) return (1, 1);
         var larger = Math.Max(x, y);
         return (larger / x, larger / y);
     }

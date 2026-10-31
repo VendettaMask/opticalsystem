@@ -1041,6 +1041,17 @@ internal static class EnergyCurveSupport
             return Centroid(samples);
         }
 
+        return ChiefReferencePoint(optic, field, wavelengths, samples, requireReferenceRay: false);
+    }
+
+    public static (double X, double Y) NativeAfocalReferencePoint(Optic optic,
+        (double Hx, double Hy) field, IReadOnlyList<Wavelength> wavelengths, IReadOnlyList<EnergySample> samples)
+        => ChiefReferencePoint(optic, field, wavelengths, samples, requireReferenceRay: true);
+
+    private static (double X, double Y) ChiefReferencePoint(Optic optic,
+        (double Hx, double Hy) field, IReadOnlyList<Wavelength> wavelengths, IReadOnlyList<EnergySample> samples,
+        bool requireReferenceRay)
+    {
         var primary = wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
             ?? wavelengths.First();
         var chief = SpotAnalysisEngine.Generate(
@@ -1053,6 +1064,8 @@ internal static class EnergyCurveSupport
             aimAtStop: optic.RayAimingEnabled,
             includeSurfaceTransmission: false);
         var ray = chief.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays.FirstOrDefault();
+        if (ray is null && requireReferenceRay)
+            throw new AnalysisDataUnavailableException("Encircled Energy", "native angular reference ray is unavailable; a physical centroid cannot substitute for its direction");
         var scale = optic.ImageSpaceAfocal ? 1 : 1000;
         return ray is null ? Centroid(samples) : (ray.X * scale, ray.Y * scale);
     }

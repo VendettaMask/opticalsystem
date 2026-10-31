@@ -155,7 +155,7 @@ public sealed partial class CameraImagingWindow
     }
 
     private bool SamplingRegionIsValid() => _numbers.Where(p => p.Key.StartsWith("sampling-"))
-        .All(p => p.Value.Value is { } v && decimal.Truncate(v) == v)
+        .All(p => ValidNumber(p.Value, integer: true))
         && _result is { } run && V("sampling-x") + V("sampling-width") <= run.Request.Width
         && V("sampling-y") + V("sampling-height") <= run.Request.Height;
 }

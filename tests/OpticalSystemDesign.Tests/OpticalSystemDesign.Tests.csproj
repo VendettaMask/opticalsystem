@@ -8,7 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Fixtures\speos-gaussian-v11.anisotropicbsdf" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-gaussian-v11.NOTICE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\camera-projected-grid3-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/camera-scene-v7-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-nsc-v9-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-lambertian-v9-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-measured-v9-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/speos-r-test-v9.anisotropicbsdf" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/speos-r-test-v9.NOTICE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-speos-text-grid2-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/camera-scene-v8-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/camera-sampling-v1-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures\camera-flir-bfs-u3-23s6-points.json" CopyToOutputDirectory="PreserveNewest" />

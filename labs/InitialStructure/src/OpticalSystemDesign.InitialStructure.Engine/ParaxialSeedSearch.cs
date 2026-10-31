@@ -362,7 +362,7 @@ public static class ParaxialSeedSearch
             if (options.MaximumFunctionEvaluations < 3) throw new ArgumentException("Real-ray screening requires a separate evaluation within the preparation budget.");
         }
         if (options.FixedStopRecoveryVersion is not (null or 2) || options.Version != 1 || options.MaximumStarts is < 1 or > 64 || options.RetainedSeeds is < 1 or > 8
-            || options.MaximumFunctionEvaluations is < 2 or > 10_000 || options.MaximumEvaluationsPerStart is < 2 or > 200
+            || options.MaximumFunctionEvaluations is < 2 or > 10_000 || options.MaximumEvaluationsPerStart is < 2 or > 1000
             || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromMinutes(options.Evolution is null && options.Retrieval is null ? 2 : 10)
             || options.MaximumTracedRays < 1 || options.MaximumTracedRays > (options.Evolution is null && options.Retrieval is null ? 1_000_000 : 10_000_000)
             || !double.IsFinite(options.FocusATolerance) || options.FocusATolerance is <= 0 or > .1)

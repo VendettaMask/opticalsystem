@@ -407,10 +407,9 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
             return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
-        // Huygens field density counts positions, including both endpoints.
-        // Its 300-point display spline is distinct from that traced grid.
-        var scanPointCount = _method == MtfComputationMethod.Huygens && _settings.UseZemaxHuygensSemantics
-            ? Math.Max(5, _fieldPointCount) : _fieldPointCount + 1;
+        // Native MTF field density counts positions (both endpoints), for all
+        // three methods. Its display spline is distinct from the traced grid.
+        var scanPointCount = _zemaxCompatibleOutput ? Math.Max(5, _fieldPointCount) : _fieldPointCount + 1;
         var fields = _zemaxCompatibleOutput
             ? AnalysisTrace.ScanFieldSamples(workingOptic, _scanType, scanPointCount)
             : AnalysisTrace.DefinedFieldSamples(workingOptic).OrderBy(field => field.Coordinate).ToArray();
@@ -421,6 +420,9 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
             : fields.Select(field => field.Coordinate).ToArray();
         var tangential = _spatialFrequencies.Select(_ => new double[fields.Count]).ToArray();
         var sagittal = _spatialFrequencies.Select(_ => new double[fields.Count]).ToArray();
+        var computationSettings = _zemaxCompatibleOutput && _method == MtfComputationMethod.Geometric
+            && string.Equals(_settings.Distribution, "uniform", StringComparison.OrdinalIgnoreCase)
+                ? _settings with { Distribution = "uniform-intervals" } : _settings;
         for (var index = 0; index < fields.Count; index++)
         {
             var field = fields[index];
@@ -430,7 +432,7 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
                 (field.Hx, field.Hy),
                 wavelengths,
                 _spatialFrequencies,
-                _settings);
+                computationSettings);
             for (var frequencyIndex = 0; frequencyIndex < _spatialFrequencies.Length; frequencyIndex++)
             {
                 tangential[frequencyIndex][index] = values[frequencyIndex].Tangential;
@@ -940,6 +942,23 @@ internal static class MtfMethodEvaluator
         IReadOnlyList<double> spatialFrequencies,
         MtfComputationSettings settings)
     {
+        if (method == MtfComputationMethod.Geometric)
+        {
+            var pupils = wavelengths.Select(w => (Wavelength: w, Pupil: PrepareGeometricPupil(optic, field, w, settings, 0))).ToArray();
+            var total = wavelengths.Sum(w => w.Weight); var equal = total <= 1e-30;
+            if (equal) total = wavelengths.Count;
+            if (pupils.Length == 0) return spatialFrequencies.Select(_ => (0d, 0d)).ToArray();
+            return spatialFrequencies.Select(frequency =>
+            {
+                var t = Complex.Zero; var s = Complex.Zero;
+                foreach (var item in pupils)
+                {
+                    var value = GeometricPupilOtf(item.Pupil, frequency, settings);
+                    var weight = equal ? 1 : item.Wavelength.Weight; t += weight * value.Tangential; s += weight * value.Sagittal;
+                }
+                return (DataTypeValue(t / total, FftMtfDataType.Modulation), DataTypeValue(s / total, FftMtfDataType.Modulation));
+            }).ToArray();
+        }
         if (method == MtfComputationMethod.Huygens && settings.UseZemaxHuygensSemantics)
         {
             var psf = ComputeHuygensPolychromaticPsf(optic, field, wavelengths, settings);
@@ -1079,6 +1098,10 @@ internal static class MtfMethodEvaluator
         double spatialFrequency,
         MtfComputationSettings settings,
         double defocus = 0)
+        => GeometricPupilOtf(PrepareGeometricPupil(optic, field, wavelength, settings, defocus), spatialFrequency, settings);
+
+    private static (IReadOnlyList<SpotRayData> Rays, double Cutoff) PrepareGeometricPupil(Optic optic,
+        (double Hx, double Hy) field, Wavelength wavelength, MtfComputationSettings settings, double defocus)
     {
         var result = SpotAnalysisEngine.Generate(
             optic,
@@ -1097,12 +1120,18 @@ internal static class MtfMethodEvaluator
         var cutoff = optic.ImageSpaceAfocal
             ? ImageSpaceAnalysisSupport.AfocalCutoffFrequencyCyclesPerMilliradian(optic, wavelength)
             : fNumber <= 1e-30 ? 0 : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
+        return (rays, cutoff);
+    }
+
+    private static (Complex Tangential, Complex Sagittal) GeometricPupilOtf(
+        (IReadOnlyList<SpotRayData> Rays, double Cutoff) pupil, double spatialFrequency, MtfComputationSettings settings)
+    {
         var scale = settings.ScaleGeometricByDiffractionLimit
-            ? DiffractionScale(spatialFrequency, cutoff)
+            ? DiffractionScale(spatialFrequency, pupil.Cutoff)
             : 1.0;
         return (
-            GeometricOtfAtFrequency(rays, spatialFrequency, tangential: true) * scale,
-            GeometricOtfAtFrequency(rays, spatialFrequency, tangential: false) * scale);
+            GeometricOtfAtFrequency(pupil.Rays, spatialFrequency, tangential: true) * scale,
+            GeometricOtfAtFrequency(pupil.Rays, spatialFrequency, tangential: false) * scale);
     }
 
     private static (double Tangential, double Sagittal) AtFrequency(MtfResult result, double frequency)

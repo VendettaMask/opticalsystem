@@ -3,6 +3,7 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
@@ -26,7 +27,8 @@ public sealed record NonSequentialRayDatabaseHeader(
     NonSequentialTraceSettings TraceSettings,
     int RandomSeed,
     string? PathFilterExpression = null,
-    NonSequentialSplittingMode? SplittingMode = null)
+    NonSequentialSplittingMode? SplittingMode = null,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] string? SurfaceBsdfProtocol = null)
 {
     public static NonSequentialRayDatabaseHeader Create(
         NonSequentialDocument document,
@@ -49,7 +51,8 @@ public sealed record NonSequentialRayDatabaseHeader(
             pathFilterExpression,
             document.TraceSettings.SplitFresnelRays
                 ? NonSequentialSplittingMode.FullFresnel
-                : NonSequentialSplittingMode.None);
+                : NonSequentialSplittingMode.None,
+            NonSequentialSurfaceBsdf.Protocol(document));
 }
 
 public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, IDisposable
@@ -501,7 +504,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         var branches = JsonSerializer.Deserialize<List<NonSequentialRayBranch>>(json, JsonOptions)
             ?? throw new InvalidDataException("光线数据库分块为空。");
         if (branches.Count != entry.BranchCount) throw new InvalidDataException("光线数据库分块数量不一致。");
-        foreach (var branch in branches) ValidateBranch(branch, _objectIds);
+        foreach (var branch in branches) ValidateBranch(branch, _objectIds, Header.SurfaceBsdfProtocol);
         return branches;
     }
 
@@ -515,7 +518,8 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
             || header.Objects.Any(o => o is null || o.Id == Guid.Empty || o.Name is null || !Enum.IsDefined(o.Kind))
             || header.Objects.Select(o => o.Id).Distinct().Count() != header.Objects.Count
             || !header.Objects.Select(o => o.ObjectNumber).SequenceEqual(Enumerable.Range(1, header.Objects.Count))
-            || header.SplittingMode is { } mode && !Enum.IsDefined(mode))
+            || header.SplittingMode is { } mode && !Enum.IsDefined(mode)
+            || header.SurfaceBsdfProtocol is not (null or "LambertianReflection/1" or "MeasuredBsdfGrid/1" or "MeasuredBsdfGrid/2" or "MeasuredBsdfGrid/3" or "MeasuredBsdfGrid/4"))
             throw new InvalidDataException("光线数据库文件头的结构或场景标识无效。");
         try
         {
@@ -526,7 +530,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         { throw new InvalidDataException("光线数据库文件头参数无效。", error); }
     }
 
-    private static void ValidateBranch(NonSequentialRayBranch? branch, HashSet<Guid> objects)
+    private static void ValidateBranch(NonSequentialRayBranch? branch, HashSet<Guid> objects, string? bsdfProtocol)
     {
         static bool Nonnegative(double value) => double.IsFinite(value) && value >= 0;
         static bool Vector(Backend.Vector3D? value) => value is null
@@ -545,7 +549,8 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
                 || !Nonnegative(segment.Intensity) || !Nonnegative(segment.SegmentLength)
                 || !Nonnegative(segment.CumulativePathLength) || !Nonnegative(segment.CumulativeOpticalPathLength)
                 || !double.IsFinite(segment.WavelengthNanometers) || segment.WavelengthNanometers <= 0
-                || segment.InteractionKind is { } kind && !Enum.IsDefined(kind))
+                || segment.InteractionKind is { } kind && !Enum.IsDefined(kind)
+                || segment.InteractionKind == Interactions.RayInteractionKind.DiffuseTransmission && bsdfProtocol is not ("MeasuredBsdfGrid/1" or "MeasuredBsdfGrid/2" or "MeasuredBsdfGrid/3" or "MeasuredBsdfGrid/4"))
                 throw new InvalidDataException("光线数据库分段对象或数值无效。");
     }
 
@@ -669,6 +674,8 @@ public static class NonSequentialSceneHasher
             Add(item.ReferenceObjectId?.ToString("N") ?? string.Empty);
             Add(item.ContainingObjectId?.ToString("N") ?? string.Empty);
             Add(JsonSerializer.Serialize(item.Parameters, item.Parameters.GetType()));
+            // Preserve every old scene hash when no formal BSDF is declared.
+            if (item.SurfaceBsdf is { } bsdf) { Add("surface-bsdf/1"); Add(JsonSerializer.Serialize(bsdf)); }
         }
         Add(JsonSerializer.Serialize(document.MeshAssets.Count));
         foreach (var asset in document.MeshAssets.OrderBy(item => item.Id))

@@ -6,13 +6,13 @@
 
 2026-10-30 用户将产品方向明确为 ImSym 与 Speos 能力融合：同一主程序和共享 Core 提供三维光传播、照明/杂散光分析，以及光学—传感器—RAW—ISP 成像链。既有 Zemax 风格工作流是当前入口组织方式，后续目标同时包含与相机共享的物理结果和工程状态。统一单位、路径去重、阶段里程碑及已知相机阻断集中维护于[相机产品目标](CAMERA_IMAGING_LAB.md#产品目标imsym-与-speos-能力融合)。
 
-Core 新增 `SpectralDetectorPower` 和 `NonSequentialCameraSensor.Capture`，可把匹配矩形探测器的原始 `PowerByWavelength` 及波长快照冻结为 W/物理像元的带积分功率，声明原数组方向，再经现有 QE/曝光、噪声/ADC/ISP 计算。库接口不发起追迹、不读取归一化显示图，也不发布桌面结果；应用层会话哈希校验、工程保存/模式协调及相机入口尚未接通。它不提供新散射、三维场景渲染或完整产品认证。
+共享 `SpectralDetectorPower` 和 `NonSequentialCameraSensor.Capture` 把匹配矩形探测器的原始 `PowerByWavelength` 及波长快照冻结为 W/物理像元的带积分功率。2026-10-31 已通过应用层核对当前场景/会话/数据库身份，并接入相机的“非序列探测器”输入、路径筛选、QE/曝光、RAW/ISP、A/B 和完整实验。只读取完整分析会话，不发起隐式追迹、不读取归一化显示图、不再叠加顺序主像；按冻结功率复算不等于重跑 NSC。操作与边界见[相机说明](CAMERA_IMAGING_LAB.md#非序列分析到-raw--isp)。Lambertian 与实测网格 BSDF/BTDF 已接入，商业数值认证仍未完成。
 
-用户已选择三维相机成像作为首个场景。另已新增有界直射路径：复用 NSC 的不可变几何/BVH 查询，结合共享顺序表面反向追迹、点光源与 Lambertian 直接反射，输出实际感光面积内的带积分功率，再进入原传感器/ISP。其桌面设置、独立三维文件和完整实验冻结见[操作说明](CAMERA_IMAGING_LAB.md#三维场景与照明到相机)。它没有改变原 NSC 正式散射协议，也没有把任意 NSC 探测器会话桥接或多次反射标为已完成。
+用户已选择三维相机成像作为首个场景。另有有界直射路径：复用 NSC 的不可变几何/BVH 查询，结合共享顺序表面反向追迹、点光源与 Lambertian 直接反射，输出实际感光面积内的带积分功率，再进入原传感器/ISP。其桌面设置、独立三维文件和完整实验冻结见[操作说明](CAMERA_IMAGING_LAB.md#三维场景与照明到相机)。这条直射路径与读取完整 NSC 分析结果的路径分开；后者已接入 Lambertian 和实测 BSDF/BTDF，见[接口与验收](MEASURED_BSDF_BTDF_2026-10-31.md)。
 
 V8 又在相同入口接入有限单元标量 Huygens 表面求积：共享 NSC 逐对象/遮挡查询和实际镜头光程，输出绝对功率并复用传感器/ISP。它属于直接照明下的非相干三维成像，未实现 NSC 多次散射波场、矢量高 NA 或遮挡边缘的多次衍射。几何、场景、瞳面及窗口控制和冻结版本边界见[三维衍射](CAMERA_IMAGING_LAB.md#三维衍射)。
 
-现有 `MainRayScatterLossApproximation` 与 `MeanMeasuredScatterLoss` 仍只扣减主光线能量，旧 Lambertian/BSDF 别名不执行方向采样或 Evaluate/Sample/Pdf。正式照明/散射路径必须完成独立实现与物理验收，不能据现有类名或库桥接声称 Speos 材料/散射能力已具备。
+现有 `MainRayScatterLossApproximation` 与 `MeanMeasuredScatterLoss` 仍只扣减主光线能量，旧 Lambertian/BSDF 别名不执行方向采样或 Evaluate/Sample/Pdf。新 `IBsdf / LambertianReflectionBsdf` 单独实现并接入 NSC 的功率账本、路径事件、采样统计和相机；自有 CSV 实测网格和 BTDF 已实现，[固定材料轴与 Speos v8 文本两类格式](COMMERCIAL_BSDF_AXES_2026-10-31.md)已实现，[已核验 Speos 二进制与 Zemax 单色辐射度格式](BINARY_ZEMAX_BSDF_2026-10-31.md)已接通；[v11、原生镜面增强/White Specular 和校准 XYZ](SPEOS_V11_XYZ_2026-10-31.md)已实现，其他格式与商业数值对标仍未完成。
 
 ## 目标与兼容边界
 
@@ -33,12 +33,12 @@ STAROPT 非序列模式按熟悉的照明与杂散光工作流组织：
 | 领域 | STAROPT 当前状态 | 后续差距 |
 | --- | --- | --- |
 | 结果生命周期 | 完整分析会话驱动探测器/数据库/路径；3D 使用独立有界布局会话，支持过期检查 | 暂停、实时进度、会话历史和跨窗口选择总线 |
-| 分裂 | 无分裂、完整 Fresnel、Simple Stochastic | 镀膜、散射、衍射、荧光等分支事件 |
+| 分裂 | 无分裂、完整 Fresnel、Simple Stochastic；不透明 Lambertian 单方向延续 | 镀膜、一般散射混合瓣、衍射、荧光等分支事件 |
 | 探测器 | 矩形位置/角空间、功率/辐照度/强度/命中；显示变换、任意剖面、CSV/PNG | Color、Polar、Surface、Volume、对象探测，相干/偏振/光度结果及完整报告 |
 | 数据库 | STARRDB 流式写入、校验、分页分支与分段 | 真正的随机索引树浏览、大结果后台查询；ZRD兼容不在目标内 |
-| 路径筛选 | `Q/H/R/T/D/M/W/A/E/X`、布尔和 `SEQ` | 散射、衍射、偏振、波长变化等事件语义 |
+| 路径筛选 | `Q/H/R/S/B/T/D/M/W/A/E/X`、布尔和 `SEQ`，S 为方向散射、B 为 BTDF | 衍射、偏振、波长变化等事件语义 |
 | 3D | 自动布局会话、对象与抽样光线、逃逸尾线 | 按源/波长/层级/功率着色、即时筛选和选中路径高亮 |
-| 光学物理 | 反射、折射、吸收、全反射、非偏振 Fresnel | 镀膜、表面/体散射、BSDF、偏振、相干、衍射和体吸收 |
+| 光学物理 | 反射、折射、吸收、全反射、非偏振 Fresnel；对象级 Lambertian、实测光谱/角度及固定轴 BSDF/BTDF 多次散射 | 镀膜、其他商业 BSDF 格式、逐面覆盖、体散射、偏振、相干、衍射和体吸收 |
 | 对象 | 10类原生光源；矩形/椭圆面源支持 VirtualPoint、Cosine、Gaussian和兼容圆锥；体源支持全空间均匀球面和兼容圆锥；原生基础实体、标准镜片、STL、矩形探测器 | IES/LDT及厂商射线文件、对象型光源、更多探测器、自由几何和精确CAD |
 | 设计工具 | 无非序列专用优化和公差 | 探测器/路径操作数、向导、固定种子策略和蒙特卡洛 |
 
@@ -58,7 +58,7 @@ STAROPT 非序列模式按熟悉的照明与杂散光工作流组织：
 
 ### 里程碑 C：面属性、镀膜与散射
 
-增加对象级和面级属性覆盖，支持理想、金属及多层膜，以及 Lambertian、Gaussian、ABg 和文件型 BSDF。STARRDB和筛选AST增加散射与吸收细分类。
+已实现对象级 Lambertian、实测 CSV BSDF/BTDF、IBsdf、STARRDB 反射/透射散射事件及 S/B 筛选，并接到统一传感器。已增加 Speos v8 TEXT 两类、已核验二进制、Zemax 单色/校准 XYZ、Speos v11/原生镜面增强与 White Specular 及固定轴各向异性；后续增加逐面覆盖、金属及多层膜、Gaussian、ABg 和其他商业文件导入；不把旧主光线损耗别名当成方向模型。
 
 ### 里程碑 D：偏振、相干与衍射
 

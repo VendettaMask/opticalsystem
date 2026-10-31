@@ -88,15 +88,17 @@ internal static class ReflectanceQualityAudit
         Console.WriteLine("Frozen 17 specifications; no result-dependent target or material changes.");
     }
 
-    internal static async Task Run(string inputDirectory, string outputDirectory)
+    internal static async Task Run(string inputDirectory, string outputDirectory, bool resume = false)
     {
         Directory.CreateDirectory(outputDirectory); var summaries = new List<object>(); var cases = new List<object>();
         var service = new DesignService();
         foreach (var path in Directory.GetFiles(inputDirectory, "*.coating.json").Order(StringComparer.Ordinal))
         {
-            var input = await ExperimentStore.OpenAsync(path); using var limit = new CancellationTokenSource(TimeSpan.FromMinutes(2));
+            var input = await ExperimentStore.OpenAsync(path); using var limit = new CancellationTokenSource(TimeSpan.FromMinutes(20));
             var before = service.Evaluate(input, token: limit.Token); var watch = Stopwatch.StartNew();
-            var after = service.Optimize(input, token: limit.Token); watch.Stop(); var result = after.Result!;
+            var existing = Path.Combine(outputDirectory, Path.GetFileName(path)); var resumed = resume && File.Exists(existing);
+            var after = resumed ? await ExperimentStore.OpenAsync(existing, limit.Token) : service.Optimize(input, token: limit.Token);
+            watch.Stop(); var result = after.Result!;
             await ExperimentStore.SaveAsync(after, Path.Combine(outputDirectory, Path.GetFileName(path)), limit.Token);
             double Loss(Experiment d) => d.Target.Kind == DesignKind.Antireflection ? d.Result!.Metrics.MaximumReflectance
                 : d.Target.Kind == DesignKind.HighReflector ? 1 - d.Result!.Metrics.MinimumReflectance : d.Result!.Merit;
@@ -121,13 +123,20 @@ internal static class ReflectanceQualityAudit
                 IdenticalMaterials = identicalMaterials,
                 LayersChanged = !input.Layers.SequenceEqual(after.Layers),
                 result.Run,
-                Seconds = watch.Elapsed.TotalSeconds
+                Seconds = resumed ? (double?)null : watch.Elapsed.TotalSeconds,
+                ResumedExistingOutput = resumed
             });
             if (before.Result.Passed && (!result.Passed || Loss(after) > Loss(before)) || !protectedLayers || !identicalMaterials || result.Run.Iterations > input.Settings.MaximumIterations)
                 throw new InvalidOperationException("Feasibility, quality, fixed-layer, material or iteration guard failed: " + input.Name);
             var materials = after.Materials.ToDictionary(m => m.Id, m => m.Resolve(new MaterialRegistry()));
             var solver = new CoherentThinFilmSolver(materials[after.IncidentId], materials[after.SubstrateId], after.Layers.Select(l => new CoherentFilm(materials[l.MaterialId], l.ThicknessNm)));
-            foreach (var wave in ThinFilmSpectrum.Grid(input.Target.MinimumNm, input.Target.MaximumNm, 8)) foreach (var pol in Enum.GetValues<ThinFilmPolarization>())
+            var metricWaves = new double?[] { result.Metrics.PeakWavelengthNanometers, result.Metrics.LeftHalfMaximumNanometers, result.Metrics.RightHalfMaximumNanometers }
+                .Where(w => w.HasValue).Select(w => w!.Value)
+                .Concat((input.Target.StopBands ?? []).Select(b => result.Spectrum.Where(s => s.WavelengthNanometers >= b.MinimumNm && s.WavelengthNanometers <= b.MaximumNm)
+                    .MaxBy(s => s.Power.LogTransmittance)!.WavelengthNanometers))
+                .Append(result.Spectrum.MinBy(s => s.Power.Reflectance)!.WavelengthNanometers)
+                .Append(result.Spectrum.MaxBy(s => s.Power.Reflectance)!.WavelengthNanometers);
+            foreach (var wave in ThinFilmSpectrum.Grid(input.Target.MinimumNm, input.Target.MaximumNm, 8).Concat(metricWaves).Distinct().Order()) foreach (var pol in Enum.GetValues<ThinFilmPolarization>())
             {
                 double[] Index(string id) => [materials[id].RefractiveIndex(wave), materials[id].ExtinctionCoefficient(wave)];
                 cases.Add(new

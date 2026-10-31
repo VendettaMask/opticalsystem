@@ -19,10 +19,19 @@ internal sealed partial class OptimizationService
                 throw new InvalidOperationException("快速聚焦未得到有限的焦移结果。");
             var surface = worker.Surfaces[^2];
             var initial = surface.Thickness;
-            var final = Math.Max(.001, initial + summary.BestFocusShift);
+            // Axial distance is signed: a reflected image may legitimately precede the last surface.
+            var final = initial + summary.BestFocusShift;
+            if (!double.IsFinite(final))
+                throw new InvalidOperationException("快速聚焦未得到有限的像方间隔。");
             surface.Thickness = final;
             worker.CommitSurfaceEdit(surface, nameof(OpticalSurface.Thickness));
-            return () => new(surface.Number, initial, final - initial, final, summary.BestRmsSpotRadius);
+            return () =>
+            {
+                // Solves and automatic apertures may change the applied prescription; report that actual state.
+                var applied = worker.Surfaces.Single(item => item.Number == surface.Number).Thickness;
+                var actual = FocusMetricEvaluator.Evaluate(worker.CurrentOptic, focusStep: 0, focusPlaneCount: 1);
+                return new(surface.Number, initial, applied - initial, applied, actual.BestRmsSpotRadius);
+            };
         }, cancellationToken);
 
     public Task<OptimizationResultDto> OptimizeSurfaceRadiusAsync(

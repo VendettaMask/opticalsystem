@@ -6,6 +6,23 @@ namespace OpticalSystemDesign.InitialStructure.Engine;
 
 public static partial class StructureEvolutionSearch
 {
+    internal static DesignTopology ReleaseTransmissionProfiles(DesignTopology parent, AutonomousSearchPlan plan)
+    {
+        if (plan.Options.FixedTopologyOnly == true || plan.Options.QualifiedReductionOnly == true
+            || plan.Options.Expansion is not { EnableProfile: true, MaximumEvenPower: >= 4 })
+            throw new ArgumentException("Original profile permission is required.");
+        var child = parent;
+        var faces = parent.Elements.Where(e => !e.Protected && !e.Transition)
+            .SelectMany(e => new[] { (e.FrontSurfaceId, e.Front), (e.BackSurfaceId, e.Back) })
+            .Where(f => f.Item2.Profile.Kind == TopologyProfileKind.Standard).Select(f => f.Item1);
+        foreach (var face in faces)
+        {
+            var upgraded = TopologyOperators.UpgradeProfile(child, face, 4, plan.Constraints);
+            if (!upgraded.Succeeded) throw new ArgumentException(upgraded.Failure!.Message);
+            child = upgraded.Topology!;
+        }
+        return child;
+    }
     private static TopologyEditResult Propose(DesignTopology parent, TopologyOperationKind operation, int variant,
         string id, AutonomousSearchPlan plan, StructureEvolutionOptions policy)
     {

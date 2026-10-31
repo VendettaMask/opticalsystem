@@ -294,8 +294,14 @@ internal static partial class ZemaxZmxReader
                         Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     break;
                 case "APMX" when tokens.Length <= 2 && current is not null:
-                    RequireSurface(current, command).SemiDiameter =
+                    RequireSurface(current, command).MaximumAperture =
                         Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
+                    break;
+                case "CLAP":
+                    var circular = RequireSurface(current, command);
+                    circular.CircularAperture = true;
+                    circular.MinimumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
+                    circular.MaximumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 2, command)));
                     break;
                 case "VDXN":
                     document.VignetteDecenterX = ReadValues(tokens, 1, document.FieldCount);
@@ -733,13 +739,16 @@ internal static partial class ZemaxZmxReader
                 Material = string.IsNullOrWhiteSpace(material) ? "Air" : material,
                 RefractiveIndex = source.RefractiveIndex,
                 AbbeNumber = source.AbbeNumber,
-                SemiDiameter = ScaleConfiguredLength(
+                SemiDiameter = source.CircularAperture ? ScaleConfiguredLength(
                     document,
                     document.ConfigurationDouble(
                     "APMX",
                     source.Number,
                     configurationIndex),
-                    source.SemiDiameter),
+                    source.SemiDiameter) : source.SemiDiameter,
+                CircularAperture = source.CircularAperture,
+                MaximumAperture = ScaleConfiguredOptionalLength(document,
+                    document.ConfigurationDouble("APMX", source.Number, configurationIndex), source.MaximumAperture),
                 MinimumAperture = ScaleConfiguredOptionalLength(
                     document,
                     document.ConfigurationDouble(
@@ -872,11 +881,8 @@ internal static partial class ZemaxZmxReader
                 MaterialAfter = materialAfter.Clone(),
                 InteractionModel = new RefractiveReflectiveInteractionModel(isReflective),
                 PhysicalAperture = physicalAperture,
-                SemiDiameterDefinesPhysicalAperture = physicalAperture is CircularAperture
+                SemiDiameterDefinesPhysicalAperture = physicalAperture is CircularAperture && !source.CircularAperture
                     && !source.IsStop
-                    && (source.MinimumAperture is null
-                        || !double.IsFinite(source.MinimumAperture.Value)
-                        || Math.Abs(source.MinimumAperture.Value) <= 1e-12)
                     && source.SemiDiameterFixed
                     && HasSurfacePower(source),
                 CoordinateSystem = coordinate
@@ -910,11 +916,16 @@ internal static partial class ZemaxZmxReader
     private static IPhysicalAperture? CreatePhysicalAperture(
         ZemaxSurface source, double semiDiameter, bool hasImplicitFloatingAperture)
     {
-        if (source.MinimumAperture is { } minimumAperture
-            && double.IsFinite(minimumAperture)
-            && Math.Abs(minimumAperture) > 1e-12)
+        // APMN/APMX values alone do not activate a surface aperture. Native
+        // CurrentType=None retains a full pupil even when these dormant values
+        // are present. CLAP is the explicit circular/annular aperture declaration.
+        if (source.CircularAperture)
         {
-            return new AnnularAperture(semiDiameter, Math.Abs(minimumAperture));
+            var inner = source.MinimumAperture ?? 0;
+            var outer = source.MaximumAperture ?? semiDiameter;
+            if (!double.IsFinite(inner) || !double.IsFinite(outer) || inner < 0 || outer <= 0 || inner > outer)
+                throw new NotSupportedException("Invalid explicit Zemax circular aperture bounds.");
+            return inner > 0 ? new AnnularAperture(outer, inner) : new CircularAperture(outer);
         }
 
         // Automatic DIAM is a ray-footprint estimate, including at the stop;
@@ -1978,6 +1989,8 @@ internal static partial class ZemaxZmxReader
         public double? MechanicalSemiDiameter { get; set; }
         public int MechanicalSemiDiameterSolveCode { get; set; }
         public double? MinimumAperture { get; set; }
+        public double? MaximumAperture { get; set; }
+        public bool CircularAperture { get; set; }
         public bool SemiDiameterFixed { get; set; }
         public bool FloatingAperture { get; set; }
         public int SemiDiameterSolveCode { get; set; }

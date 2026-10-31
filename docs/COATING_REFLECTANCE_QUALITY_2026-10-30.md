@@ -1,6 +1,6 @@
 # 协议 4：可行性之后的通用反射率质量阶段
 
-本页保留 `feasible-worst-reflectance/1` 的阶段实现与127项测试身份。后续的`worst-reflectance/2`及实际带指标约束保留[140项阶段记录](COATING_INFEASIBLE_REPAIR_2026-10-30.md)；当前`worst-reflectance/3`与逐项目标保护、154项测试、35组对比及真实材料剩余失败见[最新修正](COATING_TARGET_PRESERVATION_2026-10-30.md)。
+本页保留 `feasible-worst-reflectance/1` 的阶段实现与127项测试身份。后续的`worst-reflectance/2`及实际带指标约束保留[140项阶段记录](COATING_INFEASIBLE_REPAIR_2026-10-30.md)；`worst-reflectance/3`与逐项目标保护保留[154项阶段记录](COATING_TARGET_PRESERVATION_2026-10-30.md)，目标方向版本2保留[156项阶段记录](COATING_TARGET_BALANCING_2026-10-31.md)。当前版本4及目标权衡剩余项见[最新修正](COATING_TRADEOFF_REPAIR_2026-10-31.md)。
 
 已修复此前[边界审查](COATING_SPECTRUM_EDGE_REVIEW_2026-10-30.md)确认的“达到门槛后单边残差为零，反射率停止改善”。显式选择协议 4 的减反/高反现在先满足原约束，再利用剩余连续迭代预算优化最差反射指标。新建默认协议仍是 AR/HR 的 2、窄带的 3；窄带协议 4 的目标及流程保持。真实 n/k、制造界、固定层和原密集验收没有改变。
 

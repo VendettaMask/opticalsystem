@@ -19,8 +19,8 @@ public sealed partial class CameraImagingWindow : Window
 {
     private readonly IWorkbenchApplication _application;
     private readonly Dictionary<string, NumericUpDown> _numbers = new();
-    private readonly ComboBox _source = Choice("camera-source", "彩色色卡", "分辨率测试图", "畸变网格", "西门子星", "外部图片", "三维场景与照明");
-    private readonly ComboBox _optics = Choice("camera-optics", "当前镜头", "理想光学对照");
+    private readonly ComboBox _source = Choice("camera-source", "彩色色卡", "分辨率测试图", "畸变网格", "西门子星", "外部图片", "三维场景与照明", "非序列探测器");
+    private readonly ComboBox _optics = Choice("camera-optics", "当前镜头", "理想光学对照", "探测器功率输入");
     private readonly ComboBox _aberration = Choice("camera-aberration", "几何像差", "衍射像差");
     private readonly ComboBox _size = Choice("camera-size", SizeLabels);
     private readonly ComboBox _bayer = Choice("camera-bayer", "RGGB", "BGGR", "GRBG", "GBRG");
@@ -78,6 +78,7 @@ public sealed partial class CameraImagingWindow : Window
         settings.Children.Add(BuildSensorFilesCard());
         settings.Children.Add(BuildPixelSamplingCard());
         settings.Children.Add(BuildScene3DCard());
+        settings.Children.Add(BuildNonSequentialCard());
         _legacySpectraCard = BuildSceneSpectraCard(); settings.Children.Add(_legacySpectraCard);
         _legacyMaterialsCard = BuildMaterialSceneCard(); settings.Children.Add(_legacyMaterialsCard);
         settings.Children.Add(Group("曝光与传感器", new Control[]
@@ -177,6 +178,10 @@ public sealed partial class CameraImagingWindow : Window
             if (!key.StartsWith("wb-") && !key.StartsWith("spectrum-") && !key.StartsWith("scene3d-") && key is not ("gamma" or "denoise" or "sharpen" or "fill-factor")) MarkSensorModified();
             Invalidate("参数已改变，请运行 B；A 对照保留。");
         };
+        foreach (var (key, number) in _numbers) number.PropertyChanged += (_, args) =>
+        {
+            if (args.Property == NumericUpDown.TextProperty) OnNumberTextChanged(key, number);
+        };
         foreach (var choice in new[] { _source, _optics, _aberration, _size, _bayer, _spectralModel, _pixelSampling, _qeArea })
             choice.SelectionChanged += (_, _) =>
             {
@@ -188,9 +193,11 @@ public sealed partial class CameraImagingWindow : Window
         { if (!_applyingSensor) { MarkSensorModified(); Invalidate("噪声设置已改变，请重新运行。"); } };
         _isp.IsCheckedChanged += (_, _) => { if (!_applyingSensor) Invalidate("ISP 设置已改变，请重新运行。"); };
         application.Events.Changed += OnWorkspaceChanged; application.Modes.ModeChanged += OnModeChanged;
+        application.NonSequentialAnalysis.SessionChanged += OnNscSessionChanged;
         Closed += (_, _) =>
         {
             _closed = true; Cancel(); application.Events.Changed -= OnWorkspaceChanged; application.Modes.ModeChanged -= OnModeChanged;
+            application.NonSequentialAnalysis.SessionChanged -= OnNscSessionChanged;
             foreach (var view in _stageViews.Concat(_comparisonViews)) view.Dispose();
         };
         LaboratoryPresentation.Apply(this); UpdateSource(); UpdateAvailability(); UpdateSensorFiles();
@@ -201,8 +208,9 @@ public sealed partial class CameraImagingWindow : Window
     { Name = name, ItemsSource = labels, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch };
     private Control Number(string name, string label, decimal value, decimal min, decimal max, decimal increment)
     {
-        var number = new NumericUpDown
+        var number = new CameraNumberInput
         {
+            IntegerOnly = IntegerNumber(name),
             Name = "camera-" + name,
             Value = value,
             Minimum = min,

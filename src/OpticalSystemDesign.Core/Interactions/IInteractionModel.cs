@@ -19,7 +19,9 @@ public enum RayInteractionKind
 {
     Transmitted,
     Reflected,
-    TotalInternalReflection
+    TotalInternalReflection,
+    DiffuseReflection,
+    DiffuseTransmission
 }
 
 public sealed record RealRayInteractionResult(
@@ -27,7 +29,7 @@ public sealed record RealRayInteractionResult(
     RayInteractionKind Kind)
 {
     public bool IsReflective =>
-        Kind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection;
+        Kind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection or RayInteractionKind.DiffuseReflection;
 }
 
 public sealed record SurfaceInteractionContext(

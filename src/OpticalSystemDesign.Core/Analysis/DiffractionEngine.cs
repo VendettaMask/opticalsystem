@@ -16,6 +16,13 @@ public enum HuygensPolarizationMode
     CoherentXyz
 }
 
+public enum AfocalHuygensIntegration
+{
+    NativeFiniteCell,
+    GaussianPupil,
+    CheckedGaussianPupil
+}
+
 public sealed record PsfResult(
     double[,] Values,
     int PupilSampling,
@@ -31,6 +38,11 @@ public sealed record PsfResult(
     public bool StopAimingFallbackUsed { get; init; }
     public HuygensPolarizationMode HuygensPolarization { get; init; }
     public bool FiniteCellHuygensUsed { get; init; }
+    public AfocalHuygensIntegration? AfocalIntegration { get; init; }
+    public int PupilQuadratureNodeCount { get; init; }
+    public bool GeometricChiefReferenceUsed { get; init; }
+    public double? HuygensReferenceAmplitude { get; init; }
+    public IReadOnlyList<HuygensSamplingDiagnostics>? HuygensSamplingChecks { get; init; }
     public double PupilGridStretch { get; init; } = 1;
     /// <summary>Zero-phase peak of this FFT pupil, relative to the engine's unit-amplitude reference.</summary>
     public double UnaberratedPeakRatio { get; init; } = 1;
@@ -608,8 +620,10 @@ public static partial class DiffractionEngine
             referenceWavelength,
             aimAtStop: normalizationWavefront.UseRayAiming ?? optic.RayAimingEnabled);
         var normalizationSamples = normalizationWavefront.Samples
-            .Where(sample => sample.Intensity > 0)
             .ToArray();
+        // Blocked pupil cells carry zero power. Excluding them from the
+        // average treats the whole nominal pupil as transmitting and reduces
+        // even the zero-frequency OTF below unity in a vignetted field.
         var meanNormalizationIntensity = normalizationSamples
             .Select(sample => sample.Intensity)
             .DefaultIfEmpty(0)
@@ -647,13 +661,8 @@ public static partial class DiffractionEngine
         var useRayAiming = aimAtStop ?? optic.RayAimingEnabled;
         if (optic.ImageSpaceAfocal)
         {
-            var wavefront = WavefrontEngine.GenerateChiefRaySamples(
-                optic,
-                field,
-                wavelength,
-                coordinates,
-                aimAtStop: useRayAiming,
-                referenceWavelength: referenceWavelength);
+            var wavefront = WavefrontEngine.GenerateScalarAfocalHuygensSamples(optic, field, wavelength,
+                coordinates.Select(p => new PupilSample(p.X, p.Y, 1)).ToArray(), useRayAiming, referenceWavelength);
             return ApplyAfocalDefocus(wavefront, wavelength, defocusMillimeters);
         }
 
@@ -1258,8 +1267,30 @@ public static partial class DiffractionEngine
         Wavelength? referenceWavelength = null,
         (double X, double Y)? imageCenterOffset = null,
         bool useParaxialPupilDefocus = false)
+        => ComputeHuygensPsf(optic, field, wavelength, numRays, imageSize, pixelPitchMillimeters,
+            AfocalHuygensIntegration.NativeFiniteCell, usePolarization, aimAtStop, defocus,
+            referenceWavelength, imageCenterOffset, useParaxialPupilDefocus);
+
+    /// <summary>Explicit afocal pupil integration. GaussianPupil integrates the
+    /// continuous normalized circular pupil using traced scalar wavelets; it is
+    /// not the native finite-cell sampling protocol or a vector/flux certificate.</summary>
+    public static PsfResult ComputeHuygensPsf(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        int numRays,
+        int imageSize,
+        double pixelPitchMillimeters,
+        AfocalHuygensIntegration afocalIntegration,
+        bool usePolarization = false,
+        bool aimAtStop = false,
+        double defocus = 0,
+        Wavelength? referenceWavelength = null,
+        (double X, double Y)? imageCenterOffset = null,
+        bool useParaxialPupilDefocus = false)
     {
         ComputationCancellation.ThrowIfCancellationRequested();
+        if (!Enum.IsDefined(afocalIntegration)) throw new ArgumentOutOfRangeException(nameof(afocalIntegration));
         if (numRays < 2)
         {
             throw new ArgumentOutOfRangeException(nameof(numRays), "Huygens PSF requires at least two pupil samples.");
@@ -1281,6 +1312,21 @@ public static partial class DiffractionEngine
             throw new ArgumentOutOfRangeException(nameof(imageCenterOffset), "Image-center offsets must be finite.");
         if (usePolarization && optic.ImageSpaceAfocal && !optic.Polarization.Unpolarized)
             throw new NotSupportedException("Afocal coherent Jones Huygens propagation is not implemented; it cannot be collapsed to unpolarized power.");
+
+        if (afocalIntegration is AfocalHuygensIntegration.GaussianPupil or AfocalHuygensIntegration.CheckedGaussianPupil)
+        {
+            if (!optic.ImageSpaceAfocal)
+                throw new NotSupportedException("Gaussian circular Huygens integration currently requires afocal image space.");
+            if (usePolarization)
+                throw new NotSupportedException("Gaussian afocal Huygens integration currently supports scalar, non-polarized wavelets only.");
+            if (afocalIntegration == AfocalHuygensIntegration.CheckedGaussianPupil)
+                return ComputeCheckedAfocalHuygensPsf(optic, field, wavelength, numRays, imageSize,
+                    pixelPitchMillimeters, aimAtStop: aimAtStop, defocus: defocus, referenceWavelength: referenceWavelength,
+                    imageCenterOffset: imageCenterOffset, useParaxialPupilDefocus: useParaxialPupilDefocus);
+            return ComputeGaussianAfocalHuygensPsf(optic, field, wavelength, numRays, imageSize,
+                pixelPitchMillimeters, aimAtStop, defocus, referenceWavelength, imageCenterOffset,
+                useParaxialPupilDefocus);
+        }
 
         // Use the traced image directions in the image-surface tangent frame
         // for axial and oblique scalar pupils. Native off-axis complex-field
@@ -1307,7 +1353,9 @@ public static partial class DiffractionEngine
 
         var afocalPupils = optic.ImageSpaceAfocal ? HuygensPupilSamples(numRays) : null;
         var wavefront = afocalPupils is not null
-            ? WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
+            ? !usePolarization ? WavefrontEngine.GenerateScalarAfocalHuygensSamples(optic, field, wavelength,
+                afocalPupils, aimAtStop, referenceWavelength)
+                : WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
                 afocalPupils.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
                 referenceWavelength: referenceWavelength)
             : WavefrontEngine.GenerateChiefRayUniform(
@@ -1341,6 +1389,8 @@ public static partial class DiffractionEngine
                 useParaxialPupilDefocus);
             var afocalNormalizationWavefront = field.Hx == 0 && field.Hy == 0
                 ? wavefront
+                : !usePolarization ? WavefrontEngine.GenerateScalarAfocalHuygensSamples(optic, (0, 0), wavelength,
+                    afocalPupils!, aimAtStop, referenceWavelength)
                 : WavefrontEngine.GenerateChiefRaySamples(optic, (0, 0), wavelength,
                     afocalPupils!.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
                     referenceWavelength: referenceWavelength);
@@ -1392,6 +1442,9 @@ public static partial class DiffractionEngine
             {
                 UseRayAiming = aimAtStop,
                 FiniteCellHuygensUsed = true,
+                AfocalIntegration = AfocalHuygensIntegration.NativeFiniteCell,
+                PupilQuadratureNodeCount = wavefront.Samples.Count,
+                GeometricChiefReferenceUsed = wavefront.GeometricChiefReferenceUsed || afocalNormalizationWavefront.GeometricChiefReferenceUsed,
                 HuygensPolarization = usePolarization ? HuygensPolarizationMode.LegacyScalarApproximation : HuygensPolarizationMode.None
             };
         }
@@ -2080,17 +2133,33 @@ public static partial class DiffractionEngine
         IReadOnlyList<Wavelength> wavelengths,
         Wavelength referenceWavelength,
         int pupilSampling,
-        bool aimAtStop)
+        bool aimAtStop,
+        AfocalHuygensIntegration afocalIntegration = AfocalHuygensIntegration.NativeFiniteCell)
     {
         var imageSurface = optic.SurfaceGroup.Items[^1];
-        var frame = CreateHuygensImageFrame(optic, field, referenceWavelength, aimAtStop);
+        // Afocal centering uses direction angles, not a focused tangent frame.
+        // A blocked chief may define the geometric datum, never centroid power.
+        var frame = optic.ImageSpaceAfocal ? default : CreateHuygensImageFrame(optic, field, referenceWavelength, aimAtStop);
+        Vector3D ChiefDirection()
+        {
+            var chief = optic.TraceGenericFinalSample(field.Hx, field.Hy, 0, 0, referenceWavelength.Micrometers, aimAtStop);
+            if (chief is null)
+            {
+                var source = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy, 0, 0,
+                    referenceWavelength.Micrometers, aimAtStop).Rays[0];
+                chief = optic.SequentialRayTracer.TraceToSurface(source, optic.SurfaceGroup.Items.Count - 1);
+            }
+            if (chief is null || chief.Vignetted || chief.Intensity <= 0)
+                throw new AnalysisDataUnavailableException("Huygens PSF", "no valid geometric chief reference for afocal centering");
+            return chief.Direction;
+        }
         var chiefAngle = optic.ImageSpaceAfocal
             ? ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(imageSurface,
-                (optic.TraceGenericFinalSample(field.Hx, field.Hy, 0, 0,
-                    referenceWavelength.Micrometers, aimAtStop)
-                    ?? throw new InvalidOperationException("Chief ray did not reach the image surface.")).Direction)
+                ChiefDirection())
             : (X: 0.0, Y: 0.0);
-        var pupilSamples = pupilSampling >= 8 && pupilSampling % 2 == 0
+        var pupilSamples = optic.ImageSpaceAfocal && afocalIntegration is AfocalHuygensIntegration.GaussianPupil or AfocalHuygensIntegration.CheckedGaussianPupil
+            ? ApertureSampler.GenerateHuygensGaussianQuadrature(pupilSampling)
+            : pupilSampling >= 8 && pupilSampling % 2 == 0
             ? HuygensPupilSamples(pupilSampling) : SpotAnalysisEngine.CreatePupilSamples(pupilSampling, "uniform");
         var useWeights = wavelengths.Any(wavelength => wavelength.Weight > 0);
         var projected = new List<SpotRayData>();

@@ -1,0 +1,250 @@
+{
+  "DistinctTests": 46,
+  "Passed": 46,
+  "ReleaseBuildWarnings": 0,
+  "ReleaseBuildErrors": 0,
+  "Runs": [
+    {
+      "File": "final-focused.trx",
+      "Counters": [],
+      "Finish": "2026-10-31T13:13:13.9052175+08:00"
+    },
+    {
+      "File": "postbuild-focused.trx",
+      "Counters": [],
+      "Finish": "2026-10-31T13:15:33.6137053+08:00"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraBridgeRegressionTests.BothSceneRenderersRejectCurvedImageSurfaces(diffraction: False)",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraBridgeRegressionTests.BothSceneRenderersRejectCurvedImageSurfaces(diffraction: True)",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraBridgeRegressionTests.InvalidSceneTextDoesNotEscapeInputEventsAndCanBeCorrected(key: \"scene3d-depth\", diffraction: False)",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraBridgeRegressionTests.InvalidSceneTextDoesNotEscapeInputEventsAndCanBeCorrected(key: \"scene3d-guard\", diffraction: True)",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraBridgeRegressionTests.InvalidSceneTextDoesNotEscapeInputEventsAndCanBeCorrected(key: \"scene3d-power\", diffraction: False)",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraBridgeRegressionTests.InvalidSceneTextDoesNotEscapeInputEventsAndCanBeCorrected(key: \"scene3d-psf-radius\", diffraction: True)",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraExperimentTests.ContinuousMaterialInputsAndEditedIspRecomputeIndependentlyOfSourceFiles",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraExperimentTests.CorruptUnknownAndCancelledExperimentsPreserveExistingFiles",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraExperimentTests.ExternalInputAndBothLensSnapshotsSurviveDeletionAndWorkspaceReplacement",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialServiceTests.CurrentAnalysisFeedsAbsolutePowerAndOnePhotonConversionWithCorrectRowsAndCfa",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialServiceTests.EmptySelectedPathsStayDarkAndDoNotInventAThreeBandImage",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialServiceTests.HistoricalExperimentsAndSamplingReportFingerprintsRemainReadable(fixture: \"camera-sampling-v1-frozen.zip\")",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialServiceTests.HistoricalExperimentsAndSamplingReportFingerprintsRemainReadable(fixture: \"camera-scene-v7-frozen.zip\")",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialServiceTests.HistoricalExperimentsAndSamplingReportFingerprintsRemainReadable(fixture: \"camera-scene-v8-frozen.zip\")",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialServiceTests.PrimaryAndGhostFiltersPartitionTheSameOpticalPowerWithoutAddingThePrimaryTwice",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialServiceTests.StaleSessionsMissingQeWrongPitchResamplingAndCancellationAreRejected",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: \"Dark\", language: \"en-US\")",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: \"Light\", language: \"ja-JP\")",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: \"Light\", language: \"zh-CN\")",
+      "Outcome": "Passed",
+      "Run": "postbuild-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraReviewRegressionTests.DecimalCultureAndImportedPrecisionRemainValid",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraReviewRegressionTests.ExperimentAndCalibrationControlsAndErrorsSwitchAllThreeLanguages",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraReviewRegressionTests.FractionalIntegersAreRejectedInsteadOfTruncated(name: \"camera-bits\", number: 12.5)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraReviewRegressionTests.FractionalIntegersAreRejectedInsteadOfTruncated(name: \"camera-black\", number: 64.5)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraReviewRegressionTests.FractionalIntegersAreRejectedInsteadOfTruncated(name: \"camera-seed\", number: 42.5)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraReviewRegressionTests.InvalidTextClearsBRetainsAAndCannotRunUntilCorrected",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraScene3DTests.FrozenHistoricalFilesWithoutNewOptionalPropertiesRetainTheirCalculationVersion",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraScene3DWindowTests.SceneSelectionActiveAreaABImportReplayAndCancellationWorkOffscreen(theme: \"Dark\", language: \"en-US\")",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.CameraScene3DWindowTests.SceneSelectionActiveAreaABImportReplayAndCancellationWorkOffscreen(theme: \"Light\", language: \"zh-CN\")",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.BandIntegratedPowerUsesOneExposureAndOutputRasterCfaWithoutExtraWeights(pattern: BGGR)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.BandIntegratedPowerUsesOneExposureAndOutputRasterCfaWithoutExtraWeights(pattern: GBRG)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.BandIntegratedPowerUsesOneExposureAndOutputRasterCfaWithoutExtraWeights(pattern: GRBG)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.BandIntegratedPowerUsesOneExposureAndOutputRasterCfaWithoutExtraWeights(pattern: RGGB)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.CapturedPowerIsImmutableAndRepeatedDevelopmentDoesNotChangeTheInput",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.DarkDetectorHasNoInventedOpticalSignalAndStillUsesDarkCurrent",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.InvalidRadiometricPixelsAreRejected(invalid: -1)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.InvalidRadiometricPixelsAreRejected(invalid: ∞)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.InvalidRadiometricPixelsAreRejected(invalid: NaN)",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.MissingQeWrongDetectorUnknownWavelengthAndInconsistentPowerAreRejected",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.PixelPowerDoesNotGainAnExtraPixelAreaFactor",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.RawNonSequentialTraceFeedsTheExistingSensorPipelineAndConservesPower",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.SpectralWorkAndCancellationAreBounded",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialStrayLightTests.AnalysisSessionAccumulatesTraceOnlyAndDrivesDetectorAndDatabaseViews",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialStrayLightTests.DatabaseInspectionDoesNotChangeSelectionAndSamePathReplacementRefreshesMetadata",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialStrayLightTests.FilteredTraceSessionCountsStoredBranchesAndFilteredPagingUsesStableIndices",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialStrayLightTests.OpeningExternalDatabaseReleasesReplacedManagedSession",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.NonSequentialStrayLightTests.TracePublishesObserversOutsideWorkspaceLockAndIsolatesObserverFailures",
+      "Outcome": "Passed",
+      "Run": "final-focused.trx"
+    }
+  ]
+}

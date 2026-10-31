@@ -43,6 +43,8 @@ public sealed record WavefrontResult(
     public WavefrontReferenceSphere? ReferenceSphere { get; init; }
     /// <summary>Global origin of the chief-normal reference plane for afocal propagation.</summary>
     public Vector3D? AfocalReferencePlaneOrigin { get; init; }
+    /// <summary>Unclipped geometric chief used only as an OPD datum, never as transmitted energy.</summary>
+    public bool GeometricChiefReferenceUsed { get; init; }
     // Datum of the existing scalar Huygens weighting convention. This is not
     // a physical reference-sphere normal; keep that distinction explicit.
     public Vector3D HuygensCoordinateOrigin { get; init; }
@@ -115,7 +117,7 @@ public sealed record WavefrontReferenceSphere(
     public bool IsVirtual { get; init; }
 }
 
-public static class WavefrontEngine
+public static partial class WavefrontEngine
 {
     // Explicit image-side plane reference, without toggling the optic's physical
     // afocal flag, changing its source identity or detaching a shared snapshot.
@@ -260,7 +262,9 @@ public static class WavefrontEngine
         bool usePolarization = false,
         Wavelength? referenceWavelength = null,
         bool forceReferencePlane = false,
-        bool useCachedFftStopMap = false)
+        bool useCachedFftStopMap = false,
+        bool allowGeometricAfocalReference = false,
+        bool phaseInclusiveAfocalReference = false)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -270,7 +274,19 @@ public static class WavefrontEngine
             wavelength.Micrometers,
             aimAtStop,
             resolvedRealImageLaunch);
-        var chief = TraceFinalSamples(optic, chiefBundle, usePolarization).Single();
+        var geometricReferenceUsed = false;
+        RayTraceSample? GeometricReference(RealRayBundle bundle)
+        {
+            if (!allowGeometricAfocalReference || !optic.ImageSpaceAfocal || usePolarization) return null;
+            var sample = optic.SequentialRayTracer.TraceToSurface(bundle.Rays[0], optic.SurfaceGroup.Items.Count - 1);
+            if (sample is null || sample.Vignetted || sample.Intensity <= 0) return null;
+            geometricReferenceUsed = true;
+            return sample;
+        }
+        RayTraceSample? Reference(RealRayBundle bundle) => optic.SequentialRayTracer.TraceFinalSamples(bundle).Single()
+            ?? GeometricReference(bundle);
+        var physicalChief = TraceFinalSamples(optic, chiefBundle, usePolarization).Single();
+        var chief = physicalChief ?? GeometricReference(chiefBundle);
         if (chief is null)
         {
             throw new InvalidOperationException("Chief ray did not reach the image surface.");
@@ -282,8 +298,8 @@ public static class WavefrontEngine
             referenceWavelength ??= optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelength;
         var referenceChief = referenceWavelength is null || referenceWavelength.Nanometers == wavelength.Nanometers
             ? chief
-            : optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
-                field.Hx, field.Hy, 0, 0, referenceWavelength.Micrometers, aimAtStop, resolvedRealImageLaunch)).Single()
+            : Reference(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                field.Hx, field.Hy, 0, 0, referenceWavelength.Micrometers, aimAtStop, resolvedRealImageLaunch))
                 ?? throw new InvalidOperationException("Reference chief ray did not reach the image surface.");
         if (optic.ImageSpaceAfocal || forceReferencePlane)
         {
@@ -300,7 +316,9 @@ public static class WavefrontEngine
                 referenceChief,
                 referenceWavelength?.Nanometers ?? wavelength.Nanometers,
                 forceReferencePlane,
-                chiefBundle);
+                chiefBundle,
+                geometricReferenceUsed,
+                phaseInclusiveAfocalReference);
         }
 
         var sphere = referenceSphere ?? CreateChiefRayReferenceSphere(
@@ -432,7 +450,9 @@ public static class WavefrontEngine
         RayTraceSample referenceChief,
         double referenceWavelengthNanometers,
         bool forceImageReference,
-        RealRayBundle chiefBundle)
+        RealRayBundle chiefBundle,
+        bool geometricChiefReference = false,
+        bool phaseInclusiveReference = false)
     {
         var chiefDirection = Normalize(referenceChief.Direction);
         var referencePoint = referenceChief.Position;
@@ -464,7 +484,9 @@ public static class WavefrontEngine
             else if (optic.ReferenceOpd == ReferenceOpdMode.Infinity)
                 throw new NotSupportedException("The infinity OPD reference is not defined for an afocal image; select ExitPupil, Absolute or Absolute2.");
         }
-        var referenceOpticalPath = chief.CumulativeOpticalPathLength
+        double OpticalPath(RayTraceSample ray) => phaseInclusiveReference
+            ? ray.PhaseInclusiveOpticalPathLength ?? ray.CumulativeOpticalPathLength : ray.CumulativeOpticalPathLength;
+        var referenceOpticalPath = OpticalPath(chief)
             - ImageToReferencePlane(chief, referencePoint, chiefDirection, imageIndex);
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
             field.Hx,
@@ -501,7 +523,7 @@ public static class WavefrontEngine
             if (ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items.FirstOrDefault())
                 && (aimAtStop || chiefBundle.Rays[0].Direction.Z < 0))
                 tilt = Dot(bundle.Rays[index].Origin - chiefBundle.Rays[0].Origin, chiefBundle.Rays[0].Direction);
-            var opticalPath = ray.CumulativeOpticalPathLength - imagePath + tilt;
+            var opticalPath = OpticalPath(ray) - imagePath + tilt;
             var opdWaves = (referenceOpticalPath - opticalPath) / (wavelength.Micrometers * 1e-3);
             var t = imageIndex <= 1e-30 ? 0 : imagePath / imageIndex;
             var pupilPosition = ray.Position - (ray.Direction * t);
@@ -532,14 +554,16 @@ public static class WavefrontEngine
             imageIndex,
             ImageSpaceAfocal: true,
             AfocalPupilDiameterMillimeters:
-                ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic))
+                geometricChiefReference ? Math.Abs(optic.Paraxial.EstimateExitPupilDiameter())
+                    : ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic))
         {
             ChiefOpticalPathLength = chief.CumulativeOpticalPathLength,
             UseRayAiming = aimAtStop,
             SourceField = field,
             SourceWavelengthNanometers = wavelength.Nanometers,
             SourceReferenceWavelengthNanometers = referenceWavelengthNanometers,
-            AfocalReferencePlaneOrigin = referencePoint
+            AfocalReferencePlaneOrigin = referencePoint,
+            GeometricChiefReferenceUsed = geometricChiefReference
         };
     }
 

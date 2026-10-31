@@ -31,6 +31,48 @@ public sealed record GeneralCoatingWork(long SpectrumEvaluations, long Sensitivi
     public int DenseProtectionRejections { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int QualityRestarts { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int TargetDirectionRestarts { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int InequalitySubproblems { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int InequalityActiveSetIterations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int InequalitySubproblemLimits { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int TargetRepairIterations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int TargetRepairAcceptedCandidates { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public long TangentTrialEvaluations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? InequalityStepProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? TargetRepairProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int TargetComparisonRuns { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int TargetComparisonIterations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int TargetRepairContinuationIterations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int TargetParetoPolishIterations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int TargetParetoAcceptedCandidates { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int ReflectancePreconditionerIterations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int ReflectanceMetricIterations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int SearchPeakReferenceBatches { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SearchSamplingProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int PassbandQualityIterations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int PassbandQualityAcceptedCandidates { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PassbandQualityProtocol { get; init; }
 }
 public sealed record CoatingConstraintAssessment(double[] Violations)
 {
@@ -49,7 +91,14 @@ public sealed partial class DesignService
     private sealed class GeneralCounter
     {
         internal long Spectrum, Sensitivity, Jacobians, BandMetrics, BandSensitivities, ProtectedRejections;
-        internal int Passes, Refinements, Dense, QualityPasses, QualityIterations, ProtectionPasses, DenseRejections, QualityRestarts; internal bool Limit;
+        internal int Passes, Refinements, Dense, QualityPasses, QualityIterations, ProtectionPasses, DenseRejections, QualityRestarts, ProtectionRestarts; internal bool Limit;
+        internal int InequalitySteps, InequalityIterations, InequalityLimits;
+        internal int RepairIterations, RepairAccepted, ComparisonRuns, ComparisonIterations; internal long TangentTrials;
+        internal int ContinuationIterations, ParetoIterations, ParetoAccepted;
+        internal int ReflectancePreconditionerIterations;
+        internal int MetricIterations;
+        internal int PeakReferenceBatches;
+        internal int PassbandQualityIterations, PassbandQualityAccepted;
         internal void Add(GeneralCoatingWork? w)
         {
             if (w is null) return; Spectrum += w.SpectrumEvaluations; Sensitivity += w.SensitivityEvaluations; Jacobians += w.AnalyticJacobians;
@@ -58,6 +107,17 @@ public sealed partial class DesignService
             BandMetrics += w.BandMetricEvaluations; BandSensitivities += w.BandSensitivityBatches;
             ProtectionPasses += w.TargetProtectionPasses; ProtectedRejections += w.ProtectedTrialRejections;
             DenseRejections += w.DenseProtectionRejections; QualityRestarts += w.QualityRestarts;
+            ProtectionRestarts += w.TargetDirectionRestarts;
+            InequalitySteps += w.InequalitySubproblems; InequalityIterations += w.InequalityActiveSetIterations;
+            InequalityLimits += w.InequalitySubproblemLimits;
+            RepairIterations += w.TargetRepairIterations; RepairAccepted += w.TargetRepairAcceptedCandidates;
+            TangentTrials += w.TangentTrialEvaluations;
+            ComparisonRuns += w.TargetComparisonRuns; ComparisonIterations += w.TargetComparisonIterations;
+            ContinuationIterations += w.TargetRepairContinuationIterations; ParetoIterations += w.TargetParetoPolishIterations; ParetoAccepted += w.TargetParetoAcceptedCandidates;
+            ReflectancePreconditionerIterations += w.ReflectancePreconditionerIterations;
+            MetricIterations += w.ReflectanceMetricIterations;
+            PeakReferenceBatches += w.SearchPeakReferenceBatches;
+            PassbandQualityIterations += w.PassbandQualityIterations; PassbandQualityAccepted += w.PassbandQualityAcceptedCandidates;
         }
         internal GeneralCoatingWork Snapshot() => new(Spectrum, Sensitivity, Jacobians, Passes, Refinements, Limit)
         {
@@ -72,7 +132,19 @@ public sealed partial class DesignService
             TargetProtectionPasses = ProtectionPasses,
             ProtectedTrialRejections = ProtectedRejections,
             DenseProtectionRejections = DenseRejections,
-            QualityRestarts = QualityRestarts
+            QualityRestarts = QualityRestarts,
+            TargetDirectionRestarts = ProtectionRestarts,
+            InequalitySubproblems = InequalitySteps, InequalityActiveSetIterations = InequalityIterations, InequalitySubproblemLimits = InequalityLimits,
+            TargetRepairIterations = RepairIterations, TargetRepairAcceptedCandidates = RepairAccepted,
+            TangentTrialEvaluations = TangentTrials,
+            InequalityStepProtocol = InequalitySteps > 0 ? InequalityLeastSquaresStep.Version : null,
+            TargetRepairProtocol = RepairIterations > 0 ? DesignService.TargetRepairProtocol : null,
+            TargetComparisonRuns = ComparisonRuns, TargetComparisonIterations = ComparisonIterations,
+            TargetRepairContinuationIterations = ContinuationIterations, TargetParetoPolishIterations = ParetoIterations, TargetParetoAcceptedCandidates = ParetoAccepted,
+            ReflectancePreconditionerIterations = ReflectancePreconditionerIterations, ReflectanceMetricIterations = MetricIterations,
+            SearchPeakReferenceBatches = PeakReferenceBatches, SearchSamplingProtocol = PeakReferenceBatches > 0 ? DesignService.SearchSamplingProtocol : null,
+            PassbandQualityIterations = PassbandQualityIterations, PassbandQualityAcceptedCandidates = PassbandQualityAccepted,
+            PassbandQualityProtocol = PassbandQualityIterations > 0 ? DesignService.PassbandQualityProtocol : null
         };
     }
     private static GeneralCoatingWork SumGeneralWork(IEnumerable<RunRecord> records)
@@ -264,9 +336,12 @@ public sealed partial class DesignService
         // for width/centering and apply the same componentwise envelope to every retained candidate.
         var qualityState = validatedStart is null ? bestAssessment : AssessGeneral(validatedStart, validatedStart.Result!.Spectrum);
         if (d.Target.Kind == DesignKind.NarrowBand && (qualityState.Violations[0] > 0 || qualityState.Violations.Skip(3).Any(v => v > 0)))
+        {
+            if (d.Settings.Optimizer == "Damped Least Squares") return RefineFeasibleGeneralTargets(d, materials, grid, maximumIterations, work, validatedStart, progress, token);
             return RefineProtectedGeneralThickness(d, materials, grid, maximumIterations, work, validatedStart, progress, token);
+        }
         if (d.Target.Kind != DesignKind.NarrowBand && bestAssessment.CoarselyFeasible)
-            return RefineGeneralReflectanceQuality(d, materials, grid, maximumIterations, work, progress, token);
+            return RefineGeneralReflectanceQuality(d, materials, grid, maximumIterations, work, progress, token, validatedStart is not null);
         var units = indices.Select(i => CoherentThinFilmSolver.CharacteristicThickness(materials[d.Layers[i].MaterialId], materials[d.IncidentId],
             d.Target.CenterNm, d.Target.AngleDegrees)).ToArray();
         var phase = indices.Select((i, k) => d.Layers[i].ThicknessNm / units[k]).ToArray();
@@ -281,6 +356,7 @@ public sealed partial class DesignService
         while (remaining > 0)
         {
             token.ThrowIfCancellationRequested(); work.Passes++;
+            var passStartAssessment = bestAssessment;
             if (d.Target.Kind == DesignKind.NarrowBand) work.ProtectionPasses++;
             var problem = new OptimizationProblem(); problem.DisableBatching(); problem.EnableBoundActiveSet();
             for (var j = 0; j < phase.Length; j++)
@@ -325,8 +401,11 @@ public sealed partial class DesignService
                 finally { Array.Copy(saved, phase, phase.Length); }
             });
             var allowance = Math.Min(remaining, Math.Max(1, (int)Math.Ceiling(Math.Sqrt(maximumIterations))));
+            if (d.Target.Kind != DesignKind.NarrowBand && analytic)
+                allowance = Math.Min(allowance, Math.Max(1, maximumIterations / 2 - iterations));
             var report = OptimizerCatalog.Create(d.Settings.Optimizer).Optimize(problem, allowance);
             evaluations += report.FunctionEvaluations; iterations += report.Iterations; remaining -= Math.Max(1, report.Iterations);
+            if (d.Target.Kind != DesignKind.NarrowBand) work.ReflectancePreconditionerIterations += report.Iterations;
             work.Jacobians += problem.AnalyticJacobianEvaluations; reason = report.StopReason;
             var result = Layers(); var assessmentSystem = GeneralConstraintSystem(d with { Layers = result }, Solver(d, materials, result), referenceGrid, false, work);
             var assessment = AssessGeneral(d, assessmentSystem.Samples);
@@ -336,9 +415,18 @@ public sealed partial class DesignService
             // Remaining work minimizes the actual worst reflectance even if feasibility was not reached.
             if (d.Target.Kind != DesignKind.NarrowBand && remaining > 0)
             {
-                var polished = RefineGeneralReflectanceQuality(d with { Layers = best }, materials, grid, remaining, work, progress, token);
-                return (polished.Layers, polished.Merit, polished.Run with
-                { Evaluations = evaluations + polished.Run.Evaluations, Iterations = iterations + polished.Run.Iterations });
+                // Close-to-feasible starts benefit from spending the remaining allowance
+                // directly on the worst loss. Only a deficit larger than its declared
+                // loss scale warrants extended target fitting, and each pass must halve it.
+                var preconditionerContracting = analytic && startingAssessment.MaximumViolation > 1
+                    && !bestAssessment.CoarselyFeasible && iterations < maximumIterations / 2
+                    && bestAssessment.MaximumViolation <= passStartAssessment.MaximumViolation / 2;
+                if (!preconditionerContracting)
+                {
+                    var polished = RefineGeneralReflectanceQuality(d with { Layers = best }, materials, grid, remaining, work, progress, token, validatedStart is not null);
+                    return (polished.Layers, polished.Merit, polished.Run with
+                    { Evaluations = evaluations + polished.Run.Evaluations, Iterations = iterations + polished.Run.Iterations });
+                }
             }
             var currentSystem = Current(); var violation = currentSystem.Values.Max(v => Math.Max(0, v));
             for (var i = 0; i < multipliers.Length; i++) multipliers[i] = double.IsNegativeInfinity(currentSystem.Values[i]) ? 0

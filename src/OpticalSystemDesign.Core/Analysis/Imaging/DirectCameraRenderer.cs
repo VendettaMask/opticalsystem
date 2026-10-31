@@ -135,7 +135,13 @@ public static class DirectCameraRenderer
             if (cs.Origin.X != 0 || cs.Origin.Y != 0 || cs.RotationXDegrees != 0 || cs.RotationYDegrees != 0 || cs.RotationZDegrees != 0
                 || !double.IsFinite(cs.Origin.Z) || i > 1 && cs.Origin.Z < surfaces[i - 1].CoordinateSystem.Origin.Z)
                 throw new NotSupportedException("三维直射首版支持共轴、非折返的顺序镜头。");
-            if (i == surfaces.Length - 1) continue;
+            if (i == surfaces.Length - 1)
+            {
+                if (s.Geometry is not PlaneGeometry && !(s.Geometry is StandardGeometry standard
+                    && (Math.Abs(standard.Radius) < 1e-12 || double.IsInfinity(standard.Radius))))
+                    throw new NotSupportedException("三维相机当前仅支持平面像面；曲面像面需要实际曲面位置、法向与面积积分，不能替换为顶点平面。");
+                continue;
+            }
             if (s.InteractionModel is ThinLensInteractionModel && (s.Geometry is not PlaneGeometry
                 || wavelengths.Any(w => s.MaterialAfter.RefractiveIndex(w) != surfaces[i - 1].MaterialAfter.RefractiveIndex(w))))
                 throw new NotSupportedException("理想薄透镜只支持同介质平面。");

@@ -68,6 +68,7 @@ public sealed class PolygonGroupGeometry : IGeometry
             ComputationCancellation.ThrowIfCancellationRequested();
             var portHit = new PlaneGeometry().DistanceToIntersection(ray.Origin, ray.Direction);
             Face? selected = null;
+            var selectedNormal = Vector3D.Zero;
             var nearest = double.PositiveInfinity;
             var candidates = observer is null ? null : new List<object>();
             var faceId = 0;
@@ -80,8 +81,17 @@ public sealed class PolygonGroupGeometry : IGeometry
                     normal = hit.IsHit ? Coordinates(hit.Normal) : null,
                     eligible = hit.IsHit && hit.Distance > 1e-8 });
                 faceId++;
-                if (hit.IsHit && hit.Distance > 1e-8 && hit.Distance < nearest)
-                { nearest = hit.Distance; selected = face; }
+                // Resolve only roundoff-close distances on a shared, nearly
+                // coplanar diagonal by record order. Retain the chosen plane's
+                // actual normal; a decimal-vertex crease is never flattened.
+                var adjacentQuad = selected is not null && selected.Vertices[0] == face.Vertices[0]
+                    && selected.Vertices[2] == face.Vertices[1]
+                    && selected.Absorbing == face.Absorbing && selected.Reflective == face.Reflective
+                    && Math.Abs(selectedNormal.X * hit.Normal.X + selectedNormal.Y * hit.Normal.Y + selectedNormal.Z * hit.Normal.Z)
+                        >= 1 - 64 * (Math.BitIncrement(1d) - 1);
+                var tie = adjacentQuad && Math.Abs(hit.Distance - nearest) <= 8 * Math.Abs(Math.BitIncrement(nearest) - nearest);
+                if (hit.IsHit && hit.Distance > 1e-8 && hit.Distance < nearest && !tie)
+                { nearest = hit.Distance; selected = face; selectedNormal = hit.Normal; }
             }
             if (!inside && portHit.IsHit && portHit.Distance >= 0 && portHit.Distance < nearest)
             {
@@ -146,13 +156,14 @@ public sealed class PolygonGroupGeometry : IGeometry
 
 internal sealed class PolygonFaceGeometry(IReadOnlyList<Vector3D> vertices) : IGeometry
 {
+    private const double EdgeDistanceToleranceMillimeters = 1e-8;
     public string Kind => "polygon_face";
     public double Sag(double x, double y) => throw new NotSupportedException();
     public IGeometry Clone() => new PolygonFaceGeometry(vertices.ToArray());
     public Vector3D SurfaceNormal(Vector3D point)
     {
         var a = vertices[1] - vertices[0]; var b = vertices[2] - vertices[0];
-        var n = Cross(a, b); return n / n.Length;
+        var n = Cross(a, b); return n * (1 / n.Length);
     }
     public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
@@ -162,13 +173,13 @@ internal sealed class PolygonFaceGeometry(IReadOnlyList<Vector3D> vertices) : IG
         var distance = Dot(normal, vertices[0] - origin) / denominator;
         if (distance < 0) return IntersectionResult.Failure(IntersectionStatus.NoRoot);
         var point = origin + direction * distance;
-        double sign = 0;
         for (var i = 0; i < vertices.Count; i++)
         {
-            var side = Dot(Cross(vertices[(i + 1) % vertices.Count] - vertices[i], point - vertices[i]), normal);
-            if (Math.Abs(side) <= 1e-8) continue;
-            if (sign != 0 && Math.Sign(side) != Math.Sign(sign)) return IntersectionResult.Failure(IntersectionStatus.NoRoot);
-            sign = side;
+            var edge = vertices[(i + 1) % vertices.Count] - vertices[i];
+            var side = Dot(Cross(edge, point - vertices[i]), normal);
+            // Cross(edge, displacement) has area units. Scale its tolerance by
+            // edge length so the inclusion band is a physical distance.
+            if (side < -EdgeDistanceToleranceMillimeters * edge.Length) return IntersectionResult.Failure(IntersectionStatus.NoRoot);
         }
         return new IntersectionResult(IntersectionStatus.Success, distance, point, normal, 0, 0, 1);
     }

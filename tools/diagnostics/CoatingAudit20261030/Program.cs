@@ -11,10 +11,19 @@ if (args[0] == "general-matrix") { await GeneralAudit.Run(args.Skip(1).ToArray()
 if (args[0] == "spectrum-edges") { await SpectrumEdgeAudit.Run(args.Skip(1).ToArray()); return; }
 if (args[0] == "quality-freeze") { await ReflectanceQualityAudit.Freeze(args[1]); return; }
 if (args[0] == "quality-run") { await ReflectanceQualityAudit.Run(args[1], args[2]); return; }
+if (args[0] == "quality-resume") { await ReflectanceQualityAudit.Run(args[1], args[2], resume: true); return; }
 if (args[0] == "infeasible-export") { await InfeasibleRepairAudit.Export(args[1], args[2]); return; }
 if (args[0] == "infeasible-reference") { await InfeasibleRepairAudit.ValidateReference(args[1], args[2], args[3]); return; }
 if (args[0] == "target-freeze") { await TargetProtectionAudit.Freeze(args[1]); return; }
 if (args[0] == "target-scale") { await TargetProtectionAudit.Scale(args[1]); return; }
+if (args[0] == "protected-probe") { await BalancedTargetAudit.Probe(args[1], args[2]); return; }
+if (args[0] == "balanced-freeze") { await BalancedTargetAudit.Freeze(args[1]); return; }
+if (args[0] == "continuation-freeze") { await ContinuationAudit.Freeze(args[1]); return; }
+if (args[0] == "allocation-recheck") { await AllocationAudit.Recheck(args[1], args[2], args[3]); return; }
+if (args[0] == "allocation-physics") { await AllocationAudit.ExportPhysics(args[1], args[2]); return; }
+if (args[0] == "margin-freeze") { await MarginAudit.Freeze(args[1], args[2]); return; }
+if (args[0] == "sampling-trace") { await AllocationAudit.SamplingTrace(args[1], args[2]); return; }
+if (args[0] == "legacy-repair-guide") { await RepairGuideAudit.Run(args[1], args[2], args[3]); return; }
 
 var protocol = args[0]; var directory = Path.GetFullPath(args[1]); Directory.CreateDirectory(directory);
 var summaries = new List<object>(); var referenceCases = new List<object>();

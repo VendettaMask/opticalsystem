@@ -95,7 +95,16 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
 
     public override string Name => "Huygens PSF";
 
+    public AfocalHuygensIntegration AfocalIntegration { get; init; } = AfocalHuygensIntegration.NativeFiniteCell;
+
     public override AnalysisData GenerateData()
+    {
+        try { return GenerateDataCore(); }
+        catch (AnalysisDataUnavailableException error) when (error.Data[HuygensSamplingDiagnostics.ExceptionKey] is HuygensSamplingDiagnostics)
+        { return HuygensSamplingDiagnostics.Unavailable(Name, error)!; }
+    }
+
+    private AnalysisData GenerateDataCore()
     {
         var allWavelengths = Optic.Wavelengths.ToArray();
         if (allWavelengths.Length == 0)
@@ -133,11 +142,11 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
         var referenceWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
         var geometricCenter = _useCentroid
             ? DiffractionEngine.HuygensGeometricCenterOffset(Optic, field, wavelengths,
-                referenceWavelength, _numRays, Optic.RayAimingEnabled)
+                referenceWavelength, _numRays, Optic.RayAimingEnabled, AfocalIntegration)
             : (X: 0.0, Y: 0.0);
         var synthesis = HuygensPsfSynthesis.Compute(Optic, field, wavelengths, _numRays,
             _imageSize, pixelPitchMillimeters, _usePolarization, referenceWavelength,
-            imageCenterOffset: _useCentroid ? geometricCenter : null);
+            imageCenterOffset: _useCentroid ? geometricCenter : null, afocalIntegration: AfocalIntegration);
         var values = new double[_imageSize, _imageSize];
         for (var row = 0; row < _imageSize; row++)
         {
@@ -222,6 +231,11 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
                 : synthesis.Psf.FiniteCellHuygensUsed ? "Finite-cell Auto planar/spherical Huygens"
                     : "Lens-datum scalar Huygens weight (compatibility approximation)",
             ["FiniteCellHuygensUsed"] = synthesis.Psf.FiniteCellHuygensUsed,
+            ["AfocalIntegration"] = synthesis.Psf.AfocalIntegration?.ToString() ?? "NotApplicable",
+            ["PupilQuadratureNodeCount"] = synthesis.Psf.PupilQuadratureNodeCount,
+            ["GeometricChiefReferenceUsed"] = synthesis.Psf.GeometricChiefReferenceUsed,
+            ["SamplingStatus"] = synthesis.Psf.HuygensSamplingChecks is { Count: > 0 } ? "SamplingStable" : "NotAssessed",
+            ["SamplingChecks"] = synthesis.Psf.HuygensSamplingChecks ?? Array.Empty<HuygensSamplingDiagnostics>(),
             ["ImagePlane"] = "Chief ray tangent plane",
             ["PupilSampling"] = _numRays,
             ["ImageSize"] = _imageSize,
@@ -347,7 +361,16 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
 
     public override string Name => "Huygens MTF";
 
+    public AfocalHuygensIntegration AfocalIntegration { get; init; } = AfocalHuygensIntegration.NativeFiniteCell;
+
     public override AnalysisData GenerateData()
+    {
+        try { return GenerateDataCore(); }
+        catch (AnalysisDataUnavailableException error) when (error.Data[HuygensSamplingDiagnostics.ExceptionKey] is HuygensSamplingDiagnostics)
+        { return HuygensSamplingDiagnostics.Unavailable(Name, error)!; }
+    }
+
+    private AnalysisData GenerateDataCore()
     {
         var wavelengths = MtfMethodEvaluator.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Count == 0)
@@ -373,6 +396,8 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
                 wavelengths,
                 new MtfComputationSettings(PupilSampling: _numRays, PixelPitchMillimeters: 0));
         var series = new List<AnalysisSeries>();
+        var samplingChecks = new List<HuygensSamplingDiagnostics>();
+        var remainingSamplingOperations = AnalysisResourceLimits.MaximumDirectPsfOperations;
         var maximumFrequency = 0.0;
         var frequencyLabel = ImageSpaceAnalysisSupport.SpatialFrequencyLabel(Optic);
         var frequencyUnit = ImageSpaceAnalysisSupport.SpatialFrequencyUnit(Optic);
@@ -381,7 +406,7 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
         {
             var field = fields[fieldIndex];
             MtfResult fullMtf;
-            if (_zemaxCompatible)
+            if (_zemaxCompatible && AfocalIntegration == AfocalHuygensIntegration.NativeFiniteCell)
             {
                 var supportedMaximum = (_imageSize - 1.0)
                     / ((2 * _imageSize - 1.0) * sharedPixelPitchMillimeters);
@@ -414,8 +439,22 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
                 // First sum incoherent intensities on one physical grid, then
                 // transform the sum. Combining already-modulated color curves
                 // loses OTF phase and lateral color (and lacks complex OTFs).
-                var psf = HuygensPsfSynthesis.Compute(Optic, field, wavelengths,
-                    _numRays, _imageSize, sharedPixelPitchMillimeters).Psf;
+                PsfResult psf;
+                try { psf = HuygensPsfSynthesis.Compute(Optic, field, wavelengths,
+                    _numRays, _imageSize, sharedPixelPitchMillimeters, afocalIntegration: AfocalIntegration,
+                    maximumSamplingOperations: remainingSamplingOperations).Psf; }
+                catch (AnalysisDataUnavailableException error) when (error.Data[HuygensSamplingDiagnostics.ExceptionKey] is HuygensSamplingDiagnostics)
+                {
+                    var componentChecks = error.Data[HuygensSamplingDiagnostics.PreviousChecksKey] as IReadOnlyList<HuygensSamplingDiagnostics>
+                        ?? Array.Empty<HuygensSamplingDiagnostics>();
+                    error.Data[HuygensSamplingDiagnostics.PreviousChecksKey] = samplingChecks.Concat(componentChecks).ToArray();
+                    throw;
+                }
+                if (psf.HuygensSamplingChecks is { } checks)
+                {
+                    samplingChecks.AddRange(checks);
+                    remainingSamplingOperations -= checks.Sum(check => check.CumulativeOperations);
+                }
                 fullMtf = DiffractionEngine.ComputePsfMtf(psf);
             }
 
@@ -456,8 +495,11 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
             ["NumRays"] = _numRays,
             ["ImageSize"] = _imageSize,
             ["PixelPitchMillimeters"] = sharedPixelPitchMillimeters,
-            ["MtfTransformSize"] = _imageSize * (_zemaxCompatible ? 2 : 1),
-            ["FrequencySampling"] = _zemaxCompatible ? "NaturalCubicEndpointSpan" : "LinearDftPeriod",
+            ["MtfTransformSize"] = _imageSize * (_zemaxCompatible && AfocalIntegration == AfocalHuygensIntegration.NativeFiniteCell ? 2 : 1),
+            ["FrequencySampling"] = _zemaxCompatible && AfocalIntegration == AfocalHuygensIntegration.NativeFiniteCell ? "NaturalCubicEndpointSpan" : "LinearDftPeriod",
+            ["AfocalIntegration"] = Optic.ImageSpaceAfocal ? AfocalIntegration.ToString() : "NotApplicable",
+            ["SamplingStatus"] = samplingChecks.Count > 0 ? "SamplingStable" : "NotAssessed",
+            ["SamplingChecks"] = samplingChecks.ToArray(),
             ["ImageDeltaMicrometers"] = Optic.ImageSpaceAfocal ? 0 : sharedPixelPitchMillimeters * 1000,
             ["ImageDeltaMilliradians"] = Optic.ImageSpaceAfocal ? sharedPixelPitchMillimeters : 0,
             ["MaximumFrequency"] = plottedMaximum,
@@ -468,7 +510,7 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
             ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
             ["FieldNumber"] = _fieldNumber,
             ["FieldCount"] = fields.Length,
-            ["ZemaxCompatible"] = _zemaxCompatible
+            ["ZemaxCompatible"] = _zemaxCompatible && AfocalIntegration == AfocalHuygensIntegration.NativeFiniteCell
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             Title: "Huygens MTF",
             XMinimum: 0,

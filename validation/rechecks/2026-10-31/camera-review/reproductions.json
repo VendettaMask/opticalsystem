@@ -1,0 +1,35 @@
+[
+  {
+    "Case": "invalid-scene-number",
+    "Control": "scene3d-depth",
+    "EscapedException": true,
+    "Error": "System.InvalidOperationException: \u8BF7\u8F93\u5165\u6709\u6548\u6570\u503C\u3002\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.V(String key) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Actions.cs:line 202\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.\u003CUpdateScene3DControls\u003Eb__140_0(Camera3DObject o) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Scene3D.cs:line 126\r\n   at System.Linq.Enumerable.IListSelectIterator\u00602.MoveNext()\r\n   at System.String.Join(String separator, IEnumerable\u00601 values)\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.UpdateScene3DControls() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Scene3D.cs:line 125\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.UpdateAvailability() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Actions.cs:line 199\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.Invalidate(String message, Boolean clearComparison) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Actions.cs:line 148\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.OnNumberTextChanged(String key, NumericUpDown input) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Numbers.cs:line 32\r\n   at Avalonia.PropertyStore.EffectiveValue\u00601.NotifyValueChanged(ValueStore owner, StyledProperty\u00601 property, T oldValue)\r\n   at Avalonia.PropertyStore.ValueStore.SetLocalValue[T](StyledProperty\u00601 property, T value)\r\n   at Avalonia.PropertyStore.ValueStore.SetValue[T](StyledProperty\u00601 property, T value, BindingPriority priority)\r\n   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty\u00601 property, T value, BindingPriority priority)\r\n   at Avalonia.Controls.NumericUpDown.set_Text(String value)\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003C\u003CMain\u003E$\u003Eb__0\u003Ed.MoveNext() in D:\\Projects\\opticalsystem\\tools\\diagnostics\\CameraReview20261031\\Program.cs:line 34"
+  },
+  {
+    "Case": "invalid-scene-number",
+    "Control": "scene3d-guard",
+    "EscapedException": true,
+    "Error": "System.InvalidOperationException: \u8BF7\u8F93\u5165\u6709\u6548\u6570\u503C\u3002\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.V(String key) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Actions.cs:line 202\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.Scene3DReadiness() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Scene3D.cs:line 131\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.UpdateAvailability() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Actions.cs:line 175\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.Invalidate(String message, Boolean clearComparison) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Actions.cs:line 148\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.OnNumberTextChanged(String key, NumericUpDown input) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Numbers.cs:line 32\r\n   at Avalonia.PropertyStore.EffectiveValue\u00601.NotifyValueChanged(ValueStore owner, StyledProperty\u00601 property, T oldValue)\r\n   at Avalonia.PropertyStore.ValueStore.SetLocalValue[T](StyledProperty\u00601 property, T value)\r\n   at Avalonia.PropertyStore.ValueStore.SetValue[T](StyledProperty\u00601 property, T value, BindingPriority priority)\r\n   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty\u00601 property, T value, BindingPriority priority)\r\n   at Avalonia.Controls.NumericUpDown.set_Text(String value)\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003C\u003CMain\u003E$\u003Eb__0\u003Ed.MoveNext() in D:\\Projects\\opticalsystem\\tools\\diagnostics\\CameraReview20261031\\Program.cs:line 34"
+  },
+  {
+    "Case": "invalid-scene-number",
+    "Control": "scene3d-psf-radius",
+    "EscapedException": true,
+    "Error": "System.InvalidOperationException: \u8BF7\u8F93\u5165\u6709\u6548\u6570\u503C\u3002\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.V(String key) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Actions.cs:line 202\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.Scene3DReadiness() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Scene3D.cs:line 131\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.UpdateAvailability() in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Actions.cs:line 175\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.Invalidate(String message, Boolean clearComparison) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Actions.cs:line 148\r\n   at OpticalSystemDesign.App.Laboratories.CameraImagingWindow.OnNumberTextChanged(String key, NumericUpDown input) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Laboratories\\CameraImagingWindow.Numbers.cs:line 32\r\n   at Avalonia.PropertyStore.EffectiveValue\u00601.NotifyValueChanged(ValueStore owner, StyledProperty\u00601 property, T oldValue)\r\n   at Avalonia.PropertyStore.ValueStore.SetLocalValue[T](StyledProperty\u00601 property, T value)\r\n   at Avalonia.PropertyStore.ValueStore.SetValue[T](StyledProperty\u00601 property, T value, BindingPriority priority)\r\n   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty\u00601 property, T value, BindingPriority priority)\r\n   at Avalonia.Controls.NumericUpDown.set_Text(String value)\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003C\u003CMain\u003E$\u003Eb__0\u003Ed.MoveNext() in D:\\Projects\\opticalsystem\\tools\\diagnostics\\CameraReview20261031\\Program.cs:line 34"
+  },
+  {
+    "Case": "curved-image-surface",
+    "Accepted": true,
+    "EdgeSagMillimeters": 0.022758985715396817,
+    "OutputIdentical": true,
+    "FlatTotalWatts": 1.9323349621638938E-08,
+    "CurvedTotalWatts": 1.9323349621638938E-08
+  },
+  {
+    "Case": "curved-image-surface-diffraction",
+    "Accepted": true,
+    "OutputIdentical": true,
+    "FlatTotalWatts": 8.201945119460606E-12,
+    "CurvedTotalWatts": 8.201945119460606E-12
+  }
+]

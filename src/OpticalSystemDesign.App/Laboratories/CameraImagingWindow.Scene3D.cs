@@ -89,17 +89,20 @@ public sealed partial class CameraImagingWindow
 
     private void SynchronizeScene3DMode()
     {
-        if (IsScene3D == _scene3DWasActive) return;
+        if (IsScene3D == _scene3DWasActive && IsNsc == _nscWasActive) return;
         var applying = _applyingSensor; _applyingSensor = true;
         try
         {
-            if (IsScene3D)
+            if (IsScene3D || IsNsc)
             {
-                _previous2D = (_optics.SelectedIndex, _aberration.SelectedIndex, _spectralModel.SelectedIndex);
-                _optics.SelectedIndex = 0; _aberration.SelectedIndex = 0; _spectralModel.SelectedIndex = (int)CameraSpectralModel.SceneBands;
+                if (!_scene3DWasActive && !_nscWasActive) _previous2D = (_optics.SelectedIndex, _aberration.SelectedIndex, _spectralModel.SelectedIndex);
+                _optics.SelectedIndex = IsNsc ? (int)CameraOptics.DetectorInput : 0; _aberration.SelectedIndex = 0;
+                _spectralModel.SelectedIndex = IsNsc ? (int)CameraSpectralModel.DetectorBands : (int)CameraSpectralModel.SceneBands;
+                if (IsNsc) _pixelSampling.SelectedIndex = 0;
             }
             else { _optics.SelectedIndex = _previous2D.Optics; _aberration.SelectedIndex = _previous2D.Aberration; _spectralModel.SelectedIndex = _previous2D.Spectrum; }
             _scene3DWasActive = IsScene3D;
+            _nscWasActive = IsNsc;
         }
         finally { _applyingSensor = applying; }
         UpdateSource();
@@ -109,11 +112,11 @@ public sealed partial class CameraImagingWindow
     {
         if (_scene3DCard is null) return;
         _scene3DCard.IsVisible = IsScene3D;
-        if (_legacySpectraCard is not null) _legacySpectraCard.IsVisible = !IsScene3D;
-        if (_legacyMaterialsCard is not null) _legacyMaterialsCard.IsVisible = !IsScene3D;
-        ControlAvailability.Set(_optics, !IsScene3D, "三维场景通过当前实际镜头追迹。");
-        ControlAvailability.Set(_aberration, true, "");
-        ControlAvailability.Set(_spectralModel, !IsScene3D, "三维场景使用明确的 650/550/450 nm 绝对波段值。");
+        if (_legacySpectraCard is not null) _legacySpectraCard.IsVisible = !IsScene3D && !IsNsc;
+        if (_legacyMaterialsCard is not null) _legacyMaterialsCard.IsVisible = !IsScene3D && !IsNsc;
+        ControlAvailability.Set(_optics, !IsScene3D && !IsNsc, IsNsc ? "光学传播已经包含在 NSC 功率中。" : "三维场景通过当前实际镜头追迹。");
+        ControlAvailability.Set(_aberration, !IsNsc, "光学传播已经包含在 NSC 功率中。");
+        ControlAvailability.Set(_spectralModel, !IsScene3D && !IsNsc, IsNsc ? "使用冻结探测器的实际波长表。" : "三维场景使用明确的 650/550/450 nm 绝对波段值。");
         var wave = IsScene3D && _aberration.SelectedIndex == (int)CameraAberration.Diffraction;
         foreach (var key in new[] { "scene3d-rings", "scene3d-arms" })
             ControlAvailability.Set(_numbers[key], !wave, "几何环形瞳面用于几何追迹；衍射采用下方笛卡尔瞳面网格。");
@@ -129,10 +132,8 @@ public sealed partial class CameraImagingWindow
     }
 
     private string? Scene3DReadiness() => !IsScene3D ? null : _scene3D is null ? "请载入三维场景。"
-        : new[] { "scene3d-depth", "scene3d-power", "scene3d-rings", "scene3d-arms", "scene3d-pupil-grid", "scene3d-subdivide", "scene3d-psf-radius", "scene3d-guard" }.Any(key => _numbers[key].Value is null)
-            ? "请输入完整的物深、光源功率与瞳面采样参数。"
-            : new[] { "scene3d-rings", "scene3d-arms", "scene3d-pupil-grid", "scene3d-subdivide", "scene3d-psf-radius", "scene3d-guard" }.Any(key => _numbers[key].Value != decimal.Truncate(_numbers[key].Value!.Value))
-                ? "瞳面、场景与窗口采样必须为整数。"
-                : _aberration.SelectedIndex == (int)CameraAberration.Diffraction && V("scene3d-guard") < V("scene3d-psf-radius")
+        : new[] { "scene3d-depth", "scene3d-power", "scene3d-rings", "scene3d-arms", "scene3d-pupil-grid", "scene3d-subdivide", "scene3d-psf-radius", "scene3d-guard" }.Any(key => !ValidNumber(_numbers[key], IntegerNumber(key)))
+            ? "请输入有效数值。"
+            : _aberration.SelectedIndex == (int)CameraAberration.Diffraction && V("scene3d-guard") < V("scene3d-psf-radius")
                     ? "源保护带不得小于衍射窗口半径。" : null;
 }

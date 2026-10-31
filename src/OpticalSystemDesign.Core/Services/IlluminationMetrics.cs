@@ -42,6 +42,22 @@ public sealed record IlluminationMetricResult(double ProjectedCosineArea, int Va
 /// </summary>
 public static partial class IlluminationMetrics
 {
+    /// <summary>RI describes irradiance at a localized image conjugate, not angular
+    /// throughput in afocal image space. Raw projected-area integrals below are a
+    /// separate quantity and do not imply that relative illumination is defined.</summary>
+    public static string? RelativeIlluminationNotApplicableReason(Optic optic)
+    {
+        ArgumentNullException.ThrowIfNull(optic);
+        return optic.ImageSpaceAfocal
+            ? "Relative illumination is not applicable in afocal image space; it requires a finite image conjugate."
+            : null;
+    }
+
+    internal static void RequireRelativeIllumination(Optic optic)
+    {
+        if (RelativeIlluminationNotApplicableReason(optic) is { } reason) throw Unavailable(reason);
+    }
+
     /// <summary>Axis-referenced RI, distinct from peak-normalized analysis curves.
     /// All five vignetting factors are removed on an isolated copy when necessary.
     /// Physical apertures remain active; transmission follows the explicit policy.</summary>
@@ -51,6 +67,7 @@ public static partial class IlluminationMetrics
         bool includeScalarTransmission = true)
     {
         ArgumentNullException.ThrowIfNull(optic);
+        RequireRelativeIllumination(optic);
         var working = AnalysisTrace.PrepareVignettingFactors(optic, true);
         var results = EvaluateFields(working, [(0, 0), normalizedField], wavelengthMicrometers,
             rayDensity, usePolarization, sampling, includeScalarTransmission);

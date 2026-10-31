@@ -49,15 +49,15 @@ public sealed class TargetPreservationTests
     }
 
     [Fact]
-    public async Task InfeasibleReflectanceCanRestartItsDualPathOnceWithoutIncreasingTheBudget()
+    public async Task InfeasibleReflectanceUsesSharedInequalityStepsWithoutIncreasingTheBudget()
     {
         using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/coating-infeasible-20261030.json")));
         var d = fixture.RootElement.GetProperty("Cases").EnumerateArray().Single(c => c.GetProperty("Input").GetProperty("Name").GetString() == "real-hr-original-target")
             .GetProperty("Input").Deserialize<Experiment>(Experiment.JsonOptions)!;
         d = d with { Settings = d.Settings with { MaximumIterations = 96 } };
         var output = new DesignService().Optimize(d); var work = output.Result!.Run.GeneralWork!;
-        Assert.Equal(1, work.QualityRestarts); Assert.InRange(output.Result.Run.Iterations, 1, 96);
-        Assert.True(output.Result.Metrics.MinimumReflectance > .960308505009531);
+        Assert.True(work.InequalitySubproblems > 0); Assert.InRange(output.Result.Run.Iterations, 1, 96);
+        Assert.True(output.Result.Metrics.MinimumReflectance > .9607897905290615);
         var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".coating.json");
         try
         {

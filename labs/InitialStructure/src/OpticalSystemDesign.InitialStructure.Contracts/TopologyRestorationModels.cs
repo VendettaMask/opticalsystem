@@ -7,6 +7,8 @@ namespace OpticalSystemDesign.InitialStructure.Contracts;
 public sealed record ParaxialRecoveryOptions
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? FixedStopEnvelopeVersion { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? UseAutomaticMatrixDerivatives { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? RestorePupilMagnification { get; init; }
@@ -48,6 +50,10 @@ public sealed record ParaxialRecoveryWork(int FunctionEvaluations, int Differenc
 
 public sealed record ParaxialRecoveryResult
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double? InitialEnvelopeDeficitMillimeters { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double? EndpointEnvelopeDeficitMillimeters { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public double? InitialPupilError { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

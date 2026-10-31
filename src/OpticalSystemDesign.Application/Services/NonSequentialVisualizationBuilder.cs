@@ -357,6 +357,8 @@ internal static class NonSequentialVisualizationBuilder
     private static SceneRaySegmentType SegmentType(RayInteractionKind? kind) => kind switch
     {
         RayInteractionKind.Reflected => SceneRaySegmentType.Reflected,
+        RayInteractionKind.DiffuseReflection => SceneRaySegmentType.Scattered,
+        RayInteractionKind.DiffuseTransmission => SceneRaySegmentType.ScatteredTransmission,
         RayInteractionKind.TotalInternalReflection => SceneRaySegmentType.TotalInternalReflection,
         RayInteractionKind.Transmitted => SceneRaySegmentType.Transmitted,
         _ => SceneRaySegmentType.Incident
@@ -366,6 +368,8 @@ internal static class NonSequentialVisualizationBuilder
     {
         RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection => SceneRayInteractionType.Reflective,
         RayInteractionKind.Transmitted => SceneRayInteractionType.Refractive,
+        RayInteractionKind.DiffuseReflection => SceneRayInteractionType.Scattered,
+        RayInteractionKind.DiffuseTransmission => SceneRayInteractionType.ScatteredTransmission,
         _ => SceneRayInteractionType.None
     };
 

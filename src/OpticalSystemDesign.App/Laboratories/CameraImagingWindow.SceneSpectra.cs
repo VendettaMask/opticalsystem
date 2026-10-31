@@ -9,7 +9,7 @@ namespace OpticalSystemDesign.App.Laboratories;
 
 public sealed partial class CameraImagingWindow
 {
-    private readonly ComboBox _spectralModel = Choice("camera-spectral-model", "三波段模型", "连续光谱积分", "场景绝对波段");
+    private readonly ComboBox _spectralModel = Choice("camera-spectral-model", "三波段模型", "连续光谱积分", "场景绝对波段", "探测器光谱波段");
     private CameraSpectrumCurve? _illuminant, _reflectance, _plottedIlluminant, _plottedReflectance;
     private readonly TextBlock _sceneSpectraInfo = new() { Name = "camera-scene-spectra-info", TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _scenePageInfo = new() { TextWrapping = TextWrapping.Wrap };
@@ -72,6 +72,9 @@ public sealed partial class CameraImagingWindow
 
     private string? SpectrumReadiness()
     {
+        if (IsNsc) return NscReadiness();
+        if (_spectralModel.SelectedIndex == (int)CameraSpectralModel.DetectorBands
+            || _optics.SelectedIndex == (int)CameraOptics.DetectorInput) return "请选择非序列探测器输入。";
         if (!IsScene3D && _spectralModel.SelectedIndex == (int)CameraSpectralModel.SceneBands) return "场景绝对波段需要选择三维场景与照明。";
         if (!IsContinuous) return _spectralResponse is not null
             && (_spectralResponse.Samples[0].WavelengthNanometers > 450 || _spectralResponse.Samples[^1].WavelengthNanometers < 650)
@@ -91,6 +94,12 @@ public sealed partial class CameraImagingWindow
     }
     private void UpdateSceneSpectra()
     {
+        if (IsNsc)
+        {
+            _scenePageInfo.Text = "非序列输入使用冻结的分波长 W/像元；光源、材料与镜头已经在 NSC 中计算。";
+            _illuminantPlot.IsVisible = _illuminantLegend.IsVisible = _reflectancePlot.IsVisible = _reflectanceLegend.IsVisible = false;
+            _plottedIlluminant = _plottedReflectance = null; _plottedMaterialScene = null; return;
+        }
         if (IsScene3D)
         {
             _scenePageInfo.Text = "当前：三维场景绝对波段 650/550/450 nm。点光源功率为 W/波段，材质为各波段反射率；二维光源 CSV 与灰度材质分区不参与计算。实际输入见三维场景卡及导出 JSON。";
@@ -130,7 +139,9 @@ public sealed partial class CameraImagingWindow
         check.IsCheckedChanged += (_, _) => plot.SetVisibleSeries(check.IsChecked == true ? series : Array.Empty<AnalysisSeriesDto>());
         legend.Children.Add(check);
     }
-    private static string SpectrumDescription(CameraImagingResult result) => result.Scene3D is { } direct
+    private static string SpectrumDescription(CameraImagingResult result) => result.Request.NscDetector is { } nsc
+        ? $"NSC · {nsc.Detector.Name} · {nsc.Bands.Count} 波段 · {nsc.Bands.Sum(b => b.PixelPowerWatts.Sum()):G6} W · 筛选：{(nsc.PathFilter.Length == 0 ? "全部已保存路径" : nsc.PathFilter)}"
+        : result.Scene3D is { } direct
         ? $"三维{(direct.Diffraction is null ? "几何" : "标量衍射")} · {result.Request.Scene3D!.Name} · 650/550/450 nm · 总感光功率 {direct.TotalPowerWatts:G6} W\n光线 {direct.LaunchedRays} · 穿过镜头 {direct.PassedLensRays} · 可见贡献 {direct.SceneHitRays} · 遮光 {direct.ShadowedLightSamples}/{direct.ShadowQueries}"
         : result.Integration is not { } integration
         ? "三波段模型 · 650/550/450 nm"

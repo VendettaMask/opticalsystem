@@ -16,7 +16,17 @@ AssemblyLoadContext.Default.Resolving += (_, name) =>
     var path = Path.Combine(AppContext.BaseDirectory, name.Name + ".dll");
     return File.Exists(path) ? AssemblyLoadContext.Default.LoadFromAssemblyPath(path) : null;
 };
-if (args.Length != 2) throw new ArgumentException("compute|audit <new run root>");
+if (args.Length == 3 && args[0] == "prepare-current")
+{
+    CurrentInputs.Prepare(Path.GetFullPath(args[1]), Path.GetFullPath(args[2]));
+    return;
+}
+if (args.Length == 3 && args[0] == "probe-source")
+{
+    SourceProbe.Run(args[1], args[2]);
+    return;
+}
+if (args.Length != 2) throw new ArgumentException("compute|audit <new run root> or prepare-current <repository> <new run root>");
 var root = Path.GetFullPath(args[1]);
 var rows = JsonFiles.Read<List<Row>>(Path.Combine(root, "items.json"));
 var identity = JsonFiles.Read<JsonElement>(Path.Combine(root, "input-identity.json"));
@@ -81,6 +91,21 @@ foreach (var row in rows)
     Console.WriteLine($"AUDIT {summary.Count}/170 {row.Id}: {before.Run.Conclusion} -> {after.Run.Conclusion}; pointwise {before.Points.Sum(p => p.Violations)} -> {after.Points.Sum(p => p.Violations)}");
 }
 JsonFiles.Write(Path.Combine(root, "comparison.json"), summary);
+var evaluated = summary.Select(s => JsonSerializer.SerializeToElement(s, JsonFiles.Options)).ToArray();
+var covered = rows.Select(r => r.Key).ToHashSet(StringComparer.Ordinal);
+JsonFiles.Write(Path.Combine(root, "analysis-inventory.json"), new
+{
+    scope = "Original four afocal files / five configurations / original 150 plus fixed-angle 20 requests",
+    coreSha256 = coreHash, allRequiredAnalysisResultsCertified = false,
+    analyses = rows.GroupBy(r => r.Key).Select(g => new
+    {
+        key = g.Key, requests = g.Count(), cases = evaluated.Where(e => e.GetProperty("key").GetString() == g.Key)
+            .Select(e => new { id = e.GetProperty("id").GetString(), conclusion = e.GetProperty("after").GetProperty("run").GetProperty("conclusion").GetString(),
+                violations = e.GetProperty("after").GetProperty("points").EnumerateArray().Sum(p => p.GetProperty("violations").GetInt32()) }).ToArray()
+    }).ToArray(),
+    catalogEntriesOutsideThisBatch = new AnalysisCatalog(new Optic()).Names.Where(n => !covered.Contains(n))
+        .Select(n => new { key = n, status = "NotValidatedByThisAfocalBatch", applicability = "RequiresSeparateAssessment" }).ToArray()
+});
 
 Evaluation Evaluate(Row row, string? path, string phase)
 {

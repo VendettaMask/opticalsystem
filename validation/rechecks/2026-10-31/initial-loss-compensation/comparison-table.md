@@ -1,0 +1,11 @@
+| 组别 | 原任务 | 运行 | 继承合格 | 新合格 | 终验候选 | 总实际光线（含起点） |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| control | competition-8-F8-full25 | 5 | 0 | 0 | 10 | 1,270,747 |
+| control | competition-8-F4-full25 | 5 | 0 | 0 | 10 | 1,289,142 |
+| control | original-half21 | 5 | 5 | 0 | 8 | 5,846,928 |
+| allocation-control | competition-8-F8-full25 | 5 | 0 | 0 | 10 | 1,570,749 |
+| allocation-control | competition-8-F4-full25 | 5 | 0 | 0 | 10 | 1,606,446 |
+| allocation-control | original-half21 | 5 | 5 | 0 | 8 | 6,572,854 |
+| candidate | competition-8-F8-full25 | 5 | 0 | 0 | 10 | 2,062,233 |
+| candidate | competition-8-F4-full25 | 5 | 0 | 0 | 0 | 523,364 |
+| candidate | original-half21 | 5 | 5 | 0 | 10 | 9,817,840 |

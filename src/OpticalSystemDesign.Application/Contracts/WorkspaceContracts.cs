@@ -249,6 +249,31 @@ public sealed record WorkbenchModeChangedEventArgs(
     OpticalWorkbenchMode PreviousMode,
     OpticalWorkbenchMode CurrentMode);
 
+public enum NonSequentialBsdfKind { LambertianReflection, Measured }
+public sealed record MeasuredBsdfPointDto(int Side, double WavelengthNanometers, double IncidentThetaDegrees,
+    double OutgoingThetaDegrees, double OutgoingPhiDegrees, double BrdfPerSteradian, double BtdfPerSteradian,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] double IncidentPhiDegrees = 0);
+public sealed record MeasuredBsdfDataDto(string Name, string SourceFileName, string SourceSha256, string DataSha256,
+    IReadOnlyList<MeasuredBsdfPointDto> Points,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] int Coordinates = 0,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string? SourceFormat = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string? ImportNotes = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] ZemaxBsdfDefinitionDto? ZemaxDefinition = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] int StoredQuantity = 0,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] Core.Scattering.SpeosPeakDefinition? SpeosPeak = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] Core.Scattering.ZemaxXyzDefinition? ZemaxXyz = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] Core.Scattering.SpeosSpectralDefinition? SpeosSpectral = null);
+public sealed record ZemaxBsdfTisDto(int Side, double SpecularThetaDegrees, double SampleRotationDegrees, double Fraction);
+public sealed record ZemaxBsdfDefinitionDto(bool Transmission, double IncidentIndex, double TransmittedIndex, IReadOnlyList<ZemaxBsdfTisDto> Integrals);
+public sealed record BsdfMaterialAxisDto(double X = 1, double Y = 0, double Z = 0);
+public enum BsdfImportSides { FileDefined, Front, Back, BothDeclaredIdentical }
+public sealed record BsdfImportOptions(BsdfImportSides Sides = BsdfImportSides.FileDefined,
+    double? ZemaxWavelengthNanometers = null, bool ZemaxRadiometric = false, double IncidentIndex = 1, double TransmittedIndex = 1,
+    string? ZemaxXyzCalibrationPath = null, Core.Scattering.SpeosPeakImportOptions? SpeosPeak = null);
+public sealed record NonSequentialSurfaceBsdf(NonSequentialBsdfKind Kind, double Reflectance,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] MeasuredBsdfDataDto? MeasuredData = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] BsdfMaterialAxisDto? MaterialAxis = null);
+
 public sealed record NonSequentialObjectRowDto(
     Guid Id,
     int ObjectNumber,
@@ -267,7 +292,8 @@ public sealed record NonSequentialObjectRowDto(
     double TiltZDegrees,
     string Material,
     NonSequentialObjectParameters Parameters,
-    string ParameterSummary);
+    string ParameterSummary,
+    NonSequentialSurfaceBsdf? SurfaceBsdf = null);
 
 public sealed record NonSequentialWavelengthDto(
     int Index,
@@ -297,7 +323,8 @@ public sealed record NonSequentialObjectUpdateDto(
     double TiltXDegrees,
     double TiltYDegrees,
     double TiltZDegrees,
-    NonSequentialObjectParameters Parameters);
+    NonSequentialObjectParameters Parameters,
+    NonSequentialSurfaceBsdf? SurfaceBsdf = null);
 
 public sealed record NonSequentialConversionResultDto(
     int ObjectCount,
@@ -378,6 +405,20 @@ public sealed record NonSequentialTraceRunRequestDto(
     int? RayCountOverride = null,
     IReadOnlyList<Guid>? SourceObjectIds = null);
 
+/// <summary>Whole-trace statistics before path selection. Repeated interactions are counted separately.</summary>
+public sealed record NonSequentialBsdfStatistics(long SampleCount, double IncomingPowerWatts, double ReflectedPowerWatts,
+    double AbsorbedPowerWatts, double CosineSum, double CosineSquaredSum, double MinimumPdf, double MaximumPdf,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] double TransmittedPowerWatts = 0,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] long ReflectionSampleCount = 0,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] long TransmissionSampleCount = 0,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] long MaterialAxisSampleCount = 0,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] double MaterialDirectionXSum = 0,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] double MaterialDirectionYSum = 0)
+{
+    public double MeanCosine => SampleCount > 0 ? CosineSum / SampleCount : 0;
+    public double CosineSecondMoment => SampleCount > 0 ? CosineSquaredSum / SampleCount : 0;
+}
+
 public sealed record NonSequentialTraceRunResultDto(
     int TotalBranchCount,
     int MatchedBranchCount,
@@ -395,7 +436,8 @@ public sealed record NonSequentialTraceRunResultDto(
     TimeSpan? Elapsed = null,
     int TracePassCount = 1,
     bool IsStale = false,
-    IReadOnlyList<string>? Warnings = null);
+    IReadOnlyList<string>? Warnings = null,
+    NonSequentialBsdfStatistics? BsdfStatistics = null);
 
 public sealed record NonSequentialTraceSessionDto(
     Guid Id,
@@ -423,7 +465,8 @@ public sealed record NonSequentialTraceSessionDto(
     bool IsStale,
     string? FilterExpression,
     IReadOnlyList<string> Warnings,
-    string? TraceConfigurationFingerprint = null);
+    string? TraceConfigurationFingerprint = null,
+    NonSequentialBsdfStatistics? BsdfStatistics = null);
 
 public enum NonSequentialDetectorSpace
 {
@@ -1221,7 +1264,9 @@ public enum SceneRayInteractionType
     Reflective,
     Diffractive,
     ThinLens,
-    Phase
+    Phase,
+    Scattered,
+    ScatteredTransmission
 }
 
 public enum SceneRaySegmentType
@@ -1230,7 +1275,9 @@ public enum SceneRaySegmentType
     Incident,
     Transmitted,
     Reflected,
-    TotalInternalReflection
+    TotalInternalReflection,
+    Scattered,
+    ScatteredTransmission
 }
 
 public sealed record SceneRaySegment2Dto(

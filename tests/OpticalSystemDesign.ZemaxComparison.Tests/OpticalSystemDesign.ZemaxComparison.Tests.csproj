@@ -6,6 +6,20 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="../../validation/zemax/2026-r1/binocular-fourier-direct-2026-10-31/reference.zip" Link="Fixtures/binocular-fourier-direct/reference.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/binocular-fourier-direct-2026-10-31/manifest.json" Link="Fixtures/binocular-fourier-direct/manifest.json" CopyToOutputDirectory="PreserveNewest" />
+    <Compile Include="../../tools/diagnostics/BinocularFourier20261031/NativeOperandReference.cs" Link="NativeOperandReference.cs" />
+    <None Include="../../validation/zemax/2026-r1/binocular-fourier-remaining-2026-10-31/reference.zip" Link="Fixtures/binocular-fourier-remaining/reference.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/binocular-fourier-remaining-2026-10-31/manifest.json" Link="Fixtures/binocular-fourier-remaining/manifest.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/binocular-fourier-converged-2026-10-31/reference.zip" Link="Fixtures/binocular-fourier-converged/reference.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/binocular-fourier-converged-2026-10-31/manifest.json" Link="Fixtures/binocular-fourier-converged/manifest.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/afocal-mtf-field-2026-10-31/reference.zip" Link="Fixtures/afocal-mtf-field/reference.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/afocal-mtf-field-2026-10-31/manifest.json" Link="Fixtures/afocal-mtf-field/manifest.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/afocal-aperture-state-2026-10-31/**/*" Link="Fixtures/afocal-aperture-state/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/rechecks/2026-10-30/afocal-ri/original-requests.json" Link="Fixtures/afocal-ri-requests.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/rechecks/2026-10-30/centroid-energy/original-requests.json" Link="Fixtures/afocal-centroid-energy-requests.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/rechecks/2026-10-30/riflescope-pupil/controls.json" Link="Fixtures/afocal-parabasal-controls.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/rechecks/2026-10-30/afocal-auto-grid/current-grid-expectations.json" Link="Fixtures/afocal-current-grid-expectations.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/rechecks/2026-10-29/final-core-170/afocal-comparison.json" Link="Fixtures/final-core-170.json" CopyToOutputDirectory="PreserveNewest" />
     <Compile Include="../../tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/PolygonDependencyGuard.cs" Link="PolygonDependencyGuard.cs" />
     <None Include="../../validation/zemax/2026-r1/afocal-psf-contract-2026-10-28/manifest.json" Link="Fixtures/afocal-psf-contract/manifest.json" CopyToOutputDirectory="PreserveNewest" />

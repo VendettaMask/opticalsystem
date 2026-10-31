@@ -178,6 +178,14 @@ public partial class WorkbenchRuntime
                 : fallback;
         }
 
+        AfocalHuygensIntegration AfocalIntegration() => Text("AfocalIntegration", "NativeFiniteCell") switch
+        {
+            "NativeFiniteCell" or "原生有限单元" => AfocalHuygensIntegration.NativeFiniteCell,
+            "GaussianPupil" or "高阶圆瞳积分" => AfocalHuygensIntegration.GaussianPupil,
+            "CheckedGaussianPupil" or "收敛校验圆瞳积分" => AfocalHuygensIntegration.CheckedGaussianPupil,
+            var value => throw new ArgumentException($"Unknown afocal Huygens integration: {value}")
+        };
+
         int LeadingInt(string key, int fallback)
         {
             var value = Text(key, fallback.ToString(CultureInfo.InvariantCulture)).TrimStart();
@@ -453,7 +461,10 @@ public partial class WorkbenchRuntime
                 Text("Reference", "centroid"),
                 Double("MaximumDistanceMicrometers", 0),
                 Bool("MultiplyByDiffractionLimit", true))
-            { ZemaxCompatibleOutput = Bool("ZemaxCompatibleOutput", true) },
+            {
+                ZemaxCompatibleOutput = Bool("ZemaxCompatibleOutput", true),
+                UseNativeAfocalReferenceRay = Bool("UseNativeAfocalReferenceRay", Bool("ZemaxCompatibleOutput", true))
+            },
             "Diffraction Encircled Energy" => new DiffractionEncircledEnergyAnalysis(
                 CurrentOptic,
                 LeadingInt("PupilSampling", 64),
@@ -744,7 +755,7 @@ public partial class WorkbenchRuntime
                 Text("DisplayAs", "伪彩色"),
                 Bool("UsePolarization", false),
                 Bool("Normalized", false),
-                Bool("UseCentroid", false)),
+                Bool("UseCentroid", false)) { AfocalIntegration = AfocalIntegration() },
             "Huygens PSF Cross Section" => new HuygensPsfCrossSectionAnalysis(
                 CurrentOptic,
                 Int("PupilSampling", Int("NumRays", 32)),
@@ -756,7 +767,7 @@ public partial class WorkbenchRuntime
                     ? Text("ProfileType", "X")
                     : settings.ContainsKey("NumRays") ? "Both" : "X",
                 Bool("UsePolarization", false),
-                Bool("UseCentroid", false)),
+                Bool("UseCentroid", false)) { AfocalIntegration = AfocalIntegration() },
             "MTF" => new MtfAnalysis(
                 CurrentOptic,
                 Int("Sampling", Int("NumRays", 64)),
@@ -778,7 +789,7 @@ public partial class WorkbenchRuntime
                 maximumFrequency: OptionalFrequency(),
                 wavelengthNumber: Int("WavelengthNumber", 0),
                 fieldNumber: Int("FieldNumber", 0),
-                zemaxCompatible: true),
+                zemaxCompatible: true) { AfocalIntegration = AfocalIntegration() },
             "Geometric MTF" => new GeometricMtfAnalysis(
                 CurrentOptic,
                 Int("NumRays", 32),

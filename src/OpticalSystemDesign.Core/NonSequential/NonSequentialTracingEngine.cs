@@ -5,6 +5,7 @@ using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Core.Scattering;
 
 namespace OpticalSystemDesign.Core.NonSequential;
 
@@ -98,13 +99,20 @@ public sealed record NonSequentialEnergyBalance(
     public double AccountedPowerWatts => DetectorPowerWatts + AbsorbedPowerWatts + EscapedPowerWatts + TruncatedPowerWatts;
 }
 
+/// <summary>All sampled interactions before path filtering, including repeated bounces. Power sums are per interaction.</summary>
+public sealed record NonSequentialBsdfStatistics(long SampleCount, double IncomingPowerWatts, double ReflectedPowerWatts,
+    double AbsorbedPowerWatts, double CosineSum, double CosineSquaredSum, double MinimumPdf, double MaximumPdf,
+    double TransmittedPowerWatts = 0, long ReflectionSampleCount = 0, long TransmissionSampleCount = 0,
+    long MaterialAxisSampleCount = 0, double MaterialDirectionXSum = 0, double MaterialDirectionYSum = 0);
+
 public sealed record NonSequentialDocumentTraceResult(
     IReadOnlyList<NonSequentialRayBranch> Branches,
     IReadOnlyList<NonSequentialDetectorFrame> Detectors,
     NonSequentialEnergyBalance EnergyBalance,
     int TotalBranchCount = 0,
     int MatchedBranchCount = 0,
-    long TotalSegmentCount = 0)
+    long TotalSegmentCount = 0,
+    NonSequentialBsdfStatistics? BsdfStatistics = null)
 {
     public int SegmentCount => Branches.Sum(branch => branch.Segments.Count);
 }
@@ -159,6 +167,7 @@ public sealed partial class NonSequentialDocumentTracer
                 ? NonSequentialSplittingMode.FullFresnel
                 : NonSequentialSplittingMode.None);
         var objects = document.Objects.Where(item => item.Enabled && !IsSource(item.Kind)).ToArray();
+        var bsdfs = objects.Where(item => item.SurfaceBsdf is not null).ToDictionary(item => item.Id, item => item.SurfaceBsdf!.Create());
         var hasRefractiveSolids = objects.Any(item => Behavior(item) == NonSequentialSurfaceBehavior.Refractive
             && item.Kind is NonSequentialObjectKind.Sphere or NonSequentialObjectKind.Cylinder or NonSequentialObjectKind.Box
                 or NonSequentialObjectKind.StandardLens or NonSequentialObjectKind.Mesh);
@@ -188,6 +197,11 @@ public sealed partial class NonSequentialDocumentTracer
         var absorbedPower = 0.0;
         var escapedPower = 0.0;
         var truncatedPower = 0.0;
+        long bsdfSamples = 0;
+        double bsdfIncoming = 0, bsdfReflected = 0, bsdfAbsorbed = 0, cosineSum = 0, cosineSquaredSum = 0;
+        double minimumPdf = double.PositiveInfinity, maximumPdf = 0;
+        double bsdfTransmitted = 0; long reflectedSamples = 0, transmittedSamples = 0;
+        long materialSamples = 0; double materialXSum = 0, materialYSum = 0;
         while (queue.Count > 0 || hasSource)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
@@ -283,6 +297,79 @@ public sealed partial class NonSequentialDocumentTracer
                 }
 
                 var behavior = Behavior(hit.Item);
+                if (bsdfs.TryGetValue(hit.Item.Id, out var bsdf))
+                {
+                    var bsdfNormal = hit.WorldNormal;
+                    if (Dot(state.Ray.Direction, bsdfNormal) > 0) bsdfNormal = -bsdfNormal;
+                    Vector3D? materialTangent = null;
+                    if (hit.Item.SurfaceBsdf?.MeasuredData?.Coordinates == BsdfCoordinates.FixedMaterialAxes)
+                    {
+                        var axes = hit.Item.SurfaceBsdf.WorldAxes(document, hit.Item.Id);
+                        var projected = axes.X - bsdfNormal * Dot(axes.X, bsdfNormal);
+                        if (projected.Length < 1e-12)
+                        {
+                            // The second chart axis is object-local too, so poles never depend on world orientation.
+                            projected = axes.Y - bsdfNormal * Dot(axes.Y, bsdfNormal);
+                        }
+                        materialTangent = projected;
+                    }
+                    double bsdfN1 = 1, bsdfN2 = 1;
+                    if (hit.Item.SurfaceBsdf?.MeasuredData?.ZemaxDefinition?.Transmission == true || hit.Item.SurfaceBsdf?.MeasuredData?.SpeosPeak is not null && hit.Item.SurfaceBsdf.MeasuredData.HasTransmission)
+                    {
+                        var destination = hit.IsSolid ? hit.Entering ? SolidMaterial(hit.Item) : ExitMaterial(document, state, hit.Item)
+                            : PlaneDestination((PlaneRectangleParameters)hit.Item.Parameters, hit.LocalDirection);
+                        bsdfN1 = incidentMaterial.RefractiveIndex(state.Ray.WavelengthNanometers);
+                        bsdfN2 = materials.Resolve(destination).RefractiveIndex(state.Ray.WavelengthNanometers);
+                    }
+                    var context = new BsdfContext(-state.Ray.Direction, bsdfNormal, state.Ray.WavelengthNanometers,
+                        Dot(state.Ray.Direction, hit.WorldNormal) > 0 ? BsdfSide.Back : BsdfSide.Front, materialTangent, bsdfN1, bsdfN2);
+                    var sample = bsdf.Sample(context, random.NextDouble(), random.NextDouble());
+                    if (context.MaterialTangent is { } tangent)
+                    {
+                        materialSamples++; materialXSum += Dot(sample.Direction, tangent);
+                        materialYSum += Dot(sample.Direction, BsdfContext.Cross(context.SurfaceNormal, tangent));
+                    }
+                    // Match the normalized direction used by Evaluate/Pdf, especially at grazing angles.
+                    var signedCosine = Dot(BsdfContext.Unit(sample.Direction), context.SurfaceNormal); var cosine = Math.Abs(signedCosine);
+                    var transmitted = sample.Lobe == BsdfLobe.DiffuseTransmission;
+                    if (!double.IsFinite(sample.Pdf) || sample.Pdf <= 0 || !double.IsFinite(sample.Value) || sample.Value < 0
+                        || !Enum.IsDefined(sample.Lobe) || (transmitted ? signedCosine >= 0 : signedCosine <= 0))
+                        throw new InvalidOperationException("BSDF returned an invalid reflection sample.");
+                    var weight = sample.Value * cosine / sample.Pdf;
+                    if (!double.IsFinite(weight) || weight < 0 || weight > 1 + 32 * 2.2204460492503131e-16)
+                        throw new InvalidOperationException("BSDF sampling produced invalid or non-passive power.");
+                    var scatteredPower = incomingIntensity * Math.Min(1, weight);
+                    absorbedPower += incomingIntensity - scatteredPower;
+                    bsdfSamples++; bsdfIncoming += incomingIntensity;
+                    if (transmitted) bsdfTransmitted += scatteredPower; else bsdfReflected += scatteredPower;
+                    bsdfAbsorbed += incomingIntensity - scatteredPower;
+                    cosineSum += cosine; cosineSquaredSum += cosine * cosine;
+                    minimumPdf = Math.Min(minimumPdf, sample.Pdf); maximumPdf = Math.Max(maximumPdf, sample.Pdf);
+                    if (scatteredPower == 0)
+                    {
+                        state.Segments.Add(Segment(state, hit, path, opticalPath, state.Ray.Direction, null));
+                        termination = NonSequentialTerminationReason.Absorbed; completed = true; break;
+                    }
+                    if (transmitted) transmittedSamples++; else reflectedSamples++;
+                    var scatteredMaterial = state.MaterialName; var scatteredInside = state.InsideObjects;
+                    if (transmitted)
+                    {
+                        scatteredMaterial = hit.IsSolid ? hit.Entering ? SolidMaterial(hit.Item) : ExitMaterial(document, state, hit.Item)
+                            : PlaneDestination((PlaneRectangleParameters)hit.Item.Parameters, hit.LocalDirection);
+                        _ = materials.Resolve(scatteredMaterial);
+                        scatteredInside = new HashSet<Guid>(state.InsideObjects);
+                        if (hit.IsSolid) { if (hit.Entering) scatteredInside.Add(hit.Item.Id); else scatteredInside.Remove(hit.Item.Id); }
+                    }
+                    state.Segments.Add(Segment(state, hit, path, opticalPath, sample.Direction, transmitted ? RayInteractionKind.DiffuseTransmission : RayInteractionKind.DiffuseReflection)
+                        with { Intensity = scatteredPower });
+                    state = state with
+                    {
+                        Ray = state.Ray with { Origin = hit.WorldPoint + sample.Direction * OriginOffset, Direction = sample.Direction, Intensity = scatteredPower },
+                        PathLength = path, OpticalPathLength = opticalPath,
+                        MaterialName = scatteredMaterial, InsideObjects = scatteredInside
+                    };
+                    continue;
+                }
                 if (behavior == NonSequentialSurfaceBehavior.Absorbing)
                 {
                     absorbedPower += incomingIntensity;
@@ -466,7 +553,10 @@ public sealed partial class NonSequentialDocumentTracer
             new NonSequentialEnergyBalance(sourcePower, detectorPower, absorbedPower, escapedPower, truncatedPower),
             totalBranchCount,
             matchedBranchCount,
-            totalSegmentCount);
+            totalSegmentCount,
+            bsdfSamples == 0 ? null : new(bsdfSamples, bsdfIncoming, bsdfReflected, bsdfAbsorbed,
+                cosineSum, cosineSquaredSum, minimumPdf, maximumPdf, bsdfTransmitted, reflectedSamples, transmittedSamples,
+                materialSamples, materialXSum, materialYSum));
 
         void Emit(NonSequentialRayBranch branch)
         {

@@ -41,7 +41,7 @@ internal static partial class StructureCompetitionSearch
             || p.MaximumGradientEvaluations is < 0 or > 1000 || p.MaximumFinalists is < 1 or > 8
             || !double.IsFinite(p.SurvivalFraction) || p.SurvivalFraction is <= 0 or >= 1
             || p.ScreeningRaysPerCandidate is < 1 or > 1_000_000
-            || p.MaximumStageRaysPerCandidate <= p.ScreeningRaysPerCandidate || p.MaximumStageRaysPerCandidate > 1_000_000
+            || p.MaximumStageRaysPerCandidate <= p.ScreeningRaysPerCandidate || p.MaximumStageRaysPerCandidate > 10_000_000
             || p.SearchStrategy is null && (p.FinalValidationRayReserve < 1 || p.FinalValidationRayReserve > options.MaximumTracedRays))
             throw new ArgumentException("Competition v1 requires native v3 generation and explicit bounded stage/final budgets; separate image screening cannot be combined.");
         if (p.MaximumStageTimePerCandidate <= TimeSpan.Zero || p.MaximumStageTimePerCandidate > TimeSpan.FromMinutes(2)
@@ -109,7 +109,12 @@ internal static partial class StructureCompetitionSearch
             Identity = algorithm,
             plan,
             options,
-            Training = "Core/CPU/fields3/Gaussian1x4/boundary32/geometry64",
+            Training = plan.Options.Local.GateCompensationVersion switch
+            {
+                null => "Core/CPU/fields3/Gaussian1x4/boundary32/geometry64",
+                2 => "Core/CPU/original-fields-pupil/Gaussian2x8-then10x32/boundary32/geometry64",
+                _ => "Core/CPU/original-fields-pupil/Gaussian2x8-then4x16/boundary32/geometry64"
+            },
             Screen = "Core/fields3/Gaussian1x4/boundary8/geometry64",
             Final = "unchanged-TopologyValidator-original-specification",
             Variables = "anchored-at-generated-candidate"
@@ -165,7 +170,7 @@ internal static partial class StructureCompetitionSearch
                 {
                     token.ThrowIfCancellationRequested();
                     var source = TopologyCompiler.Compile(seed.Topology, plan.Constraints);
-                    _ = TopologyParameterBinder.Bind(source, seed.AnchoredVariables);
+                    _ = TopologyParameterBinder.Bind(source, seed.AnchoredVariables, exactMechanicalFrame: plan.Options.Local.GateCompensationVersion == 2);
                     candidates.Add(new(seed.Id, protocol.Families[candidates.Count % protocol.Families.Length],
                         seed.Topology.Elements.Count(e => e.BackZMillimeters < seed.Topology.Stop.ZMillimeters))
                     {
@@ -280,7 +285,9 @@ internal static partial class StructureCompetitionSearch
                         / (active.Count * remainingStages)));
                 if (functionQuota < 2 || rayQuota <= protocol.ScreeningRaysPerCandidate || gradientQuota < 1 || timeQuota < TimeSpan.FromMilliseconds(10))
                 { termination = ParaxialSeedTermination.BudgetExhausted; reason = "InsufficientCompleteRoundBudget"; break; }
-                var stage = protocol.Stages[stageIndex]; var roundStart = rounds.Count;
+                var stage = plan.Options.Local.GateCompensationVersion is null ? protocol.Stages[stageIndex]
+                    : protocol.Stages[stageIndex] with { FieldFraction = 1, PupilFraction = 1 };
+                var roundStart = rounds.Count;
                 var allocation = new StructureCompetitionAllocation(functionQuota, gradientQuota, rayQuota,
                     protocol.ScreeningRaysPerCandidate, TimeSpan.FromTicks(Math.Max(1, (long)(timeQuota.Ticks * .8))))
                 { MaximumStageTime = strategy is null ? null : timeQuota };
@@ -297,7 +304,7 @@ internal static partial class StructureCompetitionSearch
                     var stageToken = stageDeadline?.Token ?? token;
                     try
                     {
-                        if (strategy?.QuickEvaluation is { } quick && stageIndex < protocol.Stages.Length - 1)
+                        if (plan.Options.Local.GateCompensationVersion is null && strategy?.QuickEvaluation is { } quick && stageIndex < protocol.Stages.Length - 1)
                         {
                             var fast = QuickOptimize(candidate, plan, stage, stageIndex, quick, functionQuota - 1,
                                 rayQuota - protocol.ScreeningRaysPerCandidate, allocation.MaximumOptimizationTime, ref random, stageToken);
@@ -311,7 +318,7 @@ internal static partial class StructureCompetitionSearch
                             using var budget = SequentialTraceMeasurement.BeginCpuBudget(rayQuota - protocol.ScreeningRaysPerCandidate);
                             var source = TopologyCompiler.Compile(staged.Topology, plan.Constraints);
                             // Bounds stay anchored to the generated structure, never re-centered after each phase.
-                            var binding = TopologyParameterBinder.Bind(source, candidate.Variables);
+                            var binding = TopologyParameterBinder.Bind(source, candidate.Variables, exactMechanicalFrame: plan.Options.Local.GateCompensationVersion == 2);
                             var policy = stageIndex == protocol.Stages.Length - 1 ? plan.Options.Full : plan.Options.Local;
                             optimized = FixedTopologyOptimizer.Run(source, binding, staged.Targets, policy with
                             {
@@ -324,8 +331,8 @@ internal static partial class StructureCompetitionSearch
                                 Sampling = new()
                                 {
                                     FieldsPerDirection = 3,
-                                    PupilRings = 1,
-                                    PupilArms = 4,
+                                    PupilRings = policy.GateCompensationVersion is null ? 1 : stageIndex == protocol.Stages.Length - 1 ? policy.GateCompensationVersion == 2 ? 10 : 4 : 2,
+                                    PupilArms = policy.GateCompensationVersion is null ? 4 : stageIndex == protocol.Stages.Length - 1 ? policy.GateCompensationVersion == 2 ? 32 : 16 : 8,
                                     ProfileRadialSamples = 64,
                                     IncludeBoundaryClearance = true,
                                     IncludeBoundaryMaximum = true
@@ -348,8 +355,11 @@ internal static partial class StructureCompetitionSearch
                     // Always screen the accepted endpoint, including stalled or zero-throughput endpoints.
                     var screenStarted = Stopwatch.GetTimestamp(); var screenBeforeRays = measured.RayCount;
                     var endpoint = StageSpecification(candidate.Topology!, plan.Targets, stage);
+                    using var screenDeadline = CancellationTokenSource.CreateLinkedTokenSource(token);
+                    screenDeadline.CancelAfter(TimeSpan.FromSeconds(Math.Max(0, Math.Min(timeQuota.TotalSeconds,
+                        (options.TimeLimit - timer.Elapsed - reservedTime).TotalSeconds))));
                     candidate.Screen = Screen(TopologyCompiler.Compile(endpoint.Topology, plan.Constraints), endpoint.Targets,
-                        protocol.ScreeningRaysPerCandidate, stageToken);
+                        protocol.ScreeningRaysPerCandidate, plan.Options.Local.GateCompensationVersion == 2 ? screenDeadline.Token : stageToken);
                     if (stageDeadline?.IsCancellationRequested == true && !token.IsCancellationRequested && !candidate.Screen.Completed)
                         candidate.Screen = candidate.Screen with { Outcome = "StageTimeLimit" };
                     if (strategy is not null) costs.Add(new(candidate.Id, stageIndex, "SparseRealRays", Stopwatch.GetElapsedTime(screenStarted),

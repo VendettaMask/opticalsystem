@@ -2,6 +2,28 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.ZemaxComparison.Zemax;
 
+if (args.Length == 3 && args[0] == "--afocal-ri")
+    return RelativeIlluminationDiagnostics.Run(args[1], args[2]);
+if (args.Length == 3 && args[0] == "--centroid-energy")
+    return CentroidEnergyDiagnostics.Run(args[1], args[2]);
+if (args.Length == 3 && args[0] == "--energy-reference-controls")
+    return EnergyReferenceControlDiagnostics.Run(args[1], args[2]);
+if (args.Length == 4 && args[0] == "--launch-study")
+    return LaunchRuleDiagnostics.Run(args[1], args[2], args[3]);
+if (args.Length == 4 && args[0] == "--parabasal-rule-study")
+    return ParabasalRuleStudy.Run(args[1], args[2], args[3]);
+if (args.Length == 3 && args[0] == "--automatic-grids")
+    return AutomaticGridDiagnostics.Run(args[1], args[2]);
+if (args.Length == 3 && args[0] == "--working-pupils")
+    return WorkingPupilDiagnostics.Run(args[1], args[2]);
+if (args.Length == 4 && args[0] == "--native-pupil-check")
+    return NativePupilCheck.Run(args[1], args[2], args[3]);
+if (args.Length == 4 && args[0] == "--tagged-facets")
+    return TaggedFacetDiagnostics.Run(args[1], args[2], args[3]);
+if (args.Length == 3 && args[0] == "--score-tags")
+    return TaggedFacetRuleScoring.Run(args[1], args[2]);
+if (args.Length == 3 && args[0] == "--pupil-projection")
+    return PupilProjectionDiagnostics.Run(args[1], args[2]);
 if (args.Length == 3 && args[0] == "--normal-formulas")
     return NormalFormulaDiagnostics.Run(args[1], args[2]);
 if (args.Length == 3 && args[0] == "--pupil-map")
@@ -47,13 +69,44 @@ foreach (var job in manifest.RootElement.EnumerateArray())
     if (HashInput() != job.GetProperty("inputSha256").GetString()) throw new InvalidDataException("Source hash mismatch");
     var output = Path.Combine(directory, id);
     if (Directory.Exists(output)) throw new IOException("Capture output already exists: " + output);
+    var budgetSeconds = job.TryGetProperty("budgetSeconds", out var budget) ? budget.GetInt32() : 120;
+    if (budgetSeconds is < 120 or > 600) throw new InvalidDataException("Native capture budget must be 120 to 600 seconds");
+    var host = executable;
+    if (job.TryGetProperty("frozenHost", out var frozenHost))
+    {
+        host = Path.GetFullPath(Path.Combine(repository, frozenHost.GetString()!));
+        if (!host.StartsWith(repository.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
+            || Path.GetFileName(host) != "ZemaxHost.exe"
+            || Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(host))) != job.GetProperty("frozenHostSha256").GetString())
+            throw new InvalidDataException("Frozen host must be hash-verified inside this repository");
+    }
+    var hostSha256 = Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(host)));
+    var queuedUtc = DateTime.UtcNow;
+    Console.WriteLine("Waiting for background native-capture lease: " + id);
+    using var captureLease = await AcquireCaptureLease(repository);
+    var queueSeconds = (DateTime.UtcNow - queuedUtc).TotalSeconds;
     Console.WriteLine("Starting " + id);
-    var result = await ProcessIsolation.Run(executable, [requestPath, output], directory, 120, CancellationToken.None,
+    var startedUtc = DateTime.UtcNow;
+    var result = await ProcessIsolation.Run(host, [requestPath, output], directory, budgetSeconds, CancellationToken.None,
         new Dictionary<string, string> { ["PATH"] = api + Path.PathSeparator + Environment.GetEnvironmentVariable("PATH") });
     var unchanged = HashInput() == job.GetProperty("inputSha256").GetString();
-    results.Add(new { id, result, sourceUnchanged = unchanged });
+    results.Add(new { id, result, sourceUnchanged = unchanged, budgetSeconds, host, hostSha256, queuedUtc, queueSeconds, startedUtc, elapsedSeconds = (DateTime.UtcNow - startedUtc).TotalSeconds });
     File.WriteAllText(Path.Combine(directory, "execution.json"), JsonSerializer.Serialize(results, json));
     Console.WriteLine($"Completed {id}: {result.ExitCode}");
     if (result.ExitCode != 0 || !unchanged) return 2;
 }
 return 0;
+
+static async Task<FileStream> AcquireCaptureLease(string repository)
+{
+    // Only this diagnostic's background captures participate; existing user applications are untouched.
+    // An OS file handle releases the lease even when a caller is killed, and is safe across async continuations.
+    var folder = Path.Combine(repository, "artifacts/validation"); Directory.CreateDirectory(folder);
+    var path = Path.Combine(folder, ".background-native-capture.lock");
+    var deadline = DateTime.UtcNow.AddSeconds(120);
+    while (true)
+    {
+        try { return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None); }
+        catch (IOException) when (DateTime.UtcNow < deadline) { await Task.Delay(250); }
+    }
+}

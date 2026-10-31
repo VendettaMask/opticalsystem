@@ -393,9 +393,9 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         {
             lines.Add($"  FLAP 0 {FormatDouble(ZemaxSemiDiameter(surface))} 0");
         }
-        if (surface.PhysicalAperture is AnnularAperture annular
-            && annular.InnerRadius > 1e-12)
+        if (surface.PhysicalAperture is AnnularAperture annular)
         {
+            lines.Add($"  CLAP {FormatDouble(annular.InnerRadius)} {FormatDouble(annular.OuterRadius)} 0");
             lines.Add($"  APMN {FormatDouble(annular.InnerRadius)}");
         }
     }

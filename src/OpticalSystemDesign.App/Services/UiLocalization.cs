@@ -168,6 +168,8 @@ internal static partial class UiLocalization
 
         // Cards assemble summaries from canonical fragments at runtime. Translate only the
         // recognized fragments so numeric values, units and imported text remain untouched.
+        if (TryTranslateCameraStatus(source, language, out var cameraStatus)) return cameraStatus;
+
         if (source.Contains(" · ", StringComparison.Ordinal))
         {
             return string.Join(" · ", source.Split(" · ", StringSplitOptions.None).Select(part => Text(part, language)));
@@ -1246,6 +1248,8 @@ internal static partial class UiLocalization
 
         AddAutonomousTopologyTexts(Add);
         AddCameraPixelSamplingTexts(Add);
+        AddCameraExperimentTexts(Add);
+        AddCameraNonSequentialTexts(Add);
         AddManufacturabilityTexts(Add);
         return values;
     }
