@@ -648,8 +648,8 @@ public sealed class Viewer3DGeometryTests
                     Assert.False(string.IsNullOrWhiteSpace(label.Text));
                     Assert.Equal(fontSize, label.FontSize);
                     Assert.Equal(label.Text, AutomationProperties.GetName(button));
-                    Click(button); AssertSelected(preset);
-                    Click(button); AssertSelected(preset); // Re-clicking cannot leave the active view unchecked.
+                    await Click(button); AssertSelected(preset);
+                    await Click(button); AssertSelected(preset); // Re-clicking cannot leave the active view unchecked.
                     Assert.InRange(VisualBounds(button).Left, VisualBounds(toolbar).Left, VisualBounds(toolbar).Right);
                     Assert.InRange(VisualBounds(button).Right, VisualBounds(toolbar).Left, VisualBounds(toolbar).Right);
                     Assert.InRange(VisualBounds(button).Bottom, VisualBounds(toolbar).Top, VisualBounds(toolbar).Bottom);
@@ -673,12 +673,12 @@ public sealed class Viewer3DGeometryTests
                 Assert.DoesNotContain(buttons, item => item.IsChecked == true);
                 Capture(window, $"{capturePrefix}-free-rotation.png");
                 var front = buttons.Single(item => item.Name == $"{namePrefix}ViewFront");
-                front.BringIntoView(); Tick(window);
+                BringIntoViewport(front);
                 front.Focus();
                 window.KeyPress(Key.Space, RawInputModifiers.None, PhysicalKey.Space, " ");
                 window.KeyRelease(Key.Space, RawInputModifiers.None, PhysicalKey.Space, " "); Tick(window);
                 AssertSelected(OpticSceneViewPreset.Front);
-                Click(toolbar.GetVisualDescendants().OfType<Button>().Single(item => item.Name == $"{namePrefix}FitView"));
+                await Click(toolbar.GetVisualDescendants().OfType<Button>().Single(item => item.Name == $"{namePrefix}FitView"));
                 AssertSelected(OpticSceneViewPreset.Front);
                 scene.Focus();
                 window.KeyPress(Key.Left, RawInputModifiers.Shift, PhysicalKey.None, null); Tick(window);
@@ -704,17 +704,46 @@ public sealed class Viewer3DGeometryTests
                 Capture(window, $"{capturePrefix}-reset.png");
 
                 Rect VisualBounds(Control control) => new Rect(control.Bounds.Size).TransformToAABB(control.TransformToVisual(window)!.Value);
-                void Click(Control control)
+                void BringIntoViewport(Control control)
+                {
+                    control.BringIntoView(); Tick(window);
+                    if (viewer.GetVisualDescendants().OfType<ScrollViewer>()
+                        .SingleOrDefault(item => item.Name == "ViewerDiagramScroll") is { } scroll)
+                    {
+                        var center = control.TranslatePoint(new Point(control.Bounds.Width / 2,
+                            control.Bounds.Height / 2), scroll)!.Value;
+                        scroll.Offset = new Vector(
+                            Math.Clamp(scroll.Offset.X + center.X - scroll.Viewport.Width / 2,
+                                0, Math.Max(0, scroll.Extent.Width - scroll.Viewport.Width)),
+                            Math.Clamp(scroll.Offset.Y + center.Y - scroll.Viewport.Height / 2,
+                                0, Math.Max(0, scroll.Extent.Height - scroll.Viewport.Height)));
+                    }
+                    Tick(window); Tick(window);
+                }
+                async Task Click(Control control)
                 {
                     // Fixed sheets scroll in short/narrow panes. Click the visible
                     // control, retaining real hit testing rather than raising Click.
-                    control.BringIntoView(); Tick(window);
-                    var point = control.TranslatePoint(new Point(control.Bounds.Width / 2, control.Bounds.Height / 2), window)!.Value;
+                    BringIntoViewport(control);
+                    Point point = default;
+                    Visual? hit = null;
+                    // The render thread commits scrolled hit-test geometry after
+                    // layout. Wait for that geometry, never retry a missed click.
+                    for (var attempt = 0; attempt < 200; attempt++)
+                    {
+                        Tick(window);
+                        point = control.TranslatePoint(new Point(control.Bounds.Width / 2,
+                            control.Bounds.Height / 2), window)!.Value;
+                        hit = window.InputHitTest(point) as Visual;
+                        if (hit == control || hit?.GetVisualAncestors().Contains(control) == true) break;
+                        await Task.Delay(10);
+                    }
                     Assert.InRange(point.X, 0, window.ClientSize.Width);
                     Assert.InRange(point.Y, 0, window.ClientSize.Height);
-                    var hit = window.InputHitTest(point) as Visual;
                     Assert.True(hit == control || hit?.GetVisualAncestors().Contains(control) == true,
-                        $"{control.Name} at {point} hit {hit?.GetType().Name}/{(hit as Control)?.Name}; bounds {VisualBounds(control)}");
+                        $"{control.Name} at {point} hit {hit?.GetType().Name}/{(hit as Control)?.Name}; bounds {VisualBounds(control)}; " +
+                        $"ancestors {string.Join('>', hit?.GetVisualAncestors().OfType<Control>().Select(item => item.GetType().Name + '/' + item.Name) ?? [])}; " +
+                        $"overflow {viewer.GetVisualDescendants().OfType<UniformDiagramPage>().SingleOrDefault()?.HasOverflow}");
                     window.MouseMove(point); window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left); Tick(window);
                 }
                 void AssertSelected(OpticSceneViewPreset expected)
