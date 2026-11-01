@@ -136,11 +136,13 @@ public static partial class AutonomousSearchService
                     requests.Add(new(surfaceId, OpticalDesignParameterKind.EvenAsphereCoefficient, -bound, bound, bound, power));
                 }
             }
-        return requests.ToImmutableArray();
+        return requests.Where(r => topology.Elements.Where(e => e.FrontSurfaceId == r.SurfaceId || e.BackSurfaceId == r.SurfaceId).All(e => !e.Protected))
+            .DistinctBy(r => (r.SurfaceId, r.Kind, r.Power)).ToImmutableArray();
     }
 
     private static void ValidateExpansion(TopologyExpansionOptions options, AutonomousSearchPlan plan)
     {
+        if (options.Cemented is { } cemented) ValidateCementedPolicy(cemented);
         if (plan.Constraints.AllowTransitionElements || plan.Constraints.TransitionAllowance is not null || plan.Seeds.Any(seed => seed.HasTransitionElements)
             || options.MaterialAlternatives.Length > 32 || (options.EnableMaterial || options.EnableMerge) && options.MaterialAlternatives.IsDefaultOrEmpty
             || options.MaterialAlternatives.Any(material => !Identifier(material))

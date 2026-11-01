@@ -1450,6 +1450,8 @@ public sealed partial class NonSequentialDocumentTracer
     {
         public static BoundedObject Create(NonSequentialDocument document, NonSequentialObjectDefinition item)
         {
+            if(item.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true} assembly)
+                return FromLocalBounds(document,item,assembly.BoundsMinimum-new Vector3D(1e-10,1e-10,1e-10),assembly.BoundsMaximum+new Vector3D(1e-10,1e-10,1e-10));
             if (item.Parameters is MeshObjectParameters mesh)
             {
                 var asset = document.FindMeshAsset(mesh.MeshAssetId);

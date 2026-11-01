@@ -79,7 +79,7 @@ public sealed record AutonomousDesignReview(AutonomousDesignStudy Study, Immutab
         if (study.Main is { } main)
         {
             foreach (var item in main.Candidates.Concat(main.AcceptedArchive).DistinctBy(c => c.Id))
-                Add(new("main:" + item.Id, item.ParentId, "自主搜索", main.Pool.Contains(item.Id) ? "保留候选" : "历史候选",
+                Add(new("main:" + item.Id, item.ParentId, item.Topology.CementedInterfaces is null ? "自主搜索" : "自主胶合", main.Pool.Contains(item.Id) ? "保留候选" : "历史候选",
                     item.Topology, item.Assessment));
             foreach (var entry in main.Events)
             {

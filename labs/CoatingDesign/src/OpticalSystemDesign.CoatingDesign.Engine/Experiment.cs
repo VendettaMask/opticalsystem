@@ -41,6 +41,10 @@ public sealed record FilmLayer(string MaterialId, double ThicknessNm, bool Varia
 public sealed record MaterialSnapshot(string Id, string Name, string Source, double MinimumNm, double MaximumNm,
     ComponentSnapshot Model)
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool HoldTabulatedEndpoints { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? DisplayColor { get; init; }
     public IMaterial Resolve(MaterialRegistry registry)
     {
         if (Model is null || Model.Numbers is null || Model.Text is null
@@ -63,8 +67,15 @@ public sealed record MaterialSnapshot(string Id, string Name, string Source, dou
             CheckTable(c.RefractiveIndexWavelengthsNanometers, c.RefractiveIndices);
             CheckTable(c.ExtinctionWavelengthsNanometers, c.ExtinctionCoefficients);
         }
+        if (HoldTabulatedEndpoints && (material is not CatalogGlassMaterial table
+            || table.Formula != CatalogGlassMaterial.PchipTableFormula))
+            throw new InvalidDataException("端点延用必须由显式 PCHIP 材料模型声明，不能用于替代未知色散。");
         return material;
     }
+
+    public string? RangeNotice(double minimumNm, double maximumNm) => HoldTabulatedEndpoints
+        && (minimumNm < MinimumNm || maximumNm > MaximumNm)
+        ? $"{Name}：原数据 {MinimumNm:G7}–{MaximumNm:G7} nm，域外按参考模型延用端点（非实测）" : null;
 
     private static void CheckTable(IReadOnlyList<double> x, IReadOnlyList<double> y)
     {
@@ -228,6 +239,8 @@ public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignT
     MaterialSnapshot[] Materials, FilmLayer[] Layers, DesignResult? Result = null, Candidate[]? Candidates = null,
     ToleranceResult? Tolerance = null)
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReferenceExampleInfo? ReferenceExample { get; init; }
     public const int CurrentSchema = 1;
     public static readonly JsonSerializerOptions JsonOptions = new()
     {

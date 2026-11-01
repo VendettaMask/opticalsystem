@@ -85,6 +85,7 @@ public static class OpticSnapshotValidator
     private static readonly IReadOnlySet<string> ApertureKinds = Kinds(
         "circular",
         "annular",
+        "circular_obscuration",
         "offset_radial",
         "rectangular",
         "elliptical",
@@ -967,6 +968,12 @@ public static class OpticSnapshotValidator
         string path,
         int depth)
     {
+        if (role == ComponentRole.Aperture && component.Kind == "circular_obscuration")
+        {
+            foreach (var key in new[] { "outerRadius", "innerRadius", "offsetX", "offsetY" }) RequireNumberKey(component, key, path);
+            if (component.Numbers["innerRadius"] < 0 || component.Numbers["outerRadius"] < component.Numbers["innerRadius"])
+                Invalid(path, "circular obscuration radii must be nonnegative and ordered");
+        }
         var children = component.Children;
         if (role == ComponentRole.Material && component.Kind == "uniaxial")
         {

@@ -102,6 +102,8 @@ public static partial class ComponentSnapshotFactory
             PolygonGroupGeometry group => new ComponentSnapshot("polygon_group", new(),
                 new() { ["faces"] = System.Text.Json.JsonSerializer.Serialize(group.Faces) },
                 new() { ["volume"] = FromMaterial(group.VolumeMaterial) }),
+            PlaneGeometry { ReferenceIncidenceNormal: { } referenceNormal } => new ComponentSnapshot("plane",
+                new() { ["referenceIncidenceNormalX"] = referenceNormal.X, ["referenceIncidenceNormalY"] = referenceNormal.Y, ["referenceIncidenceNormalZ"] = referenceNormal.Z }, new()),
             PlaneGeometry => ComponentSnapshot.Empty("plane"),
             TiltedPlaneGeometry tilted => new ComponentSnapshot("tilted_plane",
                 new() { ["tangentX"] = tilted.TangentX, ["tangentY"] = tilted.TangentY }, new()),
@@ -243,7 +245,8 @@ public static partial class ComponentSnapshotFactory
                 System.Text.Json.JsonSerializer.Deserialize<PolygonGroupGeometry.Face[]>(snapshot.Text["faces"])
                     ?? throw new InvalidDataException("Missing polygon-group faces."),
                 ToMaterial(snapshot.Children!["volume"], "Air", new MaterialRegistry())),
-            "plane" => new PlaneGeometry(),
+            "plane" => new PlaneGeometry(n.ContainsKey("referenceIncidenceNormalZ")
+                ? new Backend.Vector3D(n["referenceIncidenceNormalX"], n["referenceIncidenceNormalY"], n["referenceIncidenceNormalZ"]) : null),
             "concentric_zones" => ReadConcentricZones(snapshot),
             "tilted_plane" => new TiltedPlaneGeometry(n["tangentX"], n["tangentY"]),
             "irregular_sag" => new IrregularGeometry(n["radius"], n["conic"], n["normalizationRadius"], n["decenterX"], n["decenterY"],
@@ -652,6 +655,13 @@ public static partial class ComponentSnapshotFactory
                 ["offsetX"] = offset.OffsetX,
                 ["offsetY"] = offset.OffsetY
             }, new Dictionary<string, string>()),
+            CircularObscurationAperture obscuration => new ComponentSnapshot("circular_obscuration", new Dictionary<string, double>
+            {
+                ["outerRadius"] = obscuration.OuterRadius,
+                ["innerRadius"] = obscuration.InnerRadius,
+                ["offsetX"] = obscuration.OffsetX,
+                ["offsetY"] = obscuration.OffsetY
+            }, new Dictionary<string, string>()),
             RectangularAperture rectangular => new ComponentSnapshot("rectangular", new Dictionary<string, double>
             {
                 ["halfWidth"] = rectangular.HalfWidth,
@@ -706,6 +716,11 @@ public static partial class ComponentSnapshotFactory
                 Get(snapshot.Numbers, "innerRadius", 0)),
             "offset_radial" => new OffsetRadialAperture(
                 Get(snapshot.Numbers, "outerRadius", fallbackRadius),
+                Get(snapshot.Numbers, "innerRadius", 0),
+                Get(snapshot.Numbers, "offsetX", 0),
+                Get(snapshot.Numbers, "offsetY", 0)),
+            "circular_obscuration" => new CircularObscurationAperture(
+                Get(snapshot.Numbers, "outerRadius", 0),
                 Get(snapshot.Numbers, "innerRadius", 0),
                 Get(snapshot.Numbers, "offsetX", 0),
                 Get(snapshot.Numbers, "offsetY", 0)),

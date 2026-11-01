@@ -1,0 +1,1608 @@
+{
+  "source": {
+    "commit": "8b942b3f956728a23cea2b35023c8b5d8de17428",
+    "files": {
+      "web/demo-examples.js": "4b9c9eb3fc6ce49877283f8e3e9277383cf09a939401243b97ac39e264c707c8",
+      "src/utils/materials/materialDatabase.js": "81535373de674f2c81b89d1d4f53491a2af944627692aa91e041abd1271b7059",
+      "src/utils/materials/pchip.js": "ed7ab64e1cd521385988af6ecd585c2cc2c65b7ff8b0402384b5bca01c68b99b"
+    }
+  },
+  "materials": [
+    {
+      "id": "Air",
+      "name": "Air",
+      "description": "Air / Vacuum (n=1.0)",
+      "color": "#38bdf8",
+      "rangeNm": [
+        200,
+        20000
+      ],
+      "constantNK": [
+        1,
+        0
+      ],
+      "coefficients": null,
+      "table": [],
+      "kTable": [],
+      "interpolation": null
+    },
+    {
+      "id": "SiO2",
+      "name": "SiO2 (Fused Silica)",
+      "description": "Fused silica — Malitson, J. Opt. Soc. Am. 55, 1205 (1965)",
+      "color": "#00a5c8",
+      "rangeNm": [
+        210,
+        6700
+      ],
+      "constantNK": null,
+      "coefficients": [
+        0,
+        0.6961663,
+        0.00467914825849,
+        0.4079426,
+        0.013512063073959999,
+        0.8974794,
+        97.93400253792099
+      ],
+      "table": [],
+      "kTable": [],
+      "interpolation": null
+    },
+    {
+      "id": "BK7",
+      "name": "BK7 (Schott)",
+      "description": "Borosilicate glass N-BK7 — SCHOTT (Sellmeier n + internal-transmittance k)",
+      "color": "#0f6fd1",
+      "rangeNm": [
+        300,
+        2500
+      ],
+      "constantNK": null,
+      "coefficients": [
+        0,
+        1.03961212,
+        0.00600069867,
+        0.23179234,
+        0.0200179144,
+        1.01046945,
+        103.560653
+      ],
+      "table": [],
+      "kTable": [
+        [
+          310,
+          0.0000013016180651128794
+        ],
+        [
+          320,
+          6.327016559950027e-7
+        ],
+        [
+          334,
+          2.506671807641966e-7
+        ],
+        [
+          350,
+          7.337354317980133e-8
+        ],
+        [
+          365,
+          4.0951421507796496e-8
+        ],
+        [
+          370,
+          3.2567482279336965e-8
+        ],
+        [
+          380,
+          2.1242041620166093e-8
+        ],
+        [
+          390,
+          1.5556530769102757e-8
+        ],
+        [
+          400,
+          9.563649242894593e-9
+        ],
+        [
+          405,
+          9.683194858430777e-9
+        ],
+        [
+          420,
+          1.0041831705039324e-8
+        ],
+        [
+          436,
+          1.0424377674755109e-8
+        ],
+        [
+          460,
+          1.0998196629328782e-8
+        ],
+        [
+          500,
+          7.965715528019911e-9
+        ],
+        [
+          546,
+          8.698561356597742e-9
+        ],
+        [
+          580,
+          9.240230012503096e-9
+        ],
+        [
+          620,
+          9.87748725474469e-9
+        ],
+        [
+          660,
+          1.0514744496986283e-8
+        ],
+        [
+          700,
+          1.1152001739227874e-8
+        ],
+        [
+          1060,
+          8.439432403710215e-9
+        ],
+        [
+          1530,
+          9.779452694775564e-8
+        ],
+        [
+          1970,
+          0.000001087184662287708
+        ],
+        [
+          2325,
+          0.0000042911517563891765
+        ],
+        [
+          2500,
+          0.000008116270219265044
+        ]
+      ],
+      "interpolation": "pchip"
+    },
+    {
+      "id": "MgF2",
+      "name": "MgF2",
+      "description": "Magnesium fluoride — Dodge, Appl. Opt. 23, 1980 (1984)",
+      "color": "#2c7be5",
+      "rangeNm": [
+        200,
+        7000
+      ],
+      "constantNK": null,
+      "coefficients": [
+        0,
+        0.48755108,
+        0.0018821783974463998,
+        0.39875031,
+        0.008951888471936401,
+        2.3120353,
+        566.135591308816
+      ],
+      "table": [],
+      "kTable": [],
+      "interpolation": null
+    },
+    {
+      "id": "TiO2",
+      "name": "TiO2 (anatase)",
+      "description": "TiO2 anatase thin film deposited by ALD at 300 °C — A. Jolivet, C. Labbé, C. Frilay, O. Debieu, P. Marie, B. Horcholle, F. Lemarié, X. Portier, C. Grygi",
+      "color": "#e8a600",
+      "rangeNm": [
+        370.1,
+        826.56
+      ],
+      "constantNK": null,
+      "coefficients": null,
+      "table": [
+        [
+          370.1,
+          2.94552,
+          0
+        ],
+        [
+          375.71,
+          2.90167,
+          0
+        ],
+        [
+          381.49,
+          2.86391,
+          0
+        ],
+        [
+          387.45,
+          2.83055,
+          0
+        ],
+        [
+          393.6,
+          2.80061,
+          0
+        ],
+        [
+          398.66,
+          2.77869,
+          0
+        ],
+        [
+          403.86,
+          2.75833,
+          0
+        ],
+        [
+          409.19,
+          2.73931,
+          0
+        ],
+        [
+          414.66,
+          2.7215,
+          0
+        ],
+        [
+          420.29,
+          2.70475,
+          0
+        ],
+        [
+          426.06,
+          2.68898,
+          0
+        ],
+        [
+          432,
+          2.67408,
+          0
+        ],
+        [
+          438.11,
+          2.65997,
+          0
+        ],
+        [
+          444.39,
+          2.6466,
+          0
+        ],
+        [
+          450.85,
+          2.63389,
+          0
+        ],
+        [
+          457.51,
+          2.62181,
+          0
+        ],
+        [
+          462.63,
+          2.61312,
+          0
+        ],
+        [
+          467.86,
+          2.60474,
+          0
+        ],
+        [
+          473.22,
+          2.59665,
+          0
+        ],
+        [
+          478.7,
+          2.58883,
+          0
+        ],
+        [
+          484.31,
+          2.58127,
+          0
+        ],
+        [
+          490.06,
+          2.57396,
+          0
+        ],
+        [
+          495.94,
+          2.56688,
+          0
+        ],
+        [
+          501.96,
+          2.56003,
+          0
+        ],
+        [
+          508.13,
+          2.5534,
+          0
+        ],
+        [
+          514.46,
+          2.54697,
+          0
+        ],
+        [
+          520.94,
+          2.54073,
+          0
+        ],
+        [
+          527.59,
+          2.53469,
+          0
+        ],
+        [
+          534.41,
+          2.52883,
+          0
+        ],
+        [
+          541.42,
+          2.52314,
+          0
+        ],
+        [
+          548.6,
+          2.51762,
+          0
+        ],
+        [
+          555.98,
+          2.51226,
+          0
+        ],
+        [
+          561.01,
+          2.50877,
+          0
+        ],
+        [
+          566.14,
+          2.50535,
+          0
+        ],
+        [
+          571.36,
+          2.502,
+          0
+        ],
+        [
+          576.67,
+          2.49871,
+          0
+        ],
+        [
+          582.09,
+          2.49548,
+          0
+        ],
+        [
+          587.6,
+          2.49231,
+          0
+        ],
+        [
+          593.23,
+          2.48921,
+          0
+        ],
+        [
+          598.96,
+          2.48616,
+          0
+        ],
+        [
+          604.8,
+          2.48316,
+          0
+        ],
+        [
+          610.76,
+          2.48023,
+          0
+        ],
+        [
+          616.84,
+          2.47735,
+          0
+        ],
+        [
+          623.04,
+          2.47452,
+          0
+        ],
+        [
+          629.36,
+          2.47174,
+          0
+        ],
+        [
+          635.82,
+          2.46902,
+          0
+        ],
+        [
+          642.41,
+          2.46634,
+          0
+        ],
+        [
+          649.13,
+          2.46372,
+          0
+        ],
+        [
+          656,
+          2.46114,
+          0
+        ],
+        [
+          663.02,
+          2.45861,
+          0
+        ],
+        [
+          670.18,
+          2.45613,
+          0
+        ],
+        [
+          677.51,
+          2.45369,
+          0
+        ],
+        [
+          685,
+          2.45129,
+          0
+        ],
+        [
+          692.65,
+          2.44894,
+          0
+        ],
+        [
+          700.48,
+          2.44664,
+          0
+        ],
+        [
+          708.48,
+          2.44437,
+          0
+        ],
+        [
+          716.67,
+          2.44215,
+          0
+        ],
+        [
+          725.05,
+          2.43997,
+          0
+        ],
+        [
+          733.63,
+          2.43782,
+          0
+        ],
+        [
+          742.42,
+          2.43572,
+          0
+        ],
+        [
+          751.42,
+          2.43366,
+          0
+        ],
+        [
+          760.64,
+          2.43163,
+          0
+        ],
+        [
+          770.09,
+          2.42964,
+          0
+        ],
+        [
+          779.77,
+          2.42769,
+          0
+        ],
+        [
+          789.71,
+          2.42577,
+          0
+        ],
+        [
+          794.77,
+          2.42483,
+          0
+        ],
+        [
+          799.9,
+          2.42389,
+          0
+        ],
+        [
+          805.09,
+          2.42296,
+          0
+        ],
+        [
+          810.35,
+          2.42205,
+          0
+        ],
+        [
+          815.69,
+          2.42114,
+          0
+        ],
+        [
+          821.09,
+          2.42023,
+          0
+        ],
+        [
+          826.56,
+          2.41934,
+          0
+        ]
+      ],
+      "kTable": [],
+      "interpolation": "pchip"
+    },
+    {
+      "id": "Ta2O5",
+      "name": "Ta2O5",
+      "description": "Amporphous thin film — T. J. Bright, J. I. Watjen, Z. M. Zhang, C. Muratore, A. A. Voevodin, D. I. Koukis, D. B. Tanner, D.",
+      "color": "#2fa84f",
+      "rangeNm": [
+        500,
+        2475
+      ],
+      "constantNK": null,
+      "coefficients": null,
+      "table": [
+        [
+          500,
+          2.1587,
+          0.00076093
+        ],
+        [
+          515.47,
+          2.1527,
+          0.00078743
+        ],
+        [
+          531.41,
+          2.1471,
+          0.00081478
+        ],
+        [
+          547.85,
+          2.1417,
+          0.000843
+        ],
+        [
+          564.8,
+          2.1367,
+          0.00087214
+        ],
+        [
+          582.27,
+          2.132,
+          0.00090224
+        ],
+        [
+          600.28,
+          2.1275,
+          0.00093333
+        ],
+        [
+          618.85,
+          2.1233,
+          0.00096545
+        ],
+        [
+          637.99,
+          2.1193,
+          0.00099866
+        ],
+        [
+          657.73,
+          2.1155,
+          0.001033
+        ],
+        [
+          667.82,
+          2.1137,
+          0.0010506
+        ],
+        [
+          678.07,
+          2.112,
+          0.0010685
+        ],
+        [
+          688.48,
+          2.1102,
+          0.0010867
+        ],
+        [
+          699.05,
+          2.1086,
+          0.0011053
+        ],
+        [
+          709.78,
+          2.107,
+          0.0011241
+        ],
+        [
+          720.67,
+          2.1054,
+          0.0011433
+        ],
+        [
+          731.73,
+          2.1039,
+          0.0011629
+        ],
+        [
+          742.96,
+          2.1024,
+          0.0011827
+        ],
+        [
+          754.37,
+          2.1009,
+          0.001203
+        ],
+        [
+          765.95,
+          2.0995,
+          0.0012236
+        ],
+        [
+          777.7,
+          2.0981,
+          0.0012446
+        ],
+        [
+          789.64,
+          2.0968,
+          0.0012659
+        ],
+        [
+          801.76,
+          2.0955,
+          0.0012877
+        ],
+        [
+          814.07,
+          2.0942,
+          0.0013098
+        ],
+        [
+          826.56,
+          2.093,
+          0.0013324
+        ],
+        [
+          839.25,
+          2.0918,
+          0.0013553
+        ],
+        [
+          852.13,
+          2.0906,
+          0.0013788
+        ],
+        [
+          865.21,
+          2.0894,
+          0.0014026
+        ],
+        [
+          878.49,
+          2.0883,
+          0.0014269
+        ],
+        [
+          891.97,
+          2.0872,
+          0.0014517
+        ],
+        [
+          905.66,
+          2.0861,
+          0.001477
+        ],
+        [
+          919.56,
+          2.0851,
+          0.0015027
+        ],
+        [
+          933.68,
+          2.084,
+          0.001529
+        ],
+        [
+          948.01,
+          2.083,
+          0.0015558
+        ],
+        [
+          962.56,
+          2.082,
+          0.0015831
+        ],
+        [
+          977.33,
+          2.0811,
+          0.001611
+        ],
+        [
+          992.33,
+          2.0801,
+          0.0016395
+        ],
+        [
+          1007.6,
+          2.0792,
+          0.0016685
+        ],
+        [
+          1023,
+          2.0783,
+          0.0016982
+        ],
+        [
+          1038.7,
+          2.0774,
+          0.0017285
+        ],
+        [
+          1054.7,
+          2.0765,
+          0.0017594
+        ],
+        [
+          1070.9,
+          2.0757,
+          0.0017909
+        ],
+        [
+          1087.3,
+          2.0748,
+          0.0018232
+        ],
+        [
+          1104,
+          2.074,
+          0.0018562
+        ],
+        [
+          1120.9,
+          2.0732,
+          0.0018899
+        ],
+        [
+          1138.1,
+          2.0724,
+          0.0019243
+        ],
+        [
+          1155.6,
+          2.0716,
+          0.0019595
+        ],
+        [
+          1173.3,
+          2.0708,
+          0.0019956
+        ],
+        [
+          1191.4,
+          2.07,
+          0.0020324
+        ],
+        [
+          1209.6,
+          2.0692,
+          0.0020701
+        ],
+        [
+          1228.2,
+          2.0685,
+          0.0021087
+        ],
+        [
+          1247.1,
+          2.0677,
+          0.0021483
+        ],
+        [
+          1266.2,
+          2.067,
+          0.0021888
+        ],
+        [
+          1285.6,
+          2.0662,
+          0.0022303
+        ],
+        [
+          1305.4,
+          2.0655,
+          0.0022728
+        ],
+        [
+          1325.4,
+          2.0648,
+          0.0023164
+        ],
+        [
+          1345.7,
+          2.064,
+          0.0023611
+        ],
+        [
+          1366.4,
+          2.0633,
+          0.002407
+        ],
+        [
+          1387.4,
+          2.0626,
+          0.0024541
+        ],
+        [
+          1408.7,
+          2.0619,
+          0.0025025
+        ],
+        [
+          1430.3,
+          2.0612,
+          0.0025521
+        ],
+        [
+          1452.2,
+          2.0604,
+          0.0026032
+        ],
+        [
+          1474.5,
+          2.0597,
+          0.0026557
+        ],
+        [
+          1497.2,
+          2.059,
+          0.0027097
+        ],
+        [
+          1520.1,
+          2.0583,
+          0.0027653
+        ],
+        [
+          1543.5,
+          2.0575,
+          0.0028226
+        ],
+        [
+          1567.2,
+          2.0568,
+          0.0028815
+        ],
+        [
+          1591.2,
+          2.0561,
+          0.0029424
+        ],
+        [
+          1615.7,
+          2.0554,
+          0.0030051
+        ],
+        [
+          1640.4,
+          2.0546,
+          0.0030699
+        ],
+        [
+          1665.6,
+          2.0539,
+          0.0031368
+        ],
+        [
+          1691.2,
+          2.0531,
+          0.0032061
+        ],
+        [
+          1717.2,
+          2.0523,
+          0.0032777
+        ],
+        [
+          1743.5,
+          2.0516,
+          0.0033518
+        ],
+        [
+          1770.3,
+          2.0508,
+          0.0034287
+        ],
+        [
+          1797.4,
+          2.05,
+          0.0035085
+        ],
+        [
+          1825,
+          2.0492,
+          0.0035914
+        ],
+        [
+          1853,
+          2.0484,
+          0.0036776
+        ],
+        [
+          1881.5,
+          2.0475,
+          0.0037674
+        ],
+        [
+          1910.4,
+          2.0467,
+          0.003861
+        ],
+        [
+          1939.7,
+          2.0458,
+          0.0039587
+        ],
+        [
+          1969.5,
+          2.0449,
+          0.0040609
+        ],
+        [
+          1999.7,
+          2.044,
+          0.0041679
+        ],
+        [
+          2030.4,
+          2.0431,
+          0.0042803
+        ],
+        [
+          2061.5,
+          2.0422,
+          0.0043984
+        ],
+        [
+          2093.2,
+          2.0412,
+          0.0045228
+        ],
+        [
+          2125.3,
+          2.0402,
+          0.0046542
+        ],
+        [
+          2157.9,
+          2.0392,
+          0.0047933
+        ],
+        [
+          2191.1,
+          2.0382,
+          0.004941
+        ],
+        [
+          2224.7,
+          2.0371,
+          0.0050983
+        ],
+        [
+          2258.8,
+          2.036,
+          0.0052663
+        ],
+        [
+          2293.5,
+          2.0349,
+          0.0054463
+        ],
+        [
+          2328.7,
+          2.0338,
+          0.0056401
+        ],
+        [
+          2364.4,
+          2.0326,
+          0.0058494
+        ],
+        [
+          2400.7,
+          2.0314,
+          0.0060766
+        ],
+        [
+          2437.6,
+          2.0301,
+          0.0063244
+        ],
+        [
+          2475,
+          2.0288,
+          0.0065961
+        ]
+      ],
+      "kTable": [],
+      "interpolation": "pchip"
+    },
+    {
+      "id": "Ag",
+      "name": "Ag (Silver)",
+      "description": "Room temperature — P. B. Johnson and R. W. Christy. Optical constants of the noble metals. Phys. Rev. B 6, 4370-4379 (1",
+      "color": "#8fa3b0",
+      "rangeNm": [
+        191.6,
+        1937
+      ],
+      "constantNK": null,
+      "coefficients": null,
+      "table": [
+        [
+          191.6,
+          1.1,
+          1.232
+        ],
+        [
+          203.3,
+          1.15,
+          1.296
+        ],
+        [
+          216.4,
+          1.22,
+          1.336
+        ],
+        [
+          231.3,
+          1.28,
+          1.357
+        ],
+        [
+          242.6,
+          1.3,
+          1.378
+        ],
+        [
+          255.1,
+          1.33,
+          1.393
+        ],
+        [
+          268.9,
+          1.38,
+          1.372
+        ],
+        [
+          284.4,
+          1.41,
+          1.264
+        ],
+        [
+          300.9,
+          1.34,
+          0.964
+        ],
+        [
+          320.4,
+          0.81,
+          0.392
+        ],
+        [
+          331.5,
+          0.17,
+          0.829
+        ],
+        [
+          342.5,
+          0.14,
+          1.142
+        ],
+        [
+          354.2,
+          0.1,
+          1.419
+        ],
+        [
+          367.9,
+          0.07,
+          1.657
+        ],
+        [
+          381.5,
+          0.05,
+          1.864
+        ],
+        [
+          397.4,
+          0.05,
+          2.07
+        ],
+        [
+          413.3,
+          0.05,
+          2.275
+        ],
+        [
+          430.5,
+          0.04,
+          2.462
+        ],
+        [
+          450.9,
+          0.04,
+          2.657
+        ],
+        [
+          471.4,
+          0.05,
+          2.869
+        ],
+        [
+          495.9,
+          0.05,
+          3.093
+        ],
+        [
+          520.9,
+          0.05,
+          3.324
+        ],
+        [
+          548.6,
+          0.06,
+          3.586
+        ],
+        [
+          582.1,
+          0.05,
+          3.858
+        ],
+        [
+          616.8,
+          0.06,
+          4.152
+        ],
+        [
+          659.5,
+          0.05,
+          4.483
+        ],
+        [
+          704.5,
+          0.04,
+          4.838
+        ],
+        [
+          756,
+          0.03,
+          5.242
+        ],
+        [
+          821.1,
+          0.04,
+          5.727
+        ],
+        [
+          892,
+          0.04,
+          6.312
+        ],
+        [
+          984,
+          0.04,
+          6.992
+        ],
+        [
+          1088,
+          0.04,
+          7.795
+        ],
+        [
+          1216,
+          0.09,
+          8.828
+        ],
+        [
+          1393,
+          0.13,
+          10.1
+        ],
+        [
+          1610,
+          0.15,
+          11.85
+        ],
+        [
+          1937,
+          0.24,
+          14.08
+        ]
+      ],
+      "kTable": [],
+      "interpolation": "pchip"
+    }
+  ],
+  "examples": [
+    {
+      "incidentMedium": "Air",
+      "substrate": {
+        "material": "BK7",
+        "thickness": 1
+      },
+      "exitMedium": "Air",
+      "surfaceMode": "front_only",
+      "mfEvalMode": "side",
+      "backLayers": [],
+      "referenceWavelength": 550,
+      "id": "demo-mgf2-ar",
+      "name": "Single-layer AR (MgF₂)",
+      "notes": "Classic single-layer antireflection coating: one quarter-wave of MgF₂ (≈99.6 nm) on BK7, reference 550 nm. Open Optical Evaluation to see the reflectance dip near the design wavelength.",
+      "frontLayers": [
+        {
+          "id": "demo-l-1",
+          "material": "MgF2",
+          "thickness": 99.6,
+          "locked": false
+        }
+      ]
+    },
+    {
+      "incidentMedium": "Air",
+      "substrate": {
+        "material": "BK7",
+        "thickness": 1
+      },
+      "exitMedium": "Air",
+      "surfaceMode": "front_only",
+      "mfEvalMode": "side",
+      "backLayers": [],
+      "referenceWavelength": 550,
+      "id": "demo-bbar-4",
+      "name": "Broadband AR (4-layer Ta₂O₅/SiO₂/MgF₂)",
+      "notes": "A four-layer antireflection coating on BK7 (MgF₂ outer / Ta₂O₅ / SiO₂ / Ta₂O₅). Evaluate over 400–800 nm: reflectance drops below ~1% across the 500–700 nm core band. Layers are stored air-side first.",
+      "frontLayers": [
+        {
+          "id": "demo-l-1",
+          "material": "MgF2",
+          "thickness": 86.19,
+          "locked": false
+        },
+        {
+          "id": "demo-l-2",
+          "material": "Ta2O5",
+          "thickness": 118.07,
+          "locked": false
+        },
+        {
+          "id": "demo-l-3",
+          "material": "SiO2",
+          "thickness": 387.7,
+          "locked": false
+        },
+        {
+          "id": "demo-l-4",
+          "material": "Ta2O5",
+          "thickness": 134.23,
+          "locked": false
+        }
+      ]
+    },
+    {
+      "incidentMedium": "Air",
+      "substrate": {
+        "material": "BK7",
+        "thickness": 1
+      },
+      "exitMedium": "Air",
+      "surfaceMode": "front_only",
+      "mfEvalMode": "side",
+      "backLayers": [],
+      "referenceWavelength": 550,
+      "id": "demo-hr-qw",
+      "name": "High reflector QW stack (TiO₂/SiO₂)",
+      "notes": "A 15-layer quarter-wave high-reflector centred at 550 nm: (TiO₂ HL)⁷ + TiO₂. Evaluate to see the high-reflectance stopband around the design wavelength.",
+      "frontLayers": [
+        {
+          "id": "demo-l-1",
+          "material": "TiO2",
+          "thickness": 58.5,
+          "locked": false
+        },
+        {
+          "id": "demo-l-2",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-3",
+          "material": "TiO2",
+          "thickness": 58.5,
+          "locked": false
+        },
+        {
+          "id": "demo-l-4",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-5",
+          "material": "TiO2",
+          "thickness": 58.5,
+          "locked": false
+        },
+        {
+          "id": "demo-l-6",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-7",
+          "material": "TiO2",
+          "thickness": 58.5,
+          "locked": false
+        },
+        {
+          "id": "demo-l-8",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-9",
+          "material": "TiO2",
+          "thickness": 58.5,
+          "locked": false
+        },
+        {
+          "id": "demo-l-10",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-11",
+          "material": "TiO2",
+          "thickness": 58.5,
+          "locked": false
+        },
+        {
+          "id": "demo-l-12",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-13",
+          "material": "TiO2",
+          "thickness": 58.5,
+          "locked": false
+        },
+        {
+          "id": "demo-l-14",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-15",
+          "material": "TiO2",
+          "thickness": 58.5,
+          "locked": false
+        }
+      ]
+    },
+    {
+      "incidentMedium": "Air",
+      "substrate": {
+        "material": "BK7",
+        "thickness": 1
+      },
+      "exitMedium": "Air",
+      "surfaceMode": "front_only",
+      "mfEvalMode": "side",
+      "backLayers": [],
+      "referenceWavelength": 550,
+      "id": "demo-metal-ag",
+      "name": "Metal mirror (Ag)",
+      "notes": "A 120 nm opaque silver mirror on BK7 with a thin SiO₂ protective overcoat. Evaluate reflectance across the visible — note silver uses tabulated complex n,k.",
+      "frontLayers": [
+        {
+          "id": "demo-l-1",
+          "material": "Ag",
+          "thickness": 120,
+          "locked": false
+        },
+        {
+          "id": "demo-l-2",
+          "material": "SiO2",
+          "thickness": 80,
+          "locked": false
+        }
+      ]
+    },
+    {
+      "incidentMedium": "Air",
+      "substrate": {
+        "material": "BK7",
+        "thickness": 1
+      },
+      "exitMedium": "Air",
+      "surfaceMode": "front_only",
+      "mfEvalMode": "side",
+      "backLayers": [],
+      "referenceWavelength": 550,
+      "id": "demo-edge",
+      "name": "Edge filter QW stack",
+      "notes": "A longer quarter-wave dielectric stack forms a reflective edge/stopband. Compare the band edges as you change the reference wavelength.",
+      "frontLayers": [
+        {
+          "id": "demo-l-1",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-2",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-3",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-4",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-5",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-6",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-7",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-8",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-9",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-10",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-11",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-12",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-13",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-14",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-15",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-16",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-17",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-18",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        },
+        {
+          "id": "demo-l-19",
+          "material": "Ta2O5",
+          "thickness": 64,
+          "locked": false
+        },
+        {
+          "id": "demo-l-20",
+          "material": "SiO2",
+          "thickness": 94.2,
+          "locked": false
+        }
+      ]
+    }
+  ]
+}

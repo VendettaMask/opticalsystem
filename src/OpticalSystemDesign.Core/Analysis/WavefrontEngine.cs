@@ -148,10 +148,12 @@ public static partial class WavefrontEngine
         (double Hx, double Hy) field,
         Wavelength wavelength,
         int numRings,
-        bool aimAtStop = false)
+        bool aimAtStop = false,
+        bool allowGeometricReference = false)
     {
         var pupilSamples = ApertureSampler.GenerateHexapolarRings(numRings);
-        return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop);
+        return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop,
+            allowGeometricReference: allowGeometricReference);
     }
 
     public static WavefrontResult GenerateChiefRayUniform(
@@ -163,18 +165,19 @@ public static partial class WavefrontEngine
         bool aimAtStop = false,
         double pupilGridStretch = 1,
         bool zemaxCentered = false,
-        Wavelength? referenceWavelength = null)
+        Wavelength? referenceWavelength = null,
+        bool allowGeometricReference = false)
     {
         samplesAcrossPupil = Math.Max(2, samplesAcrossPupil);
         return GenerateChiefRayGrid(optic, field, wavelength,
             new(samplesAcrossPupil, cellCentered, zemaxCentered, pupilGridStretch),
-            aimAtStop, referenceWavelength, null);
+            aimAtStop, referenceWavelength, null, allowGeometricReference);
     }
 
     internal static WavefrontResult GenerateChiefRayGrid(
         Optic optic, (double Hx, double Hy) field, Wavelength wavelength,
         PupilGridSpecification grid, bool aimAtStop, Wavelength? referenceWavelength,
-        WavefrontReferenceSphere? referenceSphere)
+        WavefrontReferenceSphere? referenceSphere, bool allowGeometricReference = false)
     {
         var pupilSamples = new List<PupilSample>();
         for (var row = 0; row < grid.SampleCount; row++)
@@ -192,7 +195,8 @@ public static partial class WavefrontEngine
 
         return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop,
             referenceWavelength: referenceWavelength, referenceSphere: referenceSphere,
-            useCachedFftStopMap: grid.UseCachedFftStopMap && grid.SampleCount >= 32) with
+            useCachedFftStopMap: grid.UseCachedFftStopMap && grid.SampleCount >= 32,
+            allowGeometricReference: allowGeometricReference) with
         {
             PupilGrid = grid,
             SourceIdentity = PupilSourceIdentity.Capture(optic)
@@ -208,7 +212,8 @@ public static partial class WavefrontEngine
         (double X, double Y)? resolvedRealImageLaunch = null,
         WavefrontReferenceSphere? referenceSphere = null,
         bool usePolarization = false,
-        Wavelength? referenceWavelength = null)
+        Wavelength? referenceWavelength = null,
+        bool allowGeometricReference = false)
     {
         return GenerateChiefRay(
             optic,
@@ -219,7 +224,7 @@ public static partial class WavefrontEngine
             resolvedRealImageLaunch,
             referenceSphere,
             usePolarization,
-            referenceWavelength);
+            referenceWavelength, allowGeometricReference: allowGeometricReference);
     }
 
     public static WavefrontReferenceSphere CreateChiefRayReferenceSphere(
@@ -228,7 +233,8 @@ public static partial class WavefrontEngine
         Wavelength wavelength,
         bool aimAtStop = true,
         (double X, double Y)? resolvedRealImageLaunch = null,
-        bool usePolarization = false)
+        bool usePolarization = false,
+        bool allowGeometricReference = false)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -238,7 +244,9 @@ public static partial class WavefrontEngine
             wavelength.Micrometers,
             aimAtStop,
             resolvedRealImageLaunch);
-        var chief = TraceFinalSamples(optic, chiefBundle, usePolarization).Single();
+        var chief = TraceFinalSamples(optic, chiefBundle, usePolarization).Single()
+            ?? (allowGeometricReference && !usePolarization
+                ? AnalysisTrace.GeometricImageReference(optic, chiefBundle.Rays.Single()) : null);
         if (chief is null)
         {
             throw new InvalidOperationException("Chief ray did not reach the image surface.");
@@ -252,19 +260,26 @@ public static partial class WavefrontEngine
         // frame as the chief intercept; world X/Y=0 is not the pupil center.
         // This repairs rigid translations of the paraxial model. Arbitrary
         // decentered/folded systems still require an aberrated 3-D pupil model.
-        var pupilPosition = imageFrame.Origin + new Vector3D(0, 0,
-            optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers));
+        var pupilDistance = optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers);
+        var pupilPosition = imageFrame.Origin + new Vector3D(0, 0, pupilDistance);
         // A grid GRIN's pupil is the image of the actual central stop pencil.
         // Its reference is an axial plane, not the world-axis point on that
         // plane. Intersect the chosen chief with it before forming the sphere.
-        var radius = optic.Paraxial.HasGridGradientPupil
+        var radius = optic.Paraxial.HasNonaxialPupil
+            ? Math.Abs(pupilDistance / imageFrame.ToLocalDirection(chief.Direction).Z)
+            : optic.Paraxial.HasGridGradientPupil
             ? Math.Abs((pupilPosition.Z - imagePosition.Z) / chief.Direction.Z)
             : (imagePosition - pupilPosition).Length;
         return new WavefrontReferenceSphere(
             imagePosition.X,
             imagePosition.Y,
             imagePosition.Z,
-            radius);
+            radius)
+        {
+            IsVirtual = optic.Paraxial.HasNonaxialPupil
+                ? pupilDistance / imageFrame.ToLocalDirection(chief.Direction).Z > 0
+                : Dot(pupilPosition - imagePosition, chief.Direction) > 0
+        };
     }
 
     private static WavefrontResult GenerateChiefRay(
@@ -279,7 +294,7 @@ public static partial class WavefrontEngine
         Wavelength? referenceWavelength = null,
         bool forceReferencePlane = false,
         bool useCachedFftStopMap = false,
-        bool allowGeometricAfocalReference = false,
+        bool allowGeometricReference = false,
         bool phaseInclusiveAfocalReference = true)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
@@ -293,9 +308,9 @@ public static partial class WavefrontEngine
         var geometricReferenceUsed = false;
         RayTraceSample? GeometricReference(RealRayBundle bundle)
         {
-            if (!allowGeometricAfocalReference || !optic.ImageSpaceAfocal || usePolarization) return null;
-            var sample = optic.SequentialRayTracer.TraceToSurface(bundle.Rays[0], optic.SurfaceGroup.Items.Count - 1);
-            if (sample is null || sample.Vignetted || sample.Intensity <= 0) return null;
+            if (!allowGeometricReference || usePolarization) return null;
+            var sample = AnalysisTrace.GeometricImageReference(optic, bundle.Rays[0]);
+            if (sample is null) return null;
             geometricReferenceUsed = true;
             return sample;
         }
@@ -343,7 +358,7 @@ public static partial class WavefrontEngine
             wavelength,
             aimAtStop,
             resolvedRealImageLaunch,
-            usePolarization);
+            usePolarization, allowGeometricReference);
         if (referenceSphere is null && referenceWavelength is not null)
         {
             sphere = sphere with
@@ -375,6 +390,8 @@ public static partial class WavefrontEngine
             aimAtStop,
             resolvedRealImageLaunch);
         var finalSamples = TraceFinalSamples(optic, bundle, usePolarization);
+        if (geometricReferenceUsed && !finalSamples.Any(sample => sample is { Vignetted: false, Intensity: > 0 }))
+            throw new AnalysisDataUnavailableException("Wavefront", "no transmitted pupil rays reached the image surface");
         var (ux, uy) = LaunchTiltDirection(optic, field, aimAtStop);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
         var vignetting = optic.SequentialRayTracer.RayGenerator.GetPupilVignetting(field.Hx, field.Hy);
@@ -448,6 +465,7 @@ public static partial class WavefrontEngine
             SourceWavelengthNanometers = wavelength.Nanometers,
             SourceReferenceWavelengthNanometers = referenceWavelength?.Nanometers ?? wavelength.Nanometers,
             ReferenceSphere = sphere,
+            GeometricChiefReferenceUsed = geometricReferenceUsed,
             HuygensCoordinateOrigin = optic.SurfaceGroup.Items.Count > 1
                 ? optic.SurfaceGroup.Items[1].CoordinateSystem.Origin : Vector3D.Zero
         };

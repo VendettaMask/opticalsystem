@@ -287,6 +287,11 @@ internal static class SpotAnalysisEngine
 
         var sample = SelectSamples(optic, bundle, surfaceNumber)
             .FirstOrDefault();
+        // Chief-relative coordinates retain their declared geometric origin
+        // even when that central ray is obscured. The spot itself above is
+        // still assembled exclusively from physically accepted samples.
+        if (sample is null && targetSurface == optic.SurfaceGroup.Items[^1])
+            sample = AnalysisTrace.GeometricImageReference(optic, bundle.Rays.Single());
         if (sample is null || sample.Intensity <= 0)
         {
             return null;

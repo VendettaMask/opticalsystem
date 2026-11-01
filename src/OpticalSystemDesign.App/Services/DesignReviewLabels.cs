@@ -4,6 +4,14 @@ internal static class DesignReviewLabels
 {
     internal static readonly (string Zh, string En, string Ja)[] Items =
     [
+        ("胶合续跑的计算环境已变化；记录只读，请使用原计算版本继续", "The cemented continuation environment changed; this record is read-only. Resume with its original runtime.", "接合構成の継続計算環境が変わりました。この記録は読み取り専用です。元の計算環境で再開してください。"),
+        ("自主胶合", "Autonomous cemented structure", "自律接合構成"),
+        ("实验：自主胶合结构", "Experimental: autonomous cemented structures", "実験：自律接合構成"),
+        ("胶合增长沿用原插片权限、片数及验收门槛；共享面只绑定一次，停止保存后接续原补偿状态", "Cemented growth retains insertion permissions, element limits and acceptance gates; shared faces are bound once and saved compensation resumes unchanged.", "接合構成の成長は元の挿入権限、枚数制限と検証基準を維持します。共有面は一度だけ変数化し、保存した補償状態から再開します。"),
+        ("胶合插片", "Cemented insertion", "接合レンズの挿入"),
+        ("胶合换料", "Cemented material substitution", "接合材質の置換"),
+        ("胶合调度", "Cemented scheduling", "接合構成のスケジューリング"),
+        ("原固定光阑与口径规格冲突", "Original fixed-stop/aperture specification conflict", "元の固定絞りと開口仕様の矛盾"),
         ("实验：SPC分支准备并自动搜索", "Experimental: SPC preparation and automatic search", "実験：SPC分岐の準備と自動探索"),
         ("SPC准备梯度上限", "SPC preparation gradient limit", "SPC準備の勾配上限"),
         ("SPC准备总追迹上限", "SPC preparation total ray limit", "SPC準備の総追跡上限"),

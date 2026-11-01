@@ -1,6 +1,10 @@
 # 文件格式与插件
 
-更新：2026-10-31。本页说明文件入口、导出边界和插件接口。STAROPT 的二进制布局、版本与迁移只在 [格式契约](STAROPT_FILE_FORMAT.md) 维护；操作数逐项参数和历史验证只在 [支持规范](ZEMAX_OPERAND_SUPPORT.md) 维护。
+更新：2026-11-01。本页说明文件入口、导出边界和插件接口。STAROPT 的二进制布局、版本与迁移只在 [格式契约](STAROPT_FILE_FORMAT.md) 维护；操作数逐项参数和历史验证只在 [支持规范](ZEMAX_OPERAND_SUPPORT.md) 维护。
+
+ZMX 配置先应用 GLSS/THIC/CRVT/PRAM/EDVA，再求解同列曲率、厚度、玻璃与参数拾取依赖；GLSS 可将镜面切换为空气或玻璃。支持坐标断点主光线 X/Y 偏心求解，非零厚度断点保留透明参考面，入射参考法线作为可选平面元数据随快照保持；它只定义断点报告角度，不改变交点法线。厚度/曲率本地拾取随 STAROPT 保存，参数与材料配置按各配置求值保存。未声明任意跨列拾取及全部外部求解支持；旧导入工程须从原 ZMX 重新导入才取得修正后的配置。范围与MM/CM回归见[光学检测修复](OPTICAL_TESTING_PROPAGATION_REPAIR_2026-11-01.md)。
+
+ZMX `OBSC` 作为圆形/环带遮挡的补集导入，保留单位、半径、`OBDC` 偏心和相关配置参数；STAROPT 与 ZMX 往返保留该物理掩模。它不等同于 CLAP 环孔或 DIAM/MEMA 的外径。实现、MM/CM 往返与固定原生光线验证见[遮挡修复](OBSCURED_REFERENCE_REPAIR_2026-11-01.md)。其他未映射遮挡形状不由此取得支持认证。
 
 CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚度静默改成零。这项修复仅防止导入阶段改变处方，不代表支持两种格式的全部命令；此前已按零厚度保存的工程需要从原始文件重新导入。验证见[本轮修复记录](PRIORITY_RELIABILITY_REPAIR_2026-10-26.md)。
 
@@ -45,6 +49,8 @@ CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚
 准备配置/结果增加可空 `Retrieval` v1，空值省略，旧计划、记录与内容指纹保持。启用时计划嵌入完整冻结库，准备报告保存库身份、来源、筛选和拒绝、尺寸/固定逐面口径变换、原输入复用、完整原规格验收和实际费用。文件不是可恢复准备检查点，也不新增普通 `.optic.json` 的读取路由。入口与原验收边界见[M3.2](INITIAL_STRUCTURE_M3_2_2026-10-30.md)。
 
 ## 镀膜实验文件
+
+schema 1 新增可选 `ReferenceExample` 来源记录（原示例ID/提交、名称/注记、1 mm基板厚度、出射介质与单面评价模式），材料可选 `HoldTabulatedEndpoints` / `DisplayColor`；缺省字段不写入，保留旧输入指纹。显式 `catalog_glass` formula `tabulated nk pchip-clamped/1` 和 `formula 2 pchip-k-clamped/1` 随原始系数/n/k保存，重开按同一规则复算。端点规则不改变测量有效域；解析n仍在其声明域内。不支持这些新formula的旧运行时不能作为兼容重算环境。该映射仅用于[五套内置参考处方](COATING_REFERENCE_EXAMPLES_2026-11-01.md)，不表示可任意导入完整TFStudio项目。
 
 协议 4 的 `GeneralWork.QualityProtocol` 当前记录 `worst-reflectance/8`：DLS严重未可行起点的预处理在强收缩时延续，最多占主额度一半，其余进入共享不等式质量步；近可行、已可行及其他优化器保持原切换/质量方向。新增`ReflectancePreconditionerIterations`与`QualityIterations`均为主优化迭代的子集，局部反射率优化二者合计为实际主迭代，不额外增加N。`QualityRestarts`只记录实际重启；历史版本保持原身份。`QualityPasses`为原约束阶段的子集。`Run.QualityStartLayers`保存质量起点。窄带可选`PassbandProtocol="measured-passband-constraints/1"`、`BandMetricEvaluations`、`BandSensitivityBatches`记录带指标批次及其中的膜厚导数批次，后者不能与前者相加。
 

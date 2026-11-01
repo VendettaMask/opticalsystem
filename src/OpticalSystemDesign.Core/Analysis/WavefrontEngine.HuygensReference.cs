@@ -9,7 +9,7 @@ public static partial class WavefrontEngine
         (double Hx, double Hy) field, Wavelength wavelength, IReadOnlyList<PupilSample> nodes,
         bool aimAtStop, Wavelength? referenceWavelength) => GenerateChiefRay(optic, field, wavelength,
             nodes.Select(p => new PupilSample(p.X, p.Y, 1)).ToArray(), aimAtStop,
-            referenceWavelength: referenceWavelength, allowGeometricAfocalReference: true);
+            referenceWavelength: referenceWavelength, allowGeometricReference: true);
 
     // Explicit scalar Gaussian-integral path only. Normal/native wavefront APIs
     // retain their protocol. All pupil nodes still use physical TraceFinalSamples.
@@ -17,6 +17,6 @@ public static partial class WavefrontEngine
         (double Hx, double Hy) field, Wavelength wavelength, IReadOnlyList<PupilSample> nodes,
         bool aimAtStop, Wavelength? referenceWavelength, bool allowGeometricReference) => GenerateChiefRay(optic, field, wavelength,
             nodes.Select(p => new PupilSample(p.X, p.Y, 1)).ToArray(), aimAtStop,
-            referenceWavelength: referenceWavelength, allowGeometricAfocalReference: allowGeometricReference,
+            referenceWavelength: referenceWavelength, allowGeometricReference: allowGeometricReference,
             phaseInclusiveAfocalReference: true);
 }

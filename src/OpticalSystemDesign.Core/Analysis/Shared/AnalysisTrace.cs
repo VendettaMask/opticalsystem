@@ -195,6 +195,7 @@ internal static class AnalysisTrace
             var bundle = optic.SequentialRayTracer.RayGenerator.GenerateAtPhysicalField(
                 physical.X, physical.Y, 0, 0, wavelengthMicrometers, aimAtStop: optic.RayAimingEnabled);
             var physicalSample = optic.SequentialRayTracer.TraceFinalSamples(bundle).SingleOrDefault()
+                ?? (requireUnvignetted ? null : GeometricImageReference(optic, bundle.Rays.Single()))
                 ?? throw new InvalidOperationException("Ray tracing did not produce an image-plane sample.");
             var local = ToImageLocalSample(optic, physicalSample, requireUnvignetted);
             if (optic.ImageSpaceAfocal)
@@ -573,9 +574,26 @@ internal static class AnalysisTrace
         double wavelengthMicrometers,
         bool requireUnvignetted = false)
     {
-        var sample = optic.TraceGenericFinalSample(hx, hy, px, py, wavelengthMicrometers, aimAtStop: optic.RayAimingEnabled)
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(hx, hy, px, py,
+            wavelengthMicrometers, aimAtStop: optic.RayAimingEnabled);
+        var sample = optic.SequentialRayTracer.TraceFinalSamples(bundle).SingleOrDefault()
+            ?? (requireUnvignetted ? null : GeometricImageReference(optic, bundle.Rays.Single()))
             ?? throw new InvalidOperationException("Ray tracing did not produce an image-plane sample.");
         return ToImageLocalSample(optic, sample, requireUnvignetted);
+    }
+
+    // Geometrical phase, coordinate and differential-focus datum only. This
+    // trace bypasses physical apertures without modifying the optic or its
+    // physical trace cache. It must never supply transmitted pupil power.
+    internal static Rays.RayTraceSample? GeometricImageReference(Optic optic, Rays.RealRay source)
+    {
+        var sample = optic.SequentialRayTracer.TraceToSurface(source, optic.SurfaceGroup.Items.Count - 1);
+        return sample is { Vignetted: false, Intensity: > 0 }
+            && sample.SurfaceNumber == optic.SurfaceGroup.Items.Count - 1
+            && double.IsFinite(sample.Position.X) && double.IsFinite(sample.Position.Y) && double.IsFinite(sample.Position.Z)
+            && double.IsFinite(sample.Direction.X) && double.IsFinite(sample.Direction.Y) && double.IsFinite(sample.Direction.Z)
+            && double.IsFinite(sample.CumulativeOpticalPathLength)
+            ? sample : null;
     }
 
     private static Rays.RayTraceSample ToImageLocalSample(

@@ -319,7 +319,8 @@ public static partial class DiffractionEngine
                 throw new InvalidOperationException("FFT PSF prepared polarization nodes, coating or bulk-absorption model do not match the computation request.");
         }
         var wavefront = preparedWavefront ?? WavefrontEngine.GenerateChiefRayGrid(
-            optic, field, wavelength, grid, pupilAimAtStop, referenceWavelength, referenceSphere);
+            optic, field, wavelength, grid, pupilAimAtStop, referenceWavelength, referenceSphere,
+            allowGeometricReference: !usePolarization);
         if (ignoreScalarTransmission && !usePolarization && preparedWavefront is null)
         {
             // The frozen native scalar FFT captures exclude transmission when
@@ -714,7 +715,7 @@ public static partial class DiffractionEngine
                 wavelength,
                 coordinates,
                 aimAtStop: useRayAiming,
-                referenceWavelength: referenceWavelength);
+                referenceWavelength: referenceWavelength, allowGeometricReference: true);
         }
 
         lock (optic)
@@ -728,7 +729,7 @@ public static partial class DiffractionEngine
                     wavelength,
                     coordinates,
                     aimAtStop: useRayAiming,
-                    referenceWavelength: referenceWavelength);
+                    referenceWavelength: referenceWavelength, allowGeometricReference: true);
             }
 
             var previous = surfaces[^2];
@@ -767,7 +768,7 @@ public static partial class DiffractionEngine
                     coordinates,
                     aimAtStop: useRayAiming,
                     nominalRealImageLaunch,
-                    referenceWavelength: referenceWavelength);
+                    referenceWavelength: referenceWavelength, allowGeometricReference: true);
             }
             finally
             {
@@ -893,7 +894,8 @@ public static partial class DiffractionEngine
                     coordinates,
                     aimAtStop: useRayAiming,
                     usePolarization: usePolarization,
-                    referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
+                    referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0],
+                    allowGeometricReference: !usePolarization);
                 return ApplyAfocalDefocus(wavefront, wavelength, defocusMillimeters);
             }).ToArray();
         }
@@ -935,7 +937,7 @@ public static partial class DiffractionEngine
                         wavelength,
                         aimAtStop: useRayAiming,
                         nominalRealImageLaunch,
-                        usePolarization)).ToArray();
+                        usePolarization, allowGeometricReference: !usePolarization)).ToArray();
                 var primaryIndex = Enumerable.Range(0, wavelengths.Count)
                     .FirstOrDefault(index => wavelengths[index].IsPrimary);
                 var primary = spheres[primaryIndex];
@@ -952,7 +954,7 @@ public static partial class DiffractionEngine
                             primary.CenterY,
                             primary.CenterZ,
                             spheres[index].Radius),
-                        usePolarization: usePolarization)).ToArray();
+                        usePolarization: usePolarization, allowGeometricReference: !usePolarization)).ToArray();
             }
             finally
             {
@@ -1235,7 +1237,7 @@ public static partial class DiffractionEngine
         AnalysisResourceLimits.ValidateDirectPsfWork(numRays, imageSize);
 
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, numRays,
-            aimAtStop: optic.RayAimingEnabled);
+            aimAtStop: optic.RayAimingEnabled, allowGeometricReference: true);
         var pupil = CreateUniformPupil(wavefront, numRays);
         var fNumber = WorkingFNumber(optic, field, wavelength, aimAtStop: optic.RayAimingEnabled);
         var clearSize = numRays - 1;
@@ -1411,7 +1413,8 @@ public static partial class DiffractionEngine
             numRays,
             cellCentered: optic.ImageSpaceAfocal,
             aimAtStop: aimAtStop,
-            referenceWavelength: optic.ImageSpaceAfocal ? referenceWavelength : null);
+            referenceWavelength: optic.ImageSpaceAfocal ? referenceWavelength : null,
+            allowGeometricReference: !usePolarization);
         var polarization = usePolarization
             ? JonesPupilEngine.Generate(optic, field, wavelength, numRays, useFresnelCoatings: true, aimAtStop: aimAtStop)
             : null;
@@ -1510,7 +1513,7 @@ public static partial class DiffractionEngine
                 (0, 0),
                 wavelength,
                 numRays,
-                aimAtStop: aimAtStop);
+                aimAtStop: aimAtStop, allowGeometricReference: !usePolarization);
         var normalizationPolarization = !usePolarization
             ? null
             : field.Hx == 0 && field.Hy == 0
@@ -1587,7 +1590,8 @@ public static partial class DiffractionEngine
         WavefrontResult Wavefront((double Hx, double Hy) sourceField)
         {
             var result = WavefrontEngine.GenerateChiefRaySamples(optic, sourceField, wavelength,
-                pupils.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop);
+                pupils.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
+                allowGeometricReference: true);
             if (!useUnpolarizedPower) return result;
             // Native Unpolarized mode averages the two transported input powers
             // before the scalar Huygens sum. It does not retain their XYZ fields.
@@ -1707,6 +1711,7 @@ public static partial class DiffractionEngine
         {
             UseRayAiming = aimAtStop,
             FiniteCellHuygensUsed = true,
+            GeometricChiefReferenceUsed = wavefront.GeometricChiefReferenceUsed || normalizer.GeometricChiefReferenceUsed,
             HuygensPolarization = coherentVector ? HuygensPolarizationMode.CoherentXyz
                 : useUnpolarizedPower ? HuygensPolarizationMode.UnpolarizedMeanPower : HuygensPolarizationMode.None
         };
@@ -2156,6 +2161,7 @@ public static partial class DiffractionEngine
             wavelength.Micrometers,
             aimAtStop: aimAtStop);
         var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).SingleOrDefault()
+            ?? AnalysisTrace.GeometricImageReference(optic, chiefBundle.Rays.Single())
             ?? throw new InvalidOperationException("Chief ray did not reach the image surface.");
         var center = chief.Position;
         var localCenter = imageSurface.CoordinateSystem.ToLocalPoint(center);

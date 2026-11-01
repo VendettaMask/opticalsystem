@@ -279,7 +279,8 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 direction,
                 normal,
                 pathLength,
-                IncidenceAngleDegrees(localIncident, localNormal),
+                IncidenceAngleDegrees(localIncident, surface.Geometry is PlaneGeometry { ReferenceIncidenceNormal: { } referenceNormal }
+                    ? referenceNormal : localNormal),
                 sample.Vignetted,
                 sample.Intensity,
                 sample.Position,

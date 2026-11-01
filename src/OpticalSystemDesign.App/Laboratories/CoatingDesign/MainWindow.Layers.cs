@@ -31,6 +31,9 @@ public sealed partial class MainWindow
 
         IBrush Register(string materialId)
         {
+            if (_session.Current.Materials.FirstOrDefault(m => m.Id == materialId)?.DisplayColor is { } declared
+                && Color.TryParse(declared, out var declaredColor))
+                return _materialBrushes[materialId] = new Avalonia.Media.Immutable.ImmutableSolidColorBrush(declaredColor);
             if (_materialBrushes.TryGetValue(materialId, out var brush)) return brush;
             var index = _materialBrushes.Count;
             var color = index < MaterialMarkerColors.Length ? Color.Parse(MaterialMarkerColors[index])

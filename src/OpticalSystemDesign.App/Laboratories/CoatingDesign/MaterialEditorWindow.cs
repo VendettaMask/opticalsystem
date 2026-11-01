@@ -17,6 +17,7 @@ public sealed class MaterialEditorWindow : Window
     private readonly TextBox _data = new() { AcceptsReturn = true, TextWrapping = TextWrapping.NoWrap, MinHeight = 220 };
     private readonly TextBlock _status = new() { TextWrapping = TextWrapping.Wrap };
     private string? _editingId;
+    private MaterialSnapshot? _basis;
     public MaterialEditorWindow(MaterialSnapshot[] materials, MaterialSnapshot? selected = null)
     {
         Title = "实验材料管理 · n / k 表"; Width = 760; Height = 680; MinWidth = 580; MinHeight = 500;
@@ -35,7 +36,7 @@ public sealed class MaterialEditorWindow : Window
             button.Click += async (_, _) => { try { await action(); } catch (Exception e) { _status.Text = e.Message; } };
             tools.Children.Add(button); return button;
         }
-        Button("新建 / 示例格式", () => { _editingId = null; _name.Text = "用户材料"; _source.Text = "用户模型示例，非测量数据"; _data.Text = MaterialTable.Example; return Task.CompletedTask; });
+        Button("新建 / 示例格式", () => { _editingId = null; _basis = null; _name.Text = "用户材料"; _source.Text = "用户模型示例，非测量数据"; _data.Text = MaterialTable.Example; return Task.CompletedTask; });
         Button("复制材料", () => { _editingId = null; _name.Text += " 副本"; _status.Text = "保存时创建独立材料，不替换原引用。"; return Task.CompletedTask; });
         Button("导入 CSV", async () =>
         {
@@ -44,7 +45,7 @@ public sealed class MaterialEditorWindow : Window
             {
                 var data = await MaterialTable.ReadAsync(path);
                 MaterialTable.Parse(Path.GetFileNameWithoutExtension(path), "用户导入：" + Path.GetFileName(path), data);
-                _editingId = null; _name.Text = Path.GetFileNameWithoutExtension(path); _source.Text = "用户导入：" + Path.GetFileName(path); _data.Text = data;
+                _editingId = null; _basis = null; _name.Text = Path.GetFileNameWithoutExtension(path); _source.Text = "用户导入：" + Path.GetFileName(path); _data.Text = data;
                 _status.Text = "数据已校验；请补充来源和适用条件，再保存到实验。";
             }
         });
@@ -79,11 +80,11 @@ public sealed class MaterialEditorWindow : Window
         else { _name.Text = "用户材料"; _source.Text = "用户模型示例，非测量数据"; _data.Text = MaterialTable.Example; }
         LaboratoryPresentation.Apply(this);
     }
-    private MaterialSnapshot Parse() => MaterialTable.Parse(_name.Text ?? "", _source.Text ?? "", _data.Text ?? "", _editingId);
+    private MaterialSnapshot Parse() => MaterialTable.Parse(_name.Text ?? "", _source.Text ?? "", _data.Text ?? "", _editingId, _basis);
     private void Populate(MaterialSnapshot material)
     {
-        _editingId = material.Id; _name.Text = material.Name; _source.Text = material.Source;
-        try { _data.Text = MaterialTable.Export(material); _status.Text = "显示完整原始表格。保存将更新本实验中的材料引用。"; }
+        _editingId = material.Id; _basis = material; _name.Text = material.Name; _source.Text = material.Source;
+        try { _data.Text = MaterialTable.Export(material); _status.Text = "显示完整原始表格。保存将更新本实验中的材料引用。" + (material.HoldTabulatedEndpoints ? "保留 PCHIP 与已声明的域外端点延用。" : ""); }
         catch (ArgumentException e) { _data.Text = ""; _status.Text = e.Message; }
     }
 }

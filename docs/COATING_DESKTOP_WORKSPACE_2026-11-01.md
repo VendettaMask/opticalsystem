@@ -33,3 +33,5 @@
 预览中的 32 层处方是布局夹具，其光谱由原共享 Core 实算，不能当成优化达标结果。
 
 代码入口：`MainWindow.cs`、`MainWindow.Commands.cs`、`MainWindow.Settings.cs`、`MainWindow.Layers.cs`、`SpectrumPlot.cs`。操作说明见[镀膜模块](../labs/CoatingDesign/README.md)。
+
+后续新增的平均/s/p、独立评估设置和结果表导出见[光学评价控件](COATING_SPECTRUM_CONTROLS_2026-11-01.md)，其验证范围单列，不回写本批历史计数。

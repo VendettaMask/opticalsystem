@@ -1,0 +1,281 @@
+{
+  "target": "dispatch",
+  "pausedAtTarget": true,
+  "previous": {
+    "functionEvaluations": 0,
+    "gradientEvaluations": 0,
+    "validationEvaluations": 0,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 0,
+    "geometryProbes": 0,
+    "elapsed": "00:00:00"
+  },
+  "consumed": {
+    "functionEvaluations": 1,
+    "gradientEvaluations": 0,
+    "validationEvaluations": 1,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 44520,
+    "geometryProbes": 518,
+    "elapsed": "00:00:01.0650114"
+  },
+  "actualNewRays": 44520,
+  "state": "cancelled",
+  "pending": {
+    "axialAnchors": [
+      {
+        "surfaceId": "front",
+        "zMillimeters": 2.998643458431557
+      },
+      {
+        "surfaceId": "back",
+        "zMillimeters": 6.001015359696918
+      },
+      {
+        "surfaceId": "trial-0-cemented:back",
+        "zMillimeters": 6.999196816891892
+      },
+      {
+        "surfaceId": "trial-0-cemented-1:back",
+        "zMillimeters": 7.999196816891892
+      }
+    ],
+    "change": {
+      "operation": "cementedInsert",
+      "parentFingerprint": "11f3055ed8907d0b13ed9dc4106817a0318c3426fad02ca7b53bb61af265d353",
+      "childFingerprint": "f1b80f6ab27da93b555e902309532186e552ff2dba49f6a13e2c73bc668c1ba8",
+      "createdElementIds": [
+        "trial-0-cemented-1"
+      ],
+      "removedElementIds": []
+    },
+    "trialId": "trial-0",
+    "parentId": "seed-0",
+    "operation": "cemented-insert",
+    "template": {
+      "schemaVersion": 1,
+      "algorithm": "AutonomousTopologyV1",
+      "name": "SPC existing authored singlet",
+      "conjugate": "infinite",
+      "reference": {
+        "id": "reference",
+        "zMillimeters": 0
+      },
+      "stop": {
+        "id": "stop",
+        "zMillimeters": 1,
+        "clearSemiDiameterMillimeters": 2,
+        "mechanicalSemiDiameterMillimeters": null
+      },
+      "image": {
+        "id": "image",
+        "zMillimeters": 55,
+        "protected": true
+      },
+      "elements": [
+        {
+          "id": "crown",
+          "frontSurfaceId": "front",
+          "backSurfaceId": "back",
+          "frontZMillimeters": 2.998643458431557,
+          "thicknessMillimeters": 3.002371901265361,
+          "material": "N-BK7",
+          "front": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": 0.02703501757950745,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "back": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": -0.025439563542622425,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "protected": false,
+          "transition": false
+        },
+        {
+          "id": "trial-0-cemented",
+          "frontSurfaceId": "back",
+          "backSurfaceId": "trial-0-cemented:back",
+          "frontZMillimeters": 6.001015359696918,
+          "thicknessMillimeters": 0.9981814571949741,
+          "material": "N-F2",
+          "front": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": -0.025439563542622425,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "back": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": -0.014424444115605634,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "protected": false,
+          "transition": false
+        },
+        {
+          "id": "trial-0-cemented-1",
+          "frontSurfaceId": "trial-0-cemented:back",
+          "backSurfaceId": "trial-0-cemented-1:back",
+          "frontZMillimeters": 6.999196816891892,
+          "thicknessMillimeters": 1,
+          "material": "N-F2",
+          "front": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": -0.014424444115605634,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "back": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": -0.014424444115605634,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "protected": false,
+          "transition": false
+        }
+      ],
+      "cementedInterfaces": {
+        "version": 1,
+        "interfaces": [
+          {
+            "leftElementId": "crown",
+            "rightElementId": "trial-0-cemented",
+            "surfaceId": "back"
+          },
+          {
+            "leftElementId": "trial-0-cemented",
+            "rightElementId": "trial-0-cemented-1",
+            "surfaceId": "trial-0-cemented:back"
+          }
+        ]
+      },
+      "fields": [
+        {
+          "label": "Axis",
+          "xAngleDegrees": 0,
+          "yAngleDegrees": 0,
+          "weight": 1
+        },
+        {
+          "label": "Edge",
+          "xAngleDegrees": 0,
+          "yAngleDegrees": 3,
+          "weight": 1
+        }
+      ],
+      "wavelengths": [
+        {
+          "label": "F",
+          "nanometers": 486.1,
+          "weight": 1,
+          "isPrimary": false
+        },
+        {
+          "label": "d",
+          "nanometers": 587.6,
+          "weight": 1,
+          "isPrimary": true
+        },
+        {
+          "label": "C",
+          "nanometers": 656.3,
+          "weight": 1,
+          "isPrimary": false
+        }
+      ],
+      "glassCatalogs": [],
+      "rayAimingEnabled": true,
+      "matchRefractiveIndexData": true,
+      "temperatureCelsius": 20,
+      "pressureAtmospheres": 1
+    },
+    "phase": "recovery",
+    "stageOptions": null,
+    "continuation": null,
+    "variables": [
+      {
+        "surfaceId": "front",
+        "kind": "curvature",
+        "lowerBound": -0.08,
+        "upperBound": 0.08,
+        "scale": 0.01,
+        "power": 0
+      },
+      {
+        "surfaceId": "back",
+        "kind": "curvature",
+        "lowerBound": -0.08,
+        "upperBound": 0.08,
+        "scale": 0.01,
+        "power": 0
+      },
+      {
+        "surfaceId": "trial-0-cemented:back",
+        "kind": "curvature",
+        "lowerBound": -0.08,
+        "upperBound": 0.08,
+        "scale": 0.01,
+        "power": 0
+      },
+      {
+        "surfaceId": "trial-0-cemented-1:back",
+        "kind": "curvature",
+        "lowerBound": -0.08,
+        "upperBound": 0.08,
+        "scale": 0.01,
+        "power": 0
+      }
+    ],
+    "phaseConsumed": {
+      "functionEvaluations": 0,
+      "gradientEvaluations": 0,
+      "validationEvaluations": 0,
+      "matrixEvaluations": 0,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 0,
+      "tracedRays": 0,
+      "geometryProbes": 0,
+      "elapsed": "00:00:00"
+    }
+  }
+}

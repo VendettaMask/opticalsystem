@@ -358,7 +358,7 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         CoreSphereParameters sphere => $"R {sphere.RadiusMillimeters:0.###} mm",
         CoreCylinderParameters cylinder => $"R {cylinder.RadiusMillimeters:0.###} × {cylinder.LengthMillimeters:0.###} mm",
         CoreBoxParameters box => $"{box.WidthMillimeters:0.###} × {box.HeightMillimeters:0.###} × {box.LengthMillimeters:0.###} mm",
-        Core.NonSequential.OpticalAssemblyParameters group => $"{group.Interfaces.Count} 个原始界面 · 独立口径/介质/镀膜",
+        Core.NonSequential.OpticalAssemblyParameters group => $"{group.Interfaces.Count} 个原始界面 · 独立口径/介质/镀膜"+(group.HasExtendedSurfaces?" · 非球面/独立坐标":""),
         CoreStandardLensParameters lens => $"CT {lens.CenterThicknessMillimeters:0.###}，SD {lens.SemiDiameterMillimeters:0.###} mm",
         CoreMeshObjectParameters mesh => $"STL 资产 {mesh.MeshAssetId:N}，{mesh.Behavior}",
         CoreDetectorRectangleParameters detector => $"{detector.WidthMillimeters:0.###} × {detector.HeightMillimeters:0.###} mm，{detector.PixelsX} × {detector.PixelsY}",

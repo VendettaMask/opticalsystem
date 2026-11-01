@@ -22,7 +22,7 @@ public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 2;
-    public const int ProjectFormatVersion = 20;
+    public const int ProjectFormatVersion = 21;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
@@ -54,7 +54,8 @@ public static class StarOptProjectStore
         }
 
         var project = new StarOptProjectSnapshot(
-            document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters {IncidentSurface:not null}) == true ? ProjectFormatVersion
+            document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}) == true ? 21
+                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters {IncidentSurface:not null}) == true ? 20
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.AbsoluteRbfXyzProtocol) == true ? 19
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.LogInterpolationProtocol) == true ? 18
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.PolarSupportProtocol) == true ? 17
@@ -282,6 +283,8 @@ public static class StarOptProjectStore
             throw new InvalidDataException("Measured polar support requires STAROPT project version 17.");
         if (project.FormatVersion < 20 && nonSequentialDocument.Objects.Any(o=>o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters {IncidentSurface:not null}))
             throw new InvalidDataException("Optical assemblies require project version 20.");
+        if (project.FormatVersion < 21 && nonSequentialDocument.Objects.Any(o=>o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}))
+            throw new InvalidDataException("Aspheric/per-surface optical frames require project version 21.");
         if (project.FormatVersion < 18 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.LogInterpolationProtocol))
             throw new InvalidDataException("Logarithmic measured BSDF requires STAROPT project version 18.");
         if (project.FormatVersion < 19 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.AbsoluteRbfXyzProtocol))

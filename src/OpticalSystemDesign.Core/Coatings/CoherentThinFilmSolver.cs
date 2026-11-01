@@ -204,7 +204,7 @@ public sealed partial class CoherentThinFilmSolver
     private static Complex Index(IMaterial material, double wavelength)
     {
         if (!double.IsFinite(wavelength) || wavelength <= 0) throw new ArgumentException("波长无效。");
-        if (material is CatalogGlassMaterial catalog &&
+        if (material is CatalogGlassMaterial catalog && !catalog.HoldsTabulatedEndpoints &&
             (wavelength < catalog.MinimumWavelengthNanometers || wavelength > catalog.MaximumWavelengthNanometers))
             throw new ArgumentException($"材料 {material.Name} 的有效波段不包含 {wavelength:G8} nm。");
         var n = material.RefractiveIndex(wavelength);

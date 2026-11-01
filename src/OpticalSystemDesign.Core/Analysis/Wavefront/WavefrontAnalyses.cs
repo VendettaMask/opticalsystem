@@ -122,9 +122,9 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ? WavefrontEngine.GenerateChiefRayGrid(Optic, field, wavelength,
                 new PupilGridSpecification(_pupilSampling.Value, false, true, projectedGrid ? 1 / displayScaleX : 1)
                 { StretchY = projectedGrid ? 1 / displayScaleY : 1 },
-                Optic.RayAimingEnabled, null, null)
+                Optic.RayAimingEnabled, null, null, allowGeometricReference: true)
             : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings,
-                aimAtStop: Optic.RayAimingEnabled);
+                aimAtStop: Optic.RayAimingEnabled, allowGeometricReference: true);
         var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
         if (_removeTilt)
         {

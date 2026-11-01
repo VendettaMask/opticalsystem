@@ -24,6 +24,14 @@ public sealed partial class MainWindow
         commands.Children.Add(CommandDivider());
 
         var examples = new MenuFlyout();
+        foreach (var preset in ReferenceExamples.Presets)
+        {
+            var item = new MenuItem { Header = UiLocalization.Text(preset.MenuLabel), Tag = preset.MenuLabel };
+            AutomationProperties.SetName(item, "示例：" + preset.Id);
+            item.Click += (_, _) => TrackOperation(() => LoadReferenceExampleAsync(preset.Id));
+            examples.Items.Add(item);
+        }
+        examples.Items.Add(new Separator());
         foreach (var (name, automation, kind) in new[]
                  {
                      ("减反膜", "示例：减反", DesignKind.Antireflection),

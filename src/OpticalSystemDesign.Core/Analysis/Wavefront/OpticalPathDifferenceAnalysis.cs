@@ -64,7 +64,7 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                         analysisOptic,
                         field,
                         wavelength,
-                        aimAtStop: analysisOptic.RayAimingEnabled)).ToArray();
+                        aimAtStop: analysisOptic.RayAimingEnabled, allowGeometricReference: true)).ToArray();
             var primaryWavelength = allWavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
                 ?? allWavelengths.FirstOrDefault();
             var primaryReferenceSphere = !analysisOptic.ImageSpaceAfocal
@@ -75,7 +75,7 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                         analysisOptic,
                         field,
                         primaryWavelength,
-                        aimAtStop: analysisOptic.RayAimingEnabled)
+                        aimAtStop: analysisOptic.RayAimingEnabled, allowGeometricReference: true)
                     : null;
             for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
             {
@@ -97,7 +97,7 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                             wavelengthReferenceSpheres[wavelengthIndex].Radius),
                     referenceWavelength: analysisOptic.ImageSpaceAfocal
                         ? _wavelengthNumber == 0 ? primaryWavelength : wavelengths[wavelengthIndex]
-                        : null);
+                        : null, allowGeometricReference: true);
                 waves.Add(new OpdWave(
                     wavelengths[wavelengthIndex],
                     wavelengthIndices[wavelengthIndex],

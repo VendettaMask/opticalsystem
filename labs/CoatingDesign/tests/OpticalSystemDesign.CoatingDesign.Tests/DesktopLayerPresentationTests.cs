@@ -64,7 +64,7 @@ public sealed partial class DesktopTests
                     Assert.Equal("界面设置检查", Find<TextBox>(window, "实验名称").Text);
                     Find<TextBox>(window, "实验名称").Text = originalName;
                     var fingerprint = window.CurrentExperiment.Fingerprint();
-                    var table = window.GetLogicalDescendants().OfType<DataGrid>().Single();
+                    var table = window.GetLogicalDescendants().OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable");
                     var rows = ((IEnumerable<LayerRow>)table.ItemsSource).ToArray();
                     table.ScrollIntoView(rows[^1], table.Columns[1]); Tick(window);
                     table.ScrollIntoView(rows[0], table.Columns[1]); Tick(window);

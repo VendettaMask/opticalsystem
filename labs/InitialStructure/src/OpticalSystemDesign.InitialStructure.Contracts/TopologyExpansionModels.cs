@@ -1,10 +1,13 @@
 using System.Collections.Immutable;
+using System.Text.Json.Serialization;
 
 namespace OpticalSystemDesign.InitialStructure.Contracts;
 
 /// <summary>Explicit new-plan policy. Null preserves the original M4 dispatch and checkpoint identity.</summary>
 public sealed record TopologyExpansionOptions
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CementedGrowthOptions? Cemented { get; init; }
     public bool EnableInsertion { get; init; } = true;
     public bool EnableDeletion { get; init; } = true;
     public bool EnableGradualDeletion { get; init; } = true;
@@ -20,6 +23,15 @@ public sealed record TopologyExpansionOptions
     public int MaximumEvenPower { get; init; } = 8;
     public double MaximumAbsoluteConic { get; init; } = 2;
     public double CoefficientCoordinateSagMillimeters { get; init; } = .02;
+}
+
+/// <summary>Explicit bounded shared-interface growth; original insertion/material permissions still apply.</summary>
+public sealed record CementedGrowthOptions
+{
+    public int Version { get; init; } = 1;
+    public int MaximumGroupElements { get; init; } = 2;
+    public double InitialThicknessMillimeters { get; init; } = 1;
+    public ImmutableArray<double> ThicknessMultipliers { get; init; } = [1, 2];
 }
 
 /// <summary>Never overwrite the unscaled origin with a compensated or previously scaled element.</summary>

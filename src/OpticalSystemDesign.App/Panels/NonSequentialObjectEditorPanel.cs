@@ -343,7 +343,11 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             case OpticalAssemblyParameters p:
                 _parameters.Children.Add(new TextBlock { Text="完整顺序光学组件。各面处方随工程冻结；修改处方后重新转换。",TextWrapping=TextWrapping.Wrap });
                 foreach(var face in p.Assembly.Interfaces)
+                {
                     _parameters.Children.Add(new TextBlock { Name=$"nsc-interface-{face.SourceSurfaceNumber}", Text=$"S{face.SourceSurfaceNumber} {face.SourceLabel} · z={face.VertexZMillimeters:G8} mm · SD={face.SemiDiameterMillimeters:G6} / 机械半径={face.MechanicalSemiDiameterMillimeters:G6} mm · 旋转={face.RollDegrees:G6}° · {face.MaterialBeforeName} → {face.MaterialAfterName} · {face.Coating.Kind} · {(face.Aperture?.Kind??"无显式光阑")}",TextWrapping=TextWrapping.Wrap });
+                    if(face.Frame is { } frame)
+                        _parameters.Children.Add(new TextBlock { Name=$"nsc-frame-{face.SourceSurfaceNumber}", Text=$"{face.GeometryKind} · {face.SurfaceGeometry!.Coefficients.Count} 个系数 · XYZ=({frame.Origin.X:G8}, {frame.Origin.Y:G8}, {frame.Origin.Z:G8}) mm · 轴=({frame.AxisZ.X:G6}, {frame.AxisZ.Y:G6}, {frame.AxisZ.Z:G6})",TextWrapping=TextWrapping.Wrap });
+                }
                 break;
             case StandardLensParameters p:
                 Field("frontRadius", "前半径 (mm)", p.FrontRadiusMillimeters); Field("backRadius", "后半径 (mm)", p.BackRadiusMillimeters);

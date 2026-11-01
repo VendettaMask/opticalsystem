@@ -64,6 +64,9 @@ public sealed partial class MainWindow : Window
         Title = "光学镀膜设计"; Width = 1200; Height = 900; MinWidth = 820; MinHeight = 640;
         Icon = BrandAssets.LoadWindowIcon();
         DisplayTypography.Apply(this);
+        try { CoatingPlotDefaults.Load(CoatingPlotDefaults.DefaultPath).Apply(_plot); }
+        catch (Exception error) when (error is System.IO.IOException or System.Text.Json.JsonException or ArgumentException or UnauthorizedAccessException)
+        { CoatingPlotDefaults.Factory.Apply(_plot); _plotDefaultsWarning = "默认设置未载入：" + error.Message; }
         this.BindThemeResource(BackgroundProperty, ThemeResourceBindings.Workspace);
         this.BindThemeResource(ForegroundProperty, ThemeResourceBindings.TextPrimary);
         _incident = MaterialPicker(); _substrate = MaterialPicker(); _low = MaterialPicker(); _high = MaterialPicker(); _layerMaterial = MaterialPicker();
@@ -89,13 +92,10 @@ public sealed partial class MainWindow : Window
         AddCompute("2 优化", () => RunAsync("optimize"), actions);
         AddCompute("结构搜索", () => RunAsync("search"), actions);
         AddCompute("计算 / 复验", () => RunAsync("evaluate"), actions);
-        _cancel = ActionButton("取消", () => { _uiRevision++; _session.Cancel(); _status.Text = "已请求取消；当前已完成结果保留。"; return Task.CompletedTask; });
+        _cancel = ActionButton("取消", () => { _uiRevision++; _session.Cancel(); _plot.CancelPendingEvaluation(); _status.Text = "已请求取消；当前已完成结果保留。"; return Task.CompletedTask; });
         actions.Children.Add(_cancel);
         var candidateBar = new WrapPanel(); candidateBar.Children.Add(_candidates);
-        var scale = new ComboBox { ItemsSource = new[] { "R / T / A (%)", "截止深度 OD" }, SelectedIndex = 0, MinWidth = 132 };
-        AutomationProperties.SetName(scale, "光谱纵轴");
-        scale.SelectionChanged += (_, _) => _plot.SetOpticalDensity(scale.SelectedIndex == 1);
-        candidateBar.Children.Add(scale);
+        candidateBar.Children.Insert(0, new TextBlock { Text = "候选", VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 6, 0) });
         candidateBar.Children.Add(ActionButton("采用候选", SelectCandidateAsync));
         var layerPanel = new Grid { RowDefinitions = new("Auto,*") };
         var layerTitle = new Grid { ColumnDefinitions = new("Auto,*"), ColumnSpacing = 12 };
@@ -120,7 +120,7 @@ public sealed partial class MainWindow : Window
             Margin = new Thickness(8),
             Spacing = 6,
             Children =
-            { LaboratoryPresentation.Heading("光学评价", "chart-line"), candidateBar }
+            { LaboratoryPresentation.Heading("光学评价", "chart-line"), BuildSpectrumToolbar() }
         });
         _plot.Margin = new Thickness(4, 0, 4, 8); Put(plotPanel, _plot, 1);
         _summary.FontSize = DisplayTypography.BodySmall;
@@ -132,8 +132,9 @@ public sealed partial class MainWindow : Window
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = new Border { Padding = new Thickness(12), Child = new ScrollViewer { Content = _summary, MaxHeight = 220 } }
         };
-        var evaluation = new Grid { RowDefinitions = new("*,Auto") };
-        evaluation.Children.Add(plotPanel); Put(evaluation, details, 1);
+        var evaluation = new Grid { RowDefinitions = new("*,Auto,Auto,Auto,Auto") };
+        evaluation.Children.Add(plotPanel); _plotStatus.Margin = new Thickness(8, 3); Put(evaluation, _plotStatus, 1);
+        candidateBar.Margin = new Thickness(8, 3); Put(evaluation, BuildResultsPanel(), 2); Put(evaluation, candidateBar, 3); Put(evaluation, details, 4);
         var panes = new Grid { Name = "CoatingWorkspace", ColumnDefinitions = new("*,6,*") };
         panes.ColumnDefinitions[0].MinWidth = 300; panes.ColumnDefinitions[2].MinWidth = 300;
         panes.Children.Add(WorkspacePane(layerPanel, "CoatingLayerCard"));
@@ -160,10 +161,10 @@ public sealed partial class MainWindow : Window
             var command = (e.KeyModifiers & (KeyModifiers.Control | KeyModifiers.Meta)) != 0;
             if (command && e.Key == Key.S) { e.Handled = true; await TrackOperation(SaveAsync); }
             if (command && e.Key == Key.O) { e.Handled = true; await TrackOperation(OpenAsync); }
-            if (e.Key == Key.Escape) { _uiRevision++; _session.Cancel(); }
+            if (e.Key == Key.Escape) { _uiRevision++; _session.Cancel(); _plot.CancelPendingEvaluation(); }
             if (e.Key == Key.F5 && !_busy) { e.Handled = true; await TrackOperation(() => RunAsync("evaluate")); }
         };
-        Closed += (_, _) => { _session.Dispose(); _operationStatus.Dispose(); };
+        Closed += (_, _) => { _plot.Dispose(); _session.Dispose(); _operationStatus.Dispose(); };
         Closing += OnClosing;
         Load(_session.Current, markDirty: false); SetBusy(false);
         LaboratoryPresentation.Apply(this);
@@ -412,6 +413,9 @@ public sealed partial class MainWindow : Window
             catch (ArgumentException error) { return "材料适用性诊断：" + error.Message; }
         }
         var text = (r.Passed ? "✓ 全部目标达标" : "未全部达标 · 保留当前有效结果") + $"    复验采样 {r.VerificationSamples} 点 / {(r.SamplingConverged ? "收敛" : "未收敛")}\n";
+        if (d.ReferenceExample is { } example)
+            text = $"参考原处方：{example.OriginalName}\n基板 {example.SubstrateThicknessMm:G7} mm；出射介质 {example.ExitMediumId}；前面单独评价（忽略背面）。\n"
+                + "参考未定义优化验收目标；以下按本软件原默认指标比较。\n" + text;
         foreach (var check in r.Checks)
         {
             var value = check.Actual.HasValue ? (check.Name.Contains("OD", StringComparison.Ordinal) && check.Actual.Value > 12
@@ -504,6 +508,7 @@ public sealed partial class MainWindow : Window
             if (applied && revision == _uiRevision)
             {
                 Load(_session.Current);
+                await _plot.PendingEvaluation;
             }
             else if (revision == _uiRevision) _status.Text = "已取消或输入已变更，本次结果未写回。";
         }
@@ -517,6 +522,7 @@ public sealed partial class MainWindow : Window
     private void SetBusy(bool value)
     {
         _busy = value;
+        UpdatePlotState();
         _operationStatus.IsVisible = value;
         if (value) _operationStatus.Start("正在计算镀膜设计…", () => _session.Cancel());
         else _operationStatus.MarkIdle(_status.Text ?? "计算已结束");
@@ -561,7 +567,7 @@ public sealed partial class MainWindow : Window
         _session.Invalidate(); _plot.SetExperiment(null); _summary.Text = "正在打开并重算材料快照…";
         var revision = ++_uiRevision;
         var applied = await _session.RunAsync((_, token) => ExperimentStore.OpenAsync(path, token));
-        if (applied && revision == _uiRevision) Load(_session.Current, markDirty: false);
+        if (applied && revision == _uiRevision) { Load(_session.Current, markDirty: false); await _plot.PendingEvaluation; }
     }
     private async Task ExportAsync()
     {

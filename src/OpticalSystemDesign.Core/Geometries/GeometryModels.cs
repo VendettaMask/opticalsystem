@@ -3,9 +3,11 @@ using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.Core.Geometries;
 
-public sealed class PlaneGeometry : IGeometry
+public sealed class PlaneGeometry(Vector3D? referenceIncidenceNormal = null) : IGeometry
 {
     public string Kind => "plane";
+    /// <summary>Incoming reference-frame normal for a retained coordinate break's report angle; intersection normal remains the local Z axis.</summary>
+    public Vector3D? ReferenceIncidenceNormal { get; } = referenceIncidenceNormal;
 
     public double Sag(double x, double y) => 0;
 
@@ -16,7 +18,7 @@ public sealed class PlaneGeometry : IGeometry
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => new(0, 0, 1);
 
-    public IGeometry Clone() => new PlaneGeometry();
+    public IGeometry Clone() => new PlaneGeometry(ReferenceIncidenceNormal);
 }
 
 public sealed class PlaneGratingGeometry : IGratingGeometry

@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5fd51f2f-6074-4207-9db8-1484aab5cdeb" name="allen@DESKTOP-SET3SNR 2026-11-01 21:43:28" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T21:43:28.9379942+08:00" queuing="2026-11-01T21:43:28.9379945+08:00" start="2026-11-01T21:43:24.2746758+08:00" finish="2026-11-01T21:43:37.9175543+08:00" />
+  <TestSettings name="default" id="dcc79335-efae-411e-9203-55a5b0effa38">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_21_43_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d440a024-240d-4564-b90f-56001aa45d52" testId="d5108272-f8da-e797-b35e-450595750169" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.OriginalInsertionPermissionAndElementCountStillGovernScheduling(allowed: False, count: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:02.2321768" startTime="2026-11-01T21:43:28.9152567+08:00" endTime="2026-11-01T21:43:31.1250209+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d440a024-240d-4564-b90f-56001aa45d52" />
+    <UnitTestResult executionId="e1289a65-fb63-4423-82c8-15c5f94aeaab" testId="49dc1108-ab23-9e19-49cf-746203851898" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.LegacyCementedSchedulingStillRequiresTheExplicitVersionedPolicy" computerName="DESKTOP-SET3SNR" duration="00:00:00.0006529" startTime="2026-11-01T21:43:37.8338636+08:00" endTime="2026-11-01T21:43:37.8341243+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e1289a65-fb63-4423-82c8-15c5f94aeaab" />
+    <UnitTestResult executionId="6d6e2388-385f-431d-8841-ea4cb0620c8f" testId="9192b1a0-2e94-9c7a-bb71-360d49378548" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;slots&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0005761" startTime="2026-11-01T21:43:31.1337544+08:00" endTime="2026-11-01T21:43:31.1343515+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d6e2388-385f-431d-8841-ea4cb0620c8f" />
+    <UnitTestResult executionId="9313518a-c5fb-467d-b7fb-20a570d02f56" testId="1de357f4-c0f8-bf99-31cd-0beb7badc1bd" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.SafeStopAcrossDispatchBothCompensationPhasesAndCandidatePoolResumesExactly" computerName="DESKTOP-SET3SNR" duration="00:00:05.7513796" startTime="2026-11-01T21:43:32.0572074+08:00" endTime="2026-11-01T21:43:37.8210321+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9313518a-c5fb-467d-b7fb-20a570d02f56">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Empty() Failure: Collection was not empty&#xD;
+Collection: ["local", "full", "pool"]</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.SafeStopAcrossDispatchBothCompensationPhasesAndCandidatePoolResumesExactly() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousCementedTests.cs:line 80&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="49edaa1b-c9c0-4fdb-b0f8-0fc741294c97" testId="b139b094-c4f7-15d0-2768-00c84d5fc0b0" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.GrowthUsesOneRealSharedFaceAndCopiesEveryOriginalAperture(material: &quot;N-F2&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0013628" startTime="2026-11-01T21:43:37.8330393+08:00" endTime="2026-11-01T21:43:37.8336361+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="49edaa1b-c9c0-4fdb-b0f8-0fc741294c97" />
+    <UnitTestResult executionId="bbc4f6a8-7f2a-4ac4-ab0c-2818edadb334" testId="7fe8b3cb-ddc0-61bf-3c7a-b19a5a108626" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;occupied&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0010715" startTime="2026-11-01T21:43:31.1357969+08:00" endTime="2026-11-01T21:43:31.1361296+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bbc4f6a8-7f2a-4ac4-ab0c-2818edadb334" />
+    <UnitTestResult executionId="faffd3d9-7123-4316-97ec-cb0004da2cc2" testId="cc71cc15-3e91-30c0-c1cb-dd562ee10957" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.OriginalInsertionPermissionAndElementCountStillGovernScheduling(allowed: True, count: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:03.6053784" startTime="2026-11-01T21:43:25.2804693+08:00" endTime="2026-11-01T21:43:28.8922380+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="faffd3d9-7123-4316-97ec-cb0004da2cc2" />
+    <UnitTestResult executionId="7f0cdcd6-a6a4-49f5-8da8-8ff13650af81" testId="7369b63d-be5e-d07e-5262-70d037659a82" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.F4ConflictRemainsZeroWorkAndForeignKernelsRemainReadOnly" computerName="DESKTOP-SET3SNR" duration="00:00:00.1324120" startTime="2026-11-01T21:43:31.9244968+08:00" endTime="2026-11-01T21:43:32.0568292+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f0cdcd6-a6a4-49f5-8da8-8ff13650af81" />
+    <UnitTestResult executionId="6b7a090f-63a8-4ac8-84d4-0573424f11bc" testId="ff108829-631f-50d0-954f-406c167c114a" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;protected&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0003884" startTime="2026-11-01T21:43:31.1355627+08:00" endTime="2026-11-01T21:43:31.1356523+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b7a090f-63a8-4ac8-84d4-0573424f11bc" />
+    <UnitTestResult executionId="7fb93ace-26f2-4415-aa5f-aa8f30be27b7" testId="9f31ab4e-f2df-4383-c127-7c10b6dce533" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.SharedVariablesAreUniqueAndAnyProtectedOwnerFreezesTheCommonFace" computerName="DESKTOP-SET3SNR" duration="00:00:00.7868187" startTime="2026-11-01T21:43:31.1371518+08:00" endTime="2026-11-01T21:43:31.9241969+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7fb93ace-26f2-4415-aa5f-aa8f30be27b7" />
+    <UnitTestResult executionId="457f88b1-df52-4d93-b510-752cdfcf3a88" testId="5200b776-910e-1692-9b8a-3f05f1e8b782" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;space&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0003347" startTime="2026-11-01T21:43:31.1363480+08:00" endTime="2026-11-01T21:43:31.1368200+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="457f88b1-df52-4d93-b510-752cdfcf3a88" />
+    <UnitTestResult executionId="b3342d7f-714d-479e-88a7-aa9412c91a98" testId="5044cde6-e6e7-e099-1699-c0d8068be7bd" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.GrowthUsesOneRealSharedFaceAndCopiesEveryOriginalAperture(material: &quot;N-BK7&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0080125" startTime="2026-11-01T21:43:37.8327546+08:00" endTime="2026-11-01T21:43:37.8328706+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b3342d7f-714d-479e-88a7-aa9412c91a98" />
+    <UnitTestResult executionId="9f0dae2b-f0d4-4599-8c74-95d5a7409c39" testId="940c2668-f656-5f53-ec74-84011f13b037" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;thickness&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0061519" startTime="2026-11-01T21:43:31.1292742+08:00" endTime="2026-11-01T21:43:31.1334240+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f0dae2b-f0d4-4599-8c74-95d5a7409c39" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;space&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="5200b776-910e-1692-9b8a-3f05f1e8b782">
+      <Execution id="457f88b1-df52-4d93-b510-752cdfcf3a88" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;thickness&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="940c2668-f656-5f53-ec74-84011f13b037">
+      <Execution id="9f0dae2b-f0d4-4599-8c74-95d5a7409c39" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.OriginalInsertionPermissionAndElementCountStillGovernScheduling(allowed: False, count: 2)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="d5108272-f8da-e797-b35e-450595750169">
+      <Execution id="d440a024-240d-4564-b90f-56001aa45d52" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="OriginalInsertionPermissionAndElementCountStillGovernScheduling" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.GrowthUsesOneRealSharedFaceAndCopiesEveryOriginalAperture(material: &quot;N-BK7&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="5044cde6-e6e7-e099-1699-c0d8068be7bd">
+      <Execution id="b3342d7f-714d-479e-88a7-aa9412c91a98" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="GrowthUsesOneRealSharedFaceAndCopiesEveryOriginalAperture" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.GrowthUsesOneRealSharedFaceAndCopiesEveryOriginalAperture(material: &quot;N-F2&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b139b094-c4f7-15d0-2768-00c84d5fc0b0">
+      <Execution id="49edaa1b-c9c0-4fdb-b0f8-0fc741294c97" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="GrowthUsesOneRealSharedFaceAndCopiesEveryOriginalAperture" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.OriginalInsertionPermissionAndElementCountStillGovernScheduling(allowed: True, count: 1)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="cc71cc15-3e91-30c0-c1cb-dd562ee10957">
+      <Execution id="faffd3d9-7123-4316-97ec-cb0004da2cc2" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="OriginalInsertionPermissionAndElementCountStillGovernScheduling" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;slots&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="9192b1a0-2e94-9c7a-bb71-360d49378548">
+      <Execution id="6d6e2388-385f-431d-8841-ea4cb0620c8f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.LegacyCementedSchedulingStillRequiresTheExplicitVersionedPolicy" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="49dc1108-ab23-9e19-49cf-746203851898">
+      <Execution id="e1289a65-fb63-4423-82c8-15c5f94aeaab" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="LegacyCementedSchedulingStillRequiresTheExplicitVersionedPolicy" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.SharedVariablesAreUniqueAndAnyProtectedOwnerFreezesTheCommonFace" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="9f31ab4e-f2df-4383-c127-7c10b6dce533">
+      <Execution id="7fb93ace-26f2-4415-aa5f-aa8f30be27b7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="SharedVariablesAreUniqueAndAnyProtectedOwnerFreezesTheCommonFace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.SafeStopAcrossDispatchBothCompensationPhasesAndCandidatePoolResumesExactly" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="1de357f4-c0f8-bf99-31cd-0beb7badc1bd">
+      <Execution id="9313518a-c5fb-467d-b7fb-20a570d02f56" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="SafeStopAcrossDispatchBothCompensationPhasesAndCandidatePoolResumesExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.F4ConflictRemainsZeroWorkAndForeignKernelsRemainReadOnly" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="7369b63d-be5e-d07e-5262-70d037659a82">
+      <Execution id="7f0cdcd6-a6a4-49f5-8da8-8ff13650af81" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="F4ConflictRemainsZeroWorkAndForeignKernelsRemainReadOnly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;protected&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="ff108829-631f-50d0-954f-406c167c114a">
+      <Execution id="6b7a090f-63a8-4ac8-84d4-0573424f11bc" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits(defect: &quot;occupied&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="7fe8b3cb-ddc0-61bf-3c7a-b19a5a108626">
+      <Execution id="bbc4f6a8-7f2a-4ac4-ab0c-2818edadb334" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests" name="InvalidAttachmentsCannotChangeProtectedGeometryOrManufacturingLimits" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="d5108272-f8da-e797-b35e-450595750169" executionId="d440a024-240d-4564-b90f-56001aa45d52" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49dc1108-ab23-9e19-49cf-746203851898" executionId="e1289a65-fb63-4423-82c8-15c5f94aeaab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9192b1a0-2e94-9c7a-bb71-360d49378548" executionId="6d6e2388-385f-431d-8841-ea4cb0620c8f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1de357f4-c0f8-bf99-31cd-0beb7badc1bd" executionId="9313518a-c5fb-467d-b7fb-20a570d02f56" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b139b094-c4f7-15d0-2768-00c84d5fc0b0" executionId="49edaa1b-c9c0-4fdb-b0f8-0fc741294c97" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7fe8b3cb-ddc0-61bf-3c7a-b19a5a108626" executionId="bbc4f6a8-7f2a-4ac4-ab0c-2818edadb334" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc71cc15-3e91-30c0-c1cb-dd562ee10957" executionId="faffd3d9-7123-4316-97ec-cb0004da2cc2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7369b63d-be5e-d07e-5262-70d037659a82" executionId="7f0cdcd6-a6a4-49f5-8da8-8ff13650af81" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff108829-631f-50d0-954f-406c167c114a" executionId="6b7a090f-63a8-4ac8-84d4-0573424f11bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9f31ab4e-f2df-4383-c127-7c10b6dce533" executionId="7fb93ace-26f2-4415-aa5f-aa8f30be27b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5200b776-910e-1692-9b8a-3f05f1e8b782" executionId="457f88b1-df52-4d93-b510-752cdfcf3a88" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5044cde6-e6e7-e099-1699-c0d8068be7bd" executionId="b3342d7f-714d-479e-88a7-aa9412c91a98" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="940c2668-f656-5f53-ec74-84011f13b037" executionId="9f0dae2b-f0d4-4599-8c74-95d5a7409c39" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="12" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.55]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.64]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.66]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:13.22]       Assert.Empty() Failure: Collection was not empty&#xD;
+[xUnit.net 00:00:13.22]       Collection: ["local", "full", "pool"]&#xD;
+[xUnit.net 00:00:13.22]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.23]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousCementedTests.cs(80,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.SafeStopAcrossDispatchBothCompensationPhasesAndCandidatePoolResumesExactly()&#xD;
+[xUnit.net 00:00:13.23]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.24]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T21:43:37.8247008+08:00">
+        <Text>[xUnit.net 00:00:13.22]     OpticalSystemDesign.InitialStructure.Tests.AutonomousCementedTests.SafeStopAcrossDispatchBothCompensationPhasesAndCandidatePoolResumesExactly [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

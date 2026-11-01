@@ -19,14 +19,15 @@ public sealed partial class DesignService
     public const string ExtendedGeneratorVersion = "coating-templates/3";
     private readonly MaterialRegistry _registry = new();
 
-    private Dictionary<string, IMaterial> Materials(Experiment experiment)
+    private Dictionary<string, IMaterial> Materials(Experiment experiment, SpectralBand? displayBand = null)
     {
         experiment.Validate();
         var used = experiment.Layers.Select(l => l.MaterialId)
-            .Concat([experiment.IncidentId, experiment.SubstrateId, experiment.LowId, experiment.HighId]).ToHashSet();
+            .Concat(displayBand is null ? [experiment.IncidentId, experiment.SubstrateId, experiment.LowId, experiment.HighId]
+                : new[] { experiment.IncidentId, experiment.SubstrateId }).ToHashSet();
         var selected = experiment.Materials.Where(m => used.Contains(m.Id)).ToArray();
         foreach (var m in selected)
-            if (experiment.Target.MinimumNm < m.MinimumNm - 8e-15 * m.MinimumNm || experiment.Target.MaximumNm > m.MaximumNm + 8e-15 * m.MaximumNm)
+            if (!m.HoldTabulatedEndpoints && ((displayBand?.MinimumNm ?? experiment.Target.MinimumNm) < m.MinimumNm - 8e-15 * m.MinimumNm || (displayBand?.MaximumNm ?? experiment.Target.MaximumNm) > m.MaximumNm + 8e-15 * m.MaximumNm))
                 throw new ArgumentException($"材料 {m.Name} 支持 {m.MinimumNm:G7}–{m.MaximumNm:G7} nm，请缩小计算波段。");
         return selected.ToDictionary(m => m.Id, m => m.Resolve(_registry));
     }

@@ -1,0 +1,176 @@
+D:\Projects\opticalsystem\artifacts\coating-spectrum-20261101\build\bin\OpticalSystemDesign.CoatingDesign.Tests\release_win-x64\OpticalSystemDesign.CoatingDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.65]   Discovering: OpticalSystemDesign.CoatingDesign.Tests
+[xUnit.net 00:00:00.71]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests
+[xUnit.net 00:00:00.74]   Starting:    OpticalSystemDesign.CoatingDesign.Tests
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 0) [275 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 35) [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 70) [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.FixedUpstreamReferenceMatchesAllCases [19 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.BareFresnelAndBrewsterAnalyticChecks [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.SingleQuarterWaveCancelsAndZeroThicknessIsIdentity [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.HighReflectorMatchesQuarterWaveAnalyticSolution [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.ThickAbsorberAndThousandLayersRemainFiniteWithoutClippingTransmission [1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.TotalInternalReflectionAndPassiveInputValidation [3 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MaterialImportPreservesUnitsExtinctionAndExactTableOnRoundTrip [645 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.InvalidInputsAndOutOfRangeMaterialsAreNotSilentlyCoerced [717 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyVersionOneExampleRemainsReadableWithOriginalFingerprint [164 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.AnalysisDisplaySettingsTests.IndependentAnalysisMatchesFactoryStepAndAnglesWithoutChangingDesign [816 ms]
+[xUnit.net 00:00:01.73]     OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-bbar-4", layers: 4) [FAIL]
+[xUnit.net 00:00:01.73]       System.ArgumentException : 材料 Ta2O5 的有效波段不包含 400 nm。
+[xUnit.net 00:00:01.73]       Stack Trace:
+[xUnit.net 00:00:01.74]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs(209,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Index(IMaterial material, Double wavelength)
+[xUnit.net 00:00:01.74]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs(119,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.<>c__DisplayClass12_0.<Prepare>b__0(IMaterial m)
+[xUnit.net 00:00:01.74]            at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+[xUnit.net 00:00:01.74]            at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+[xUnit.net 00:00:01.74]            at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+[xUnit.net 00:00:01.74]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs(119,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Prepare(Double wavelengthNanometers, Double angleDegrees)
+[xUnit.net 00:00:01.74]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs(92,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Evaluate(Double wavelengthNanometers, Double angleDegrees, ThinFilmPolarization polarization)
+[xUnit.net 00:00:01.74]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(32,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.<>c__DisplayClass9_0.<Sample>b__0(Double w)
+[xUnit.net 00:00:01.74]            at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+[xUnit.net 00:00:01.74]            at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+[xUnit.net 00:00:01.74]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(29,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Sample(CoherentThinFilmSolver solver, IEnumerable`1 wavelengths, Double angleDegrees, ThinFilmPolarization polarization)
+[xUnit.net 00:00:01.74]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DisplaySpectrum.cs(32,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.<>c__DisplayClass27_0.<EvaluateAnalysisDisplay>b__2(Double angle)
+[xUnit.net 00:00:01.74]            at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+[xUnit.net 00:00:01.74]            at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+[xUnit.net 00:00:01.74]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DisplaySpectrum.cs(32,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.EvaluateAnalysisDisplay(Experiment input, AnalysisSpectrumOptions options, CancellationToken token)
+[xUnit.net 00:00:01.74]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReferenceExampleTests.cs(35,0): at OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(String id, Int32 layers)
+[xUnit.net 00:00:01.74]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.06]     OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-edge", layers: 20) [FAIL]
+[xUnit.net 00:00:02.06]       System.ArgumentException : 材料 Ta2O5 的有效波段不包含 400 nm。
+[xUnit.net 00:00:02.06]       Stack Trace:
+[xUnit.net 00:00:02.06]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs(209,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Index(IMaterial material, Double wavelength)
+[xUnit.net 00:00:02.06]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs(119,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.<>c__DisplayClass12_0.<Prepare>b__0(IMaterial m)
+[xUnit.net 00:00:02.06]            at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+[xUnit.net 00:00:02.06]            at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+[xUnit.net 00:00:02.06]            at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+[xUnit.net 00:00:02.06]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs(119,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Prepare(Double wavelengthNanometers, Double angleDegrees)
+[xUnit.net 00:00:02.06]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs(92,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Evaluate(Double wavelengthNanometers, Double angleDegrees, ThinFilmPolarization polarization)
+[xUnit.net 00:00:02.06]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(32,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.<>c__DisplayClass9_0.<Sample>b__0(Double w)
+[xUnit.net 00:00:02.06]            at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+[xUnit.net 00:00:02.06]            at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+[xUnit.net 00:00:02.06]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs(29,0): at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Sample(CoherentThinFilmSolver solver, IEnumerable`1 wavelengths, Double angleDegrees, ThinFilmPolarization polarization)
+[xUnit.net 00:00:02.06]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DisplaySpectrum.cs(32,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.<>c__DisplayClass27_0.<EvaluateAnalysisDisplay>b__2(Double angle)
+[xUnit.net 00:00:02.06]            at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+[xUnit.net 00:00:02.06]            at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+[xUnit.net 00:00:02.06]         D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DisplaySpectrum.cs(32,0): at OpticalSystemDesign.CoatingDesign.Engine.DesignService.EvaluateAnalysisDisplay(Experiment input, AnalysisSpectrumOptions options, CancellationToken token)
+[xUnit.net 00:00:02.06]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReferenceExampleTests.cs(35,0): at OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(String id, Int32 layers)
+[xUnit.net 00:00:02.06]         --- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DisplayPolarizationTests.DisplayUsesActualCorePolarizationsWithoutChangingTheOriginalResult(angle: 35, polarization: S) [827 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-metal-ag", layers: 2) [856 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DisplayPolarizationTests.DisplayUsesActualCorePolarizationsWithoutChangingTheOriginalResult(angle: 57, polarization: P) [45 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DisplayPolarizationTests.DisplayUsesActualCorePolarizationsWithoutChangingTheOriginalResult(angle: 0, polarization: S) [38 ms]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-bbar-4", layers: 4) [26 ms]
+  错误消息:
+   System.ArgumentException : 材料 Ta2O5 的有效波段不包含 400 nm。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Index(IMaterial material, Double wavelength) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs:line 209
+   at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.<>c__DisplayClass12_0.<Prepare>b__0(IMaterial m) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs:line 119
+   at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+   at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Prepare(Double wavelengthNanometers, Double angleDegrees) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs:line 119
+   at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Evaluate(Double wavelengthNanometers, Double angleDegrees, ThinFilmPolarization polarization) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs:line 92
+   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.<>c__DisplayClass9_0.<Sample>b__0(Double w) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 32
+   at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+   at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Sample(CoherentThinFilmSolver solver, IEnumerable`1 wavelengths, Double angleDegrees, ThinFilmPolarization polarization) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 29
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.<>c__DisplayClass27_0.<EvaluateAnalysisDisplay>b__2(Double angle) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DisplaySpectrum.cs:line 32
+   at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+   at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.EvaluateAnalysisDisplay(Experiment input, AnalysisSpectrumOptions options, CancellationToken token) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DisplaySpectrum.cs:line 32
+   at OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(String id, Int32 layers) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReferenceExampleTests.cs:line 35
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.AnalysisDisplaySettingsTests.SavedDefaultsRoundTripAndFactoryRestoreDoesNotUseDesignTargets [163 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-mgf2-ar", layers: 1) [107 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-hr-qw", layers: 15) [193 ms]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-edge", layers: 20) [24 ms]
+  错误消息:
+   System.ArgumentException : 材料 Ta2O5 的有效波段不包含 400 nm。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Index(IMaterial material, Double wavelength) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs:line 209
+   at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.<>c__DisplayClass12_0.<Prepare>b__0(IMaterial m) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs:line 119
+   at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+   at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Prepare(Double wavelengthNanometers, Double angleDegrees) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs:line 119
+   at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.Evaluate(Double wavelengthNanometers, Double angleDegrees, ThinFilmPolarization polarization) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\CoherentThinFilmSolver.cs:line 92
+   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.<>c__DisplayClass9_0.<Sample>b__0(Double w) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 32
+   at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+   at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+   at OpticalSystemDesign.Core.Coatings.ThinFilmSpectrum.Sample(CoherentThinFilmSolver solver, IEnumerable`1 wavelengths, Double angleDegrees, ThinFilmPolarization polarization) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmSpectrum.cs:line 29
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.<>c__DisplayClass27_0.<EvaluateAnalysisDisplay>b__2(Double angle) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DisplaySpectrum.cs:line 32
+   at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+   at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.EvaluateAnalysisDisplay(Experiment input, AnalysisSpectrumOptions options, CancellationToken token) in D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DisplaySpectrum.cs:line 32
+   at OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(String id, Int32 layers) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ReferenceExampleTests.cs:line 35
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExplicitCubicModelRetainsKnotsAndPlateausWhileLegacyLinearIsUnchanged [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "TiO2") [23 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "SiO2") [20 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "Ag") [22 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "BK7") [22 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "Ta2O5") [18 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "Air") [17 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "MgF2") [19 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.EndpointHoldingIsExplicitAndDoesNotRelaxOriginalMaterials [6 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: True) [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: False) [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintStillRejectsChangedInputs [155 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: "save-failed", canClose: False) [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: "save-cancel", canClose: False) [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: "discard", canClose: True) [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: "clean", canClose: True) [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: "cancel", canClose: False) [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: "changed-during-save", canClose: False) [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: "save-ok", canClose: True) [2 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 900) [14 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 1200, height: 900) [14 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 640) [14 s]
+[xUnit.net 00:01:06.05]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults [FAIL]
+[xUnit.net 00:01:06.05]       材料 Ta2O5 的有效波段不包含 400 nm。
+[xUnit.net 00:01:06.05]       Stack Trace:
+[xUnit.net 00:01:06.05]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs(32,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c.<<FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults>b__2_0>d.MoveNext()
+[xUnit.net 00:01:06.05]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:06.05]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(296,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass1_0.<<Run>b__0>d.MoveNext()
+[xUnit.net 00:01:06.05]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:06.05]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:01:06.05]         --- End of stack trace from previous location ---
+[xUnit.net 00:01:06.05]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs(19,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults()
+[xUnit.net 00:01:06.05]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults [3 s]
+  错误消息:
+   材料 Ta2O5 的有效波段不包含 400 nm。
+  堆栈跟踪:
+     at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c.<<FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults>b__2_0>d.MoveNext() in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs:line 32
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass1_0.<<Run>b__0>d.MoveNext() in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 296
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults() in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs:line 19
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.LayerCellsRetainMaterialIdentityAndEditableValuesWhenRecycled(theme: "Dark", width: 1200, fontSize: 13) [9 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.LayerCellsRetainMaterialIdentityAndEditableValuesWhenRecycled(theme: "Light", width: 1200, fontSize: 13) [9 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.LayerCellsRetainMaterialIdentityAndEditableValuesWhenRecycled(theme: "Light", width: 820, fontSize: 18) [6 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: 4) [4 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: 2) [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: null) [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: 3) [4 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 1) [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 0) [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 3) [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 4) [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 2) [3 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SaveOpenExportButtonsPreserveSnapshotAndBrokenFileClearsOldContent [4 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.MaterialDialogCreatesIndependentSnapshotAndInvalidatesOldResult [6 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ThicknessFormattingDoesNotRoundStoredValuesAndInvalidEditsRemainInvalid [< 1 ms]
+[xUnit.net 00:02:20.85]   Finished:    OpticalSystemDesign.CoatingDesign.Tests
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView [4 s]
+
+测试运行失败。
+测试总数: 61
+     通过数: 58
+     失败数: 3
+总时间: 2.3557 分钟

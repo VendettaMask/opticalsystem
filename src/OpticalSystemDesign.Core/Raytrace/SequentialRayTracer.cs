@@ -200,7 +200,7 @@ public sealed partial class SequentialRayTracer
         // An ordered plane has a unique signed intercept. This includes virtual
         // image/reference planes and a plane face slightly overlapped by the
         // preceding sag. Its actual aperture and interaction remain in force.
-        if (index > 0 && surfaces[index].Geometry is PlaneGeometry) return true;
+        if (index > 0 && surfaces[index].Geometry is PlaneGeometry or TiltedPlaneGeometry) return true;
         if (index == 1 && ObjectConjugate.IsInfinite(surfaces[0])) return true;
         if (index <= 1) return false;
         var previous = surfaces[index - 1];

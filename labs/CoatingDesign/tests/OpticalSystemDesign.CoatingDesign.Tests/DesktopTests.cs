@@ -37,7 +37,7 @@ public sealed partial class DesktopTests
                 window.Show(); Tick(window);
                 Click(window, "1 生成膜系"); await window.PendingOperation; Tick(window);
                 Assert.NotNull(window.CurrentExperiment.Result);
-                var table = window.GetLogicalDescendants().OfType<DataGrid>().Single();
+                var table = window.GetLogicalDescendants().OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable");
                 var rows = (IEnumerable<LayerRow>)table.ItemsSource;
                 var originalCount = rows.Count();
                 table.SelectedItem = rows.First();

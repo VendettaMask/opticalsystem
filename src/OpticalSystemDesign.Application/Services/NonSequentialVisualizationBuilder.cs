@@ -315,14 +315,10 @@ internal static class NonSequentialVisualizationBuilder
     private static Vector3D[][] OpticalAssembly(OpticalSystemDesign.Core.NonSequential.OpticalAssemblyParameters assembly)
     {
         const int angular=24,radial=4;var result=new List<Vector3D[]>();var rims=new List<Vector3D[]>();
-        foreach(var f in assembly.Interfaces)
+        for(int faceIndex=0;faceIndex<assembly.Interfaces.Count;faceIndex++)
         {
-            var geometry=new StandardGeometry(f.RadiusMillimeters,f.Conic);
             var rings=Enumerable.Range(0,radial+1).Select(i=>Enumerable.Range(0,angular).Select(j=>
-            {
-                var r=f.MechanicalSemiDiameterMillimeters*i/radial;var a=2*Math.PI*j/angular;var x=r*Math.Cos(a);var y=r*Math.Sin(a);
-                return new Vector3D(x,y,f.VertexZMillimeters+geometry.Sag(x,y));
-            }).ToArray()).ToArray();
+                assembly.EvaluateSurfacePoint(faceIndex,(double)i/radial,2*Math.PI*j/angular)).ToArray()).ToArray();
             for(int i=0;i<radial;i++)for(int j=0;j<angular;j++)result.Add([rings[i][j],rings[i][(j+1)%angular],rings[i+1][(j+1)%angular],rings[i+1][j]]);
             rims.Add(rings[^1]);
         }

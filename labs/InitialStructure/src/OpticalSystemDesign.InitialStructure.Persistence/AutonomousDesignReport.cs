@@ -38,7 +38,7 @@ public static class AutonomousDesignReport
         { Row("准备模式", preparation.Mode); Row("原任务指纹", preparation.PlanFingerprint); }
         if (study.Main is { } record) Row("搜索计划指纹", record.PlanFingerprint);
         Row("版本 / 修订", $"{study.Main?.SchemaVersion ?? study.Preparation?.Version ?? 1} / {study.Main?.Revision ?? study.Preparation?.Revision ?? 0}");
-        Row("计算版本", study.Preparation?.KernelFingerprint ?? t("未记录"));
+        Row("计算版本", study.Main?.CementedKernelFingerprint ?? study.Preparation?.KernelFingerprint ?? t("未记录"));
         Row("状态", code(study.Main?.Status.ToString() ?? study.Preparation?.StopReason ?? study.Preparation?.Status.ToString() ?? study.Prepared!.Termination.ToString()));
         Title(2, "原验收规格");
         Row("目标焦距 / F数", $"{N(plan.Targets.EffectiveFocalLengthMillimeters)} mm / F/{N(plan.Targets.FNumber)}");
@@ -75,11 +75,8 @@ public static class AutonomousDesignReport
             Row("光阑净半口径 (mm)", N(candidate.Topology.Stop.ClearSemiDiameterMillimeters));
             text.AppendLine().AppendLine($"| {t("镜片 / 面")} | z mm | {t("材料")} | {t("面型")} | {t("净半口径 mm")} | {t("机械半口径 mm")} | c mm⁻¹ | k | {t("偶次系数")} |")
                 .AppendLine("| --- | --- | --- | --- | --- | --- | --- | --- | --- |");
-            foreach (var element in candidate.Topology.Elements)
-            {
-                Face(element.FrontSurfaceId, element.FrontZMillimeters, element.Material, element.Front);
-                Face(element.BackSurfaceId, element.BackZMillimeters, "Air", element.Back);
-            }
+            foreach (var face in TopologyPrescriptionFaces.Enumerate(candidate.Topology))
+                Face(face.Id, face.ZMillimeters, face.MaterialAfter, face.Face);
             if (candidate.Assessment is { } assessment)
             {
                 if (!candidate.OriginalSpecification) { Title(4, "阶段验收条件"); Json(new { assessment.Targets, assessment.StructuralConstraints }); }

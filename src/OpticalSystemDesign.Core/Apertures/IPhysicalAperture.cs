@@ -64,6 +64,32 @@ public sealed class AnnularAperture : IPhysicalAperture
     }
 }
 
+/// <summary>The complement of a circular/annular aperture; no artificial outer clear boundary.</summary>
+public sealed class CircularObscurationAperture : IPhysicalAperture
+{
+    public CircularObscurationAperture(double outerRadius, double innerRadius = 0, double offsetX = 0, double offsetY = 0)
+    {
+        if (!double.IsFinite(outerRadius) || !double.IsFinite(innerRadius) || innerRadius < 0 || outerRadius < innerRadius
+            || !double.IsFinite(offsetX) || !double.IsFinite(offsetY))
+            throw new ArgumentOutOfRangeException(nameof(outerRadius), "Circular obscuration bounds and offsets must be finite and ordered.");
+        OuterRadius = outerRadius; InnerRadius = innerRadius; OffsetX = offsetX; OffsetY = offsetY;
+    }
+
+    public string Kind => "circular_obscuration";
+    public double OuterRadius { get; }
+    public double InnerRadius { get; }
+    public double OffsetX { get; }
+    public double OffsetY { get; }
+
+    public bool Contains(Vector3D localPoint)
+    {
+        var radius = Math.Sqrt(Math.Pow(localPoint.X - OffsetX, 2) + Math.Pow(localPoint.Y - OffsetY, 2));
+        return radius < InnerRadius || radius > OuterRadius;
+    }
+
+    public IPhysicalAperture Clone() => new CircularObscurationAperture(OuterRadius, InnerRadius, OffsetX, OffsetY);
+}
+
 public sealed class OffsetRadialAperture : IPhysicalAperture
 {
     public OffsetRadialAperture(

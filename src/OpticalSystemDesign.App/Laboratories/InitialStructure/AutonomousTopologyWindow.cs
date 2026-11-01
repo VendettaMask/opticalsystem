@@ -186,6 +186,7 @@ public sealed partial class AutonomousTopologyWindow : Window
         Number("AutonomousSeedSeconds", "一阶准备时限 (秒)", 15, .01m, 600);
         _inputs.Children.Add(_seedSummary);
         Choice("AutonomousStructure", "允许改变片数", true);
+        Choice("AutonomousCemented", "实验：自主胶合结构", false);
         Choice("AutonomousReductionOnly", "仅从达标处方减片", false);
         Choice("AutonomousGradual", "逐步移除难删镜片", true);
         Choice("AutonomousSplit", "允许拆片", true);

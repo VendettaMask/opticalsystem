@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ObscuredReferenceTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/OpticalTestingPropagationTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ZemaxImportParameterAndSurfaceMappingTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ReflectiveParaxialSignTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ParaxialTransferMatrixTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/OpticalPathDifferenceAnalysisTests.cs" />
+    <Compile Include="../../OpticalSystemDesign.ZemaxComparison/NativeRaySurfaceMap.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.ZemaxComparison.Tests/NativeRaySurfaceMapTests.cs" />
+    <None Include="../../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Optical testing/*.zmx" Link="Fixtures/optical-testing/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/WavefrontTraceBatchTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/VignettedWavefrontPhaseTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/HuygensGeometricCenterTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/AxialDistortionReferenceTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/IlluminationMetricTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/HuygensPlanarIntegrationTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/HuygensPolarizationRepairTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalHuygensBoundaryTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalHuygensQuadratureTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalHuygensSamplingChecksTests.cs" />
+    <None Include="../../../validation/zemax/2026-r1/huygens-extensions-2026-10-11/**/*" Link="Validation/Zemax/HuygensExtensions/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../validation/zemax/2026-r1/huygens-offaxis-2026-10-11/**/*" Link="Validation/Zemax/HuygensOffAxis/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../validation/zemax/2026-r1/huygens-integration-2026-10-11/**/*" Link="Validation/Zemax/HuygensIntegration/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../validation/zemax/2026-r1/single-ray-path-2026-10-07/initial-six-primary/doublet/source.zmx" Link="Fixtures/single-ray-path/initial-six-primary/doublet/source.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX" Link="Fixtures/zemax-123456.ZMX" CopyToOutputDirectory="PreserveNewest" />
+    <Using Include="Xunit" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+</Project>

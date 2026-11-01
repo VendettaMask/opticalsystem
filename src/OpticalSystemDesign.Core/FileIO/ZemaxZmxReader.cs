@@ -51,6 +51,8 @@ internal static partial class ZemaxZmxReader
         if (optic.GlobalReferenceSurfaceNumber < 0)
             throw new NotSupportedException($"全局参考面 {document.GlobalReferenceSurfaceNumber} 不存在或为坐标断点；不能转换到物理表面。");
         InstallSemiDiameterPickups(optic, configuredSurfaces);
+        InstallCurvaturePickups(optic, configuredSurfaces);
+        InstallThicknessPickups(optic, configuredSurfaces);
 
         ConfigureAperture(optic, document, configurationIndex);
         optic.Apodization = document.Apodization?.Clone();
@@ -62,6 +64,7 @@ internal static partial class ZemaxZmxReader
         optic.ReferenceOpd = document.ReferenceOpd;
         ConfigureFields(optic, document, configurationIndex);
         ConfigureWavelengths(optic, document, configurationIndex);
+        ApplyCoordinateBreakChiefDecenters(optic, document, configuredSurfaces);
         // Keep the stored prescription when dispersion is unavailable.
         // A ray-based solve must not prevent the rest of the document from importing.
         if (!optic.SurfaceGroup.Items.Any(surface => surface.MaterialAfter is UnresolvedMaterial))
@@ -302,8 +305,21 @@ internal static partial class ZemaxZmxReader
                 case "CLAP":
                     var circular = RequireSurface(current, command);
                     circular.CircularAperture = true;
+                    circular.CircularObscuration = false;
                     circular.MinimumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     circular.MaximumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 2, command)));
+                    break;
+                case "OBSC":
+                    var obscuration = RequireSurface(current, command);
+                    obscuration.CircularObscuration = true;
+                    obscuration.CircularAperture = false;
+                    obscuration.MinimumAperture = ScaleLength(document, RequiredDouble(tokens, 1, command));
+                    obscuration.MaximumAperture = ScaleLength(document, RequiredDouble(tokens, 2, command));
+                    break;
+                case "OBDC":
+                    var apertureOffset = RequireSurface(current, command);
+                    apertureOffset.ApertureOffsetX = ScaleLength(document, RequiredDouble(tokens, 1, command));
+                    apertureOffset.ApertureOffsetY = ScaleLength(document, RequiredDouble(tokens, 2, command));
                     break;
                 case "VDXN":
                     document.VignetteDecenterX = ReadValues(tokens, 1, document.FieldCount);
@@ -583,6 +599,7 @@ internal static partial class ZemaxZmxReader
                 case "GLSS":
                 case "STPS":
                 case "PRAM":
+                case "EDVA":
                 case "NCOM":
                 case "AFOC":
                     ReadConfigurationOperand(document, tokens, command);
@@ -654,9 +671,22 @@ internal static partial class ZemaxZmxReader
                     if (tokens.Length > 3 && RequiredInt(tokens, 2, command) is 2 or 11)
                         curvedSurface.CurvatureSolve = new ZemaxCurvatureSolve(
                             RequiredInt(tokens, 2, command), RequiredDouble(tokens, 3, command));
+                    if (tokens.Length > 4 && RequiredInt(tokens, 2, command) == 4)
+                    {
+                        if (tokens.Length > 5 && RequiredInt(tokens, 5, command) != 0)
+                            throw new NotSupportedException("Cross-column curvature pickup is not mapped.");
+                        curvedSurface.CurvaturePickup = new(RequiredInt(tokens, 3, command), RequiredDouble(tokens, 4, command));
+                    }
                     break;
                 case "DISZ":
                     RequireSurface(current, command).Thickness = RequiredDistance(document, tokens, 1, command);
+                    break;
+                case "PZUP":
+                    if (tokens.Length > 4 && RequiredInt(tokens, 4, command) != 0)
+                        throw new NotSupportedException("Cross-column thickness pickup is not mapped.");
+                    RequireSurface(current, command).ThicknessPickup = new(
+                        RequiredInt(tokens, 1, command), RequiredDouble(tokens, 2, command),
+                        ScaleLength(document, RequiredDouble(tokens, 3, command)));
                     break;
                 case "MAZH":
                     RequireSurface(current, command).MarginalRayHeightSolve = new ZemaxMarginalRayHeightSolve(
@@ -676,7 +706,16 @@ internal static partial class ZemaxZmxReader
                     if (tokens.Length == 1)
                     {
                         RequireSurface(current, command).IsMirror = true;
+                        RequireSurface(current, command).ExplicitMirror = true;
                     }
+                    break;
+                case "PPAR":
+                    var pickupSurface = RequireSurface(current, command);
+                    var targetParameter = RequiredInt(tokens, 1, command) - 1;
+                    if (targetParameter < 0) throw new InvalidDataException("PPAR requires a positive parameter number.");
+                    pickupSurface.ParameterPickups[targetParameter] = new(
+                        RequiredInt(tokens, 2, command), RequiredDouble(tokens, 3, command),
+                        RequiredDouble(tokens, 4, command), tokens.Length > 5 ? RequiredInt(tokens, 5, command) : 0);
                     break;
                 case "DIAM":
                     ReadSemiDiameter(document, RequireSurface(current, command), tokens);
@@ -736,7 +775,7 @@ internal static partial class ZemaxZmxReader
         int configurationIndex)
     {
         var configuredStop = document.ConfigurationDouble("STPS", 0, configurationIndex);
-        return document.Surfaces.Select(source =>
+        var configuredSurfaces = document.Surfaces.Select(source =>
         {
             var material = document.ConfigurationText("GLSS", source.Number, configurationIndex)
                 ?? source.Material;
@@ -754,9 +793,11 @@ internal static partial class ZemaxZmxReader
                 PolygonPose = source.PolygonPose,
                 PolygonMaterial = source.PolygonMaterial,
                 PolygonScale = source.PolygonScale,
-                RetainReferencePlane = source.Type == "COORDBRK" && document.MeritOperands.Any(operand =>
+                RetainReferencePlane = source.Type == "COORDBRK" && (ScaleConfiguredDistance(document,
+                    document.ConfigurationDouble("THIC", source.Number, configurationIndex), source.Thickness) != 0
+                    || document.MeritOperands.Any(operand =>
                     !operand.CompatibilityOnly && operand.Surface == source.Number
-                    && operand.Type is "REAX" or "REAY" or "REAR" or "REAZ" or "REAA" or "REAB" or "REAC"),
+                    && operand.Type is "REAX" or "REAY" or "REAR" or "REAZ" or "REAA" or "REAB" or "REAC")),
                 Comment = source.Comment,
                 Radius = RadiusFromConfiguredCurvature(
                     document,
@@ -781,6 +822,9 @@ internal static partial class ZemaxZmxReader
                     configurationIndex),
                     source.SemiDiameter) : source.SemiDiameter,
                 CircularAperture = source.CircularAperture,
+                CircularObscuration = source.CircularObscuration,
+                ApertureOffsetX = ScaleConfiguredLength(document, document.ConfigurationDouble("APDX", source.Number, configurationIndex), source.ApertureOffsetX) ?? 0,
+                ApertureOffsetY = ScaleConfiguredLength(document, document.ConfigurationDouble("APDY", source.Number, configurationIndex), source.ApertureOffsetY) ?? 0,
                 MaximumAperture = ScaleConfiguredOptionalLength(document,
                     document.ConfigurationDouble("APMX", source.Number, configurationIndex), source.MaximumAperture),
                 MinimumAperture = ScaleConfiguredOptionalLength(
@@ -800,15 +844,25 @@ internal static partial class ZemaxZmxReader
                 IsStop = configuredStop.HasValue
                     ? source.Number == (int)Math.Round(configuredStop.Value)
                     : source.IsStop,
-                IsMirror = source.IsMirror || material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase)
+                IsMirror = source.ExplicitMirror || material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase),
+                ExplicitMirror = source.ExplicitMirror
             };
             configured.MarginalRayHeightSolve = source.MarginalRayHeightSolve;
             configured.CurvatureSolve = source.CurvatureSolve;
+            configured.CurvaturePickup = source.CurvaturePickup;
+            configured.ThicknessPickup = source.ThicknessPickup;
+            configured.MaterialPickupSource = source.MaterialPickupSource;
             foreach (var parameter in source.Parameters)
             {
                 configured.Parameters[parameter.Key] = parameter.Value;
             }
             foreach (var extra in source.ExtraData) configured.ExtraData[extra.Key] = extra.Value;
+            foreach (var operand in document.ConfigurationValues("EDVA", source.Number, configurationIndex))
+                if (operand.AuxiliaryIndex >= 0 && TryParseDouble(operand.Value, out var extraValue))
+                {
+                    var index = operand.AuxiliaryIndex + 1;
+                    configured.ExtraData[index] = ScaleSurfaceExtraData(document, configured.Type, index, extraValue);
+                }
             configured.GridSagHeader = source.GridSagHeader?.ToArray();
             foreach (var point in source.GridSagPoints) configured.GridSagPoints[point.Key] = point.Value;
 
@@ -835,6 +889,150 @@ internal static partial class ZemaxZmxReader
 
             return configured;
         }).ToArray();
+        ApplyParameterPickups(document, configuredSurfaces);
+        ApplyCurvaturePickups(configuredSurfaces);
+        ApplyThicknessAndMaterialPickups(configuredSurfaces);
+        return configuredSurfaces;
+    }
+
+    private static void ApplyThicknessAndMaterialPickups(IReadOnlyList<ZemaxSurface> surfaces)
+    {
+        var byNumber = surfaces.ToDictionary(s => s.Number);
+        var thicknessDone = new HashSet<int>(); var thicknessActive = new HashSet<int>();
+        var materialDone = new HashSet<int>(); var materialActive = new HashSet<int>();
+        double Thickness(int number)
+        {
+            if (!byNumber.TryGetValue(number, out var surface)) throw new InvalidDataException("Missing thickness pickup source.");
+            if (thicknessDone.Contains(number) || surface.ThicknessPickup is not { } pickup) return surface.Thickness;
+            if (!thicknessActive.Add(number)) throw new InvalidDataException("Cyclic Zemax thickness pickup.");
+            var value = pickup.Offset + pickup.Scale * Thickness(pickup.SourceSurface);
+            if (!double.IsFinite(value)) throw new InvalidDataException("Nonfinite Zemax thickness pickup.");
+            surface.Thickness = value;
+            thicknessActive.Remove(number); thicknessDone.Add(number); return value;
+        }
+        ZemaxSurface Material(int number)
+        {
+            if (!byNumber.TryGetValue(number, out var surface)) throw new InvalidDataException("Missing material pickup source.");
+            if (materialDone.Contains(number) || surface.MaterialPickupSource is not { } sourceNumber) return surface;
+            if (!materialActive.Add(number)) throw new InvalidDataException("Cyclic Zemax material pickup.");
+            var source = Material(sourceNumber);
+            surface.Material = source.Material; surface.RefractiveIndex = source.RefractiveIndex; surface.AbbeNumber = source.AbbeNumber;
+            surface.IsMirror = surface.ExplicitMirror || source.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
+            materialActive.Remove(number); materialDone.Add(number); return surface;
+        }
+        foreach (var surface in surfaces) { Thickness(surface.Number); Material(surface.Number); }
+    }
+
+    private static void InstallThicknessPickups(Optic optic, IReadOnlyList<ZemaxSurface> surfaces)
+    {
+        var map = surfaces.Where(IsImportedSurface).Select((s, i) => (s.Number, Index: i)).ToDictionary(p => p.Number, p => p.Index);
+        foreach (var s in surfaces.Where(s => s.ThicknessPickup is not null))
+            if (map.TryGetValue(s.Number, out var target) && map.TryGetValue(s.ThicknessPickup!.SourceSurface, out var source))
+                optic.Pickups.SetThicknessPickup(source, target, s.ThicknessPickup.Scale, s.ThicknessPickup.Offset);
+        optic.Pickups.ApplyAll();
+    }
+
+    private static void ApplyParameterPickups(ZemaxDocument document, IReadOnlyList<ZemaxSurface> configured)
+    {
+        var byNumber = configured.ToDictionary(s => s.Number);
+        var original = document.Surfaces.ToDictionary(s => s.Number);
+        var done = new HashSet<(int Surface, int Parameter)>();
+        var active = new HashSet<(int Surface, int Parameter)>();
+        bool Extra(ZemaxSurface s, int p) => p >= 12 && s.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN";
+        double Get(ZemaxSurface s, int p) => Extra(s, p) ? s.ExtraData.GetValueOrDefault(p - 11) : s.Parameters.GetValueOrDefault(p);
+        double Scale(ZemaxSurface s, int p, double v) => Extra(s, p)
+            ? ScaleSurfaceExtraData(document, s.Type, p - 11, v) : ScaleSurfaceParameter(document, s.Type, p, v, s.TypeArguments);
+        double Resolve(int surface, int parameter)
+        {
+            var key = (surface, parameter);
+            var target = byNumber[surface];
+            if (done.Contains(key) || !original[surface].ParameterPickups.TryGetValue(parameter, out var pickup) || pickup.SourceSurface < 0)
+                return Get(target, parameter);
+            if (!active.Add(key)) throw new InvalidDataException("Cyclic Zemax parameter pickup.");
+            if (!byNumber.TryGetValue(pickup.SourceSurface, out var source)) throw new InvalidDataException("Missing Zemax parameter pickup source.");
+            var sourceParameter = pickup.SourceParameter == 0 ? parameter : pickup.SourceParameter - 1;
+            var sourceScale = Scale(source, sourceParameter, 1);
+            var raw = Resolve(pickup.SourceSurface, sourceParameter) / sourceScale;
+            var value = Scale(target, parameter, raw * pickup.Scale + pickup.Offset);
+            if (!double.IsFinite(value)) throw new InvalidDataException("Nonfinite Zemax parameter pickup.");
+            if (Extra(target, parameter)) target.ExtraData[parameter - 11] = value;
+            else target.Parameters[parameter] = value;
+            active.Remove(key); done.Add(key); return value;
+        }
+        foreach (var source in document.Surfaces)
+            foreach (var parameter in source.ParameterPickups.Keys) Resolve(source.Number, parameter);
+    }
+
+    private static void ApplyCoordinateBreakChiefDecenters(Optic optic, ZemaxDocument document,
+        IReadOnlyList<ZemaxSurface> surfaces)
+    {
+        var original = document.Surfaces.ToDictionary(s => s.Number);
+        var origin = Vector3D.Zero; var rotation = Matrix3x3.Identity; var previous = -1;
+        foreach (var surface in surfaces)
+        {
+            if (surface.Type == "COORDBRK")
+            {
+                foreach (var (parameter, solve) in original[surface.Number].ParameterPickups)
+                {
+                    if (solve.SourceSurface != -1 || parameter is not (0 or 1)) continue;
+                    var field = checked((int)solve.Scale) - 1;
+                    var wave = checked((int)solve.Offset) - 1;
+                    if (previous < 0 || field < 0 || field >= optic.Fields.Count || wave >= optic.Wavelengths.Count)
+                        throw new InvalidDataException("Invalid coordinate-break chief-ray solve field or wavelength.");
+                    var wavelength = wave < 0 ? optic.Wavelengths.First(w => w.IsPrimary) : optic.Wavelengths[wave];
+                    var source = optic.SequentialRayTracer.RayGenerator.GenerateAtPhysicalField(
+                        optic.Fields[field].X, optic.Fields[field].Y, 0, 0, wavelength.Micrometers, optic.RayAimingEnabled).Rays.Single();
+                    var sample = optic.SequentialRayTracer.TraceToSurface(source, previous);
+                    if (sample is null || sample.Vignetted) throw new InvalidDataException("Chief ray cannot reach coordinate-break solve.");
+                    // Decenters use the incoming frame for order 0, the rotated
+                    // frame for order 1. In a coincident grazing frame retain
+                    // the incident point instead of dividing roundoff by zero.
+                    var frame = surface.Parameter(5) == 0 ? rotation : rotation * RotationMatrix(
+                        -surface.Parameter(2), -surface.Parameter(3), -surface.Parameter(4)).Transpose();
+                    var point = frame.Transpose().Transform(sample.Position - origin);
+                    var direction = frame.Transpose().Transform(sample.Direction);
+                    if (Math.Abs(direction.Z) > 1e-12) point -= direction * (point.Z / direction.Z);
+                    else if (Math.Abs(point.Z) > 1e-8) throw new InvalidDataException("Chief ray is parallel to coordinate-break solve plane.");
+                    surface.Parameters[parameter] = parameter == 0 ? point.X : point.Y;
+                    ApplyParameterPickups(document, surfaces);
+                    InstallConvertedSurfaces(optic, ConvertSurfaces(optic, surfaces, document.GlassCatalogs));
+                    optic.Pickups.ApplyAll();
+                }
+                ApplyCoordinateBreak(surface, ref origin, ref rotation);
+                if (surface.RetainReferencePlane) previous++;
+            }
+            else
+            {
+                previous++;
+                if (previous > 0 && !double.IsInfinity(surface.Thickness)) origin += rotation.Transform(new Vector3D(0, 0, surface.Thickness));
+            }
+        }
+    }
+
+    private static void ApplyCurvaturePickups(IReadOnlyList<ZemaxSurface> surfaces)
+    {
+        var byNumber = surfaces.ToDictionary(s => s.Number);
+        var active = new HashSet<int>(); var done = new HashSet<int>();
+        double Resolve(int number)
+        {
+            if (!byNumber.TryGetValue(number, out var surface)) throw new InvalidDataException("Missing curvature pickup source.");
+            if (done.Contains(number) || surface.CurvaturePickup is not { } pickup) return surface.Radius;
+            if (!active.Add(number)) throw new InvalidDataException("Cyclic Zemax curvature pickup.");
+            if (!double.IsFinite(pickup.Scale)) throw new InvalidDataException("Invalid curvature pickup scale.");
+            var radius = Resolve(pickup.SourceSurface);
+            surface.Radius = pickup.Scale == 0 || radius == 0 || double.IsInfinity(radius) ? double.PositiveInfinity : radius / pickup.Scale;
+            active.Remove(number); done.Add(number); return surface.Radius;
+        }
+        foreach (var surface in surfaces) Resolve(surface.Number);
+    }
+
+    private static void InstallCurvaturePickups(Optic optic, IReadOnlyList<ZemaxSurface> surfaces)
+    {
+        var map = surfaces.Where(IsImportedSurface).Select((s, i) => (s.Number, Index: i)).ToDictionary(p => p.Number, p => p.Index);
+        foreach (var s in surfaces.Where(s => s.CurvaturePickup is not null))
+            if (map.TryGetValue(s.Number, out var target) && map.TryGetValue(s.CurvaturePickup!.SourceSurface, out var source))
+                optic.Pickups.SetCurvaturePickup(source, target, s.CurvaturePickup.Scale);
+        optic.Pickups.ApplyAll();
     }
 
     private static int DetectActiveConfiguration(ZemaxDocument document)
@@ -860,6 +1058,7 @@ internal static partial class ZemaxZmxReader
 
         foreach (var source in sourceSurfaces)
         {
+            var incomingRotation = rotation;
             if (source.Type == "COORDBRK")
             {
                 ApplyCoordinateBreak(source, ref origin, ref rotation, !source.RetainReferencePlane);
@@ -882,7 +1081,7 @@ internal static partial class ZemaxZmxReader
             var referencePlane = source.RetainReferencePlane;
             var geometry = source.Type == "NONSEQCO" && source.PolygonPayload is not null
                 ? CreatePolygonGroup(source, optic, glassCatalogs)
-                : referencePlane ? new PlaneGeometry() : CreateGeometry(source);
+                : referencePlane ? new PlaneGeometry(rotation.Transpose().Transform(incomingRotation.Transform(new Vector3D(0, 0, 1)))) : CreateGeometry(source);
             var isReflective = !referencePlane && (source.IsMirror || source.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase));
             IInteractionModel interaction = geometry is PlaneGeometry && IsComputableParaxial(source)
                 ? new ParaxialLensInteractionModel(source.Parameter(0) == 0 ? 0 : 1 / source.Parameter(0),
@@ -986,6 +1185,12 @@ internal static partial class ZemaxZmxReader
     private static IPhysicalAperture? CreatePhysicalAperture(
         ZemaxSurface source, double semiDiameter, bool hasImplicitFloatingAperture)
     {
+        if (source.CircularObscuration)
+        {
+            var inner = source.MinimumAperture ?? 0;
+            var outer = source.MaximumAperture ?? throw new NotSupportedException("Missing circular obscuration maximum radius.");
+            return new CircularObscurationAperture(outer, inner, source.ApertureOffsetX, source.ApertureOffsetY);
+        }
         // APMN/APMX values alone do not activate a surface aperture. Native
         // CurrentType=None retains a full pupil even when these dormant values
         // are present. CLAP is the explicit circular/annular aperture declaration.
@@ -1766,7 +1971,7 @@ internal static partial class ZemaxZmxReader
         }
 
         var value = RequiredToken(tokens, 3, command).Trim('"');
-        var auxiliaryIndex = command.Equals("PRAM", StringComparison.OrdinalIgnoreCase)
+        var auxiliaryIndex = command is "PRAM" or "EDVA"
             && tokens.Count > 5
             ? RequiredInt(tokens, 5, command) - 1
             : -1;
@@ -1873,6 +2078,8 @@ internal static partial class ZemaxZmxReader
     {
         surface.Material = RequiredToken(tokens, 1, "GLAS");
         surface.IsMirror = surface.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
+        if (tokens.Count > 3 && RequiredInt(tokens, 2, "GLAS") == 2)
+            surface.MaterialPickupSource = RequiredInt(tokens, 3, "GLAS");
         if (tokens.Count > 5
             && TryParseDouble(tokens[4], out var index)
             && TryParseDouble(tokens[5], out var abbe))
@@ -2276,6 +2483,9 @@ internal static partial class ZemaxZmxReader
         public double? MinimumAperture { get; set; }
         public double? MaximumAperture { get; set; }
         public bool CircularAperture { get; set; }
+        public bool CircularObscuration { get; set; }
+        public double ApertureOffsetX { get; set; }
+        public double ApertureOffsetY { get; set; }
         public bool SemiDiameterFixed { get; set; }
         public bool FloatingAperture { get; set; }
         public int SemiDiameterSolveCode { get; set; }
@@ -2283,6 +2493,8 @@ internal static partial class ZemaxZmxReader
         public double SemiDiameterPickupScale { get; set; } = 1;
         public bool IsStop { get; set; }
         public bool IsMirror { get; set; }
+        public bool ExplicitMirror { get; set; }
+        public Dictionary<int, ZemaxParameterPickup> ParameterPickups { get; } = [];
         public bool RetainReferencePlane { get; set; }
 
         public string? PolygonPayload { get; set; }
@@ -2295,6 +2507,9 @@ internal static partial class ZemaxZmxReader
         public double PolygonScale { get; set; } = 1;
         public ZemaxMarginalRayHeightSolve? MarginalRayHeightSolve { get; set; }
         public ZemaxCurvatureSolve? CurvatureSolve { get; set; }
+        public ZemaxCurvaturePickup? CurvaturePickup { get; set; }
+        public ZemaxThicknessPickup? ThicknessPickup { get; set; }
+        public int? MaterialPickupSource { get; set; }
         public Dictionary<int, double> Parameters { get; } = new();
         public Dictionary<int, double> ExtraData { get; } = new();
         public double[]? GridSagHeader { get; set; }
@@ -2305,6 +2520,9 @@ internal static partial class ZemaxZmxReader
     }
 
     private sealed record ZemaxAperture(string Key, ApertureKind Kind, double Value);
+    private sealed record ZemaxParameterPickup(int SourceSurface, double Scale, double Offset, int SourceParameter);
+    private sealed record ZemaxCurvaturePickup(int SourceSurface, double Scale);
+    private sealed record ZemaxThicknessPickup(int SourceSurface, double Scale, double Offset);
     private sealed record ZemaxMarginalRayHeightSolve(double Height, double PupilZone);
     private sealed record ZemaxWavelength(int Index, double Micrometers, double Weight);
     private sealed record ZemaxConfigurationOperand(

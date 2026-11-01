@@ -12,7 +12,7 @@ public static class MaterialTable
     public const string Example = "wavelength_nm,n,k\n400,1.46,0\n550,1.455,0\n700,1.45,0\n";
     public static async Task<string> ReadAsync(string path, CancellationToken token = default) =>
         await BoundedFile.ReadAllTextAsync(path, 4 * 1024 * 1024, "n/k 材料表", token);
-    public static MaterialSnapshot Parse(string name, string source, string csv, string? id = null)
+    public static MaterialSnapshot Parse(string name, string source, string csv, string? id = null, MaterialSnapshot? basis = null)
     {
         if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(source)) throw new ArgumentException("请填写材料名称和数据来源。示例数据请明确标注为用户模型。");
         var lines = csv.Split('\n').Select(x => x.Trim()).Where(x => x.Length > 0 && !x.StartsWith('#')).ToArray();
@@ -39,9 +39,11 @@ public static class MaterialTable
             if (!double.IsFinite(x[i]) || x[i] <= 0 || (i > 0 && x[i] <= x[i - 1]) || n[i] <= 0 || k[i] < 0)
                 throw new ArgumentException($"第 {i + 2} 行：波长须为正且严格递增，n > 0，k ≥ 0；不自动排序或截断数据。");
         }
-        var material = new CatalogGlassMaterial(name.Trim(), "用户实验材料", "tabulated nk", x[0], x[^1],
+        var pchip = basis?.Model.Text.GetValueOrDefault("formula") == CatalogGlassMaterial.PchipTableFormula;
+        var material = new CatalogGlassMaterial(name.Trim(), "用户实验材料", pchip ? CatalogGlassMaterial.PchipTableFormula : "tabulated nk", x[0], x[^1],
             refractiveIndexWavelengthsNanometers: x, refractiveIndices: n, extinctionWavelengthsNanometers: x, extinctionCoefficients: k);
-        return MaterialLibrary.Capture(material, source.Trim(), x[0], x[^1]) with { Id = id ?? "custom:" + Guid.NewGuid().ToString("N") };
+        return MaterialLibrary.Capture(material, source.Trim(), x[0], x[^1]) with
+        { Id = id ?? "custom:" + Guid.NewGuid().ToString("N"), HoldTabulatedEndpoints = pchip && basis!.HoldTabulatedEndpoints, DisplayColor = basis?.DisplayColor };
     }
     public static string Export(MaterialSnapshot material)
     {

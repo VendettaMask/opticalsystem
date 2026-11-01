@@ -1,0 +1,232 @@
+{
+  "target": "dispatch",
+  "pausedAtTarget": true,
+  "previous": {
+    "functionEvaluations": 0,
+    "gradientEvaluations": 0,
+    "validationEvaluations": 0,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 0,
+    "geometryProbes": 0,
+    "elapsed": "00:00:00"
+  },
+  "consumed": {
+    "functionEvaluations": 1,
+    "gradientEvaluations": 0,
+    "validationEvaluations": 1,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 44520,
+    "geometryProbes": 325,
+    "elapsed": "00:00:00.9980153"
+  },
+  "actualNewRays": 44520,
+  "state": "cancelled",
+  "pending": {
+    "axialAnchors": [
+      {
+        "surfaceId": "front",
+        "zMillimeters": 3
+      },
+      {
+        "surfaceId": "back",
+        "zMillimeters": 6
+      },
+      {
+        "surfaceId": "trial-0-cemented:back",
+        "zMillimeters": 7
+      }
+    ],
+    "change": {
+      "operation": "cementedInsert",
+      "parentFingerprint": "95eebd4b23f61f038a4aac23bfa0dd556ee86ba1bc88b6a38cf776f268dc9176",
+      "childFingerprint": "f56fffe2e6d1a3aa5e03361bd1743093bcd5c7bae51382e24130b039df573164",
+      "createdElementIds": [
+        "trial-0-cemented"
+      ],
+      "removedElementIds": []
+    },
+    "trialId": "trial-0",
+    "parentId": "seed-0",
+    "operation": "cemented-insert",
+    "template": {
+      "schemaVersion": 1,
+      "algorithm": "AutonomousTopologyV1",
+      "name": "SPC existing authored singlet",
+      "conjugate": "infinite",
+      "reference": {
+        "id": "reference",
+        "zMillimeters": 0
+      },
+      "stop": {
+        "id": "stop",
+        "zMillimeters": 1,
+        "clearSemiDiameterMillimeters": 2,
+        "mechanicalSemiDiameterMillimeters": null
+      },
+      "image": {
+        "id": "image",
+        "zMillimeters": 55,
+        "protected": true
+      },
+      "elements": [
+        {
+          "id": "crown",
+          "frontSurfaceId": "front",
+          "backSurfaceId": "back",
+          "frontZMillimeters": 3,
+          "thicknessMillimeters": 3,
+          "material": "N-BK7",
+          "front": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": 0.014326902586484919,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "back": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": -0.0247344692910669,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "protected": false,
+          "transition": false
+        },
+        {
+          "id": "trial-0-cemented",
+          "frontSurfaceId": "back",
+          "backSurfaceId": "trial-0-cemented:back",
+          "frontZMillimeters": 6,
+          "thicknessMillimeters": 1,
+          "material": "N-F2",
+          "front": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": -0.0247344692910669,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "back": {
+            "profile": {
+              "kind": "standard",
+              "curvaturePerMillimeter": -0.0247344692910669,
+              "conic": 0,
+              "maximumEvenPower": 0,
+              "terms": []
+            },
+            "clearSemiDiameterMillimeters": 5,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "protected": false,
+          "transition": false
+        }
+      ],
+      "cementedInterfaces": {
+        "version": 1,
+        "interfaces": [
+          {
+            "leftElementId": "crown",
+            "rightElementId": "trial-0-cemented",
+            "surfaceId": "back"
+          }
+        ]
+      },
+      "fields": [
+        {
+          "label": "Axis",
+          "xAngleDegrees": 0,
+          "yAngleDegrees": 0,
+          "weight": 1
+        },
+        {
+          "label": "Edge",
+          "xAngleDegrees": 0,
+          "yAngleDegrees": 3,
+          "weight": 1
+        }
+      ],
+      "wavelengths": [
+        {
+          "label": "F",
+          "nanometers": 486.1,
+          "weight": 1,
+          "isPrimary": false
+        },
+        {
+          "label": "d",
+          "nanometers": 587.6,
+          "weight": 1,
+          "isPrimary": true
+        },
+        {
+          "label": "C",
+          "nanometers": 656.3,
+          "weight": 1,
+          "isPrimary": false
+        }
+      ],
+      "glassCatalogs": [],
+      "rayAimingEnabled": true,
+      "matchRefractiveIndexData": true,
+      "temperatureCelsius": 20,
+      "pressureAtmospheres": 1
+    },
+    "phase": "recovery",
+    "stageOptions": null,
+    "continuation": null,
+    "variables": [
+      {
+        "surfaceId": "front",
+        "kind": "curvature",
+        "lowerBound": -0.08,
+        "upperBound": 0.08,
+        "scale": 0.01,
+        "power": 0
+      },
+      {
+        "surfaceId": "back",
+        "kind": "curvature",
+        "lowerBound": -0.08,
+        "upperBound": 0.08,
+        "scale": 0.01,
+        "power": 0
+      },
+      {
+        "surfaceId": "trial-0-cemented:back",
+        "kind": "curvature",
+        "lowerBound": -0.08,
+        "upperBound": 0.08,
+        "scale": 0.01,
+        "power": 0
+      }
+    ],
+    "phaseConsumed": {
+      "functionEvaluations": 0,
+      "gradientEvaluations": 0,
+      "validationEvaluations": 0,
+      "matrixEvaluations": 0,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 0,
+      "tracedRays": 0,
+      "geometryProbes": 0,
+      "elapsed": "00:00:00"
+    }
+  }
+}

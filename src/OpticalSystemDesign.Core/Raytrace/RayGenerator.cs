@@ -519,7 +519,7 @@ public sealed partial class RayGenerator
             pupilX * apertureRadius,
             pupilY * apertureRadius,
             0);
-        var direction = Normalize(entrancePupil - origin);
+        var direction = PupilLaunchDirection(entrancePupil - origin);
         if (ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault())
             && (_optic.FieldDefinition == FieldDefinitionKind.Angle
                 || _optic.FieldDefinition == FieldDefinitionKind.RealImageHeight))
@@ -720,7 +720,7 @@ public sealed partial class RayGenerator
         // usable sample. Continue from the chief ray to the requested stop point
         // so every intermediate trial remains on a traceable branch.
         var entrancePupilCenter = EntrancePupilGlobalCenter();
-        var centralDirection = Normalize(entrancePupilCenter - origin);
+        var centralDirection = PupilLaunchDirection(entrancePupilCenter - origin);
         var centralSlopeX = centralDirection.X / Math.Max(1e-30, centralDirection.Z);
         var centralSlopeY = centralDirection.Y / Math.Max(1e-30, centralDirection.Z);
         if (!TryAimFiniteTarget(
@@ -1158,7 +1158,7 @@ public sealed partial class RayGenerator
         else
         {
             var entrancePupil = EntrancePupilGlobalCenter();
-            direction = Normalize(entrancePupil - origin);
+            direction = PupilLaunchDirection(entrancePupil - origin);
         }
 
         var wavelengthNanometers = PrimaryWavelengthMicrometers() * 1000;
@@ -1297,6 +1297,21 @@ public sealed partial class RayGenerator
         // The launch point must precede a virtual entrance pupil as well as the
         // first surface, otherwise pupil-minus-origin reverses propagation.
         return (firstSurfaceZ, Math.Max(clearance, firstSurfaceZ - EntrancePupilGlobalZ() + clearance));
+    }
+
+    private Vector3D PupilLaunchDirection(Vector3D displacement)
+    {
+        // A virtual entrance pupil fixes the same ray line as a real pupil;
+        // it does not reverse propagation from a finite object. Orient that
+        // line along the object frame's forward axis before stop aiming.
+        var direction = Normalize(displacement);
+        if (_optic.SurfaceGroup.Items.FirstOrDefault() is { } source && !ObjectConjugate.IsInfinite(source))
+        {
+            var forward = source.CoordinateSystem.ToGlobalDirection(new Vector3D(0, 0, 1));
+            if (direction.X * forward.X + direction.Y * forward.Y + direction.Z * forward.Z < 0)
+                direction = -direction;
+        }
+        return direction;
     }
 
     private Vector3D EntrancePupilGlobalCenter()

@@ -68,11 +68,13 @@ public sealed class OpticalAssemblyApplicationTests
     [Fact]
     public void UnsupportedPhysicalPropertiesFailExplicitlyRatherThanBeingDropped()
     {
-        var optic=OpticalAssemblyTests.Prescription();optic.SurfaceGroup.Items[2].Geometry=new EvenAsphereGeometry(-50,0,[1e-5]);
+        var optic=OpticalAssemblyTests.Prescription();optic.SurfaceGroup.Items[2].Geometry=new BiconicGeometry(-50,-60);
         Assert.Throws<NotSupportedException>(()=>SequentialOpticalAssemblyConverter.Convert(optic));
         optic=OpticalAssemblyTests.Prescription();optic.SurfaceGroup.Items[1].CoatingModel=new ApproximateTransmissionRippleCoating([]);
         Assert.Throws<NotSupportedException>(()=>SequentialOpticalAssemblyConverter.Convert(optic));
         optic=OpticalAssemblyTests.Prescription();optic.SurfaceGroup.Items[^1].CoatingModel=new SimpleCoatingModel(.8,.1);
+        Assert.Throws<NotSupportedException>(()=>SequentialOpticalAssemblyConverter.Convert(optic));
+        optic=OpticalAssemblyTests.Prescription();optic.SurfaceGroup.Items[^1].Geometry=new EvenAsphereGeometry(0,0,[.001]);
         Assert.Throws<NotSupportedException>(()=>SequentialOpticalAssemblyConverter.Convert(optic));
     }
 }

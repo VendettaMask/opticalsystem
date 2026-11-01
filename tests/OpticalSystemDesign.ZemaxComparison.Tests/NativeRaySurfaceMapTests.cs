@@ -5,6 +5,19 @@ namespace OpticalSystemDesign.ZemaxComparison.Tests;
 public sealed class NativeRaySurfaceMapTests
 {
     [Fact]
+    public void NonzeroThicknessBreakIsRetainedWhileZeroThicknessBreakStillFolds()
+    {
+        using var model = JsonDocument.Parse("""{"surfaces":[{"Type":"Standard"},{"Type":"Standard"},{"Type":"CoordinateBreak","Thickness":0},{"Type":"CoordinateBreak","Thickness":-5},{"Type":"Standard"}]}""");
+        double[][] rows = Enumerable.Range(1, 4).Select(i => new double[] { i, i, 0, 0, 0, 0, 1, 0, 0, -1, 0, i }).ToArray();
+        var current = NativeRaySurfaceMap.ToImportedSurfaces(rows, model.RootElement, 4);
+        Assert.Equal(new[] { 1d, 3, 4 }, current.Select(row => row[1]));
+        Assert.Equal(new[] { 1d, 5, 4 }, current.Select(row => row[11]));
+        var historical = NativeRaySurfaceMap.ToImportedSurfaces(rows, model.RootElement, 3);
+        Assert.Equal(new[] { 1d, 4 }, historical.Select(row => row[1]));
+        Assert.Equal(new[] { 1d, 9 }, historical.Select(row => row[11]));
+    }
+
+    [Fact]
     public void FoldedPlanesPreservePhysicalHitAndAccumulateSegmentLengthsWithoutChangingRawReport()
     {
         using var model = JsonDocument.Parse("""{"surfaces":[{"Type":"Standard"},{"Type":"Standard"},{"Type":"CoordinateBreak"},{"Type":"BirefringentOut"},{"Type":"CoordinateBreak"},{"Type":"Standard"}]}""");

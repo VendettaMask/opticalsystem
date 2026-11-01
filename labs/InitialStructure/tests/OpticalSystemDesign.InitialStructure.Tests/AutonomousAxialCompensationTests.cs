@@ -58,7 +58,9 @@ public sealed class AutonomousAxialCompensationTests
     public async Task PerTrialBoundsSurviveRecoveryLocalFullAndProtectedFacesNeverBecomeVariables()
     {
         var old = await Recorded(); var plan = Plan(old) with { Seeds = [old.Plan.Seeds[0]] };
-        plan = plan with { Options = plan.Options with { FixedTopologyOnly = null, MaximumTrials = 2, CheckStageFeasibility = null, Local = plan.Options.Local with { MaximumUpdates = 4, MaximumFunctionEvaluations = 5, MaximumGradientEvaluations = 5 }, Full = plan.Options.Full with { MaximumUpdates = 8, MaximumFunctionEvaluations = 9, MaximumGradientEvaluations = 9 } } };
+        // This fixture checks propagation of immutable variable windows, not convergence.
+        // One local update reaches the Full reservation without spending the wall budget on redundant training.
+        plan = plan with { Options = plan.Options with { FixedTopologyOnly = null, MaximumTrials = 2, CheckStageFeasibility = null, Local = plan.Options.Local with { MaximumUpdates = 1, MaximumFunctionEvaluations = 2, MaximumGradientEvaluations = 2 }, Full = plan.Options.Full with { MaximumUpdates = 1, MaximumFunctionEvaluations = 2, MaximumGradientEvaluations = 2 } } };
         var windows = new List<ImmutableArray<TopologyAxialAnchor>>();
         using var stop = new CancellationTokenSource();
         var state = AutonomousSearchService.Run(AutonomousSearchService.Create("axial-stage-bounds", plan), saved =>

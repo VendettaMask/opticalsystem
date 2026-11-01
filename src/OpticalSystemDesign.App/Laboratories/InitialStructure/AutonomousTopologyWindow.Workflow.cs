@@ -264,6 +264,7 @@ public sealed partial class AutonomousTopologyWindow
         _choices["AutonomousSplit"].IsChecked = options.Expansion?.EnableSplit == true;
         _choices["AutonomousMerge"].IsChecked = options.Expansion?.EnableMerge == true;
         _choices["AutonomousMaterial"].IsChecked = options.Expansion?.EnableMaterial == true;
+        _choices["AutonomousCemented"].IsChecked = options.Expansion?.Cemented is not null;
         _choices["AutonomousProfile"].IsChecked = options.Expansion?.EnableProfile == true;
         _choices["AutonomousPrecision"].IsChecked = HighPrecision(options);
         _choices["AutonomousAxial"].IsChecked = options.AxialCompensation is not null;
@@ -415,9 +416,11 @@ public sealed partial class AutonomousTopologyWindow
         var merge = _choices["AutonomousMerge"].IsChecked == true;
         var material = _choices["AutonomousMaterial"].IsChecked == true;
         var profile = _choices["AutonomousProfile"].IsChecked == true;
+        var cemented = _choices["AutonomousCemented"].IsChecked == true ? original?.Cemented ?? new CementedGrowthOptions() : null;
         if (_choices["AutonomousReductionOnly"].IsChecked == true && (original is not null || gradual))
             return (original ?? new TopologyExpansionOptions()) with
             {
+                Cemented = cemented,
                 EnableDeletion = true,
                 EnableInsertion = false,
                 EnableSplit = false,
@@ -427,10 +430,12 @@ public sealed partial class AutonomousTopologyWindow
                 EnableGradualDeletion = gradual
             };
         if (gradual == (original?.EnableGradualDeletion == true) && split == (original?.EnableSplit == true) && merge == (original?.EnableMerge == true)
-            && material == (original?.EnableMaterial == true) && profile == (original?.EnableProfile == true)) return original;
+            && material == (original?.EnableMaterial == true) && profile == (original?.EnableProfile == true)
+            && ContentFingerprint.Compute(cemented) == ContentFingerprint.Compute(original?.Cemented)) return original;
         // The fixed-topology switch controls dispatch, while inactive branch permissions remain editable and preserved.
         return (original ?? new TopologyExpansionOptions()) with
         {
+            Cemented = cemented,
             EnableGradualDeletion = gradual,
             EnableSplit = split,
             EnableMerge = merge,
@@ -476,7 +481,8 @@ public sealed partial class AutonomousTopologyWindow
         RefreshReview();
         RefreshStructureText();
         var state = _session.Checkpoint; var preparation = _session.PreparationCheckpoint; var editable = !IsBusy && state is null && preparation is null;
-        var readOnly = AutonomousSearchService.IsHistoricalReadOnlyPlan(state?.Plan ?? _draft);
+        var kernelReadOnly = state is not null && !AutonomousSearchService.CanExecute(state);
+        var readOnly = AutonomousSearchService.IsHistoricalReadOnlyPlan(state?.Plan ?? _draft) || kernelReadOnly;
         foreach (var number in _numbers.Values) { number.IsEnabled = editable; ToolTip.SetTip(number, editable ? null : UiLocalization.Text("请新建计划以修改输入，继续任务保持原计划")); }
         foreach (var choice in _choices.Values)
         {
@@ -495,6 +501,7 @@ public sealed partial class AutonomousTopologyWindow
         Hint("AutonomousReductionOnly", "失败处方保留但不再派发结构分支；达到预算或限定尝试即停止");
         Hint("AutonomousColdStart", "开始新任务时先重新构造并完整验收；失败保存并停止，继续已有任务不重复冷启动");
         Hint("AutonomousSpc", "SPC沿用原插片权限与验收门槛；停止后保存分支和优化器状态，继续不重置预算");
+        Hint("AutonomousCemented", "胶合增长沿用原插片权限、片数及验收门槛；共享面只绑定一次，停止保存后接续原补偿状态");
         var preparationAction = _choices["AutonomousSpc"].IsChecked == true ? "SPC分支准备"
             : _choices["AutonomousColdStart"].IsChecked == true ? "冷启动构造与补偿" : "生成一阶起点";
         _commands["AutonomousPrepareSeeds"].Content = UiLocalization.Text(preparationAction);
@@ -541,6 +548,7 @@ public sealed partial class AutonomousTopologyWindow
             else if (pair.Key == "AutonomousExport") enabled &= _candidates.SelectedItem is TopologyCandidateRow row && row.Candidate.Assessment.Completed && !row.Candidate.Topology.HasTransitionElements;
             pair.Value.IsEnabled = enabled;
             ToolTip.SetTip(pair.Value, enabled ? null : UiLocalization.Text(IsBusy ? "请先停止并保存当前任务"
+                : kernelReadOnly && pair.Key == "AutonomousResume" ? "胶合续跑的计算环境已变化；记录只读，请使用原计算版本继续"
                 : readOnly && pair.Key is "AutonomousRun" or "AutonomousResume" or "AutonomousPrepareSeeds" ? "此通光原型仅供查看和导出，请新建版本化计划" : "请先载入记录或选择可用候选"));
         }
         if (state is null)
@@ -647,11 +655,8 @@ public sealed partial class AutonomousTopologyWindow
         var candidate = row.Candidate; var state = _session.Checkpoint!;
         SetStructureSource(candidate.Topology, state.Plan.Constraints, candidate.Id, candidate.Assessment.MeetsTargets ? "达标" : "未达标");
         var optic = TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints).CreateOptic();
-        foreach (var element in candidate.Topology.Elements)
-        {
-            Add(element.FrontSurfaceId, element.FrontZMillimeters, element.Material, element.Front, element.Protected);
-            Add(element.BackSurfaceId, element.BackZMillimeters, "Air", element.Back, element.Protected);
-        }
+        foreach (var face in TopologyPrescriptionFaces.Enumerate(candidate.Topology))
+            Add(face.Id, face.ZMillimeters, face.MaterialAfter, face.Face, face.Protected);
         foreach (var field in candidate.Assessment.Fields)
         {
             var angles = FieldCoordinates.Denormalize(optic.Fields, field.Field.X, field.Field.Y);
@@ -671,12 +676,13 @@ public sealed partial class AutonomousTopologyWindow
     }
 
     private static string Operation(string value) => UiLocalization.Text(value switch
-    { "population-rebirth" => "候选重生", "population-difference" => "群体差分", "seed" => "起点验收", "optimize" => "连续优化", "insert" => "增片", "delete" => "删片", "gradual-delete" => "渐进删除", "split" => "拆片", "merge" => "并片", "material" => "替换材料", "profile" => "升级面型", _ => value });
+    { "cemented-insert" => "胶合插片", "cemented-material" => "胶合换料", "cemented" => "胶合调度", "population-rebirth" => "候选重生", "population-difference" => "群体差分", "seed" => "起点验收", "optimize" => "连续优化", "insert" => "增片", "delete" => "删片", "gradual-delete" => "渐进删除", "split" => "拆片", "merge" => "并片", "material" => "替换材料", "profile" => "升级面型", _ => value });
     private static string Phase(AutonomousSearchPhase? value) => UiLocalization.Text(value switch
     { AutonomousSearchPhase.Screening => "候选几何筛检", AutonomousSearchPhase.Feasibility => "阶段独立验收", AutonomousSearchPhase.Recovery => "一阶恢复", AutonomousSearchPhase.Local => "局部补偿", AutonomousSearchPhase.Full => "全目标优化", AutonomousSearchPhase.Validation => "独立验收", AutonomousSearchPhase.TransitionValidation => "过渡验收", _ => "—" });
     private static string Outcome(string value) => UiLocalization.Text(value switch
     {
         "Accepted" => "达标",
+        "OriginalExternalStopApertureConflict" => "原固定光阑与口径规格冲突",
         "ScreenPassed" => "筛检通过",
         "ScreenRejected" => "筛检拒绝",
         "ScreenCancelled" => "筛检已停止",

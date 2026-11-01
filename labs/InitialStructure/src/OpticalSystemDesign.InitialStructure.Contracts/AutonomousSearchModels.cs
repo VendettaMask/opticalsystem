@@ -144,6 +144,8 @@ public sealed record AutonomousSearchEvent(int Sequence, string TrialId, string?
 public sealed record AutonomousSearchCheckpoint
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? CementedKernelFingerprint { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public BoundedSearchStopReason? StopReason { get; init; }
     public int SchemaVersion { get; init; } = 1;
     public string Algorithm { get; init; } = AutonomousTopologyIdentity.Name;

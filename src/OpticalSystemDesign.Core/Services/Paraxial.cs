@@ -252,6 +252,9 @@ public sealed partial class Paraxial
         EnsureComputable();
         if (HasGridGradientPupil)
             return GridGradientPupil(wavelengthMicrometers).ImageAxialDistanceMillimeters;
+        if (HasNonaxialPupil)
+            return OpticalSystemDesign.Core.Analysis.ParabasalPupilEngine.Compute(_optic,
+                new Wavelength { Nanometers = wavelengthMicrometers * 1000 }).ImageAxialDistanceMillimeters;
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         if (stopIndex < 0 || stopIndex >= _optic.SurfaceGroup.Items.Count - 1)
         {
@@ -281,6 +284,9 @@ public sealed partial class Paraxial
         EnsureComputable();
         if (HasGridGradientPupil)
             return GridGradientPupil(wavelengthMicrometers).DiameterMillimeters;
+        if (HasNonaxialPupil)
+            return OpticalSystemDesign.Core.Analysis.ParabasalPupilEngine.Compute(_optic,
+                new Wavelength { Nanometers = wavelengthMicrometers * 1000 }).DiameterMillimeters;
         var marginal = MarginalRay(wavelengthMicrometers);
         var imageHeight = marginal.Heights[^1][0];
         var imageSlope = marginal.Slopes[^1][0];
@@ -560,10 +566,28 @@ public sealed partial class Paraxial
 
     private IReadOnlyList<double> SurfacePositions()
     {
-        return _optic.SurfaceGroup.Items
+        var surfaces = _optic.SurfaceGroup.Items;
+        if (surfaces.Any(surface => Math.Abs(surface.CoordinateSystem.RotationXDegrees) > 1e-12
+            || Math.Abs(surface.CoordinateSystem.RotationYDegrees) > 1e-12))
+        {
+            // Scalar paraxial coordinates follow the ordered prescription,
+            // including signed thickness after a fold. World Z can be constant
+            // along an entire arm and is not a propagation distance.
+            var positions = new double[surfaces.Count];
+            if (positions.Length > 0) positions[0] = surfaces[0].CoordinateSystem.Origin.Z;
+            if (positions.Length > 1) positions[1] = surfaces[1].CoordinateSystem.Origin.Z;
+            for (var index = 2; index < positions.Length; index++)
+                positions[index] = positions[index - 1] + surfaces[index - 1].Thickness;
+            return positions;
+        }
+        return surfaces
             .Select(surface => surface.CoordinateSystem.Origin.Z)
             .ToArray();
     }
+
+    internal bool HasNonaxialPupil => _optic.SurfaceGroup.Items.Any(surface =>
+        Math.Abs(surface.CoordinateSystem.RotationXDegrees) > 1e-12
+        || Math.Abs(surface.CoordinateSystem.RotationYDegrees) > 1e-12);
 
     private static double FocalLength(RayMatrix matrix, double determinant)
     {

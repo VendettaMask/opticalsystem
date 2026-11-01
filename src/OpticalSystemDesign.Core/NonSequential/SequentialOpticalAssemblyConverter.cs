@@ -20,6 +20,12 @@ public static class SequentialOpticalAssemblyConverter
         if(surfaces.Count<4)throw new NotSupportedException("完整转换需要至少两个实体光学界面。");
         if(surfaces.Count>514)throw new NotSupportedException("一次完整转换最多接受 512 个光学界面。");
         var origin=surfaces[1].CoordinateSystem;var faces=new List<NonSequentialOpticalInterface>();
+        var extended=surfaces.Skip(1).Take(surfaces.Count-2).Any(s=>
+        {
+            var p=origin.ToLocalPoint(s.CoordinateSystem.Origin);
+            var axis=origin.ToLocalDirection(s.CoordinateSystem.ToGlobalDirection(new(0,0,1)));
+            return s.Geometry is not (StandardGeometry or PlaneGeometry)||p.X!=0||p.Y!=0||(axis-new Vector3D(0,0,1)).Length!=0;
+        });
         for(int index=1;index<surfaces.Count-1;index++)
         {
             Services.ComputationCancellation.ThrowIfCancellationRequested();
@@ -29,15 +35,17 @@ public static class SequentialOpticalAssemblyConverter
             var incident=surfaces[index-1].MaterialAfter;
             var local=origin.ToLocalPoint(s.CoordinateSystem.Origin);
             var z=origin.ToLocalDirection(s.CoordinateSystem.ToGlobalDirection(new(0,0,1)));
-            if(Math.Abs(local.X)>1e-10||Math.Abs(local.Y)>1e-10||(z-new Vector3D(0,0,1)).Length>1e-12
-                ||s.Geometry is not (StandardGeometry or PlaneGeometry)||s.InteractionModel is not RefractiveReflectiveInteractionModel {IsReflective:false}
+            if(s.Geometry is not (StandardGeometry or PlaneGeometry or EvenAsphereGeometry or OddAsphereGeometry)
+                ||s.InteractionModel is not RefractiveReflectiveInteractionModel {IsReflective:false}
                 ||s.ScatteringModel is not null||incident.PropagationModel is not HomogeneousPropagationModel||s.MaterialAfter.PropagationModel is not HomogeneousPropagationModel)
                 throw new NotSupportedException($"S{s.Number} 的几何、坐标、交互、散射或介质无法完整转换；原非序列场景保持不变。");
             var x=origin.ToLocalDirection(s.CoordinateSystem.ToGlobalDirection(new(1,0,0)));
             var roll=Math.Atan2(x.Y,x.X)*180/Math.PI;
             faces.Add(new(s.Number,local.Z,s.Radius,s.Conic,s.SemiDiameter,s.MechanicalSemiDiameter,
                 ComponentSnapshotFactory.FromMaterial(incident),ComponentSnapshotFactory.FromMaterial(s.MaterialAfter),
-                ComponentSnapshotFactory.FromCoating(s.CoatingModel),ComponentSnapshotFactory.FromAperture(s.PhysicalAperture),s.IsStop,roll,s.Label));
+                ComponentSnapshotFactory.FromCoating(s.CoatingModel),ComponentSnapshotFactory.FromAperture(s.PhysicalAperture),s.IsStop,roll,s.Label,
+                extended?OpticalAssemblySurfaceGeometry.FromGeometry(s.Geometry,s.Radius):null,
+                extended?OpticalAssemblySurfaceFrame.RelativeTo(origin,s.CoordinateSystem):null));
         }
         var group=new OpticalAssemblyParameters(faces);
         foreach(var f in faces)foreach(var wavelength in optic.Wavelengths)
@@ -51,8 +59,16 @@ public static class SequentialOpticalAssemblyConverter
             }
         }
         var image=surfaces[^1];
+        if(extended)
+        {
+            var imageFrame=OpticalAssemblySurfaceFrame.RelativeTo(origin,image.CoordinateSystem);
+            var minimumImageZ=imageFrame.Origin.Z-(Math.Abs(imageFrame.AxisX.Z)+Math.Abs(imageFrame.AxisY.Z))*image.SemiDiameter;
+            if(imageFrame.AxisZ.Z<=0||minimumImageZ<=group.BoundsMaximum.Z+1e-9)
+                throw new NotSupportedException("实际像面必须位于完整镜组之后，且有限探测范围不能与镜组实体交叠。");
+        }
         if(origin.ToLocalPoint(image.CoordinateSystem.Origin).Z<=faces[^1].VertexZMillimeters
-            || !image.IsPlane||image.CoatingModel is not Coatings.NoneCoatingModel||image.ScatteringModel is not null
+            || !(image.Geometry is PlaneGeometry || image.Geometry is StandardGeometry g && (Math.Abs(g.Radius)<1e-12||double.IsInfinity(g.Radius)))
+            || image.CoatingModel is not Coatings.NoneCoatingModel||image.ScatteringModel is not null
             ||image.InteractionModel is not RefractiveReflectiveInteractionModel {IsReflective:false}
             ||NonSequentialOpticalInterface.Identity(ComponentSnapshotFactory.FromMaterial(image.MaterialAfter))!=NonSequentialOpticalInterface.Identity(faces[^1].MaterialAfter))
             throw new NotSupportedException("像面必须是与出射介质一致的实际平面探测面。");

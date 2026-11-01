@@ -1,5 +1,7 @@
 # 项目文档索引
 
+最新光学检测修复：[双程零位检验与两种干涉仪](OPTICAL_TESTING_PROPAGATION_REPAIR_2026-11-01.md)，包括配置依赖、虚出瞳OPD、426项同版本复核与未关闭的收敛/照度问题。
+
 整理日期：2026-11-01。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
 
 示例镜头精度换聊天入口：[14 类中文分类、已关闭项、剩余问题与后续顺序](EXAMPLE_ACCURACY_HANDOFF_2026-11-01.md)。分类菜单已中文化；历史全量计数与后续局部修复分开维护。
@@ -16,7 +18,7 @@
 | 使用桌面和两个模块 | [桌面工作流](GUI_QUICKSTART_REFACTOR.md)、[初始结构](../labs/InitialStructure/README.md)、[镀膜设计](../labs/CoatingDesign/README.md) |
 | 核对 AutoLens 原版优化规则 | [e58 逐项对齐、测试范围与保留差异](AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.md)、[阶段交接修正](AUTOLENS_HANDOFF_REPAIR_2026-10-25.md) |
 | 按计划建设自主镜片增删流程 | [自主镜头拓扑设计实施计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)，M0–M5 已核对完成，M6 内置界面与阶段验收已实现；[低F数/宽视场复验](../validation/rechecks/2026-10-27/representative-reduction/README.md)保留未达标边界；[两片视场冲突求步修复](../validation/rechecks/2026-10-28/two-element-field-conflict/README.md)（同预算改善但光斑仍未达标）；[合格三片3→2短程及失败诊断](../validation/rechecks/2026-10-28/three-to-two-continuation/README.md)（12次未达严格像质门槛，保留合格三片）；[指定合格四片4→3恢复修复](../validation/rechecks/2026-10-27/four-to-three-recovery/README.md)（两直接成功、渐进失败保留，原总配额、增加锥常数自由度）；[F/3.34、21°三项门槛修复](../validation/rechecks/2026-10-27/wide21-gates-repair/README.md)；[高精度/轴向接入及新处方回归](../validation/rechecks/2026-10-27/topology-integrated-compensation/README.md)；[积分精度/三片失光修复](../validation/rechecks/2026-10-27/topology-sampling-precision/README.md)；[通光优先/选参复验](../validation/rechecks/2026-10-27/topology-transmission-priority/README.md)；[边缘通光及预算修复](../validation/rechecks/2026-10-27/topology-edge-loss-repair/README.md)；[阶段验收修复](../validation/rechecks/2026-10-27/topology-reduction-repair/README.md)；[结果与边界](../validation/rechecks/2026-10-27/autonomous-comparison-m6/README.md) |
-| 推进自动初始结构的快速搜索和结构竞争 | [自动初始结构搜索实施计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)；[M0/M1 失光与快筛](INITIAL_STRUCTURE_M0_M1_2026-10-30.md)、[M2 结构恢复与竞争](INITIAL_STRUCTURE_M2_2026-10-30.md)已有工程交付，困难任务收益见真实对照；[M3.1 共享界面与过渡基础](INITIAL_STRUCTURE_M3_1_2026-10-30.md)、[M3.2 已有镜头检索](INITIAL_STRUCTURE_M3_2_2026-10-30.md)与[M3.5 准备断点续跑](INITIAL_STRUCTURE_PREPARATION_CHECKPOINT_2026-10-31.md)已验证；[M3.4 固定口径性能](INITIAL_STRUCTURE_PERFORMANCE_2026-11-01.md)已验证；[M3.6 三语展示、方案库与报告](INITIAL_STRUCTURE_PRODUCT_REVIEW_2026-11-01.md)已完成后台验证；[SPC鞍点与双分支算法](INITIAL_STRUCTURE_SPC_BRANCHES_2026-11-01.md)及[自动准备/数值续跑](INITIAL_STRUCTURE_SPC_AUTOMATIC_RESUME_2026-11-01.md)及[默认输出完整构建](INITIAL_STRUCTURE_SPC_DEFAULT_OUTPUT_2026-11-01.md)已完成后台验证；M3.3继续暂缓 |
+| 推进自动初始结构的快速搜索和结构竞争 | [自动初始结构搜索实施计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)；[M0/M1 失光与快筛](INITIAL_STRUCTURE_M0_M1_2026-10-30.md)、[M2 结构恢复与竞争](INITIAL_STRUCTURE_M2_2026-10-30.md)已有工程交付，困难任务收益见真实对照；[M3.1 共享界面与过渡基础](INITIAL_STRUCTURE_M3_1_2026-10-30.md)、[M3.2 已有镜头检索](INITIAL_STRUCTURE_M3_2_2026-10-30.md)与[M3.5 准备断点续跑](INITIAL_STRUCTURE_PREPARATION_CHECKPOINT_2026-10-31.md)已验证；[M3.4 固定口径性能](INITIAL_STRUCTURE_PERFORMANCE_2026-11-01.md)已验证；[M3.6 三语展示、方案库与报告](INITIAL_STRUCTURE_PRODUCT_REVIEW_2026-11-01.md)已完成后台验证；[SPC鞍点与双分支算法](INITIAL_STRUCTURE_SPC_BRANCHES_2026-11-01.md)及[自动准备/数值续跑](INITIAL_STRUCTURE_SPC_AUTOMATIC_RESUME_2026-11-01.md)及[默认输出完整构建](INITIAL_STRUCTURE_SPC_DEFAULT_OUTPUT_2026-11-01.md)已完成后台验证；[自主胶合调度与断点续跑](INITIAL_STRUCTURE_CEMENTED_AUTOMATIC_2026-11-01.md)已交付后台验证，递归SPC未完成；M3.3继续暂缓 |
 | 维护代码与界面 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
 | 查询文件和数值边界 | [文件格式](FILE_FORMATS_AND_PLUGINS.md)、[数值验证](NUMERICAL_PARITY.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md) |
 | 核对精度结论、阶段重叠与文件复用 | [精度记录维护与去重](NUMERICAL_PARITY.md#精度结论与文件去重)，最近运行查状态页，未关闭项查问题清单，原始报告按阶段追溯 |
@@ -29,6 +31,7 @@
 - [构建与发布](BUILD_AND_RELEASE.md)
 - [初始结构与镀膜设计：统一产品交付（2026-10-13）](BUILT_IN_MODULES_2026-10-13.md)
 - [镀膜设计计算与实现契约](COATING_DESIGN_LAB.md)
+- [截图中的五套完整镀膜参考示例、材料与逐点对照](COATING_REFERENCE_EXAMPLES_2026-11-01.md)
 - [协议 4：可行性之后的通用反射率质量阶段与跨规格对照](COATING_REFLECTANCE_QUALITY_2026-10-30.md)
 - [协议 4：真实材料高反/窄带的通用修正、参考 DLS/Newton 与跨规格验证](COATING_INFEASIBLE_REPAIR_2026-10-30.md)
 - [协议 4：峰值透射率/截止OD逐项保护、高反停滞重启与35组对照](COATING_TARGET_PRESERVATION_2026-10-30.md)
@@ -49,6 +52,7 @@
 - [初始结构 M2：结构分支、恢复和统一竞争](INITIAL_STRUCTURE_M2_2026-10-30.md)
 - [初始结构 M3.1：胶合共享界面与 SPC 过渡基础](INITIAL_STRUCTURE_M3_1_2026-10-30.md)
 - [初始结构 SPC：真正鞍点与双分支显式研究 API](INITIAL_STRUCTURE_SPC_BRANCHES_2026-11-01.md)
+- [初始结构：自主胶合结构调度与主检查点续跑](INITIAL_STRUCTURE_CEMENTED_AUTOMATIC_2026-11-01.md)
 - [初始结构 SPC：自动准备与精确续跑](INITIAL_STRUCTURE_SPC_AUTOMATIC_RESUME_2026-11-01.md)；[默认输出完整构建与验证](INITIAL_STRUCTURE_SPC_DEFAULT_OUTPUT_2026-11-01.md)
 - [初始结构 M3.2：已有镜头检索与原规格重验](INITIAL_STRUCTURE_M3_2_2026-10-30.md)
 - [初始结构 M3.5：准备阶段断点状态、操作及验证范围](INITIAL_STRUCTURE_PREPARATION_CHECKPOINT_2026-10-31.md)

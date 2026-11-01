@@ -1,0 +1,68 @@
+{
+  "CapturedUtc": "2026-11-01T15:03:35.5730813+00:00",
+  "Counters": {
+    "Total": 521,
+    "Passed": 521,
+    "Failed": 0,
+    "NotExecuted": 0
+  },
+  "AddedCases": 33,
+  "DefaultReleaseAppBuildPassed": true,
+  "BothBuiltInModulesIncluded": true,
+  "RootTestDriverBuildPassed": true,
+  "CompiledSourceChecksumsMatched": 105,
+  "MappedSourceAndInputReceipts": 133,
+  "ChangedSourceFiles": 18,
+  "ExecutedFixtureCopiesVerified": 22,
+  "ExecutionFiles": 90,
+  "ExecutionAndInputDrift": 0,
+  "CoreSha256": "f9f2d9206d9abb77cd3ceb6ff2402dffe396169e72981b7161e780b54f24d722",
+  "ApplicationSha256": "291c6a0633cba3b0a8a3bc0b300268007d9a55b923df36e7c95339c0274bd7f1",
+  "RetainedV20Inputs": [
+    {
+      "Path": "validation/rechecks/2026-11-01/cemented-immersion/final-controls/air.staropt",
+      "Sha256": "f1163466c296773dbb0414744d3e7d75f7c7db012537f0262f4049c9b66fa085"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-01/cemented-immersion/final-controls/air.starrdb",
+      "Sha256": "845580537b48cd2690415a944b08d8026a268a7740935223d5d256f94b695f7e"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-01/cemented-immersion/final-controls/immersion.staropt",
+      "Sha256": "7f31d3c2dafab654b31e4d38a2c1a70f5b41d04e0145d3cc7233ca78f4ab360c"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-01/cemented-immersion/final-controls/immersion.starrdb",
+      "Sha256": "44e62d65d2dac227388803ae2bb02d805bb454651dbd352c7592934676e18541"
+    }
+  ],
+  "OldBsdfProtocolsUnchanged": true,
+  "PathCases": 8,
+  "SurfaceComparisons": 32,
+  "ThreeBandCameraChains": 4,
+  "ExactNscRetraces": 4,
+  "ExactFrozenCameraReplays": 4,
+  "ScatteringChains": 2,
+  "MaximumPositionErrorMillimeters": 1.532663639700929E-13,
+  "MaximumDirectionError": 1.973159321384037E-15,
+  "MaximumOpticalPathErrorMillimeters": 2.3092638912203256E-13,
+  "MaximumCameraEnergyRelativeError": 5.972999872483342E-14,
+  "MaximumPhotonErrorElectrons": 9.094947017729282E-13,
+  "MaximumPartitionErrorWatts": 2.84974860370977E-32,
+  "IndependentFiniteAperturePlatePower": 0.9230169209421668,
+  "StochasticRays": 8192,
+  "SamplingErrorStandardDeviations": 2.099144925597497,
+  "AnalyticalControlsNotMeasured": true,
+  "NativeDesktopAcceptance": false,
+  "CommercialCertification": false,
+  "GeneralFreeformCadOrGpuImplemented": false,
+  "PostVerificationWorktreeChangesNotCovered": {
+    "Path": "src/OpticalSystemDesign.Core/Geometries/GeometryModels.cs",
+    "TestedSha256": "5d0833014bb86483ea208302a15923925d556467a188f78a24e1e5ad48cb188e",
+    "CurrentSha256": "d4509b871f88b6c9e32a3da9e7e89ce00bd1ff0191b378985510b9849e38ca23",
+    "TestedSourceReference": "validation/rechecks/2026-11-01/aspheric-posed-assembly/source-reference/GeometryModels.cs",
+    "Change": "PlaneGeometry optional reference incidence/report normal and clone metadata",
+    "IncludedInThisRun": false,
+    "OtherWorktreeChangesPreserved": true
+  }
+}

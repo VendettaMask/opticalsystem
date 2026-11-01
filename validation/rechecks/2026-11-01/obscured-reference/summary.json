@@ -1,0 +1,370 @@
+{
+  "coreSha256": "e7d456a81e66b05ca075a9573125219eac6ef20683951ea8cd56828f68109200",
+  "selection": "16 menu lenses in Telescopes and Optical testing; 426 executable canonical requests; 22 non-executable ledger rows excluded",
+  "before": {
+    "Close": 17,
+    "Difference": 39,
+    "Error": 156,
+    "Incomparable": 64,
+    "Pass": 150
+  },
+  "after": {
+    "Close": 20,
+    "Difference": 28,
+    "Error": 53,
+    "Incomparable": 101,
+    "Pass": 224
+  },
+  "categories": [
+    {
+      "category": "Optical testing",
+      "total": 154,
+      "counts": {
+        "Close": 9,
+        "Difference": 14,
+        "Error": 48,
+        "Incomparable": 26,
+        "Pass": 57
+      }
+    },
+    {
+      "category": "Telescopes",
+      "total": 272,
+      "counts": {
+        "Close": 11,
+        "Difference": 14,
+        "Error": 5,
+        "Incomparable": 75,
+        "Pass": 167
+      }
+    }
+  ],
+  "historicalRegressions": [
+    {
+      "index": 2113,
+      "lens": "Optical testing/Offner reflecting compensator.zmx",
+      "key": "PSF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2116,
+      "lens": "Optical testing/Offner reflecting compensator.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2252,
+      "lens": "Telescopes/Cassegrain-type Ritchey Chretien.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2304,
+      "lens": "Telescopes/Houghton.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2312,
+      "lens": "Telescopes/Houghton.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2360,
+      "lens": "Telescopes/Maksutov offset secondary.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2368,
+      "lens": "Telescopes/Maksutov offset secondary.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2382,
+      "lens": "Telescopes/Maksutov.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2390,
+      "lens": "Telescopes/Maksutov.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2434,
+      "lens": "Telescopes/Schmidt-Cassegrain spider obscuration.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2442,
+      "lens": "Telescopes/Schmidt-Cassegrain spider obscuration.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2480,
+      "lens": "Telescopes/Schmidt-Cassegrain.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2490,
+      "lens": "Telescopes/Schmidt-Cassegrain.zmx",
+      "key": "Spot Diagram",
+      "conclusion": "Pass"
+    }
+  ],
+  "oldPassRetained": 149,
+  "oldPassNotRetained": [
+    {
+      "index": 2278,
+      "lens": "Telescopes/Flat-field Schmidt.zmx",
+      "configuration": 1,
+      "key": "Diffraction Encircled Energy",
+      "conclusion": "Difference",
+      "reason": "",
+      "error": null,
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.020011102408603598,
+          "meanAbsolute": 0.007632160990953414,
+          "rmse": 0.009427807669064652,
+          "nrmse": 0.009495129883168089,
+          "maxRelative": 0.02382311677707119,
+          "p50": 0.006634358314553446,
+          "p90": 0.016435698746934624,
+          "p95": 0.01904868570772164,
+          "pearson": 0.9996484152819641,
+          "worstX": 0.9624999999999986,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.025489720658968262,
+          "meanAbsolute": 0.007918470111919302,
+          "rmse": 0.011203171883323123,
+          "nrmse": 0.011277873789441605,
+          "maxRelative": 0.03555381465741667,
+          "p50": 0.004516562100693733,
+          "p90": 0.022020101542821358,
+          "p95": 0.024628938408306933,
+          "pearson": 0.9995731334020637,
+          "worstX": 1.5124999999999966,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "seconds": 0.2118372,
+      "requestFingerprint": "d4dc3d508ec00e9aa6ccb074714463b7cbd010f64a938cd163dbc9285eca873e",
+      "nativeReference": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses/2278-074-flat-field-schmidt-c1-primary-f1-w2-diffraction-encircled-energy\\native",
+      "nativeDataSha256": "dd220076c74a70a108c187c6a42ae42a7e71e770ffce8e266e03799a594ebbb3",
+      "coreSha256": "e7d456a81e66b05ca075a9573125219eac6ef20683951ea8cd56828f68109200",
+      "historicalRegression": false,
+      "referenceConvergence": "NotEstablishedByThisReplay"
+    }
+  ],
+  "fixedRayControls": {
+    "Incomparable": 5,
+    "Pass": 11
+  },
+  "fixedRaySurfaceComparisons": 14320.0,
+  "tests": [
+    {
+      "failed": 0,
+      "skipped": 0,
+      "passed": 101,
+      "logicalPath": "tests-final/obscured-reference-final.trx"
+    },
+    {
+      "failed": 0,
+      "skipped": 0,
+      "passed": 66,
+      "logicalPath": "tests-afocal/obscured-reference-afocal.trx"
+    }
+  ],
+  "runtimeCore": [
+    {
+      "path": "D:\\Projects\\opticalsystem\\artifacts\\validation\\obscured-reference-runner-20261101-final\\OpticalSystemDesign.Core.dll",
+      "sha256": "e7d456a81e66b05ca075a9573125219eac6ef20683951ea8cd56828f68109200"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\artifacts\\validation\\obscured-reference-tests-20261101-final\\OpticalSystemDesign.Core.dll",
+      "sha256": "e7d456a81e66b05ca075a9573125219eac6ef20683951ea8cd56828f68109200"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\artifacts\\validation\\obscured-reference-tests-afocal-20261101\\OpticalSystemDesign.Core.dll",
+      "sha256": "e7d456a81e66b05ca075a9573125219eac6ef20683951ea8cd56828f68109200"
+    }
+  ],
+  "defaultAppBuild": "Succeeded; 0 warnings, 0 errors; both built-in modules included. Core was verified equal before subsequent concurrent builds replaced the shared output.",
+  "defaultOutputAtSealingSha256": "6f7b8024e9c13b6c2bbf58c2e928bcb676f3d2b2862f9abd3bbc45a939a7031c",
+  "defaultOutputReplacedSinceVerification": true,
+  "nativeConvergence": [
+    {
+      "kind": "same-sampling",
+      "sampling": 512,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.0008419188229643604,
+          "meanAbsolute": 0.00017663895130475905,
+          "rmse": 0.00025777270300591853,
+          "nrmse": 0.00026672419706148803,
+          "maxRelative": 0.0025068801387066806,
+          "p50": 0.00011495898638558266,
+          "p90": 0.00036467685305706377,
+          "p95": 0.0006782536818803475,
+          "pearson": 0.9999995020851979,
+          "worstX": 0.4625,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.0009765894109164952,
+          "meanAbsolute": 0.0002199250869912448,
+          "rmse": 0.0003225973311257429,
+          "nrmse": 0.000335434489604322,
+          "maxRelative": 0.0037450862388019334,
+          "p50": 0.00014662223531286545,
+          "p90": 0.0005959811648822422,
+          "p95": 0.0008626000707479056,
+          "pearson": 0.99999966925946,
+          "worstX": 0.6874999999999996,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "pathA": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\obscured-reference\\energy-convergence-native\\512\\core/data.json",
+      "pathB": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\obscured-reference\\energy-convergence-native\\512\\native/data.json",
+      "requestA": "d615ce0cd766fb1eee5a7bb9de515c2e75c15790381ad674c4afa81e08c65534",
+      "requestB": "d615ce0cd766fb1eee5a7bb9de515c2e75c15790381ad674c4afa81e08c65534"
+    },
+    {
+      "kind": "native-convergence",
+      "sampling": 512,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.004070565399340809,
+          "meanAbsolute": 0.0010837552555471913,
+          "rmse": 0.0012676072780802947,
+          "nrmse": 0.0013116265977453092,
+          "maxRelative": 0.054785672287697706,
+          "p50": 0.0009471155154874289,
+          "p90": 0.001847455711168955,
+          "p95": 0.00260109097371497,
+          "pearson": 0.9999951918376537,
+          "worstX": 0.3875000000000002,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.00340451929371971,
+          "meanAbsolute": 0.0009682768046935616,
+          "rmse": 0.001229950604245697,
+          "nrmse": 0.0012788941921310284,
+          "maxRelative": 0.07672349340637916,
+          "p50": 0.0008751753929638895,
+          "p90": 0.0020402570184831215,
+          "p95": 0.0028995017248250876,
+          "pearson": 0.9999967455336685,
+          "worstX": 0.6874999999999996,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "pathA": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\obscured-reference\\energy-convergence-native\\256\\native/data.json",
+      "pathB": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\obscured-reference\\energy-convergence-native\\512\\native/data.json",
+      "requestA": "0dbe71bb3512974f1ec720ff4bb2028d61a58407d20cdd31debea0aa4065b911",
+      "requestB": "d615ce0cd766fb1eee5a7bb9de515c2e75c15790381ad674c4afa81e08c65534"
+    },
+    {
+      "kind": "core-convergence",
+      "sampling": 512,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.0048639438618577335,
+          "meanAbsolute": 0.0011340961712448063,
+          "rmse": 0.001438526114030967,
+          "nrmse": 0.0014889560236890907,
+          "maxRelative": 0.05696358447029864,
+          "p50": 0.0008755641112280221,
+          "p90": 0.0021661134610074795,
+          "p95": 0.003303274939979617,
+          "pearson": 0.9999920366308807,
+          "worstX": 0.3875,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.0044911023795795035,
+          "meanAbsolute": 0.001110246140145418,
+          "rmse": 0.0015122526657945883,
+          "nrmse": 0.001572826476063854,
+          "maxRelative": 0.08040132644692424,
+          "p50": 0.0008111402542562152,
+          "p90": 0.0026526002157784556,
+          "p95": 0.0038517571383990534,
+          "pearson": 0.999994467519366,
+          "worstX": 0.6875,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "pathA": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\obscured-reference\\energy-convergence-native\\256\\core/data.json",
+      "pathB": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\obscured-reference\\energy-convergence-native\\512\\core/data.json",
+      "requestA": "0dbe71bb3512974f1ec720ff4bb2028d61a58407d20cdd31debea0aa4065b911",
+      "requestB": "d615ce0cd766fb1eee5a7bb9de515c2e75c15790381ad674c4afa81e08c65534"
+    }
+  ],
+  "limits": [
+    "Original 32-sampling row 2278 remains Difference; the new 512-sampling comparison and 256-to-512 convergence are separate controls.",
+    "No full 95-example recertification or native foreground interaction, installation, commit or publication."
+  ]
+}

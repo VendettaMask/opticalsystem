@@ -1,0 +1,190 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:03.23]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: True) [FAIL]
+[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: False) [FAIL]
+[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: False) [FAIL]
+[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: False) [FAIL]
+[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: True) [FAIL]
+[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: True) [FAIL]
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: True) [479 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=6.1803235471569795E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: False) [1 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=7.7320533457141147E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: False) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=8.5201289483712321E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: False) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=7.7320533457141147E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: True) [1 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=5.6291246738334942E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: True) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=5.6291246738334942E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: False) [FAIL]
+[xUnit.net 00:00:03.25]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: True) [FAIL]
+[xUnit.net 00:00:03.25]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(region: 0) [FAIL]
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: False) [1 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=8.5201289483712321E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: True) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=6.1803235471569795E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(region: 0) [7 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=8.3252095987745156E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(Int32 region) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 76
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:03.36]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.RigidSceneReferenceTransformsPreserveFullBranchPowerDirectionsAndOpticalPath [FAIL]
+[xUnit.net 00:00:03.36]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.DecenteredRolledApertureUsesItsCompleteSurfaceFrame [FAIL]
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.RigidSceneReferenceTransformsPreserveFullBranchPowerDirectionsAndOpticalPath [3 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=4.7060655486207798E-14, current=Air, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.RigidSceneReferenceTransformsPreserveFullBranchPowerDirectionsAndOpticalPath() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 114
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.DecenteredRolledApertureUsesItsCompleteSurfaceFrame [2 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=6.253136984968097E-11, current=Glass 1, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.<DecenteredRolledApertureUsesItsCompleteSurfaceFrame>g__At|6_0(Vector3D local, <>c__DisplayClass6_0&) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 104
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.DecenteredRolledApertureUsesItsCompleteSurfaceFrame() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 107
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:03.49]     OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: True) [FAIL]
+[xUnit.net 00:00:03.52]     OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: True) [FAIL]
+[xUnit.net 00:00:03.55]     OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: True) [759 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=1.207155608887488E-10, current=Declared liquid, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_0.<TraceCoreAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 272
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 229
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 139
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 119
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs:line 38
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: True) [28 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=1.207155608887488E-10, current=Air, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_0.<TraceCoreAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 272
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 229
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 139
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 119
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs:line 38
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: False) [25 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=7.6528786477111422E-11, current=Declared liquid, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_0.<TraceCoreAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 272
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 229
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 139
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 119
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs:line 38
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:03.58]     OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: False) [28 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=7.6528786477111422E-11, current=Air, expected=Glass 0
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.<>c__DisplayClass33_0.<TraceCoreAsync>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 272
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 229
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 139
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 119
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs:line 38
+--- End of stack trace from previous location ---
+结果文件: D:/Projects/opticalsystem/validation/rechecks/2026-11-01/aspheric-posed-assembly\first-focused.trx
+
+失败!  - 失败:    15，通过:    37，已跳过:     0，总计:    52，持续时间: 2 s - OpticalSystemDesign.Tests.dll (net10.0)

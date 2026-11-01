@@ -134,7 +134,7 @@ public sealed record TopologyAirInterval(string LeftSurfaceId, string RightSurfa
     [JsonIgnore] public double LengthMillimeters => RightZMillimeters - LeftZMillimeters;
 }
 
-public enum TopologyOperationKind { Insert, Delete, Split, Merge, Material, Profile, ScaleForDeletion }
+public enum TopologyOperationKind { Insert, Delete, Split, Merge, Material, Profile, ScaleForDeletion, CementedInsert }
 public sealed record TopologyChange(TopologyOperationKind Operation, string ParentFingerprint, string ChildFingerprint,
     ImmutableArray<string> CreatedElementIds, ImmutableArray<string> RemovedElementIds);
 public sealed record TopologyEditResult(DesignTopology? Topology, TopologyChange? Change, TopologyFailure? Failure)

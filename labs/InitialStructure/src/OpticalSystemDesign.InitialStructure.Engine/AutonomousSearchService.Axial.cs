@@ -9,7 +9,9 @@ public static partial class AutonomousSearchService
     private static IEnumerable<TopologyAxialAnchor> AxialFaces(AutonomousSearchPending pending, TopologyAxialCompensationOptions policy)
         => pending.Template.Elements.Where(element => !element.Protected && element.Id != pending.GradualDeletion?.OriginalElement.Id
                 && (policy.ElementIds.IsEmpty || policy.ElementIds.Contains(element.Id, StringComparer.Ordinal)))
-            .SelectMany(element => new[] { new TopologyAxialAnchor(element.FrontSurfaceId, element.FrontZMillimeters), new(element.BackSurfaceId, element.BackZMillimeters) });
+            .SelectMany(element => new[] { new TopologyAxialAnchor(element.FrontSurfaceId, element.FrontZMillimeters), new(element.BackSurfaceId, element.BackZMillimeters) })
+            .DistinctBy(f => f.SurfaceId).Where(f => pending.Template.Elements.Where(e => e.FrontSurfaceId == f.SurfaceId || e.BackSurfaceId == f.SurfaceId)
+                .All(e => !e.Protected && (policy.ElementIds.IsEmpty || policy.ElementIds.Contains(e.Id, StringComparer.Ordinal))));
 
     private static AutonomousSearchPending AnchorAxialCompensation(AutonomousSearchPending pending, AutonomousSearchOptions policy)
         => policy.AxialCompensation is { } axial && pending.AxialAnchors is null

@@ -29,11 +29,13 @@ public sealed class AutonomousSearchCheckpointStore
         if (File.Exists(path))
         {
             var current = await LoadAsync(path, cancellationToken);
-            if (current.RunId != checkpoint.RunId || current.PlanFingerprint != checkpoint.PlanFingerprint)
+            if (current.RunId != checkpoint.RunId || current.PlanFingerprint != checkpoint.PlanFingerprint
+                || current.CementedKernelFingerprint != checkpoint.CementedKernelFingerprint)
                 throw new InvalidDataException("Cannot replace another run or original specification.");
             if (current.Revision == checkpoint.Revision && ContentFingerprint.Compute(current) == checksum) return;
             if (current.Revision != expectedRevision) throw new InvalidDataException("Stale autonomous checkpoint writer.");
-            if (checkpoint.Consumed.Elapsed < current.Consumed.Elapsed || checkpoint.Events.Length < current.Events.Length
+            if (checkpoint.SeedCursor < current.SeedCursor || checkpoint.TrialCursor < current.TrialCursor
+                || checkpoint.Consumed.Elapsed < current.Consumed.Elapsed || checkpoint.Events.Length < current.Events.Length
                 || ContentFingerprint.Compute(checkpoint.Events.Take(current.Events.Length).ToArray()) != ContentFingerprint.Compute(current.Events.ToArray()))
                 throw new InvalidDataException("Consumed work and prior audit events cannot be rolled back or rewritten.");
             foreach (var candidate in current.Candidates)

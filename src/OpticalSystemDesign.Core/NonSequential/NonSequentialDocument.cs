@@ -867,7 +867,7 @@ public sealed class NonSequentialDocument
                 break;
             case DetectorRectangleParameters detector:
                 RequirePositive(detector.WidthMillimeters, detector.HeightMillimeters);
-                if(detector.IncidentSurface is { } port && (port.RadiusMillimeters!=0 || port.Film is not Coatings.NoneCoatingModel
+                if(detector.IncidentSurface is { } port && (port.Frame is not null || port.SurfaceGeometry is not null || port.RadiusMillimeters!=0 || port.Film is not Coatings.NoneCoatingModel
                     || NonSequentialOpticalInterface.Identity(port.MaterialBefore)!=NonSequentialOpticalInterface.Identity(port.MaterialAfter)))
                     throw new InvalidDataException("入射像面探测端口只接受无独立光学作用的平面；镀膜或介质界面须显式建模。");
                 if (detector.PixelsX <= 0 || detector.PixelsX > MaximumDetectorDimension

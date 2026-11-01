@@ -25,7 +25,8 @@ public static partial class AutonomousSearchService
             RunId = runId,
             Plan = plan,
             PlanFingerprint = ContentFingerprint.Compute(plan),
-            RandomState = new DeterministicRandom(plan.Options.Seed).State
+            RandomState = new DeterministicRandom(plan.Options.Seed).State,
+            CementedKernelFingerprint = plan.Options.Expansion?.Cemented is not null ? CementedKernel : null
         };
         Validate(checkpoint);
         return checkpoint;
@@ -37,6 +38,7 @@ public static partial class AutonomousSearchService
         Action<AutonomousSearchPending, ParaxialRecoveryStep>? recoveryProgress = null)
     {
         Validate(checkpoint);
+        if (!CanExecute(checkpoint)) throw new NotSupportedException("Cemented continuation belongs to another numeric environment; the record remains read-only.");
         if (checkpoint.Plan.Options.BoundedSearch is not null && checkpoint.StopReason is not null
             && checkpoint.Status is AutonomousSearchStatus.Completed or AutonomousSearchStatus.BudgetExhausted) return checkpoint;
         if (IsHistoricalReadOnlyPlan(checkpoint.Plan))
@@ -52,6 +54,16 @@ public static partial class AutonomousSearchService
         Action<AutonomousSearchPending, ParaxialRecoveryStep>? recoveryProgress)
     {
         var policy = state.Plan.Options;
+        var safePause = policy.Expansion?.Cemented is not null;
+        if (safePause && state.SeedCursor == 0 && state.Plan.Seeds.Any(t => StructureSearchDiagnostics.ExternalStopAperturePrecheck(t).ProvenInfeasible))
+        {
+            state = state with { SeedCursor = state.Plan.Seeds.Length, TrialCursor = policy.MaximumTrials,
+                Events = state.Events.Add(new(state.Events.Length + 1, "specification-guard", null, "cemented", null,
+                    "OriginalExternalStopApertureConflict", "Original fixed external stop exceeds the retained clear apertures; no optical work dispatched.", new())) };
+            state = state with { Status = AutonomousSearchStatus.Completed, Revision = state.Revision + 1,
+                StopReason = policy.BoundedSearch is null ? null : BoundedSearchStopReason.NoEligibleBranch };
+            save?.Invoke(state); return state;
+        }
         // A persisted in-flight reservation has unknown execution extent. Charge its whole
         // allocation once and abandon the phase; never silently replay its operation cursor.
         if (state.Reservation is { } lost)
@@ -62,7 +74,7 @@ public static partial class AutonomousSearchService
         }
         var elapsedBefore = state.Consumed.Elapsed;
         var timer = Stopwatch.StartNew();
-        using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        using var deadline = safePause ? new CancellationTokenSource() : CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         deadline.CancelAfter(policy.TimeLimit > elapsedBefore ? policy.TimeLimit - elapsedBefore : TimeSpan.Zero);
         var token = deadline.Token;
         state = state with { Status = AutonomousSearchStatus.Running, StopReason = null };
@@ -143,10 +155,13 @@ public static partial class AutonomousSearchService
                         state = state with
                         {
                             Pending = recovery.Termination == ParaxialRecoveryTermination.Recovered
+                                || safePause && pending.Operation is "cemented-insert" or "cemented-material" && !token.IsCancellationRequested
                                 ? AfterCompensation(pending, recovery.Topology, AutonomousSearchPhase.Local) : null
                         };
                         Log(pending, recovery.Termination.ToString(), recovery.Termination == ParaxialRecoveryTermination.Cancelled
-                            ? "Recovery attempt abandoned at its safe endpoint; resume schedules a new decision, preserving its original charge." : null,
+                            ? "Recovery attempt abandoned at its safe endpoint; resume schedules a new decision, preserving its original charge."
+                            : safePause && pending.Operation is "cemented-insert" or "cemented-material" && recovery.Termination != ParaxialRecoveryTermination.Recovered
+                                ? "First-order result is not acceptance; retain its charged evidence and continue original-gate physical compensation." : null,
                             work, recovery.Topology, recovery: recovery);
                         if (pending.Operation == "delete" && policy.Expansion is { EnableGradualDeletion: true }
                             && recovery.Termination is ParaxialRecoveryTermination.RankDeficient or ParaxialRecoveryTermination.NoFreeVariables
@@ -168,7 +183,8 @@ public static partial class AutonomousSearchService
                         var binding = TopologyParameterBinder.Bind(source, pending.Variables);
                         invoked = true;
                         var optimized = FixedTopologyOptimizer.Run(source, binding,
-                            state.Plan.Targets, pending.StageOptions, token, step => progress?.Invoke(pending, step), pending.Continuation);
+                            state.Plan.Targets, pending.StageOptions, token, step => progress?.Invoke(pending, step), pending.Continuation,
+                            checkpoint: safePause ? _ => cancellationToken.IsCancellationRequested : null);
                         var before = pending.Continuation?.Work;
                         work = new()
                         {
@@ -248,7 +264,7 @@ public static partial class AutonomousSearchService
         }
 
         AutonomousSearchCandidate Find(string id) => state.Candidates.Single(candidate => candidate.Id == id);
-        bool Stop() => token.IsCancellationRequested || elapsedBefore + timer.Elapsed >= policy.TimeLimit;
+        bool Stop() => cancellationToken.IsCancellationRequested || token.IsCancellationRequested || elapsedBefore + timer.Elapsed >= policy.TimeLimit;
         void Save()
         {
             state = state with { Revision = state.Revision + 1, Consumed = state.Consumed with { Elapsed = elapsedBefore + timer.Elapsed } };
@@ -341,8 +357,10 @@ public static partial class AutonomousSearchService
                 return true;
             }
             var branch = parent.Assessment.MeetsTargets ? cursor : cursor - 1;
-            var selected = policy.Expansion is null ? (Operation: parent.Assessment.MeetsTargets ? "delete" : "insert", Edit: Edit(parent, branch, id, position))
-                : ExpandedEdit(parent, branch, id, state.Plan, variant => Edit(parent, variant, id, position));
+            var selected = policy.Expansion?.Cemented is not null
+                ? CementedEdit(parent, branch, id, state.Plan, n => ExpandedEdit(parent, n, id, state.Plan, variant => Edit(parent, variant, id, position)))
+                : policy.Expansion is null ? (Operation: parent.Assessment.MeetsTargets ? "delete" : "insert", Edit: Edit(parent, branch, id, position))
+                    : ExpandedEdit(parent, branch, id, state.Plan, variant => Edit(parent, variant, id, position));
             var pending = new AutonomousSearchPending { TrialId = id, ParentId = parent.Id, Operation = selected.Operation, Template = parent.Topology, Phase = AutonomousSearchPhase.Recovery };
             var edit = selected.Edit;
             if (policy.BoundedSearch is not null && selected.Operation == "delete" && !parent.Assessment.MeetsTargets)
@@ -407,7 +425,8 @@ public static partial class AutonomousSearchService
                     .SelectMany(element => new[] { element.FrontSurfaceId, element.BackSurfaceId }).ToHashSet(StringComparer.Ordinal);
                 return pending with
                 {
-                    Variables = requests.Where(request => surfaces.Contains(request.SurfaceId)
+                    Variables = requests.Where(request => (surfaces.Contains(request.SurfaceId)
+                        || policy.Expansion?.Cemented is not null && pending.Operation is "cemented-insert" or "cemented-material")
                     && (request.Kind == OpticalDesignParameterKind.Curvature
                         || policy.UseAxialVariablesInRecovery == true && request.Kind == OpticalDesignParameterKind.AxialPosition)).ToImmutableArray()
                 };
@@ -418,6 +437,7 @@ public static partial class AutonomousSearchService
             return pending with
             {
                 Variables = pending.Phase == AutonomousSearchPhase.Local && stage.ActiveParameterLimit is null
+                    && !(policy.Expansion?.Cemented is not null && pending.Template.CementedInterfaces is not null)
                     && pending.Operation is not ("population-difference" or "population-rebirth") ? requests.Take(2).ToImmutableArray() : requests,
                 StageOptions = stage with { MaximumFunctionEvaluations = functions, MaximumGradientEvaluations = gradients }
             };
@@ -457,9 +477,8 @@ public static partial class AutonomousSearchService
     }
 
     private static ImmutableArray<TopologyVariableRequest> Variables(DesignTopology topology, double bound)
-        => topology.Elements.Where(element => !element.Protected).SelectMany(element => new[] { (element.FrontSurfaceId, element.Front), (element.BackSurfaceId, element.Back) })
-            .Where(pair => pair.Item2.Profile.Kind != TopologyProfileKind.Plane)
-            .Select(pair => new TopologyVariableRequest(pair.Item1, OpticalDesignParameterKind.Curvature, -bound, bound, .01)).ToImmutableArray();
+        => VariableFaces(topology).Where(pair => pair.Face.Profile.Kind != TopologyProfileKind.Plane)
+            .Select(pair => new TopologyVariableRequest(pair.Id, OpticalDesignParameterKind.Curvature, -bound, bound, .01)).ToImmutableArray();
 
     private static AutonomousSearchWork Add(AutonomousSearchWork left, AutonomousSearchWork right) => new()
     {
@@ -478,6 +497,9 @@ public static partial class AutonomousSearchService
     {
         ArgumentNullException.ThrowIfNull(state);
         ValidatePlan(state.Plan);
+        if (state.Plan.Options.Expansion?.Cemented is null ? state.CementedKernelFingerprint is not null
+            : state.CementedKernelFingerprint is not { Length: 64 } || state.CementedKernelFingerprint.Any(c => !Uri.IsHexDigit(c)))
+            throw new InvalidDataException("Cemented numeric identity is missing or attached to another policy.");
         if (state.StopReason is { } stopReason && (state.Plan.Options.BoundedSearch is null || !Enum.IsDefined(stopReason)
             || state.Status is not (AutonomousSearchStatus.Completed or AutonomousSearchStatus.BudgetExhausted or AutonomousSearchStatus.Cancelled)))
             throw new InvalidDataException("Invalid bounded stopping identity.");
@@ -579,7 +601,7 @@ public static partial class AutonomousSearchService
     private static void ValidatePlan(AutonomousSearchPlan plan)
     {
         ArgumentNullException.ThrowIfNull(plan);
-        if (plan.Seeds.Any(seed => seed.CementedInterfaces is not null))
+        if (plan.Seeds.Any(seed => seed.CementedInterfaces is not null) && plan.Options.Expansion?.Cemented is null)
             throw new NotSupportedException("Cemented topology compilation, explicit parameter binding and physical validation are available; autonomous structure scheduling requires a separately versioned cemented policy.");
         var options = plan.Options;
         if (options.BoundedSearch is { } bounded) ValidateBoundedOptions(bounded);
@@ -625,7 +647,7 @@ public static partial class AutonomousSearchService
             if (TaskIdentity(seed) != TaskIdentity(plan.Seeds[0])) throw new ArgumentException("All seeds must preserve the original field, spectrum, frame, stop and image specification.");
         }
     }
-    private static string TaskIdentity(DesignTopology topology) => ContentFingerprint.Compute(topology with { Name = "task", Elements = [] });
+    private static string TaskIdentity(DesignTopology topology) => ContentFingerprint.Compute(topology with { Name = "task", Elements = [], CementedInterfaces = null });
     private static void CheckWork(AutonomousSearchWork work)
     {
         if (work.FunctionEvaluations < 0 || work.GradientEvaluations < 0 || work.ValidationEvaluations < 0 || work.MatrixEvaluations < 0

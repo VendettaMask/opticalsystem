@@ -119,6 +119,7 @@ public sealed partial class SequentialRayTracer
                 throw new NotSupportedException("Polarization transport through inhomogeneous media is not implemented.");
             var result = TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
                 ignorePhysicalAperture: true, stopBeforeInteraction: incidentImage,
+                allowVirtualIntersection: AllowsReferenceBacktrack(surfaces, index),
                 bypassCoating: ignoreScalarTransmission || usePolarization && surface.CoatingModel is CoherentMultilayerCoating,
                 ignoreMaterialAbsorption: ignoreScalarTransmission, sourceRay: sourceRay);
             if (result.Sample.Vignetted || result.StopTracing)
@@ -184,7 +185,7 @@ public sealed partial class SequentialRayTracer
             cancellationToken.ThrowIfCancellationRequested();
             var surface = surfaces[index];
             var result = TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
-                ignorePhysicalAperture: true, sourceRay: sourceRay);
+                ignorePhysicalAperture: true, allowVirtualIntersection: AllowsReferenceBacktrack(surfaces, index), sourceRay: sourceRay);
             if (result.Sample.Vignetted || result.StopTracing || result.Sample.Intensity <= 0)
                 return new(null, minimum, limiting);
             if ((index != 0 || !ObjectConjugate.IsInfinite(surface)) && surface.PhysicalAperture is CircularAperture aperture)

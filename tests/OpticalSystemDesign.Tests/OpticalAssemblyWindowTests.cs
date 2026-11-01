@@ -15,13 +15,13 @@ namespace OpticalSystemDesign.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class OpticalAssemblyWindowTests
 {
-    [Fact]
-    public async Task ConvertedGroupAndDetectorPropertiesRemainCompleteThroughTheOffscreenEditor()
+    [Theory] [InlineData(false)] [InlineData(true)]
+    public async Task ConvertedGroupAndDetectorPropertiesRemainCompleteThroughTheOffscreenEditor(bool posed)
     {
         using var host=SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));
         await host.Dispatch<bool>(async () =>
         {
-            using var files=new CameraSensorFileTests.TemporaryFiles();var optic=OpticalAssemblyTests.Prescription(true);
+            using var files=new CameraSensorFileTests.TemporaryFiles();var optic=posed?PosedOpticalAssemblyTests.Prescription(true):OpticalAssemblyTests.Prescription(true);
             var source=files.Path("assembly.staropt");await StarOptProjectStore.SaveAsync(new([optic],0),source);
             using var app=WorkbenchApplication.Create();await app.Documents.OpenAsync(source);app.NonSequential.ConvertFromSequential();
             using var panel=new NonSequentialObjectEditorPanel(app.NonSequential,app.Events);
@@ -31,12 +31,13 @@ public sealed class OpticalAssemblyWindowTests
                 window.Show();window.UpdateLayout();
                 var grid=window.GetVisualDescendants().OfType<DataGrid>().Single();
                 var face=window.GetVisualDescendants().OfType<TextBlock>().Single(c=>c.Name=="nsc-interface-2");
-                Assert.Contains("Glass 0 → Glass 1",face.Text);Assert.Contains("机械半径=12",face.Text);
-                var evidence=Environment.GetEnvironmentVariable("OPTICAL_ASSEMBLY_EVIDENCE_DIR");
+                Assert.Contains("Glass 0 → Glass 1",face.Text);Assert.Contains(posed?"机械半径=4":"机械半径=12",face.Text);
+                if(posed)Assert.Contains("even_asphere",window.GetVisualDescendants().OfType<TextBlock>().Single(c=>c.Name=="nsc-frame-2").Text);
+                var evidence=Environment.GetEnvironmentVariable(posed?"OPTICAL_POSED_ASSEMBLY_EVIDENCE_DIR":"OPTICAL_ASSEMBLY_EVIDENCE_DIR");
                 if(!string.IsNullOrWhiteSpace(evidence))
                 {
                     Directory.CreateDirectory(evidence);AvaloniaHeadlessPlatform.ForceRenderTimerTick();using var image=window.CaptureRenderedFrame();
-                    Assert.NotNull(image);image.Save(Path.Combine(evidence,"assembly-editor-offscreen.png"),PngBitmapEncoderOptions.Default);
+                    Assert.NotNull(image);image.Save(Path.Combine(evidence,posed?"posed-assembly-editor-offscreen.png":"assembly-editor-offscreen.png"),PngBitmapEncoderOptions.Default);
                 }
                 var apply=window.GetVisualDescendants().OfType<Button>().Single(c=>c.Name=="nsc-apply");
                 apply.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));Dispatcher.UIThread.RunJobs();

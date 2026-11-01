@@ -10,6 +10,11 @@ public sealed partial class NonSequentialDocumentTracer
 {
     private static LocalHit? IntersectOpticalAssembly(Vector3D origin,Vector3D direction,OpticalAssemblyParameters group)
     {
+        if(group.BoundaryModel is { } model)
+        {
+            var hit=model.Intersect(origin,direction,group);
+            return hit is { } h?new(h.Point,h.Normal,h.FaceNumber,Dot(direction,h.Normal)<0,true):null;
+        }
         var faces=group.Interfaces;double best=double.PositiveInfinity;LocalHit? result=null;
         for(int i=0;i<faces.Count;i++)
         {
@@ -45,9 +50,10 @@ public sealed partial class NonSequentialDocumentTracer
         var index=hit.FaceNumber-1;
         if(index<group.Interfaces.Count)
         {
-            var face=group.Interfaces[index];var p=hit.LocalPoint-new Vector3D(0,0,face.VertexZMillimeters);
+            var face=group.Interfaces[index];var p=face.Frame?.ToSurfacePoint(hit.LocalPoint)??hit.LocalPoint-new Vector3D(0,0,face.VertexZMillimeters);
             var oriented=face.Geometry.SurfaceNormal(p);if(oriented.Z<0)oriented=-oriented;
-            var forward=Dot(hit.LocalDirection,oriented)>0;
+            var direction=face.Frame?.ToSurfaceDirection(hit.LocalDirection)??hit.LocalDirection;
+            var forward=Dot(direction,oriented)>0;
             return new(forward?face.Before:face.After,forward?face.After:face.Before,face.Film,!forward,
                 !face.PassesAperture(p));
         }

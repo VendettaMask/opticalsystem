@@ -1,0 +1,517 @@
+{
+  "CapturedUtc": "2026-11-01T15:03:36.1672286+00:00",
+  "Scope": "Rotational aspheres, per-surface rigid frames, exact declared rims, transactional conversion, NSC/database/RAW/ISP chains.",
+  "ProductTestsPassed": 521,
+  "AddedCases": 33,
+  "CompiledSourceChecksumsMatched": 105,
+  "MappedSourceAndInputReceipts": 133,
+  "ChangedSourceFiles": 18,
+  "DefaultReleaseAppBuildPassed": true,
+  "BothBuiltInModulesIncluded": true,
+  "NativeDesktopAcceptance": false,
+  "CommercialCertification": false,
+  "AllAsphereOrFreeformKindsSupported": false,
+  "UnchangedRuntimeAndDataNotDuplicated": true,
+  "DocumentationAtSeal": [
+    {
+      "Path": "docs/ASPHERIC_POSED_NSC_2026-11-01.md",
+      "Sha256": "b2c24f94db0c9a2382e97c36b29cbad84821a8e6e901e8862d6d3cd11b0ccb4c"
+    },
+    {
+      "Path": "docs/CURRENT_STATUS.md",
+      "Sha256": "539816e877d6473ef6c139585e000e8c184ce94befdf170f4f52f1e51578bc60"
+    },
+    {
+      "Path": "docs/NON_SEQUENTIAL_TRACING.md",
+      "Sha256": "691e2f0381c30100e80f49a752a5c541223a201450584d00b5d8db5b90fb772c"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md",
+      "Sha256": "7d2c7f51bb0d855d09916c155d699ad841f66d114615022e5f145526fe740b2b"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md",
+      "Sha256": "5f934fcaf5608629a73a700cdb38f74f29b8a02564e86850340076120664a90a"
+    },
+    {
+      "Path": "docs/CAMERA_IMAGING_LAB.md",
+      "Sha256": "3f14c63f0d71712454d9b5065b457d288cec08d0ac9042e8cec05bd86fe5488a"
+    },
+    {
+      "Path": "docs/STAROPT_FILE_FORMAT.md",
+      "Sha256": "7e31d2689535a63f9e52cd63d422b4241309196485fe4121c9a822f374ee2792"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "after-final-run.json",
+      "Bytes": 37823,
+      "Sha256": "397720c260a543fc60d4778dab401b351ea955b8661140ecefed0a169cfae3db"
+    },
+    {
+      "Path": "archive-attempts.ps1",
+      "Bytes": 2617,
+      "Sha256": "189303b8982b9ef57315523a2be3498ef952198698166ca5bdfae6634ba14b5b"
+    },
+    {
+      "Path": "attempt-archive-index.json",
+      "Bytes": 11170,
+      "Sha256": "5b410f757fff648fbd96e7774e26fad6fb17726d1f6a0920b0984ae0688ab41f"
+    },
+    {
+      "Path": "attempts/pre-image-plane-guard.zip",
+      "Bytes": 71144564,
+      "Sha256": "f08c78abb93c8e0468bd3539900697049a8667747c6dda63bd5104f6ee78a4db"
+    },
+    {
+      "Path": "attempts/refined-controls.zip",
+      "Bytes": 70878002,
+      "Sha256": "24f4de65567c2fd6be19304649e1d2e2ea1154e2e1ad1d5a23ec0c98e90a81c6"
+    },
+    {
+      "Path": "before-final-run.json",
+      "Bytes": 37823,
+      "Sha256": "4fb3a7b3fb346752331089db2e275e640e4f7bdbd498d1ef3cd26c062c9dfde1"
+    },
+    {
+      "Path": "build-app-final.log",
+      "Bytes": 1605,
+      "Sha256": "a69702fdca089a3ebf9fef05565afd307cb7a4882edbf662d304a43e60b8fc77"
+    },
+    {
+      "Path": "build-app-first.log",
+      "Bytes": 2738,
+      "Sha256": "27c0e9142e88ca64db5076abf707eaaa90ceab204d6334c17a4b2dcf60ec0373"
+    },
+    {
+      "Path": "build-app-guards.log",
+      "Bytes": 19651,
+      "Sha256": "2275f4fc31c7aa3f70c2852ab10141114f7b1705fe86fddecce82518ef3f9338"
+    },
+    {
+      "Path": "build-app-image-plane.log",
+      "Bytes": 1605,
+      "Sha256": "46e20ec2ccee2433327d15f9f35109b231bfaab5c297a42fc1cfc81596e5b3a6"
+    },
+    {
+      "Path": "build-core-first.log",
+      "Bytes": 379,
+      "Sha256": "f73d575350c7d1e485957b19c7b3f829a2bcfe946fe7b5e7f8cf3e7be6d12d71"
+    },
+    {
+      "Path": "build-core-refinement.log",
+      "Bytes": 305,
+      "Sha256": "a0aaed1963f29920456e5c96258008b7bf6a3242e195c4cf3e4ef835c11897c9"
+    },
+    {
+      "Path": "build-core-rim-refinement.log",
+      "Bytes": 305,
+      "Sha256": "8605e5d65dec1194917eb747d3dc9edd52bb947550c477afdb5cddc710015706"
+    },
+    {
+      "Path": "build-tests-final.log",
+      "Bytes": 310,
+      "Sha256": "bf65286ebc946ba047673cabf131675d9f00c9d26121170cbbd804ae54f5d939"
+    },
+    {
+      "Path": "build-tests-first.log",
+      "Bytes": 1547,
+      "Sha256": "b962c35b1638dbfbbb47340a03d59d809cfd3065b3fabf520b754217564a8ef6"
+    },
+    {
+      "Path": "build-tests-guards.log",
+      "Bytes": 310,
+      "Sha256": "a691124cb241b8173a6d1fac92f420742e1b73c20f421c345f4476c238e7cac8"
+    },
+    {
+      "Path": "build-tests-image-plane.log",
+      "Bytes": 310,
+      "Sha256": "4cf321b484c9d22318d786aa6f800f3f977c3766485e255690ee41e3c5c1104d"
+    },
+    {
+      "Path": "build-tests-second.log",
+      "Bytes": 4235,
+      "Sha256": "c2b7008ce171cee56bd3c7e8139a00d994e2d7b8b4a667aaef36c1013191532d"
+    },
+    {
+      "Path": "build-tests-third.log",
+      "Bytes": 310,
+      "Sha256": "b963929956b019cc2f1420991c7778546a03010c62d25319062396fc003615ff"
+    },
+    {
+      "Path": "compiled-source-audit.json",
+      "Bytes": 38882,
+      "Sha256": "13348078686c925a9846248faca648d654a52d54d44b4979909c352819bce4db"
+    },
+    {
+      "Path": "execution-location.json",
+      "Bytes": 322,
+      "Sha256": "f7fa0366c49de8da1d749715d3284afac3e74b0925b3bec236303091e747340a"
+    },
+    {
+      "Path": "final-controls/chain-False-False.camera-experiment.zip",
+      "Bytes": 19792,
+      "Sha256": "d5050f5d8df82a7277bd28209140eb1e989f92994d1e3fd4277ba14e4df13b79"
+    },
+    {
+      "Path": "final-controls/chain-False-False.json",
+      "Bytes": 603,
+      "Sha256": "f8093a1bf4cdf4d22a3aa0e0f4d8912e0c86d42377a6bb9a954b23929ab06db3"
+    },
+    {
+      "Path": "final-controls/chain-False-False.staropt",
+      "Bytes": 3066,
+      "Sha256": "9c9f31859d55bb805b2a4097bb2bd21a413a2f245d3b9098fd6a0eb903bd4b3e"
+    },
+    {
+      "Path": "final-controls/chain-False-False.starrdb",
+      "Bytes": 13543491,
+      "Sha256": "b772ed4b55e6895f94f56b73fa38445e584e13a8f162eadd64fc5ec9e71429d5"
+    },
+    {
+      "Path": "final-controls/chain-False-True.camera-experiment.zip",
+      "Bytes": 97331,
+      "Sha256": "d0b41de484aea806b415fab25b000a1a18e2f67833d3f3f135b3888aa83c2151"
+    },
+    {
+      "Path": "final-controls/chain-False-True.json",
+      "Bytes": 1090,
+      "Sha256": "a76dd26e2e0ddfd7c5ce0a814bc19baf068b96b6f80f3712994a5f0878563053"
+    },
+    {
+      "Path": "final-controls/chain-False-True.staropt",
+      "Bytes": 3182,
+      "Sha256": "ec50de73335c47bd787991a15034a80e6b9d063a135c8df913da2f0747a04094"
+    },
+    {
+      "Path": "final-controls/chain-False-True.starrdb",
+      "Bytes": 42596121,
+      "Sha256": "8985db48db144844b2ed6e11e3634bcd796a86e299828cfaad1946d5a16cd1d3"
+    },
+    {
+      "Path": "final-controls/chain-True-False.camera-experiment.zip",
+      "Bytes": 11228,
+      "Sha256": "7f5ca61d28994ca43140c01f9fe1ffd4bff6127e8a453790ec4f51a1238165ed"
+    },
+    {
+      "Path": "final-controls/chain-True-False.json",
+      "Bytes": 582,
+      "Sha256": "5f69aadef57747719df72328293583d879c6aee5e34c6d0bcb8e94d9d8f9c4cf"
+    },
+    {
+      "Path": "final-controls/chain-True-False.staropt",
+      "Bytes": 3066,
+      "Sha256": "4dcaa051d8f07bf10db3aa3f79c8e799accf0e98d3036d8c6d7b9bc24dfde779"
+    },
+    {
+      "Path": "final-controls/chain-True-False.starrdb",
+      "Bytes": 2877108,
+      "Sha256": "77b7a3033b46859bada56920210f3e0779b80754c0a0ff17a659370b65d162e3"
+    },
+    {
+      "Path": "final-controls/chain-True-True.camera-experiment.zip",
+      "Bytes": 34801,
+      "Sha256": "1ee5a04b0716eee7eb68655543c39f2f7c2f15b5a0022ce7ef7973a991eeb2f7"
+    },
+    {
+      "Path": "final-controls/chain-True-True.json",
+      "Bytes": 1091,
+      "Sha256": "59431404834b1bb471aa92048fc25853f3fd591ce6769207baa9a0ddf9efc16c"
+    },
+    {
+      "Path": "final-controls/chain-True-True.staropt",
+      "Bytes": 3198,
+      "Sha256": "c02cdf66eeca841ce88542a8600b5c15336300799c1d8e527c0387491c03be8b"
+    },
+    {
+      "Path": "final-controls/chain-True-True.starrdb",
+      "Bytes": 11713682,
+      "Sha256": "01a8654dd55de4ba112d8bf388254b9f931a2a6bcd21967acfbbf3b1a1846025"
+    },
+    {
+      "Path": "final-controls/path-False-False-False.json",
+      "Bytes": 1281,
+      "Sha256": "a92064d4ec28a25c025137b61848f1dccc3f421168b5eb2ef9bdf76c644697f5"
+    },
+    {
+      "Path": "final-controls/path-False-False-True.json",
+      "Bytes": 1279,
+      "Sha256": "0b420684f3dd76bc3b185b6287055f0fd2480a6676599d591295b977248f73c3"
+    },
+    {
+      "Path": "final-controls/path-False-True-False.json",
+      "Bytes": 1265,
+      "Sha256": "fe098fa9c941d5a18c5dffce0ce1ea57e3257f4d5ad5e2ef2ddbd66166738bd8"
+    },
+    {
+      "Path": "final-controls/path-False-True-True.json",
+      "Bytes": 1261,
+      "Sha256": "dcb3c83f739fcd8d0e71c8ee84e2f9baca6ee2eebb7424eace5d39583ed7ec28"
+    },
+    {
+      "Path": "final-controls/path-True-False-False.json",
+      "Bytes": 1265,
+      "Sha256": "07fa1f8255becfe926f4b30d0ece8cd81c392b791c886cd4947c0b665ab7821f"
+    },
+    {
+      "Path": "final-controls/path-True-False-True.json",
+      "Bytes": 1284,
+      "Sha256": "bc0d719154ac934350a28c290676fbab53a6e82b6d6ff90187af15a9b0ecf9a1"
+    },
+    {
+      "Path": "final-controls/path-True-True-False.json",
+      "Bytes": 1280,
+      "Sha256": "aad04dbd45de70233dd2bfc575cbc11fe55fb96a0a64a603b9701ddd9d414cbd"
+    },
+    {
+      "Path": "final-controls/path-True-True-True.json",
+      "Bytes": 1277,
+      "Sha256": "f81877e007203f941f5029207c3ce49fa41c17f504dac11c3a8f9dd7f728a791"
+    },
+    {
+      "Path": "final-controls/posed-assembly-editor-offscreen.png",
+      "Bytes": 102008,
+      "Sha256": "b3c9179d4cee40204eab00ce140adf143747437e1737b65824bf5d7893228303"
+    },
+    {
+      "Path": "final-controls/tilted-plane-statistics.json",
+      "Bytes": 597,
+      "Sha256": "1b9640468a7127ae0015cff96c8652796c5e1ba3af8da1560f0c32530d40f19d"
+    },
+    {
+      "Path": "final-focused.trx",
+      "Bytes": 803025,
+      "Sha256": "433e5a220e9578598c28e4ce101def8e0ae763971ee98e82458311f56ec1114e"
+    },
+    {
+      "Path": "final-verification-summary.json",
+      "Bytes": 2971,
+      "Sha256": "cd59c2e5889a79fea76dc286e23a1146666c62f05f82c9f32a8bd10e14cec5ee"
+    },
+    {
+      "Path": "first-focused.trx",
+      "Bytes": 146040,
+      "Sha256": "29bda65af95f0f2f276da74a53d5fb30f484de12a89805b1420cbca2f7b270e0"
+    },
+    {
+      "Path": "guard-controls/path-False-False-False.json",
+      "Bytes": 1281,
+      "Sha256": "a92064d4ec28a25c025137b61848f1dccc3f421168b5eb2ef9bdf76c644697f5"
+    },
+    {
+      "Path": "guard-controls/path-False-False-True.json",
+      "Bytes": 1279,
+      "Sha256": "0b420684f3dd76bc3b185b6287055f0fd2480a6676599d591295b977248f73c3"
+    },
+    {
+      "Path": "guard-controls/path-False-True-False.json",
+      "Bytes": 1265,
+      "Sha256": "fe098fa9c941d5a18c5dffce0ce1ea57e3257f4d5ad5e2ef2ddbd66166738bd8"
+    },
+    {
+      "Path": "guard-controls/path-False-True-True.json",
+      "Bytes": 1261,
+      "Sha256": "dcb3c83f739fcd8d0e71c8ee84e2f9baca6ee2eebb7424eace5d39583ed7ec28"
+    },
+    {
+      "Path": "guard-controls/path-True-False-False.json",
+      "Bytes": 1265,
+      "Sha256": "07fa1f8255becfe926f4b30d0ece8cd81c392b791c886cd4947c0b665ab7821f"
+    },
+    {
+      "Path": "guard-controls/path-True-False-True.json",
+      "Bytes": 1284,
+      "Sha256": "bc0d719154ac934350a28c290676fbab53a6e82b6d6ff90187af15a9b0ecf9a1"
+    },
+    {
+      "Path": "guard-controls/path-True-True-False.json",
+      "Bytes": 1280,
+      "Sha256": "aad04dbd45de70233dd2bfc575cbc11fe55fb96a0a64a603b9701ddd9d414cbd"
+    },
+    {
+      "Path": "guard-controls/path-True-True-True.json",
+      "Bytes": 1277,
+      "Sha256": "f81877e007203f941f5029207c3ce49fa41c17f504dac11c3a8f9dd7f728a791"
+    },
+    {
+      "Path": "guard-controls/posed-assembly-editor-offscreen.png",
+      "Bytes": 102008,
+      "Sha256": "b3c9179d4cee40204eab00ce140adf143747437e1737b65824bf5d7893228303"
+    },
+    {
+      "Path": "guards-focused.trx",
+      "Bytes": 49827,
+      "Sha256": "c464270979cdb59e7325b4fd60d542a25e54a83e78efe303aa9017a9d60347b8"
+    },
+    {
+      "Path": "post-verification-worktree-changes.json",
+      "Bytes": 702,
+      "Sha256": "9858ea1689f0033465ef729c37195537871a6651631a658f7722bf6b7255c1f7"
+    },
+    {
+      "Path": "prepare-verification.ps1",
+      "Bytes": 4510,
+      "Sha256": "9702ab1865534b3ea9d05a81267bacbdeb659f74725aefcdffb68bf8c544af00"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 4877,
+      "Sha256": "4f9844b1c7c1375ba2c41b3bd681a6485296926b8ff6d8ab26af8fe0ea92e336"
+    },
+    {
+      "Path": "refined-focused.trx",
+      "Bytes": 82661,
+      "Sha256": "75dd4692c859f7352248e6744841bb2577a8eb314e244e6611c102ec81f6e39b"
+    },
+    {
+      "Path": "run-verification.ps1",
+      "Bytes": 2644,
+      "Sha256": "68a687ac64d56300e4f00bce08a41cbdf631e9f54aa41a65527ade4b41803d2f"
+    },
+    {
+      "Path": "seal-evidence.ps1",
+      "Bytes": 2186,
+      "Sha256": "6aaee1cab606df8d2ee30c4c937f4ae47583ba3d6ceb9c0850b21abe38e6269a"
+    },
+    {
+      "Path": "source-delta-image-plane/src/OpticalSystemDesign.Core/NonSequential/SequentialOpticalAssemblyConverter.cs",
+      "Bytes": 6614,
+      "Sha256": "b160856060f627b498d3de2fc9fae9d638820b912eba887dca1a78c70f470750"
+    },
+    {
+      "Path": "source-delta-image-plane/tests/OpticalSystemDesign.Tests/OpticalAssemblyApplicationTests.cs",
+      "Bytes": 7628,
+      "Sha256": "93cfe103253cd282a220fb921a911dd20c846719edeb6601c0ded4d916fe41ef"
+    },
+    {
+      "Path": "source-delta-image-plane/tests/OpticalSystemDesign.Tests/PosedOpticalAssemblyTests.cs",
+      "Bytes": 18860,
+      "Sha256": "2d3fa9332e4d1d6a39751dca962c2a7ce746950f3a28d8ef36d8460393e3274f"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "Bytes": 47641,
+      "Sha256": "37c679d1fce4bada55cafbae0d2e4894a3e499fbd3f886835f673f8ed54cbc04"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.cs",
+      "Bytes": 34745,
+      "Sha256": "3e903fbfc256f1b02c60d6329f9474d81ec47d576c8ce343a472a710bbe8d436"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Application/Services/NonSequentialVisualizationBuilder.cs",
+      "Bytes": 20327,
+      "Sha256": "d246161997c02894e617d3856ce68caee7b6c628b7faed2accce92ba0e46eecd"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/Geometries/RotationalSurfaceDomain.cs",
+      "Bytes": 5573,
+      "Sha256": "49cd5d17f2a75a9aeb7aaee408c88d7650759337535aa8944c8b6efae210cebd"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/Geometries/RotationalSurfaceDomain.Intersection.cs",
+      "Bytes": 7097,
+      "Sha256": "7b8c1a67410c2d41466ecaa8745c9bc75b0c9f21727caa85d8c0f8ebc148f2cc"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/Geometries/RuledCircularRim.cs",
+      "Bytes": 4532,
+      "Sha256": "82ac08647e7f834da7673129bd21c22f568718ef41993aaa5cdfc2dce9ae3aa3"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/NonSequential/NonSequentialDocument.cs",
+      "Bytes": 51237,
+      "Sha256": "4f245583451d6c08ed8d99e6218dfbd36436375891659baa04a3c29219ac0661"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/NonSequential/NonSequentialOpticalAssembly.cs",
+      "Bytes": 15381,
+      "Sha256": "e51ce67ddb1c010f9ef00b5053c95e25f397613068d8f39801ae0fc3f8279782"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "Bytes": 80310,
+      "Sha256": "2263972d9398cf87f024da84724ba5f7a8232d70d9fface11dbcae742af4384e"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.OpticalAssembly.cs",
+      "Bytes": 6292,
+      "Sha256": "455c525b95f13aa2243fdbd2cad5cfccad00790ef1c1340c59445603add2191f"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/NonSequential/OpticalAssemblyBoundaryModel.cs",
+      "Bytes": 9851,
+      "Sha256": "69268f30072e0b8a4c039094cb8f85e5212833807736d65fa8fe347fed834fb8"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/NonSequential/OpticalAssemblySurfaceDefinition.cs",
+      "Bytes": 4914,
+      "Sha256": "e02a7b5727f736d8b5f22e94d594dddb30471ad24169315fbcd8c7947a32748b"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/NonSequential/SequentialOpticalAssemblyConverter.cs",
+      "Bytes": 6481,
+      "Sha256": "7b90cc8b7ba0c82ce52a9b90ca58a669c6618d5226d9541debbe813139385b79"
+    },
+    {
+      "Path": "source-delta/src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "Bytes": 29392,
+      "Sha256": "fc66d830b86517bd2603fb24a27a907fb8934df524f0a1653ad36b9d59e7c7ae"
+    },
+    {
+      "Path": "source-delta/tests/OpticalSystemDesign.Tests/OpticalAssemblyApplicationTests.cs",
+      "Bytes": 7402,
+      "Sha256": "999987059d6f2d32c374fe1748cfe734ef5eba21292abe0d64ac011e51632768"
+    },
+    {
+      "Path": "source-delta/tests/OpticalSystemDesign.Tests/OpticalAssemblyWindowTests.cs",
+      "Bytes": 3630,
+      "Sha256": "1397cde2f3d43cf90923c9e07c2bcc85ba8e6e4910627b0314efd60ffbd07c0d"
+    },
+    {
+      "Path": "source-delta/tests/OpticalSystemDesign.Tests/PosedOpticalAssemblyApplicationTests.cs",
+      "Bytes": 8221,
+      "Sha256": "bcefc65aff79f5e007e98a1115517c1f22d2d47265ad618f5ed2ed0a218332f0"
+    },
+    {
+      "Path": "source-delta/tests/OpticalSystemDesign.Tests/PosedOpticalAssemblyTests.cs",
+      "Bytes": 18787,
+      "Sha256": "d0ca8d025b57d553de38e060c2039f1c77dae3d7d21479d73dcf71c6ea866704"
+    },
+    {
+      "Path": "source-reference/GeometryModels.cs",
+      "Bytes": 24262,
+      "Sha256": "5d0833014bb86483ea208302a15923925d556467a188f78a24e1e5ad48cb188e"
+    },
+    {
+      "Path": "source-snapshot-map.json",
+      "Bytes": 42739,
+      "Sha256": "073b421f37e98d2b6b5685c0a207366545287b702f661b67d2f09e78dd6ddd48"
+    },
+    {
+      "Path": "test-final-focused.log",
+      "Bytes": 386,
+      "Sha256": "f7d3f0320f12b7e60a1c4cb94d8a62fcc8e80fa69cbb887668c88cd0a6b5c1bf"
+    },
+    {
+      "Path": "test-first-focused.log",
+      "Bytes": 31813,
+      "Sha256": "cf56a29bfe6f4baaf470769d7a3e8e2c128e64ee1c5e7c10d04937060c7160ad"
+    },
+    {
+      "Path": "test-guards-focused.log",
+      "Bytes": 1417,
+      "Sha256": "6d7ffdee089d0c88716d302ae90d4078dea2b6dd55b99957128b19434109bf88"
+    },
+    {
+      "Path": "test-refined-focused.log",
+      "Bytes": 388,
+      "Sha256": "c9746e01669960b6a9c9b96e1363748b303322bf83c07d797e0deacf97c126f9"
+    },
+    {
+      "Path": "verify-final.ps1",
+      "Bytes": 7755,
+      "Sha256": "5dbbd52a853ef61335d7bc386ed0f61bd1e97dd0fbee1d3bd84f196979717212"
+    }
+  ]
+}

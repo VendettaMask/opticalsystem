@@ -1,5 +1,7 @@
 # 镀膜设计参考源（不参与产品构建）
 
+2026-11-01：截图中的五套完整示例按本归档 `web/demo-examples.js` 加入产品静态JSON，材料系数、n/k表、PCHIP和端点规则来自同归档 `materialDatabase.js` / `pchip.js`。源归档仍不参与运行或构建导入，生产计算全部使用C#共享Core。保留MIT/CC0来源与BK7吸收，Ta₂O₅的400–500 nm端点延用标为非实测；原真实吸收模板和验收不变。见[实现与逐点范围](../../docs/COATING_REFERENCE_EXAMPLES_2026-11-01.md)。
+
 获取日期：2026-09-27。
 
 | 归档 | 来源/版本 | SHA-256 |

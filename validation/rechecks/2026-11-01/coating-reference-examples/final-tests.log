@@ -1,0 +1,50 @@
+D:\Projects\opticalsystem\artifacts\coating-spectrum-20261101\build\bin\OpticalSystemDesign.CoatingDesign.Tests\release_win-x64\OpticalSystemDesign.CoatingDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.08]   Discovering: OpticalSystemDesign.CoatingDesign.Tests
+[xUnit.net 00:00:00.14]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests
+[xUnit.net 00:00:00.17]   Starting:    OpticalSystemDesign.CoatingDesign.Tests
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 0) [24 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 35) [1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 70) [1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.FixedUpstreamReferenceMatchesAllCases [17 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.BareFresnelAndBrewsterAnalyticChecks [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.SingleQuarterWaveCancelsAndZeroThicknessIsIdentity [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.HighReflectorMatchesQuarterWaveAnalyticSolution [< 1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.ThickAbsorberAndThousandLayersRemainFiniteWithoutClippingTransmission [1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.TotalInternalReflectionAndPassiveInputValidation [3 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MaterialImportPreservesUnitsExtinctionAndExactTableOnRoundTrip [471 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.WorkflowTests.InvalidInputsAndOutOfRangeMaterialsAreNotSilentlyCoerced [537 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DisplayPolarizationTests.DisplayUsesActualCorePolarizationsWithoutChangingTheOriginalResult(angle: 35, polarization: S) [661 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyVersionOneExampleRemainsReadableWithOriginalFingerprint [206 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-metal-ag", layers: 2) [688 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.AnalysisDisplaySettingsTests.IndependentAnalysisMatchesFactoryStepAndAnglesWithoutChangingDesign [700 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.AnalysisDisplaySettingsTests.SavedDefaultsRoundTripAndFactoryRestoreDoesNotUseDesignTargets [27 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DisplayPolarizationTests.DisplayUsesActualCorePolarizationsWithoutChangingTheOriginalResult(angle: 57, polarization: P) [83 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DisplayPolarizationTests.DisplayUsesActualCorePolarizationsWithoutChangingTheOriginalResult(angle: 0, polarization: S) [74 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-bbar-4", layers: 4) [140 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-mgf2-ar", layers: 1) [100 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-hr-qw", layers: 15) [214 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: "demo-edge", layers: 20) [277 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.EditingReferenceTablePreservesItsInterpolationBoundaryPolicyAndRawValues [8 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExplicitCubicModelRetainsKnotsAndPlateausWhileLegacyLinearIsUnchanged [1 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "TiO2") [32 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "SiO2") [21 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "Ag") [28 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "BK7") [20 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "Ta2O5") [29 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "Air") [22 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: "MgF2") [19 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.EndpointHoldingIsExplicitAndDoesNotRelaxOriginalMaterials [7 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.HybridAnalyticIndexKeepsItsDeclaredRangeWhileItsKTableUsesPchip [3 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: True) [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: False) [1 s]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintStillRejectsChangedInputs [278 ms]
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults [8 s]
+[xUnit.net 00:00:17.23]   Finished:    OpticalSystemDesign.CoatingDesign.Tests
+  已通过 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView [4 s]
+
+测试运行成功。
+测试总数: 38
+     通过数: 38
+总时间: 17.6560 秒

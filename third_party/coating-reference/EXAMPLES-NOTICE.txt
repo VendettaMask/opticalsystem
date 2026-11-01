@@ -1,0 +1,16 @@
+Five reference coating examples and built-in material data
+Source: TFStudio commit 8b942b3f956728a23cea2b35023c8b5d8de17428
+Files: web/demo-examples.js, src/utils/materials/materialDatabase.js,
+       src/utils/materials/pchip.js
+Software and sample definitions: MIT License, Copyright (c) 2026 Andrey Achapovsky.
+The complete permission and warranty terms are in TFStudio-LICENSE.txt.
+The upstream built-in optical constants state refractiveindex.info-database (CC0).
+Original source files remain unchanged in TFStudio-8b942b3.tar.gz.
+
+The product preserves the seven selected materials' constants, Sellmeier
+coefficients, tabulated n/k, interpolation rule and substrate absorption.
+Ta2O5's original table begins at 500 nm. Its demo curve below 500 nm holds the
+first tabulated value as the source does; those wavelengths are not measurements.
+The product records that rule explicitly and shows a wavelength-range notice.
+These are nominal starting prescriptions, not guaranteed optimized designs,
+universal manufacturing constants, or validation of a manufactured coating.

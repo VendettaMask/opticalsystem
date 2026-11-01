@@ -4,6 +4,11 @@ namespace OpticalSystemDesign.Core.Materials;
 
 public sealed class CatalogGlassMaterial : IMaterial
 {
+    public const string PchipTableFormula = "tabulated nk pchip-clamped/1";
+    public const string PchipSellmeierFormula = "formula 2 pchip-k-clamped/1";
+    // An analytic n fit keeps its declared validity range even when its k table holds endpoints.
+    public bool HoldsTabulatedEndpoints => Formula == PchipTableFormula;
+    private readonly PchipInterpolation? _pchipN, _pchipK;
     public CatalogGlassMaterial(
         string name,
         string manufacturer,
@@ -42,6 +47,10 @@ public sealed class CatalogGlassMaterial : IMaterial
         {
             throw new ArgumentException("Catalog extinction wavelength and value arrays must have equal length.");
         }
+        if (formula == PchipTableFormula)
+            _pchipN = new PchipInterpolation(RefractiveIndexWavelengthsNanometers, RefractiveIndices);
+        if (formula is PchipTableFormula or PchipSellmeierFormula && ExtinctionCoefficients.Count > 0)
+            _pchipK = new PchipInterpolation(ExtinctionWavelengthsNanometers, ExtinctionCoefficients);
     }
 
     public string Name { get; }
@@ -79,6 +88,8 @@ public sealed class CatalogGlassMaterial : IMaterial
         {
             "formula 1" => Sellmeier(wavelengthMicrometers, squareResonance: true),
             "formula 2" => Sellmeier(wavelengthMicrometers, squareResonance: false),
+            PchipSellmeierFormula => Sellmeier(wavelengthMicrometers, squareResonance: false),
+            PchipTableFormula => _pchipN!.Evaluate(wavelengthNanometers),
             "formula 3" => Polynomial(wavelengthMicrometers, squareRoot: true),
             "formula 5" => Polynomial(wavelengthMicrometers, squareRoot: false),
             "tabulated n" or "tabulated nk" => MaterialInterpolation.Linear(
@@ -93,6 +104,7 @@ public sealed class CatalogGlassMaterial : IMaterial
 
     public double ExtinctionCoefficient(double wavelengthNanometers)
     {
+        if (_pchipK is not null) return _pchipK.Evaluate(wavelengthNanometers);
         return MaterialInterpolation.Linear(
             wavelengthNanometers,
             ExtinctionWavelengthsNanometers,

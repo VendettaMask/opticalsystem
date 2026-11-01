@@ -51,6 +51,7 @@ public sealed partial class MainWindow
         try
         {
             _settingsWindow?.Close();
+            _plot.CancelPendingEvaluation();
             _session.Cancel();
             while (_pendingOperations.Count > 0)
             {

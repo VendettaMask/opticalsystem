@@ -14,10 +14,15 @@ public static class NativeRaySurfaceMap
         if (importedSurfaceCount == surfaces.Length) return rows;
 
         // Do not guess which reference planes were retained by a merit operand.
-        // This mapping is valid only when every coordinate break was folded and
-        // every other source surface was retained, as proved by both model counts.
+        // Nonzero-thickness breaks remain transparent reference planes so their
+        // ordered paraxial propagation is retained. Verify the complete count.
+        bool Retain(int i) => surfaces[i].GetProperty("Type").GetString() != "CoordinateBreak"
+            || surfaces[i].TryGetProperty("Thickness", out var thickness) && thickness.ValueKind == JsonValueKind.Number && thickness.GetDouble() != 0;
         var retained = Enumerable.Range(0, surfaces.Length)
-            .Where(i => surfaces[i].GetProperty("Type").GetString() != "CoordinateBreak").ToArray();
+            .Where(Retain).ToArray();
+        // Historical requests used the fully collapsed import. Keep their map.
+        if (retained.Length != importedSurfaceCount)
+            retained = Enumerable.Range(0, surfaces.Length).Where(i => surfaces[i].GetProperty("Type").GetString() != "CoordinateBreak").ToArray();
         if (retained.Length != importedSurfaceCount || retained[0] != 0 || retained[^1] != surfaces.Length - 1)
             throw new InvalidDataException("Native/imported surface mapping is ambiguous; explicit source mapping required");
 
@@ -26,7 +31,7 @@ public static class NativeRaySurfaceMap
         foreach (var row in rows)
         {
             distance += row[11];
-            if (surfaces[(int)row[0]].GetProperty("Type").GetString() == "CoordinateBreak") continue;
+            if (Array.IndexOf(retained, (int)row[0]) < 0) continue;
             var copy = (double[])row.Clone();
             copy[0] = mapped.Count + 1;
             // Distances have already been converted to physical propagation.

@@ -136,11 +136,8 @@ public sealed partial class AutonomousTopologyWindow
             text.AppendLine(item.Id + " · " + UiLocalization.Text(item.Classification));
             text.AppendLine(UiLocalization.Text("结果代码") + ": " + ReviewCode(item.Outcome) + " [" + item.Outcome + "]");
             text.AppendLine(UiLocalization.Text("机械参考 / 光阑 / 像面位置") + $": {Value(item.Topology.Reference.ZMillimeters)} / {Value(item.Topology.Stop.ZMillimeters)} / {Value(item.Topology.Image.ZMillimeters)} mm");
-            foreach (var e in item.Topology.Elements)
-            {
-                Face(e.FrontSurfaceId, e.FrontZMillimeters, e.Material, e.Front);
-                Face(e.BackSurfaceId, e.BackZMillimeters, "Air", e.Back);
-            }
+            foreach (var face in TopologyPrescriptionFaces.Enumerate(item.Topology))
+                Face(face.Id, face.ZMillimeters, face.MaterialAfter, face.Face);
             if (item.Assessment is { } a)
             {
                 text.AppendLine(UiLocalization.Text("实际焦距 / F数") + $": {Value(a.EffectiveFocalLengthMillimeters)} mm / {Value(a.FNumber)}");

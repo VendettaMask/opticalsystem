@@ -471,12 +471,19 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         null => surface.SemiDiameter,
         CircularAperture circular => circular.Radius,
         AnnularAperture annular => annular.OuterRadius,
+        CircularObscurationAperture => surface.SemiDiameter,
         _ => throw new NotSupportedException(
             $"Zemax ZMX export cannot losslessly map physical aperture '{surface.PhysicalAperture.Kind}'.")
     };
 
     private static void WriteSurfaceAperture(List<string> lines, OpticalSurface surface)
     {
+        if (surface.PhysicalAperture is CircularObscurationAperture obscuration)
+        {
+            lines.Add($"  OBSC {FormatDouble(obscuration.InnerRadius)} {FormatDouble(obscuration.OuterRadius)} 0");
+            if (obscuration.OffsetX != 0 || obscuration.OffsetY != 0)
+                lines.Add($"  OBDC {FormatDouble(obscuration.OffsetX)} {FormatDouble(obscuration.OffsetY)}");
+        }
         if (surface.PhysicalAperture is CircularAperture)
         {
             lines.Add($"  FLAP 0 {FormatDouble(ZemaxSemiDiameter(surface))} 0");

@@ -1,0 +1,1226 @@
+{
+  "coreSha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16",
+  "selection": "Three prioritized lenses / five configurations; two menu categories / 426 executable original requests",
+  "beforeThree": {
+    "Close": 8,
+    "Difference": 14,
+    "Error": 48,
+    "Incomparable": 21,
+    "Pass": 19
+  },
+  "afterThree": {
+    "Close": 4,
+    "Difference": 3,
+    "Error": 1,
+    "Incomparable": 6,
+    "Pass": 96
+  },
+  "beforeCategories": {
+    "Close": 20,
+    "Difference": 28,
+    "Error": 53,
+    "Incomparable": 101,
+    "Pass": 224
+  },
+  "afterCategories": {
+    "Close": 16,
+    "Difference": 16,
+    "Error": 4,
+    "Incomparable": 86,
+    "Pass": 304
+  },
+  "categories": [
+    {
+      "category": "Optical testing",
+      "count": 154,
+      "counts": {
+        "Close": 5,
+        "Difference": 3,
+        "Error": 1,
+        "Incomparable": 11,
+        "Pass": 134
+      }
+    },
+    {
+      "category": "Telescopes",
+      "count": 272,
+      "counts": {
+        "Close": 11,
+        "Difference": 13,
+        "Error": 3,
+        "Incomparable": 75,
+        "Pass": 170
+      }
+    }
+  ],
+  "original13": [
+    {
+      "index": 2113,
+      "lens": "Optical testing/Offner reflecting compensator.zmx",
+      "key": "PSF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2116,
+      "lens": "Optical testing/Offner reflecting compensator.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2252,
+      "lens": "Telescopes/Cassegrain-type Ritchey Chretien.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2304,
+      "lens": "Telescopes/Houghton.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2312,
+      "lens": "Telescopes/Houghton.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2360,
+      "lens": "Telescopes/Maksutov offset secondary.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2368,
+      "lens": "Telescopes/Maksutov offset secondary.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2382,
+      "lens": "Telescopes/Maksutov.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2390,
+      "lens": "Telescopes/Maksutov.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2434,
+      "lens": "Telescopes/Schmidt-Cassegrain spider obscuration.zmx",
+      "key": "Huygens MTF",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2442,
+      "lens": "Telescopes/Schmidt-Cassegrain spider obscuration.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2480,
+      "lens": "Telescopes/Schmidt-Cassegrain.zmx",
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Pass"
+    },
+    {
+      "index": 2490,
+      "lens": "Telescopes/Schmidt-Cassegrain.zmx",
+      "key": "Spot Diagram",
+      "conclusion": "Pass"
+    }
+  ],
+  "fixedRays": [
+    {
+      "id": "Double-pass-null-test-c1",
+      "lens": "Optical testing/Double-pass null test.zmx",
+      "config": 1,
+      "conclusion": "Pass",
+      "inputs": 72,
+      "compared": 576,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumCoordinate": 2.4108492979735274E-13,
+      "maximumDirection": 7.771561172376096E-16,
+      "coreSha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16",
+      "nativeReference": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/native-rays\\Double-pass-null-test-c1\\native/ray-audit.json",
+      "nativeSha256": "e03be7f76b9e8820125a1bf3630511a92ce3c4e2d7f9310e89fc7ab2539d09fb"
+    },
+    {
+      "id": "Mach-Zender-Interferometer-c1",
+      "lens": "Optical testing/Mach Zender Interferometer.zmx",
+      "config": 1,
+      "conclusion": "Pass",
+      "inputs": 72,
+      "compared": 1152,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumCoordinate": 4.884981308350689E-14,
+      "maximumDirection": 3.497202527569243E-15,
+      "coreSha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16",
+      "nativeReference": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/native-rays\\Mach-Zender-Interferometer-c1\\native/ray-audit.json",
+      "nativeSha256": "21d78dcdb898001e2fb4f7e77da97a0804e0e7cc930e69cd9940d3f2c29fa17d"
+    },
+    {
+      "id": "Mach-Zender-Interferometer-c2",
+      "lens": "Optical testing/Mach Zender Interferometer.zmx",
+      "config": 2,
+      "conclusion": "Pass",
+      "inputs": 72,
+      "compared": 1152,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumCoordinate": 8.704148513061227E-14,
+      "maximumDirection": 6.855627177060342E-15,
+      "coreSha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16",
+      "nativeReference": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/native-rays\\Mach-Zender-Interferometer-c2\\native/ray-audit.json",
+      "nativeSha256": "de91559b207bf4b2eb9d22940b7c5070be1aac882a95dc2d415cb215b8b3a8d0"
+    },
+    {
+      "id": "Twyman-Green-Interferometer-c1",
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "config": 1,
+      "conclusion": "Pass",
+      "inputs": 72,
+      "compared": 1152,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumCoordinate": 6.080216191639565E-12,
+      "maximumDirection": 2.4424906541753444E-15,
+      "coreSha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16",
+      "nativeReference": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/native-rays\\Twyman-Green-Interferometer-c1\\native/ray-audit.json",
+      "nativeSha256": "ab6db109a29b66205e3b293491f17ee1d416d33a01e54cd15f433e6d65a52c0e"
+    },
+    {
+      "id": "Twyman-Green-Interferometer-c2",
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "config": 2,
+      "conclusion": "Pass",
+      "inputs": 72,
+      "compared": 1152,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumCoordinate": 5.950795411990839E-14,
+      "maximumDirection": 3.969047313034935E-15,
+      "coreSha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16",
+      "nativeReference": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/native-rays\\Twyman-Green-Interferometer-c2\\native/ray-audit.json",
+      "nativeSha256": "cc46d49250a6d857a0f26eca86711d4c68b6a91ffff7652b5f5e7472cef6c7fd"
+    }
+  ],
+  "convergence": [
+    {
+      "index": 2068,
+      "sampling": 128,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 12412,
+          "maxAbsolute": 2.0993687192737143E-05,
+          "meanAbsolute": 1.5690147902638101E-06,
+          "rmse": 3.5382664034658015E-06,
+          "nrmse": 4.1267887650942295E-05,
+          "maxRelative": "Infinity",
+          "p50": 4.0305930314133917E-07,
+          "p90": 4.724046487361966E-06,
+          "p95": 8.86718819586435E-06,
+          "pearson": 0.9999999677098972,
+          "worstX": -0.9206349206349206,
+          "worstY": 0.38095238095238093,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 0.08574010686081902,
+            "grid.workbench.pv": 0.09255198059256806,
+            "grid.workbench.rmsAboutZero": 0.01692650970329493,
+            "grid.workbench.rmsAfterPiston": 0.012529732807908107,
+            "grid.zemax.peak": 0.08573897538429036,
+            "grid.zemax.pv": 0.09255084901016453,
+            "grid.zemax.rmsAboutZero": 0.01692497638846058,
+            "grid.zemax.rmsAfterPiston": 0.012528714965316023
+          }
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2068\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence\\2068\\128\\native\\data.json"
+    },
+    {
+      "index": 2068,
+      "sampling": 256,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 50520,
+          "maxAbsolute": 2.1341857372444983E-05,
+          "meanAbsolute": 1.5827814443763583E-06,
+          "rmse": 3.5700041619157564E-06,
+          "nrmse": 4.165512041686916E-05,
+          "maxRelative": "Infinity",
+          "p50": 4.063155998532131E-07,
+          "p90": 4.749098589317378E-06,
+          "p95": 9.017069999944074E-06,
+          "pearson": 0.9999999675579444,
+          "worstX": -0.9133858267716536,
+          "worstY": 0.4015748031496063,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 0.08570496266780886,
+            "grid.workbench.pv": 0.09252171100694216,
+            "grid.workbench.rmsAboutZero": 0.01698812850718307,
+            "grid.workbench.rmsAfterPiston": 0.01257705836530584,
+            "grid.zemax.peak": 0.08570384927923543,
+            "grid.zemax.pv": 0.09252059752712877,
+            "grid.zemax.rmsAboutZero": 0.016986561476732883,
+            "grid.zemax.rmsAfterPiston": 0.012576008016056583
+          }
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2068\\256\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence\\2068\\256\\native\\data.json"
+    },
+    {
+      "index": 2068,
+      "sampling": 256,
+      "kind": "core-convergence",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 12376,
+          "maxAbsolute": 3.064694105082977E-05,
+          "meanAbsolute": 4.0413244906532905E-06,
+          "rmse": 6.901847730108881E-06,
+          "nrmse": 8.207012603363705E-05,
+          "maxRelative": 2.464294584637445,
+          "p50": 1.5789055426221332E-06,
+          "p90": 1.1746777413510607E-05,
+          "p95": 1.7168930319062803E-05,
+          "pearson": 0.999999889694389,
+          "worstX": -0.6507936507936508,
+          "worstY": 0.746031746031746,
+          "coverage": 0.9970995810505962,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2068\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2068\\256\\core/data.json"
+    },
+    {
+      "index": 2068,
+      "sampling": 256,
+      "kind": "native-convergence",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 12376,
+          "maxAbsolute": 3.064151530732945E-05,
+          "meanAbsolute": 4.0404389725462725E-06,
+          "rmse": 6.90051559392852E-06,
+          "nrmse": 8.205516868564892E-05,
+          "maxRelative": 1.820547131667675,
+          "p50": 1.5787987964230137E-06,
+          "p90": 1.1743913812844987E-05,
+          "p95": 1.716755804374165E-05,
+          "pearson": 0.9999998897044381,
+          "worstX": -0.6507936507936508,
+          "worstY": 0.746031746031746,
+          "coverage": 0.9970995810505962,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence\\2068\\128\\native\\data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence\\2068\\256\\native\\data.json"
+    },
+    {
+      "index": 2090,
+      "sampling": 128,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 12241,
+          "maxAbsolute": 9.100637624381847E-06,
+          "meanAbsolute": 4.463978484329121E-06,
+          "rmse": 5.107525466557414E-06,
+          "nrmse": 1.9014722419305092E-06,
+          "maxRelative": "Infinity",
+          "p50": 4.548865230852295E-06,
+          "p90": 7.721220841361287E-06,
+          "p95": 8.243320780754182E-06,
+          "pearson": 0.9999999999973691,
+          "worstX": -0.6349206349206349,
+          "worstY": -0.7619047619047619,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 2.686098887610659,
+            "grid.workbench.pv": 5.208453820454327,
+            "grid.workbench.rmsAboutZero": 1.081832955959474,
+            "grid.workbench.rmsAfterPiston": 1.0808227590506017,
+            "grid.zemax.peak": 2.6860899433230183,
+            "grid.zemax.pv": 5.208452376010873,
+            "grid.zemax.rmsAboutZero": 1.0818326372153806,
+            "grid.zemax.rmsAfterPiston": 1.0808226330469821
+          }
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2090\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2090\\128\\native\\data.json"
+    },
+    {
+      "index": 2090,
+      "sampling": 256,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 49791,
+          "maxAbsolute": 9.12326378266215E-06,
+          "meanAbsolute": 4.467877623519021E-06,
+          "rmse": 5.111974413572635E-06,
+          "nrmse": 1.9015784430004104E-06,
+          "maxRelative": "Infinity",
+          "p50": 4.555102176562187E-06,
+          "p90": 7.726752996983777E-06,
+          "p95": 8.258501430269405E-06,
+          "pearson": 0.9999999999973856,
+          "worstX": 0.5748031496062992,
+          "worstY": 0.8110236220472441,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 2.68828845977708,
+            "grid.workbench.pv": 5.2126312869983265,
+            "grid.workbench.rmsAboutZero": 1.082813211987043,
+            "grid.workbench.rmsAfterPiston": 1.0817952923982987,
+            "grid.zemax.peak": 2.6882795355561,
+            "grid.zemax.pv": 5.212629867264703,
+            "grid.zemax.rmsAboutZero": 1.0828128911524944,
+            "grid.zemax.rmsAfterPiston": 1.0817951651190991
+          }
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2090\\256\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2090\\256\\native\\data.json"
+    },
+    {
+      "index": 2090,
+      "sampling": 256,
+      "kind": "core-convergence",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 12189,
+          "maxAbsolute": 3.5974852139464275E-05,
+          "meanAbsolute": 9.763272435034975E-06,
+          "rmse": 1.2282763254760093E-05,
+          "nrmse": 4.591849481509312E-06,
+          "maxRelative": 0.68,
+          "p50": 7.729435318126754E-06,
+          "p90": 2.114444194438181E-05,
+          "p95": 2.4309388127186092E-05,
+          "pearson": 0.9999999999435372,
+          "worstX": 0.49206349206349204,
+          "worstY": -0.8571428571428571,
+          "coverage": 0.9957519810473,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2090\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2090\\256\\core/data.json"
+    },
+    {
+      "index": 2090,
+      "sampling": 256,
+      "kind": "native-convergence",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 12189,
+          "maxAbsolute": 3.5974855247200566E-05,
+          "meanAbsolute": 9.763262683261563E-06,
+          "rmse": 1.2282749632028366E-05,
+          "nrmse": 4.591859612544389E-06,
+          "maxRelative": 0.3895963270163227,
+          "p50": 7.729591056493401E-06,
+          "p90": 2.1144170944661922E-05,
+          "p95": 2.4309327494709273E-05,
+          "pearson": 0.9999999999435308,
+          "worstX": -0.49206349206349204,
+          "worstY": 0.8571428571428571,
+          "coverage": 0.9957519810473,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2090\\128\\native\\data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2090\\256\\native\\data.json"
+    },
+    {
+      "index": 2156,
+      "sampling": 128,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 12451,
+          "maxAbsolute": 0.03583022317771878,
+          "meanAbsolute": 0.0006242074184254012,
+          "rmse": 0.0021725744403504506,
+          "nrmse": 4.412227296102019E-05,
+          "maxRelative": "Infinity",
+          "p50": 0.0001540523343308564,
+          "p90": 0.0011786519487557712,
+          "p95": 0.001534557355732602,
+          "pearson": 0.9999999840414121,
+          "worstX": -0.1746031746031746,
+          "worstY": -0.9841269841269841,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 49.2040274394094,
+            "grid.workbench.pv": 49.20402743961589,
+            "grid.workbench.rmsAboutZero": 35.26032030798991,
+            "grid.workbench.rmsAfterPiston": 11.97458694388243,
+            "grid.zemax.peak": 49.23985766258712,
+            "grid.zemax.pv": 49.23985766258712,
+            "grid.zemax.rmsAboutZero": 35.26069138487482,
+            "grid.zemax.rmsAfterPiston": 11.974641752397272
+          }
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2156\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2156\\128\\native\\data.json"
+    },
+    {
+      "index": 2156,
+      "sampling": 256,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 50615,
+          "maxAbsolute": 0.03611140721947237,
+          "meanAbsolute": 0.0006278204057168667,
+          "rmse": 0.0022047072018385135,
+          "nrmse": 4.4902191859564E-05,
+          "maxRelative": "Infinity",
+          "p50": 0.00015500386938072097,
+          "p90": 0.001173516520404405,
+          "p95": 0.0015528053140698717,
+          "pearson": 0.9999999835571317,
+          "worstX": -0.11811023622047244,
+          "worstY": -0.9921259842519685,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 49.06453562832436,
+            "grid.workbench.pv": 49.0645356285313,
+            "grid.workbench.rmsAboutZero": 35.26238254535704,
+            "grid.workbench.rmsAfterPiston": 11.973088088772823,
+            "grid.zemax.peak": 49.100213386775216,
+            "grid.zemax.pv": 49.100213386775216,
+            "grid.zemax.rmsAboutZero": 35.26275785445877,
+            "grid.zemax.rmsAfterPiston": 11.97314560551789
+          }
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2156\\256\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2156\\256\\native\\data.json"
+    },
+    {
+      "index": 2156,
+      "sampling": 256,
+      "kind": "core-convergence",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 12395,
+          "maxAbsolute": 0.23322903591461142,
+          "meanAbsolute": 0.005642876213301496,
+          "rmse": 0.01910322804951609,
+          "nrmse": 0.0003895128760903545,
+          "maxRelative": 0.00556691419922504,
+          "p50": 0.0018436350592239137,
+          "p90": 0.007155335986567479,
+          "p95": 0.021088992315076185,
+          "pearson": 0.9999987563939339,
+          "worstX": -0.6190476190476191,
+          "worstY": -0.7777777777777778,
+          "coverage": 0.9955023692876074,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2156\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2156\\256\\core/data.json"
+    },
+    {
+      "index": 2156,
+      "sampling": 256,
+      "kind": "native-convergence",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 12395,
+          "maxAbsolute": 0.23337775412950634,
+          "meanAbsolute": 0.005645820013705158,
+          "rmse": 0.01911531481879127,
+          "nrmse": 0.0003897594573366885,
+          "maxRelative": 0.00556844902409385,
+          "p50": 0.0018436638301757569,
+          "p90": 0.0071546198274319295,
+          "p95": 0.021112013108242678,
+          "pearson": 0.999998754842046,
+          "worstX": -0.6190476190476191,
+          "worstY": -0.7777777777777778,
+          "coverage": 0.9955023692876074,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2156\\128\\native\\data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2156\\256\\native\\data.json"
+    },
+    {
+      "index": 2165,
+      "sampling": 128,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0011358417678946076,
+          "meanAbsolute": 0.000897702659482834,
+          "rmse": 0.0009222634432308397,
+          "nrmse": 0.0011893254136014656,
+          "maxRelative": 0.001979651165280469,
+          "p50": 0.0009717256465991975,
+          "p90": 0.0010300397209768498,
+          "p95": 0.001076934583890321,
+          "pearson": 0.9999967892034854,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.00180664377246198,
+          "meanAbsolute": 0.0013004582553562153,
+          "rmse": 0.0013574091680660027,
+          "nrmse": 0.0016780601408308729,
+          "maxRelative": 0.003359112452917967,
+          "p50": 0.001374954231222636,
+          "p90": 0.0017151381237248131,
+          "p95": 0.001767127729927742,
+          "pearson": 0.999974643507351,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2165\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2165\\128\\native\\data.json"
+    },
+    {
+      "index": 2165,
+      "sampling": 256,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0002180260074412521,
+          "meanAbsolute": 0.00013805994649283664,
+          "rmse": 0.00014585813202769649,
+          "nrmse": 0.00016944244767951773,
+          "maxRelative": 0.00037317707406110055,
+          "p50": 0.0001447752142609282,
+          "p90": 0.00018968397545171545,
+          "p95": 0.000203170549930598,
+          "pearson": 0.9999998721384014,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0004150912171617671,
+          "meanAbsolute": 0.00030376355507875843,
+          "rmse": 0.0003121357447544063,
+          "nrmse": 0.0003644789779181645,
+          "maxRelative": 0.0007546637490629044,
+          "p50": 0.00030827013826162375,
+          "p90": 0.0004067237945660218,
+          "p95": 0.0004131218094790334,
+          "pearson": 0.999999964353912,
+          "worstX": 0.006400000000000001,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2165\\256\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2165\\256\\native\\data.json"
+    },
+    {
+      "index": 2165,
+      "sampling": 256,
+      "kind": "core-convergence",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.08552201211907906,
+          "meanAbsolute": 0.03395353651983808,
+          "rmse": 0.04474263367506129,
+          "nrmse": 0.05197011303069422,
+          "maxRelative": 0.09957444043428301,
+          "p50": 0.02243448355382227,
+          "p90": 0.08049365204493286,
+          "p95": 0.08412175420751578,
+          "pearson": 0.9954910320300233,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.04638491494056507,
+          "meanAbsolute": 0.022438812684323888,
+          "rmse": 0.027304207959701093,
+          "nrmse": 0.03187613349631662,
+          "maxRelative": 0.06759706265912382,
+          "p50": 0.021415952104721137,
+          "p90": 0.04449525848379543,
+          "p95": 0.0459537422147378,
+          "pearson": 0.9959261644016768,
+          "worstX": -0.0005999999999999998,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2165\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2165\\256\\core/data.json"
+    },
+    {
+      "index": 2165,
+      "sampling": 256,
+      "kind": "native-convergence",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.08640528537782455,
+          "meanAbsolute": 0.03460793336121996,
+          "rmse": 0.045375511986259436,
+          "nrmse": 0.05271243850979214,
+          "maxRelative": 0.10061692999659409,
+          "p50": 0.023211395292559223,
+          "p90": 0.08138283117111134,
+          "p95": 0.08499649466772197,
+          "pearson": 0.9954728858081022,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.04747515973611027,
+          "meanAbsolute": 0.023150776942946847,
+          "rmse": 0.028156619048523603,
+          "nrmse": 0.03287830985365585,
+          "maxRelative": 0.07087269271316682,
+          "p50": 0.022460171786499616,
+          "p90": 0.045657049128238536,
+          "p95": 0.04709176257483061,
+          "pearson": 0.9952767042581666,
+          "worstX": -0.0005999999999999998,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2165\\128\\native\\data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2165\\256\\native\\data.json"
+    },
+    {
+      "index": 2187,
+      "sampling": 128,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 3.4952987820080494E-05,
+          "meanAbsolute": 1.0642670181235103E-05,
+          "rmse": 1.4919718183837584E-05,
+          "nrmse": 1.537861957464699E-05,
+          "maxRelative": 5.989279546469396E-05,
+          "p50": 6.3967253089436404E-06,
+          "p90": 2.8386115218159702E-05,
+          "p95": 3.13794021205016E-05,
+          "pearson": 0.999999992110624,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 3.4953056370135016E-05,
+          "meanAbsolute": 1.064269507170066E-05,
+          "rmse": 1.4919773159769025E-05,
+          "nrmse": 1.537867603031478E-05,
+          "maxRelative": 5.989290706717139E-05,
+          "p50": 6.396722317447701E-06,
+          "p90": 2.8386272238889454E-05,
+          "p95": 3.137956056805113E-05,
+          "pearson": 0.9999999921105935,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2187\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2187\\128\\native\\data.json"
+    },
+    {
+      "index": 2187,
+      "sampling": 256,
+      "kind": "same-sampling",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 8.60708561201129E-06,
+          "meanAbsolute": 2.6365238102064523E-06,
+          "rmse": 3.683466705471621E-06,
+          "nrmse": 3.7978659989220434E-06,
+          "maxRelative": 1.4823592785063932E-05,
+          "p50": 1.5999997347582173E-06,
+          "p90": 6.997445192280516E-06,
+          "p95": 7.730731804989064E-06,
+          "pearson": 0.9999999995257292,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 8.607066907195815E-06,
+          "meanAbsolute": 2.6365301474887137E-06,
+          "rmse": 3.6834800074442764E-06,
+          "nrmse": 3.797879661600433E-06,
+          "maxRelative": 1.4823536003326252E-05,
+          "p50": 1.5999993248638766E-06,
+          "p90": 6.997455481827508E-06,
+          "p95": 7.730785982040798E-06,
+          "pearson": 0.9999999995257264,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2187\\256\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2187\\256\\native\\data.json"
+    },
+    {
+      "index": 2187,
+      "sampling": 256,
+      "kind": "core-convergence",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.002984626853455574,
+          "meanAbsolute": 0.0014633540902362122,
+          "rmse": 0.0016933510857870659,
+          "nrmse": 0.0017459423493184055,
+          "maxRelative": 0.005140211130274163,
+          "p50": 0.0014085735949704858,
+          "p90": 0.0026756371536096335,
+          "p95": 0.002812268725454481,
+          "pearson": 0.9999993116763243,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.002983721742916612,
+          "meanAbsolute": 0.001463357787646579,
+          "rmse": 0.001693354432037327,
+          "nrmse": 0.001745945775395276,
+          "maxRelative": 0.0051386438065276025,
+          "p50": 0.0014084561161772369,
+          "p90": 0.0026749215952472927,
+          "p95": 0.0028131318763625623,
+          "pearson": 0.9999993120021884,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2187\\128\\core/data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-01\\testing-three\\convergence-final\\2187\\256\\core/data.json"
+    },
+    {
+      "index": 2187,
+      "sampling": 256,
+      "kind": "native-convergence",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.002958280951247505,
+          "meanAbsolute": 0.0014632758457219922,
+          "rmse": 0.0016931975615939743,
+          "nrmse": 0.0017457840569274586,
+          "maxRelative": 0.005094912975410411,
+          "p50": 0.001403244612572685,
+          "p90": 0.0026542484835837543,
+          "p95": 0.0028360731021482843,
+          "pearson": 0.9999993162995562,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.002958480935713048,
+          "meanAbsolute": 0.0014632794125884765,
+          "rmse": 0.0016932034355891061,
+          "nrmse": 0.0017457900892579033,
+          "maxRelative": 0.005095265232758854,
+          "p50": 0.00140316767159554,
+          "p90": 0.0026543759457904326,
+          "p95": 0.002835936658625915,
+          "pearson": 0.9999993163176594,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "first": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2187\\128\\native\\data.json",
+      "second": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-01/testing-three/convergence-virtual\\2187\\256\\native\\data.json"
+    }
+  ],
+  "testsPassed": 234,
+  "defaultAppBuild": {
+    "coreSha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16",
+    "log": "D:\\Projects\\opticalsystem\\artifacts\\validation\\testing-three-default-app-accepted-20261101.log",
+    "passed": true,
+    "errors": 0,
+    "builtInModules": 2,
+    "warnings": 0
+  },
+  "runtimeCoreIdentities": [
+    {
+      "path": "artifacts/validation/testing-three-runner-20261101-accepted",
+      "sha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16"
+    },
+    {
+      "path": "artifacts/validation/testing-three-runner-20261101-evidence",
+      "sha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16"
+    },
+    {
+      "path": "tools/diagnostics/ObscuredReferenceTests20261101/bin/Release/net10.0",
+      "sha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0",
+      "sha256": "9913aa8885ce9a50249414c1c93dd633a68b6ea8384841172f79ae33b5783d16"
+    }
+  ],
+  "openThree": [
+    {
+      "index": 2054,
+      "lens": "Optical testing/Double-pass null test.zmx",
+      "configuration": 1,
+      "key": "Diffraction Encircled Energy",
+      "conclusion": "Incomparable",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]"
+    },
+    {
+      "index": 2080,
+      "lens": "Optical testing/Mach Zender Interferometer.zmx",
+      "configuration": 1,
+      "key": "Field Curvature and Distortion",
+      "conclusion": "Close",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan."
+    },
+    {
+      "index": 2098,
+      "lens": "Optical testing/Mach Zender Interferometer.zmx",
+      "configuration": 2,
+      "key": "Diffraction Encircled Energy",
+      "conclusion": "Incomparable",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]"
+    },
+    {
+      "index": 2153,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "Spot Diagram",
+      "conclusion": "Close",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated."
+    },
+    {
+      "index": 2157,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "PSF",
+      "conclusion": "Incomparable",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]"
+    },
+    {
+      "index": 2158,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "Huygens PSF",
+      "conclusion": "Difference",
+      "reason": ""
+    },
+    {
+      "index": 2159,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "MTF",
+      "conclusion": "Incomparable",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]"
+    },
+    {
+      "index": 2160,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "Huygens MTF",
+      "conclusion": "Close",
+      "reason": ""
+    },
+    {
+      "index": 2161,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "FFT PSF Cross Section",
+      "conclusion": "Incomparable",
+      "reason": "Original native capture failed."
+    },
+    {
+      "index": 2162,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "Huygens PSF Cross Section",
+      "conclusion": "Difference",
+      "reason": ""
+    },
+    {
+      "index": 2164,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "Diffraction Encircled Energy",
+      "conclusion": "Incomparable",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]"
+    },
+    {
+      "index": 2165,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "Huygens Through Focus MTF",
+      "conclusion": "Difference",
+      "reason": ""
+    },
+    {
+      "index": 2166,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "Relative Illumination",
+      "conclusion": "Error",
+      "reason": "Relative Illumination has no valid data: the pupil mapping folds in image direction-cosine space (normalized field X=0, Y=0; wavelength=0.55000000000000004 µm)."
+    },
+    {
+      "index": 2170,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "key": "Spot Diagram",
+      "conclusion": "Close",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated."
+    }
+  ],
+  "higherSamplingBlock": {
+    "imageWindowReduced": false,
+    "reason": "Original 100,000,000 direct PSF operation guard",
+    "index": 2165,
+    "requestedPupilSampling": 512,
+    "budgetRaised": false,
+    "coreRejectedBeforeNative": true
+  },
+  "sourceInputs": [
+    {
+      "lens": "Optical testing/Double-pass null test.zmx",
+      "sha256": "d19c40e536bc7120deeed0f011df4b3553898e44d670aab71f5f88af4be81333"
+    },
+    {
+      "lens": "Optical testing/Mach Zender Interferometer.zmx",
+      "sha256": "254bdafc78667865c1dbdcceb8e6fc04d1334479c36579a2964f75f9d2d6cc2c"
+    },
+    {
+      "lens": "Optical testing/Offner reflecting compensator.zmx",
+      "sha256": "ceaf7e565e4cfbbec9964d8543b306c811be329582bd66f6fe1f95eb5bdfb394"
+    },
+    {
+      "lens": "Optical testing/Offner refracting compensator.zmx",
+      "sha256": "4c17ca45d226e81a6cd142d0bd4386983bbdc2e661bb00862a037adfda42bddf"
+    },
+    {
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "sha256": "975be62693a8c3d8870c2ee3fd01e2f51de37d558afe7265cd939fe262f49051"
+    },
+    {
+      "lens": "Telescopes/Cassegrain-type Ritchey Chretien.zmx",
+      "sha256": "4487b6b0502ec179e8e98be6b01652289c24550950c4972530e12446aa7cccab"
+    },
+    {
+      "lens": "Telescopes/Flat-field Schmidt.zmx",
+      "sha256": "457c20612ea9d5854c77bf404131faea577a71b1526a7d122dd3148c2769f9b1"
+    },
+    {
+      "lens": "Telescopes/Houghton.zmx",
+      "sha256": "9aaa9b7f9d77d358ea25f15b470bce6a93f315eb90653e0d3818c508e557f709"
+    },
+    {
+      "lens": "Telescopes/Maksutov offset secondary.zmx",
+      "sha256": "b19c8b39abfa1e74239f31465d1addda7c0169c86ea1e3b633ee1d2ff1283e77"
+    },
+    {
+      "lens": "Telescopes/Maksutov.zmx",
+      "sha256": "423279de5aea6b7ed6a19cd03c95bdb006edfc2b761cc6e506507abdb35cb1c6"
+    },
+    {
+      "lens": "Telescopes/Schalcktelescope 10.ZMX",
+      "sha256": "6cc9b151283079e3cfd337c0f1de13f69ab5c6cc40b0d1bd942d0de9c3d6cdd9"
+    },
+    {
+      "lens": "Telescopes/Schmidt-Cassegrain spider obscuration.zmx",
+      "sha256": "76e61a4974019a9c4473fa9c8f37d357b6380994da5437e7b4e9ffb6aa8a1b0d"
+    },
+    {
+      "lens": "Telescopes/Schmidt-Cassegrain.zmx",
+      "sha256": "1c423da6e3b927b28745a3679ffa6d60d32689f7ff7c7685c03e7507e70190ab"
+    },
+    {
+      "lens": "Telescopes/Unobscured Gregorian.zmx",
+      "sha256": "2f826fada9a0f05cc105101172c858d5fdbe1ee87000f1ebd44b5e79597ee398"
+    },
+    {
+      "lens": "Telescopes/Yolo.zmx",
+      "sha256": "6a39e474aebba39360f7deb75a0ca07997ed9055caaa3988c006c59addb28e9a"
+    }
+  ],
+  "unchangedOriginalRequestsAndTolerances": true,
+  "capturedScreenshots": false,
+  "foregroundInteraction": false,
+  "completedUtc": "2026-11-01T15:08:06.6515789+00:00"
+}

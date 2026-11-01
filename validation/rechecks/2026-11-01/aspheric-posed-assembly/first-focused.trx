@@ -1,0 +1,723 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d55559d4-c0b9-4ffb-a4b4-39a5da3aa3a2" name="allen@DESKTOP-SET3SNR 2026-11-01 22:03:13" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T22:03:13.9147044+08:00" queuing="2026-11-01T22:03:13.9147047+08:00" start="2026-11-01T22:03:09.9100705+08:00" finish="2026-11-01T22:03:16.0609180+08:00" />
+  <TestSettings name="default" id="0181c740-7c8d-4570-b634-1943224f08ee">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_22_03_13" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a1e3516d-c2f8-46e4-b353-003cba965b6b" testId="578f7bb2-4766-3bcb-503a-6d549a791d26" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.WeakBulkAbsorptionUsesActualKAndTheSharedSequentialAttenuation" computerName="DESKTOP-SET3SNR" duration="00:00:00.0004872" startTime="2026-11-01T22:03:15.9871071+08:00" endTime="2026-11-01T22:03:15.9875331+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1e3516d-c2f8-46e4-b353-003cba965b6b" />
+    <UnitTestResult executionId="1096d0e0-ec30-44fd-9f5b-41bcfefea487" testId="3121bd6b-46c2-39aa-3800-592471f34658" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.InteriorSourcesRimsAndTotalInternalReflectionKeepTheCorrectMedium" computerName="DESKTOP-SET3SNR" duration="00:00:00.0010938" startTime="2026-11-01T22:03:15.9876313+08:00" endTime="2026-11-01T22:03:15.9886412+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1096d0e0-ec30-44fd-9f5b-41bcfefea487" />
+    <UnitTestResult executionId="30eccd3b-bc04-476b-8c02-7daf0d9eab79" testId="737ac6ea-3a5f-806e-11c7-52229b96d2f2" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.LegacyDefaultBeforeFieldsDoNotReplaceTheSequentialCarriedMedium" computerName="DESKTOP-SET3SNR" duration="00:00:00.0010218" startTime="2026-11-01T22:03:14.0920146+08:00" endTime="2026-11-01T22:03:14.0929225+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="30eccd3b-bc04-476b-8c02-7daf0d9eab79" />
+    <UnitTestResult executionId="3b82f816-1ce7-4d02-a1a0-8f8e75fda0ba" testId="2e5f53df-da2e-c075-c9f2-54fb4a62ed19" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExtendedDisabledPayloadRequiresV21AndRetainsImmutableCoefficientsAndFrames" computerName="DESKTOP-SET3SNR" duration="00:00:00.1163698" startTime="2026-11-01T22:03:13.8994941+08:00" endTime="2026-11-01T22:03:14.0069701+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b82f816-1ce7-4d02-a1a0-8f8e75fda0ba" />
+    <UnitTestResult executionId="df82a866-5285-45aa-bd79-99b29942cca0" testId="da332345-e0da-3e04-4f02-a4afb752efc3" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.RolledFaceRetainsTheOrientationOfItsIndependentRectangularAperture" computerName="DESKTOP-SET3SNR" duration="00:00:00.0019317" startTime="2026-11-01T22:03:14.0571466+08:00" endTime="2026-11-01T22:03:14.0588312+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df82a866-5285-45aa-bd79-99b29942cca0" />
+    <UnitTestResult executionId="2af6da26-f814-4e24-9b8b-ccde89eb2ed3" testId="29145fc3-cb4d-4a32-48bb-274eab401122" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009357" startTime="2026-11-01T22:03:13.8915684+08:00" endTime="2026-11-01T22:03:13.8915985+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2af6da26-f814-4e24-9b8b-ccde89eb2ed3">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=7.7320533457141147E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58&#xD;
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c4cdb6cf-25c3-41d9-8bb1-48c9000fb132" testId="90151279-de6b-9f89-415d-5b3d84238eca" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009405" startTime="2026-11-01T22:03:13.8904677+08:00" endTime="2026-11-01T22:03:13.8911980+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4cdb6cf-25c3-41d9-8bb1-48c9000fb132">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=8.5201289483712321E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58&#xD;
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="917c64da-f806-4511-b419-1757427accd3" testId="d643b3bc-21d5-9fc8-84fa-6700b3c20ce7" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExactTiltedRimsMatchIndependentParametricPointsAndNormals(angle: 3.1415926535897931, fraction: 0.25)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0002663" startTime="2026-11-01T22:03:14.0157978+08:00" endTime="2026-11-01T22:03:14.0158874+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="917c64da-f806-4511-b419-1757427accd3" />
+    <UnitTestResult executionId="14d464d4-51f5-4e87-951d-df81effd840c" testId="0bc6615d-c519-6a44-158c-fe4ed95dc020" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.StochasticSplittingIsSeededAndAgreesWithFullBranchPowerWithinSamplingError" computerName="DESKTOP-SET3SNR" duration="00:00:01.8859698" startTime="2026-11-01T22:03:14.0938928+08:00" endTime="2026-11-01T22:03:15.9799001+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="14d464d4-51f5-4e87-951d-df81effd840c" />
+    <UnitTestResult executionId="07cc75c4-774f-4061-b08b-794b6e4cd89c" testId="5429f69b-a196-c24a-17a8-e6317062e7b7" testName="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.UnsupportedConversionLeavesOriginalSceneDocumentStateAndRowsUntouched" computerName="DESKTOP-SET3SNR" duration="00:00:00.0396435" startTime="2026-11-01T22:03:14.4815793+08:00" endTime="2026-11-01T22:03:14.5211893+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07cc75c4-774f-4061-b08b-794b6e4cd89c" />
+    <UnitTestResult executionId="c124d1f9-1c66-4d6c-b573-0a76f7462e6d" testId="ecb4e40c-0a52-1f39-8629-4a8b076f9994" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.ImageApertureAndFrozenFileApertureAreBothRetained" computerName="DESKTOP-SET3SNR" duration="00:00:00.0045839" startTime="2026-11-01T22:03:15.9801366+08:00" endTime="2026-11-01T22:03:15.9845408+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c124d1f9-1c66-4d6c-b573-0a76f7462e6d" />
+    <UnitTestResult executionId="16238e89-880a-4634-a9c4-569ae7b17683" testId="dc348b3b-2186-b6eb-5886-42498e4c8e9b" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.DecenteredRolledApertureUsesItsCompleteSurfaceFrame" computerName="DESKTOP-SET3SNR" duration="00:00:00.0020050" startTime="2026-11-01T22:03:14.0133396+08:00" endTime="2026-11-01T22:03:14.0144025+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16238e89-880a-4634-a9c4-569ae7b17683">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=6.253136984968097E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.&lt;DecenteredRolledApertureUsesItsCompleteSurfaceFrame&gt;g__At|6_0(Vector3D local, &lt;&gt;c__DisplayClass6_0&amp;) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 104&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.DecenteredRolledApertureUsesItsCompleteSurfaceFrame() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 107&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cf4fb23e-b9c2-448d-a0e6-35dd924d2be4" testId="0b3d652b-40af-454c-61d8-bd730ee56eaa" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4790936" startTime="2026-11-01T22:03:13.3991079+08:00" endTime="2026-11-01T22:03:13.8763432+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf4fb23e-b9c2-448d-a0e6-35dd924d2be4">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=6.1803235471569795E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a92dabdb-8676-4e71-a105-ad2ebe503eaa" testId="ed0bc28f-706f-9017-1b86-fadcfa15b30c" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.FullFresnelIncludesInternalGlassReflectionAndMatchesIndependentIncoherentPlatePower" computerName="DESKTOP-SET3SNR" duration="00:00:00.0015785" startTime="2026-11-01T22:03:15.9854508+08:00" endTime="2026-11-01T22:03:15.9869902+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a92dabdb-8676-4e71-a105-ad2ebe503eaa" />
+    <UnitTestResult executionId="45373456-ca20-4807-8126-56b2552dedb0" testId="26f36e53-91b9-bd87-5e43-088007e34183" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AnInteriorAsphericCrossingIsRejectedEvenWhenVerticesAndEdgesAreSeparated" computerName="DESKTOP-SET3SNR" duration="00:00:00.0026671" startTime="2026-11-01T22:03:14.0178233+08:00" endTime="2026-11-01T22:03:14.0179397+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="45373456-ca20-4807-8126-56b2552dedb0" />
+    <UnitTestResult executionId="9e95a0f0-52c9-480a-907d-490b7987c076" testId="79a6e0dc-efb6-ef7f-b5f1-a13397567922" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0256608" startTime="2026-11-01T22:03:14.1748497+08:00" endTime="2026-11-01T22:03:14.1997092+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9e95a0f0-52c9-480a-907d-490b7987c076">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=7.6528786477111422E-11, current=Declared liquid, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.&lt;&gt;c__DisplayClass33_0.&lt;TraceCoreAsync&gt;b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 272&#xD;
+   at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 229&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 139&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 119&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs:line 38&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="be79b612-195e-40ad-9b91-ef8b001a1070" testId="2651f384-d8ee-a904-1f3e-d30a14bb8369" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.NewPayloadRequiresV20IncludingDisabledObjectsAndRetainsItsEmbeddedComponents" computerName="DESKTOP-SET3SNR" duration="00:00:00.1353722" startTime="2026-11-01T22:03:13.8756019+08:00" endTime="2026-11-01T22:03:14.0049193+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be79b612-195e-40ad-9b91-ef8b001a1070" />
+    <UnitTestResult executionId="610b70b2-0eb1-4c2b-baff-5da705753fc5" testId="446c9022-b8c0-053c-d236-12123f774cd3" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009703" startTime="2026-11-01T22:03:13.8922002+08:00" endTime="2026-11-01T22:03:13.8922331+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="610b70b2-0eb1-4c2b-baff-5da705753fc5">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=5.6291246738334942E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58&#xD;
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="63c0600e-2be3-4b60-b706-8f0b90cda1a6" testId="80e3621a-67ad-4110-d179-7aae12eea87b" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExactTiltedRimsMatchIndependentParametricPointsAndNormals(angle: 0, fraction: 0.25)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000820" startTime="2026-11-01T22:03:14.0160959+08:00" endTime="2026-11-01T22:03:14.0161949+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="63c0600e-2be3-4b60-b706-8f0b90cda1a6" />
+    <UnitTestResult executionId="37d0e526-f980-4f11-b913-81e0b80c37b3" testId="2dc8cc2b-8d50-fcd5-be6e-66edd75d4438" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0285423" startTime="2026-11-01T22:03:14.1448858+08:00" endTime="2026-11-01T22:03:14.1735167+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="37d0e526-f980-4f11-b913-81e0b80c37b3">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=1.207155608887488E-10, current=Air, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.&lt;&gt;c__DisplayClass33_0.&lt;TraceCoreAsync&gt;b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 272&#xD;
+   at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 229&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 139&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 119&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs:line 38&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9b553afe-0783-4a11-8129-8d4760665e14" testId="87f73cd5-3351-a1fe-8e3b-ace203efd1ea" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.RigidSceneReferenceTransformsPreserveFullBranchPowerDirectionsAndOpticalPath" computerName="DESKTOP-SET3SNR" duration="00:00:00.0036646" startTime="2026-11-01T22:03:14.0071334+08:00" endTime="2026-11-01T22:03:14.0124021+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b553afe-0783-4a11-8129-8d4760665e14">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=4.7060655486207798E-14, current=Air, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.RigidSceneReferenceTransformsPreserveFullBranchPowerDirectionsAndOpticalPath() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 114&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="02344d99-ac0d-4bc9-b356-3387ebba457f" testId="8ac7f04f-6a92-eacb-d207-04e93b65b9d6" testName="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.CompleteConversionPreservesSourceAndFeedsDatabaseCameraAndFrozenReplay(immersed: True)" computerName="DESKTOP-SET3SNR" duration="00:00:01.0250843" startTime="2026-11-01T22:03:13.3990890+08:00" endTime="2026-11-01T22:03:14.4020427+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="02344d99-ac0d-4bc9-b356-3387ebba457f" />
+    <UnitTestResult executionId="21fc080a-8ac2-4101-95c2-f5b3e802c19e" testId="7be7a9ac-4b34-4e92-c1e6-681dbaba8847" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0007647" startTime="2026-11-01T22:03:14.0902184+08:00" endTime="2026-11-01T22:03:14.0908654+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="21fc080a-8ac2-4101-95c2-f5b3e802c19e" />
+    <UnitTestResult executionId="42fd8d1d-b315-48d0-9c12-1d12e6efa259" testId="cbd7bc16-f2d0-0030-0261-1483e362c05b" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExactTiltedRimsMatchIndependentParametricPointsAndNormals(angle: 4.7123889803846897, fraction: 0.75)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000693" startTime="2026-11-01T22:03:14.0174967+08:00" endTime="2026-11-01T22:03:14.0175858+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="42fd8d1d-b315-48d0-9c12-1d12e6efa259" />
+    <UnitTestResult executionId="79fb7a84-888c-43d3-aec4-7a581f5b3f34" testId="913b705d-a48b-3dfa-3a08-7f999b1fd472" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.EveryOriginalInterfaceAndItsActualMediaArePreserved(immersed: False, glasses: 3)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0033802" startTime="2026-11-01T22:03:14.0059068+08:00" endTime="2026-11-01T22:03:14.0092697+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79fb7a84-888c-43d3-aec4-7a581f5b3f34" />
+    <UnitTestResult executionId="391ea2d1-9d46-4c5f-a040-3d2e50b575e8" testId="b865253c-37be-a054-f9b8-f72b48d227d0" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0010359" startTime="2026-11-01T22:03:13.8979287+08:00" endTime="2026-11-01T22:03:13.8979874+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="391ea2d1-9d46-4c5f-a040-3d2e50b575e8">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=8.5201289483712321E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58&#xD;
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7f7729ac-7df1-4c73-a3b0-95596f365a70" testId="0cb48bf8-84a6-3b4a-c964-b9532ca09698" testName="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.CompleteConversionPreservesSourceAndFeedsDatabaseCameraAndFrozenReplay(immersed: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0790846" startTime="2026-11-01T22:03:14.4021596+08:00" endTime="2026-11-01T22:03:14.4814393+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f7729ac-7df1-4c73-a3b0-95596f365a70" />
+    <UnitTestResult executionId="3c1b9977-98a2-47a7-b4a1-440a57a1bc39" testId="c68cdd73-e68e-ab8a-fc79-730fb76c68cc" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.InfinitePlaneRadiusRetainsItsValueThroughSceneHashAndProjectRoundtrip" computerName="DESKTOP-SET3SNR" duration="00:00:00.0286568" startTime="2026-11-01T22:03:14.0277470+08:00" endTime="2026-11-01T22:03:14.0568202+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3c1b9977-98a2-47a7-b4a1-440a57a1bc39" />
+    <UnitTestResult executionId="ae12e093-0a09-4eff-a918-7b8f71b20264" testId="72ccdb5c-557f-438d-5969-de362f6b0b49" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0288191" startTime="2026-11-01T22:03:14.2010401+08:00" endTime="2026-11-01T22:03:14.2296409+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ae12e093-0a09-4eff-a918-7b8f71b20264">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=7.6528786477111422E-11, current=Air, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.&lt;&gt;c__DisplayClass33_0.&lt;TraceCoreAsync&gt;b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 272&#xD;
+   at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 229&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 139&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 119&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs:line 38&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1ed06429-cfe0-4207-bfc8-4c5d302adb69" testId="5ef2e240-de00-3ee1-0058-74873f3d253b" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.IndependentAperturesClipAtTheirOriginalFaceAndRemainImmutable" computerName="DESKTOP-SET3SNR" duration="00:00:00.0014451" startTime="2026-11-01T22:03:14.0264702+08:00" endTime="2026-11-01T22:03:14.0275953+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1ed06429-cfe0-4207-bfc8-4c5d302adb69" />
+    <UnitTestResult executionId="8945135b-7657-4d2a-b156-d55602006118" testId="3b9335ba-9100-ea65-042c-9ae251b0c286" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009968" startTime="2026-11-01T22:03:13.8985213+08:00" endTime="2026-11-01T22:03:13.8985475+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8945135b-7657-4d2a-b156-d55602006118">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=6.1803235471569795E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58&#xD;
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="aa922a02-94cf-477c-928a-024762031931" testId="d19de88d-ee04-74d2-ab8e-f3df78ca3443" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.MultilayerOrderIsReversedWhenEnteringFromTheSubstrate" computerName="DESKTOP-SET3SNR" duration="00:00:00.0008483" startTime="2026-11-01T22:03:14.0930141+08:00" endTime="2026-11-01T22:03:14.0938088+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa922a02-94cf-477c-928a-024762031931" />
+    <UnitTestResult executionId="e19f4b1c-bfc6-468f-b541-56970dcb42e9" testId="7505ecb0-038c-540d-87b5-b8af62d5b748" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.CancellationAndInconsistentSceneAmbientFailExplicitly" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009215" startTime="2026-11-01T22:03:14.0909564+08:00" endTime="2026-11-01T22:03:14.0918646+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e19f4b1c-bfc6-468f-b541-56970dcb42e9" />
+    <UnitTestResult executionId="d0590c39-b7e7-432f-bf73-2aa8a2860f7a" testId="701582a0-0eb5-360b-2e44-cf857c3e5015" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0163632" startTime="2026-11-01T22:03:14.0745182+08:00" endTime="2026-11-01T22:03:14.0900812+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0590c39-b7e7-432f-bf73-2aa8a2860f7a" />
+    <UnitTestResult executionId="48cc39f8-cbb6-442d-872c-11bcb2767a0c" testId="f81e39d7-3124-979e-9da3-759b42c50731" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(region: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0071298" startTime="2026-11-01T22:03:13.8988644+08:00" endTime="2026-11-01T22:03:13.8990058+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="48cc39f8-cbb6-442d-872c-11bcb2767a0c">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=8.3252095987745156E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(Int32 region) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 76&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f62e0feb-a462-47e3-bc08-08c392bbdf74" testId="1184f688-f0f1-d474-274b-31e6ebbcf621" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 450)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0058155" startTime="2026-11-01T22:03:14.0590241+08:00" endTime="2026-11-01T22:03:14.0647770+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f62e0feb-a462-47e3-bc08-08c392bbdf74" />
+    <UnitTestResult executionId="372463c3-1025-4f80-9342-578c2ea2f798" testId="2bf4d9f3-7330-ef8e-7d87-18ad1fbd6d1c" testName="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.UnsupportedPhysicalPropertiesFailExplicitlyRatherThanBeingDropped" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009621" startTime="2026-11-01T22:03:14.5213670+08:00" endTime="2026-11-01T22:03:14.5221923+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="372463c3-1025-4f80-9342-578c2ea2f798" />
+    <UnitTestResult executionId="06307797-a27a-403a-b0cf-24fb6ea34b5d" testId="3c7f1bff-0443-edd5-4a59-3250c8d2e2d4" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.EveryOriginalInterfaceAndItsActualMediaArePreserved(immersed: False, glasses: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0006100" startTime="2026-11-01T22:03:14.0136262+08:00" endTime="2026-11-01T22:03:14.0137116+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="06307797-a27a-403a-b0cf-24fb6ea34b5d" />
+    <UnitTestResult executionId="7bd79014-9817-4569-91db-1b40167cfabb" testId="92e6a122-94d6-18f2-bc30-24247a180d0f" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.ThinGlueLayerIsNotSkippedByTheLegacyRayOriginOffset" computerName="DESKTOP-SET3SNR" duration="00:00:00.4900891" startTime="2026-11-01T22:03:13.3974301+08:00" endTime="2026-11-01T22:03:13.8675501+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7bd79014-9817-4569-91db-1b40167cfabb" />
+    <UnitTestResult executionId="24782a49-a159-40ce-a336-a525bffd6163" testId="291668dc-cdfd-27c9-124c-884394bf359c" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(region: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0056795" startTime="2026-11-01T22:03:13.8993232+08:00" endTime="2026-11-01T22:03:13.8993746+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24782a49-a159-40ce-a336-a525bffd6163" />
+    <UnitTestResult executionId="cbb74bd8-99f0-48eb-8984-bc7df3d902fc" testId="78dfff42-e9dc-cea4-21a0-eae538d47906" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExactTiltedRimsMatchIndependentParametricPointsAndNormals(angle: 1.5707963267948966, fraction: 0.75)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0006733" startTime="2026-11-01T22:03:14.0155196+08:00" endTime="2026-11-01T22:03:14.0156188+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cbb74bd8-99f0-48eb-8984-bc7df3d902fc" />
+    <UnitTestResult executionId="dbdf440e-5233-4d4f-b0de-c4e9418c26ba" testId="cef93164-c270-782d-0726-cc2a7c1b0620" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.FailedCrossingOrUncertifiableTiltKeepsTheOriginalSceneAndDirtyState" computerName="DESKTOP-SET3SNR" duration="00:00:00.0424760" startTime="2026-11-01T22:03:14.2311755+08:00" endTime="2026-11-01T22:03:14.2726668+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dbdf440e-5233-4d4f-b0de-c4e9418c26ba" />
+    <UnitTestResult executionId="4fe28299-5ee3-497c-b612-14bebc4d2d33" testId="982f723b-8d6d-0311-3b5f-4c2464d373c9" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.EveryOriginalInterfaceAndItsActualMediaArePreserved(immersed: True, glasses: 3)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0008429" startTime="2026-11-01T22:03:14.0122808+08:00" endTime="2026-11-01T22:03:14.0134394+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4fe28299-5ee3-497c-b612-14bebc4d2d33" />
+    <UnitTestResult executionId="7ba44fd5-bf79-408c-99ed-44cc80b635ba" testId="e249c85f-7c00-1656-0392-cbb4166b4972" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.ConstantCoatingsAreAppliedOnceAndTheirLossIsAbsorbed" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009087" startTime="2026-11-01T22:03:14.0139868+08:00" endTime="2026-11-01T22:03:14.0140787+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ba44fd5-bf79-408c-99ed-44cc80b635ba" />
+    <UnitTestResult executionId="05b6374b-3d14-4e88-bfb3-12986d8ee1db" testId="53cebd03-78cf-7943-aa76-24125750c489" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0010407" startTime="2026-11-01T22:03:13.8918735+08:00" endTime="2026-11-01T22:03:13.8919003+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="05b6374b-3d14-4e88-bfb3-12986d8ee1db">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=5.6291246738334942E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58&#xD;
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="95aaed1f-5ae9-4005-8c03-51b110f382b6" testId="e2c616cc-d984-7cb6-6245-6d7ececb07a0" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 650)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0010670" startTime="2026-11-01T22:03:14.0649041+08:00" endTime="2026-11-01T22:03:14.0659098+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="95aaed1f-5ae9-4005-8c03-51b110f382b6" />
+    <UnitTestResult executionId="464431ca-2b8c-4ac6-81d1-903a73a16590" testId="8e2c16d6-8e01-a55c-7005-6f5d241c485a" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 550)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0075142" startTime="2026-11-01T22:03:14.0660274+08:00" endTime="2026-11-01T22:03:14.0736674+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="464431ca-2b8c-4ac6-81d1-903a73a16590" />
+    <UnitTestResult executionId="f4816987-d071-4670-9d64-442e02e09a4b" testId="b1c33881-386e-61bd-3e3e-5f430e407d30" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.7591887" startTime="2026-11-01T22:03:13.3990409+08:00" endTime="2026-11-01T22:03:14.1442255+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f4816987-d071-4670-9d64-442e02e09a4b">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=1.207155608887488E-10, current=Declared liquid, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.&lt;&gt;c__DisplayClass33_0.&lt;TraceCoreAsync&gt;b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 272&#xD;
+   at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 229&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 139&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 119&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs:line 38&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d5682207-ca36-4e67-9463-cdd80955ba70" testId="c581232b-85e9-ff8c-2d1b-48834d0e86e2" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.AbsorbingFilmAccountsForLossAndHasReciprocalPowerTransmission" computerName="DESKTOP-SET3SNR" duration="00:00:00.0007337" startTime="2026-11-01T22:03:15.9846667+08:00" endTime="2026-11-01T22:03:15.9853434+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5682207-ca36-4e67-9463-cdd80955ba70" />
+    <UnitTestResult executionId="aadcb501-b670-459e-92af-19c15cbf1c1a" testId="5d8249b5-52dc-7d25-1d9d-fe2cf9d7b265" testName="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0014287" startTime="2026-11-01T22:03:13.8897642+08:00" endTime="2026-11-01T22:03:13.8898208+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aadcb501-b670-459e-92af-19c15cbf1c1a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=7.7320533457141147E-11, current=Glass 1, expected=Glass 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 322&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs:line 58&#xD;
+   at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="de8222b0-4f8a-4752-9066-b1670155d06d" testId="5dbb1bf3-84f6-eda8-dcfe-8d661673e59b" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.EveryOriginalInterfaceAndItsActualMediaArePreserved(immersed: True, glasses: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0008797" startTime="2026-11-01T22:03:14.0095002+08:00" endTime="2026-11-01T22:03:14.0101866+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="de8222b0-4f8a-4752-9066-b1670155d06d" />
+    <UnitTestResult executionId="d9b3b2cf-dc4c-4885-a274-cd2105a2118a" testId="6a75744e-3653-ed5b-72d6-90658901dbdf" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.QuarterWaveFilmMatchesAnalyticalReflectanceAndSurvivesReverseTraversal" computerName="DESKTOP-SET3SNR" duration="00:00:00.0133071" startTime="2026-11-01T22:03:14.0143109+08:00" endTime="2026-11-01T22:03:14.0261018+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d9b3b2cf-dc4c-4885-a274-cd2105a2118a" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 450)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="1184f688-f0f1-d474-274b-31e6ebbcf621">
+      <Execution id="f62e0feb-a462-47e3-bc08-08c392bbdf74" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.WeakBulkAbsorptionUsesActualKAndTheSharedSequentialAttenuation" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="578f7bb2-4766-3bcb-503a-6d549a791d26">
+      <Execution id="a1e3516d-c2f8-46e4-b353-003cba965b6b" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="WeakBulkAbsorptionUsesActualKAndTheSharedSequentialAttenuation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 550)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="8e2c16d6-8e01-a55c-7005-6f5d241c485a">
+      <Execution id="464431ca-2b8c-4ac6-81d1-903a73a16590" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: True)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="3b9335ba-9100-ea65-042c-9ae251b0c286">
+      <Execution id="8945135b-7657-4d2a-b156-d55602006118" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.FullFresnelIncludesInternalGlassReflectionAndMatchesIndependentIncoherentPlatePower" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="ed0bc28f-706f-9017-1b86-fadcfa15b30c">
+      <Execution id="a92dabdb-8676-4e71-a105-ad2ebe503eaa" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="FullFresnelIncludesInternalGlassReflectionAndMatchesIndependentIncoherentPlatePower" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.EveryOriginalInterfaceAndItsActualMediaArePreserved(immersed: True, glasses: 3)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="982f723b-8d6d-0311-3b5f-4c2464d373c9">
+      <Execution id="4fe28299-5ee3-497c-b612-14bebc4d2d33" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="EveryOriginalInterfaceAndItsActualMediaArePreserved" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: False)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="7be7a9ac-4b34-4e92-c1e6-681dbaba8847">
+      <Execution id="21fc080a-8ac2-4101-95c2-f5b3e802c19e" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExactTiltedRimsMatchIndependentParametricPointsAndNormals(angle: 0, fraction: 0.25)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="80e3621a-67ad-4110-d179-7aae12eea87b">
+      <Execution id="63c0600e-2be3-4b60-b706-8f0b90cda1a6" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="ExactTiltedRimsMatchIndependentParametricPointsAndNormals" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.DecenteredRolledApertureUsesItsCompleteSurfaceFrame" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="dc348b3b-2186-b6eb-5886-42498e4c8e9b">
+      <Execution id="16238e89-880a-4634-a9c4-569ae7b17683" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="DecenteredRolledApertureUsesItsCompleteSurfaceFrame" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.CompleteConversionPreservesSourceAndFeedsDatabaseCameraAndFrozenReplay(immersed: False)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="0cb48bf8-84a6-3b4a-c964-b9532ca09698">
+      <Execution id="7f7729ac-7df1-4c73-a3b0-95596f365a70" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests" name="CompleteConversionPreservesSourceAndFeedsDatabaseCameraAndFrozenReplay" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: False)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="72ccdb5c-557f-438d-5969-de362f6b0b49">
+      <Execution id="ae12e093-0a09-4eff-a918-7b8f71b20264" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests" name="ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.RolledFaceRetainsTheOrientationOfItsIndependentRectangularAperture" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="da332345-e0da-3e04-4f02-a4afb752efc3">
+      <Execution id="df82a866-5285-45aa-bd79-99b29942cca0" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="RolledFaceRetainsTheOrientationOfItsIndependentRectangularAperture" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: True)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="446c9022-b8c0-053c-d236-12123f774cd3">
+      <Execution id="610b70b2-0eb1-4c2b-baff-5da705753fc5" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.CancellationAndInconsistentSceneAmbientFailExplicitly" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="7505ecb0-038c-540d-87b5-b8af62d5b748">
+      <Execution id="e19f4b1c-bfc6-468f-b541-56970dcb42e9" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="CancellationAndInconsistentSceneAmbientFailExplicitly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 650)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="e2c616cc-d984-7cb6-6245-6d7ececb07a0">
+      <Execution id="95aaed1f-5ae9-4005-8c03-51b110f382b6" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.ImageApertureAndFrozenFileApertureAreBothRetained" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="ecb4e40c-0a52-1f39-8629-4a8b076f9994">
+      <Execution id="c124d1f9-1c66-4d6c-b573-0a76f7462e6d" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="ImageApertureAndFrozenFileApertureAreBothRetained" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExactTiltedRimsMatchIndependentParametricPointsAndNormals(angle: 3.1415926535897931, fraction: 0.25)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="d643b3bc-21d5-9fc8-84fa-6700b3c20ce7">
+      <Execution id="917c64da-f806-4511-b419-1757427accd3" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="ExactTiltedRimsMatchIndependentParametricPointsAndNormals" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AnInteriorAsphericCrossingIsRejectedEvenWhenVerticesAndEdgesAreSeparated" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="26f36e53-91b9-bd87-5e43-088007e34183">
+      <Execution id="45373456-ca20-4807-8126-56b2552dedb0" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="AnInteriorAsphericCrossingIsRejectedEvenWhenVerticesAndEdgesAreSeparated" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.ConstantCoatingsAreAppliedOnceAndTheirLossIsAbsorbed" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="e249c85f-7c00-1656-0392-cbb4166b4972">
+      <Execution id="7ba44fd5-bf79-408c-99ed-44cc80b635ba" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="ConstantCoatingsAreAppliedOnceAndTheirLossIsAbsorbed" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: False)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="79a6e0dc-efb6-ef7f-b5f1-a13397567922">
+      <Execution id="9e95a0f0-52c9-480a-907d-490b7987c076" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests" name="ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(region: 0)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="f81e39d7-3124-979e-9da3-759b42c50731">
+      <Execution id="48cc39f8-cbb6-442d-872c-11bcb2767a0c" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="InternalSourcesAreLocatedInTheirActualTiltedGlassRegion" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.UnsupportedPhysicalPropertiesFailExplicitlyRatherThanBeingDropped" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="2bf4d9f3-7330-ef8e-7d87-18ad1fbd6d1c">
+      <Execution id="372463c3-1025-4f80-9342-578c2ea2f798" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests" name="UnsupportedPhysicalPropertiesFailExplicitlyRatherThanBeingDropped" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: True)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="b1c33881-386e-61bd-3e3e-5f430e407d30">
+      <Execution id="f4816987-d071-4670-9d64-442e02e09a4b" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests" name="ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: False)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="5d8249b5-52dc-7d25-1d9d-fe2cf9d7b265">
+      <Execution id="aadcb501-b670-459e-92af-19c15cbf1c1a" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: True)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="0b3d652b-40af-454c-61d8-bd730ee56eaa">
+      <Execution id="cf4fb23e-b9c2-448d-a0e6-35dd924d2be4" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: False)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="90151279-de6b-9f89-415d-5b3d84238eca">
+      <Execution id="c4cdb6cf-25c3-41d9-8bb1-48c9000fb132" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: False)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="29145fc3-cb4d-4a32-48bb-274eab401122">
+      <Execution id="2af6da26-f814-4e24-9b8b-ccde89eb2ed3" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.InteriorSourcesRimsAndTotalInternalReflectionKeepTheCorrectMedium" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="3121bd6b-46c2-39aa-3800-592471f34658">
+      <Execution id="1096d0e0-ec30-44fd-9f5b-41bcfefea487" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="InteriorSourcesRimsAndTotalInternalReflectionKeepTheCorrectMedium" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: True)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="701582a0-0eb5-360b-2e44-cf857c3e5015">
+      <Execution id="d0590c39-b7e7-432f-bf73-2aa8a2860f7a" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExactTiltedRimsMatchIndependentParametricPointsAndNormals(angle: 4.7123889803846897, fraction: 0.75)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="cbd7bc16-f2d0-0030-0261-1483e362c05b">
+      <Execution id="42fd8d1d-b315-48d0-9c12-1d12e6efa259" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="ExactTiltedRimsMatchIndependentParametricPointsAndNormals" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.FailedCrossingOrUncertifiableTiltKeepsTheOriginalSceneAndDirtyState" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="cef93164-c270-782d-0726-cc2a7c1b0620">
+      <Execution id="dbdf440e-5233-4d4f-b0de-c4e9418c26ba" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests" name="FailedCrossingOrUncertifiableTiltKeepsTheOriginalSceneAndDirtyState" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: True)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="2dc8cc2b-8d50-fcd5-be6e-66edd75d4438">
+      <Execution id="37d0e526-f980-4f11-b913-81e0b80c37b3" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests" name="ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.AbsorbingFilmAccountsForLossAndHasReciprocalPowerTransmission" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="c581232b-85e9-ff8c-2d1b-48834d0e86e2">
+      <Execution id="d5682207-ca36-4e67-9463-cdd80955ba70" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="AbsorbingFilmAccountsForLossAndHasReciprocalPowerTransmission" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: True)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="53cebd03-78cf-7943-aa76-24125750c489">
+      <Execution id="05b6374b-3d14-4e88-bfb3-12986d8ee1db" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.ThinGlueLayerIsNotSkippedByTheLegacyRayOriginOffset" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="92e6a122-94d6-18f2-bc30-24247a180d0f">
+      <Execution id="7bd79014-9817-4569-91db-1b40167cfabb" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="ThinGlueLayerIsNotSkippedByTheLegacyRayOriginOffset" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(region: 1)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="291668dc-cdfd-27c9-124c-884394bf359c">
+      <Execution id="24782a49-a159-40ce-a336-a525bffd6163" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="InternalSourcesAreLocatedInTheirActualTiltedGlassRegion" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.EveryOriginalInterfaceAndItsActualMediaArePreserved(immersed: False, glasses: 2)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="3c7f1bff-0443-edd5-4a59-3250c8d2e2d4">
+      <Execution id="06307797-a27a-403a-b0cf-24fb6ea34b5d" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="EveryOriginalInterfaceAndItsActualMediaArePreserved" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.StochasticSplittingIsSeededAndAgreesWithFullBranchPowerWithinSamplingError" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="0bc6615d-c519-6a44-158c-fe4ed95dc020">
+      <Execution id="14d464d4-51f5-4e87-951d-df81effd840c" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="StochasticSplittingIsSeededAndAgreesWithFullBranchPowerWithinSamplingError" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.MultilayerOrderIsReversedWhenEnteringFromTheSubstrate" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="d19de88d-ee04-74d2-ab8e-f3df78ca3443">
+      <Execution id="aa922a02-94cf-477c-928a-024762031931" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="MultilayerOrderIsReversedWhenEnteringFromTheSubstrate" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.NewPayloadRequiresV20IncludingDisabledObjectsAndRetainsItsEmbeddedComponents" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="2651f384-d8ee-a904-1f3e-d30a14bb8369">
+      <Execution id="be79b612-195e-40ad-9b91-ef8b001a1070" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="NewPayloadRequiresV20IncludingDisabledObjectsAndRetainsItsEmbeddedComponents" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.UnsupportedConversionLeavesOriginalSceneDocumentStateAndRowsUntouched" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="5429f69b-a196-c24a-17a8-e6317062e7b7">
+      <Execution id="07cc75c4-774f-4061-b08b-794b6e4cd89c" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests" name="UnsupportedConversionLeavesOriginalSceneDocumentStateAndRowsUntouched" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.CompleteConversionPreservesSourceAndFeedsDatabaseCameraAndFrozenReplay(immersed: True)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="8ac7f04f-6a92-eacb-d207-04e93b65b9d6">
+      <Execution id="02344d99-ac0d-4bc9-b356-3387ebba457f" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests" name="CompleteConversionPreservesSourceAndFeedsDatabaseCameraAndFrozenReplay" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.IndependentAperturesClipAtTheirOriginalFaceAndRemainImmutable" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="5ef2e240-de00-3ee1-0058-74873f3d253b">
+      <Execution id="1ed06429-cfe0-4207-bfc8-4c5d302adb69" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="IndependentAperturesClipAtTheirOriginalFaceAndRemainImmutable" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExactTiltedRimsMatchIndependentParametricPointsAndNormals(angle: 1.5707963267948966, fraction: 0.75)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="78dfff42-e9dc-cea4-21a0-eae538d47906">
+      <Execution id="cbb74bd8-99f0-48eb-8984-bc7df3d902fc" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="ExactTiltedRimsMatchIndependentParametricPointsAndNormals" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.InfinitePlaneRadiusRetainsItsValueThroughSceneHashAndProjectRoundtrip" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="c68cdd73-e68e-ab8a-fc79-730fb76c68cc">
+      <Execution id="3c1b9977-98a2-47a7-b4a1-440a57a1bc39" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="InfinitePlaneRadiusRetainsItsValueThroughSceneHashAndProjectRoundtrip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.EveryOriginalInterfaceAndItsActualMediaArePreserved(immersed: False, glasses: 3)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="913b705d-a48b-3dfa-3a08-7f999b1fd472">
+      <Execution id="79fb7a84-888c-43d3-aec4-7a581f5b3f34" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="EveryOriginalInterfaceAndItsActualMediaArePreserved" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.RigidSceneReferenceTransformsPreserveFullBranchPowerDirectionsAndOpticalPath" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="87f73cd5-3351-a1fe-8e3b-ace203efd1ea">
+      <Execution id="9b553afe-0783-4a11-8129-8d4760665e14" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="RigidSceneReferenceTransformsPreserveFullBranchPowerDirectionsAndOpticalPath" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.EveryOriginalInterfaceAndItsActualMediaArePreserved(immersed: True, glasses: 2)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="5dbb1bf3-84f6-eda8-dcfe-8d661673e59b">
+      <Execution id="de8222b0-4f8a-4752-9066-b1670155d06d" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="EveryOriginalInterfaceAndItsActualMediaArePreserved" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: False)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="b865253c-37be-a054-f9b8-f72b48d227d0">
+      <Execution id="391ea2d1-9d46-4c5f-a040-3d2e50b575e8" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.LegacyDefaultBeforeFieldsDoNotReplaceTheSequentialCarriedMedium" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="737ac6ea-3a5f-806e-11c7-52229b96d2f2">
+      <Execution id="30eccd3b-bc04-476b-8c02-7daf0d9eab79" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="LegacyDefaultBeforeFieldsDoNotReplaceTheSequentialCarriedMedium" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.ExtendedDisabledPayloadRequiresV21AndRetainsImmutableCoefficientsAndFrames" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="2e5f53df-da2e-c075-c9f2-54fb4a62ed19">
+      <Execution id="3b82f816-1ce7-4d02-a1a0-8f8e75fda0ba" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PosedOpticalAssemblyTests" name="ExtendedDisabledPayloadRequiresV21AndRetainsImmutableCoefficientsAndFrames" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.QuarterWaveFilmMatchesAnalyticalReflectanceAndSurvivesReverseTraversal" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="6a75744e-3653-ed5b-72d6-90658901dbdf">
+      <Execution id="d9b3b2cf-dc4c-4885-a274-cd2105a2118a" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="QuarterWaveFilmMatchesAnalyticalReflectanceAndSurvivesReverseTraversal" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="578f7bb2-4766-3bcb-503a-6d549a791d26" executionId="a1e3516d-c2f8-46e4-b353-003cba965b6b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3121bd6b-46c2-39aa-3800-592471f34658" executionId="1096d0e0-ec30-44fd-9f5b-41bcfefea487" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="737ac6ea-3a5f-806e-11c7-52229b96d2f2" executionId="30eccd3b-bc04-476b-8c02-7daf0d9eab79" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e5f53df-da2e-c075-c9f2-54fb4a62ed19" executionId="3b82f816-1ce7-4d02-a1a0-8f8e75fda0ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="da332345-e0da-3e04-4f02-a4afb752efc3" executionId="df82a866-5285-45aa-bd79-99b29942cca0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="29145fc3-cb4d-4a32-48bb-274eab401122" executionId="2af6da26-f814-4e24-9b8b-ccde89eb2ed3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="90151279-de6b-9f89-415d-5b3d84238eca" executionId="c4cdb6cf-25c3-41d9-8bb1-48c9000fb132" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d643b3bc-21d5-9fc8-84fa-6700b3c20ce7" executionId="917c64da-f806-4511-b419-1757427accd3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0bc6615d-c519-6a44-158c-fe4ed95dc020" executionId="14d464d4-51f5-4e87-951d-df81effd840c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5429f69b-a196-c24a-17a8-e6317062e7b7" executionId="07cc75c4-774f-4061-b08b-794b6e4cd89c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecb4e40c-0a52-1f39-8629-4a8b076f9994" executionId="c124d1f9-1c66-4d6c-b573-0a76f7462e6d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dc348b3b-2186-b6eb-5886-42498e4c8e9b" executionId="16238e89-880a-4634-a9c4-569ae7b17683" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0b3d652b-40af-454c-61d8-bd730ee56eaa" executionId="cf4fb23e-b9c2-448d-a0e6-35dd924d2be4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ed0bc28f-706f-9017-1b86-fadcfa15b30c" executionId="a92dabdb-8676-4e71-a105-ad2ebe503eaa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26f36e53-91b9-bd87-5e43-088007e34183" executionId="45373456-ca20-4807-8126-56b2552dedb0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="79a6e0dc-efb6-ef7f-b5f1-a13397567922" executionId="9e95a0f0-52c9-480a-907d-490b7987c076" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2651f384-d8ee-a904-1f3e-d30a14bb8369" executionId="be79b612-195e-40ad-9b91-ef8b001a1070" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="446c9022-b8c0-053c-d236-12123f774cd3" executionId="610b70b2-0eb1-4c2b-baff-5da705753fc5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80e3621a-67ad-4110-d179-7aae12eea87b" executionId="63c0600e-2be3-4b60-b706-8f0b90cda1a6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2dc8cc2b-8d50-fcd5-be6e-66edd75d4438" executionId="37d0e526-f980-4f11-b913-81e0b80c37b3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="87f73cd5-3351-a1fe-8e3b-ace203efd1ea" executionId="9b553afe-0783-4a11-8129-8d4760665e14" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8ac7f04f-6a92-eacb-d207-04e93b65b9d6" executionId="02344d99-ac0d-4bc9-b356-3387ebba457f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7be7a9ac-4b34-4e92-c1e6-681dbaba8847" executionId="21fc080a-8ac2-4101-95c2-f5b3e802c19e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cbd7bc16-f2d0-0030-0261-1483e362c05b" executionId="42fd8d1d-b315-48d0-9c12-1d12e6efa259" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="913b705d-a48b-3dfa-3a08-7f999b1fd472" executionId="79fb7a84-888c-43d3-aec4-7a581f5b3f34" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b865253c-37be-a054-f9b8-f72b48d227d0" executionId="391ea2d1-9d46-4c5f-a040-3d2e50b575e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0cb48bf8-84a6-3b4a-c964-b9532ca09698" executionId="7f7729ac-7df1-4c73-a3b0-95596f365a70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c68cdd73-e68e-ab8a-fc79-730fb76c68cc" executionId="3c1b9977-98a2-47a7-b4a1-440a57a1bc39" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72ccdb5c-557f-438d-5969-de362f6b0b49" executionId="ae12e093-0a09-4eff-a918-7b8f71b20264" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ef2e240-de00-3ee1-0058-74873f3d253b" executionId="1ed06429-cfe0-4207-bfc8-4c5d302adb69" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3b9335ba-9100-ea65-042c-9ae251b0c286" executionId="8945135b-7657-4d2a-b156-d55602006118" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d19de88d-ee04-74d2-ab8e-f3df78ca3443" executionId="aa922a02-94cf-477c-928a-024762031931" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7505ecb0-038c-540d-87b5-b8af62d5b748" executionId="e19f4b1c-bfc6-468f-b541-56970dcb42e9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="701582a0-0eb5-360b-2e44-cf857c3e5015" executionId="d0590c39-b7e7-432f-bf73-2aa8a2860f7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f81e39d7-3124-979e-9da3-759b42c50731" executionId="48cc39f8-cbb6-442d-872c-11bcb2767a0c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1184f688-f0f1-d474-274b-31e6ebbcf621" executionId="f62e0feb-a462-47e3-bc08-08c392bbdf74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2bf4d9f3-7330-ef8e-7d87-18ad1fbd6d1c" executionId="372463c3-1025-4f80-9342-578c2ea2f798" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3c7f1bff-0443-edd5-4a59-3250c8d2e2d4" executionId="06307797-a27a-403a-b0cf-24fb6ea34b5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="92e6a122-94d6-18f2-bc30-24247a180d0f" executionId="7bd79014-9817-4569-91db-1b40167cfabb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="291668dc-cdfd-27c9-124c-884394bf359c" executionId="24782a49-a159-40ce-a336-a525bffd6163" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="78dfff42-e9dc-cea4-21a0-eae538d47906" executionId="cbb74bd8-99f0-48eb-8984-bc7df3d902fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cef93164-c270-782d-0726-cc2a7c1b0620" executionId="dbdf440e-5233-4d4f-b0de-c4e9418c26ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="982f723b-8d6d-0311-3b5f-4c2464d373c9" executionId="4fe28299-5ee3-497c-b612-14bebc4d2d33" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e249c85f-7c00-1656-0392-cbb4166b4972" executionId="7ba44fd5-bf79-408c-99ed-44cc80b635ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="53cebd03-78cf-7943-aa76-24125750c489" executionId="05b6374b-3d14-4e88-bfb3-12986d8ee1db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e2c616cc-d984-7cb6-6245-6d7ececb07a0" executionId="95aaed1f-5ae9-4005-8c03-51b110f382b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8e2c16d6-8e01-a55c-7005-6f5d241c485a" executionId="464431ca-2b8c-4ac6-81d1-903a73a16590" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b1c33881-386e-61bd-3e3e-5f430e407d30" executionId="f4816987-d071-4670-9d64-442e02e09a4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c581232b-85e9-ff8c-2d1b-48834d0e86e2" executionId="d5682207-ca36-4e67-9463-cdd80955ba70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5d8249b5-52dc-7d25-1d9d-fe2cf9d7b265" executionId="aadcb501-b670-459e-92af-19c15cbf1c1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5dbb1bf3-84f6-eda8-dcfe-8d661673e59b" executionId="de8222b0-4f8a-4752-9066-b1670155d06d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a75744e-3653-ed5b-72d6-90658901dbdf" executionId="d9b3b2cf-dc4c-4885-a274-cd2105a2118a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="52" executed="52" passed="37" failed="15" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.45]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.65]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.70]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.23]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=6.1803235471569795E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.23]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.23]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.23]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.23]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(58,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed)&#xD;
+[xUnit.net 00:00:03.23]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.24]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:03.24]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=7.7320533457141147E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(58,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed)&#xD;
+[xUnit.net 00:00:03.24]            at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.24]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.24]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=8.5201289483712321E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(58,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed)&#xD;
+[xUnit.net 00:00:03.24]            at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.24]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.24]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=7.7320533457141147E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(58,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed)&#xD;
+[xUnit.net 00:00:03.24]            at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.24]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.24]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=5.6291246738334942E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(58,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed)&#xD;
+[xUnit.net 00:00:03.24]            at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.24]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.24]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=5.6291246738334942E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(58,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed)&#xD;
+[xUnit.net 00:00:03.24]            at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.24]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.24]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=8.5201289483712321E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(58,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed)&#xD;
+[xUnit.net 00:00:03.24]            at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.24]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.25]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=6.1803235471569795E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.25]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.25]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.25]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.25]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(58,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Boolean immersed, Boolean odd, Boolean posed)&#xD;
+[xUnit.net 00:00:03.25]            at InvokeStub_PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.25]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.25]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=8.3252095987745156E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.25]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.25]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.25]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.25]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(76,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(Int32 region)&#xD;
+[xUnit.net 00:00:03.25]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.25]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:03.36]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=4.7060655486207798E-14, current=Air, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.36]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.36]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.36]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.36]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(114,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.RigidSceneReferenceTransformsPreserveFullBranchPowerDirectionsAndOpticalPath()&#xD;
+[xUnit.net 00:00:03.36]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.36]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.36]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=6.253136984968097E-11, current=Glass 1, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.36]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.36]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.36]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:03.36]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(104,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.&lt;DecenteredRolledApertureUsesItsCompleteSurfaceFrame&gt;g__At|6_0(Vector3D local, &lt;&gt;c__DisplayClass6_0&amp;)&#xD;
+[xUnit.net 00:00:03.36]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyTests.cs(107,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.DecenteredRolledApertureUsesItsCompleteSurfaceFrame()&#xD;
+[xUnit.net 00:00:03.36]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.36]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.49]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=1.207155608887488E-10, current=Declared liquid, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.49]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.49]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.49]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(272,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.&lt;&gt;c__DisplayClass33_0.&lt;TraceCoreAsync&gt;b__0()&#xD;
+[xUnit.net 00:00:03.49]            at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+[xUnit.net 00:00:03.49]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:03.49]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.49]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:03.49]            at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+[xUnit.net 00:00:03.49]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.49]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(229,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.49]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(139,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.49]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(119,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.49]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs(38,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered)&#xD;
+[xUnit.net 00:00:03.49]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.52]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=1.207155608887488E-10, current=Air, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.52]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.52]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.52]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(272,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.&lt;&gt;c__DisplayClass33_0.&lt;TraceCoreAsync&gt;b__0()&#xD;
+[xUnit.net 00:00:03.52]            at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+[xUnit.net 00:00:03.52]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:03.52]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.52]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:03.52]            at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+[xUnit.net 00:00:03.52]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.52]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(229,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.52]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(139,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.52]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(119,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.52]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs(38,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered)&#xD;
+[xUnit.net 00:00:03.52]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.55]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=7.6528786477111422E-11, current=Declared liquid, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.55]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.55]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(272,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.&lt;&gt;c__DisplayClass33_0.&lt;TraceCoreAsync&gt;b__0()&#xD;
+[xUnit.net 00:00:03.55]            at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+[xUnit.net 00:00:03.55]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:03.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.55]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:03.55]            at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+[xUnit.net 00:00:03.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.55]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(229,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.55]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(139,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.55]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(119,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.55]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs(38,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered)&#xD;
+[xUnit.net 00:00:03.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.58]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=1, distance=7.6528786477111422E-11, current=Air, expected=Glass 0&#xD;
+[xUnit.net 00:00:03.58]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.58]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(322,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:03.58]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(272,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.&lt;&gt;c__DisplayClass33_0.&lt;TraceCoreAsync&gt;b__0()&#xD;
+[xUnit.net 00:00:03.58]            at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+[xUnit.net 00:00:03.58]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:03.58]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.58]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:03.58]            at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+[xUnit.net 00:00:03.58]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.58]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(229,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceCoreAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.58]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(139,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.58]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs(119,0): at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.58]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\PosedOpticalAssemblyApplicationTests.cs(38,0): at OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(Boolean immersed, Boolean scattered)&#xD;
+[xUnit.net 00:00:03.58]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.34]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:13.8844581+08:00">
+        <Text>[xUnit.net 00:00:03.23]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:13.8902021+08:00">
+        <Text>[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:13.8914432+08:00">
+        <Text>[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: True, posed: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:13.8918778+08:00">
+        <Text>[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:13.8924474+08:00">
+        <Text>[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: False, posed: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:13.8925965+08:00">
+        <Text>[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: False, odd: True, posed: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:13.9213538+08:00">
+        <Text>[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:13.9213813+08:00">
+        <Text>[xUnit.net 00:00:03.25]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.AsphericAndPosedMainPathsMatchTheSharedSequentialGeometryAndCarriedMedia(immersed: True, odd: False, posed: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:13.9214031+08:00">
+        <Text>[xUnit.net 00:00:03.25]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.InternalSourcesAreLocatedInTheirActualTiltedGlassRegion(region: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:14.0167961+08:00">
+        <Text>[xUnit.net 00:00:03.36]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.RigidSceneReferenceTransformsPreserveFullBranchPowerDirectionsAndOpticalPath [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:14.0168861+08:00">
+        <Text>[xUnit.net 00:00:03.36]     OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.DecenteredRolledApertureUsesItsCompleteSurfaceFrame [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:14.1445648+08:00">
+        <Text>[xUnit.net 00:00:03.49]     OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:14.1739815+08:00">
+        <Text>[xUnit.net 00:00:03.52]     OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:14.2001161+08:00">
+        <Text>[xUnit.net 00:00:03.55]     OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: True, scattered: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T22:03:14.2300796+08:00">
+        <Text>[xUnit.net 00:00:03.58]     OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.ThreeBandPosedAspheresAndScatteringFeedOnePhotonConversionAndExactFrozenReplay(immersed: False, scattered: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
