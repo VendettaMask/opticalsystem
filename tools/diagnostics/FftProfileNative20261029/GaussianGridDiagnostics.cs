@@ -25,6 +25,16 @@ internal static class GaussianGridDiagnostics
             JsonElement Gaussian(string kind) => JsonFiles.Read<JsonElement>(Path.Combine(capture, $"binocular-c{configuration}-gaussian-{kind}/data.json")).GetProperty("dataGrids")[0];
             var uniform = Reconstruct(Frozen("Real"), Frozen("Imaginary"));
             var gaussian = Reconstruct(Gaussian("Real"), Gaussian("Imaginary"));
+            JsonElement Original(string kind)
+            {
+                using var stream = zip.GetEntry($"artifacts/validation/afocal-fft-energy-20261027/native-binocular/binocular-c{configuration}-{kind}/data.json")!.Open();
+                using var document = JsonDocument.Parse(stream);
+                return document.RootElement.GetProperty("dataGrids")[0].Clone();
+            }
+            var original = Reconstruct(Original("Real"), Original("Imaginary"));
+            var changedMask = Enumerable.Range(0, 64).SelectMany(y => Enumerable.Range(0, 64).Select(x =>
+                new { x, y, originalAccepted = original[y, x].Magnitude > .5, accepted = uniform[y, x].Magnitude > .5 }))
+                .Where(p => p.originalAccepted != p.accepted).ToArray();
             var referenceX = -Math.Log(gaussian[32, 33].Magnitude / uniform[32, 33].Magnitude);
             var referenceY = -Math.Log(gaussian[33, 32].Magnitude / uniform[33, 32].Magnitude);
             var points = new List<object>();
@@ -44,8 +54,8 @@ internal static class GaussianGridDiagnostics
                         axis.Add(new { x, y, radiusSquared, normalizationReference = reference, inferredCoordinateStretch = stretch });
                     }
                 }
-            summaries.Add(new { configuration, axis, points });
-            Console.WriteLine(JsonSerializer.Serialize(new { configuration, axis }, JsonFiles.Options));
+            summaries.Add(new { configuration, maskDiagnosticThreshold = .5, changedMask, axis, points });
+            Console.WriteLine(JsonSerializer.Serialize(new { configuration, changedMask, axis }, JsonFiles.Options));
         }
         JsonFiles.Write(output, summaries);
         return 0;

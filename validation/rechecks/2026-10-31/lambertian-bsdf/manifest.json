@@ -1,0 +1,569 @@
+{
+  "CreatedUtc": "2026-10-31T06:14:41.7515749+00:00",
+  "GitBaseCommit": "3b43bb7f87270e034218bf466b23f885330814fc",
+  "WorkingTree": "Shared dirty checkout; scoped source hashes identify this verification. Other tasks are preserved.",
+  "Platform": "Microsoft Windows NT 10.0.26200.0",
+  "FinalPassed": 121,
+  "FinalFailed": 0,
+  "TestClasses": [
+    {
+      "Class": "BsdfTests",
+      "Passed": 11
+    },
+    {
+      "Class": "CameraBsdfChainTests",
+      "Passed": 3
+    },
+    {
+      "Class": "CameraBsdfWindowTests",
+      "Passed": 1
+    },
+    {
+      "Class": "CameraNonSequentialServiceTests",
+      "Passed": 7
+    },
+    {
+      "Class": "CameraNonSequentialWindowTests",
+      "Passed": 3
+    },
+    {
+      "Class": "CameraScene3DTests",
+      "Passed": 17
+    },
+    {
+      "Class": "CoreArchitectureTests",
+      "Passed": 2
+    },
+    {
+      "Class": "DocumentFormatBoundaryTests",
+      "Passed": 19
+    },
+    {
+      "Class": "NonSequentialBsdfTests",
+      "Passed": 7
+    },
+    {
+      "Class": "NonSequentialCameraSensorTests",
+      "Passed": 13
+    },
+    {
+      "Class": "NonSequentialStrayLightTests",
+      "Passed": 38
+    }
+  ],
+  "EnergyChecks": [
+    {
+      "Rho": 0.25,
+      "RelativeEnergyClosureError": 1.1735057370287905E-13,
+      "DetectorFraction": 0.1401672363281234,
+      "ExpectedDetectorFraction": 0.13853160599489298,
+      "SixSigmaFraction": 0.00823771163283218,
+      "SampleCount": 8192
+    },
+    {
+      "Rho": 0,
+      "RelativeEnergyClosureError": 0.0,
+      "DetectorFraction": 0.0,
+      "ExpectedDetectorFraction": 0.0,
+      "SixSigmaFraction": 0,
+      "SampleCount": 8192
+    },
+    {
+      "Rho": 1,
+      "RelativeEnergyClosureError": 1.4654943925052066E-14,
+      "DetectorFraction": 0.5606689453124936,
+      "ExpectedDetectorFraction": 0.5541264239795719,
+      "SixSigmaFraction": 0.03295084653132872,
+      "SampleCount": 8192
+    }
+  ],
+  "CoreCopies": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    }
+  ],
+  "VerifiedAppAndTestCoreSha256": "e569f05015c6993bc3cd96dbcdbb5613b26a89912f80d880b2ed3078d580ec55",
+  "PreRunCoreCopies": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Hash": "E569F05015C6993BC3CD96DBCDBB5613B26A89912F80D880B2ED3078D580EC55"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Hash": "E569F05015C6993BC3CD96DBCDBB5613B26A89912F80D880B2ED3078D580EC55"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Hash": "E569F05015C6993BC3CD96DBCDBB5613B26A89912F80D880B2ED3078D580EC55"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Hash": "E569F05015C6993BC3CD96DBCDBB5613B26A89912F80D880B2ED3078D580EC55"
+    },
+    {
+      "Path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Hash": "E569F05015C6993BC3CD96DBCDBB5613B26A89912F80D880B2ED3078D580EC55"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Hash": "E569F05015C6993BC3CD96DBCDBB5613B26A89912F80D880B2ED3078D580EC55"
+    }
+  ],
+  "PostRunCoreCopies": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Date": "2026-10-31T06:10:04.8388396Z",
+      "Hash": "FB6D2B94CB461DA4EEF88BA6EAD5E57BC7DA4DC27419E6BEDC005DE70E11AF22"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Date": "2026-10-31T06:10:04.8388396Z",
+      "Hash": "FB6D2B94CB461DA4EEF88BA6EAD5E57BC7DA4DC27419E6BEDC005DE70E11AF22"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Date": "2026-10-31T06:07:51.2318228Z",
+      "Hash": "E569F05015C6993BC3CD96DBCDBB5613B26A89912F80D880B2ED3078D580EC55"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Date": "2026-10-31T06:10:04.8388396Z",
+      "Hash": "FB6D2B94CB461DA4EEF88BA6EAD5E57BC7DA4DC27419E6BEDC005DE70E11AF22"
+    },
+    {
+      "Path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Date": "2026-10-31T06:10:04.8388396Z",
+      "Hash": "FB6D2B94CB461DA4EEF88BA6EAD5E57BC7DA4DC27419E6BEDC005DE70E11AF22"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Date": "2026-10-31T06:07:51.2318228Z",
+      "Hash": "E569F05015C6993BC3CD96DBCDBB5613B26A89912F80D880B2ED3078D580EC55"
+    }
+  ],
+  "WorkingOutputDriftAfterTestStart": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 6158848,
+      "Sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    }
+  ],
+  "Sources": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/Bsdf.cs",
+      "Bytes": 3772,
+      "Sha256": "98755918e31ffb989f3839a2bea13cdfb14150ef73b7536f93f472351a335c2e"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialSurfaceBsdf.cs",
+      "Bytes": 1177,
+      "Sha256": "c71e78f296f232e0711dfb39c0e6984c23e7dd3448d7ce375d569483e2925d6e"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDocument.cs",
+      "Bytes": 48744,
+      "Sha256": "ea8341e257755c4243c67aed5c8dc1b60a9791b562d9a2c61803f3a52aee547e"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "Bytes": 67677,
+      "Sha256": "c5a8f4b4d1d3203b00e86c2028e0c9dd774fa4a3110e5722997169e14dc0f0d1"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialPathFilter.cs",
+      "Bytes": 18898,
+      "Sha256": "c49a6a9bba8355088a195935e5851e4cc58c6f2626ad51883ee1dfe933b8e081"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "Bytes": 31575,
+      "Sha256": "fdb53d5332d2b7606f0ffddbbc8e439509dae3747107ba583ac2d01e6cf95eb6"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Interactions/IInteractionModel.cs",
+      "Bytes": 1226,
+      "Sha256": "0162ad51684539792400b03fc1f09f7b40b6f50854bd49f4c252b8d6ebc55dd2"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "Bytes": 22866,
+      "Sha256": "4a3193515a1b9e1605413ddb3eff1185613404c2212c4a5bde5af5cca7c9e1f8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraScene.cs",
+      "Bytes": 7482,
+      "Sha256": "1ad2b2d698e60f6fcc8dbf2105f6f8ea46bb6ef51639279cbda66fb7c134a6fc"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "Bytes": 50324,
+      "Sha256": "ad9ce8054fa5eb9cdc2aaa8f38f047e2328e59ed1c29aae9988fc28b7c3ec3dd"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/CameraNonSequentialContracts.cs",
+      "Bytes": 1862,
+      "Sha256": "5ed932cb614c971810a9390a8faa1dfc669f160e4535d1877ff20af89796f0de"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.cs",
+      "Bytes": 36459,
+      "Sha256": "3a50101f472100760326757ce806c43e351313400f8de7252c20e49b540fe465"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.cs",
+      "Bytes": 46776,
+      "Sha256": "d5c0f835fea3f582d8c4a9ddde1f2476ce1672738d09757ec4304807b392dabe"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.Camera.cs",
+      "Bytes": 7623,
+      "Sha256": "fb44a9fa799e51608002b3d85646a1fe7a4430471b96d783dfd8aa0564032a83"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialVisualizationBuilder.cs",
+      "Bytes": 18942,
+      "Sha256": "ba55bf2b50da645ef2cbded49bc7ba91a2ad9d79d16fd12609346902ae2d19e5"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/CameraImagingService.NonSequential.cs",
+      "Bytes": 10651,
+      "Sha256": "3695c8eb6a39a13cbc9cba3679932b26676709ca5ee230b6e4b519058fbb5a64"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.NonSequential.cs",
+      "Bytes": 8851,
+      "Sha256": "d9e0a8b1b36008c5f3bf36c77ef50cc5c1acfcbb46134317b3c8930bde828abf"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "Bytes": 35546,
+      "Sha256": "967e010ca20cecefb85cbeccf7243381bc0bc81ae0260eb9502c222566e7dd72"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "Bytes": 45807,
+      "Sha256": "9ff081f89617762434d71f5406405ddee9498618eb09618312d0c3c4b660af2d"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.CameraNonSequential.cs",
+      "Bytes": 8476,
+      "Sha256": "602a0cade6cc91fa1eafba9e765be1a422c25efabb54e7454827806ab56885f8"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/BsdfTests.cs",
+      "Bytes": 4840,
+      "Sha256": "7e0979d6fd93e60dac161a4c59f3052b044e93d809fdc6a1bd7838f1b887535f"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialBsdfTests.cs",
+      "Bytes": 9140,
+      "Sha256": "4f07dfc5a790bd78fd14ea032c3a48c329d96cbcaa999ffdea33dd9c58df82dd"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CameraBsdfChainTests.cs",
+      "Bytes": 7199,
+      "Sha256": "135412d6b0f4fabcbb859532738ecd5c5bdfeb1f6ce33f9b1a4e179e1fb4c2ba"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CameraBsdfWindowTests.cs",
+      "Bytes": 5232,
+      "Sha256": "19e5e0e586dbae72bbf028e16eaf1fdce73242f41708782544a546751a041c5a"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj",
+      "Bytes": 14419,
+      "Sha256": "0766fdb5f9cbd19904c353905ea039dbceb9102d6e48a3524497b5f1dc905cef"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/camera-nsc-v9-frozen.zip",
+      "Bytes": 3252,
+      "Sha256": "c153c6610c01a9b35031afa678c4d1988aea31cbf122419bb711b2e2556aec7d"
+    },
+    {
+      "Path": "docs/LAMBERTIAN_BSDF_2026-10-31.md",
+      "Bytes": 6047,
+      "Sha256": "75d385debec89ee8a1f67d23a4ce4a1afd797f6edd28ed2e23f3b19ba85ec261"
+    },
+    {
+      "Path": "docs/CURRENT_STATUS.md",
+      "Bytes": 472711,
+      "Sha256": "a13e38328a10817eb52ab1686a7db48c83b01e0ca21494b5ca3bd60a997dc761"
+    },
+    {
+      "Path": "docs/CAMERA_IMAGING_LAB.md",
+      "Bytes": 50536,
+      "Sha256": "87a36a43aee015b2cf96cde371bb08007fd6742607a5044e280b95237d33323f"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md",
+      "Bytes": 12400,
+      "Sha256": "9e1a37b2ce10433bc451e5de7d801edf733992508254d30f168303e9c613dcf6"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md",
+      "Bytes": 9190,
+      "Sha256": "4d1dead740229563a590db3bf461459e3c03b6b50face24943f9441217aaeedb"
+    },
+    {
+      "Path": "docs/NON_SEQUENTIAL_TRACING.md",
+      "Bytes": 12813,
+      "Sha256": "ea2e2da6ca1ad753b663866c3f16c132ef8194642a47fad8e89d014be8aa405d"
+    },
+    {
+      "Path": "docs/STAROPT_FILE_FORMAT.md",
+      "Bytes": 14853,
+      "Sha256": "a7613334368542380e78bbe13cadd1fe898a3caba191c339695aab302e98bbc0"
+    },
+    {
+      "Path": "docs/FILE_FORMATS_AND_PLUGINS.md",
+      "Bytes": 27447,
+      "Sha256": "7171c8e7685d6f92606378d259b596b42550e7cc19463ae0a083e690c2da2b4d"
+    },
+    {
+      "Path": "docs/README.md",
+      "Bytes": 23945,
+      "Sha256": "b90609d758587bc578d1c3907c0b54cfec8f939581e1a1aa18193b6484cfecbf"
+    }
+  ],
+  "CurrentWorkingBinariesAfterVerification": [
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Bytes": 71441920,
+      "Sha256": "4e3e0e7eb2f8f2db22774a2c1c01c90c71790ba809f23a53bed09b2143e29403"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+      "Bytes": 1498112,
+      "Sha256": "1798f1622fc4f217183d912ed94af92370a27038de692fcb9a74e1e0536949e9"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll",
+      "Bytes": 4434432,
+      "Sha256": "9e973c9adab6c4be4c1b6a882da92fef9ccf8d319866b3301f48a9843e9ab3ae"
+    }
+  ],
+  "Artifacts": [
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/build-app-final.log",
+      "Bytes": 1519,
+      "Sha256": "a57b582e43714e69db1f5966a509fb53ea188fb11d0a712527a8cbb57b4f5c19"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/build-app.log",
+      "Bytes": 1519,
+      "Sha256": "927e69b89a950e5ea45cbac74aa684a239c4d280db2bd6d50db86a4271e84fbc"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/build-pre-output-sync.log",
+      "Bytes": 2003,
+      "Sha256": "13e341a7ff5d26122d09b0b505e504aefa2975e5df36325bbcb5f97b4774327a"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/build-pre-zero.log",
+      "Bytes": 2003,
+      "Sha256": "bc1249be8d42f094094aae758f51a77c9f0e8aaaacf62f6de05c6e1fd18f4801"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/build-tests-final.log",
+      "Bytes": 224,
+      "Sha256": "178e8b0571355d3a4441b1a76a7bfc275db5c301d91b74624c213566931b3968"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/build-tests.log",
+      "Bytes": 2003,
+      "Sha256": "0e246f490a7cb5d312a4d4a1eb41c7f827b7c9a2024966ca08d35391b37a3ade"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/build-zero-test-import-failure.log",
+      "Bytes": 2402,
+      "Sha256": "6212450c828e67a09ba2fda559b9cc8ea06495019eb07e8c792b71136ad70f64"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/camera-chain.json",
+      "Bytes": 818,
+      "Sha256": "1e65f40524ec44cdd572a18e86bf0c18687c625d379003e0716853af86febf97"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/development.trx",
+      "Bytes": 43554,
+      "Sha256": "aaeb3cac7b7206e898d72e62e9ec9396c5cca9ff279eef71dd60543292b02d25"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/energy-0.25.json",
+      "Bytes": 757,
+      "Sha256": "b30cd04c5634e29cd08770ec3f87191b86d81f6edac59caf367d2904ea3706d6"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/energy-0.json",
+      "Bytes": 678,
+      "Sha256": "97258411a72d6b750649fc45bb5f2ffeeb901bd3041b4cea0e24124c3210090e"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/energy-1.json",
+      "Bytes": 757,
+      "Sha256": "98fcf31a9bdc2d609220190c780c106e6c0ff1eebe314dc2dc424999f3c7179f"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/expanded-pre-zero-core.sha256",
+      "Bytes": 66,
+      "Sha256": "e64df6fa20e32743b9ee48f9b17e1f41553938baace357baca18c0496f952294"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/expanded-pre-zero.trx",
+      "Bytes": 180258,
+      "Sha256": "bad4dcd7f058a2c8d97cdf6e8b79b2ce78ecf78e38e7a01c1e342329f276fe54"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/final-focused.trx",
+      "Bytes": 180258,
+      "Sha256": "8a48a54a0650b8340240b760e0976f3d02a3c00811e57f27f5e36b3b93ce6c5b"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/focused.trx",
+      "Bytes": 155088,
+      "Sha256": "a5c6013bbd6e1a04a65298c0e291db03de20416f985f01291d33a3c38a4e12cb"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/lambertian-camera.png",
+      "Bytes": 186138,
+      "Sha256": "5f0c8c143114a12aa10f75635ab89d2b33ba8ad6724e2385d4196b2427e28ab0"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/lambertian-editor.png",
+      "Bytes": 70185,
+      "Sha256": "d5bcd36b2d73106148374c84facbe0ed43c0af5bfde1c98656302697aad6fd07"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/lambertian.camera-experiment.zip",
+      "Bytes": 38097,
+      "Sha256": "bfc3fd8fe628d1b099ff6c3c8bbb3ca532425e744aa968295252ebba1660c85f"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/output-sync-audit.json",
+      "Bytes": 753,
+      "Sha256": "8af4ca8fccbe127155cd170eb438bbf582a38e564bf929d3a80b8baa35b346e4"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/post-final-core-copies.json",
+      "Bytes": 1470,
+      "Sha256": "1a78c44415f2473ce524d56ff1236fa9ff2ae22576b2d2e6d8a59b526c4d34d4"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/pre-final-core-copies.json",
+      "Bytes": 1200,
+      "Sha256": "9e549e65703a38aaba7190b47e8caa886a78bc7a8f935545b13143657b999e3d"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/pre-output-sync-core.sha256",
+      "Bytes": 66,
+      "Sha256": "333c6ea002d63ef958c57c2d3a087779234d16b99b903142f2ccd3abb5220a8c"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/pre-output-sync.trx",
+      "Bytes": 180258,
+      "Sha256": "f148018420bcee18adad64d76e481c7dc5b2cef895fd722db8f0ca70fdc08e3b"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/README.md",
+      "Bytes": 7056,
+      "Sha256": "ce84ba43a88ef7d752a04c54a150a77a75adf6e72eb55fe274b6244601549dc4"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/samples-0-0--1.json",
+      "Bytes": 598,
+      "Sha256": "74da50b5f46bb8b87f9c1301a2a8dde207cc692fce61ab4dd5c9d6ee7cc1c76c"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/samples-0-0-1.json",
+      "Bytes": 597,
+      "Sha256": "3dfdec7f539cbfa2ba2838961549f38e4a8b78942d150f41f4dc416ce1abb392"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/samples-0.3--0.4-0.8660254037844386.json",
+      "Bytes": 620,
+      "Sha256": "7337519cf5cc8ab3f836a116561c27a4ce5f0f29e0df29b803efb61a7ed40bf9"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/seal.ps1",
+      "Bytes": 7147,
+      "Sha256": "ae68dd22c5911b6d5bdbcfb4a15cb099b8eb43c137ac637557e4c75c49a7a550"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/test-development.log",
+      "Bytes": 5620,
+      "Sha256": "384e18a7c8cfa2a29a2259bba86655dfcf350d171a406de39c17296461b8f4d7"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/test-expanded-pre-zero.log",
+      "Bytes": 458,
+      "Sha256": "a9c59e86f97404b06be93924bd3cc008760d850a06d3cb516fcaedf16ad26c70"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/test-final-focused.log",
+      "Bytes": 585,
+      "Sha256": "7cfbbe59d92d05df26e978d06f42d261ae9694aa39f217d03269814b42ae9646"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/test-focused.log",
+      "Bytes": 449,
+      "Sha256": "b2e5dcbdc061ae215c3d228dd341c666f0027ba4aecdba42aa79a76b72426346"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/lambertian-bsdf/test-pre-output-sync.log",
+      "Bytes": 585,
+      "Sha256": "b0e27d3d49624cbcaaf3c12e5c01cae2338a3605dc51127d5d0d8bafa6ff9979"
+    }
+  ]
+}

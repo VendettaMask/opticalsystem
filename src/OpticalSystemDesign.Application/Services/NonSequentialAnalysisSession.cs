@@ -44,12 +44,15 @@ internal abstract class NonSequentialResultSession : IDisposable
             publishFile();
             previous = _selection;
             var file = new FileInfo(session.RayDatabasePath);
+            using var identityStream = new FileStream(session.RayDatabasePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using var identityReader = new NonSequentialRayDatabaseReader(identityStream);
             _selection = new Selection(
                 Path.GetFullPath(session.RayDatabasePath),
                 session.FilterExpression,
                 session,
                 ownsDatabase,
-                file.Length);
+                file.Length,
+                identityReader.Header);
         }
         DeleteOwned(previous, session.RayDatabasePath);
         if (notifyChanged)
@@ -126,7 +129,8 @@ internal abstract class NonSequentialResultSession : IDisposable
                     filterExpression,
                     loadedSession with { IsTemporaryDatabase = ownsDatabase },
                     ownsDatabase,
-                    stream.Length);
+                    stream.Length,
+                    reader.Header);
             }
         }
         DeleteOwned(previous, fullPath);
@@ -162,6 +166,11 @@ internal abstract class NonSequentialResultSession : IDisposable
     public string? SelectedFilter
     {
         get { lock (_gate) return _selection?.FilterExpression; }
+    }
+
+    internal NonSequentialRayDatabaseHeader? SelectedDatabaseHeader
+    {
+        get { lock (_gate) return _selection?.DatabaseHeader; }
     }
 
     public NonSequentialLayoutBranchSet? LoadLayoutBranches(
@@ -264,7 +273,8 @@ internal abstract class NonSequentialResultSession : IDisposable
         string? FilterExpression,
         NonSequentialTraceSessionDto Session,
         bool OwnsDatabase,
-        long FileLength);
+        long FileLength,
+        NonSequentialRayDatabaseHeader DatabaseHeader);
 }
 
 internal sealed class NonSequentialAnalysisSession : NonSequentialResultSession

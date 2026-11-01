@@ -1,0 +1,532 @@
+{
+  "date": "2026-10-30",
+  "status": "explicit_gaussian_afocal_huygens_and_object_medium_pupil_distance_repaired",
+  "strictContinuumGate": 1E-10,
+  "originalIndexScalingGate": 1E-07,
+  "defaultNativeFiniteCellChanged": false,
+  "nativeControlsCountedAsFormalPasses": 0,
+  "allFiniteSamplingIssuesClosed": false,
+  "nativeSamplingBiasRetainedByProtocol": true,
+  "originalNativeInputsReferencesGatesAndHistoricalLedgerChanged": false,
+  "dependencies": [
+    {
+      "path": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+      "sha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/fft-seam-repair/evidence.zip",
+      "sha256": "8a9a21f077515b016dd90c7cff890abccc7c038058cf0094ace38970523a2bd1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/afocal-auto-grid/evidence.zip",
+      "sha256": "b7340ea55499260feef6080a9e265c68318c37f500cec66df5a2e83b8a39586f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/riflescope-pupil/evidence.zip",
+      "sha256": "f4e6fef82110d8b6bde01a6d85ea72dbf7613e480991751e79b1f5a423bace4a"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/centroid-energy/evidence.zip",
+      "sha256": "a7c6cded1d3d98546a1aad0aa2bc42290d3fcd5f0c3688a8382f107e6d82d997"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/afocal-ri/evidence.zip",
+      "sha256": "89aeb7953c4d03e2948a3db5b48e090fa9a1ee190e395c12ff029200524f471c"
+    }
+  ],
+  "sourceBaseCommit": "ea5152436935d7c07d34dca47a5b92349c803d6b",
+  "before": [
+    {
+      "n": 32,
+      "nativeAiryMaximumAbsolute": 0.023712472493626457,
+      "coreAiryMaximumAbsolute": 0.023712472493625736,
+      "nativeMaximumAbsoluteDifference": 1.0769163338864018E-14
+    },
+    {
+      "n": 64,
+      "nativeAiryMaximumAbsolute": 0.01146785958902119,
+      "coreAiryMaximumAbsolute": 0.011467859589020302,
+      "nativeMaximumAbsoluteDifference": 5.362377208939506E-14
+    },
+    {
+      "n": 128,
+      "nativeAiryMaximumAbsolute": 0.006135339101170312,
+      "coreAiryMaximumAbsolute": 0.0061353391011692016,
+      "nativeMaximumAbsoluteDifference": 4.796163466380676E-14
+    }
+  ],
+  "after": [
+    {
+      "n": 32,
+      "nativeAiryMaximumAbsolute": 0.023712472493626457,
+      "coreAiryMaximumAbsolute": 0.023712472493625736,
+      "nativeMaximumAbsoluteDifference": 1.0769163338864018E-14,
+      "gaussianAiryMaximumAbsolute": 1.6653345369377348E-15,
+      "PupilQuadratureNodeCount": 1024,
+      "gaussianModeCountedAsNativePass": false
+    },
+    {
+      "n": 64,
+      "nativeAiryMaximumAbsolute": 0.01146785958902119,
+      "coreAiryMaximumAbsolute": 0.011467859589020302,
+      "nativeMaximumAbsoluteDifference": 5.362377208939506E-14,
+      "gaussianAiryMaximumAbsolute": 8.08242361927114E-14,
+      "PupilQuadratureNodeCount": 4096,
+      "gaussianModeCountedAsNativePass": false
+    },
+    {
+      "n": 128,
+      "nativeAiryMaximumAbsolute": 0.006135339101170312,
+      "coreAiryMaximumAbsolute": 0.0061353391011692016,
+      "nativeMaximumAbsoluteDifference": 4.796163466380676E-14,
+      "gaussianAiryMaximumAbsolute": 7.993605777301127E-15,
+      "PupilQuadratureNodeCount": 16384,
+      "gaussianModeCountedAsNativePass": false
+    }
+  ],
+  "wideWindowCounterexamples": [
+    {
+      "n": 8,
+      "pitchMilliradians": 0.08,
+      "maximumAiryAbsoluteError": 0.07253203017627328,
+      "strictContinuumGate": 1E-10,
+      "meetsStrictContinuumGate": false,
+      "PupilQuadratureNodeCount": 64,
+      "diagnosticOnly": true
+    },
+    {
+      "n": 16,
+      "pitchMilliradians": 0.08,
+      "maximumAiryAbsoluteError": 9.772878771161213E-08,
+      "strictContinuumGate": 1E-10,
+      "meetsStrictContinuumGate": false,
+      "PupilQuadratureNodeCount": 256,
+      "diagnosticOnly": true
+    },
+    {
+      "n": 32,
+      "pitchMilliradians": 0.08,
+      "maximumAiryAbsoluteError": 8.356426444908194E-13,
+      "strictContinuumGate": 1E-10,
+      "meetsStrictContinuumGate": true,
+      "PupilQuadratureNodeCount": 1024,
+      "diagnosticOnly": true
+    },
+    {
+      "n": 64,
+      "pitchMilliradians": 0.08,
+      "maximumAiryAbsoluteError": 8.356610488226973E-13,
+      "strictContinuumGate": 1E-10,
+      "meetsStrictContinuumGate": true,
+      "PupilQuadratureNodeCount": 4096,
+      "diagnosticOnly": true
+    }
+  ],
+  "nativeExecution": [
+    {
+      "id": "disk-n32",
+      "result": {
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "StandardOutput": "",
+        "StandardError": ""
+      },
+      "sourceUnchanged": true
+    },
+    {
+      "id": "disk-n64",
+      "result": {
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "StandardOutput": "",
+        "StandardError": ""
+      },
+      "sourceUnchanged": true
+    },
+    {
+      "id": "disk-n128",
+      "result": {
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "StandardOutput": "",
+        "StandardError": ""
+      },
+      "sourceUnchanged": true
+    }
+  ],
+  "oldBinaryIndexScaling": {
+    "coreSha256": "21d9a68915ecc34556e9c4f5d88f04e9f9b425a1fdeac6edf71b172c7458ff89",
+    "rows": [
+      {
+        "scale": 1,
+        "ImageRefractiveIndex": 1,
+        "AfocalPupilDiameterMillimeters": 10.232404014617481,
+        "entrance": 10,
+        "exit": 10.23240390341326,
+        "pupilZ": -50.95520397552785,
+        "maximumDifference": 0
+      },
+      {
+        "scale": 1.5,
+        "ImageRefractiveIndex": 1.5,
+        "AfocalPupilDiameterMillimeters": 11.103519669690188,
+        "entrance": 10,
+        "exit": 10.232403903413259,
+        "pupilZ": -50.955203975527844,
+        "maximumDifference": 0.08193339949889722
+      },
+      {
+        "scale": 2,
+        "ImageRefractiveIndex": 2,
+        "AfocalPupilDiameterMillimeters": 11.597170869691977,
+        "entrance": 10,
+        "exit": 10.23240390341326,
+        "pupilZ": -50.95520397552785,
+        "maximumDifference": 0.12270087503182717
+      }
+    ]
+  },
+  "preFixIndexScaling": {
+    "coreSha256": "a8089fa874b30b6f48c2fb0bbabdee8e0011ceddbb4d52b7debc4f3541e22806",
+    "rows": [
+      {
+        "scale": 1,
+        "ImageRefractiveIndex": 1,
+        "AfocalPupilDiameterMillimeters": 10.232404014617481,
+        "entrance": 10,
+        "exit": 10.23240390341326,
+        "pupilZ": -50.95520397552785,
+        "maximumDifference": 0
+      },
+      {
+        "scale": 1.5,
+        "ImageRefractiveIndex": 1.5,
+        "AfocalPupilDiameterMillimeters": 11.103519669690188,
+        "entrance": 10,
+        "exit": 10.232403903413259,
+        "pupilZ": -50.955203975527844,
+        "maximumDifference": 0.08193339949889722
+      },
+      {
+        "scale": 2,
+        "ImageRefractiveIndex": 2,
+        "AfocalPupilDiameterMillimeters": 11.597170869691977,
+        "entrance": 10,
+        "exit": 10.23240390341326,
+        "pupilZ": -50.95520397552785,
+        "maximumDifference": 0.12270087503182717
+      }
+    ]
+  },
+  "fixedIndexScaling": {
+    "coreSha256": "d438a685d73568073c033448c49749fb27a05aae7f6fa67833272a7bb4b73362",
+    "rows": [
+      {
+        "scale": 1,
+        "ImageRefractiveIndex": 1,
+        "AfocalPupilDiameterMillimeters": 10.232404014617481,
+        "entrance": 10,
+        "exit": 10.23240390341326,
+        "pupilZ": -50.95520397552785,
+        "stopTarget": 3.8045585356878973,
+        "probeLaunches": [
+          {
+            "Origin": {
+              "X": 0,
+              "Y": 0,
+              "Z": -10,
+              "Length": 10
+            },
+            "Direction": {
+              "X": 0,
+              "Y": 0,
+              "Z": 1,
+              "Length": 1
+            }
+          },
+          {
+            "Origin": {
+              "X": 0,
+              "Y": -0.0037534686963755725,
+              "Z": -10,
+              "Length": 10.000000704426338
+            },
+            "Direction": {
+              "X": 0,
+              "Y": 0.00017453292431333684,
+              "Z": 0.9999999847691291,
+              "Length": 1
+            }
+          },
+          {
+            "Origin": {
+              "X": 0,
+              "Y": 0.005,
+              "Z": -10,
+              "Length": 10.000001249999922
+            },
+            "Direction": {
+              "X": 0,
+              "Y": 0,
+              "Z": 1,
+              "Length": 1
+            }
+          }
+        ],
+        "maximumDifference": 0
+      },
+      {
+        "scale": 1.5,
+        "ImageRefractiveIndex": 1.5,
+        "AfocalPupilDiameterMillimeters": 10.232404014617483,
+        "entrance": 10,
+        "exit": 10.232403903413259,
+        "pupilZ": -50.955203975527844,
+        "stopTarget": 3.8045585356878973,
+        "probeLaunches": [
+          {
+            "Origin": {
+              "X": 0,
+              "Y": 0,
+              "Z": -10,
+              "Length": 10
+            },
+            "Direction": {
+              "X": 0,
+              "Y": 0,
+              "Z": 1,
+              "Length": 1
+            }
+          },
+          {
+            "Origin": {
+              "X": 0,
+              "Y": -0.003753468696375573,
+              "Z": -10,
+              "Length": 10.000000704426338
+            },
+            "Direction": {
+              "X": 0,
+              "Y": 0.00017453292431333684,
+              "Z": 0.9999999847691291,
+              "Length": 1
+            }
+          },
+          {
+            "Origin": {
+              "X": 0,
+              "Y": 0.005,
+              "Z": -10,
+              "Length": 10.000001249999922
+            },
+            "Direction": {
+              "X": 0,
+              "Y": 0,
+              "Z": 1,
+              "Length": 1
+            }
+          }
+        ],
+        "maximumDifference": 3.5646863238980586E-10
+      },
+      {
+        "scale": 2,
+        "ImageRefractiveIndex": 2,
+        "AfocalPupilDiameterMillimeters": 10.232404014617481,
+        "entrance": 10,
+        "exit": 10.23240390341326,
+        "pupilZ": -50.95520397552785,
+        "stopTarget": 3.8045585356878973,
+        "probeLaunches": [
+          {
+            "Origin": {
+              "X": 0,
+              "Y": 0,
+              "Z": -10,
+              "Length": 10
+            },
+            "Direction": {
+              "X": 0,
+              "Y": 0,
+              "Z": 1,
+              "Length": 1
+            }
+          },
+          {
+            "Origin": {
+              "X": 0,
+              "Y": -0.0037534686963755725,
+              "Z": -10,
+              "Length": 10.000000704426338
+            },
+            "Direction": {
+              "X": 0,
+              "Y": 0.00017453292431333684,
+              "Z": 0.9999999847691291,
+              "Length": 1
+            }
+          },
+          {
+            "Origin": {
+              "X": 0,
+              "Y": 0.005,
+              "Z": -10,
+              "Length": 10.000001249999922
+            },
+            "Direction": {
+              "X": 0,
+              "Y": 0,
+              "Z": 1,
+              "Length": 1
+            }
+          }
+        ],
+        "maximumDifference": 0
+      }
+    ]
+  },
+  "coreCopies": [
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "d438a685d73568073c033448c49749fb27a05aae7f6fa67833272a7bb4b73362"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "d438a685d73568073c033448c49749fb27a05aae7f6fa67833272a7bb4b73362"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "d438a685d73568073c033448c49749fb27a05aae7f6fa67833272a7bb4b73362"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "d438a685d73568073c033448c49749fb27a05aae7f6fa67833272a7bb4b73362"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "d438a685d73568073c033448c49749fb27a05aae7f6fa67833272a7bb4b73362"
+    },
+    {
+      "path": "tools/diagnostics/AfocalHuygens20261030/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "d438a685d73568073c033448c49749fb27a05aae7f6fa67833272a7bb4b73362"
+    }
+  ],
+  "workingTreeSources": [
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "sha256": "6245ae0670047d4d203792d1819dd74f5f2a5e6e7609d8213ea579f636104ed8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "sha256": "99713ccc0d0e1b94dc467e7414ff80dec65ee7cd12cff7b21ebebe22838931f9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs",
+      "sha256": "c3b70303b8d02122e35f8818c956b4bc8c552d38b179b7befc722b213f6aa38f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs",
+      "sha256": "4ef8ccc7e7de0cef190f04a7e5301f279874ce34c081e2de97b2ac2e13e52685"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfProfileAnalyses.cs",
+      "sha256": "f313f21f093ca4df2c2cc756c60358750fdcd3f65eaf4795fb504f4ff14885cd"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.AfocalQuadrature.cs",
+      "sha256": "f05df898f060883edd61734a5e421c6e218531a473c2da94527d4ea0dcaaba5e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "f97b6fb018002024cf771c1986cfdc751e6596586dddc82cdc68590dd06d0fa5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs",
+      "sha256": "58c1bdf5f88297da76dc4b00b8dac06bfebdd4f5f57097d93d2d096fb242fa2d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs",
+      "sha256": "f2da50d33e06fe24481edcac221e67a26b30cbbb75f4190550c32eeb7b12e170"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "sha256": "c27b00f79f2a7ca7337ca0a8936bef8e12211fdc8baadc5a83a3abb66c918e84"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs",
+      "sha256": "95394fbbe800237b2159444efb21487e91bd8787d2509c4f25a9399467472f8f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/RelativeIlluminationAnalysis.cs",
+      "sha256": "90b6a818177cd85692b4b1fce8d1fabe2c681e47165cc98fdfbb29058ea0b31a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "sha256": "1dbe9adf5a8dd87d2351304974191f599eab1f11c822beec5476b5c24a8520d4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmBandSensitivity.cs",
+      "sha256": "1a6c49f19420dede96fa473cc68af85342019a221c186926f577e9514877a0b1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmPeakRefinement.cs",
+      "sha256": "6b891ba7e0d63bd94aea393e4a3b0d232759b0edcf3f520b728f4ed17ec45850"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs",
+      "sha256": "91242413813373277c503cc1da56f31b6c9e258a62ed3089cad502eb7a800bbf"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Geometries/PolygonGroupGeometry.cs",
+      "sha256": "f15ac02c8df2ea7ff2f32c700e69dfb857aec7e447e52fd0d61be771858f4d2e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Interactions/InteractionModels.cs",
+      "sha256": "5148915d3d9e8676e852f97053425aa309505ffac0e6ec86a71c98ddef69c1f7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/ApertureSampler.cs",
+      "sha256": "de660ca4e7b8cbf46ef6cca6f248e09a8507401aa8cd9224459092979131ecfe"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.AfocalScale.cs",
+      "sha256": "0f46a0a326f2952da2add5e8251d4f97f14ef3ec3912178004c4e4672f20cfe5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/AfocalParabasalPupilScale.cs",
+      "sha256": "a828e7e5be4ecf8b757ef0709421a37b5708ea6ac2bd96b141646be08cd5a7a1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs",
+      "sha256": "de856b3f001dc4ee0138839fd54944a71a312e91387fc8792e428858aef8b989"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/Paraxial.cs",
+      "sha256": "5eb5436ac799e3b514f31fd7ef7002defc8db264411e6e2f1a942fffea4067c9"
+    }
+  ],
+  "testRuns": [
+    {
+      "path": "artifacts/validation/afocal-huygens-20261030-tests-comparison-final-03/comparison.trx",
+      "sha256": "676fb9e49b99ac37cc8d81ece76f3a2dcddac94a932a52fb847c9a1b5fd1ec88",
+      "passed": 124,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "artifacts/validation/afocal-huygens-20261030-tests-core-final-03/core.trx",
+      "sha256": "d316e881fd2c9b8f1002b2736b543bfa538b84093709aa3111e4a42393f93f00",
+      "passed": 286,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "latestDistinctTestsPassed": 410,
+  "earlierRunsSupersededNotAdded": true,
+  "foregroundDesktopUsed": false,
+  "full170Or95CorpusRerun": false,
+  "committedOrPushed": false
+}

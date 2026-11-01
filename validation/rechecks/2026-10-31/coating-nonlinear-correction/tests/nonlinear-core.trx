@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="63113f0a-4235-4ae9-a54c-6895091f5db9" name="allen@DESKTOP-SET3SNR 2026-10-31 18:27:09" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T18:27:09.1489778+08:00" queuing="2026-10-31T18:27:09.1489785+08:00" start="2026-10-31T18:27:06.6825523+08:00" finish="2026-10-31T18:27:09.2058697+08:00" />
+  <TestSettings name="default" id="9f7e883a-ace4-4cef-8ef1-4dfe2e1a9577">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_18_27_09" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="cd2fa26d-f100-488d-b824-fa08ab890296" testId="82dd6d91-1bdd-edfa-ba66-a7f33988ec27" testName="OpticalSystemDesign.CoatingDesign.Tests.NonlinearCorrectionTests.AnAlreadyFeasibleTrialIsPreservedExactlyAndCancellationIsObserved" computerName="DESKTOP-SET3SNR" duration="00:00:00.0045547" startTime="2026-10-31T18:27:08.9194321+08:00" endTime="2026-10-31T18:27:08.9195055+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd2fa26d-f100-488d-b824-fa08ab890296" />
+    <UnitTestResult executionId="bbbec559-7748-46be-82fc-218f984d186c" testId="ff63481a-2961-a016-2875-4fd21f276065" testName="OpticalSystemDesign.CoatingDesign.Tests.NonlinearCorrectionTests.CurvedActiveBoundCanBeCorrectedWithoutLosingTangentProgress(scale: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0007936" startTime="2026-10-31T18:27:08.9168434+08:00" endTime="2026-10-31T18:27:08.9169594+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bbbec559-7748-46be-82fc-218f984d186c" />
+    <UnitTestResult executionId="0f78a0d2-ad82-4ddc-950d-2545148c4d2c" testId="56817616-5b84-3c23-e745-9dbc5d7273ce" testName="OpticalSystemDesign.CoatingDesign.Tests.NonlinearCorrectionTests.CurvedActiveBoundCanBeCorrectedWithoutLosingTangentProgress(scale: 7)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0525525" startTime="2026-10-31T18:27:08.8405364+08:00" endTime="2026-10-31T18:27:08.9020148+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0f78a0d2-ad82-4ddc-950d-2545148c4d2c" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.NonlinearCorrectionTests.AnAlreadyFeasibleTrialIsPreservedExactlyAndCancellationIsObserved" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="82dd6d91-1bdd-edfa-ba66-a7f33988ec27">
+      <Execution id="cd2fa26d-f100-488d-b824-fa08ab890296" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.NonlinearCorrectionTests" name="AnAlreadyFeasibleTrialIsPreservedExactlyAndCancellationIsObserved" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.NonlinearCorrectionTests.CurvedActiveBoundCanBeCorrectedWithoutLosingTangentProgress(scale: 1)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="ff63481a-2961-a016-2875-4fd21f276065">
+      <Execution id="bbbec559-7748-46be-82fc-218f984d186c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.NonlinearCorrectionTests" name="CurvedActiveBoundCanBeCorrectedWithoutLosingTangentProgress" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.NonlinearCorrectionTests.CurvedActiveBoundCanBeCorrectedWithoutLosingTangentProgress(scale: 7)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="56817616-5b84-3c23-e745-9dbc5d7273ce">
+      <Execution id="0f78a0d2-ad82-4ddc-950d-2545148c4d2c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.NonlinearCorrectionTests" name="CurvedActiveBoundCanBeCorrectedWithoutLosingTangentProgress" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="82dd6d91-1bdd-edfa-ba66-a7f33988ec27" executionId="cd2fa26d-f100-488d-b824-fa08ab890296" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff63481a-2961-a016-2875-4fd21f276065" executionId="bbbec559-7748-46be-82fc-218f984d186c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="56817616-5b84-3c23-e745-9dbc5d7273ce" executionId="0f78a0d2-ad82-4ddc-950d-2545148c4d2c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.01]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.15]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.20]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.32]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

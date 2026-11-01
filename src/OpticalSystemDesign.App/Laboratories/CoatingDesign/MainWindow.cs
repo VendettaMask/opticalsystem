@@ -41,6 +41,8 @@ public sealed partial class MainWindow : Window
     private readonly TextBox _name = new();
     private readonly TextBox _stopBands = new();
     private readonly DataGrid _table;
+    private readonly TabControl _settingsContent;
+    internal TabControl SettingsContent => _settingsContent;
     private readonly SpectrumPlot _plot = new() { MinHeight = 240 };
     private readonly TextBlock _summary = new() { TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _status = new() { Text = "选择示例，或输入指标后生成膜系。", TextWrapping = TextWrapping.Wrap };
@@ -59,50 +61,29 @@ public sealed partial class MainWindow : Window
     public MainWindow(LaboratoryFileDialogs? dialogs = null)
     {
         _dialogs = dialogs;
-        Title = "光学镀膜设计实验室"; Width = 1200; Height = 900; MinWidth = 820; MinHeight = 640;
+        Title = "光学镀膜设计"; Width = 1200; Height = 900; MinWidth = 820; MinHeight = 640;
         Icon = BrandAssets.LoadWindowIcon();
         DisplayTypography.Apply(this);
         this.BindThemeResource(BackgroundProperty, ThemeResourceBindings.Workspace);
         this.BindThemeResource(ForegroundProperty, ThemeResourceBindings.TextPrimary);
         _incident = MaterialPicker(); _substrate = MaterialPicker(); _low = MaterialPicker(); _high = MaterialPicker(); _layerMaterial = MaterialPicker();
-        _table = new DataGrid
-        {
-            ItemsSource = _rows,
-            AutoGenerateColumns = false,
-            CanUserSortColumns = false,
-            CanUserReorderColumns = false,
-            SelectionMode = DataGridSelectionMode.Single,
-            GridLinesVisibility = DataGridGridLinesVisibility.Horizontal,
-            MinHeight = 120
-        };
-        _table.Columns.Add(new DataGridTextColumn { Header = "层序", Binding = new Binding(nameof(LayerRow.Number)), IsReadOnly = true, Width = new DataGridLength(52) });
-        _table.Columns.Add(new DataGridTextColumn { Header = "材料（入射侧 → 基板）", Binding = new Binding(nameof(LayerRow.MaterialName)), IsReadOnly = true, Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
-        _table.Columns.Add(new DataGridTextColumn { Header = "厚度 (nm)", Binding = new Binding(nameof(LayerRow.ThicknessText)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(120) });
-        _table.Columns.Add(new DataGridCheckBoxColumn { Header = "变量", Binding = new Binding(nameof(LayerRow.Variable)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(64) });
+        _table = BuildLayerTable();
         _table.SelectionChanged += (_, _) => { if (_table.SelectedItem is LayerRow row) _layerMaterial.Text = row.MaterialId; };
         _table.CellEditEnded += (_, _) => Changed();
         _table.KeyDown += (_, e) => { if (e.Key == Key.Delete && _table.SelectedItem is LayerRow row) { _rows.Remove(row); Renumber(); Changed(); e.Handled = true; } };
 
-        var toolbar = new WrapPanel { Orientation = Orientation.Horizontal };
-        toolbar.Children.Add(ActionButton("打开实验", OpenAsync));
-        toolbar.Children.Add(ActionButton("保存实验", SaveAsync));
-        toolbar.Children.Add(ActionButton("导出结果", ExportAsync));
-        foreach (var (label, kind) in new[] { ("示例：减反", DesignKind.Antireflection), ("示例：高反", DesignKind.HighReflector), ("示例：窄带", DesignKind.NarrowBand) })
-            toolbar.Children.Add(ActionButton(label, async () =>
-            {
-                if (await ConfirmUnsavedChangesAsync("切换镀膜示例")) Load(Examples.Create(kind), markDirty: false);
-            }));
-        toolbar.Children.Add(ActionButton("材料管理", ManageMaterialsAsync));
-        var input = BuildInputs();
+        var commandBar = BuildCommandBar();
+        _settingsContent = BuildInputs();
         var layerTools = new WrapPanel { Orientation = Orientation.Horizontal };
-        _layerMaterial.Width = 200;
+        _layerMaterial.Width = 160;
+        _layerMaterial.Margin = new Thickness(0, 0, 8, 4);
         layerTools.Children.Add(_layerMaterial);
         layerTools.Children.Add(ActionButton("添加层", () => EditLayer("add")));
         layerTools.Children.Add(ActionButton("替换材料", () => EditLayer("material")));
-        layerTools.Children.Add(ActionButton("复制", () => EditLayer("copy")));
-        layerTools.Children.Add(ActionButton("删除", () => EditLayer("remove")));
-        layerTools.Children.Add(ActionButton("上移", () => EditLayer("up")));
-        layerTools.Children.Add(ActionButton("下移", () => EditLayer("down")));
+        layerTools.Children.Add(LayerTool("复制", "copy", () => EditLayer("copy")));
+        layerTools.Children.Add(LayerTool("删除", "trash-2", () => EditLayer("remove")));
+        layerTools.Children.Add(LayerTool("上移", "arrow-up", () => EditLayer("up")));
+        layerTools.Children.Add(LayerTool("下移", "arrow-down", () => EditLayer("down")));
         var actions = new WrapPanel();
         AddCompute("1 生成膜系", () => RunAsync("generate"), actions);
         AddCompute("2 优化", () => RunAsync("optimize"), actions);
@@ -117,12 +98,18 @@ public sealed partial class MainWindow : Window
         candidateBar.Children.Add(scale);
         candidateBar.Children.Add(ActionButton("采用候选", SelectCandidateAsync));
         var layerPanel = new Grid { RowDefinitions = new("Auto,*") };
+        var layerTitle = new Grid { ColumnDefinitions = new("Auto,*"), ColumnSpacing = 12 };
+        layerTitle.Children.Add(LaboratoryPresentation.Heading("膜系编辑器", "layers"));
+        var layerHint = LaboratoryPresentation.Hint("入射侧 → 基板");
+        layerHint.HorizontalAlignment = HorizontalAlignment.Right;
+        layerHint.VerticalAlignment = VerticalAlignment.Center;
+        Grid.SetColumn(layerHint, 1); layerTitle.Children.Add(layerHint);
         var layerHeading = new StackPanel
         {
-            Margin = new Thickness(12),
-            Spacing = 10,
+            Margin = new Thickness(8),
+            Spacing = 6,
             Children =
-            { LaboratoryPresentation.Heading("膜层处方", "layers"), layerTools }
+            { layerTitle, layerTools }
         };
         layerPanel.Children.Add(layerHeading);
         _table.BorderThickness = new Thickness(0);
@@ -130,10 +117,10 @@ public sealed partial class MainWindow : Window
         var plotPanel = new Grid { RowDefinitions = new("Auto,*") };
         plotPanel.Children.Add(new StackPanel
         {
-            Margin = new Thickness(12),
-            Spacing = 10,
+            Margin = new Thickness(8),
+            Spacing = 6,
             Children =
-            { LaboratoryPresentation.Heading("光谱与候选", "chart-line"), candidateBar }
+            { LaboratoryPresentation.Heading("光学评价", "chart-line"), candidateBar }
         });
         _plot.Margin = new Thickness(4, 0, 4, 8); Put(plotPanel, _plot, 1);
         _summary.FontSize = DisplayTypography.BodySmall;
@@ -145,37 +132,28 @@ public sealed partial class MainWindow : Window
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = new Border { Padding = new Thickness(12), Child = new ScrollViewer { Content = _summary, MaxHeight = 220 } }
         };
-        var right = new Grid { RowDefinitions = new("Auto,2*,3*,Auto"), RowSpacing = 12, Name = "CoatingResults" };
-        Put(right, actions, 0); Put(right, LaboratoryPresentation.Card(layerPanel, "CoatingLayerCard"), 1);
-        Put(right, LaboratoryPresentation.Card(plotPanel, "CoatingSpectrumCard"), 2); Put(right, details, 3);
-        var main = new Grid { ColumnDefinitions = new ColumnDefinitions("256,*"), ColumnSpacing = 12 };
-        var sidebar = new Border
+        var evaluation = new Grid { RowDefinitions = new("*,Auto") };
+        evaluation.Children.Add(plotPanel); Put(evaluation, details, 1);
+        var panes = new Grid { Name = "CoatingWorkspace", ColumnDefinitions = new("*,6,*") };
+        panes.ColumnDefinitions[0].MinWidth = 300; panes.ColumnDefinitions[2].MinWidth = 300;
+        panes.Children.Add(WorkspacePane(layerPanel, "CoatingLayerCard"));
+        var splitter = new GridSplitter
         {
-            Name = "CoatingSidebar",
-            MinWidth = 240,
-            MaxWidth = 280,
-            Padding = new Thickness(0),
-            Child = new ScrollViewer { Content = input, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Hidden }
+            ResizeDirection = GridResizeDirection.Columns, ResizeBehavior = GridResizeBehavior.PreviousAndNext,
+            HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch
         };
-        sidebar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Workspace);
-        main.Children.Add(sidebar);
-        var workScroll = new ScrollViewer { Content = right, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
-        Grid.SetColumn(workScroll, 1); main.Children.Add(workScroll);
-        main.SizeChanged += (_, _) => right.Height = Math.Max((main.Bounds.Width - 268 < 650 ? 820 : 650)
-            * Math.Max(1, FontSize / 13), main.Bounds.Height);
-        var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto"), Margin = new Thickness(16), RowSpacing = 12 };
-        var heading = new StackPanel
-        {
-            Name = "LaboratoryHeader",
-            Spacing = 7,
-            Children =
-        {
-            LaboratoryPresentation.Heading("光学镀膜设计", "layers", page: true),
-            LaboratoryPresentation.Hint("定义指标与材料 → 编辑膜层 → 检查光谱与验收结果"), toolbar
-        }
-        };
-        Put(root, heading, 0); Put(root, main, 1); Put(root, _operationStatus, 2);
-        Put(root, LaboratoryPresentation.Status(_status), 3);
+        Grid.SetColumn(splitter, 1); panes.Children.Add(splitter);
+        var spectrumPane = WorkspacePane(evaluation, "CoatingSpectrumCard");
+        Grid.SetColumn(spectrumPane, 2); panes.Children.Add(spectrumPane);
+        var main = new Grid { RowDefinitions = new("Auto,*"), RowSpacing = 6, Name = "CoatingResults" };
+        main.Children.Add(actions); Put(main, panes, 1);
+        var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto") };
+        main.Margin = new Thickness(8, 8, 8, 0);
+        _operationStatus.Margin = new Thickness(12, 8, 12, 0);
+        var status = LaboratoryPresentation.Status(_status);
+        status.Margin = new Thickness(12, 8, 12, 12);
+        Put(root, commandBar, 0); Put(root, main, 1); Put(root, _operationStatus, 2);
+        Put(root, status, 3);
         Content = MainWindowTitleBar.Wrap(this, root);
         KeyDown += async (_, e) =>
         {
@@ -191,9 +169,17 @@ public sealed partial class MainWindow : Window
         LaboratoryPresentation.Apply(this);
     }
 
-    private StackPanel BuildInputs()
+    private TabControl BuildInputs()
     {
-        var panel = new StackPanel { Spacing = 12 };
+        var panel = new TabControl { Name = "CoatingSettingsTabs", HorizontalContentAlignment = HorizontalAlignment.Stretch };
+        void Page(string title, Control content) => panel.Items.Add(new TabItem
+        {
+            Header = title, FontSize = DisplayTypography.Body, FontWeight = FontWeight.Medium, Padding = new Thickness(12, 8), Content = new ScrollViewer
+            {
+                Content = new Border { Padding = new Thickness(16), Child = content },
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto
+            }
+        });
         var targets = new StackPanel { Spacing = 8 };
         targets.Children.Add(Field("实验名称", _name));
         targets.Children.Add(Field("设计类型", _kind));
@@ -210,21 +196,26 @@ public sealed partial class MainWindow : Window
         targets.Children.Add(Field("设计流程", _narrowProtocol));
         _narrowFields.Children.Add(Field("截止波段 (nm)，例 490-510;590-610", _stopBands));
         targets.Children.Add(_narrowFields);
-        panel.Children.Add(LaboratoryPresentation.Section("设计目标", "sliders-horizontal", targets));
-        panel.Children.Add(LaboratoryPresentation.Section("介质与膜料", "layers",
+        Page("设计目标", targets);
+        var media = new StackPanel { Spacing = 10, Children =
+        {
             Field("入射介质（透明）", _incident), Field("基板（搜索选择）", _substrate),
-            Field("低折射率 / 第一膜料", _low), Field("高折射率 / 第二膜料", _high)));
+            Field("低折射率 / 第一膜料", _low), Field("高折射率 / 第二膜料", _high),
+            new Expander { Header = "材料来源与计算边界", Content = _materialSource, HorizontalAlignment = HorizontalAlignment.Stretch }
+        } };
+        Page("介质与膜料", media);
         var advanced = new StackPanel { Spacing = 8 };
         advanced.Children.Add(Number("dmin", "最小膜厚 (nm)")); advanced.Children.Add(Number("dmax", "最大膜厚 (nm)"));
         advanced.Children.Add(Number("preview", "预览基础间隔数")); advanced.Children.Add(Number("samples", "优化基础间隔数"));
         advanced.Children.Add(Number("iterations", "最大迭代次数")); advanced.Children.Add(Field("实际优化算法", _algorithm));
         advanced.Children.Add(Number("ctol", "峰值位置容差 (nm)")); advanced.Children.Add(Number("ftol", "FWHM 容差 (nm)"));
-        advanced.Children.Add(Number("tolerance", "厚度公差 (%)")); advanced.Children.Add(Number("trials", "公差样本数"));
-        advanced.Children.Add(Number("seed", "随机种子"));
-        advanced.Children.Add(Field("公差分布", _distribution));
-        advanced.Children.Add(Field("厚度误差关联", _correlation));
-        advanced.Children.Add(Number("angleTolerance", "角度公差 (°)"));
-        advanced.Children.Add(new TextBlock { Text = "均匀：±范围；正态：1σ。所有膜层参与制造公差，固定设置仅限制优化。", TextWrapping = TextWrapping.Wrap });
+        var tolerances = new StackPanel { Spacing = 8 };
+        tolerances.Children.Add(Number("tolerance", "厚度公差 (%)")); tolerances.Children.Add(Number("trials", "公差样本数"));
+        tolerances.Children.Add(Number("seed", "随机种子"));
+        tolerances.Children.Add(Field("公差分布", _distribution));
+        tolerances.Children.Add(Field("厚度误差关联", _correlation));
+        tolerances.Children.Add(Number("angleTolerance", "角度公差 (°)"));
+        tolerances.Children.Add(new TextBlock { Text = "均匀：±范围；正态：1σ。所有膜层参与制造公差，固定设置仅限制优化。", TextWrapping = TextWrapping.Wrap });
         advanced.Children.Add(Number("starts", "搜索起点预算"));
         advanced.Children.Add(Number("jitter", "搜索厚度扰动 (%)"));
         advanced.Children.Add(Field("搜索结构变化", _varyStructure));
@@ -232,9 +223,8 @@ public sealed partial class MainWindow : Window
         _distribution.SelectionChanged += (_, _) => Changed(); _correlation.SelectionChanged += (_, _) => Changed();
         _varyStructure.IsCheckedChanged += (_, _) => Changed();
         _narrowProtocol.SelectionChanged += (_, _) => Changed();
-        AddCompute("公差复验", () => RunAsync("tolerance"), advanced);
-        panel.Children.Add(new Expander { Header = "高级设置", Content = advanced, HorizontalAlignment = HorizontalAlignment.Stretch });
-        panel.Children.Add(new Expander { Header = "材料来源与计算边界", Content = _materialSource, HorizontalAlignment = HorizontalAlignment.Stretch });
+        AddCompute("公差复验", () => RunAsync("tolerance"), tolerances);
+        Page("优化与采样", advanced); Page("公差", tolerances);
         Watch(_name, TextBox.TextProperty); Watch(_stopBands, TextBox.TextProperty);
         foreach (var picker in new[] { _incident, _substrate, _low, _high }) Watch(picker, AutoCompleteBox.TextProperty);
         _kind.SelectionChanged += (_, _) =>
@@ -266,7 +256,7 @@ public sealed partial class MainWindow : Window
     private static Control Field(string label, Control control)
     {
         AutomationProperties.SetName(control, label);
-        var row = new Grid { ColumnDefinitions = new ColumnDefinitions("90,*"), ColumnSpacing = 6, MinHeight = UiDensity.StandardControlHeight };
+        var row = new Grid { ColumnDefinitions = new ColumnDefinitions("180,*"), ColumnSpacing = 12, MinHeight = UiDensity.StandardControlHeight };
         var caption = new TextBlock { Text = label, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center };
         caption.FontSize = DisplayTypography.BodySmall;
         caption.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
@@ -457,7 +447,8 @@ public sealed partial class MainWindow : Window
     };
     private void AddRow(FilmLayer layer)
     {
-        var row = new LayerRow(layer, id => _session.Current.Materials.FirstOrDefault(m => m.Id == id)?.Name ?? id); row.PropertyChanged += (_, _) => Changed(); _rows.Add(row);
+        var row = new LayerRow(layer, id => _session.Current.Materials.FirstOrDefault(m => m.Id == id)?.Name ?? id, MaterialBrushFor);
+        row.PropertyChanged += (_, _) => Changed(); _rows.Add(row);
     }
     private void Renumber() { for (var i = 0; i < _rows.Count; i++) _rows[i].Number = i + 1; }
     private Task EditLayer(string action)
@@ -594,19 +585,37 @@ public sealed class LayerRow : INotifyPropertyChanged
 {
     private string _materialId, _thickness;
     private readonly Func<string, string> _displayName;
+    private readonly Func<string, IBrush> _materialBrush;
     private readonly string _originalText;
     private readonly double _originalThickness;
     private bool _variable;
     private int _number;
-    public LayerRow(FilmLayer layer, Func<string, string>? displayName = null)
+    public LayerRow(FilmLayer layer, Func<string, string>? displayName = null, Func<string, IBrush>? materialBrush = null)
     {
         _displayName = displayName ?? (id => id);
+        _materialBrush = materialBrush ?? (_ => Brushes.Transparent);
         _materialId = layer.MaterialId; _originalThickness = layer.ThicknessNm;
         _thickness = _originalText = NumericDisplayFormatter.Format(layer.ThicknessNm); _variable = layer.Variable;
     }
     public int Number { get => _number; set { _number = value; Notify(); } }
     public string MaterialName => _displayName(_materialId);
-    public string MaterialId { get => _materialId; set { _materialId = value; Notify(); Notify(nameof(MaterialName)); } }
+    public string MaterialLabel => SplitMaterialName().Label;
+    public string MaterialAnnotation => SplitMaterialName().Annotation;
+    public IBrush MaterialBrush => _materialBrush(_materialId);
+    public string MaterialId
+    {
+        get => _materialId;
+        set { _materialId = value; Notify(); Notify(nameof(MaterialName)); Notify(nameof(MaterialLabel)); Notify(nameof(MaterialAnnotation)); Notify(nameof(MaterialBrush)); }
+    }
+    private (string Label, string Annotation) SplitMaterialName()
+    {
+        // A trailing name annotation is presented separately, never discarded or used as material identity.
+        var name = MaterialName;
+        var open = name.EndsWith('）') ? name.LastIndexOf('（') : name.EndsWith(')') ? name.LastIndexOf('(') : -1;
+        return open > 0 && open < name.Length - 2
+            ? (name[..open].TrimEnd(), name[(open + 1)..^1])
+            : (name, string.Empty);
+    }
     public string ThicknessText { get => _thickness; set { _thickness = value; Notify(); } }
     public bool Variable { get => _variable; set { _variable = value; Notify(); } }
     public FilmLayer ToLayer()

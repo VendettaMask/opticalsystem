@@ -1,0 +1,38 @@
+{
+  "runtime": "Headless CPU, below-normal priority; elapsed time is bounded operational cost, not an isolated performance benchmark.",
+  "posthoc": "Independent validation replays and ray-loss diagnosis are excluded from the search budgets and cannot supply candidates.",
+  "version": 1,
+  "originalCoreSha256": "083b8e4cae25ad6ed84f42015478d43d166d8a7bd3b8eab579f72537e4e4ffcb",
+  "cases": [
+    "competition-8-F8-full25",
+    "competition-8-F4-full25",
+    "original-half21"
+  ],
+  "unifiedBudget": {
+    "functions": 600,
+    "gradients": 200,
+    "seconds": 110,
+    "rays": 2000000
+  },
+  "arms": [
+    "control",
+    "allocation-control",
+    "candidate"
+  ],
+  "controls": "control: historical transmission v4, original phase allocation. allocation-control: historical transmission v4, same enlarged phase quotas as candidate.",
+  "pilots": "development-v1 through development-v7 are preserved exploratory failures and excluded from formal comparisons.",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "qualification": "Only unchanged original Core 21-field/Gaussian10x32/independent boundary/manufacturing validation. Inherited qualified parent is not new.",
+  "candidate": "Explicit GateCompensationVersion=1. Same input plan, aperture, targets, manufacturing, variable bounds and total caps; enabled edit positions, full original fields/pupil, Core AD QR compensation, 2x8 then 4x16 training.",
+  "phaseAllocation": {
+    "rays": 300000,
+    "updates": 20,
+    "seconds": 10
+  }
+}

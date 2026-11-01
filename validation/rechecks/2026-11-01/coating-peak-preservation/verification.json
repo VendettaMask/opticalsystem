@@ -1,0 +1,40 @@
+{
+  "productEngineSourceChanged": false,
+  "profiles": 18,
+  "referencePowerAndJacobianPoints": 246,
+  "referenceTolerance": 2e-11,
+  "referenceMaximumErrors": {
+    "R": 5.245803791353865e-15,
+    "T": 8.659739592076221e-15,
+    "A": 8.770761894538737e-15,
+    "dRdd": 4.331604519514087e-15,
+    "dTdd": 4.173961523634695e-15,
+    "dAdd": 7.858297346174936e-16
+  },
+  "periodicFamilyCases": 192,
+  "localConeCases": 2,
+  "rawDirectionTrials": 48,
+  "nominalFormalRestorationsJoint": 4,
+  "stableAllGridRestorationsJoint": 3,
+  "fineSamplingChecks": 30,
+  "coldReplays": 4,
+  "oldNControlSpecifications": 15,
+  "largerNBatch": {
+    "oldN": "15 completed specifications",
+    "largerOldBatch": "Stopped after completed individual files; the incomplete aggregate is not a 15-case completed validation.",
+    "stoppedSession": 59260,
+    "reason": "User steered task to root-cause analysis; prioritize the 550 nm N272 control instead of waiting for unrelated larger-N cases.",
+    "completedAtStop": 9,
+    "focused": "Same 550 nm input, original targets and real n/k; only N96 to N272",
+    "focusedLargerNCompleted": false,
+    "focusedStoppedSession": 87763,
+    "focusedStopReason": "Root causes already reproduced; user requested careful cause analysis instead of continued budget escalation. The unfinished N272 run is not a completed control or a feasibility verdict."
+  },
+  "focusedLargerNCompleted": false,
+  "previousEvidence": {
+    "files": 737,
+    "mismatches": 0
+  },
+  "coreSha256": "174e926b77cb30b97bdf486459fa336f55d9ae57f738ce45d4dd5c182f91b380",
+  "engineSha256": "6a6b7c0e68abb2e48c1d5c2540af53255143cc46b00e291e9d103dc22bfb624e"
+}

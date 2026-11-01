@@ -30,7 +30,8 @@ public static class TopologyValidator
         return ContentFingerprint.Compute(new { Identity = "autonomous-physical-validation-v1", targets, StructuralConstraints = source.Constraints, fields, pupils, checks, ProfileRadialSamples = 64, Backend = "CPU", Reference = "common-polychromatic-centroid", DistortionReference = "primary-chief/current-image-paraxial", IncludeSurfaceTransmission = false });
     }
 
-    internal static bool MatchesProtocol(CompiledTopology source, TopologyTargets targets, string fingerprint)
+    /// <summary>Read-only protocol identity check, including retained historical identities. Does not trace or upgrade evidence.</summary>
+    public static bool MatchesProtocol(CompiledTopology source, TopologyTargets targets, string fingerprint)
     {
         var portable = GetProtocolFingerprint(source, targets);
         return fingerprint == portable || fingerprint == GetNativeLegacyProtocolFingerprint(source, targets)

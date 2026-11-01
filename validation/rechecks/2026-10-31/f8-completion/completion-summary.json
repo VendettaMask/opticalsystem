@@ -1,0 +1,1534 @@
+{
+  "version": "f8-completion-final-v6",
+  "candidateQualified": 5,
+  "candidateRuns": 5,
+  "historicalControlQualified": 1,
+  "historicalControlRuns": 5,
+  "sameRuntimeControl": false,
+  "physicalGatesChanged": false,
+  "budget": {
+    "functions": 600,
+    "gradients": 600,
+    "rays": 10000000,
+    "seconds": 600
+  },
+  "rows": [
+    {
+      "seed": 42,
+      "candidate": {
+        "seed": 42,
+        "arm": "candidate",
+        "stopReason": "Completed",
+        "qualified": true,
+        "work": {
+          "functionEvaluations": 273,
+          "gradientEvaluations": 212,
+          "validationEvaluations": 6,
+          "matrixEvaluations": 144,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 511368,
+          "geometryProbes": 566846,
+          "elapsed": "00:01:59.8669898"
+        },
+        "cpu": "00:02:02.8281250",
+        "initialLayouts": 9,
+        "length": 3,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 0,
+        "worstRms": 0.049955011998378894,
+        "worstMaximum": 0.1374933713208275,
+        "violations": []
+      },
+      "control": {
+        "seed": 42,
+        "arm": "control",
+        "stopReason": "NoQualifiedEndpointWithinBudget",
+        "qualified": false,
+        "work": {
+          "functionEvaluations": 425,
+          "gradientEvaluations": 363,
+          "validationEvaluations": 7,
+          "matrixEvaluations": 144,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 2066621,
+          "geometryProbes": 888627,
+          "elapsed": "00:09:02.5443516"
+        },
+        "cpu": "00:09:00.2343750",
+        "initialLayouts": 9,
+        "length": 4,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 1,
+        "worstRms": 0.04999500000387011,
+        "worstMaximum": 0.11188829891954022,
+        "violations": [
+          {
+            "code": "geometry:air:2:3:64",
+            "actual": 3.1225022567582528e-15,
+            "limit": 0
+          },
+          {
+            "code": "geometry:air:16:17:64",
+            "actual": 4.1772141301521515e-15,
+            "limit": 0
+          },
+          {
+            "code": "field:20:check-lost",
+            "actual": 1,
+            "limit": 0
+          }
+        ]
+      }
+    },
+    {
+      "seed": 43,
+      "candidate": {
+        "seed": 43,
+        "arm": "candidate",
+        "stopReason": "Completed",
+        "qualified": true,
+        "work": {
+          "functionEvaluations": 234,
+          "gradientEvaluations": 148,
+          "validationEvaluations": 5,
+          "matrixEvaluations": 171,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 354912,
+          "geometryProbes": 447510,
+          "elapsed": "00:00:56.4154734"
+        },
+        "cpu": "00:01:00.1406250",
+        "initialLayouts": 9,
+        "length": 2,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 0,
+        "worstRms": 0.04987242349180116,
+        "worstMaximum": 0.13282682248846278,
+        "violations": []
+      },
+      "control": {
+        "seed": 43,
+        "arm": "control",
+        "stopReason": "NoQualifiedEndpointWithinBudget",
+        "qualified": false,
+        "work": {
+          "functionEvaluations": 446,
+          "gradientEvaluations": 358,
+          "validationEvaluations": 7,
+          "matrixEvaluations": 171,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 2028959,
+          "geometryProbes": 895020,
+          "elapsed": "00:09:55.5222755"
+        },
+        "cpu": "00:09:53.3125000",
+        "initialLayouts": 9,
+        "length": 4,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 1,
+        "worstRms": 0.05008169787661079,
+        "worstMaximum": 0.15013115636235952,
+        "violations": [
+          {
+            "code": "geometry:air:14:15:64",
+            "actual": 7.523148770616217e-14,
+            "limit": 0
+          },
+          {
+            "code": "geometry:air:16:17:64",
+            "actual": 9.96043525436363e-13,
+            "limit": 0
+          },
+          {
+            "code": "field:0:rms",
+            "actual": 0.05008169787661079,
+            "limit": 0.05
+          },
+          {
+            "code": "field:20:check-lost",
+            "actual": 1,
+            "limit": 0
+          },
+          {
+            "code": "field:20:rms",
+            "actual": 0.050019133917372505,
+            "limit": 0.05
+          },
+          {
+            "code": "field:20:maximum",
+            "actual": 0.15013115636235952,
+            "limit": 0.15
+          }
+        ]
+      }
+    },
+    {
+      "seed": 44,
+      "candidate": {
+        "seed": 44,
+        "arm": "candidate",
+        "stopReason": "Completed",
+        "qualified": true,
+        "work": {
+          "functionEvaluations": 218,
+          "gradientEvaluations": 171,
+          "validationEvaluations": 5,
+          "matrixEvaluations": 117,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 375474,
+          "geometryProbes": 458165,
+          "elapsed": "00:01:07.4894288"
+        },
+        "cpu": "00:01:10.9687500",
+        "initialLayouts": 9,
+        "length": 2,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 0,
+        "worstRms": 0.049943527059278466,
+        "worstMaximum": 0.13030839663595195,
+        "violations": []
+      },
+      "control": {
+        "seed": 44,
+        "arm": "control",
+        "stopReason": "Completed",
+        "qualified": true,
+        "work": {
+          "functionEvaluations": 381,
+          "gradientEvaluations": 332,
+          "validationEvaluations": 7,
+          "matrixEvaluations": 117,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 1872480,
+          "geometryProbes": 805518,
+          "elapsed": "00:08:08.4792103"
+        },
+        "cpu": "00:08:08.5156250",
+        "initialLayouts": 9,
+        "length": 4,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 0,
+        "worstRms": 0.04980984384608168,
+        "worstMaximum": 0.1063395369191813,
+        "violations": []
+      }
+    },
+    {
+      "seed": 45,
+      "candidate": {
+        "seed": 45,
+        "arm": "candidate",
+        "stopReason": "Completed",
+        "qualified": true,
+        "work": {
+          "functionEvaluations": 189,
+          "gradientEvaluations": 128,
+          "validationEvaluations": 6,
+          "matrixEvaluations": 132,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 430800,
+          "geometryProbes": 379318,
+          "elapsed": "00:01:10.4949893"
+        },
+        "cpu": "00:01:13.8125000",
+        "initialLayouts": 9,
+        "length": 3,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 0,
+        "worstRms": 0.04995063119120913,
+        "worstMaximum": 0.14621085886726648,
+        "violations": []
+      },
+      "control": {
+        "seed": 45,
+        "arm": "control",
+        "stopReason": "NoQualifiedEndpointWithinBudget",
+        "qualified": false,
+        "work": {
+          "functionEvaluations": 412,
+          "gradientEvaluations": 350,
+          "validationEvaluations": 7,
+          "matrixEvaluations": 132,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 1985096,
+          "geometryProbes": 852400,
+          "elapsed": "00:09:55.5447073"
+        },
+        "cpu": "00:09:51.5937500",
+        "initialLayouts": 9,
+        "length": 4,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 1,
+        "worstRms": 0.05098831844339934,
+        "worstMaximum": 0.12096022002947185,
+        "violations": [
+          {
+            "code": "field:20:check-lost",
+            "actual": 1,
+            "limit": 0
+          },
+          {
+            "code": "field:20:rms",
+            "actual": 0.05098831844339934,
+            "limit": 0.05
+          }
+        ]
+      }
+    },
+    {
+      "seed": 46,
+      "candidate": {
+        "seed": 46,
+        "arm": "candidate",
+        "stopReason": "Completed",
+        "qualified": true,
+        "work": {
+          "functionEvaluations": 376,
+          "gradientEvaluations": 315,
+          "validationEvaluations": 6,
+          "matrixEvaluations": 150,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 1167066,
+          "geometryProbes": 790601,
+          "elapsed": "00:07:31.2147344"
+        },
+        "cpu": "00:07:29.3125000",
+        "initialLayouts": 9,
+        "length": 3,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 0,
+        "worstRms": 0.049958419406789564,
+        "worstMaximum": 0.14797417218769304,
+        "violations": []
+      },
+      "control": {
+        "seed": 46,
+        "arm": "control",
+        "stopReason": "NoQualifiedEndpointWithinBudget",
+        "qualified": false,
+        "work": {
+          "functionEvaluations": 428,
+          "gradientEvaluations": 366,
+          "validationEvaluations": 7,
+          "matrixEvaluations": 150,
+          "differenceEvaluations": 0,
+          "jacobianBuilds": 0,
+          "tracedRays": 2079462,
+          "geometryProbes": 897151,
+          "elapsed": "00:09:55.5784508"
+        },
+        "cpu": "00:09:52.3281250",
+        "initialLayouts": 9,
+        "length": 4,
+        "fields": 21,
+        "minimumValid": 1,
+        "lostBoundary": 1,
+        "worstRms": 0.05202671836000662,
+        "worstMaximum": 0.12527482693428738,
+        "violations": [
+          {
+            "code": "field:19:rms",
+            "actual": 0.05062749778460551,
+            "limit": 0.05
+          },
+          {
+            "code": "field:20:check-lost",
+            "actual": 1,
+            "limit": 0
+          },
+          {
+            "code": "field:20:rms",
+            "actual": 0.05202671836000662,
+            "limit": 0.05
+          }
+        ]
+      }
+    }
+  ],
+  "audits": {
+    "audit-v6-final-frozen": {
+      "replayCount": 75,
+      "errors": []
+    },
+    "audit-v6-current-product": {
+      "replayCount": 75,
+      "errors": []
+    }
+  },
+  "testCounts": {
+    "final-v6-model-regression.trx": 67,
+    "final-v6-desktop-regression.trx": 46,
+    "final-v6-versioned-entry.trx": 27,
+    "actual-product-pipeline-v6.trx": 1,
+    "final-v6-new-ui-default.trx": 6
+  },
+  "distinctPassingTests": 140,
+  "testCases": {
+    "6f1565be-be30-a6d8-c44c-5774fe51d540": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.OriginalPermissionsProtectedElementsAndTinyBudgetsRemainBinding",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "71033a97-4920-8553-0ffa-8c926a99096c": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.FailedFirstOrderOrGeometryCannotEscapeAsWorkingSeed(code: \"geometry:glass\")",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "f2d59e92-f333-364d-153d-ba25012c3c3a": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.FixedApertureConflictHasExplicitExternalStopAndAxialScope",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "3587102e-1aa0-13fe-e89a-d99674892622": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.JointCompensationRejectsClearanceOnlyProgressThatDamagesImageGates",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "60ff1858-693d-71db-e6d5-8dd7d34c6e38": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.UnversionedPrototypeCannotStartAnyOpticalWorkWhileItsHistoricalStateRemainsReadable",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "e2d07bb2-3db4-34a3-dbf7-1d083e84e0eb": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.EditsUseFreshBindingsKeepOriginalParentAndChargeEveryStage(mode: DirectCompensation)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "4e71d8e5-0402-26f5-2235-accfa2dad9fe": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.SatisfiedConstraintsRetainTheirNonzeroTangentsAndEverySelectedParameterMatchesDifferences",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "b4594793-803d-f485-64b8-7d68f7403b65": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.InwardVersionMovesTinyManufacturingDeficitsInsteadOfReturningAZeroStep",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "d662f78f-daef-962c-4e8d-08776aa3a192": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.FailedFirstOrderOrGeometryCannotEscapeAsWorkingSeed(code: \"transition-element\")",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "3016956d-39f5-76d6-5ca4-721ed7446bd6": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.ParaxialSeedSearchTests.SharedCoreWholeSystemPowerAndDerivativeMatchNominalPerturbationsWithoutTracing",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "9844e05e-ab20-5773-31a9-a0cbb81018cd": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.TinyMovingRimDeficitIsCorrectedWithoutGivingUpOriginalImageOrManufacturingGates",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "42067ca5-619a-3d9e-1d2b-62fadeeaa20c": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.LinearHalfspacesFindBoundedFeasiblePointAndRejectContradictoryBounds",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "359769d8-2da8-b7ed-3c49-39015e287d04": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.TransmissionStepsRetainTheGateFilterAndChargeEveryProposalWithinTheOriginalBounds",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "6b7e58ad-e15d-2b6f-4c45-c15ac2080266": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.CompleteTrainingGatesAreRequiredForConvergence(clearance: 9.9999999999999995E-07, expected: False)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "1a1db0b5-5dbe-f83b-7645-6b42e7d82de1": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.ParaxialSeedSearchTests.GeneratedSeedsFitActualCoreFirstOrderTargetsAndPreserveTheOriginalTaskAndPermissions",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "c6ea1a12-262a-2015-99b1-a7b3af129ebd": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.ClearanceRecoveryCannotTradeAwayFocusOrManufacturing",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "54658605-ee2d-f7c9-899b-24232d0ad246": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.PupilEnvelopeTests.FixedStopEnvelopeMatchesCoreNominalParaxialTraceAndEverySelectedDerivative",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "fd695d45-173d-ba89-4a5c-4eba0f1e6efb": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.ColdPolicyRejectsProtectedFixedReductionOnlyAndExpandedApertureInputs",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "85158cd1-584d-3b68-8417-75cb86e23128": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.JointVersionDoesNotClassifyTinyClippingAsClearedWhileImageQualityFails",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "16923e18-84e1-93a6-bac0-602f149e694e": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.FailedFirstOrderOrGeometryCannotEscapeAsWorkingSeed(code: \"f-number\")",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "95afaa93-ca55-45bf-22a7-093b14d61a4d": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.FailedClearanceRowsCanTradeProgressInsteadOfRequiringEveryFailedRowToDecrease",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "7f9a81e8-e4ca-b65e-acd3-56e641b06e78": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.RealCoreCompensationResumesWithTheSameGatesAndAnIndependentFinalAssessment(version: 1)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "dd1579c9-16aa-4e48-ed3c-a0eb2c76f3d1": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.ColdEnvelopeDiscardsEverySourceShapeButPreservesPhysicalTask",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "ec59c945-c010-46a8-3121-a6faaa28a865": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.FixedAxialBoundsUseTheDeclaredMechanicalFrameWithoutAThicknessRoundTrip(scale: 0.29999999999999999)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "0bda1b94-fde9-92d9-0746-af89a655d98b": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.JointConvergenceExcludesFixedStopTangentRoundoffButStillRequiresMovingInwardMargin",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "eeeac195-a3e2-81b0-d312-1ab7a8b0acd5": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.CoreInversePowerUsesActualThickMatrixAndPreservesOtherSurfaces(power: 0.01)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "f459527c-63c4-143a-e2bd-0c07c3e1d195": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.RecoveryRecordsRankNoFreedomGeometryBudgetCancellationAndTimeoutSeparately",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "d28bc74a-3db8-158b-7f86-a7c120b5b917": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.EditsUseFreshBindingsKeepOriginalParentAndChargeEveryStage(mode: RecoveryAndCompetition)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "b7ee0eec-e210-ecf8-e043-f912a706e445": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.InwardImageMarginIsStricterThanOriginalAcceptanceAndDoesNotUpgradeEarlierVersions",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "67517d30-f67e-6a48-438f-49fc20cd15bc": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.NullPolicyDoesNotAddFieldsToHistoricalJsonAndUnknownPolicyIsRejected",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "e768922f-34ee-3682-7a06-f9a047448b92": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.InversePowerRejectsBoundsAndHonorsCancellation",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "1e4f926c-3fdb-f4ab-2f22-a44a8acbe1f1": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.InterruptedJacobianDoesNotChooseOrPublishParametersAndItsActualWorkIsCharged",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "c714c510-7aeb-fc38-374b-def941ecc5cd": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.PupilEnvelopeTests.EnvelopeIsExplicitAndBoundedAndDoesNotChangeHistoricalRecoveryJson",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "83051e5a-1744-6261-5047-b64402cdb380": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.JointTrainingStopsChasingStopAimingRoundoffButRetainsRealLossAndQualityGates",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "420110df-f552-1442-1568-9a1bc110363d": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.SelectionChangesOnlyItsRecordedParametersAndSavedStateResumesExactly",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "7ae6a7d5-0e85-32aa-868c-eca4d8be1f64": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.JointStepUsesCoreImageTangentsToAvoidAnUnstableSingleGateDirection",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "ce11d540-16dc-3401-bf60-303a9aed18d2": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.FixedAxialBoundsUseTheDeclaredMechanicalFrameWithoutAThicknessRoundTrip(scale: 1)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "eed23acd-6787-0114-e55e-2d7035128fed": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(insert: False)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "6fffb415-f33a-f156-6f29-7cdf7e7c64f8": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.NullOptionsPreserveLegacySerializationAndUnknownVersionsAreRejected",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "ddf651a3-4061-7e60-a8c7-0616dd299c65": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.JointSolveFindsTheUsefulDirectionAlongAnActiveManufacturingConstraint",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "9723bfbc-9c06-97fc-4d1f-d4e3b9453ac1": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(insert: True)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "5f61435d-74c6-9351-dcc5-fea1e2285d2b": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.FixedAxialBoundsUseTheDeclaredMechanicalFrameWithoutAThicknessRoundTrip(scale: 0.10000000000000001)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "fd73416e-e700-a6f1-e2ca-978f4c09542c": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.StructuralWorkflowReservesIndependentValidationAndPreCancellationUsesNoOpticalWork",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "3923a0db-dd54-bdd8-a519-2a05787b4c84": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.JointVersionRepairsTheSameTinyHardViolationThatAcceptanceRejects",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "a047eccf-4ee8-afab-dcde-f872541208dd": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.CancellationAfterBranchRetainsParentAndSettlesAllWork",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "153b5388-d15c-87b2-9355-d97d38a1071c": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.OriginalTaskPrecheckStopsWithoutChangingApertureOrClaimingQualification",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "d5a1fc53-40e4-ba19-a1a4-33d8cf8977e5": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.FailedFirstOrderOrGeometryCannotEscapeAsWorkingSeed(code: \"focal-length\")",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "85889462-a652-ac4c-33ba-76be521df859": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.ParaxialSeedSearchTests.PreparationIsDeterministicBoundedCancellableAndRejectsInvalidVersionsBeforeWork",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "30863002-9997-4f48-1fdd-209e9af1ed8a": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.ExplicitCurrentVersionReproducesTheRetainedV3LocalOpticalEndpointExactly",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "becbead9-984e-d333-ca57-a247d77d797d": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.ImageCompensationCannotReintroduceClippingAndMustReduceTheJointImageMerit",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "d89a3bc3-8ea2-e1c8-f1fc-a0068e56b7f1": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.ProtectedLensAndItsOriginalAperturesAreNeverEditedOrReleased",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "51cb1dc2-55b0-bbd2-bb77-de9589ed282e": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.RealCoreCompensationResumesWithTheSameGatesAndAnIndependentFinalAssessment(version: 2)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "b6165f5f-d733-f1d3-3c2f-a66736cfdd83": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.PupilEnvelopeTests.EnvelopeRecoveryIsChargedAndKeepsTheOriginalPhysicalFrameWithoutCertifyingTransmission",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "bcad7d8b-ee09-59dd-4931-0137ae57d6d5": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.ParetoRetainsCountQualityTradeoffsAndDoesNotMutateQualifiedArchive",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "2eaf8249-44e6-e239-fda9-e5277d83553d": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.GateFilterDoesNotTradeNewPhysicalViolationForLowerClippingOrLowerImageEnergy",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "c85d8c99-8002-dba4-b0b9-10aa6471b12f": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.FailedImageGatesTakePriorityOverAverageSpotSizeWithoutChangingAcceptanceLimits",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "b01f40e8-1e53-dae6-4518-337741a509b4": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.PowerAllocationClosesRemainingTargetsOrReportsChargedFailureWithoutChangingFrozenPowers",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "b3bba709-9adb-6165-0f59-6be83089737a": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.CompleteTrainingGatesAreRequiredForConvergence(clearance: 0, expected: True)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "e2dbefd3-375f-d380-53ce-1d4e61faaa18": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.FrozenLegacyPreparationEnvelopeStillHasItsOriginalContentHash",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "92691af5-aa23-27a7-0256-8916e16e00c3": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.CoreInversePowerUsesActualThickMatrixAndPreservesOtherSurfaces(power: -0.01)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "77b8ba04-0c87-fbdf-909d-593d9926f990": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.BacktrackingShrinksActualCoordinatesEvenWhenTheModelStepFitsBothBoxes",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "6f185c07-d977-f7ce-0b1d-523573703d09": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.EditsUseFreshBindingsKeepOriginalParentAndChargeEveryStage(mode: RecoveryAndCompensation)",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "2076cf91-56eb-62fb-975b-ca069b994138": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.InvalidPoliciesAndMissingBoundarySamplingAreRejectedBeforeAnyTracing",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "8f706dc7-dcff-615a-5777-53102a15718b": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.TransmissionProfilesRequireOriginalPermissionAndPreserveAperturesGlassAndMechanicalFrame",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "2c0c02c0-4eaf-3c83-1bb0-2fe2fa1128dc": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.GateCompensationTests.DisabledOperationsDoNotConsumeTheReductionPositionBudget",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "35a295e2-f790-b1a3-a0f5-5b50599989d5": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ChildQ0HasItsOwnDimensionAndFirstLensDeletionKeepsTheMechanicalReference",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "8a3df6c5-365c-2738-f216-94b998c1477d": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.OriginalStopConflictReturnsWithoutConstructionOrOpticalWork",
+      "source": "final-v6-model-regression.trx",
+      "outcome": "Passed"
+    },
+    "8b12b38f-348e-7d2b-2a02-1aba0f505fbe": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.SplitAndMergePermissionsAreIndependentlyVisibleAndEditable(split: True, merge: False)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "ee79cf93-a4d7-c965-24fd-75ee691eb01b": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.RecordedRecoveryCostsAndRayGradientBudgetRemainDistinctInEveryLanguage(automatic: True)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "37cdf83a-38e7-e911-e803-203478b1d29d": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(automatic: False)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "9e0a55d9-f076-2f02-9f6e-ba356c9c3dd5": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ColdEntryControlsRoundTripWithoutStartingOpticalWork(version: 4)",
+      "source": "final-v6-new-ui-default.trx",
+      "outcome": "Passed"
+    },
+    "b047c3e9-aedf-6c66-d346-b476a6029aa8": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.FailedSaveKeepsWindowOpenAndShowsFailure",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "76a3e307-d1cf-b2bb-1971-ab981afa4e21": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.StructureTabShowsActualSelectedCandidatesAndSupportsNavigationWithoutChangingTheSearchRecord",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "a7d31ab5-446b-f3da-0696-2977fc30ffd6": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.CompetitionPreparationPersistsItsProtocolAndUsesTheExistingExplicitCommand",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "fda8ef3e-6cbe-e3b9-ae7c-2fa9956d39b7": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.AutomaticColdConflictIsSavedAndCannotStartAnOldSeed",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "0ecc6dc7-3957-a19b-8492-45f3ff9e17b7": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.InvalidDraftClearsTheStructureWithoutTracingAndNewDraftDoesNotRestoreStaleScene",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "f3e3fbbd-09fb-b0d1-c0bc-14f2d0dcb6df": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.SplitAndMergePermissionsAreIndependentlyVisibleAndEditable(split: False, merge: True)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "d5f8e691-1cf1-5927-9fb9-14d6070df7c9": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.GeometryRecoveryIsExplicitPreservesLegacyPlansAndUsesTheAutomaticMatrixDependency",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "2e862cbb-a3a2-0691-40f1-adb11e589b93": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ColdEntryControlsRoundTripWithoutStartingOpticalWork(version: 3)",
+      "source": "final-v6-new-ui-default.trx",
+      "outcome": "Passed"
+    },
+    "42dedf11-9b74-f91e-90a3-2fbe3a43d9b2": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(local: True, version: null)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "b5257cef-2818-32a3-4b53-cdb17befad6f": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ReservationUnitsAndUnknownAuxiliaryCostsAreVisibleWithoutDispatch",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "29c1e8de-4ca7-586a-2f20-97561224fc3a": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DescriptorAndPopulationControlsSaveVersionedPlanWithoutOpticalWorkInThreeLanguages(thick: True)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "b9530c66-a68a-d64a-1628-0145a066df4a": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ActualRecoveryProgressCancelsAtItsSafeEndpointAndDesktopResumeDoesNotReplayTheTrial(automatic: True)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "bd026289-6c45-37c0-31e3-3ef50e84d148": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.BudgetEditsPreserveNullAndAsymmetricBranchPoliciesAndUneditedPhysicalValues(asymmetric: False)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "99f03d95-a8de-4041-e3cc-bdcb5f431b42": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.BudgetEditsPreserveNullAndAsymmetricBranchPoliciesAndUneditedPhysicalValues(asymmetric: True)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "489b83ce-a729-214d-7b3a-3fc47eaff1a7": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ImageScreeningOptionsRoundTripWithoutTracingAndLocalizeInEveryLanguage",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "c9663b3d-4e80-a017-f0d3-b7b7815314d5": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.PrecisionAndAxialEditorAreExplicitAndBudgetEditsPreserveImportedSampling",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "d0652b14-8597-ae40-c5af-592e21c99c1f": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.RecoveryDependenciesAndIndependentConicsAreExplicitAndPreserveInactivePreferences",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "401de75c-892d-cafa-b9bc-04d14d962c46": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.FirstOrderButtonPreparesAndPersistsNewPlanWithoutStartingSearchAndLocalizesControls",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "7323f82a-bf98-097d-f0da-732d43d6f15a": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.PlanChecksumReadOnlyLoadFiniteImportAndCoreExportAreVerified",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "e5e4c55f-52c0-2c92-f855-c6627bdc244e": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.NewColdDescriptorPreservesEachOriginalClearAndMechanicalAperture",
+      "source": "final-v6-new-ui-default.trx",
+      "outcome": "Passed"
+    },
+    "8bcd7cb2-681e-2315-b2ab-81fc8ed6f937": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.RecoveryControlLoadingAndBudgetEditingPreserveNullAndExplicitFalse(explicitFalse: False)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "9571d26c-99f1-9715-aa06-ff134d4c4298": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.FeasibleThickOptionsPersistAndMutuallyExcludeLegacyConstructionWithoutChangingOptimizer",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "5db11c90-cfa5-523d-f2fd-7a6fc145a526": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.QualifiedReductionControlPersistsPermissionsAndExplainsVerifiedCountInThreeLanguages",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "f9607b5c-1824-6b06-f8f4-b68ac6f1c285": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ComparisonPoliciesKeepBackwardIdentityAndDistinctDispatch",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "2b778666-aac4-0eb0-da6f-51397af70bb4": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ColdEntryControlsRoundTripWithoutStartingOpticalWork(version: 1)",
+      "source": "final-v6-new-ui-default.trx",
+      "outcome": "Passed"
+    },
+    "d5302ac6-229d-d619-dda3-66719c19c402": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ColdEntryControlsRoundTripWithoutStartingOpticalWork(version: 2)",
+      "source": "final-v6-new-ui-default.trx",
+      "outcome": "Passed"
+    },
+    "20f3f8f8-84e8-f36b-666e-c445af3be07b": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopLoadsWithoutRunningPreservesPlanIdentityLocalizesAndRejectsUnsupportedInput",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "8f541094-2d3d-6ac4-b5bb-581b866457d6": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ExplicitDesktopPreparationActuallyRetrievesRevalidatesAndSavesItsEvidence",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "170cbc7e-4145-0aa4-b5f4-cdc5122293e0": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DescriptorAndPopulationControlsSaveVersionedPlanWithoutOpticalWorkInThreeLanguages(thick: False)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "38a28ff8-503b-f158-be2c-f255f791daf7": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.RecordedRecoveryCostsAndRayGradientBudgetRemainDistinctInEveryLanguage(automatic: False)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "449068c6-38b1-268d-50ac-5a3575d1d6c1": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.LocalAndFullUpdateLimitsChangeOnlyTheirStageAllowancesNotTotalCaps",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "80c53c9e-6c75-7555-85ee-a9fbe23559e5": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.EditedCompensationFlagsReachExecutionAndSurviveDurableCancelAndDesktopResume",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "54e0f860-1ef4-0156-235b-8ffa28f9dea5": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ExperimentalOptionsRoundTripWithoutStartingSearchAndLocalize",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "633931a4-3c34-5a33-2db1-8285e5077dc6": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.RecoveryControlLoadingAndBudgetEditingPreserveNullAndExplicitFalse(explicitFalse: True)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "0b5c898c-58c5-31a5-af86-40315e1f9671": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ColdEntryControlsRoundTripWithoutStartingOpticalWork(version: 6)",
+      "source": "final-v6-new-ui-default.trx",
+      "outcome": "Passed"
+    },
+    "134f96c2-1eca-d84a-a548-0b1c140c1c0e": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.LegacyEntryOpensReadOnlyChildWithoutChangingUpstreamDefaults",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "5bb96f4b-779a-912e-0088-c17a7bc9b320": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ClosingDuringWorkWaitsForDurableCancellation",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "c01fc787-4e15-1b44-5df6-c3bd3579ca07": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.HistoricalTransmissionPlansAndRecordsStayReadableWithoutOfferingExecution(local: False, version: 2)",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "72ad36ef-4b4c-7bb9-a2bf-50682db8c342": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.LocalLibraryLoadsSavesAndRoundTripsThreeLanguagesWithoutStartingOpticalSearch",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "e4c64f4f-7e95-95a4-3f72-bd728a4c8895": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.DesktopStopsSavesLoadsResumesAndExportsActualUnqualifiedEndpoint",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "9c2d2746-a1f0-4d59-1480-13c76c33a1c9": {
+      "name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.EvolutionModesAndPowerAllocationRoundTripWithoutOpticalWork",
+      "source": "final-v6-desktop-regression.trx",
+      "outcome": "Passed"
+    },
+    "44fa65f3-e494-df66-7d3c-7eb4f73553ca": {
+      "name": "ColdEntryTests.AutomaticFailureSavesColdEvidenceAndDoesNotCreateAnAutonomousRun(version: 6)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "afc107eb-d99d-40e0-32c7-3b20af36f884": {
+      "name": "ColdEntryTests.ConflictingStopDispatchesColdModeAndNeverReturnsAnOldSeed(version: 6)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "a6ac71e3-1e79-2b12-2e7f-683c6c9114d5": {
+      "name": "ColdEntryTests.AutomaticFailureSavesColdEvidenceAndDoesNotCreateAnAutonomousRun(version: 4)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "63df4f57-6412-0a00-3814-1a584296d455": {
+      "name": "ColdEntryTests.OldFrozenColdResultChecksumSurvivesNullableEntryFields",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "c66567fd-7811-d202-fd36-0a22702b264e": {
+      "name": "ColdEntryTests.AutomaticFailureSavesColdEvidenceAndDoesNotCreateAnAutonomousRun(version: 3)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "e5e59617-2541-497c-de3c-e3706adb3428": {
+      "name": "ColdEntryTests.FunctionBudgetIncludesFreshConstructionAndRetainsAttemptedWork(version: 1)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "00d91b74-7015-9e08-d829-2cc9e2a9a795": {
+      "name": "ColdEntryTests.ConflictingStopDispatchesColdModeAndNeverReturnsAnOldSeed(version: 1)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "71ded33a-6ada-e7f9-7bb2-ea5e02d62783": {
+      "name": "ColdEntryTests.PreparationStrategiesCannotBeCombined",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "8dc0f8f3-81be-7b65-b72c-2f0a27250dd5": {
+      "name": "ColdEntryTests.FunctionBudgetIncludesFreshConstructionAndRetainsAttemptedWork(version: 3)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "940ceca2-3677-e817-f689-4d1e05bd8660": {
+      "name": "ColdEntryTests.QualifiedSyntheticControlHandsOffFreshSeedAndResumeDoesNotRepeatPreparation(version: 1)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "a9c8a473-1756-d836-42e9-c8ebe1f585da": {
+      "name": "ColdEntryTests.QualifiedSyntheticControlHandsOffFreshSeedAndResumeDoesNotRepeatPreparation(version: 6)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "8fa5de43-81ad-b5ba-f18a-f5fa8d9b6811": {
+      "name": "ColdEntryTests.QualifiedSyntheticControlHandsOffFreshSeedAndResumeDoesNotRepeatPreparation(version: 2)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "c8682436-4163-009d-c4e5-50573e78e64a": {
+      "name": "ColdEntryTests.AutomaticCancellationIsSavedWithoutStartingTheMainSearch(version: 3)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "97cfcd62-bfd4-33a5-8de5-20893a5fb756": {
+      "name": "ColdEntryTests.AutomaticCancellationIsSavedWithoutStartingTheMainSearch(version: 2)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "8c80ef1e-c571-a2f6-33b2-cc8c9af90eaa": {
+      "name": "ColdEntryTests.ConflictingStopDispatchesColdModeAndNeverReturnsAnOldSeed(version: 3)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "cc88ce75-5afe-08c2-8f53-e04b2ed8667a": {
+      "name": "ColdEntryTests.ConflictingStopDispatchesColdModeAndNeverReturnsAnOldSeed(version: 4)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "a9ff9248-b7d4-79aa-7da3-ed5fb30ba942": {
+      "name": "ColdEntryTests.FunctionBudgetIncludesFreshConstructionAndRetainsAttemptedWork(version: 2)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "2dd86801-97c4-b2bf-280a-b72991dc6dfa": {
+      "name": "ColdEntryTests.AutomaticCancellationIsSavedWithoutStartingTheMainSearch(version: 4)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "041f0c2e-17e6-180f-0247-8d79dc9862e7": {
+      "name": "ColdEntryTests.QualifiedSyntheticControlHandsOffFreshSeedAndResumeDoesNotRepeatPreparation(version: 4)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "92b2535f-fc01-6bce-20f4-b8aadbae7dde": {
+      "name": "ColdEntryTests.FunctionBudgetIncludesFreshConstructionAndRetainsAttemptedWork(version: 6)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "0842a8ab-b40a-c909-1e88-05ba8fb7165d": {
+      "name": "ColdEntryTests.AutomaticFailureSavesColdEvidenceAndDoesNotCreateAnAutonomousRun(version: 2)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "71c4d4e5-a253-b463-0eb7-8099255129fa": {
+      "name": "ColdEntryTests.AutomaticFailureSavesColdEvidenceAndDoesNotCreateAnAutonomousRun(version: 1)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "c7a694ab-0a37-ad51-a558-361d43ba71a5": {
+      "name": "ColdEntryTests.FunctionBudgetIncludesFreshConstructionAndRetainsAttemptedWork(version: 4)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "90c60435-298b-4f24-aa1c-2fd0959edd14": {
+      "name": "ColdEntryTests.QualifiedSyntheticControlHandsOffFreshSeedAndResumeDoesNotRepeatPreparation(version: 3)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "9a098961-c220-eb27-f488-a20f63b59d70": {
+      "name": "ColdEntryTests.AutomaticCancellationIsSavedWithoutStartingTheMainSearch(version: 1)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "7154fc79-5448-66df-f691-b34471dac804": {
+      "name": "ColdEntryTests.ConflictingStopDispatchesColdModeAndNeverReturnsAnOldSeed(version: 2)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "7c1950ee-af6e-46d3-0fcc-521e011f5972": {
+      "name": "ColdEntryTests.AutomaticCancellationIsSavedWithoutStartingTheMainSearch(version: 6)",
+      "source": "final-v6-versioned-entry.trx",
+      "outcome": "Passed"
+    },
+    "431f58df-876e-a8c6-536a-9f0cd24d555b": {
+      "name": "RealPipelineTests.OriginalF8ColdStartHandsOffToActualProductSessionAndExportsQualifiedArchive",
+      "source": "actual-product-pipeline-v6.trx",
+      "outcome": "Passed"
+    }
+  },
+  "actualProductPipeline": {
+    "frozenStudyInput": false,
+    "targetsChanged": false,
+    "physicalCapsChanged": false,
+    "preparationCost": {
+      "functionEvaluations": 189,
+      "gradientEvaluations": 128,
+      "validationEvaluations": 6,
+      "matrixEvaluations": 132,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 0,
+      "tracedRays": 430800,
+      "geometryProbes": 379318,
+      "elapsed": "00:01:14.3001181"
+    },
+    "mainSearchCost": {
+      "functionEvaluations": 515,
+      "gradientEvaluations": 22,
+      "validationEvaluations": 4,
+      "matrixEvaluations": 437,
+      "differenceEvaluations": 448,
+      "jacobianBuilds": 16,
+      "tracedRays": 216756,
+      "geometryProbes": 986774,
+      "elapsed": "00:00:32.1139457"
+    },
+    "preparationReport": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-31\\f8-completion\\actual-product-pipeline-v6\\preparations\\autonomous-aa9807fee1d847c7a5f37d15dd62d093.seed-search.json",
+    "mainRecord": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-31\\f8-completion\\actual-product-pipeline-v6\\autonomous-aa9807fee1d847c7a5f37d15dd62d093.autonomous.json",
+    "nativePath": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-31\\f8-completion\\actual-product-pipeline-v6\\qualified.staropt",
+    "checkedAgain": {
+      "opticFingerprint": "3df557cbd80c655a801719f2968b615f2514fdcc38783e633f3784197381aad7",
+      "protocolFingerprint": "320f8825d4dba6415cfbe846be3712461f4ac39f9ba57c7d087c75e44980232e",
+      "targets": {
+        "effectiveFocalLengthMillimeters": 50,
+        "fNumber": 8,
+        "focalLengthRelativeTolerance": 0.02,
+        "fNumberRelativeTolerance": 0.02,
+        "maximumRmsRadiusMillimeters": 0.05,
+        "maximumSpotRadiusMillimeters": 0.15,
+        "maximumDistortionFraction": 0.03,
+        "minimumValidRayFraction": 0.98,
+        "minimumEdgeThicknessMillimeters": 0.1,
+        "minimumEdgeAirGapMillimeters": 0.05,
+        "maximumOpticalTrackMillimeters": 65,
+        "maximumAbsoluteSurfaceSlope": 10
+      },
+      "structuralConstraints": {
+        "minimumElementCount": 2,
+        "maximumElementCount": 8,
+        "minimumCenterThicknessMillimeters": 0.1,
+        "minimumAirGapMillimeters": 0.05,
+        "minimumBackFocusMillimeters": 15,
+        "maximumMechanicalTrackMillimeters": 65,
+        "allowTransitionElements": false,
+        "allowedGlassNames": []
+      },
+      "effectiveFocalLengthMillimeters": 50.968399607312655,
+      "fNumber": 8.154943937170025,
+      "fields": [
+        {
+          "field": {
+            "x": 0,
+            "y": 0
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.049915503519408426,
+          "maximumRadiusMillimeters": 0.13513725385288253,
+          "distortionFraction": 0,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.05
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.0499082497656426,
+          "maximumRadiusMillimeters": 0.1365888739725526,
+          "distortionFraction": 1.948536150955615e-05,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.1
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.0498865688115606,
+          "maximumRadiusMillimeters": 0.13784871132422993,
+          "distortionFraction": 7.79454662802377e-05,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.15
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.049850710576392385,
+          "maximumRadiusMillimeters": 0.13891287163137944,
+          "distortionFraction": 0.00017539236663393566,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.2
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.049801121848245075,
+          "maximumRadiusMillimeters": 0.13977619959391108,
+          "distortionFraction": 0.00031184612169124005,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.25
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.049738492602948464,
+          "maximumRadiusMillimeters": 0.14043226238692874,
+          "distortionFraction": 0.000487334752937442,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.3
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04966382271843594,
+          "maximumRadiusMillimeters": 0.14087332891991844,
+          "distortionFraction": 0.0007018941917938395,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.35
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04957851094233508,
+          "maximumRadiusMillimeters": 0.14113250973982525,
+          "distortionFraction": 0.0009555681887029115,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.4
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.0494844684627522,
+          "maximumRadiusMillimeters": 0.14139429364868478,
+          "distortionFraction": 0.0012484082310332478,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.45
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04938425985954267,
+          "maximumRadiusMillimeters": 0.1416947463886763,
+          "distortionFraction": 0.0015804734271797518,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.5
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.049281274503240415,
+          "maximumRadiusMillimeters": 0.141976820306675,
+          "distortionFraction": 0.0019518303690447471,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.55
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04917993151904943,
+          "maximumRadiusMillimeters": 0.14234979675618784,
+          "distortionFraction": 0.0023625529822967847,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.6
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.049085921073898246,
+          "maximumRadiusMillimeters": 0.1427452870610772,
+          "distortionFraction": 0.0028127223595059902,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.65
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.049006483748359995,
+          "maximumRadiusMillimeters": 0.14308789103771502,
+          "distortionFraction": 0.0033024265620864015,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.7
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04895072780618757,
+          "maximumRadiusMillimeters": 0.1433754385281816,
+          "distortionFraction": 0.003831760408620782,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.75
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.048929980875272484,
+          "maximumRadiusMillimeters": 0.1438681789091773,
+          "distortionFraction": 0.004400825237043126,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.8
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04895816749980999,
+          "maximumRadiusMillimeters": 0.14437730636954474,
+          "distortionFraction": 0.005009728644191369,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.85
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04905219686454582,
+          "maximumRadiusMillimeters": 0.1448670260896784,
+          "distortionFraction": 0.00565858420180615,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.9
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04923233567342831,
+          "maximumRadiusMillimeters": 0.1453361673611855,
+          "distortionFraction": 0.006347511140699766,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 0.95
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04952253026567333,
+          "maximumRadiusMillimeters": 0.14578409162180778,
+          "distortionFraction": 0.007076634014645593,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "field": {
+            "x": 0,
+            "y": 1
+          },
+          "attemptedRays": 960,
+          "validRays": 960,
+          "checkAttemptedRays": 99,
+          "checkValidRays": 99,
+          "rmsRadiusMillimeters": 0.04995063119120913,
+          "maximumRadiusMillimeters": 0.14621085886726648,
+          "distortionFraction": 0.007846082326461877,
+          "wavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "violations": [],
+      "completed": true,
+      "meetsTargets": true,
+      "tracedRayCount": 44520,
+      "geometryProbes": 2131,
+      "failure": null
+    }
+  },
+  "nativeDesktopInteraction": false,
+  "f4": "OriginalExternalStopApertureConflict retained"
+}

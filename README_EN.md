@@ -52,7 +52,7 @@ Optical System Design is a non-commercial optical-design project maintained by S
 - **Three UI languages:** Simplified Chinese is the default; English and Japanese can be selected instantly, and the choice is remembered.
 - **One computation core:** the main application, initial-structure module, and coating module reuse the shared Core without an external Python optical runtime.
 - **One complete product:** both modules are required, in-process features included by the standard installation; they do not need separate launchers or installers.
-- **Categorized lens examples:** browse 95 Zemax Sequential examples in 14 categories through **File → Examples**, with each model handled according to the [documented import scope](docs/USER_GUIDE.md#镜头示例).
+- **Categorized lens examples:** browse 95 Zemax Sequential examples in 14 localized categories through **File → Examples**, with each model handled according to the [documented import scope](docs/USER_GUIDE.md#镜头示例). Current accuracy findings and follow-up work are indexed in the [Chinese handoff](docs/EXAMPLE_ACCURACY_HANDOFF_2026-11-01.md).
 - **Traceable validation:** implemented capabilities, frozen references, numerical comparisons, and open validation boundaries are kept distinct. UI presentation is not treated as proof of numerical accuracy.
 
 > Development continues with test packages available for all three platforms. See [Current Status](docs/CURRENT_STATUS.md) for package identity, verified scope, and remaining work, and the relevant guides for each analysis and model's applicable scope.

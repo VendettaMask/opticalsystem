@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="88526b50-22f7-4223-9e52-2fddb0787f20" name="allen@DESKTOP-SET3SNR 2026-10-31 17:31:29" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T17:31:29.8638288+08:00" queuing="2026-10-31T17:31:29.8638292+08:00" start="2026-10-31T17:31:26.1156721+08:00" finish="2026-10-31T17:31:33.8383028+08:00" />
+  <TestSettings name="default" id="342cb598-0454-4aa1-8f4a-5637386823a9">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_17_31_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="92f6d6ee-32a5-4587-886f-09b472f9aaf6" testId="bc8445a1-3629-91e6-927c-7246ff4ebe27" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds" computerName="DESKTOP-SET3SNR" duration="00:00:00.1421920" startTime="2026-10-31T17:31:28.9955475+08:00" endTime="2026-10-31T17:31:29.1471439+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92f6d6ee-32a5-4587-886f-09b472f9aaf6">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 商业 BSDF 展开后节点超过 131072；不自动降采样。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.ConvertBlocks(List`1 blocks, Boolean fixedAxes, BsdfImportSides sides) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 247&#xD;
+   at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token, Boolean allowProjected, Boolean compactSpectra) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 167&#xD;
+   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 41&#xD;
+   at OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11XyzTests.cs:line 119&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3dfd7da2-f750-41ce-8a8c-73ab9c7ade1c" testId="4984b2be-f6f1-715f-adb0-aa02d2593f9e" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.XyzUsesIndependentTisAndCalibratedSpectralMixture(transmission: False, fixedAxes: False)" computerName="DESKTOP-SET3SNR" duration="00:00:01.7612297" startTime="2026-10-31T17:31:29.1510156+08:00" endTime="2026-10-31T17:31:30.9078747+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3dfd7da2-f750-41ce-8a8c-73ab9c7ade1c" />
+    <UnitTestResult executionId="3d4b3e3c-172d-4000-aede-ce1d00e71e00" testId="88aca5c8-3847-963a-f0a9-d3b97c52ab79" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.XyzUsesIndependentTisAndCalibratedSpectralMixture(transmission: False, fixedAxes: True)" computerName="DESKTOP-SET3SNR" duration="00:00:01.1309166" startTime="2026-10-31T17:31:30.9085831+08:00" endTime="2026-10-31T17:31:32.0389208+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d4b3e3c-172d-4000-aede-ce1d00e71e00" />
+    <UnitTestResult executionId="61968d3c-4519-48b5-9c41-ca89fa6ff9bc" testId="93b58f3b-b386-824c-e3d4-db2c6c8e1006" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(transmission: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4436432" startTime="2026-10-31T17:31:33.1633077+08:00" endTime="2026-10-31T17:31:33.6069659+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="61968d3c-4519-48b5-9c41-ca89fa6ff9bc" />
+    <UnitTestResult executionId="9d623fc1-9c3b-45b3-946a-218ae75e2211" testId="36dd0ea8-f139-875f-73e0-46b2bb650a79" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.EnhancedAndXyzPayloadsFreezeAndDetectTampering" computerName="DESKTOP-SET3SNR" duration="00:00:00.3265527" startTime="2026-10-31T17:31:28.6687586+08:00" endTime="2026-10-31T17:31:28.9952693+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d623fc1-9c3b-45b3-946a-218ae75e2211" />
+    <UnitTestResult executionId="b05c09bb-96af-4e2c-b3dc-cf4500f163b7" testId="3dd88805-0676-37f4-58f7-4fd4d61386de" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.V11TextBothQuantitiesAndTerminalMarkerAreExplicit(projected: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0297614" startTime="2026-10-31T17:31:28.6389732+08:00" endTime="2026-10-31T17:31:28.6685793+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b05c09bb-96af-4e2c-b3dc-cf4500f163b7" />
+    <UnitTestResult executionId="4e6048f0-0863-444c-a8cf-c0fbd375d2c9" testId="6841ee59-b114-d2eb-69d7-5f808b644ada" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.XyzRequiresCalibrationAndRejectsNegativeOrNonpassiveMappings" computerName="DESKTOP-SET3SNR" duration="00:00:00.0191904" startTime="2026-10-31T17:31:33.1439917+08:00" endTime="2026-10-31T17:31:33.1631814+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4e6048f0-0863-444c-a8cf-c0fbd375d2c9" />
+    <UnitTestResult executionId="25226875-ca1a-4930-815e-24ca1ed67f60" testId="0c6d49a9-a0c9-54a8-921a-c3f3eb33c035" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(transmission: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1687088" startTime="2026-10-31T17:31:33.6070980+08:00" endTime="2026-10-31T17:31:33.7758172+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="25226875-ca1a-4930-815e-24ca1ed67f60" />
+    <UnitTestResult executionId="82559f2d-5a4d-4ac3-9742-ca33c4f9f884" testId="9cb39ea3-4388-2a9e-0a02-717685b827a5" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.V11TextBothQuantitiesAndTerminalMarkerAreExplicit(projected: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0331927" startTime="2026-10-31T17:31:28.6122659+08:00" endTime="2026-10-31T17:31:28.6384480+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="82559f2d-5a4d-4ac3-9742-ca33c4f9f884" />
+    <UnitTestResult executionId="41fcc497-b425-462e-ba2d-a9883fb7d69d" testId="fdd66b88-257b-c8aa-bf4d-585462b1b385" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.XyzUsesIndependentTisAndCalibratedSpectralMixture(transmission: True, fixedAxes: False)" computerName="DESKTOP-SET3SNR" duration="00:00:01.1048528" startTime="2026-10-31T17:31:32.0390550+08:00" endTime="2026-10-31T17:31:33.1438641+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41fcc497-b425-462e-ba2d-a9883fb7d69d" />
+    <UnitTestResult executionId="e4d4c1d6-c99b-401b-9392-c47433297779" testId="1b2a0212-0d13-44e2-c651-370d830fe9f2" testName="OpticalSystemDesign.Tests.SpeosV11XyzTests.WhitePeakIsAchromaticAndBackgroundKeepsItsSpectrum" computerName="DESKTOP-SET3SNR" duration="00:00:00.2849647" startTime="2026-10-31T17:31:28.3403195+08:00" endTime="2026-10-31T17:31:28.6051077+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4d4c1d6-c99b-401b-9392-c47433297779" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.XyzUsesIndependentTisAndCalibratedSpectralMixture(transmission: True, fixedAxes: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fdd66b88-257b-c8aa-bf4d-585462b1b385">
+      <Execution id="41fcc497-b425-462e-ba2d-a9883fb7d69d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="XyzUsesIndependentTisAndCalibratedSpectralMixture" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(transmission: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="93b58f3b-b386-824c-e3d4-db2c6c8e1006">
+      <Execution id="61968d3c-4519-48b5-9c41-ca89fa6ff9bc" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.V11TextBothQuantitiesAndTerminalMarkerAreExplicit(projected: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9cb39ea3-4388-2a9e-0a02-717685b827a5">
+      <Execution id="82559f2d-5a4d-4ac3-9742-ca33c4f9f884" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="V11TextBothQuantitiesAndTerminalMarkerAreExplicit" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.XyzUsesIndependentTisAndCalibratedSpectralMixture(transmission: False, fixedAxes: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4984b2be-f6f1-715f-adb0-aa02d2593f9e">
+      <Execution id="3dfd7da2-f750-41ce-8a8c-73ab9c7ade1c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="XyzUsesIndependentTisAndCalibratedSpectralMixture" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.XyzRequiresCalibrationAndRejectsNegativeOrNonpassiveMappings" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6841ee59-b114-d2eb-69d7-5f808b644ada">
+      <Execution id="4e6048f0-0863-444c-a8cf-c0fbd375d2c9" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="XyzRequiresCalibrationAndRejectsNegativeOrNonpassiveMappings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.EnhancedAndXyzPayloadsFreezeAndDetectTampering" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="36dd0ea8-f139-875f-73e0-46b2bb650a79">
+      <Execution id="9d623fc1-9c3b-45b3-946a-218ae75e2211" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="EnhancedAndXyzPayloadsFreezeAndDetectTampering" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.XyzUsesIndependentTisAndCalibratedSpectralMixture(transmission: False, fixedAxes: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="88aca5c8-3847-963a-f0a9-d3b97c52ab79">
+      <Execution id="3d4b3e3c-172d-4000-aede-ce1d00e71e00" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="XyzUsesIndependentTisAndCalibratedSpectralMixture" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bc8445a1-3629-91e6-927c-7246ff4ebe27">
+      <Execution id="92f6d6ee-32a5-4587-886f-09b472f9aaf6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.WhitePeakIsAchromaticAndBackgroundKeepsItsSpectrum" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1b2a0212-0d13-44e2-c651-370d830fe9f2">
+      <Execution id="e4d4c1d6-c99b-401b-9392-c47433297779" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="WhitePeakIsAchromaticAndBackgroundKeepsItsSpectrum" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.V11TextBothQuantitiesAndTerminalMarkerAreExplicit(projected: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3dd88805-0676-37f4-58f7-4fd4d61386de">
+      <Execution id="b05c09bb-96af-4e2c-b3dc-cf4500f163b7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="V11TextBothQuantitiesAndTerminalMarkerAreExplicit" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(transmission: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0c6d49a9-a0c9-54a8-921a-c3f3eb33c035">
+      <Execution id="25226875-ca1a-4930-815e-24ca1ed67f60" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11XyzTests" name="RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="bc8445a1-3629-91e6-927c-7246ff4ebe27" executionId="92f6d6ee-32a5-4587-886f-09b472f9aaf6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4984b2be-f6f1-715f-adb0-aa02d2593f9e" executionId="3dfd7da2-f750-41ce-8a8c-73ab9c7ade1c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88aca5c8-3847-963a-f0a9-d3b97c52ab79" executionId="3d4b3e3c-172d-4000-aede-ce1d00e71e00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93b58f3b-b386-824c-e3d4-db2c6c8e1006" executionId="61968d3c-4519-48b5-9c41-ca89fa6ff9bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="36dd0ea8-f139-875f-73e0-46b2bb650a79" executionId="9d623fc1-9c3b-45b3-946a-218ae75e2211" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3dd88805-0676-37f4-58f7-4fd4d61386de" executionId="b05c09bb-96af-4e2c-b3dc-cf4500f163b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6841ee59-b114-d2eb-69d7-5f808b644ada" executionId="4e6048f0-0863-444c-a8cf-c0fbd375d2c9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0c6d49a9-a0c9-54a8-921a-c3f3eb33c035" executionId="25226875-ca1a-4930-815e-24ca1ed67f60" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9cb39ea3-4388-2a9e-0a02-717685b827a5" executionId="82559f2d-5a4d-4ac3-9742-ca33c4f9f884" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fdd66b88-257b-c8aa-bf4d-585462b1b385" executionId="41fcc497-b425-462e-ba2d-a9883fb7d69d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b2a0212-0d13-44e2-c651-370d830fe9f2" executionId="e4d4c1d6-c99b-401b-9392-c47433297779" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="11" executed="11" passed="10" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.84]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.84]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.86]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.71]       System.IO.InvalidDataException : 商业 BSDF 展开后节点超过 131072；不自动降采样。&#xD;
+[xUnit.net 00:00:02.71]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.71]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs(247,0): at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.ConvertBlocks(List`1 blocks, Boolean fixedAxes, BsdfImportSides sides)&#xD;
+[xUnit.net 00:00:02.71]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs(167,0): at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token, Boolean allowProjected, Boolean compactSpectra)&#xD;
+[xUnit.net 00:00:02.71]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs(41,0): at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:02.71]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11XyzTests.cs(119,0): at OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds()&#xD;
+[xUnit.net 00:00:02.71]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.71]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.34]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T17:31:29.1490856+08:00">
+        <Text>[xUnit.net 00:00:02.71]     OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

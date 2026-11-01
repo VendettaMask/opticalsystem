@@ -90,10 +90,19 @@ public sealed class AfocalPsfContractTests(ITestOutputHelper output)
 
     [Theory]
     [MemberData(nameof(Cases))]
-    public async Task FormalNormalizerRetainsOriginalGridOutcomes(string id)
+    public async Task FormalNormalizerHonorsUnchangedGridGatesAndCurrentOutcomes(string id)
     {
         var row = Manifest().GetProperty("cases").EnumerateArray().Single(r => r.GetProperty("id").GetString() == id);
         var request = row.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
+        var outcomes = JsonFiles.Read<JsonElement>(Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-current-grid-expectations.json"));
+        Assert.Equal(outcomes.GetProperty("originalManifestSha256").GetString(),
+            Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,
+                "Fixtures/afocal-psf-contract/manifest.json")))));
+        Assert.Equal(Manifest().GetProperty("cases").GetArrayLength(), outcomes.GetProperty("cases").GetArrayLength());
+        var current = outcomes.GetProperty("cases").EnumerateArray().Single(c => c.GetProperty("id").GetString() == id);
+        Assert.Equal(request.Fingerprint, current.GetProperty("requestFingerprint").GetString());
+        Assert.Equal(row.GetProperty("originalConclusion").GetString(), current.GetProperty("originalConclusion").GetString());
+        var expectedConclusion = current.GetProperty("currentConclusion").GetString();
         var directory = WriteNative(id);
         try
         {
@@ -112,7 +121,7 @@ public sealed class AfocalPsfContractTests(ITestOutputHelper output)
             var xError = actual.X.Zip(expected.X, (a, b) => Math.Abs(a - b)).Max();
             var yError = actual.Y.Zip(expected.Y, (a, b) => Math.Abs(a - b)).Max();
             output.WriteLine($"{id}: original={row.GetProperty("originalConclusion").GetString()}, maxAngularCoordinateError=({xError:R}, {yError:R}) mrad");
-            if (row.GetProperty("originalConclusion").GetString() == "Incomparable")
+            if (expectedConclusion == "Incomparable")
             {
                 var error = Assert.Throws<InvalidDataException>(() => ComparisonMetrics.Align(actual, expected, []));
                 Assert.Contains("Grid coordinates differ", error.Message);
@@ -123,13 +132,16 @@ public sealed class AfocalPsfContractTests(ITestOutputHelper output)
                 var metric = ComparisonMetrics.Calculate("grid", "Dimensionless", matched, policy);
                 output.WriteLine($"NRMSE={metric.Nrmse:R}; coverage={matched.Coverage:R}; conclusion={metric.Conclusion}");
                 Assert.Equal(Conclusion.Pass, metric.Conclusion);
+                Assert.True(current.GetProperty("pointwiseRequired").GetBoolean());
+                Assert.All(matched.Workbench.Zip(matched.Zemax), pair =>
+                    Assert.True(Math.Abs(pair.First - pair.Second) <= policy.Absolute + policy.Relative * Math.Abs(pair.Second)));
             }
             var run = new AnalysisRun { Key = request.CanonicalAnalysisKey, Directory = id, Request = request };
             var settings = ComparisonConfiguration.Load(Path.Combine(AppContext.BaseDirectory, "comparison-settings.json"))
                 .Analyses[request.CanonicalAnalysisKey];
             ComparisonRunner.Compare(run, entry, settings, new NumericResult { Grids = [actual] },
                 new NumericResult { Grids = [expected] }, directory);
-            Assert.Equal(row.GetProperty("originalConclusion").GetString(), run.Conclusion.ToString());
+            Assert.Equal(expectedConclusion, run.Conclusion.ToString());
             if (run.Conclusion == Conclusion.Incomparable)
             {
                 Assert.Empty(run.Metrics);

@@ -168,6 +168,8 @@ internal static partial class UiLocalization
 
         // Cards assemble summaries from canonical fragments at runtime. Translate only the
         // recognized fragments so numeric values, units and imported text remain untouched.
+        if (TryTranslateCameraStatus(source, language, out var cameraStatus)) return cameraStatus;
+
         if (source.Contains(" · ", StringComparison.Ordinal))
         {
             return string.Join(" · ", source.Split(" · ", StringSplitOptions.None).Select(part => Text(part, language)));
@@ -671,6 +673,26 @@ internal static partial class UiLocalization
         Add("设计目标", "Design Targets", "設計目標");
         Add("介质与膜料", "Media and Coating Materials", "媒質と膜材料");
         Add("膜层处方", "Layer Prescription", "膜層処方");
+        Add("镀膜示例", "Coating Examples", "コーティング例");
+        Add("选择镀膜示例", "Choose a coating example", "コーティング例を選択");
+        Add("膜系编辑器", "Coating Editor", "膜系エディター");
+        Add("光学评价", "Optical Evaluation", "光学評価");
+        Add("入射侧 → 基板", "Incident side → Substrate", "入射側 → 基板");
+        Add("镀膜设置", "Coating Settings", "コーティング設定");
+        Add("完成", "Done", "完了");
+        Add("设计选项", "Design Options", "設計オプション");
+        Add("优化选项", "Optimization Options", "最適化オプション");
+        Add("设计目标设置", "Design Targets…", "設計目標…");
+        Add("介质与膜料设置", "Media and Materials…", "媒質と膜材料…");
+        Add("优化设置", "Optimization Settings…", "最適化設定…");
+        Add("公差设置", "Tolerance Settings…", "公差設定…");
+        Add("优化与采样", "Optimization and Sampling", "最適化とサンプリング");
+        Add("减反膜", "Antireflection", "反射防止膜");
+        Add("高反膜", "High Reflector", "高反射膜");
+        Add("窄带滤光片", "Narrowband Filter", "狭帯域フィルター");
+        Add("入射侧 → 基板 · 双击膜厚编辑", "Incident side → Substrate · Double-click thickness to edit", "入射側 → 基板 · 膜厚をダブルクリックして編集");
+        Add("参与膜厚优化", "Optimize layer thickness", "膜厚最適化に含める");
+        Add("勾选：优化膜厚；取消：固定膜厚", "Checked: optimize thickness; unchecked: keep thickness fixed", "オン：膜厚を最適化、オフ：膜厚を固定");
         Add("光谱与候选", "Spectra and Candidates", "スペクトルと候補");
         Add("指标与公差", "Metrics and Tolerances", "指標と公差");
         Add("实验材料管理", "Experiment Materials", "実験材料の管理");
@@ -720,6 +742,18 @@ internal static partial class UiLocalization
         Add("导入", "Import", "インポート");
         Add("导出", "Export", "エクスポート");
         Add("示例", "Samples", "サンプル");
+        Add("无焦系统", "Afocal", "アフォーカル系");
+        Add("双折射棱镜", "Birefringent prisms", "複屈折プリズム");
+        Add("衍射元件", "Diffractive components", "回折素子");
+        Add("梯度折射率系统", "GRINs", "屈折率分布系");
+        Add("光学互连", "Interconnects", "光インターコネクト");
+        Add("制造", "Manufacturing", "製造");
+        Add("其他系统", "Miscellaneous", "その他の光学系");
+        Add("物镜", "Objectives", "対物レンズ");
+        Add("光学检测", "Optical testing", "光学検査");
+        Add("望远镜", "Telescopes", "望遠鏡");
+        Add("倾斜系统与棱镜", "Tilted systems & prisms", "傾斜光学系とプリズム");
+        Add("变焦与扫描", "Zoom systems", "ズーム・走査系");
         Add("撤销", "Undo", "元に戻す");
         Add("重做", "Redo", "やり直す");
         Add("当前没有可撤销的操作", "There is nothing to undo", "元に戻せる操作はありません");
@@ -1246,6 +1280,8 @@ internal static partial class UiLocalization
 
         AddAutonomousTopologyTexts(Add);
         AddCameraPixelSamplingTexts(Add);
+        AddCameraExperimentTexts(Add);
+        AddCameraNonSequentialTexts(Add);
         AddManufacturabilityTexts(Add);
         return values;
     }

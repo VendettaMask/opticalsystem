@@ -3,6 +3,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Laboratories;
@@ -173,7 +174,7 @@ public sealed partial class CameraImagingWindow
     private async Task<string?> PickSensorFileAsync(string title, string pattern)
     {
         var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-        { Title = title, AllowMultiple = false, FileTypeFilter = new[] { new FilePickerFileType(title) { Patterns = new[] { pattern } } } });
+        { Title = UiLocalization.Text(title), AllowMultiple = false, FileTypeFilter = new[] { new FilePickerFileType(UiLocalization.Text(title)) { Patterns = new[] { pattern } } } });
         return _closed || files.Count == 0 ? null : files[0].Path.LocalPath;
     }
 
@@ -198,8 +199,8 @@ public sealed partial class CameraImagingWindow
         foreach (var key in new[] { "qe-r", "qe-g", "qe-b" })
             if (_numbers.TryGetValue(key, out var control)) ControlAvailability.Set(control, _spectralResponse is null && !IsContinuous,
                 IsContinuous ? "连续光谱使用绝对 QE 曲线；固定 QE 在三波段模式中可用。" : "已使用导入的绝对 QE 曲线；移除曲线后可编辑固定 QE。");
-        if (_numbers.TryGetValue("irradiance", out var irradiance)) ControlAvailability.Set(irradiance, !IsContinuous && !IsScene3D,
-            IsScene3D ? "三维模式由场景功率计算实际像面辐照度；此二维标定量不参与计算。"
+        if (_numbers.TryGetValue("irradiance", out var irradiance)) ControlAvailability.Set(irradiance, !IsContinuous && !IsScene3D && !IsNsc,
+            IsNsc ? "光学传播已经包含在 NSC 功率中。" : IsScene3D ? "三维模式由场景功率计算实际像面辐照度；此二维标定量不参与计算。"
                 : "连续光谱使用光源 CSV 的绝对 W/m²/nm；每波段辐照度仅用于三波段模式。");
         ControlAvailability.Set(_clearResponse, _spectralResponse is not null, "当前没有导入的响应曲线。");
         if (ReferenceEquals(_plottedResponse, _spectralResponse)) return;

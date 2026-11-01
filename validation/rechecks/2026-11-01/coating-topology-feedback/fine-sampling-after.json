@@ -1,0 +1,746 @@
+[
+  {
+    "File": "old272.coating.json",
+    "Scope": "Same original gates; additional sampling validation only",
+    "PreviewIntervals": 400,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4992838601503,
+      "PeakTransmittance": 0.6652437644511049,
+      "LeftHalfMaximumNanometers": 541.772845662989,
+      "RightHalfMaximumNanometers": 558.9601737887896,
+      "FwhmNanometers": 17.187328125800605,
+      "MinimumReflectance": 0.013550038906329512,
+      "MaximumReflectance": 0.8837185726187384
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4992838601503,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.187328125800605,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.52437644511049,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0012394460590475,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2118596552383836,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "Od": [
+      1.0012394460590475,
+      1.2118596552383836
+    ]
+  },
+  {
+    "File": "old272.coating.json",
+    "Scope": "Same original gates; additional sampling validation only",
+    "PreviewIntervals": 1600,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4992837555831,
+      "PeakTransmittance": 0.6652437644511053,
+      "LeftHalfMaximumNanometers": 541.7728457568612,
+      "RightHalfMaximumNanometers": 558.9601736390929,
+      "FwhmNanometers": 17.18732788223167,
+      "MinimumReflectance": 0.01354782067347464,
+      "MaximumReflectance": 0.8837185726187384
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4992837555831,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.18732788223167,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.52437644511053,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0012394460590475,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2118596552383836,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "Od": [
+      1.0012394460590475,
+      1.2118596552383836
+    ]
+  },
+  {
+    "File": "old272.coating.json",
+    "Scope": "Same original gates; additional sampling validation only",
+    "PreviewIntervals": 3200,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4992838533784,
+      "PeakTransmittance": 0.6652437644511044,
+      "LeftHalfMaximumNanometers": 541.7728457585293,
+      "RightHalfMaximumNanometers": 558.9601736309186,
+      "FwhmNanometers": 17.187327872389233,
+      "MinimumReflectance": 0.01354782067347464,
+      "MaximumReflectance": 0.8837185726187384
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4992838533784,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.187327872389233,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.52437644511045,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0012394460590475,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2118596552383836,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "Od": [
+      1.0012394460590475,
+      1.2118596552383836
+    ]
+  },
+  {
+    "File": "old272.coating.json",
+    "Scope": "Independent uniform Core grid with locally refined physical extrema; not a replacement acceptance protocol",
+    "Intervals": 8192,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4992836408102,
+      "PeakTransmittance": 0.6652437644511056,
+      "LeftHalfMaximumNanometers": 541.7728429486378,
+      "RightHalfMaximumNanometers": 558.9601766508197,
+      "FwhmNanometers": 17.18733370218183,
+      "MinimumReflectance": 0.013547501121660647,
+      "MaximumReflectance": 0.8837185726187384
+    },
+    "RefinedPeak": {
+      "WavelengthNanometers": 550.4992836408102,
+      "Power": {
+        "Reflectance": 0.014197512622481229,
+        "Transmittance": 0.6652437644511056,
+        "Absorptance": 0.32055872292641324,
+        "LogTransmittance": -0.4076017424097474,
+        "OpticalDensity": 0.17701918754270393
+      }
+    },
+    "Od": [
+      1.0012394460590475,
+      1.2118596552383836
+    ]
+  },
+  {
+    "File": "old272.coating.json",
+    "Scope": "Independent uniform Core grid with locally refined physical extrema; not a replacement acceptance protocol",
+    "Intervals": 32768,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4992838180779,
+      "PeakTransmittance": 0.6652437644511042,
+      "LeftHalfMaximumNanometers": 541.7728455880621,
+      "RightHalfMaximumNanometers": 558.9601737702817,
+      "FwhmNanometers": 17.18732818221963,
+      "MinimumReflectance": 0.013547458736310348,
+      "MaximumReflectance": 0.8837185726187384
+    },
+    "RefinedPeak": {
+      "WavelengthNanometers": 550.4992838180779,
+      "Power": {
+        "Reflectance": 0.014197513267119807,
+        "Transmittance": 0.6652437644511042,
+        "Absorptance": 0.320558722281776,
+        "LogTransmittance": -0.4076017424097495,
+        "OpticalDensity": 0.17701918754270485
+      }
+    },
+    "Od": [
+      1.0012394460590475,
+      1.2118596552383836
+    ]
+  },
+  {
+    "File": "role550.coating.json",
+    "Scope": "Same original gates; additional sampling validation only",
+    "PreviewIntervals": 400,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.500000371328,
+      "PeakTransmittance": 0.6779931857849352,
+      "LeftHalfMaximumNanometers": 540.2305583656298,
+      "RightHalfMaximumNanometers": 557.4273091092537,
+      "FwhmNanometers": 17.196750743623852,
+      "MinimumReflectance": 0.0030119173493369563,
+      "MaximumReflectance": 0.9348545571676301
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.500000371328,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.196750743623852,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 67.79931857849351,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.025524204200048,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.3933293495325028,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "Od": [
+      1.025524204200048,
+      1.3933293495325028
+    ]
+  },
+  {
+    "File": "role550.coating.json",
+    "Scope": "Same original gates; additional sampling validation only",
+    "PreviewIntervals": 1600,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.5000004770066,
+      "PeakTransmittance": 0.6779931857849378,
+      "LeftHalfMaximumNanometers": 540.2305584333936,
+      "RightHalfMaximumNanometers": 557.4273089382789,
+      "FwhmNanometers": 17.196750504885244,
+      "MinimumReflectance": 0.003011911942594095,
+      "MaximumReflectance": 0.9348545571676301
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.5000004770066,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.196750504885244,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 67.79931857849378,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.025524204200048,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.3933293495325028,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "Od": [
+      1.025524204200048,
+      1.3933293495325028
+    ]
+  },
+  {
+    "File": "role550.coating.json",
+    "Scope": "Same original gates; additional sampling validation only",
+    "PreviewIntervals": 3200,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.5000007004398,
+      "PeakTransmittance": 0.6779931857849388,
+      "LeftHalfMaximumNanometers": 540.2305584385015,
+      "RightHalfMaximumNanometers": 557.4273089285934,
+      "FwhmNanometers": 17.196750490091972,
+      "MinimumReflectance": 0.0030119119425941316,
+      "MaximumReflectance": 0.9348545571676301
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.5000007004398,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.196750490091972,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 67.79931857849388,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.025524204200048,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.3933293495325028,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "Od": [
+      1.025524204200048,
+      1.3933293495325028
+    ]
+  },
+  {
+    "File": "role550.coating.json",
+    "Scope": "Independent uniform Core grid with locally refined physical extrema; not a replacement acceptance protocol",
+    "Intervals": 8192,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.5000011439535,
+      "PeakTransmittance": 0.6779931857849394,
+      "LeftHalfMaximumNanometers": 540.230556372422,
+      "RightHalfMaximumNanometers": 557.4273126788415,
+      "FwhmNanometers": 17.196756306419502,
+      "MinimumReflectance": 0.0030119100590616757,
+      "MaximumReflectance": 0.9348545571676301
+    },
+    "RefinedPeak": {
+      "WavelengthNanometers": 549.5000011439535,
+      "Power": {
+        "Reflectance": 0.0030131952054700487,
+        "Transmittance": 0.6779931857849394,
+        "Absorptance": 0.31899361900959056,
+        "LogTransmittance": -0.38861804155693896,
+        "OpticalDensity": 0.16877467101622717
+      }
+    },
+    "Od": [
+      1.025524204200048,
+      1.3933293495325028
+    ]
+  },
+  {
+    "File": "role550.coating.json",
+    "Scope": "Independent uniform Core grid with locally refined physical extrema; not a replacement acceptance protocol",
+    "Intervals": 32768,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.5000011227436,
+      "PeakTransmittance": 0.6779931857849394,
+      "LeftHalfMaximumNanometers": 540.2305583030092,
+      "RightHalfMaximumNanometers": 557.427309165596,
+      "FwhmNanometers": 17.196750862586782,
+      "MinimumReflectance": 0.0030119100590616757,
+      "MaximumReflectance": 0.9348545571676301
+    },
+    "RefinedPeak": {
+      "WavelengthNanometers": 549.5000011227436,
+      "Power": {
+        "Reflectance": 0.003013195201356868,
+        "Transmittance": 0.6779931857849394,
+        "Absorptance": 0.3189936190137037,
+        "LogTransmittance": -0.38861804155693896,
+        "OpticalDensity": 0.16877467101622717
+      }
+    },
+    "Od": [
+      1.025524204200048,
+      1.3933293495325028
+    ]
+  },
+  {
+    "File": "warm550.coating.json",
+    "Scope": "Same original gates; additional sampling validation only",
+    "PreviewIntervals": 400,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4993774014575,
+      "PeakTransmittance": 0.6644792326862146,
+      "LeftHalfMaximumNanometers": 541.9054581198441,
+      "RightHalfMaximumNanometers": 559.1228509968286,
+      "FwhmNanometers": 17.21739287698449,
+      "MinimumReflectance": 0.011820757463852374,
+      "MaximumReflectance": 0.8860198319651779
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4993774014575,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.21739287698449,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.44792326862145,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.015976480268972,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2359241176146223,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "Od": [
+      1.015976480268972,
+      1.2359241176146223
+    ]
+  },
+  {
+    "File": "warm550.coating.json",
+    "Scope": "Same original gates; additional sampling validation only",
+    "PreviewIntervals": 1600,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.49937774554,
+      "PeakTransmittance": 0.6644792326862168,
+      "LeftHalfMaximumNanometers": 541.9054581949374,
+      "RightHalfMaximumNanometers": 559.122850943581,
+      "FwhmNanometers": 17.217392748643647,
+      "MinimumReflectance": 0.011816213241860803,
+      "MaximumReflectance": 0.8860198319651779
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.49937774554,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.217392748643647,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.44792326862168,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0159764802689717,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2359241176146223,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "Od": [
+      1.0159764802689717,
+      1.2359241176146223
+    ]
+  },
+  {
+    "File": "warm550.coating.json",
+    "Scope": "Same original gates; additional sampling validation only",
+    "PreviewIntervals": 3200,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4993777455397,
+      "PeakTransmittance": 0.6644792326862167,
+      "LeftHalfMaximumNanometers": 541.9054581955057,
+      "RightHalfMaximumNanometers": 559.1228509331022,
+      "FwhmNanometers": 17.21739273759647,
+      "MinimumReflectance": 0.011816213241860803,
+      "MaximumReflectance": 0.8860198319651779
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4993777455397,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.21739273759647,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.44792326862166,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0159764802689712,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2359241176146223,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "Od": [
+      1.0159764802689712,
+      1.2359241176146223
+    ]
+  },
+  {
+    "File": "warm550.coating.json",
+    "Scope": "Independent uniform Core grid with locally refined physical extrema; not a replacement acceptance protocol",
+    "Intervals": 8192,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4993774185397,
+      "PeakTransmittance": 0.6644792326862136,
+      "LeftHalfMaximumNanometers": 541.9054554072532,
+      "RightHalfMaximumNanometers": 559.1228530053702,
+      "FwhmNanometers": 17.21739759811703,
+      "MinimumReflectance": 0.011816197890625605,
+      "MaximumReflectance": 0.8860198319651779
+    },
+    "RefinedPeak": {
+      "WavelengthNanometers": 550.4993774185397,
+      "Power": {
+        "Reflectance": 0.01261128358890992,
+        "Transmittance": 0.6644792326862136,
+        "Absorptance": 0.32290948372487654,
+        "LogTransmittance": -0.40875165385864715,
+        "OpticalDensity": 0.17751858773963847
+      }
+    },
+    "Od": [
+      1.0159764802689712,
+      1.2359241176146223
+    ]
+  },
+  {
+    "File": "warm550.coating.json",
+    "Scope": "Independent uniform Core grid with locally refined physical extrema; not a replacement acceptance protocol",
+    "Intervals": 32768,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.499377767654,
+      "PeakTransmittance": 0.6644792326862146,
+      "LeftHalfMaximumNanometers": 541.905458010357,
+      "RightHalfMaximumNanometers": 559.1228511035415,
+      "FwhmNanometers": 17.217393093184455,
+      "MinimumReflectance": 0.011816197890625605,
+      "MaximumReflectance": 0.8860198319651779
+    },
+    "RefinedPeak": {
+      "WavelengthNanometers": 550.499377767654,
+      "Power": {
+        "Reflectance": 0.012611284934481213,
+        "Transmittance": 0.6644792326862146,
+        "Absorptance": 0.3229094823793042,
+        "LogTransmittance": -0.4087516538586457,
+        "OpticalDensity": 0.17751858773963786
+      }
+    },
+    "Od": [
+      1.0159764802689728,
+      1.2359241176146223
+    ]
+  }
+]

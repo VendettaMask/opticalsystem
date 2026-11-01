@@ -1,0 +1,26 @@
+{
+  "version": "f8-cold-paired-v1",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "arms": [
+    "control",
+    "candidate"
+  ],
+  "budget": {
+    "functions": 600,
+    "gradients": 600,
+    "rays": 10000000,
+    "seconds": 600
+  },
+  "cold": "Fresh process and RNG per seed; source shapes erased; no saved candidate/checkpoint imports; historical acquisition is not reused.",
+  "input": "Same original task seed44 input as a specification envelope; only RNG seed changes.",
+  "comparison": "Both arms use the same sphere/A4/A6 compensation and limits; control samples original minimum back focus, candidate explores original legal terminal slack.",
+  "execution": "Two bounded workers by arm, fresh normal-priority single-computation-thread process each run; no wall-time speedup claims.",
+  "gates": "Original physical apertures, reference/stop/image, spectra/fields, material/curvature/profile permissions and TopologyValidator unchanged.",
+  "excluded": "F4 retains its original specification-conflict record. No DeepSeek, GUI, commits or publishing."
+}

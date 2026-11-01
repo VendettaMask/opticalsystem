@@ -13,6 +13,10 @@ public sealed record TopologyDiversityOptions
 public sealed record ParaxialSeedSearchOptions
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public SpcBranchOptions? Spc { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ColdStartDesignOptions? ColdStart { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public LensRetrievalOptions? Retrieval { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public StructureEvolutionOptions? Evolution { get; init; }
@@ -147,6 +151,10 @@ public sealed record ParaxialSeedAttempt(int Index, string SourceFingerprint, st
 /// <summary>First-order feasibility only. Every returned seed still needs full independent physical acceptance.</summary>
 public sealed record ParaxialSeedSearchResult
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public SpcBranchSearchResult? Spc { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ColdStartDesignResult? ColdStart { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public LensRetrievalResult? Retrieval { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

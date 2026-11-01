@@ -45,7 +45,13 @@ public sealed class SpectrumPlot : Control
         context.FillRectangle(background, new Rect(Bounds.Size));
         var text = PlotTextBrush;
         var axis = new Pen(text, 1);
-        var rect = new Rect(52, 24, Math.Max(1, Bounds.Width - 76), Math.Max(1, Bounds.Height - 64));
+        var captionHeight = DisplayTypography.Scale(18);
+        var legend = new FormattedText(_od ? "OD · 图形在 12 饱和，计算 / 导出保留真实数值"
+                : "R 反射   T 透射   A 吸收    虚线 / 阴影：目标", CultureInfo.CurrentCulture,
+            FlowDirection.LeftToRight, DisplayTypography.Typeface(), LaboratoryTypography.Caption, text)
+        { MaxTextWidth = Math.Max(1, Bounds.Width - 8) };
+        var plotTop = captionHeight + legend.Height + 8;
+        var rect = new Rect(52, plotTop, Math.Max(1, Bounds.Width - 76), Math.Max(1, Bounds.Height - plotTop - 40));
         void Label(string value, double x, double y) => context.DrawText(new FormattedText(value, CultureInfo.CurrentCulture,
             FlowDirection.LeftToRight, DisplayTypography.Typeface(), LaboratoryTypography.Caption, text), new Point(x, y));
         context.DrawLine(axis, rect.BottomLeft, rect.BottomRight); context.DrawLine(axis, rect.TopLeft, rect.BottomLeft);
@@ -100,6 +106,6 @@ public sealed class SpectrumPlot : Control
                 context.DrawGeometry(null, new Pen(CurveColors[series.ColorIndex], 1.5), geometry);
             }
         }
-        Label(_od ? "OD · 图形在 12 饱和，计算 / 导出保留真实数值" : "R 反射   T 透射   A 吸收    虚线 / 阴影：目标", rect.Left, 3);
+        context.DrawText(legend, new Point(4, captionHeight));
     }
 }

@@ -48,6 +48,8 @@ public static class GradientIndexParaxialTransport
             Gradient3IndexProfile p => 2 * p.Radial2,
             Gradient4IndexProfile p => 2 * (useX ? p.Quadratic.X : p.Quadratic.Y),
             Gradient5IndexProfile => 0, // Actual curvature depends on z and wavelength; evaluated below.
+            Gradient9IndexProfile p => 2 * p.Coefficients(wavelengthNanometers).RadialQuadratic,
+            GridGradientIndexProfile => 0, // The spline's axial curvature is evaluated at each integration stage.
             _ => throw new NotSupportedException("该空间分布尚无轴上一阶导数。")
         };
         if (!double.IsFinite(curvature)) throw new SpatialIndexDomainException("GRIN 横向二阶导数不是有限值。");
@@ -113,8 +115,12 @@ public static class GradientIndexParaxialTransport
             cancellationToken.ThrowIfCancellationRequested();
             RequireFinite(value);
             var index = material.RefractiveIndex(new(0, 0, z), wavelengthNanometers);
-            var localCurvature = material.Profile is Gradient5IndexProfile p
-                ? p.AxialTransverseCurvature(z, wavelengthNanometers) : curvature;
+            var localCurvature = material.Profile switch
+            {
+                Gradient5IndexProfile p => p.AxialTransverseCurvature(z, wavelengthNanometers),
+                GridGradientIndexProfile grid => grid.AxialTransverseCurvature(z, wavelengthNanometers, useX),
+                _ => curvature
+            };
             var derivative = new GradientIndexParaxialMatrix(value.C / index, value.D / index,
                 localCurvature * value.A, localCurvature * value.B);
             RequireFinite(derivative);
@@ -133,6 +139,7 @@ public static class GradientIndexParaxialTransport
 
     internal static void ValidateAxis(ISpatialRefractiveIndex profile)
     {
+        if (profile is GridGradientIndexProfile grid) grid.ValidateGaussianReferenceAxis();
         if (profile is Gradient1IndexProfile { RadialLinear: not 0 })
             throw new NotSupportedException("Gradient 1 的径向一次项在轴上不可微，不能建立轴上一阶传递。");
         if (profile is Gradient4IndexProfile p && (p.Linear.X != 0 || p.Linear.Y != 0))
@@ -141,6 +148,7 @@ public static class GradientIndexParaxialTransport
 
     private static void ValidateAxialInterval(GradientIndexMaterial material, double start, double end, double wavelength)
     {
+        if (material.Profile is GridGradientIndexProfile grid) grid.ValidateAxialInterval(start, end, wavelength);
         var (linear, quadratic, cubic) = material.Profile switch
         {
             Gradient3IndexProfile p => (p.Axial1, p.Axial2, p.Axial3),

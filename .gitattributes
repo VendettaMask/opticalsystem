@@ -34,7 +34,6 @@ docs/validation/*_2026-10-21.json -text whitespace=cr-at-eol
 docs/validation/*_2026-10-22.json -text whitespace=cr-at-eol
 tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-zemax-2026-r1.json -text whitespace=cr-at-eol
 tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-finite-zemax-2026-r1.json -text whitespace=cr-at-eol
-
 validation/repairs/2026-10-18/relay-stop-branch-repair-evidence.zip filter=lfs diff=lfs merge=lfs -text
 validation/repairs/2026-10-20/objectives-matrix-evidence.zip filter=lfs diff=lfs merge=lfs -text
 validation/repairs/2026-10-21/objectives-residual-controls-evidence.zip filter=lfs diff=lfs merge=lfs -text
@@ -76,7 +75,122 @@ validation/rechecks/2026-10-27/** -whitespace
 validation/rechecks/2026-10-29/** -whitespace
 # Preserve this batch's frozen console output, patches and exported report bytes.
 validation/rechecks/2026-10-30/** -whitespace
+validation/rechecks/2026-10-31/** -whitespace
+validation/rechecks/2026-11-01/** -whitespace
+# Native BSDF fixture rows retain the original tab-delimited bytes.
+tests/OpticalSystemDesign.Tests/Fixtures/speos-gaussian-v11.anisotropicbsdf -text -whitespace
 output/gauss28-four-formats-20261030_153352/** -text -whitespace
 # Keep upstream attribution and license bytes unchanged when publishing references.
 third_party/happylens/*.txt -text -whitespace
 labs/InitialStructure/benchmarks/autonomous-topology-v1/*.json -text whitespace=cr-at-eol
+validation/rechecks/2026-11-01/spc-automatic-resume/v2-source.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/spc-automatic-resume/working-test-runtime.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/all-example-accuracy/evidence-current.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/endpoint-diagnostics/seed46-v4/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/initial-loss-round2/back-focus-layout-seed44-sixth-v1/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/si-ti-real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/two-window-material/si-ti-real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-peak-preservation/inputs/real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/runtimes/final-ui/OpticalSystemDesign.App.dll filter=lfs diff=lfs merge=lfs -text
+validation/repairs/2026-10-31/model-capabilities-stage4-evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/coating-progress-allocation/final-matrix/core-cases-all.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/endpoint-diagnostics/seed46-original-gates/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/initial-loss-round2/back-focus-layout-seed44-asphere-v1/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/si-nb-new-real-nbf-green.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-performance/candidate/seed46/dense.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/product-session-v2/product.design-study.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/spc-default-output/final-verified/default-runtime.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/endpoint-diagnostics/seed45/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/initial-loss-round2/dense-probe-v2.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/endpoint-diagnostics/seed45-image-curvature/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/physics-retained.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/reference-inputs.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-topology-feedback/paired-raw.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/product-session-final/autonomous-d15c3c379fe3493aa408ec833306ba5f.autonomous.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/spc-default-output/default-runtime.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/formal-baseline-all/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/two-window-primary/real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-topology-feedback/current-paired.json filter=lfs diff=lfs merge=lfs -text
+validation/repairs/2026-10-31/model-capabilities-stage1-evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/initial-loss-round2/back-focus-layout-seed44-v1/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/riflescope-mtf-field/evidence-current.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/two-window-primary/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/grid-grin-mtf-phase/evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/endpoint-diagnostics/seed42-inward-gates/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/final-paired-v3/paused/seed46/run.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/example-incomparable-repair/bounded-supplement.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-performance/product-session/autonomous-37a05a5fd3db4c07b586740f65e305f1.autonomous.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/correction-real-nbf-red.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/hf-ti-new-real-nbf-green.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/hr-topology/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/material-rematch/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/access-diagnostic/debug.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/coating-margin-refinement/final-matrix/core-cases-all.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/actual-product-pipeline-v4/autonomous-7618c41926b448ca814f7794989c6c0b.autonomous.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/afocal-mtf-field/evidence-current.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/final-paired-v1/continuous/seed45/run.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/final-paired-v2/continuous/seed46/run.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/afocal-results/evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/coating-constrained-continuation/final-matrix/core-cases-all.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/two-window-material/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/example-incomparable-repair/native-frontier.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-performance/baseline/seed45/dense.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/product-session-final/product.design-portfolio.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/binocular-fourier-remaining/evidence-current.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/endpoint-diagnostics/seed46-polish-backtracking/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/product-integration/autonomous-79704a5a97c24c4d8554e4f3f59b3f00.autonomous.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/cold-inputs/formal-final-all__si-nb-new-real-nbf-green.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-peak-preservation/profiles-inputs/real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-phase-order/reference-inputs.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-topology-feedback/paired-final.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/final-paired-v3/continuous/seed46/run.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/hr-chirp/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-peak-preservation/fine-inputs/anchor-real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-topology-feedback/hr-feedback-final/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/spc-automatic-resume/v1-runtime.zip filter=lfs diff=lfs merge=lfs -text
+validation/repairs/2026-10-31/model-capabilities-stage3-evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/binocular-fourier-direct/evidence-current.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/final-paired-v2/paused/seed46/suspended.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/cold-inputs/formal-final-all__real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/cold-inputs/formal-final-all__si-ti-real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/two-window-material/si-nb-new-real-nbf-green.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/example-incomparable-repair/accepted-evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-performance/candidate/seed45/dense.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-performance/product-runtime/OpticalSystemDesign.App.dll filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-30/centroid-energy/evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/actual-product-pipeline-v6/autonomous-aa9807fee1d847c7a5f37d15dd62d093.autonomous.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/endpoint-diagnostics/seed43/result.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/regression-runtime/OpticalSystemDesign.App.dll filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/runtimes/final-product/OpticalSystemDesign.App.dll filter=lfs diff=lfs merge=lfs -text
+validation/repairs/2026-11-01/model-capabilities-stage5-evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/f8-completion/actual-product-pipeline/autonomous-9960190e49fa493bb1dceddb8ff1759e.autonomous.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-30/afocal-auto-grid/evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/cold-inputs/formal-final-all__new-real-nbf-green.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-topology-feedback/reference-inputs.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/product-session-final/product.design-study.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/product-session/autonomous-e6ff3a4b06cb4ce395b930f7bc5e6f73.autonomous.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/runtimes/regression/OpticalSystemDesign.App.dll filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/final-paired-v4/paused/seed46/suspended.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/new-real-nbf-green.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/two-window-material/hf-ti-new-real-nbf-green.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/two-window-primary/new-real-nbf-green.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-peak-preservation/primary-inputs/real-nbf2-96.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-performance/baseline/seed46/dense.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/product-session-v2/product.design-portfolio.json filter=lfs diff=lfs merge=lfs -text
+validation/repairs/2026-10-31/model-capabilities-stage2-evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/fine-inputs/new550.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/physics-points.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-31/preparation-checkpoint/current-product-runtime/OpticalSystemDesign.App.dll filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-10-30/riflescope-pupil/evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/two-window-cross/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-peak-preservation/reference-inputs.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-performance/baseline/interrupted-disk-full/seed42/run.preparation.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/spc-automatic-resume/v1-source.zip filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/cold-inputs/formal-final-all__correction-real-nbf-red.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/cold-inputs/formal-final-all__hf-ti-new-real-nbf-green.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/formal-append-all/summary.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/coating-feedback-resampled/two-window-cross/correction-real-nbf-red.coating.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/initial-product-m36/product-session-v2/autonomous-887e06acbedf43dbbe1cfa841a0c5f8a.autonomous.json filter=lfs diff=lfs merge=lfs -text
+validation/rechecks/2026-11-01/spc-automatic-resume/v2-runtime.zip filter=lfs diff=lfs merge=lfs -text

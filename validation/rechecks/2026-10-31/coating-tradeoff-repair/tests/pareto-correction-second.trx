@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6a12d0b8-bf66-470e-9dcb-1d4f713b0a34" name="allen@DESKTOP-SET3SNR 2026-10-31 13:40:37" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T13:40:37.0532576+08:00" queuing="2026-10-31T13:40:37.0532577+08:00" start="2026-10-31T13:40:35.2199014+08:00" finish="2026-10-31T13:40:56.6730962+08:00" />
+  <TestSettings name="default" id="57d4d4b1-a0ba-4371-b055-5fc53655e6b6">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_13_40_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3d47713b-5bcb-4b36-ae19-26077e43d27a" testId="91a32f17-1fc4-d0f7-af82-c1b140eea06b" testName="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.AnActiveProtectionCanReleaseInwardMotionAndRedundantRowsDoNotChangeTheAnswer" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001756" startTime="2026-10-31T13:40:36.0689800+08:00" endTime="2026-10-31T13:40:36.0691181+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d47713b-5bcb-4b36-ae19-26077e43d27a" />
+    <UnitTestResult executionId="b019a637-5fc9-400c-bc7f-e14a1f6f76eb" testId="baa06e9b-7242-f494-c43f-ac30c3a68396" testName="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.CoupledUpperBoundFindsTheConstrainedMinimumRatherThanClippingAnUnconstrainedStep" computerName="DESKTOP-SET3SNR" duration="00:00:00.0002571" startTime="2026-10-31T13:40:36.0685345+08:00" endTime="2026-10-31T13:40:36.0685730+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b019a637-5fc9-400c-bc7f-e14a1f6f76eb" />
+    <UnitTestResult executionId="010bb534-ee69-4193-aea7-76130677abf0" testId="02e1cf3c-d808-a9db-e8b4-d5a915db9da1" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: &quot;continued-single-24&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:05.7739371" startTime="2026-10-31T13:40:36.0402874+08:00" endTime="2026-10-31T13:40:41.8285448+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="010bb534-ee69-4193-aea7-76130677abf0">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(String name) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\TargetBalancingTests.cs:line 26&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="93d573f7-ed2f-4415-b8ee-474ae0407918" testId="3a5e8b19-818f-62e2-cdea-bd4d0f559f53" testName="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.ScalingResidualsAndInequalityRowsPreservesThePhysicalStep" computerName="DESKTOP-SET3SNR" duration="00:00:00.0110912" startTime="2026-10-31T13:40:36.0653956+08:00" endTime="2026-10-31T13:40:36.0679998+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93d573f7-ed2f-4415-b8ee-474ae0407918" />
+    <UnitTestResult executionId="9885e864-8b70-4ba3-a7df-b9e72c27cb55" testId="9ccf1aa0-fb23-870f-538e-4c2badbf810a" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: &quot;real-nbf2-96&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:14.7636550" startTime="2026-10-31T13:40:41.8364784+08:00" endTime="2026-10-31T13:40:56.5923474+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9885e864-8b70-4ba3-a7df-b9e72c27cb55">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(String name) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\TargetBalancingTests.cs:line 26&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2e3f0d1c-d2b7-4826-aafa-27c82582a2a1" testId="26972775-0699-a731-a670-0bf19724d611" testName="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.NearlyParallelActiveBoundsRemainFeasibleWithoutSquaringTheirConditionNumber" computerName="DESKTOP-SET3SNR" duration="00:00:00.0005728" startTime="2026-10-31T13:40:36.0686775+08:00" endTime="2026-10-31T13:40:36.0689047+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2e3f0d1c-d2b7-4826-aafa-27c82582a2a1" />
+    <UnitTestResult executionId="a7082dae-feae-46e1-9437-fbaaae5895d9" testId="ad17ac72-a551-08cf-1486-f6300eb40199" testName="OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingTests.SimultaneouslyScalingWavelengthThicknessAndTolerancesPreservesConstantIndexOptimization" computerName="DESKTOP-SET3SNR" duration="00:00:04.3874695" startTime="2026-10-31T13:40:36.0413997+08:00" endTime="2026-10-31T13:40:40.4322935+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a7082dae-feae-46e1-9437-fbaaae5895d9" />
+    <UnitTestResult executionId="40205418-fcd9-493b-8cb3-b7541452776a" testId="4e86fd92-7503-5dc7-cab5-e6af3a9b04a7" testName="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.InvalidOrInfeasibleModelsAreExplicitAndCancellationIsObserved" computerName="DESKTOP-SET3SNR" duration="00:00:00.0104738" startTime="2026-10-31T13:40:36.0413723+08:00" endTime="2026-10-31T13:40:36.0568117+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="40205418-fcd9-493b-8cb3-b7541452776a" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.InvalidOrInfeasibleModelsAreExplicitAndCancellationIsObserved" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="4e86fd92-7503-5dc7-cab5-e6af3a9b04a7">
+      <Execution id="40205418-fcd9-493b-8cb3-b7541452776a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests" name="InvalidOrInfeasibleModelsAreExplicitAndCancellationIsObserved" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: &quot;real-nbf2-96&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="9ccf1aa0-fb23-870f-538e-4c2badbf810a">
+      <Execution id="9885e864-8b70-4ba3-a7df-b9e72c27cb55" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests" name="FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingTests.SimultaneouslyScalingWavelengthThicknessAndTolerancesPreservesConstantIndexOptimization" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="ad17ac72-a551-08cf-1486-f6300eb40199">
+      <Execution id="a7082dae-feae-46e1-9437-fbaaae5895d9" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingTests" name="SimultaneouslyScalingWavelengthThicknessAndTolerancesPreservesConstantIndexOptimization" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: &quot;continued-single-24&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="02e1cf3c-d808-a9db-e8b4-d5a915db9da1">
+      <Execution id="010bb534-ee69-4193-aea7-76130677abf0" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests" name="FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.CoupledUpperBoundFindsTheConstrainedMinimumRatherThanClippingAnUnconstrainedStep" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="baa06e9b-7242-f494-c43f-ac30c3a68396">
+      <Execution id="b019a637-5fc9-400c-bc7f-e14a1f6f76eb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests" name="CoupledUpperBoundFindsTheConstrainedMinimumRatherThanClippingAnUnconstrainedStep" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.NearlyParallelActiveBoundsRemainFeasibleWithoutSquaringTheirConditionNumber" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="26972775-0699-a731-a670-0bf19724d611">
+      <Execution id="2e3f0d1c-d2b7-4826-aafa-27c82582a2a1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests" name="NearlyParallelActiveBoundsRemainFeasibleWithoutSquaringTheirConditionNumber" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.AnActiveProtectionCanReleaseInwardMotionAndRedundantRowsDoNotChangeTheAnswer" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="91a32f17-1fc4-d0f7-af82-c1b140eea06b">
+      <Execution id="3d47713b-5bcb-4b36-ae19-26077e43d27a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests" name="AnActiveProtectionCanReleaseInwardMotionAndRedundantRowsDoNotChangeTheAnswer" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.ScalingResidualsAndInequalityRowsPreservesThePhysicalStep" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="3a5e8b19-818f-62e2-cdea-bd4d0f559f53">
+      <Execution id="93d573f7-ed2f-4415-b8ee-474ae0407918" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests" name="ScalingResidualsAndInequalityRowsPreservesThePhysicalStep" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="91a32f17-1fc4-d0f7-af82-c1b140eea06b" executionId="3d47713b-5bcb-4b36-ae19-26077e43d27a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="baa06e9b-7242-f494-c43f-ac30c3a68396" executionId="b019a637-5fc9-400c-bc7f-e14a1f6f76eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="02e1cf3c-d808-a9db-e8b4-d5a915db9da1" executionId="010bb534-ee69-4193-aea7-76130677abf0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a5e8b19-818f-62e2-cdea-bd4d0f559f53" executionId="93d573f7-ed2f-4415-b8ee-474ae0407918" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ccf1aa0-fb23-870f-538e-4c2badbf810a" executionId="9885e864-8b70-4ba3-a7df-b9e72c27cb55" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26972775-0699-a731-a670-0bf19724d611" executionId="2e3f0d1c-d2b7-4826-aafa-27c82582a2a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ad17ac72-a551-08cf-1486-f6300eb40199" executionId="a7082dae-feae-46e1-9437-fbaaae5895d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e86fd92-7503-5dc7-cab5-e6af3a9b04a7" executionId="40205418-fcd9-493b-8cb3-b7541452776a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="6" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.39]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.45]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.47]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:06.28]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:06.28]       Expected: True&#xD;
+[xUnit.net 00:00:06.28]       Actual:   False&#xD;
+[xUnit.net 00:00:06.28]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.28]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\TargetBalancingTests.cs(26,0): at OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(String name)&#xD;
+[xUnit.net 00:00:06.28]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.04]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:21.04]       Expected: True&#xD;
+[xUnit.net 00:00:21.04]       Actual:   False&#xD;
+[xUnit.net 00:00:21.04]       Stack Trace:&#xD;
+[xUnit.net 00:00:21.04]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\TargetBalancingTests.cs(26,0): at OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(String name)&#xD;
+[xUnit.net 00:00:21.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.04]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T13:40:41.8316401+08:00">
+        <Text>[xUnit.net 00:00:06.28]     OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: "continued-single-24") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T13:40:56.5928358+08:00">
+        <Text>[xUnit.net 00:00:21.04]     OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: "real-nbf2-96") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,1442 @@
+[
+  {
+    "File": "correction-real-hr-red.coating.json",
+    "Name": "correction-real-hr-red",
+    "Point": {
+      "WavelengthNanometers": 671.2727272727274,
+      "Power": {
+        "Reflectance": 0.9777892181554643,
+        "Transmittance": 0.00012606224034109357,
+        "Absorptance": 0.022084719604194638,
+        "LogTransmittance": -8.978734802015229,
+        "OpticalDensity": 3.8994149789879
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 748.7272727272727,
+      "PeakTransmittance": 0.00014889453405818388,
+      "LeftHalfMaximumNanometers": 735.7837436968715,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9777892181554643,
+      "MaximumReflectance": 0.9814135655967154
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.630545\u20132644.0794",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 97.77892181554643,
+        "Requirement": "\u2265 98",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0.00208471960419462,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4627865254520962,
+          0.0015644209495040207
+        ],
+        "TotalThicknessNm": 2195.2521143376553
+      },
+      {
+        "Id": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          2.087673416964868,
+          0.006199652357841361
+        ],
+        "TotalThicknessNm": 1273.2845447833236
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "correction-real-nbf-red.coating.json",
+    "Name": "correction-real-nbf-red",
+    "Point": {
+      "WavelengthNanometers": 730.4758080362029,
+      "Power": {
+        "Reflectance": 0.06160207980005229,
+        "Transmittance": 0.7524341910595135,
+        "Absorptance": 0.18596372914043424,
+        "LogTransmittance": -0.28444173992491806,
+        "OpticalDensity": 0.12353147807235178
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 730.4758080362029,
+      "PeakTransmittance": 0.7524341910595135,
+      "LeftHalfMaximumNanometers": 720.6383526640849,
+      "RightHalfMaximumNanometers": 741.0669693970543,
+      "FwhmNanometers": 20.42861673296943,
+      "MinimumReflectance": 0.06145594593927315,
+      "MaximumReflectance": 0.8526466357893673
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 16,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 730.4758080362029,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 20.42861673296943,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.24341910595135,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.0000000640011046,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.0296074748983646,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4617364384688794,
+          0.0014344222681079842
+        ],
+        "TotalThicknessNm": 2094.959546546694
+      },
+      {
+        "Id": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          2.079368231358746,
+          0.004773488440323682
+        ],
+        "TotalThicknessNm": 702.6983970949186
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "hf-ti-new-real-nbf-green.coating.json",
+    "Name": "hf-ti-new-real-nbf-green",
+    "Point": {
+      "WavelengthNanometers": 503.5619467769885,
+      "Power": {
+        "Reflectance": 0.0037572461306005583,
+        "Transmittance": 0.9962365976691965,
+        "Absorptance": 6.156200202944717E-06,
+        "LogTransmittance": -0.003770501746925392,
+        "OpticalDensity": 0.001637508102696269
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 503.5619467769885,
+      "PeakTransmittance": 0.9962365976691965,
+      "LeftHalfMaximumNanometers": 487.8059855211378,
+      "RightHalfMaximumNanometers": 510.10199786218664,
+      "FwhmNanometers": 22.296012341048822,
+      "MinimumReflectance": 0.0037572461306005583,
+      "MaximumReflectance": 0.942023241954148
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 503.5619467769885,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 22.296012341048822,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.62365976691964,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 0.3263872190246072,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 0.36557066173778974,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "HfO2-Siefke",
+        "NK": [
+          1.9242613946108278,
+          0
+        ],
+        "TotalThicknessNm": 1702.4553420094398
+      },
+      {
+        "Id": "TiO2-Siefke",
+        "NK": [
+          2.4768564392939334,
+          5.371155202814719E-07
+        ],
+        "TotalThicknessNm": 330.4957982809053
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "hf-ti-real-hr-96.coating.json",
+    "Name": "hf-ti-real-hr-96",
+    "Point": {
+      "WavelengthNanometers": 520,
+      "Power": {
+        "Reflectance": 0.9837580963922568,
+        "Transmittance": 0.016241357904627923,
+        "Absorptance": 5.457031153240088E-07,
+        "LogTransmittance": -4.120194332927139,
+        "OpticalDensity": 1.789377663159306
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 520,
+      "PeakTransmittance": 0.016241357904627923,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": 523.7549231414712,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9837580963922568,
+      "MaximumReflectance": 0.9985419749504548
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 98.37580963922568,
+        "Requirement": "\u2265 98",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "HfO2-Siefke",
+        "NK": [
+          1.9209088508320105,
+          0
+        ],
+        "TotalThicknessNm": 1266.2273172056266
+      },
+      {
+        "Id": "TiO2-Siefke",
+        "NK": [
+          2.4605568944255185,
+          2.271528843125289E-07
+        ],
+        "TotalThicknessNm": 806.9329522803705
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "holdout-real-hr-nearir.coating.json",
+    "Name": "holdout-real-hr-nearir",
+    "Point": {
+      "WavelengthNanometers": 733.1999999999999,
+      "Power": {
+        "Reflectance": 0.9666275203436835,
+        "Transmittance": 0.0012707116441164237,
+        "Absorptance": 0.03210176801220009,
+        "LogTransmittance": -6.668178185750934,
+        "OpticalDensity": 2.8959529904192673
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 826.8000000000001,
+      "PeakTransmittance": 0.0012719308404894722,
+      "LeftHalfMaximumNanometers": 815.8612449234637,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9666275203436835,
+      "MaximumReflectance": 0.9763000028474518
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 96.66275203436835,
+        "Requirement": "\u2265 98",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0.012101768012200073,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4616949263618944,
+          0.0014288549137695045
+        ],
+        "TotalThicknessNm": 3147.6134614278317
+      },
+      {
+        "Id": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          2.0790337543006463,
+          0.004723410466719897
+        ],
+        "TotalThicknessNm": 1506.716633478436
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "new-ir-double.coating.json",
+    "Name": "new-ir-double",
+    "Point": {
+      "WavelengthNanometers": 1548.4500056749555,
+      "Power": {
+        "Reflectance": 0.0009544978430809296,
+        "Transmittance": 0.7151035177984417,
+        "Absorptance": 0.2839419843584774,
+        "LogTransmittance": -0.3353279666300814,
+        "OpticalDensity": 0.14563108553528212
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 1548.4500056749555,
+      "PeakTransmittance": 0.7151035177984417,
+      "LeftHalfMaximumNanometers": 1505.229815054336,
+      "RightHalfMaximumNanometers": 1590.6791981153483,
+      "FwhmNanometers": 85.44938306101221,
+      "MinimumReflectance": 0.0008676492061420163,
+      "MaximumReflectance": 0.9013621203128102
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1548.4500056749555,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 85.44938306101221,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 71.51035177984417,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.5898355814788903,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.4504464316748307,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0.033941984358477395,
+    "MaterialColumns": [
+      {
+        "Id": "low",
+        "NK": [
+          1.35,
+          0.002
+        ],
+        "TotalThicknessNm": 2836.938455558489
+      },
+      {
+        "Id": "high",
+        "NK": [
+          2.2,
+          0.01
+        ],
+        "TotalThicknessNm": 1334.3880180855256
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "new-real-nbf-green.coating.json",
+    "Name": "new-real-nbf-green",
+    "Point": {
+      "WavelengthNanometers": 499.58954171227504,
+      "Power": {
+        "Reflectance": 0.006733808821857005,
+        "Transmittance": 0.6164896972347831,
+        "Absorptance": 0.3767764939433599,
+        "LogTransmittance": -0.48371366822089495,
+        "OpticalDensity": 0.210074176929515
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.58954171227504,
+      "PeakTransmittance": 0.6164896972347831,
+      "LeftHalfMaximumNanometers": 491.11113433863625,
+      "RightHalfMaximumNanometers": 506.4626273121329,
+      "FwhmNanometers": 15.351492973496647,
+      "MinimumReflectance": 0.00671309731196478,
+      "MaximumReflectance": 0.9326968926367236
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 16,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.58954171227504,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.351492973496647,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 61.64896972347831,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.0046499585535096,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.5212130875221024,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0.12677649394335988,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4683356058121635,
+          0.0021279446207864553
+        ],
+        "TotalThicknessNm": 2022.4231921047262
+      },
+      {
+        "Id": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          2.1350714432199087,
+          0.01573855064868666
+        ],
+        "TotalThicknessNm": 411.62395295610423
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "new-real-nbf-nearir-fixed.coating.json",
+    "Name": "new-real-nbf-nearir-fixed",
+    "Point": {
+      "WavelengthNanometers": 900.7722086277289,
+      "Power": {
+        "Reflectance": 0.008853307018739704,
+        "Transmittance": 0.8179865100526535,
+        "Absorptance": 0.1731601829286067,
+        "LogTransmittance": -0.2009094338935484,
+        "OpticalDensity": 0.08725385850227421
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 900.7722086277289,
+      "PeakTransmittance": 0.8179865100526535,
+      "LeftHalfMaximumNanometers": 882.1024316002575,
+      "RightHalfMaximumNanometers": 913.6798328586673,
+      "FwhmNanometers": 31.577401258409736,
+      "MinimumReflectance": 0.005160950491646473,
+      "MaximumReflectance": 0.939781241135401
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.411378\u20133415.9136",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 900.7722086277289,
+        "Requirement": "900 \u00B1 0.81818182",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 31.577401258409736,
+        "Requirement": "24.545455 \u00B1 1.6363636",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 81.79865100526536,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A801.81818\u2013834.54545 nm",
+        "Actual": 0.8217428844761943,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A965.45455\u2013998.18182 nm",
+        "Actual": 1.0610545434756045,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4598046552388024,
+          0.0011576466798195227
+        ],
+        "TotalThicknessNm": 3968.5445074866852
+      },
+      {
+        "Id": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          2.0643477715259686,
+          0.002794695759663933
+        ],
+        "TotalThicknessNm": 885.1281974773128
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "new-real-nbf-red.coating.json",
+    "Name": "new-real-nbf-red",
+    "Point": {
+      "WavelengthNanometers": 650.5340981159576,
+      "Power": {
+        "Reflectance": 0.00040813801684313523,
+        "Transmittance": 0.7500539430356791,
+        "Absorptance": 0.2495379189474778,
+        "LogTransmittance": -0.2876101509906191,
+        "OpticalDensity": 0.12490750151458693
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 650.5340981159576,
+      "PeakTransmittance": 0.7500539430356791,
+      "LeftHalfMaximumNanometers": 641.1900124360249,
+      "RightHalfMaximumNanometers": 659.9685222005878,
+      "FwhmNanometers": 18.778509764562955,
+      "MinimumReflectance": 0.00024310994078207885,
+      "MaximumReflectance": 0.9034874819244209
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 650.5340981159576,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 18.778509764562955,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.00539430356791,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.0119361559159643,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.2981993491840476,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4632252792981828,
+          0.0016158843969994877
+        ],
+        "TotalThicknessNm": 1095.7939638184298
+      },
+      {
+        "Id": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          2.0911856859167566,
+          0.006685077279449602
+        ],
+        "TotalThicknessNm": 487.66779256960984
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "optimized-hf-ti-new-real-nbf-green.coating.json",
+    "Name": "hf-ti-new-real-nbf-green",
+    "Point": {
+      "WavelengthNanometers": 499.79413259393493,
+      "Power": {
+        "Reflectance": 0.0023822107829292232,
+        "Transmittance": 0.9975952328659047,
+        "Absorptance": 2.2556351166103106E-05,
+        "LogTransmittance": -0.0024076632304698142,
+        "OpticalDensity": 0.0010456348552743975
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.79413259393493,
+      "PeakTransmittance": 0.9975952328659047,
+      "LeftHalfMaximumNanometers": 490.7115624368858,
+      "RightHalfMaximumNanometers": 504.34783681170416,
+      "FwhmNanometers": 13.636274374818356,
+      "MinimumReflectance": 0.0023822107829292232,
+      "MaximumReflectance": 0.9800765499470803
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 26,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.79413259393493,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.636274374818356,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.75952328659046,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.1348701809400854,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.4215555251353413,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "HfO2-Siefke",
+        "NK": [
+          1.9250715310484123,
+          0
+        ],
+        "TotalThicknessNm": 908.3618623578304
+      },
+      {
+        "Id": "TiO2-Siefke",
+        "NK": [
+          2.480936266738201,
+          6.603894522269574E-07
+        ],
+        "TotalThicknessNm": 655.7389284705865
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "optimized-si-nb-new-real-nbf-green.coating.json",
+    "Name": "si-nb-new-real-nbf-green",
+    "Point": {
+      "WavelengthNanometers": 499.56387045630987,
+      "Power": {
+        "Reflectance": 0.011009274562713799,
+        "Transmittance": 0.9248224506877516,
+        "Absorptance": 0.06416827474953457,
+        "LogTransmittance": -0.07815350509598057,
+        "OpticalDensity": 0.033941636004582026
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.56387045630987,
+      "PeakTransmittance": 0.9248224506877516,
+      "LeftHalfMaximumNanometers": 492.641713120447,
+      "RightHalfMaximumNanometers": 506.51679457338935,
+      "FwhmNanometers": 13.875081452942368,
+      "MinimumReflectance": 0.010742851905181547,
+      "MaximumReflectance": 0.9792636701518532
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.56387045630987,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.875081452942368,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 92.48224506877516,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 2.5181791585378597,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.369996055403823,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.468336921489931,
+          0.002128063756962242
+        ],
+        "TotalThicknessNm": 655.9059021493629
+      },
+      {
+        "Id": "Nb2O5-Lemarchand",
+        "NK": [
+          2.397067161489785,
+          1.3174451817476051E-05
+        ],
+        "TotalThicknessNm": 1042.308555188102
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "optimized-si-ti-real-nbf2-96.coating.json",
+    "Name": "si-ti-real-nbf2-96",
+    "Point": {
+      "WavelengthNanometers": 549.5154576353434,
+      "Power": {
+        "Reflectance": 0.0005930601778203548,
+        "Transmittance": 0.912855487264894,
+        "Absorptance": 0.08655145255728564,
+        "LogTransmittance": -0.09117769430534572,
+        "OpticalDensity": 0.03959796950947319
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.5154576353434,
+      "PeakTransmittance": 0.912855487264894,
+      "LeftHalfMaximumNanometers": 542.4565065638676,
+      "RightHalfMaximumNanometers": 557.4655018839333,
+      "FwhmNanometers": 15.008995320065651,
+      "MinimumReflectance": 0.000334070411964476,
+      "MaximumReflectance": 0.9888101930122747
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 19,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.5154576353434,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.008995320065651,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 91.2855487264894,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.6566000861588757,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.481261046064294,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4661545947369417,
+          0.0019258385109211201
+        ],
+        "TotalThicknessNm": 800.3124749697275
+      },
+      {
+        "Id": "TiO2-Siefke",
+        "NK": [
+          2.4361970088581786,
+          5.507612707899905E-08
+        ],
+        "TotalThicknessNm": 712.3819982807521
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "real-hr-96.coating.json",
+    "Name": "real-hr-96",
+    "Point": {
+      "WavelengthNanometers": 520,
+      "Power": {
+        "Reflectance": 0.9633448115922756,
+        "Transmittance": 0.0001127012184702647,
+        "Absorptance": 0.03654248718925415,
+        "LogTransmittance": -9.09077032535086,
+        "OpticalDensity": 3.9480713885497076
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 520,
+      "PeakTransmittance": 0.0001127012184702647,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": 527.5154543597816,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9633448115922756,
+      "MaximumReflectance": 0.9692142724644365
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 96.33448115922756,
+        "Requirement": "\u2265 98",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0.016542487189254135,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4673643594416441,
+          0.002040188445133773
+        ],
+        "TotalThicknessNm": 1654.8018994588726
+      },
+      {
+        "Id": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          2.126535760865066,
+          0.01344700413907285
+        ],
+        "TotalThicknessNm": 929.0058546077429
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "real-nbf2-96.coating.json",
+    "Name": "real-nbf2-96",
+    "Point": {
+      "WavelengthNanometers": 550.4971763943925,
+      "Power": {
+        "Reflectance": 0.026611781922691313,
+        "Transmittance": 0.6715300738868735,
+        "Absorptance": 0.30185814419043516,
+        "LogTransmittance": -0.39819647789085205,
+        "OpticalDensity": 0.17293453306130724
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4971763943925,
+      "PeakTransmittance": 0.6715300738868735,
+      "LeftHalfMaximumNanometers": 541.5901378364534,
+      "RightHalfMaximumNanometers": 557.5558043683737,
+      "FwhmNanometers": 15.965666531920306,
+      "MinimumReflectance": 0.026600860659326382,
+      "MaximumReflectance": 0.9330329291279279
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 21,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4971763943925,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.965666531920306,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 67.15300738868734,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0531554857305112,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.676242013623481,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0.05185814419043516,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.466117836317653,
+          0.0019222523236734524
+        ],
+        "TotalThicknessNm": 1284.7565224048494
+      },
+      {
+        "Id": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          2.1155779449313217,
+          0.01089644166532711
+        ],
+        "TotalThicknessNm": 456.65834833767656
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "si-nb-correction-real-hr-red.coating.json",
+    "Name": "si-nb-correction-real-hr-red",
+    "Point": {
+      "WavelengthNanometers": 671.2727272727274,
+      "Power": {
+        "Reflectance": 0.9940288400832387,
+        "Transmittance": 4.274764375464453E-06,
+        "Absorptance": 0.005966885152385817,
+        "LogTransmittance": -12.362781573944961,
+        "OpticalDensity": 5.369087818539494
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 748.7272727272727,
+      "PeakTransmittance": 5.596154330955187E-06,
+      "LeftHalfMaximumNanometers": 732.8030537846832,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9940288400832387,
+      "MaximumReflectance": 0.9969007839279069
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.630545\u20132644.0794",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 99.40288400832387,
+        "Requirement": "\u2265 98",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4627865254520962,
+          0.0015644209495040207
+        ],
+        "TotalThicknessNm": 2195.2521143376553
+      },
+      {
+        "Id": "Nb2O5-Lemarchand",
+        "NK": [
+          2.309132127272727,
+          0
+        ],
+        "TotalThicknessNm": 1151.626003229952
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "si-nb-new-real-nbf-green.coating.json",
+    "Name": "si-nb-new-real-nbf-green",
+    "Point": {
+      "WavelengthNanometers": 499.6909254347463,
+      "Power": {
+        "Reflectance": 0.021508143570178422,
+        "Transmittance": 0.6700270504123417,
+        "Absorptance": 0.30846480601747994,
+        "LogTransmittance": -0.4004371936623596,
+        "OpticalDensity": 0.17390766355638657
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.6909254347463,
+      "PeakTransmittance": 0.6700270504123417,
+      "LeftHalfMaximumNanometers": 495.5023348656815,
+      "RightHalfMaximumNanometers": 504.09907910033564,
+      "FwhmNanometers": 8.596744234654125,
+      "MinimumReflectance": 0.021503601427635976,
+      "MaximumReflectance": 0.9376991741007795
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.6909254347463,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 8.596744234654125,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 67.00270504123417,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.536302508337798,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.9084484074345816,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0.05846480601747994,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.468330409794103,
+          0.0021274741152140504
+        ],
+        "TotalThicknessNm": 2233.6426460305165
+      },
+      {
+        "Id": "Nb2O5-Lemarchand",
+        "NK": [
+          2.396953498106076,
+          1.3123629826101478E-05
+        ],
+        "TotalThicknessNm": 342.0987489855054
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "si-ti-real-hr-96.coating.json",
+    "Name": "si-ti-real-hr-96",
+    "Point": {
+      "WavelengthNanometers": 520,
+      "Power": {
+        "Reflectance": 0.9925595329391255,
+        "Transmittance": 8.613039324754711E-07,
+        "Absorptance": 0.007439605756942059,
+        "LogTransmittance": -13.964818395417517,
+        "OpticalDensity": 6.064843569910851
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 580,
+      "PeakTransmittance": 9.755166130701405E-07,
+      "LeftHalfMaximumNanometers": 566.7805977975084,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9925595329391255,
+      "MaximumReflectance": 0.9961673889420943
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 99.25595329391254,
+        "Requirement": "\u2265 98",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "MinimumAbsorptionReductionWithZeroReflection": 0,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4673643594416441,
+          0.002040188445133773
+        ],
+        "TotalThicknessNm": 1654.8018994588729
+      },
+      {
+        "Id": "TiO2-Siefke",
+        "NK": [
+          2.4605568944255185,
+          2.271528843125289E-07
+        ],
+        "TotalThicknessNm": 806.9329522803705
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  },
+  {
+    "File": "si-ti-real-nbf2-96.coating.json",
+    "Name": "si-ti-real-nbf2-96",
+    "Point": {
+      "WavelengthNanometers": 550.4298953010381,
+      "Power": {
+        "Reflectance": 0.034314223105086576,
+        "Transmittance": 0.6668958216236093,
+        "Absorptance": 0.29878995527130414,
+        "LogTransmittance": -0.40512143473520995,
+        "OpticalDensity": 0.17594200360623002
+      }
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4298953010381,
+      "PeakTransmittance": 0.6668958216236093,
+      "LeftHalfMaximumNanometers": 546.4741790894027,
+      "RightHalfMaximumNanometers": 554.7777003073658,
+      "FwhmNanometers": 8.303521217963066,
+      "MinimumReflectance": 0.03431056368064503,
+      "MaximumReflectance": 0.9388261705848954
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4298953010381,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 8.303521217963066,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.68958216236092,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.7442176497497115,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.045571833168123,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "MinimumAbsorptionReductionWithZeroReflection": 0.04878995527130414,
+    "MaterialColumns": [
+      {
+        "Id": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+        "NK": [
+          1.4661203555184088,
+          0.0019224980993569386
+        ],
+        "TotalThicknessNm": 2452.3670629203884
+      },
+      {
+        "Id": "TiO2-Siefke",
+        "NK": [
+          2.4355311191941125,
+          5.294237825558744E-08
+        ],
+        "TotalThicknessNm": 373.316698487684
+      }
+    ],
+    "Scope": "Exact current stack loss allocation; no global feasibility bound or changed n/k"
+  }
+]

@@ -721,10 +721,7 @@ public sealed class AnalysisGuiContractTests
                     ?? string.Empty;
             })
             .ToArray();
-        var unit = optic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm";
-        var expected = optic.Fields.Select((field, index) =>
-            $"F{index + 1}  ({field.X.ToString("0.####", CultureInfo.InvariantCulture)}, " +
-            $"{field.Y.ToString("0.####", CultureInfo.InvariantCulture)}) {unit}");
+        var expected = Enumerable.Range(1, optic.Fields.Count).Select(index => $"Field {index}");
 
         Assert.Equal(expected, labels);
         Assert.DoesNotContain(labels, label => label.Contains("µm", StringComparison.Ordinal));
@@ -2217,6 +2214,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[]
             {
+                "AfocalIntegration",
                 "PupilSampling",
                 "ImageSampling",
                 "ImageDeltaMicrometers",
@@ -2230,16 +2228,21 @@ public sealed class AnalysisGuiContractTests
                 "Normalized"
             },
             huygensPsfDescriptors.Select(item => item.Key));
-        Assert.Equal("32 x 32", huygensPsfDescriptors[0].DefaultValue);
-        Assert.Equal("32 x 32", huygensPsfDescriptors[1].DefaultValue);
-        Assert.Equal("所有", huygensPsfDescriptors[6].DefaultValue);
-        Assert.Equal("伪彩色", huygensPsfDescriptors[9].DefaultValue);
-        Assert.Equal(new[] { "伪彩色", "等高线", "表面" }, huygensPsfDescriptors[9].Choices);
+        var integration = huygensPsfDescriptors.Single(item => item.Key == "AfocalIntegration");
+        Assert.Equal("原生有限单元", integration.DefaultValue);
+        Assert.Equal(new[] { "原生有限单元" }, integration.Choices);
+        Assert.Equal("32 x 32", huygensPsfDescriptors.Single(item => item.Key == "PupilSampling").DefaultValue);
+        Assert.Equal("32 x 32", huygensPsfDescriptors.Single(item => item.Key == "ImageSampling").DefaultValue);
+        Assert.Equal("所有", huygensPsfDescriptors.Single(item => item.Key == "WavelengthNumber").DefaultValue);
+        var huygensDisplay = huygensPsfDescriptors.Single(item => item.Key == "DisplayAs");
+        Assert.Equal("伪彩色", huygensDisplay.DefaultValue);
+        Assert.Equal(new[] { "伪彩色", "等高线", "表面" }, huygensDisplay.Choices);
 
         var huygensPsf = connector.BuildAnalysisView(
             "惠更斯PSF",
             new Dictionary<string, string>
             {
+                ["AfocalIntegration"] = "原生有限单元",
                 ["PupilSampling"] = "16 x 16",
                 ["ImageSampling"] = "16 x 16",
                 ["ImageDeltaMicrometers"] = "0",

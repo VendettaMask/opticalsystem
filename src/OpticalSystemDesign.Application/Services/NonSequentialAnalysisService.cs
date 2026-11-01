@@ -10,7 +10,7 @@ using CoreSplittingMode = OpticalSystemDesign.Core.NonSequential.NonSequentialSp
 
 namespace OpticalSystemDesign.Application.Services;
 
-internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonSequentialAnalysisService, IDisposable
+internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBase, INonSequentialAnalysisService, IDisposable
 {
     private const int MaximumCachedFilterIndices = 1_000_000;
     private readonly NonSequentialAnalysisSession _analysisSession;
@@ -331,7 +331,9 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                         false,
                         request.PathFilterExpression,
                         warnings,
-                        traceConfigurationFingerprint);
+                        traceConfigurationFingerprint,
+                        previous is not null && previous.BsdfStatistics is null ? null
+                            : MergeBsdfStatistics(previous?.BsdfStatistics, ToBsdfStatistics(result.BsdfStatistics)));
 
                     response = new NonSequentialTraceRunResultDto(
                         result.TotalBranchCount,
@@ -350,7 +352,8 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                         timer.Elapsed,
                         passCount,
                         false,
-                        warnings);
+                        warnings,
+                        ToBsdfStatistics(result.BsdfStatistics));
                     stream.Flush(true);
                 }
                 var published = false;

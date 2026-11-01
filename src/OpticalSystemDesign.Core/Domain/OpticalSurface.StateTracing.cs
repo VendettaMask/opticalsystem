@@ -24,7 +24,8 @@ public sealed partial class OpticalSurface
         bool bypassCoating = false,
         CoordinateSystem? materialBeforeCoordinates = null,
         bool allowVirtualIntersection = false,
-        bool ignoreMaterialAbsorption = false)
+        bool ignoreMaterialAbsorption = false,
+        Func<RealRay, SurfaceInteractionContext, double>? surfacePhaseOpticalPath = null)
     {
         OpticCapabilityPreflight.EnsureSurfaceSupported(this, OpticCapabilityOperation.RayTrace);
         var ray = inputRay.Normalize();
@@ -36,6 +37,22 @@ public sealed partial class OpticalSurface
                 throw new NotSupportedException("入射 GRIN 介质需要明确的体坐标系；不能把出口面坐标当作入口坐标。");
             materialBefore = unlocated.At(materialBeforeCoordinates);
         }
+        if (materialBefore is UniaxialMaterial unlocatedCrystal)
+        {
+            if (materialBeforeCoordinates is null) throw new NotSupportedException("Incoming crystal requires its entrance coordinate frame.");
+            materialBefore = unlocatedCrystal.At(materialBeforeCoordinates, ray.Direction);
+        }
+        if (!stopBeforeInteraction && (materialBefore is LocatedUniaxialMaterial || materialAfter is UniaxialMaterial)
+            && (InteractionModel is not BirefringentInteractionModel || IsReflective))
+            throw new NotSupportedException("A crystal medium requires an explicit birefringent entry/exit interface.");
+        if (!stopBeforeInteraction && InteractionModel is BirefringentInteractionModel crystalInterface
+            && (crystalInterface.IsExit ? materialBefore is not LocatedUniaxialMaterial : materialAfter is not UniaxialMaterial))
+            throw new NotSupportedException("Crystal entry/exit is missing its declared crystal medium.");
+        if (!stopBeforeInteraction && (materialBefore is LocatedUniaxialMaterial || materialAfter is UniaxialMaterial)
+            && !bypassCoating && CoatingModel is not OpticalSystemDesign.Core.Coatings.NoneCoatingModel)
+            throw new NotSupportedException("Anisotropic interface coatings require crystal polarization amplitudes.");
+        if (ray.PolarizationMatrix is not null && (materialBefore is LocatedUniaxialMaterial || materialAfter is UniaxialMaterial))
+            throw new NotSupportedException("Crystal polarization transport is not implemented.");
         if (ray.PolarizationMatrix is not null
             && (materialBefore is LocatedGradientIndexMaterial || materialAfter is GradientIndexMaterial))
             throw new NotSupportedException("GRIN 连续偏振基矢运输尚未接入，不能保留未旋转的偏振矩阵冒充结果。");
@@ -43,19 +60,25 @@ public sealed partial class OpticalSurface
         double segmentOpticalPathLength;
         double refractiveIndexBefore;
         Vector3D localHit;
+        Vector3D? profileHit = null;
         double? incidenceCosineSquared = null;
         RayState propagated;
         if (materialBefore is LocatedGradientIndexMaterial located)
         {
             var material = located.Material;
-            var result = GradientIndexRayIntegrator.TraceToSurface(material.Profile, located.Coordinates,
-                ray.Origin, ray.Direction, ray.WavelengthNanometers, Geometry, CoordinateSystem,
-                material.MaximumPathLength, material.IntegrationOptions, ComputationCancellation.Current);
+            var result = located.LocalPosition is { } localStart
+                ? GradientIndexRayIntegrator.TraceToSurfaceFromLocal(material.Profile, located.Coordinates,
+                    localStart, ray.Direction, ray.WavelengthNanometers, Geometry, CoordinateSystem,
+                    material.MaximumPathLength, material.IntegrationOptions, ComputationCancellation.Current)
+                : GradientIndexRayIntegrator.TraceToSurface(material.Profile, located.Coordinates,
+                    ray.Origin, ray.Direction, ray.WavelengthNanometers, Geometry, CoordinateSystem,
+                    material.MaximumPathLength, material.IntegrationOptions, ComputationCancellation.Current);
             if (result.Termination != GradientIndexTermination.SurfaceReached)
                 return Miss(result.End.RefractiveIndex);
             segmentLength = result.End.PathLength;
             segmentOpticalPathLength = result.End.OpticalPathLength;
             refractiveIndexBefore = result.End.RefractiveIndex;
+            profileHit = result.ProfileLocalPosition;
             localHit = CoordinateSystem.ToLocalDirection((located.Coordinates.Origin - CoordinateSystem.Origin)
                 + located.Coordinates.ToGlobalDirection(result.ProfileLocalPosition));
             propagated = ray with { Origin = result.End.Position, Direction = result.End.Direction, IsNormalized = true };
@@ -83,15 +106,14 @@ public sealed partial class OpticalSurface
             incidenceCosineSquared = intersection.IncidenceCosineSquared;
         }
         var refractiveIndexAfter = materialAfter is GradientIndexMaterial afterGradient
-            ? afterGradient.RefractiveIndex(localHit, ray.WavelengthNanometers)
+            ? afterGradient.InterfaceRefractiveIndex(localHit, ray.WavelengthNanometers)
             : materialAfter.RefractiveIndex(ray.WavelengthNanometers);
         var nextCumulativePathLength = cumulativePathLength + segmentLength;
         var nextCumulativeOpticalPathLength = cumulativeOpticalPathLength + segmentOpticalPathLength;
         var extinctionCoefficient = materialBefore.ExtinctionCoefficient(ray.WavelengthNanometers);
-        var wavelengthMicrometers = ray.WavelengthNanometers / 1000.0;
         var attenuation = ignoreMaterialAbsorption || extinctionCoefficient <= 0
             ? 1.0
-            : Math.Exp((-4.0 * Math.PI * extinctionCoefficient * Math.Abs(segmentLength) * 1000.0) / wavelengthMicrometers);
+            : HomogeneousPowerAttenuation.Evaluate(extinctionCoefficient, ray.WavelengthNanometers, segmentLength);
         propagated = propagated with
         {
             OpticalPathDifference = ray.OpticalPathDifference + segmentOpticalPathLength,
@@ -166,24 +188,46 @@ public sealed partial class OpticalSurface
             CoordinateSystem.ToLocalDirection(propagated.Direction),
             extinctionCoefficient,
             materialAfter.ExtinctionCoefficient(ray.WavelengthNanometers),
-            incidenceCosineSquared);
+            incidenceCosineSquared,
+            surfacePhaseOpticalPath,
+            InteractionModel is BirefringentInteractionModel ? new BirefringentInterfaceData(
+                materialBefore is LocatedUniaxialMaterial crystalBefore
+                    ? crystalBefore.Material.Ellipsoid(ray.WavelengthNanometers, CoordinateSystem.ToLocalDirection(crystalBefore.GlobalAxis))
+                    : new(new(0, 0, 1), refractiveIndexBefore, refractiveIndexBefore, false),
+                materialAfter is UniaxialMaterial crystalAfter
+                    ? crystalAfter.Ellipsoid(ray.WavelengthNanometers, crystalAfter.Axis)
+                    : new(new(0, 0, 1), refractiveIndexAfter, refractiveIndexAfter, false)) : null);
         var localRay = propagated with
         {
             Origin = localHit,
             Direction = CoordinateSystem.ToLocalDirection(propagated.Direction)
         };
         var interaction = Interact(localRay, context);
-        var outgoingMaterial = interaction.Kind == RayInteractionKind.Transmitted
-            ? materialAfter is GradientIndexMaterial gradient ? gradient.At(CoordinateSystem) : materialAfter
-            : materialBefore;
         var coated = bypassCoating ? interaction.Ray : ApplyCoating(interaction.Ray,
             context with { IsReflective = interaction.Kind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection });
+        var outgoingMaterial = interaction.Kind == RayInteractionKind.Transmitted
+            ? materialAfter is GradientIndexMaterial gradient ? gradient.At(CoordinateSystem, coated.Origin) : materialAfter
+            : materialBefore is LocatedGradientIndexMaterial reflected
+                ? new LocatedGradientIndexMaterial(reflected.Material, reflected.Coordinates,
+                    coated.Origin == localHit ? profileHit : reflected.Coordinates.ToLocalDirection(
+                        (CoordinateSystem.Origin - reflected.Coordinates.Origin) + CoordinateSystem.ToGlobalDirection(coated.Origin)))
+                : materialBefore;
         var traced = coated with
         {
             Origin = CoordinateSystem.ToGlobalPoint(coated.Origin),
             Direction = CoordinateSystem.ToGlobalDirection(coated.Direction)
         };
+        var hitOrigin = traced.Origin;
         traced = ApplyScattering(traced, globalNormal);
+        if (interaction.Kind == RayInteractionKind.Transmitted && materialAfter is UniaxialMaterial transmittedCrystal)
+        {
+            outgoingMaterial = transmittedCrystal.At(CoordinateSystem, traced.Direction);
+            refractiveIndexAfter = outgoingMaterial.RefractiveIndex(ray.WavelengthNanometers);
+        }
+        else if (outgoingMaterial is LocatedUniaxialMaterial reflectedCrystal)
+            outgoingMaterial = new LocatedUniaxialMaterial(reflectedCrystal.Material, reflectedCrystal.GlobalAxis, traced.Direction);
+        if (traced.Origin != hitOrigin && outgoingMaterial is LocatedGradientIndexMaterial moved)
+            outgoingMaterial = new LocatedGradientIndexMaterial(moved.Material, moved.Coordinates);
 
         return new SurfaceRayTraceStateResult(
             traced,
@@ -245,7 +289,9 @@ public sealed partial class OpticalSurface
         Vector3D IncidentDirection,
         double ExtinctionCoefficientBefore,
         double ExtinctionCoefficientAfter,
-        double? IncidenceCosineSquared)
+        double? IncidenceCosineSquared,
+        Func<RealRay, SurfaceInteractionContext, double>? SurfacePhaseOpticalPath,
+        BirefringentInterfaceData? Birefringent)
     {
         public SurfaceInteractionContext ToPublic() => new(
             SurfaceNormal,
@@ -257,7 +303,9 @@ public sealed partial class OpticalSurface
             IncidentDirection,
             ExtinctionCoefficientBefore,
             ExtinctionCoefficientAfter,
-            IncidenceCosineSquared);
+            IncidenceCosineSquared,
+            SurfacePhaseOpticalPath,
+            Birefringent);
     }
 
 }

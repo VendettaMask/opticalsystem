@@ -39,7 +39,7 @@ public sealed partial class SequentialRayTracer
                 at = index; token.ThrowIfCancellationRequested();
                 var surface = _optic.SurfaceGroup.Items[index];
                 var trace = TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
-                    allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index));
+                    allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index), sourceRay: sourceRay);
                 var failure = trace.Failure;
                 if (trace.InteractionKind == RayInteractionKind.TotalInternalReflection) failure = SurfaceTraceFailure.TotalInternalReflection;
                 if (failure == SurfaceTraceFailure.None && (!trace.Ray.CanTrace || trace.StopTracing)) failure = SurfaceTraceFailure.Extinguished;

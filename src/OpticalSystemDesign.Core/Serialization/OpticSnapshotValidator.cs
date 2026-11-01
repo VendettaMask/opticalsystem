@@ -30,6 +30,13 @@ public static class OpticSnapshotValidator
 
     private static readonly IReadOnlySet<string> GeometryKinds = Kinds(
         "plane",
+        "tilted_plane",
+        "irregular_sag",
+        "grid_sag",
+        "concentric_zones",
+        "fringe_sag",
+        "chebyshev_sag",
+        "ternary_mirror_array_v1",
         "plane_grating",
         "standard_grating",
         "standard",
@@ -44,6 +51,7 @@ public static class OpticSnapshotValidator
         "forbes_q");
 
     private static readonly IReadOnlySet<string> MaterialKinds = Kinds(
+        "uniaxial",
         "gradient_index",
         "unresolved",
         "air",
@@ -64,9 +72,13 @@ public static class OpticSnapshotValidator
         "approximate_transmission_ripple");
 
     private static readonly IReadOnlySet<string> InteractionKinds = Kinds(
+        "birefringent_interface",
         "reflective",
         "refractive",
         "thin_lens",
+        "paraxial_lens",
+        "ruled_grating",
+        "diffractive_phase",
         "diffractive",
         "phase");
 
@@ -92,6 +104,9 @@ public static class OpticSnapshotValidator
         "constant",
         "linear_grating",
         "radial",
+        "normalized_radial",
+        "dual_zone_radial",
+        "two_point_hologram",
         "grid",
         "polynomial_phase");
 
@@ -953,6 +968,40 @@ public static class OpticSnapshotValidator
         int depth)
     {
         var children = component.Children;
+        if (role == ComponentRole.Material && component.Kind == "uniaxial")
+        {
+            foreach (var key in new[] { "axisX", "axisY", "axisZ", "extraordinary", "paraxialIgnore" }) RequireNumberKey(component, key, path);
+            RequireTextKey(component, "name", path);
+            if (component.Numbers["extraordinary"] is not (0 or 1) || component.Numbers["paraxialIgnore"] is not (0 or 1))
+                Invalid(path, "invalid crystal mode");
+            if (children is null || children.Count != 2 || !children.ContainsKey("ordinary") || !children.ContainsKey("extraordinary"))
+                Invalid(path, "two complete crystal dispersion curves are required");
+            foreach (var name in new[] { "ordinary", "extraordinary" })
+            {
+                if (children![name].Kind is "uniaxial" or "gradient_index" or "unresolved") Invalid(path, "invalid crystal dispersion type");
+                ValidateComponent(children[name], ComponentRole.Material, $"{path}.children.{name}", depth + 1);
+            }
+            try { _ = ComponentSnapshotFactory.ToMaterial(component, "", new Materials.MaterialRegistry()); }
+            catch (ArgumentException exception) { Invalid(path, exception.Message); }
+            return;
+        }
+        if (role == ComponentRole.Geometry && component.Kind == "concentric_zones"
+            || role == ComponentRole.PhaseProfile && component.Kind == "dual_zone_radial")
+        {
+            var geometry = role == ComponentRole.Geometry;
+            var expectedKind = geometry ? "even_asphere" : "normalized_radial";
+            if (children is null || children.Count != 2 || !children.TryGetValue("inner", out var inner)
+                || !children.TryGetValue("outer", out var outer) || inner.Kind != expectedKind || outer.Kind != expectedKind)
+                Invalid(path, "two exact radial zone children are required");
+            foreach (var name in new[] { "inner", "outer" })
+            {
+                ValidateComponent(children![name], role, $"{path}.children.{name}", depth + 1);
+                if (RequireEncodedCount(children[name], "count", 0, 60, path) > 60) Invalid(path, "too many zone terms");
+            }
+            if (!geometry && children!["outer"].Numbers["normalizationRadius"] <= children["inner"].Numbers["normalizationRadius"])
+                Invalid(path, "dual zone phase requires A2 > A1");
+            return;
+        }
         if (role == ComponentRole.Coating && component.Kind == "coherent_multilayer")
         {
             var count = RequireEncodedCount(component, "count", 0,
@@ -972,8 +1021,13 @@ public static class OpticSnapshotValidator
             catch (ArgumentException exception) { Invalid(path, exception.Message); }
             return;
         }
-        if (role == ComponentRole.Interaction && component.Kind == "phase")
+        if (role == ComponentRole.Interaction && component.Kind is "phase" or "diffractive_phase")
         {
+            if (component.Kind == "diffractive_phase")
+            {
+                RequireNumberKey(component, "isReflective", path);
+                if (component.Numbers["isReflective"] is not (0 or 1)) Invalid(path, "reflection flag must be 0 or 1");
+            }
             if (children is null || children.Count != 1)
             {
                 Invalid($"{path}.children", "phase interactions require one profile component");
@@ -1123,6 +1177,76 @@ public static class OpticSnapshotValidator
             }
         }
 
+        if (role == ComponentRole.Geometry && component.Kind == "tilted_plane")
+        {
+            RequireNumberKey(component, "tangentX", path);
+            RequireNumberKey(component, "tangentY", path);
+        }
+        if (role == ComponentRole.Geometry && component.Kind == "irregular_sag")
+        {
+            foreach (var key in new[] { "radius", "conic", "normalizationRadius", "decenterX", "decenterY", "tiltX", "tiltY",
+                "spherical", "astigmatism", "coma", "angle" }) RequireNumberKey(component, key, path);
+            if (component.Numbers["normalizationRadius"] <= 0) Invalid(path, "irregular normalization radius must be positive");
+        }
+        if (role == ComponentRole.Geometry && component.Kind == "grid_sag")
+        {
+            foreach (var key in new[] { "radius", "conic", "columns", "rows", "spacingX", "spacingY", "decenterX", "decenterY", "linear" })
+                RequireNumberKey(component, key, path);
+            var columns = RequireEncodedCount(component, "columns", 0, 4096, path);
+            var rows = RequireEncodedCount(component, "rows", 0, 4096, path);
+            if (columns < 5 || rows < 5 || (long)columns * rows > 100_000 || component.Numbers["spacingX"] <= 0
+                || component.Numbers["spacingY"] <= 0 || component.Numbers["linear"] is not (0 or 1)) Invalid(path, "invalid bounded grid sag definition");
+            for (var i = 0; i < 8; i++) RequireNumberKey(component, $"a{i}", path);
+            for (var i = 0; i < columns * rows; i++)
+            {
+                foreach (var key in new[] { $"z{i}", $"dx{i}", $"dy{i}", $"dxy{i}", $"noData{i}" }) RequireNumberKey(component, key, path);
+                if (component.Numbers[$"noData{i}"] is not (0 or 1)) Invalid(path, "invalid grid nodata flag");
+            }
+        }
+        if (role == ComponentRole.Geometry && component.Kind == "concentric_zones")
+        {
+            RequireNumberKey(component, "boundaryRadius", path); RequireNumberKey(component, "breakSag", path);
+            if (component.Numbers["boundaryRadius"] <= 0 || component.Numbers["breakSag"] is not (0 or 1))
+                Invalid(path, "invalid concentric geometry boundary");
+        }
+        if (role == ComponentRole.Geometry && component.Kind == "fringe_sag")
+        {
+            foreach (var key in new[] { "radius", "conic", "normalizationRadius", "decenterX", "decenterY", "extrapolate", "asphereCount", "fringeCount" })
+                RequireNumberKey(component, key, path);
+            if (component.Numbers["normalizationRadius"] <= 0 || component.Numbers["extrapolate"] is not (0 or 1))
+                Invalid(path, "Fringe sag requires a positive normalization radius and an extrapolation flag of 0 or 1");
+            var aCount = RequireEncodedCount(component, "asphereCount", 0, 8, path);
+            var zCount = RequireEncodedCount(component, "fringeCount", 0, 37, path);
+            for (var i = 0; i < aCount; i++) RequireNumberKey(component, $"a{i}", path);
+            for (var i = 0; i < zCount; i++) RequireNumberKey(component, $"z{i}", path);
+        }
+        if (role == ComponentRole.Geometry && component.Kind == "chebyshev_sag")
+        {
+            foreach (var key in new[] { "radius", "maximumXOrder", "maximumYOrder", "normalizationX", "normalizationY" })
+                RequireNumberKey(component, key, path);
+            var x = RequireEncodedCount(component, "maximumXOrder", 0, 14, path);
+            var y = RequireEncodedCount(component, "maximumYOrder", 0, 14, path);
+            if (component.Numbers["normalizationX"] <= 0 || component.Numbers["normalizationY"] <= 0)
+                Invalid(path, "Chebyshev normalization lengths must be positive");
+            for (var i = 0; i < (x + 1) * (y + 1) - 1; i++) RequireNumberKey(component, $"c{i}", path);
+        }
+        if (role == ComponentRole.Geometry && component.Kind == "ternary_mirror_array_v1")
+        {
+            foreach (var key in new[] { "pixelsX", "pixelsY", "widthX", "widthY", "tilt0", "tilt1", "tilt2", "azimuth", "addressingMode", "stateCount" })
+                RequireNumberKey(component, key, path);
+            var x = RequireEncodedCount(component, "pixelsX", 0, int.MaxValue, path);
+            var y = RequireEncodedCount(component, "pixelsY", 0, int.MaxValue, path);
+            RequireEncodedCount(component, "addressingMode", 0, 2, path);
+            if ((long)x * y > int.MaxValue || component.Numbers["widthX"] <= 0 || component.Numbers["widthY"] <= 0)
+                Invalid(path, "Mirror array requires positive widths and an addressable pixel count");
+            var count = RequireEncodedCount(component, "stateCount", 0, 199, path);
+            for (var i = 0; i < count; i++)
+            {
+                RequireNumberKey(component, $"state{i}", path);
+                RequireEncodedCount(component, $"state{i}", 0, int.MaxValue, path);
+            }
+        }
+
         if (role == ComponentRole.Geometry
             && component.Kind is "plane_grating" or "standard_grating")
         {
@@ -1132,6 +1256,41 @@ public static class OpticSnapshotValidator
         if (role == ComponentRole.Interaction && component.Kind == "diffractive")
         {
             RequireOptionalInteger(component, "order", path);
+        }
+
+        if (role == ComponentRole.Interaction && component.Kind == "paraxial_lens")
+        {
+            foreach (var key in new[] { "powerX", "powerY", "opdMode" }) RequireNumberKey(component, key, path);
+            if (component.Numbers["opdMode"] is not (0 or 1 or 2)) Invalid(path, "unsupported paraxial OPD mode");
+        }
+        if (role == ComponentRole.Interaction && component.Kind == "birefringent_interface")
+        {
+            RequireNumberKey(component, "isExit", path); RequireNumberKey(component, "axisDisplayLength", path);
+            if (component.Numbers["isExit"] is not (0 or 1) || component.Numbers["axisDisplayLength"] < 0)
+                Invalid(path, "invalid crystal interface definition");
+        }
+        if (role == ComponentRole.Interaction && component.Kind == "ruled_grating")
+        {
+            foreach (var key in new[] { "linesPerMicrometer", "order", "isReflective" }) RequireNumberKey(component, key, path);
+            RequireOptionalInteger(component, "order", path);
+            if (Math.Abs(component.Numbers["order"]) > 1_000_000 || component.Numbers["isReflective"] is not (0 or 1))
+                Invalid(path, "invalid grating order or reflection flag");
+        }
+        if (role == ComponentRole.PhaseProfile && component.Kind == "normalized_radial")
+        {
+            RequireNumberKey(component, "normalizationRadius", path); RequireNumberKey(component, "order", path);
+            RequireOptionalInteger(component, "order", path);
+            if (component.Numbers["normalizationRadius"] <= 0 || Math.Abs(component.Numbers["order"]) > 1_000_000)
+                Invalid(path, "invalid normalized radial phase scale or order");
+            var count = RequireEncodedCount(component, "count", 0, 240, path);
+            for (var i = 0; i < count; i++) RequireNumberKey(component, $"c{i}", path);
+        }
+        if (role == ComponentRole.PhaseProfile && component.Kind == "two_point_hologram")
+        {
+            foreach (var key in new[] { "x1", "y1", "z1", "x2", "y2", "z2", "constructionWavelength", "order" }) RequireNumberKey(component, key, path);
+            RequireOptionalInteger(component, "order", path);
+            if (component.Numbers["constructionWavelength"] <= 0 || Math.Abs(component.Numbers["order"]) > 1_000_000)
+                Invalid(path, "invalid hologram construction wavelength or order");
         }
 
         if (role == ComponentRole.PhaseProfile && component.Kind == "linear_grating")

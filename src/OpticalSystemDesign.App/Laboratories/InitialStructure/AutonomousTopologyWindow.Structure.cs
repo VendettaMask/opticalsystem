@@ -25,6 +25,7 @@ public sealed partial class AutonomousTopologyWindow
     private int _structureGeneration;
     private bool _structureLoading;
     private bool _structureSelected;
+    private bool _structureReviewed;
     private long _structureUsedRays;
     private readonly SemaphoreSlim _structureWorker = new(1, 1);
     internal Task StructurePendingLoad { get; private set; } = Task.CompletedTask;
@@ -57,8 +58,9 @@ public sealed partial class AutonomousTopologyWindow
         }
     }
 
-    private void SetStructureSource(DesignTopology topology, TopologyConstraints constraints, string name, string? status = null, bool force = false)
+    private void SetStructureSource(DesignTopology topology, TopologyConstraints constraints, string name, string? status = null, bool force = false, bool reviewed = false)
     {
+        _structureReviewed = reviewed;
         var key = ContentFingerprint.Compute(new { topology, constraints });
         _structureSource = new(topology, constraints, name, status);
         if (force || key != _structureKey)
@@ -77,7 +79,7 @@ public sealed partial class AutonomousTopologyWindow
         if (IsBusy) return Task.CompletedTask;
         try
         {
-            if (_session.Checkpoint is null)
+            if (_session.Checkpoint is null && !_structureReviewed)
             {
                 var plan = ReadPlan(); SetStructureSource(plan.Seeds[0], plan.Constraints, "已载入起点");
             }
@@ -87,9 +89,9 @@ public sealed partial class AutonomousTopologyWindow
         catch (Exception error) when (error is ArgumentException or InvalidOperationException or ArithmeticException)
         { _structurePlot.SetScene(null); _structureFailure = error.Message; RefreshStructureText(); return Task.CompletedTask; }
     }
-    private async Task DisplayStructureAsync()
+    private async Task DisplayStructureAsync(bool fromReview = false)
     {
-        if (IsBusy || _structureLoading || _structureSource is not { } source) return;
+        if (_session.IsBusy || _uiOperation && !fromReview || _structureLoading || _structureSource is not { } source) return;
         if (_structurePlot.Data is not null) { RefreshStructureText(); return; }
         using var cancellation = new CancellationTokenSource(TimeSpan.FromSeconds(5));
         var generation = ++_structureGeneration; _structureCancellation = cancellation;

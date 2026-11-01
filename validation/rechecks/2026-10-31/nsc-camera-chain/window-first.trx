@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6123d611-3329-4153-b101-d328c233b430" name="allen@DESKTOP-SET3SNR 2026-10-31 13:06:01" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T13:06:01.9967728+08:00" queuing="2026-10-31T13:06:01.9967729+08:00" start="2026-10-31T13:05:52.8860703+08:00" finish="2026-10-31T13:06:10.5382503+08:00" />
+  <TestSettings name="default" id="9f5e89ac-ef3a-4d16-9955-6a600a00d9f0">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_13_06_01" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b7554e9f-1a7e-4591-a75f-1adc44260437" testId="2f685978-0d63-371a-5728-29ca04d6cdcf" testName="OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: &quot;Dark&quot;, language: &quot;en-US&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:03.6376716" startTime="2026-10-31T13:06:01.9859017+08:00" endTime="2026-10-31T13:06:05.5921236+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b7554e9f-1a7e-4591-a75f-1adc44260437">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs:line 49&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(String theme, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="271a91ce-3f3c-43ae-8e68-0295b5aa8ce4" testId="5cbc7961-eb62-24df-61d9-b23482728744" testName="OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:04.8587665" startTime="2026-10-31T13:06:05.5944554+08:00" endTime="2026-10-31T13:06:10.4513497+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="271a91ce-3f3c-43ae-8e68-0295b5aa8ce4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs:line 49&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(String theme, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9bdb3ba0-7dd8-4cf2-a4c8-68d3c22331b8" testId="474c4e07-c781-b127-960c-938619d6c191" testName="OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: &quot;Light&quot;, language: &quot;ja-JP&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:07.6001413" startTime="2026-10-31T13:05:54.3417819+08:00" endTime="2026-10-31T13:06:01.9534684+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9bdb3ba0-7dd8-4cf2-a4c8-68d3c22331b8">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs:line 49&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(String theme, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: &quot;Light&quot;, language: &quot;ja-JP&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="474c4e07-c781-b127-960c-938619d6c191">
+      <Execution id="9bdb3ba0-7dd8-4cf2-a4c8-68d3c22331b8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraNonSequentialWindowTests" name="DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: &quot;Dark&quot;, language: &quot;en-US&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2f685978-0d63-371a-5728-29ca04d6cdcf">
+      <Execution id="b7554e9f-1a7e-4591-a75f-1adc44260437" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraNonSequentialWindowTests" name="DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5cbc7961-eb62-24df-61d9-b23482728744">
+      <Execution id="271a91ce-3f3c-43ae-8e68-0295b5aa8ce4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraNonSequentialWindowTests" name="DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2f685978-0d63-371a-5728-29ca04d6cdcf" executionId="b7554e9f-1a7e-4591-a75f-1adc44260437" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5cbc7961-eb62-24df-61d9-b23482728744" executionId="271a91ce-3f3c-43ae-8e68-0295b5aa8ce4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="474c4e07-c781-b127-960c-938619d6c191" executionId="9bdb3ba0-7dd8-4cf2-a4c8-68d3c22331b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="0" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.12]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.08]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.11]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:08.74]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:08.74]       Expected: True&#xD;
+[xUnit.net 00:00:08.74]       Actual:   False&#xD;
+[xUnit.net 00:00:08.74]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.74]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs(49,0): at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:08.74]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.74]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.74]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.74]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs(23,0): at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(String theme, String language)&#xD;
+[xUnit.net 00:00:08.74]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:12.37]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:12.37]       Expected: True&#xD;
+[xUnit.net 00:00:12.37]       Actual:   False&#xD;
+[xUnit.net 00:00:12.37]       Stack Trace:&#xD;
+[xUnit.net 00:00:12.37]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs(49,0): at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:12.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:12.37]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:12.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:12.37]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs(23,0): at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(String theme, String language)&#xD;
+[xUnit.net 00:00:12.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:17.23]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:17.23]       Expected: True&#xD;
+[xUnit.net 00:00:17.23]       Actual:   False&#xD;
+[xUnit.net 00:00:17.23]       Stack Trace:&#xD;
+[xUnit.net 00:00:17.23]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs(49,0): at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:17.23]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:17.23]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:17.23]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:17.23]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraNonSequentialWindowTests.cs(23,0): at OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(String theme, String language)&#xD;
+[xUnit.net 00:00:17.23]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:17.24]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T13:06:01.9554479+08:00">
+        <Text>[xUnit.net 00:00:08.74]     OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: "Light", language: "ja-JP") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T13:06:05.5924698+08:00">
+        <Text>[xUnit.net 00:00:12.37]     OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: "Dark", language: "en-US") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T13:06:10.4519065+08:00">
+        <Text>[xUnit.net 00:00:17.23]     OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.DesktopNscSelectionCaptureRawIspABAndFrozenReopenWorkOffscreen(theme: "Light", language: "zh-CN") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

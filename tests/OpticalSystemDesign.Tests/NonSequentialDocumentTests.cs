@@ -323,14 +323,14 @@ public sealed class NonSequentialDocumentTests
         var objects = application.NonSequential.GetDocument().Objects;
 
         Assert.True(result.ObjectCount > 0);
-        Assert.Contains(objects, item => item.Kind == ContractKind.StandardLens);
+        Assert.Contains(objects, item => item.Kind == ContractKind.OpticalAssembly);
         Assert.Equal(ContractKind.DetectorRectangle, objects[^1].Kind);
         Assert.DoesNotContain(objects, item => item.Parameters is OpticalSystemDesign.Application.Contracts.SourceParameters);
         Assert.Contains(result.Warnings, warning => warning.Contains("光源", StringComparison.Ordinal));
     }
 
     [Fact]
-    public void SequentialConversionRejectsCementedGlassGroupInsteadOfCreatingInvalidSolids()
+    public void SequentialConversionPreservesCementedGlassGroupAsSharedInterfaces()
     {
         using var application = WorkbenchApplication.Create("blank");
         application.Prescription.AddSurface();
@@ -364,14 +364,12 @@ public sealed class NonSequentialDocumentTests
 
         var conversion = application.NonSequential.ConvertFromSequential();
 
-        Assert.Contains(conversion.Warnings, warning =>
-            warning.Contains("胶合或浸没", StringComparison.Ordinal));
-        Assert.DoesNotContain(
-            application.NonSequential.GetDocument().Objects,
-            item => item.Kind == ContractKind.StandardLens);
-        Assert.DoesNotContain(
-            application.NonSequential.GetDocument().Objects,
-            item => item.Kind == ContractKind.PlaneRectangle);
+        var assembly=Assert.IsType<OpticalSystemDesign.Application.Contracts.OpticalAssemblyParameters>(
+            application.NonSequential.GetDocument().Objects.Single(item=>item.Kind==ContractKind.OpticalAssembly).Parameters);
+        Assert.Equal(3,assembly.Assembly.Interfaces.Count);
+        Assert.DoesNotContain(conversion.Warnings,warning=>warning.Contains("跳过",StringComparison.Ordinal));
+        Assert.Equal("N-BK7",assembly.Assembly.Interfaces[1].MaterialBeforeName);
+        Assert.Equal("N-F2",assembly.Assembly.Interfaces[1].MaterialAfterName);
     }
 
     [Fact]

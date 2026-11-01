@@ -1,0 +1,22 @@
+{
+  "recordedAt": "2026-10-31T15:12:38.6513021+08:00",
+  "defaultAppReleaseBuild": "Passed, 0 warnings, 0 errors after final permission guard",
+  "buildCommand": "dotnet build src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release --no-restore -m:1 -p:NuGetAudit=false",
+  "focusedUniqueTests": 54,
+  "additionalPermissionRetest": "1 overlapping test passed; not counted as an extra unique test",
+  "runs": [
+    {
+      "file": "round2-final-focused.trx",
+      "counters": []
+    },
+    {
+      "file": "round2-restoration-compatibility-final.trx",
+      "counters": []
+    },
+    {
+      "file": "round2-reduction-only-permission.trx",
+      "counters": []
+    }
+  ],
+  "core": "C0AB359ECFF4A6D6D1C69A539DFF61993B250481936970C7BA528E1F5754B002"
+}

@@ -1,0 +1,59 @@
+{
+  "CapturedUtc": "2026-11-01T11:42:36.8818055+00:00",
+  "Counters": {
+    "Total": 488,
+    "Passed": 488,
+    "Failed": 0,
+    "NotExecuted": 0
+  },
+  "NewOpticalAssemblyTestsPassed": 30,
+  "DefaultReleaseAppBuildPassed": true,
+  "BothBuiltInModulesIncluded": true,
+  "OffscreenEditorTestPassed": true,
+  "CompiledSourceChecksumsMatched": 92,
+  "ScopedSourceCount": 176,
+  "ExecutionFiles": 90,
+  "ExecutionAndSourceDriftCount": 0,
+  "CoreSha256": "b4ba2655f94e85283f34de0c1df96a5f67fbcdbdf33d401984f357bed13bd1e0",
+  "ApplicationSha256": "32850bce05b6eb00e7c0233a4a9c03eb4c0b1febe3dd553b151ea7a7a4a34720",
+  "PriorFrozenEvidence": [
+    {
+      "Root": "validation/rechecks/2026-10-31/commercial-bsdf-calibration",
+      "VerifiedFiles": 297
+    },
+    {
+      "Root": "validation/rechecks/2026-10-31/white-specular-runtime",
+      "VerifiedFiles": 533
+    },
+    {
+      "Root": "validation/rechecks/2026-11-01/xyz-radiometry",
+      "VerifiedFiles": 163
+    },
+    {
+      "Root": "validation/rechecks/2026-11-01/xyz-conditions",
+      "VerifiedFiles": 219
+    },
+    {
+      "Root": "validation/rechecks/2026-11-01/xyz-angular",
+      "VerifiedFiles": 482
+    },
+    {
+      "Root": "validation/rechecks/2026-11-01/xyz-reconstruction",
+      "VerifiedFiles": 745
+    }
+  ],
+  "PriorFrozenFilesVerified": 2439,
+  "CameraChainCases": 2,
+  "ExactFrozenCameraReplays": 2,
+  "MaximumCameraEnergyRelativeError": 0.0000000000000004440892098501,
+  "MaximumPhotonErrorElectrons": 2.2737367544323206E-13,
+  "MaximumSequentialPositionErrorMillimeters": 8.881784197001252E-16,
+  "MaximumSequentialDirectionError": 3.3308497693360055E-16,
+  "MaximumSequentialOpticalPathErrorMillimeters": 7.105427357601002E-15,
+  "StochasticRayCount": 40000,
+  "SamplingErrorStandardDeviations": 0.2812975586637556,
+  "AnalyticalControlsNotMeasured": true,
+  "NativeDesktopAcceptance": false,
+  "CommercialCertification": false,
+  "FullCadOrGpuImplemented": false
+}

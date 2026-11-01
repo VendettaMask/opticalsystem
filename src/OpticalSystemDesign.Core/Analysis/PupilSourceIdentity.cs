@@ -67,11 +67,13 @@ public sealed class PupilSourceIdentity
             // model. GRIN owns a sealed spatial model and persists its full
             // profile/integration configuration; all other models must be the
             // stateless homogeneous implementation to permit prepared reuse.
+            UniaxialMaterial crystal => Known(crystal.Ordinary) && Known(crystal.Extraordinary),
             IMaterial material => material is GradientIndexMaterial
                 || material.PropagationModel is HomogeneousPropagationModel,
             BooleanAperture aperture => Known(aperture.Left) && Known(aperture.Right),
             CoherentMultilayerCoating coating => coating.Layers.All(layer => Known(layer.Material)),
             PhaseInteractionModel phase => Known(phase.Profile),
+            DiffractivePhaseInteractionModel phase => Known(phase.Profile),
             _ => true
         };
     }

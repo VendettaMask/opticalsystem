@@ -1814,6 +1814,7 @@ public sealed class ZemaxImportTests
               STOP
               DISZ 10
               DIAM 3 1 0 0 1 ""
+              CLAP 0 3 0
             SURF 2
               DISZ 0
             APMX 1 2 3
@@ -1864,6 +1865,7 @@ public sealed class ZemaxImportTests
 
         Assert.Contains("  DIAM 4.5 1 0 0 1 \"\"", exported, StringComparison.Ordinal);
         Assert.Contains("  APMN 1.25", exported, StringComparison.Ordinal);
+        Assert.Contains("  CLAP 1.25 4.5 0", exported, StringComparison.Ordinal);
         var restored = OpticalFormatCatalog.Import(exported, ".zmx");
         var aperture = Assert.IsType<AnnularAperture>(restored.SurfaceGroup.Items[1].PhysicalAperture);
         Assert.Equal(4.5, restored.SurfaceGroup.Items[1].SemiDiameter, precision: 12);
@@ -2543,6 +2545,7 @@ public sealed class ZemaxImportTests
               DISZ 0.4
               DIAM 0.6
               APMN 0.1
+              CLAP 0.1 0.6 0
               PARM 1 0.02
             SURF 2
               DISZ 0

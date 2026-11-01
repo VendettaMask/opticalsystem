@@ -1,6 +1,10 @@
 # 项目文档索引
 
-整理日期：2026-10-28。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
+整理日期：2026-11-01。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
+
+示例镜头精度换聊天入口：[14 类中文分类、已关闭项、剩余问题与后续顺序](EXAMPLE_ACCURACY_HANDOFF_2026-11-01.md)。分类菜单已中文化；历史全量计数与后续局部修复分开维护。
+
+最新镀膜优化验证：[非线性约束修正、真实材料高反与窄带对照](COATING_NONLINEAR_CORRECTION_2026-10-31.md)。
 
 ## 从这里开始
 
@@ -12,7 +16,7 @@
 | 使用桌面和两个模块 | [桌面工作流](GUI_QUICKSTART_REFACTOR.md)、[初始结构](../labs/InitialStructure/README.md)、[镀膜设计](../labs/CoatingDesign/README.md) |
 | 核对 AutoLens 原版优化规则 | [e58 逐项对齐、测试范围与保留差异](AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.md)、[阶段交接修正](AUTOLENS_HANDOFF_REPAIR_2026-10-25.md) |
 | 按计划建设自主镜片增删流程 | [自主镜头拓扑设计实施计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)，M0–M5 已核对完成，M6 内置界面与阶段验收已实现；[低F数/宽视场复验](../validation/rechecks/2026-10-27/representative-reduction/README.md)保留未达标边界；[两片视场冲突求步修复](../validation/rechecks/2026-10-28/two-element-field-conflict/README.md)（同预算改善但光斑仍未达标）；[合格三片3→2短程及失败诊断](../validation/rechecks/2026-10-28/three-to-two-continuation/README.md)（12次未达严格像质门槛，保留合格三片）；[指定合格四片4→3恢复修复](../validation/rechecks/2026-10-27/four-to-three-recovery/README.md)（两直接成功、渐进失败保留，原总配额、增加锥常数自由度）；[F/3.34、21°三项门槛修复](../validation/rechecks/2026-10-27/wide21-gates-repair/README.md)；[高精度/轴向接入及新处方回归](../validation/rechecks/2026-10-27/topology-integrated-compensation/README.md)；[积分精度/三片失光修复](../validation/rechecks/2026-10-27/topology-sampling-precision/README.md)；[通光优先/选参复验](../validation/rechecks/2026-10-27/topology-transmission-priority/README.md)；[边缘通光及预算修复](../validation/rechecks/2026-10-27/topology-edge-loss-repair/README.md)；[阶段验收修复](../validation/rechecks/2026-10-27/topology-reduction-repair/README.md)；[结果与边界](../validation/rechecks/2026-10-27/autonomous-comparison-m6/README.md) |
-| 推进自动初始结构的快速搜索和结构竞争 | [自动初始结构搜索实施计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)；[M0/M1 失光与快筛](INITIAL_STRUCTURE_M0_M1_2026-10-30.md)、[M2 结构恢复与竞争](INITIAL_STRUCTURE_M2_2026-10-30.md)已有工程交付，困难任务收益见真实对照；[M3.1 共享界面与过渡基础](INITIAL_STRUCTURE_M3_1_2026-10-30.md)与[M3.2 已有镜头检索](INITIAL_STRUCTURE_M3_2_2026-10-30.md)已验证，M3.3–M3.6 继续待办 |
+| 推进自动初始结构的快速搜索和结构竞争 | [自动初始结构搜索实施计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)；[M0/M1 失光与快筛](INITIAL_STRUCTURE_M0_M1_2026-10-30.md)、[M2 结构恢复与竞争](INITIAL_STRUCTURE_M2_2026-10-30.md)已有工程交付，困难任务收益见真实对照；[M3.1 共享界面与过渡基础](INITIAL_STRUCTURE_M3_1_2026-10-30.md)、[M3.2 已有镜头检索](INITIAL_STRUCTURE_M3_2_2026-10-30.md)与[M3.5 准备断点续跑](INITIAL_STRUCTURE_PREPARATION_CHECKPOINT_2026-10-31.md)已验证；[M3.4 固定口径性能](INITIAL_STRUCTURE_PERFORMANCE_2026-11-01.md)已验证；[M3.6 三语展示、方案库与报告](INITIAL_STRUCTURE_PRODUCT_REVIEW_2026-11-01.md)已完成后台验证；[SPC鞍点与双分支算法](INITIAL_STRUCTURE_SPC_BRANCHES_2026-11-01.md)及[自动准备/数值续跑](INITIAL_STRUCTURE_SPC_AUTOMATIC_RESUME_2026-11-01.md)及[默认输出完整构建](INITIAL_STRUCTURE_SPC_DEFAULT_OUTPUT_2026-11-01.md)已完成后台验证；M3.3继续暂缓 |
 | 维护代码与界面 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
 | 查询文件和数值边界 | [文件格式](FILE_FORMATS_AND_PLUGINS.md)、[数值验证](NUMERICAL_PARITY.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md) |
 | 核对精度结论、阶段重叠与文件复用 | [精度记录维护与去重](NUMERICAL_PARITY.md#精度结论与文件去重)，最近运行查状态页，未关闭项查问题清单，原始报告按阶段追溯 |
@@ -28,8 +32,14 @@
 - [协议 4：可行性之后的通用反射率质量阶段与跨规格对照](COATING_REFLECTANCE_QUALITY_2026-10-30.md)
 - [协议 4：真实材料高反/窄带的通用修正、参考 DLS/Newton 与跨规格验证](COATING_INFEASIBLE_REPAIR_2026-10-30.md)
 - [协议 4：峰值透射率/截止OD逐项保护、高反停滞重启与35组对照](COATING_TARGET_PRESERVATION_2026-10-30.md)
+- [协议 4：目标方向尺度、指导峰位一致性与41组收益/代价对照](COATING_TARGET_BALANCING_2026-10-31.md)
+- [协议 4：五组权衡退步、截止带极值与真实材料高反修复](COATING_TRADEOFF_REPAIR_2026-10-31.md)
+- [协议 4：收缩恢复续算、硬约束LS与严重未可行高反预处理](COATING_CONSTRAINED_CONTINUATION_2026-10-31.md)
+- [协议 4：紫光进展交接、固定指标窗口与高反度量续算](COATING_PROGRESS_ALLOCATION_2026-10-31.md)
+- [协议 4：紫光大N控制差距、峰值/截止/带宽余量与高反状态续算](COATING_MARGIN_REFINEMENT_2026-10-31.md)
 - [全仓库代码阅读地图](CODE_READING_MAP.md)
 - [当前实现与验证状态](CURRENT_STATUS.md)
+- [Grid GRIN MTF：材料查询与相位积分、独立控制及验收范围](GRID_GRIN_MTF_PHASE_REPAIR_2026-11-01.md)
 - [文件格式与插件](FILE_FORMATS_AND_PLUGINS.md)
 - [GUI 工作流与重构对照](GUI_QUICKSTART_REFACTOR.md)
 - [初始结构内置模块：范围与后续计划](INITIAL_STRUCTURE_LAB_PLAN.md)
@@ -38,7 +48,10 @@
 - [初始结构 M0/M1：失光诊断、符号覆盖和快筛](INITIAL_STRUCTURE_M0_M1_2026-10-30.md)
 - [初始结构 M2：结构分支、恢复和统一竞争](INITIAL_STRUCTURE_M2_2026-10-30.md)
 - [初始结构 M3.1：胶合共享界面与 SPC 过渡基础](INITIAL_STRUCTURE_M3_1_2026-10-30.md)
+- [初始结构 SPC：真正鞍点与双分支显式研究 API](INITIAL_STRUCTURE_SPC_BRANCHES_2026-11-01.md)
+- [初始结构 SPC：自动准备与精确续跑](INITIAL_STRUCTURE_SPC_AUTOMATIC_RESUME_2026-11-01.md)；[默认输出完整构建与验证](INITIAL_STRUCTURE_SPC_DEFAULT_OUTPUT_2026-11-01.md)
 - [初始结构 M3.2：已有镜头检索与原规格重验](INITIAL_STRUCTURE_M3_2_2026-10-30.md)
+- [初始结构 M3.5：准备阶段断点状态、操作及验证范围](INITIAL_STRUCTURE_PREPARATION_CHECKPOINT_2026-10-31.md)
 - [候选筛检、有界停止与原广角三臂同预算复验](BOUNDED_INITIAL_STRUCTURE_2026-10-29.md)
 - [Delano 厚系统实体化与固定光阑恢复：一阶4/4，完整像质仍未改善](DELANO_THICK_MATERIALIZATION_2026-10-29.md)
 - [自主拓扑设计：镜头结构显示与平移缩放](AUTONOMOUS_STRUCTURE_VIEW_2026-10-29.md)
@@ -49,6 +62,17 @@
 - [可制造性审查与光学制图](MANUFACTURING_DRAWINGS.md)
 - [非序列工作模式与光线追迹](NON_SEQUENTIAL_TRACING.md)
 - [非序列第二阶段：杂散光基础链路](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md)
+- [Lambertian BSDF、采样统计与 NSC→RAW/ISP](LAMBERTIAN_BSDF_2026-10-31.md)
+- [实测 BSDF 文件、插值、采样与 BTDF](MEASURED_BSDF_BTDF_2026-10-31.md)
+- [商业 BSDF 文本、固定材料轴与相机链路](COMMERCIAL_BSDF_AXES_2026-10-31.md)
+- [Speos 二进制、Zemax 镜面中心 BSDF 与相机链路](BINARY_ZEMAX_BSDF_2026-10-31.md)
+- [Speos v11、原生镜面配准/White Specular 与校准 XYZ](SPEOS_V11_XYZ_2026-10-31.md)
+- [Speos 原生逐值、θ 线性修正与 XYZ 实测校准失败边界](COMMERCIAL_BSDF_CALIBRATION_2026-10-31.md)
+- [White Specular 实际追迹功率修复、协议6与实测XYZ校准边界](WHITE_SPECULAR_RUNTIME_2026-10-31.md)
+- [有颜色适用域的XYZ校准、协议7与实测验证边界](XYZ_GAMUT_CALIBRATION_2026-11-01.md)
+- [已知观察条件的正值XYZ校准、协议8与完整链路验证](XYZ_KNOWN_CONDITIONS_2026-11-01.md)
+- [Cornell全入射角对数重建、绝对XYZ模型与剩余校准缺口](XYZ_LOG_RECONSTRUCTION_2026-11-01.md)
+- [实测角表与BTDF链路、协议9及三种XYZ校准未通过结果](XYZ_MEASURED_ANGULAR_2026-11-01.md)
 - [非序列光源](NONSEQUENTIAL_SOURCES.md)
 - [非序列模式 Zemax 工作流对齐路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)
 - [数值验证与冻结历史回归](NUMERICAL_PARITY.md)

@@ -1,0 +1,53 @@
+{
+  "researchSpecifications": 9,
+  "feedbackWindows": 16,
+  "acceptedWindows": 1,
+  "jointBaselinePreserved": 9,
+  "coldReplays": 101,
+  "stageRechecks": 96,
+  "tests": {
+    "total": "18",
+    "executed": "18",
+    "passed": "18",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "physics": {
+    "points": 6879,
+    "maximumErrors": {
+      "R": 1.7763568394002505e-14,
+      "T": 1.4099832412739488e-14,
+      "A": 1.27675647831893e-14
+    }
+  },
+  "sourceChanged": [
+    "DesignService.GeneralSearch.cs",
+    "Experiment.cs",
+    "DesignService.StructureFeedback.cs"
+  ],
+  "oldEvidence": {
+    "files": 421,
+    "mismatches": 0
+  },
+  "researchEngineSha256": "f5855d32d78fb073bf0472afb05b70778fa64fc0221ce59be4d1fcb863b1cc0a",
+  "finalEngineSha256": "6a6b7c0e68abb2e48c1d5c2540af53255143cc46b00e291e9d103dc22bfb624e",
+  "coreSha256": "174e926b77cb30b97bdf486459fa336f55d9ae57f738ce45d4dd5c182f91b380",
+  "activationBoundary": {
+    "researchRuntime": "two-window-runtime",
+    "researchEntry": "Default Search in a frozen research build performed the added stage; nine runs are labeled research workflow results.",
+    "finalEntry": "SearchMatchedFeedback explicitly invokes the same bounded feedback body; ordinary Search and Generate default to matchedFeedback=false.",
+    "finalDecision": "No automatic added feedback cost: compared controls remain stronger on several specifications. Final API is tested, and all prescriptions are cold-rechecked under the final binary.",
+    "bodyChange": "Optional matchedFeedback parameter and activation guard; optical, transfer, matching, refinement and joint-selection bodies unchanged."
+  }
+}

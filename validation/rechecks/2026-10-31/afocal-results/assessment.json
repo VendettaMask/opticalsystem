@@ -1,0 +1,1498 @@
+{
+  "date": "2026-10-31",
+  "scope": "Afocal result-level audit and explicit aperture correction",
+  "originalRequests": 170,
+  "originalNumericPasses": 163,
+  "notApplicableOrIncomparable": 7,
+  "actualDifferences": 0,
+  "pointwiseComponents": 495,
+  "pointwiseComparisons": 314478,
+  "pointwiseViolations": 0,
+  "newNativeControls": [
+    {
+      "kind": "native-afocal-aperture",
+      "id": "active32",
+      "name": "Huygens PSF",
+      "count": 1024,
+      "maximum": 1.021405182655144E-14,
+      "violations": 0,
+      "gates": {
+        "Irradiance": {
+          "Absolute": 1E-05,
+          "Relative": 0.001,
+          "Nrmse": 0.01,
+          "CloseNrmse": 0.03,
+          "MinimumCoverage": 0.95
+        }
+      }
+    },
+    {
+      "kind": "native-afocal-aperture",
+      "id": "inactive32",
+      "name": "Huygens PSF",
+      "count": 1024,
+      "maximum": 1.0769163338864018E-14,
+      "violations": 0,
+      "gates": {
+        "Irradiance": {
+          "Absolute": 1E-05,
+          "Relative": 0.001,
+          "Nrmse": 0.01,
+          "CloseNrmse": 0.03,
+          "MinimumCoverage": 0.95
+        }
+      }
+    },
+    {
+      "kind": "native-afocal-aperture",
+      "id": "active-mtf",
+      "name": "Huygens MTF",
+      "count": 600,
+      "maximum": 4.950206911047417E-14,
+      "violations": 0,
+      "gates": {
+        "Modulation": {
+          "Absolute": 0.001,
+          "Relative": 0.001,
+          "Nrmse": 0.01,
+          "CloseNrmse": 0.03,
+          "MinimumCoverage": 0.95
+        }
+      }
+    },
+    {
+      "kind": "native-afocal-aperture",
+      "id": "active64",
+      "name": "Huygens PSF",
+      "count": 1024,
+      "maximum": 3.397282455352979E-14,
+      "violations": 0,
+      "gates": {
+        "Irradiance": {
+          "Absolute": 1E-05,
+          "Relative": 0.001,
+          "Nrmse": 0.01,
+          "CloseNrmse": 0.03,
+          "MinimumCoverage": 0.95
+        }
+      }
+    },
+    {
+      "kind": "native-afocal-aperture",
+      "id": "inactive64",
+      "name": "Huygens PSF",
+      "count": 1024,
+      "maximum": 5.362377208939506E-14,
+      "violations": 0,
+      "gates": {
+        "Irradiance": {
+          "Absolute": 1E-05,
+          "Relative": 0.001,
+          "Nrmse": 0.01,
+          "CloseNrmse": 0.03,
+          "MinimumCoverage": 0.95
+        }
+      }
+    }
+  ],
+  "focusedTests": [
+    {
+      "path": "artifacts/validation/afocal-result-audit-20261031-tests-comparison-final/comparison.trx",
+      "sha256": "b565c4fb721cf8a3e8b553979fb67d7c734c6980ba8a835a84a8b48705759b4a",
+      "passed": 96
+    },
+    {
+      "path": "artifacts/validation/afocal-result-audit-20261031-tests-core-final/core.trx",
+      "sha256": "f70478bb0c6f0f784d0d0002f307b1998c0df329f14be77cf1acd75b8777411d",
+      "passed": 134
+    }
+  ],
+  "latestDistinctTestsPassed": 230,
+  "coreCopies": [
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "8f157171a35e549e62e26f45e7ca6984b15a0996573b2d940a7f834f0d31a94c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "8f157171a35e549e62e26f45e7ca6984b15a0996573b2d940a7f834f0d31a94c"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "8f157171a35e549e62e26f45e7ca6984b15a0996573b2d940a7f834f0d31a94c"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "8f157171a35e549e62e26f45e7ca6984b15a0996573b2d940a7f834f0d31a94c"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "8f157171a35e549e62e26f45e7ca6984b15a0996573b2d940a7f834f0d31a94c"
+    },
+    {
+      "path": "artifacts/validation/afocal-result-audit-20261031-final/runner/OpticalSystemDesign.Core.dll",
+      "sha256": "8f157171a35e549e62e26f45e7ca6984b15a0996573b2d940a7f834f0d31a94c"
+    }
+  ],
+  "runtimeIdentity": {
+    "coreSha256": "8f157171a35e549e62e26f45e7ca6984b15a0996573b2d940a7f834f0d31a94c",
+    "corePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\afocal-result-audit-20261031-final\\runner\\OpticalSystemDesign.Core.dll",
+    "applicationSha256": "4d7b0363979120d3fe911f0cb11e9c01706fda1b5a2e03389d378e97bee8873f",
+    "comparisonSha256": "ee9148290a0572099950204e67dd7fa8843b9f274795c28327f55120da1a9122",
+    "startedUtc": "2026-10-31T13:23:41.1988645+08:00",
+    "requestCount": 170
+  },
+  "finalRuntimeBinaryManifest": "artifacts/validation/afocal-result-audit-20261031-final/runtime-binaries.json",
+  "initialStagingBinariesInInputIdentityAreHistorical": true,
+  "originalInputsReferencesAndGatesChanged": false,
+  "allAfocalProductAnalysesCertified": false,
+  "analysisInventory": {
+    "scope": "Original four afocal files / five configurations / original 150 plus fixed-angle 20 requests",
+    "coreSha256": "8f157171a35e549e62e26f45e7ca6984b15a0996573b2d940a7f834f0d31a94c",
+    "allRequiredAnalysisResultsCertified": false,
+    "analyses": [
+      {
+        "key": "First Order",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0001-001-afocal-riflescope-c1-primary-f1-w2-first-order",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0031-002-beam-expander-c1-primary-f1-w1-first-order",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0053-003-binocular_system-c1-primary-f1-w2-first-order",
+            "conclusion": "Incomparable",
+            "violations": 0
+          },
+          {
+            "id": "0083-003-binocular_system-c2-primary-f1-w2-first-order",
+            "conclusion": "Incomparable",
+            "violations": 0
+          },
+          {
+            "id": "0113-004-apochromat_prism-c1-primary-f1-w3-first-order",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Single Ray Trace",
+        "requests": 20,
+        "cases": [
+          {
+            "id": "0002-001-afocal-riflescope-c1-primary-f1-w2-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0019-001-afocal-riflescope-c1-edge-f3-w1-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0023-001-afocal-riflescope-c1-edge-f3-w2-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0027-001-afocal-riflescope-c1-edge-f3-w3-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0032-002-beam-expander-c1-primary-f1-w1-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0049-002-beam-expander-c1-edge-f1-w1-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0054-003-binocular_system-c1-primary-f1-w2-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0071-003-binocular_system-c1-edge-f5-w1-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0075-003-binocular_system-c1-edge-f5-w2-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0079-003-binocular_system-c1-edge-f5-w3-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0084-003-binocular_system-c2-primary-f1-w2-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0101-003-binocular_system-c2-edge-f5-w1-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0105-003-binocular_system-c2-edge-f5-w2-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0109-003-binocular_system-c2-edge-f5-w3-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0114-004-apochromat_prism-c1-primary-f1-w3-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0131-004-apochromat_prism-c1-edge-f1-w1-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0135-004-apochromat_prism-c1-edge-f1-w2-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0139-004-apochromat_prism-c1-edge-f1-w3-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0143-004-apochromat_prism-c1-edge-f1-w4-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0147-004-apochromat_prism-c1-edge-f1-w5-single-ray-trace",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Spot Diagram",
+        "requests": 20,
+        "cases": [
+          {
+            "id": "0003-001-afocal-riflescope-c1-primary-f1-w2-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0020-001-afocal-riflescope-c1-edge-f3-w1-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0024-001-afocal-riflescope-c1-edge-f3-w2-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0028-001-afocal-riflescope-c1-edge-f3-w3-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0033-002-beam-expander-c1-primary-f1-w1-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0050-002-beam-expander-c1-edge-f1-w1-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0055-003-binocular_system-c1-primary-f1-w2-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0072-003-binocular_system-c1-edge-f5-w1-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0076-003-binocular_system-c1-edge-f5-w2-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0080-003-binocular_system-c1-edge-f5-w3-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0085-003-binocular_system-c2-primary-f1-w2-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0102-003-binocular_system-c2-edge-f5-w1-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0106-003-binocular_system-c2-edge-f5-w2-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0110-003-binocular_system-c2-edge-f5-w3-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0115-004-apochromat_prism-c1-primary-f1-w3-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0132-004-apochromat_prism-c1-edge-f1-w1-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0136-004-apochromat_prism-c1-edge-f1-w2-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0140-004-apochromat_prism-c1-edge-f1-w3-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0144-004-apochromat_prism-c1-edge-f1-w4-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0148-004-apochromat_prism-c1-edge-f1-w5-spot-diagram",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Ray Fan",
+        "requests": 20,
+        "cases": [
+          {
+            "id": "0004-001-afocal-riflescope-c1-primary-f1-w2-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0021-001-afocal-riflescope-c1-edge-f3-w1-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0025-001-afocal-riflescope-c1-edge-f3-w2-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0029-001-afocal-riflescope-c1-edge-f3-w3-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0034-002-beam-expander-c1-primary-f1-w1-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0051-002-beam-expander-c1-edge-f1-w1-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0056-003-binocular_system-c1-primary-f1-w2-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0073-003-binocular_system-c1-edge-f5-w1-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0077-003-binocular_system-c1-edge-f5-w2-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0081-003-binocular_system-c1-edge-f5-w3-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0086-003-binocular_system-c2-primary-f1-w2-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0103-003-binocular_system-c2-edge-f5-w1-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0107-003-binocular_system-c2-edge-f5-w2-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0111-003-binocular_system-c2-edge-f5-w3-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0116-004-apochromat_prism-c1-primary-f1-w3-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0133-004-apochromat_prism-c1-edge-f1-w1-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0137-004-apochromat_prism-c1-edge-f1-w2-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0141-004-apochromat_prism-c1-edge-f1-w3-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0145-004-apochromat_prism-c1-edge-f1-w4-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0149-004-apochromat_prism-c1-edge-f1-w5-ray-fan",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Optical Path Difference",
+        "requests": 20,
+        "cases": [
+          {
+            "id": "0005-001-afocal-riflescope-c1-primary-f1-w2-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0022-001-afocal-riflescope-c1-edge-f3-w1-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0026-001-afocal-riflescope-c1-edge-f3-w2-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0030-001-afocal-riflescope-c1-edge-f3-w3-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0035-002-beam-expander-c1-primary-f1-w1-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0052-002-beam-expander-c1-edge-f1-w1-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0057-003-binocular_system-c1-primary-f1-w2-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0074-003-binocular_system-c1-edge-f5-w1-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0078-003-binocular_system-c1-edge-f5-w2-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0082-003-binocular_system-c1-edge-f5-w3-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0087-003-binocular_system-c2-primary-f1-w2-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0104-003-binocular_system-c2-edge-f5-w1-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0108-003-binocular_system-c2-edge-f5-w2-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0112-003-binocular_system-c2-edge-f5-w3-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0117-004-apochromat_prism-c1-primary-f1-w3-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0134-004-apochromat_prism-c1-edge-f1-w1-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0138-004-apochromat_prism-c1-edge-f1-w2-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0142-004-apochromat_prism-c1-edge-f1-w3-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0146-004-apochromat_prism-c1-edge-f1-w4-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0150-004-apochromat_prism-c1-edge-f1-w5-optical-path-difference",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Wavefront",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0006-001-afocal-riflescope-c1-primary-f1-w2-wavefront",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0036-002-beam-expander-c1-primary-f1-w1-wavefront",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0058-003-binocular_system-c1-primary-f1-w2-wavefront",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0088-003-binocular_system-c2-primary-f1-w2-wavefront",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0118-004-apochromat_prism-c1-primary-f1-w3-wavefront",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "PSF",
+        "requests": 10,
+        "cases": [
+          {
+            "id": "0007-001-afocal-riflescope-c1-primary-f1-w2-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0037-002-beam-expander-c1-primary-f1-w1-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0059-003-binocular_system-c1-primary-f1-w2-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0089-003-binocular_system-c2-primary-f1-w2-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0119-004-apochromat_prism-c1-primary-f1-w3-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0007-001-afocal-riflescope-c1-primary-f1-w2-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0037-002-beam-expander-c1-primary-f1-w1-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0059-003-binocular_system-c1-primary-f1-w2-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0089-003-binocular_system-c2-primary-f1-w2-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0119-004-apochromat_prism-c1-primary-f1-w3-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Huygens PSF",
+        "requests": 10,
+        "cases": [
+          {
+            "id": "0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0038-002-beam-expander-c1-primary-f1-w1-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0060-003-binocular_system-c1-primary-f1-w2-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0090-003-binocular_system-c2-primary-f1-w2-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0008-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0038-002-beam-expander-c1-primary-f1-w1-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0060-003-binocular_system-c1-primary-f1-w2-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0090-003-binocular_system-c2-primary-f1-w2-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0120-004-apochromat_prism-c1-primary-f1-w3-huygens-psf",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "MTF",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0009-001-afocal-riflescope-c1-primary-f0-w0-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0039-002-beam-expander-c1-primary-f0-w0-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0061-003-binocular_system-c1-primary-f0-w0-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0091-003-binocular_system-c2-primary-f0-w0-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0121-004-apochromat_prism-c1-primary-f0-w0-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Huygens MTF",
+        "requests": 10,
+        "cases": [
+          {
+            "id": "0010-001-afocal-riflescope-c1-primary-f1-w2-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0040-002-beam-expander-c1-primary-f1-w1-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0062-003-binocular_system-c1-primary-f1-w2-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0092-003-binocular_system-c2-primary-f1-w2-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0122-004-apochromat_prism-c1-primary-f1-w3-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0010-001-afocal-riflescope-c1-primary-f1-w2-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0040-002-beam-expander-c1-primary-f1-w1-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0062-003-binocular_system-c1-primary-f1-w2-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0092-003-binocular_system-c2-primary-f1-w2-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0122-004-apochromat_prism-c1-primary-f1-w3-huygens-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "FFT PSF Cross Section",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0011-001-afocal-riflescope-c1-primary-f1-w2-fft-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0041-002-beam-expander-c1-primary-f1-w1-fft-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0063-003-binocular_system-c1-primary-f1-w2-fft-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0093-003-binocular_system-c2-primary-f1-w2-fft-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0123-004-apochromat_prism-c1-primary-f1-w3-fft-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Huygens PSF Cross Section",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0012-001-afocal-riflescope-c1-primary-f1-w2-huygens-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0042-002-beam-expander-c1-primary-f1-w1-huygens-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0064-003-binocular_system-c1-primary-f1-w2-huygens-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0094-003-binocular_system-c2-primary-f1-w2-huygens-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0124-004-apochromat_prism-c1-primary-f1-w3-huygens-psf-cross-section",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Encircled Energy",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0013-001-afocal-riflescope-c1-primary-f1-w2-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0043-002-beam-expander-c1-primary-f1-w1-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0065-003-binocular_system-c1-primary-f1-w2-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0095-003-binocular_system-c2-primary-f1-w2-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0125-004-apochromat_prism-c1-primary-f1-w3-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Diffraction Encircled Energy",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0014-001-afocal-riflescope-c1-primary-f1-w2-diffraction-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0044-002-beam-expander-c1-primary-f1-w1-diffraction-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0066-003-binocular_system-c1-primary-f1-w2-diffraction-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0096-003-binocular_system-c2-primary-f1-w2-diffraction-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0126-004-apochromat_prism-c1-primary-f1-w3-diffraction-encircled-energy",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Huygens Through Focus MTF",
+        "requests": 10,
+        "cases": [
+          {
+            "id": "0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0015-001-afocal-riflescope-c1-primary-f1-w2-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0045-002-beam-expander-c1-primary-f1-w1-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0067-003-binocular_system-c1-primary-f1-w2-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0097-003-binocular_system-c2-primary-f1-w2-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "fixed-0127-004-apochromat_prism-c1-primary-f1-w3-huygens-through-focus-mtf",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Relative Illumination",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0016-001-afocal-riflescope-c1-primary-f1-w2-relative-illumination",
+            "conclusion": "Incomparable",
+            "violations": 0
+          },
+          {
+            "id": "0046-002-beam-expander-c1-primary-f1-w1-relative-illumination",
+            "conclusion": "Incomparable",
+            "violations": 0
+          },
+          {
+            "id": "0068-003-binocular_system-c1-primary-f1-w2-relative-illumination",
+            "conclusion": "Incomparable",
+            "violations": 0
+          },
+          {
+            "id": "0098-003-binocular_system-c2-primary-f1-w2-relative-illumination",
+            "conclusion": "Incomparable",
+            "violations": 0
+          },
+          {
+            "id": "0128-004-apochromat_prism-c1-primary-f1-w3-relative-illumination",
+            "conclusion": "Incomparable",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "RMS vs Field",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0017-001-afocal-riflescope-c1-primary-f1-w2-rms-vs-field",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0047-002-beam-expander-c1-primary-f1-w1-rms-vs-field",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0069-003-binocular_system-c1-primary-f1-w2-rms-vs-field",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0099-003-binocular_system-c2-primary-f1-w2-rms-vs-field",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0129-004-apochromat_prism-c1-primary-f1-w3-rms-vs-field",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      },
+      {
+        "key": "Field Curvature and Distortion",
+        "requests": 5,
+        "cases": [
+          {
+            "id": "0018-001-afocal-riflescope-c1-primary-f1-w2-field-curvature-and-distortion",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0048-002-beam-expander-c1-primary-f1-w1-field-curvature-and-distortion",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0070-003-binocular_system-c1-primary-f1-w2-field-curvature-and-distortion",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0100-003-binocular_system-c2-primary-f1-w2-field-curvature-and-distortion",
+            "conclusion": "Pass",
+            "violations": 0
+          },
+          {
+            "id": "0130-004-apochromat_prism-c1-primary-f1-w3-field-curvature-and-distortion",
+            "conclusion": "Pass",
+            "violations": 0
+          }
+        ]
+      }
+    ],
+    "catalogEntriesOutsideThisBatch": [
+      {
+        "key": "Non-Sequential Ray Trace",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Non-Sequential Detector Viewer",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Seidel Coefficients",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Seidel Diagram",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Full Field Spot Diagram",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Matrix Spot Diagram",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Configuration Matrix Spot Diagram",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Footprint Diagram",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Grid Distortion",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Field Curvature",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Color Focus Shift",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Lateral Color",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Axial Aberration",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Full Field Aberration",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Geometric Line Edge Spread",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Extended Source Encircled Energy",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Pupil Aberration",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "RMS vs Wavelength",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "RMS vs Focus",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "RMS Field Map",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "RMS Wavefront vs Field",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Through Focus",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Fourier Through Focus MTF",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Geometric Through Focus MTF",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Fourier MTF vs Field",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Huygens MTF vs Field",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Geometric MTF vs Field",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Angle vs Image Height",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Angle vs Image Height - Through Pupil",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Angle vs Image Height - Through Field",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Cardinal Points Data",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Vignetting Diagram",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Incoherent Irradiance",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Radiant Intensity",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Y-Ybar",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "FFT Line Edge Spread",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Geometric MTF",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Sampled MTF",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Contrast Loss Map",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Foucault Analysis",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Interferogram",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Centroid Sphere Wavefront",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Best Fit Sphere Wavefront",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Zernike",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Image Simulation",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Geometric Image Analysis",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Geometric Bitmap Image Analysis",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Light Source Analysis",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Partially Coherent Image Analysis",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Extended Diffraction Image Analysis",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Jones Pupil",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Prescription Report",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "System Data Report",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      },
+      {
+        "key": "Classified Data Report",
+        "status": "NotValidatedByThisAfocalBatch",
+        "applicability": "RequiresSeparateAssessment"
+      }
+    ]
+  },
+  "workingTreeCoreSources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs",
+      "sha256": "2a8e3c41a580a76f4464b68b5ecc922213f347aebf6c96e3216f1890d42e065e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs",
+      "sha256": "2493807c5420da65a145b0e099e386639e7c4ec732a991616d13e46337d50539"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfProfileAnalyses.cs",
+      "sha256": "f313f21f093ca4df2c2cc756c60358750fdcd3f65eaf4795fb504f4ff14885cd"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.AfocalQuadrature.cs",
+      "sha256": "805c2b2925428eea423f5e3737c12a07a420015a748cdfab59e61cdb210966cb"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "a78ec09354e9d10f4eeb72dc14a3b34246989e45562a77c85892524480a5b1e9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.HuygensSampling.cs",
+      "sha256": "4ce2828b24b69602ceccb6788179f48eae15091b1e3b4de5e6c4d9e11a284d9d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs",
+      "sha256": "58c1bdf5f88297da76dc4b00b8dac06bfebdd4f5f57097d93d2d096fb242fa2d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/HuygensPupilDomain.cs",
+      "sha256": "9e0c4392b46bb0e38a7700861373beec8b7f47eb5a159ab10a37d8ab838ee165"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs",
+      "sha256": "f2da50d33e06fe24481edcac221e67a26b30cbbb75f4190550c32eeb7b12e170"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraRenderer.cs",
+      "sha256": "89f2ab73139dffd7b096293015f15b2c978bc2b3a2ceb9175f8537ab425a04aa"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "sha256": "c27b00f79f2a7ca7337ca0a8936bef8e12211fdc8baadc5a83a3abb66c918e84"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs",
+      "sha256": "95394fbbe800237b2159444efb21487e91bd8787d2509c4f25a9399467472f8f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/RelativeIlluminationAnalysis.cs",
+      "sha256": "90b6a818177cd85692b4b1fce8d1fabe2c681e47165cc98fdfbb29058ea0b31a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "sha256": "1dbe9adf5a8dd87d2351304974191f599eab1f11c822beec5476b5c24a8520d4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs",
+      "sha256": "a189a35dc2110ac3a8e42b3ad5cee85569cc0197c5e5ce2c9ebd10db32f0d378"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.HuygensReference.cs",
+      "sha256": "3eed8ce574909e54770a81b952ea1e35df02ff372970af6db2f3b4421f084cdf"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/CommercialFormatIO.cs",
+      "sha256": "7b5820acd639c80224dfcefa4d53ecf9abad0e4d4edd03daa147e97b2121abed"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "14bf652f577d7e3c8d48b7dfc78ced3d59fe910c42985c52cc9727c5ca82ac48"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Geometries/PolygonGroupGeometry.cs",
+      "sha256": "f15ac02c8df2ea7ff2f32c700e69dfb857aec7e447e52fd0d61be771858f4d2e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Interactions/InteractionModels.cs",
+      "sha256": "5148915d3d9e8676e852f97053425aa309505ffac0e6ec86a71c98ddef69c1f7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorReconstruction.cs",
+      "sha256": "04798b240a74fffe756e83a21942f583fda6098eb8e3f9d425f2508f54defc27"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Optimization/InequalityLeastSquaresStep.cs",
+      "sha256": "4b8f89511c96f5aacd9691531cf6b3fa9b6388f26b8a3e646e2efb679c123891"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/ApertureSampler.cs",
+      "sha256": "7efeb7e351aa9e53e8c799aa902639d4cd5e63dc03c5e9b186ba465d7623aac0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.AfocalScale.cs",
+      "sha256": "0f46a0a326f2952da2add5e8251d4f97f14ef3ec3912178004c4e4672f20cfe5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/AfocalParabasalPupilScale.cs",
+      "sha256": "a828e7e5be4ecf8b757ef0709421a37b5708ea6ac2bd96b141646be08cd5a7a1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs",
+      "sha256": "de856b3f001dc4ee0138839fd54944a71a312e91387fc8792e428858aef8b989"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/Paraxial.cs",
+      "sha256": "5eb5436ac799e3b514f31fd7ef7002defc8db264411e6e2f1a942fffea4067c9"
+    }
+  ],
+  "foregroundDesktopUsed": false,
+  "committedOrPushed": false
+}

@@ -4,6 +4,31 @@ internal static partial class UiLocalization
 {
     private static void AddAutonomousTopologyTexts(Action<string, string, string> add)
     {
+        foreach (var item in DesignReviewLabels.Items) add(item.Zh, item.En, item.Ja);
+        add("起点准备（独立预算）", "Seed preparation (separate budget)", "初期処方の準備（独立予算）");
+        add("准备检查点来自其他计算版本，仅供查看，请使用原版本继续", "This preparation checkpoint is read-only with this computation version; resume with its original version.", "この準備チェックポイントは計算バージョンが異なるため読み取り専用です。元のバージョンで再開してください。");
+        add("构造起点", "Seed construction", "初期処方の構築");
+        add("补偿优化", "Compensation", "補償最適化");
+        add("一阶起点", "First-order seeds", "近軸初期処方");
+        add("像差筛选", "Image-quality screening", "像質による選別");
+        add("镜头库索引", "Lens-library indexing", "レンズライブラリの索引");
+        add("镜头库迁移", "Lens-library transfer", "レンズライブラリからの移行");
+        add("原规格验收", "Original-spec validation", "元の仕様での検証");
+        add("多候选竞争", "Candidate competition", "候補間の比較");
+        add("父方案验收", "Parent validation", "親処方の検証");
+        add("结构分支", "Structural branches", "構造分岐");
+        add("准备完成", "Preparation completed", "準備完了");
+        add("冷启动构造与补偿", "Cold construction and compensation", "コールド構築と補償");
+        add("实验：冷启动构造与原规格补偿", "Experimental: cold construction and original-spec compensation", "実験：コールド構築と元の仕様への補償");
+        add("冷启动梯度上限", "Cold-start gradient limit", "コールド開始の勾配上限");
+        add("冷启动总追迹上限", "Cold-start total ray limit", "コールド開始の総追跡上限");
+        add("正在冷启动构造与补偿", "Cold construction and compensation in progress", "コールド構築と補償を実行中");
+        add("冷启动未得到预算内合格处方", "Cold start found no qualified design within budget", "予算内で適合するコールド処方が得られませんでした");
+        add("冷启动原规格验收通过", "Cold start passed original-spec validation", "コールド処方は元の仕様の検証に適合");
+        add("冷启动未通过原规格验收，已保存并停止", "Cold start failed original-spec validation; saved and stopped", "コールド処方は元の仕様に不適合。保存して停止しました");
+        add("构造尝试 / 补偿阶段", "Construction attempts / compensation phases", "構築試行 / 補償段階");
+        add("最差 RMS µm / 最大半径 µm / 边界丢失", "Worst RMS µm / maximum radius µm / lost boundary rays", "最悪 RMS µm / 最大半径 µm / 境界損失光線");
+        add("开始新任务时先重新构造并完整验收；失败保存并停止，继续已有任务不重复冷启动", "New tasks reconstruct and fully validate first; failure saves and stops. Resuming a task does not repeat cold construction.", "新規タスクは再構築と完全検証を先に実行します。不適合なら保存して停止し、既存タスクの再開では再構築しません。");
         add("打开镜头库", "Open lens library", "レンズライブラリを開く");
         add("正在检索镜头库", "Retrieving library prescriptions", "レンズライブラリを検索中");
         add("已有镜头通过原规格验收", "Existing lens passed original-spec validation", "既存レンズは元の仕様に適合");

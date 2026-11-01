@@ -81,9 +81,11 @@ internal sealed partial class CameraImagingService
     {
         var request = Property(run, "Request");
         var version = Property(Property(run, "Inputs"), "EngineVersion").GetString();
+        if (version == CameraExperiment.NonSequentialEngineVersion) _ = Property(request, "NscDetector");
         RequireProperties(request, JsonSerializer.SerializeToElement(new CameraImagingRequest(), ExperimentJsonOptions).EnumerateObject()
             .Select(p => p.Name).Where(name => !(name == "PixelSampling" && version == CameraExperiment.LegacyEngineVersion)
-                && !(name is "Scene3D" or "Render3D" && version is not (CameraExperiment.CurrentEngineVersion or CameraExperiment.DirectSceneEngineVersion))));
+                && !(name is "Scene3D" or "Render3D" && version is not (CameraExperiment.CurrentEngineVersion or CameraExperiment.DirectSceneEngineVersion))
+                && !(name == "NscDetector" && version != CameraExperiment.NonSequentialEngineVersion)));
         RequireProperties(Property(request, "Sensor"), JsonSerializer.SerializeToElement(new CameraSensorParameters(), ExperimentJsonOptions).EnumerateObject().Select(p => p.Name));
         RequireProperties(Property(request, "Isp"), JsonSerializer.SerializeToElement(new CameraIspParameters(), ExperimentJsonOptions).EnumerateObject().Select(p => p.Name));
         _ = Property(run, "Inputs");
@@ -122,7 +124,14 @@ internal sealed partial class CameraImagingService
             throw new InvalidDataException("实验积分设置无效。");
         _ = FreezeResponse(r.SpectralResponse); _ = FreezeSpectrum(r.Illuminant); _ = FreezeSpectrum(r.Reflectance);
         _ = FreezeMaterialScene(r.MaterialScene);
-        if (r.Source == CameraSource.Scene3D)
+        if (r.Source == CameraSource.NonSequentialDetector)
+        {
+            _ = ValidateNscRequest(r, run.Inputs?.EngineVersion ?? "");
+            if (run.Scene3D is not null || run.Integration is not null) throw new InvalidDataException("非序列实验不能包含第二份光学结果。");
+        }
+        else if (r.NscDetector is not null || r.Optics == CameraOptics.DetectorInput || r.SpectralModel == CameraSpectralModel.DetectorBands)
+            throw new InvalidDataException("非序列探测器输入与源模式不一致。");
+        else if (r.Source == CameraSource.Scene3D)
         {
             ValidateSceneMode(r, run.Inputs?.EngineVersion ?? ""); _ = FreezeScene3D(r.Scene3D);
             ValidateSceneDiagnostics(run);
@@ -131,7 +140,7 @@ internal sealed partial class CameraImagingService
             throw new InvalidDataException("二维实验不允许包含三维模式或三维结果。");
         if (r.SpectralModel == CameraSpectralModel.Continuous)
         { if (r.SceneMode == CameraSceneMode.MaterialMap) _ = MaterialPlan(r); else _ = ContinuousPlan(r); }
-        else ToCore(r.SpectralResponse)?.ValidateCameraCoverage();
+        else if (r.Source != CameraSource.NonSequentialDetector) ToCore(r.SpectralResponse)?.ValidateCameraCoverage();
         if (r.SensorIdentity?.Calibration is { } calibration) _ = FreezeCalibration(calibration);
         var inputs = FreezeInputs(run.Inputs ?? throw new InvalidDataException("实验缺少冻结输入。"));
         if (r.Optics == CameraOptics.CurrentLens && inputs.LensSnapshotJson is null

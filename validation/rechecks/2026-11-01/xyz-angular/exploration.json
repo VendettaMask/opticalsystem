@@ -1,0 +1,3784 @@
+[
+  {
+    "Material": "garnet_red",
+    "Models": [
+      {
+        "Method": "DelaunayLinearWithNearestOutside",
+        "Nrmse": 0.007211258251735425,
+        "Max": 0.015070383577020507,
+        "Negative": 0,
+        "Outside": 1
+      },
+      {
+        "Method": "K1Power1",
+        "Nrmse": 0.008988995201137523,
+        "Max": 0.016378698309967188,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power2",
+        "Nrmse": 0.008988995201137523,
+        "Max": 0.016378698309967188,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power4",
+        "Nrmse": 0.008988995201137523,
+        "Max": 0.016378698309967188,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power8",
+        "Nrmse": 0.008988995201137523,
+        "Max": 0.016378698309967188,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power1",
+        "Nrmse": 0.00617125367328506,
+        "Max": 0.009731285732279549,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power2",
+        "Nrmse": 0.00590109196132356,
+        "Max": 0.009801279201706592,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power4",
+        "Nrmse": 0.006577734083183447,
+        "Max": 0.009947575756291904,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power8",
+        "Nrmse": 0.008076989053990387,
+        "Max": 0.014526110655487035,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power1",
+        "Nrmse": 0.005388692656745672,
+        "Max": 0.01122166155834714,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power2",
+        "Nrmse": 0.005318595617479062,
+        "Max": 0.0073065185275713596,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power4",
+        "Nrmse": 0.005895503497735264,
+        "Max": 0.009679597243043458,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power8",
+        "Nrmse": 0.007923269836605974,
+        "Max": 0.013846221840334572,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power1",
+        "Nrmse": 0.005229196744837016,
+        "Max": 0.008272350051295785,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power2",
+        "Nrmse": 0.005331587501462954,
+        "Max": 0.006988888587822428,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power4",
+        "Nrmse": 0.005856744376729561,
+        "Max": 0.009663216564570698,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power8",
+        "Nrmse": 0.007879912791576533,
+        "Max": 0.013670517741597887,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power1",
+        "Nrmse": 0.00891425861127821,
+        "Max": 0.01895598994905301,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power2",
+        "Nrmse": 0.006730782071990681,
+        "Max": 0.011443291128126809,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power4",
+        "Nrmse": 0.005904384503339746,
+        "Max": 0.009660561323876271,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power8",
+        "Nrmse": 0.007879807603216642,
+        "Max": 0.013662614837180342,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power1",
+        "Nrmse": 0.014920839028551328,
+        "Max": 0.03329824024762673,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power2",
+        "Nrmse": 0.007824844826063403,
+        "Max": 0.014406405482677576,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power4",
+        "Nrmse": 0.006030581619753704,
+        "Max": 0.009658666195338617,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power8",
+        "Nrmse": 0.007882250475925775,
+        "Max": 0.013662576436030749,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf12thin_plate_spline",
+        "Nrmse": 0.005717738484507355,
+        "Max": 0.011975315119052587,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf12cubic",
+        "Nrmse": 0.007023291349965002,
+        "Max": 0.014577401652087207,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24thin_plate_spline",
+        "Nrmse": 0.006333584940865662,
+        "Max": 0.012550385919221196,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24cubic",
+        "Nrmse": 0.00796453562301591,
+        "Max": 0.01635621085829775,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf48thin_plate_spline",
+        "Nrmse": 0.006255982165804656,
+        "Max": 0.01231213015698207,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf48cubic",
+        "Nrmse": 0.008007988710983498,
+        "Max": 0.016429332301316157,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf24",
+        "Nrmse": 0.05290478771016931,
+        "Max": 0.1277762212541009,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf24",
+        "Nrmse": 0.023229843359662102,
+        "Max": 0.0382329933788621,
+        "Negative": 5
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf48",
+        "Nrmse": 0.021612771096545236,
+        "Max": 0.03888796281766149,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf48",
+        "Nrmse": 0.01999099977407315,
+        "Max": 0.04218625686310874,
+        "Negative": 1
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf96",
+        "Nrmse": 0.011181150531647227,
+        "Max": 0.026121005796602648,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf96",
+        "Nrmse": 0.008501647648596044,
+        "Max": 0.016906998925035412,
+        "Negative": 2
+      },
+      {
+        "Method": "DirectionLogRatioRbf24",
+        "Nrmse": 0.3967138488345459,
+        "Max": 0.7601858171100119,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf24",
+        "Nrmse": 0.025367407396050656,
+        "Max": 0.05013015187773895,
+        "Negative": 2
+      },
+      {
+        "Method": "DirectionLogRatioRbf48",
+        "Nrmse": 0.4340981931454819,
+        "Max": 0.874118224651068,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf48",
+        "Nrmse": 0.026061232670305468,
+        "Max": 0.04886523754647498,
+        "Negative": 2
+      },
+      {
+        "Method": "DirectionLogRatioRbf96",
+        "Nrmse": 0.4187513402394017,
+        "Max": 0.8778226983935541,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf96",
+        "Nrmse": 0.02525955822820253,
+        "Max": 0.049075177090653566,
+        "Negative": 2
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf24",
+        "Nrmse": 0.010202433950927396,
+        "Max": 0.012368290565703544,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf24",
+        "Nrmse": 0.010873637445841163,
+        "Max": 0.016403712364190852,
+        "Negative": 3
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf48",
+        "Nrmse": 10.265282749537867,
+        "Max": 25.316931600326928,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf48",
+        "Nrmse": 0.018016825053760052,
+        "Max": 0.026024408950250877,
+        "Negative": 1
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf96",
+        "Nrmse": 0.1626311576324603,
+        "Max": 0.43963434135757445,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf96",
+        "Nrmse": 0.008687429041496685,
+        "Max": 0.01392267823119165,
+        "Negative": 3
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf12",
+        "Nrmse": 135692880296270.34,
+        "Max": 367262981445942.2,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf24",
+        "Nrmse": 26273566.71432337,
+        "Max": 71110915.57166736,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf48",
+        "Nrmse": 1231508.7936360226,
+        "Max": 3324241.4081818066,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf96",
+        "Nrmse": 516046.0430162663,
+        "Max": 1377258.6750792027,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.003905805820049658,
+        "Max": 0.008717430923694147,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline24",
+        "Nrmse": 0.003773914535708055,
+        "Max": 0.00887128456162567,
+        "Negative": 2
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic24",
+        "Nrmse": 0.004602548713529293,
+        "Max": 0.010403444329095013,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic24",
+        "Nrmse": 0.004154571061185542,
+        "Max": 0.009321694231531286,
+        "Negative": 2
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.0075263752147576015,
+        "Max": 0.018360785854021344,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline48",
+        "Nrmse": 0.0026129373808982136,
+        "Max": 0.005804460787010024,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic48",
+        "Nrmse": 0.004754640190331925,
+        "Max": 0.00783758975877169,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic48",
+        "Nrmse": 0.0037332254559168058,
+        "Max": 0.008308707179622177,
+        "Negative": 2
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.011654630115334429,
+        "Max": 0.026901031915849583,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline96",
+        "Nrmse": 0.0024353067549886644,
+        "Max": 0.005175514364302858,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic96",
+        "Nrmse": 0.004680835655434122,
+        "Max": 0.007810998588748674,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic96",
+        "Nrmse": 0.0036850973470820155,
+        "Max": 0.008294430823098553,
+        "Negative": 2
+      },
+      {
+        "Method": "LogXYZLogRbf12",
+        "Nrmse": 879.3041074086866,
+        "Max": 2379.9026697298523,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf24",
+        "Nrmse": 293.89085341145454,
+        "Max": 795.4376883731137,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf48",
+        "Nrmse": 0.07207380076142898,
+        "Max": 0.19487069340538185,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf96",
+        "Nrmse": 0.018560053091062564,
+        "Max": 0.04964544300915644,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.003830313160033968,
+        "Max": 0.0072394125000974025,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline24",
+        "Nrmse": 0.0021842491581463763,
+        "Max": 0.002521760004512097,
+        "Negative": 1
+      },
+      {
+        "Method": "LogXYZSquareRootcubic24",
+        "Nrmse": 0.00594886157208002,
+        "Max": 0.013540672648778212,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic24",
+        "Nrmse": 0.002939513507364687,
+        "Max": 0.005301933476096643,
+        "Negative": 1
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.0032682284251045754,
+        "Max": 0.005378570181845759,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline48",
+        "Nrmse": 0.0030115384562820597,
+        "Max": 0.004040196541443608,
+        "Negative": 2
+      },
+      {
+        "Method": "LogXYZSquareRootcubic48",
+        "Nrmse": 0.006059175956997486,
+        "Max": 0.014095577456130142,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic48",
+        "Nrmse": 0.0029572457331437157,
+        "Max": 0.005312003766902551,
+        "Negative": 1
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.003118149522904013,
+        "Max": 0.00538392607828115,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline96",
+        "Nrmse": 0.0027410064707200743,
+        "Max": 0.00357303793785424,
+        "Negative": 2
+      },
+      {
+        "Method": "LogXYZSquareRootcubic96",
+        "Nrmse": 0.0071318875738830235,
+        "Max": 0.017401601143703746,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic96",
+        "Nrmse": 0.003059464815261757,
+        "Max": 0.005310713404269807,
+        "Negative": 1
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf12",
+        "Nrmse": 0.002501019728721308,
+        "Max": 0.004175065856606652,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf24",
+        "Nrmse": 0.002364648486469588,
+        "Max": 0.0048744656038646195,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf48",
+        "Nrmse": 0.0020339078951551073,
+        "Max": 0.0037849297364120904,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf96",
+        "Nrmse": 0.0018918363993136354,
+        "Max": 0.003238287186985822,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline24",
+        "Nrmse": 0.007636048785169581,
+        "Max": 0.013794578544521596,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline24",
+        "Nrmse": 0.014235253516246554,
+        "Max": 0.027926353411420246,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic24",
+        "Nrmse": 0.006168979514256291,
+        "Max": 0.012020732140016532,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic24",
+        "Nrmse": 0.011360842642624921,
+        "Max": 0.019031505686110783,
+        "Negative": 1
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline48",
+        "Nrmse": 0.007585062767159791,
+        "Max": 0.014664708595886644,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline48",
+        "Nrmse": 0.015141784154633471,
+        "Max": 0.025473674972965155,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic48",
+        "Nrmse": 0.00570870730623702,
+        "Max": 0.011346918739403966,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic48",
+        "Nrmse": 0.011068145033620053,
+        "Max": 0.01842700933243835,
+        "Negative": 1
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline96",
+        "Nrmse": 0.008478712857309088,
+        "Max": 0.014158904652541882,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline96",
+        "Nrmse": 0.023511858795620597,
+        "Max": 0.053342857830260604,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic96",
+        "Nrmse": 0.005580772790717483,
+        "Max": 0.011053668530548011,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic96",
+        "Nrmse": 0.011087884946765353,
+        "Max": 0.018211093492723096,
+        "Negative": 1
+      }
+    ],
+    "AngularAxes": [
+      [
+        0.174533,
+        0.349066,
+        0.523599,
+        0.698132,
+        0.872665,
+        1.047198,
+        1.22173,
+        1.396263
+      ],
+      [
+        0.0
+      ],
+      [
+        0.0,
+        0.141539,
+        0.283794,
+        0.427512,
+        0.573513,
+        0.722734,
+        0.876298,
+        1.035612,
+        1.202528,
+        1.379634
+      ],
+      [
+        -3.054326,
+        -3.043418,
+        -3.029393,
+        -3.010693,
+        -2.984513,
+        -2.96706,
+        -2.945243,
+        -2.917193,
+        -2.879793,
+        -2.847068,
+        -2.827433,
+        -2.804993,
+        -2.792527,
+        -2.748894,
+        -2.70526,
+        -2.692794,
+        -2.670354,
+        -2.650719,
+        -2.617994,
+        -2.580594,
+        -2.552544,
+        -2.530727,
+        -2.513274,
+        -2.487094,
+        -2.468394,
+        -2.454369,
+        -2.443461,
+        -2.356194,
+        -2.268928,
+        -2.25802,
+        -2.243995,
+        -2.225295,
+        -2.199115,
+        -2.181662,
+        -2.159845,
+        -2.131795,
+        -2.094395,
+        -2.06167,
+        -2.042035,
+        -2.019595,
+        -2.007129,
+        -1.963495,
+        -1.919862,
+        -1.907396,
+        -1.884956,
+        -1.865321,
+        -1.832596,
+        -1.795196,
+        -1.767146,
+        -1.745329,
+        -1.727876,
+        -1.701696,
+        -1.682996,
+        -1.668971,
+        -1.658063,
+        -1.570796,
+        -1.48353,
+        -1.472622,
+        -1.458597,
+        -1.439897,
+        -1.413717,
+        -1.396263,
+        -1.374447,
+        -1.346397,
+        -1.308997,
+        -1.276272,
+        -1.256637,
+        -1.234197,
+        -1.22173,
+        -1.178097,
+        -1.134464,
+        -1.121997,
+        -1.099557,
+        -1.079922,
+        -1.047198,
+        -1.009798,
+        -0.981748,
+        -0.959931,
+        -0.942478,
+        -0.916298,
+        -0.897598,
+        -0.883573,
+        -0.872665,
+        -0.785398,
+        -0.698132,
+        -0.687223,
+        -0.673198,
+        -0.654498,
+        -0.628319,
+        -0.610865,
+        -0.589049,
+        -0.560999,
+        -0.523599,
+        -0.490874,
+        -0.471239,
+        -0.448799,
+        -0.436332,
+        -0.392699,
+        -0.349066,
+        -0.336599,
+        -0.314159,
+        -0.294524,
+        -0.261799,
+        -0.224399,
+        -0.19635,
+        -0.174533,
+        -0.15708,
+        -0.1309,
+        -0.1122,
+        -0.098175,
+        -0.087266,
+        0.0,
+        3.141593
+      ]
+    ],
+    "SpectralZeros": 4,
+    "Best": [
+      {
+        "Method": "ColourLogStrengthLogRbf96",
+        "Nrmse": 0.0018918363993136354,
+        "Max": 0.003238287186985822,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf48",
+        "Nrmse": 0.0020339078951551073,
+        "Max": 0.0037849297364120904,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline24",
+        "Nrmse": 0.0021842491581463763,
+        "Max": 0.002521760004512097,
+        "Negative": 1
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf24",
+        "Nrmse": 0.002364648486469588,
+        "Max": 0.0048744656038646195,
+        "Negative": 0
+      }
+    ]
+  },
+  {
+    "Material": "krylon_blue",
+    "Models": [
+      {
+        "Method": "DelaunayLinearWithNearestOutside",
+        "Nrmse": 0.003244066674032143,
+        "Max": 0.004757217771826805,
+        "Negative": 0,
+        "Outside": 8
+      },
+      {
+        "Method": "K1Power1",
+        "Nrmse": 0.007194984188319629,
+        "Max": 0.011242278752853607,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power2",
+        "Nrmse": 0.007194984188319629,
+        "Max": 0.011242278752853607,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power4",
+        "Nrmse": 0.007194984188319629,
+        "Max": 0.011242278752853607,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power8",
+        "Nrmse": 0.007194984188319629,
+        "Max": 0.011242278752853607,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power1",
+        "Nrmse": 0.007743061257742901,
+        "Max": 0.009359800221985015,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power2",
+        "Nrmse": 0.00698166869437188,
+        "Max": 0.00722165820359244,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power4",
+        "Nrmse": 0.0063635760518947005,
+        "Max": 0.0071060966150419125,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power8",
+        "Nrmse": 0.006144234439064505,
+        "Max": 0.006959074409849775,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power1",
+        "Nrmse": 0.006534410191102216,
+        "Max": 0.007557158423202703,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power2",
+        "Nrmse": 0.006423369870710031,
+        "Max": 0.008012254773295813,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power4",
+        "Nrmse": 0.006363508624405827,
+        "Max": 0.008291470340039186,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power8",
+        "Nrmse": 0.0062778793341236655,
+        "Max": 0.007952445090841143,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power1",
+        "Nrmse": 0.005384936900879686,
+        "Max": 0.005810928952490579,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power2",
+        "Nrmse": 0.005972745061008441,
+        "Max": 0.006897408693452012,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power4",
+        "Nrmse": 0.006256820532540341,
+        "Max": 0.007961323795830255,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power8",
+        "Nrmse": 0.006270742847547804,
+        "Max": 0.007928460165917084,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power1",
+        "Nrmse": 0.007968135907956687,
+        "Max": 0.009080631272545325,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power2",
+        "Nrmse": 0.006260635483375819,
+        "Max": 0.007088873228007331,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power4",
+        "Nrmse": 0.0062607886991564434,
+        "Max": 0.007954335179653715,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power8",
+        "Nrmse": 0.0062706045601271165,
+        "Max": 0.007928345743969611,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power1",
+        "Nrmse": 0.017692401508810192,
+        "Max": 0.022523078665724894,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power2",
+        "Nrmse": 0.0070416324919525064,
+        "Max": 0.008494183504380026,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power4",
+        "Nrmse": 0.006269784630769739,
+        "Max": 0.007973713141637195,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power8",
+        "Nrmse": 0.006270611208082605,
+        "Max": 0.007928350583518706,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf12thin_plate_spline",
+        "Nrmse": 408.58908654214247,
+        "Max": 923.9052919965693,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf12cubic",
+        "Nrmse": 433666280.07589036,
+        "Max": 980607814.5159669,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24thin_plate_spline",
+        "Nrmse": 476.8197044012243,
+        "Max": 1078.1889745661122,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24cubic",
+        "Nrmse": 1729133011.4525895,
+        "Max": 3909931010.0502977,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf48thin_plate_spline",
+        "Nrmse": 889.3715727766324,
+        "Max": 2011.054944304413,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf48cubic",
+        "Nrmse": 2754977699.834734,
+        "Max": 6229580182.54082,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf24",
+        "Nrmse": 0.02887331673567081,
+        "Max": 0.03877842312702284,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf24",
+        "Nrmse": 0.025119128173907584,
+        "Max": 0.034702849760706866,
+        "Negative": 16
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf48",
+        "Nrmse": 2971228.109769258,
+        "Max": 6718567.541120905,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf48",
+        "Nrmse": 1.007775194346754,
+        "Max": 2.2786894795604087,
+        "Negative": 18
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf96",
+        "Nrmse": 0.022653066959268733,
+        "Max": 0.03274215663021831,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf96",
+        "Nrmse": 0.00792498875099594,
+        "Max": 0.00862589399283109,
+        "Negative": 19
+      },
+      {
+        "Method": "DirectionLogRatioRbf24",
+        "Nrmse": 0.08494575188494155,
+        "Max": 0.13237420603073535,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf24",
+        "Nrmse": 0.01890935094660766,
+        "Max": 0.027928240573971197,
+        "Negative": 13
+      },
+      {
+        "Method": "DirectionLogRatioRbf48",
+        "Nrmse": 0.13954215236879255,
+        "Max": 0.18677916514744075,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf48",
+        "Nrmse": 0.020400385217021692,
+        "Max": 0.027759358194082928,
+        "Negative": 10
+      },
+      {
+        "Method": "DirectionLogRatioRbf96",
+        "Nrmse": 0.15242483180478125,
+        "Max": 0.2130906759391209,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf96",
+        "Nrmse": 0.020093805760600537,
+        "Max": 0.02776526745599095,
+        "Negative": 16
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf24",
+        "Nrmse": 0.014794551165248498,
+        "Max": 0.021131144406166598,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf24",
+        "Nrmse": 0.010061181601059488,
+        "Max": 0.013435783613408803,
+        "Negative": 18
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf48",
+        "Nrmse": 12682916.58213344,
+        "Max": 28678724.26060848,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf48",
+        "Nrmse": 0.026571904626134093,
+        "Max": 0.04679901789642628,
+        "Negative": 21
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf96",
+        "Nrmse": 0.6157304810447475,
+        "Max": 1.3771883042350186,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf96",
+        "Nrmse": 0.05027989050307013,
+        "Max": 0.10756560675408411,
+        "Negative": 19
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf12",
+        "Nrmse": 5.202959538971415e+17,
+        "Max": 1.176497858288417e+18,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf24",
+        "Nrmse": 1.3810055006498922,
+        "Max": 3.1226250494548613,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf48",
+        "Nrmse": 0.014671552801119063,
+        "Max": 0.026546770062676472,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf96",
+        "Nrmse": 0.025508251200292896,
+        "Max": 0.04135338788901399,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.00418175130797812,
+        "Max": 0.004814330848453396,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline24",
+        "Nrmse": 0.0022068301859869523,
+        "Max": 0.0017671581705871464,
+        "Negative": 11
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic24",
+        "Nrmse": 0.004166956884077326,
+        "Max": 0.0050566350198251175,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic24",
+        "Nrmse": 0.0023827005929818444,
+        "Max": 0.0018511985767662997,
+        "Negative": 10
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.004950958584126868,
+        "Max": 0.008003311315064043,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline48",
+        "Nrmse": 0.003137758524603968,
+        "Max": 0.0037687766256693234,
+        "Negative": 10
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic48",
+        "Nrmse": 0.003705447419165753,
+        "Max": 0.004280864367347315,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic48",
+        "Nrmse": 0.0023169467901353394,
+        "Max": 0.0019148745755526164,
+        "Negative": 10
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.007079037436796497,
+        "Max": 0.01260557694720743,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline96",
+        "Nrmse": 0.003888577916495983,
+        "Max": 0.005017438759053916,
+        "Negative": 10
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic96",
+        "Nrmse": 0.00365341285764956,
+        "Max": 0.004258767129618146,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic96",
+        "Nrmse": 0.0022984438779565545,
+        "Max": 0.0019140910476860284,
+        "Negative": 10
+      },
+      {
+        "Method": "LogXYZLogRbf12",
+        "Nrmse": Infinity,
+        "Max": Infinity,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf24",
+        "Nrmse": Infinity,
+        "Max": Infinity,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf48",
+        "Nrmse": Infinity,
+        "Max": Infinity,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf96",
+        "Nrmse": 0.006403508138848825,
+        "Max": 0.007314410071242438,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.5671574800410438,
+        "Max": 1.282449406209209,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline24",
+        "Nrmse": 0.007373705115522853,
+        "Max": 0.014970469531008291,
+        "Negative": 7
+      },
+      {
+        "Method": "LogXYZSquareRootcubic24",
+        "Nrmse": 0.006274737093448885,
+        "Max": 0.012878981314285711,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic24",
+        "Nrmse": 0.0042469483163361105,
+        "Max": 0.005840120945474118,
+        "Negative": 6
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.25523023015434665,
+        "Max": 0.577074084348708,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline48",
+        "Nrmse": 0.005331782937150165,
+        "Max": 0.007735154527668245,
+        "Negative": 7
+      },
+      {
+        "Method": "LogXYZSquareRootcubic48",
+        "Nrmse": 0.036590822880937006,
+        "Max": 0.08252024678608687,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic48",
+        "Nrmse": 0.004103346634471296,
+        "Max": 0.0053353926127310495,
+        "Negative": 6
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.06467893963215272,
+        "Max": 0.145876012761945,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline96",
+        "Nrmse": 0.010493591651024982,
+        "Max": 0.01624026479191519,
+        "Negative": 9
+      },
+      {
+        "Method": "LogXYZSquareRootcubic96",
+        "Nrmse": 0.011737607243743255,
+        "Max": 0.025853841599456823,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic96",
+        "Nrmse": 0.004918545266816697,
+        "Max": 0.008021986760011786,
+        "Negative": 6
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf12",
+        "Nrmse": 1.8467372736657435,
+        "Max": 4.1597592127214895,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf24",
+        "Nrmse": 0.039855132986901035,
+        "Max": 0.07988672035602495,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf48",
+        "Nrmse": 0.012740225995813736,
+        "Max": 0.02701985481048211,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf96",
+        "Nrmse": 0.006092957049519178,
+        "Max": 0.010227122473874443,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline24",
+        "Nrmse": 0.0047635006671413495,
+        "Max": 0.009842896077594348,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline24",
+        "Nrmse": 0.03282884640921356,
+        "Max": 0.0739687687614912,
+        "Negative": 3
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic24",
+        "Nrmse": 0.002742897944511232,
+        "Max": 0.003621496604287011,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic24",
+        "Nrmse": 0.012157916513858774,
+        "Max": 0.02671705023108433,
+        "Negative": 5
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline48",
+        "Nrmse": 0.0035611678313721314,
+        "Max": 0.0061713739996660175,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline48",
+        "Nrmse": 0.029240197813935873,
+        "Max": 0.06568388840690884,
+        "Negative": 4
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic48",
+        "Nrmse": 0.002676539945665625,
+        "Max": 0.003675068104274315,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic48",
+        "Nrmse": 0.009667118206039407,
+        "Max": 0.02092275984704469,
+        "Negative": 5
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline96",
+        "Nrmse": 0.0060510008992326345,
+        "Max": 0.012090342620253984,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline96",
+        "Nrmse": 0.037546193649919575,
+        "Max": 0.0844207703672086,
+        "Negative": 7
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic96",
+        "Nrmse": 0.0027174389833471337,
+        "Max": 0.003747027224158983,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic96",
+        "Nrmse": 0.024208014315667763,
+        "Max": 0.054378748532385605,
+        "Negative": 7
+      }
+    ],
+    "AngularAxes": [
+      [
+        0.174533,
+        0.349066,
+        0.523599,
+        0.698132,
+        0.872665,
+        1.047198,
+        1.22173,
+        1.396263
+      ],
+      [
+        0.0
+      ],
+      [
+        0.0,
+        0.141539,
+        0.283794,
+        0.427512,
+        0.573513,
+        0.722734,
+        0.876298,
+        1.035612,
+        1.202528,
+        1.379634
+      ],
+      [
+        -3.054326,
+        -3.043418,
+        -3.029393,
+        -3.010693,
+        -2.984513,
+        -2.96706,
+        -2.945243,
+        -2.917193,
+        -2.879793,
+        -2.847068,
+        -2.827433,
+        -2.804993,
+        -2.792527,
+        -2.748894,
+        -2.70526,
+        -2.692794,
+        -2.670354,
+        -2.650719,
+        -2.617994,
+        -2.580594,
+        -2.552544,
+        -2.530727,
+        -2.513274,
+        -2.487094,
+        -2.468394,
+        -2.454369,
+        -2.443461,
+        -2.356194,
+        -2.268928,
+        -2.25802,
+        -2.243995,
+        -2.225295,
+        -2.199115,
+        -2.181662,
+        -2.159845,
+        -2.131795,
+        -2.094395,
+        -2.06167,
+        -2.042035,
+        -2.019595,
+        -2.007129,
+        -1.963495,
+        -1.919862,
+        -1.907396,
+        -1.884956,
+        -1.865321,
+        -1.832596,
+        -1.795196,
+        -1.767146,
+        -1.745329,
+        -1.727876,
+        -1.701696,
+        -1.682996,
+        -1.668971,
+        -1.658063,
+        -1.570796,
+        -1.48353,
+        -1.472622,
+        -1.458597,
+        -1.439897,
+        -1.413717,
+        -1.396263,
+        -1.374447,
+        -1.346397,
+        -1.308997,
+        -1.276272,
+        -1.256637,
+        -1.234197,
+        -1.22173,
+        -1.178097,
+        -1.134464,
+        -1.121997,
+        -1.099557,
+        -1.079922,
+        -1.047198,
+        -1.009798,
+        -0.981748,
+        -0.959931,
+        -0.942478,
+        -0.916298,
+        -0.897598,
+        -0.883573,
+        -0.872665,
+        -0.785398,
+        -0.698132,
+        -0.687223,
+        -0.673198,
+        -0.654498,
+        -0.628319,
+        -0.610865,
+        -0.589049,
+        -0.560999,
+        -0.523599,
+        -0.490874,
+        -0.471239,
+        -0.448799,
+        -0.436332,
+        -0.392699,
+        -0.349066,
+        -0.336599,
+        -0.314159,
+        -0.294524,
+        -0.261799,
+        -0.224399,
+        -0.19635,
+        -0.174533,
+        -0.15708,
+        -0.1309,
+        -0.1122,
+        -0.098175,
+        -0.087266,
+        0.0,
+        3.141593
+      ]
+    ],
+    "SpectralZeros": 34,
+    "Best": [
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline24",
+        "Nrmse": 0.0022068301859869523,
+        "Max": 0.0017671581705871464,
+        "Negative": 11
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic96",
+        "Nrmse": 0.0022984438779565545,
+        "Max": 0.0019140910476860284,
+        "Negative": 10
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic48",
+        "Nrmse": 0.0023169467901353394,
+        "Max": 0.0019148745755526164,
+        "Negative": 10
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic24",
+        "Nrmse": 0.0023827005929818444,
+        "Max": 0.0018511985767662997,
+        "Negative": 10
+      }
+    ]
+  },
+  {
+    "Material": "acryl_blue",
+    "Models": [
+      {
+        "Method": "DelaunayLinearWithNearestOutside",
+        "Nrmse": 0.025433700411265803,
+        "Max": 0.000550419196682677,
+        "Negative": 0,
+        "Outside": 10
+      },
+      {
+        "Method": "K1Power1",
+        "Nrmse": 0.055443894333660884,
+        "Max": 0.0015331170826809667,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power2",
+        "Nrmse": 0.055443894333660884,
+        "Max": 0.0015331170826809667,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power4",
+        "Nrmse": 0.055443894333660884,
+        "Max": 0.0015331170826809667,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power8",
+        "Nrmse": 0.055443894333660884,
+        "Max": 0.0015331170826809667,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power1",
+        "Nrmse": 0.05125228236809142,
+        "Max": 0.0020496308413391826,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power2",
+        "Nrmse": 0.05120395666204485,
+        "Max": 0.001865419757194002,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power4",
+        "Nrmse": 0.05369074123780113,
+        "Max": 0.0015925740520661077,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power8",
+        "Nrmse": 0.05533437310104991,
+        "Max": 0.0015343350014493454,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power1",
+        "Nrmse": 0.05377626686038469,
+        "Max": 0.0022027657629426836,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power2",
+        "Nrmse": 0.051401205597735915,
+        "Max": 0.0018951397436052023,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power4",
+        "Nrmse": 0.05310374186733011,
+        "Max": 0.001593016910910558,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power8",
+        "Nrmse": 0.05491492756666004,
+        "Max": 0.0015343349316822158,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power1",
+        "Nrmse": 0.053968706956708926,
+        "Max": 0.002161159744891318,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power2",
+        "Nrmse": 0.05090412150871673,
+        "Max": 0.001895394359365886,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power4",
+        "Nrmse": 0.052938326916714774,
+        "Max": 0.0015933531504351492,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power8",
+        "Nrmse": 0.05490963012710819,
+        "Max": 0.0015343350708534043,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power1",
+        "Nrmse": 0.11817314203112757,
+        "Max": 0.004898752532763881,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power2",
+        "Nrmse": 0.05385402000964042,
+        "Max": 0.0021092792290665213,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power4",
+        "Nrmse": 0.05289428747030816,
+        "Max": 0.0015936924269341762,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power8",
+        "Nrmse": 0.05491071189692489,
+        "Max": 0.0015343350713944853,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power1",
+        "Nrmse": 0.2463045059956513,
+        "Max": 0.009495548509344826,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power2",
+        "Nrmse": 0.059724659707706684,
+        "Max": 0.0024478604568532528,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power4",
+        "Nrmse": 0.052803362661799136,
+        "Max": 0.0015939665463171743,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power8",
+        "Nrmse": 0.054909656215284076,
+        "Max": 0.0015343350715161033,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf12thin_plate_spline",
+        "Nrmse": 0.0301791350720196,
+        "Max": 0.0008969243236979646,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf12cubic",
+        "Nrmse": 0.19156408138248757,
+        "Max": 0.007711270917955808,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24thin_plate_spline",
+        "Nrmse": 0.03195473232207234,
+        "Max": 0.0009062669033746557,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24cubic",
+        "Nrmse": 154.15634792242375,
+        "Max": 7.119697439894753,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf48thin_plate_spline",
+        "Nrmse": 0.03505738739725735,
+        "Max": 0.0011134733936448704,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf48cubic",
+        "Nrmse": 0.042067927724552936,
+        "Max": 0.0013391306671438655,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf24",
+        "Nrmse": 4.74935566478052e+46,
+        "Max": 2.193485920244291e+45,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf24",
+        "Nrmse": 0.14023218696979234,
+        "Max": 0.005194887979282608,
+        "Negative": 72
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf48",
+        "Nrmse": 15699415228.336765,
+        "Max": 725076172.2225018,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf48",
+        "Nrmse": 0.10156928178428684,
+        "Max": 0.0033415745360025327,
+        "Negative": 91
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf96",
+        "Nrmse": 1465080200.8890963,
+        "Max": 67664596.03004117,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf96",
+        "Nrmse": 0.08361112575927587,
+        "Max": 0.0032041743434394056,
+        "Negative": 121
+      },
+      {
+        "Method": "DirectionLogRatioRbf24",
+        "Nrmse": 12.530323725555911,
+        "Max": 0.4754297710268033,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf24",
+        "Nrmse": 0.8282515384285685,
+        "Max": 0.0361992086955186,
+        "Negative": 85
+      },
+      {
+        "Method": "DirectionLogRatioRbf48",
+        "Nrmse": 16.0461206205267,
+        "Max": 0.5102150809318282,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf48",
+        "Nrmse": 0.8209911374290059,
+        "Max": 0.03577907851885069,
+        "Negative": 114
+      },
+      {
+        "Method": "DirectionLogRatioRbf96",
+        "Nrmse": 14.782535518927855,
+        "Max": 0.5126256242173668,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf96",
+        "Nrmse": 0.8584822608933435,
+        "Max": 0.03764090897041918,
+        "Negative": 128
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf24",
+        "Nrmse": Infinity,
+        "Max": Infinity,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf24",
+        "Nrmse": 0.40022093215734744,
+        "Max": 0.014647916373437528,
+        "Negative": 73
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf48",
+        "Nrmse": Infinity,
+        "Max": 4.378194150741222e+190,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf48",
+        "Nrmse": 0.4607009482474895,
+        "Max": 0.02045293768256548,
+        "Negative": 90
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf96",
+        "Nrmse": 807499976.3234473,
+        "Max": 37294318.50719971,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf96",
+        "Nrmse": 0.054256939270019545,
+        "Max": 0.0020940574746053583,
+        "Negative": 123
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf12",
+        "Nrmse": 2.964605581923824e+17,
+        "Max": 1.3692005951986442e+16,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf24",
+        "Nrmse": 5064487385251.502,
+        "Max": 233883225977.17322,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf48",
+        "Nrmse": 26520073181.021927,
+        "Max": 1224827349.8515406,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf96",
+        "Nrmse": 1438444.736943807,
+        "Max": 66405.34361741703,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.05145504751417252,
+        "Max": 0.0019515343921751582,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline24",
+        "Nrmse": 0.03201756501091405,
+        "Max": 0.0011020928690241988,
+        "Negative": 57
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic24",
+        "Nrmse": 0.07048297531392886,
+        "Max": 0.002944109775083344,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic24",
+        "Nrmse": 0.029975730784750455,
+        "Max": 0.00098121523038611,
+        "Negative": 55
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.06901918385582881,
+        "Max": 0.0028491970107093548,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline48",
+        "Nrmse": 0.03602131309603278,
+        "Max": 0.0012869550947977038,
+        "Negative": 110
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic48",
+        "Nrmse": 0.12105085694565199,
+        "Max": 0.00523625436362835,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic48",
+        "Nrmse": 0.029004914197657453,
+        "Max": 0.0009282976484009282,
+        "Negative": 104
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.1184643204530847,
+        "Max": 0.004858102997735543,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline96",
+        "Nrmse": 0.03725598140184587,
+        "Max": 0.001358647136601946,
+        "Negative": 165
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic96",
+        "Nrmse": 0.12957588436659742,
+        "Max": 0.004393525955866209,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic96",
+        "Nrmse": 0.027135035013170297,
+        "Max": 0.0009274021543817304,
+        "Negative": 169
+      },
+      {
+        "Method": "LogXYZLogRbf12",
+        "Nrmse": 25995.079558923928,
+        "Max": 1013.6422973834597,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf24",
+        "Nrmse": 9068.518808107736,
+        "Max": 395.91192705335607,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf48",
+        "Nrmse": 13528.35466215672,
+        "Max": 495.1571043480825,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf96",
+        "Nrmse": 6012702.925147198,
+        "Max": 277693.87136279297,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.03624744700102658,
+        "Max": 0.0013142312852802325,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline24",
+        "Nrmse": 0.0456564409595326,
+        "Max": 0.0014280431190969202,
+        "Negative": 42
+      },
+      {
+        "Method": "LogXYZSquareRootcubic24",
+        "Nrmse": 0.036891804848527825,
+        "Max": 0.0011791219086587472,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic24",
+        "Nrmse": 0.038290486273957584,
+        "Max": 0.001333454411718716,
+        "Negative": 40
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.037263484319995925,
+        "Max": 0.0014835927079748477,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline48",
+        "Nrmse": 0.04670379273857954,
+        "Max": 0.0014451506328072745,
+        "Negative": 67
+      },
+      {
+        "Method": "LogXYZSquareRootcubic48",
+        "Nrmse": 0.036175739574580174,
+        "Max": 0.0011426383297104999,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic48",
+        "Nrmse": 0.037934896233933556,
+        "Max": 0.0013294211944775876,
+        "Negative": 60
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.04708326131192724,
+        "Max": 0.0018865802818525124,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline96",
+        "Nrmse": 0.04667225081072315,
+        "Max": 0.001458476922650987,
+        "Negative": 88
+      },
+      {
+        "Method": "LogXYZSquareRootcubic96",
+        "Nrmse": 0.039099829965892445,
+        "Max": 0.0010612998482683166,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic96",
+        "Nrmse": 0.03772401265339454,
+        "Max": 0.0013207409369763619,
+        "Negative": 85
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf12",
+        "Nrmse": 0.03368109182966097,
+        "Max": 0.0010780405496088087,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf24",
+        "Nrmse": 0.022601442387430695,
+        "Max": 0.0004963414511801167,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf48",
+        "Nrmse": 0.0220069216073169,
+        "Max": 0.0005165422124963695,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf96",
+        "Nrmse": 0.12144246059901749,
+        "Max": 0.004443033621920833,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline24",
+        "Nrmse": 0.06558084460274186,
+        "Max": 0.0020317460164480175,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline24",
+        "Nrmse": 2.489265292306686,
+        "Max": 0.08004505157775473,
+        "Negative": 21
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic24",
+        "Nrmse": 0.10433634565235295,
+        "Max": 0.003698037685882928,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic24",
+        "Nrmse": 5.075808828266825,
+        "Max": 0.14736341790528978,
+        "Negative": 22
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline48",
+        "Nrmse": 0.4250866882044346,
+        "Max": 0.019095241726572815,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline48",
+        "Nrmse": 15.480873958462805,
+        "Max": 0.7000569797156734,
+        "Negative": 35
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic48",
+        "Nrmse": 0.12358330519218984,
+        "Max": 0.003609914939023545,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic48",
+        "Nrmse": 6.734752055587501,
+        "Max": 0.23123942209206866,
+        "Negative": 39
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline96",
+        "Nrmse": 1.1281688006894481,
+        "Max": 0.05204244007520514,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline96",
+        "Nrmse": 40.33202260917905,
+        "Max": 1.8590706608912362,
+        "Negative": 56
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic96",
+        "Nrmse": 0.10155007509835288,
+        "Max": 0.003600369701665638,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic96",
+        "Nrmse": 9.959693355237091,
+        "Max": 0.4131371624578544,
+        "Negative": 48
+      }
+    ],
+    "AngularAxes": [
+      [
+        0.174533,
+        0.349066,
+        0.523599,
+        0.698132,
+        0.872665,
+        1.047198,
+        1.22173,
+        1.396263
+      ],
+      [
+        0.0
+      ],
+      [
+        0.0,
+        0.141539,
+        0.283794,
+        0.427512,
+        0.573513,
+        0.722734,
+        0.876298,
+        1.035612,
+        1.202528,
+        1.379634
+      ],
+      [
+        -3.054326,
+        -3.043418,
+        -3.029393,
+        -3.010693,
+        -2.984513,
+        -2.96706,
+        -2.945243,
+        -2.917193,
+        -2.879793,
+        -2.847068,
+        -2.827433,
+        -2.804993,
+        -2.792527,
+        -2.748894,
+        -2.70526,
+        -2.692794,
+        -2.670354,
+        -2.650719,
+        -2.617994,
+        -2.580594,
+        -2.552544,
+        -2.530727,
+        -2.513274,
+        -2.487094,
+        -2.468394,
+        -2.454369,
+        -2.443461,
+        -2.356194,
+        -2.268928,
+        -2.25802,
+        -2.243995,
+        -2.225295,
+        -2.199115,
+        -2.181662,
+        -2.159845,
+        -2.131795,
+        -2.094395,
+        -2.06167,
+        -2.042035,
+        -2.019595,
+        -2.007129,
+        -1.963495,
+        -1.919862,
+        -1.907396,
+        -1.884956,
+        -1.865321,
+        -1.832596,
+        -1.795196,
+        -1.767146,
+        -1.745329,
+        -1.727876,
+        -1.701696,
+        -1.682996,
+        -1.668971,
+        -1.658063,
+        -1.570796,
+        -1.48353,
+        -1.472622,
+        -1.458597,
+        -1.439897,
+        -1.413717,
+        -1.396263,
+        -1.374447,
+        -1.346397,
+        -1.308997,
+        -1.276272,
+        -1.256637,
+        -1.234197,
+        -1.22173,
+        -1.178097,
+        -1.134464,
+        -1.121997,
+        -1.099557,
+        -1.079922,
+        -1.047198,
+        -1.009798,
+        -0.981748,
+        -0.959931,
+        -0.942478,
+        -0.916298,
+        -0.897598,
+        -0.883573,
+        -0.872665,
+        -0.785398,
+        -0.698132,
+        -0.687223,
+        -0.673198,
+        -0.654498,
+        -0.628319,
+        -0.610865,
+        -0.589049,
+        -0.560999,
+        -0.523599,
+        -0.490874,
+        -0.471239,
+        -0.448799,
+        -0.436332,
+        -0.392699,
+        -0.349066,
+        -0.336599,
+        -0.314159,
+        -0.294524,
+        -0.261799,
+        -0.224399,
+        -0.19635,
+        -0.174533,
+        -0.15708,
+        -0.1309,
+        -0.1122,
+        -0.098175,
+        -0.087266,
+        0.0,
+        3.141593
+      ]
+    ],
+    "SpectralZeros": 1240,
+    "Best": [
+      {
+        "Method": "ColourLogStrengthLogRbf48",
+        "Nrmse": 0.0220069216073169,
+        "Max": 0.0005165422124963695,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf24",
+        "Nrmse": 0.022601442387430695,
+        "Max": 0.0004963414511801167,
+        "Negative": 0
+      },
+      {
+        "Method": "DelaunayLinearWithNearestOutside",
+        "Nrmse": 0.025433700411265803,
+        "Max": 0.000550419196682677,
+        "Negative": 0,
+        "Outside": 10
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic96",
+        "Nrmse": 0.027135035013170297,
+        "Max": 0.0009274021543817304,
+        "Negative": 169
+      }
+    ]
+  },
+  {
+    "Material": "mystique",
+    "Models": [
+      {
+        "Method": "DelaunayLinearWithNearestOutside",
+        "Nrmse": 0.2535277649199035,
+        "Max": 0.07432898379890085,
+        "Negative": 0,
+        "Outside": 11
+      },
+      {
+        "Method": "K1Power1",
+        "Nrmse": 0.2648257089133907,
+        "Max": 0.07599462140758464,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power2",
+        "Nrmse": 0.2648257089133907,
+        "Max": 0.07599462140758464,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power4",
+        "Nrmse": 0.2648257089133907,
+        "Max": 0.07599462140758464,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power8",
+        "Nrmse": 0.2648257089133907,
+        "Max": 0.07599462140758464,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power1",
+        "Nrmse": 0.2613802499164694,
+        "Max": 0.07581573930753019,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power2",
+        "Nrmse": 0.26734223939330415,
+        "Max": 0.07760777719549927,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power4",
+        "Nrmse": 0.27011777431025397,
+        "Max": 0.0780811906957147,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power8",
+        "Nrmse": 0.2675307621552028,
+        "Max": 0.07702137191611302,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power1",
+        "Nrmse": 0.26045500384890585,
+        "Max": 0.07590118305168214,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power2",
+        "Nrmse": 0.26589344131240056,
+        "Max": 0.07720889893007749,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power4",
+        "Nrmse": 0.26992613018357947,
+        "Max": 0.07798423697032136,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power8",
+        "Nrmse": 0.26750985770467445,
+        "Max": 0.07701997026352561,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power1",
+        "Nrmse": 0.22782804738319973,
+        "Max": 0.06598551512114229,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power2",
+        "Nrmse": 0.2523979718113339,
+        "Max": 0.07324333871067668,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power4",
+        "Nrmse": 0.268971059540393,
+        "Max": 0.07771577011496361,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power8",
+        "Nrmse": 0.2675026942160151,
+        "Max": 0.07701933424037982,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power1",
+        "Nrmse": 0.24602976163397763,
+        "Max": 0.07126996894054333,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power2",
+        "Nrmse": 0.2558328894735711,
+        "Max": 0.07442872318346846,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power4",
+        "Nrmse": 0.26904830688697384,
+        "Max": 0.07774770448741941,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power8",
+        "Nrmse": 0.26750295605590246,
+        "Max": 0.07701937060305136,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power1",
+        "Nrmse": 0.2523268639411141,
+        "Max": 0.06778283554750653,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power2",
+        "Nrmse": 0.2555362084176804,
+        "Max": 0.07273821236154462,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power4",
+        "Nrmse": 0.26904494775168525,
+        "Max": 0.07768483735400702,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power8",
+        "Nrmse": 0.26750391210990726,
+        "Max": 0.07701935652878361,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf12thin_plate_spline",
+        "Nrmse": 0.26993572048047765,
+        "Max": 0.07050773478319286,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf12cubic",
+        "Nrmse": 6.5267595555027915,
+        "Max": 2.0948075811422546,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24thin_plate_spline",
+        "Nrmse": 0.27311527182155915,
+        "Max": 0.06806399131217777,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24cubic",
+        "Nrmse": 104.51779516725801,
+        "Max": 33.94235223022977,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf48thin_plate_spline",
+        "Nrmse": 0.27563739767488254,
+        "Max": 0.0686843790871525,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf48cubic",
+        "Nrmse": 186.00240661041164,
+        "Max": 60.400074047006555,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf24",
+        "Nrmse": 4.456600913673273e+67,
+        "Max": 1.4474415984129824e+67,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf24",
+        "Nrmse": 0.13427893878453792,
+        "Max": 0.03775916464144924,
+        "Negative": 63
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf48",
+        "Nrmse": 1.2140890391159236e+89,
+        "Max": 3.9431912648987735e+88,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf48",
+        "Nrmse": 0.05202208964145011,
+        "Max": 0.008448882707078654,
+        "Negative": 79
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf96",
+        "Nrmse": 1.3953416114938914e+97,
+        "Max": 4.531874250342474e+96,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf96",
+        "Nrmse": 1.08647307515862,
+        "Max": 0.3485915082230956,
+        "Negative": 87
+      },
+      {
+        "Method": "DirectionLogRatioRbf24",
+        "Nrmse": 6073846960792399.0,
+        "Max": 1972700478176520.8,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf24",
+        "Nrmse": 0.41188614091846926,
+        "Max": 0.1285747081310511,
+        "Negative": 73
+      },
+      {
+        "Method": "DirectionLogRatioRbf48",
+        "Nrmse": 0.7359442713697395,
+        "Max": 0.2039507964399971,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf48",
+        "Nrmse": 0.24585889665982413,
+        "Max": 0.0715525517436304,
+        "Negative": 86
+      },
+      {
+        "Method": "DirectionLogRatioRbf96",
+        "Nrmse": 2.09581402045762,
+        "Max": 0.6448433444379771,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf96",
+        "Nrmse": 0.25726670976718924,
+        "Max": 0.07543603926310649,
+        "Negative": 95
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf24",
+        "Nrmse": 3.4104023995057004e+99,
+        "Max": 1.10765096448883e+99,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf24",
+        "Nrmse": 0.3541432710281264,
+        "Max": 0.10759257796249405,
+        "Negative": 51
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf48",
+        "Nrmse": 5.5456465648791515e+66,
+        "Max": 1.8011483827224803e+66,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf48",
+        "Nrmse": 0.33726343581120466,
+        "Max": 0.10024315987408305,
+        "Negative": 68
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf96",
+        "Nrmse": 517692.4007151489,
+        "Max": 168139.2437961792,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf96",
+        "Nrmse": 0.027227856738579012,
+        "Max": 0.0050635178480232836,
+        "Negative": 83
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf12",
+        "Nrmse": 5.403534737516307,
+        "Max": 1.7466786772104457,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf24",
+        "Nrmse": 18.732200502224806,
+        "Max": 6.0838990402999205,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf48",
+        "Nrmse": 22.24434359729722,
+        "Max": 7.224625103770476,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf96",
+        "Nrmse": 38.46109275618469,
+        "Max": 12.491606909392253,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.7872364464615392,
+        "Max": 0.2555917632119996,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline24",
+        "Nrmse": 0.08949075817570543,
+        "Max": 0.028378345251323323,
+        "Negative": 44
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic24",
+        "Nrmse": 0.6756959046709407,
+        "Max": 0.21923230087813111,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic24",
+        "Nrmse": 0.11009532448170589,
+        "Max": 0.03519800013680624,
+        "Negative": 41
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.7277951858948232,
+        "Max": 0.23631387799891257,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline48",
+        "Nrmse": 0.06372732213641623,
+        "Max": 0.01983932841520225,
+        "Negative": 51
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic48",
+        "Nrmse": 0.6078707531552368,
+        "Max": 0.19717265952957236,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic48",
+        "Nrmse": 0.1318036703370273,
+        "Max": 0.04220389301923383,
+        "Negative": 47
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.7808191391381081,
+        "Max": 0.2535401353372204,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline96",
+        "Nrmse": 0.059188956676685105,
+        "Max": 0.018288515384588366,
+        "Negative": 65
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic96",
+        "Nrmse": 0.4956259435619791,
+        "Max": 0.16064863501108456,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic96",
+        "Nrmse": 0.11947312156760263,
+        "Max": 0.0380976952392742,
+        "Negative": 66
+      },
+      {
+        "Method": "LogXYZLogRbf12",
+        "Nrmse": 0.7169206342178654,
+        "Max": 0.21943258772400967,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf24",
+        "Nrmse": 0.35341929218113843,
+        "Max": 0.09308034192134196,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf48",
+        "Nrmse": 0.19663479398169384,
+        "Max": 0.04486864899738958,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf96",
+        "Nrmse": 0.18797009174020435,
+        "Max": 0.04341430353890745,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.12341285379066616,
+        "Max": 0.03926636257248753,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline24",
+        "Nrmse": 0.24027808203818765,
+        "Max": 0.07708870393979636,
+        "Negative": 40
+      },
+      {
+        "Method": "LogXYZSquareRootcubic24",
+        "Nrmse": 0.04482931495973449,
+        "Max": 0.013334016612940647,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic24",
+        "Nrmse": 0.19229704789295773,
+        "Max": 0.061840164034059675,
+        "Negative": 45
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.22334712346003055,
+        "Max": 0.07217043824112601,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline48",
+        "Nrmse": 0.6830828785129703,
+        "Max": 0.22154125559500776,
+        "Negative": 50
+      },
+      {
+        "Method": "LogXYZSquareRootcubic48",
+        "Nrmse": 0.1569587406178559,
+        "Max": 0.050823132944049554,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic48",
+        "Nrmse": 0.4094995373065296,
+        "Max": 0.13279263761611937,
+        "Negative": 53
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.21926019532540525,
+        "Max": 0.07081834763401773,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline96",
+        "Nrmse": 0.6815688189746795,
+        "Max": 0.22103536993823913,
+        "Negative": 55
+      },
+      {
+        "Method": "LogXYZSquareRootcubic96",
+        "Nrmse": 0.15469741344702787,
+        "Max": 0.050091961854393796,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic96",
+        "Nrmse": 0.40937954375633023,
+        "Max": 0.13275241942742533,
+        "Negative": 60
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf12",
+        "Nrmse": 0.030354095878303504,
+        "Max": 0.008215606103493756,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf24",
+        "Nrmse": 0.01618678943607777,
+        "Max": 0.0033501831726912464,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf48",
+        "Nrmse": 0.01295136280158336,
+        "Max": 0.0021149619880201642,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf96",
+        "Nrmse": 0.011802691904404822,
+        "Max": 0.0014135992600864608,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline24",
+        "Nrmse": 0.2161527896713341,
+        "Max": 0.06982835793048442,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline24",
+        "Nrmse": 0.7734285651210245,
+        "Max": 0.250983565261371,
+        "Negative": 43
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic24",
+        "Nrmse": 0.12020409286301725,
+        "Max": 0.03857911045612672,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic24",
+        "Nrmse": 0.5366737869558383,
+        "Max": 0.17412269390400525,
+        "Negative": 42
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline48",
+        "Nrmse": 0.0770991544934988,
+        "Max": 0.02402749240359464,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline48",
+        "Nrmse": 0.8787391018096556,
+        "Max": 0.2852006221122107,
+        "Negative": 41
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic48",
+        "Nrmse": 0.12740986644445706,
+        "Max": 0.041056957838561864,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic48",
+        "Nrmse": 1.1845217681145384,
+        "Max": 0.38463713460197935,
+        "Negative": 45
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline96",
+        "Nrmse": 0.04896085348722662,
+        "Max": 0.014278646720142563,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline96",
+        "Nrmse": 0.6861911567909134,
+        "Max": 0.22260394680149767,
+        "Negative": 56
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic96",
+        "Nrmse": 0.02156887990228575,
+        "Max": 0.004907652937108542,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic96",
+        "Nrmse": 0.09111229600528631,
+        "Max": 0.028525250112068246,
+        "Negative": 54
+      }
+    ],
+    "AngularAxes": [
+      [
+        0.174533,
+        0.349066,
+        0.523599,
+        0.698132,
+        0.872665,
+        1.047198,
+        1.22173,
+        1.396263
+      ],
+      [
+        0.0
+      ],
+      [
+        0.0,
+        0.141539,
+        0.283794,
+        0.427512,
+        0.573513,
+        0.722734,
+        0.876298,
+        1.035612,
+        1.202528,
+        1.379634
+      ],
+      [
+        -3.054326,
+        -3.043418,
+        -3.029393,
+        -3.010693,
+        -2.984513,
+        -2.96706,
+        -2.945243,
+        -2.917193,
+        -2.879793,
+        -2.847068,
+        -2.827433,
+        -2.804993,
+        -2.792527,
+        -2.748894,
+        -2.70526,
+        -2.692794,
+        -2.670354,
+        -2.650719,
+        -2.617994,
+        -2.580594,
+        -2.552544,
+        -2.530727,
+        -2.513274,
+        -2.487094,
+        -2.468394,
+        -2.454369,
+        -2.443461,
+        -2.356194,
+        -2.268928,
+        -2.25802,
+        -2.243995,
+        -2.225295,
+        -2.199115,
+        -2.181662,
+        -2.159845,
+        -2.131795,
+        -2.094395,
+        -2.06167,
+        -2.042035,
+        -2.019595,
+        -2.007129,
+        -1.963495,
+        -1.919862,
+        -1.907396,
+        -1.884956,
+        -1.865321,
+        -1.832596,
+        -1.795196,
+        -1.767146,
+        -1.745329,
+        -1.727876,
+        -1.701696,
+        -1.682996,
+        -1.668971,
+        -1.658063,
+        -1.570796,
+        -1.48353,
+        -1.472622,
+        -1.458597,
+        -1.439897,
+        -1.413717,
+        -1.396263,
+        -1.374447,
+        -1.346397,
+        -1.308997,
+        -1.276272,
+        -1.256637,
+        -1.234197,
+        -1.22173,
+        -1.178097,
+        -1.134464,
+        -1.121997,
+        -1.099557,
+        -1.079922,
+        -1.047198,
+        -1.009798,
+        -0.981748,
+        -0.959931,
+        -0.942478,
+        -0.916298,
+        -0.897598,
+        -0.883573,
+        -0.872665,
+        -0.785398,
+        -0.698132,
+        -0.687223,
+        -0.673198,
+        -0.654498,
+        -0.628319,
+        -0.610865,
+        -0.589049,
+        -0.560999,
+        -0.523599,
+        -0.490874,
+        -0.471239,
+        -0.448799,
+        -0.436332,
+        -0.392699,
+        -0.349066,
+        -0.336599,
+        -0.314159,
+        -0.294524,
+        -0.261799,
+        -0.224399,
+        -0.19635,
+        -0.174533,
+        -0.15708,
+        -0.1309,
+        -0.1122,
+        -0.098175,
+        -0.087266,
+        0.0,
+        3.141593
+      ]
+    ],
+    "SpectralZeros": 543,
+    "Best": [
+      {
+        "Method": "ColourLogStrengthLogRbf96",
+        "Nrmse": 0.011802691904404822,
+        "Max": 0.0014135992600864608,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf48",
+        "Nrmse": 0.01295136280158336,
+        "Max": 0.0021149619880201642,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf24",
+        "Nrmse": 0.01618678943607777,
+        "Max": 0.0033501831726912464,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic96",
+        "Nrmse": 0.02156887990228575,
+        "Max": 0.004907652937108542,
+        "Negative": 0
+      }
+    ]
+  },
+  {
+    "Material": "cayman",
+    "Models": [
+      {
+        "Method": "DelaunayLinearWithNearestOutside",
+        "Nrmse": 0.023195612699306038,
+        "Max": 0.004724992656045257,
+        "Negative": 0,
+        "Outside": 4
+      },
+      {
+        "Method": "K1Power1",
+        "Nrmse": 0.05702311913031571,
+        "Max": 0.012216966171900184,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power2",
+        "Nrmse": 0.05702311913031571,
+        "Max": 0.012216966171900184,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power4",
+        "Nrmse": 0.05702311913031571,
+        "Max": 0.012216966171900184,
+        "Negative": 0
+      },
+      {
+        "Method": "K1Power8",
+        "Nrmse": 0.05702311913031571,
+        "Max": 0.012216966171900184,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power1",
+        "Nrmse": 0.03406571787328325,
+        "Max": 0.00707189226211466,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power2",
+        "Nrmse": 0.03872906786183884,
+        "Max": 0.00834893049812896,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power4",
+        "Nrmse": 0.04682336956019533,
+        "Max": 0.010360721336332201,
+        "Negative": 0
+      },
+      {
+        "Method": "K3Power8",
+        "Nrmse": 0.055726730967872486,
+        "Max": 0.012429892259755465,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power1",
+        "Nrmse": 0.0644353762867962,
+        "Max": 0.01502137982620172,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power2",
+        "Nrmse": 0.05493499518551708,
+        "Max": 0.012698994196558261,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power4",
+        "Nrmse": 0.05019536902119927,
+        "Max": 0.011438638878488838,
+        "Negative": 0
+      },
+      {
+        "Method": "K6Power8",
+        "Nrmse": 0.05549475531719537,
+        "Max": 0.01248670721756201,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power1",
+        "Nrmse": 0.08359895647150635,
+        "Max": 0.019393794394564096,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power2",
+        "Nrmse": 0.0673205461437824,
+        "Max": 0.015556725203500876,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power4",
+        "Nrmse": 0.052695386161462444,
+        "Max": 0.012027528438573631,
+        "Negative": 0
+      },
+      {
+        "Method": "K12Power8",
+        "Nrmse": 0.0554913791038839,
+        "Max": 0.012495974704587132,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power1",
+        "Nrmse": 0.09395421031864995,
+        "Max": 0.021249812022018894,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power2",
+        "Nrmse": 0.0774625692796071,
+        "Max": 0.017641485402924012,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power4",
+        "Nrmse": 0.055499552366996094,
+        "Max": 0.012632537039809127,
+        "Negative": 0
+      },
+      {
+        "Method": "K24Power8",
+        "Nrmse": 0.055537003721753825,
+        "Max": 0.012504062574546032,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power1",
+        "Nrmse": 0.14774958839957697,
+        "Max": 0.033884940865781754,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power2",
+        "Nrmse": 0.11844873315814473,
+        "Max": 0.0273826086690587,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power4",
+        "Nrmse": 0.06565585645572936,
+        "Max": 0.015091512954984315,
+        "Negative": 0
+      },
+      {
+        "Method": "K48Power8",
+        "Nrmse": 0.05563453397850108,
+        "Max": 0.012528682390369639,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf12thin_plate_spline",
+        "Error": "Singular matrix."
+      },
+      {
+        "Method": "LogRbf12cubic",
+        "Nrmse": 102.31449133902302,
+        "Max": 24.693367857991042,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24thin_plate_spline",
+        "Nrmse": 0.07005616765175264,
+        "Max": 0.01650216080742793,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf24cubic",
+        "Nrmse": 175.4814645621215,
+        "Max": 42.3520469766788,
+        "Negative": 0
+      },
+      {
+        "Method": "LogRbf48thin_plate_spline",
+        "Error": "Singular matrix."
+      },
+      {
+        "Method": "LogRbf48cubic",
+        "Nrmse": 549.6398772021493,
+        "Max": 132.65432665834987,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf24",
+        "Nrmse": Infinity,
+        "Max": 1.2740852205048815e+219,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf24",
+        "Nrmse": 0.26128725537804126,
+        "Max": 0.045221090141965396,
+        "Negative": 72
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf48",
+        "Nrmse": Infinity,
+        "Max": Infinity,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf48",
+        "Nrmse": 0.7525503889993037,
+        "Max": 0.1410835479218284,
+        "Negative": 85
+      },
+      {
+        "Method": "ColourDirectionLogRatioRbf96",
+        "Nrmse": 6.566066190130021e+72,
+        "Max": 1.5847051230990883e+72,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourDirectionRatioRbf96",
+        "Nrmse": 0.13440217644131158,
+        "Max": 0.023973759594007847,
+        "Negative": 102
+      },
+      {
+        "Method": "DirectionLogRatioRbf24",
+        "Nrmse": 0.18865631464725377,
+        "Max": 0.038434643162676335,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf24",
+        "Nrmse": 0.18309412884879261,
+        "Max": 0.039125296909599316,
+        "Negative": 73
+      },
+      {
+        "Method": "DirectionLogRatioRbf48",
+        "Nrmse": 0.20003795580301398,
+        "Max": 0.04017707518296118,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf48",
+        "Nrmse": 0.1903053502573483,
+        "Max": 0.04042109499997623,
+        "Negative": 85
+      },
+      {
+        "Method": "DirectionLogRatioRbf96",
+        "Nrmse": 0.17615928074595286,
+        "Max": 0.03152421888178586,
+        "Negative": 0
+      },
+      {
+        "Method": "DirectionRatioRbf96",
+        "Nrmse": 0.18413956177106228,
+        "Max": 0.03875537763004375,
+        "Negative": 79
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf24",
+        "Nrmse": 2.1192444032412854e+32,
+        "Max": 5.114748108941973e+31,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf24",
+        "Nrmse": 0.26176723629555765,
+        "Max": 0.05068112589148929,
+        "Negative": 59
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf48",
+        "Nrmse": 6.641370477279789e+43,
+        "Max": 1.602879641323858e+43,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf48",
+        "Nrmse": 0.14140263410389795,
+        "Max": 0.025422991992273908,
+        "Negative": 81
+      },
+      {
+        "Method": "ColourStrengthDirectionLogRatioRbf96",
+        "Nrmse": 4.832310161729996e+93,
+        "Max": 1.1662670536596691e+93,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourStrengthDirectionRatioRbf96",
+        "Nrmse": 0.10394859397055654,
+        "Max": 0.021705393938053097,
+        "Negative": 92
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf12",
+        "Nrmse": 0.7291463264523567,
+        "Max": 0.1758227886989612,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf24",
+        "Nrmse": 0.6696111247630956,
+        "Max": 0.16125021883188353,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf48",
+        "Nrmse": 1.5396386066352714,
+        "Max": 0.3715546013694052,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLogRbf96",
+        "Nrmse": 2.7337499054570107,
+        "Max": 0.6597640448741701,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.14371215927323247,
+        "Max": 0.03433271736592969,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline24",
+        "Nrmse": 0.032082689052982824,
+        "Max": 0.006934142965374285,
+        "Negative": 41
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic24",
+        "Nrmse": 0.367394327046471,
+        "Max": 0.08840293240369304,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic24",
+        "Nrmse": 0.08772174561566673,
+        "Max": 0.020364405821247683,
+        "Negative": 41
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.26598086332311155,
+        "Max": 0.06412693960654395,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline48",
+        "Nrmse": 0.01224762991717378,
+        "Max": 0.0008996383363737703,
+        "Negative": 42
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic48",
+        "Nrmse": 0.233993473341015,
+        "Max": 0.05633042664174967,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic48",
+        "Nrmse": 0.043653702449476674,
+        "Max": 0.009812129519878948,
+        "Negative": 46
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.3236751818498987,
+        "Max": 0.07806401709994157,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline96",
+        "Nrmse": 0.011996226322097204,
+        "Max": 0.0009295914124123617,
+        "Negative": 53
+      },
+      {
+        "Method": "AbsoluteXYZSquareRootcubic96",
+        "Nrmse": 0.28070468122138337,
+        "Max": 0.06760316960024029,
+        "Negative": 0
+      },
+      {
+        "Method": "AbsoluteXYZLinearcubic96",
+        "Nrmse": 0.05562345285380401,
+        "Max": 0.012811831754653252,
+        "Negative": 53
+      },
+      {
+        "Method": "LogXYZLogRbf12",
+        "Nrmse": 97696320794159.86,
+        "Max": 23578784554922.586,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf24",
+        "Nrmse": 656.1516467262529,
+        "Max": 158.36070570820928,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf48",
+        "Nrmse": 0.01446457759992427,
+        "Max": 0.0018155052026422314,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf96",
+        "Nrmse": 0.013916406829849133,
+        "Max": 0.0017926884368257567,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline24",
+        "Nrmse": 0.0791897153813144,
+        "Max": 0.018907281092155892,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline24",
+        "Nrmse": 0.19879241405667838,
+        "Max": 0.047892865802533685,
+        "Negative": 39
+      },
+      {
+        "Method": "LogXYZSquareRootcubic24",
+        "Nrmse": 0.051911181167574996,
+        "Max": 0.01204720752716254,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic24",
+        "Nrmse": 0.12761198738638238,
+        "Max": 0.030588461202088107,
+        "Negative": 43
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline48",
+        "Nrmse": 0.08318628872015253,
+        "Max": 0.019930988588224174,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline48",
+        "Nrmse": 0.2012117630368882,
+        "Max": 0.04849712344912721,
+        "Negative": 45
+      },
+      {
+        "Method": "LogXYZSquareRootcubic48",
+        "Nrmse": 0.04712247965181843,
+        "Max": 0.01096179899815794,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic48",
+        "Nrmse": 0.12567340170102123,
+        "Max": 0.030162491847278566,
+        "Negative": 47
+      },
+      {
+        "Method": "LogXYZSquareRootthin_plate_spline96",
+        "Nrmse": 0.0842007114587137,
+        "Max": 0.020184721192342214,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearthin_plate_spline96",
+        "Nrmse": 0.2024012572927551,
+        "Max": 0.04878676495863751,
+        "Negative": 57
+      },
+      {
+        "Method": "LogXYZSquareRootcubic96",
+        "Nrmse": 0.047769917735932144,
+        "Max": 0.011150446422354354,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLinearcubic96",
+        "Nrmse": 0.12587685253413747,
+        "Max": 0.03022374112102663,
+        "Negative": 58
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf12",
+        "Nrmse": 0.023109296591806463,
+        "Max": 0.004523710772114747,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf24",
+        "Nrmse": 0.32541493618204553,
+        "Max": 0.06279533757713315,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf48",
+        "Nrmse": 0.029036360749952396,
+        "Max": 0.005168319927514209,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLogRbf96",
+        "Nrmse": 0.025575376241888603,
+        "Max": 0.0049624804065032556,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline24",
+        "Nrmse": 0.12400812278748607,
+        "Max": 0.02979121715998309,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline24",
+        "Nrmse": 0.29106568869018673,
+        "Max": 0.06680223729696227,
+        "Negative": 32
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic24",
+        "Nrmse": 0.07975338052070506,
+        "Max": 0.018718328586397076,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic24",
+        "Nrmse": 0.20529697555615595,
+        "Max": 0.04771794444459754,
+        "Negative": 39
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline48",
+        "Nrmse": 0.12425004746369131,
+        "Max": 0.02986665908461736,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline48",
+        "Nrmse": 0.28780915438280025,
+        "Max": 0.06687846137080514,
+        "Negative": 45
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic48",
+        "Nrmse": 0.07787605895175033,
+        "Max": 0.018411817848356132,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic48",
+        "Nrmse": 0.20463581038337328,
+        "Max": 0.0474906142150609,
+        "Negative": 50
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootthin_plate_spline96",
+        "Nrmse": 0.2093480732058981,
+        "Max": 0.050458623440936615,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearthin_plate_spline96",
+        "Nrmse": 1.5629235072137793,
+        "Max": 0.3766309798845172,
+        "Negative": 59
+      },
+      {
+        "Method": "ColourLogStrengthSquareRootcubic96",
+        "Nrmse": 0.21265924436848,
+        "Max": 0.05118088386538705,
+        "Negative": 0
+      },
+      {
+        "Method": "ColourLogStrengthLinearcubic96",
+        "Nrmse": 1.5247872381767351,
+        "Max": 0.36776321051551153,
+        "Negative": 66
+      }
+    ],
+    "AngularAxes": [
+      [
+        0.174533,
+        0.349066,
+        0.523599,
+        0.698132,
+        0.872665,
+        1.047198,
+        1.22173,
+        1.396263
+      ],
+      [
+        0.0
+      ],
+      [
+        0.0,
+        0.141539,
+        0.283794,
+        0.427512,
+        0.573513,
+        0.722734,
+        0.876298,
+        1.035612,
+        1.202528,
+        1.379634
+      ],
+      [
+        -3.054326,
+        -3.043418,
+        -3.029393,
+        -3.010693,
+        -2.984513,
+        -2.96706,
+        -2.945243,
+        -2.917193,
+        -2.879793,
+        -2.847068,
+        -2.827433,
+        -2.804993,
+        -2.792527,
+        -2.748894,
+        -2.70526,
+        -2.692794,
+        -2.670354,
+        -2.650719,
+        -2.617994,
+        -2.580594,
+        -2.552544,
+        -2.530727,
+        -2.513274,
+        -2.487094,
+        -2.468394,
+        -2.454369,
+        -2.443461,
+        -2.356194,
+        -2.268928,
+        -2.25802,
+        -2.243995,
+        -2.225295,
+        -2.199115,
+        -2.181662,
+        -2.159845,
+        -2.131795,
+        -2.094395,
+        -2.06167,
+        -2.042035,
+        -2.019595,
+        -2.007129,
+        -1.963495,
+        -1.919862,
+        -1.907396,
+        -1.884956,
+        -1.865321,
+        -1.832596,
+        -1.795196,
+        -1.767146,
+        -1.745329,
+        -1.727876,
+        -1.701696,
+        -1.682996,
+        -1.668971,
+        -1.658063,
+        -1.570796,
+        -1.48353,
+        -1.472622,
+        -1.458597,
+        -1.439897,
+        -1.413717,
+        -1.396263,
+        -1.374447,
+        -1.346397,
+        -1.308997,
+        -1.276272,
+        -1.256637,
+        -1.234197,
+        -1.22173,
+        -1.178097,
+        -1.134464,
+        -1.121997,
+        -1.099557,
+        -1.079922,
+        -1.047198,
+        -1.009798,
+        -0.981748,
+        -0.959931,
+        -0.942478,
+        -0.916298,
+        -0.897598,
+        -0.883573,
+        -0.872665,
+        -0.785398,
+        -0.698132,
+        -0.687223,
+        -0.673198,
+        -0.654498,
+        -0.628319,
+        -0.610865,
+        -0.589049,
+        -0.560999,
+        -0.523599,
+        -0.490874,
+        -0.471239,
+        -0.448799,
+        -0.436332,
+        -0.392699,
+        -0.349066,
+        -0.336599,
+        -0.314159,
+        -0.294524,
+        -0.261799,
+        -0.224399,
+        -0.19635,
+        -0.174533,
+        -0.15708,
+        -0.1309,
+        -0.1122,
+        -0.098175,
+        -0.087266,
+        0.0,
+        3.141593
+      ]
+    ],
+    "SpectralZeros": 407,
+    "Best": [
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline96",
+        "Nrmse": 0.011996226322097204,
+        "Max": 0.0009295914124123617,
+        "Negative": 53
+      },
+      {
+        "Method": "AbsoluteXYZLinearthin_plate_spline48",
+        "Nrmse": 0.01224762991717378,
+        "Max": 0.0008996383363737703,
+        "Negative": 42
+      },
+      {
+        "Method": "LogXYZLogRbf96",
+        "Nrmse": 0.013916406829849133,
+        "Max": 0.0017926884368257567,
+        "Negative": 0
+      },
+      {
+        "Method": "LogXYZLogRbf48",
+        "Nrmse": 0.01446457759992427,
+        "Max": 0.0018155052026422314,
+        "Negative": 0
+      }
+    ]
+  }
+]

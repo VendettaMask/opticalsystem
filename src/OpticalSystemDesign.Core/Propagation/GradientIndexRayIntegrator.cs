@@ -43,6 +43,9 @@ public sealed record GradientIndexTraceResult(
 /// Uses the Dormand–Prince 5(4) pair in the index field's coordinate system.
 /// This is geometric propagation only: boundary refraction, attenuation and
 /// polarization are the caller's responsibility. No straight-ray fallback.
+/// GGD profiles retain canonical momentum because their index-query and
+/// continuous-gradient interpolation operators differ. Then dr/ds=p/|p|,
+/// dp/ds=n*grad(n)/|p| and dOPL/ds=n²/|p|; returned directions remain unit vectors.
 /// </summary>
 public static class GradientIndexRayIntegrator
 {
@@ -70,6 +73,16 @@ public static class GradientIndexRayIntegrator
             maximumPathLength, options ?? new(), cancellationToken).Run(targetGeometry, targetCoordinates);
     }
 
+    internal static GradientIndexTraceResult TraceToSurfaceFromLocal(
+        ISpatialRefractiveIndex profile, CoordinateSystem profileCoordinates,
+        Vector3D localOrigin, Vector3D globalDirection, double wavelengthNanometers,
+        IGeometry targetGeometry, CoordinateSystem targetCoordinates, double maximumPathLength,
+        GradientIndexIntegrationOptions options, CancellationToken cancellationToken) =>
+        new Integration(profile, profileCoordinates, profileCoordinates.ToGlobalPoint(localOrigin), globalDirection,
+            wavelengthNanometers, maximumPathLength, options, cancellationToken, localOrigin).Run(targetGeometry, targetCoordinates);
+
+    // Direction is a unit tangent for ordinary analytic profiles and canonical
+    // momentum for GGD. Do not normalize the latter at accepted step boundaries.
     private readonly record struct State(Vector3D Position, Vector3D Direction, double OpticalPath)
     {
         public static State operator +(State a, State b) =>
@@ -96,7 +109,7 @@ public static class GradientIndexRayIntegrator
 
         internal Integration(ISpatialRefractiveIndex profile, CoordinateSystem coordinates,
             Vector3D origin, Vector3D direction, double wavelength, double limit,
-            GradientIndexIntegrationOptions options, CancellationToken token)
+            GradientIndexIntegrationOptions options, CancellationToken token, Vector3D? localOrigin = null)
         {
             ArgumentNullException.ThrowIfNull(profile);
             ArgumentNullException.ThrowIfNull(coordinates);
@@ -113,7 +126,10 @@ public static class GradientIndexRayIntegrator
             _options = options;
             _token = token;
             _path = options.RetainPath ? [] : null;
-            _state = new State(coordinates.ToLocalPoint(origin), coordinates.ToLocalDirection(direction / direction.Length), 0);
+            if (localOrigin is { } precise) SpatialIndexValidation.Input(precise, wavelength);
+            _state = new State(localOrigin ?? coordinates.ToLocalPoint(origin), coordinates.ToLocalDirection(direction / direction.Length), 0);
+            if (profile is GridGradientIndexProfile grid)
+                _state = _state with { Direction = _state.Direction * grid.InterfaceRefractiveIndex(_state.Position, wavelength) };
         }
 
         internal GradientIndexTraceResult Run(IGeometry? geometry, CoordinateSystem? targetCoordinates)
@@ -156,7 +172,7 @@ public static class GradientIndexRayIntegrator
                     {
                         var hit = LocateSurface(_state, lower, upper, lower == 0 ? gap : middleGap,
                             geometry, targetCoordinates!);
-                        _state = Normalize(hit.State);
+                        _state = NormalizeState(hit.State);
                         _length += hit.Distance;
                         AddPoint();
                         return Finish(SurfaceStatus(_state, geometry, targetCoordinates!),
@@ -166,14 +182,14 @@ public static class GradientIndexRayIntegrator
                     // starting side, especially when the path budget ends here.
                     if (Math.Abs(nextGap) <= _options.SurfaceTolerance)
                     {
-                        _state = Normalize(next);
+                        _state = NormalizeState(next);
                         _length += h;
                         AddPoint();
                         return Finish(SurfaceStatus(_state, geometry, targetCoordinates!), nextGap);
                     }
                     gap = nextGap;
                 }
-                _state = Normalize(next);
+                _state = NormalizeState(next);
                 _length += h;
                 AddPoint();
                 h = Math.Min(_options.MaximumStep, h * (error == 0 ? 5 : Math.Clamp(0.9 * Math.Pow(error, -0.2), 0.2, 5)));
@@ -188,8 +204,7 @@ public static class GradientIndexRayIntegrator
             for (var i = 0; i < 80; i++)
             {
                 var middle = lower + (upper - lower) / 2;
-                var (state, error) = Step(start, middle);
-                if (error > 1) throw new InvalidOperationException("GRIN 交点细化未达到积分精度；请减小最大步长。");
+                var state = AccurateOffset(start, middle);
                 var gap = Gap(state, geometry, coordinates);
                 if (Math.Abs(gap) <= _options.SurfaceTolerance && upper - lower <= _options.SurfaceTolerance)
                     return (state, middle);
@@ -197,6 +212,20 @@ public static class GradientIndexRayIntegrator
                 else { lower = middle; lowerGap = gap; }
             }
             throw new InvalidOperationException("GRIN 曲线与目标表面的交点未收敛。");
+        }
+
+        private State AccurateOffset(State start, double distance)
+        {
+            var (next, error) = Step(start, distance);
+            if (error <= 1) return next;
+            // An accepted enclosing step does not certify every intermediate
+            // RK trial. Refine that trial with the same error estimator and
+            // existing attempt/cancellation/minimum-step bounds.
+            var half = distance / 2;
+            if (half < _options.MinimumStep)
+                throw new InvalidOperationException("GRIN 交点积分无法在最小步长内达到指定误差。");
+            var middle = NormalizeState(AccurateOffset(start, half));
+            return AccurateOffset(middle, distance - half);
         }
 
         private (State State, double Error) Step(State start, double h)
@@ -243,6 +272,14 @@ public static class GradientIndexRayIntegrator
         {
             _evaluations++;
             var sample = Sample(state.Position);
+            if (_profile is GridGradientIndexProfile)
+            {
+                var magnitude = state.Direction.Length;
+                if (!double.IsFinite(magnitude) || magnitude <= 0)
+                    throw new SpatialIndexDomainException("GGD 光学动量必须为正的有限模长。");
+                return new State(state.Direction / magnitude, sample.Gradient * (sample.Index / magnitude),
+                    sample.Index * sample.Index / magnitude);
+            }
             var along = Dot(state.Direction, sample.Gradient);
             return new State(state.Direction, (sample.Gradient - state.Direction * along) / sample.Index, sample.Index);
         }
@@ -252,9 +289,12 @@ public static class GradientIndexRayIntegrator
             _token.ThrowIfCancellationRequested();
             if (!SpatialIndexValidation.Finite(position))
                 throw new SpatialIndexDomainException("GRIN 试探位置超出有限坐标范围。");
-            var sample = _profile.Evaluate(position, _wavelength);
+            var sample = _profile is GridGradientIndexProfile grid
+                ? grid.PropagationSample(position, _wavelength) : _profile.Evaluate(position, _wavelength);
             return SpatialIndexValidation.Sample(sample.Index, sample.Gradient);
         }
+
+        private State NormalizeState(State state) => _profile is GridGradientIndexProfile ? state : Normalize(state);
 
         private double Reduce(double step, double error)
         {
@@ -265,8 +305,12 @@ public static class GradientIndexRayIntegrator
         }
 
         private GradientIndexPathPoint Point() => new(
-            _coordinates.ToGlobalPoint(_state.Position), _coordinates.ToGlobalDirection(_state.Direction),
-            _length, _state.OpticalPath, Sample(_state.Position).Index);
+            _coordinates.ToGlobalPoint(_state.Position), _coordinates.ToGlobalDirection(UnitDirection(_state)),
+            _length, _state.OpticalPath, _profile is GridGradientIndexProfile grid
+                ? grid.InterfaceRefractiveIndex(_state.Position, _wavelength) : Sample(_state.Position).Index);
+
+        private Vector3D UnitDirection(State state) => _profile is GridGradientIndexProfile
+            ? state.Direction / state.Direction.Length : state.Direction;
 
         private void AddPoint() { if (_path is not null) _path.Add(Point()); }
 
@@ -286,7 +330,7 @@ public static class GradientIndexRayIntegrator
         private GradientIndexTermination SurfaceStatus(State state, IGeometry geometry, CoordinateSystem coordinates)
         {
             var point = ToTargetPoint(state.Position, coordinates);
-            var direction = coordinates.ToLocalDirection(_coordinates.ToGlobalDirection(state.Direction));
+            var direction = coordinates.ToLocalDirection(_coordinates.ToGlobalDirection(UnitDirection(state)));
             var normal = geometry.SurfaceNormal(point);
             if (!SpatialIndexValidation.Finite(normal) || !double.IsFinite(normal.Length) || normal.Length <= 0)
                 throw new InvalidOperationException("GRIN 目标表面法线无效。");

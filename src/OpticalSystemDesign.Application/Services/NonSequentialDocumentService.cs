@@ -66,7 +66,7 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
     }
 
     public IReadOnlyList<NonSequentialObjectKind> GetObjectKinds() =>
-        Enum.GetValues<NonSequentialObjectKind>().Where(item => item != NonSequentialObjectKind.Mesh).ToArray();
+        Enum.GetValues<NonSequentialObjectKind>().Where(item => item is not (NonSequentialObjectKind.Mesh or NonSequentialObjectKind.OpticalAssembly)).ToArray();
 
     public NonSequentialObjectParameters GetDefaultParameters(NonSequentialObjectKind kind) =>
         ToDto(CoreObjectDefinition.DefaultParameters(ToCore(kind)));
@@ -129,7 +129,8 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
                     template.TiltZDegrees),
                 template.ReferenceObjectId,
                 template.ContainingObjectId,
-                ToCore(template.Parameters));
+                ToCore(template.Parameters),
+                ToCore(template.SurfaceBsdf));
             document.Insert(insertionIndex, pasted);
             ValidateMaterials(document);
             Runtime.ReplaceNonSequentialDocument(document, $"已粘贴非序列对象“{pasted.Name}”。");
@@ -180,7 +181,8 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
                     update.TiltZDegrees),
                 update.ReferenceObjectId,
                 update.ContainingObjectId,
-                parameters);
+                parameters,
+                ToCore(update.SurfaceBsdf));
             document.Replace(existing.Id, replacement);
             ValidateMaterials(document);
             Runtime.ReplaceNonSequentialDocument(document, $"已更新非序列对象“{replacement.Name}”。");
@@ -202,139 +204,13 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         WorkspaceChangeCategory.NonSequential,
         () =>
         {
-            var optic = Runtime.CurrentOptic;
-            OpticCapabilityPreflight.EnsureSupported(
-                optic,
-                OpticCapabilityOperation.Conversion,
-                "顺序模式转非序列模式");
-            var warnings = new List<string>();
-            var converted = new List<CoreObjectDefinition>();
-            var surfaces = optic.SurfaceGroup.Items;
-            var consumedAsLensBoundary = new HashSet<int>();
-            for (var index = 1; index < surfaces.Count - 1; index++)
-            {
-                if (consumedAsLensBoundary.Contains(index))
-                {
-                    continue;
-                }
-                var front = surfaces[index];
-                var material = front.MaterialAfter.Name;
-                if (IsAmbient(material) || material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                var groupEnd = index + 1;
-                while (groupEnd < surfaces.Count - 1
-                    && !IsAmbient(surfaces[groupEnd].MaterialAfter.Name))
-                {
-                    groupEnd++;
-                }
-                var lastBoundary = Math.Min(groupEnd, surfaces.Count - 2);
-                var back = surfaces[index + 1];
-                if (groupEnd != index + 1
-                    || !IsAmbient(front.MaterialBefore.Name)
-                    || !IsAmbient(back.MaterialAfter.Name))
-                {
-                    warnings.Add(
-                        $"表面组 {front.Number}–{surfaces[lastBoundary].Number} 位于胶合或浸没介质中，当前标准镜片对象无法无损表示，已跳过整个玻璃边界组。");
-                    for (var boundary = index; boundary <= lastBoundary; boundary++)
-                    {
-                        consumedAsLensBoundary.Add(boundary);
-                    }
-                    index = lastBoundary;
-                    continue;
-                }
-                if (!double.IsFinite(front.Thickness) || front.Thickness <= 0
-                    || !Aligned(front.CoordinateSystem, back.CoordinateSystem))
-                {
-                    warnings.Add($"表面 {front.Number}–{back.Number} 无法表示为同轴正厚度标准镜片，已跳过。");
-                    continue;
-                }
-
-                converted.Add(new CoreObjectDefinition(
-                    Guid.NewGuid(),
-                    $"镜片 S{front.Number}–S{back.Number} {material}",
-                    CoreObjectKind.StandardLens,
-                    true,
-                    true,
-                    front.CoordinateSystem,
-                    null,
-                    null,
-                    new CoreStandardLensParameters(
-                        front.Radius,
-                        back.Radius,
-                        front.Conic,
-                        back.Conic,
-                        front.Thickness,
-                        Math.Max(front.SemiDiameter, back.SemiDiameter),
-                        material)));
-                consumedAsLensBoundary.Add(index);
-                consumedAsLensBoundary.Add(index + 1);
-            }
-
-            for (var index = 1; index < surfaces.Count - 1; index++)
-            {
-                var surface = surfaces[index];
-                if (consumedAsLensBoundary.Contains(index) || surface.IsStop)
-                {
-                    continue;
-                }
-
-                if (!surface.IsPlane)
-                {
-                    warnings.Add($"曲面 {surface.Number} 不是可表示的独立平面对象，已跳过。");
-                    continue;
-                }
-
-                converted.Add(new CoreObjectDefinition(
-                    Guid.NewGuid(),
-                    string.IsNullOrWhiteSpace(surface.Label) ? $"表面 {surface.Number}" : surface.Label,
-                    CoreObjectKind.PlaneRectangle,
-                    true,
-                    true,
-                    surface.CoordinateSystem,
-                    null,
-                    null,
-                    new CorePlaneRectangleParameters(
-                        surface.SemiDiameter * 2,
-                        surface.SemiDiameter * 2,
-                        surface.IsReflective
-                            ? CoreSurfaceBehavior.Reflective
-                            : CoreSurfaceBehavior.Refractive,
-                        surface.MaterialBefore.Name,
-                        surface.MaterialAfter.Name)));
-            }
-
-            var image = surfaces[^1];
-            converted.Add(new CoreObjectDefinition(
-                Guid.NewGuid(),
-                "像面探测器",
-                CoreObjectKind.DetectorRectangle,
-                true,
-                true,
-                image.CoordinateSystem,
-                null,
-                null,
-                new CoreDetectorRectangleParameters(
-                    image.SemiDiameter * 2,
-                    image.SemiDiameter * 2)));
-            warnings.Add("转换不会推断光源；请添加对象型光源后再追迹。");
-
-            var wavelengths = optic.Wavelengths.Select(item => new CoreWavelength(
-                item.Label,
-                item.Nanometers,
-                item.Weight,
-                item.IsPrimary));
-            var document = new CoreDocument(
-                $"{optic.Name} 非序列场景",
-                wavelengths.ToArray(),
-                converted,
-                "Air",
-                Runtime.CurrentNonSequentialDocument.TraceSettings);
-            ValidateMaterials(document);
-            Runtime.ReplaceNonSequentialDocument(document, $"已从顺序配置转换 {converted.Count} 个非序列对象。");
-            return new NonSequentialConversionResultDto(converted.Count, warnings);
+            // Build and validate the whole replacement before publishing any scene state.
+            var converted = Core.NonSequential.SequentialOpticalAssemblyConverter.Convert(
+                Runtime.CurrentOptic, Runtime.CurrentNonSequentialDocument.TraceSettings);
+            ValidateMaterials(converted);
+            Runtime.ReplaceNonSequentialDocument(converted, "已完整转换顺序光学组件，保留所有介质界面、逐面口径及镀膜。");
+            return new NonSequentialConversionResultDto(converted.Objects.Count,
+                ["转换不会推断光源；请添加与物方介质一致的光源后再追迹。"]);
         });
 
     public async Task<NonSequentialMeshImportResultDto> ImportStlAsync(
@@ -391,9 +267,36 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
     public NonSequentialRayDatabaseDto OpenRayDatabase(string path, string? pathFilterExpression = null)
         => _analysisService.OpenRayDatabase(path, pathFilterExpression);
 
+    public async Task<NonSequentialSurfaceBsdf> ImportMeasuredBsdfAsync(Guid objectId, string path, CancellationToken cancellationToken = default, BsdfImportOptions? options = null)
+    {
+        long generation, revision;
+        lock (Gate) { generation = Workspace.DocumentGeneration; revision = Workspace.Revision; }
+        var data = await Task.Run(() =>
+        {
+            using var scope = Core.Services.ComputationCancellation.Push(cancellationToken);
+            return Core.Scattering.BsdfFileImporter.Read(path, options is null ? null : new((Core.Scattering.BsdfImportSides)(int)options.Sides,
+                options.ZemaxWavelengthNanometers, options.ZemaxRadiometric, options.IncidentIndex, options.TransmittedIndex, options.ZemaxXyzCalibrationPath, options.SpeosPeak, options.AstmWavelengthNanometers, options.AstmIncidentThetaDegrees, options.AstmLogInterpolationScalePerSteradian), cancellationToken);
+        }, cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+        return MutateTransactional(WorkspaceChangeCategory.NonSequential, () =>
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (generation != Workspace.DocumentGeneration || revision != Workspace.Revision)
+                throw new OperationCanceledException("BSDF 导入期间工程已改变，原对象保持不变。", cancellationToken);
+            var document = Runtime.CurrentNonSequentialDocument.Clone();
+            var original = document.Objects.Single(o => o.Id == objectId);
+            var model = new Core.NonSequential.NonSequentialSurfaceBsdf(Core.NonSequential.NonSequentialBsdfKind.Measured, 0, data,
+                data.Coordinates == Core.Scattering.BsdfCoordinates.FixedMaterialAxes ? original.SurfaceBsdf?.MaterialAxis ?? new() : null);
+            document.Replace(objectId, original with { SurfaceBsdf = model }); ValidateMaterials(document);
+            Runtime.ReplaceNonSequentialDocument(document, $"已导入实测 BSDF：{data.Name}");
+            return NonSequentialBsdfMapper.ToDto(model)!;
+        });
+    }
+
     private void ValidateMaterials(CoreDocument document)
     {
-        _ = Runtime.CurrentOptic.Materials.Resolve(document.AmbientMaterial);
+        if(!document.Objects.Any(o=>o.Parameters is Core.NonSequential.OpticalAssemblyParameters g && g.Interfaces[0].MaterialBefore.Text.GetValueOrDefault("name", "Air")==document.AmbientMaterial))
+            _ = Runtime.CurrentOptic.Materials.Resolve(document.AmbientMaterial);
         foreach (var material in document.Objects.SelectMany(MaterialNames).Distinct(StringComparer.OrdinalIgnoreCase))
         {
             _ = Runtime.CurrentOptic.Materials.Resolve(material);
@@ -427,9 +330,15 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         item.LocalCoordinateSystem.RotationXDegrees,
         item.LocalCoordinateSystem.RotationYDegrees,
         item.LocalCoordinateSystem.RotationZDegrees,
-        MaterialNames(item).FirstOrDefault() ?? string.Empty,
+        item.Parameters is Core.NonSequential.OpticalAssemblyParameters group
+            ? string.Join(" / ",group.Interfaces.SelectMany(f=>new[]{f.MaterialBeforeName,f.MaterialAfterName}).Distinct())
+            : MaterialNames(item).FirstOrDefault() ?? string.Empty,
         ToDto(item.Parameters, document),
-        Summary(item.Parameters));
+        Summary(item.Parameters) + (item.SurfaceBsdf is { } bsdf ? bsdf.MeasuredData is { } d ? $" · BSDF {d.Name}" : $" · Lambertian ρ={bsdf.Reflectance:G5}" : ""),
+        NonSequentialBsdfMapper.ToDto(item.SurfaceBsdf));
+
+    private static OpticalSystemDesign.Core.NonSequential.NonSequentialSurfaceBsdf? ToCore(NonSequentialSurfaceBsdf? bsdf) =>
+        NonSequentialBsdfMapper.ToCore(bsdf);
 
     private static string Role(CoreObjectKind kind) => kind switch
     {
@@ -449,6 +358,7 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         CoreSphereParameters sphere => $"R {sphere.RadiusMillimeters:0.###} mm",
         CoreCylinderParameters cylinder => $"R {cylinder.RadiusMillimeters:0.###} × {cylinder.LengthMillimeters:0.###} mm",
         CoreBoxParameters box => $"{box.WidthMillimeters:0.###} × {box.HeightMillimeters:0.###} × {box.LengthMillimeters:0.###} mm",
+        Core.NonSequential.OpticalAssemblyParameters group => $"{group.Interfaces.Count} 个原始界面 · 独立口径/介质/镀膜",
         CoreStandardLensParameters lens => $"CT {lens.CenterThicknessMillimeters:0.###}，SD {lens.SemiDiameterMillimeters:0.###} mm",
         CoreMeshObjectParameters mesh => $"STL 资产 {mesh.MeshAssetId:N}，{mesh.Behavior}",
         CoreDetectorRectangleParameters detector => $"{detector.WidthMillimeters:0.###} × {detector.HeightMillimeters:0.###} mm，{detector.PixelsX} × {detector.PixelsY}",
@@ -538,13 +448,14 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
             cylinder.RadiusMillimeters, cylinder.LengthMillimeters, cylinder.Material, ToDto(cylinder.Behavior)),
         CoreBoxParameters box => new BoxParameters(
             box.WidthMillimeters, box.HeightMillimeters, box.LengthMillimeters, box.Material, ToDto(box.Behavior)),
+        Core.NonSequential.OpticalAssemblyParameters group => new OpticalAssemblyParameters(group),
         CoreStandardLensParameters lens => new StandardLensParameters(
             lens.FrontRadiusMillimeters, lens.BackRadiusMillimeters, lens.FrontConic, lens.BackConic,
             lens.CenterThicknessMillimeters, lens.SemiDiameterMillimeters, lens.Material),
         CoreMeshObjectParameters mesh when document is not null => ToMeshDto(document.FindMeshAsset(mesh.MeshAssetId), mesh),
         CoreDetectorRectangleParameters detector => new DetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb),
+            detector.FrontOnly, detector.Absorb,detector.IncidentSurface),
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter type '{value.GetType().Name}'.")
     };
 
@@ -603,6 +514,7 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
             cylinder.RadiusMillimeters, cylinder.LengthMillimeters, cylinder.Material, ToCore(cylinder.Behavior)),
         BoxParameters box => new CoreBoxParameters(
             box.WidthMillimeters, box.HeightMillimeters, box.LengthMillimeters, box.Material, ToCore(box.Behavior)),
+        OpticalAssemblyParameters group => group.Assembly,
         StandardLensParameters lens => new CoreStandardLensParameters(
             lens.FrontRadiusMillimeters, lens.BackRadiusMillimeters, lens.FrontConic, lens.BackConic,
             lens.CenterThicknessMillimeters, lens.SemiDiameterMillimeters, lens.Material),
@@ -610,7 +522,7 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
             mesh.MeshAssetId, ToCore(mesh.Behavior), mesh.Material, mesh.TwoSided),
         DetectorRectangleParameters detector => new CoreDetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb),
+            detector.FrontOnly, detector.Absorb,detector.IncidentSurface),
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter DTO '{value.GetType().Name}'.")
     };
 

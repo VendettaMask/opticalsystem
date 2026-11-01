@@ -1,0 +1,15 @@
+{
+  "ObservedUtc": "2026-10-31T06:06:00Z",
+  "TimePrecision": "approximate minute; file timestamps below are exact",
+  "LaterCoreAndApplicationCopy": {
+    "Sha256": "a1f60401b80b9947822a303363700dccd9a4639a7ff1d7c087b14228976f8efe",
+    "LastWriteUtc": "2026-10-31T06:03:37.8965505Z"
+  },
+  "EarlierAppModulesAndTestCopy": {
+    "Sha256": "52aa6ccc71c083e23712e54540d2608ff52cee74a731d812d28343528cebf1e1",
+    "LastWriteUtc": "2026-10-31T06:02:10.3326589Z",
+    "TestEvidence": "pre-output-sync.trx"
+  },
+  "Cause": "Not attributed to a process; shared working checkout. No newer scoped Core source file was found during the audit.",
+  "Action": "Rebuild the default graph, repeat the final tests, and require identical Core hashes before sealing."
+}

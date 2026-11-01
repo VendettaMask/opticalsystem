@@ -13,7 +13,8 @@ public static class FixedTopologyOptimizer
 {
     public static FixedTopologyResult Run(CompiledTopology source, BoundTopologyParameters binding, TopologyTargets targets,
         FixedTopologyOptions? options = null, CancellationToken cancellationToken = default, Action<FixedTopologyStep>? progress = null,
-        FixedTopologyContinuation? continuation = null)
+        FixedTopologyContinuation? continuation = null,
+        Func<FixedTopologyContinuation, bool>? checkpoint = null)
     {
         options ??= new();
         Require(options.MaximumUpdates is >= 0 and <= 400 && options.MaximumFunctionEvaluations is >= 1 and <= 10000
@@ -21,10 +22,14 @@ public static class FixedTopologyOptimizer
             && double.IsFinite(options.LearningRate) && options.LearningRate is > 0 and <= 1 && Enum.IsDefined(options.ComputeMode),
             TopologyFailureCode.InvalidInput, "Invalid fixed-topology stage budget or learning rate.");
         var transmissionFirst = options.TransmissionFirst == true;
-        var needsJacobian = transmissionFirst || options.ActiveParameterLimit is not null;
+        var gateAware = options.GateCompensationVersion is not null;
+        Require(!gateAware || options.GateCompensationVersion is 1 or 2 or 3 or 4 && !transmissionFirst && options.ActiveParameterLimit is null,
+            TopologyFailureCode.IdentityMismatch, "Gate compensation requires an explicit supported version (1–4) and cannot mix historical transmission policies.");
+        var transmissionJacobian = transmissionFirst || options.ActiveParameterLimit is not null;
+        var needsJacobian = transmissionJacobian || gateAware;
         Require((options.ActiveParameterLimit is null or >= 1 and <= 512) && (!needsJacobian || options.Sampling.IncludeBoundaryClearance == true),
             TopologyFailureCode.InvalidInput, "Transmission compensation/selection requires explicit boundary sampling and a bounded active parameter count.");
-        Require(!needsJacobian || options.TransmissionPolicyVersion is 3 or 4 or 5 or 9 or 11 or 12 or 13 or 14, TopologyFailureCode.IdentityMismatch,
+        Require(!transmissionJacobian || options.TransmissionPolicyVersion is 3 or 4 or 5 or 9 or 11 or 12 or 13 or 14, TopologyFailureCode.IdentityMismatch,
             "An explicit transmission policy version 3, 4, 5, 9, 11, 12, 13 or 14 is required. Unversioned prototype records are read-only; create a fresh versioned plan.");
         var timer = Stopwatch.StartNew();
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
@@ -33,6 +38,8 @@ public static class FixedTopologyOptimizer
         var token = deadline.Token;
         var steps = continuation?.Steps.ToList() ?? new List<FixedTopologyStep>();
         var diagnostics = new HashSet<string>(StringComparer.Ordinal);
+        if (continuation?.Diagnostics is { } retainedDiagnostics) diagnostics.UnionWith(retainedDiagnostics);
+        var suspended = false;
         var previous = continuation?.Work;
         var functions = previous?.FunctionEvaluations ?? 0; var gradients = previous?.GradientEvaluations ?? 0;
         var completedGradients = previous?.CompletedGradientEvaluations ?? 0; var validations = previous?.ValidationEvaluations ?? 0;
@@ -51,7 +58,7 @@ public static class FixedTopologyOptimizer
         var tryFallbackNext = continuation?.TryFallbackNext ?? false;
         static (bool Suppressed, bool Pending) Advance(bool suppressed, bool accepted, bool considered) =>
             accepted ? (false, false) : (suppressed || considered, !suppressed && !considered);
-        var phaseFingerprint = ContentFingerprint.Compute(new { Identity = needsJacobian ? "fixed-topology-transmission-v" + options.TransmissionPolicyVersion : "fixed-topology-continuation-v1", source.BindingFingerprint, binding.Fingerprint, targets, options });
+        var phaseFingerprint = ContentFingerprint.Compute(new { Identity = gateAware ? "fixed-topology-gate-compensation-v" + options.GateCompensationVersion : needsJacobian ? "fixed-topology-transmission-v" + options.TransmissionPolicyVersion : "fixed-topology-continuation-v1", source.BindingFingerprint, binding.Fingerprint, targets, options });
         if (continuation is not null)
         {
             DifferentiableAdam.Validate(state);
@@ -83,6 +90,7 @@ public static class FixedTopologyOptimizer
         var projectionEvents = options.TransmissionPolicyVersion is 12 or 13 or 14 ? new List<TopologyProjectionAttempt>() : null;
         var transmission = objective is null ? null : new TopologyTransmissionCompensation(objective.ResidualIds,
             options.TransmissionPolicyVersion ?? 3, projectionEvents is null ? null : projectionEvents.Add);
+        var gates = !gateAware || objective is null ? null : new TopologyGateCompensation(objective.ResidualIds, options.GateCompensationVersion!.Value);
         if (continuation is not null && endpoint is not null)
             Require(endpoint.Available && endpoint.LayoutFingerprint == objective?.Fingerprint
                 && endpoint.OpticFingerprint == current.OpticFingerprint && endpoint.Gradient.Length == binding.Slots.Length
@@ -110,18 +118,26 @@ public static class FixedTopologyOptimizer
                 else
                 {
                     current = TopologyParameterBinder.Apply(source, binding, state.Coordinates);
+                    SaveSafePoint();
                     for (var attempt = steps.Count + 1; attempt <= options.MaximumUpdates; attempt++)
                     {
-                        if (StopRequested()) break;
+                        if (suspended || StopRequested()) break;
                         if (!CanDifferentiate()) { termination = FixedTopologyTermination.BudgetExhausted; break; }
-                        if (transmissionFirst ? transmission!.Feasible(endpoint) : endpoint.Gradient.All(value => Math.Abs(value) < 1e-10))
+                        if (gateAware ? gates!.Converged(endpoint) : transmissionFirst ? transmission!.Feasible(endpoint) : endpoint.Gradient.All(value => Math.Abs(value) < 1e-10))
                         { termination = FixedTopologyTermination.Converged; break; }
                         var active = options.ActiveParameterLimit is { } limit ? transmission!.Select(endpoint, limit) : Enumerable.Range(0, binding.Slots.Length).ToArray();
                         AutoLensAdamState proposed;
                         double[] coordinates;
                         var modelRank = 0;
                         var fallbackConsidered = options.TransmissionPolicyVersion == 14 && tryFallbackNext && !suppressFallback;
-                        if (transmissionFirst)
+                        if (gateAware)
+                        {
+                            try { (coordinates, modelRank) = gates!.Propose(endpoint, state.Coordinates, binding, rate / options.LearningRate, token); }
+                            catch (OperationCanceledException) when (token.IsCancellationRequested) { break; }
+                            catch (ArithmeticException error) { diagnostics.Add(error.Message); termination = FixedTopologyTermination.Stalled; break; }
+                            proposed = DifferentiableAdam.Initialize(coordinates) with { Iteration = state.Iteration + 1 };
+                        }
+                        else if (transmissionFirst)
                         {
                             projectionEvents?.Clear();
                             try
@@ -164,10 +180,29 @@ public static class FixedTopologyOptimizer
                         if (SequentialTraceMeasurement.CpuBudgetReached) { termination = FixedTopologyTermination.BudgetExhausted; break; }
                         // Cancellation is not a rejected numerical update: preserve moments and rate.
                         if (StopRequested()) break;
+                        if (options.GateCompensationVersion is 2 or 3 or 4 && gates!.NeedsHardCorrection(endpoint, trial) && CanDifferentiate())
+                        {
+                            try
+                            {
+                                var corrected = gates.CorrectHard(trial, coordinates, binding, rate / options.LearningRate, token);
+                                if (!corrected.SequenceEqual(coordinates))
+                                {
+                                    diagnostics.Add($"Hard-constraint correction attempt {attempt}: original={gates.Merit(trial)}.");
+                                    coordinates = corrected;
+                                    trial = Evaluate(coordinates);
+                                    if (SequentialTraceMeasurement.CpuBudgetReached) { termination = FixedTopologyTermination.BudgetExhausted; break; }
+                                    if (StopRequested()) break;
+                                }
+                            }
+                            catch (OperationCanceledException) when (token.IsCancellationRequested) { break; }
+                            catch (ArithmeticException error) { diagnostics.Add(error.Message); }
+                        }
                         var beforeMerit = transmissionFirst ? transmission!.Merit(endpoint) : default;
                         var afterMerit = transmissionFirst && trial.Available ? transmission!.Merit(trial) : (double.PositiveInfinity, double.PositiveInfinity);
-                        var accepted = transmissionFirst ? transmission!.Accept(endpoint, trial)
+                        var accepted = gateAware ? gates!.Accept(endpoint, trial) : transmissionFirst ? transmission!.Accept(endpoint, trial)
                             : trial.Available && (options.RequireDescent != true || trial.Objective <= endpoint.Objective);
+                        if (gateAware && trial.Available)
+                            diagnostics.Add($"Gate attempt {attempt}: before={gates!.Merit(endpoint)}, after={gates.Merit(trial)}, rank={modelRank}, rate={rate:R}, accepted={accepted}.");
                         var usedFallback = projectionEvents is { Count: > 0 } && projectionEvents[^1].FallbackFeasible;
                         if (options.TransmissionPolicyVersion == 13)
                             suppressFallback = !accepted && (suppressFallback || usedFallback);
@@ -179,7 +214,7 @@ public static class FixedTopologyOptimizer
                             state = proposed with { Coordinates = coordinates };
                             endpoint = trial;
                             updates++;
-                            if (transmissionFirst) rate = Math.Min(options.LearningRate, rate * 2);
+                            if (transmissionFirst || gateAware) rate = Math.Min(options.LearningRate, rate * (gateAware ? 1.2 : 2));
                         }
                         else
                         {
@@ -188,7 +223,8 @@ public static class FixedTopologyOptimizer
                             rate *= .5;
                         }
                         var step = new FixedTopologyStep(attempt, accepted, trial.Objective,
-                            trial.Available && !accepted ? transmissionFirst ? "Transmission/gate filter rejected the proposal." : "Non-descending proposal rejected under the fixed phase objective." : trial.Failure)
+                            trial.Available && !accepted ? gateAware ? "Gate-compensation phase/physical filter rejected the proposal."
+                                : transmissionFirst ? "Transmission/gate filter rejected the proposal." : "Non-descending proposal rejected under the fixed phase objective." : trial.Failure)
                         {
                             UsedFallbackCandidate = options.TransmissionPolicyVersion is 13 or 14 ? usedFallback : null,
                             FallbackConsidered = options.TransmissionPolicyVersion == 14 ? fallbackConsidered : null,
@@ -198,12 +234,14 @@ public static class FixedTopologyOptimizer
                         if (projectionEvents is { Count: > 0 } && projectionEvents[^1].FallbackFeasible)
                             diagnostics.Add($"Fallback candidate attempt {attempt}: accepted={accepted}.");
                         steps.Add(step); progress?.Invoke(step);
+                        SaveSafePoint();
+                        if (suspended) break;
                         if (!trial.Available && rate < 1e-10) { termination = FixedTopologyTermination.DomainFailure; break; }
                     }
                 }
             }
             // The last function slot is reserved for a fresh, independent physical endpoint assessment.
-            if (options.PerformFinalAssessment && !SequentialTraceMeasurement.CpuBudgetReached && !StopRequested() && functions < options.MaximumFunctionEvaluations)
+            if (!suspended && options.PerformFinalAssessment && !SequentialTraceMeasurement.CpuBudgetReached && !StopRequested() && functions < options.MaximumFunctionEvaluations)
             {
                 functions++; validations++;
                 assessment = TopologyValidator.Validate(current, targets, token);
@@ -215,10 +253,12 @@ public static class FixedTopologyOptimizer
                 }
             }
         }
-        if (StopRequested())
+        if (suspended) termination = FixedTopologyTermination.Cancelled;
+        else if (StopRequested())
             termination = cancellationToken.IsCancellationRequested ? FixedTopologyTermination.Cancelled : FixedTopologyTermination.TimeLimit;
         return new()
         {
+            Algorithm = gateAware ? "fixed-topology-gate-compensation-v" + options.GateCompensationVersion : AutonomousTopologyIdentity.Name,
             ObjectiveFingerprint = objective?.Fingerprint ?? "unavailable",
             Topology = current.Topology,
             Constraints = source.Constraints,
@@ -234,6 +274,7 @@ public static class FixedTopologyOptimizer
             Diagnostics = diagnostics.ToImmutableArray(),
             Continuation = validations == 0 ? new()
             {
+                Diagnostics = checkpoint is not null || continuation?.Diagnostics is not null ? diagnostics.ToImmutableArray() : null,
                 PhaseFingerprint = phaseFingerprint,
                 SuppressFallbackAtCurrentPoint = suppressFallback,
                 TryFallbackNext = tryFallbackNext,
@@ -249,6 +290,28 @@ public static class FixedTopologyOptimizer
 
         FixedTopologyWork Work() => new(functions, gradients, validations, rays, probes, unknownGpuWork ? null : gpuRays,
             unknownGpuWork ? null : gpuBatches, elapsedBefore + timer.Elapsed, completedGradients);
+        void SaveSafePoint()
+        {
+            if (checkpoint is null || endpoint is null || token.IsCancellationRequested) return;
+            timer.Stop();
+            deadline.CancelAfter(Timeout.InfiniteTimeSpan);
+            try
+            {
+                suspended = checkpoint(new()
+                {
+                    PhaseFingerprint = phaseFingerprint, Adam = state, LearningRate = rate, Work = Work(),
+                    AcceptedUpdates = updates, Steps = steps.ToImmutableArray(), InitialEvaluation = initial,
+                    EndpointEvaluation = endpoint, Diagnostics = diagnostics.ToImmutableArray(),
+                    SuppressFallbackAtCurrentPoint = suppressFallback, TryFallbackNext = tryFallbackNext
+                });
+            }
+            finally
+            {
+                timer.Start();
+                var remaining = options.TimeLimit - elapsedBefore - timer.Elapsed;
+                deadline.CancelAfter(remaining > TimeSpan.Zero ? remaining : TimeSpan.Zero);
+            }
+        }
         bool CanDifferentiate() => functions < options.MaximumFunctionEvaluations - (options.PerformFinalAssessment ? 1 : 0)
             && gradients < options.MaximumGradientEvaluations && !SequentialTraceMeasurement.CpuBudgetReached;
         bool StopRequested()

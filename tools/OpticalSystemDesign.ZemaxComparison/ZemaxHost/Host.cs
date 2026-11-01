@@ -39,6 +39,15 @@ internal static class Host
         if (File.Exists(path)) File.Delete(path);
         File.Move(path + ".tmp", path);
     }
+    private static void NativeStage(string stage, object detail)
+    {
+        var record = Object("stage", stage, "utc", DateTime.UtcNow.ToString("o"), "detail", detail,
+            "thread", System.Threading.Thread.CurrentThread.ManagedThreadId,
+            "apartment", System.Threading.Thread.CurrentThread.GetApartmentState().ToString());
+        var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
+        File.AppendAllText(Path.Combine(Output, "native-timeline.jsonl"), serializer.Serialize(record) + Environment.NewLine);
+        Write("native-stage.json", record);
+    }
     internal static object Finite(double n) { return double.IsNaN(n) || double.IsInfinity(n) ? null : (object)n; }
     internal static Dictionary<string, object> Properties(object obj)
     {
@@ -92,6 +101,7 @@ internal static class Host
             var environment = Object("major", app.ZOSMajorVersion, "minor", app.ZOSMinorVersion,
                 "servicePack", app.ZOSSPVersion, "opticStudioVersion", app.OpticStudioVersion,
                 "licenseStatus", app.LicenseStatus.ToString(), "validLicense", app.IsValidLicenseForAPI,
+                "numberOfCPUs", app.NumberOfCPUs, "instance", app.OpticStudioInstance, "mode", app.Mode.ToString(),
                 "initializationErrors", app.InitializationErrors, "analysisIds", Enum.GetNames(typeof(AnalysisIDM)));
             Write("environment.json", environment);
             if (!app.IsValidLicenseForAPI) throw new CaptureFailure("LicenseUnavailable", app.LicenseStatus.ToString());
@@ -100,6 +110,26 @@ internal static class Host
             if (actual != expected) throw new InvalidOperationException("Version mismatch: expected " + expected + ", received " + actual);
             app.BeginMessageLogging();
             var system = app.PrimarySystem;
+            if (Request.ContainsKey("gradient9CatalogSha256"))
+            {
+                var property = app.GetType().GetInterfaces().SelectMany(t => t.GetProperties()).FirstOrDefault(p => p.Name == "GlassDir");
+                if (property == null) throw new InvalidOperationException("Cannot verify the native glass catalog directory.");
+                var catalog = Path.Combine((string)property.GetValue(app, null), "GRADIENT_9.DAT");
+                string hash;
+                using (var sha = System.Security.Cryptography.SHA256.Create())
+                    hash = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(catalog))).Replace("-", "").ToLowerInvariant();
+                Write("gradient9-catalog.json", Object("path", catalog, "sha256", hash, "matched", hash == (string)Request["gradient9CatalogSha256"]));
+                if (hash != (string)Request["gradient9CatalogSha256"]) throw new CaptureFailure("CatalogDependencyMismatch", "Gradient 9 native catalog changed.");
+            }
+            if (Request.ContainsKey("memsDllSha256"))
+            {
+                var dll = Path.Combine(app.ZemaxDataDir, "DLL", "Surfaces", "US_MEMS.DLL");
+                string hash;
+                using (var sha = System.Security.Cryptography.SHA256.Create())
+                    hash = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(dll))).Replace("-", "").ToLowerInvariant();
+                Write("mems-contract.json", Object("path", dll, "sha256", hash, "matched", hash == (string)Request["memsDllSha256"]));
+                if (hash != (string)Request["memsDllSha256"]) throw new CaptureFailure("MemsDependencyMismatch", "US_MEMS native sample contract changed.");
+            }
             if (Request.ContainsKey("polygonDependencies"))
             {
                 var checks = new List<object>();
@@ -146,6 +176,8 @@ internal static class Host
             system.MCE.SetCurrentConfiguration(Int("configuration"));
             if (Request.ContainsKey("diagnosticPolygonTriangles"))
                 ownedPolygon = NativePolygonControl.Apply(system, app.ObjectsDir);
+            NativeEnergyReferenceControls.Apply(system);
+            NativeSurfaceApertureControls.Apply(system);
             if (Request.ContainsKey("diagnosticGaussianApodizationFactor"))
             {
                 double factor = Number("diagnosticGaussianApodizationFactor");
@@ -173,6 +205,11 @@ internal static class Host
                 NativeNormalsCapture.Run(system, app);
                 return 0;
             }
+            if ((string)Request["adapter"] == "nsc-tagged-paths")
+            {
+                NativeTaggedFacetCapture.Run(system, app);
+                return 0;
+            }
             if ((string)Request["adapter"] == "nsc-facet-paths")
             {
                 NativeFacetPathCapture.Run(system);
@@ -183,9 +220,24 @@ internal static class Host
                 AfocalDiagnosticCapture.Run(system);
                 return 0;
             }
+            if ((string)Request["adapter"] == "fourier-operands")
+            {
+                NativeFourierOperandCapture.Run(system);
+                return 0;
+            }
+            if ((string)Request["adapter"] == "huygens-field-spectra")
+            {
+                NativeHuygensFieldSpectra.Run(system);
+                return 0;
+            }
             if ((string)Request["adapter"] == "ray-audit")
             {
                 NativeRayAuditCapture.Run(system);
+                return 0;
+            }
+            if ((string)Request["adapter"] == "surface-model-controls")
+            {
+                NativeSurfaceModelControls.Run(system);
                 return 0;
             }
             if ((string)Request["adapter"] == "point-comparison")
@@ -208,13 +260,46 @@ internal static class Host
                 throw new CaptureFailure("SettingsCaptureFailed", "ZOS-API could not save the configured analysis settings");
             Write("captured-settings.json", Object("origin", "CapturedSettings", "properties", Properties(settings),
                 "selectors", Selectors(settings), "request", Request));
-            var applied = analysis.ApplyAndWaitForCompletion();
+            NativeStage("Apply", null);
+            IMessage applied;
+            if (Request.ContainsKey("nativeAsyncApplyPolling") && Convert.ToBoolean(Request["nativeAsyncApplyPolling"]))
+            {
+                applied = analysis.Apply();
+                NativeStage("AppliedAsync", applied == null ? null : (object)applied.ErrorCode.ToString());
+                if (applied == null || applied.ErrorCode == ErrorType.Success)
+                {
+                    while (analysis.IsRunning())
+                    {
+                        NativeStage("Running", null);
+                        if (Request.ContainsKey("nativeInspectRunningBuffers") && Convert.ToBoolean(Request["nativeInspectRunningBuffers"]))
+                        {
+                            try
+                            {
+                                var live = analysis.GetResults();
+                                NativeStage("PolledResults", Object("available", live != null));
+                                Write("running-buffer-status.json", Object("available", live != null,
+                                    "utc", DateTime.UtcNow.ToString("o")));
+                            }
+                            catch (Exception error) { NativeStage("PollError", error.ToString()); Write("running-buffer-status.json", Object("error", error.ToString())); }
+                        }
+                        System.Threading.Thread.Sleep(250);
+                    }
+                }
+            }
+            else applied = analysis.ApplyAndWaitForCompletion();
+            NativeStage("Results", null);
+            if (Request.ContainsKey("diagnosticRelativeIllumination") && Convert.ToBoolean(Request["diagnosticRelativeIllumination"]))
+            {
+                NativeRelativeIlluminationCapture.Run(system, analysis.GetResults(), applied);
+                return 0;
+            }
             if (applied != null && applied.ErrorCode != ErrorType.Success)
                 throw new CaptureFailure(applied.ErrorCode.ToString(), applied.Text);
             var results = analysis.GetResults();
             // Preserve the native explanation even when numeric buffers are
             // absent. An invalid result must never hide its report/messages.
             bool text = results.GetTextFile(Path.Combine(Output, "data.txt"));
+            NativeStage("CaptureBuffers", null);
             Write("result-diagnostics.json", Object("seriesCount", results.NumberOfDataSeries,
                 "gridCount", results.NumberOfDataGrids,
                 "messages", Enumerable.Range(0, results.NumberOfMessages).Select(i =>
@@ -228,8 +313,13 @@ internal static class Host
             for (var i = 0; i < results.NumberOfMessages; i++)
             {
                 var message = results.GetMessageAt(i);
+                // Some native allocation failures incorrectly carry Success.
+                // Preserve their raw buffers/report, but never certify capture.
                 if (message.ErrorCode != ErrorType.Success || (!string.IsNullOrEmpty(message.Text)
-                    && message.Text.IndexOf("calculation cannot proceed", StringComparison.OrdinalIgnoreCase) >= 0))
+                    && (message.Text.IndexOf("calculation cannot proceed", StringComparison.OrdinalIgnoreCase) >= 0
+                        || message.Text.IndexOf("insufficient memory", StringComparison.OrdinalIgnoreCase) >= 0
+                        || message.Text.IndexOf("not enough memory", StringComparison.OrdinalIgnoreCase) >= 0
+                        || message.Text.IndexOf("没有足够的内存", StringComparison.Ordinal) >= 0)))
                     throw new CaptureFailure("NativeAnalysisFailed", message.Text);
             }
             string screenshotStatus = "NotRequested";
@@ -241,6 +331,7 @@ internal static class Host
             }
             Write("capture.json", Object("textSaved", text, "analysisType", id.ToString(), "screenshotStatus", screenshotStatus));
             File.WriteAllText(Path.Combine(Output, "zemax.log"), app.RetrieveLogMessages());
+            NativeStage("Completed", null);
             return 0;
         }
         finally
@@ -299,7 +390,7 @@ internal static class Host
         }
         return selectors;
     }
-    private static Dictionary<string, object> Capture(IAR_ r)
+    internal static Dictionary<string, object> Capture(IAR_ r)
     {
         var series = Enumerable.Range(0, r.NumberOfDataSeries).Select(i =>
         {

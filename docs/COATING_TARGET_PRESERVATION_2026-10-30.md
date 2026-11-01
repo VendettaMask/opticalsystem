@@ -1,5 +1,7 @@
 # 协议4：峰值透射率、截止OD的逐项目标保护
 
+本页保留`target-violation-envelope/1`、154项测试和35组对照的历史身份；版本2保留[156项阶段报告](COATING_TARGET_BALANCING_2026-10-31.md)，当前版本3的目标权衡、截止极值与真实材料剩余项见[后续修复](COATING_TRADEOFF_REPAIR_2026-10-31.md)。下文原数值不改写。
+
 本轮修正此前真实材料高反/窄带中“综合分数改善，却牺牲另一项未达标指标”的问题。保持真实n/k、制造界、固定层、原`Checks`/`Converged`及新建默认协议；没有材料名/ID、特定膜层编号或例子签名分支。完整输入、各分项、参考运行、失败与重放见[证据目录](../validation/rechecks/2026-10-30/coating-target-preservation/README.md)。
 
 ## 原因与通用修正

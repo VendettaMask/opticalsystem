@@ -34,8 +34,8 @@ public sealed partial class MainWindow
         var flyout = new MenuFlyout();
         foreach (var group in SequentialExampleCatalog.Groups)
         {
-            var category = new MenuItem { Header = group.Name, MinWidth = 230, Padding = new Thickness(10, 8) };
-            AutomationProperties.SetName(category, group.Name);
+            var category = new MenuItem { Header = group.DisplayName, MinWidth = 230, Padding = new Thickness(10, 8) };
+            AutomationProperties.SetName(category, group.DisplayName);
             category.Classes.Add("ribbon-menu-item");
             foreach (var example in group.Examples)
             {

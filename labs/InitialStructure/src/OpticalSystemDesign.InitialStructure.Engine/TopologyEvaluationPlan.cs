@@ -96,6 +96,10 @@ internal static class TopologyEvaluationPlan
         ? DifferentialScalar.Abs(DifferentiableOpticalMetrics.SurfaceSlope(optic, parameters, row.First, row.Radius))
         : DifferentiableOpticalMetrics.AxialSeparation(optic, parameters, row.First, row.Second, row.Radius);
 
+    internal static DifferentialScalar Measure(DifferentiableGeometryWorkspace workspace, TopologyGeometryRow row) => row.Slope
+        ? DifferentialScalar.Abs(workspace.SurfaceSlope(row.First, row.Radius))
+        : workspace.AxialSeparation(row.First, row.Second, row.Radius);
+
     internal static double FormalMeasure(Core.Optic optic, TopologyGeometryRow row) => row.Slope
         ? Measure(optic, [], row).Value : AxialSurfaceSeparation.EvaluateBetween(optic, row.First, row.Second, row.Radius, 0);
 

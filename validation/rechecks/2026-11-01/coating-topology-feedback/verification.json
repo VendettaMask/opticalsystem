@@ -1,0 +1,210 @@
+{
+  "scope": "Feedback optimized under frozen sampling/1; all compared stacks re-evaluated under final sampling/2. Production correction is formal sampling only.",
+  "counts": {
+    "inputs": 9,
+    "topologyCases": 9,
+    "prototypeCases": 6,
+    "oldScheduleCases": 9,
+    "largerOldCases": 2,
+    "referenceCases": 8,
+    "topologyProposals": 2673,
+    "prototypeProposals": 662,
+    "shortCalls": 192,
+    "fullCalls": 48,
+    "stageRechecks": 240,
+    "replayedRetained": 24,
+    "newSpecificationsPassed": 0,
+    "focusedTests": 12,
+    "physicsPoints": 4389
+  },
+  "source": [
+    {
+      "file": "DesignService.Balanced.cs",
+      "unchanged": true,
+      "sha256": "9d154bc46f017ea82f13d2f399f907c893b7d5f11ce544494ba4d8a9ba63a2cd"
+    },
+    {
+      "file": "DesignService.cs",
+      "unchanged": false,
+      "sha256": "ecbfe3a74500307aca28539fde013fa1508b2ca19af8a7d005e9bcb187ae696a"
+    },
+    {
+      "file": "DesignService.FeasibleReflectance.cs",
+      "unchanged": true,
+      "sha256": "b9749ae7e70984e043080990a3fa43d1c552fc78e8c57ac911502d07fc81440e"
+    },
+    {
+      "file": "DesignService.FeasibleTargets.cs",
+      "unchanged": true,
+      "sha256": "49bc97932d27f2f4978b3c177b93885b7d078a609536851081a5cd6914dca411"
+    },
+    {
+      "file": "DesignService.GeneralMatching.cs",
+      "unchanged": true,
+      "sha256": "60061f33aab5d6c2101eacf42c51ce2d2858c7f22d67c30988845b6b5df74d17"
+    },
+    {
+      "file": "DesignService.GeneralObjective.cs",
+      "unchanged": true,
+      "sha256": "bb4b193c0bc6acb9a1ddbf4581385eec23080a3810c23b1ea6cc5888eaf748fa"
+    },
+    {
+      "file": "DesignService.GeneralSearch.cs",
+      "unchanged": true,
+      "sha256": "fc259a1c388a49f29049a35eaec720f052be69e68c16533457450059a661abcf"
+    },
+    {
+      "file": "DesignService.NarrowBand.cs",
+      "unchanged": true,
+      "sha256": "bb94dd3345179aef1a813d0ba3d6c274317ae9c2504020542514dcfb3d25d9d4"
+    },
+    {
+      "file": "DesignService.NonlinearCorrection.cs",
+      "unchanged": true,
+      "sha256": "8a5aa350155eb3aec51aca25c28ccaecde38ab6f2e0a82df79ff0daf69e82b2e"
+    },
+    {
+      "file": "DesignService.PassbandQuality.cs",
+      "unchanged": true,
+      "sha256": "695d2addc4c60c06945975cbe1677edbca1777c8f259a75653eeb2f72a6f4cae"
+    },
+    {
+      "file": "DesignService.ReflectanceQuality.cs",
+      "unchanged": true,
+      "sha256": "9849a5fde0063d3e4eeee895b6a6c6a71ab78da7245b3f05d5f0bdc5560b82d7"
+    },
+    {
+      "file": "DesignService.Search.cs",
+      "unchanged": true,
+      "sha256": "9b942bba5b3f1bf1c4b7b7a367bc52324671380f7244e12f91c747949316f7fe"
+    },
+    {
+      "file": "DesignService.SearchSampling.cs",
+      "unchanged": true,
+      "sha256": "56065380bba2e71c897e3469f56681957469b6304dcf5e4037cfe4de6f01762c"
+    },
+    {
+      "file": "DesignService.SeedRanking.cs",
+      "unchanged": true,
+      "sha256": "59c0ed45e861a37946a0931641be456d60d225a96a7a277487c896753228b801"
+    },
+    {
+      "file": "DesignService.TargetProtection.cs",
+      "unchanged": true,
+      "sha256": "6ca22e288c3af85681801cbd3d3be8dc5fe200c505af2fe7aa325f4146489993"
+    },
+    {
+      "file": "Examples.cs",
+      "unchanged": true,
+      "sha256": "9a9dc871c726b286ebc4655b28cc4ed6246ebbd0586d580f440a333eb7fa583f"
+    },
+    {
+      "file": "Experiment.cs",
+      "unchanged": false,
+      "sha256": "29593106ecfb0bd9733a46f0a9e0cd728fd43f11cd4701afd12fcffa85af8eae"
+    },
+    {
+      "file": "ExperimentSession.cs",
+      "unchanged": true,
+      "sha256": "a4e5260c9eb042a6a78cba888bbfcd3420c34ba2e3ed2f497701effeed86d0a5"
+    },
+    {
+      "file": "ExperimentStore.cs",
+      "unchanged": true,
+      "sha256": "a1bc7a7563043edad95f805825972d2f849f74d8964440886159bd7caad1ab8c"
+    },
+    {
+      "file": "MaterialLibrary.cs",
+      "unchanged": true,
+      "sha256": "96d2700ae56c23dfcf93f47f12042c8b3c20ef445a66670ff5ba162d05f1860b"
+    },
+    {
+      "file": "MaterialSuitability.cs",
+      "unchanged": true,
+      "sha256": "76d0ef7bca6164e722900d6937d7890c60906612dbb71cd1f479f199cc34056c"
+    },
+    {
+      "file": "MaterialTable.cs",
+      "unchanged": true,
+      "sha256": "b03e578863fc66daa1347fee2660deeefc086acf54c5d1b1e77c911d9f10d165"
+    }
+  ],
+  "numericChecksConvergenceThresholdsAndMeasureUnchanged": true,
+  "inputSchemaAndFingerprintUnchanged": true,
+  "tests": {
+    "total": "12",
+    "executed": "12",
+    "passed": "12",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "physics": {
+    "cases": 4389,
+    "maximumErrors": {
+      "R": 1.3378187446733136e-14,
+      "T": 1.049160758270773e-14,
+      "A": 6.328271240363392e-15
+    }
+  },
+  "referenceSources": [
+    {
+      "path": ".tmp\\coating-infeasible-repair\\TFStudio-8b942b3f956728a23cea2b35023c8b5d8de17428\\src\\utils\\synthesis\\structuralOptimizer.js",
+      "unchanged": true
+    },
+    {
+      "path": ".tmp\\coating-infeasible-repair\\TFStudio-8b942b3f956728a23cea2b35023c8b5d8de17428\\src\\utils\\physics\\optimizer\\layerOps.js",
+      "unchanged": true
+    },
+    {
+      "path": ".tmp\\coating-infeasible-repair\\TFStudio-8b942b3f956728a23cea2b35023c8b5d8de17428\\src\\utils\\physics\\optimizer\\lsqEngine.js",
+      "unchanged": true
+    },
+    {
+      "path": ".tmp\\coating-infeasible-repair\\TFStudio-8b942b3f956728a23cea2b35023c8b5d8de17428\\src\\utils\\physics\\optimizer\\operandModel.js",
+      "unchanged": true
+    }
+  ],
+  "referencePasses": 0,
+  "previousEvidence": {
+    "files": 169,
+    "mismatches": 0
+  },
+  "binaries": [
+    {
+      "runtime": "baseline-runtime",
+      "core": "174e926b77cb30b97bdf486459fa336f55d9ae57f738ce45d4dd5c182f91b380",
+      "engine": "85db244604159817b0ce05b5d9dc398159284c1de5f343c05c2c8de2b4873072"
+    },
+    {
+      "runtime": "feedback-runtime",
+      "core": "174e926b77cb30b97bdf486459fa336f55d9ae57f738ce45d4dd5c182f91b380",
+      "engine": "85db244604159817b0ce05b5d9dc398159284c1de5f343c05c2c8de2b4873072"
+    },
+    {
+      "runtime": "prototype-runtime",
+      "core": "174e926b77cb30b97bdf486459fa336f55d9ae57f738ce45d4dd5c182f91b380",
+      "engine": "85db244604159817b0ce05b5d9dc398159284c1de5f343c05c2c8de2b4873072"
+    },
+    {
+      "runtime": "final-runtime",
+      "core": "174e926b77cb30b97bdf486459fa336f55d9ae57f738ce45d4dd5c182f91b380",
+      "engine": "0f99f393bcb0e610fbd42e7b9bc3edd7f757b7b39b605c4afd7e8d7a766875ef"
+    },
+    {
+      "runtime": "test-runtime",
+      "core": "174e926b77cb30b97bdf486459fa336f55d9ae57f738ce45d4dd5c182f91b380",
+      "engine": "0f99f393bcb0e610fbd42e7b9bc3edd7f757b7b39b605c4afd7e8d7a766875ef"
+    }
+  ]
+}

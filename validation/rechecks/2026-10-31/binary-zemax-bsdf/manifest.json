@@ -1,0 +1,301 @@
+{
+  "Stage": "Speos binary and Zemax tabular BSDF import, NSC -> RAW/ISP",
+  "SealedUtc": "2026-10-31T08:24:31.0419082+00:00",
+  "BaseCommit": "3b43bb7f87270e034218bf466b23f885330814fc",
+  "SharedDirtyWorkspace": true,
+  "Scope": "Focused regressions, no whole suite or native desktop acceptance",
+  "Supported": [
+    "Speos archive-3 .brdf v8 zlib and .anisotropicbsdf v7/v9 LZ4",
+    "Zemax Monochrome radiometric BRDF/BTDF with declared wavelength/indices",
+    "Existing CSV v1/v2 and Speos text preserved"
+  ],
+  "Result": {
+    "Total": 191,
+    "Failed": 0,
+    "NewStageCases": 35,
+    "Passed": 191
+  },
+  "Fingerprints": {
+    "ApplicationCopiesAfterRun": [
+      {
+        "Path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+        "Sha256": "3240843e5d823cee5214800ed6b12dce6fbefd619187ac6ecc99cb6947c345b3"
+      },
+      {
+        "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+        "Sha256": "3240843e5d823cee5214800ed6b12dce6fbefd619187ac6ecc99cb6947c345b3"
+      },
+      {
+        "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+        "Sha256": "3240843e5d823cee5214800ed6b12dce6fbefd619187ac6ecc99cb6947c345b3"
+      }
+    ],
+    "BinaryDriftCount": 0,
+    "Binaries": 9,
+    "ScopedSources": 44,
+    "SourceDriftCount": 0,
+    "ApplicationCopiesMatch": true
+  },
+  "Artifacts": [
+    {
+      "Name": "after-final-run.json",
+      "Bytes": 14152,
+      "Sha256": "b748c299963ed7ca64562e51c1169e64820e261b198623f6eb1a4368310e7d4e"
+    },
+    {
+      "Name": "before-final-run.json",
+      "Bytes": 14152,
+      "Sha256": "2e5a68100270d0f512db631069d1cf6d9fdc23bd256b4a26928013f28a4dae8e"
+    },
+    {
+      "Name": "binary-import.json",
+      "Bytes": 241,
+      "Sha256": "b8e9068eaf6d0809faf1970c14548124e061f8c61c7010c32f09ca1956141c77"
+    },
+    {
+      "Name": "binary.brdf",
+      "Bytes": 1578,
+      "Sha256": "2a654abe7fe69d4f483f762dbacac2c6c6eef2d32f3f4d3a435f42a74307e352"
+    },
+    {
+      "Name": "binary.camera-experiment.zip",
+      "Bytes": 39854,
+      "Sha256": "d079eee4b49a36b89d52f85b92a2dfefb93df6f815b41fff68ea96f5840a1076"
+    },
+    {
+      "Name": "build-core-development.log",
+      "Bytes": 219,
+      "Sha256": "ac6f2ef96204516295e62460df9e05875312f5d756972ab15a9751cf70aad261"
+    },
+    {
+      "Name": "build-development.log",
+      "Bytes": 2003,
+      "Sha256": "1f385b9acb5a60f7bbf2cc2fe6defc6d48ee06d8b223f0acefc39ce168c1b622"
+    },
+    {
+      "Name": "build-final-app.log",
+      "Bytes": 1519,
+      "Sha256": "973c70151a3782238ddb67db764a2e493838f2a736d893d293a89951a150fda5"
+    },
+    {
+      "Name": "build-final-tests.log",
+      "Bytes": 224,
+      "Sha256": "8ecf6e47e52c580f77ed0a83c1b9b9a1fba672122e0b92eae3adda778f1c28b3"
+    },
+    {
+      "Name": "build-test-driver-development.log",
+      "Bytes": 224,
+      "Sha256": "ba9504373a624a048a5f39020d5e35a87e9418c8bcb0a8d4bc682c23db1992ee"
+    },
+    {
+      "Name": "camera-False.png",
+      "Bytes": 209381,
+      "Sha256": "df7727b5cd20eb728f1aee3bfcf81e72237b2a0f3d7a24af19253c491ec6a8dd"
+    },
+    {
+      "Name": "camera-True.png",
+      "Bytes": 207650,
+      "Sha256": "50aa838adbfc9d9e62864afdb28e2326b79b0e18f91f8f5b6d1383fd5fd76fd5"
+    },
+    {
+      "Name": "chain-binary.json",
+      "Bytes": 900,
+      "Sha256": "8b98e23b1315af14c77a16baa5e73e76c472b5257cf7dcbaf27e61e68d1910d9"
+    },
+    {
+      "Name": "chain-zemax-r.json",
+      "Bytes": 807,
+      "Sha256": "0dcca338c65ed4a2f8c7efedcf4ad64cc899600efb39bb2731b61d9ba6b6323d"
+    },
+    {
+      "Name": "chain-zemax-t.json",
+      "Bytes": 842,
+      "Sha256": "fa7bc7463b9bcc25113a17c74d711639b05d79f610688287af02d2594278115e"
+    },
+    {
+      "Name": "development-chain.trx",
+      "Bytes": 40113,
+      "Sha256": "af0b04bb7a8a88f0d712ce465f29ed8ecc846ebbddabbc22ca579797fd300c03"
+    },
+    {
+      "Name": "development-kernel-chain.trx",
+      "Bytes": 41691,
+      "Sha256": "7ae2d0c31dac819ec36db34f4944e5edfa45554b450d692d8c7b99602b160856"
+    },
+    {
+      "Name": "development-unit.trx",
+      "Bytes": 124213,
+      "Sha256": "be467ef5c2159ec551458edb5a20aea5cbc2f4352bbb43b12c7eb785bb8c9590"
+    },
+    {
+      "Name": "editor-False.png",
+      "Bytes": 128072,
+      "Sha256": "ae952334780079737a9f227ae0d1daabdc75962724461276f53960217add51c5"
+    },
+    {
+      "Name": "editor-True.png",
+      "Bytes": 124851,
+      "Sha256": "0206f248f969318fff781c163f153c8b00b49666a471c977e48d442d6b63ad0c"
+    },
+    {
+      "Name": "final-focused.trx",
+      "Bytes": 283245,
+      "Sha256": "273d7db82ed8bd070993676d04774a600db394442e5dfd1ba0cf3cd8b3f2e674"
+    },
+    {
+      "Name": "Gaussian Fresnel 10 deg.anisotropicbsdf",
+      "Bytes": 938281,
+      "Sha256": "7594faa642b26407735ebe8be3c566cff1831544f79fb14ef969250ebff46ce6"
+    },
+    {
+      "Name": "grazing-statistics-False.json",
+      "Bytes": 190,
+      "Sha256": "b2b942a30b33a81944cae28b9418b57bdf563f35d6ffef7fb4477bd3d7c78008"
+    },
+    {
+      "Name": "grazing-statistics-True.json",
+      "Bytes": 191,
+      "Sha256": "de411e4d8ef7b85d7191bfba6cfda03640a55de5238700ae43bdc83a8fef0902"
+    },
+    {
+      "Name": "inspect-all-v8.ps1",
+      "Bytes": 967,
+      "Sha256": "80fab86461aaab33415ea07726bc2afa9fedf01446784689a85b74df3caad2d1"
+    },
+    {
+      "Name": "inspect-aniso.ps1",
+      "Bytes": 1183,
+      "Sha256": "c573d384e94bc2504dd5fa905a3e351c5edb82b72d6fa154bc9b33a71d7d2efb"
+    },
+    {
+      "Name": "inspect-lz4.ps1",
+      "Bytes": 1619,
+      "Sha256": "b5a32b60c38a3f34e1aef9a4efd9982c1ff6ee4513364ee80c59a5934efc7efa"
+    },
+    {
+      "Name": "inspect-v8.ps1",
+      "Bytes": 1801,
+      "Sha256": "a8360bc151e72988afc40843f97795179396fb3108392ba4440c69c93d928fcb"
+    },
+    {
+      "Name": "inspect.ps1",
+      "Bytes": 569,
+      "Sha256": "3fc894e840a74a65f0def9005eafa6780908f6f98e7221cbf3b6d631fb68ae83"
+    },
+    {
+      "Name": "installed-speos-inventory.json",
+      "Bytes": 429911,
+      "Sha256": "0884ce1f90b18b97aa12bc3fe3b9505ad06bb0b3d29cc6ae0ed4c143f029e61a"
+    },
+    {
+      "Name": "installed-v8-flags.json",
+      "Bytes": 15894,
+      "Sha256": "2191016c117f262ba0ed07cc97649e7bf4f80a4db8f8185c5176830988a7cc8d"
+    },
+    {
+      "Name": "narrow-specular-statistics.json",
+      "Bytes": 230,
+      "Sha256": "38d9601097234c28e66466a80894d94611226f111be4b589d93e5ddc350e92ad"
+    },
+    {
+      "Name": "nsc-medium-database-project.json",
+      "Bytes": 938,
+      "Sha256": "860b905772206f6d7b314cd10db7aca1cd136359a300ce0425efc042fe34210b"
+    },
+    {
+      "Name": "official-speos-v9.json",
+      "Bytes": 316,
+      "Sha256": "fbd8d6895dbf6b2bea1b162e668fa703b4a669d65edc4554fbf7c55566ce8461"
+    },
+    {
+      "Name": "pre-normal-gap-after-final-run.json",
+      "Bytes": 14152,
+      "Sha256": "3c798da5f95ddbc664a31e2695b39be5aecf97a046a5cfb774357a8395684abc"
+    },
+    {
+      "Name": "pre-normal-gap-before-final-run.json",
+      "Bytes": 14152,
+      "Sha256": "2f8fd31ec83f5a43306a08a3ed8e7e05abacf0683d62d86ef8b40d95177e81b2"
+    },
+    {
+      "Name": "pre-normal-gap-final-focused.trx",
+      "Bytes": 281768,
+      "Sha256": "a701493ca858659d128560831e4cfb33dc1d37aca9a029ef3b8e8a3dcb175641"
+    },
+    {
+      "Name": "prior-after-run.json",
+      "Bytes": 14152,
+      "Sha256": "1f1bc68f03f4405fb111ceaaeb047618186a31ad84eeb19e3f79d9f98e423f6b"
+    },
+    {
+      "Name": "prior-before-run.json",
+      "Bytes": 14152,
+      "Sha256": "a16ce8a883e9dbea9c4319605a3c639e97edd26721553bea300fdb81ea729958"
+    },
+    {
+      "Name": "prior-focused.trx",
+      "Bytes": 281768,
+      "Sha256": "6673c292a9aa3504d9092681290cb8ee377b5fda6127978e17cdda61d8ce73ed"
+    },
+    {
+      "Name": "R_test.anisotropicbsdf",
+      "Bytes": 89768,
+      "Sha256": "224e8a56520ac72f58c2124fbd9a030259e09b00b1951eb52ba3c7e6c8e0b72d"
+    },
+    {
+      "Name": "README.md",
+      "Bytes": 4595,
+      "Sha256": "2bc2bcdb29740a39e7617061d4b58531ce0381ba362874347325f2c5fb93c4aa"
+    },
+    {
+      "Name": "run-focused.ps1",
+      "Bytes": 5965,
+      "Sha256": "a6842d4084c107897d92c6e1dfce0b5a951d284cdf41e21a44d31a97eff1fbca"
+    },
+    {
+      "Name": "seal.ps1",
+      "Bytes": 3071,
+      "Sha256": "11c6a761611be78db107b61b13adcf751926fc3f8a52e0c072c2973af0dc63a9"
+    },
+    {
+      "Name": "test-development-chain.log",
+      "Bytes": 1843,
+      "Sha256": "139496b1237ca294ce9c1a7078e6f21f4df5712a4012419abb9524c60411a9b8"
+    },
+    {
+      "Name": "test-development-kernel-chain.log",
+      "Bytes": 467,
+      "Sha256": "1b6b8ba4c6be1230de14a1c06dc2a8d800c9c258bc403e0bb217feef3100f67c"
+    },
+    {
+      "Name": "test-final-focused.log",
+      "Bytes": 588,
+      "Sha256": "27c89977b858d4dd8b677c4ad2a08f19f75bade7b3e873153d70c30b0c3aea71"
+    },
+    {
+      "Name": "update-guides.ps1",
+      "Bytes": 6074,
+      "Sha256": "055efd81c5a1706fda13474f09d03cea145056623fe02d1aec57e02e847c4197"
+    },
+    {
+      "Name": "zemax-r.BSDF",
+      "Bytes": 511,
+      "Sha256": "7b392322c17d6a7e45a670839b93e07b17c61773a1271c0ac8616f7fbf4f3b65"
+    },
+    {
+      "Name": "zemax-r.camera-experiment.zip",
+      "Bytes": 40936,
+      "Sha256": "aa4e39b9d3ee7282e238c8f8b264901c6209c832e076ef1b424e1d212d107444"
+    },
+    {
+      "Name": "zemax-t.BSDF",
+      "Bytes": 511,
+      "Sha256": "3384ffff8dba3f7dff923e548076a2ffe5faa291714a45c027d2db5dbc6f1f7f"
+    },
+    {
+      "Name": "zemax-t.camera-experiment.zip",
+      "Bytes": 41771,
+      "Sha256": "80efd7d49a6a9fdfedc181204e2f7f5acb20687e0503112d619319af1f398785"
+    }
+  ]
+}

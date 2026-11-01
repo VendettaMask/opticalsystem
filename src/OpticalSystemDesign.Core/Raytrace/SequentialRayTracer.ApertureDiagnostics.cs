@@ -120,7 +120,7 @@ public sealed partial class SequentialRayTracer
             var result = TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
                 ignorePhysicalAperture: true, stopBeforeInteraction: incidentImage,
                 bypassCoating: ignoreScalarTransmission || usePolarization && surface.CoatingModel is CoherentMultilayerCoating,
-                ignoreMaterialAbsorption: ignoreScalarTransmission);
+                ignoreMaterialAbsorption: ignoreScalarTransmission, sourceRay: sourceRay);
             if (result.Sample.Vignetted || result.StopTracing)
                 return new(null, false, firstBlocked);
             if ((index != 0 || !ObjectConjugate.IsInfinite(surface))
@@ -184,7 +184,7 @@ public sealed partial class SequentialRayTracer
             cancellationToken.ThrowIfCancellationRequested();
             var surface = surfaces[index];
             var result = TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
-                ignorePhysicalAperture: true);
+                ignorePhysicalAperture: true, sourceRay: sourceRay);
             if (result.Sample.Vignetted || result.StopTracing || result.Sample.Intensity <= 0)
                 return new(null, minimum, limiting);
             if ((index != 0 || !ObjectConjugate.IsInfinite(surface)) && surface.PhysicalAperture is CircularAperture aperture)

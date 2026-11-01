@@ -1,0 +1,15 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.Normal4DSingleRotationRetainsAnisotropyAndRejectsUnmeasuredIncidence [FAIL]
+  失败 OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.Normal4DSingleRotationRetainsAnisotropyAndRejectsUnmeasuredIncidence [56 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.Normal4DSingleRotationRetainsAnisotropyAndRejectsUnmeasuredIncidence() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredAngularCoverageTests.cs:line 72
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-01\xyz-angular\angular-coverage-second.trx
+
+失败!  - 失败:     1，通过:     8，已跳过:     0，总计:     9，持续时间: 394 ms - OpticalSystemDesign.Tests.dll (net10.0)

@@ -6,7 +6,7 @@ namespace OpticalSystemDesign.CoatingDesign.Engine;
 
 public sealed partial class DesignService
 {
-    public const string TargetProtectionProtocol = "target-violation-envelope/1";
+    public const string TargetProtectionProtocol = "target-violation-envelope/3";
 
     private static bool WithinGeneralTargetEnvelope(CoatingConstraintAssessment candidate, CoatingConstraintAssessment baseline) =>
         candidate.Violations.Length == baseline.Violations.Length
@@ -16,10 +16,11 @@ public sealed partial class DesignService
     // Targets that already pass remain constrained by their original gate; unfinished targets cannot be sacrificed.
     private (FilmLayer[] Layers, double Merit, RunRecord Run) RefineProtectedGeneralThickness(Experiment d,
         IReadOnlyDictionary<string, IMaterial> materials, double[] initialGrid, int maximumIterations, GeneralCounter work,
-        Experiment? validatedStart, IProgress<DesignProgress>? progress, CancellationToken token)
+        Experiment? validatedStart, IProgress<DesignProgress>? progress, CancellationToken token, bool unscaledSampledDirection = false)
     {
         var solver = Solver(d, materials);
-        var sourceSamples = validatedStart?.Result?.Spectrum ?? GeneralConstraintSystem(d, solver, initialGrid, false, work).Samples;
+        var sourceSamples = validatedStart is null ? GeneralConstraintSystem(d, solver, initialGrid, false, work).Samples
+            : SearchPeakReferenceSamples(d, solver, work);
         var peak = ThinFilmSpectrum.RefineTransmissionPeak(solver,
             sourceSamples.Where(s => Math.Abs(s.WavelengthNanometers - d.Target.CenterNm) <= 2 * d.Target.FwhmNm).ToArray(),
             d.Target.AngleDegrees, d.Target.Polarization);
@@ -31,7 +32,21 @@ public sealed partial class DesignService
         var grid = GeneralGrid(d, initialGrid.Concat(anchors)); var rankingGrid = grid;
         var baselineSystem = GeneralConstraintSystem(d, solver, rankingGrid, false, work);
         var baselineSamples = baselineSystem.Samples;
-        var baseline = AssessGeneral(d, baselineSamples); var bestAssessment = baseline; var best = d.Layers;
+        CoatingConstraintAssessment GuidanceAssessment(ThinFilmSample[] samples)
+        {
+            if (unscaledSampledDirection) return AssessGeneral(d, samples);
+            var assessment = AssessGeneral(d, samples); work.BandMetrics++;
+            var location = ThinFilmSpectrum.EstimatePeakWavelength(samples.Where(s =>
+                Math.Abs(s.WavelengthNanometers - d.Target.CenterNm) <= 2 * d.Target.FwhmNm).ToArray());
+            if (location is null) return assessment;
+            // Use the same Core peak estimate for constraint guidance and retained-trial ranking.
+            // A coarse sample inside the center gate must not mask an estimated peak outside it.
+            // Dense final protection still uses the original formally measured sample peak.
+            var violations = assessment.Violations.ToArray();
+            violations[2] = Math.Max(0, Math.Abs(location.Value - d.Target.CenterNm) - d.Target.CenterToleranceNm) / d.Target.FwhmNm;
+            return assessment with { Violations = violations };
+        }
+        var baseline = GuidanceAssessment(baselineSamples); var bestAssessment = baseline; var best = d.Layers;
         var indices = Enumerable.Range(0, d.Layers.Length).Where(i => d.Layers[i].Variable).ToArray();
         var units = indices.Select(i => CoherentThinFilmSolver.CharacteristicThickness(materials[d.Layers[i].MaterialId], materials[d.IncidentId],
             d.Target.CenterNm, d.Target.AngleDegrees)).ToArray();
@@ -56,6 +71,12 @@ public sealed partial class DesignService
         }).ToArray();
         double GuardScale(GeneralConstraintKey key) => Metric(key) is var metric && metric >= 0 && guardCeilings[metric] > Interior(metric)
             ? guardCeilings[metric] - Interior(metric) : 1;
+        var relativeProgress = true;
+        // First minimize squared fractional deficits. If no protected physical improvement survives
+        // a pass, use sum(g_i^2 / starting_deficit_i) instead: equal initial marginal costs in the
+        // original dimensionless target units. Completed targets retain unit scale in both models.
+        // Only the search direction changes; both retention grids and final gates stay unchanged.
+        double TargetScale(GeneralConstraintKey key) => unscaledSampledDirection ? 1 : relativeProgress ? GuardScale(key) : Math.Sqrt(GuardScale(key));
         double Guard(GeneralSystem system, int i)
         {
             var metric = Metric(system.Keys[i]);
@@ -69,6 +90,7 @@ public sealed partial class DesignService
         while (remaining > 0)
         {
             token.ThrowIfCancellationRequested(); work.Passes++; work.ProtectionPasses++;
+            var passStartAssessment = bestAssessment;
             var allowance = Math.Min(remaining, Math.Max(1, (int)Math.Ceiling(Math.Sqrt(maximumIterations))));
             var problem = new OptimizationProblem(); problem.DisableBatching(); problem.EnableBoundActiveSet();
             for (var j = 0; j < phase.Length; j++)
@@ -84,12 +106,12 @@ public sealed partial class DesignService
                 if (cachedPhase is not null && cachedPhase.SequenceEqual(phase)) return cached!;
                 var layers = Layers(); var current = d with { Layers = layers };
                 cached = GeneralConstraintSystem(current, Solver(current, materials), grid, analytic, work); cachedPhase = phase.ToArray();
-                var assessment = AssessGeneral(current, cached.Samples);
+                var assessment = GuidanceAssessment(cached.Samples);
                 if (WithinGeneralTargetEnvelope(assessment, baseline))
                 {
                     var ranking = ThinFilmSpectrum.Sample(Solver(current, materials), rankingGrid, d.Target.AngleDegrees, d.Target.Polarization);
                     work.Spectrum += ranking.Length;
-                    assessment = AssessGeneral(current, ranking);
+                    assessment = GuidanceAssessment(ranking);
                     if (WithinGeneralTargetEnvelope(assessment, baseline) && PreferGeneral(assessment, bestAssessment))
                     { best = layers; bestAssessment = assessment; }
                     else if (!WithinGeneralTargetEnvelope(assessment, baseline)) work.ProtectedRejections++;
@@ -99,7 +121,8 @@ public sealed partial class DesignService
             }
             var raw = Current(); var multipliers = raw.Keys.Select(k => multiplierMap.GetValueOrDefault(k)).ToArray();
             var targetMultipliers = raw.Keys.Select(k => targetMultiplierMap.GetValueOrDefault(k)).ToArray();
-            double Objective(int i) => Math.Max(0, Current().Values[i] + targetMultipliers[i]);
+            double Target(GeneralSystem system, int i) => system.Values[i] / TargetScale(system.Keys[i]);
+            double Objective(int i) => Math.Max(0, Target(Current(), i) + targetMultipliers[i]);
             double Protected(int i) => double.IsNegativeInfinity(Guard(Current(), i)) ? 0
                 : Math.Sqrt(penalty) * Math.Max(0, Guard(Current(), i) + multipliers[i] / penalty);
             for (var i = 0; i < raw.Values.Length; i++)
@@ -116,7 +139,7 @@ public sealed partial class DesignService
                     for (var i = 0; i < system.Values.Length; i++) for (var j = 0; j < phase.Length; j++)
                     {
                         var derivative = system.Derivatives![i, indices[j]] * units[j];
-                        if (system.Values[i] + targetMultipliers[i] > 0) matrix[2 * i, j] = derivative;
+                        if (Target(system, i) + targetMultipliers[i] > 0) matrix[2 * i, j] = derivative / TargetScale(system.Keys[i]);
                         // Use the active linearization at a precision-near hinge. The residual and
                         // the final target envelope remain exact; starting raw ceilings avoid cancellation.
                         if (Guard(system, i) + multipliers[i] / penalty >= -GeneralConstraintInteriorGuard)
@@ -135,7 +158,7 @@ public sealed partial class DesignService
                 var g = Guard(system, i); violation = Math.Max(violation, Math.Max(0, g));
                 multiplierMap[system.Keys[i]] = double.IsNegativeInfinity(g) ? 0 : Math.Min(1e12, Math.Max(0, multipliers[i] + penalty * g));
                 targetMultiplierMap[system.Keys[i]] = double.IsNegativeInfinity(system.Values[i]) ? 0
-                    : Math.Min(1e12, Math.Max(0, targetMultipliers[i] + system.Values[i]));
+                    : Math.Min(1e12, Math.Max(0, targetMultipliers[i] + Target(system, i)));
             }
             progress?.Report(new("逐项目标保护膜厚优化", evaluations, bestAssessment.Merit));
             if (bestAssessment.CoarselyFeasible)
@@ -149,11 +172,18 @@ public sealed partial class DesignService
                     .Concat(d.Target.StopBands!.Select(b => certified.Result.Spectrum.Where(s => s.WavelengthNanometers >= b.MinimumNm && s.WavelengthNanometers <= b.MaximumNm)
                         .MaxBy(s => s.Power.LogTransmittance)!.WavelengthNanometers));
                 grid = GeneralGrid(d, grid.Concat(feedback));
-                bestAssessment = AssessGeneral(d, ThinFilmSpectrum.Sample(Solver(d, materials, best), grid, d.Target.AngleDegrees, d.Target.Polarization));
+                bestAssessment = GuidanceAssessment(ThinFilmSpectrum.Sample(Solver(d, materials, best), grid, d.Target.AngleDegrees, d.Target.Polarization));
                 work.Spectrum += grid.Length;
             }
             if (violation > previousViolation / 2) penalty = Math.Min(1e12, penalty * 10);
             previousViolation = violation;
+            if (remaining > 0 && !unscaledSampledDirection && relativeProgress && !PreferGeneral(bestAssessment, passStartAssessment))
+            {
+                relativeProgress = false;
+                for (var j = 0; j < indices.Length; j++) phase[j] = best[indices[j]].ThicknessNm / units[j];
+                multiplierMap.Clear(); targetMultiplierMap.Clear(); penalty = 1;
+                previousViolation = double.PositiveInfinity; work.ProtectionRestarts++;
+            }
             if (remaining > 0)
             {
                 var tolerance = Math.Min(d.Target.CenterToleranceNm / d.Target.FwhmNm, d.Target.FwhmToleranceNm / d.Target.FwhmNm) / 16;

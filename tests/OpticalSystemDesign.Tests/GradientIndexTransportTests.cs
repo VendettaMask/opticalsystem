@@ -148,7 +148,11 @@ public sealed class GradientIndexTransportTests
         var back = new OpticalSurface { CoordinateSystem = new(new(0, 0, 10)) };
         var tir = back.TraceRay(entry.Ray, entry.OutgoingMaterial, new AirMaterial(), entry.CumulativePathLength, entry.CumulativeOpticalPathLength);
         Assert.Equal(RayInteractionKind.TotalInternalReflection, tir.InteractionKind);
-        Assert.Same(entry.OutgoingMaterial, tir.OutgoingMaterial);
+        var enteredMedium = Assert.IsType<LocatedGradientIndexMaterial>(entry.OutgoingMaterial);
+        var reflectedMedium = Assert.IsType<LocatedGradientIndexMaterial>(tir.OutgoingMaterial);
+        Assert.Same(enteredMedium.Material, reflectedMedium.Material);
+        Assert.Same(enteredMedium.Coordinates, reflectedMedium.Coordinates);
+        Near(new(Catenary(1.5, 0.15, 10).X, 0, 10), reflectedMedium.LocalPosition!.Value);
         var front = new OpticalSurface();
         var exited = front.TraceRay(tir.Ray, tir.OutgoingMaterial, new ConstantIndexMaterial("high n", 6),
             tir.CumulativePathLength, tir.CumulativeOpticalPathLength);

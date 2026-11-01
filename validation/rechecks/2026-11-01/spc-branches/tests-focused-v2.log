@@ -1,0 +1,38 @@
+  OpticalSystemDesign.Core -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.Modules -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\Projects\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.InitialStructure.Tests -> D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll
+D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:01.65]     OpticalSystemDesign.InitialStructure.Tests.SpcBranchTests.CancellationAndActualRayBudgetCannotPromoteAPartialBranch [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.SpcBranchTests.CancellationAndActualRayBudgetCannotPromoteAPartialBranch [545 ms]
+  错误消息:
+   System.OperationCanceledException : The operation was canceled.
+  堆栈跟踪:
+     at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at System.Threading.CancellationToken.ThrowIfCancellationRequested()
+   at OpticalSystemDesign.Core.Raytrace.SequentialGpuSession..ctor(DesignComputeMode mode, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Raytrace\SequentialGpuSession.cs:line 44
+   at OpticalSystemDesign.InitialStructure.Engine.SpcBranchSearch.Run(AutonomousSearchPlan plan, ParaxialSeedSearchOptions budget, SpcBranchOptions policy, CancellationToken cancellationToken, Action`2 progress, Boolean directGrowthControl) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SpcBranchSearch.cs:line 34
+   at OpticalSystemDesign.InitialStructure.Tests.SpcBranchTests.CancellationAndActualRayBudgetCannotPromoteAPartialBranch() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SpcBranchTests.cs:line 115
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:12.12]     OpticalSystemDesign.InitialStructure.Tests.SpcBranchTests.OriginalRestrictionsStopSpcBeforeAnyPhysicalWork(defect: "aperture", expected: "OriginalExternalStopApertureConflict") [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.SpcBranchTests.OriginalRestrictionsStopSpcBeforeAnyPhysicalWork(defect: "aperture", expected: "OriginalExternalStopApertureConflict") [1 s]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "OriginalExternalStopApertureConflict"
+Actual:   "ParentNotInteriorStationary:LineSearchSta"···
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.SpcBranchTests.OriginalRestrictionsStopSpcBeforeAnyPhysicalWork(String defect, String expected) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SpcBranchTests.cs:line 108
+   at InvokeStub_SpcBranchTests.OriginalRestrictionsStopSpcBeforeAnyPhysicalWork(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-01\spc-branches\tests\spc-focused-v2.trx
+
+失败!  - 失败:     2，通过:    46，已跳过:     0，总计:    48，持续时间: 11 s - OpticalSystemDesign.InitialStructure.Tests.dll (net10.0)

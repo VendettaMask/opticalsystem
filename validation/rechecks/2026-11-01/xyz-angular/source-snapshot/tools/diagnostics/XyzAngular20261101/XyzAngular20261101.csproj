@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../../../src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj" /></ItemGroup>
+  <ItemGroup><Reference Include="OpticalSystemDesign.Application"><HintPath>../../../src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Application.dll</HintPath><Private>true</Private></Reference></ItemGroup>
+  <ItemGroup><Compile Include="../XyzConditions20261101/PositiveFits.cs" Link="PreviousPhase/PositiveFits.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../XyzConditions20261101/Mat4Review.cs" Link="PreviousPhase/Mat4Review.cs" /><Compile Include="../XyzConditions20261101/MatFitReview.cs" Link="PreviousPhase/MatFitReview.cs" /></ItemGroup>
+</Project>

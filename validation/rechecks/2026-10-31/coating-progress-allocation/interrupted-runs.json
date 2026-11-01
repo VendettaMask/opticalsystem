@@ -1,0 +1,38 @@
+{
+  "InitialDiagnostic": {
+    "CancelledCase": "continued-hr-96",
+    "Action": "Preserve completed stacks; resume with same frozen Engine/Core/Application and twenty-minute diagnostic limit; no product iteration or physical gate change",
+    "Reason": "Five-minute per-case wall-clock cancellation, concurrent Debug validation",
+    "Arms": [
+      "after",
+      "budget-only"
+    ],
+    "Status": "Incomplete and resumed",
+    "CompletedStacksPerArm": 4
+  },
+  "FocusedTests": {
+    "Status": "Intentionally interrupted after 6 passes and 1 failure",
+    "PassedClaim": false,
+    "ReasonForInterruption": "Release task-owned testhost 31708 output lock and rerun full tests",
+    "Failure": "New test compared record containing arrays by reference; corrected to compare serialized structural data",
+    "Trx": "tests/allocation-focused.trx"
+  },
+  "RetryBuild": {
+    "PassedClaim": false,
+    "Status": "Failed due to task-owned testhost output lock"
+  },
+  "InitialBuild": {
+    "Resolution": "Concurrent work fixed interface before successful default module/test builds; no unrelated BSDF code changed by coating task",
+    "Error": "MeasuredBsdfData.cs CS1729 MeasuredBsdfGrid two-argument constructor",
+    "Status": "Initially blocked by concurrent non-coating BSDF constructor mismatch"
+  },
+  "Stage1FullTests": {
+    "Trx": "stage-1-tests/coating-allocation-stage-1.trx",
+    "Passed": 176,
+    "Status": "Completed with one original optical regression",
+    "Resolution": "Search peak seed sampling decoupled from formal acceptance sampling; final 47-case new arm and full suite rerun",
+    "Total": 177,
+    "Failure": "new-ir-double FWHM exceeds preserved legacy width (original assertion unchanged)",
+    "Failed": 1
+  }
+}

@@ -1,0 +1,5051 @@
+[
+  {
+    "Name": "continued-double-96",
+    "InputFingerprint": "AA2610A4451BC7A00FB8ECF4AA262609E1239EDDCE244FB0A6C75A850C72C090",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.02237490935041767,
+    "AfterLoss": 0.018144162351782553,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 550.2780100334447,
+      "PeakTransmittance": 0.6651915880668824,
+      "LeftHalfMaximumNanometers": 541.4451656014102,
+      "RightHalfMaximumNanometers": 558.5810828754335,
+      "FwhmNanometers": 17.135917274023313,
+      "MinimumReflectance": 0.0261479662180002,
+      "MaximumReflectance": 0.868590749936422
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 549.9268394648828,
+      "PeakTransmittance": 0.665318706260589,
+      "LeftHalfMaximumNanometers": 541.2695829365985,
+      "RightHalfMaximumNanometers": 558.3714304421086,
+      "FwhmNanometers": 17.101847505510136,
+      "MinimumReflectance": 0.02437403657929943,
+      "MaximumReflectance": 0.8640813423076729
+    },
+    "BeforeBlockingOd": [
+      0.9379226340560077,
+      1.1874771182624262
+    ],
+    "AfterBlockingOd": [
+      1.0000318263782972,
+      1.155838112713843
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.9268394648828,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.101847505510136,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.5318706260589,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0000318263782972,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.155838112713843,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 190,
+      "Iterations": 96,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.11307788257749014,
+        0.07572781826822089,
+        0,
+        0.06207736594399227,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "pareto-target-correction",
+      "TargetRepairStartLayers": [
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 9.572936004521754,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 1381.0274458713932,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 58.724402968132964,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 104.46622136539459,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 57.090729601038404,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 108.47176052705487,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 50.32400140648263,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 128.3389333476817,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 43.36199334691862,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 575.0722415613357,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 58.27894377332546,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 104.46299148567836,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 60.33577381147689,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 98.22441893421116,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 61.072653692801964,
+          "Variable": true
+        }
+      ],
+      "TargetRepairViolationCeilings": [
+        0.112916742162627,
+        0.0734650873492607,
+        0,
+        0.010341975083197452,
+        0
+      ],
+      "TargetRepairGoalIndex": 3,
+      "TargetRepairTrials": [
+        {
+          "Step": 1,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 9.462471397867347,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1380.7756144455243,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.32410071614482,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.15040548119947,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 56.63700862203489,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 108.20520649413749,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 49.99941009575835,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 128.4792535394098,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 43.074256217536096,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 575.8076807220498,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.38809749934557,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.47397938320165,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.26365832993137,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 98.18400706345408,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.010791863675955,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.1609531772575,
+            "PeakTransmittance": 0.6652208143498783,
+            "LeftHalfMaximumNanometers": 541.4933957355759,
+            "RightHalfMaximumNanometers": 558.5979709887902,
+            "FwhmNanometers": 17.104575253214307,
+            "MinimumReflectance": 0.02445014458187999,
+            "MaximumReflectance": 0.863840645958536
+          },
+          "Violations": [
+            0.11303891420016221,
+            0.07363835021428713,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 2,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 9.261192632371836,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1380.7378170960387,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.199588831606555,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.16960998587489,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 56.537901903273045,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 108.31444673835489,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 49.95403199954124,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 128.5720328350996,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 42.655206635427305,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 575.7915830218701,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.31278858297925,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.48494717317432,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.381175270839464,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 98.41757326546386,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.12225572735299,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.9268394648828,
+            "PeakTransmittance": 0.665318706260589,
+            "LeftHalfMaximumNanometers": 541.2695829365985,
+            "RightHalfMaximumNanometers": 558.3714304421086,
+            "FwhmNanometers": 17.101847505510136,
+            "MinimumReflectance": 0.02437403657929943,
+            "MaximumReflectance": 0.8640813423076729
+          },
+          "Violations": [
+            0.11290839165254803,
+            0.07345650036734241,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true
+        }
+      ],
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 30315,
+        "SensitivityEvaluations": 315510,
+        "AnalyticJacobians": 98,
+        "ConstraintPasses": 10,
+        "AdaptiveRefinements": 9,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 5,
+        "BandMetricEvaluations": 196,
+        "BandSensitivityBatches": 186,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 10,
+        "ProtectedTrialRejections": 178,
+        "DenseProtectionRejections": 1,
+        "InequalitySubproblems": 2,
+        "InequalityActiveSetIterations": 8,
+        "TargetRepairIterations": 2,
+        "TargetRepairAcceptedCandidates": 1
+      }
+    },
+    "Seconds": 17.6865022
+  },
+  {
+    "Name": "continued-single-24",
+    "InputFingerprint": "E26EE68EEFA58F675C0A87BF2080E0A5E05F9FBFFEFAF79B72ED6F2022C62585",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.008242929884304312,
+    "AfterLoss": 0.007961614019278269,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 549.9561036789298,
+      "PeakTransmittance": 0.7006403291215872,
+      "LeftHalfMaximumNanometers": 541.5610885668439,
+      "RightHalfMaximumNanometers": 558.495090429544,
+      "FwhmNanometers": 16.934001862700143,
+      "MinimumReflectance": 0.07251413840938822,
+      "MaximumReflectance": 0.8931247553780112
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 549.7073578595317,
+      "PeakTransmittance": 0.7006649656448338,
+      "LeftHalfMaximumNanometers": 541.3341953076043,
+      "RightHalfMaximumNanometers": 558.2385097740134,
+      "FwhmNanometers": 16.90431446640912,
+      "MinimumReflectance": 0.07205831492375414,
+      "MaximumReflectance": 0.8941410050102812
+    },
+    "BeforeBlockingOd": [
+      0.9941314772818433,
+      1.2511195498352947
+    ],
+    "AfterBlockingOd": [
+      0.9999663844856749,
+      1.2528528775555956
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 12,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.7073578595317,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.90431446640912,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 70.06649656448339,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9999663844856749,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2528528775555956,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 53,
+      "Iterations": 24,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.06581289450455034,
+        0.06226679084667618,
+        0,
+        0.005868522718156743,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "pareto-target-correction",
+      "TargetRepairStartLayers": [
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 9.129219697022453,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 50.643922167017564,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 118.14471032605032,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 61.636911639516384,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 104.45983700912382,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 60.02960140453926,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 561.6818648653392,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 62.08335051722728,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 99.0938891088466,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 63.120122131914094,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 96.274159070639,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 62.820393927394896,
+          "Variable": true
+        }
+      ],
+      "TargetRepairViolationCeilings": [
+        0.06578045892493438,
+        0.06033214078305112,
+        0,
+        0.00507485885056036,
+        0
+      ],
+      "TargetRepairGoalIndex": 3,
+      "TargetRepairTrials": [
+        {
+          "Step": 1,
+          "Layers": [
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 9.155579283261535,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 50.57006894207084,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 118.23385657132147,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.61497707286503,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.47096882804945,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.93757994353999,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 561.6016869790035,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.99535592303002,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.00419104799492,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 63.043605243423855,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 96.20592801658317,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 62.78089021101146,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.7073578595317,
+            "PeakTransmittance": 0.7006649656448338,
+            "LeftHalfMaximumNanometers": 541.3341953076043,
+            "RightHalfMaximumNanometers": 558.2385097740134,
+            "FwhmNanometers": 16.90431446640912,
+            "MinimumReflectance": 0.07205831492375414,
+            "MaximumReflectance": 0.8941410050102812
+          },
+          "Violations": [
+            0.06578004580688823,
+            0.060287631093941245,
+            0,
+            3.3615514325124884E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true
+        },
+        {
+          "Step": 2,
+          "Layers": [
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 9.155708104984893,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 50.56962011664923,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 118.23429751571952,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.61480523903145,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.47096670031387,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.937021666427256,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 561.6012031434087,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.99483053431122,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.00363782871449,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 63.04314135321953,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 96.20550514960509,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 62.78065191340512,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.7073578595317,
+            "PeakTransmittance": 0.7006646123882345,
+            "LeftHalfMaximumNanometers": 541.3329076831143,
+            "RightHalfMaximumNanometers": 558.2372128470099,
+            "FwhmNanometers": 16.90430516389563,
+            "MinimumReflectance": 0.07205701638748375,
+            "MaximumReflectance": 0.8941447128758595
+          },
+          "Violations": [
+            0.0657805168156873,
+            0.060287010926375235,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 3,
+          "Layers": [
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 9.155708111274947,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 50.56962009778337,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 118.23429753708504,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.61480523289139,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.47096670217823,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.93702164291678,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 561.6012031230492,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.99483051210805,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.00363780590902,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 63.0431413338029,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 96.20550513214162,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 62.78065190334611,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.7073578595317,
+            "PeakTransmittance": 0.7006646123813505,
+            "LeftHalfMaximumNanometers": 541.3329076301461,
+            "RightHalfMaximumNanometers": 558.2372127938711,
+            "FwhmNanometers": 16.904305163724985,
+            "MinimumReflectance": 0.07205701632559072,
+            "MaximumReflectance": 0.8941447130278396
+          },
+          "Violations": [
+            0.06578051682486603,
+            0.060287010914998974,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 4,
+          "Layers": [
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 9.155708111274956,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 50.56962009778336,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 118.23429753708506,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.6148052328914,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.47096670217825,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.93702164291677,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 561.6012031230492,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.99483051210804,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.00363780590902,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 63.04314133380289,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 96.20550513214162,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 62.780651903346104,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.7073578595317,
+            "PeakTransmittance": 0.7006646123813505,
+            "LeftHalfMaximumNanometers": 541.3329076301461,
+            "RightHalfMaximumNanometers": 558.2372127938711,
+            "FwhmNanometers": 16.904305163724985,
+            "MinimumReflectance": 0.07205701632559042,
+            "MaximumReflectance": 0.8941447130278392
+          },
+          "Violations": [
+            0.06578051682486603,
+            0.060287010914998974,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        }
+      ],
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 24347,
+        "SensitivityEvaluations": 59091,
+        "AnalyticJacobians": 29,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 7,
+        "BandMetricEvaluations": 59,
+        "BandSensitivityBatches": 42,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 5,
+        "ProtectedTrialRejections": 35,
+        "DenseProtectionRejections": 3,
+        "InequalitySubproblems": 5,
+        "InequalityActiveSetIterations": 13,
+        "TargetRepairIterations": 5,
+        "TargetRepairAcceptedCandidates": 1
+      }
+    },
+    "Seconds": 2.810043
+  },
+  {
+    "Name": "holdout-violet",
+    "InputFingerprint": "3BB35F5014AF25DF17A347132E25DB2AB4E08231862CE4FD4857D900389C372C",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 405,
+      "MinimumNm": 344.25,
+      "MaximumNm": 465.74999999999994,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 27,
+      "Polarization": "S",
+      "FwhmNm": 16.2,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 352.35,
+          "MaximumNm": 368.55
+        },
+        {
+          "MinimumNm": 441.45000000000005,
+          "MaximumNm": 457.65
+        }
+      ],
+      "CenterToleranceNm": 0.405,
+      "FwhmToleranceNm": 1.62,
+      "Structure": {
+        "Cavities": 1
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 0.81,
+      "MaximumThicknessNm": 810,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.0281854800145512,
+    "AfterLoss": 0.02534638670610672,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 405.02373046874993,
+      "PeakTransmittance": 0.6572892068302184,
+      "LeftHalfMaximumNanometers": 395.4313181932219,
+      "RightHalfMaximumNanometers": 415.0916383628294,
+      "FwhmNanometers": 19.66032016960753,
+      "MinimumReflectance": 0.3227015056523882,
+      "MaximumReflectance": 0.9208616031815823
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 404.75478515625,
+      "PeakTransmittance": 0.6644111829319562,
+      "LeftHalfMaximumNanometers": 395.1263039825197,
+      "RightHalfMaximumNanometers": 414.74467708749506,
+      "FwhmNanometers": 19.618373104975376,
+      "MinimumReflectance": 0.3156901818669849,
+      "MaximumReflectance": 0.9162513606851379
+    },
+    "BeforeBlockingOd": [
+      1.1046256480094003,
+      1.1110517620962765
+    ],
+    "AfterBlockingOd": [
+      1.0560736279131007,
+      1.125099587822951
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 11,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "0.81\u2013810",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 404.75478515625,
+        "Requirement": "405 \u00B1 0.405",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 19.618373104975376,
+        "Requirement": "16.2 \u00B1 1.62",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.44111829319563,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A352.35\u2013368.55 nm",
+        "Actual": 1.0560736279131007,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A441.45\u2013457.65 nm",
+        "Actual": 1.125099587822951,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 159,
+      "Iterations": 48,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.12361439089304212,
+        0.11360001046960068,
+        0,
+        0,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "pareto-target-correction",
+      "TargetRepairStartLayers": [
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 50.48771978701766,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 74.04463072689869,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 49.319625264654334,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 72.88552804940076,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 49.21943154876111,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 72.81125840796875,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 98.64818392005398,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 72.81428674338248,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 49.23179472223641,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 72.98759531930138,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 50.187359602252236,
+          "Variable": true
+        }
+      ],
+      "TargetRepairViolationCeilings": [
+        0.12251567497158966,
+        0.11359431074822586,
+        0,
+        0,
+        0
+      ],
+      "TargetRepairGoalIndex": 1,
+      "TargetRepairTrials": [
+        {
+          "Step": 1,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 50.10192249663245,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.6697009752879,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.67227599486831,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.45557959097012,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.32567136472825,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.38130994953809,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 98.26238662966877,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.38433828495182,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.85349945096894,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.42370785586934,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.801598980359636,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.766650390625,
+            "PeakTransmittance": 0.6581693985918068,
+            "LeftHalfMaximumNanometers": 395.1245196187771,
+            "RightHalfMaximumNanometers": 414.7777110536622,
+            "FwhmNanometers": 19.653191434885116,
+            "MinimumReflectance": 0.32189541921746245,
+            "MaximumReflectance": 0.9171546855969938
+          },
+          "Violations": [
+            0.12244080187759095,
+            0.11315996511636522,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": false,
+          "Retained": true
+        },
+        {
+          "Step": 2,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.78617666073101,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.53126814754901,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.90880293244849,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 74.5956826741088,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 50.072813395484175,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 74.52141303267678,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 97.51546112482171,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.25036424924946,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.62509403173936,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.56381093900801,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.03610524629152,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.7646728515625,
+            "PeakTransmittance": 0.658794317886586,
+            "LeftHalfMaximumNanometers": 395.12610726986264,
+            "RightHalfMaximumNanometers": 414.76722310352557,
+            "FwhmNanometers": 19.641115833662923,
+            "MinimumReflectance": 0.3213360352703418,
+            "MaximumReflectance": 0.9170716809804952
+          },
+          "Violations": [
+            0.1216075761512186,
+            0.1124145576335138,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": false,
+          "Retained": true
+        },
+        {
+          "Step": 3,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.02092390040709,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.72100280170808,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.68039751321891,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.45557959097012,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 50.844407976254594,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 75.66151611581547,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 96.7438665440513,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.39046733238814,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.86235818749343,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.42703264308601,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.289569604411895,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.758740234375,
+            "PeakTransmittance": 0.6601265019204038,
+            "LeftHalfMaximumNanometers": 395.12591435525826,
+            "RightHalfMaximumNanometers": 414.7579373511075,
+            "FwhmNanometers": 19.63202299584924,
+            "MinimumReflectance": 0.3200173823247391,
+            "MaximumReflectance": 0.9170001582777082
+          },
+          "Violations": [
+            0.11983133077279495,
+            0.11185327134871859,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": false,
+          "Retained": true
+        },
+        {
+          "Step": 4,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.974759214302686,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.48392121231034,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.400703380664076,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.24383060793134,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 50.91403417201319,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 76.23156765738482,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 96.36023190364084,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.20144825471071,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.24815547787864,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.99708418465534,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.599359831410055,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.7567626953125,
+            "PeakTransmittance": 0.6604723142528575,
+            "LeftHalfMaximumNanometers": 395.12434795550604,
+            "RightHalfMaximumNanometers": 414.74945175543604,
+            "FwhmNanometers": 19.625103799930002,
+            "MinimumReflectance": 0.31968931962890423,
+            "MaximumReflectance": 0.9168528550720193
+          },
+          "Violations": [
+            0.11937024766285671,
+            0.11142616048950636,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": false,
+          "Retained": true
+        },
+        {
+          "Step": 5,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.36055650468789,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.4183707134027,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.02108851050264,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.7683402579337,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 51.299831462398394,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 76.80161919895416,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 96.42477956240828,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.63589006522079,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.869732388207716,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.43312258946271,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.21819295772716,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.7567626953125,
+            "PeakTransmittance": 0.6617199000552095,
+            "LeftHalfMaximumNanometers": 395.1272593237733,
+            "RightHalfMaximumNanometers": 414.75035258612365,
+            "FwhmNanometers": 19.62309326235038,
+            "MinimumReflectance": 0.31839415836206925,
+            "MaximumReflectance": 0.916793789604144
+          },
+          "Violations": [
+            0.11770679992638729,
+            0.11130205323150501,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": false,
+          "Retained": true
+        },
+        {
+          "Step": 6,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.13175366438522,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.09252335013672,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.72998209629887,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.33359016246314,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 51.260728536675266,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 77.43593682041237,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 95.73913039837035,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.77964152554071,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.55943711682263,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.57322567260141,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.63642557065048,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.75478515625,
+            "PeakTransmittance": 0.6620172713187866,
+            "LeftHalfMaximumNanometers": 395.1186549334951,
+            "RightHalfMaximumNanometers": 414.7391470837971,
+            "FwhmNanometers": 19.62049215030197,
+            "MinimumReflectance": 0.3181523759820412,
+            "MaximumReflectance": 0.9164627585185603
+          },
+          "Violations": [
+            0.1173103049082845,
+            0.11114149075938093,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": false,
+          "Retained": true
+        },
+        {
+          "Step": 7,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.309912880820974,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.50404986926347,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.96676565629028,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.61892510428234,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 51.64572811117934,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 78.75371302835205,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 95.72102705180471,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.42758227496758,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.70647495506726,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.83827121311971,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.79480349136451,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.75478515625,
+            "PeakTransmittance": 0.6644111829319562,
+            "LeftHalfMaximumNanometers": 395.1263039825197,
+            "RightHalfMaximumNanometers": 414.74467708749506,
+            "FwhmNanometers": 19.618373104975376,
+            "MinimumReflectance": 0.3156901818669849,
+            "MaximumReflectance": 0.9162513606851379
+          },
+          "Violations": [
+            0.1141184227573917,
+            0.1110106854923072,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": false,
+          "Retained": true
+        }
+      ],
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 82797,
+        "SensitivityEvaluations": 144679,
+        "AnalyticJacobians": 55,
+        "ConstraintPasses": 7,
+        "AdaptiveRefinements": 6,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 10,
+        "BandMetricEvaluations": 165,
+        "BandSensitivityBatches": 101,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 7,
+        "ProtectedTrialRejections": 91,
+        "InequalitySubproblems": 7,
+        "InequalityActiveSetIterations": 68,
+        "TargetRepairIterations": 7,
+        "TargetRepairAcceptedCandidates": 7
+      }
+    },
+    "Seconds": 1.7633042
+  },
+  {
+    "Name": "ir-absorbing-s",
+    "InputFingerprint": "DE066A08E92FA71F9E0CBFD1EFB17A5F8F84667C78BFF74DFF508026E94F1302",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 1300,
+      "MinimumNm": 1105,
+      "MaximumNm": 1494.9999999999998,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 25,
+      "Polarization": "S",
+      "FwhmNm": 45.50000000000001,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 1144,
+          "MaximumNm": 1196
+        },
+        {
+          "MinimumNm": 1404,
+          "MaximumNm": 1456.0000000000002
+        }
+      ],
+      "CenterToleranceNm": 1.3,
+      "FwhmToleranceNm": 3.9,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2.6,
+      "MaximumThicknessNm": 2600,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.0005881282332420985,
+    "AfterLoss": 0,
+    "BeforePassed": false,
+    "AfterPassed": true,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 1301.3985655737704,
+      "PeakTransmittance": 0.7347348911205018,
+      "LeftHalfMaximumNanometers": 1275.0080797458843,
+      "RightHalfMaximumNanometers": 1324.9998796071686,
+      "FwhmNanometers": 49.991799861284335,
+      "MinimumReflectance": 0.011591599790920634,
+      "MaximumReflectance": 0.9220027970805529
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 1299.8224043715845,
+      "PeakTransmittance": 0.7551616524865148,
+      "LeftHalfMaximumNanometers": 1274.113049673637,
+      "RightHalfMaximumNanometers": 1323.486418906611,
+      "FwhmNanometers": 49.37336923297403,
+      "MinimumReflectance": 0.010616283885770138,
+      "MaximumReflectance": 0.9110211617137108
+    },
+    "BeforeBlockingOd": [
+      1.3260269025003137,
+      1.4567937995977165
+    ],
+    "AfterBlockingOd": [
+      1.0002255651733927,
+      1.3220996127676952
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.6\u20132600",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1299.8224043715845,
+        "Requirement": "1300 \u00B1 1.3",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 49.37336923297403,
+        "Requirement": "45.5 \u00B1 3.9",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.51616524865148,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1144\u20131196 nm",
+        "Actual": 1.0002255651733927,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1404\u20131456 nm",
+        "Actual": 1.3220996127676952,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "ProtectedTargetsSatisfied",
+      "Evaluations": 79,
+      "Iterations": 42,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.020353478505997558,
+        0.013006590357897313,
+        0.0021662763466018383,
+        0,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "joint-targets",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 21965,
+        "SensitivityEvaluations": 117756,
+        "AnalyticJacobians": 42,
+        "ConstraintPasses": 6,
+        "AdaptiveRefinements": 5,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 4,
+        "BandMetricEvaluations": 81,
+        "BandSensitivityBatches": 79,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 6,
+        "ProtectedTrialRejections": 45
+      }
+    },
+    "Seconds": 0.8508673
+  },
+  {
+    "Name": "new-ir-double",
+    "InputFingerprint": "706D28CADE184CDCD25B36FB5AF057677BCA36C9B84E97FACF288176090062A3",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 1550,
+      "MinimumNm": 1317.5,
+      "MaximumNm": 1782.4999999999998,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 30,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 54.25000000000001,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 1364,
+          "MaximumNm": 1426
+        },
+        {
+          "MinimumNm": 1674,
+          "MaximumNm": 1736.0000000000002
+        }
+      ],
+      "CenterToleranceNm": 1.55,
+      "FwhmToleranceNm": 4.65,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 3.1,
+      "MaximumThicknessNm": 3100,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.28312585796041834,
+    "AfterLoss": 0.24459158142784207,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 1553.7188353825136,
+      "PeakTransmittance": 0.7145281130888277,
+      "LeftHalfMaximumNanometers": 1508.2711457356231,
+      "RightHalfMaximumNanometers": 1595.8411635192128,
+      "FwhmNanometers": 87.57001778358972,
+      "MinimumReflectance": 0.014435260882572623,
+      "MaximumReflectance": 0.9075640490023225
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 1548.6103995901638,
+      "PeakTransmittance": 0.7145767488806072,
+      "LeftHalfMaximumNanometers": 1505.6536932907188,
+      "RightHalfMaximumNanometers": 1591.2610522566417,
+      "FwhmNanometers": 85.60735896592291,
+      "MinimumReflectance": 0.0016780515400513997,
+      "MaximumReflectance": 0.8992647159279561
+    },
+    "BeforeBlockingOd": [
+      1.726465575080685,
+      1.5280677759833368
+    ],
+    "AfterBlockingOd": [
+      1.5453939140799,
+      1.432983276313416
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1548.6103995901638,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 85.60735896592291,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 71.45767488806072,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.5453939140799,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.432983276313416,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 117,
+      "Iterations": 48,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.047295849214896414,
+        0.5284795904809163,
+        0.039978532396563855,
+        0,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "pareto-target-correction",
+      "TargetRepairStartLayers": [
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 182.19091791428966,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 336.8673706577896,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 172.47088643868935,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 614.2541873216398,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 172.00226448542796,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 332.06775444322875,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 177.8475831477608,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 318.86681755532027,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 179.23094417762775,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 323.7560532911912,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 161.13526637344603,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 628.8087088214562,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 198.56421435379627,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 309.4823333692809,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 75.49500672507885,
+          "Variable": true
+        }
+      ],
+      "TargetRepairViolationCeilings": [
+        0.04723101203666502,
+        0.49233402544246274,
+        0.015339578454338322,
+        0,
+        0
+      ],
+      "TargetRepairGoalIndex": 2,
+      "TargetRepairTrials": [
+        {
+          "Step": 1,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 181.60321962460685,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 335.9473146190495,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 172.37261172500894,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 615.61972334044,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 172.01207842471672,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 332.12377856488814,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 177.6641363724431,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 318.67787694470115,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 179.1468845254712,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 323.9260123876749,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 161.5058372837255,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 628.001048726654,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 198.39357698365203,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 309.72377752321074,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 75.67056077697133,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 1548.6103995901638,
+            "PeakTransmittance": 0.7144355421656616,
+            "LeftHalfMaximumNanometers": 1505.2653992290034,
+            "RightHalfMaximumNanometers": 1590.8815482335108,
+            "FwhmNanometers": 85.6161490045074,
+            "MinimumReflectance": 0.0017681124745148908,
+            "MaximumReflectance": 0.8999963187036722
+          },
+          "Violations": [
+            0.04741927711245116,
+            0.492463576119952,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 2,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 181.55479034661533,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 335.87216639549393,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 172.35895598727825,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 615.7236514694944,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 172.007266414146,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 332.1553846075049,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 177.66581069160276,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 318.7182396213307,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 179.18557260324445,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 324.07374157756357,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 161.65391272119098,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 628.2877344691714,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 198.49560519152575,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 309.8674111694356,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 75.72009735131482,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 1548.6103995901638,
+            "PeakTransmittance": 0.7145441405740898,
+            "LeftHalfMaximumNanometers": 1505.5391013386718,
+            "RightHalfMaximumNanometers": 1591.1492859431498,
+            "FwhmNanometers": 85.61018460447804,
+            "MinimumReflectance": 0.0017074753855662404,
+            "MaximumReflectance": 0.8994793686349386
+          },
+          "Violations": [
+            0.04727447923454697,
+            0.4923536332622678,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 3,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 181.50922696673655,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 335.7979271867981,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 172.3431521622414,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 615.8090214156232,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 171.9986753865113,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 332.16665086533675,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 177.65724768550177,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 318.7268829309904,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 179.19791287916954,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 324.14304907231605,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 161.73292281948952,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 628.3701116918794,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 198.5303565664933,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 309.9397474989825,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 75.74934847053076,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 1548.6103995901638,
+            "PeakTransmittance": 0.7145720541255776,
+            "LeftHalfMaximumNanometers": 1505.6437470005296,
+            "RightHalfMaximumNanometers": 1591.2511940281859,
+            "FwhmNanometers": 85.60744702765624,
+            "MinimumReflectance": 0.0016810627989181904,
+            "MaximumReflectance": 0.8992826934752242
+          },
+          "Violations": [
+            0.047237261165896584,
+            0.4923031710167046,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 4,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 181.50226684713172,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 335.7867381900126,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 172.34026919244917,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 615.8210050978946,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 171.99687592659993,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 332.16940411886645,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 177.65617035933622,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 318.7287292779517,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 179.1993856392631,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 324.15187339943674,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 161.74194704751085,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 628.3750262325232,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 198.53311766699574,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 309.95025520078735,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 75.75512279886712,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 1548.6103995901638,
+            "PeakTransmittance": 0.7145767488806072,
+            "LeftHalfMaximumNanometers": 1505.6536932907188,
+            "RightHalfMaximumNanometers": 1591.2610522566417,
+            "FwhmNanometers": 85.60735896592291,
+            "MinimumReflectance": 0.0016780515400513997,
+            "MaximumReflectance": 0.8992647159279561
+          },
+          "Violations": [
+            0.04723100149252376,
+            0.4923015477589475,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true
+        }
+      ],
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 29615,
+        "SensitivityEvaluations": 169136,
+        "AnalyticJacobians": 52,
+        "ConstraintPasses": 7,
+        "AdaptiveRefinements": 6,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 7,
+        "BandMetricEvaluations": 124,
+        "BandSensitivityBatches": 110,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 7,
+        "ProtectedTrialRejections": 91,
+        "DenseProtectionRejections": 3,
+        "InequalitySubproblems": 4,
+        "InequalityActiveSetIterations": 16,
+        "TargetRepairIterations": 4,
+        "TargetRepairAcceptedCandidates": 1
+      }
+    },
+    "Seconds": 4.1934622
+  },
+  {
+    "Name": "prior-double-96",
+    "InputFingerprint": "67227B5E4BA94BD32574EF080CEF39B02BC06C5E3BC2AB8A60F8459BE2D62607",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.023045797778704927,
+    "AfterLoss": 0.020666785105582754,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 550.4243311036789,
+      "PeakTransmittance": 0.6645731043561156,
+      "LeftHalfMaximumNanometers": 541.2059249650306,
+      "RightHalfMaximumNanometers": 558.675027909527,
+      "FwhmNanometers": 17.4691029444964,
+      "MinimumReflectance": 0.001224137387268468,
+      "MaximumReflectance": 0.9046296295924398
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 550.4096989966555,
+      "PeakTransmittance": 0.6646341646294363,
+      "LeftHalfMaximumNanometers": 541.3610262237476,
+      "RightHalfMaximumNanometers": 558.6409468465189,
+      "FwhmNanometers": 17.27992062277133,
+      "MinimumReflectance": 0.007933618005481823,
+      "MaximumReflectance": 0.8946590422193215
+    },
+    "BeforeBlockingOd": [
+      0.9780972615674383,
+      1.2238362397987868
+    ],
+    "AfterBlockingOd": [
+      0.9792475427152352,
+      1.20356080351578
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4096989966555,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.27992062277133,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.46341646294363,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9792475427152352,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.20356080351578,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 217,
+      "Iterations": 96,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.1139025275251792,
+        0.09794019629975992,
+        0,
+        0.02190273843256174,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "pareto-target-correction",
+      "TargetRepairStartLayers": [
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 27.185393418302684,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 1351.5676887940106,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 58.36373037966016,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 101.2218315913414,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 59.96479179973777,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 99.73490459145334,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 61.81690726298529,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 99.44520954713994,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 61.28313454576452,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 565.2348923961728,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 61.32144537624818,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 103.69490806065525,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 57.25015113620595,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 108.36619716796827,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 55.104510794193985,
+          "Variable": true
+        }
+      ],
+      "TargetRepairViolationCeilings": [
+        0.11382111382741833,
+        0.08532804151808857,
+        0,
+        0.020752457284764825,
+        0
+      ],
+      "TargetRepairGoalIndex": 3,
+      "TargetRepairTrials": [
+        {
+          "Step": 1,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 27.352248173971816,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1351.851915638714,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.43540576292408,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.215991061446,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.87932455332884,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.55539958751848,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.64769927142121,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.22217103104707,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.09470280623706,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 565.0280274420605,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.135078376261866,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.4637535882803,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.101028595471185,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 108.18617591977186,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 55.04145900800373,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.7073578595317,
+            "PeakTransmittance": 0.6638867668258761,
+            "LeftHalfMaximumNanometers": 540.9604746216345,
+            "RightHalfMaximumNanometers": 558.2487944107645,
+            "FwhmNanometers": 17.288319789130014,
+            "MinimumReflectance": 0.006381615280955294,
+            "MaximumReflectance": 0.8952577899512181
+          },
+          "Violations": [
+            0.11481764423216519,
+            0.08588798594200095,
+            0,
+            0.0003469274236079789,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 2,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 27.254458719924315,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1351.8043705692762,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.34313222012771,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.02253470494792,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.70595212482469,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.32782493601076,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.51321006609767,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.28607352460614,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.22064880863857,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 565.706398488906,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.25664700092692,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.53057141021394,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.03551842010265,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 108.01664190946194,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 54.98620806073622,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.2341137123746,
+            "PeakTransmittance": 0.6641729610613076,
+            "LeftHalfMaximumNanometers": 541.2531861483809,
+            "RightHalfMaximumNanometers": 558.5393803558463,
+            "FwhmNanometers": 17.286194207465428,
+            "MinimumReflectance": 0.007402749382859564,
+            "MaximumReflectance": 0.8943555714967619
+          },
+          "Violations": [
+            0.1144360519182565,
+            0.0857462804976952,
+            0,
+            0.00028924666521035203,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 3,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 27.265446332629278,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1352.031584718207,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.5725197994157,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.2596715268834,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.87744432338946,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.51815120711913,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.56280507983594,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.44964013633893,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.0563885760029,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 565.5184820336208,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.035241012697995,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.59447384974763,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.06177972948371,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.97931562857927,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 55.06804558557428,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.9853678929766,
+            "PeakTransmittance": 0.6641852105869233,
+            "LeftHalfMaximumNanometers": 541.1714939098434,
+            "RightHalfMaximumNanometers": 558.4575358859632,
+            "FwhmNanometers": 17.286041976119805,
+            "MinimumReflectance": 0.00664037754318074,
+            "MaximumReflectance": 0.8947396533248764
+          },
+          "Violations": [
+            0.11441971921743566,
+            0.0857361317413203,
+            0,
+            0.00012825841861274778,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 4,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 27.1945959104614,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1351.9606515845417,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.50641500355888,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.16291470155282,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.7798731658501,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.41996452850599,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.476019606390096,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.54097986033534,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.06672749702334,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 565.8708820715816,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.035494605512184,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.6728007532585,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.023606588888704,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.8854593814491,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 55.040756537937945,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.2194816053511,
+            "PeakTransmittance": 0.6642966694067545,
+            "LeftHalfMaximumNanometers": 541.282271712153,
+            "RightHalfMaximumNanometers": 558.5663171565835,
+            "FwhmNanometers": 17.28404544443049,
+            "MinimumReflectance": 0.0072114311497953835,
+            "MaximumReflectance": 0.8943236794368812
+          },
+          "Violations": [
+            0.11427110745766071,
+            0.08560302962869931,
+            0,
+            8.913203979554751E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 5,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 27.126637830999044,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1352.2369282403083,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.782504223991296,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.39000082366475,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.921729553487616,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.5721450091816,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.44951120435623,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.87610373863166,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.85470154581006,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 566.0348908520477,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.73063611902663,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.85823289700996,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.03161552759644,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.71822218181458,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 55.14587893995782,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.1609531772575,
+            "PeakTransmittance": 0.6643993328078102,
+            "LeftHalfMaximumNanometers": 541.3226767833194,
+            "RightHalfMaximumNanometers": 558.6060519374415,
+            "FwhmNanometers": 17.283375154122155,
+            "MinimumReflectance": 0.006892365113994123,
+            "MaximumReflectance": 0.8943239573378512
+          },
+          "Violations": [
+            0.11413422292291979,
+            0.08555834360814364,
+            0,
+            0.00026094726060321705,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 6,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 27.044522918044837,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1352.188554730117,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.72252776543202,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.27935623857651,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.80329587881292,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.45095952116796,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.33350126515267,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 100.00898109022896,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.8533247986042,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 566.4986063905333,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.71671569069578,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.97487395589599,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 56.99054441717301,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.59167017354596,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 55.12397852994081,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.4535953177257,
+            "PeakTransmittance": 0.664474735525867,
+            "LeftHalfMaximumNanometers": 541.474182370858,
+            "RightHalfMaximumNanometers": 558.7564434602411,
+            "FwhmNanometers": 17.282261089383155,
+            "MinimumReflectance": 0.007663434605166933,
+            "MaximumReflectance": 0.8937876936994206
+          },
+          "Violations": [
+            0.11403368596551067,
+            0.08548407262554368,
+            0,
+            7.022190087013769E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 7,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 27.037160123561502,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1352.3533968843617,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.89289488195032,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.4473487326778,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.9329937428469,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.59693530835767,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.369416421125635,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 100.1314154699787,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.709499161292236,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 566.3252752567389,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.534316192638855,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.03446246177023,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.02704582631973,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.5748990773195,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 55.20529012683567,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.2194816053511,
+            "PeakTransmittance": 0.6644954398899894,
+            "LeftHalfMaximumNanometers": 541.3864742344681,
+            "RightHalfMaximumNanometers": 558.6681407894388,
+            "FwhmNanometers": 17.281666554970684,
+            "MinimumReflectance": 0.007029890664558948,
+            "MaximumReflectance": 0.8940975005061723
+          },
+          "Violations": [
+            0.11400608014668083,
+            0.0854444369980456,
+            0,
+            3.740396754892128E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 8,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 26.998105068974787,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1352.375912487026,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 58.887613858067205,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.38890723005754,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.87789140803612,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.51606904006198,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.31499762514329,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 100.17634420628347,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.745409806790036,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 566.6074358416946,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.5647767116647,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.07609663748583,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.00883994920754,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.49738081046105,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 55.198968845194216,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.4389632107022,
+            "PeakTransmittance": 0.6645762602398818,
+            "LeftHalfMaximumNanometers": 541.5143026328583,
+            "RightHalfMaximumNanometers": 558.7952842834258,
+            "FwhmNanometers": 17.28098165056747,
+            "MinimumReflectance": 0.007456740986992909,
+            "MaximumReflectance": 0.8937289502462661
+          },
+          "Violations": [
+            0.11389831968015758,
+            0.08539877670449793,
+            0,
+            8.10472024048714E-06,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 9,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 26.94557586142519,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1352.496804054006,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.00011478871795,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.45809888974311,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.9214398068076,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.56281589515754,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.28518473185059,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 100.33544745128472,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.637729781074334,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 566.7193315813929,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.42174641319969,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.1817734337354,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.024603943034066,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.41638679462494,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 55.2626490813534,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.4243311036789,
+            "PeakTransmittance": 0.6646286155881274,
+            "LeftHalfMaximumNanometers": 541.5355358441623,
+            "RightHalfMaximumNanometers": 558.815273233057,
+            "FwhmNanometers": 17.279737388894773,
+            "MinimumReflectance": 0.007374706942741366,
+            "MaximumReflectance": 0.8936653554091997
+          },
+          "Violations": [
+            0.11382851254916353,
+            0.08531582592631821,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 10,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 26.939964274458042,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1352.5034901881552,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.004699889960634,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.45660208595216,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.919724265629874,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.55899298346382,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.28054841278921,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 100.34450995571663,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.63637674008543,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 566.7433879004833,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.41859870866293,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 104.18865584170112,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.024387237252476,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.4077440407317,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 55.2652976075383,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.4389632107022,
+            "PeakTransmittance": 0.6646339378662274,
+            "LeftHalfMaximumNanometers": 541.5457220016134,
+            "RightHalfMaximumNanometers": 558.8253183054754,
+            "FwhmNanometers": 17.279596303862036,
+            "MinimumReflectance": 0.00741060623383224,
+            "MaximumReflectance": 0.8936356364532697
+          },
+          "Violations": [
+            0.1138214161783635,
+            0.08530642025746905,
+            0,
+            1.1440562223130613E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        }
+      ],
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 50494,
+        "SensitivityEvaluations": 325791,
+        "AnalyticJacobians": 106,
+        "ConstraintPasses": 10,
+        "AdaptiveRefinements": 9,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 13,
+        "BandMetricEvaluations": 223,
+        "BandSensitivityBatches": 194,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 10,
+        "ProtectedTrialRejections": 182,
+        "DenseProtectionRejections": 10,
+        "InequalitySubproblems": 10,
+        "InequalityActiveSetIterations": 42,
+        "TargetRepairIterations": 10
+      }
+    },
+    "Seconds": 15.092611
+  },
+  {
+    "Name": "real-narrowband-control",
+    "InputFingerprint": "4E77315F50A4307C04B1C8AD43D791884888BEB120B9BCDAFE159B3BBDE3E4C1",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.011329461036456122,
+    "AfterLoss": 0.008770816376795392,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 549.9561036789298,
+      "PeakTransmittance": 0.7096300940789582,
+      "LeftHalfMaximumNanometers": 541.414067306742,
+      "RightHalfMaximumNanometers": 558.6089217988936,
+      "FwhmNanometers": 17.194854492151535,
+      "MinimumReflectance": 0.06137722199444069,
+      "MaximumReflectance": 0.8908918922370366
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 549.751254180602,
+      "PeakTransmittance": 0.7096741219984142,
+      "LeftHalfMaximumNanometers": 541.2650214217527,
+      "RightHalfMaximumNanometers": 558.4152227208368,
+      "FwhmNanometers": 17.150201299084074,
+      "MinimumReflectance": 0.06205499970115236,
+      "MaximumReflectance": 0.8900529842978372
+    },
+    "BeforeBlockingOd": [
+      0.9543170464975821,
+      1.2438620061454813
+    ],
+    "AfterBlockingOd": [
+      0.9999809416383283,
+      1.2323062971625565
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 12,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.751254180602,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.150201299084074,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 70.96741219984142,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9999809416383283,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2323062971625565,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 63,
+      "Iterations": 24,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.05382654122805578,
+        0.07965696614343566,
+        0,
+        0.04568295350241791,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "pareto-target-correction",
+      "TargetRepairStartLayers": [
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 18.2390114406621,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 47.30579077984258,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 119.93190236265559,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 60.20910268889488,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 107.11875593578796,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 54.98854444854962,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 565.8583786733542,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 61.77963206425022,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 99.61914207308921,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 62.561044069226746,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 96.9661702513877,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 63.18186402052145,
+          "Variable": true
+        }
+      ],
+      "TargetRepairViolationCeilings": [
+        0.053768046408641634,
+        0.07669930295426183,
+        0,
+        0.0038150311344022914,
+        0
+      ],
+      "TargetRepairGoalIndex": 3,
+      "TargetRepairTrials": [
+        {
+          "Step": 1,
+          "Layers": [
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 18.286666911198225,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 47.26110597447737,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 119.97778634684605,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.18282768652023,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.120161885522,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 54.90623312917342,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 565.7961874215334,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.7178613976481,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.55886866068352,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 62.512280990273354,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 96.92105947213592,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 63.15621375150239,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.751254180602,
+            "PeakTransmittance": 0.7096741219984142,
+            "LeftHalfMaximumNanometers": 541.2650214217527,
+            "RightHalfMaximumNanometers": 558.4152227208368,
+            "FwhmNanometers": 17.150201299084074,
+            "MinimumReflectance": 0.06205499970115236,
+            "MaximumReflectance": 0.8900529842978372
+          },
+          "Violations": [
+            0.053767837335447766,
+            0.07668008660560494,
+            0,
+            1.9058361671708823E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true
+        },
+        {
+          "Step": 2,
+          "Layers": [
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 18.286868803037095,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 47.26087539224056,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 119.97794361546553,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.18268773323977,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.12009580734822,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 54.90589726244053,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 565.7959643014649,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.717601423352825,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.55858441901347,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 62.51204146990962,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 96.92083168607357,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 63.15608559683532,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.751254180602,
+            "PeakTransmittance": 0.7096738747007635,
+            "LeftHalfMaximumNanometers": 541.2643145331616,
+            "RightHalfMaximumNanometers": 558.4145123753184,
+            "FwhmNanometers": 17.150197842156786,
+            "MinimumReflectance": 0.06205445112184846,
+            "MaximumReflectance": 0.8900550223067587
+          },
+          "Violations": [
+            0.05376816706564869,
+            0.07667985614378571,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 3,
+          "Layers": [
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 18.286868808307467,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 47.26087538695264,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 119.97794362022508,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.182687730417214,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 107.12009580658388,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 54.90589725461038,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 565.7959642963814,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.717601417361585,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.55858441271494,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 62.512041464464204,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 96.9208316809951,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 63.15608559387922,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 549.751254180602,
+            "PeakTransmittance": 0.7096738746985489,
+            "LeftHalfMaximumNanometers": 541.264314517392,
+            "RightHalfMaximumNanometers": 558.4145123595644,
+            "FwhmNanometers": 17.15019784217236,
+            "MinimumReflectance": 0.06205445110599339,
+            "MaximumReflectance": 0.8900550223518445
+          },
+          "Violations": [
+            0.053768167068601436,
+            0.07667985614482405,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        }
+      ],
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 23299,
+        "SensitivityEvaluations": 75170,
+        "AnalyticJacobians": 29,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 6,
+        "BandMetricEvaluations": 69,
+        "BandSensitivityBatches": 55,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 5,
+        "ProtectedTrialRejections": 46,
+        "DenseProtectionRejections": 2,
+        "InequalitySubproblems": 5,
+        "InequalityActiveSetIterations": 14,
+        "TargetRepairIterations": 5,
+        "TargetRepairAcceptedCandidates": 1
+      }
+    },
+    "Seconds": 3.3893334
+  },
+  {
+    "Name": "real-nbf2-96",
+    "InputFingerprint": "4F8C28DC87452D48C47BD3E8BD8A84FB666503FD430CF241B412023CE6EC9A57",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.031130819489817683,
+    "AfterLoss": 0.021021487729644756,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 551.0827759197325,
+      "PeakTransmittance": 0.6609607874496719,
+      "LeftHalfMaximumNanometers": 541.0356372296188,
+      "RightHalfMaximumNanometers": 558.8482994509815,
+      "FwhmNanometers": 17.812662221362643,
+      "MinimumReflectance": 8.6844770020253E-05,
+      "MaximumReflectance": 0.918587629026352
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 550.4096989966555,
+      "PeakTransmittance": 0.6621863963730736,
+      "LeftHalfMaximumNanometers": 541.7273148960023,
+      "RightHalfMaximumNanometers": 559.0100241246947,
+      "FwhmNanometers": 17.282709228692397,
+      "MinimumReflectance": 0.008086785348488529,
+      "MaximumReflectance": 0.8908161584378981
+    },
+    "BeforeBlockingOd": [
+      0.9696048443040636,
+      1.233408118733843
+    ],
+    "AfterBlockingOd": [
+      0.9999716358088112,
+      1.2254047408868738
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4096989966555,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.282709228692397,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.21863963730736,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9999716358088112,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2254047408868738,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 209,
+      "Iterations": 96,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.11871895006710413,
+        0.12084414809084289,
+        0.03885172798216748,
+        0.030395155695936427,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "pareto-target-correction",
+      "TargetRepairStartLayers": [
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 25.580131009101745,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 1358.5183655958406,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 57.2285817745737,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 100.11491781851872,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 60.46034984117454,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 98.9060245929696,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 61.854915175444376,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 100.02019020265833,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 59.65533946710392,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 567.4305487675338,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 59.548154448106914,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 102.02395356152823,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 59.590849034145826,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 103.74514589079547,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 70.03382554668764,
+          "Variable": true
+        }
+      ],
+      "TargetRepairViolationCeilings": [
+        0.11708488439486686,
+        0.08553266446179654,
+        0,
+        0.017410615864249412,
+        0
+      ],
+      "TargetRepairGoalIndex": 3,
+      "TargetRepairTrials": [
+        {
+          "Step": 1,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 25.65284534625577,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1358.6407875680006,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.10537702524147,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.8294005920653,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.14843555814408,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 98.47441131493667,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.56765952787923,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.89611175513926,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.720342862985376,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 568.1185938709732,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.63004200694331,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.89158880644133,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.34444866763378,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.34928223711971,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 69.81704992578695,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.3877508361204,
+            "PeakTransmittance": 0.6621790381801927,
+            "LeftHalfMaximumNanometers": 541.7164568606935,
+            "RightHalfMaximumNanometers": 559.0031455449272,
+            "FwhmNanometers": 17.286688684233695,
+            "MinimumReflectance": 0.008031683304640758,
+            "MaximumReflectance": 0.8908799509884456
+          },
+          "Violations": [
+            0.117094615759743,
+            0.08577924561557969,
+            0,
+            0.00017335777382965212,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 2,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 25.613868580490674,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1358.6238244344038,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.10981281182711,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.82122827180775,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.14869047040531,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 98.46459324232924,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.56604459124262,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.89679770028752,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.73299356932384,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 568.1508010545606,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.636559688056764,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.8839531929525,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.33335245019329,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.31518536021434,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 69.79596733039652,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.4096989966555,
+            "PeakTransmittance": 0.6621841824794001,
+            "LeftHalfMaximumNanometers": 541.7265796337285,
+            "RightHalfMaximumNanometers": 559.0093009987293,
+            "FwhmNanometers": 17.282721365000725,
+            "MinimumReflectance": 0.008087695766487043,
+            "MaximumReflectance": 0.8908180220276952
+          },
+          "Violations": [
+            0.11708775669413314,
+            0.08551475766671501,
+            0,
+            2.66866481961614E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false
+        },
+        {
+          "Step": 3,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 25.613767903440756,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1358.6236985985583,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.10959269125476,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.82089142491289,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.148370643563375,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 98.46426084490156,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.565851708138695,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.89703555717058,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.7333261098073,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 568.1522050446981,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.63688492098549,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.88412733848126,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.33315541798556,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.31475040216199,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 69.79563208218191,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.4096989966555,
+            "PeakTransmittance": 0.66218639435708,
+            "LeftHalfMaximumNanometers": 541.7273142984131,
+            "RightHalfMaximumNanometers": 559.0100234998687,
+            "FwhmNanometers": 17.282709201455532,
+            "MinimumReflectance": 0.00808678662777777,
+            "MaximumReflectance": 0.8908161597027485
+          },
+          "Violations": [
+            0.11708480752389328,
+            0.08551394676370212,
+            0,
+            2.8364560773264103E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true
+        },
+        {
+          "Step": 4,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 25.613768188182323,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1358.623698661092,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.10959241873435,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.82089113145467,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.14837028241642,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 98.4642605457343,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.56585148837872,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.89703574996506,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.73332631025925,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 568.1522061766029,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.63688517463353,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.88412754820789,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.33315529084706,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.31475024187903,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 69.7956319245885,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.4096989966555,
+            "PeakTransmittance": 0.6621863963730706,
+            "LeftHalfMaximumNanometers": 541.7273148960016,
+            "RightHalfMaximumNanometers": 559.010024124694,
+            "FwhmNanometers": 17.282709228692397,
+            "MinimumReflectance": 0.008086785348489558,
+            "MaximumReflectance": 0.8908161584379011
+          },
+          "Violations": [
+            0.11708480483590582,
+            0.08551394857949314,
+            0,
+            2.8364191191010413E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true
+        },
+        {
+          "Step": 5,
+          "Layers": [
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 25.613768188182377,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 1358.623698661092,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 57.10959241873406,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.82089113145425,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 60.14837028241599,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 98.46426054573386,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 61.56585148837844,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 99.89703574996528,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.73332631025958,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 568.1522061766044,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.63688517463387,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 101.88412754820807,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 59.33315529084682,
+              "Variable": true
+            },
+            {
+              "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 103.31475024187857,
+              "Variable": true
+            },
+            {
+              "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "ThicknessNm": 69.79563192458816,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 550.4096989966555,
+            "PeakTransmittance": 0.6621863963730736,
+            "LeftHalfMaximumNanometers": 541.7273148960023,
+            "RightHalfMaximumNanometers": 559.0100241246947,
+            "FwhmNanometers": 17.282709228692397,
+            "MinimumReflectance": 0.008086785348488529,
+            "MaximumReflectance": 0.8908161584378981
+          },
+          "Violations": [
+            0.11708480483590182,
+            0.08551394857949314,
+            0,
+            2.8364191188789967E-05,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true
+        }
+      ],
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 46918,
+        "SensitivityEvaluations": 330259,
+        "AnalyticJacobians": 105,
+        "ConstraintPasses": 10,
+        "AdaptiveRefinements": 9,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 8,
+        "BandMetricEvaluations": 215,
+        "BandSensitivityBatches": 195,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 10,
+        "ProtectedTrialRejections": 176,
+        "DenseProtectionRejections": 2,
+        "InequalitySubproblems": 9,
+        "InequalityActiveSetIterations": 24,
+        "TargetRepairIterations": 9,
+        "TargetRepairAcceptedCandidates": 3
+      }
+    },
+    "Seconds": 14.9590255
+  }
+]

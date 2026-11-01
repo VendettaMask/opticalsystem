@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0441cb36-9ed4-4c33-8539-b460181dfca3" name="allen@DESKTOP-SET3SNR 2026-10-31 12:51:45" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T12:51:45.0400215+08:00" queuing="2026-10-31T12:51:45.0400220+08:00" start="2026-10-31T12:51:43.2513227+08:00" finish="2026-10-31T12:51:45.0477920+08:00" />
+  <TestSettings name="default" id="1196c662-f288-424c-9418-5123d7c7b7c5">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_12_51_45" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7ed747f9-8d85-4d28-8fa4-db167ed43924" testId="4e86fd92-7503-5dc7-cab5-e6af3a9b04a7" testName="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.InvalidOrInfeasibleModelsAreExplicitAndCancellationIsObserved" computerName="DESKTOP-SET3SNR" duration="00:00:00.0086721" startTime="2026-10-31T12:51:44.9105631+08:00" endTime="2026-10-31T12:51:44.9244431+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ed747f9-8d85-4d28-8fa4-db167ed43924" />
+    <UnitTestResult executionId="c4b7ea73-b5e3-4ba6-bdf8-15a0118240dd" testId="baa06e9b-7242-f494-c43f-ac30c3a68396" testName="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.CoupledUpperBoundFindsTheConstrainedMinimumRatherThanClippingAnUnconstrainedStep" computerName="DESKTOP-SET3SNR" duration="00:00:00.0004153" startTime="2026-10-31T12:51:44.9380157+08:00" endTime="2026-10-31T12:51:44.9381210+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4b7ea73-b5e3-4ba6-bdf8-15a0118240dd" />
+    <UnitTestResult executionId="5286a14f-0df1-4445-926a-6be6a4462279" testId="3a5e8b19-818f-62e2-cdea-bd4d0f559f53" testName="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.ScalingResidualsAndInequalityRowsPreservesThePhysicalStep" computerName="DESKTOP-SET3SNR" duration="00:00:00.0122956" startTime="2026-10-31T12:51:44.9367118+08:00" endTime="2026-10-31T12:51:44.9368689+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5286a14f-0df1-4445-926a-6be6a4462279" />
+    <UnitTestResult executionId="d73b2477-7878-4b52-aad5-6a7f30e67c2b" testId="91a32f17-1fc4-d0f7-af82-c1b140eea06b" testName="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.AnActiveProtectionCanReleaseInwardMotionAndRedundantRowsDoNotChangeTheAnswer" computerName="DESKTOP-SET3SNR" duration="00:00:00.0002810" startTime="2026-10-31T12:51:44.9383399+08:00" endTime="2026-10-31T12:51:44.9391463+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d73b2477-7878-4b52-aad5-6a7f30e67c2b" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.InvalidOrInfeasibleModelsAreExplicitAndCancellationIsObserved" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="4e86fd92-7503-5dc7-cab5-e6af3a9b04a7">
+      <Execution id="7ed747f9-8d85-4d28-8fa4-db167ed43924" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests" name="InvalidOrInfeasibleModelsAreExplicitAndCancellationIsObserved" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.CoupledUpperBoundFindsTheConstrainedMinimumRatherThanClippingAnUnconstrainedStep" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="baa06e9b-7242-f494-c43f-ac30c3a68396">
+      <Execution id="c4b7ea73-b5e3-4ba6-bdf8-15a0118240dd" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests" name="CoupledUpperBoundFindsTheConstrainedMinimumRatherThanClippingAnUnconstrainedStep" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.AnActiveProtectionCanReleaseInwardMotionAndRedundantRowsDoNotChangeTheAnswer" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="91a32f17-1fc4-d0f7-af82-c1b140eea06b">
+      <Execution id="d73b2477-7878-4b52-aad5-6a7f30e67c2b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests" name="AnActiveProtectionCanReleaseInwardMotionAndRedundantRowsDoNotChangeTheAnswer" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests.ScalingResidualsAndInequalityRowsPreservesThePhysicalStep" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="3a5e8b19-818f-62e2-cdea-bd4d0f559f53">
+      <Execution id="5286a14f-0df1-4445-926a-6be6a4462279" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.InequalityStepTests" name="ScalingResidualsAndInequalityRowsPreservesThePhysicalStep" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4e86fd92-7503-5dc7-cab5-e6af3a9b04a7" executionId="7ed747f9-8d85-4d28-8fa4-db167ed43924" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="baa06e9b-7242-f494-c43f-ac30c3a68396" executionId="c4b7ea73-b5e3-4ba6-bdf8-15a0118240dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a5e8b19-818f-62e2-cdea-bd4d0f559f53" executionId="5286a14f-0df1-4445-926a-6be6a4462279" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="91a32f17-1fc4-d0f7-af82-c1b140eea06b" executionId="d73b2477-7878-4b52-aad5-6a7f30e67c2b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.14]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.21]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.23]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.28]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

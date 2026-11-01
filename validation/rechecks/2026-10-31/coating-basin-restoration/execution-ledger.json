@@ -1,0 +1,74 @@
+{
+  "Scope": "Current task; previous evidence and all original gates retained",
+  "OriginalInputFiles": 61,
+  "OriginalInputsByteIdentical": true,
+  "FinalGenerateCases": 6,
+  "FinalGenerateColdArms": 2,
+  "OldSearchControlCases": 6,
+  "OldSearchNewPasses": 0,
+  "ReferenceNewRuns": 18,
+  "ReferenceFormalPasses": 0,
+  "HighReflectorColdCases": 19,
+  "HighReflectorNewPasses": 0,
+  "FinalFocusedTests": 6,
+  "IndependentPhysicsPoints": 2232,
+  "CurvatureDiagnosticPoints": 28,
+  "TrialsNotProduct": [
+    "reference-phase-scan.json",
+    "reference-terminations.json",
+    "curvature-trial-final",
+    "rejected-restoration-source",
+    "rejected-full-search.json",
+    "superseded-prototypes.json"
+  ],
+  "KnownVerificationFailures": [
+    "Initial xUnit2012 assertion build corrected without changing gates",
+    "Shared output Core dependency overwritten caused MissingMethodException; isolated final suite used pinned matching binaries",
+    "Old test DLL discovered 2 tests; rebuilt current full test source and ran 6 final tests",
+    "Offline physics runner originally referenced absent temporary unpack path; new runner uses hash-verified pinned unpack"
+  ],
+  "NotRun": [
+    "Full module/repository test suite",
+    "Native desktop acceptance",
+    "Commit/push/release"
+  ],
+  "FinalGenerationCalls": [
+    {
+      "Name": "correction-real-nbf-red",
+      "Seconds": 137.8270369,
+      "StartFingerprint": "A8B055145E6313E31CB64404635EB000A02ABBE406AD86118250721DF757E36C",
+      "Passed": true
+    },
+    {
+      "Name": "real-nbf2-96",
+      "Seconds": 175.7818435,
+      "StartFingerprint": "5AA1D856CE410589978B3796B03D73AFA80870B4BA0D17DD101794F5C003EC45",
+      "Passed": false
+    },
+    {
+      "Name": "correction-real-nbf-yellow",
+      "Seconds": 148.7299769,
+      "StartFingerprint": "9A3C4867C23CEACD9818A70B539BAB0441C5416EEA19AAC9246AD232489CF29C",
+      "Passed": false
+    },
+    {
+      "Name": "new-real-nbf-green",
+      "Seconds": 140.0386336,
+      "StartFingerprint": "64A988A4564A199AFB54E3A63390A89B8C29F99CB4E49AA407DAD60E42006C8C",
+      "Passed": false
+    },
+    {
+      "Name": "new-ir-double",
+      "Seconds": 70.4122401,
+      "StartFingerprint": "B3110132C94497D1E6467884C26FD4E6B6D1E0EE645E124D8CB52F721DED837C",
+      "Passed": false
+    },
+    {
+      "Name": "new-real-nbf-red",
+      "Seconds": 85.1850745,
+      "StartFingerprint": "591187CDBD505057F4939EF4BD2E6F5361F546BBCAF97EA21941AFCF9B29F09D",
+      "Passed": true
+    }
+  ],
+  "ConcurrentDocumentationNote": "CURRENT_STATUS.md changed in another task after the documentation snapshot; coating section remains intact. Refreshed final-docs snapshot without overwriting live concurrent edits. Source and own report bytes verified separately."
+}

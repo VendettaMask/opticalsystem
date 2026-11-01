@@ -1,0 +1,664 @@
+﻿2026-10-31T10:50:55.1961980Z Current runner version: '2.338.2'
+2026-10-31T10:50:55.1993298Z ##[group]Runner Image Provisioner
+2026-10-31T10:50:55.1994295Z Hosted Compute Agent
+2026-10-31T10:50:55.1995042Z Version: 20261021.618
+2026-10-31T10:50:55.1995813Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-31T10:50:55.1997154Z Build Date: 2026-10-21T00:45:21Z
+2026-10-31T10:50:55.1998150Z Worker ID: {728a194c-67da-4dbc-bf3e-806ee8b8a17e}
+2026-10-31T10:50:55.1999045Z Region: eastus
+2026-10-31T10:50:55.1999717Z Cloud: Azure
+2026-10-31T10:50:55.2000316Z ##[endgroup]
+2026-10-31T10:50:55.2001976Z ##[group]Operating System
+2026-10-31T10:50:55.2002777Z Microsoft Windows Server 2025
+2026-10-31T10:50:55.2003573Z 10.0.26100
+2026-10-31T10:50:55.2004183Z Datacenter
+2026-10-31T10:50:55.2004761Z ##[endgroup]
+2026-10-31T10:50:55.2005383Z ##[group]Runner Image
+2026-10-31T10:50:55.2006401Z Image: windows-2025-vs2026
+2026-10-31T10:50:55.2007161Z Version: 20261021.278.1
+2026-10-31T10:50:55.2009406Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20261021.278/images/windows/Windows2025-VS2026-Readme.md
+2026-10-31T10:50:55.2011956Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20261021.278
+2026-10-31T10:50:55.2013268Z ##[endgroup]
+2026-10-31T10:50:55.2015223Z ##[group]GITHUB_TOKEN Permissions
+2026-10-31T10:50:55.2017408Z Contents: read
+2026-10-31T10:50:55.2018146Z Metadata: read
+2026-10-31T10:50:55.2018866Z ##[endgroup]
+2026-10-31T10:50:55.2021545Z Secret source: Actions
+2026-10-31T10:50:55.2022729Z Cache mode: write
+2026-10-31T10:50:55.2023563Z Prepare workflow directory
+2026-10-31T10:50:55.2368649Z Prepare all required actions
+2026-10-31T10:50:55.2408775Z Getting action download info
+2026-10-31T10:50:55.3927078Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-31T10:50:55.5034905Z Download action repository 'actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9' (SHA:67a3573c9a986a3f9c594539f4ab511d57bb3ce9)
+2026-10-31T10:50:55.7557322Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-31T10:50:56.0596195Z Complete job name: package (win-arm64)
+2026-10-31T10:50:56.1836253Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-10-31T10:50:56.1837339Z with:
+2026-10-31T10:50:56.1837699Z   repository: VendettaMask/opticalsystem
+2026-10-31T10:50:56.1841409Z   token: ***
+2026-10-31T10:50:56.1841729Z   ssh-strict: true
+2026-10-31T10:50:56.1842059Z   ssh-user: git
+2026-10-31T10:50:56.1842399Z   persist-credentials: true
+2026-10-31T10:50:56.1842792Z   clean: true
+2026-10-31T10:50:56.1843127Z   sparse-checkout-cone-mode: true
+2026-10-31T10:50:56.1843711Z   fetch-depth: 1
+2026-10-31T10:50:56.1844039Z   fetch-tags: false
+2026-10-31T10:50:56.1844741Z   show-progress: true
+2026-10-31T10:50:56.1845098Z   lfs: false
+2026-10-31T10:50:56.1845411Z   submodules: false
+2026-10-31T10:50:56.1845798Z   set-safe-directory: true
+2026-10-31T10:50:56.1846185Z   allow-unsafe-pr-checkout: false
+2026-10-31T10:50:56.1846810Z ##[endgroup]
+2026-10-31T10:50:56.3144920Z Syncing repository: VendettaMask/opticalsystem
+2026-10-31T10:50:56.3146515Z ##[group]Getting Git version info
+2026-10-31T10:50:56.3147093Z Working directory is 'D:\a\opticalsystem\opticalsystem'
+2026-10-31T10:50:56.3742119Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-31T10:50:56.6969859Z git version 2.56.0.windows.2
+2026-10-31T10:50:56.7014449Z ##[endgroup]
+2026-10-31T10:50:56.7094824Z Temporarily overriding HOME='D:\a\_temp\a4b3bcd1-ff5b-485c-9789-46dcc0b999a7' before making global git config changes
+2026-10-31T10:50:56.7097295Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-31T10:50:56.7099669Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\opticalsystem\opticalsystem
+2026-10-31T10:50:56.7620812Z Deleting the contents of 'D:\a\opticalsystem\opticalsystem'
+2026-10-31T10:50:56.7626388Z ##[group]Initializing the repository
+2026-10-31T10:50:56.7634808Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\opticalsystem\opticalsystem
+2026-10-31T10:50:56.8448849Z Initialized empty Git repository in D:/a/opticalsystem/opticalsystem/.git/
+2026-10-31T10:50:56.8490882Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/VendettaMask/opticalsystem
+2026-10-31T10:50:56.9204712Z ##[endgroup]
+2026-10-31T10:50:56.9205907Z ##[group]Disabling automatic garbage collection
+2026-10-31T10:50:56.9212778Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-31T10:50:56.9542864Z ##[endgroup]
+2026-10-31T10:50:56.9544746Z ##[group]Setting up auth
+2026-10-31T10:50:56.9553439Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-31T10:50:56.9884263Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-31T10:50:58.3324195Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-31T10:50:58.3669275Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-31T10:50:58.9118189Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-31T10:50:58.9475215Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-31T10:50:59.4782245Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-31T10:50:59.5132520Z ##[endgroup]
+2026-10-31T10:50:59.5143426Z ##[group]Fetching the repository
+2026-10-31T10:50:59.5147093Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8f4ffd473169f28561514d65d85371ae32c79dcb:refs/remotes/origin/cloud-release/desktop-f7bcb90a-20261031
+2026-10-31T10:51:24.6308221Z From https://github.com/VendettaMask/opticalsystem
+2026-10-31T10:51:24.6309414Z  * [new ref]           8f4ffd473169f28561514d65d85371ae32c79dcb -> origin/cloud-release/desktop-f7bcb90a-20261031
+2026-10-31T10:51:24.6350291Z ##[endgroup]
+2026-10-31T10:51:24.6350649Z ##[group]Determining the checkout info
+2026-10-31T10:51:24.6352029Z ##[endgroup]
+2026-10-31T10:51:24.6362059Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-31T10:51:24.6832055Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-31T10:51:24.7175076Z ##[group]Checking out the ref
+2026-10-31T10:51:24.7183769Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B cloud-release/desktop-f7bcb90a-20261031 refs/remotes/origin/cloud-release/desktop-f7bcb90a-20261031
+2026-10-31T10:51:25.8316936Z Updating files:   3% (729/19163)
+2026-10-31T10:51:26.0120301Z Updating files:   4% (767/19163)
+2026-10-31T10:51:26.2311790Z Updating files:   5% (959/19163)
+2026-10-31T10:51:26.5623514Z Updating files:   6% (1150/19163)
+2026-10-31T10:51:26.6380233Z Updating files:   7% (1342/19163)
+2026-10-31T10:51:26.7086714Z Updating files:   8% (1534/19163)
+2026-10-31T10:51:26.7879399Z Updating files:   9% (1725/19163)
+2026-10-31T10:51:26.7989572Z Updating files:  10% (1917/19163)
+2026-10-31T10:51:26.8533057Z Updating files:  10% (1949/19163)
+2026-10-31T10:51:26.9088951Z Updating files:  11% (2108/19163)
+2026-10-31T10:51:27.0869327Z Updating files:  12% (2300/19163)
+2026-10-31T10:51:27.4880387Z Updating files:  13% (2492/19163)
+2026-10-31T10:51:27.5751756Z Updating files:  14% (2683/19163)
+2026-10-31T10:51:27.6616079Z Updating files:  15% (2875/19163)
+2026-10-31T10:51:27.7668569Z Updating files:  16% (3067/19163)
+2026-10-31T10:51:27.8001363Z Updating files:  17% (3258/19163)
+2026-10-31T10:51:27.8907335Z Updating files:  17% (3314/19163)
+2026-10-31T10:51:27.9796587Z Updating files:  18% (3450/19163)
+2026-10-31T10:51:28.0316036Z Updating files:  19% (3641/19163)
+2026-10-31T10:51:28.1628389Z Updating files:  20% (3833/19163)
+2026-10-31T10:51:28.2388067Z Updating files:  21% (4025/19163)
+2026-10-31T10:51:28.2778120Z Updating files:  22% (4216/19163)
+2026-10-31T10:51:28.3168620Z Updating files:  23% (4408/19163)
+2026-10-31T10:51:28.3565040Z Updating files:  24% (4600/19163)
+2026-10-31T10:51:28.3983345Z Updating files:  25% (4791/19163)
+2026-10-31T10:51:28.7867420Z Updating files:  26% (4983/19163)
+2026-10-31T10:51:28.8078142Z Updating files:  27% (5175/19163)
+2026-10-31T10:51:28.8237604Z Updating files:  27% (5285/19163)
+2026-10-31T10:51:28.8625077Z Updating files:  28% (5366/19163)
+2026-10-31T10:51:28.9015068Z Updating files:  29% (5558/19163)
+2026-10-31T10:51:28.9417437Z Updating files:  30% (5749/19163)
+2026-10-31T10:51:28.9828611Z Updating files:  31% (5941/19163)
+2026-10-31T10:51:29.0286323Z Updating files:  32% (6133/19163)
+2026-10-31T10:51:29.0755862Z Updating files:  33% (6324/19163)
+2026-10-31T10:51:29.1333540Z Updating files:  34% (6516/19163)
+2026-10-31T10:51:29.1768303Z Updating files:  35% (6708/19163)
+2026-10-31T10:51:29.3135226Z Updating files:  36% (6899/19163)
+2026-10-31T10:51:29.3573714Z Updating files:  37% (7091/19163)
+2026-10-31T10:51:29.4254551Z Updating files:  38% (7282/19163)
+2026-10-31T10:51:29.4673571Z Updating files:  39% (7474/19163)
+2026-10-31T10:51:29.5086505Z Updating files:  40% (7666/19163)
+2026-10-31T10:51:29.5493377Z Updating files:  41% (7857/19163)
+2026-10-31T10:51:31.1343494Z Updating files:  42% (8049/19163)
+2026-10-31T10:51:31.6389993Z Updating files:  42% (8076/19163)
+2026-10-31T10:51:31.8930545Z Updating files:  43% (8241/19163)
+2026-10-31T10:51:33.4967536Z Updating files:  43% (8265/19163)
+2026-10-31T10:51:34.0666295Z Updating files:  43% (8402/19163)
+2026-10-31T10:51:34.6357539Z Updating files:  43% (8421/19163)
+2026-10-31T10:51:34.7555071Z Updating files:  44% (8432/19163)
+2026-10-31T10:51:34.8006064Z Updating files:  45% (8624/19163)
+2026-10-31T10:51:34.8295863Z Updating files:  46% (8815/19163)
+2026-10-31T10:51:34.8982590Z Updating files:  46% (8879/19163)
+2026-10-31T10:51:35.6688838Z Updating files:  47% (9007/19163)
+2026-10-31T10:51:35.8373993Z Updating files:  48% (9199/19163)
+2026-10-31T10:51:36.0708617Z Updating files:  48% (9345/19163)
+2026-10-31T10:51:36.8495739Z Updating files:  49% (9390/19163)
+2026-10-31T10:51:36.9216143Z Updating files:  49% (9535/19163)
+2026-10-31T10:51:36.9856808Z Updating files:  50% (9582/19163)
+2026-10-31T10:51:37.0257421Z Updating files:  51% (9774/19163)
+2026-10-31T10:51:37.5133319Z Updating files:  52% (9965/19163)
+2026-10-31T10:51:37.8422149Z Updating files:  53% (10157/19163)
+2026-10-31T10:51:38.4506924Z Updating files:  53% (10199/19163)
+2026-10-31T10:51:38.5642302Z Updating files:  54% (10349/19163)
+2026-10-31T10:51:38.6576322Z Updating files:  55% (10540/19163)
+2026-10-31T10:51:38.8836566Z Updating files:  56% (10732/19163)
+2026-10-31T10:51:39.0847052Z Updating files:  56% (10855/19163)
+2026-10-31T10:51:39.8480853Z Updating files:  57% (10923/19163)
+2026-10-31T10:51:39.8721184Z Updating files:  57% (11056/19163)
+2026-10-31T10:51:40.2399112Z Updating files:  58% (11115/19163)
+2026-10-31T10:51:40.4671909Z Updating files:  59% (11307/19163)
+2026-10-31T10:51:40.6695486Z Updating files:  60% (11498/19163)
+2026-10-31T10:51:42.0660598Z Updating files:  61% (11690/19163)
+2026-10-31T10:51:43.1866875Z Updating files:  61% (11716/19163)
+2026-10-31T10:51:44.0921692Z Updating files:  61% (11748/19163)
+2026-10-31T10:51:44.1709060Z Updating files:  61% (11763/19163)
+2026-10-31T10:51:44.3366978Z Updating files:  62% (11882/19163)
+2026-10-31T10:51:44.5750161Z Updating files:  63% (12073/19163)
+2026-10-31T10:51:44.7341911Z Updating files:  64% (12265/19163)
+2026-10-31T10:51:45.0589470Z Updating files:  65% (12456/19163)
+2026-10-31T10:51:45.1058335Z Updating files:  65% (12585/19163)
+2026-10-31T10:51:45.2262175Z Updating files:  66% (12648/19163)
+2026-10-31T10:51:45.3535584Z Updating files:  67% (12840/19163)
+2026-10-31T10:51:45.5619331Z Updating files:  68% (13031/19163)
+2026-10-31T10:51:45.6758437Z Updating files:  69% (13223/19163)
+2026-10-31T10:51:45.8208574Z Updating files:  70% (13415/19163)
+2026-10-31T10:51:45.8980965Z Updating files:  71% (13606/19163)
+2026-10-31T10:51:45.9249134Z Updating files:  71% (13775/19163)
+2026-10-31T10:51:46.0558513Z Updating files:  72% (13798/19163)
+2026-10-31T10:51:46.1070305Z Updating files:  73% (13989/19163)
+2026-10-31T10:51:46.4756736Z Updating files:  74% (14181/19163)
+2026-10-31T10:51:46.5286860Z Updating files:  75% (14373/19163)
+2026-10-31T10:51:46.5913830Z Updating files:  76% (14564/19163)
+2026-10-31T10:51:46.6587074Z Updating files:  77% (14756/19163)
+2026-10-31T10:51:46.7314336Z Updating files:  78% (14948/19163)
+2026-10-31T10:51:46.9162468Z Updating files:  79% (15139/19163)
+2026-10-31T10:51:47.0321064Z Updating files:  79% (15262/19163)
+2026-10-31T10:51:48.2356378Z Updating files:  80% (15331/19163)
+2026-10-31T10:51:49.0058316Z Updating files:  80% (15490/19163)
+2026-10-31T10:51:49.4773343Z Updating files:  80% (15497/19163)
+2026-10-31T10:51:49.5548430Z Updating files:  81% (15523/19163)
+2026-10-31T10:51:49.6091150Z Updating files:  82% (15714/19163)
+2026-10-31T10:51:49.6656301Z Updating files:  83% (15906/19163)
+2026-10-31T10:51:49.7186190Z Updating files:  84% (16097/19163)
+2026-10-31T10:51:49.7703783Z Updating files:  85% (16289/19163)
+2026-10-31T10:51:49.8240151Z Updating files:  86% (16481/19163)
+2026-10-31T10:51:49.8645140Z Updating files:  87% (16672/19163)
+2026-10-31T10:51:49.9066327Z Updating files:  88% (16864/19163)
+2026-10-31T10:51:49.9186613Z Updating files:  89% (17056/19163)
+2026-10-31T10:51:49.9534194Z Updating files:  89% (17112/19163)
+2026-10-31T10:51:50.0091703Z Updating files:  90% (17247/19163)
+2026-10-31T10:51:50.0537631Z Updating files:  91% (17439/19163)
+2026-10-31T10:51:50.0976626Z Updating files:  92% (17630/19163)
+2026-10-31T10:51:50.1436060Z Updating files:  93% (17822/19163)
+2026-10-31T10:51:51.0045248Z Updating files:  94% (18014/19163)
+2026-10-31T10:51:54.4684839Z Updating files:  94% (18143/19163)
+2026-10-31T10:51:54.9908857Z Updating files:  94% (18155/19163)
+2026-10-31T10:51:55.3178042Z Updating files:  94% (18161/19163)
+2026-10-31T10:51:55.7233148Z Updating files:  95% (18205/19163)
+2026-10-31T10:51:55.7664620Z Updating files:  96% (18397/19163)
+2026-10-31T10:51:55.8887588Z Updating files:  97% (18589/19163)
+2026-10-31T10:51:56.0584124Z Updating files:  98% (18780/19163)
+2026-10-31T10:51:56.2151555Z Updating files:  98% (18825/19163)
+2026-10-31T10:51:56.5418762Z Updating files:  99% (18972/19163)
+2026-10-31T10:51:56.5419173Z Updating files: 100% (19163/19163)
+2026-10-31T10:51:56.5419408Z Updating files: 100% (19163/19163), done.
+2026-10-31T10:51:56.5774735Z Switched to a new branch 'cloud-release/desktop-f7bcb90a-20261031'
+2026-10-31T10:51:56.5788499Z branch 'cloud-release/desktop-f7bcb90a-20261031' set up to track 'origin/cloud-release/desktop-f7bcb90a-20261031'.
+2026-10-31T10:51:57.1649432Z ##[endgroup]
+2026-10-31T10:51:57.2024154Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-31T10:51:57.2326152Z 8f4ffd473169f28561514d65d85371ae32c79dcb
+2026-10-31T10:51:57.2768335Z ##[group]Run actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
+2026-10-31T10:51:57.2768824Z with:
+2026-10-31T10:51:57.2769063Z   global-json-file: global.json
+2026-10-31T10:51:57.2769327Z   cache: true
+2026-10-31T10:51:57.2769620Z   cache-dependency-path: **/packages.lock.json
+2026-10-31T10:51:57.2769951Z ##[endgroup]
+2026-10-31T10:51:57.4330812Z (node:7364) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-31T10:51:57.4331810Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-31T10:51:57.5241611Z [command]"C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command & 'D:\a\_actions\actions\setup-dotnet\67a3573c9a986a3f9c594539f4ab511d57bb3ce9\externals\install-dotnet.ps1' -SkipNonVersionedFiles -Runtime dotnet -Channel LTS
+2026-10-31T10:51:59.1355205Z dotnet-install: Downloaded file https://builds.dotnet.microsoft.com/dotnet/Runtime/10.0.14/dotnet-runtime-10.0.14-win-x64.zip size is 36971047 bytes.
+2026-10-31T10:51:59.1357546Z dotnet-install: Either downloaded or local package size can not be measured. One of them may be corrupted.
+2026-10-31T10:51:59.1380134Z dotnet-install: Extracting the archive.
+2026-10-31T10:51:59.8528708Z dotnet-install: Note that the script does not ensure your Windows version is supported during the installation.
+2026-10-31T10:51:59.8532060Z dotnet-install: To check the list of supported versions, go to https://learn.microsoft.com/dotnet/core/install/windows#supported-versions
+2026-10-31T10:51:59.8537425Z dotnet-install: Installed version is 10.0.14
+2026-10-31T10:51:59.8541700Z dotnet-install: Installation finished
+2026-10-31T10:51:59.9683746Z [command]"C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command & 'D:\a\_actions\actions\setup-dotnet\67a3573c9a986a3f9c594539f4ab511d57bb3ce9\externals\install-dotnet.ps1' -SkipNonVersionedFiles -Version 10.0.300
+2026-10-31T10:52:05.9121679Z dotnet-install: Downloaded file https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.300/dotnet-sdk-10.0.300-win-x64.zip size is 297335348 bytes.
+2026-10-31T10:52:05.9125982Z dotnet-install: Either downloaded or local package size can not be measured. One of them may be corrupted.
+2026-10-31T10:52:05.9145702Z dotnet-install: Extracting the archive.
+2026-10-31T10:52:19.7470550Z dotnet-install: Note that the script does not ensure your Windows version is supported during the installation.
+2026-10-31T10:52:19.7473736Z dotnet-install: To check the list of supported versions, go to https://learn.microsoft.com/dotnet/core/install/windows#supported-versions
+2026-10-31T10:52:19.7477728Z dotnet-install: Installed version is 10.0.300
+2026-10-31T10:52:19.7483625Z dotnet-install: Installation finished
+2026-10-31T10:52:23.6585096Z Dotnet cache is not found
+2026-10-31T10:52:23.6892479Z ##[group]Run dotnet restore OpticalSystemDesign.slnx --locked-mode
+2026-10-31T10:52:23.6893095Z [36;1mdotnet restore OpticalSystemDesign.slnx --locked-mode[0m
+2026-10-31T10:52:23.6893473Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T10:52:23.6893993Z [36;1mdotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true[0m
+2026-10-31T10:52:23.6894498Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T10:52:23.7341918Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-31T10:52:23.7342326Z env:
+2026-10-31T10:52:23.7342584Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T10:52:23.7342857Z ##[endgroup]
+2026-10-31T10:52:27.8940416Z   Determining projects to restore...
+2026-10-31T10:52:31.1144978Z   Restored D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.GlassCatalogConverter\OpticalSystemDesign.GlassCatalogConverter.csproj (in 1.94 sec).
+2026-10-31T10:52:31.1428307Z   Restored D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\OpticalSystemDesign.InitialStructure.Contracts.csproj (in 1.94 sec).
+2026-10-31T10:52:32.9044241Z   Restored D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.Benchmarks\OpticalSystemDesign.Benchmarks.csproj (in 15 ms).
+2026-10-31T10:52:33.0051309Z   Restored D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\OpticalSystemDesign.InitialStructure.Engine.csproj (in 5 ms).
+2026-10-31T10:52:34.8078000Z   Restored D:\a\opticalsystem\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\OpticalSystemDesign.CoatingDesign.Engine.csproj (in 5.83 sec).
+2026-10-31T10:52:35.1916044Z   Restored D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Modules\OpticalSystemDesign.Modules.csproj (in 7 ms).
+2026-10-31T10:52:35.2136433Z   Restored D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Core\OpticalSystemDesign.Core.csproj (in 5 ms).
+2026-10-31T10:52:40.7797563Z   Restored D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.ZemaxComparison.Tests\OpticalSystemDesign.ZemaxComparison.Tests.csproj (in 7.42 sec).
+2026-10-31T10:52:40.7824066Z   Restored D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.App\OpticalSystemDesign.App.csproj (in 5.37 sec).
+2026-10-31T10:52:40.7849636Z   Restored D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj (in 7.57 sec).
+2026-10-31T10:52:40.7861608Z   Restored D:\a\opticalsystem\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\OpticalSystemDesign.CoatingDesign.Tests.csproj (in 11.61 sec).
+2026-10-31T10:52:40.7878525Z   Restored D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\OpticalSystemDesign.ZemaxLibraryImporter.csproj (in 5 ms).
+2026-10-31T10:52:40.7883654Z   Restored D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.NonSequentialSamples\OpticalSystemDesign.NonSequentialSamples.csproj (in 2 ms).
+2026-10-31T10:52:40.7897126Z   Restored D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.ZemaxComparison\OpticalSystemDesign.ZemaxComparison.csproj (in 5 ms).
+2026-10-31T10:52:40.7952547Z   Restored D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\OpticalSystemDesign.LensLibraryBuilder.csproj (in 4 ms).
+2026-10-31T10:52:40.7978310Z   Restored D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Application\OpticalSystemDesign.Application.csproj (in 4 ms).
+2026-10-31T10:52:40.8003356Z   Restored D:\a\opticalsystem\opticalsystem\labs\InitialStructure\tools\OpticalSystemDesign.InitialStructure.Benchmarks\OpticalSystemDesign.InitialStructure.Benchmarks.csproj (in 4 ms).
+2026-10-31T10:52:40.8048391Z   Restored D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\OpticalSystemDesign.InitialStructure.Persistence.csproj (in 4 ms).
+2026-10-31T10:52:40.8148126Z   Restored D:\a\opticalsystem\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\OpticalSystemDesign.InitialStructure.Tests.csproj (in 15 ms).
+2026-10-31T10:52:58.9155424Z   OpticalSystemDesign.Core -> D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+2026-10-31T10:53:04.0676629Z   OpticalSystemDesign.Application -> D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+2026-10-31T10:53:06.0708909Z   OpticalSystemDesign.CoatingDesign.Engine -> D:\a\opticalsystem\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+2026-10-31T10:53:07.1887655Z   OpticalSystemDesign.InitialStructure.Contracts -> D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+2026-10-31T10:53:09.8369333Z   OpticalSystemDesign.InitialStructure.Engine -> D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+2026-10-31T10:53:09.9829922Z   OpticalSystemDesign.Modules -> D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+2026-10-31T10:53:10.2561052Z   OpticalSystemDesign.InitialStructure.Persistence -> D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+2026-10-31T10:53:19.4800344Z   OpticalSystemDesign.App -> D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+2026-10-31T10:53:25.4716204Z   OpticalSystemDesign.CoatingDesign.Tests -> D:\a\opticalsystem\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll
+2026-10-31T10:53:31.1772244Z   OpticalSystemDesign.InitialStructure.Tests -> D:\a\opticalsystem\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll
+2026-10-31T10:53:32.2528860Z   OpticalSystemDesign.InitialStructure.Benchmarks -> D:\a\opticalsystem\opticalsystem\labs\InitialStructure\tools\OpticalSystemDesign.InitialStructure.Benchmarks\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Benchmarks.dll
+2026-10-31T10:53:32.6811771Z   OpticalSystemDesign.LensLibraryBuilder -> D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+2026-10-31T10:53:32.9259929Z   OpticalSystemDesign.ZemaxLibraryImporter -> D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+2026-10-31T10:53:46.6662324Z   OpticalSystemDesign.Tests -> D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+2026-10-31T10:53:47.5841093Z   OpticalSystemDesign.ZemaxComparison -> D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.ZemaxComparison\bin\Release\net10.0\OpticalSystemDesign.ZemaxComparison.dll
+2026-10-31T10:53:52.3751546Z   OpticalSystemDesign.ZemaxComparison.Tests -> D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.ZemaxComparison.Tests\bin\Release\net10.0\OpticalSystemDesign.ZemaxComparison.Tests.dll
+2026-10-31T10:54:01.9424556Z   {
+2026-10-31T10:54:01.9424903Z     "materializedFiles": 300,
+2026-10-31T10:54:01.9425230Z     "fixtureLayout": true,
+2026-10-31T10:54:01.9425786Z     "destination": "D:\\a\\opticalsystem\\opticalsystem\\tests\\OpticalSystemDesign.ZemaxComparison.Tests\\bin\\Release\\net10.0",
+2026-10-31T10:54:01.9427624Z     "manifestSha256": "d71f1fecae396b446e804fe154ced46998f94671bb90e9fa0a5ca47ae4c3e8e0",
+2026-10-31T10:54:01.9428109Z     "valid": true
+2026-10-31T10:54:01.9428337Z   }
+2026-10-31T10:54:02.1807134Z   OpticalSystemDesign.Benchmarks -> D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.Benchmarks\bin\Release\net10.0\OpticalSystemDesign.Benchmarks.dll
+2026-10-31T10:54:02.3118653Z   OpticalSystemDesign.GlassCatalogConverter -> D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.GlassCatalogConverter\bin\Release\net10.0\OpticalSystemDesign.GlassCatalogConverter.dll
+2026-10-31T10:54:02.5127441Z   OpticalSystemDesign.NonSequentialSamples -> D:\a\opticalsystem\opticalsystem\tools\OpticalSystemDesign.NonSequentialSamples\bin\Release\net10.0\OpticalSystemDesign.NonSequentialSamples.dll
+2026-10-31T10:54:02.5194999Z 
+2026-10-31T10:54:02.5201025Z Build succeeded.
+2026-10-31T10:54:02.5210631Z     0 Warning(s)
+2026-10-31T10:54:02.5211190Z     0 Error(s)
+2026-10-31T10:54:02.5212232Z 
+2026-10-31T10:54:02.5212781Z Time Elapsed 00:01:21.11
+2026-10-31T10:54:02.9870132Z ##[group]Run ./scripts/test-ota-key-crypto.ps1
+2026-10-31T10:54:02.9870779Z [36;1m./scripts/test-ota-key-crypto.ps1[0m
+2026-10-31T10:54:02.9875324Z [36;1mdotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~MacOtaPanelTests|FullyQualifiedName~OtaHelperRuntimeTests|FullyQualifiedName~WindowsInstallationGateTests|FullyQualifiedName~WindowsInstallationLifetimeTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~WindowsPackagingTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=release.trx' --results-directory artifacts/cloud-verification[0m
+2026-10-31T10:54:02.9880327Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T10:54:02.9882482Z [36;1mdotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification[0m
+2026-10-31T10:54:02.9884690Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T10:54:02.9984976Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-31T10:54:02.9985514Z env:
+2026-10-31T10:54:02.9985845Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T10:54:02.9986263Z ##[endgroup]
+2026-10-31T10:54:05.6878882Z Portable OTA encryption and recovery: 40 checks passed. Throwaway keys only; no device-bound APIs or product installation.
+2026-10-31T10:54:06.6507237Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:54:07.2986854Z A total of 1 test files matched the specified pattern.
+2026-10-31T10:55:00.8563610Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\release.trx
+2026-10-31T10:55:00.8568475Z 
+2026-10-31T10:55:00.8620069Z Passed!  - Failed:     0, Passed:   263, Skipped:     0, Total:   263, Duration: 50 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T10:55:01.6189811Z Test run for D:\a\opticalsystem\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:55:01.8194763Z A total of 1 test files matched the specified pattern.
+2026-10-31T10:56:01.0236521Z [xUnit.net 00:00:58.74]     OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm [SKIP]
+2026-10-31T10:56:02.5261747Z   Skipped OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm [1 ms]
+2026-10-31T10:56:34.3356718Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\initial-structure.trx
+2026-10-31T10:56:34.3361138Z 
+2026-10-31T10:56:34.3399867Z Passed!  - Failed:     0, Passed:    24, Skipped:     1, Total:    25, Duration: 1 m 31 s - OpticalSystemDesign.InitialStructure.Tests.dll (net10.0)
+2026-10-31T10:56:34.4423150Z ##[group]Run # Real Skia navigation and drawing stubs must not share glyph caches.
+2026-10-31T10:56:34.4424442Z [36;1m# Real Skia navigation and drawing stubs must not share glyph caches.[0m
+2026-10-31T10:56:34.4424851Z [36;1mif ($IsMacOS) {[0m
+2026-10-31T10:56:34.4425234Z [36;1m  $reports = [IO.Path]::GetFullPath('artifacts/cloud-verification/native-crash')[0m
+2026-10-31T10:56:34.4425689Z [36;1m  [void][IO.Directory]::CreateDirectory($reports)[0m
+2026-10-31T10:56:34.4426078Z [36;1m  # .NET's report-only flag prevents any process-memory dump.[0m
+2026-10-31T10:56:34.4426469Z [36;1m  $env:DOTNET_DbgEnableMiniDump = '1'[0m
+2026-10-31T10:56:34.4426781Z [36;1m  $env:DOTNET_EnableCrashReportOnly = '1'[0m
+2026-10-31T10:56:34.4427195Z [36;1m  $env:DOTNET_DbgMiniDumpName = Join-Path $reports 'navigation.%p'[0m
+2026-10-31T10:56:34.4427721Z [36;1m  $env:OPTICAL_SYSTEM_DESIGN_NAVIGATION_TRACE = Join-Path $reports 'navigation-stages.txt'[0m
+2026-10-31T10:56:34.4428257Z [36;1m}[0m
+2026-10-31T10:56:34.4428505Z [36;1mif ($IsMacOS -and 'false' -eq 'true') {[0m
+2026-10-31T10:56:34.4429270Z [36;1m  python3 scripts/test-macos-navigation-backtrace.py --results-directory artifacts/cloud-verification[0m
+2026-10-31T10:56:34.4429731Z [36;1m} else {[0m
+2026-10-31T10:56:34.4430125Z [36;1m  ./scripts/test-lens-navigation-release.ps1 -ResultsDirectory artifacts/cloud-verification[0m
+2026-10-31T10:56:34.4430570Z [36;1m}[0m
+2026-10-31T10:56:34.4430811Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T10:56:34.4432450Z [36;1mdotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensEditorLayoutTests|FullyQualifiedName~LensHeaderTypographyTests|FullyQualifiedName~LensMaterialRowThemeTests|FullyQualifiedName~ViewerSettingsInputThemeTests|FullyQualifiedName~ViewerConfigurationTests|FullyQualifiedName~Viewer3DGeometryTests' --logger 'trx;LogFileName=lens-viewers.trx' --results-directory artifacts/cloud-verification[0m
+2026-10-31T10:56:34.4434044Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T10:56:34.4498345Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-31T10:56:34.4498697Z env:
+2026-10-31T10:56:34.4498936Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T10:56:34.4499204Z ##[endgroup]
+2026-10-31T10:56:38.5801287Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:56:38.7710273Z A total of 1 test files matched the specified pattern.
+2026-10-31T10:56:50.0491859Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\lens-navigation-01.trx
+2026-10-31T10:56:50.0495466Z 
+2026-10-31T10:56:50.0531549Z Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: 8 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T10:56:50.9701616Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:56:51.1625006Z A total of 1 test files matched the specified pattern.
+2026-10-31T10:56:57.2627294Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\lens-navigation-02.trx
+2026-10-31T10:56:57.2630926Z 
+2026-10-31T10:56:57.2667070Z Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: 3 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T10:56:58.1128446Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:56:58.3058048Z A total of 1 test files matched the specified pattern.
+2026-10-31T10:57:10.0314633Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\lens-navigation-03.trx
+2026-10-31T10:57:10.0318863Z 
+2026-10-31T10:57:10.0364028Z Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 9 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T10:57:10.9819598Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:57:11.1953629Z A total of 1 test files matched the specified pattern.
+2026-10-31T10:57:26.6734482Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\lens-navigation-04.trx
+2026-10-31T10:57:26.6737927Z 
+2026-10-31T10:57:26.6771717Z Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: 13 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T10:57:27.4720018Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:57:27.6601879Z A total of 1 test files matched the specified pattern.
+2026-10-31T10:57:42.7763884Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\lens-navigation-05.trx
+2026-10-31T10:57:42.7767362Z 
+2026-10-31T10:57:42.7803563Z Passed!  - Failed:     0, Passed:     2, Skipped:     0, Total:     2, Duration: 12 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T10:57:42.8540335Z {
+2026-10-31T10:57:42.8540754Z   "DiscoveredCases": 9,
+2026-10-31T10:57:42.8541133Z   "IsolatedMethods": 5,
+2026-10-31T10:57:42.8541450Z   "Passed": 9.0,
+2026-10-31T10:57:42.8541758Z   "Methods": [
+2026-10-31T10:57:42.8542052Z     {
+2026-10-31T10:57:42.8543376Z       "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ActiveStructureAndSelectionTrackUndoRedoAndProjectRoundTrip",
+2026-10-31T10:57:42.8544478Z       "Expected": 1,
+2026-10-31T10:57:42.8544813Z       "Passed": 1,
+2026-10-31T10:57:42.8545123Z       "Trx": "lens-navigation-01.trx"
+2026-10-31T10:57:42.8545374Z     },
+2026-10-31T10:57:42.8545563Z     {
+2026-10-31T10:57:42.8546193Z       "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.CountsTrackUndoRedoFileResetAndRejectStaleOrDisposedNavigation",
+2026-10-31T10:57:42.8546849Z       "Expected": 1,
+2026-10-31T10:57:42.8547064Z       "Passed": 1,
+2026-10-31T10:57:42.8547287Z       "Trx": "lens-navigation-02.trx"
+2026-10-31T10:57:42.8547533Z     },
+2026-10-31T10:57:42.8547745Z     {
+2026-10-31T10:57:42.8548156Z       "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.HeaderFitsAndLocalizesLive",
+2026-10-31T10:57:42.8548612Z       "Expected": 4,
+2026-10-31T10:57:42.8548826Z       "Passed": 4,
+2026-10-31T10:57:42.8549044Z       "Trx": "lens-navigation-03.trx"
+2026-10-31T10:57:42.8549283Z     },
+2026-10-31T10:57:42.8549464Z     {
+2026-10-31T10:57:42.8550045Z       "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ImportedZoomSwitchesThreeRealConfigurationsAndOpensExistingEditor",
+2026-10-31T10:57:42.8550722Z       "Expected": 1,
+2026-10-31T10:57:42.8550930Z       "Passed": 1,
+2026-10-31T10:57:42.8551176Z       "Trx": "lens-navigation-04.trx"
+2026-10-31T10:57:42.8551423Z     },
+2026-10-31T10:57:42.8551617Z     {
+2026-10-31T10:57:42.8552129Z       "Method": "OpticalSystemDesign.Tests.LensConfigurationNavigationTests.NavigationCommitsValidInputButPreservesInvalidDraft",
+2026-10-31T10:57:42.8553114Z       "Expected": 2,
+2026-10-31T10:57:42.8553403Z       "Passed": 2,
+2026-10-31T10:57:42.8553622Z       "Trx": "lens-navigation-05.trx"
+2026-10-31T10:57:42.8553889Z     }
+2026-10-31T10:57:42.8554071Z   ]
+2026-10-31T10:57:42.8554286Z }
+2026-10-31T10:57:43.6690737Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:57:43.8709249Z A total of 1 test files matched the specified pattern.
+2026-10-31T10:59:09.2645275Z [xUnit.net 00:01:24.96]     OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway [SKIP]
+2026-10-31T10:59:09.3132379Z   Skipped OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway [1 ms]
+2026-10-31T10:59:09.3134543Z [xUnit.net 00:01:25.01]     OpticalSystemDesign.Tests.Viewer3DGeometryTests.BothViewersKeepOnlyTheLowerLeftLabelledTriad [SKIP]
+2026-10-31T10:59:10.8230425Z   Skipped OpticalSystemDesign.Tests.Viewer3DGeometryTests.BothViewersKeepOnlyTheLowerLeftLabelledTriad [1 ms]
+2026-10-31T10:59:24.6792324Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\lens-viewers.trx
+2026-10-31T10:59:24.6796453Z 
+2026-10-31T10:59:24.6835633Z Passed!  - Failed:     0, Passed:    63, Skipped:     2, Total:    65, Duration: 1 m 38 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T10:59:24.7815424Z ##[group]Run dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults' --logger 'trx;LogFileName=update-feedback-render.trx' --results-directory artifacts/cloud-verification
+2026-10-31T10:59:24.7817981Z [36;1mdotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults' --logger 'trx;LogFileName=update-feedback-render.trx' --results-directory artifacts/cloud-verification[0m
+2026-10-31T10:59:24.7819214Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T10:59:24.7887649Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-31T10:59:24.7888031Z env:
+2026-10-31T10:59:24.7888296Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T10:59:24.7888927Z   OPTICAL_SYSTEM_DESIGN_UPDATE_CAPTURE_DIR: D:\a\opticalsystem\opticalsystem/artifacts/cloud-verification/update-feedback
+2026-10-31T10:59:24.7889434Z ##[endgroup]
+2026-10-31T10:59:25.8494572Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:59:26.0388211Z A total of 1 test files matched the specified pattern.
+2026-10-31T10:59:32.3634661Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\update-feedback-render.trx
+2026-10-31T10:59:32.3637323Z 
+2026-10-31T10:59:32.3672930Z Passed!  - Failed:     0, Passed:     3, Skipped:     0, Total:     3, Duration: 4 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T10:59:32.5388053Z ##[group]Run dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AnalysisResponsivePlotTests|FullyQualifiedName~AnalysisGuiContractTests|FullyQualifiedName~AccessibilityAndResponsiveLayoutTests|FullyQualifiedName~AnalysisLegendLayoutTests|FullyQualifiedName~FieldCurvatureFooterTests|FullyQualifiedName~InterferogramFooterTests|FullyQualifiedName~RayFanFooterTests|FullyQualifiedName~SpotTitleLayoutTests|FullyQualifiedName~RayFanLayoutRepairTests|FullyQualifiedName~ConfigurationMatrixAnalysisGuiTests|FullyQualifiedName~AnalysisConfigurationSelectionGuiTests|FullyQualifiedName~SeidelReportPresentationTests|FullyQualifiedName~WavefrontSurfaceRenderTests|FullyQualifiedName~ProductTypographyTests|FullyQualifiedName~PupilShapeAndFoucaultPanelTests|FullyQualifiedName~PupilFoucaultExtensionPanelTests' --logger 'trx;LogFileName=analysis-contracts.trx' --results-directory artifacts/cloud-verification
+2026-10-31T10:59:32.5394426Z [36;1mdotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AnalysisResponsivePlotTests|FullyQualifiedName~AnalysisGuiContractTests|FullyQualifiedName~AccessibilityAndResponsiveLayoutTests|FullyQualifiedName~AnalysisLegendLayoutTests|FullyQualifiedName~FieldCurvatureFooterTests|FullyQualifiedName~InterferogramFooterTests|FullyQualifiedName~RayFanFooterTests|FullyQualifiedName~SpotTitleLayoutTests|FullyQualifiedName~RayFanLayoutRepairTests|FullyQualifiedName~ConfigurationMatrixAnalysisGuiTests|FullyQualifiedName~AnalysisConfigurationSelectionGuiTests|FullyQualifiedName~SeidelReportPresentationTests|FullyQualifiedName~WavefrontSurfaceRenderTests|FullyQualifiedName~ProductTypographyTests|FullyQualifiedName~PupilShapeAndFoucaultPanelTests|FullyQualifiedName~PupilFoucaultExtensionPanelTests' --logger 'trx;LogFileName=analysis-contracts.trx' --results-directory artifacts/cloud-verification[0m
+2026-10-31T10:59:32.5397613Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T10:59:32.5459359Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-31T10:59:32.5459697Z env:
+2026-10-31T10:59:32.5459933Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T10:59:32.5460198Z ##[endgroup]
+2026-10-31T10:59:33.5335457Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T10:59:33.7153490Z A total of 1 test files matched the specified pattern.
+2026-10-31T11:00:40.0938064Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\analysis-contracts.trx
+2026-10-31T11:00:40.0943977Z 
+2026-10-31T11:00:40.0996144Z Passed!  - Failed:     0, Passed:   202, Skipped:     0, Total:   202, Duration: 1 m 4 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T11:00:40.2614819Z ##[group]Run dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AnalysisResponsivePlotTests' --logger 'trx;LogFileName=analysis-render.trx' --results-directory artifacts/cloud-verification
+2026-10-31T11:00:40.2616635Z [36;1mdotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AnalysisResponsivePlotTests' --logger 'trx;LogFileName=analysis-render.trx' --results-directory artifacts/cloud-verification[0m
+2026-10-31T11:00:40.2617569Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T11:00:40.2682838Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-31T11:00:40.2683150Z env:
+2026-10-31T11:00:40.2683326Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T11:00:40.2684047Z   OPTICAL_SYSTEM_DESIGN_ANALYSIS_FIT_CAPTURE_DIR: D:\a\opticalsystem\opticalsystem/artifacts/cloud-verification/analysis-pages
+2026-10-31T11:00:40.2684500Z ##[endgroup]
+2026-10-31T11:00:41.2921885Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T11:00:41.4872467Z A total of 1 test files matched the specified pattern.
+2026-10-31T11:01:11.9096357Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\analysis-render.trx
+2026-10-31T11:01:11.9100333Z 
+2026-10-31T11:01:11.9141138Z Passed!  - Failed:     0, Passed:    42, Skipped:     0, Total:    42, Duration: 28 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T11:01:12.0795017Z ##[group]Run dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AnalysisImageExportTests' --logger 'trx;LogFileName=analysis-export.trx' --results-directory artifacts/cloud-verification
+2026-10-31T11:01:12.0796872Z [36;1mdotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AnalysisImageExportTests' --logger 'trx;LogFileName=analysis-export.trx' --results-directory artifacts/cloud-verification[0m
+2026-10-31T11:01:12.0797842Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T11:01:12.0862183Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-31T11:01:12.0862498Z env:
+2026-10-31T11:01:12.0862761Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T11:01:12.0863416Z   OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR: D:\a\opticalsystem\opticalsystem/artifacts/cloud-verification/analysis-export
+2026-10-31T11:01:12.0863916Z ##[endgroup]
+2026-10-31T11:01:13.0818291Z Test run for D:\a\opticalsystem\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-10-31T11:01:13.2715384Z A total of 1 test files matched the specified pattern.
+2026-10-31T11:01:34.6611157Z Results File: D:\a\opticalsystem\opticalsystem\artifacts\cloud-verification\analysis-export.trx
+2026-10-31T11:01:34.6614966Z 
+2026-10-31T11:01:34.6651770Z Passed!  - Failed:     0, Passed:    23, Skipped:     0, Total:    23, Duration: 19 s - OpticalSystemDesign.Tests.dll (net10.0)
+2026-10-31T11:01:34.8232934Z ##[group]Run ./tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath ./artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10 -RelocationMapPath tools/validation/frozen-evidence-relocations.json -ExpectedRelocationMapSha256 6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e -OutputPath artifacts/cloud-verification/frozen.json
+2026-10-31T11:01:34.8236054Z [36;1m./tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath ./artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10 -RelocationMapPath tools/validation/frozen-evidence-relocations.json -ExpectedRelocationMapSha256 6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e -OutputPath artifacts/cloud-verification/frozen.json[0m
+2026-10-31T11:01:34.8237608Z [36;1mif ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T11:01:34.8238050Z [36;1m./scripts/verify-documentation.ps1 -Strict -OutputPath artifacts/cloud-verification/documentation.json[0m
+2026-10-31T11:01:34.8300009Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-31T11:01:34.8300300Z env:
+2026-10-31T11:01:34.8300467Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T11:01:34.8300684Z ##[endgroup]
+2026-10-31T11:01:52.1793136Z {
+2026-10-31T11:01:52.1793472Z   "source": "HEAD",
+2026-10-31T11:01:52.1793782Z   "commit": "8f4ffd473169f28561514d65d85371ae32c79dcb",
+2026-10-31T11:01:52.1794045Z   "count": 2668,
+2026-10-31T11:01:52.1794210Z   "matched": 2668,
+2026-10-31T11:01:52.1794626Z   "unchanged": true,
+2026-10-31T11:01:52.1794803Z   "workingMatched": 2668
+2026-10-31T11:01:52.1794978Z }
+2026-10-31T11:01:58.8187711Z 
+2026-10-31T11:01:58.8194220Z [32;1mDocuments                    : [0m1540
+2026-10-31T11:01:58.8194894Z [32;1mBrokenLinks                  : [0m0
+2026-10-31T11:01:58.8195342Z [32;1mGuideBrokenLinks             : [0m0
+2026-10-31T11:01:58.8195630Z [32;1mMarkdownFenceIssues          : [0m0
+2026-10-31T11:01:58.8195895Z [32;1mLocalOnlyLinks               : [0m0
+2026-10-31T11:01:58.8196183Z [32;1mRepeatedParagraphGroups      : [0m13
+2026-10-31T11:01:58.8196483Z [32;1mGuideRepeatedParagraphGroups : [0m0
+2026-10-31T11:01:58.8196635Z 
+2026-10-31T11:01:58.8727024Z ##[group]Run $package = ./scripts/build-installer.ps1 -Runtime $env:TARGET_RUNTIME -UnsignedTestPackage:($env:TEST_PACKAGE -eq 'true') -PassThru
+2026-10-31T11:01:58.8728036Z [36;1m$package = ./scripts/build-installer.ps1 -Runtime $env:TARGET_RUNTIME -UnsignedTestPackage:($env:TEST_PACKAGE -eq 'true') -PassThru[0m
+2026-10-31T11:01:58.8728585Z [36;1mif ($env:TARGET_RUNTIME -eq 'win-x64') {[0m
+2026-10-31T11:01:58.8729160Z [36;1m  $payload = Get-ChildItem -LiteralPath (Join-Path $package.Directory 'payload') -Directory | Select-Object -First 1 -ExpandProperty FullName[0m
+2026-10-31T11:01:58.8729958Z [36;1m  ./scripts/verify-built-in-package.ps1 -PublishDirectory $payload -OutputDirectory artifacts/cloud-package-verification[0m
+2026-10-31T11:01:58.8730532Z [36;1m  $env:OPTICAL_SYSTEM_DESIGN_OTA_RUNTIME_SOURCE = $payload[0m
+2026-10-31T11:01:58.8731544Z [36;1m  dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~OtaHelperRuntimeTests' --logger 'trx;LogFileName=ota-runtime-package.trx' --results-directory artifacts/cloud-verification[0m
+2026-10-31T11:01:58.8732474Z [36;1m  if ($LASTEXITCODE) { exit $LASTEXITCODE }[0m
+2026-10-31T11:01:58.8732809Z [36;1m  Remove-Item Env:OPTICAL_SYSTEM_DESIGN_OTA_RUNTIME_SOURCE[0m
+2026-10-31T11:01:58.8733105Z [36;1m}[0m
+2026-10-31T11:01:58.8733401Z [36;1m# Internal Actions handoff only. Publishing filters out these build records.[0m
+2026-10-31T11:01:58.8734042Z [36;1mNew-Item -ItemType Directory -Path distribution | Out-Null[0m
+2026-10-31T11:01:58.8734467Z [36;1mCopy-Item -LiteralPath $package.Setup -Destination distribution[0m
+2026-10-31T11:01:58.8735253Z [36;1mCopy-Item -LiteralPath (Join-Path $package.Directory 'release.json') -Destination "distribution/release-$env:TARGET_RUNTIME.json"[0m
+2026-10-31T11:01:58.8735862Z [36;1mGet-FileHash -LiteralPath $package.Setup -Algorithm SHA256 | Format-List[0m
+2026-10-31T11:01:58.8799183Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-31T11:01:58.8799728Z env:
+2026-10-31T11:01:58.8799947Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T11:01:58.8800217Z   TARGET_RUNTIME: win-arm64
+2026-10-31T11:01:58.8800445Z   TEST_PACKAGE: true
+2026-10-31T11:01:58.8800637Z ##[endgroup]
+2026-10-31T11:01:59.3360636Z [1/2] Publishing the current application and resources...
+2026-10-31T11:01:59.3703359Z [1/3] Checking locked dependencies and restoring the Windows runtime...
+2026-10-31T11:02:00.2203224Z   Determining projects to restore...
+2026-10-31T11:02:00.8878776Z   All projects are up-to-date for restore.
+2026-10-31T11:02:02.5323572Z   Determining projects to restore...
+2026-10-31T11:02:10.3325924Z   Restored D:\a\opticalsystem\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\OpticalSystemDesign.CoatingDesign.Engine.csproj (in 7.29 sec).
+2026-10-31T11:02:10.3363107Z   Restored D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\OpticalSystemDesign.InitialStructure.Contracts.csproj (in 7.29 sec).
+2026-10-31T11:02:10.3402113Z   Restored D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Modules\OpticalSystemDesign.Modules.csproj (in 7.28 sec).
+2026-10-31T11:02:10.3403482Z   Restored D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Application\OpticalSystemDesign.Application.csproj (in 7.28 sec).
+2026-10-31T11:02:10.3625588Z   Restored D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Core\OpticalSystemDesign.Core.csproj (in 20 ms).
+2026-10-31T11:02:10.3633845Z   Restored D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\OpticalSystemDesign.InitialStructure.Engine.csproj (in 18 ms).
+2026-10-31T11:02:10.3635999Z   Restored D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\OpticalSystemDesign.InitialStructure.Persistence.csproj (in 19 ms).
+2026-10-31T11:02:15.6227170Z   Restored D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.App\OpticalSystemDesign.App.csproj (in 5.27 sec).
+2026-10-31T11:02:15.6745688Z [2/3] Publishing the self-contained Windows application...
+2026-10-31T11:02:17.1327975Z   OpticalSystemDesign.Core -> D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+2026-10-31T11:02:17.4036297Z   OpticalSystemDesign.InitialStructure.Contracts -> D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+2026-10-31T11:02:17.6687416Z   OpticalSystemDesign.Application -> D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+2026-10-31T11:02:17.7136007Z   OpticalSystemDesign.InitialStructure.Engine -> D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+2026-10-31T11:02:17.9468163Z   OpticalSystemDesign.CoatingDesign.Engine -> D:\a\opticalsystem\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+2026-10-31T11:02:18.1692185Z   OpticalSystemDesign.InitialStructure.Persistence -> D:\a\opticalsystem\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+2026-10-31T11:02:18.3427561Z   OpticalSystemDesign.Modules -> D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+2026-10-31T11:02:22.9101604Z   OpticalSystemDesign.App -> D:\a\opticalsystem\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\win-arm64\OpticalSystemDesign.App.dll
+2026-10-31T11:02:23.8179324Z   OpticalSystemDesign.App -> D:\a\opticalsystem\opticalsystem\artifacts\installers\installer-win-arm64-a594cf0b.partial\payload\app-de996320.partial\
+2026-10-31T11:02:23.8851510Z [3/3] Checking the EXE, runtime and bundled resources...
+2026-10-31T11:02:24.2206841Z 
+2026-10-31T11:02:24.2212866Z Packaging completed. Copy the ENTIRE folder to the destination computer:
+2026-10-31T11:02:24.2217886Z D:\a\opticalsystem\opticalsystem\artifacts\installers\installer-win-arm64-a594cf0b.partial\payload\app-de996320
+2026-10-31T11:02:24.2222537Z Run this EXE (no separate .NET installation required):
+2026-10-31T11:02:24.2230402Z D:\a\opticalsystem\opticalsystem\artifacts\installers\installer-win-arm64-a594cf0b.partial\payload\app-de996320\OpticalSystemDesign.App.exe
+2026-10-31T11:02:25.1270704Z [2/2] Compiling the installation wizard...
+2026-10-31T11:02:25.5988395Z 
+2026-10-31T11:02:25.5988497Z 
+2026-10-31T11:02:29.8991476Z Preprocessing
+2026-10-31T11:02:30.2678421Z 
+2026-10-31T11:02:30.2682729Z Installer completed. Distribute this Setup EXE; it contains all required application files:
+2026-10-31T11:02:30.2688276Z D:\a\opticalsystem\opticalsystem\artifacts\installers\installer-win-arm64-a594cf0b\OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-8f4ffd47.exe
+2026-10-31T11:02:30.2692170Z UNSIGNED PACKAGE: publisher identity is not authenticated. Windows or organizational policies may block it. Building does not install or start the application.
+2026-10-31T11:02:30.7371874Z 
+2026-10-31T11:02:30.7394988Z [32;1mAlgorithm : [0mSHA256
+2026-10-31T11:02:30.7395548Z [32;1mHash      : [0m7AFE018B6359EFC0239A1A4AA6916AD63C85C2DB404921A7C5A2A91E498B9256
+2026-10-31T11:02:30.7403029Z [32;1mPath      : [0mD:\a\opticalsystem\opticalsystem\artifacts\installers\installer-win-arm64-a594cf0b\OpticalSystemDesign-1.0.
+2026-10-31T11:02:30.7403565Z             4-win-arm64-UnsignedTest-Setup-8f4ffd47.exe
+2026-10-31T11:02:30.7403749Z 
+2026-10-31T11:02:30.7872568Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-31T11:02:30.7872973Z with:
+2026-10-31T11:02:30.7873158Z   name: cloud-package-win-arm64
+2026-10-31T11:02:30.7873393Z   path: distribution/*
+2026-10-31T11:02:30.7873576Z   if-no-files-found: error
+2026-10-31T11:02:30.7873770Z   retention-days: 30
+2026-10-31T11:02:30.7873942Z   compression-level: 6
+2026-10-31T11:02:30.7874110Z   overwrite: false
+2026-10-31T11:02:30.7874288Z   include-hidden-files: false
+2026-10-31T11:02:30.7874473Z env:
+2026-10-31T11:02:30.7874634Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T11:02:30.7874840Z ##[endgroup]
+2026-10-31T11:02:31.3812566Z (node:7536) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-31T11:02:31.3813651Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-31T11:02:31.3924437Z With the provided path, there will be 2 files uploaded
+2026-10-31T11:02:31.3929713Z Artifact name is valid!
+2026-10-31T11:02:31.3931469Z Root directory input is valid!
+2026-10-31T11:02:31.6108994Z Beginning upload of artifact content to blob storage
+2026-10-31T11:02:32.1840013Z (node:7536) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-31T11:02:32.3356201Z Uploaded bytes 8388608
+2026-10-31T11:02:33.0180594Z Uploaded bytes 16777216
+2026-10-31T11:02:33.6197192Z Uploaded bytes 25165824
+2026-10-31T11:02:34.3562484Z Uploaded bytes 33554432
+2026-10-31T11:02:35.1758700Z Uploaded bytes 41943040
+2026-10-31T11:02:35.7270940Z Uploaded bytes 50331648
+2026-10-31T11:02:35.9630665Z Uploaded bytes 58720256
+2026-10-31T11:02:36.2430279Z Uploaded bytes 67108864
+2026-10-31T11:02:36.6575531Z Uploaded bytes 75497472
+2026-10-31T11:02:37.0469774Z Uploaded bytes 83886080
+2026-10-31T11:02:37.2644141Z Uploaded bytes 92274688
+2026-10-31T11:02:37.6256729Z Uploaded bytes 100663296
+2026-10-31T11:02:38.0783715Z Uploaded bytes 109051904
+2026-10-31T11:02:38.5348940Z Uploaded bytes 117440512
+2026-10-31T11:02:39.1523700Z Uploaded bytes 125829120
+2026-10-31T11:02:39.5998127Z Uploaded bytes 134217728
+2026-10-31T11:02:39.9356952Z Uploaded bytes 142053534
+2026-10-31T11:02:39.9521764Z Finished uploading artifact content to blob storage!
+2026-10-31T11:02:39.9530345Z SHA256 digest of uploaded artifact zip is e7eeced967529defab4346c49c5ae0f9394c4f9f94f73b13e868fab5fa21a6cb
+2026-10-31T11:02:39.9532417Z Finalizing artifact upload
+2026-10-31T11:02:40.3832233Z Artifact cloud-package-win-arm64.zip successfully finalized. Artifact ID 13041040057
+2026-10-31T11:02:40.3833088Z Artifact cloud-package-win-arm64 has been successfully uploaded! Final size is 142053534 bytes. Artifact ID is 13041040057
+2026-10-31T11:02:40.3898823Z Artifact download URL: https://github.com/VendettaMask/opticalsystem/actions/runs/41194312708/artifacts/13041040057
+2026-10-31T11:02:40.4257039Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-31T11:02:40.4257587Z with:
+2026-10-31T11:02:40.4257769Z   name: cloud-checks-win-arm64
+2026-10-31T11:02:40.4258183Z   path: artifacts/cloud-verification
+artifacts/cloud-package-verification/*.json
+
+2026-10-31T11:02:40.4258534Z   if-no-files-found: warn
+2026-10-31T11:02:40.4258753Z   retention-days: 30
+2026-10-31T11:02:40.4258923Z   compression-level: 6
+2026-10-31T11:02:40.4259089Z   overwrite: false
+2026-10-31T11:02:40.4259258Z   include-hidden-files: false
+2026-10-31T11:02:40.4259447Z env:
+2026-10-31T11:02:40.4259602Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-31T11:02:40.4259805Z ##[endgroup]
+2026-10-31T11:02:40.6161599Z (node:7684) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-31T11:02:40.6162615Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-31T11:02:40.6538415Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-31T11:02:40.6542643Z The least common ancestor is D:\a\opticalsystem\opticalsystem\artifacts. This will be the root directory of the artifact
+2026-10-31T11:02:40.6543554Z With the provided path, there will be 96 files uploaded
+2026-10-31T11:02:40.6551280Z Artifact name is valid!
+2026-10-31T11:02:40.6553023Z Root directory input is valid!
+2026-10-31T11:02:40.8579748Z Beginning upload of artifact content to blob storage
+2026-10-31T11:02:41.1400694Z (node:7684) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-31T11:02:41.2479084Z Uploaded bytes 5138751
+2026-10-31T11:02:41.2631291Z Finished uploading artifact content to blob storage!
+2026-10-31T11:02:41.2632441Z SHA256 digest of uploaded artifact zip is 8a3be1420387c5b570d151afb1736ecfabdab0dbf2b4a6efeb8727c225a145fe
+2026-10-31T11:02:41.2635052Z Finalizing artifact upload
+2026-10-31T11:02:41.6901053Z Artifact cloud-checks-win-arm64.zip successfully finalized. Artifact ID 13039364962
+2026-10-31T11:02:41.6902204Z Artifact cloud-checks-win-arm64 has been successfully uploaded! Final size is 5138751 bytes. Artifact ID is 13039364962
+2026-10-31T11:02:41.6912649Z Artifact download URL: https://github.com/VendettaMask/opticalsystem/actions/runs/41194312708/artifacts/13039364962
+2026-10-31T11:02:41.7316157Z Post job cleanup.
+2026-10-31T11:02:41.8786265Z (node:7556) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-31T11:02:41.8787320Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-31T11:02:42.4081314Z [command]"C:\Program Files\Git\usr\bin\tar.exe" --posix -cf cache.tzst --exclude cache.tzst -P -C D:/a/opticalsystem/opticalsystem --files-from manifest.txt --force-local --use-compress-program "zstd -T0"
+2026-10-31T11:03:06.4391761Z (node:7556) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-31T11:03:07.3646058Z Sent 0 of 997691702 (0.0%), 0.0 MBs/sec
+2026-10-31T11:03:08.3710281Z Sent 536870912 of 997691702 (53.8%), 255.1 MBs/sec
+2026-10-31T11:03:08.8563605Z Sent 997691702 of 997691702 (100.0%), 381.7 MBs/sec
+2026-10-31T11:03:09.0431270Z Cache saved with the key: dotnet-cache-Windows-44dbbd3129e1ba06e4455e378a614c7e93b8f4f5410d271c8363dafdd9884940
+2026-10-31T11:03:09.0790967Z Post job cleanup.
+2026-10-31T11:03:09.2367036Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-31T11:03:09.2663739Z git version 2.56.0.windows.2
+2026-10-31T11:03:09.2728052Z Temporarily overriding HOME='D:\a\_temp\23adafcb-3215-4e11-8b96-d97ce26f64c0' before making global git config changes
+2026-10-31T11:03:09.2729277Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-31T11:03:09.2737326Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\opticalsystem\opticalsystem
+2026-10-31T11:03:09.3091632Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-31T11:03:09.3423372Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-31T11:03:09.8807502Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-31T11:03:09.9099740Z http.https://github.com/.extraheader
+2026-10-31T11:03:09.9141739Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2026-10-31T11:03:09.9480302Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-31T11:03:10.4478739Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-31T11:03:10.4815825Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-31T11:03:11.0377977Z Cleaning up orphan processes
+2026-10-31T11:03:11.0903087Z Terminate orphan process: pid (5924) (dotnet)
+2026-10-31T11:03:11.1090242Z Terminate orphan process: pid (6052) (dotnet)
+2026-10-31T11:03:11.1135668Z Terminate orphan process: pid (2148) (dotnet)
+2026-10-31T11:03:11.2063989Z Terminate orphan process: pid (8464) (VBCSCompiler)
+2026-10-31T11:03:11.2110435Z Terminate orphan process: pid (8184) (conhost)
+2026-10-31T11:03:11.2543121Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

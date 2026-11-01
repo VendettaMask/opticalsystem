@@ -330,7 +330,7 @@ public sealed partial class SequentialRayTracer
                     && sample.Intensity > 0
                     && !sample.Vignetted)
                 {
-                    finalOpticalPaths![rayIndex] = sample.CumulativeOpticalPathLength;
+                    finalOpticalPaths![rayIndex] = sample.PhaseInclusiveOpticalPathLength ?? sample.CumulativeOpticalPathLength;
                     hasFinalOpticalPath![rayIndex] = true;
                 }
             }

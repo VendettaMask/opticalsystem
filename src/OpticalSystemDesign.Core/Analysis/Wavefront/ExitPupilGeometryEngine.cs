@@ -52,8 +52,7 @@ public static class ExitPupilGeometryEngine
             var d = Unit(hit.Direction);
             var a = Unit(Cross(d, Math.Abs(d.Z) < .9 ? new(0, 0, 1) : new(0, 1, 0)));
             var b = Cross(d, a);
-            var material = hit.InteractionKind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection
-                ? stop.MaterialBefore : stop.MaterialAfter;
+            var material = PencilMaterial(stop, hit);
             var lines = new List<(Vector3D P, Vector3D D)>();
             foreach (var direction in new[] { d, Unit(d + a * probeAngle), Unit(d - a * probeAngle),
                 Unit(d + b * probeAngle), Unit(d - b * probeAngle) })
@@ -85,6 +84,14 @@ public static class ExitPupilGeometryEngine
                 p.Fit.Point.X, p.Fit.Point.Y, p.Fit.Point.Z, p.Fit.Residual);
         }).ToArray();
         return new(points, center, radius, points.Max(p => p.FitResidualMillimeters));
+    }
+
+    internal static OpticalSystemDesign.Core.Materials.IMaterial PencilMaterial(OpticalSurface stop, RayTraceSampleValue hit)
+    {
+        var material = hit.InteractionKind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection
+            ? stop.MaterialBefore : stop.MaterialAfter;
+        return hit.InteractionKind == RayInteractionKind.Transmitted && material is OpticalSystemDesign.Core.Materials.GradientIndexMaterial gradient
+            ? gradient.At(stop.CoordinateSystem, stop.CoordinateSystem.ToLocalPoint(hit.Position)) : material;
     }
 
     internal static (Vector3D Point, double Residual) FitLines(IReadOnlyList<(Vector3D P, Vector3D D)> lines)

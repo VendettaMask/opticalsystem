@@ -1,0 +1,22 @@
+Local validation evidence, 2026-11-01.
+
+Cornell reflectance data / PCG group:
+https://bowers.cornell.edu/computer-graphics/data
+Original spectral and published XYZ measurements remain in prior frozen evidence roots.
+krylon_blue.mat and archived source HTML are retained for this local audit only.
+No redistribution permission is inferred; no real Cornell material is added to CI fixtures.
+Published XYZ was computed from spectral data under D65; its original observer remains
+unverified. Newly derived XYZ uses explicitly declared conditions and is not independent
+instrument XYZ measurement. The approved calibration is empirical and domain-limited.
+
+CIE standard observer and D65 tables:
+https://cie.co.at/datatable/cie-1931-colour-matching-functions-2-degree-observer
+https://cie.co.at/datatable/cie-standard-illuminant-d65
+CIE datasets under CC BY-SA 4.0; original tables and attribution/metadata remain under
+../xyz-radiometry and ../../2026-10-31/commercial-bsdf-calibration/derived-xyz-candidates.
+This phase records the original table hashes and the explicit piecewise-linear projection
+method, 400-700 nm band with zero outside, and white Y=1 normalization.
+
+Real-calibration chain angular controls and sensor QE are synthetic, explicitly identified.
+They are not full measured angular BRDF/BTDF or a measured sensor response certification.
+Commercial White results reuse prior captured native traces; no new native GUI run occurred.

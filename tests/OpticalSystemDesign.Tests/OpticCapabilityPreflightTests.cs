@@ -83,9 +83,9 @@ public sealed class OpticCapabilityPreflightTests
             var arguments = method.GetParameters()
                 .Select(parameter => parameter.ParameterType switch
                 {
-                    var type when type == typeof(double) =>
+                    var type when type == typeof(double) || type == typeof(double?) =>
                         parameter.Name?.Contains("wavelength", StringComparison.OrdinalIgnoreCase) == true
-                            ? (object)0.5876
+                            ? parameter.Name.Contains("Nanometers", StringComparison.OrdinalIgnoreCase) ? (object)587.6 : 0.5876
                             : 0.0,
                     var type when type == typeof(int) => 0,
                     var type when type == typeof(bool) => true,

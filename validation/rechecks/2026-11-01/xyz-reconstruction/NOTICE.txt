@@ -1,0 +1,13 @@
+This directory contains project-authored code, validation outputs and source
+snapshots. Measured source material is read from the earlier frozen Cornell and
+VIAVI evidence packages; their original provenance/third-party notices apply.
+No claim of ownership or new independent instrument measurement is made.
+
+Cornell official data entry: https://bowers.cornell.edu/computer-graphics/data
+VIAVI official entry: https://www.viavisolutions.com/en-us/osp/resources/bsdf-data
+Official CIE observer and illuminant table identities remain in xyz-conditions
+and xyz-radiometry. The original published Cornell XYZ observer is unverified.
+
+The new Grid/9 CI fixture contains synthetic analytical data only. RBF local
+systems and log angular evaluation are project-authored pure C#; independent
+NumPy/SciPy experiments do not enter product runtime or supply runtime results.

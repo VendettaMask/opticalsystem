@@ -99,7 +99,7 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
     internal static AnalysisData UnavailableSimulation(string name, AnalysisDataUnavailableException exception)
     {
         var remedy = exception.AnalysisName == "Relative Illumination"
-            ? "; reduce the image field height, or disable relative illumination to omit irradiance weighting"
+            ? "; disable relative illumination to omit irradiance weighting"
             : string.Empty;
         return AnalysisData.Unavailable(name, $"{exception.AnalysisName}: {exception.Reason}{remedy}");
     }

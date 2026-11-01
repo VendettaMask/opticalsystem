@@ -1,0 +1,59 @@
+{
+  "Source": {
+    "Kind": 2,
+    "Source": "Cornell measured Krylon Blue BRDF; mathematically derived XYZ under CIE 1931 2-deg observer; bandlimited equal-energy test illuminant 400-700 nm, zero outside; linear spectral interpolation, 1 nm trapezoid, Y-white normalization; CIE SHA256=fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1",
+    "XyzSha256": "cd45d31754d46d0fe8aaa00e25510474828f341926575503dd7de361de1d79d1",
+    "RadiometricSha256": "53c7e4ff1b235dc859697db8d480fa690785b99b55eb8087d37afcdbafde96b0",
+    "ObserverAndIlluminantVerified": true
+  },
+  "ObserverDataSha256": "fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1",
+  "DerivedXyzIsNotIndependentColorMeasurement": true,
+  "PrescribedCalibrationWavelengthNm": 550,
+  "TrainingDirections": 959,
+  "ValidationDirections": 480,
+  "PolicyIsInternalExplorationOnly": true,
+  "ModelValidationPassed": false,
+  "ApprovedCalibrationExported": false,
+  "Rejection": "XYZ \u6821\u51C6\u5C1A\u672A\u901A\u8FC7\u72EC\u7ACB\u7559\u51FA\u9A8C\u8BC1\u6216\u6D4B\u91CF\u6761\u4EF6\u672A\u6838\u5B9E\uFF0C\u4E0D\u80FD\u5BFC\u51FA\u4E3A\u53EF\u8BA1\u7B97\u6821\u51C6\u3002",
+  "Result": {
+    "Bands": [
+      {
+        "WavelengthNanometers": 550,
+        "X": 0,
+        "Y": 0.8759659134858193,
+        "Z": 0
+      }
+    ],
+    "Evidence": {
+      "Provenance": {
+        "Kind": 2,
+        "Source": "Cornell measured Krylon Blue BRDF; mathematically derived XYZ under CIE 1931 2-deg observer; bandlimited equal-energy test illuminant 400-700 nm, zero outside; linear spectral interpolation, 1 nm trapezoid, Y-white normalization; CIE SHA256=fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1",
+        "XyzSha256": "cd45d31754d46d0fe8aaa00e25510474828f341926575503dd7de361de1d79d1",
+        "RadiometricSha256": "53c7e4ff1b235dc859697db8d480fa690785b99b55eb8087d37afcdbafde96b0",
+        "ObserverAndIlluminantVerified": true
+      },
+      "Policy": {
+        "MaximumValidationNormalizedRms": 0.01,
+        "MaximumValidationAbsoluteError": 0.01,
+        "RelativeSignalFloor": 1E-06
+      },
+      "Bands": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 443.2440344836744,
+          "TrainingNormalizedRms": 0.0465838434482438,
+          "ValidationNormalizedRms": 0.12985396701217577,
+          "ValidationMaximumAbsoluteError": 0.19090968870270508,
+          "ValidationMaximumRelativeError": 3866.278800400623,
+          "Passed": false
+        }
+      ],
+      "CalibrationBandsSha256": "3afc69ce588e832b1c82d3d51074c6c7c6985d748bd89aa256c8c8e6f4a3b9e7"
+    },
+    "ModelValidationPassed": false
+  },
+  "ZemaxMaterialChainCertified": false
+}

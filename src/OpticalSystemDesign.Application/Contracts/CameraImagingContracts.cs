@@ -1,10 +1,12 @@
+using System.Text.Json.Serialization;
+
 namespace OpticalSystemDesign.Application.Contracts;
 
-public enum CameraSource { ColorChart, ResolutionTarget, DistortionGrid, SiemensStar, ExternalImage, Scene3D }
-public enum CameraOptics { CurrentLens, Ideal }
+public enum CameraSource { ColorChart, ResolutionTarget, DistortionGrid, SiemensStar, ExternalImage, Scene3D, NonSequentialDetector }
+public enum CameraOptics { CurrentLens, Ideal, DetectorInput }
 public enum CameraAberration { Geometric, Diffraction }
 public enum CameraBayerPattern { RGGB, BGGR, GRBG, GBRG }
-public enum CameraSpectralModel { ThreeBand, Continuous, SceneBands }
+public enum CameraSpectralModel { ThreeBand, Continuous, SceneBands, DetectorBands }
 public enum Camera3DShape { Rectangle, Box, Sphere }
 public sealed record Camera3DObject(string Name, Camera3DShape Shape, double X, double Y, double Z,
     double SizeX, double SizeY, double SizeZ, IReadOnlyList<double> Reflectance,
@@ -79,7 +81,8 @@ public sealed record CameraImagingRequest(CameraSource Source = CameraSource.Col
     CameraSpectralModel SpectralModel = CameraSpectralModel.ThreeBand, CameraSpectrumCurve? Illuminant = null,
     CameraSpectrumCurve? Reflectance = null, CameraIntegrationSettings? Integration = null,
     CameraSceneMode SceneMode = CameraSceneMode.Uniform, CameraMaterialScene? MaterialScene = null,
-    CameraPixelSamplingParameters? PixelSampling = null, Camera3DScene? Scene3D = null, Camera3DRenderSettings? Render3D = null);
+    CameraPixelSamplingParameters? PixelSampling = null, Camera3DScene? Scene3D = null, Camera3DRenderSettings? Render3D = null,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] CameraNscDetectorInput? NscDetector = null);
 public sealed record CameraImage(int Width, int Height, IReadOnlyList<byte> Rgb24);
 public sealed record CameraExperimentInputs(string EngineVersion, string? LensSnapshotJson = null,
     byte[]? ExternalImageBytes = null, CameraFileOrigin? ImageOrigin = null,
@@ -89,10 +92,11 @@ public sealed record CameraExperiment(string Format, int SchemaVersion, CameraIm
 {
     public const string FormatIdentifier = "OpticalSystemDesign.CameraExperiment";
     public const string CurrentEngineVersion = "CameraLabV8-SceneDiffraction/1";
+    public const string NonSequentialEngineVersion = "CameraLabV9-NscDetector/1";
     public const string DirectSceneEngineVersion = "CameraLabV7-DirectScene/1";
     public const string PixelAreaEngineVersion = "CameraLabV6-PixelArea/1";
     public const string LegacyEngineVersion = "CameraLabV5-ExperimentCalibration/1";
-    public static bool CanRecompute(string? version) => version is CurrentEngineVersion or DirectSceneEngineVersion or PixelAreaEngineVersion or LegacyEngineVersion;
+    public static bool CanRecompute(string? version) => version is CurrentEngineVersion or NonSequentialEngineVersion or DirectSceneEngineVersion or PixelAreaEngineVersion or LegacyEngineVersion;
 }
 public sealed record CameraCalibrationFrame(double ExposureMilliseconds, IReadOnlyList<ushort> RawDn);
 public sealed record CameraCalibrationCapture(string Format, int SchemaVersion, string Name, string Source,
@@ -113,6 +117,8 @@ public sealed record CameraImagingResult(string DocumentName, long SourceRevisio
     CameraExperimentInputs? Inputs = null, Camera3DDiagnostics? Scene3D = null);
 public interface ICameraImagingService
 {
+    Task<CameraNscDetectorInput> CaptureNonSequentialDetectorAsync(Guid detectorId, string? pathFilter = null,
+        CancellationToken cancellationToken = default);
     Task<CameraSamplingReport> CheckSamplingAsync(CameraImagingResult run, CameraSamplingRegion region, CameraSamplingAxis axis,
         CameraSamplingReport? previous = null, CancellationToken cancellationToken = default, bool completeLadder = false);
     Task ExportSamplingAsync(CameraImagingResult run, CameraSamplingReport report, string path, CancellationToken cancellationToken = default);

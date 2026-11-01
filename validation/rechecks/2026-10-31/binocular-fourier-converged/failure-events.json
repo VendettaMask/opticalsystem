@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "message": "FocusedStudy initially referenced ComparisonMetric.MaxAbsoluteError; corrected to MaxAbsolute before successful build",
+      "resolved": true,
+      "kind": "CompileFailure"
+    },
+    {
+      "message": "ContrastLossMap enum name rejected; actual installed AnalysisIDM is ContrastLoss",
+      "resolved": true,
+      "kind": "NativeCapabilityFailure"
+    },
+    {
+      "message": "Flat and weak-power auxiliary through-focus controls returned no numeric data; not used as references",
+      "resolved": false,
+      "kind": "NativeEmptyControls"
+    },
+    {
+      "message": "Full six-frequency native 256/C2-128 capture and Core full six-frequency 128/256 study exceeded bounded budgets; subsequent work restricted to the requested high-frequency curve and endpoints",
+      "resolvedByFocusedCapture": true,
+      "kind": "BudgetLimits"
+    }
+  ]
+}

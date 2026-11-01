@@ -174,7 +174,8 @@ public sealed partial class SequentialRayTracer
                 cumulativePathLength,
                 cumulativeOpticalPathLength,
                 ignorePhysicalAperture: true,
-                allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index));
+                allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index),
+                geometryOnly: true);
             if (index == surfaceIndex)
             {
                 return result.Sample.ToRayTraceSample();
@@ -214,7 +215,7 @@ public sealed partial class SequentialRayTracer
             && previous.MaterialAfter.ExtinctionCoefficient(w.Micrometers * 1000) == 0);
     }
 
-    private static SurfaceRayTraceStateResult TraceSequentialSurface(
+    private SurfaceRayTraceStateResult TraceSequentialSurface(
         OpticalSurface surface,
         int surfaceIndex,
         RayState ray,
@@ -225,7 +226,10 @@ public sealed partial class SequentialRayTracer
         bool stopBeforeInteraction = false,
         bool bypassCoating = false,
         bool allowVirtualIntersection = false,
-        bool ignoreMaterialAbsorption = false)
+        bool ignoreMaterialAbsorption = false,
+        RealRay? sourceRay = null,
+        bool geometryOnly = false,
+        ParaxialPhaseTrace? phaseTrace = null)
     {
         if (surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
         {
@@ -251,7 +255,12 @@ public sealed partial class SequentialRayTracer
 
         return surface.TraceRayState(ray, materialBefore, surface.MaterialAfter,
             cumulativePathLength, cumulativeOpticalPathLength, ignorePhysicalAperture, stopBeforeInteraction, bypassCoating,
-            allowVirtualIntersection: allowVirtualIntersection, ignoreMaterialAbsorption: ignoreMaterialAbsorption);
+            allowVirtualIntersection: allowVirtualIntersection, ignoreMaterialAbsorption: ignoreMaterialAbsorption,
+            surfacePhaseOpticalPath: surface.InteractionModel is not ParaxialLensInteractionModel ? null
+                : geometryOnly ? static (_, _) => 0
+                : sourceRay is null ? null
+                : (localRay, context) => (phaseTrace ?? new ParaxialPhaseTrace(this)).Evaluate(
+                    sourceRay, surfaceIndex, localRay, context));
     }
 
     public SequentialTrace Trace(RealRayBundle bundle)
@@ -486,7 +495,7 @@ public sealed partial class SequentialRayTracer
             {
                 samples[index] = samples[index] with
                 {
-                    OpticalPathDifference = samples[index].CumulativeOpticalPathLength - reference
+                    OpticalPathDifference = (samples[index].PhaseInclusiveOpticalPathLength ?? samples[index].CumulativeOpticalPathLength) - reference
                 };
             }
         }

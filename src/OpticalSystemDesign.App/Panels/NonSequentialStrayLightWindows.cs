@@ -215,6 +215,7 @@ internal sealed class NonSequentialTraceControlWindow : Window
                 ? "探测器和当前追迹结果已清空。"
                 : $"{result.SessionState}：本次 {result.TotalBranchCount} 个分支，筛选命中 {result.MatchedBranchCount}，耗时 {result.Elapsed:g}。\n"
                     + $"探测 {result.DetectorPowerWatts:G6} W，吸收 {result.AbsorbedPowerWatts:G6} W，逃逸 {result.EscapedPowerWatts:G6} W。"
+                    + (result.BsdfStatistics is { } stats ? $"\nBSDF：{stats.SampleCount:N0} 次采样，均值 |cosθ|={stats.MeanCosine:G5}，反射 {stats.ReflectedPowerWatts:G6} W，透射 {stats.TransmittedPowerWatts:G6} W。" : string.Empty)
                     + (result.RayDatabasePath is null ? string.Empty : $"\n数据库 {result.RayDatabaseBytes:N0} 字节：{result.RayDatabasePath}")
                     + (result.Warnings is { Count: > 0 } ? $"\n{string.Join(" ", result.Warnings)}" : string.Empty);
         }
@@ -259,7 +260,7 @@ internal sealed class NonSequentialRayDatabaseWindow : Window
 {
     private readonly INonSequentialAnalysisService _service;
     private readonly string _path;
-    private readonly TextBox _filter = new() { PlaceholderText = "Q/H/R/T/D/M/W、A/E/X、! & |、SEQ(...)" };
+    private readonly TextBox _filter = new() { PlaceholderText = "Q/H/R/S/B/T/D/M/W、A/E/X、! & |、SEQ(...)" };
     private readonly TextBlock _header = new() { TextWrapping = Avalonia.Media.TextWrapping.Wrap };
     private readonly DataGrid _grid = new() { AutoGenerateColumns = false, IsReadOnly = true };
     private readonly DataGrid _branchGrid = new() { AutoGenerateColumns = false, IsReadOnly = true };

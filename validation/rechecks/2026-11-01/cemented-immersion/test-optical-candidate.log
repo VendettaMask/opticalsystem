@@ -1,0 +1,76 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.74]     OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 450) [FAIL]
+[xUnit.net 00:00:02.75]     OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 650) [FAIL]
+[xUnit.net 00:00:02.75]     OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 550) [FAIL]
+  失败 OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 450) [9 ms]
+  错误消息:
+   System.NotSupportedException : S1 在 450 nm 需要非吸收的均匀体介质；吸收膜层仍由物理膜系计算。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.SequentialOpticalAssemblyConverter.Convert(Optic optic, NonSequentialTraceSettings settings) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\SequentialOpticalAssemblyConverter.cs:line 46
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Scene(Optic optic, Boolean backwardDetector) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 31
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(Double wavelength) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 159
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 650) [1 ms]
+  错误消息:
+   System.NotSupportedException : S1 在 650 nm 需要非吸收的均匀体介质；吸收膜层仍由物理膜系计算。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.SequentialOpticalAssemblyConverter.Convert(Optic optic, NonSequentialTraceSettings settings) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\SequentialOpticalAssemblyConverter.cs:line 46
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Scene(Optic optic, Boolean backwardDetector) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 31
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(Double wavelength) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 159
+   at InvokeStub_OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(wavelength: 550) [1 ms]
+  错误消息:
+   System.NotSupportedException : S1 在 550 nm 需要非吸收的均匀体介质；吸收膜层仍由物理膜系计算。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.SequentialOpticalAssemblyConverter.Convert(Optic optic, NonSequentialTraceSettings settings) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\SequentialOpticalAssemblyConverter.cs:line 46
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Scene(Optic optic, Boolean backwardDetector) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 31
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(Double wavelength) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 159
+   at InvokeStub_OpticalAssemblyTests.DispersiveGlassBoundariesRetainTheirActualSpectralPowerAndOpticalPath(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:03.08]     OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource [FAIL]
+  失败 OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource [3 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组界面顺序、机械边缘或相邻介质不连续。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.OpticalAssemblyParameters..ctor(IReadOnlyList`1 interfaces) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialOpticalAssembly.cs:line 127
+   at OpticalSystemDesign.Core.NonSequential.SequentialOpticalAssemblyConverter.Convert(Optic optic, NonSequentialTraceSettings settings) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\SequentialOpticalAssemblyConverter.cs:line 38
+   at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.<ConvertFromSequential>b__13_0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs:line 208
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.<>c__DisplayClass39_0`1.<MutateTransactional>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 323
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.<>c__DisplayClass38_0.<MutateTransactional>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 269
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ExecuteTransactionalEdit(Action action) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs:line 201
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 266
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 308
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action, CancellationToken automaticSemiDiameterCancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 319
+   at OpticalSystemDesign.Application.Services.WorkbenchServiceBase.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchServiceBase.cs:line 42
+   at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.ConvertFromSequential() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs:line 203
+   at OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialDocumentTests.cs:line 322
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:03.15]     OpticalSystemDesign.Tests.NonSequentialDocumentTests.SequentialConversionPreservesCementedGlassGroupAsSharedInterfaces [FAIL]
+  失败 OpticalSystemDesign.Tests.NonSequentialDocumentTests.SequentialConversionPreservesCementedGlassGroupAsSharedInterfaces [25 ms]
+  错误消息:
+   System.NotSupportedException : S1 在 587.60000000000002 nm 需要非吸收的均匀体介质；吸收膜层仍由物理膜系计算。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.SequentialOpticalAssemblyConverter.Convert(Optic optic, NonSequentialTraceSettings settings) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\SequentialOpticalAssemblyConverter.cs:line 46
+   at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.<ConvertFromSequential>b__13_0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs:line 208
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.<>c__DisplayClass39_0`1.<MutateTransactional>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 323
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.<>c__DisplayClass38_0.<MutateTransactional>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 269
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ExecuteTransactionalEdit(Action action) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs:line 201
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 266
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 308
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action, CancellationToken automaticSemiDiameterCancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 319
+   at OpticalSystemDesign.Application.Services.WorkbenchServiceBase.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchServiceBase.cs:line 42
+   at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.ConvertFromSequential() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs:line 203
+   at OpticalSystemDesign.Tests.NonSequentialDocumentTests.SequentialConversionPreservesCementedGlassGroupAsSharedInterfaces() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialDocumentTests.cs:line 365
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+结果文件: D:/Projects/opticalsystem/validation/rechecks/2026-11-01/cemented-immersion\optical-candidate.trx
+
+失败!  - 失败:     5，通过:    51，已跳过:     0，总计:    56，持续时间: 4 s - OpticalSystemDesign.Tests.dll (net10.0)

@@ -1,0 +1,1833 @@
+[
+  {
+    "Name": "continued-double-96",
+    "InputFingerprint": "AA2610A4451BC7A00FB8ECF4AA262609E1239EDDCE244FB0A6C75A850C72C090",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.02237490935041767,
+    "AfterLoss": 0.017050439352188057,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 550.2780100334447,
+      "PeakTransmittance": 0.6651915880668824,
+      "LeftHalfMaximumNanometers": 541.4451656014102,
+      "RightHalfMaximumNanometers": 558.5810828754335,
+      "FwhmNanometers": 17.135917274023313,
+      "MinimumReflectance": 0.0261479662180002,
+      "MaximumReflectance": 0.868590749936422
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 549.5756688963211,
+      "PeakTransmittance": 0.6664071425530012,
+      "LeftHalfMaximumNanometers": 540.8143144842031,
+      "RightHalfMaximumNanometers": 557.8203089749983,
+      "FwhmNanometers": 17.00599449079516,
+      "MinimumReflectance": 0.026739061838548482,
+      "MaximumReflectance": 0.8575618911262404
+    },
+    "BeforeBlockingOd": [
+      0.9379226340560077,
+      1.1874771182624262
+    ],
+    "AfterBlockingOd": [
+      0.9886045599235892,
+      1.1306021818744658
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.5756688963211,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.00599449079516,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.64071425530011,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9886045599235892,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.1306021818744658,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 1069,
+      "Iterations": 96,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.11307788257749014,
+        0.07572781826822089,
+        0,
+        0.06207736594399227,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "inequality-targets",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 1718864,
+        "SensitivityEvaluations": 163786,
+        "AnalyticJacobians": 96,
+        "ConstraintPasses": 10,
+        "AdaptiveRefinements": 9,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 12,
+        "BandMetricEvaluations": 1720,
+        "BandSensitivityBatches": 96,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 10,
+        "ProtectedTrialRejections": 667,
+        "InequalitySubproblems": 142,
+        "InequalityActiveSetIterations": 784
+      }
+    },
+    "Seconds": 22.5592768
+  },
+  {
+    "Name": "continued-hr-96",
+    "InputFingerprint": "7A93A2E8E7709E3234AAB08447C9AC2D9E3DE6FD625DEE5F06674172C5AED3F3",
+    "Target": {
+      "Kind": "HighReflector",
+      "CenterNm": 550,
+      "MinimumNm": 520,
+      "MaximumNm": 580,
+      "Reflectance": 0.98,
+      "MaximumLayers": 32,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": null,
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.03969149499046898,
+    "AfterLoss": 0.03783345619080003,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 553.375,
+      "PeakTransmittance": 0.0011235152248271238,
+      "LeftHalfMaximumNanometers": 548.3250220785649,
+      "RightHalfMaximumNanometers": 558.7140979027506,
+      "FwhmNanometers": 10.389075824185738,
+      "MinimumReflectance": 0.960308505009531,
+      "MaximumReflectance": 0.9660622643556599
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 541.075,
+      "PeakTransmittance": 0.0030887596913904683,
+      "LeftHalfMaximumNanometers": 534.6622112271511,
+      "RightHalfMaximumNanometers": 573.1555942441939,
+      "FwhmNanometers": 38.49338301704279,
+      "MinimumReflectance": 0.9621665438092,
+      "MaximumReflectance": 0.9661713039835865
+    },
+    "BeforeBlockingOd": [],
+    "AfterBlockingOd": [],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 96.21665438091999,
+        "Requirement": "\u2265 98",
+        "Passed": false
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "ReflectanceQuality:MaximumIterations",
+      "Evaluations": 189,
+      "Iterations": 96,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "QualityStartLayers": [
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 58.89447446144413,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 94.85566932462275,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 63.88595795179961,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 95.02757704097898,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.64652011413598,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 95.49674090499329,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 65.15042068147422,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 96.30864382936453,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 65.66443715912636,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 97.35427277503189,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 66.01180600523517,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 98.1088521976576,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 65.66283167314548,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 97.69606131593534,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.3747468191777,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 96.33859816009465,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 63.291393258065625,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 96.05208294570282,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 63.91512160663017,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 98.72854244890388,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 68.47304152293411,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 108.49648411959525,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 41.36009834948221,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 103.89273578276585,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 160.06869800779546,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 229.8659678643178,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 202.84865019814117,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 270.8219157327972,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 207.8531331311583,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 76.52076496479461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 206.54579974904098,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 250.13324119558447,
+          "Variable": true
+        }
+      ],
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 37799,
+        "SensitivityEvaluations": 198709,
+        "AnalyticJacobians": 96,
+        "ConstraintPasses": 10,
+        "AdaptiveRefinements": 8,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 2,
+        "QualityPasses": 9,
+        "QualityIterations": 86,
+        "QualityProtocol": "worst-reflectance/3",
+        "ProtectedTrialRejections": 20,
+        "QualityRestarts": 1
+      }
+    },
+    "Seconds": 12.1270094
+  },
+  {
+    "Name": "continued-single-24",
+    "InputFingerprint": "E26EE68EEFA58F675C0A87BF2080E0A5E05F9FBFFEFAF79B72ED6F2022C62585",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.008242929884304312,
+    "AfterLoss": 0.006725205471838226,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 549.9561036789298,
+      "PeakTransmittance": 0.7006403291215872,
+      "LeftHalfMaximumNanometers": 541.5610885668439,
+      "RightHalfMaximumNanometers": 558.495090429544,
+      "FwhmNanometers": 16.934001862700143,
+      "MinimumReflectance": 0.07251413840938822,
+      "MaximumReflectance": 0.8931247553780112
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 549.7805183946489,
+      "PeakTransmittance": 0.7047602920746778,
+      "LeftHalfMaximumNanometers": 541.4479427276796,
+      "RightHalfMaximumNanometers": 558.2768677132593,
+      "FwhmNanometers": 16.82892498557976,
+      "MinimumReflectance": 0.06774328652863341,
+      "MaximumReflectance": 0.8935940483690626
+    },
+    "BeforeBlockingOd": [
+      0.9941314772818433,
+      1.2511195498352947
+    ],
+    "AfterBlockingOd": [
+      0.9942642911208964,
+      1.2508011039004217
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 12,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.7805183946489,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.82892498557976,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 70.47602920746779,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9942642911208964,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2508011039004217,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 276,
+      "Iterations": 24,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.06581289450455034,
+        0.06226679084667618,
+        0,
+        0.005868522718156743,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "inequality-targets",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 368603,
+        "SensitivityEvaluations": 32474,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 7,
+        "BandMetricEvaluations": 343,
+        "BandSensitivityBatches": 24,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 5,
+        "ProtectedTrialRejections": 228,
+        "InequalitySubproblems": 35,
+        "InequalityActiveSetIterations": 129
+      }
+    },
+    "Seconds": 3.3595677
+  },
+  {
+    "Name": "holdout-violet",
+    "InputFingerprint": "3BB35F5014AF25DF17A347132E25DB2AB4E08231862CE4FD4857D900389C372C",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 405,
+      "MinimumNm": 344.25,
+      "MaximumNm": 465.74999999999994,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 27,
+      "Polarization": "S",
+      "FwhmNm": 16.2,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 352.35,
+          "MaximumNm": 368.55
+        },
+        {
+          "MinimumNm": 441.45000000000005,
+          "MaximumNm": 457.65
+        }
+      ],
+      "CenterToleranceNm": 0.405,
+      "FwhmToleranceNm": 1.62,
+      "Structure": {
+        "Cavities": 1
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 0.81,
+      "MaximumThicknessNm": 810,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.0281854800145512,
+    "AfterLoss": 0,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 405.02373046874993,
+      "PeakTransmittance": 0.6572892068302184,
+      "LeftHalfMaximumNanometers": 395.4313181932219,
+      "RightHalfMaximumNanometers": 415.0916383628294,
+      "FwhmNanometers": 19.66032016960753,
+      "MinimumReflectance": 0.3227015056523882,
+      "MaximumReflectance": 0.9208616031815823
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 404.5985595703125,
+      "PeakTransmittance": 0.8274097341612494,
+      "LeftHalfMaximumNanometers": 395.81485563135243,
+      "RightHalfMaximumNanometers": 413.6346038648233,
+      "FwhmNanometers": 17.819748233470875,
+      "MinimumReflectance": 0.1470738915354445,
+      "MaximumReflectance": 0.9096955593992728
+    },
+    "BeforeBlockingOd": [
+      1.1046256480094003,
+      1.1110517620962765
+    ],
+    "AfterBlockingOd": [
+      1.012649925039691,
+      1.1111868776989349
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 11,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "0.81\u2013810",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 404.5985595703125,
+        "Requirement": "405 \u00B1 0.405",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.819748233470875,
+        "Requirement": "16.2 \u00B1 1.62",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 82.74097341612494,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A352.35\u2013368.55 nm",
+        "Actual": 1.012649925039691,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A441.45\u2013457.65 nm",
+        "Actual": 1.1111868776989349,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 311,
+      "Iterations": 48,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.12361439089304212,
+        0.11360001046960068,
+        0,
+        0,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "inequality-targets",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 428432,
+        "SensitivityEvaluations": 71233,
+        "AnalyticJacobians": 48,
+        "ConstraintPasses": 7,
+        "AdaptiveRefinements": 23,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 7,
+        "BandMetricEvaluations": 462,
+        "BandSensitivityBatches": 48,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 7,
+        "ProtectedTrialRejections": 235,
+        "InequalitySubproblems": 155,
+        "InequalityActiveSetIterations": 176
+      }
+    },
+    "Seconds": 1.1642244
+  },
+  {
+    "Name": "ir-absorbing-s",
+    "InputFingerprint": "DE066A08E92FA71F9E0CBFD1EFB17A5F8F84667C78BFF74DFF508026E94F1302",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 1300,
+      "MinimumNm": 1105,
+      "MaximumNm": 1494.9999999999998,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 25,
+      "Polarization": "S",
+      "FwhmNm": 45.50000000000001,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 1144,
+          "MaximumNm": 1196
+        },
+        {
+          "MinimumNm": 1404,
+          "MaximumNm": 1456.0000000000002
+        }
+      ],
+      "CenterToleranceNm": 1.3,
+      "FwhmToleranceNm": 3.9,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2.6,
+      "MaximumThicknessNm": 2600,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.0005881282332420985,
+    "AfterLoss": 0,
+    "BeforePassed": false,
+    "AfterPassed": true,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 1301.3985655737704,
+      "PeakTransmittance": 0.7347348911205018,
+      "LeftHalfMaximumNanometers": 1275.0080797458843,
+      "RightHalfMaximumNanometers": 1324.9998796071686,
+      "FwhmNanometers": 49.991799861284335,
+      "MinimumReflectance": 0.011591599790920634,
+      "MaximumReflectance": 0.9220027970805529
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 1298.712431693989,
+      "PeakTransmittance": 0.7500045515894733,
+      "LeftHalfMaximumNanometers": 1271.6563471300644,
+      "RightHalfMaximumNanometers": 1321.0559477670758,
+      "FwhmNanometers": 49.39960063701142,
+      "MinimumReflectance": 0.010031411017331652,
+      "MaximumReflectance": 0.931369806411948
+    },
+    "BeforeBlockingOd": [
+      1.3260269025003137,
+      1.4567937995977165
+    ],
+    "AfterBlockingOd": [
+      1.000410217896793,
+      1.5148505071508442
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.6\u20132600",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1298.712431693989,
+        "Requirement": "1300 \u00B1 1.3",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 49.39960063701142,
+        "Requirement": "45.5 \u00B1 3.9",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.00045515894733,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1144\u20131196 nm",
+        "Actual": 1.000410217896793,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1404\u20131456 nm",
+        "Actual": 1.5148505071508442,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "ProtectedTargetsSatisfied",
+      "Evaluations": 56,
+      "Iterations": 17,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.020353478505997558,
+        0.013006590357897313,
+        0.0021662763466018383,
+        0,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "inequality-targets",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 32945,
+        "SensitivityEvaluations": 12488,
+        "AnalyticJacobians": 17,
+        "ConstraintPasses": 3,
+        "AdaptiveRefinements": 2,
+        "AdaptiveLimitReached": false,
+        "DenseValidations": 5,
+        "BandMetricEvaluations": 105,
+        "BandSensitivityBatches": 17,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 3,
+        "ProtectedTrialRejections": 20,
+        "InequalitySubproblems": 17,
+        "InequalityActiveSetIterations": 56
+      }
+    },
+    "Seconds": 0.1684543
+  },
+  {
+    "Name": "new-ir-double",
+    "InputFingerprint": "706D28CADE184CDCD25B36FB5AF057677BCA36C9B84E97FACF288176090062A3",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 1550,
+      "MinimumNm": 1317.5,
+      "MaximumNm": 1782.4999999999998,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 30,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 54.25000000000001,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 1364,
+          "MaximumNm": 1426
+        },
+        {
+          "MinimumNm": 1674,
+          "MaximumNm": 1736.0000000000002
+        }
+      ],
+      "CenterToleranceNm": 1.55,
+      "FwhmToleranceNm": 4.65,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 3.1,
+      "MaximumThicknessNm": 3100,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.28312585796041834,
+    "AfterLoss": 0.20905168620134212,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 1553.7188353825136,
+      "PeakTransmittance": 0.7145281130888277,
+      "LeftHalfMaximumNanometers": 1508.2711457356231,
+      "RightHalfMaximumNanometers": 1595.8411635192128,
+      "FwhmNanometers": 87.57001778358972,
+      "MinimumReflectance": 0.014435260882572623,
+      "MaximumReflectance": 0.9075640490023225
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 1550.1852800546449,
+      "PeakTransmittance": 0.7145322842273755,
+      "LeftHalfMaximumNanometers": 1507.8290518811332,
+      "RightHalfMaximumNanometers": 1591.4002982558318,
+      "FwhmNanometers": 83.5712463746986,
+      "MinimumReflectance": 0.0008702354823529746,
+      "MaximumReflectance": 0.907386263968289
+    },
+    "BeforeBlockingOd": [
+      1.726465575080685,
+      1.5280677759833368
+    ],
+    "AfterBlockingOd": [
+      1.5082633051884822,
+      1.5280286299907115
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1550.1852800546449,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 83.5712463746986,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 71.45322842273755,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.5082633051884822,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.5280286299907115,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 509,
+      "Iterations": 48,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.047295849214896414,
+        0.5284795904809163,
+        0.039978532396563855,
+        0,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "inequality-targets",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 766076,
+        "SensitivityEvaluations": 73977,
+        "AnalyticJacobians": 48,
+        "ConstraintPasses": 7,
+        "AdaptiveRefinements": 6,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 9,
+        "BandMetricEvaluations": 704,
+        "BandSensitivityBatches": 48,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 7,
+        "ProtectedTrialRejections": 377,
+        "InequalitySubproblems": 64,
+        "InequalityActiveSetIterations": 674
+      }
+    },
+    "Seconds": 3.6985058
+  },
+  {
+    "Name": "prior-double-96",
+    "InputFingerprint": "67227B5E4BA94BD32574EF080CEF39B02BC06C5E3BC2AB8A60F8459BE2D62607",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.023045797778704927,
+    "AfterLoss": 0.01755239156111496,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 550.4243311036789,
+      "PeakTransmittance": 0.6645731043561156,
+      "LeftHalfMaximumNanometers": 541.2059249650306,
+      "RightHalfMaximumNanometers": 558.675027909527,
+      "FwhmNanometers": 17.4691029444964,
+      "MinimumReflectance": 0.001224137387268468,
+      "MaximumReflectance": 0.9046296295924398
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 549.8683110367892,
+      "PeakTransmittance": 0.6667466599966425,
+      "LeftHalfMaximumNanometers": 541.1231887064562,
+      "RightHalfMaximumNanometers": 558.1629233094409,
+      "FwhmNanometers": 17.03973460298471,
+      "MinimumReflectance": 0.025765000509283265,
+      "MaximumReflectance": 0.8585556699452344
+    },
+    "BeforeBlockingOd": [
+      0.9780972615674383,
+      1.2238362397987868
+    ],
+    "AfterBlockingOd": [
+      0.9793664127187153,
+      1.1444137068318714
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.8683110367892,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.03973460298471,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.67466599966426,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9793664127187153,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.1444137068318714,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 1082,
+      "Iterations": 96,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.1139025275251792,
+        0.09794019629975992,
+        0,
+        0.02190273843256174,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "inequality-targets",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 1741594,
+        "SensitivityEvaluations": 163834,
+        "AnalyticJacobians": 96,
+        "ConstraintPasses": 10,
+        "AdaptiveRefinements": 9,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 12,
+        "BandMetricEvaluations": 1443,
+        "BandSensitivityBatches": 96,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 10,
+        "ProtectedTrialRejections": 825,
+        "InequalitySubproblems": 141,
+        "InequalityActiveSetIterations": 756
+      }
+    },
+    "Seconds": 19.0931292
+  },
+  {
+    "Name": "real-hr-96",
+    "InputFingerprint": "2A706F39350CF7C8E785D08DCF30D14C55BCF8B4FAAA2205B518BDC05565B535",
+    "Target": {
+      "Kind": "HighReflector",
+      "CenterNm": 550,
+      "MinimumNm": 520,
+      "MaximumNm": 580,
+      "Reflectance": 0.98,
+      "MaximumLayers": 32,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": null,
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.04043715177116958,
+    "AfterLoss": 0.03921020947093845,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 520,
+      "PeakTransmittance": 7.258558760884649E-05,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": 528.4431427999319,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9595628482288304,
+      "MaximumReflectance": 0.9658765064684119
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 562,
+      "PeakTransmittance": 0.0017652362284798742,
+      "LeftHalfMaximumNanometers": 552.6826019730388,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9607897905290615,
+      "MaximumReflectance": 0.967127252251009
+    },
+    "BeforeBlockingOd": [],
+    "AfterBlockingOd": [],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 96.07897905290615,
+        "Requirement": "\u2265 98",
+        "Passed": false
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "ReflectanceQuality:MaximumIterations",
+      "Evaluations": 196,
+      "Iterations": 96,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "QualityStartLayers": [
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 64.98902089332095,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 93.78390381556461,
+          "Variable": true
+        }
+      ],
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 37799,
+        "SensitivityEvaluations": 230397,
+        "AnalyticJacobians": 96,
+        "ConstraintPasses": 10,
+        "AdaptiveRefinements": 8,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 2,
+        "QualityPasses": 9,
+        "QualityIterations": 86,
+        "QualityProtocol": "worst-reflectance/3",
+        "ProtectedTrialRejections": 21,
+        "QualityRestarts": 1
+      }
+    },
+    "Seconds": 12.3214723
+  },
+  {
+    "Name": "real-narrowband-control",
+    "InputFingerprint": "4E77315F50A4307C04B1C8AD43D791884888BEB120B9BCDAFE159B3BBDE3E4C1",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 24,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.011329461036456122,
+    "AfterLoss": 0.009417720699474628,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 549.9561036789298,
+      "PeakTransmittance": 0.7096300940789582,
+      "LeftHalfMaximumNanometers": 541.414067306742,
+      "RightHalfMaximumNanometers": 558.6089217988936,
+      "FwhmNanometers": 17.194854492151535,
+      "MinimumReflectance": 0.06137722199444069,
+      "MaximumReflectance": 0.8908918922370366
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 549.8390468227425,
+      "PeakTransmittance": 0.7155347363959746,
+      "LeftHalfMaximumNanometers": 541.3667115557491,
+      "RightHalfMaximumNanometers": 558.4631904791866,
+      "FwhmNanometers": 17.096478923437417,
+      "MinimumReflectance": 0.05587912191880566,
+      "MaximumReflectance": 0.890421509478912
+    },
+    "BeforeBlockingOd": [
+      0.9543170464975821,
+      1.2438620061454813
+    ],
+    "AfterBlockingOd": [
+      0.9556990409072302,
+      1.2362756968433457
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 12,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.8390468227425,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.096478923437417,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 71.55347363959747,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9556990409072302,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2362756968433457,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 278,
+      "Iterations": 24,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.05382654122805578,
+        0.07965696614343566,
+        0,
+        0.04568295350241791,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "inequality-targets",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 406043,
+        "SensitivityEvaluations": 32474,
+        "AnalyticJacobians": 24,
+        "ConstraintPasses": 5,
+        "AdaptiveRefinements": 4,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 7,
+        "BandMetricEvaluations": 359,
+        "BandSensitivityBatches": 24,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 5,
+        "ProtectedTrialRejections": 223,
+        "InequalitySubproblems": 34,
+        "InequalityActiveSetIterations": 310
+      }
+    },
+    "Seconds": 3.5755658
+  },
+  {
+    "Name": "real-nbf2-96",
+    "InputFingerprint": "4F8C28DC87452D48C47BD3E8BD8A84FB666503FD430CF241B412023CE6EC9A57",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.031130819489817683,
+    "AfterLoss": 0.018260529724821867,
+    "BeforePassed": false,
+    "AfterPassed": false,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 551.0827759197325,
+      "PeakTransmittance": 0.6609607874496719,
+      "LeftHalfMaximumNanometers": 541.0356372296188,
+      "RightHalfMaximumNanometers": 558.8482994509815,
+      "FwhmNanometers": 17.812662221362643,
+      "MinimumReflectance": 8.6844770020253E-05,
+      "MaximumReflectance": 0.918587629026352
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 550.4243311036789,
+      "PeakTransmittance": 0.6654076147829511,
+      "LeftHalfMaximumNanometers": 541.7279495573615,
+      "RightHalfMaximumNanometers": 558.7965315238745,
+      "FwhmNanometers": 17.068581966512966,
+      "MinimumReflectance": 0.024200138315325092,
+      "MaximumReflectance": 0.8645832309236289
+    },
+    "BeforeBlockingOd": [
+      0.9696048443040636,
+      1.233408118733843
+    ],
+    "AfterBlockingOd": [
+      0.9784590194957132,
+      1.1851582304389372
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4243311036789,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.068581966512966,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.54076147829511,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9784590194957132,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.1851582304389372,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 1087,
+      "Iterations": 96,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.11871895006710413,
+        0.12084414809084289,
+        0.03885172798216748,
+        0.030395155695936427,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "inequality-targets",
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 1755898,
+        "SensitivityEvaluations": 164034,
+        "AnalyticJacobians": 96,
+        "ConstraintPasses": 10,
+        "AdaptiveRefinements": 9,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 12,
+        "BandMetricEvaluations": 1432,
+        "BandSensitivityBatches": 96,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/2",
+        "TargetProtectionPasses": 10,
+        "ProtectedTrialRejections": 838,
+        "DenseProtectionRejections": 1,
+        "InequalitySubproblems": 140,
+        "InequalityActiveSetIterations": 813
+      }
+    },
+    "Seconds": 18.8109929
+  }
+]

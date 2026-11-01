@@ -204,9 +204,15 @@ public sealed class DelanoMaterializationTests
     }
     internal static string Root()
     {
+        if (Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_TEST_ROOT") is { } configured)
+        {
+            var root = Path.GetFullPath(configured);
+            if (!File.Exists(Path.Combine(root, "AGENTS.md"))) throw new InvalidOperationException("The configured test root is not a repository.");
+            return root;
+        }
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
         while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
-        return directory!.FullName;
+        return directory?.FullName ?? throw new InvalidOperationException("Set OPTICAL_SYSTEM_DESIGN_TEST_ROOT when executing tests outside the checkout.");
     }
     internal static readonly JsonSerializerOptions Json = new()
     {

@@ -1,0 +1,118 @@
+{
+  "Execution": {
+    "CoreSha256": "3688066fd7fc93c14d3c58b433df778b7c4bd2a9eae6c8b3c08f829ab53dc61a",
+    "DriverSha256": "dd4e6e189810292758f7a74c20a6459a77c1b68be01dce339668536644da89a1"
+  },
+  "Cases": [
+    {
+      "Material": "garnet_red",
+      "Fit": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 207.35721226544524,
+          "TrainingNormalizedRms": 1.5617563081895752E-17,
+          "ValidationNormalizedRms": 0.005318595617479094,
+          "ValidationMaximumAbsoluteError": 0.0073065185275713596,
+          "ValidationMaximumRelativeError": 4.700759429532266,
+          "Passed": true
+        }
+      ],
+      "Exported": true,
+      "TrainingNodes": 959,
+      "calibrationSha": "1f8cf6b19096bceddc3b217e2006e8adb3c95423b7a6daa783a02470e4ce55b2"
+    },
+    {
+      "Material": "krylon_blue",
+      "Fit": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 455.3416302184515,
+          "TrainingNormalizedRms": 2.607463379266199E-18,
+          "ValidationNormalizedRms": 0.006423369870710057,
+          "ValidationMaximumAbsoluteError": 0.008012254773295813,
+          "ValidationMaximumRelativeError": 37.95693365680647,
+          "Passed": true
+        }
+      ],
+      "Exported": true,
+      "TrainingNodes": 958,
+      "calibrationSha": "0c602d703ea87bebff74d2decf98b0bae321715ec6415f0a2f3735c41af1340f"
+    },
+    {
+      "Material": "acryl_blue",
+      "Fit": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 228.54195512998038,
+          "TrainingNormalizedRms": 3.5679212001916295E-17,
+          "ValidationNormalizedRms": 0.05140120559773592,
+          "ValidationMaximumAbsoluteError": 0.0018951397436052023,
+          "ValidationMaximumRelativeError": 63.570057676849494,
+          "Passed": false
+        }
+      ],
+      "Exported": false,
+      "TrainingNodes": 959,
+      "calibrationSha": null
+    },
+    {
+      "Material": "mystique",
+      "Fit": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 12378.974992913758,
+          "TrainingNormalizedRms": 2.7969927376822677E-20,
+          "ValidationNormalizedRms": 0.2658934413124006,
+          "ValidationMaximumAbsoluteError": 0.07720889893007751,
+          "ValidationMaximumRelativeError": 22.82144751953049,
+          "Passed": false
+        }
+      ],
+      "Exported": false,
+      "TrainingNodes": 959,
+      "calibrationSha": null
+    },
+    {
+      "Material": "cayman",
+      "Fit": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 7825.951274526894,
+          "TrainingNormalizedRms": 9.162372532008565E-21,
+          "ValidationNormalizedRms": 0.05493499518551718,
+          "ValidationMaximumAbsoluteError": 0.012698994196558289,
+          "ValidationMaximumRelativeError": 7.443188956956047,
+          "Passed": false
+        }
+      ],
+      "Exported": false,
+      "TrainingNodes": 941,
+      "calibrationSha": null
+    }
+  ],
+  "Conditions": {
+    "Observer": "CIE 1931 2-degree nominal CMFs; explicit 400-700 nm band",
+    "Illuminant": "CIE D65; explicit 400-700 nm band, zero outside",
+    "ObserverSourceSha256": "fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1",
+    "IlluminantSourceSha256": "e76f210bffff3d552ef7113025da5f325d5dfec200dd4b878b1a2f3a507032cb",
+    "ProjectionTablesSha256": "c7be424c05b9daa82c3371d05fb26f9202d73f79e3efa2fe936babd99fe8b0df",
+    "MinimumWavelengthNanometers": 400,
+    "MaximumWavelengthNanometers": 700,
+    "Method": "PiecewiseLinearProductGauss2WhiteY/1"
+  }
+}

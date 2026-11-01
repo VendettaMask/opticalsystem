@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <PackageReference Include="Avalonia.Headless" Version="12.1.0" />
+    <Using Include="Xunit" />
+    <ProjectReference Include="../../src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj" />
+    <Compile Include="../../tests/OpticalSystemDesign.Tests/LaboratoryPresentationTests.cs" Link="LaboratoryPresentationTests.cs" />
+    <Compile Include="../../tests/Shared/SafeHeadlessUnitTestSession.cs" Link="SafeHeadlessUnitTestSession.cs" />
+  </ItemGroup>
+</Project>

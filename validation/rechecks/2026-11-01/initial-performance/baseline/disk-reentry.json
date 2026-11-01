@@ -1,0 +1,29 @@
+{
+  "DeclaredAt": "2026-11-01T12:50:13.7332827+08:00",
+  "Reason": "Disk full during atomic checkpoint write; source and prior complete record retained",
+  "SavedConsumed": {
+    "functionEvaluations": 263,
+    "gradientEvaluations": 203,
+    "validationEvaluations": 5,
+    "matrixEvaluations": 144,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 409554,
+    "geometryProbes": 545536,
+    "elapsed": "00:01:17.4461765"
+  },
+  "UnsettledReservation": {
+    "functionEvaluations": 336,
+    "gradientEvaluations": 335,
+    "validationEvaluations": 0,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 9590446,
+    "geometryProbes": 0,
+    "elapsed": "00:08:42.5538242"
+  },
+  "ActualWorkAfterLastSave": "Unknown",
+  "Replacement": "Separately budgeted fresh seed42, same frozen runtime and original caps; completed seed46 retained",
+  "CacheCleanup": "Ignored reproducible F8RealPipeline/bin,1250files checksum verified in a local temp ZIP; no source/input/sealed evidence removed"
+}

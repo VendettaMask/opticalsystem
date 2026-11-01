@@ -38,6 +38,11 @@ public sealed record TopologyTrainingSampling
 
 public sealed record FixedTopologyOptions
 {
+    /// <summary>Explicit experimental compensation: 1 frozen projected QR; 2 joint Core inequality step, failed gates first.
+    /// 3 consistent signed-clearance model and per-row hard correction; 4 inward manufacturing and image training margins.
+    /// Null preserves historical Adam/transmission policies.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? GateCompensationVersion { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? TransmissionFirst { get; init; }
     /// <summary>Choose up to this many independent boundary/constraint sensitivity columns per proposal.</summary>
@@ -121,6 +126,9 @@ public sealed record TopologyTransmissionStep(double BeforeClearance, double Aft
 /// <summary>Same-template continuation only. Structural/variable/protocol changes require a fresh phase.</summary>
 public sealed record FixedTopologyContinuation
 {
+    /// <summary>Only checkpoint-enabled preparation carries diagnostics between slices; absent in historical records.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ImmutableArray<string>? Diagnostics { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool SuppressFallbackAtCurrentPoint { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]

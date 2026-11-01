@@ -1,0 +1,12 @@
+This is a synthetic control authored independently for validation, not a measured commercial material.
+It was saved by the locally installed official Speos RPC 2026.1.0.37094 from the independently authored
+text control with 60-degree / 0.1 cones and White Specular at 550 nm. No native software is included.
+The JSON preserves the known failed Grid/5 power comparison and separates scene escaped power,
+finite sensor flux and the model's full hemisphere. Passing regression tests do not close this gap.
+Original captures and engine identities: validation/rechecks/2026-10-31/commercial-bsdf-calibration/.
+
+speos-white-half-degree / quarter-degree are independently authored, non-measured refinements
+of the same synthetic piecewise-linear angular function, saved with explicit cones by the
+same local official RPC version. They contain no native engine or commercial measured material.
+camera-speos-grid5-frozen.zip preserves the pre-Grid/6 synthetic RAW/ISP execution captured
+by the first 250-test run of the present investigation; its historical calculation stays Grid/5.

@@ -66,7 +66,8 @@ public sealed partial class Paraxial
                 || Math.Abs(frame.RotationXDegrees) > 1e-12 || Math.Abs(frame.RotationYDegrees) > 1e-12
                 || surface.Geometry is not (PlaneGeometry or StandardGeometry or EvenAsphereGeometry
                     or OddAsphereGeometry or ForbesQGeometry)
-                || surface.InteractionModel is not (RefractiveReflectiveInteractionModel or ThinLensInteractionModel))
+                || surface.InteractionModel is not (RefractiveReflectiveInteractionModel or ThinLensInteractionModel or ParaxialLensInteractionModel)
+                || surface.InteractionModel is ParaxialLensInteractionModel lens && lens.PowerX != lens.PowerY)
                 throw new NotSupportedException("该一阶操作数当前要求同轴旋转对称折射/反射面或理想薄透镜；偏心、非对称及相位/衍射系统不能用此标量近轴结果代替。");
             if (surface.MaterialAfter.PropagationModel is not HomogeneousPropagationModel)
                 throw new NotSupportedException("该一阶操作数当前不支持梯度折射率传播介质。");

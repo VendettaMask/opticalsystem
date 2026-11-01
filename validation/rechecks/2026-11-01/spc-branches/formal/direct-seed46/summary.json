@@ -1,0 +1,190 @@
+{
+  "algorithm": "initial-structure-direct-growth-control-v1",
+  "seed": 46,
+  "stopReason": "Completed",
+  "work": {
+    "functionEvaluations": 32,
+    "gradientEvaluations": 22,
+    "validationEvaluations": 10,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 456468,
+    "geometryProbes": 9978,
+    "elapsed": "00:00:03.3943185"
+  },
+  "qualified": 2,
+  "originalParentQualified": false,
+  "stationaryParentQualified": true,
+  "parents": [
+    {
+      "outcome": "DirectGrowthControl",
+      "parentStationarity": null,
+      "saddle": null
+    }
+  ],
+  "branches": [
+    {
+      "id": "parent-0:minus",
+      "sign": -1,
+      "outcome": "QualifiedOriginalSpecification",
+      "initialObjective": null,
+      "optimizedObjective": null,
+      "nullMinimum": null,
+      "endpointFingerprint": "089b8fd623eba91a118b75f9d7e808b202a49e02fe2a0bf379abda837905c633",
+      "worstRms": 0.015109040412313464,
+      "worstMaximum": 0.02977683274670717,
+      "stages": [
+        {
+          "name": "Thickness:1",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.10000000000000053,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.4392426"
+          }
+        },
+        {
+          "name": "Thickness:2",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.20000000000000018,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.2577104"
+          }
+        },
+        {
+          "name": "Thickness:4",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.40000000000000036,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.2515431"
+          }
+        },
+        {
+          "name": "CatalogGlass",
+          "material": "N-F2",
+          "thicknessMillimeters": 0.40000000000000036,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.1965606"
+          }
+        }
+      ]
+    },
+    {
+      "id": "parent-0:plus",
+      "sign": 1,
+      "outcome": "QualifiedOriginalSpecification",
+      "initialObjective": null,
+      "optimizedObjective": null,
+      "nullMinimum": null,
+      "endpointFingerprint": "560ec9591bb3689fde5246ec9cf2fc1a87507391e788b347279c6aefbe41cca9",
+      "worstRms": 0.014996115698632772,
+      "worstMaximum": 0.02957692643762222,
+      "stages": [
+        {
+          "name": "Thickness:1",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.10000000000000053,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.2391247"
+          }
+        },
+        {
+          "name": "Thickness:2",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.20000000000000018,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.3678172"
+          }
+        },
+        {
+          "name": "Thickness:4",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.40000000000000036,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.3123417"
+          }
+        },
+        {
+          "name": "CatalogGlass",
+          "material": "N-F2",
+          "thicknessMillimeters": 0.40000000000000036,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.2855516"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><IsPackable>false</IsPackable><AssemblyName>OpticalSystemDesign.InitialStructure.Tests</AssemblyName></PropertyGroup>
+  <ItemGroup><PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" /><PackageReference Include="xunit" Version="2.9.3" /><PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" /><Using Include="Xunit" /></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(EntryStage)/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/OpticalSystemDesign.InitialStructure.Engine.csproj" />
+    <ProjectReference Include="$(EntryStage)/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/OpticalSystemDesign.InitialStructure.Persistence.csproj" />
+    <Compile Include="$(EntryStage)/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousDesktopSession.cs" Link="AutonomousDesktopSession.cs" />
+  </ItemGroup>
+  <Target Name="RequireStage" BeforeTargets="ResolveReferences" Condition="'$(EntryStage)' == ''"><Error Text="Set EntryStage to the isolated automatic-entry draft." /></Target>
+</Project>

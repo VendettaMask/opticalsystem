@@ -1786,7 +1786,9 @@ public static partial class MeritFunctionCatalog
         var wavelength = ResolveWavelength(
             optic,
             ZemaxIntegerParameter(definition, 1, definition.Wavelength));
-        var index = surface.MaterialAfter.RefractiveIndex(wavelength.Nanometers);
+        var index = surface.MaterialAfter is Materials.GradientIndexMaterial gradient
+            ? gradient.InterfaceRefractiveIndex(Backend.Vector3D.Zero, wavelength.Nanometers)
+            : surface.MaterialAfter.RefractiveIndex(wavelength.Nanometers);
         if (!double.IsFinite(index))
         {
             throw new InvalidOperationException($"表面 {surface.Number} 后材料折射率不是有限数值。");

@@ -1,0 +1,682 @@
+{
+  "algorithm": "initial-structure-spc-branches-v1",
+  "seed": 45,
+  "stopReason": "Completed",
+  "work": {
+    "functionEvaluations": 161,
+    "gradientEvaluations": 151,
+    "validationEvaluations": 10,
+    "matrixEvaluations": 0,
+    "differenceEvaluations": 0,
+    "jacobianBuilds": 0,
+    "tracedRays": 503394,
+    "geometryProbes": 18723,
+    "elapsed": "00:00:14.7337510"
+  },
+  "qualified": 2,
+  "originalParentQualified": false,
+  "stationaryParentQualified": true,
+  "parents": [
+    {
+      "outcome": "IndexOneSaddleCertified",
+      "parentStationarity": {
+        "scope": "parent-declared-curvature-subspace",
+        "objective": 0.03657754107261268,
+        "coordinates": [
+          1.432690258648492,
+          -2.4734469291066903
+        ],
+        "gradient": [
+          -8.519681338289428E-08,
+          8.608619678057751E-08
+        ],
+        "interiorStationary": true,
+        "coarse": {
+          "hessian": [
+            [
+              741.4664373627804,
+              -745.7168235199915
+            ],
+            [
+              -745.7168235199915,
+              750.1107485075776
+            ]
+          ],
+          "eigenvalues": [
+            0.05924396898859641,
+            1491.5179419013693
+          ],
+          "eigenvectors": [
+            [
+              0.7091529725620775,
+              0.7050546514323335
+            ],
+            [
+              -0.7050546514323335,
+              0.7091529725620775
+            ]
+          ],
+          "symmetryError": 1.9746607904380653E-08
+        },
+        "fine": {
+          "hessian": [
+            [
+              741.4664373240264,
+              -745.7168234927182
+            ],
+            [
+              -745.7168234927182,
+              750.1107484329557
+            ]
+          ],
+          "eigenvalues": [
+            0.059243939677514845,
+            1491.5179418173045
+          ],
+          "eigenvectors": [
+            [
+              0.7091529725536745,
+              0.7050546514407854
+            ],
+            [
+              -0.7050546514407854,
+              0.7091529725536745
+            ]
+          ],
+          "symmetryError": 4.881258064415306E-09
+        },
+        "curvatureUncertainty": 8.151619113050401E-07,
+        "stableNegativeDirections": 0,
+        "certified": true
+      },
+      "saddle": {
+        "scope": "expanded-declared-curvature-subspace",
+        "objective": 0.0365775410726125,
+        "coordinates": [
+          1.4326902586484918,
+          -2.4734469291066903,
+          -2.4734469291066903,
+          -2.4734469291066903
+        ],
+        "gradient": [
+          -8.5196775412679E-08,
+          8.608616011487259E-08,
+          -8.608615997962853E-08,
+          8.60861601432177E-08
+        ],
+        "interiorStationary": true,
+        "coarse": {
+          "hessian": [
+            [
+              741.4664373626723,
+              -745.7168235199409,
+              745.7168235020573,
+              -745.7168235198819
+            ],
+            [
+              -745.7168235199409,
+              750.1107485075862,
+              -750.1101846526777,
+              750.1101846764583
+            ],
+            [
+              745.7168235020573,
+              -750.1101846526777,
+              750.1096209094242,
+              -750.1101846758847
+            ],
+            [
+              -745.7168235198819,
+              750.1101846764583,
+              -750.1101846758847,
+              750.1107485074658
+            ]
+          ],
+          "eigenvalues": [
+            -0.00018867665324633995,
+            0.0005638310679059446,
+            0.08823648986750005,
+            2991.7089436428655
+          ],
+          "eigenvectors": [
+            [
+              0.002595214609221857,
+              -0.4073736853342438,
+              -0.8173530661474575,
+              -0.40739895755595407
+            ],
+            [
+              -4.152921637101286E-12,
+              0.707114076566909,
+              1.4590990719755753E-05,
+              -0.7070994855803747
+            ],
+            [
+              0.8672802414146225,
+              0.28863307061968185,
+              -0.28496813907662394,
+              0.2886331462387049
+            ],
+            [
+              -0.4978134667854276,
+              0.5007267855455486,
+              -0.5007265968147272,
+              0.5007267855494029
+            ]
+          ],
+          "symmetryError": 2.4413793653366156E-08
+        },
+        "fine": {
+          "hessian": [
+            [
+              741.466437323705,
+              -745.7168234925325,
+              745.716823487907,
+              -745.7168234922894
+            ],
+            [
+              -745.7168234925325,
+              750.1107484329091,
+              -750.1101846381339,
+              750.1101846440043
+            ],
+            [
+              745.716823487907,
+              -750.1101846381339,
+              750.1096208712727,
+              -750.1101846437039
+            ],
+            [
+              -745.7168234922894,
+              750.1101846440043,
+              -750.1101846437039,
+              750.1107484324152
+            ]
+          ],
+          "eigenvalues": [
+            -0.000188706702477975,
+            0.0005637886578292615,
+            0.08823646642212693,
+            2991.7089435119246
+          ],
+          "eigenvectors": [
+            [
+              0.002595201715939903,
+              -0.40738316666129776,
+              -0.8173530620278933,
+              -0.407389484943701
+            ],
+            [
+              -1.4570361480179977E-11,
+              0.7071086051137533,
+              3.6478832436891305E-06,
+              -0.7071049572452275
+            ],
+            [
+              0.8672802414510624,
+              0.2886330929317209,
+              -0.28496815123325336,
+              0.2886331118149074
+            ],
+            [
+              -0.49781346678915817,
+              0.500726785542539,
+              -0.5007265968200827,
+              0.500726785543348
+            ]
+          ],
+          "symmetryError": 6.418417797249276E-09
+        },
+        "curvatureUncertainty": 1.3382232282310724E-06,
+        "stableNegativeDirections": 1,
+        "certified": true
+      }
+    }
+  ],
+  "branches": [
+    {
+      "id": "parent-0:minus",
+      "sign": -1,
+      "outcome": "QualifiedOriginalSpecification",
+      "initialObjective": 0.03657730388676624,
+      "optimizedObjective": 0.03584411991529185,
+      "nullMinimum": {
+        "scope": "null-branch-declared-curvature-subspace",
+        "objective": 0.03584411991529185,
+        "coordinates": [
+          1.667582190072077,
+          -3.5004403786524967,
+          -5.178608031549894,
+          -3.9187269336596997
+        ],
+        "gradient": [
+          -4.223440849542923E-09,
+          2.995344093913784E-09,
+          -3.107854177852279E-09,
+          2.9504652541573206E-09
+        ],
+        "interiorStationary": true,
+        "coarse": {
+          "hessian": [
+            [
+              744.9617973644091,
+              -745.991409394834,
+              746.8508551890334,
+              -746.2262444056381
+            ],
+            [
+              -745.991409394834,
+              747.1181247718997,
+              -747.9562314348527,
+              747.3471098666028
+            ],
+            [
+              746.8508551890334,
+              -747.9562314348527,
+              748.8021583642678,
+              -748.1873667575906
+            ],
+            [
+              -746.2262444056381,
+              747.3471098666028,
+              -748.1873667575906,
+              747.5767092785366
+            ]
+          ],
+          "eigenvalues": [
+            1.441576637014316E-05,
+            0.0009560472519068793,
+            0.060877282291213926,
+            2988.3969420338035
+          ],
+          "eigenvectors": [
+            [
+              -0.0005292516971035709,
+              -0.5723768231312715,
+              0.21849364556060374,
+              0.7903448735105654
+            ],
+            [
+              0.18437336267725016,
+              -0.5081485581613672,
+              -0.8298291159812896,
+              -0.13847434507271944
+            ],
+            [
+              0.8466026461188854,
+              0.4051751754251944,
+              -0.11434512262512836,
+              0.32561054917724774
+            ],
+            [
+              -0.49926960914141943,
+              0.5000028923914741,
+              -0.5005690342512142,
+              0.500157582104621
+            ]
+          ],
+          "symmetryError": 2.6809971132024657E-08
+        },
+        "fine": {
+          "hessian": [
+            [
+              744.9617973259107,
+              -745.9914093686434,
+              746.8508551742464,
+              -746.2262443792065
+            ],
+            [
+              -745.9914093686434,
+              747.1181246951875,
+              -747.9562314197492,
+              747.3471098335285
+            ],
+            [
+              746.8508551742464,
+              -747.9562314197492,
+              748.8021583235737,
+              -748.1873667246188
+            ],
+            [
+              -746.2262443792065,
+              747.3471098335285,
+              -748.1873667246188,
+              747.576709201581
+            ]
+          ],
+          "eigenvalues": [
+            1.437815234189904E-05,
+            0.0009560105651140664,
+            0.06087725623452619,
+            2988.3969419013
+          ],
+          "eigenvectors": [
+            [
+              -0.0005267883200968873,
+              -0.5723835463395295,
+              0.21848264744848553,
+              0.7903430464916803
+            ],
+            [
+              0.1843733129995179,
+              -0.5081410011838332,
+              -0.8298320033173296,
+              -0.13848483902514783
+            ],
+            [
+              0.8466026584714966,
+              0.4051751552093759,
+              -0.11434518344988132,
+              0.32561052085561604
+            ],
+            [
+              -0.49926960914584223,
+              0.5000028923883676,
+              -0.5005690342560769,
+              0.5001575820984452
+            ]
+          ],
+          "symmetryError": 7.785729394527152E-09
+        },
+        "curvatureUncertainty": 1.3554654287872836E-06,
+        "stableNegativeDirections": 0,
+        "certified": true
+      },
+      "endpointFingerprint": "4c781eceb033958aa7e2418bacc965c99cc67d40ef323e9ae54379e0d3588ead",
+      "worstRms": 0.01232427381798888,
+      "worstMaximum": 0.024898729311220835,
+      "stages": [
+        {
+          "name": "Thickness:1",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.10000000000000053,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 9,
+            "gradientEvaluations": 8,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 51672,
+            "geometryProbes": 5247,
+            "elapsed": "00:00:01.4875654"
+          }
+        },
+        {
+          "name": "Thickness:2",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.20000000000000018,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.4031714"
+          }
+        },
+        {
+          "name": "Thickness:4",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.40000000000000036,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.5238315"
+          }
+        },
+        {
+          "name": "CatalogGlass",
+          "material": "N-F2",
+          "thicknessMillimeters": 0.40000000000000036,
+          "outcome": "OriginalSpecificationFailed",
+          "work": {
+            "functionEvaluations": 7,
+            "gradientEvaluations": 6,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 49884,
+            "geometryProbes": 4081,
+            "elapsed": "00:00:00.8210686"
+          }
+        }
+      ]
+    },
+    {
+      "id": "parent-0:plus",
+      "sign": 1,
+      "outcome": "QualifiedOriginalSpecification",
+      "initialObjective": 0.03657730666329999,
+      "optimizedObjective": 0.03565357571780765,
+      "nullMinimum": {
+        "scope": "null-branch-declared-curvature-subspace",
+        "objective": 0.03565357571780765,
+        "coordinates": [
+          1.5882062377715378,
+          -0.8703573259406886,
+          2.674796979872483,
+          1.2257403379328426
+        ],
+        "gradient": [
+          2.0560074859967217E-10,
+          -2.0687892548278694E-10,
+          2.0697262697791765E-10,
+          -2.0692323348487848E-10
+        ],
+        "interiorStationary": true,
+        "coarse": {
+          "hessian": [
+            [
+              743.5133924602457,
+              -744.9787966870599,
+              744.8241906268571,
+              -744.8406179647169
+            ],
+            [
+              -744.9787966870599,
+              746.5903371181137,
+              -746.4402679204645,
+              746.4563241467088
+            ],
+            [
+              744.8241906268571,
+              -746.4402679204645,
+              746.2910317191428,
+              -746.3068333553923
+            ],
+            [
+              -744.8406179647169,
+              746.4563241467088,
+              -746.3068333553923,
+              746.3227423636478
+            ]
+          ],
+          "eigenvalues": [
+            1.1243376355039404E-05,
+            0.000312874747176964,
+            0.11206075443487039,
+            2982.6051187885914
+          ],
+          "eigenvectors": [
+            [
+              0.007846706830697953,
+              0.3045839999497085,
+              -0.5085350918941807,
+              -0.8053316562005535
+            ],
+            [
+              -0.026659479848647274,
+              -0.7669688248392432,
+              -0.6318557401865083,
+              0.10865733961527617
+            ],
+            [
+              -0.8660096212862108,
+              -0.26205954720087743,
+              0.30321508320017276,
+              -0.29901963627912
+            ],
+            [
+              -0.4992544813677955,
+              0.5003121050106796,
+              -0.5002109527243972,
+              0.5002217140313951
+            ]
+          ],
+          "symmetryError": 2.4947667043306865E-08
+        },
+        "fine": {
+          "hessian": [
+            [
+              743.5133924209579,
+              -744.9787966584479,
+              744.8241906137948,
+              -744.8406179348599
+            ],
+            [
+              -744.9787966584479,
+              746.590337046916,
+              -746.440267906957,
+              746.4563241160038
+            ],
+            [
+              744.8241906137948,
+              -746.440267906957,
+              746.2910316828313,
+              -746.3068333247995
+            ],
+            [
+              -744.8406179348599,
+              746.4563241160038,
+              -746.3068333247995,
+              746.322742292963
+            ]
+          ],
+          "eigenvalues": [
+            1.1217335511416148E-05,
+            0.00031283207259950093,
+            0.11206073322604301,
+            2982.6051186610343
+          ],
+          "eigenvectors": [
+            [
+              0.007847390531197375,
+              0.30460401329875164,
+              -0.5085185966880974,
+              -0.8053344959496725
+            ],
+            [
+              -0.026659249140043834,
+              -0.7669608674059546,
+              -0.6318690212924571,
+              0.10863633017599374
+            ],
+            [
+              -0.8660096221916591,
+              -0.2620595743962329,
+              0.30321507139670584,
+              -0.2990196217919754
+            ],
+            [
+              -0.49925448137057327,
+              0.5003121050079291,
+              -0.5002109527301167,
+              0.5002217140256543
+            ]
+          ],
+          "symmetryError": 6.159439180919435E-09
+        },
+        "curvatureUncertainty": 1.2947166396770626E-06,
+        "stableNegativeDirections": 0,
+        "certified": true
+      },
+      "endpointFingerprint": "99d0b62b33a98cc69276265afa165b049b5d5910907c67893700a730527dc68b",
+      "worstRms": 0.01079857827014702,
+      "worstMaximum": 0.030662830122735407,
+      "stages": [
+        {
+          "name": "Thickness:1",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.10000000000000053,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 5,
+            "gradientEvaluations": 4,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 48096,
+            "geometryProbes": 2915,
+            "elapsed": "00:00:00.3558700"
+          }
+        },
+        {
+          "name": "Thickness:2",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.20000000000000018,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.2081893"
+          }
+        },
+        {
+          "name": "Thickness:4",
+          "material": "N-BK7",
+          "thicknessMillimeters": 0.40000000000000036,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.2154606"
+          }
+        },
+        {
+          "name": "CatalogGlass",
+          "material": "N-F2",
+          "thicknessMillimeters": 0.40000000000000036,
+          "outcome": "QualifiedOriginalSpecification",
+          "work": {
+            "functionEvaluations": 2,
+            "gradientEvaluations": 1,
+            "validationEvaluations": 1,
+            "matrixEvaluations": 0,
+            "differenceEvaluations": 0,
+            "jacobianBuilds": 0,
+            "tracedRays": 45414,
+            "geometryProbes": 1166,
+            "elapsed": "00:00:00.2447739"
+          }
+        }
+      ]
+    }
+  ]
+}

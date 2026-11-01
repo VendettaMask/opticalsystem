@@ -11,6 +11,10 @@ namespace OpticalSystemDesign.InitialStructure.Engine;
 /// <summary>Finite retrieval of existing prescriptions. Compatibility and ranking never replace original physical acceptance.</summary>
 public static class LensRetrievalSearch
 {
+    private sealed record IndexedDescriptor(int Index, CenteredPrescriptionDescriptor Descriptor);
+    private sealed record RankedIndex(int Index, double Score);
+    private sealed record PreparationState(string Phase, int Cursor, ImmutableArray<LensRetrievalTrial> Trials,
+        ImmutableArray<RankedIndex> Eligible, ImmutableArray<IndexedDescriptor> Descriptors, ImmutableArray<int> Transformed, int DescriptorCount);
     private sealed class Limit : Exception;
     public static void ValidateOptions(ParaxialSeedSearchOptions options)
     {
@@ -44,27 +48,31 @@ public static class LensRetrievalSearch
             Transform = "uniform-Core-scale/stop-anchor/fixed-task-planes/ordinal-task-apertures-v1",
             Backend = "CPU/double"
         });
-        var timer = Stopwatch.StartNew();
-        using var deadline = new CancellationTokenSource(options.TimeLimit);
+        var checkpoint = PreparationCheckpointContext.For("Retrieval", plan); var saved = checkpoint?.Load<PreparationState>();
+        var timer = checkpoint?.Clock() ?? new PreparationClock();
+        using var deadline = new CancellationTokenSource(checkpoint?.RemainingTime ?? options.TimeLimit); checkpoint?.Attach(deadline);
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, deadline.Token);
         var token = linked.Token;
-        using var rays = SequentialTraceMeasurement.BeginCpuBudget(options.MaximumTracedRays);
+        using var rays = checkpoint?.Rays(options.MaximumTracedRays) ?? new PreparationRays(options.MaximumTracedRays);
         using var cpu = new SequentialGpuSession(DesignComputeMode.Cpu, token);
-        var trials = policy.Library.Entries.Select(entry => new LensRetrievalTrial
+        var trials = saved?.Trials.ToArray() ?? policy.Library.Entries.Select(entry => new LensRetrievalTrial
         {
             EntryId = entry.Id,
             Provenance = entry.Provenance,
             EntryFingerprint = ContentFingerprint.Compute(entry),
             Outcome = "NotIndexed"
         }).ToArray();
-        var eligible = new List<(int Index, double Score)>();
-        var verifiedDescriptors = new Dictionary<int, CenteredPrescriptionDescriptor>();
-        var functions = 0; var validations = 0; var descriptors = 0; long probes = 0;
+        var eligible = saved?.Eligible.Select(item => (item.Index, item.Score)).ToList() ?? new List<(int Index, double Score)>();
+        var verifiedDescriptors = saved?.Descriptors.ToDictionary(item => item.Index, item => item.Descriptor) ?? new Dictionary<int, CenteredPrescriptionDescriptor>();
+        var transformed = saved?.Transformed.ToList() ?? new List<int>();
+        var functions = checkpoint?.State.Consumed.FunctionEvaluations ?? 0; var validations = checkpoint?.State.Consumed.ValidationEvaluations ?? 0;
+        var descriptors = saved?.DescriptorCount ?? 0; long probes = checkpoint?.State.Consumed.GeometryProbes ?? 0;
         var termination = ParaxialSeedTermination.Completed; var reason = "Completed";
         try
         {
-            for (var index = 0; index < trials.Length; index++)
+            for (var index = saved is { Phase: "Index" } ? saved.Cursor : saved is null ? 0 : trials.Length; index < trials.Length; index++)
             {
+                checkpoint?.Reserve("LibraryIndex", 1);
                 Check(); var before = timer.Elapsed; functions++; descriptors++;
                 try
                 {
@@ -89,12 +97,15 @@ public static class LensRetrievalSearch
                 { trials[index] = trials[index] with { Outcome = "SourceRejected", Detail = error.Message }; }
                 finally { AddWork(index, 1, 0, 0, 0, timer.Elapsed - before); }
                 progress?.Invoke(index + 1, functions);
+                Commit("Index", index + 1);
             }
-            var transformed = new List<int>();
-            foreach (var item in eligible.OrderBy(item => item.Score).ThenBy(item => trials[item.Index].EntryId, StringComparer.Ordinal).Take(options.MaximumStarts))
+            var ordered = eligible.OrderBy(item => item.Score).ThenBy(item => trials[item.Index].EntryId, StringComparer.Ordinal).Take(options.MaximumStarts).ToArray();
+            var transferCursor = saved is { Phase: "Transform" } ? saved.Cursor : saved is { Phase: "Validate" } ? ordered.Length : 0;
+            foreach (var item in ordered.Skip(transferCursor))
             {
+                checkpoint?.Reserve("LibraryTransform", 1);
                 if (trials[item.Index].Work.FunctionEvaluations >= options.MaximumEvaluationsPerStart)
-                { trials[item.Index] = trials[item.Index] with { Outcome = "PerEntryFunctionBudget" }; continue; }
+                { trials[item.Index] = trials[item.Index] with { Outcome = "PerEntryFunctionBudget" }; Commit("Transform", ++transferCursor); continue; }
                 Check(); var before = timer.Elapsed; functions++; descriptors++;
                 try
                 {
@@ -115,11 +126,14 @@ public static class LensRetrievalSearch
                 catch (Exception error) when (TopologyEvaluationPlan.DomainError(error))
                 { trials[item.Index] = trials[item.Index] with { Outcome = "TransferRejected", Detail = error.Message }; }
                 finally { AddWork(item.Index, 1, 0, 0, 0, timer.Elapsed - before); }
+                Commit("Transform", ++transferCursor);
             }
-            foreach (var index in transformed.Take(policy.MaximumCandidates))
+            var validationCursor = saved is { Phase: "Validate" } ? saved.Cursor : 0;
+            foreach (var index in transformed.Take(policy.MaximumCandidates).Skip(validationCursor))
             {
+                checkpoint?.Reserve("LibraryValidation", 1);
                 if (trials[index].Work.FunctionEvaluations >= options.MaximumEvaluationsPerStart)
-                { trials[index] = trials[index] with { Outcome = "PerEntryFunctionBudget" }; continue; }
+                { trials[index] = trials[index] with { Outcome = "PerEntryFunctionBudget" }; Commit("Validate", ++validationCursor); continue; }
                 Check(); var source = TopologyCompiler.Compile(trials[index].Topology!, plan.Constraints);
                 if (options.MaximumTracedRays - rays.RayCount < StructureSearchDiagnostics.EstimateFinalRays(source, policy.FinalRayRecoveryFactor))
                 { reason = "InsufficientCompleteValidationBudget"; termination = ParaxialSeedTermination.BudgetExhausted; break; }
@@ -135,6 +149,7 @@ public static class LensRetrievalSearch
                 AddWork(index, 1, 1, rays.RayCount - beforeRays, assessment.GeometryProbes, timer.Elapsed - before);
                 if (!assessment.Completed) token.ThrowIfCancellationRequested();
                 progress?.Invoke(trials.Length, functions);
+                Commit("Validate", ++validationCursor);
             }
         }
         catch (Limit) { termination = ParaxialSeedTermination.BudgetExhausted; reason = "FunctionBudget"; }
@@ -175,6 +190,10 @@ public static class LensRetrievalSearch
         void Check() { token.ThrowIfCancellationRequested(); if (functions >= options.MaximumFunctionEvaluations) throw new Limit(); }
         void AddWork(int index, int f, int v, long r, long g, TimeSpan elapsed) => trials[index] = trials[index] with
         { Work = Sum(trials[index].Work, new() { FunctionEvaluations = f, ValidationEvaluations = v, TracedRays = r, GeometryProbes = g, Elapsed = elapsed }) };
+        void Commit(string phase, int cursor) => checkpoint?.Commit(new PreparationState(phase, cursor, trials.ToImmutableArray(),
+            eligible.Select(e => new RankedIndex(e.Index, e.Score)).ToImmutableArray(), verifiedDescriptors.Select(d => new IndexedDescriptor(d.Key, d.Value)).ToImmutableArray(),
+            transformed.ToImmutableArray(), descriptors), "Retrieval:" + phase, cursor, checkpoint.State.RandomState,
+            new() { FunctionEvaluations = functions, ValidationEvaluations = validations, TracedRays = rays.RayCount, GeometryProbes = probes, Elapsed = timer.Elapsed });
     }
 
     private static (CompiledTopology, LensRetrievalTransform) Transfer(LensLibraryEntry entry, CompiledTopology taskSource,

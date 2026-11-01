@@ -1,0 +1,6626 @@
+[
+  {
+    "Name": "correction-real-nbf-red-feedback-1-baseline",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 730.6625038640321,
+      "PeakTransmittance": 0.7679076786523027,
+      "LeftHalfMaximumNanometers": 718.2394960235705,
+      "RightHalfMaximumNanometers": 739.0550359143706,
+      "FwhmNanometers": 20.815539890800096,
+      "MinimumReflectance": 0.00020703799533255512,
+      "MaximumReflectance": 0.931649507174983
+    },
+    "Od": [
+      1.2501944878330975,
+      1.2261825866534193
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 730.6625038640321,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 20.815539890800096,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 76.79076786523026,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.2501944878330975,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.2261825866534193,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-1-short-0",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 729.4278847249494,
+      "PeakTransmittance": 0.7554930165643816,
+      "LeftHalfMaximumNanometers": 718.7181266074207,
+      "RightHalfMaximumNanometers": 739.9151379203025,
+      "FwhmNanometers": 21.19701131288184,
+      "MinimumReflectance": 0.0543858742671759,
+      "MaximumReflectance": 0.8640003952144123
+    },
+    "Od": [
+      1.0016572682478257,
+      1.1980612596227125
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 729.4278847249494,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 21.19701131288184,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.54930165643816,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.0016572682478257,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.1980612596227125,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-1-short-1",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 730.6285292808881,
+      "PeakTransmittance": 0.7537358138747751,
+      "LeftHalfMaximumNanometers": 719.3075608768205,
+      "RightHalfMaximumNanometers": 738.3031425163006,
+      "FwhmNanometers": 18.995581639480065,
+      "MinimumReflectance": 0.010124369116411928,
+      "MaximumReflectance": 0.9353671783845223
+    },
+    "Od": [
+      1.4073398470873932,
+      1.0251034062842386
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 730.6285292808881,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 18.995581639480065,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.3735813874775,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.4073398470873932,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.0251034062842386,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-1-short-2",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 729.8082659614627,
+      "PeakTransmittance": 0.7436170862059972,
+      "LeftHalfMaximumNanometers": 718.652325371653,
+      "RightHalfMaximumNanometers": 740.5347202842535,
+      "FwhmNanometers": 21.88239491260049,
+      "MinimumReflectance": 3.0821723948371664E-05,
+      "MaximumReflectance": 0.9323940810139062
+    },
+    "Od": [
+      0.9688874062952695,
+      1.1286750025200512
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 729.8082659614627,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 21.88239491260049,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 74.36170862059971,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 0.9688874062952695,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.1286750025200512,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-1-short-3",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 730.6301450972954,
+      "PeakTransmittance": 0.7511392791159872,
+      "LeftHalfMaximumNanometers": 719.3818662152903,
+      "RightHalfMaximumNanometers": 740.6181495192546,
+      "FwhmNanometers": 21.236283303964342,
+      "MinimumReflectance": 0.05246730969827443,
+      "MaximumReflectance": 0.8592321208466414
+    },
+    "Od": [
+      1.184561597242926,
+      1.2710656088386982
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 730.6301450972954,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 21.236283303964342,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.11392791159872,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.184561597242926,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.2710656088386982,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-1-full",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 729.3364176762886,
+      "PeakTransmittance": 0.7666534222845313,
+      "LeftHalfMaximumNanometers": 717.0289855621036,
+      "RightHalfMaximumNanometers": 738.1298669584966,
+      "FwhmNanometers": 21.100881396392992,
+      "MinimumReflectance": 0.04513087409378753,
+      "MaximumReflectance": 0.921200656308529
+    },
+    "Od": [
+      1.0667749781551807,
+      1.3120149320000587
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 729.3364176762886,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 21.100881396392992,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 76.66534222845313,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.0667749781551807,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.3120149320000587,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-2-baseline",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 730.6625038640321,
+      "PeakTransmittance": 0.7679076786523027,
+      "LeftHalfMaximumNanometers": 718.2394960235705,
+      "RightHalfMaximumNanometers": 739.0550359143706,
+      "FwhmNanometers": 20.815539890800096,
+      "MinimumReflectance": 0.00020703799533255512,
+      "MaximumReflectance": 0.931649507174983
+    },
+    "Od": [
+      1.2501944878330975,
+      1.2261825866534193
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 730.6625038640321,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 20.815539890800096,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 76.79076786523026,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.2501944878330975,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.2261825866534193,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-2-short-0",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 730.6285292808881,
+      "PeakTransmittance": 0.7537358138747751,
+      "LeftHalfMaximumNanometers": 719.3075608768205,
+      "RightHalfMaximumNanometers": 738.3031425163006,
+      "FwhmNanometers": 18.995581639480065,
+      "MinimumReflectance": 0.010124369116411928,
+      "MaximumReflectance": 0.9353671783845223
+    },
+    "Od": [
+      1.4073398470873932,
+      1.0251034062842386
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 730.6285292808881,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 18.995581639480065,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.3735813874775,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.4073398470873932,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.0251034062842386,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-2-short-1",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 730.0221866378687,
+      "PeakTransmittance": 0.7581159742888041,
+      "LeftHalfMaximumNanometers": 719.972451180426,
+      "RightHalfMaximumNanometers": 742.3304078857578,
+      "FwhmNanometers": 22.357956705331844,
+      "MinimumReflectance": 0.01867606833434457,
+      "MaximumReflectance": 0.8979185117700743
+    },
+    "Od": [
+      1.1763382121431094,
+      1.097575466020103
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 730.0221866378687,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 22.357956705331844,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.8115974288804,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.1763382121431094,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.097575466020103,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-2-short-2",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 729.3730025218226,
+      "PeakTransmittance": 0.7679105827857687,
+      "LeftHalfMaximumNanometers": 718.0497163504493,
+      "RightHalfMaximumNanometers": 739.2413422690602,
+      "FwhmNanometers": 21.19162591861084,
+      "MinimumReflectance": 0.010369202574827522,
+      "MaximumReflectance": 0.9240430300010885
+    },
+    "Od": [
+      0.9637340626375587,
+      1.0967802334614845
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 729.3730025218226,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 21.19162591861084,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 76.79105827857687,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 0.9637340626375587,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.0967802334614845,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-2-short-3",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 730.6640758059895,
+      "PeakTransmittance": 0.742962837111308,
+      "LeftHalfMaximumNanometers": 721.2457877464358,
+      "RightHalfMaximumNanometers": 742.4484466211253,
+      "FwhmNanometers": 21.20265887468952,
+      "MinimumReflectance": 0.04467842965177872,
+      "MaximumReflectance": 0.9003649357778873
+    },
+    "Od": [
+      1.1672849551641964,
+      1.0500510452025085
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 730.6640758059895,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 21.20265887468952,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 74.2962837111308,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.1672849551641964,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.0500510452025085,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "correction-real-nbf-red-feedback-2-full",
+    "Source": "correction-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 730.6615572831548,
+      "PeakTransmittance": 0.7571354289003487,
+      "LeftHalfMaximumNanometers": 718.5228316195954,
+      "RightHalfMaximumNanometers": 738.4590395467849,
+      "FwhmNanometers": 19.936207927189457,
+      "MinimumReflectance": 0.004243284058265538,
+      "MaximumReflectance": 0.936039887434165
+    },
+    "Od": [
+      1.4133200366963798,
+      1.050999397633806
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.7311259\u20132734.6537",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 730.6615572831548,
+        "Requirement": "730 \u00B1 0.66363636",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 19.936207927189457,
+        "Requirement": "19.909091 \u00B1 1.3272727",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.71354289003487,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A650.36364\u2013676.90909 nm",
+        "Actual": 1.4133200366963798,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A783.09091\u2013809.63636 nm",
+        "Actual": 1.050999397633806,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-1-baseline",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.79413259393493,
+      "PeakTransmittance": 0.9975952328659047,
+      "LeftHalfMaximumNanometers": 490.7115624368858,
+      "RightHalfMaximumNanometers": 504.34783681170416,
+      "FwhmNanometers": 13.636274374818356,
+      "MinimumReflectance": 0.0023822107829292232,
+      "MaximumReflectance": 0.9800765499470803
+    },
+    "Od": [
+      1.1348701809400854,
+      1.4215555251353413
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 26,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.79413259393493,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.636274374818356,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.75952328659046,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.1348701809400854,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.4215555251353413,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-1-short-0",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.4697048590648,
+      "PeakTransmittance": 0.9769217412824659,
+      "LeftHalfMaximumNanometers": 492.57688666326953,
+      "RightHalfMaximumNanometers": 505.6224354405897,
+      "FwhmNanometers": 13.045548777320164,
+      "MinimumReflectance": 0.02306023761127137,
+      "MaximumReflectance": 0.9703291671905253
+    },
+    "Od": [
+      1.036481673296361,
+      1.239397382240488
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 27,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.4697048590648,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.045548777320164,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 97.69217412824659,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.036481673296361,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.239397382240488,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-1-short-1",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.459337285883,
+      "PeakTransmittance": 0.9938683466787144,
+      "LeftHalfMaximumNanometers": 493.3213391391563,
+      "RightHalfMaximumNanometers": 506.06963880716074,
+      "FwhmNanometers": 12.74829966800445,
+      "MinimumReflectance": 0.006113307350578383,
+      "MaximumReflectance": 0.9625089899268312
+    },
+    "Od": [
+      1.044484062536624,
+      1.2723767361187721
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.459337285883,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 12.74829966800445,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.38683466787144,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.044484062536624,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.2723767361187721,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-1-short-2",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.23962721904286,
+      "PeakTransmittance": 0.9873005712490099,
+      "LeftHalfMaximumNanometers": 490.7625185835238,
+      "RightHalfMaximumNanometers": 505.16552927216725,
+      "FwhmNanometers": 14.403010688643462,
+      "MinimumReflectance": 0.01268214948079485,
+      "MaximumReflectance": 0.9767851371307439
+    },
+    "Od": [
+      0.9992927409214188,
+      1.4109486998832517
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.23962721904286,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 14.403010688643462,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 98.730057124901,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 0.9992927409214188,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.4109486998832517,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-1-short-3",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.5632576561106,
+      "PeakTransmittance": 0.9697943347578373,
+      "LeftHalfMaximumNanometers": 492.49312360111986,
+      "RightHalfMaximumNanometers": 506.8381776862817,
+      "FwhmNanometers": 14.345054085161848,
+      "MinimumReflectance": 0.03018770924143821,
+      "MaximumReflectance": 0.9694482925947812
+    },
+    "Od": [
+      1.0040490037852006,
+      1.2651927177421698
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.5632576561106,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 14.345054085161848,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 96.97943347578372,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.0040490037852006,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.2651927177421698,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-1-full",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.8875501910585,
+      "PeakTransmittance": 0.9991365539946271,
+      "LeftHalfMaximumNanometers": 491.1267630112119,
+      "RightHalfMaximumNanometers": 504.7778493315782,
+      "FwhmNanometers": 13.65108632036629,
+      "MinimumReflectance": 0.0008447405526639293,
+      "MaximumReflectance": 0.9748402530709204
+    },
+    "Od": [
+      1.0642942414668062,
+      1.3289876617809864
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.8875501910585,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.65108632036629,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.91365539946271,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.0642942414668062,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.3289876617809864,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-2-baseline",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.79413259393493,
+      "PeakTransmittance": 0.9975952328659047,
+      "LeftHalfMaximumNanometers": 490.7115624368858,
+      "RightHalfMaximumNanometers": 504.34783681170416,
+      "FwhmNanometers": 13.636274374818356,
+      "MinimumReflectance": 0.0023822107829292232,
+      "MaximumReflectance": 0.9800765499470803
+    },
+    "Od": [
+      1.1348701809400854,
+      1.4215555251353413
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 26,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.79413259393493,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.636274374818356,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.75952328659046,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.1348701809400854,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.4215555251353413,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-2-short-0",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.0118932324967,
+      "PeakTransmittance": 0.9999374713077186,
+      "LeftHalfMaximumNanometers": 490.3824925019701,
+      "RightHalfMaximumNanometers": 504.75390215866935,
+      "FwhmNanometers": 14.371409656699257,
+      "MinimumReflectance": 3.0369977001591273E-05,
+      "MaximumReflectance": 0.9759220310838763
+    },
+    "Od": [
+      1.0161859534259197,
+      1.2571853824206574
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.0118932324967,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 14.371409656699257,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.99374713077187,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.0161859534259197,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.2571853824206574,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-2-short-1",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.0590315878099,
+      "PeakTransmittance": 0.9958021880940096,
+      "LeftHalfMaximumNanometers": 491.6088484745447,
+      "RightHalfMaximumNanometers": 504.5670738068473,
+      "FwhmNanometers": 12.958225332302618,
+      "MinimumReflectance": 0.0041660902536172105,
+      "MaximumReflectance": 0.977531564199612
+    },
+    "Od": [
+      1.1418501920548068,
+      1.2751704847321972
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.0590315878099,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 12.958225332302618,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.58021880940096,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.1418501920548068,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.2751704847321972,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-2-short-2",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.00001476279937,
+      "PeakTransmittance": 0.9997245374947393,
+      "LeftHalfMaximumNanometers": 490.78136561228155,
+      "RightHalfMaximumNanometers": 504.7337542955872,
+      "FwhmNanometers": 13.952388683305628,
+      "MinimumReflectance": 0.0002436773230476552,
+      "MaximumReflectance": 0.9746723908063951
+    },
+    "Od": [
+      1.1284927056318652,
+      1.2216977430354206
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.00001476279937,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.952388683305628,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.97245374947393,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.1284927056318652,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.2216977430354206,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-2-short-3",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.23962721904286,
+      "PeakTransmittance": 0.9873005712490099,
+      "LeftHalfMaximumNanometers": 490.7625185835238,
+      "RightHalfMaximumNanometers": 505.16552927216725,
+      "FwhmNanometers": 14.403010688643462,
+      "MinimumReflectance": 0.01268214948079485,
+      "MaximumReflectance": 0.9767851371307439
+    },
+    "Od": [
+      0.9992927409214188,
+      1.4109486998832517
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.23962721904286,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 14.403010688643462,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 98.730057124901,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 0.9992927409214188,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.4109486998832517,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green-feedback-2-full",
+    "Source": "hf-ti-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.2081103893223,
+      "PeakTransmittance": 0.9999670787437855,
+      "LeftHalfMaximumNanometers": 490.55723190993893,
+      "RightHalfMaximumNanometers": 504.6368776695841,
+      "FwhmNanometers": 14.079645759645189,
+      "MinimumReflectance": 6.895009724340591E-09,
+      "MaximumReflectance": 0.9786088661485858
+    },
+    "Od": [
+      1.1090955885428888,
+      1.2833606557915342
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.2081103893223,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 14.079645759645189,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.99670787437856,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.1090955885428888,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.2833606557915342,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-1-baseline",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1548.4500771768155,
+      "PeakTransmittance": 0.7543521012004988,
+      "LeftHalfMaximumNanometers": 1514.377125614624,
+      "RightHalfMaximumNanometers": 1581.4713696228039,
+      "FwhmNanometers": 67.09424400817988,
+      "MinimumReflectance": 0.007175290086623305,
+      "MaximumReflectance": 0.8809112915300175
+    },
+    "Od": [
+      1.0295423738255693,
+      1.1485679616741404
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1548.4500771768155,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 67.09424400817988,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.43521012004987,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.0295423738255693,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.1485679616741404,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-1-short-0",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1550.6580863193606,
+      "PeakTransmittance": 0.689272234703487,
+      "LeftHalfMaximumNanometers": 1522.9539015379848,
+      "RightHalfMaximumNanometers": 1577.1251445274152,
+      "FwhmNanometers": 54.17124298943031,
+      "MinimumReflectance": 0.037258863386252374,
+      "MaximumReflectance": 0.9200000952871497
+    },
+    "Od": [
+      1.2901707323687222,
+      1.4409883835554067
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1550.6580863193606,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 54.17124298943031,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 68.9272234703487,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.2901707323687222,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.4409883835554067,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-1-short-1",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1550.7585610935903,
+      "PeakTransmittance": 0.7500317929985131,
+      "LeftHalfMaximumNanometers": 1505.74780070913,
+      "RightHalfMaximumNanometers": 1589.6078224093565,
+      "FwhmNanometers": 83.86002170022653,
+      "MinimumReflectance": 0.00044602676396485083,
+      "MaximumReflectance": 0.9044204032174588
+    },
+    "Od": [
+      1.5689527785211186,
+      1.5159704275233123
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 12,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1550.7585610935903,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 83.86002170022653,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.00317929985131,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.5689527785211186,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.5159704275233123,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-1-short-2",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1564.4634609537575,
+      "PeakTransmittance": 0.7152749838616306,
+      "LeftHalfMaximumNanometers": 1537.2563535830905,
+      "RightHalfMaximumNanometers": 1590.7910553038528,
+      "FwhmNanometers": 53.534701720762314,
+      "MinimumReflectance": 0.00944471390353842,
+      "MaximumReflectance": 0.8908763644456945
+    },
+    "Od": [
+      0.9169925702260823,
+      1.2257393335546842
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1564.4634609537575,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 53.534701720762314,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 71.52749838616306,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 0.9169925702260823,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.2257393335546842,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-1-short-3",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1550.6343488490345,
+      "PeakTransmittance": 0.7452309911246586,
+      "LeftHalfMaximumNanometers": 1514.9881343653135,
+      "RightHalfMaximumNanometers": 1583.2365364734062,
+      "FwhmNanometers": 68.2484021080927,
+      "MinimumReflectance": 0.0021414327583997254,
+      "MaximumReflectance": 0.8823649258396021
+    },
+    "Od": [
+      0.9912994509388636,
+      1.1764364878116726
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 12,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1550.6343488490345,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 68.2484021080927,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 74.52309911246586,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 0.9912994509388636,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.1764364878116726,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-1-full",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1548.4500038820283,
+      "PeakTransmittance": 0.7186373971778236,
+      "LeftHalfMaximumNanometers": 1516.7981644432134,
+      "RightHalfMaximumNanometers": 1574.9521999337474,
+      "FwhmNanometers": 58.15403549053394,
+      "MinimumReflectance": 0.01675153004560713,
+      "MaximumReflectance": 0.918902847089708
+    },
+    "Od": [
+      1.0831386061541846,
+      1.4435491861415506
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1548.4500038820283,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 58.15403549053394,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 71.86373971778237,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.0831386061541846,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.4435491861415506,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-2-baseline",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1548.4500771768155,
+      "PeakTransmittance": 0.7543521012004988,
+      "LeftHalfMaximumNanometers": 1514.377125614624,
+      "RightHalfMaximumNanometers": 1581.4713696228039,
+      "FwhmNanometers": 67.09424400817988,
+      "MinimumReflectance": 0.007175290086623305,
+      "MaximumReflectance": 0.8809112915300175
+    },
+    "Od": [
+      1.0295423738255693,
+      1.1485679616741404
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1548.4500771768155,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 67.09424400817988,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.43521012004987,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.0295423738255693,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.1485679616741404,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-2-short-0",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1550.4367742676186,
+      "PeakTransmittance": 0.7074296590324116,
+      "LeftHalfMaximumNanometers": 1515.2041811256518,
+      "RightHalfMaximumNanometers": 1575.961281550183,
+      "FwhmNanometers": 60.757100424531245,
+      "MinimumReflectance": 0.004058270628173808,
+      "MaximumReflectance": 0.925577236888877
+    },
+    "Od": [
+      1.1834523029659823,
+      1.5654306743638564
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1550.4367742676186,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 60.757100424531245,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 70.74296590324116,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.1834523029659823,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.5654306743638564,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-2-short-1",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1564.4634609537575,
+      "PeakTransmittance": 0.7152749838616306,
+      "LeftHalfMaximumNanometers": 1537.2563535830905,
+      "RightHalfMaximumNanometers": 1590.7910553038528,
+      "FwhmNanometers": 53.534701720762314,
+      "MinimumReflectance": 0.00944471390353842,
+      "MaximumReflectance": 0.8908763644456945
+    },
+    "Od": [
+      0.9169925702260823,
+      1.2257393335546842
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1564.4634609537575,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 53.534701720762314,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 71.52749838616306,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 0.9169925702260823,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.2257393335546842,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-2-short-2",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1550.7585610935903,
+      "PeakTransmittance": 0.7500317929985131,
+      "LeftHalfMaximumNanometers": 1505.74780070913,
+      "RightHalfMaximumNanometers": 1589.6078224093565,
+      "FwhmNanometers": 83.86002170022653,
+      "MinimumReflectance": 0.00044602676396485083,
+      "MaximumReflectance": 0.9044204032174588
+    },
+    "Od": [
+      1.5689527785211186,
+      1.5159704275233123
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 12,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1550.7585610935903,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 83.86002170022653,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.00317929985131,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.5689527785211186,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.5159704275233123,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-2-short-3",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1550.5548103649069,
+      "PeakTransmittance": 0.7536015722452376,
+      "LeftHalfMaximumNanometers": 1513.9772550647444,
+      "RightHalfMaximumNanometers": 1584.921473248033,
+      "FwhmNanometers": 70.94421818328851,
+      "MinimumReflectance": 0.017811764211006227,
+      "MaximumReflectance": 0.8608090570310672
+    },
+    "Od": [
+      0.9673043803554897,
+      1.1286114922247286
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 14,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1550.5548103649069,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 70.94421818328851,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.36015722452376,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 0.9673043803554897,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.1286114922247286,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-ir-double-feedback-2-full",
+    "Source": "new-ir-double",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 1548.512966618754,
+      "PeakTransmittance": 0.727249714822966,
+      "LeftHalfMaximumNanometers": 1515.7445150541694,
+      "RightHalfMaximumNanometers": 1574.5030463654207,
+      "FwhmNanometers": 58.75853131125132,
+      "MinimumReflectance": 0.016068575049785816,
+      "MaximumReflectance": 0.9119126147235953
+    },
+    "Od": [
+      1.0189445735803786,
+      1.2906641471196314
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "3.1\u20133100",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 1548.512966618754,
+        "Requirement": "1550 \u00B1 1.55",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 58.75853131125132,
+        "Requirement": "54.25 \u00B1 4.65",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 72.7249714822966,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1364\u20131426 nm",
+        "Actual": 1.0189445735803786,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A1674\u20131736 nm",
+        "Actual": 1.2906641471196314,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-1-baseline",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.22400077870566,
+      "PeakTransmittance": 0.6041221049934051,
+      "LeftHalfMaximumNanometers": 492.21708919131163,
+      "RightHalfMaximumNanometers": 507.6991697452345,
+      "FwhmNanometers": 15.482080553922856,
+      "MinimumReflectance": 0.011813990292051282,
+      "MaximumReflectance": 0.8847930197011306
+    },
+    "Od": [
+      1.0000266239916322,
+      1.2665230407786765
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.22400077870566,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.482080553922856,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 60.41221049934051,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.0000266239916322,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.2665230407786765,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-1-short-0",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.7134271432885,
+      "PeakTransmittance": 0.6153892833847029,
+      "LeftHalfMaximumNanometers": 491.91547083539956,
+      "RightHalfMaximumNanometers": 508.1481645800277,
+      "FwhmNanometers": 16.232693744628136,
+      "MinimumReflectance": 0.01069767355045606,
+      "MaximumReflectance": 0.9277737386124669
+    },
+    "Od": [
+      1.0450929736193642,
+      1.5567472902404929
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 16,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.7134271432885,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.232693744628136,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 61.53892833847029,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.0450929736193642,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.5567472902404929,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-1-short-1",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.79921809728336,
+      "PeakTransmittance": 0.7590955087684016,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.00533334638922928,
+      "MaximumReflectance": 0.411965494581745
+    },
+    "Od": [
+      0.5588189219451589,
+      0.47127431419470506
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 12,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.79921809728336,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": null,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.90955087684016,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 0.5588189219451589,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 0.47127431419470506,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": false,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 272,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-1-short-2",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 517.611651900863,
+      "PeakTransmittance": 0.6816564192385529,
+      "LeftHalfMaximumNanometers": 509.5454961033121,
+      "RightHalfMaximumNanometers": 525.5459441645515,
+      "FwhmNanometers": 16.000448061239467,
+      "MinimumReflectance": 0.0113266771221093,
+      "MaximumReflectance": 0.7935390941954018
+    },
+    "Od": [
+      0.6897809041088202,
+      0.9025098601324394
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 517.611651900863,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.000448061239467,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 68.16564192385529,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 0.6897809041088202,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 0.9025098601324394,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-1-short-3",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 509.7215397188939,
+      "PeakTransmittance": 0.6207626979693998,
+      "LeftHalfMaximumNanometers": 501.97262290893923,
+      "RightHalfMaximumNanometers": 515.7167912483148,
+      "FwhmNanometers": 13.74416833937562,
+      "MinimumReflectance": 0.015635171340298865,
+      "MaximumReflectance": 0.8703872706148089
+    },
+    "Od": [
+      1.4350823169170484,
+      1.3258176761730702
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 509.7215397188939,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.74416833937562,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 62.076269796939975,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.4350823169170484,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.3258176761730702,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 170,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-1-full",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.54546847686765,
+      "PeakTransmittance": 0.6157912033647371,
+      "LeftHalfMaximumNanometers": 490.5641673837768,
+      "RightHalfMaximumNanometers": 506.69199774381036,
+      "FwhmNanometers": 16.127830360033556,
+      "MinimumReflectance": 0.012727874799346138,
+      "MaximumReflectance": 0.9335433268663953
+    },
+    "Od": [
+      1.1800659531771427,
+      1.5228993305267788
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 16,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.54546847686765,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.127830360033556,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 61.579120336473714,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.1800659531771427,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.5228993305267788,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-2-baseline",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.22400077870566,
+      "PeakTransmittance": 0.6041221049934051,
+      "LeftHalfMaximumNanometers": 492.21708919131163,
+      "RightHalfMaximumNanometers": 507.6991697452345,
+      "FwhmNanometers": 15.482080553922856,
+      "MinimumReflectance": 0.011813990292051282,
+      "MaximumReflectance": 0.8847930197011306
+    },
+    "Od": [
+      1.0000266239916322,
+      1.2665230407786765
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.22400077870566,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.482080553922856,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 60.41221049934051,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.0000266239916322,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.2665230407786765,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-2-short-0",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.7134271432885,
+      "PeakTransmittance": 0.6153892833847029,
+      "LeftHalfMaximumNanometers": 491.91547083539956,
+      "RightHalfMaximumNanometers": 508.1481645800277,
+      "FwhmNanometers": 16.232693744628136,
+      "MinimumReflectance": 0.01069767355045606,
+      "MaximumReflectance": 0.9277737386124669
+    },
+    "Od": [
+      1.0450929736193642,
+      1.5567472902404929
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 16,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.7134271432885,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.232693744628136,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 61.53892833847029,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.0450929736193642,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.5567472902404929,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-2-short-1",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 514.4071760275181,
+      "PeakTransmittance": 0.770234986780235,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.0008072619075156118,
+      "MaximumReflectance": 0.4222032593247889
+    },
+    "Od": [
+      0.5301972204543195,
+      0.5771253553076996
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 11,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 514.4071760275181,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": null,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 77.0234986780235,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 0.5301972204543195,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 0.5771253553076996,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": false,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 408,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-2-short-2",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 511.7750228336388,
+      "PeakTransmittance": 0.617328522660748,
+      "LeftHalfMaximumNanometers": 505.8061603765148,
+      "RightHalfMaximumNanometers": 517.4204269937816,
+      "FwhmNanometers": 11.614266617266765,
+      "MinimumReflectance": 0.013357394219944356,
+      "MaximumReflectance": 0.8452179880780245
+    },
+    "Od": [
+      1.0801316621765797,
+      0.9490877764010375
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 11,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 511.7750228336388,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 11.614266617266765,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 61.7328522660748,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.0801316621765797,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 0.9490877764010375,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 170,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-2-short-3",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.3141753060464,
+      "PeakTransmittance": 0.7530739424054586,
+      "LeftHalfMaximumNanometers": 483.7984830711254,
+      "RightHalfMaximumNanometers": 516.8536002855988,
+      "FwhmNanometers": 33.05511721447334,
+      "MinimumReflectance": 0.0002689705938737235,
+      "MaximumReflectance": 0.748638737918534
+    },
+    "Od": [
+      1.133408839060283,
+      0.9866408927353544
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.3141753060464,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 33.05511721447334,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.30739424054586,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.133408839060283,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 0.9866408927353544,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-green-feedback-2-full",
+    "Source": "new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.54546847686765,
+      "PeakTransmittance": 0.6157912033647371,
+      "LeftHalfMaximumNanometers": 490.5641673837768,
+      "RightHalfMaximumNanometers": 506.69199774381036,
+      "FwhmNanometers": 16.127830360033556,
+      "MinimumReflectance": 0.012727874799346138,
+      "MaximumReflectance": 0.9335433268663953
+    },
+    "Od": [
+      1.1800659531771427,
+      1.5228993305267788
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 16,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.54546847686765,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.127830360033556,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 61.579120336473714,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.1800659531771427,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.5228993305267788,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-1-baseline",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 650.0131555385829,
+      "PeakTransmittance": 0.7581245011921399,
+      "LeftHalfMaximumNanometers": 640.6989978483393,
+      "RightHalfMaximumNanometers": 659.4169743576288,
+      "FwhmNanometers": 18.71797650928943,
+      "MinimumReflectance": 0.00237760814573427,
+      "MaximumReflectance": 0.9042425898944765
+    },
+    "Od": [
+      1.0649269272486062,
+      1.3015649892616723
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 650.0131555385829,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 18.71797650928943,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.81245011921399,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.0649269272486062,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.3015649892616723,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-1-short-0",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 650.5283672922826,
+      "PeakTransmittance": 0.72679454177335,
+      "LeftHalfMaximumNanometers": 640.5199719000784,
+      "RightHalfMaximumNanometers": 659.8844387032335,
+      "FwhmNanometers": 19.364466803155096,
+      "MinimumReflectance": 0.05983370354266403,
+      "MaximumReflectance": 0.8629094375449705
+    },
+    "Od": [
+      1.0562801162901088,
+      1.1558000046530816
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 650.5283672922826,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 19.364466803155096,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 72.679454177335,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.0562801162901088,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.1558000046530816,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-1-short-1",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 650.6116988729488,
+      "PeakTransmittance": 0.6893279041592812,
+      "LeftHalfMaximumNanometers": 640.7371291026691,
+      "RightHalfMaximumNanometers": 658.6752045854801,
+      "FwhmNanometers": 17.938075482810973,
+      "MinimumReflectance": 4.886170804370264E-06,
+      "MaximumReflectance": 0.9261051275356779
+    },
+    "Od": [
+      1.7324667466852235,
+      1.9175102326519027
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 20,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 650.6116988729488,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.938075482810973,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 68.93279041592812,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.7324667466852235,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.9175102326519027,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-1-short-2",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 645.5681687366313,
+      "PeakTransmittance": 0.6973870548175886,
+      "LeftHalfMaximumNanometers": 638.457159281392,
+      "RightHalfMaximumNanometers": 655.3876132460183,
+      "FwhmNanometers": 16.93045396462628,
+      "MinimumReflectance": 0.06154104762946485,
+      "MaximumReflectance": 0.9124596593351256
+    },
+    "Od": [
+      1.3465473132096504,
+      1.0026896286249487
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 645.5681687366313,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.93045396462628,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 69.73870548175886,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.3465473132096504,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.0026896286249487,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-1-short-3",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 649.869420172008,
+      "PeakTransmittance": 0.7489561811785748,
+      "LeftHalfMaximumNanometers": 640.1384430443363,
+      "RightHalfMaximumNanometers": 660.2092004874289,
+      "FwhmNanometers": 20.07075744309259,
+      "MinimumReflectance": 0.07358302666112884,
+      "MaximumReflectance": 0.766671804977738
+    },
+    "Od": [
+      0.12000993700668575,
+      0.07458926271877384
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 8,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 649.869420172008,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 20.07075744309259,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 74.89561811785748,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 0.12000993700668575,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 0.07458926271877384,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 204,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-1-full",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 650.3177476574286,
+      "PeakTransmittance": 0.7318816441013962,
+      "LeftHalfMaximumNanometers": 640.4126607980236,
+      "RightHalfMaximumNanometers": 659.4903163415128,
+      "FwhmNanometers": 19.077655543489186,
+      "MinimumReflectance": 0.05624332172802492,
+      "MaximumReflectance": 0.8705026438428294
+    },
+    "Od": [
+      1.0152766899743646,
+      1.1445930647844547
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 650.3177476574286,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 19.077655543489186,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 73.18816441013962,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.0152766899743646,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.1445930647844547,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-2-baseline",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 650.0131555385829,
+      "PeakTransmittance": 0.7581245011921399,
+      "LeftHalfMaximumNanometers": 640.6989978483393,
+      "RightHalfMaximumNanometers": 659.4169743576288,
+      "FwhmNanometers": 18.71797650928943,
+      "MinimumReflectance": 0.00237760814573427,
+      "MaximumReflectance": 0.9042425898944765
+    },
+    "Od": [
+      1.0649269272486062,
+      1.3015649892616723
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 650.0131555385829,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 18.71797650928943,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.81245011921399,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.0649269272486062,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.3015649892616723,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-2-short-0",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 648.9833411600445,
+      "PeakTransmittance": 0.7165966941979683,
+      "LeftHalfMaximumNanometers": 640.5321878438303,
+      "RightHalfMaximumNanometers": 658.6607676083013,
+      "FwhmNanometers": 18.128579764470942,
+      "MinimumReflectance": 0.016481179796928976,
+      "MaximumReflectance": 0.9084272886377941
+    },
+    "Od": [
+      1.0085509380142466,
+      1.8154624283833356
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 648.9833411600445,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 18.128579764470942,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 71.65966941979683,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.0085509380142466,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.8154624283833356,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-2-short-1",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 649.869420172008,
+      "PeakTransmittance": 0.7489561811785748,
+      "LeftHalfMaximumNanometers": 640.1384430443363,
+      "RightHalfMaximumNanometers": 660.2092004874289,
+      "FwhmNanometers": 20.07075744309259,
+      "MinimumReflectance": 0.07358302666112884,
+      "MaximumReflectance": 0.766671804977738
+    },
+    "Od": [
+      0.12000993700668575,
+      0.07458926271877384
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 8,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 649.869420172008,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 20.07075744309259,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 74.89561811785748,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 0.12000993700668575,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 0.07458926271877384,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 204,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-2-short-2",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 650.6465608114269,
+      "PeakTransmittance": 0.6344102986122022,
+      "LeftHalfMaximumNanometers": 642.882271929394,
+      "RightHalfMaximumNanometers": 658.6681297387288,
+      "FwhmNanometers": 15.785857809334743,
+      "MinimumReflectance": 0.029396714195410626,
+      "MaximumReflectance": 0.9229236519138581
+    },
+    "Od": [
+      1.1471306615556154,
+      1.4168951464645603
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 650.6465608114269,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.785857809334743,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 63.44102986122022,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.1471306615556154,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.4168951464645603,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-2-short-3",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 648.4274752673899,
+      "PeakTransmittance": 0.7554153837027884,
+      "LeftHalfMaximumNanometers": 637.5024201989388,
+      "RightHalfMaximumNanometers": 659.020487206155,
+      "FwhmNanometers": 21.518067007216246,
+      "MinimumReflectance": 2.3348278489722816E-05,
+      "MaximumReflectance": 0.8591036436502422
+    },
+    "Od": [
+      1.2390087049891776,
+      1.244416138181396
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 648.4274752673899,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 21.518067007216246,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.54153837027884,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.2390087049891776,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.244416138181396,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "new-real-nbf-red-feedback-2-full",
+    "Source": "new-real-nbf-red",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 649.8637309223251,
+      "PeakTransmittance": 0.7317451450209875,
+      "LeftHalfMaximumNanometers": 640.0906767733616,
+      "RightHalfMaximumNanometers": 658.9529979675227,
+      "FwhmNanometers": 18.862321194161154,
+      "MinimumReflectance": 0.016891157612458966,
+      "MaximumReflectance": 0.9182715470468137
+    },
+    "Od": [
+      1.0000000135326614,
+      1.7916408667698542
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.3925964\u20132403.2066",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 649.8637309223251,
+        "Requirement": "650 \u00B1 0.59090909",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 18.862321194161154,
+        "Requirement": "17.727273 \u00B1 1.1818182",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 73.17451450209876,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A579.09091\u2013602.72727 nm",
+        "Actual": 1.0000000135326614,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A697.27273\u2013720.90909 nm",
+        "Actual": 1.7916408667698542,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-1-baseline",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4993774014575,
+      "PeakTransmittance": 0.6644792326862146,
+      "LeftHalfMaximumNanometers": 541.9054581198441,
+      "RightHalfMaximumNanometers": 559.1228509968286,
+      "FwhmNanometers": 17.21739287698449,
+      "MinimumReflectance": 0.011820757463852374,
+      "MaximumReflectance": 0.8860198319651779
+    },
+    "Od": [
+      1.015976480268972,
+      1.2359241176146223
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4993774014575,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.21739287698449,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.44792326862145,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.015976480268972,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2359241176146223,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-1-short-0",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.6768862213102,
+      "PeakTransmittance": 0.5689770464693114,
+      "LeftHalfMaximumNanometers": 538.0116480807259,
+      "RightHalfMaximumNanometers": 556.8734839997154,
+      "FwhmNanometers": 18.861835918989527,
+      "MinimumReflectance": 0.002608792208907554,
+      "MaximumReflectance": 0.9370766978851872
+    },
+    "Od": [
+      1.8023198790261723,
+      1.8528957831217023
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 19,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.6768862213102,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 18.861835918989527,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 56.89770464693113,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.8023198790261723,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.8528957831217023,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-1-short-1",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 558.9158911218084,
+      "PeakTransmittance": 0.8387846444548999,
+      "LeftHalfMaximumNanometers": 520.3485582499729,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.0032867772454771545,
+      "MaximumReflectance": 0.37722288946630594
+    },
+    "Od": [
+      0.7266403884905568,
+      0.43704849408218727
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 11,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 558.9158911218084,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": null,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 83.87846444548998,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.7266403884905568,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 0.43704849408218727,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": false,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 272,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-1-short-2",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 571.01509209674,
+      "PeakTransmittance": 0.7369216527530383,
+      "LeftHalfMaximumNanometers": 562.4814334139603,
+      "RightHalfMaximumNanometers": 579.1629421801962,
+      "FwhmNanometers": 16.68150876623588,
+      "MinimumReflectance": 0.0076561455097684935,
+      "MaximumReflectance": 0.8033594181793778
+    },
+    "Od": [
+      0.7189417862849025,
+      0.8842062449579366
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 571.01509209674,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.68150876623588,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 73.69216527530384,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.7189417862849025,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 0.8842062449579366,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-1-short-3",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.6055901616676,
+      "PeakTransmittance": 0.7869530591008969,
+      "LeftHalfMaximumNanometers": 528.498102698144,
+      "RightHalfMaximumNanometers": 563.2488885687401,
+      "FwhmNanometers": 34.75078587059613,
+      "MinimumReflectance": 0.001742403531845903,
+      "MaximumReflectance": 0.8368548447626075
+    },
+    "Od": [
+      1.0134097378990772,
+      1.1031057940380407
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 12,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.6055901616676,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 34.75078587059613,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 78.69530591008969,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0134097378990772,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.1031057940380407,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-1-full",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.405573941352,
+      "PeakTransmittance": 0.6560757774566289,
+      "LeftHalfMaximumNanometers": 541.3460350136496,
+      "RightHalfMaximumNanometers": 557.1560077512465,
+      "FwhmNanometers": 15.809972737596922,
+      "MinimumReflectance": 0.029662560838283426,
+      "MaximumReflectance": 0.9372255666106318
+    },
+    "Od": [
+      1.125047278709617,
+      1.709799382054297
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 19,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.405573941352,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.809972737596922,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 65.6075777456629,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.125047278709617,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.709799382054297,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-2-baseline",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4993774014575,
+      "PeakTransmittance": 0.6644792326862146,
+      "LeftHalfMaximumNanometers": 541.9054581198441,
+      "RightHalfMaximumNanometers": 559.1228509968286,
+      "FwhmNanometers": 17.21739287698449,
+      "MinimumReflectance": 0.011820757463852374,
+      "MaximumReflectance": 0.8860198319651779
+    },
+    "Od": [
+      1.015976480268972,
+      1.2359241176146223
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4993774014575,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.21739287698449,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.44792326862145,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.015976480268972,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2359241176146223,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-2-short-0",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.7413966440903,
+      "PeakTransmittance": 0.669355700477836,
+      "LeftHalfMaximumNanometers": 541.9229453827027,
+      "RightHalfMaximumNanometers": 557.9635513426266,
+      "FwhmNanometers": 16.040605959923937,
+      "MinimumReflectance": 0.020108453501979373,
+      "MaximumReflectance": 0.9271446221350299
+    },
+    "Od": [
+      1.0143274303972174,
+      1.59902901365046
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 21,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.7413966440903,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.040605959923937,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.9355700477836,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0143274303972174,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.59902901365046,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-2-short-1",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 561.5053995138958,
+      "PeakTransmittance": 0.8361240248624171,
+      "LeftHalfMaximumNanometers": 520.9318983901712,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.002424311930310407,
+      "MaximumReflectance": 0.3910506659375812
+    },
+    "Od": [
+      0.7843939878506289,
+      0.5263288122030559
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 11,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 561.5053995138958,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": null,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 83.6124024862417,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.7843939878506289,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 0.5263288122030559,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": false,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 272,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-2-short-2",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 571.01509209674,
+      "PeakTransmittance": 0.7369216527530383,
+      "LeftHalfMaximumNanometers": 562.4814334139603,
+      "RightHalfMaximumNanometers": 579.1629421801962,
+      "FwhmNanometers": 16.68150876623588,
+      "MinimumReflectance": 0.0076561455097684935,
+      "MaximumReflectance": 0.8033594181793778
+    },
+    "Od": [
+      0.7189417862849025,
+      0.8842062449579366
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 571.01509209674,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 16.68150876623588,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 73.69216527530384,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.7189417862849025,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 0.8842062449579366,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-2-short-3",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 560.5932101189414,
+      "PeakTransmittance": 0.754465052917322,
+      "LeftHalfMaximumNanometers": 533.3474018387277,
+      "RightHalfMaximumNanometers": 571.0181863676227,
+      "FwhmNanometers": 37.670784528894956,
+      "MinimumReflectance": 0.0006404554363376128,
+      "MaximumReflectance": 0.7713701229170555
+    },
+    "Od": [
+      1.2841459950658547,
+      1.2888733130706824
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 14,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 560.5932101189414,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 37.670784528894956,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 75.44650529173221,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.2841459950658547,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.2888733130706824,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 272,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "real-nbf2-96-feedback-2-full",
+    "Source": "real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4971763943925,
+      "PeakTransmittance": 0.6715300738868735,
+      "LeftHalfMaximumNanometers": 541.5901378364534,
+      "RightHalfMaximumNanometers": 557.5558043683737,
+      "FwhmNanometers": 15.965666531920306,
+      "MinimumReflectance": 0.026600860659326382,
+      "MaximumReflectance": 0.9330329291279279
+    },
+    "Od": [
+      1.0531554857305112,
+      1.676242013623481
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 21,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4971763943925,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.965666531920306,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 67.15300738868734,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0531554857305112,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.676242013623481,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-1-baseline",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.56387045630987,
+      "PeakTransmittance": 0.9248224506877516,
+      "LeftHalfMaximumNanometers": 492.641713120447,
+      "RightHalfMaximumNanometers": 506.51679457338935,
+      "FwhmNanometers": 13.875081452942368,
+      "MinimumReflectance": 0.010742851905181547,
+      "MaximumReflectance": 0.9792636701518532
+    },
+    "Od": [
+      2.5181791585378597,
+      2.369996055403823
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.56387045630987,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.875081452942368,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 92.48224506877516,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 2.5181791585378597,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.369996055403823,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-1-short-0",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.61898775429,
+      "PeakTransmittance": 0.9246320244785081,
+      "LeftHalfMaximumNanometers": 493.3601865476767,
+      "RightHalfMaximumNanometers": 506.1626378474454,
+      "FwhmNanometers": 12.802451299768734,
+      "MinimumReflectance": 0.010912490935527359,
+      "MaximumReflectance": 0.9807994336654471
+    },
+    "Od": [
+      1.9407208817301465,
+      2.316452106456532
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.61898775429,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 12.802451299768734,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 92.46320244785082,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.9407208817301465,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.316452106456532,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-1-short-1",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.28360049720476,
+      "PeakTransmittance": 0.7685206501613763,
+      "LeftHalfMaximumNanometers": 493.4302167096969,
+      "RightHalfMaximumNanometers": 507.2947148613096,
+      "FwhmNanometers": 13.864498151612736,
+      "MinimumReflectance": 0.0602207771293356,
+      "MaximumReflectance": 0.9538139282322246
+    },
+    "Od": [
+      1.513743056739073,
+      1.8059004997797974
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.28360049720476,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.864498151612736,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 76.85206501613763,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.513743056739073,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.8059004997797974,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-1-short-2",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.30444685336585,
+      "PeakTransmittance": 0.8060975968078781,
+      "LeftHalfMaximumNanometers": 493.33603753443435,
+      "RightHalfMaximumNanometers": 506.06219810158416,
+      "FwhmNanometers": 12.726160567149805,
+      "MinimumReflectance": 0.005892919327642645,
+      "MaximumReflectance": 0.9689745695070621
+    },
+    "Od": [
+      1.8618628094685135,
+      1.941909647231436
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.30444685336585,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 12.726160567149805,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 80.6097596807878,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.8618628094685135,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.941909647231436,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-1-short-3",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.940706804434,
+      "PeakTransmittance": 0.8041629202704219,
+      "LeftHalfMaximumNanometers": 492.92480068174393,
+      "RightHalfMaximumNanometers": 507.4188851866549,
+      "FwhmNanometers": 14.494084504910973,
+      "MinimumReflectance": 0.054453175272153716,
+      "MaximumReflectance": 0.9790377140332642
+    },
+    "Od": [
+      2.062757264217999,
+      2.156318181490575
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.940706804434,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 14.494084504910973,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 80.41629202704219,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 2.062757264217999,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.156318181490575,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-1-full",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.5454554336428,
+      "PeakTransmittance": 0.9265716245696648,
+      "LeftHalfMaximumNanometers": 492.9458420737127,
+      "RightHalfMaximumNanometers": 505.9500774419494,
+      "FwhmNanometers": 13.00423536823672,
+      "MinimumReflectance": 0.008852770614824888,
+      "MaximumReflectance": 0.9807293991826064
+    },
+    "Od": [
+      1.9562625677518342,
+      2.3263690240246158
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.5454554336428,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.00423536823672,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 92.65716245696647,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.9562625677518342,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.3263690240246158,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-2-baseline",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.56387045630987,
+      "PeakTransmittance": 0.9248224506877516,
+      "LeftHalfMaximumNanometers": 492.641713120447,
+      "RightHalfMaximumNanometers": 506.51679457338935,
+      "FwhmNanometers": 13.875081452942368,
+      "MinimumReflectance": 0.010742851905181547,
+      "MaximumReflectance": 0.9792636701518532
+    },
+    "Od": [
+      2.5181791585378597,
+      2.369996055403823
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.56387045630987,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.875081452942368,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 92.48224506877516,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 2.5181791585378597,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.369996055403823,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-2-short-0",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.68709691480444,
+      "PeakTransmittance": 0.9328242486405389,
+      "LeftHalfMaximumNanometers": 492.6408452769364,
+      "RightHalfMaximumNanometers": 506.16233723628216,
+      "FwhmNanometers": 13.52149195934578,
+      "MinimumReflectance": 4.6285638274152154E-05,
+      "MaximumReflectance": 0.9769497077763389
+    },
+    "Od": [
+      2.3920720493806717,
+      2.412440185759406
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.68709691480444,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.52149195934578,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 93.2824248640539,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 2.3920720493806717,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.412440185759406,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-2-short-1",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 500.28360049720476,
+      "PeakTransmittance": 0.7685206501613763,
+      "LeftHalfMaximumNanometers": 493.4302167096969,
+      "RightHalfMaximumNanometers": 507.2947148613096,
+      "FwhmNanometers": 13.864498151612736,
+      "MinimumReflectance": 0.0602207771293356,
+      "MaximumReflectance": 0.9538139282322246
+    },
+    "Od": [
+      1.513743056739073,
+      1.8059004997797974
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 500.28360049720476,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.864498151612736,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 76.85206501613763,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.513743056739073,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.8059004997797974,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-2-short-2",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.940706804434,
+      "PeakTransmittance": 0.8041629202704219,
+      "LeftHalfMaximumNanometers": 492.92480068174393,
+      "RightHalfMaximumNanometers": 507.4188851866549,
+      "FwhmNanometers": 14.494084504910973,
+      "MinimumReflectance": 0.054453175272153716,
+      "MaximumReflectance": 0.9790377140332642
+    },
+    "Od": [
+      2.062757264217999,
+      2.156318181490575
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.940706804434,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 14.494084504910973,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 80.41629202704219,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 2.062757264217999,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.156318181490575,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-2-short-3",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.61898775429,
+      "PeakTransmittance": 0.9246320244785081,
+      "LeftHalfMaximumNanometers": 493.3601865476767,
+      "RightHalfMaximumNanometers": 506.1626378474454,
+      "FwhmNanometers": 12.802451299768734,
+      "MinimumReflectance": 0.010912490935527359,
+      "MaximumReflectance": 0.9807994336654471
+    },
+    "Od": [
+      1.9407208817301465,
+      2.316452106456532
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.61898775429,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 12.802451299768734,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 92.46320244785082,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.9407208817301465,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.316452106456532,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 68,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green-feedback-2-full",
+    "Source": "si-nb-new-real-nbf-green",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.5464457770964,
+      "PeakTransmittance": 0.9347079989656324,
+      "LeftHalfMaximumNanometers": 491.52840642403544,
+      "RightHalfMaximumNanometers": 505.16473008203667,
+      "FwhmNanometers": 13.636323658001231,
+      "MinimumReflectance": 5.6507853359560464E-05,
+      "MaximumReflectance": 0.9806098390834613
+    },
+    "Od": [
+      2.429958003125242,
+      2.4311837023568983
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.5464457770964,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 13.636323658001231,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 93.47079989656324,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 2.429958003125242,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 2.4311837023568983,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 238,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-1-baseline",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.5154576353434,
+      "PeakTransmittance": 0.912855487264894,
+      "LeftHalfMaximumNanometers": 542.4565065638676,
+      "RightHalfMaximumNanometers": 557.4655018839333,
+      "FwhmNanometers": 15.008995320065651,
+      "MinimumReflectance": 0.000334070411964476,
+      "MaximumReflectance": 0.9888101930122747
+    },
+    "Od": [
+      2.6566000861588757,
+      2.481261046064294
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 19,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.5154576353434,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.008995320065651,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 91.2855487264894,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.6566000861588757,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.481261046064294,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 170,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-1-short-0",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.8991287646968,
+      "PeakTransmittance": 0.9075002771115347,
+      "LeftHalfMaximumNanometers": 542.5049815029386,
+      "RightHalfMaximumNanometers": 557.646990435638,
+      "FwhmNanometers": 15.142008932699468,
+      "MinimumReflectance": 0.0006697562056316871,
+      "MaximumReflectance": 0.9889884717560004
+    },
+    "Od": [
+      2.7472651969221396,
+      2.4703382706051435
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 21,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.8991287646968,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.142008932699468,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 90.75002771115346,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.7472651969221396,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.4703382706051435,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 272,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-1-short-1",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.3272063650658,
+      "PeakTransmittance": 0.7637242143501883,
+      "LeftHalfMaximumNanometers": 544.1032181178609,
+      "RightHalfMaximumNanometers": 558.2015070333506,
+      "FwhmNanometers": 14.098288915489661,
+      "MinimumReflectance": 0.16943731140719615,
+      "MaximumReflectance": 0.9920720376689174
+    },
+    "Od": [
+      2.8124633491030795,
+      2.316079886700681
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 19,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.3272063650658,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 14.098288915489661,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 76.37242143501884,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.8124633491030795,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.316079886700681,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-1-short-2",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.9258170721517,
+      "PeakTransmittance": 0.8115267771695527,
+      "LeftHalfMaximumNanometers": 542.7574411049211,
+      "RightHalfMaximumNanometers": 557.531202395338,
+      "FwhmNanometers": 14.773761290416928,
+      "MinimumReflectance": 0.05296067202773958,
+      "MaximumReflectance": 0.9812232457860166
+    },
+    "Od": [
+      1.915702129140432,
+      2.1825253629421715
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.9258170721517,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 14.773761290416928,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 81.15267771695527,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.915702129140432,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.1825253629421715,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 170,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-1-short-3",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4810406359643,
+      "PeakTransmittance": 0.7828378586106028,
+      "LeftHalfMaximumNanometers": 542.6723354626639,
+      "RightHalfMaximumNanometers": 558.1150473373027,
+      "FwhmNanometers": 15.442711874638803,
+      "MinimumReflectance": 0.046702607357419545,
+      "MaximumReflectance": 0.9675097698146566
+    },
+    "Od": [
+      2.2689612941931503,
+      2.2095556869856625
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4810406359643,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.442711874638803,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 78.28378586106028,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.2689612941931503,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.2095556869856625,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-1-full",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 1,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.5003742746263,
+      "PeakTransmittance": 0.9107889190771391,
+      "LeftHalfMaximumNanometers": 543.6461175791677,
+      "RightHalfMaximumNanometers": 558.6502821608942,
+      "FwhmNanometers": 15.004164581726513,
+      "MinimumReflectance": 0.0014438378507473535,
+      "MaximumReflectance": 0.9907513834233006
+    },
+    "Od": [
+      2.811458957650066,
+      2.4867901236116867
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 21,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.5003742746263,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.004164581726513,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 91.07889190771391,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.811458957650066,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.4867901236116867,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 204,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-2-baseline",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "baseline",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.5154576353434,
+      "PeakTransmittance": 0.912855487264894,
+      "LeftHalfMaximumNanometers": 542.4565065638676,
+      "RightHalfMaximumNanometers": 557.4655018839333,
+      "FwhmNanometers": 15.008995320065651,
+      "MinimumReflectance": 0.000334070411964476,
+      "MaximumReflectance": 0.9888101930122747
+    },
+    "Od": [
+      2.6566000861588757,
+      2.481261046064294
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 19,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.5154576353434,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.008995320065651,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 91.2855487264894,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.6566000861588757,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.481261046064294,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 170,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-2-short-0",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.9411028221793,
+      "PeakTransmittance": 0.8115179406491315,
+      "LeftHalfMaximumNanometers": 542.571169272849,
+      "RightHalfMaximumNanometers": 557.7528939966206,
+      "FwhmNanometers": 15.181724723771595,
+      "MinimumReflectance": 0.052962337250330505,
+      "MaximumReflectance": 0.9820973900859944
+    },
+    "Od": [
+      2.1887007222690973,
+      2.245828197083006
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.9411028221793,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.181724723771595,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 81.15179406491315,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.1887007222690973,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.245828197083006,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 170,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-2-short-1",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4810406359643,
+      "PeakTransmittance": 0.7828378586106028,
+      "LeftHalfMaximumNanometers": 542.6723354626639,
+      "RightHalfMaximumNanometers": 558.1150473373027,
+      "FwhmNanometers": 15.442711874638803,
+      "MinimumReflectance": 0.046702607357419545,
+      "MaximumReflectance": 0.9675097698146566
+    },
+    "Od": [
+      2.2689612941931503,
+      2.2095556869856625
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4810406359643,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.442711874638803,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 78.28378586106028,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.2689612941931503,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.2095556869856625,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 136,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-2-short-2",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.9586704919807,
+      "PeakTransmittance": 0.7890081858922571,
+      "LeftHalfMaximumNanometers": 542.5965557980386,
+      "RightHalfMaximumNanometers": 557.7151285042834,
+      "FwhmNanometers": 15.118572706244777,
+      "MinimumReflectance": 0.047614660176798954,
+      "MaximumReflectance": 0.9799899319592305
+    },
+    "Od": [
+      2.131800217515326,
+      2.1702960164641425
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.9586704919807,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.118572706244777,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 78.90081858922571,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.131800217515326,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.1702960164641425,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 170,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-2-short-3",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "short",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.083146033524,
+      "PeakTransmittance": 0.7889934790019928,
+      "LeftHalfMaximumNanometers": 542.4384850531801,
+      "RightHalfMaximumNanometers": 558.0103543255567,
+      "FwhmNanometers": 15.571869272376603,
+      "MinimumReflectance": 0.047496921245351945,
+      "MaximumReflectance": 0.9808834195407521
+    },
+    "Od": [
+      2.3984302934775594,
+      2.2089336295551876
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 16,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.083146033524,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.571869272376603,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 78.89934790019927,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.3984302934775594,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.2089336295551876,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 204,
+    "ExtremaRefinementComplete": true
+  },
+  {
+    "Name": "si-ti-real-nbf2-96-feedback-2-full",
+    "Source": "si-ti-real-nbf2-96",
+    "Arm": "formal-feedback",
+    "Stage": "full",
+    "Round": 2,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.5473445039704,
+      "PeakTransmittance": 0.8184120349053723,
+      "LeftHalfMaximumNanometers": 540.4632865789438,
+      "RightHalfMaximumNanometers": 555.4961634560033,
+      "FwhmNanometers": 15.032876877059493,
+      "MinimumReflectance": 0.026072958235870997,
+      "MaximumReflectance": 0.9796785475291119
+    },
+    "Od": [
+      2.254914079489081,
+      2.280055410195634
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 13,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.5473445039704,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 15.032876877059493,
+        "Requirement": "15 \u00B1 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 81.84120349053723,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 2.254914079489081,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.280055410195634,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "SamplingConverged": true,
+    "SamplingProtocol": "extrema-anchored-band-domain/2",
+    "ExtremaRefinementEvaluations": 102,
+    "ExtremaRefinementComplete": true
+  }
+]

@@ -8,6 +8,10 @@ namespace OpticalSystemDesign.Core.Analysis;
 public sealed class EncircledEnergyAnalysis : BaseAnalysis
 {
     public bool ZemaxCompatibleOutput { get; init; }
+    // Captured 2026 R1 geometric plots retain their selected spatial reference
+    // in millimeters, but all afocal angular distances use the chief direction.
+    // Keep this explicit and separate from the physical angular-centroid API.
+    public bool UseNativeAfocalReferenceRay { get; init; }
     private readonly int _numRays;
     private readonly string _distribution;
     private readonly int _numPoints;
@@ -54,6 +58,10 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ZemaxCompatibleOutput && _distribution.Equals("uniform", StringComparison.OrdinalIgnoreCase) ? "uniform-intervals" : _distribution,
             reference: "absolute",
             aimAtStop: Optic.RayAimingEnabled, includeSurfaceTransmission: false);
+        var nativeAngularReference = UseNativeAfocalReferenceRay && Optic.ImageSpaceAfocal
+            && (_reference.Equals("centroid", StringComparison.OrdinalIgnoreCase)
+                || _reference.Equals("chief", StringComparison.OrdinalIgnoreCase)
+                || _reference.Equals("vertex", StringComparison.OrdinalIgnoreCase));
         var curves = result.Fields.Select((field, fieldIndex) =>
         {
             var samples = field.Wavelengths
@@ -63,12 +71,15 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
                     ray.Intensity * EnergyCurveSupport.WavelengthWeight(wavelength.Wavelength))))
                 .Where(sample => sample.Weight > 0)
                 .ToArray();
-            var center = EnergyCurveSupport.ReferencePoint(
+            var requestedCenter = EnergyCurveSupport.ReferencePoint(
                 Optic,
                 (field.Hx, field.Hy),
                 wavelengths,
                 samples,
                 _reference);
+            var center = nativeAngularReference
+                ? EnergyCurveSupport.NativeAfocalReferencePoint(Optic, (field.Hx, field.Hy), wavelengths, samples)
+                : requestedCenter;
             var radii = samples
                 .Select(sample => (
                     Radius: Math.Sqrt(
@@ -78,7 +89,7 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
                 .Where(item => double.IsFinite(item.Radius))
                 .OrderBy(item => item.Radius)
                 .ToArray();
-            return new FieldEnergyCurve(fieldIndex, field.Hx, field.Hy, samples, center, radii);
+            return new FieldEnergyCurve(fieldIndex, field.Hx, field.Hy, samples, requestedCenter, center, radii);
         }).ToArray();
         if (curves.Length == 0 || curves.All(curve => curve.Radii.Length == 0))
         {
@@ -122,7 +133,15 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
                     point.X,
                     point.Y * PolychromaticAiryEnergy(point.X, airyComponents))).ToArray();
             }
-            if (ZemaxCompatibleOutput) points = EnergyPlotSampling.Geometric(points);
+            if (ZemaxCompatibleOutput)
+            {
+                // The captured angular plot begins at the open zero-radius
+                // boundary even when a chief ray has exactly zero error.
+                // Preserve the closed empirical CDF in the physical mode.
+                if (nativeAngularReference)
+                    points = points.Select((point, index) => index == 0 ? point with { Y = 0 } : point).ToArray();
+                points = EnergyPlotSampling.Geometric(points);
+            }
             return new AnalysisSeries(
                 Optic.ImageSpaceAfocal ? "Radius (mrad)" : "Radius (µm)",
                 "Fraction of Energy",
@@ -152,6 +171,11 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ["NumRays"] = _numRays,
             ["Distribution"] = _distribution,
             ["Reference"] = _reference,
+            ["ReferenceConvention"] = nativeAngularReference ? "Native2026R1AfocalReferenceRay" : "PhysicalCoordinates",
+            ["EffectiveAngularReference"] = Optic.ImageSpaceAfocal ? nativeAngularReference ? "chief" : _reference : "NotApplicable",
+            ["ZeroRadiusPlotConvention"] = nativeAngularReference && ZemaxCompatibleOutput ? "OpenBoundary" : "ClosedCumulative",
+            ["MaximumAngularReferenceShiftMilliradians"] = Optic.ImageSpaceAfocal
+                ? curves.Max(c => double.Hypot(c.RequestedCenter.X - c.Center.X, c.RequestedCenter.Y - c.Center.Y)) : 0,
             ["MultiplyByDiffractionLimit"] = _multiplyByDiffractionLimit,
             ["PlotPointCount"] = series[0].Points.Count,
             ["ZemaxCompatibleOutput"] = ZemaxCompatibleOutput,
@@ -213,6 +237,7 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
         double Hx,
         double Hy,
         IReadOnlyList<EnergySample> Samples,
+        (double X, double Y) RequestedCenter,
         (double X, double Y) Center,
         (double Radius, double Weight)[] Radii);
 }

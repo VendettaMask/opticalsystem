@@ -36,7 +36,7 @@ public sealed partial class SequentialRayTracer
                 cancellationToken.ThrowIfCancellationRequested();
                 ComputationCancellation.ThrowIfCancellationRequested();
                 var result = TraceSequentialSurface(_optic.SurfaceGroup.Items[index], index, ray,
-                    material, path, opticalPath, ignorePhysicalAperture: true, allowVirtualIntersection: true);
+                    material, path, opticalPath, ignorePhysicalAperture: true, allowVirtualIntersection: true, sourceRay: source);
                 var sample = result.Sample.ToRayTraceSample();
                 if (sample.InteractionKind == RayInteractionKind.TotalInternalReflection)
                     sample = sample with { Vignetted = true, Intensity = 0 };

@@ -1,20 +1,19 @@
-# Sequential examples
+# 顺序模式镜头示例
 
-These 95 ZMX files come from the 14 folders in the locally installed OpticStudio
-2026 R1 `Zemax/Samples/Sequential` directory. They replace the application's former
-generated Cooke/Tessar sample commands. Folder names and source bytes are retained;
-`index.json` records every relative path and SHA-256. Zemax sample content retains
-its original third-party provenance and is not authored by this project.
-Git attributes preserve prescription bytes without line-ending normalization.
+本目录的 95 个 ZMX 文件来自本机 OpticStudio 2026 R1 的
+`Zemax/Samples/Sequential`，覆盖原目录全部 14 类，替代原来生成的
+Cooke/Tessar 示例入口。原文件夹、源文件字节和第三方来源保留；这些处方不是本项目原创。
+`index.json` 记录每个相对路径和 SHA-256，Git 属性禁止处方换行规范化。
 
-The application uses one ZMX entry per sample. Paired ZOS prescriptions can differ
-and are not substituted. ZOS files, ZDA caches, CFG analysis settings and XML
-optimization settings are not bundled or interpreted as additional examples.
-This example directory is copied to `Examples/Sequential` in build and publish
-outputs; opening it does not depend on a local Zemax installation.
+每个示例只列一份 ZMX。配对 ZOS 的处方可能不同，不以它替代 ZMX；ZOS、ZDA 缓存、
+CFG 分析配置和 XML 优化配置不作为额外示例提供。构建和发布将本目录复制至
+`Examples/Sequential`，打开示例不依赖用户安装 Zemax。
 
-Menu inclusion is not numerical certification. Files use the shared ZMX importer
-without modification, approximation or relaxed tolerances. Unsupported imports
-report their existing error and retain the current document. Successfully imported
-special surfaces may still have analysis limitations; see the repository's
-Sequential corpus and import-repair comparison reports.
+中文菜单依次显示：无焦系统、双折射棱镜、衍射元件、梯度折射率系统、图像模拟、
+光学互连、制造、其他系统、物镜、光学检测、偏振、望远镜、倾斜系统与棱镜、变焦与扫描。
+英文和日文沿用应用语言设置；显示名与源目录身份分离，镜头名称及路径提示保留原名。
+
+菜单收录不等于数值认证。打开使用共享 ZMX 导入器，不改写处方、不近似替换面型、
+不放宽容差；不支持的输入明确报错并保留当前文档。成功导入也可能存在分析边界。
+当前分类精度结论和证据见[中文交接](../../../../docs/EXAMPLE_ACCURACY_HANDOFF_2026-11-01.md)，
+使用方法见[用户指南](../../../../docs/USER_GUIDE.md#镜头示例)。

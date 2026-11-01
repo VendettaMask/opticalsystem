@@ -17,6 +17,7 @@ public static partial class ComponentSnapshotFactory
 
     private static ComponentSnapshot FromGradientIndex(GradientIndexMaterial material)
     {
+        if (material.Profile is GridGradientIndexProfile grid) return FromGridGradient(material, grid);
         var kind = GradientIndexProfileData.Kind(material.Profile);
         var numbers = GradientIndexProfileData.Values(material.Profile).ToDictionary(p => p.Key, p => p.Value);
         var options = material.IntegrationOptions;
@@ -42,6 +43,7 @@ public static partial class ComponentSnapshotFactory
 
     internal static GradientIndexMaterial ToGradientIndex(ComponentSnapshot snapshot)
     {
+        if (snapshot.Kind == "gradient_index" && snapshot.Text?.GetValueOrDefault("profile") == "grid_gradient") return ToGridGradient(snapshot);
         if (snapshot.Kind != "gradient_index"
             || snapshot.Text is null || snapshot.Numbers is null
             || !snapshot.Text.Keys.ToHashSet(StringComparer.Ordinal).SetEquals(["name", "profile"]))

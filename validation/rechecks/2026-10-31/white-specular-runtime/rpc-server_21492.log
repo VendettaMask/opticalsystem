@@ -1,0 +1,76 @@
+2026/10/31 22:44:32: debug: Log started.
+2026/10/31 22:44:32: License initialization Speos Labs 2026 R1
+2026/10/31 22:44:32: Speos Software Environment initialization called by:
+2026/10/31 22:44:32: 	Module: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\SpeosRPC_Server.exe
+2026/10/31 22:44:32: 	Software: Speos Labs
+2026/10/31 22:44:32: 	Version: 2026.1.0.37094
+2026/10/31 22:44:32:       User Data Base Path: C:\Users\19851\AppData\Roaming\
+2026/10/31 22:44:32: Speos User Data Base Path: C:\Users\19851\AppData\Roaming\Ansys\v261\Optical Products\
+2026/10/31 22:44:32: Speos User Application Data Base Path: C:\Users\19851\AppData\Roaming\Ansys\v261\Optical Products\Speos Labs\
+2026/10/31 22:44:32:       Global Data Base Path: C:\ProgramData\
+2026/10/31 22:44:32: Speos Global Data Base Path: C:\ProgramData\Ansys\v261\Optical Products\
+2026/10/31 22:44:32: Resources Path: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\Resources\
+2026/10/31 22:44:32: Speos Base Path: D:\Program Files\ANSYS Inc\v261\Optical Products\
+2026/10/31 22:44:32: Viewers Path: D:\Program Files\ANSYS Inc\v261\Optical Products\Viewers\
+2026/10/31 22:44:32: Speos Software Base Path: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\
+2026/10/31 22:44:32: User name: allen
+2026/10/31 22:44:32: Computer name: DESKTOP-SET3SNR
+2026/10/31 22:44:32: Computer description: 
+2026/10/31 22:44:32: Scan NLS files in D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\Resources\NLS
+
+2026/10/31 22:44:32: Start the connection with the license server
+2026/10/31 22:44:32: No deserialization requested.
+2026/10/31 22:44:32: warning: C:\ANSYSDev\Agent\_work\1\s\SpeosOne\SpeosRPC\sources\SpeosAPI\kernel_new_API\sources_services\src\BackgroundGrpc.cpp(120): 
+Name: TransportRPCInsecure
+SpeosRPC transport configuration is insecure.
+
+Modifying transport configurations is not recommended.
+
+See the documentation for your installed product for additional information.
+2026/10/31 22:44:32: Start SpeosRPC_Server in insecure mode on 127.0.0.1:60903
+2026/10/31 22:44:32: No popup : 1
+2026/10/31 22:44:32: Port  on 60903
+2026/10/31 22:44:33: error: C:\ANSYSDev\Agent\_work\1\s\SpeosOne\Speos\Optis.Libs\LibOptisError\API\OptErrorUtil.h(414): 
+------------------ exception:
+Group: Internal
+Name: Std
+Severity: Internal
+Params:
+2026/10/31 22:44:33: error: C:\ANSYSDev\Agent\_work\1\s\SpeosOne\Speos\Optis.Libs\LibOptisError\API\OptErrorUtil.h(414): 
+------------------ exception:
+Group: Internal
+Name: Std
+Severity: Internal
+Params:
+	operation cannot be performed on this data
+2026/10/31 22:44:33: critical: C:\ANSYSDev\Agent\_work\1\s\SpeosOne\Speos\Optis.Libs\LibOptisError\API\OptErrorUtil.h(414): 
+Name: Std
+Standard exception
+
+operation cannot be performed on this data
+
+Please contact Ansys support at  https://www.ansys.com/support
+	Optis::AppInfo::CallStack
+	Optis::IO::Log::Write
+	Optis::IO::Log::Write
+	OPTCheckValue
+	OPTCheckValue
+	OPTCheckValue
+	OPTErrorKernelAdd
+	COPTKernelFile::OptCreateDirectoryTree
+SymGetSymFromAddr64 failed: 487
+	_NLG_Return2
+	RtlCaptureContext2
+	bsdf_creation::BuildSpectralBsdf
+	AnisotropicBSDFService::FreezeAbsorptionReflectionTransmissionCoefficients
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	BaseThreadInitThunk
+	RtlUserThreadStart

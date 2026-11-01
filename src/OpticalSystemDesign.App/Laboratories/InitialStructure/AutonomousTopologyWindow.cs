@@ -137,8 +137,14 @@ public sealed partial class AutonomousTopologyWindow : Window
         Number("AutonomousStagnation", "连续无改进尝试上限", 2, 1, 128);
         Choice("AutonomousGeometryScreen", "重生候选几何筛检", false);
         Number("AutonomousPoolSize", "每种片数保留候选数", 4, 1, 8);
-        _inputs.Children.Add(Text("一阶起点准备（独立预算）"));
+        _inputs.Children.Add(Text("起点准备（独立预算）"));
         Choice("AutonomousRetrieval", "从已有镜头库检索起点", false);
+        Choice("AutonomousColdStart", "实验：冷启动构造与原规格补偿", false);
+        Choice("AutonomousSpc", "实验：SPC分支准备并自动搜索", false);
+        Number("AutonomousSpcGradients", "SPC准备梯度上限", 600, 1, 10000);
+        Number("AutonomousSpcRays", "SPC准备总追迹上限", 2000000, 1, 10000000);
+        Number("AutonomousColdGradients", "冷启动梯度上限", 600, 1, 10000);
+        Number("AutonomousColdRays", "冷启动总追迹上限", 10000000, 1, 10000000);
         _inputs.Children.Add(_librarySummary);
         Number("AutonomousRetrievalCandidates", "检索完整验收候选上限", 4, 1, 8);
         Number("AutonomousRetrievalMinScale", "镜头库最小缩放比例", .5m, .001m, 1000);
@@ -176,7 +182,7 @@ public sealed partial class AutonomousTopologyWindow : Window
         Number("AutonomousSeedStarts", "一阶起点尝试上限", 12, 1, 64);
         Number("AutonomousSeedRetained", "一阶保留起点数", 4, 1, 8);
         Number("AutonomousSeedFunctions", "一阶评价尝试上限", 300, 2, 10000);
-        Number("AutonomousSeedPerStart", "每起点评价上限", 40, 2, 200);
+        Number("AutonomousSeedPerStart", "每起点评价上限", 40, 2, 1000);
         Number("AutonomousSeedSeconds", "一阶准备时限 (秒)", 15, .01m, 600);
         _inputs.Children.Add(_seedSummary);
         Choice("AutonomousStructure", "允许改变片数", true);
@@ -208,6 +214,7 @@ public sealed partial class AutonomousTopologyWindow : Window
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             VerticalContentAlignment = VerticalAlignment.Stretch
         }, "AutonomousTabs");
+        _autonomousTabs = tabs;
         tabs.Items.Add(new TabItem { Header = "候选与验收", Content = _candidates });
         var history = Table("AutonomousEvents", ("序号", "Sequence", 60), ("试验", "Trial", 110), ("父方案", "Parent", 130),
             ("操作", "Operation", 110), ("阶段", "Phase", 100), ("结果", "Outcome", 170), ("评价 / 光线梯度 / 追迹", "Work", 210),
@@ -223,15 +230,20 @@ public sealed partial class AutonomousTopologyWindow : Window
             ("有效 / 尝试", "Valid", 140), ("边界 / 中心", "Checks", 140), ("畸变 %", "Distortion", 130));
         fields.ItemsSource = _fieldRows; tabs.Items.Add(new TabItem { Header = "独立视场验收", Content = fields });
         var structureTab = Named(new TabItem { Header = "镜头结构", Content = BuildStructureView() }, "AutonomousStructureTab");
+        _structureTab = structureTab;
         tabs.Items.Add(structureTab);
+        var reviewTab = Named(new TabItem { Header = "记录、方案与报告", Content = BuildReviewView() }, "AutonomousReviewTab");
+        tabs.Items.Add(reviewTab);
         tabs.SelectionChanged += (_, args) =>
         {
             if (!ReferenceEquals(args.Source, tabs)) return;
             _structureSelected = ReferenceEquals(tabs.SelectedItem, structureTab);
-            _budget.IsVisible = !_structureSelected;
-            if (_detailsHost is { } host) host.IsVisible = !_structureSelected;
+            _reviewSelected = ReferenceEquals(tabs.SelectedItem, reviewTab);
+            _budget.IsVisible = !_structureSelected && !_reviewSelected;
+            if (_detailsHost is { } host) host.IsVisible = !_structureSelected && !_reviewSelected;
             if (_narrow == true) _results.Height = _structureSelected ? 700 : 550;
             if (_structureSelected) StructurePendingLoad = RequestStructureDisplayAsync();
+            if (_reviewSelected) RefreshReview();
         };
         Grid.SetRow(tabs, 1); _results.Children.Add(tabs);
         var details = new ScrollViewer { Content = _details, MaxHeight = 160, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled };
@@ -280,6 +292,24 @@ public sealed partial class AutonomousTopologyWindow : Window
         {
             if (_applyingPlan) return;
             MarkPlanEdited();
+            if (id == "AutonomousSpc" && control.IsChecked == true)
+                foreach (var other in new[] { "AutonomousColdStart", "AutonomousRetrieval", "AutonomousEvolution", "AutonomousCompetition",
+                    "AutonomousDescriptor", "AutonomousDelano", "AutonomousImageScreening", "AutonomousFixedStopRecovery" })
+                    _choices[other].IsChecked = false;
+            if (id is "AutonomousColdStart" or "AutonomousRetrieval" or "AutonomousEvolution" or "AutonomousCompetition"
+                or "AutonomousDescriptor" or "AutonomousImageScreening" or "AutonomousFixedStopRecovery" && control.IsChecked == true)
+                _choices["AutonomousSpc"].IsChecked = false;
+            if (id == "AutonomousColdStart" && control.IsChecked == true)
+            {
+                foreach (var other in new[] { "AutonomousRetrieval", "AutonomousEvolution", "AutonomousCompetition", "AutonomousImageScreening" })
+                    _choices[other].IsChecked = false;
+                _choices["AutonomousDescriptor"].IsChecked = true;
+                _choices["AutonomousDelano"].IsChecked = true;
+            }
+            if (id is "AutonomousRetrieval" or "AutonomousEvolution" or "AutonomousCompetition" or "AutonomousImageScreening" && control.IsChecked == true)
+                _choices["AutonomousColdStart"].IsChecked = false;
+            if (id is "AutonomousDescriptor" or "AutonomousDelano" && control.IsChecked != true)
+                _choices["AutonomousColdStart"].IsChecked = false;
             if (id == "AutonomousRetrieval" && control.IsChecked == true)
                 foreach (var other in new[] { "AutonomousEvolution", "AutonomousCompetition", "AutonomousDescriptor", "AutonomousImageScreening", "AutonomousFixedStopRecovery" })
                     _choices[other].IsChecked = false;
@@ -380,6 +410,7 @@ public sealed partial class AutonomousTopologyWindow : Window
         if (_closed) return;
         RefreshSeedSummary();
         foreach (var (column, title) in _columnTitles) column.Header = UiLocalization.Text(title);
+        if (_review is { } review) PresentReview(review);
         if (_session.Checkpoint is { } state) Publish(state); else Refresh();
     }
 }

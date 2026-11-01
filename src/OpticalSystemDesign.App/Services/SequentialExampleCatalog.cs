@@ -11,7 +11,27 @@ internal sealed record SequentialExample(string RelativePath, string Sha256)
         RelativePath.Replace('/', Path.DirectorySeparatorChar));
 }
 
-internal sealed record SequentialExampleGroup(string Name, IReadOnlyList<SequentialExample> Examples);
+internal sealed record SequentialExampleGroup(string Name, IReadOnlyList<SequentialExample> Examples)
+{
+    public string DisplayName => Name switch
+    {
+        "Afocal" => "无焦系统",
+        "Birefringent prisms" => "双折射棱镜",
+        "Diffractive components" => "衍射元件",
+        "GRINs" => "梯度折射率系统",
+        "Image Simulation" => "图像模拟",
+        "Interconnects" => "光学互连",
+        "Manufacturing" => "制造",
+        "Miscellaneous" => "其他系统",
+        "Objectives" => "物镜",
+        "Optical testing" => "光学检测",
+        "Polarization" => "偏振",
+        "Telescopes" => "望远镜",
+        "Tilted systems & prisms" => "倾斜系统与棱镜",
+        "Zoom systems" => "变焦与扫描",
+        _ => Name
+    };
+}
 
 internal static class SequentialExampleCatalog
 {

@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Laboratories;
@@ -31,8 +32,8 @@ public sealed partial class CameraImagingWindow
             if (result is null || _busy) return;
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "保存完整相机实验", SuggestedFileName = "experiment.camera-experiment.zip", DefaultExtension = "zip",
-                FileTypeChoices = new[] { new FilePickerFileType("相机实验") { Patterns = new[] { "*.camera-experiment.zip" } } }
+                Title = UiLocalization.Text("保存完整相机实验"), SuggestedFileName = "experiment.camera-experiment.zip", DefaultExtension = "zip",
+                FileTypeChoices = new[] { new FilePickerFileType(UiLocalization.Text("相机实验")) { Patterns = new[] { "*.camera-experiment.zip" } } }
             });
             if (file is null || _closed) return;
             try
@@ -88,6 +89,9 @@ public sealed partial class CameraImagingWindow
             _source.SelectedIndex = (int)request.Source; _sourceFile = request.SourceFile;
             if (request.Scene3D is { } scene3d) _scene3D = scene3d;
             _scene3DWasActive = request.Source == CameraSource.Scene3D;
+            _nscWasActive = request.Source == CameraSource.NonSequentialDetector; _nscInput = request.NscDetector;
+            if (_nscInput is { } nsc)
+            { _nscChoices = []; _nscDetector.ItemsSource = new[] { nsc.Detector.Name }; _nscDetector.SelectedIndex = 0; _nscFilter.Text = nsc.PathFilter; }
             _numbers["scene3d-depth"].Value = 0; _numbers["scene3d-power"].Value = 1;
             _numbers["scene3d-rings"].Value = request.Render3D?.PupilRings ?? 2;
             _numbers["scene3d-arms"].Value = request.Render3D?.PupilArms ?? 8;
@@ -150,11 +154,14 @@ public sealed partial class CameraImagingWindow
 
     private void UpdateExperimentControls()
     {
+        _useExperiment.Content = IsNsc ? "使用实验探测器与输入" : "使用实验镜头与输入";
         ControlAvailability.Set(_saveExperiment, !_busy && _result?.Inputs is not null, "请先完成仿真，再保存完整实验。");
         var sameVersion = CameraExperiment.CanRecompute(_result?.Inputs?.EngineVersion)
             && (_comparison is null || CameraExperiment.CanRecompute(_comparison.Inputs?.EngineVersion));
         ControlAvailability.Set(_recomputeExperiment, !_busy && _result?.Inputs is not null && sameVersion,
             !sameVersion && _result is not null ? "计算模型版本不同，可查看结果，不能按当前模型复算。" : "请先完成仿真或打开完整实验。");
-        _experimentInfo.Text = UsingExperimentInputs ? $"使用实验镜头与内嵌输入 · {_experimentRun!.Inputs!.EngineVersion}" : "使用当前工程镜头与输入";
+        _experimentInfo.Text = UsingExperimentInputs
+            ? $"{(IsNsc ? "使用实验内嵌 NSC 功率" : "使用实验镜头与内嵌输入")} · {_experimentRun!.Inputs!.EngineVersion}"
+            : "使用当前工程镜头与输入";
     }
 }

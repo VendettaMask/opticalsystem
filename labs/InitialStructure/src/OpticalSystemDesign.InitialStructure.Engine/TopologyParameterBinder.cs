@@ -12,12 +12,16 @@ public sealed record TopologyParameterSlot(TopologyVariableRequest Request, Opti
 /// <summary>A binding belongs to one compiled template, material set, coordinate frame and explicit bound set.</summary>
 public sealed class BoundTopologyParameters
 {
-    internal BoundTopologyParameters(string sourceFingerprint, ImmutableArray<TopologyParameterSlot> slots)
+    internal BoundTopologyParameters(string sourceFingerprint, ImmutableArray<TopologyParameterSlot> slots, bool exactMechanicalFrame = false)
     {
         SourceFingerprint = sourceFingerprint;
         Slots = slots;
-        Fingerprint = ContentFingerprint.Compute(new { SourceFingerprint, Requests = slots.Select(slot => slot.Request).ToArray() });
+        UsesExactMechanicalFrame = exactMechanicalFrame;
+        Fingerprint = exactMechanicalFrame
+            ? ContentFingerprint.Compute(new { Identity = "topology-binding-mechanical-frame-v2", SourceFingerprint, Requests = slots.Select(slot => slot.Request).ToArray() })
+            : ContentFingerprint.Compute(new { SourceFingerprint, Requests = slots.Select(slot => slot.Request).ToArray() });
     }
+    internal bool UsesExactMechanicalFrame { get; }
     public string SourceFingerprint { get; }
     public string Fingerprint { get; }
     public ImmutableArray<TopologyParameterSlot> Slots { get; }
@@ -28,7 +32,16 @@ public sealed class BoundTopologyParameters
 /// <summary>Stable surface IDs become Core parameters; no optical formula is implemented here.</summary>
 public static class TopologyParameterBinder
 {
-    public static BoundTopologyParameters Bind(CompiledTopology source, IEnumerable<TopologyVariableRequest> requests)
+    private static double MechanicalZ(DesignTopology topology, string surfaceId)
+    {
+        if (surfaceId == topology.Image.Id) return topology.Image.ZMillimeters;
+        var owner = topology.Elements.First(e => e.FrontSurfaceId == surfaceId || e.BackSurfaceId == surfaceId);
+        return owner.FrontSurfaceId == surfaceId ? owner.FrontZMillimeters : owner.BackZMillimeters;
+    }
+    public static BoundTopologyParameters Bind(CompiledTopology source, IEnumerable<TopologyVariableRequest> requests) =>
+        Bind(source, requests, exactMechanicalFrame: false);
+
+    public static BoundTopologyParameters Bind(CompiledTopology source, IEnumerable<TopologyVariableRequest> requests, bool exactMechanicalFrame)
     {
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(requests);
@@ -72,13 +85,21 @@ public static class TopologyParameterBinder
             { OriginOffset = request.Kind == OpticalDesignParameterKind.AxialPosition ? source.GlobalToCoreZOffset : 0 });
         }
         var initial = OpticalDesignParameters.Read(source.CreateOptic(), parameters);
-        var slots = definitions.Select((request, index) => new TopologyParameterSlot(request, parameters[index], initial[index],
+        // Axial variables are declared in the immutable mechanical frame. Reading
+        // them back from accumulated Core thicknesses can cross an exact bound by
+        // one ULP, preventing the next stage from binding a legal accepted point.
+        double Initial(TopologyVariableRequest request, int index)
+        {
+            if (!exactMechanicalFrame || request.Kind != OpticalDesignParameterKind.AxialPosition) return initial[index];
+            return MechanicalZ(source.Topology, request.SurfaceId) / request.Scale;
+        }
+        var slots = definitions.Select((request, index) => new TopologyParameterSlot(request, parameters[index], Initial(request, index),
             request.LowerBound / request.Scale, request.UpperBound / request.Scale)).ToImmutableArray();
         foreach (var slot in slots)
             Require(double.IsFinite(slot.InitialCoordinate) && double.IsFinite(slot.LowerCoordinate) && double.IsFinite(slot.UpperCoordinate)
                 && slot.InitialCoordinate >= slot.LowerCoordinate && slot.InitialCoordinate <= slot.UpperCoordinate,
-                TopologyFailureCode.InvalidVariableBounds, "The initial parameter must lie in representable bounds.");
-        return new(source.BindingFingerprint, slots);
+                TopologyFailureCode.InvalidVariableBounds, $"The initial parameter must lie in representable bounds: {slot.Request.SurfaceId}/{slot.Request.Kind} {slot.InitialCoordinate:R} outside [{slot.LowerCoordinate:R}, {slot.UpperCoordinate:R}].");
+        return new(source.BindingFingerprint, slots, exactMechanicalFrame);
     }
 
     public static CompiledTopology Apply(CompiledTopology template, BoundTopologyParameters binding, IReadOnlyList<double> coordinates)
@@ -90,6 +111,7 @@ public static class TopologyParameterBinder
         Require(coordinates.Count == binding.Slots.Length && coordinates.Select((value, index) =>
             double.IsFinite(value) && value >= binding.Slots[index].LowerCoordinate && value <= binding.Slots[index].UpperCoordinate).All(valid => valid),
             TopologyFailureCode.InvalidVariableBounds, "Optimizer coordinates exceed the declared bounds.");
+        if (binding.UsesExactMechanicalFrame && coordinates.SequenceEqual(binding.InitialCoordinates)) return template;
         var axial = binding.Slots.Select((slot, index) => (slot, index))
             .Where(item => item.slot.Request.Kind == OpticalDesignParameterKind.AxialPosition).ToArray();
         if (axial.Length == 0)
@@ -106,13 +128,21 @@ public static class TopologyParameterBinder
         var shaped = shape.Length == 0 ? template : TopologyCompiler.Update(template,
             OpticalDesignParameters.Apply(template.Snapshot, shape.Select(item => item.slot.CoreParameter).ToArray(),
                 shape.Select(item => coordinates[item.index]).ToArray()).ToSnapshot());
-        var positions = axial.ToDictionary(item => item.slot.Request.SurfaceId, item => coordinates[item.index] * item.slot.Request.Scale);
+        var positions = axial.ToDictionary(item => item.slot.Request.SurfaceId, item =>
+        {
+            var slot = item.slot; var coordinate = coordinates[item.index];
+            if (!binding.UsesExactMechanicalFrame) return coordinate * slot.Request.Scale;
+            return coordinate == slot.InitialCoordinate ? MechanicalZ(template.Topology, slot.Request.SurfaceId)
+                : coordinate == slot.LowerCoordinate ? slot.Request.LowerBound
+                : coordinate == slot.UpperCoordinate ? slot.Request.UpperBound : coordinate * slot.Request.Scale;
+        });
         var topology = shaped.Topology with
         {
             Elements = shaped.Topology.Elements.Select(element =>
             {
                 var front = positions.GetValueOrDefault(element.FrontSurfaceId, element.FrontZMillimeters);
                 var back = positions.GetValueOrDefault(element.BackSurfaceId, element.BackZMillimeters);
+                if (binding.UsesExactMechanicalFrame && front == element.FrontZMillimeters && back == element.BackZMillimeters) return element;
                 return positions.ContainsKey(element.FrontSurfaceId) || positions.ContainsKey(element.BackSurfaceId)
                     ? element with { FrontZMillimeters = front, ThicknessMillimeters = back - front } : element;
             }).ToImmutableArray(),

@@ -11,6 +11,9 @@ namespace OpticalSystemDesign.InitialStructure.Engine;
 /// This is not Delano replication or physical image-quality certification.</summary>
 public static class ParaxialSeedSearch
 {
+    private sealed record PreparedPoolItem(DesignTopology Topology, double Score);
+    private sealed record PreparationState(int NextStart, ImmutableArray<ParaxialSeedAttempt> Attempts,
+        ImmutableArray<PreparedPoolItem> Retained, int Diagrams, ImmutableArray<SeedImageScreeningResult> Screens);
     private sealed class LimitReached : Exception { }
     private sealed class StartLimitReached : Exception { }
     private sealed record Sample(CompiledTopology Source, double[] Coordinates, double[] Residuals,
@@ -22,6 +25,14 @@ public static class ParaxialSeedSearch
     {
         options ??= plan.Options.SeedPreparation ?? new();
         ValidateOptions(options);
+        if (options.Spc is not null)
+        {
+            var original = plan with { Options = plan.Options with { SeedPreparation = options } };
+            var prepared = SeedPreparationSearch.Run(SeedPreparationSearch.Create("spc-preparation", original), _ => { }, cancellationToken, progress);
+            return SeedPreparationSearch.Result(prepared);
+        }
+        if (options.ColdStart is not null)
+            return ColdStartSeedPreparation.Run(plan, options, cancellationToken, progress);
         if (options.Retrieval is not null)
             return LensRetrievalSearch.Run(plan, options, cancellationToken, progress);
         if (options.Evolution is not null)
@@ -46,15 +57,19 @@ public static class ParaxialSeedSearch
             SearchRadialSamples = options.FixedStopRecoveryVersion == 2 ? 64 : 16,
             FinalRadialSamples = 64
         });
-        var timer = Stopwatch.StartNew();
-        using var deadline = new CancellationTokenSource(options.TimeLimit);
+        var checkpoint = PreparationCheckpointContext.For("Paraxial", plan);
+        var saved = checkpoint?.Load<PreparationState>();
+        var timer = checkpoint?.Clock() ?? new PreparationClock();
+        using var deadline = new CancellationTokenSource(checkpoint?.RemainingTime ?? options.TimeLimit);
+        checkpoint?.Attach(deadline);
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, deadline.Token);
         var token = linked.Token;
-        using var rays = SequentialTraceMeasurement.BeginCpuBudget(options.MaximumTracedRays);
-        var random = new DeterministicRandom(plan.Options.Seed);
-        var functions = 0; var matrices = 0; var jacobians = 0; var diagrams = 0; long probes = 0;
-        var attempts = new List<ParaxialSeedAttempt>();
-        var retained = new List<(DesignTopology Topology, double Score)>();
+        using var rays = checkpoint?.Rays(options.MaximumTracedRays) ?? new PreparationRays(options.MaximumTracedRays);
+        var random = checkpoint is null ? new DeterministicRandom(plan.Options.Seed) : DeterministicRandom.Restore(checkpoint.State.RandomState);
+        var functions = checkpoint?.State.Consumed.FunctionEvaluations ?? 0; var matrices = checkpoint?.State.Consumed.MatrixEvaluations ?? 0;
+        var jacobians = checkpoint?.State.Consumed.JacobianBuilds ?? 0; var diagrams = saved?.Diagrams ?? 0; long probes = checkpoint?.State.Consumed.GeometryProbes ?? 0;
+        var attempts = saved?.Attempts.ToList() ?? new List<ParaxialSeedAttempt>();
+        var retained = saved?.Retained.Select(item => (item.Topology, item.Score)).ToList() ?? new List<(DesignTopology Topology, double Score)>();
         var termination = ParaxialSeedTermination.Completed;
         var screeningPhase = false;
         var screeningReserve = options.ImageScreening is { } imageOptions
@@ -62,10 +77,11 @@ public static class ParaxialSeedSearch
         try
         {
             using var cpu = new SequentialGpuSession(DesignComputeMode.Cpu, token);
-            for (var start = 0; start < options.MaximumStarts; start++)
+            for (var start = saved?.NextStart ?? 0; start < options.MaximumStarts; start++)
             {
                 CheckLimit();
                 if (options.MaximumFunctionEvaluations - functions < 2) throw new LimitReached();
+                checkpoint?.Reserve("FirstOrderStart-" + start, Math.Min(options.MaximumEvaluationsPerStart, options.MaximumFunctionEvaluations - functions));
                 var template = plan.Seeds[start % plan.Seeds.Length];
                 var before = functions;
                 var outcome = "NoFirstOrderSeed";
@@ -251,6 +267,7 @@ public static class ParaxialSeedSearch
                     });
                     progress?.Invoke(start + 1, functions);
                 }
+                Commit(start + 1, [], "Starts", start + 1);
             }
         }
         catch (OperationCanceledException) { termination = cancellationToken.IsCancellationRequested ? ParaxialSeedTermination.Cancelled : ParaxialSeedTermination.TimeLimit; }
@@ -263,11 +280,12 @@ public static class ParaxialSeedSearch
         if (options.ImageScreening is { } screening)
         {
             screeningPhase = true;
-            screens = [];
+            screens = saved?.Screens.ToList() ?? [];
             try
             {
-                foreach (var candidate in pool.Take(screening.MaximumCandidates))
+                foreach (var candidate in pool.Take(screening.MaximumCandidates).Skip(screens.Count))
                 {
+                    checkpoint?.Reserve("ImageScreen", 1);
                     Charge();
                     var assessed = SeedImageQualityScreening.Evaluate(TopologyCompiler.Compile(candidate.Topology, plan.Constraints),
                         plan.Targets, screening, token);
@@ -275,6 +293,7 @@ public static class ParaxialSeedSearch
                     progress?.Invoke(attempts.Count, functions);
                     if (token.IsCancellationRequested) token.ThrowIfCancellationRequested();
                     if (rays.LimitReached) throw new LimitReached();
+                    Commit(options.MaximumStarts, screens, "Screening", screens.Count);
                 }
             }
             catch (OperationCanceledException) { termination = cancellationToken.IsCancellationRequested ? ParaxialSeedTermination.Cancelled : ParaxialSeedTermination.TimeLimit; }
@@ -323,6 +342,17 @@ public static class ParaxialSeedSearch
             if (functions >= options.MaximumFunctionEvaluations - (screeningPhase ? 0 : screeningReserve)) throw new LimitReached();
         }
         void Charge() { CheckLimit(); functions++; }
+        void Commit(int nextStart, IEnumerable<SeedImageScreeningResult> completedScreens, string stage, int cursor)
+            => checkpoint?.Commit(new PreparationState(nextStart, attempts.ToImmutableArray(), retained.Select(item => new PreparedPoolItem(item.Topology, item.Score)).ToImmutableArray(),
+                diagrams, completedScreens.ToImmutableArray()), stage, cursor, random.State, new()
+                {
+                    FunctionEvaluations = functions,
+                    MatrixEvaluations = matrices,
+                    JacobianBuilds = jacobians,
+                    GeometryProbes = probes,
+                    TracedRays = rays.RayCount,
+                    Elapsed = timer.Elapsed
+                });
     }
 
     internal static ImmutableArray<TopologyVariableRequest> Variables(DesignTopology topology, AutonomousSearchOptions policy, bool includePermittedConics = false)
@@ -352,6 +382,16 @@ public static class ParaxialSeedSearch
     public static void ValidateOptions(ParaxialSeedSearchOptions options)
     {
         ArgumentNullException.ThrowIfNull(options);
+        if (options.Spc is { } spc)
+        {
+            if (options.ColdStart is not null || options.Retrieval is not null || options.Evolution is not null || options.Competition is not null
+                || options.Generation is not null || options.ImageScreening is not null || options.FixedStopRecoveryVersion is not null)
+                throw new ArgumentException("SPC preparation is an explicit exclusive route; original structure permissions remain required.");
+            SpcBranchSearch.ValidatePolicy(options, spc);
+        }
+        if (options.ColdStart is not null && (options.Retrieval is not null || options.Evolution is not null
+            || options.Competition is not null || options.ImageScreening is not null))
+            throw new ArgumentException("Cold construction cannot be combined with another preparation strategy.");
         if (options.Retrieval is not null) LensRetrievalSearch.ValidateOptions(options);
         if (options.Evolution is not null) StructureEvolutionSearch.ValidateOptions(options);
         if (options.Competition is not null) StructureCompetitionSearch.Validate(options);
@@ -362,9 +402,9 @@ public static class ParaxialSeedSearch
             if (options.MaximumFunctionEvaluations < 3) throw new ArgumentException("Real-ray screening requires a separate evaluation within the preparation budget.");
         }
         if (options.FixedStopRecoveryVersion is not (null or 2) || options.Version != 1 || options.MaximumStarts is < 1 or > 64 || options.RetainedSeeds is < 1 or > 8
-            || options.MaximumFunctionEvaluations is < 2 or > 10_000 || options.MaximumEvaluationsPerStart is < 2 or > 200
-            || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromMinutes(options.Evolution is null && options.Retrieval is null ? 2 : 10)
-            || options.MaximumTracedRays < 1 || options.MaximumTracedRays > (options.Evolution is null && options.Retrieval is null ? 1_000_000 : 10_000_000)
+            || options.MaximumFunctionEvaluations is < 2 or > 10_000 || options.MaximumEvaluationsPerStart is < 2 or > 1000
+            || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromMinutes(options.Evolution is null && options.Retrieval is null && options.ColdStart is null && options.Spc is null ? 2 : 10)
+            || options.MaximumTracedRays < 1 || options.MaximumTracedRays > (options.Evolution is null && options.Retrieval is null && options.ColdStart is null && options.Spc is null ? 1_000_000 : 10_000_000)
             || !double.IsFinite(options.FocusATolerance) || options.FocusATolerance is <= 0 or > .1)
             throw new ArgumentException("Invalid bounded first-order seed preparation protocol.");
     }

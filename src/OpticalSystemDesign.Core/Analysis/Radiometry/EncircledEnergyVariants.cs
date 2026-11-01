@@ -36,7 +36,10 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
     {
         if (!Enum.IsDefined(integrationConvention)) throw new ArgumentOutOfRangeException(nameof(integrationConvention));
         _integrationConvention = integrationConvention;
-        if (pupilSampling > AnalysisResourceLimits.MaximumFftGridSize / 2)
+        if (pupilSampling > DiffractionEngine.MaximumBoundedFourierTransformSize / 2
+            || pupilSampling > AnalysisResourceLimits.MaximumFftGridSize / 2
+                && (integrationConvention != DiffractionEnergyIntegrationConvention.FftCumulative
+                    || (pupilSampling & (pupilSampling - 1)) != 0))
             throw new ArgumentOutOfRangeException(nameof(pupilSampling), "Energy sampling exceeds the shared FFT grid budget.");
         if (imageSampling > AnalysisResourceLimits.MaximumFftGridSize)
             throw new ArgumentOutOfRangeException(nameof(imageSampling), "Energy sampling exceeds the shared FFT grid budget.");
@@ -63,6 +66,9 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         var fieldIndices = _fieldNumber <= 0
             ? Enumerable.Range(0, allFields.Count).ToArray()
             : new[] { Math.Clamp(_fieldNumber - 1, 0, allFields.Count - 1) };
+        if (_pupilSampling > AnalysisResourceLimits.MaximumFftGridSize / 2
+            && (long)(fieldIndices.Length + 4) * _pupilSampling > AnalysisResourceLimits.MaximumAggregateGridCells)
+            throw new ArgumentOutOfRangeException(nameof(_pupilSampling), "Cumulative spectral/field knots exceed the aggregate grid budget");
         var curves = new List<DiffractionEnergyCurve>(fieldIndices.Length);
         foreach (var fieldIndex in fieldIndices)
         {
@@ -72,8 +78,8 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 continue;
             }
 
-            var automaticMaximum = PsfPixelEnergyGrid.DefaultMaximumDistance(
-                pixelGrid.RadiusContaining(0.99));
+            var automaticMaximum = _maximumDistanceMicrometers > 0 ? _maximumDistanceMicrometers
+                : PsfPixelEnergyGrid.DefaultMaximumDistance(pixelGrid.RadiusContaining(0.99));
             curves.Add(new DiffractionEnergyCurve(
                 fieldIndex,
                 allFields[fieldIndex],
@@ -90,7 +96,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         var idealGrid = radial
             ? CreatePixelGrid(curves[0].FieldIndex, ignoreOpd: true)
             : null;
-        var automaticDistance = idealGrid is null
+        var automaticDistance = _maximumDistanceMicrometers > 0 ? _maximumDistanceMicrometers : idealGrid is null
             ? curves.Max(curve => curve.AutomaticMaximumDistance)
             : PsfPixelEnergyGrid.DefaultMaximumDistance(idealGrid.RadiusContaining(0.99));
         var maximumDistance = _maximumDistanceMicrometers > 0
@@ -137,6 +143,9 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 ["PupilSampling"] = _pupilSampling,
                 ["ImageSampling"] = _imageSampling,
                 ["EffectiveImageSampling"] = UseFftCumulativeGrid ? 2 * _pupilSampling : _imageSampling,
+                ["BoundedFourierSampling"] = curves.Select(c => c.PixelGrid).OfType<FftCumulativeKnotGrid>().Select(g => g.FourierSampling).ToArray(),
+                ["BoundedImagePitch"] = curves.Select(c => c.PixelGrid).OfType<FftCumulativeKnotGrid>().Select(g => g.ImagePitch).ToArray(),
+                ["DistanceBinWidth"] = curves.Select(c => c.PixelGrid).OfType<FftCumulativeKnotGrid>().Select(g => g.BinWidth).ToArray(),
                 ["CumulativeKnotCount"] = UseFftCumulativeGrid ? _pupilSampling : _numPoints,
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["FieldNumber"] = _fieldNumber,
@@ -249,6 +258,13 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Count == 0) return null;
         var field = SpotAnalysisEngine.DefinedFields(Optic)[fieldIndex];
+        if (_pupilSampling > AnalysisResourceLimits.MaximumFftGridSize / 2)
+        {
+            if (wavelengths.Count != 1)
+                throw new AnalysisDataUnavailableException(Name, "large cumulative energy readouts currently require one selected wavelength");
+            return DiffractionEngine.ComputeBoundedCumulativeEnergyKnots(Optic, field, wavelengths[0], _pupilSampling,
+                _reference, _type, _maximumDistanceMicrometers, ignoreOpd);
+        }
         var reference = Optic.Wavelengths.FirstOrDefault(w => w.IsPrimary) ?? Optic.Wavelengths[0];
         var size = 2 * _pupilSampling;
         var results = DiffractionEngine.ComputeFftCumulativeEnergySpectrum(
@@ -284,7 +300,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         IEnergyImageGrid pixelGrid,
         double maximumDistance)
     {
-        if (pixelGrid is FftCumulativeEnergyGrid)
+        if (UseFftCumulativeGrid)
         {
             var axis = Enumerable.Range(0, _pupilSampling).Select(i => maximumDistance * i / (_pupilSampling - 1d)).ToArray();
             var energy = axis.Select(pixelGrid.Fraction).ToArray();
@@ -1041,6 +1057,17 @@ internal static class EnergyCurveSupport
             return Centroid(samples);
         }
 
+        return ChiefReferencePoint(optic, field, wavelengths, samples, requireReferenceRay: false);
+    }
+
+    public static (double X, double Y) NativeAfocalReferencePoint(Optic optic,
+        (double Hx, double Hy) field, IReadOnlyList<Wavelength> wavelengths, IReadOnlyList<EnergySample> samples)
+        => ChiefReferencePoint(optic, field, wavelengths, samples, requireReferenceRay: true);
+
+    private static (double X, double Y) ChiefReferencePoint(Optic optic,
+        (double Hx, double Hy) field, IReadOnlyList<Wavelength> wavelengths, IReadOnlyList<EnergySample> samples,
+        bool requireReferenceRay)
+    {
         var primary = wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
             ?? wavelengths.First();
         var chief = SpotAnalysisEngine.Generate(
@@ -1053,6 +1080,8 @@ internal static class EnergyCurveSupport
             aimAtStop: optic.RayAimingEnabled,
             includeSurfaceTransmission: false);
         var ray = chief.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays.FirstOrDefault();
+        if (ray is null && requireReferenceRay)
+            throw new AnalysisDataUnavailableException("Encircled Energy", "native angular reference ray is unavailable; a physical centroid cannot substitute for its direction");
         var scale = optic.ImageSpaceAfocal ? 1 : 1000;
         return ray is null ? Centroid(samples) : (ray.X * scale, ray.Y * scale);
     }

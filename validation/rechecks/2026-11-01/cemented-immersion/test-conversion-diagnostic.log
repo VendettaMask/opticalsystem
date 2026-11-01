@@ -1,0 +1,27 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.07]     OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource [FAIL]
+  失败 OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource [557 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组 S1→S2 界面顺序、机械边缘或相邻介质不连续。中心间隔=3.2589600000000001 mm，边缘间隔=0.82097124163512802 mm，介质=SK16→Air。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.OpticalAssemblyParameters..ctor(IReadOnlyList`1 interfaces)
+   at OpticalSystemDesign.Core.NonSequential.SequentialOpticalAssemblyConverter.Convert(Optic optic, NonSequentialTraceSettings settings)
+   at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.<ConvertFromSequential>b__13_0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs:line 208
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.<>c__DisplayClass39_0`1.<MutateTransactional>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 323
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.<>c__DisplayClass38_0.<MutateTransactional>b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 269
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ExecuteTransactionalEdit(Action action) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs:line 201
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 266
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 308
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action, CancellationToken automaticSemiDiameterCancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 319
+   at OpticalSystemDesign.Application.Services.WorkbenchServiceBase.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchServiceBase.cs:line 42
+   at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.ConvertFromSequential() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs:line 203
+   at OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialDocumentTests.cs:line 322
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:/Projects/opticalsystem/validation/rechecks/2026-11-01/cemented-immersion\conversion-diagnostic.trx
+
+失败!  - 失败:     1，通过:     1，已跳过:     0，总计:     2，持续时间: 640 ms - OpticalSystemDesign.Tests.dll (net10.0)

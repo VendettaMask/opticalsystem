@@ -1,0 +1,38 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.83]     OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds [FAIL]
+  失败 OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds [22 ms]
+  错误消息:
+   System.IO.InvalidDataException : Speos 原始节点超过 131072。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.Reader.AddNodes(Int32 n) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 315
+   at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.ReadProfile(Reader r, Boolean transmit, Boolean projected) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 258
+   at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token, Boolean allowProjected) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 124
+   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 41
+   at OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11XyzTests.cs:line 117
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:07.34]     OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(transmission: True) [FAIL]
+[xUnit.net 00:00:07.56]     OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(transmission: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(transmission: True) [521 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0.65000000000000002 - 1)
+Actual: 0.4708251953125
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11XyzTests.cs:line 69
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(transmission: False) [217 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0.65000000000000002 - 1)
+Actual: 0.4708251953125
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11XyzTests.cs:line 69
+   at InvokeStub_SpeosV11XyzTests.RegisteredPeakFollowsIntermediateSpecularDirectionAndConservesPower(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\speos-v11-xyz\development-unit.trx
+
+失败!  - 失败:     3，通过:     8，已跳过:     0，总计:    11，持续时间: 5 s - OpticalSystemDesign.Tests.dll (net10.0)

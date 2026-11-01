@@ -1,0 +1,38 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:04.94]     OpticalSystemDesign.Tests.OpticalAssemblyTests.NewPayloadRequiresV20IncludingDisabledObjectsAndRetainsItsEmbeddedComponents [FAIL]
+[xUnit.net 00:00:05.08]     OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: True) [FAIL]
+  失败 OpticalSystemDesign.Tests.OpticalAssemblyTests.NewPayloadRequiresV20IncludingDisabledObjectsAndRetainsItsEmbeddedComponents [853 ms]
+  错误消息:
+   System.IO.InvalidDataException : Invalid optic snapshot at $.fields: at least one field is required.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Serialization.OpticSnapshotValidator.Invalid(String path, String message) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Serialization\OpticSnapshotValidator.cs:line 1546
+   at OpticalSystemDesign.Core.Serialization.OpticSnapshotValidator.Validate(OpticSnapshot snapshot) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Serialization\OpticSnapshotValidator.cs:line 184
+   at OpticalSystemDesign.Core.Serialization.StarOptProjectStore.SaveAsync(StarOptProjectDocument document, String path, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Serialization\StarOptProjectStore.cs:line 51
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.NewPayloadRequiresV20IncludingDisabledObjectsAndRetainsItsEmbeddedComponents() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 130
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:05.09]     OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: True) [14 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 309
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Boolean immersed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 69
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: False) [1 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 309
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Boolean immersed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 69
+   at InvokeStub_OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:/Projects/opticalsystem/validation/rechecks/2026-11-01/cemented-immersion\optical-first.trx
+
+失败!  - 失败:     3，通过:    10，已跳过:     0，总计:    13，持续时间: 1 s - OpticalSystemDesign.Tests.dll (net10.0)

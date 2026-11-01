@@ -74,6 +74,42 @@ public sealed record MaterialSnapshot(string Id, string Name, string Source, dou
 }
 
 public sealed record RequirementCheck(string Name, double? Actual, string Requirement, bool Passed);
+public sealed record TargetRepairTrial(int Step, FilmLayer[] Layers, ThinFilmBandMetrics Metrics, double[] Violations, bool SamplingConverged, bool Retained)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? GoalIndex { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Stage { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double[]? ViolationCeilings { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double? RestorationViolation { get; init; }
+}
+public sealed record TargetDirectionTrial(string Direction, FilmLayer[] Layers, ThinFilmBandMetrics Metrics, double Merit,
+    bool Passed, int Iterations, long Evaluations, string StopReason, bool Selected);
+public sealed record TargetRepairWindow(int PreviousLimit, int NewLimit, int GoalIndex, double BestMerit, double[] ViolationCeilings, string Reason);
+public sealed record PassbandQualityBounds(double MinimumPeakTransmittance, double MaximumWidthErrorNm,
+    double[] MinimumOpticalDensities, double[] ViolationCeilings);
+public sealed record PassbandQualityTrial(int Step, FilmLayer[] Layers, ThinFilmBandMetrics Metrics,
+    double[] OpticalDensities, bool SamplingConverged, bool Retained, PassbandQualityBounds Bounds);
+public sealed record PassbandCorrectionAttempt(int Step, int Attempt, double Fraction, double? GuidedExcess,
+    double? Merit, double BaselineMerit, bool Corrected);
+public sealed record PassbandDirectionTrial(string Direction, FilmLayer[] StartLayers, FilmLayer[] Layers,
+    ThinFilmBandMetrics Metrics, double[] OpticalDensities, bool SamplingConverged, bool Passed,
+    int Allowance, int Iterations, long Evaluations, bool Selected, PassbandQualityTrial[] Trials,
+    PassbandCorrectionAttempt[]? CorrectionAttempts);
+public sealed record ReflectanceMetricWindow(int IterationOffset, int Allowance, FilmLayer[] StartLayers, FilmLayer[] CandidateLayers,
+    double BaselineLoss, double CandidateLoss, bool SamplingConverged, bool Accepted, double DampingStart, double DampingEnd);
+public sealed record SearchSeedValidation(FilmLayer[] Layers, ThinFilmBandMetrics Metrics, double[] OpticalDensities,
+    bool SamplingConverged, bool Passed, double[] Violations)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public NarrowBandPrototype? Prototype { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? InitialLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public RunRecord? RefinementRun { get; init; }
+}
 public sealed record RunRecord(string Algorithm, string AlgorithmVersion, string StopReason, long Evaluations,
     int Iterations, int? RandomSeed, string SolverVersion = CoherentThinFilmSolver.Version)
 {
@@ -86,6 +122,66 @@ public sealed record RunRecord(string Algorithm, string AlgorithmVersion, string
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? TargetProtectionPhase { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? TargetRepairStartLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double[]? TargetRepairViolationCeilings { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? TargetRepairGoalIndex { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TargetRepairTrial[]? TargetRepairTrials { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TargetDirectionTrial[]? TargetDirectionTrials { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? TargetRepairBaselineDirection { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? TargetRepairStopReason { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? TargetRepairContinuationStartLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double[]? TargetRepairContinuationCeilings { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? TargetParetoStopReason { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TargetRepairWindow[]? TargetRepairWindows { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? TargetRefinementIterationLimit { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? ReflectanceMetricStartLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? ReflectanceMetricResultLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? ReflectanceMetricAccepted { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReflectanceMetricWindow[]? ReflectanceMetricWindows { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? ReflectanceMetricIterationLimit { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? ReflectanceMetricStopReason { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? PassbandQualityStartLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public PassbandQualityTrial[]? PassbandQualityTrials { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? PassbandQualityIterationLimit { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PassbandQualityStopReason { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? PassbandCorrectionStartLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? PassbandCorrectionIterationLimit { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PassbandCorrectionStopReason { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public PassbandCorrectionAttempt[]? PassbandCorrectionAttempts { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public PassbandDirectionTrial[]? PassbandDirectionTrials { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public PassbandQualityBounds? PassbandDirectionSelectionBounds { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SeedRankingProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public SearchSeedValidation[]? SearchSeedValidations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? DesignProtocol { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ScreeningRun[]? Screening { get; init; }
@@ -95,6 +191,10 @@ public sealed record RunRecord(string Algorithm, string AlgorithmVersion, string
     public NarrowBandCompetitionRecord? NarrowBandCompetition { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public GeneralCoatingWork? GeneralWork { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public StructureFeedbackRecord? StructureFeedback { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public StructureFeedbackRecord[]? StructureFeedbackWindows { get; init; }
 }
 public sealed record ScreeningRun(int Number, FilmLayer[] InitialLayers, FilmLayer[] Layers, double Merit, RunRecord Run)
 {
@@ -107,6 +207,12 @@ public sealed record DesignResult(string Fingerprint, ThinFilmSample[] Spectrum,
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? SpectrumMetricsVersion { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SamplingProtocol { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? ExtremaRefinementEvaluations { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? ExtremaRefinementComplete { get; init; }
     public bool Passed => SamplingConverged && Checks.All(x => x.Passed);
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public MaterialSuitabilityReport? MaterialSuitability { get; init; }

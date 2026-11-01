@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2140c426-c987-45bc-9e7a-2d353329238a" name="allen@DESKTOP-SET3SNR 2026-10-31 18:34:00" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T18:34:00.6280726+08:00" queuing="2026-10-31T18:34:00.6280730+08:00" start="2026-10-31T18:33:56.8230598+08:00" finish="2026-10-31T18:34:28.4317303+08:00" />
+  <TestSettings name="default" id="8a4c4c24-966c-4670-ae8a-240396215ad4">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_18_34_00" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="083ab20c-dab3-48e5-a2e9-b0c1f20f751a" testId="9c067df4-3926-363b-3679-c62129d1c880" testName="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.NativeMeasuredInputDirectionsMatchWithWhiteSpecularDisabled" computerName="DESKTOP-SET3SNR" duration="00:00:00.1437734" startTime="2026-10-31T18:33:59.1599470+08:00" endTime="2026-10-31T18:33:59.2893077+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="083ab20c-dab3-48e5-a2e9-b0c1f20f751a" />
+    <UnitTestResult executionId="9ec9bb3c-61f5-4074-b129-93bbf478d00a" testId="107c0efc-174d-2e03-85fb-4ad5fafe1292" testName="OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(zemax: True, manual: False)" computerName="DESKTOP-SET3SNR" duration="00:00:09.2427518" startTime="2026-10-31T18:34:10.6988022+08:00" endTime="2026-10-31T18:34:19.9408973+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9ec9bb3c-61f5-4074-b129-93bbf478d00a" />
+    <UnitTestResult executionId="2faa32a3-dbfa-4216-aa63-43c37bdb05f0" testId="f77daadc-ab85-4026-471a-96d6f866cd8b" testName="OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(zemax: False, manual: False)" computerName="DESKTOP-SET3SNR" duration="00:00:10.0870777" startTime="2026-10-31T18:34:00.6163461+08:00" endTime="2026-10-31T18:34:10.6977859+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2faa32a3-dbfa-4216-aa63-43c37bdb05f0" />
+    <UnitTestResult executionId="9f41f3e8-9cb2-48fd-845e-0b5735d13323" testId="15ab7f24-92c9-c35c-7a74-b7fed97d7038" testName="OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(wave: 700)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3940762" startTime="2026-10-31T18:33:59.6069884+08:00" endTime="2026-10-31T18:34:00.0010074+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f41f3e8-9cb2-48fd-845e-0b5735d13323" />
+    <UnitTestResult executionId="2867bca3-2b8d-45a8-9497-d0097595c8cd" testId="93972700-bda8-2b27-39df-e09fb6b60a99" testName="OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(zemax: False, manual: True)" computerName="DESKTOP-SET3SNR" duration="00:00:08.3871141" startTime="2026-10-31T18:34:19.9467603+08:00" endTime="2026-10-31T18:34:28.3284529+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2867bca3-2b8d-45a8-9497-d0097595c8cd" />
+    <UnitTestResult executionId="9b51ca99-beae-4716-8794-b1a4cf529dea" testId="2da36206-e1a6-5d2d-0f5b-ee85cdd52038" testName="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.ThetaPayloadRejectsInvalidAxesAndExcessPower" computerName="DESKTOP-SET3SNR" duration="00:00:00.1286670" startTime="2026-10-31T18:34:00.4616268+08:00" endTime="2026-10-31T18:34:00.6011786+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b51ca99-beae-4716-8794-b1a4cf529dea">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : Speos normal-incidence input rotations differ.</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.SpeosThetaDistribution..ctor(IReadOnlyList`1 points, BsdfCoordinates coordinates, BsdfStoredQuantity quantity, SpeosSpectralDefinition spectrum, SpeosPeakDefinition peak) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\SpeosThetaDistribution.cs:line 64&#xD;
+   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfData..ctor(String name, String sourceFileName, String sourceSha256, IReadOnlyList`1 points, String dataSha256, BsdfCoordinates coordinates, String sourceFormat, String importNotes, ZemaxBsdfDefinition zemaxDefinition, BsdfStoredQuantity storedQuantity, SpeosPeakDefinition speosPeak, ZemaxXyzDefinition zemaxXyz, SpeosSpectralDefinition speosSpectral) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\MeasuredBsdfData.cs:line 63&#xD;
+   at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token, Boolean allowProjected, Boolean compactSpectra, Boolean thetaLinear, Nullable`1 archiveNormalization) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 174&#xD;
+   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 41&#xD;
+   at OpticalSystemDesign.Tests.SpeosV11XyzTests.Read(String text, SpeosPeakImportOptions peak, Boolean xyz) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11XyzTests.cs:line 44&#xD;
+   at OpticalSystemDesign.Tests.CommercialBsdfNativeTests.ThetaPayloadRejectsInvalidAxesAndExcessPower() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CommercialBsdfNativeTests.cs:line 97&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d5d6bda3-008e-406d-a194-c2d372876ed7" testId="05ca1a04-dbbc-b3c8-35d5-336da2b719e4" testName="OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(wave: 550)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4629762" startTime="2026-10-31T18:33:59.1585621+08:00" endTime="2026-10-31T18:33:59.6068404+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5d6bda3-008e-406d-a194-c2d372876ed7" />
+    <UnitTestResult executionId="9afccfab-7e4b-45bf-90ba-dbb4e774db30" testId="c7b4a323-f766-926b-61d0-d59a3d6adbd2" testName="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.ThetaSamplingMatchesIndependentHemisphereCdfAndMoments(projected: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2286118" startTime="2026-10-31T18:33:59.5486506+08:00" endTime="2026-10-31T18:33:59.7769232+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9afccfab-7e4b-45bf-90ba-dbb4e774db30" />
+    <UnitTestResult executionId="8623077c-fe21-44b5-8851-6832291506a1" testId="a38665a3-0271-404a-7fee-6de480b466ce" testName="OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(wave: 400)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3928090" startTime="2026-10-31T18:34:00.0011544+08:00" endTime="2026-10-31T18:34:00.3939969+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8623077c-fe21-44b5-8851-6832291506a1" />
+    <UnitTestResult executionId="9b58b319-4949-470e-97f5-8f224e16d18d" testId="8209072c-ed07-e668-86f7-153adce9706d" testName="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.ThetaSamplingMatchesIndependentHemisphereCdfAndMoments(projected: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2585790" startTime="2026-10-31T18:33:59.2965851+08:00" endTime="2026-10-31T18:33:59.5480973+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b58b319-4949-470e-97f5-8f224e16d18d" />
+    <UnitTestResult executionId="8cf8be76-f910-4845-b7e6-8856500d7022" testId="7c085856-5de5-46cf-fe25-fa16852bb79b" testName="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.NativeV11WhiteSpecularCoefficientsMatchAtMeasuredAndInterpolatedIncidences" computerName="DESKTOP-SET3SNR" duration="00:00:00.0080561" startTime="2026-10-31T18:34:00.6054177+08:00" endTime="2026-10-31T18:34:00.6088441+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8cf8be76-f910-4845-b7e6-8856500d7022" />
+    <UnitTestResult executionId="d769e4f1-d30c-4a4c-b0b8-a3759840cfba" testId="a1d0559f-08c3-cf08-cc0c-927c1209dfdf" testName="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.PreviousSpeosGridFourExperimentKeepsOriginalAlgorithmAndRawIsp" computerName="DESKTOP-SET3SNR" duration="00:00:00.6819634" startTime="2026-10-31T18:33:59.7772608+08:00" endTime="2026-10-31T18:34:00.4607464+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d769e4f1-d30c-4a4c-b0b8-a3759840cfba" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(wave: 400)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a38665a3-0271-404a-7fee-6de480b466ce">
+      <Execution id="8623077c-fe21-44b5-8851-6832291506a1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11StatisticsTests" name="JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.PreviousSpeosGridFourExperimentKeepsOriginalAlgorithmAndRawIsp" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a1d0559f-08c3-cf08-cc0c-927c1209dfdf">
+      <Execution id="d769e4f1-d30c-4a4c-b0b8-a3759840cfba" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CommercialBsdfNativeTests" name="PreviousSpeosGridFourExperimentKeepsOriginalAlgorithmAndRawIsp" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.ThetaSamplingMatchesIndependentHemisphereCdfAndMoments(projected: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8209072c-ed07-e668-86f7-153adce9706d">
+      <Execution id="9b58b319-4949-470e-97f5-8f224e16d18d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CommercialBsdfNativeTests" name="ThetaSamplingMatchesIndependentHemisphereCdfAndMoments" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.ThetaSamplingMatchesIndependentHemisphereCdfAndMoments(projected: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c7b4a323-f766-926b-61d0-d59a3d6adbd2">
+      <Execution id="9afccfab-7e4b-45bf-90ba-dbb4e774db30" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CommercialBsdfNativeTests" name="ThetaSamplingMatchesIndependentHemisphereCdfAndMoments" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(zemax: False, manual: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f77daadc-ab85-4026-471a-96d6f866cd8b">
+      <Execution id="2faa32a3-dbfa-4216-aa63-43c37bdb05f0" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11WindowTests" name="V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(zemax: True, manual: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="107c0efc-174d-2e03-85fb-4ad5fafe1292">
+      <Execution id="9ec9bb3c-61f5-4074-b129-93bbf478d00a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11WindowTests" name="V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.NativeV11WhiteSpecularCoefficientsMatchAtMeasuredAndInterpolatedIncidences" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7c085856-5de5-46cf-fe25-fa16852bb79b">
+      <Execution id="8cf8be76-f910-4845-b7e6-8856500d7022" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CommercialBsdfNativeTests" name="NativeV11WhiteSpecularCoefficientsMatchAtMeasuredAndInterpolatedIncidences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.ThetaPayloadRejectsInvalidAxesAndExcessPower" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2da36206-e1a6-5d2d-0f5b-ee85cdd52038">
+      <Execution id="9b51ca99-beae-4716-8794-b1a4cf529dea" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CommercialBsdfNativeTests" name="ThetaPayloadRejectsInvalidAxesAndExcessPower" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(zemax: False, manual: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="93972700-bda8-2b27-39df-e09fb6b60a99">
+      <Execution id="2867bca3-2b8d-45a8-9497-d0097595c8cd" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11WindowTests" name="V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(wave: 700)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="15ab7f24-92c9-c35c-7a74-b7fed97d7038">
+      <Execution id="9f41f3e8-9cb2-48fd-845e-0b5735d13323" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11StatisticsTests" name="JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CommercialBsdfNativeTests.NativeMeasuredInputDirectionsMatchWithWhiteSpecularDisabled" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9c067df4-3926-363b-3679-c62129d1c880">
+      <Execution id="083ab20c-dab3-48e5-a2e9-b0c1f20f751a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CommercialBsdfNativeTests" name="NativeMeasuredInputDirectionsMatchWithWhiteSpecularDisabled" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(wave: 550)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="05ca1a04-dbbc-b3c8-35d5-336da2b719e4">
+      <Execution id="d5d6bda3-008e-406d-a194-c2d372876ed7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SpeosV11StatisticsTests" name="JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="9c067df4-3926-363b-3679-c62129d1c880" executionId="083ab20c-dab3-48e5-a2e9-b0c1f20f751a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="107c0efc-174d-2e03-85fb-4ad5fafe1292" executionId="9ec9bb3c-61f5-4074-b129-93bbf478d00a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f77daadc-ab85-4026-471a-96d6f866cd8b" executionId="2faa32a3-dbfa-4216-aa63-43c37bdb05f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15ab7f24-92c9-c35c-7a74-b7fed97d7038" executionId="9f41f3e8-9cb2-48fd-845e-0b5735d13323" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93972700-bda8-2b27-39df-e09fb6b60a99" executionId="2867bca3-2b8d-45a8-9497-d0097595c8cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2da36206-e1a6-5d2d-0f5b-ee85cdd52038" executionId="9b51ca99-beae-4716-8794-b1a4cf529dea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="05ca1a04-dbbc-b3c8-35d5-336da2b719e4" executionId="d5d6bda3-008e-406d-a194-c2d372876ed7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c7b4a323-f766-926b-61d0-d59a3d6adbd2" executionId="9afccfab-7e4b-45bf-90ba-dbb4e774db30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a38665a3-0271-404a-7fee-6de480b466ce" executionId="8623077c-fe21-44b5-8851-6832291506a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8209072c-ed07-e668-86f7-153adce9706d" executionId="9b58b319-4949-470e-97f5-8f224e16d18d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c085856-5de5-46cf-fe25-fa16852bb79b" executionId="8cf8be76-f910-4845-b7e6-8856500d7022" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1d0559f-08c3-cf08-cc0c-927c1209dfdf" executionId="d769e4f1-d30c-4a4c-b0b8-a3759840cfba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="12" executed="12" passed="11" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.82]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.87]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.91]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.39]       System.IO.InvalidDataException : Speos normal-incidence input rotations differ.&#xD;
+[xUnit.net 00:00:03.39]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.39]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\SpeosThetaDistribution.cs(64,0): at OpticalSystemDesign.Core.Scattering.SpeosThetaDistribution..ctor(IReadOnlyList`1 points, BsdfCoordinates coordinates, BsdfStoredQuantity quantity, SpeosSpectralDefinition spectrum, SpeosPeakDefinition peak)&#xD;
+[xUnit.net 00:00:03.39]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\MeasuredBsdfData.cs(63,0): at OpticalSystemDesign.Core.Scattering.MeasuredBsdfData..ctor(String name, String sourceFileName, String sourceSha256, IReadOnlyList`1 points, String dataSha256, BsdfCoordinates coordinates, String sourceFormat, String importNotes, ZemaxBsdfDefinition zemaxDefinition, BsdfStoredQuantity storedQuantity, SpeosPeakDefinition speosPeak, ZemaxXyzDefinition zemaxXyz, SpeosSpectralDefinition speosSpectral)&#xD;
+[xUnit.net 00:00:03.39]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs(174,0): at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token, Boolean allowProjected, Boolean compactSpectra, Boolean thetaLinear, Nullable`1 archiveNormalization)&#xD;
+[xUnit.net 00:00:03.39]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs(41,0): at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.39]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11XyzTests.cs(44,0): at OpticalSystemDesign.Tests.SpeosV11XyzTests.Read(String text, SpeosPeakImportOptions peak, Boolean xyz)&#xD;
+[xUnit.net 00:00:03.39]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CommercialBsdfNativeTests.cs(97,0): at OpticalSystemDesign.Tests.CommercialBsdfNativeTests.ThetaPayloadRejectsInvalidAxesAndExcessPower()&#xD;
+[xUnit.net 00:00:03.39]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.39]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:31.11]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T18:34:00.6031932+08:00">
+        <Text>[xUnit.net 00:00:03.39]     OpticalSystemDesign.Tests.CommercialBsdfNativeTests.ThetaPayloadRejectsInvalidAxesAndExcessPower [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

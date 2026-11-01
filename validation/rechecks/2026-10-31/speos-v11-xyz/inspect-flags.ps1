@@ -1,0 +1,5 @@
+. ./validation/rechecks/2026-10-31/speos-v11-xyz/inspect-v11.ps1 | Out-Null
+$out=foreach($it in $inv|Where-Object {$_.Header-match'v(7.0|9.0|11.0|11)\n1'}){try{$b=[IO.File]::ReadAllBytes($it.Path);$v=if($it.Header-match'v11'){11}elseif($it.Header-match'v9'){9}else{7};$st=[IO.MemoryStream]::new($b);$r=[IO.BinaryReader]::new($st);$lf=[Array]::IndexOf($b,[byte]10);$st.Position=$lf+11+([int]($v-eq11));Text|Out-Null;Text|Out-Null;$st.Position+=24;$rf=$r.ReadByte();$tf=$r.ReadByte();$n1=1;$n2=1;if($v-ge9){$n1=$r.ReadDouble();$n2=$r.ReadDouble()};$q=$r.ReadByte();$en=$r.ReadByte();[pscustomobject]@{Path=$it.Path;V=$v;ArchiveFlag=$b[$lf+6];ExtraByte=$(if($v-eq11){$b[$lf+11]}else{-1});R=$rf;T=$tf;Q=$q;E=$en;N1=$n1;N2=$n2;Extra=$(if($v-eq11){$r.ReadDouble()}else{0})}}catch{[pscustomobject]@{Path=$it.Path;Error=$_.Exception.Message}}}
+$out|ConvertTo-Json -Depth 3|Set-Content validation/rechecks/2026-10-31/speos-v11-xyz/flags.json
+$out|Group-Object V,E,ExtraByte,ArchiveFlag|Select-Object Name,Count
+$out|Where-Object E -eq 1|Select-Object -First 8 Path,V,N1,N2,Extra

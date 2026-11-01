@@ -1,0 +1,28 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:03.28]     OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.UnsupportedConversionLeavesOriginalSceneDocumentStateAndRowsUntouched [FAIL]
+  失败 OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.UnsupportedConversionLeavesOriginalSceneDocumentStateAndRowsUntouched [46 ms]
+  错误消息:
+   System.ArgumentException : .NET number values such as positive and negative infinity cannot be written as valid JSON. To make it work when using 'JsonSerializer', consider specifying 'JsonNumberHandling.AllowNamedFloatingPointLiterals' (see https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonnumberhandling).
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowArgumentException_ValueNotSupported()
+   at System.Text.Json.Utf8JsonWriter.WriteNumberValue(Double value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Serialize(Utf8JsonWriter writer, T& rootValue, Object rootValueBoxed)
+   at System.Text.Json.JsonSerializer.WriteString[TValue](TValue& value, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Serialize[TValue](TValue value, JsonSerializerOptions options)
+   at OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.UnsupportedConversionLeavesOriginalSceneDocumentStateAndRowsUntouched() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyApplicationTests.cs:line 60
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:/Projects/opticalsystem/validation/rechecks/2026-11-01/cemented-immersion\optical-second.trx
+
+失败!  - 失败:     1，通过:    19，已跳过:     0，总计:    20，持续时间: 6 s - OpticalSystemDesign.Tests.dll (net10.0)

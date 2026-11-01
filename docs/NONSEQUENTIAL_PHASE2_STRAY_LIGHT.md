@@ -1,6 +1,6 @@
 # 非序列第二阶段：杂散光基础链路
 
-更新：2026-10-14。本页维护 STL、STARRDB、筛选、结果会话与探测器显示契约；模式和对象总览见 [非序列指南](NON_SEQUENTIAL_TRACING.md)，规划只在 [路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md) 维护。
+更新：2026-11-01。本页维护 STL、STARRDB、筛选、结果会话与探测器显示契约；模式和对象总览见 [非序列指南](NON_SEQUENTIAL_TRACING.md)，规划只在 [路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md) 维护。
 
 ## 实现状态
 
@@ -9,6 +9,8 @@
 `STL 机械对象 → 非序列分支追迹 → STARRDB 光线数据库 → 路径筛选/统计 → 3D 布局与探测器重建`
 
 实现参考 Zemax OpticStudio 的工作流，但不复制其专有文件格式。Workbench 的 `.starrdb`、筛选语法和 STAROPT 网格资产均为自有格式，不声明与 ZRD、NSC 或完整 Zemax Filter String 兼容。
+
+顺序处方现在可显式转换为保留胶合/浸没介质、逐面口径和镀膜的复合光学组件，并沿用同一分支数据库、探测器和 RAW/ISP。面号 1…N 按原始光学面顺序，封边面为 N+区域索引+1；每面同时保存原顺序面号。内部多次反射、反向膜序、体吸收和截断功率进入现有账本。转换失败不发布部分场景，支持域与版本边界见[转换说明](CEMENTED_IMMERSION_NSC_2026-11-01.md)。组件尚无逐面 BSDF 编辑、真实镜筒 CAD 或完整偏振传输。
 
 ## STL 网格对象
 
@@ -50,7 +52,7 @@ STL 导入后保存为规范小端 `STARMESH` 网格资产，以 SHA-256 内容�
 
 统一筛选器支持：
 
-- `Qn` 源对象、`Hn` 命中、`Rn` 反射、`Tn` 透射、`Dn` 探测、`Mn` 未命中；
+- `Qn` 源对象、`Hn` 命中、`Rn` 反射（含镜面、全反射及漫反射）、`Sn` 方向散射、`Bn` BTDF 方向散射透射、`Tn` 透射（含 BTDF）、`Dn` 探测、`Mn` 未命中；
 - `Wn` 系统波长；
 - `A` 吸收、`E` 逃逸、`X` 阈值/上限/无效终止；
 - `!`、`&`、`|` 和括号，优先级依次为 `!`、`&`、`|`；
@@ -94,4 +96,10 @@ STARRDB 写入和读取共用 `100000` 单分支段数、`256 MiB` 分块以及 
 
 百万光线性能测试由独立基准工具执行，不进入普通CI。2026-08-26本机.NET 10 Release记录为：1,000,000条源光线、分支和分段在`11.555 s`内写成`81,675,707 bytes`数据库，吞吐`86,539 rays/s`，托管堆`22,626,656 bytes`，进程峰值工作集`102,162,432 bytes`。源光线和数据库分块均流式推进；该记录只代表简单“点光源—矩形探测器”基线，不代表复杂机械网格或深层Fresnel分支性能。
 
-当前仍未实现：STEP/IGES/SAT导入、CAD面映射、布尔对象、表面/体散射、BSDF、偏振、相干探测、非序列优化/公差、Zemax NSC/ZRD导入以及GPU追迹。后续顺序为散射和面属性、偏振/相干、非序列优化、公差、精确CAD内核和GPU/超大数据库。
+2026-10-31 已实现不透明 Lambertian 表面方向散射、正式 `IBsdf` 接口、采样统计、能量账本及到 RAW/ISP 的链路；操作与模型/数据库协议见 [专项说明](LAMBERTIAN_BSDF_2026-10-31.md)。STARRDB v1 按需增加协议头和漫反射交互事件，旧程序不支持新增事件。
+
+后续阶段已实现 [实测 BSDF/BTDF](MEASURED_BSDF_BTDF_2026-10-31.md)：自有 CSV、光谱/入射角/出射角插值、联合方向采样、真实介质进出、R/T 统计与现有 RAW/ISP。实测场景 STARRDB 使用 `MeasuredBsdfGrid/1` 头，BTDF 保存为独立事件；没有新增光学归一化或第二条传感器链路。
+
+另已接入[全入射角对数重建与绝对XYZ校准](XYZ_LOG_RECONSTRUCTION_2026-11-01.md)：显式新插值协议10/v18下，五材料全部八原入射角在550 nm共40组，加3份法向实测BTDF的NSC→RAW/ISP通过；旧线性9/v17不升级。Mystic/Cayman新增绝对XYZ校准协议11/v19及4组合成角形状链路通过，Blue Acrylic仍未达标。新模型保留原节点，不以功率归一化通过；未测区域、背面、全波段和完整商业范围仍开放。
+
+当前已增加[Speos v8 TEXT 两类格式与固定材料轴](COMMERCIAL_BSDF_AXES_2026-10-31.md)，接入同一 NSC→RAW/ISP，使用 MeasuredBsdfGrid/2。另已增加[Speos 二进制与 Zemax 单色辐射度导入](BINARY_ZEMAX_BSDF_2026-10-31.md)，保留镜面中心分布和投影数量，接入同一传感器。后续已补齐 [Speos v11、原生镜面配准/White Specular 和校准 XYZ](SPEOS_V11_XYZ_2026-10-31.md)，该阶段模型使用协议4；当前新v11 White为协议6/STAROPT v14，无White的θ线性模型仍为协议5/v13。23组White实际追迹功率与正常入射方向矩通过，原生603方向逐值仍限White关闭，White完整二维方向及固定轴/BTDF商业认证仍开放，见[功率修复实证](WHITE_SPECULAR_RUNTIME_2026-10-31.md)。[有颜色适用域的XYZ校准](XYZ_GAMUT_CALIBRATION_2026-11-01.md)仍为协议7/v15；新增[显式观察条件的正值XYZ校准](XYZ_KNOWN_CONDITIONS_2026-11-01.md)为协议8/v16，旧1–7不升级。两份已知CIE1931/D65实测光谱派生校准在550 nm通过原留出门槛并导出，四组合成均匀角形状BRDF/BTDF完整链路通过；原发布观察者、另三材料和完整实测角分布/BTDF仍开放。当前仍未实现：STEP/IGES/SAT导入、CAD面映射、布尔对象、任意散点及其他商业 BSDF 格式直接导入、逐面覆盖与体散射、偏振、相干探测、非序列优化/公差、Zemax NSC/ZRD导入以及GPU追迹。后续继续扩展散射和面属性、偏振/相干、非序列优化、公差、精确CAD内核和GPU/超大数据库。

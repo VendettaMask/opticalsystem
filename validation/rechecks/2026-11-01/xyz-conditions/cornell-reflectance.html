@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Reflectance Data</title>
+</head>
+
+<body bgcolor="#ffffff">
+<basefont size=4>
+<center>
+
+<table width="100%">
+<tr>
+<td align=left>
+   <a href="http:/">
+   <img height=50 width=50 hspace=10 alt="Cornell Box" border=0
+   src="/icons/box.small.gif"></a>
+</td>
+
+<td align=center><font size=6><strong>
+
+Reflectance Data
+</strong></font>
+
+<br>
+<font color="888888" size=2>
+Cornell University Program of Computer Graphics
+</font>
+</td>
+
+<td align=right>
+   <a href="http://www.cornell.edu">
+   <img height=50 width=50 hspace=10 alt="Cornell Seal" border=0
+   src="/icons/cornell.small.gif"></a>
+</td>
+</tr>
+
+<tr><td colspan=3><hr noshade></td></tr>
+
+<tr><td colspan=3>
+
+
+Welcome to our main repository of reflectance data.
+
+Most of our BRDF data were measured using our custom-built
+gonioreflectometer. For each pair of incident and reflection
+directions, we measured two polarizations. The polarized measurements
+are combined into unpolarized data to account for the polarization
+bias of the setup. The 1024 original wavelength samples are filtered
+down to 65 or 31 wavelengths, with 5 or 10nm intervals between 400 and
+700nm. Note that the measurements are noisy at short wavelengths and
+for grazing angles, where the signal is weak. For smooth surfaces, the
+specular reflection causes a spike in the mirror directions, which is
+not necessarily an accurate representation of this peak.  <p>
+
+Some data sets were acquired via our image-based measurement
+technique, using a digital camera. These datasets containt only red,
+green, and blue channels; data on source and camera spectra are
+supplied with each to aid in calibration. In general, the RGB triples
+do not share geometry, as they are individual sensels in a Bayer array.
+
+<h2>Painted Surfaces</h2>
+
+We have measured the full BRDF of several painted surfaces. These are
+divided into several categories:
+<menu>
+  <li><img width=320 height=240 hspace=10 vspace=5 align=left alt="[Rendering]"
+src="carpaints/cayman.jpeg">
+      <a href="carpaints/index.html">Automotive Paints</a> used to paint cars
+      and other motor vehicles. Thanks to Ford Motor Company for providing
+      the test samples.
+      <br clear=left>
+  <li><img width=320 height=240 hspace=10 vspace=5 align=left alt="[Rendering]"
+src="spraypaints/krylon_blue.jpeg">
+      <a href="spraypaints/index.html">Spray Paints</a> available in
+      aerosol cans. These have lower gloss than the car paints.
+      <br clear=left>
+  <li><img width=320 height=240 hspace=10 vspace=5 align=left alt="[Rendering]"
+src="housepaints/paint.jpeg">
+      <a href="housepaints/index.html">House Paints</a> that you might
+      buy and brush on your wall.
+      <br clear=left>
+</menu>
+<h2>Human Skin</h2>
+<menu>
+  <li><img width=250 height=250 hspace=10 vspace=5 align=left alt="[Rendering]"
+src="skin/mahesh-981228.jpg">
+      <a href="skin/index.html">Human Skin</a> measured by our
+      image-based measurement technique.
+      <br clear=left>
+</menu>
+<h2>Other Surfaces</h2>
+<menu>
+  <li><a href="ceramic/index.html">Ceramics</a> including an unglazed clay
+      flowerpot.
+  <li><img width=320 height=240 hspace=10 vspace=5 align=left alt="[Rendering]"
+src="other/acryl_blue.jpeg">
+      <a href="other/index.html">Other Surfaces</a> measured by our
+      gonioreflectometer.
+      <br clear=left>
+</menu>
+
+<hr>
+<h2>Data File Formats</h2>
+
+<h3>Gonioreflectometer Data</h3>
+All gonioreflectometer data are available in <a
+href="#matlab_format">MATLAB binary files.</a> In addition, these data
+are available in a more readable <a href="#astm_format">text
+format.</a>
+
+<p> <a name="tristimulus"></a>We have also calculated tristimulus values in
+CIE XYZ space from the spectral data; they were calculated for the
+surface illuminated with a D65 illuminant; this should work well if
+your monitor is set to a D65 white point. That is to say, an ideal
+white surface illuminated by a source that is equal in all three
+channels will result in equal RGB on the monitor.
+
+<p> Finally, we used the XYZ tristimulus values to calculate RGB
+values for Sony Trinitron phosphors.  <strong>NOTE:</strong> No
+attempt has been made to fit the BRDF values into the monitor gamut:
+there are negative values in the RGB files.  You must decide
+what best to do to display the colors on your monitor.
+
+<h4><a name="astm_format"></a>ASTM Standard E1392-96</h4>
+<p> This format is intended
+to comply with ASTM Standard E1392-96, available from the <a
+href="http://www.astm.org">American Society for Testing and
+Materials</a> for $20-$30. The important parts of the file are the
+line starting <tt>VARS</tt> which lists the variables actually
+contained in the file: (theta_i,phi_i) for the incident elevation and
+azimuth angles, respectively, (theta_s,phi_s) for the corresponding
+exitant (scattering) angles, and the BRDF values at the specified wavelengths.
+These either are
+actual measurements at equally-spaced wavelengths or tristimulus
+values in CIE XYZ space or RGB space for Sony Trinitron phosphors.
+
+<p>
+<strong>NOTE:</strong> We have no way to test compliance with the ASTM
+standard, as we know of no software which reads this format, nor have
+we found any sample data files. If these files do not comply with the
+standard, please let us know, as we want to comply with a known
+standard for storing and disseminating BRDF information.
+
+<p>
+
+<h4><a name="matlab_format"></a>MATLAB files</h4>
+
+Many data are available in <tt>.mat</tt> files; these are binary files
+that can be read by MATLAB, software available from<a
+href="http://www.mathworks.com/">MathWorks.</a> Many of these data are
+also available in other formats.
+
+<h3><a name="binary_format"></a>Image-Based Data: Binary files</h3>
+
+The BRDF data are in separate files for red, green, and blue channels.
+These files are named
+<tt>&lt;filename&gt;.&lt;frame&gt;.{rgb}.data</tt>, where
+<tt>&lt;filename&gt;</tt> is a file name used to label the data
+<tt>&lt;frame&gt;</tt> is the frame number of a source image
+<tt>{rgb}</tt> is <tt>r</tt> for the red channel, <tt>g</tt> for the
+green channel, and <tt>b</tt> for the
+blue channel.
+
+  Each file contains binary IEEE-754 floating-point values, big-endian,
+  with 6 values for each point:
+<ul>
+  <li> X and Y components of the incident vector,
+  <li> X and Y components of the exitant (viewing) vector,
+  <li> computed irradiance, and
+  <li> computed exitant radiance.
+</ul>
+
+The two vectors are defined in a reference frame where the surface
+normal is in the Z direction. Because these are isotropic
+measurements, the orientation of the X and Y axes in the tangent plane
+is arbitrary. The BRDF value is simply the exitant radiance divided by
+the incident irradiance. Note: these quantities are not calibrated to
+any actual radiometric units; only their ratio is meaningful.
+
+<h3><a name="spectrum_format"></a>Other data: Spectrum Files</h3>
+
+Files with an extension of <tt>.spc</tt> are ASCII files with spectrum
+information. In general, there will be several lines of annotation
+data, followed by one line per wavelength containing the wavelength
+(in nanometers) and the value for that wavelength. Files may contain
+more than one spectrum, e.g. for the RGB response curves of a camera.
+
+
+<tr><td colspan=3><hr noshade></td></tr>
+
+<tr>
+<td colspan=3>
+<a href="http://www.cs.brown.edu/stc/"><img src="/icons/star.gif"
+   hspace=6 border=0 align=left alt="STC"></a>
+
+<a href="http://www.cs.brown.edu/stc/"><img src="/icons/star.gif"
+   hspace=6 border=0 align=right alt="STC"></a>
+
+<center>
+The Program of Computer Graphics has been one site of the<br>
+<a href="http://www.cs.brown.edu/stc/">NSF
+Graphics and Visualization Center</a>.
+<br>
+This program has concluded its affiliations summer 2002.
+</center>
+
+</td>
+</tr>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- hide from none JavaScript Browsers
+
+var Domain = "graphics.cornell.edu";
+var Mailme = "mail" + "to:" + "duckfoot@" + Domain;
+var Whoami = '<A ID="mail_style" onmouseover="window.status=\' '+
+ 'Click to email PCG Webmaster\'; return true" onmouseout="window.status=document.title" HREF="';
+
+function SendMeMail()
+{
+ output = Whoami + Mailme + '">' + "PCG Webmaster</A>";
+ return output;
+}
+
+// - stop hiding -->
+</SCRIPT> 
+
+<style>
+#home_style {font-size: 14pt; font-weight: normal; font-family: default;
+ 			  color:blue;}
+#search_style {font-size: 14pt; font-weight: normal; font-family: default;
+ 			  color:blue;}
+#mail_style {font-size: 14pt; font-weight: normal; font-family: default;
+ 			  color:blue;}
+</style>
+ 
+<!-- 1</td></tr> -->
+
+<tr><td colspan=3><hr noshade></td></tr>
+
+<tr><td colspan=3><table width="100%">
+<tr>
+   <td align=center width="25%">
+      Last updated 
+      
+      
+      
+      
+      02/06/01
+   </td>
+   <td align=center width="25%">
+			<A ID="home_style" HREF="/index.html"
+ 	  onMouseOver="window.status='Click to return to PCG home page'; return true"
+ 		onMouseOut="window.status=document.title" > PCG www Home</a> 
+   </td>
+   <td align=center width="25%">
+			
+	  <A ID="search_style" HREF="/search/"
+ 	  onMouseOver="window.status='Click to search the PCG website'; return true"
+ 		onMouseOut="window.status=document.title" ></a>
+   </td>
+	 
+   <td align=center width="25%">
+       <script language="JavaScript"><!--
+			 document.write(SendMeMail());
+			 // --></script>
+   </td>
+</tr>
+
+</table></td></tr>
+
+</table>
+
+</center>
+</body>
+
+
+</html>

@@ -37,7 +37,7 @@ public sealed partial class WorkbenchApplication : IWorkbenchApplication
         Optimization = new OptimizationService(_workspace);
         Tolerancing = new TolerancingService(_workspace);
         OpticalAssembly = new OpticalAssemblyService(_workspace, Modes);
-        CameraImaging = new CameraImagingService(_workspace, Modes);
+        CameraImaging = new CameraImagingService(_workspace, Modes, _nonSequentialAnalysisService);
         MultiConfiguration = new MultiConfigurationService(_workspace);
         Materials = new MaterialCatalogService(_workspace, userCatalogDirectory);
         Lenses = new LensLibraryService(lensLibraryDirectory);

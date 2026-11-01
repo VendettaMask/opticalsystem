@@ -101,11 +101,34 @@ public static class ApertureSampler
                 key.UseChebyshevAzimuths));
     }
 
+    // A full circular rule for direct diffraction: the requested N is a work
+    // budget, with floor(N/2) radial nodes in r² and 2N periodic azimuths.
+    // Unlike the geometric spot preset, never silently cap the two orders.
+    internal static IReadOnlyList<PupilSample> GenerateHuygensGaussianQuadrature(int sampling)
+    {
+        var radial = sampling / 2;
+        var azimuthal = checked(2 * sampling);
+        if (radial < 1 || checked((long)radial * azimuthal) > MaximumPupilSampleCount)
+            throw new ArgumentOutOfRangeException(nameof(sampling), "Circular Huygens quadrature exceeds the pupil sample budget.");
+        ComputationCancellation.ThrowIfCancellationRequested();
+        return BuildGaussianQuadrature(radial, azimuthal, 0, false);
+    }
+
+    internal static IReadOnlyList<PupilSample> GenerateHuygensGaussianQuadrature(int radial, int azimuthal, double offset)
+    {
+        if (radial < 1 || azimuthal < 4 || !double.IsFinite(offset)
+            || checked((long)radial * azimuthal) > MaximumPupilSampleCount)
+            throw new ArgumentOutOfRangeException(nameof(radial), "Circular Huygens quadrature exceeds the pupil sample budget.");
+        ComputationCancellation.ThrowIfCancellationRequested();
+        return BuildGaussianQuadrature(radial, azimuthal, 0, false, offset);
+    }
+
     private static IReadOnlyList<PupilSample> BuildGaussianQuadrature(
         int radialSamples,
         int azimuthalSamples,
         double obscuration,
-        bool useChebyshevAzimuths)
+        bool useChebyshevAzimuths,
+        double additionalAzimuthOffset = 0)
     {
 
         var lower = obscuration * obscuration;
@@ -164,7 +187,7 @@ public static class ApertureSampler
         {
             for (var azimuth = 0; azimuth < azimuthalSamples; azimuth++)
             {
-                var angle = 2 * Math.PI * azimuth / azimuthalSamples + azimuthOffset;
+                var angle = 2 * Math.PI * azimuth / azimuthalSamples + azimuthOffset + additionalAzimuthOffset;
                 samples.Add(new PupilSample(
                     radialSample.Radius * Math.Cos(angle),
                     radialSample.Radius * Math.Sin(angle),

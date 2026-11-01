@@ -1,0 +1,1974 @@
+{
+  "date": "2026-10-31",
+  "status": "checked_afocal_huygens_sampling_with_bounded_refinement",
+  "samplingAgreementTolerance": 1E-10,
+  "samplingAgreementIsRigorousErrorBound": false,
+  "defaultNativeProtocolChanged": false,
+  "newNativeCaptures": 0,
+  "newFormalNativePasses": 0,
+  "allFiniteSamplingIssuesClosed": false,
+  "originalInputsReferencesGatesAndHistoricalLedgerChanged": false,
+  "dependencies": [
+    {
+      "path": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+      "sha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/fft-seam-repair/evidence.zip",
+      "sha256": "8a9a21f077515b016dd90c7cff890abccc7c038058cf0094ace38970523a2bd1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/afocal-auto-grid/evidence.zip",
+      "sha256": "b7340ea55499260feef6080a9e265c68318c37f500cec66df5a2e83b8a39586f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/riflescope-pupil/evidence.zip",
+      "sha256": "f4e6fef82110d8b6bde01a6d85ea72dbf7613e480991751e79b1f5a423bace4a"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/centroid-energy/evidence.zip",
+      "sha256": "a7c6cded1d3d98546a1aad0aa2bc42290d3fcd5f0c3688a8382f107e6d82d997"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/afocal-ri/evidence.zip",
+      "sha256": "89aeb7953c4d03e2948a3db5b48e090fa9a1ee190e395c12ff029200524f471c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/afocal-huygens/evidence.zip",
+      "sha256": "f30d3d52b991a258c1a40630ebc13ac004601e136680b982593b5cf415998b47"
+    }
+  ],
+  "sourceBaseCommit": "3b43bb7f87270e034218bf466b23f885330814fc",
+  "measurements": [
+    {
+      "kind": "checked-clipping-rejected",
+      "name": "Huygens PSF Cross Section",
+      "OutcomeReason": "circular Huygens sampling did not stabilize within the declared radial/azimuthal limits",
+      "checks": [
+        {
+          "Status": "OrderLimitReached",
+          "InitialSampling": 8,
+          "EffectiveRadialOrder": 64,
+          "EffectiveAzimuthalOrder": 271,
+          "FinalNodes": 17344,
+          "CumulativeNodes": 69004,
+          "CumulativeOperations": 17665024,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": 0.018006725699674177,
+          "MaximumReferenceAmplitudeDisagreement": 0.04363646346061587,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 64,
+              "CumulativeOperations": 16384,
+              "ReferenceAmplitude": 0.5000000000000002
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 128,
+              "CumulativeOperations": 49152,
+              "ReferenceAmplitude": 0.49999999999999994
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 132,
+              "CumulativeOperations": 82944,
+              "ReferenceAmplitude": 0.49999999999999983
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 264,
+              "CumulativeOperations": 150528,
+              "ReferenceAmplitude": 0.4999999999999997
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0.09519977738150888,
+              "Nodes": 264,
+              "CumulativeOperations": 218112,
+              "ReferenceAmplitude": 0.4999999999999997
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 528,
+              "CumulativeOperations": 353280,
+              "ReferenceAmplitude": 0.5000000000000008
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 536,
+              "CumulativeOperations": 490496,
+              "ReferenceAmplitude": 0.5000000000000007
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 1072,
+              "CumulativeOperations": 764928,
+              "ReferenceAmplitude": 0.49999999999999906
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0.046889442590892436,
+              "Nodes": 1072,
+              "CumulativeOperations": 1039360,
+              "ReferenceAmplitude": 0.49999999999999906
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2144,
+              "CumulativeOperations": 1588224,
+              "ReferenceAmplitude": 0.5482700442573579
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2160,
+              "CumulativeOperations": 2141184,
+              "ReferenceAmplitude": 0.5000000000000062
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4320,
+              "CumulativeOperations": 3247104,
+              "ReferenceAmplitude": 0.5482700442573759
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0.023271056693257727,
+              "Nodes": 4320,
+              "CumulativeOperations": 4353024,
+              "ReferenceAmplitude": 0.5482700442573759
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8640,
+              "CumulativeOperations": 6564864,
+              "ReferenceAmplitude": 0.524345478504566
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8672,
+              "CumulativeOperations": 8784896,
+              "ReferenceAmplitude": 0.5482700442573692
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0,
+              "Nodes": 17344,
+              "CumulativeOperations": 13224960,
+              "ReferenceAmplitude": 0.5243454785045887
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0.011592592817674514,
+              "Nodes": 17344,
+              "CumulativeOperations": 17665024,
+              "ReferenceAmplitude": 0.5243454785045887
+            }
+          ],
+          "WorkLimit": 100000000,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        }
+      ]
+    },
+    {
+      "kind": "checked-radial-phase",
+      "defocus": 3.7,
+      "expected": 0.007409921931159328,
+      "actual": 0.007409921931159138,
+      "checks": [
+        {
+          "Status": "SamplingStable",
+          "InitialSampling": 8,
+          "EffectiveRadialOrder": 32,
+          "EffectiveAzimuthalOrder": 135,
+          "FinalNodes": 4320,
+          "CumulativeNodes": 17004,
+          "CumulativeOperations": 17004,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": 6.046385614411065E-14,
+          "MaximumReferenceAmplitudeDisagreement": 2.9531932455028754E-14,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 64,
+              "CumulativeOperations": 64,
+              "ReferenceAmplitude": 1.0000000000000002
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 128,
+              "CumulativeOperations": 192,
+              "ReferenceAmplitude": 0.9999999999999982
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 132,
+              "CumulativeOperations": 324,
+              "ReferenceAmplitude": 0.9999999999999994
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 264,
+              "CumulativeOperations": 588,
+              "ReferenceAmplitude": 0.9999999999999957
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0.09519977738150888,
+              "Nodes": 264,
+              "CumulativeOperations": 852,
+              "ReferenceAmplitude": 0.9999999999999957
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 528,
+              "CumulativeOperations": 1380,
+              "ReferenceAmplitude": 1.0000000000000002
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 536,
+              "CumulativeOperations": 1916,
+              "ReferenceAmplitude": 0.9999999999999947
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 1072,
+              "CumulativeOperations": 2988,
+              "ReferenceAmplitude": 1.0000000000000004
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0.046889442590892436,
+              "Nodes": 1072,
+              "CumulativeOperations": 4060,
+              "ReferenceAmplitude": 1.0000000000000004
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2144,
+              "CumulativeOperations": 6204,
+              "ReferenceAmplitude": 0.9999999999999898
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2160,
+              "CumulativeOperations": 8364,
+              "ReferenceAmplitude": 0.9999999999999845
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4320,
+              "CumulativeOperations": 12684,
+              "ReferenceAmplitude": 1.000000000000014
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0.023271056693257727,
+              "Nodes": 4320,
+              "CumulativeOperations": 17004,
+              "ReferenceAmplitude": 1.000000000000014
+            }
+          ],
+          "WorkLimit": 100000000,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        }
+      ]
+    },
+    {
+      "kind": "checked-field-budget",
+      "checks": [
+        {
+          "Status": "SamplingStable",
+          "InitialSampling": 64,
+          "EffectiveRadialOrder": 64,
+          "EffectiveAzimuthalOrder": 257,
+          "FinalNodes": 16448,
+          "CumulativeNodes": 53408,
+          "CumulativeOperations": 54689792,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": 1.0601297617540695E-13,
+          "MaximumReferenceAmplitudeDisagreement": 5.2291504459843825E-14,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4096,
+              "CumulativeOperations": 4194304,
+              "ReferenceAmplitude": 1.0000000000000409
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8192,
+              "CumulativeOperations": 12582912,
+              "ReferenceAmplitude": 1.0000000000000029
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8224,
+              "CumulativeOperations": 21004288,
+              "ReferenceAmplitude": 0.9999999999999677
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 16448,
+              "CumulativeOperations": 37847040,
+              "ReferenceAmplitude": 1.00000000000002
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0.012224095928364953,
+              "Nodes": 16448,
+              "CumulativeOperations": 54689792,
+              "ReferenceAmplitude": 1.00000000000002
+            }
+          ],
+          "WorkLimit": 100000000,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        },
+        {
+          "Status": "WorkLimitReached",
+          "InitialSampling": 64,
+          "EffectiveRadialOrder": 32,
+          "EffectiveAzimuthalOrder": 128,
+          "FinalNodes": 4096,
+          "CumulativeNodes": 36960,
+          "CumulativeOperations": 37847040,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": null,
+          "MaximumReferenceAmplitudeDisagreement": null,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4096,
+              "CumulativeOperations": 4194304,
+              "ReferenceAmplitude": 1.0000000000000409
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8192,
+              "CumulativeOperations": 12582912,
+              "ReferenceAmplitude": 1.0000000000000029
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8224,
+              "CumulativeOperations": 21004288,
+              "ReferenceAmplitude": 0.9999999999999677
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 16448,
+              "CumulativeOperations": 37847040,
+              "ReferenceAmplitude": 1.00000000000002
+            }
+          ],
+          "WorkLimit": 45310208,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        }
+      ]
+    },
+    {
+      "kind": "checked-radial-phase",
+      "defocus": 8.8,
+      "expected": 1.5195743635847466E-33,
+      "actual": 2.3534507573125458E-32,
+      "checks": [
+        {
+          "Status": "SamplingStable",
+          "InitialSampling": 8,
+          "EffectiveRadialOrder": 64,
+          "EffectiveAzimuthalOrder": 271,
+          "FinalNodes": 17344,
+          "CumulativeNodes": 69004,
+          "CumulativeOperations": 69004,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": 3.095515782257217E-31,
+          "MaximumReferenceAmplitudeDisagreement": 2.642330798607822E-14,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 64,
+              "CumulativeOperations": 64,
+              "ReferenceAmplitude": 1.0000000000000002
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 128,
+              "CumulativeOperations": 192,
+              "ReferenceAmplitude": 0.9999999999999982
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 132,
+              "CumulativeOperations": 324,
+              "ReferenceAmplitude": 0.9999999999999994
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 264,
+              "CumulativeOperations": 588,
+              "ReferenceAmplitude": 0.9999999999999957
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0.09519977738150888,
+              "Nodes": 264,
+              "CumulativeOperations": 852,
+              "ReferenceAmplitude": 0.9999999999999957
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 528,
+              "CumulativeOperations": 1380,
+              "ReferenceAmplitude": 1.0000000000000002
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 536,
+              "CumulativeOperations": 1916,
+              "ReferenceAmplitude": 0.9999999999999947
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 1072,
+              "CumulativeOperations": 2988,
+              "ReferenceAmplitude": 1.0000000000000004
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0.046889442590892436,
+              "Nodes": 1072,
+              "CumulativeOperations": 4060,
+              "ReferenceAmplitude": 1.0000000000000004
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2144,
+              "CumulativeOperations": 6204,
+              "ReferenceAmplitude": 0.9999999999999898
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2160,
+              "CumulativeOperations": 8364,
+              "ReferenceAmplitude": 0.9999999999999845
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4320,
+              "CumulativeOperations": 12684,
+              "ReferenceAmplitude": 1.000000000000014
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0.023271056693257727,
+              "Nodes": 4320,
+              "CumulativeOperations": 17004,
+              "ReferenceAmplitude": 1.000000000000014
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8640,
+              "CumulativeOperations": 25644,
+              "ReferenceAmplitude": 0.9999999999999927
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8672,
+              "CumulativeOperations": 34316,
+              "ReferenceAmplitude": 1.000000000000004
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0,
+              "Nodes": 17344,
+              "CumulativeOperations": 51660,
+              "ReferenceAmplitude": 1.000000000000019
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0.011592592817674514,
+              "Nodes": 17344,
+              "CumulativeOperations": 69004,
+              "ReferenceAmplitude": 1.000000000000019
+            }
+          ],
+          "WorkLimit": 100000000,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        }
+      ]
+    },
+    {
+      "kind": "checked-clipping-rejected",
+      "name": "Huygens MTF",
+      "OutcomeReason": "circular Huygens sampling did not stabilize within the declared radial/azimuthal limits",
+      "checks": [
+        {
+          "Status": "OrderLimitReached",
+          "InitialSampling": 8,
+          "EffectiveRadialOrder": 64,
+          "EffectiveAzimuthalOrder": 271,
+          "FinalNodes": 17344,
+          "CumulativeNodes": 69004,
+          "CumulativeOperations": 17665024,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": 0.018006725699674177,
+          "MaximumReferenceAmplitudeDisagreement": 0.04363646346061587,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 64,
+              "CumulativeOperations": 16384,
+              "ReferenceAmplitude": 0.5000000000000002
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 128,
+              "CumulativeOperations": 49152,
+              "ReferenceAmplitude": 0.49999999999999994
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 132,
+              "CumulativeOperations": 82944,
+              "ReferenceAmplitude": 0.49999999999999983
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 264,
+              "CumulativeOperations": 150528,
+              "ReferenceAmplitude": 0.4999999999999997
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0.09519977738150888,
+              "Nodes": 264,
+              "CumulativeOperations": 218112,
+              "ReferenceAmplitude": 0.4999999999999997
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 528,
+              "CumulativeOperations": 353280,
+              "ReferenceAmplitude": 0.5000000000000008
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 536,
+              "CumulativeOperations": 490496,
+              "ReferenceAmplitude": 0.5000000000000007
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 1072,
+              "CumulativeOperations": 764928,
+              "ReferenceAmplitude": 0.49999999999999906
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0.046889442590892436,
+              "Nodes": 1072,
+              "CumulativeOperations": 1039360,
+              "ReferenceAmplitude": 0.49999999999999906
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2144,
+              "CumulativeOperations": 1588224,
+              "ReferenceAmplitude": 0.5482700442573579
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2160,
+              "CumulativeOperations": 2141184,
+              "ReferenceAmplitude": 0.5000000000000062
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4320,
+              "CumulativeOperations": 3247104,
+              "ReferenceAmplitude": 0.5482700442573759
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0.023271056693257727,
+              "Nodes": 4320,
+              "CumulativeOperations": 4353024,
+              "ReferenceAmplitude": 0.5482700442573759
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8640,
+              "CumulativeOperations": 6564864,
+              "ReferenceAmplitude": 0.524345478504566
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8672,
+              "CumulativeOperations": 8784896,
+              "ReferenceAmplitude": 0.5482700442573692
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0,
+              "Nodes": 17344,
+              "CumulativeOperations": 13224960,
+              "ReferenceAmplitude": 0.5243454785045887
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0.011592592817674514,
+              "Nodes": 17344,
+              "CumulativeOperations": 17665024,
+              "ReferenceAmplitude": 0.5243454785045887
+            }
+          ],
+          "WorkLimit": 100000000,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        }
+      ]
+    },
+    {
+      "kind": "checked-wide-window",
+      "initial": 16,
+      "maximum": 8.356480383966275E-13,
+      "check": {
+        "Status": "SamplingStable",
+        "InitialSampling": 16,
+        "EffectiveRadialOrder": 32,
+        "EffectiveAzimuthalOrder": 131,
+        "FinalNodes": 4192,
+        "CumulativeNodes": 15928,
+        "CumulativeOperations": 16310272,
+        "Tolerance": 1E-10,
+        "MaximumIntensityDisagreement": 6.394884621840902E-14,
+        "MaximumReferenceAmplitudeDisagreement": 3.219646771412915E-14,
+        "Trials": [
+          {
+            "Rule": "Initial",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 32,
+            "AngularOffsetRadians": 0,
+            "Nodes": 256,
+            "CumulativeOperations": 262144,
+            "ReferenceAmplitude": 1.000000000000003
+          },
+          {
+            "Rule": "Radial",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 32,
+            "AngularOffsetRadians": 0,
+            "Nodes": 512,
+            "CumulativeOperations": 786432,
+            "ReferenceAmplitude": 1.0000000000000002
+          },
+          {
+            "Rule": "Angular",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 65,
+            "AngularOffsetRadians": 0,
+            "Nodes": 520,
+            "CumulativeOperations": 1318912,
+            "ReferenceAmplitude": 1.0000000000000049
+          },
+          {
+            "Rule": "Combined",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 65,
+            "AngularOffsetRadians": 0,
+            "Nodes": 1040,
+            "CumulativeOperations": 2383872,
+            "ReferenceAmplitude": 1.000000000000007
+          },
+          {
+            "Rule": "Shifted",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 65,
+            "AngularOffsetRadians": 0.0483321946706122,
+            "Nodes": 1040,
+            "CumulativeOperations": 3448832,
+            "ReferenceAmplitude": 1.000000000000007
+          },
+          {
+            "Rule": "Radial",
+            "RadialOrder": 32,
+            "AzimuthalOrder": 65,
+            "AngularOffsetRadians": 0,
+            "Nodes": 2080,
+            "CumulativeOperations": 5578752,
+            "ReferenceAmplitude": 0.9999999999999998
+          },
+          {
+            "Rule": "Angular",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 131,
+            "AngularOffsetRadians": 0,
+            "Nodes": 2096,
+            "CumulativeOperations": 7725056,
+            "ReferenceAmplitude": 0.99999999999998
+          },
+          {
+            "Rule": "Combined",
+            "RadialOrder": 32,
+            "AzimuthalOrder": 131,
+            "AngularOffsetRadians": 0,
+            "Nodes": 4192,
+            "CumulativeOperations": 12017664,
+            "ReferenceAmplitude": 1.0000000000000122
+          },
+          {
+            "Rule": "Shifted",
+            "RadialOrder": 32,
+            "AzimuthalOrder": 131,
+            "AngularOffsetRadians": 0.02398162330984575,
+            "Nodes": 4192,
+            "CumulativeOperations": 16310272,
+            "ReferenceAmplitude": 1.0000000000000122
+          }
+        ],
+        "WorkLimit": 100000000,
+        "RadialOrderLimit": 64,
+        "AzimuthalOrderLimit": 512,
+        "WavelengthNanometers": 550,
+        "FieldX": 0,
+        "FieldY": 0,
+        "Scope": "PsfQuadratureOnFixedReportedWindow",
+        "IsContinuumErrorBound": false
+      }
+    },
+    {
+      "kind": "checked-radial-phase",
+      "defocus": 0.2,
+      "expected": 0.8958664976856163,
+      "actual": 0.8958664976856157,
+      "checks": [
+        {
+          "Status": "SamplingStable",
+          "InitialSampling": 8,
+          "EffectiveRadialOrder": 16,
+          "EffectiveAzimuthalOrder": 67,
+          "FinalNodes": 1072,
+          "CumulativeNodes": 4060,
+          "CumulativeOperations": 4060,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": 1.0089706847793422E-14,
+          "MaximumReferenceAmplitudeDisagreement": 5.773159728050812E-15,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 64,
+              "CumulativeOperations": 64,
+              "ReferenceAmplitude": 1.0000000000000002
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 128,
+              "CumulativeOperations": 192,
+              "ReferenceAmplitude": 0.9999999999999982
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 132,
+              "CumulativeOperations": 324,
+              "ReferenceAmplitude": 0.9999999999999994
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 264,
+              "CumulativeOperations": 588,
+              "ReferenceAmplitude": 0.9999999999999957
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0.09519977738150888,
+              "Nodes": 264,
+              "CumulativeOperations": 852,
+              "ReferenceAmplitude": 0.9999999999999957
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 528,
+              "CumulativeOperations": 1380,
+              "ReferenceAmplitude": 1.0000000000000002
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 536,
+              "CumulativeOperations": 1916,
+              "ReferenceAmplitude": 0.9999999999999947
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 1072,
+              "CumulativeOperations": 2988,
+              "ReferenceAmplitude": 1.0000000000000004
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0.046889442590892436,
+              "Nodes": 1072,
+              "CumulativeOperations": 4060,
+              "ReferenceAmplitude": 1.0000000000000004
+            }
+          ],
+          "WorkLimit": 100000000,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        }
+      ]
+    },
+    {
+      "kind": "checked-spectral-budget",
+      "name": "Huygens PSF",
+      "checks": [
+        {
+          "Status": "SamplingStable",
+          "InitialSampling": 64,
+          "EffectiveRadialOrder": 64,
+          "EffectiveAzimuthalOrder": 257,
+          "FinalNodes": 16448,
+          "CumulativeNodes": 53408,
+          "CumulativeOperations": 54689792,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": 1.0601297617540695E-13,
+          "MaximumReferenceAmplitudeDisagreement": 5.2291504459843825E-14,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4096,
+              "CumulativeOperations": 4194304,
+              "ReferenceAmplitude": 1.0000000000000409
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8192,
+              "CumulativeOperations": 12582912,
+              "ReferenceAmplitude": 1.0000000000000029
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8224,
+              "CumulativeOperations": 21004288,
+              "ReferenceAmplitude": 0.9999999999999677
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 16448,
+              "CumulativeOperations": 37847040,
+              "ReferenceAmplitude": 1.00000000000002
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0.012224095928364953,
+              "Nodes": 16448,
+              "CumulativeOperations": 54689792,
+              "ReferenceAmplitude": 1.00000000000002
+            }
+          ],
+          "WorkLimit": 100000000,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        },
+        {
+          "Status": "WorkLimitReached",
+          "InitialSampling": 64,
+          "EffectiveRadialOrder": 32,
+          "EffectiveAzimuthalOrder": 128,
+          "FinalNodes": 4096,
+          "CumulativeNodes": 36960,
+          "CumulativeOperations": 37847040,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": null,
+          "MaximumReferenceAmplitudeDisagreement": null,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4096,
+              "CumulativeOperations": 4194304,
+              "ReferenceAmplitude": 1.0000000000000409
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8192,
+              "CumulativeOperations": 12582912,
+              "ReferenceAmplitude": 1.0000000000000029
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8224,
+              "CumulativeOperations": 21004288,
+              "ReferenceAmplitude": 0.9999999999999677
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 16448,
+              "CumulativeOperations": 37847040,
+              "ReferenceAmplitude": 1.00000000000002
+            }
+          ],
+          "WorkLimit": 45310208,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 650,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        }
+      ]
+    },
+    {
+      "kind": "checked-spectral-budget",
+      "name": "Huygens MTF",
+      "checks": [
+        {
+          "Status": "SamplingStable",
+          "InitialSampling": 64,
+          "EffectiveRadialOrder": 64,
+          "EffectiveAzimuthalOrder": 257,
+          "FinalNodes": 16448,
+          "CumulativeNodes": 53408,
+          "CumulativeOperations": 54689792,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": 1.0601297617540695E-13,
+          "MaximumReferenceAmplitudeDisagreement": 5.2291504459843825E-14,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4096,
+              "CumulativeOperations": 4194304,
+              "ReferenceAmplitude": 1.0000000000000409
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8192,
+              "CumulativeOperations": 12582912,
+              "ReferenceAmplitude": 1.0000000000000029
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8224,
+              "CumulativeOperations": 21004288,
+              "ReferenceAmplitude": 0.9999999999999677
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 16448,
+              "CumulativeOperations": 37847040,
+              "ReferenceAmplitude": 1.00000000000002
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0.012224095928364953,
+              "Nodes": 16448,
+              "CumulativeOperations": 54689792,
+              "ReferenceAmplitude": 1.00000000000002
+            }
+          ],
+          "WorkLimit": 100000000,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        },
+        {
+          "Status": "WorkLimitReached",
+          "InitialSampling": 64,
+          "EffectiveRadialOrder": 32,
+          "EffectiveAzimuthalOrder": 128,
+          "FinalNodes": 4096,
+          "CumulativeNodes": 36960,
+          "CumulativeOperations": 37847040,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": null,
+          "MaximumReferenceAmplitudeDisagreement": null,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4096,
+              "CumulativeOperations": 4194304,
+              "ReferenceAmplitude": 1.0000000000000409
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 128,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8192,
+              "CumulativeOperations": 12582912,
+              "ReferenceAmplitude": 1.0000000000000029
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8224,
+              "CumulativeOperations": 21004288,
+              "ReferenceAmplitude": 0.9999999999999677
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 257,
+              "AngularOffsetRadians": 0,
+              "Nodes": 16448,
+              "CumulativeOperations": 37847040,
+              "ReferenceAmplitude": 1.00000000000002
+            }
+          ],
+          "WorkLimit": 45310208,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 650,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        }
+      ]
+    },
+    {
+      "kind": "checked-clipping-rejected",
+      "name": "Huygens PSF",
+      "OutcomeReason": "circular Huygens sampling did not stabilize within the declared radial/azimuthal limits",
+      "checks": [
+        {
+          "Status": "OrderLimitReached",
+          "InitialSampling": 8,
+          "EffectiveRadialOrder": 64,
+          "EffectiveAzimuthalOrder": 271,
+          "FinalNodes": 17344,
+          "CumulativeNodes": 69004,
+          "CumulativeOperations": 17665024,
+          "Tolerance": 1E-10,
+          "MaximumIntensityDisagreement": 0.018006725699674177,
+          "MaximumReferenceAmplitudeDisagreement": 0.04363646346061587,
+          "Trials": [
+            {
+              "Rule": "Initial",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 64,
+              "CumulativeOperations": 16384,
+              "ReferenceAmplitude": 0.5000000000000002
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 16,
+              "AngularOffsetRadians": 0,
+              "Nodes": 128,
+              "CumulativeOperations": 49152,
+              "ReferenceAmplitude": 0.49999999999999994
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 4,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 132,
+              "CumulativeOperations": 82944,
+              "ReferenceAmplitude": 0.49999999999999983
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 264,
+              "CumulativeOperations": 150528,
+              "ReferenceAmplitude": 0.4999999999999997
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0.09519977738150888,
+              "Nodes": 264,
+              "CumulativeOperations": 218112,
+              "ReferenceAmplitude": 0.4999999999999997
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 33,
+              "AngularOffsetRadians": 0,
+              "Nodes": 528,
+              "CumulativeOperations": 353280,
+              "ReferenceAmplitude": 0.5000000000000008
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 8,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 536,
+              "CumulativeOperations": 490496,
+              "ReferenceAmplitude": 0.5000000000000007
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 1072,
+              "CumulativeOperations": 764928,
+              "ReferenceAmplitude": 0.49999999999999906
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0.046889442590892436,
+              "Nodes": 1072,
+              "CumulativeOperations": 1039360,
+              "ReferenceAmplitude": 0.49999999999999906
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 67,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2144,
+              "CumulativeOperations": 1588224,
+              "ReferenceAmplitude": 0.5482700442573579
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 16,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 2160,
+              "CumulativeOperations": 2141184,
+              "ReferenceAmplitude": 0.5000000000000062
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 4320,
+              "CumulativeOperations": 3247104,
+              "ReferenceAmplitude": 0.5482700442573759
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0.023271056693257727,
+              "Nodes": 4320,
+              "CumulativeOperations": 4353024,
+              "ReferenceAmplitude": 0.5482700442573759
+            },
+            {
+              "Rule": "Radial",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 135,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8640,
+              "CumulativeOperations": 6564864,
+              "ReferenceAmplitude": 0.524345478504566
+            },
+            {
+              "Rule": "Angular",
+              "RadialOrder": 32,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0,
+              "Nodes": 8672,
+              "CumulativeOperations": 8784896,
+              "ReferenceAmplitude": 0.5482700442573692
+            },
+            {
+              "Rule": "Combined",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0,
+              "Nodes": 17344,
+              "CumulativeOperations": 13224960,
+              "ReferenceAmplitude": 0.5243454785045887
+            },
+            {
+              "Rule": "Shifted",
+              "RadialOrder": 64,
+              "AzimuthalOrder": 271,
+              "AngularOffsetRadians": 0.011592592817674514,
+              "Nodes": 17344,
+              "CumulativeOperations": 17665024,
+              "ReferenceAmplitude": 0.5243454785045887
+            }
+          ],
+          "WorkLimit": 100000000,
+          "RadialOrderLimit": 64,
+          "AzimuthalOrderLimit": 512,
+          "WavelengthNanometers": 550,
+          "FieldX": 0,
+          "FieldY": 0,
+          "Scope": "PsfQuadratureOnFixedReportedWindow",
+          "IsContinuumErrorBound": false
+        }
+      ]
+    },
+    {
+      "kind": "checked-wide-window",
+      "initial": 8,
+      "maximum": 8.356500712757009E-13,
+      "check": {
+        "Status": "SamplingStable",
+        "InitialSampling": 8,
+        "EffectiveRadialOrder": 32,
+        "EffectiveAzimuthalOrder": 135,
+        "FinalNodes": 4320,
+        "CumulativeNodes": 17004,
+        "CumulativeOperations": 17412096,
+        "Tolerance": 1E-10,
+        "MaximumIntensityDisagreement": 5.869082997378427E-14,
+        "MaximumReferenceAmplitudeDisagreement": 2.9531932455028754E-14,
+        "Trials": [
+          {
+            "Rule": "Initial",
+            "RadialOrder": 4,
+            "AzimuthalOrder": 16,
+            "AngularOffsetRadians": 0,
+            "Nodes": 64,
+            "CumulativeOperations": 65536,
+            "ReferenceAmplitude": 1.0000000000000002
+          },
+          {
+            "Rule": "Radial",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 16,
+            "AngularOffsetRadians": 0,
+            "Nodes": 128,
+            "CumulativeOperations": 196608,
+            "ReferenceAmplitude": 0.9999999999999982
+          },
+          {
+            "Rule": "Angular",
+            "RadialOrder": 4,
+            "AzimuthalOrder": 33,
+            "AngularOffsetRadians": 0,
+            "Nodes": 132,
+            "CumulativeOperations": 331776,
+            "ReferenceAmplitude": 0.9999999999999994
+          },
+          {
+            "Rule": "Combined",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 33,
+            "AngularOffsetRadians": 0,
+            "Nodes": 264,
+            "CumulativeOperations": 602112,
+            "ReferenceAmplitude": 0.9999999999999957
+          },
+          {
+            "Rule": "Shifted",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 33,
+            "AngularOffsetRadians": 0.09519977738150888,
+            "Nodes": 264,
+            "CumulativeOperations": 872448,
+            "ReferenceAmplitude": 0.9999999999999957
+          },
+          {
+            "Rule": "Radial",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 33,
+            "AngularOffsetRadians": 0,
+            "Nodes": 528,
+            "CumulativeOperations": 1413120,
+            "ReferenceAmplitude": 1.0000000000000002
+          },
+          {
+            "Rule": "Angular",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 67,
+            "AngularOffsetRadians": 0,
+            "Nodes": 536,
+            "CumulativeOperations": 1961984,
+            "ReferenceAmplitude": 0.9999999999999947
+          },
+          {
+            "Rule": "Combined",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 67,
+            "AngularOffsetRadians": 0,
+            "Nodes": 1072,
+            "CumulativeOperations": 3059712,
+            "ReferenceAmplitude": 1.0000000000000004
+          },
+          {
+            "Rule": "Shifted",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 67,
+            "AngularOffsetRadians": 0.046889442590892436,
+            "Nodes": 1072,
+            "CumulativeOperations": 4157440,
+            "ReferenceAmplitude": 1.0000000000000004
+          },
+          {
+            "Rule": "Radial",
+            "RadialOrder": 32,
+            "AzimuthalOrder": 67,
+            "AngularOffsetRadians": 0,
+            "Nodes": 2144,
+            "CumulativeOperations": 6352896,
+            "ReferenceAmplitude": 0.9999999999999898
+          },
+          {
+            "Rule": "Angular",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 135,
+            "AngularOffsetRadians": 0,
+            "Nodes": 2160,
+            "CumulativeOperations": 8564736,
+            "ReferenceAmplitude": 0.9999999999999845
+          },
+          {
+            "Rule": "Combined",
+            "RadialOrder": 32,
+            "AzimuthalOrder": 135,
+            "AngularOffsetRadians": 0,
+            "Nodes": 4320,
+            "CumulativeOperations": 12988416,
+            "ReferenceAmplitude": 1.000000000000014
+          },
+          {
+            "Rule": "Shifted",
+            "RadialOrder": 32,
+            "AzimuthalOrder": 135,
+            "AngularOffsetRadians": 0.023271056693257727,
+            "Nodes": 4320,
+            "CumulativeOperations": 17412096,
+            "ReferenceAmplitude": 1.000000000000014
+          }
+        ],
+        "WorkLimit": 100000000,
+        "RadialOrderLimit": 64,
+        "AzimuthalOrderLimit": 512,
+        "WavelengthNanometers": 550,
+        "FieldX": 0,
+        "FieldY": 0,
+        "Scope": "PsfQuadratureOnFixedReportedWindow",
+        "IsContinuumErrorBound": false
+      }
+    },
+    {
+      "kind": "checked-angular-alias",
+      "HuygensReferenceAmplitude": 0.6999999999999987,
+      "check": {
+        "Status": "SamplingStable",
+        "InitialSampling": 8,
+        "EffectiveRadialOrder": 16,
+        "EffectiveAzimuthalOrder": 67,
+        "FinalNodes": 1072,
+        "CumulativeNodes": 4060,
+        "CumulativeOperations": 4060,
+        "Tolerance": 1E-10,
+        "MaximumIntensityDisagreement": 7.531752999057062E-15,
+        "MaximumReferenceAmplitudeDisagreement": 3.965082230804122E-15,
+        "Trials": [
+          {
+            "Rule": "Initial",
+            "RadialOrder": 4,
+            "AzimuthalOrder": 16,
+            "AngularOffsetRadians": 0,
+            "Nodes": 64,
+            "CumulativeOperations": 64,
+            "ReferenceAmplitude": 1.0000000000000002
+          },
+          {
+            "Rule": "Radial",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 16,
+            "AngularOffsetRadians": 0,
+            "Nodes": 128,
+            "CumulativeOperations": 192,
+            "ReferenceAmplitude": 0.9999999999999982
+          },
+          {
+            "Rule": "Angular",
+            "RadialOrder": 4,
+            "AzimuthalOrder": 33,
+            "AngularOffsetRadians": 0,
+            "Nodes": 132,
+            "CumulativeOperations": 324,
+            "ReferenceAmplitude": 0.6999999999999995
+          },
+          {
+            "Rule": "Combined",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 33,
+            "AngularOffsetRadians": 0,
+            "Nodes": 264,
+            "CumulativeOperations": 588,
+            "ReferenceAmplitude": 0.7000000000000004
+          },
+          {
+            "Rule": "Shifted",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 33,
+            "AngularOffsetRadians": 0.09519977738150888,
+            "Nodes": 264,
+            "CumulativeOperations": 852,
+            "ReferenceAmplitude": 0.7
+          },
+          {
+            "Rule": "Radial",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 33,
+            "AngularOffsetRadians": 0,
+            "Nodes": 528,
+            "CumulativeOperations": 1380,
+            "ReferenceAmplitude": 0.7000000000000015
+          },
+          {
+            "Rule": "Angular",
+            "RadialOrder": 8,
+            "AzimuthalOrder": 67,
+            "AngularOffsetRadians": 0,
+            "Nodes": 536,
+            "CumulativeOperations": 1916,
+            "ReferenceAmplitude": 0.6999999999999998
+          },
+          {
+            "Rule": "Combined",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 67,
+            "AngularOffsetRadians": 0,
+            "Nodes": 1072,
+            "CumulativeOperations": 2988,
+            "ReferenceAmplitude": 0.6999999999999987
+          },
+          {
+            "Rule": "Shifted",
+            "RadialOrder": 16,
+            "AzimuthalOrder": 67,
+            "AngularOffsetRadians": 0.046889442590892436,
+            "Nodes": 1072,
+            "CumulativeOperations": 4060,
+            "ReferenceAmplitude": 0.6999999999999993
+          }
+        ],
+        "WorkLimit": 100000000,
+        "RadialOrderLimit": 64,
+        "AzimuthalOrderLimit": 512,
+        "WavelengthNanometers": 550,
+        "FieldX": 0,
+        "FieldY": 0,
+        "Scope": "PsfQuadratureOnFixedReportedWindow",
+        "IsContinuumErrorBound": false
+      }
+    }
+  ],
+  "fixedModesBefore": [
+    {
+      "n": 32,
+      "nativeAiryMaximumAbsolute": 0.023712472493626457,
+      "coreAiryMaximumAbsolute": 0.023712472493625736,
+      "nativeMaximumAbsoluteDifference": 1.0769163338864018E-14,
+      "gaussianAiryMaximumAbsolute": 1.6653345369377348E-15,
+      "PupilQuadratureNodeCount": 1024,
+      "gaussianModeCountedAsNativePass": false
+    },
+    {
+      "n": 64,
+      "nativeAiryMaximumAbsolute": 0.01146785958902119,
+      "coreAiryMaximumAbsolute": 0.011467859589020302,
+      "nativeMaximumAbsoluteDifference": 5.362377208939506E-14,
+      "gaussianAiryMaximumAbsolute": 8.08242361927114E-14,
+      "PupilQuadratureNodeCount": 4096,
+      "gaussianModeCountedAsNativePass": false
+    },
+    {
+      "n": 128,
+      "nativeAiryMaximumAbsolute": 0.006135339101170312,
+      "coreAiryMaximumAbsolute": 0.0061353391011692016,
+      "nativeMaximumAbsoluteDifference": 4.796163466380676E-14,
+      "gaussianAiryMaximumAbsolute": 7.993605777301127E-15,
+      "PupilQuadratureNodeCount": 16384,
+      "gaussianModeCountedAsNativePass": false
+    }
+  ],
+  "fixedModesAfter": [
+    {
+      "n": 32,
+      "nativeAiryMaximumAbsolute": 0.023712472493626457,
+      "coreAiryMaximumAbsolute": 0.023712472493625736,
+      "nativeMaximumAbsoluteDifference": 1.0769163338864018E-14,
+      "gaussianAiryMaximumAbsolute": 1.6653345369377348E-15,
+      "PupilQuadratureNodeCount": 1024,
+      "gaussianModeCountedAsNativePass": false
+    },
+    {
+      "n": 64,
+      "nativeAiryMaximumAbsolute": 0.01146785958902119,
+      "coreAiryMaximumAbsolute": 0.011467859589020302,
+      "nativeMaximumAbsoluteDifference": 5.362377208939506E-14,
+      "gaussianAiryMaximumAbsolute": 8.08242361927114E-14,
+      "PupilQuadratureNodeCount": 4096,
+      "gaussianModeCountedAsNativePass": false
+    },
+    {
+      "n": 128,
+      "nativeAiryMaximumAbsolute": 0.006135339101170312,
+      "coreAiryMaximumAbsolute": 0.0061353391011692016,
+      "nativeMaximumAbsoluteDifference": 4.796163466380676E-14,
+      "gaussianAiryMaximumAbsolute": 7.993605777301127E-15,
+      "PupilQuadratureNodeCount": 16384,
+      "gaussianModeCountedAsNativePass": false
+    }
+  ],
+  "coreCopies": [
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "e7472f24d09684f58728f98bb7dce8b2ea996e9a5f1655ae533aa22e1bbd1a74"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "e7472f24d09684f58728f98bb7dce8b2ea996e9a5f1655ae533aa22e1bbd1a74"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "e7472f24d09684f58728f98bb7dce8b2ea996e9a5f1655ae533aa22e1bbd1a74"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "e7472f24d09684f58728f98bb7dce8b2ea996e9a5f1655ae533aa22e1bbd1a74"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "e7472f24d09684f58728f98bb7dce8b2ea996e9a5f1655ae533aa22e1bbd1a74"
+    },
+    {
+      "path": "tools/diagnostics/AfocalHuygens20261030/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "e7472f24d09684f58728f98bb7dce8b2ea996e9a5f1655ae533aa22e1bbd1a74"
+    }
+  ],
+  "workingTreeSources": [
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "sha256": "8a8c0f52dd33726cd5fb253a3adb403ec20432366997181ab4d473fc6468fcc3"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "sha256": "4fdbaf05284d177f895f7dd0963fc6e0d30f0f94be9402d8eaaddc5eb6933194"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs",
+      "sha256": "a56bd2932edb8d4c8c069b5a5b0219a599aa1bddfe0040f392ab5dc1b1317420"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs",
+      "sha256": "0b9d75abbd2c3907bad4e4c6880157f60211023a0e67124c61a734a581d33003"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfProfileAnalyses.cs",
+      "sha256": "f313f21f093ca4df2c2cc756c60358750fdcd3f65eaf4795fb504f4ff14885cd"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.AfocalQuadrature.cs",
+      "sha256": "07638e9e0d5f276d23cf9ca939be4931bc5113819c4c34ea7a22fa1ee89d1942"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "4fefd2b79f1a6dad775b4172992d706708b6400cb5d4967e1b3993a583b1364c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.HuygensSampling.cs",
+      "sha256": "a0f393f85b1daf7479fab95b21e5d411c65a8f33631726c5a4ca8290c83cd984"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs",
+      "sha256": "58c1bdf5f88297da76dc4b00b8dac06bfebdd4f5f57097d93d2d096fb242fa2d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs",
+      "sha256": "f2da50d33e06fe24481edcac221e67a26b30cbbb75f4190550c32eeb7b12e170"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "sha256": "c27b00f79f2a7ca7337ca0a8936bef8e12211fdc8baadc5a83a3abb66c918e84"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs",
+      "sha256": "95394fbbe800237b2159444efb21487e91bd8787d2509c4f25a9399467472f8f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/RelativeIlluminationAnalysis.cs",
+      "sha256": "90b6a818177cd85692b4b1fce8d1fabe2c681e47165cc98fdfbb29058ea0b31a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "sha256": "1dbe9adf5a8dd87d2351304974191f599eab1f11c822beec5476b5c24a8520d4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Geometries/PolygonGroupGeometry.cs",
+      "sha256": "f15ac02c8df2ea7ff2f32c700e69dfb857aec7e447e52fd0d61be771858f4d2e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Interactions/InteractionModels.cs",
+      "sha256": "5148915d3d9e8676e852f97053425aa309505ffac0e6ec86a71c98ddef69c1f7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/ApertureSampler.cs",
+      "sha256": "7efeb7e351aa9e53e8c799aa902639d4cd5e63dc03c5e9b186ba465d7623aac0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.AfocalScale.cs",
+      "sha256": "0f46a0a326f2952da2add5e8251d4f97f14ef3ec3912178004c4e4672f20cfe5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/AfocalParabasalPupilScale.cs",
+      "sha256": "a828e7e5be4ecf8b757ef0709421a37b5708ea6ac2bd96b141646be08cd5a7a1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs",
+      "sha256": "de856b3f001dc4ee0138839fd54944a71a312e91387fc8792e428858aef8b989"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/Paraxial.cs",
+      "sha256": "5eb5436ac799e3b514f31fd7ef7002defc8db264411e6e2f1a942fffea4067c9"
+    }
+  ],
+  "testRuns": [
+    {
+      "path": "artifacts/validation/afocal-huygens-check-20261031-tests-comparison-final-02/comparison.trx",
+      "sha256": "291ebc5c16b9c9ef941686423643ed0a934c9a00a6f9307473ce7795ac197c5b",
+      "passed": 130,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "artifacts/validation/afocal-huygens-check-20261031-tests-core-final-02/core.trx",
+      "sha256": "5f6d453df7d229d01b530e31c6c0ab5166c186bca1f70b823bfc51f6ef238d5f",
+      "passed": 71,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "latestDistinctTestsPassed": 201,
+  "newCheckedSamplingTestsPassed": 16,
+  "earlierRunsSupersededNotAdded": true,
+  "foregroundDesktopUsed": false,
+  "full170Or95CorpusRerun": false,
+  "committedOrPushed": false
+}

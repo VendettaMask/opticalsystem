@@ -91,14 +91,20 @@ internal static class SurfaceSnapshotCompatibility
         {
             case "plane":
             case "plane_grating":
+            case "tilted_plane":
+            case "ternary_mirror_array_v1":
                 return true;
             case "standard":
             case "standard_grating":
             case "even_asphere":
+            case "fringe_sag":
             case "odd_asphere":
             case "forbes_q":
                 radius = Get(numbers, "radius", 0);
                 conic = Get(numbers, "conic", 0);
+                return true;
+            case "chebyshev_sag":
+                radius = Get(numbers, "radius", 0);
                 return true;
             default:
                 return false;

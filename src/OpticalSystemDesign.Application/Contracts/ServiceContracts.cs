@@ -40,6 +40,8 @@ public interface INonSequentialDocumentService
 
     void UpdateObject(NonSequentialObjectUpdateDto update);
 
+    Task<NonSequentialSurfaceBsdf> ImportMeasuredBsdfAsync(Guid objectId, string path, CancellationToken cancellationToken = default, BsdfImportOptions? options = null);
+
     void UpdateWavelengths(IReadOnlyList<NonSequentialWavelengthDto> wavelengths);
 
     NonSequentialConversionResultDto ConvertFromSequential();

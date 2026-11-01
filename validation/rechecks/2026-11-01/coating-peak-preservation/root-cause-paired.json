@@ -1,0 +1,176 @@
+[
+  {
+    "Name": "real-nbf2-96",
+    "Input": {
+      "PeakWavelengthNanometers": 550.4971763943925,
+      "PeakTransmittance": 0.6715300738868735,
+      "LeftHalfMaximumNanometers": 541.5901378364534,
+      "RightHalfMaximumNanometers": 557.5558043683737,
+      "FwhmNanometers": 15.965666531920306,
+      "MinimumReflectance": 0.026600860659326382,
+      "MaximumReflectance": 0.9330329291279279
+    },
+    "InputOd": [
+      1.0531554857305112,
+      1.676242013623481
+    ],
+    "OldN": {
+      "PeakWavelengthNanometers": 550.2422385387418,
+      "PeakTransmittance": 0.6782937973982438,
+      "LeftHalfMaximumNanometers": 541.3956741104939,
+      "RightHalfMaximumNanometers": 557.3643669995404,
+      "FwhmNanometers": 15.968692889046451,
+      "MinimumReflectance": 0.022430906494888284,
+      "MaximumReflectance": 0.932019162378074
+    },
+    "OldNOd": [
+      1.0493998894821208,
+      1.65129950454818
+    ],
+    "ActualCorrectionProof": {
+      "Name": "real-nbf2-96",
+      "Radius": 0.01,
+      "Initial": {
+        "PeakWavelengthNanometers": 550.4971763943925,
+        "PeakTransmittance": 0.6715300738868735,
+        "LeftHalfMaximumNanometers": 541.5901378364534,
+        "RightHalfMaximumNanometers": 557.5558043683737,
+        "FwhmNanometers": 15.965666531920306,
+        "MinimumReflectance": 0.026600860659326382,
+        "MaximumReflectance": 0.9330329291279279
+      },
+      "InitialOd": [
+        1.0531554857305112,
+        1.676242013623481
+      ],
+      "Raw": {
+        "PeakWavelengthNanometers": 549.7828150089931,
+        "PeakTransmittance": 0.6729104877794949,
+        "LeftHalfMaximumNanometers": 540.8858776310182,
+        "RightHalfMaximumNanometers": 556.8589059530385,
+        "FwhmNanometers": 15.973028322020355,
+        "MinimumReflectance": 0.023325831191349032,
+        "MaximumReflectance": 0.9341162957569712
+      },
+      "RawOd": [
+        1.0393602536205218,
+        1.6752573558941588
+      ],
+      "Final": {
+        "PeakWavelengthNanometers": 549.7534106592819,
+        "PeakTransmittance": 0.6717392143236167,
+        "LeftHalfMaximumNanometers": 540.867022929366,
+        "RightHalfMaximumNanometers": 556.8290682542469,
+        "FwhmNanometers": 15.962045324880819,
+        "MinimumReflectance": 0.024740635113197018,
+        "MaximumReflectance": 0.9342509266048926
+      },
+      "FinalOd": [
+        1.0533707479592027,
+        1.676450154189494
+      ],
+      "Joint": true,
+      "Iterations": 2,
+      "InitialViolation": 0.013795232109989453,
+      "FinalViolation": -0.00020814056601303754,
+      "ExactConstraintValues": [
+        -0.00027885391565766565,
+        -0.00024141380263245082,
+        -0.04977262271453734,
+        -0.016894043952129324,
+        -0.00021526222869150402,
+        -0.00020814056601303754
+      ],
+      "ExtraEvaluateCalls": 83,
+      "CoreCorrection": "trial-constraint-correction/1",
+      "Scope": "Root-cause probe using actual formal metrics and finite-difference correction; not a changed design gate or production optimizer"
+    }
+  },
+  {
+    "Name": "new-real-nbf-green",
+    "Input": {
+      "PeakWavelengthNanometers": 499.58954171227504,
+      "PeakTransmittance": 0.6164896972347831,
+      "LeftHalfMaximumNanometers": 491.11113433863625,
+      "RightHalfMaximumNanometers": 506.4626273121329,
+      "FwhmNanometers": 15.351492973496647,
+      "MinimumReflectance": 0.00671309731196478,
+      "MaximumReflectance": 0.9326968926367236
+    },
+    "InputOd": [
+      1.0046499585535096,
+      1.5212130875221024
+    ],
+    "OldN": {
+      "PeakWavelengthNanometers": 499.5464363238316,
+      "PeakTransmittance": 0.6170429283921363,
+      "LeftHalfMaximumNanometers": 491.1401688746402,
+      "RightHalfMaximumNanometers": 506.4827949933061,
+      "FwhmNanometers": 15.342626118665862,
+      "MinimumReflectance": 0.00812808388808663,
+      "MaximumReflectance": 0.9329320395924351
+    },
+    "OldNOd": [
+      1.0053275162802866,
+      1.5227932683348167
+    ],
+    "ActualCorrectionProof": {
+      "Name": "new-real-nbf-green",
+      "Radius": 0.01,
+      "Initial": {
+        "PeakWavelengthNanometers": 499.58954171227504,
+        "PeakTransmittance": 0.6164896972347831,
+        "LeftHalfMaximumNanometers": 491.11113433863625,
+        "RightHalfMaximumNanometers": 506.4626273121329,
+        "FwhmNanometers": 15.351492973496647,
+        "MinimumReflectance": 0.00671309731196478,
+        "MaximumReflectance": 0.9326968926367236
+      },
+      "InitialOd": [
+        1.0046499585535096,
+        1.5212130875221024
+      ],
+      "Raw": {
+        "PeakWavelengthNanometers": 499.5172296002474,
+        "PeakTransmittance": 0.6166080535676266,
+        "LeftHalfMaximumNanometers": 491.47254224723434,
+        "RightHalfMaximumNanometers": 506.8630743909106,
+        "FwhmNanometers": 15.39053214367624,
+        "MinimumReflectance": 0.010702408351893823,
+        "MaximumReflectance": 0.9313940116177332
+      },
+      "RawOd": [
+        1.0021586746204765,
+        1.5197183744765423
+      ],
+      "Final": {
+        "PeakWavelengthNanometers": 499.55159652930644,
+        "PeakTransmittance": 0.6167747736431082,
+        "LeftHalfMaximumNanometers": 491.1790208957876,
+        "RightHalfMaximumNanometers": 506.5279262520921,
+        "FwhmNanometers": 15.348905356304499,
+        "MinimumReflectance": 0.007990593815332729,
+        "MaximumReflectance": 0.9324562323335346
+      },
+      "FinalOd": [
+        1.0046636592423692,
+        1.521472922311256
+      ],
+      "Joint": true,
+      "Iterations": 2,
+      "InitialViolation": 0.002862872479836748,
+      "FinalViolation": -1.3700688859641375e-05,
+      "ExactConstraintValues": [
+        -0.0003801018777667882,
+        -0.000189758594090866,
+        -0.06621625451752797,
+        -0.00045041214913870326,
+        -1.3700688859641375e-05,
+        -0.00025983478915359015
+      ],
+      "ExtraEvaluateCalls": 66,
+      "CoreCorrection": "trial-constraint-correction/1",
+      "Scope": "Root-cause probe using actual formal metrics and finite-difference correction; not a changed design gate or production optimizer"
+    }
+  }
+]

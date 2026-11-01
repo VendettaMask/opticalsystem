@@ -1,0 +1,115 @@
+{
+  "coreSha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22",
+  "cases": [
+    {
+      "id": "m1-fourier",
+      "status": "Difference",
+      "maximum": 0.05240307427855617,
+      "pointwiseViolations": 3594,
+      "comparisons": 3996
+    },
+    {
+      "id": "m1-huygens",
+      "status": "Difference",
+      "maximum": 0.04627434981098838,
+      "pointwiseViolations": 2961,
+      "comparisons": 3996
+    },
+    {
+      "id": "m1-geometric",
+      "status": "Pass",
+      "maximum": 0.0033177364594754177,
+      "pointwiseViolations": 332,
+      "comparisons": 3996
+    },
+    {
+      "id": "m2-fourier",
+      "status": "ComparisonUnavailable",
+      "maximum": null,
+      "pointwiseViolations": 0,
+      "comparisons": 0
+    },
+    {
+      "id": "m2-huygens",
+      "status": "Difference",
+      "maximum": 0.018469554641092678,
+      "pointwiseViolations": 1893,
+      "comparisons": 3996
+    },
+    {
+      "id": "m2-geometric",
+      "status": "Pass",
+      "maximum": 0.0020111242518868755,
+      "pointwiseViolations": 0,
+      "comparisons": 3996
+    },
+    {
+      "id": "m3-fourier",
+      "status": "Difference",
+      "maximum": 0.13179419001076714,
+      "pointwiseViolations": 3458,
+      "comparisons": 3996
+    },
+    {
+      "id": "m3-huygens",
+      "status": "Difference",
+      "maximum": 0.015084545663062887,
+      "pointwiseViolations": 994,
+      "comparisons": 3996
+    },
+    {
+      "id": "m3-geometric",
+      "status": "Pass",
+      "maximum": 0.0033945728332077096,
+      "pointwiseViolations": 280,
+      "comparisons": 3996
+    },
+    {
+      "id": "m4-fourier",
+      "status": "Difference",
+      "maximum": 0.13179419005750792,
+      "pointwiseViolations": 3458,
+      "comparisons": 3996
+    },
+    {
+      "id": "m4-huygens",
+      "status": "Difference",
+      "maximum": 0.01508455210857626,
+      "pointwiseViolations": 994,
+      "comparisons": 3996
+    },
+    {
+      "id": "m4-geometric",
+      "status": "Pass",
+      "maximum": 0.0033945728323093727,
+      "pointwiseViolations": 280,
+      "comparisons": 3996
+    },
+    {
+      "id": "m5-fourier",
+      "status": "Close",
+      "maximum": 0.004697278431120666,
+      "pointwiseViolations": 452,
+      "comparisons": 3996
+    },
+    {
+      "id": "m5-huygens",
+      "status": "Pass",
+      "maximum": 1.88708203430199E-06,
+      "pointwiseViolations": 0,
+      "comparisons": 3996
+    },
+    {
+      "id": "m5-geometric",
+      "status": "Pass",
+      "maximum": 0.0020105818400599773,
+      "pointwiseViolations": 0,
+      "comparisons": 3996
+    }
+  ],
+  "curveCount": 168,
+  "comparisons": 55944.0,
+  "pointwiseViolations": 18696.0,
+  "gatesUnchanged": true,
+  "pointwiseOrExistingNrmse": true
+}

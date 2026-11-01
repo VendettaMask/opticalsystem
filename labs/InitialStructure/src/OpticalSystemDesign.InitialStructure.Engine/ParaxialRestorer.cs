@@ -13,7 +13,7 @@ public static class ParaxialRestorer
 {
     private sealed record GeometryPlane(double Offset, double[] Normal);
     private sealed record Sample(CompiledTopology Source, ParaxialTransferMatrix Matrix, double[] Coordinates, double[] Residuals,
-        double[,]? Jacobian = null, double? InverseFNumber = null, GeometryPlane[]? Geometry = null);
+        double[,]? Jacobian = null, double? InverseFNumber = null, GeometryPlane[]? Geometry = null, double EnvelopeDeficit = 0);
     private sealed class BudgetReached : Exception { }
 
     public static ParaxialRecoveryResult Run(CompiledTopology parent, CompiledTopology child,
@@ -51,6 +51,8 @@ public static class ParaxialRestorer
         var projections = 0;
         var projectionSolves = 0;
         var opticalRows = restorePupil ? 3 : 2;
+        var restoreEnvelope = options.FixedStopEnvelopeVersion == 1;
+        double? initialEnvelopeDeficit = null;
         var pupils = 0;
         double? parentFNumber = null, initialInverseF = null, finalInverseF = null;
         try
@@ -67,7 +69,7 @@ public static class ParaxialRestorer
                 throw new ArgumentException("First-order recovery fixes image/reference/stop and releases only permitted lens curvatures or axial positions.");
             fingerprint = ContentFingerprint.Compute(new
             {
-                Identity = constrainedGeometry ? "autonomous-paraxial-recovery-geometry-v1" : restorePupil ? "autonomous-paraxial-recovery-pupil-v4" : options.UseAutomaticMatrixDerivatives == true ? "autonomous-paraxial-recovery-ad-v2" : "autonomous-paraxial-recovery-v1",
+                Identity = restoreEnvelope ? "autonomous-paraxial-envelope-v1" : constrainedGeometry ? "autonomous-paraxial-recovery-geometry-v1" : restorePupil ? "autonomous-paraxial-recovery-pupil-v4" : options.UseAutomaticMatrixDerivatives == true ? "autonomous-paraxial-recovery-ad-v2" : "autonomous-paraxial-recovery-v1",
                 Parent = parent.BindingFingerprint,
                 Child = child.BindingFingerprint,
                 requests,
@@ -77,7 +79,7 @@ public static class ParaxialRestorer
             });
             if (requests.Length > 0)
             {
-                binding = TopologyParameterBinder.Bind(child, requests);
+                binding = TopologyParameterBinder.Bind(child, requests, exactMechanicalFrame: restoreEnvelope);
                 q0 = binding.InitialCoordinates.ToArray();
                 endpoint = q0.ToArray();
             }
@@ -95,6 +97,7 @@ public static class ParaxialRestorer
             {
                 initial = final = last!.Matrix;
                 accepted = last;
+                if (restoreEnvelope) initialEnvelopeDeficit = accepted!.EnvelopeDeficit;
                 initialInverseF = finalInverseF = last.InverseFNumber;
                 if (Recovered(final)) termination = ParaxialRecoveryTermination.Recovered;
                 else if (binding is null || binding.Slots.All(slot => slot.LowerCoordinate == slot.UpperCoordinate))
@@ -163,6 +166,8 @@ public static class ParaxialRestorer
         return new()
         {
             ProtocolFingerprint = fingerprint,
+            InitialEnvelopeDeficitMillimeters = initialEnvelopeDeficit,
+            EndpointEnvelopeDeficitMillimeters = restoreEnvelope ? accepted?.EnvelopeDeficit : null,
             Topology = current.Topology,
             Termination = termination,
             Work = new(functions, differences, matrices, builds, probes, timer.Elapsed) { PupilEvaluations = restorePupil ? pupils : null },
@@ -187,7 +192,8 @@ public static class ParaxialRestorer
         double AError(ParaxialTransferMatrix matrix) => matrix.A - parentMatrix!.A;
         double CError(ParaxialTransferMatrix matrix) => targets.EffectiveFocalLengthMillimeters * (matrix.C - parentMatrix!.C);
         bool Recovered(ParaxialTransferMatrix matrix) => Math.Abs(AError(matrix)) <= options.ATolerance && Math.Abs(CError(matrix)) <= options.FocalCTolerance
-            && (!restorePupil || finalInverseF is { } inverse && Math.Abs(inverse * parentFNumber!.Value - 1) <= options.FocalCTolerance);
+            && (!restorePupil || finalInverseF is { } inverse && Math.Abs(inverse * parentFNumber!.Value - 1) <= options.FocalCTolerance)
+            && (!restoreEnvelope || accepted?.EnvelopeDeficit <= 1e-7);
         void Charge()
         {
             if (timer.Elapsed >= options.TimeLimit) deadline.Cancel();
@@ -240,12 +246,22 @@ public static class ParaxialRestorer
                     matrix = automatic.Nominal;
                 }
                 else matrix = Matrix(value);
-                var residuals = new double[opticalRows + coordinates.Count];
+                var envelope = new List<DifferentiablePupilFootprint>();
+                if (restoreEnvelope)
+                    foreach (var wave in optic.Wavelengths.Where(w => w.Weight > 0))
+                    {
+                        var evaluated = DifferentiablePupilEnvelopes.Evaluate(optic, binding?.CoreParameters ?? [],
+                            value.SurfaceIndices[value.Topology.Reference.Id], [0, 1], wave.Nanometers, token);
+                        matrices += evaluated.MatrixEvaluations; envelope.AddRange(evaluated.Samples);
+                    }
+                var residuals = new double[opticalRows + coordinates.Count + envelope.Count];
                 residuals[0] = AError(matrix) / options.AScale;
                 residuals[1] = CError(matrix) / options.FocalCScale;
                 if (restorePupil) residuals[2] = (automatic!.InverseFNumber!.Value.Value * parentFNumber!.Value - 1) / options.FocalCScale;
                 for (var index = 0; index < coordinates.Count; index++)
                     residuals[index + opticalRows] = Math.Sqrt(options.MinimumChangeWeight) * (coordinates[index] - q0[index]);
+                for (var index = 0; index < envelope.Count; index++)
+                    residuals[opticalRows + coordinates.Count + index] = Math.Max(0, -envelope[index].ClearanceMillimeters.Value) / .01;
                 double[,]? jacobian = null;
                 if (automatic is not null)
                 {
@@ -256,9 +272,13 @@ public static class ParaxialRestorer
                         jacobian[1, column] = targets.EffectiveFocalLengthMillimeters * automatic.C.Derivative(column) / options.FocalCScale;
                         if (restorePupil) jacobian[2, column] = automatic.InverseFNumber!.Value.Derivative(column) * parentFNumber!.Value / options.FocalCScale;
                         jacobian[column + opticalRows, column] = Math.Sqrt(options.MinimumChangeWeight);
+                        for (var index = 0; index < envelope.Count; index++)
+                            jacobian[opticalRows + coordinates.Count + index, column] = envelope[index].ClearanceMillimeters.Value < 0
+                                ? -envelope[index].ClearanceMillimeters.Derivative(column) / .01 : 0;
                     }
                 }
-                last = new(value, matrix, coordinates.ToArray(), residuals, jacobian, automatic?.InverseFNumber?.Value, planes?.ToArray());
+                last = new(value, matrix, coordinates.ToArray(), residuals, jacobian, automatic?.InverseFNumber?.Value, planes?.ToArray(),
+                    envelope.Select(item => Math.Max(0, -item.ClearanceMillimeters.Value)).DefaultIfEmpty(0).Max());
                 return new(residuals, true, probes - start + matrices - matrixStart);
             }
             catch (Exception error) when (TopologyEvaluationPlan.DomainError(error))
@@ -314,6 +334,42 @@ public static class ParaxialRestorer
             if (accepted?.Geometry is not { } geometry || !point.SequenceEqual(accepted.Coordinates))
                 throw new InvalidOperationException("Geometry projection must use the accepted Core geometry evaluation.");
             token.ThrowIfCancellationRequested(); projections++;
+            if (restoreEnvelope)
+            {
+                // Solve the optical model and manufacturing inequalities together.
+                // Projecting an unconstrained envelope step onto thousands of nearly
+                // parallel profile planes can erase its useful optical direction.
+                using var scope = ComputationCancellation.Push(token);
+                var constraints = geometry.Select(row => (Normal: row.Normal, Upper: Math.Max(0, -row.Offset))).ToList();
+                var epsilon = Math.BitIncrement(1.0) - 1;
+                constraints.RemoveAll(c => c.Normal.Sum(Math.Abs) * radius <= 64 * epsilon * Math.Max(1, c.Upper));
+                for (var row = 0; row < opticalRows; row++)
+                {
+                    var normal = Enumerable.Range(0, point.Count).Select(column => accepted.Jacobian![row, column]).ToArray();
+                    var band = Math.Max(.5, Math.Abs(accepted.Residuals[row]));
+                    constraints.Add((normal, Math.Max(0, band - accepted.Residuals[row])));
+                    constraints.Add((normal.Select(value => -value).ToArray(), Math.Max(0, band + accepted.Residuals[row])));
+                }
+                for (var column = 0; column < point.Count; column++)
+                {
+                    var positive = new double[point.Count]; positive[column] = 1;
+                    var negative = new double[point.Count]; negative[column] = -1;
+                    constraints.Add((positive, Math.Max(0, Math.Min(radius, binding!.Slots[column].UpperCoordinate - point[column]))));
+                    constraints.Add((negative, Math.Max(0, Math.Min(radius, point[column] - binding.Slots[column].LowerCoordinate))));
+                }
+                var normals = new double[constraints.Count, point.Count]; var upper = new double[constraints.Count];
+                for (var i = 0; i < constraints.Count; i++)
+                {
+                    upper[i] = constraints[i].Upper;
+                    for (var column = 0; column < point.Count; column++) normals[i, column] = constraints[i].Normal[column];
+                }
+                projectionSolves++;
+                var solved = OpticalSystemDesign.Core.Optimization.InequalityLeastSquaresStep.Solve(
+                    accepted.Jacobian!, accepted.Residuals, normals, upper, .001);
+                if (constraints.Any(c => c.Normal.Zip(solved.Step, (a, b) => a * b).Sum() > c.Upper + 1e-8)) return point.ToArray();
+                return point.Select((value, column) => Math.Clamp(value + solved.Step[column],
+                    binding!.Slots[column].LowerCoordinate, binding.Slots[column].UpperCoordinate)).ToArray();
+            }
             var step = proposed.Select((value, index) => value - point[index]).ToArray();
             var planes = geometry.Select(row => (Offset: row.Offset + (row.Normal.Any(value => value != 0) ? Math.Min(1e-6, radius * radius * 1e-3) : 0), row.Normal)).ToList();
             for (var column = 0; column < point.Count; column++)
@@ -397,7 +453,8 @@ public static class ParaxialRestorer
     {
         double[] positive = [options.AScale, options.FocalCScale, options.ATolerance, options.FocalCTolerance,
             options.RelativeDifferenceStep, options.RelativeRankTolerance];
-        if (options.MaximumAcceptedSteps is < 1 or > 1000 || options.MaximumFunctionEvaluations is < 1 or > 100_000
+        if (options.FixedStopEnvelopeVersion is not (null or 1) || options.FixedStopEnvelopeVersion is not null && options.UseAutomaticMatrixDerivatives != true
+            || options.MaximumAcceptedSteps is < 1 or > 1000 || options.MaximumFunctionEvaluations is < 1 or > 100_000
             || options.RestorePupilMagnification == true && options.UseAutomaticMatrixDerivatives != true
             || options.UseGeometryConstraintTangents == true && options.UseAutomaticMatrixDerivatives != true
             || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromHours(1)

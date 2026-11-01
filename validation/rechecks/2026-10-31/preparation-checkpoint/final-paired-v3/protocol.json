@@ -1,0 +1,34 @@
+{
+  "version": "preparation-paired-v3",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "budget": {
+    "functions": 600,
+    "gradients": 600,
+    "rays": 10000000,
+    "activeSeconds": 600
+  },
+  "arms": [
+    "continuous",
+    "paused-and-new-process-resume"
+  ],
+  "stopPoints": {
+    "42": "construction",
+    "43": "sphere",
+    "44": "profile",
+    "45": "sphere",
+    "46": "dense"
+  },
+  "input": "Original competition-8-F8-full25 seed44 specification, only RNG seed changes. Fresh layouts, no endpoint imports.",
+  "execution": "Two bounded background worker slots; longest seed46 pair first, then42-45; one fresh process for each start and another fresh process for each resume. One frozen common runtime; nested computation parallelism suppressed.",
+  "comparison": "Exact RNG, pool, phase endpoints/diagnostics, final original QA and all discrete counters. Segment actual ray measurements must settle exactly with no repeated trace. Active elapsed is measured, monotone, excludes offline/persistence time, and is not required to be bit-identical.",
+  "originalGates": "All original aperture/stop/image, material/shape/axial permissions and image/manufacturing gates unchanged. Checkpoint cadence does not change the solver.",
+  "boundaries": "Cold updates suspend after a complete accepted/rejected update; other preparation modes use complete starts/branches/candidate-stage/index-transfer-validation operations. Unexpected lost reservations are conservatively charged once and not reported as exact continuation.",
+  "f4": "Original stop6.25mm > fixedface5mm conflict retained, no optimization or relaxed gates.",
+  "sourceScope": "Module/adapter sources captured; shared Core runtime binary is archived and is the actual numerical authority for this frozen paired study. Concurrent unrelated Core working-tree edits are not substituted into these runs."
+}

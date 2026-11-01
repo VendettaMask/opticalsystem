@@ -84,7 +84,7 @@ public static class ChromaticFocusMetrics
             if (!double.IsFinite(frame.Origin.Z) || frame.Origin.X != 0 || frame.Origin.Y != 0
                 || frame.RotationXDegrees != 0 || frame.RotationYDegrees != 0 || frame.RotationZDegrees != 0
                 || surface.IsReflective || surface.Geometry is not (PlaneGeometry or StandardGeometry)
-                || surface.InteractionModel is not (RefractiveReflectiveInteractionModel or ThinLensInteractionModel)
+                || surface.InteractionModel is not (RefractiveReflectiveInteractionModel or ThinLensInteractionModel or ParaxialLensInteractionModel)
                 || surface.MaterialAfter.PropagationModel is not HomogeneousPropagationModel)
                 throw new NotSupportedException("本组焦移/色差当前支持共轴、未旋转的透射标准面与平面理想薄透镜；非球面多项式、偏心、反射、GRIN 和相位/衍射系统尚未支持。");
             if (surface.InteractionModel is ThinLensInteractionModel && !surface.IsPlane)

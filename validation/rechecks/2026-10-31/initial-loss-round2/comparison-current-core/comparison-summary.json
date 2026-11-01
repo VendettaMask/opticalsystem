@@ -1,0 +1,66 @@
+{
+  "groups": [
+    {
+      "case": "competition-8-F8-full25",
+      "arm": "legacy-final",
+      "runs": 5,
+      "runsWithNewQualified": 0,
+      "newQualified": 0,
+      "uniqueNewOptics": 0,
+      "inheritedQualified": 0,
+      "medianEndToEndRays": 231972,
+      "bestNewQualified": null
+    },
+    {
+      "case": "competition-8-F8-full25",
+      "arm": "joint-final",
+      "runs": 5,
+      "runsWithNewQualified": 0,
+      "newQualified": 0,
+      "uniqueNewOptics": 0,
+      "inheritedQualified": 0,
+      "medianEndToEndRays": 427745,
+      "bestNewQualified": null
+    },
+    {
+      "case": "original-half21",
+      "arm": "legacy-final",
+      "runs": 5,
+      "runsWithNewQualified": 0,
+      "newQualified": 0,
+      "uniqueNewOptics": 0,
+      "inheritedQualified": 5,
+      "medianEndToEndRays": 1695236,
+      "bestNewQualified": null
+    },
+    {
+      "case": "original-half21",
+      "arm": "joint-final",
+      "runs": 5,
+      "runsWithNewQualified": 5,
+      "newQualified": 5,
+      "uniqueNewOptics": 1,
+      "inheritedQualified": 5,
+      "medianEndToEndRays": 3689688,
+      "bestNewQualified": {
+        "case": "original-half21",
+        "arm": "joint-final",
+        "seed": 42,
+        "id": "evolution-003",
+        "parentId": "parent-001",
+        "complexity": {
+          "elements": 2,
+          "asphericSurfaces": 4,
+          "polynomialTerms": 0
+        },
+        "worstRmsMillimeters": 0.04999662150165208,
+        "worstMaximumMillimeters": 0.14998702391539218,
+        "pareto": true
+      }
+    }
+  ],
+  "runs": 20,
+  "originalAssessments": 40,
+  "completedColdReplays": 40,
+  "allSavedChecksPassed": true
+}

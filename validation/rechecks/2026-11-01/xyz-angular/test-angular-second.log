@@ -1,0 +1,27 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:03.18]     OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: True) [FAIL]
+[xUnit.net 00:00:03.48]     OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: True) [1 s]
+  错误消息:
+   System.ArgumentException : Detector dimensions do not match the square physical camera pixels.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Analysis.Imaging.SpectralDetectorSensor.IntegratePhotoElectrons(SpectralDetectorPower detector, SensorSpectralResponse response, CameraSensorSettings sensor, QuantumEfficiencyAreaReference qeArea) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Analysis\Imaging\SpectralDetectorPower.cs:line 91
+   at OpticalSystemDesign.Application.Services.CameraImagingService.ValidateNscRequest(CameraImagingRequest r, String version) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 111
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateNonSequentialAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken token) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 118
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateCoreAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.cs:line 77
+   at OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredAngularChainTests.cs:line 30
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: False) [298 ms]
+  错误消息:
+   System.ArgumentException : Detector dimensions do not match the square physical camera pixels.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Analysis.Imaging.SpectralDetectorSensor.IntegratePhotoElectrons(SpectralDetectorPower detector, SensorSpectralResponse response, CameraSensorSettings sensor, QuantumEfficiencyAreaReference qeArea) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Analysis\Imaging\SpectralDetectorPower.cs:line 91
+   at OpticalSystemDesign.Application.Services.CameraImagingService.ValidateNscRequest(CameraImagingRequest r, String version) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 111
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateNonSequentialAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken token) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 118
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateCoreAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.cs:line 77
+   at OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredAngularChainTests.cs:line 30
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-01\xyz-angular\angular-second.trx
+
+失败!  - 失败:     2，通过:    10，已跳过:     0，总计:    12，持续时间: 1 s - OpticalSystemDesign.Tests.dll (net10.0)

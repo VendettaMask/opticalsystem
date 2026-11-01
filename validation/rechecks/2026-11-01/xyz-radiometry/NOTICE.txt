@@ -1,0 +1,26 @@
+Cornell PCG measured spectral BRDF and published XYZ:
+https://bowers.cornell.edu/computer-graphics/data
+The official directory links to archived ASTM data. measured/download.json records
+the exact archived URLs, gzip byte hashes and download results for Garnet Red,
+Krylon Blue and Blue Acrylic. Cayman is read unchanged from the previous frozen phase.
+Published XYZ is derived from measured spectra under D65; the observer is not explicitly
+verified. No redistribution grant is inferred. Originals are local diagnostic inputs,
+not shipped product material-library assets or CI fixtures.
+
+CIE standard illuminant D65, 2019, International Commission on Illumination (CIE).
+DOI https://doi.org/10.25039/CIE.DS.hjfjmt59
+Official dataset: https://cie.co.at/datatable/cie-standard-illuminant-d65
+SHA-256 e76f210bffff3d552ef7113025da5f325d5dfec200dd4b878b1a2f3a507032cb
+MD5 03d4eb9b837c60671627c946fb534deb
+Creative Commons Attribution-ShareAlike 4.0 International:
+https://creativecommons.org/licenses/by-sa/4.0/
+Original CSV is unmodified; accompanying official metadata retains its rights notice.
+CIE 1931 2-degree CMFs are read unchanged from the previous validation directory;
+that directory retains their source identity and attribution. Newly derived XYZ uses
+explicit 400-700 nm band-limited D65, 1 nm trapezoid and linear spectral interpolation.
+Those derived XYZ values are not independent tristimulus instrument measurements.
+
+No real-material calibration is approved or exported by this phase. Fit-only success
+for the published Krylon pair retains unknown-observer provenance and export rejection.
+Synthetic analytic controls and camera fixtures are authored by Optical System Design;
+no commercial runtime, installer or licence component is distributed.

@@ -1,0 +1,7984 @@
+{
+  "authority": "OpticStudio 2026 R1 independent background model controls",
+  "sample": {
+    "capture": "artifacts/validation/grid-gradient-convergence-native-20261101",
+    "source": "VERS 200426 262 0\nMODE SEQ\nUNIT MM X W X CM MR CPMM\nENPD .2\nFTYP 0 0 2 2 0 0 0\nXFLN 0 0\nYFLN 0 1\nWAVM 1 .55 1\nWAVM 2 .65 1\nPWAV 1\nSURF 0\n TYPE STANDARD\n CURV 0\n DISZ INFINITY\nSURF 1\n STOP\n TYPE STANDARD\n CURV 0\n DISZ 1\n DIAM .2 1 0 0 1 \"\"\nSURF 2\n TYPE GRINSU11 Sample.GGD\n CURV 0\n PARM 1 2E-05\n DISZ 3.8\n DIAM .5 1 0 0 1 \"\"\nSURF 3\n TYPE STANDARD\n CURV 0\n DISZ 1\n DIAM .5 1 0 0 1 \"\"\nSURF 4\n TYPE STANDARD\n CURV 0\n DIAM 2 1 0 0 1 \"\"",
+    "coreMaximumStep": 0.05,
+    "nativeMaximumStep": 2E-05,
+    "rows": [
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 24.7996985048888
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": -0.010469064477613442
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.021099489729341316
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": -0.03744176719138965
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.07600154707985354
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9964044755575205
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": -0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0.9987561355289251
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.06254493507178242
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.011647816838807053
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9999321618804395
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 24.79337234125171
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.029668778160710757
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.026976945178970625
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": -0.03761259981396417
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.093456065084832
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9949126877440619
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1.0015485205588903
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.09745506492821761
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.01162299367152343
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9999324507276037
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 24.80832261035249
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.02967490795799566
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.13299656522665051
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": -0.03761205316453817
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.0934560594112096
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9949127089429144
+      }
+    ]
+  },
+  "dispersion": {
+    "capture": "artifacts/validation/grid-gradient-native-20261101",
+    "ggdBytes": "c2Nob3R0IDYgNiA2IC4yIC4yIC4yDQotMC41NSAtMC41IDAgMC4wNSAxLjk3NSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IC0wLjUgMC4yIDAuMDUgMS45OTUgMC4wMjQ5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC41NSAtMC41IDAuNCAwLjA1IDIuMDE1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgLTAuNSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjAzNSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IC0wLjUgMC44IDAuMDUgMi4wNTUgMC4wMjQ5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC41NSAtMC41IDEgMC4wNSAyLjA3NSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IC0wLjMgMCAwLjA1IDEuOTc1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgLTAuMyAwLjIgMC4wNSAxLjk5NSAwLjAyNyAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IC0wLjMgMC40IDAuMDUgMi4wMTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQotMC41NSAtMC4zIDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMDM1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgLTAuMyAwLjggMC4wNSAyLjA1NSAwLjAyNyAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IC0wLjMgMSAwLjA1IDIuMDc1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgLTAuMDk5OTk5OTk5OTk5OTk5OTggMCAwLjA1IDEuOTc1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgLTAuMDk5OTk5OTk5OTk5OTk5OTggMC4yIDAuMDUgMS45OTUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC41NSAtMC4wOTk5OTk5OTk5OTk5OTk5OCAwLjQgMC4wNSAyLjAxNSAwLjAyODk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IC0wLjA5OTk5OTk5OTk5OTk5OTk4IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMDM1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgLTAuMDk5OTk5OTk5OTk5OTk5OTggMC44IDAuMDUgMi4wNTUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC41NSAtMC4wOTk5OTk5OTk5OTk5OTk5OCAxIDAuMDUgMi4wNzUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC41NSAwLjEwMDAwMDAwMDAwMDAwMDA5IDAgMC4wNSAxLjk3NSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuMTAwMDAwMDAwMDAwMDAwMDkgMC4yIDAuMDUgMS45OTUgMC4wMzEgMCAwIDAgMCAwIDAgMCAwDQotMC41NSAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuNCAwLjA1IDIuMDE1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgMC4xMDAwMDAwMDAwMDAwMDAwOSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjAzNSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuMTAwMDAwMDAwMDAwMDAwMDkgMC44IDAuMDUgMi4wNTUgMC4wMzEgMCAwIDAgMCAwIDAgMCAwDQotMC41NSAwLjEwMDAwMDAwMDAwMDAwMDA5IDEgMC4wNSAyLjA3NSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuMzAwMDAwMDAwMDAwMDAwMDQgMCAwLjA1IDEuOTc1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgMC4zMDAwMDAwMDAwMDAwMDAwNCAwLjIgMC4wNSAxLjk5NSAwLjAzMyAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC40IDAuMDUgMi4wMTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQotMC41NSAwLjMwMDAwMDAwMDAwMDAwMDA0IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMDM1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgMC4zMDAwMDAwMDAwMDAwMDAwNCAwLjggMC4wNSAyLjA1NSAwLjAzMyAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuMzAwMDAwMDAwMDAwMDAwMDQgMSAwLjA1IDIuMDc1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KLTAuNTUgMC41IDAgMC4wNSAxLjk3NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuNSAwLjIgMC4wNSAxLjk5NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuNSAwLjQgMC4wNSAyLjAxNSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuNSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjAzNSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuNSAwLjggMC4wNSAyLjA1NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjU1IDAuNSAxIDAuMDUgMi4wNzUgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAtMC41IDAgMC4wNSAyLjA3NSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIC0wLjUgMC4yIDAuMDUgMi4wOTUgMC4wMjQ5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAtMC41IDAuNCAwLjA1IDIuMTE1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgLTAuNSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjEzNTAwMDAwMDAwMDAwMDIgMC4wMjQ5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAtMC41IDAuOCAwLjA1IDIuMTU1MDAwMDAwMDAwMDAwMiAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIC0wLjUgMSAwLjA1IDIuMTc1MDAwMDAwMDAwMDAwMyAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIC0wLjMgMCAwLjA1IDIuMDc1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgLTAuMyAwLjIgMC4wNSAyLjA5NSAwLjAyNyAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIC0wLjMgMC40IDAuMDUgMi4xMTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAtMC4zIDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMTM1MDAwMDAwMDAwMDAwMiAwLjAyNyAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIC0wLjMgMC44IDAuMDUgMi4xNTUwMDAwMDAwMDAwMDAyIDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgLTAuMyAxIDAuMDUgMi4xNzUwMDAwMDAwMDAwMDAzIDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgLTAuMDk5OTk5OTk5OTk5OTk5OTggMCAwLjA1IDIuMDc1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgLTAuMDk5OTk5OTk5OTk5OTk5OTggMC4yIDAuMDUgMi4wOTUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAtMC4wOTk5OTk5OTk5OTk5OTk5OCAwLjQgMC4wNSAyLjExNSAwLjAyODk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIC0wLjA5OTk5OTk5OTk5OTk5OTk4IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMTM1MDAwMDAwMDAwMDAwMiAwLjAyODk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIC0wLjA5OTk5OTk5OTk5OTk5OTk4IDAuOCAwLjA1IDIuMTU1MDAwMDAwMDAwMDAwMiAwLjAyODk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIC0wLjA5OTk5OTk5OTk5OTk5OTk4IDEgMC4wNSAyLjE3NTAwMDAwMDAwMDAwMDMgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAwLjEwMDAwMDAwMDAwMDAwMDA5IDAgMC4wNSAyLjA3NSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIDAuMTAwMDAwMDAwMDAwMDAwMDkgMC4yIDAuMDUgMi4wOTUgMC4wMzEgMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuNCAwLjA1IDIuMTE1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgMC4xMDAwMDAwMDAwMDAwMDAwOSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjEzNTAwMDAwMDAwMDAwMDIgMC4wMzEgMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuOCAwLjA1IDIuMTU1MDAwMDAwMDAwMDAwMiAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIDAuMTAwMDAwMDAwMDAwMDAwMDkgMSAwLjA1IDIuMTc1MDAwMDAwMDAwMDAwMyAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIDAuMzAwMDAwMDAwMDAwMDAwMDQgMCAwLjA1IDIuMDc1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgMC4zMDAwMDAwMDAwMDAwMDAwNCAwLjIgMC4wNSAyLjA5NSAwLjAzMyAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIDAuMzAwMDAwMDAwMDAwMDAwMDQgMC40IDAuMDUgMi4xMTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAwLjMwMDAwMDAwMDAwMDAwMDA0IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMTM1MDAwMDAwMDAwMDAwMiAwLjAzMyAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIDAuMzAwMDAwMDAwMDAwMDAwMDQgMC44IDAuMDUgMi4xNTUwMDAwMDAwMDAwMDAyIDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgMC4zMDAwMDAwMDAwMDAwMDAwNCAxIDAuMDUgMi4xNzUwMDAwMDAwMDAwMDAzIDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgMC41IDAgMC4wNSAyLjA3NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIDAuNSAwLjIgMC4wNSAyLjA5NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIDAuNSAwLjQgMC4wNSAyLjExNSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjM1MDAwMDAwMDAwMDAwMDAzIDAuNSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjEzNTAwMDAwMDAwMDAwMDIgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQotMC4zNTAwMDAwMDAwMDAwMDAwMyAwLjUgMC44IDAuMDUgMi4xNTUwMDAwMDAwMDAwMDAyIDAuMDM0OTk5OTk5OTk5OTk5OTk2IDAgMCAwIDAgMCAwIDAgMA0KLTAuMzUwMDAwMDAwMDAwMDAwMDMgMC41IDEgMC4wNSAyLjE3NTAwMDAwMDAwMDAwMDMgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAtMC41IDAgMC4wNSAyLjE3NSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIC0wLjUgMC4yIDAuMDUgMi4xOTUgMC4wMjQ5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAtMC41IDAuNCAwLjA1IDIuMjE1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgLTAuNSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjIzNSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIC0wLjUgMC44IDAuMDUgMi4yNTUgMC4wMjQ5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAtMC41IDEgMC4wNSAyLjI3NSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIC0wLjMgMCAwLjA1IDIuMTc1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgLTAuMyAwLjIgMC4wNSAyLjE5NSAwLjAyNyAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIC0wLjMgMC40IDAuMDUgMi4yMTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAtMC4zIDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMjM1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgLTAuMyAwLjggMC4wNSAyLjI1NSAwLjAyNyAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIC0wLjMgMSAwLjA1IDIuMjc1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgLTAuMDk5OTk5OTk5OTk5OTk5OTggMCAwLjA1IDIuMTc1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgLTAuMDk5OTk5OTk5OTk5OTk5OTggMC4yIDAuMDUgMi4xOTUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAtMC4wOTk5OTk5OTk5OTk5OTk5OCAwLjQgMC4wNSAyLjIxNSAwLjAyODk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIC0wLjA5OTk5OTk5OTk5OTk5OTk4IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMjM1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgLTAuMDk5OTk5OTk5OTk5OTk5OTggMC44IDAuMDUgMi4yNTUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAtMC4wOTk5OTk5OTk5OTk5OTk5OCAxIDAuMDUgMi4yNzUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAwLjEwMDAwMDAwMDAwMDAwMDA5IDAgMC4wNSAyLjE3NSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuMTAwMDAwMDAwMDAwMDAwMDkgMC4yIDAuMDUgMi4xOTUgMC4wMzEgMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuNCAwLjA1IDIuMjE1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgMC4xMDAwMDAwMDAwMDAwMDAwOSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjIzNSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuMTAwMDAwMDAwMDAwMDAwMDkgMC44IDAuMDUgMi4yNTUgMC4wMzEgMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAwLjEwMDAwMDAwMDAwMDAwMDA5IDEgMC4wNSAyLjI3NSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuMzAwMDAwMDAwMDAwMDAwMDQgMCAwLjA1IDIuMTc1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgMC4zMDAwMDAwMDAwMDAwMDAwNCAwLjIgMC4wNSAyLjE5NSAwLjAzMyAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuMzAwMDAwMDAwMDAwMDAwMDQgMC40IDAuMDUgMi4yMTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQotMC4xNTAwMDAwMDAwMDAwMDAwMiAwLjMwMDAwMDAwMDAwMDAwMDA0IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMjM1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgMC4zMDAwMDAwMDAwMDAwMDAwNCAwLjggMC4wNSAyLjI1NSAwLjAzMyAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuMzAwMDAwMDAwMDAwMDAwMDQgMSAwLjA1IDIuMjc1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KLTAuMTUwMDAwMDAwMDAwMDAwMDIgMC41IDAgMC4wNSAyLjE3NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuNSAwLjIgMC4wNSAyLjE5NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuNSAwLjQgMC4wNSAyLjIxNSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuNSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjIzNSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuNSAwLjggMC4wNSAyLjI1NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCi0wLjE1MDAwMDAwMDAwMDAwMDAyIDAuNSAxIDAuMDUgMi4yNzUgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAtMC41IDAgMC4wNSAyLjI3NSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IC0wLjUgMC4yIDAuMDUgMi4yOTUgMC4wMjQ5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAtMC41IDAuNCAwLjA1IDIuMzE1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgLTAuNSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjMzNSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IC0wLjUgMC44IDAuMDUgMi4zNTUgMC4wMjQ5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAtMC41IDEgMC4wNSAyLjM3NSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IC0wLjMgMCAwLjA1IDIuMjc1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgLTAuMyAwLjIgMC4wNSAyLjI5NSAwLjAyNyAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IC0wLjMgMC40IDAuMDUgMi4zMTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAtMC4zIDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMzM1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgLTAuMyAwLjggMC4wNSAyLjM1NSAwLjAyNyAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IC0wLjMgMSAwLjA1IDIuMzc1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgLTAuMDk5OTk5OTk5OTk5OTk5OTggMCAwLjA1IDIuMjc1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgLTAuMDk5OTk5OTk5OTk5OTk5OTggMC4yIDAuMDUgMi4yOTUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAtMC4wOTk5OTk5OTk5OTk5OTk5OCAwLjQgMC4wNSAyLjMxNSAwLjAyODk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IC0wLjA5OTk5OTk5OTk5OTk5OTk4IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMzM1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgLTAuMDk5OTk5OTk5OTk5OTk5OTggMC44IDAuMDUgMi4zNTUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAtMC4wOTk5OTk5OTk5OTk5OTk5OCAxIDAuMDUgMi4zNzUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAwLjEwMDAwMDAwMDAwMDAwMDA5IDAgMC4wNSAyLjI3NSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuMTAwMDAwMDAwMDAwMDAwMDkgMC4yIDAuMDUgMi4yOTUgMC4wMzEgMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuNCAwLjA1IDIuMzE1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgMC4xMDAwMDAwMDAwMDAwMDAwOSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjMzNSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuMTAwMDAwMDAwMDAwMDAwMDkgMC44IDAuMDUgMi4zNTUgMC4wMzEgMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAwLjEwMDAwMDAwMDAwMDAwMDA5IDEgMC4wNSAyLjM3NSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuMzAwMDAwMDAwMDAwMDAwMDQgMCAwLjA1IDIuMjc1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgMC4zMDAwMDAwMDAwMDAwMDAwNCAwLjIgMC4wNSAyLjI5NSAwLjAzMyAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC40IDAuMDUgMi4zMTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjA1MDAwMDAwMDAwMDAwMDA0NCAwLjMwMDAwMDAwMDAwMDAwMDA0IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuMzM1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgMC4zMDAwMDAwMDAwMDAwMDAwNCAwLjggMC4wNSAyLjM1NSAwLjAzMyAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuMzAwMDAwMDAwMDAwMDAwMDQgMSAwLjA1IDIuMzc1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KMC4wNTAwMDAwMDAwMDAwMDAwNDQgMC41IDAgMC4wNSAyLjI3NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuNSAwLjIgMC4wNSAyLjI5NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuNSAwLjQgMC4wNSAyLjMxNSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuNSAwLjYwMDAwMDAwMDAwMDAwMDEgMC4wNSAyLjMzNSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuNSAwLjggMC4wNSAyLjM1NSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCjAuMDUwMDAwMDAwMDAwMDAwMDQ0IDAuNSAxIDAuMDUgMi4zNzUgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQowLjI1IC0wLjUgMCAwLjA1IDIuMzc1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAtMC41IDAuMiAwLjA1IDIuMzk1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAtMC41IDAuNCAwLjA1IDIuNDE1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAtMC41IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuNDM1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAtMC41IDAuOCAwLjA1IDIuNDU1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAtMC41IDEgMC4wNSAyLjQ3NSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCjAuMjUgLTAuMyAwIDAuMDUgMi4zNzUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjI1IC0wLjMgMC4yIDAuMDUgMi4zOTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjI1IC0wLjMgMC40IDAuMDUgMi40MTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjI1IC0wLjMgMC42MDAwMDAwMDAwMDAwMDAxIDAuMDUgMi40MzUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjI1IC0wLjMgMC44IDAuMDUgMi40NTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjI1IC0wLjMgMSAwLjA1IDIuNDc1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAtMC4wOTk5OTk5OTk5OTk5OTk5OCAwIDAuMDUgMi4zNzUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjI1IC0wLjA5OTk5OTk5OTk5OTk5OTk4IDAuMiAwLjA1IDIuMzk1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAtMC4wOTk5OTk5OTk5OTk5OTk5OCAwLjQgMC4wNSAyLjQxNSAwLjAyODk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCjAuMjUgLTAuMDk5OTk5OTk5OTk5OTk5OTggMC42MDAwMDAwMDAwMDAwMDAxIDAuMDUgMi40MzUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjI1IC0wLjA5OTk5OTk5OTk5OTk5OTk4IDAuOCAwLjA1IDIuNDU1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAtMC4wOTk5OTk5OTk5OTk5OTk5OCAxIDAuMDUgMi40NzUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjI1IDAuMTAwMDAwMDAwMDAwMDAwMDkgMCAwLjA1IDIuMzc1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuMiAwLjA1IDIuMzk1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuNCAwLjA1IDIuNDE1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuNDM1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuOCAwLjA1IDIuNDU1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAwLjEwMDAwMDAwMDAwMDAwMDA5IDEgMC4wNSAyLjQ3NSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCjAuMjUgMC4zMDAwMDAwMDAwMDAwMDAwNCAwIDAuMDUgMi4zNzUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjI1IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC4yIDAuMDUgMi4zOTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjI1IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC40IDAuMDUgMi40MTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjI1IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC42MDAwMDAwMDAwMDAwMDAxIDAuMDUgMi40MzUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjI1IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC44IDAuMDUgMi40NTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjI1IDAuMzAwMDAwMDAwMDAwMDAwMDQgMSAwLjA1IDIuNDc1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAwLjUgMCAwLjA1IDIuMzc1IDAuMDM0OTk5OTk5OTk5OTk5OTk2IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAwLjUgMC4yIDAuMDUgMi4zOTUgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQowLjI1IDAuNSAwLjQgMC4wNSAyLjQxNSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCjAuMjUgMC41IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuNDM1IDAuMDM0OTk5OTk5OTk5OTk5OTk2IDAgMCAwIDAgMCAwIDAgMA0KMC4yNSAwLjUgMC44IDAuMDUgMi40NTUgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQowLjI1IDAuNSAxIDAuMDUgMi40NzUgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IC0wLjUgMCAwLjA1IDIuNDc1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAtMC41IDAuMiAwLjA1IDIuNDk1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAtMC41IDAuNCAwLjA1IDIuNTE1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAtMC41IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuNTM1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAtMC41IDAuOCAwLjA1IDIuNTU1IDAuMDI0OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAtMC41IDEgMC4wNSAyLjU3NSAwLjAyNDk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCjAuNDQ5OTk5OTk5OTk5OTk5OTYgLTAuMyAwIDAuMDUgMi40NzUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IC0wLjMgMC4yIDAuMDUgMi40OTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IC0wLjMgMC40IDAuMDUgMi41MTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IC0wLjMgMC42MDAwMDAwMDAwMDAwMDAxIDAuMDUgMi41MzUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IC0wLjMgMC44IDAuMDUgMi41NTUgMC4wMjcgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IC0wLjMgMSAwLjA1IDIuNTc1IDAuMDI3IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAtMC4wOTk5OTk5OTk5OTk5OTk5OCAwIDAuMDUgMi40NzUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IC0wLjA5OTk5OTk5OTk5OTk5OTk4IDAuMiAwLjA1IDIuNDk1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAtMC4wOTk5OTk5OTk5OTk5OTk5OCAwLjQgMC4wNSAyLjUxNSAwLjAyODk5OTk5OTk5OTk5OTk5OCAwIDAgMCAwIDAgMCAwIDANCjAuNDQ5OTk5OTk5OTk5OTk5OTYgLTAuMDk5OTk5OTk5OTk5OTk5OTggMC42MDAwMDAwMDAwMDAwMDAxIDAuMDUgMi41MzUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IC0wLjA5OTk5OTk5OTk5OTk5OTk4IDAuOCAwLjA1IDIuNTU1IDAuMDI4OTk5OTk5OTk5OTk5OTk4IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAtMC4wOTk5OTk5OTk5OTk5OTk5OCAxIDAuMDUgMi41NzUgMC4wMjg5OTk5OTk5OTk5OTk5OTggMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IDAuMTAwMDAwMDAwMDAwMDAwMDkgMCAwLjA1IDIuNDc1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuMiAwLjA1IDIuNDk1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuNCAwLjA1IDIuNTE1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuNTM1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAwLjEwMDAwMDAwMDAwMDAwMDA5IDAuOCAwLjA1IDIuNTU1IDAuMDMxIDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAwLjEwMDAwMDAwMDAwMDAwMDA5IDEgMC4wNSAyLjU3NSAwLjAzMSAwIDAgMCAwIDAgMCAwIDANCjAuNDQ5OTk5OTk5OTk5OTk5OTYgMC4zMDAwMDAwMDAwMDAwMDAwNCAwIDAuMDUgMi40NzUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC4yIDAuMDUgMi40OTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC40IDAuMDUgMi41MTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC42MDAwMDAwMDAwMDAwMDAxIDAuMDUgMi41MzUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IDAuMzAwMDAwMDAwMDAwMDAwMDQgMC44IDAuMDUgMi41NTUgMC4wMzMgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IDAuMzAwMDAwMDAwMDAwMDAwMDQgMSAwLjA1IDIuNTc1IDAuMDMzIDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAwLjUgMCAwLjA1IDIuNDc1IDAuMDM0OTk5OTk5OTk5OTk5OTk2IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAwLjUgMC4yIDAuMDUgMi40OTUgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IDAuNSAwLjQgMC4wNSAyLjUxNSAwLjAzNDk5OTk5OTk5OTk5OTk5NiAwIDAgMCAwIDAgMCAwIDANCjAuNDQ5OTk5OTk5OTk5OTk5OTYgMC41IDAuNjAwMDAwMDAwMDAwMDAwMSAwLjA1IDIuNTM1IDAuMDM0OTk5OTk5OTk5OTk5OTk2IDAgMCAwIDAgMCAwIDAgMA0KMC40NDk5OTk5OTk5OTk5OTk5NiAwLjUgMC44IDAuMDUgMi41NTUgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQowLjQ0OTk5OTk5OTk5OTk5OTk2IDAuNSAxIDAuMDUgMi41NzUgMC4wMzQ5OTk5OTk5OTk5OTk5OTYgMCAwIDAgMCAwIDAgMCAwDQo=",
+    "rows": [
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.5751662275389946
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.05244238938682372
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.0796828236615372
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.1645886706601254
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.0009954007881430886
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9863617889332512
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.575244969502249
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.052436977025320686
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.0003171444950585808
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.1645800385459995
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.0009953513637552289
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9863632293368706
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.575323713536095
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.05243156577140398
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.08031711265835055
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.1645714079538161
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.00099530194884384
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9863646694089003
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.5817101154677147
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09201030609392151
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.07968550527511807
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.16391368013596883
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.0009911248146014877
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9864741877696982
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.581788525984808
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09200498299123994
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.0003144634196478104
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.1639051547586037
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.000991076023663716
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9864756043673221
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.5818669385432056
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09199966096866309
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.080314432120941
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.1638966308712656
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.0009910272420024216
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9864770206416639
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": -0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0.9987561355289251
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.06254493507178242
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.01123806333407292
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9999368509723499
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.5740487259455427
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.052447690845217304
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.05110680396092242
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.16459694728492516
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.018447674958881666
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9861883837447566
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1.0001523280439077
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.01745506492821759
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.011237480806670376
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9999368575190735
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.575523655928282
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.052442277472057666
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.028892599820260604
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.16458831417969835
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.018447625554803178
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9861898255137668
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1.0015485205588903
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.09745506492821761
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.011236898357923552
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9999368640645737
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.5769985833781623
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.052436864988753475
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.1088920036799211
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.16457968187295907
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.018447576141700957
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9861912670720073
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": -0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0.9987561355289251
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.06254493507178242
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.011190352462754054
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9999373860456261
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.5805920260558066
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.0920155201457711
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.051155713355348444
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.1639218531012054
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.01844369482939493
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9863008953645469
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1.0001523280439077
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.01745506492821759
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.01118977739034359
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9999373924811267
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.5820666246547797
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09201019605645003
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.028843698035958112
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.16391332675361422
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.018443646006377032
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9863023133069062
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1.0015485205588903
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.09745506492821761
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.01118920239491461
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.999937398915435
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.583541220752637
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09200487283495952
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.10884310950409563
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.16390480118776776
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.018443597174571825
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9863037310437697
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.5763062174829066
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.052364131182947284
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.07955766296922509
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.16446381666969162
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.0013892152973702515
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9863821384672854
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.5764161134992882
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.052356594721400154
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.0004422751005398699
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.16445178799257804
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.0013891191039281199
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9863841441214264
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.576526013542157
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.0523490604105032
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.08044221318846473
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.16443976227271173
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.001389022936200173
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9863861491317569
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.582845307945873
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09193333759964986
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.0795613971901197
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.16379036885016607
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.001383256590149129
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9864941974857897
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.5829547420533308
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09192592523853539
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.000438541924720421
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.16377848867558162
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.0013831616277100325
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9864961700437842
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 1
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.5830641801304495
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09191851497479064
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.0804384810572626
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.16376661139632984
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.0013830666904432211
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 0,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9864981419740707
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": -0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0.9987561355289251
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.06254493507178242
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.011229587278058515
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9999369461968912
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.575199806376568
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.0523689482515629
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": -0.050989846445744974
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.1644713219280125
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.018841503895887096
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9862018971763306
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1.0001523280439077
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.01745506492821759
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.011228775552962153
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9999369553124743
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.5767058890351917
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.052361410557815895
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.029009305152837724
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.16445929218983651
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.01884140773191734
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9862039051672316
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 1.0015485205588903
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.09745506492821761
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.011227963980700402
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9999369644256823
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0
+        },
+        "value": 2.578211966759775
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0
+        },
+        "value": 0.05235387459192295
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0
+        },
+        "value": 0.10900845690781132
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0
+        },
+        "value": 0.16444726400287285
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0
+        },
+        "value": 0.0188413115531225
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0
+        },
+        "value": 0.9862059127489186
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": -0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0.9987561355289251
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.06254493507178242
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.011181984804343648
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9999374796535209
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.5817382448351545
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09193807536538057
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": -0.05103970576295571
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.16379778012125357
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.01883584009580081
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": -0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.986314097210029
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1.0001523280439077
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.01745506492821759
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.01118118345143345
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9999374886144761
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.5832438656680665
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.09193066180247968
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.028959456720803793
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.16378589890796375
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.01883574508992338
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9863160720711276
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 0.0013961925149826814
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.08000000000000002
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.017452406437283515
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 1,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9998476951563913
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 1.0015485205588903
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.04000000000000001
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.09745506492821761
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.011180382248109752
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9999374975731165
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "OPTH",
+          "data3": 0.4
+        },
+        "value": 2.5847494816287364
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAX",
+          "data3": 0.4
+        },
+        "value": 0.0919232499247325
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAY",
+          "data3": 0.4
+        },
+        "value": 0.10895861935766205
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAZ",
+          "data3": 0.4
+        },
+        "value": 0
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAA",
+          "data3": 0.4
+        },
+        "value": 0.1637740192134169
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAB",
+          "data3": 0.4
+        },
+        "value": 0.01883565006962632
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0.8,
+          "data2": 1,
+          "int1": 3,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "REAC",
+          "data3": 0.4
+        },
+        "value": 0.9863180465332357
+      },
+      {
+        "input": {
+          "int2": 1,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "INDX",
+          "data3": 0
+        },
+        "value": 1.553035718343841
+      },
+      {
+        "input": {
+          "int2": 2,
+          "data4": 0,
+          "data2": 0,
+          "int1": 2,
+          "data5": 0,
+          "data1": 0,
+          "data6": 0,
+          "code": "INDX",
+          "data3": 0
+        },
+        "value": 1.5542327966069034
+      }
+    ]
+  },
+  "scope": "Converged sample rays and custom interface index only. Custom bulk/first-order differences remain open."
+}

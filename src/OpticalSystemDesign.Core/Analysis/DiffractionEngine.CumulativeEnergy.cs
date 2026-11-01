@@ -133,7 +133,12 @@ public static partial class DiffractionEngine
                 {
                     var cone = item.Cone!.Value;
                     PupilGridSpecification pupilGrid;
-                    if (cone.TangentialMean == cone.SagittalMean
+                    if (pupilSampling >= 256)
+                    {
+                        pupilGrid = DenseMonochromaticCumulativePupil(optic, field, item.Wave, pupilSampling,
+                            imagePitch, scale.Rms, cone);
+                    }
+                    else if (cone.TangentialMean == cone.SagittalMean
                         && (cone.Rms == Math.BitIncrement(cone.TangentialMean)
                             || pupilSampling >= 256 && cone.Rms == cone.TangentialMean))
                     {
@@ -149,11 +154,6 @@ public static partial class DiffractionEngine
                         {
                             ExplicitCoordinateStep = step
                         };
-                    }
-                    else if (pupilSampling >= 256)
-                    {
-                        pupilGrid = ExpandedCumulativeEnergyGrid(optic, field, item.Wave, pupilSampling,
-                            imagePitch, cone.TangentialMean, cone.SagittalMean);
                     }
                     else
                     {
@@ -233,6 +233,20 @@ public static partial class DiffractionEngine
                 return 1 / (pupilSampling * pitchMillimeters / (wave.Micrometers * .001) / axisFNumber);
             }
         }).ToArray();
+    }
+
+    private static PupilGridSpecification DenseMonochromaticCumulativePupil(Optic optic,
+        (double Hx, double Hy) field, Wavelength wave, int sampling, double imagePitch, double scaleRms,
+        (double Rms, double TangentialMean, double SagittalMean) cone)
+    {
+        if (cone.TangentialMean == cone.SagittalMean
+            && (cone.Rms == Math.BitIncrement(cone.TangentialMean) || cone.Rms == cone.TangentialMean))
+        {
+            var step = (scaleRms / cone.Rms) / Math.Sqrt(sampling);
+            return new(sampling, true, true, step * (sampling / 2d - 1)) { ExplicitCoordinateStep = step };
+        }
+        return ExpandedCumulativeEnergyGrid(optic, field, wave, sampling,
+            imagePitch, cone.TangentialMean, cone.SagittalMean);
     }
 
     // Dense cumulative grids form the physical image interval in the shared

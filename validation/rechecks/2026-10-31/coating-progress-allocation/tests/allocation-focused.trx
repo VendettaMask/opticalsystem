@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="da113797-6ae4-4484-b9e7-6101d6c45c46" name="allen@DESKTOP-SET3SNR 2026-10-31 15:17:56" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T15:17:56.6601537+08:00" queuing="2026-10-31T15:17:56.6601542+08:00" start="2026-10-31T15:17:35.7145426+08:00" finish="2026-10-31T15:23:53.5337873+08:00" />
+  <TestSettings name="default" id="358823a0-6786-4689-9c16-37d0bc77b42d">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_15_17_56" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="347b7a35-ba69-4a31-b495-4aeb3fb16449" testId="49811905-d233-acb3-2a48-91ec61493372" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetTradeoffTests.RegressedSpecificationsRecoverWithoutSpendingAnyLegacyTarget(name: &quot;real-narrowband-control&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:41.1000468" startTime="2026-10-31T15:22:36.4723443+08:00" endTime="2026-10-31T15:23:17.6163500+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="347b7a35-ba69-4a31-b495-4aeb3fb16449" />
+    <UnitTestResult executionId="8ee2570c-67d1-4ca7-a4e6-4fad6c433712" testId="39522fd8-c407-9214-f935-7de762bdc13e" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetTradeoffTests.RegressedSpecificationsRecoverWithoutSpendingAnyLegacyTarget(name: &quot;continued-double-96&quot;)" computerName="DESKTOP-SET3SNR" duration="00:04:39.5812160" startTime="2026-10-31T15:17:56.8893268+08:00" endTime="2026-10-31T15:22:36.4721161+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8ee2570c-67d1-4ca7-a4e6-4fad6c433712" />
+    <UnitTestResult executionId="43126a7b-f18f-4499-be02-b04f158360a7" testId="f30bb33e-5925-3533-4230-eb62d927b673" testName="OpticalSystemDesign.CoatingDesign.Tests.ProgressAllocationTests.ExactMetricDomainEndpointsRemoveFalseNonconvergenceWithoutChangingGates" computerName="DESKTOP-SET3SNR" duration="00:00:00.1181102" startTime="2026-10-31T15:17:56.6145473+08:00" endTime="2026-10-31T15:17:56.6259843+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="43126a7b-f18f-4499-be02-b04f158360a7" />
+    <UnitTestResult executionId="ac6e9499-0f68-4dad-aa20-b096e8d5af65" testId="40936abb-0abd-78b8-441f-390d9f60559e" testName="OpticalSystemDesign.CoatingDesign.Tests.ProgressAllocationTests.CompletedRecoveryContinuesAcrossTargetHandoffAndBeatsTheFrozenBudgetControl" computerName="DESKTOP-SET3SNR" duration="00:00:18.8378847" startTime="2026-10-31T15:17:37.6187345+08:00" endTime="2026-10-31T15:17:56.4808114+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ac6e9499-0f68-4dad-aa20-b096e8d5af65">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: DesignTarget { Kind = NarrowBand, CenterNm = 405, MinimumNm = 344.25, MaximumNm = 465.74999999999994, Reflectance = 0.02, MaximumLayers = 39, AngleDegrees = 27, Polarization = S, FwhmNm = 16.2, PeakTransmittance = 0.75, BlockingOd = 1, StopBands = OpticalSystemDesign.CoatingDesign.Engine.SpectralBand[], CenterToleranceNm = 0.405, FwhmToleranceNm = 1.62, Structure = StructureOptions { Cavities = 1, PrototypeFamilyVersion =  } }&#xD;
+Actual:   DesignTarget { Kind = NarrowBand, CenterNm = 405, MinimumNm = 344.25, MaximumNm = 465.74999999999994, Reflectance = 0.02, MaximumLayers = 39, AngleDegrees = 27, Polarization = S, FwhmNm = 16.2, PeakTransmittance = 0.75, BlockingOd = 1, StopBands = OpticalSystemDesign.CoatingDesign.Engine.SpectralBand[], CenterToleranceNm = 0.405, FwhmToleranceNm = 1.62, Structure = StructureOptions { Cavities = 1, PrototypeFamilyVersion =  } }</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.ProgressAllocationTests.CompletedRecoveryContinuesAcrossTargetHandoffAndBeatsTheFrozenBudgetControl() in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ProgressAllocationTests.cs:line 29&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b6685439-b639-4e27-be35-08ae31aa2fb5" testId="071ffbe8-da70-414f-b254-828a2258f853" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetTradeoffTests.RegressedSpecificationsRecoverWithoutSpendingAnyLegacyTarget(name: &quot;holdout-violet&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:19.2496126" startTime="2026-10-31T15:17:37.6187706+08:00" endTime="2026-10-31T15:17:56.8883757+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6685439-b639-4e27-be35-08ae31aa2fb5" />
+    <UnitTestResult executionId="07bef0a7-0cf2-4cf1-875d-1df024c445c3" testId="bf8f063c-ee7f-76fc-8c79-30811ce10ab6" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetContinuationTests.FrozenNarrowBandProgressPreservesEveryPreviouslyCertifiedTarget(name: &quot;continued-double-96&quot;)" computerName="DESKTOP-SET3SNR" duration="00:04:51.6202314" startTime="2026-10-31T15:17:37.6175757+08:00" endTime="2026-10-31T15:22:29.2187538+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07bef0a7-0cf2-4cf1-875d-1df024c445c3" />
+    <UnitTestResult executionId="7fe896ca-c400-419c-adab-828c42f951c1" testId="367df958-e110-5ffd-f40c-60d65b82de3c" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetContinuationTests.FrozenNarrowBandProgressPreservesEveryPreviouslyCertifiedTarget(name: &quot;holdout-violet&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:06.0778416" startTime="2026-10-31T15:22:29.2194549+08:00" endTime="2026-10-31T15:22:35.2978407+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7fe896ca-c400-419c-adab-828c42f951c1" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetContinuationTests.FrozenNarrowBandProgressPreservesEveryPreviouslyCertifiedTarget(name: &quot;continued-double-96&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="bf8f063c-ee7f-76fc-8c79-30811ce10ab6">
+      <Execution id="07bef0a7-0cf2-4cf1-875d-1df024c445c3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetContinuationTests" name="FrozenNarrowBandProgressPreservesEveryPreviouslyCertifiedTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetTradeoffTests.RegressedSpecificationsRecoverWithoutSpendingAnyLegacyTarget(name: &quot;real-narrowband-control&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="49811905-d233-acb3-2a48-91ec61493372">
+      <Execution id="347b7a35-ba69-4a31-b495-4aeb3fb16449" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetTradeoffTests" name="RegressedSpecificationsRecoverWithoutSpendingAnyLegacyTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetTradeoffTests.RegressedSpecificationsRecoverWithoutSpendingAnyLegacyTarget(name: &quot;continued-double-96&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="39522fd8-c407-9214-f935-7de762bdc13e">
+      <Execution id="8ee2570c-67d1-4ca7-a4e6-4fad6c433712" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetTradeoffTests" name="RegressedSpecificationsRecoverWithoutSpendingAnyLegacyTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetContinuationTests.FrozenNarrowBandProgressPreservesEveryPreviouslyCertifiedTarget(name: &quot;holdout-violet&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="367df958-e110-5ffd-f40c-60d65b82de3c">
+      <Execution id="7fe896ca-c400-419c-adab-828c42f951c1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetContinuationTests" name="FrozenNarrowBandProgressPreservesEveryPreviouslyCertifiedTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.ProgressAllocationTests.ExactMetricDomainEndpointsRemoveFalseNonconvergenceWithoutChangingGates" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="f30bb33e-5925-3533-4230-eb62d927b673">
+      <Execution id="43126a7b-f18f-4499-be02-b04f158360a7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.ProgressAllocationTests" name="ExactMetricDomainEndpointsRemoveFalseNonconvergenceWithoutChangingGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetTradeoffTests.RegressedSpecificationsRecoverWithoutSpendingAnyLegacyTarget(name: &quot;holdout-violet&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="071ffbe8-da70-414f-b254-828a2258f853">
+      <Execution id="b6685439-b639-4e27-be35-08ae31aa2fb5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetTradeoffTests" name="RegressedSpecificationsRecoverWithoutSpendingAnyLegacyTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.ProgressAllocationTests.CompletedRecoveryContinuesAcrossTargetHandoffAndBeatsTheFrozenBudgetControl" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="40936abb-0abd-78b8-441f-390d9f60559e">
+      <Execution id="ac6e9499-0f68-4dad-aa20-b096e8d5af65" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.ProgressAllocationTests" name="CompletedRecoveryContinuesAcrossTargetHandoffAndBeatsTheFrozenBudgetControl" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="49811905-d233-acb3-2a48-91ec61493372" executionId="347b7a35-ba69-4a31-b495-4aeb3fb16449" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39522fd8-c407-9214-f935-7de762bdc13e" executionId="8ee2570c-67d1-4ca7-a4e6-4fad6c433712" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f30bb33e-5925-3533-4230-eb62d927b673" executionId="43126a7b-f18f-4499-be02-b04f158360a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="40936abb-0abd-78b8-441f-390d9f60559e" executionId="ac6e9499-0f68-4dad-aa20-b096e8d5af65" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="071ffbe8-da70-414f-b254-828a2258f853" executionId="b6685439-b639-4e27-be35-08ae31aa2fb5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf8f063c-ee7f-76fc-8c79-30811ce10ab6" executionId="07bef0a7-0cf2-4cf1-875d-1df024c445c3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="367df958-e110-5ffd-f40c-60d65b82de3c" executionId="7fe896ca-c400-419c-adab-828c42f951c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="6" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.37]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.43]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.45]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:20.37]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:20.38]       Expected: DesignTarget { Kind = NarrowBand, CenterNm = 405, MinimumNm = 344.25, MaximumNm = 465.74999999999994, Reflectance = 0.02, MaximumLayers = 39, AngleDegrees = 27, Polarization = S, FwhmNm = 16.2, PeakTransmittance = 0.75, BlockingOd = 1, StopBands = OpticalSystemDesign.CoatingDesign.Engine.SpectralBand[], CenterToleranceNm = 0.405, FwhmToleranceNm = 1.62, Structure = StructureOptions { Cavities = 1, PrototypeFamilyVersion =  } }&#xD;
+[xUnit.net 00:00:20.38]       Actual:   DesignTarget { Kind = NarrowBand, CenterNm = 405, MinimumNm = 344.25, MaximumNm = 465.74999999999994, Reflectance = 0.02, MaximumLayers = 39, AngleDegrees = 27, Polarization = S, FwhmNm = 16.2, PeakTransmittance = 0.75, BlockingOd = 1, StopBands = OpticalSystemDesign.CoatingDesign.Engine.SpectralBand[], CenterToleranceNm = 0.405, FwhmToleranceNm = 1.62, Structure = StructureOptions { Cavities = 1, PrototypeFamilyVersion =  } }&#xD;
+[xUnit.net 00:00:20.38]       Stack Trace:&#xD;
+[xUnit.net 00:00:20.38]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\ProgressAllocationTests.cs(29,0): at OpticalSystemDesign.CoatingDesign.Tests.ProgressAllocationTests.CompletedRecoveryContinuesAcrossTargetHandoffAndBeatsTheFrozenBudgetControl()&#xD;
+[xUnit.net 00:00:20.39]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:20.39]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T15:17:56.4941489+08:00">
+        <Text>[xUnit.net 00:00:20.37]     OpticalSystemDesign.CoatingDesign.Tests.ProgressAllocationTests.CompletedRecoveryContinuesAcrossTargetHandoffAndBeatsTheFrozenBudgetControl [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T15:23:53.5117211+08:00">
+        <Text>活动的测试运行已中止。原因: 测试主机进程崩溃</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

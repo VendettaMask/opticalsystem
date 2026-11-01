@@ -117,6 +117,16 @@ public sealed class ViewerSettingsInputThemeTests
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 window.UpdateLayout();
                 var narrowForm = Assert.IsAssignableFrom<Grid>(numbers[0].Parent);
+                // Resizing the viewport preserves the original drawing sheet.
+                // Constrain the actual form to exercise its compact input layout.
+                var sheet = viewer.GetVisualDescendants().OfType<UniformDiagramPage>().Single();
+                Assert.Equal(UniformDiagramPage.SheetWidth, sheet.Bounds.Width);
+                Assert.Equal(UniformDiagramPage.SheetHeight, sheet.Bounds.Height);
+                Assert.Equal(7, narrowForm.ColumnDefinitions.Count);
+                narrowForm.Width = 280;
+                window.UpdateLayout();
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                window.UpdateLayout();
                 Assert.Equal(3, narrowForm.ColumnDefinitions.Count);
                 Assert.Equal(11, narrowForm.RowDefinitions.Count);
                 foreach (var editor in numbers.Cast<Control>().Concat(pickers))

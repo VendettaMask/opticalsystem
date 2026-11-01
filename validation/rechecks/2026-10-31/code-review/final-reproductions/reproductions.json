@@ -1,0 +1,61 @@
+[
+  {
+    "Case": "folded-mirror-quick-focus",
+    "Defocus": 0,
+    "Before": -50,
+    "PredictedBestShift": 0,
+    "PredictedBestRms": 3.088955883714114E-05,
+    "Result": {
+      "SurfaceNumber": 1,
+      "InitialThickness": -50,
+      "AppliedShift": 50.001,
+      "FinalThickness": 0.001,
+      "RmsSpotRadius": 3.088955883714114E-05
+    },
+    "After": 0.001,
+    "ActualRms": 0.7608234246157337,
+    "ActualMetricError": null
+  },
+  {
+    "Case": "folded-mirror-quick-focus",
+    "Defocus": 1,
+    "Before": -49,
+    "PredictedBestShift": -1.25,
+    "PredictedBestRms": 0.003833438727199787,
+    "Result": {
+      "SurfaceNumber": 1,
+      "InitialThickness": -49,
+      "AppliedShift": 49.001,
+      "FinalThickness": 0.001,
+      "RmsSpotRadius": 0.003833438727199787
+    },
+    "After": 0.001,
+    "ActualRms": 0.7608234246157337,
+    "ActualMetricError": null
+  },
+  {
+    "Case": "camera-invalid-numeric-text",
+    "TextBeforeRun": "not-a-number",
+    "NumericValueBeforeRun": 10,
+    "ResultProduced": true,
+    "UsedExposureMilliseconds": 10,
+    "TextAfterRun": "not-a-number"
+  },
+  {
+    "Case": "camera-language-coverage",
+    "Results": [
+      {
+        "Language": "en-US",
+        "WindowTitle": "Camera Imaging Simulation \u00B7 Laboratory",
+        "RunButton": "Run Simulation",
+        "SaveExperiment": "\u4FDD\u5B58\u5B8C\u6574\u5B9E\u9A8C"
+      },
+      {
+        "Language": "ja-JP",
+        "WindowTitle": "\u30AB\u30E1\u30E9\u64AE\u50CF\u30B7\u30DF\u30E5\u30EC\u30FC\u30B7\u30E7\u30F3 \u00B7 \u5B9F\u9A13\u5BA4",
+        "RunButton": "\u30B7\u30DF\u30E5\u30EC\u30FC\u30B7\u30E7\u30F3\u3092\u5B9F\u884C",
+        "SaveExperiment": "\u4FDD\u5B58\u5B8C\u6574\u5B9E\u9A8C"
+      }
+    ]
+  }
+]

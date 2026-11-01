@@ -63,9 +63,45 @@ public sealed class LaboratoryPresentationTests
                     Assert.InRange(bounds.Bottom, 0, window.ClientSize.Height);
                 }
                 Capture(window, $"{module}-{language}-{theme}-{width}-overview");
-                var scroll = module == "coating"
-                    ? Assert.IsType<ScrollViewer>(window.GetVisualDescendants().OfType<Border>().Single(c => c.Name == "CoatingSidebar").Child)
-                    : window.GetVisualDescendants().OfType<ScrollViewer>().Single(c => c.Name == (module == "camera" ? "CameraSettings" : "AssemblySettings"));
+                if (window is CoatingWindow coatingSettings)
+                {
+                    _ = coatingSettings.ShowSettingsAsync(0); Tick(window);
+                    var dialog = window.OwnedWindows.Single(w => w.Name == "CoatingSettingsWindow");
+                    try
+                    {
+                        for (var page = 0; page < coatingSettings.SettingsContent.Items.Count; page++)
+                        {
+                            coatingSettings.SettingsContent.SelectedIndex = page; Tick(dialog);
+                            var pageScroll = Assert.IsType<ScrollViewer>(((TabItem)coatingSettings.SettingsContent.Items[page]!).Content);
+                            var pageEditors = pageScroll.GetVisualDescendants().OfType<Control>()
+                                .Where(c => c is TextBox or NumericUpDown or ComboBox or AutoCompleteBox)
+                                .Where(c => c.IsEffectivelyVisible)
+                                .Where(c => !c.GetVisualAncestors().TakeWhile(parent => parent != pageScroll)
+                                    .Any(parent => parent is TextBox or NumericUpDown or ComboBox or AutoCompleteBox)).ToArray();
+                            Assert.NotEmpty(pageEditors);
+                            foreach (var editor in pageEditors)
+                            {
+                                editor.BringIntoView(); Tick(dialog);
+                                var bounds = new Rect(editor.Bounds.Size).TransformToAABB(editor.TransformToVisual(dialog)!.Value);
+                                var viewport = new Rect(pageScroll.Bounds.Size).TransformToAABB(pageScroll.TransformToVisual(dialog)!.Value);
+                                Assert.True(bounds.Width > 45 && bounds.Height > 20);
+                                Assert.True(bounds.Left >= viewport.Left - .5 && bounds.Right <= viewport.Right + .5);
+                                Assert.InRange(bounds.Center.Y, viewport.Top - .5, viewport.Bottom + .5);
+                            }
+                            var values = pageEditors.Select(Value).ToArray();
+                            UiLocalization.Apply(language == UiLocalization.English ? UiLocalization.Chinese : UiLocalization.English);
+                            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme == "Light" ? "Dark" : "Light"); Tick(dialog);
+                            Assert.Equal(values, pageEditors.Select(Value));
+                            UiLocalization.Apply(language); ThemeApplicationService.Apply(Avalonia.Application.Current!, theme); Tick(dialog);
+                            Capture(dialog, $"coating-{language}-{theme}-{width}-settings-{page}");
+                        }
+                        Assert.Equal(revision, app.Events.Revision);
+                        Assert.Equal(fingerprint, coatingSettings.CurrentExperiment.Fingerprint());
+                    }
+                    finally { dialog.Close(); Tick(window); }
+                    return;
+                }
+                var scroll = window.GetVisualDescendants().OfType<ScrollViewer>().Single(c => c.Name == (module == "camera" ? "CameraSettings" : "AssemblySettings"));
                 foreach (var disclosure in scroll.GetLogicalDescendants().OfType<Expander>().ToArray()) disclosure.IsExpanded = true;
                 Tick(window);
                 var editors = scroll.GetVisualDescendants().OfType<Control>()

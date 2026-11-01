@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="fe996c44-556b-4b14-b52c-ba90f3450e65" name="allen@DESKTOP-SET3SNR 2026-10-31 22:55:48" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T22:55:48.7128491+08:00" queuing="2026-10-31T22:55:48.7128503+08:00" start="2026-10-31T22:55:41.4183432+08:00" finish="2026-10-31T22:55:55.0923782+08:00" />
+  <TestSettings name="default" id="a51f14b0-39a3-4dde-bf19-c1e748edf783">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_22_55_48" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1545e73e-ad6d-4021-9ecc-b9ea529db01b" testId="6d06992e-596c-8c1e-af78-03c9d87c173a" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionDirect&quot;, stopStage: &quot;Evolution:Trials&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.9467704" startTime="2026-10-31T22:55:48.7057374+08:00" endTime="2026-10-31T22:55:50.6111294+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1545e73e-ad6d-4021-9ecc-b9ea529db01b">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ObjectDisposedException : The CancellationTokenSource has been disposed.</Message>
+          <StackTrace>   at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 62&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 58&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 115&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 82&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 24&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6ef3db20-ee1e-44a7-957b-a9f06eb6ac3c" testId="27453da4-8bff-ee60-90c4-1bcbe36be718" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Paraxial&quot;, stopStage: &quot;Starts&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0003884" startTime="2026-10-31T22:55:48.6981948+08:00" endTime="2026-10-31T22:55:48.6983010+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ef3db20-ee1e-44a7-957b-a9f06eb6ac3c">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Invalid bounded first-order seed preparation protocol.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Engine.ParaxialSeedSearch.ValidateOptions(ParaxialSeedSearchOptions options) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ParaxialSeedSearch.cs:line 389&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Create(String runId, AutonomousSearchPlan plan, Boolean continueIntoMain) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 21&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2a78ba02-5ca7-4586-9477-c3d9e718fd5d" testId="c11eace3-b9ac-d6cb-fd4d-0671b3dd3361" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Retrieval&quot;, stopStage: &quot;Retrieval:Transform&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2359825" startTime="2026-10-31T22:55:53.2246414+08:00" endTime="2026-10-31T22:55:53.4562417+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2a78ba02-5ca7-4586-9477-c3d9e718fd5d">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ObjectDisposedException : The CancellationTokenSource has been disposed.</Message>
+          <StackTrace>   at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 62&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 58&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 115&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 82&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 24&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c3fd0d82-c642-4159-8abc-feaf7d6fa128" testId="eb3f2ecc-a58b-6320-1f5b-a72b90890c60" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Competition&quot;, stopStage: &quot;Competition:Rounds&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000627" startTime="2026-10-31T22:55:53.4654279+08:00" endTime="2026-10-31T22:55:53.4655156+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3fd0d82-c642-4159-8abc-feaf7d6fa128">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Invalid bounded first-order seed preparation protocol.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Engine.ParaxialSeedSearch.ValidateOptions(ParaxialSeedSearchOptions options) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ParaxialSeedSearch.cs:line 389&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Create(String runId, AutonomousSearchPlan plan, Boolean continueIntoMain) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 21&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7ddb8071-8bc2-40eb-88de-e73030d0ecf3" testId="7b581353-ae4e-98fc-26bb-245ad303c1f2" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionCompetition&quot;, stopStage: &quot;Evolution:Competition&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.2824386" startTime="2026-10-31T22:55:51.9408938+08:00" endTime="2026-10-31T22:55:53.2198279+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ddb8071-8bc2-40eb-88de-e73030d0ecf3">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ObjectDisposedException : The CancellationTokenSource has been disposed.</Message>
+          <StackTrace>   at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 62&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 58&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 115&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 82&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 24&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8023f96d-ccf6-4763-9285-ce4e17e44830" testId="212fb68c-e730-7590-6aca-6223b318b2e0" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.StoreRejectsStaleWritersBudgetRollbackTaskChangesAndCorruption" computerName="DESKTOP-SET3SNR" duration="00:00:00.0428026" startTime="2026-10-31T22:55:54.9667777+08:00" endTime="2026-10-31T22:55:55.0087788+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8023f96d-ccf6-4763-9285-ce4e17e44830" />
+    <UnitTestResult executionId="93471416-c2c5-434b-8f1e-c66d645cd22e" testId="1293a5c4-a598-3a14-85c0-43ded4dafbd5" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.OriginalF4ConflictStillPerformsNoConstructionOrTracing" computerName="DESKTOP-SET3SNR" duration="00:00:00.0014648" startTime="2026-10-31T22:55:55.0099026+08:00" endTime="2026-10-31T22:55:55.0104064+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93471416-c2c5-434b-8f1e-c66d645cd22e" />
+    <UnitTestResult executionId="1b399d3f-f64b-4fa9-8c78-c1efbdf9b2a2" testId="c970201f-9c14-cde3-914f-fc8cb73f2d19" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionCompetition&quot;, stopStage: &quot;Evolution:Trials&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:05.5168828" startTime="2026-10-31T22:55:43.1434962+08:00" endTime="2026-10-31T22:55:48.6620602+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b399d3f-f64b-4fa9-8c78-c1efbdf9b2a2">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ObjectDisposedException : The CancellationTokenSource has been disposed.</Message>
+          <StackTrace>   at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+   at System.Threading.CancellationTokenSource.CancelAfter(TimeSpan delay)&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 62&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 58&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 115&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 82&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 24&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fd302178-b448-4114-86f7-6175804d65fa" testId="dbfc33b7-6155-9c03-2777-4d55fc79ab8c" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Screening&quot;, stopStage: &quot;Screening&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0005797" startTime="2026-10-31T22:55:53.4619702+08:00" endTime="2026-10-31T22:55:53.4639229+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd302178-b448-4114-86f7-6175804d65fa">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Invalid bounded first-order seed preparation protocol.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Engine.ParaxialSeedSearch.ValidateOptions(ParaxialSeedSearchOptions options) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ParaxialSeedSearch.cs:line 389&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Create(String runId, AutonomousSearchPlan plan, Boolean continueIntoMain) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 21&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="64ce0439-41db-48d3-8803-a1826a65c5a5" testId="893bc4da-1c04-9c9d-2d99-5a786e32bd5c" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Competition&quot;, stopStage: &quot;Competition:Construction&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001726" startTime="2026-10-31T22:55:53.4592476+08:00" endTime="2026-10-31T22:55:53.4593144+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="64ce0439-41db-48d3-8803-a1826a65c5a5">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Invalid bounded first-order seed preparation protocol.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Engine.ParaxialSeedSearch.ValidateOptions(ParaxialSeedSearchOptions options) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ParaxialSeedSearch.cs:line 389&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Create(String runId, AutonomousSearchPlan plan, Boolean continueIntoMain) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 21&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bca19840-1613-4733-baca-cd617bf4a170" testId="b58a2229-0121-1e85-3b29-9b7bd54b5020" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace(stopAfter: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:08.8891589" startTime="2026-10-31T22:55:43.1445289+08:00" endTime="2026-10-31T22:55:52.0145000+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bca19840-1613-4733-baca-cd617bf4a170" />
+    <UnitTestResult executionId="56c9c63e-9ef6-40ff-9e38-2a8e70ddf546" testId="b87c4d9a-3fe7-af99-84aa-f17026613a99" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.UnsettledReservationIsChargedOnceAndNeverReplayedAsFreeWork" computerName="DESKTOP-SET3SNR" duration="00:00:00.0052552" startTime="2026-10-31T22:55:54.9605455+08:00" endTime="2026-10-31T22:55:54.9654533+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="56c9c63e-9ef6-40ff-9e38-2a8e70ddf546" />
+    <UnitTestResult executionId="4a9cf4ca-e990-4b20-a9ac-4aef1f20633a" testId="a4a8aad3-fc51-c880-8838-6eb2ce324fa8" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionRecovery&quot;, stopStage: &quot;Evolution:Trials&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.3256270" startTime="2026-10-31T22:55:50.6170492+08:00" endTime="2026-10-31T22:55:51.9370922+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a9cf4ca-e990-4b20-a9ac-4aef1f20633a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ObjectDisposedException : The CancellationTokenSource has been disposed.</Message>
+          <StackTrace>   at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 62&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 58&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs:line 115&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 82&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 24&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="27c89074-e4e3-4f7a-9368-d7f422d8dee4" testId="850c118f-2f8d-c9fc-87ce-04dace16d5f3" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace(stopAfter: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:02.9441471" startTime="2026-10-31T22:55:52.0187959+08:00" endTime="2026-10-31T22:55:54.9591780+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27c89074-e4e3-4f7a-9368-d7f422d8dee4" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Competition&quot;, stopStage: &quot;Competition:Construction&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="893bc4da-1c04-9c9d-2d99-5a786e32bd5c">
+      <Execution id="64ce0439-41db-48d3-8803-a1826a65c5a5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.OriginalF4ConflictStillPerformsNoConstructionOrTracing" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="1293a5c4-a598-3a14-85c0-43ded4dafbd5">
+      <Execution id="93471416-c2c5-434b-8f1e-c66d645cd22e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="OriginalF4ConflictStillPerformsNoConstructionOrTracing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Screening&quot;, stopStage: &quot;Screening&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="dbfc33b7-6155-9c03-2777-4d55fc79ab8c">
+      <Execution id="fd302178-b448-4114-86f7-6175804d65fa" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionRecovery&quot;, stopStage: &quot;Evolution:Trials&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a4a8aad3-fc51-c880-8838-6eb2ce324fa8">
+      <Execution id="4a9cf4ca-e990-4b20-a9ac-4aef1f20633a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Retrieval&quot;, stopStage: &quot;Retrieval:Transform&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="c11eace3-b9ac-d6cb-fd4d-0671b3dd3361">
+      <Execution id="2a78ba02-5ca7-4586-9477-c3d9e718fd5d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionDirect&quot;, stopStage: &quot;Evolution:Trials&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="6d06992e-596c-8c1e-af78-03c9d87c173a">
+      <Execution id="1545e73e-ad6d-4021-9ecc-b9ea529db01b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionCompetition&quot;, stopStage: &quot;Evolution:Trials&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="c970201f-9c14-cde3-914f-fc8cb73f2d19">
+      <Execution id="1b399d3f-f64b-4fa9-8c78-c1efbdf9b2a2" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Paraxial&quot;, stopStage: &quot;Starts&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="27453da4-8bff-ee60-90c4-1bcbe36be718">
+      <Execution id="6ef3db20-ee1e-44a7-957b-a9f06eb6ac3c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.UnsettledReservationIsChargedOnceAndNeverReplayedAsFreeWork" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b87c4d9a-3fe7-af99-84aa-f17026613a99">
+      <Execution id="56c9c63e-9ef6-40ff-9e38-2a8e70ddf546" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="UnsettledReservationIsChargedOnceAndNeverReplayedAsFreeWork" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.StoreRejectsStaleWritersBudgetRollbackTaskChangesAndCorruption" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="212fb68c-e730-7590-6aca-6223b318b2e0">
+      <Execution id="8023f96d-ccf6-4763-9285-ce4e17e44830" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="StoreRejectsStaleWritersBudgetRollbackTaskChangesAndCorruption" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Competition&quot;, stopStage: &quot;Competition:Rounds&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="eb3f2ecc-a58b-6320-1f5b-a72b90890c60">
+      <Execution id="c3fd0d82-c642-4159-8abc-feaf7d6fa128" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionCompetition&quot;, stopStage: &quot;Evolution:Competition&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="7b581353-ae4e-98fc-26bb-245ad303c1f2">
+      <Execution id="7ddb8071-8bc2-40eb-88de-e73030d0ecf3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace(stopAfter: 1)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b58a2229-0121-1e85-3b29-9b7bd54b5020">
+      <Execution id="bca19840-1613-4733-baca-cd617bf4a170" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace(stopAfter: 2)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="850c118f-2f8d-c9fc-87ce-04dace16d5f3">
+      <Execution id="27c89074-e4e3-4f7a-9368-d7f422d8dee4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6d06992e-596c-8c1e-af78-03c9d87c173a" executionId="1545e73e-ad6d-4021-9ecc-b9ea529db01b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="27453da4-8bff-ee60-90c4-1bcbe36be718" executionId="6ef3db20-ee1e-44a7-957b-a9f06eb6ac3c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c11eace3-b9ac-d6cb-fd4d-0671b3dd3361" executionId="2a78ba02-5ca7-4586-9477-c3d9e718fd5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eb3f2ecc-a58b-6320-1f5b-a72b90890c60" executionId="c3fd0d82-c642-4159-8abc-feaf7d6fa128" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b581353-ae4e-98fc-26bb-245ad303c1f2" executionId="7ddb8071-8bc2-40eb-88de-e73030d0ecf3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="212fb68c-e730-7590-6aca-6223b318b2e0" executionId="8023f96d-ccf6-4763-9285-ce4e17e44830" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1293a5c4-a598-3a14-85c0-43ded4dafbd5" executionId="93471416-c2c5-434b-8f1e-c66d645cd22e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c970201f-9c14-cde3-914f-fc8cb73f2d19" executionId="1b399d3f-f64b-4fa9-8c78-c1efbdf9b2a2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dbfc33b7-6155-9c03-2777-4d55fc79ab8c" executionId="fd302178-b448-4114-86f7-6175804d65fa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="893bc4da-1c04-9c9d-2d99-5a786e32bd5c" executionId="64ce0439-41db-48d3-8803-a1826a65c5a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b58a2229-0121-1e85-3b29-9b7bd54b5020" executionId="bca19840-1613-4733-baca-cd617bf4a170" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b87c4d9a-3fe7-af99-84aa-f17026613a99" executionId="56c9c63e-9ef6-40ff-9e38-2a8e70ddf546" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a4a8aad3-fc51-c880-8838-6eb2ce324fa8" executionId="4a9cf4ca-e990-4b20-a9ac-4aef1f20633a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="850c118f-2f8d-c9fc-87ce-04dace16d5f3" executionId="27c89074-e4e3-4f7a-9368-d7f422d8dee4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="14" executed="14" passed="5" failed="9" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.72]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.83]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.86]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:06.42]       System.ObjectDisposedException : The CancellationTokenSource has been disposed.&#xD;
+[xUnit.net 00:00:06.42]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.42]            at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+[xUnit.net 00:00:06.42]            at System.Threading.CancellationTokenSource.CancelAfter(TimeSpan delay)&#xD;
+[xUnit.net 00:00:06.42]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(62,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status)&#xD;
+[xUnit.net 00:00:06.42]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(58,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result)&#xD;
+[xUnit.net 00:00:06.42]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(115,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress)&#xD;
+[xUnit.net 00:00:06.42]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs(82,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress)&#xD;
+[xUnit.net 00:00:06.42]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(24,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:06.42]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.46]       System.ArgumentException : Invalid bounded first-order seed preparation protocol.&#xD;
+[xUnit.net 00:00:06.46]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.46]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ParaxialSeedSearch.cs(389,0): at OpticalSystemDesign.InitialStructure.Engine.ParaxialSeedSearch.ValidateOptions(ParaxialSeedSearchOptions options)&#xD;
+[xUnit.net 00:00:06.46]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs(21,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Create(String runId, AutonomousSearchPlan plan, Boolean continueIntoMain)&#xD;
+[xUnit.net 00:00:06.46]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(23,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:06.46]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.37]       System.ObjectDisposedException : The CancellationTokenSource has been disposed.&#xD;
+[xUnit.net 00:00:08.37]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.37]            at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+[xUnit.net 00:00:08.37]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(62,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status)&#xD;
+[xUnit.net 00:00:08.37]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(58,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result)&#xD;
+[xUnit.net 00:00:08.37]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(115,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress)&#xD;
+[xUnit.net 00:00:08.37]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs(82,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress)&#xD;
+[xUnit.net 00:00:08.37]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(24,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:08.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.69]       System.ObjectDisposedException : The CancellationTokenSource has been disposed.&#xD;
+[xUnit.net 00:00:09.69]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.69]            at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+[xUnit.net 00:00:09.69]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(62,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status)&#xD;
+[xUnit.net 00:00:09.69]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(58,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result)&#xD;
+[xUnit.net 00:00:09.69]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(115,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress)&#xD;
+[xUnit.net 00:00:09.69]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs(82,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress)&#xD;
+[xUnit.net 00:00:09.69]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(24,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:09.69]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.98]       System.ObjectDisposedException : The CancellationTokenSource has been disposed.&#xD;
+[xUnit.net 00:00:10.98]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.98]            at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+[xUnit.net 00:00:10.98]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(62,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status)&#xD;
+[xUnit.net 00:00:10.98]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(58,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result)&#xD;
+[xUnit.net 00:00:10.98]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(115,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress)&#xD;
+[xUnit.net 00:00:10.98]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs(82,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress)&#xD;
+[xUnit.net 00:00:10.98]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(24,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:10.98]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.21]       System.ObjectDisposedException : The CancellationTokenSource has been disposed.&#xD;
+[xUnit.net 00:00:11.21]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.21]            at System.Threading.CancellationTokenSource.CancelAfter(UInt32 millisecondsDelay)&#xD;
+[xUnit.net 00:00:11.21]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(62,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Save(SeedPreparationStatus status)&#xD;
+[xUnit.net 00:00:11.21]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(58,0): at OpticalSystemDesign.InitialStructure.Engine.PreparationCheckpointContext.Finish(ParaxialSeedSearchResult result)&#xD;
+[xUnit.net 00:00:11.21]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\PreparationCheckpointContext.cs(115,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.RunOther(SeedPreparationCheckpoint state, Action`1 persist, CancellationToken pause, Action`2 progress)&#xD;
+[xUnit.net 00:00:11.21]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs(82,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress)&#xD;
+[xUnit.net 00:00:11.21]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(24,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:11.21]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.22]       System.ArgumentException : Invalid bounded first-order seed preparation protocol.&#xD;
+[xUnit.net 00:00:11.22]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.22]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ParaxialSeedSearch.cs(389,0): at OpticalSystemDesign.InitialStructure.Engine.ParaxialSeedSearch.ValidateOptions(ParaxialSeedSearchOptions options)&#xD;
+[xUnit.net 00:00:11.22]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs(21,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Create(String runId, AutonomousSearchPlan plan, Boolean continueIntoMain)&#xD;
+[xUnit.net 00:00:11.22]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(23,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:11.22]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.22]       System.ArgumentException : Invalid bounded first-order seed preparation protocol.&#xD;
+[xUnit.net 00:00:11.22]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.22]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ParaxialSeedSearch.cs(389,0): at OpticalSystemDesign.InitialStructure.Engine.ParaxialSeedSearch.ValidateOptions(ParaxialSeedSearchOptions options)&#xD;
+[xUnit.net 00:00:11.22]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs(21,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Create(String runId, AutonomousSearchPlan plan, Boolean continueIntoMain)&#xD;
+[xUnit.net 00:00:11.22]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(23,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:11.22]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.22]       System.ArgumentException : Invalid bounded first-order seed preparation protocol.&#xD;
+[xUnit.net 00:00:11.22]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.22]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ParaxialSeedSearch.cs(389,0): at OpticalSystemDesign.InitialStructure.Engine.ParaxialSeedSearch.ValidateOptions(ParaxialSeedSearchOptions options)&#xD;
+[xUnit.net 00:00:11.22]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs(21,0): at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Create(String runId, AutonomousSearchPlan plan, Boolean continueIntoMain)&#xD;
+[xUnit.net 00:00:11.22]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(23,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:11.22]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:12.77]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:55:48.6652013+08:00">
+        <Text>[xUnit.net 00:00:06.42]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "EvolutionCompetition", stopStage: "Evolution:Trials") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:55:48.7204659+08:00">
+        <Text>[xUnit.net 00:00:06.45]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "Paraxial", stopStage: "Starts") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:55:50.6117558+08:00">
+        <Text>[xUnit.net 00:00:08.37]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "EvolutionDirect", stopStage: "Evolution:Trials") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:55:51.9374447+08:00">
+        <Text>[xUnit.net 00:00:09.69]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "EvolutionRecovery", stopStage: "Evolution:Trials") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:55:53.2202250+08:00">
+        <Text>[xUnit.net 00:00:10.98]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "EvolutionCompetition", stopStage: "Evolution:Competition") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:55:53.4565632+08:00">
+        <Text>[xUnit.net 00:00:11.21]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "Retrieval", stopStage: "Retrieval:Transform") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:55:53.4597576+08:00">
+        <Text>[xUnit.net 00:00:11.22]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "Competition", stopStage: "Competition:Construction") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:55:53.4641920+08:00">
+        <Text>[xUnit.net 00:00:11.22]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "Screening", stopStage: "Screening") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:55:53.4657916+08:00">
+        <Text>[xUnit.net 00:00:11.22]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "Competition", stopStage: "Competition:Rounds") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Warning" timestamp="2026-10-31T22:55:55.0609087+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

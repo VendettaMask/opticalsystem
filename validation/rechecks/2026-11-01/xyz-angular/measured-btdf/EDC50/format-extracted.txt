@@ -1,0 +1,50 @@
+ 
+RPC Photonics, Inc., 330 Clay Road, Rochester, NY 1 4623585-272-2840; FAX: 585-272-2845  
+ 
+RPC Photonics, Inc. 
+Engineered Diffuser™ BSDF Data:  
+0-degree Sample Rotation, 0-degree Angle of Inciden ce 
+Formatted for Zemax 
+ 
+The enclosed BSDF data files contain scatter data f ormatted according the BSDF Data Interchange file 
+format developed by RadiantZemax LLC and described in the Zemax Knowledge Base. The BSDF data 
+formatting does not assume rotational symmetry for the scattered light.  
+ 
+The files are named with the Engineered Diffuser™  diffuser type sample rotation angle and angle of 
+incidence. For example, the file EDC20 0-0z.bsdf  contains data for the EDC20 diffuser with a single  
+sample rotation of 0 degrees and angle of incidence  of 0 degrees (normal incidence). 
+ 
+The first few lines of each file contain comments w ith the diffuser type and the date the data was 
+measured at RPC Photonics, Inc. The BSDF data provi ded are from measurements of representative 
+diffuser samples. Actual scatter distributions may vary from diffuser to diffuser. 
+Isotropic Diffusers 
+Isotropic diffusers with symmetric or isotropic dat a, such as the circular diffusers EDC20 and EDC50, 
+need data only for various angles of incidence. We have included BSDF data for 0 degree Sample 
+Rotation and 0 degree angle of incidence.  
+ 
+ 
+
+ 
+RPC Photonics, Inc., 330 Clay Road, Rochester, NY 1 4623585-272-2840; FAX: 585-272-2845  
+ 
+ 
+Anisotropic Diffusers 
+For the non-symmetric or anisotropic diffusers such  as the EDS20 and EDS50, BSDF measurements not 
+only at various angles of incidence but also at mul tiple Sample Rotation angles are required to fully 
+model the diffuser performance. We have included BS DF data for 0 degree Sample Rotation and 0 
+degree angle of incidence.  
+ 
+ 
+ 
+ 
+Note to Zemax and OpticStudio users: 
+Zemax formatted BSDF data is currently only being s upplied for Engineered Diffusers™ at a single 
+sample rotation of 0 degrees and angle of incidence  of 0 degrees (normal incidence). The BSDF files 
+formatted for Zemax have been tested with Zemax Opt icStudio15.5 SP3 Professional (64-bit) Version 
+March 15, 2016. Earlier Zemax versions may not prop erly model Engineered Diffusers™ for non-
+normal angle of incidence and/or non-zero sample ro tation. 
+RPC Photonics is working with Zemax to enable the f ull range of Sample Rotation and Angle of 
+Incidence evaluation, using BSDF data, of both isot ropic and anisotropic Engineered Diffusers™ in 
+OpticStudio.  
+ 
+OpticStudio is a Registered Trademark of Zemax, LLC . 

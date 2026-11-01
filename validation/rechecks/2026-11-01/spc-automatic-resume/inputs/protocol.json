@@ -1,0 +1,29 @@
+{
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "functions": 600,
+  "gradients": 600,
+  "actualCpuRays": 2000000,
+  "seconds": 120,
+  "arms": [
+    "continuous",
+    "resumed"
+  ],
+  "pauses": [
+    "parent",
+    "hessian",
+    "minus",
+    "minus-physical",
+    "plus",
+    "plus-physical"
+  ],
+  "freshProcessForEveryResume": true,
+  "noGateChanges": true,
+  "timeAndPersistenceReportedSeparately": true,
+  "scope": "Existing authored M3.1 parent; repeated seeds are not independent design evidence; no automatic aperture/cemented/recursive scheduling."
+}

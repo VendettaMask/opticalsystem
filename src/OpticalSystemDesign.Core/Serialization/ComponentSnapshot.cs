@@ -103,6 +103,41 @@ public static partial class ComponentSnapshotFactory
                 new() { ["faces"] = System.Text.Json.JsonSerializer.Serialize(group.Faces) },
                 new() { ["volume"] = FromMaterial(group.VolumeMaterial) }),
             PlaneGeometry => ComponentSnapshot.Empty("plane"),
+            TiltedPlaneGeometry tilted => new ComponentSnapshot("tilted_plane",
+                new() { ["tangentX"] = tilted.TangentX, ["tangentY"] = tilted.TangentY }, new()),
+            IrregularGeometry irregular => new ComponentSnapshot("irregular_sag", new()
+            {
+                ["radius"] = irregular.Base.Radius, ["conic"] = irregular.Base.Conic, ["normalizationRadius"] = irregular.NormalizationRadius,
+                ["decenterX"] = irregular.Coordinates.Origin.X, ["decenterY"] = irregular.Coordinates.Origin.Y,
+                ["tiltX"] = irregular.TiltXDegrees, ["tiltY"] = irregular.TiltYDegrees,
+                ["spherical"] = irregular.Spherical, ["astigmatism"] = irregular.Astigmatism, ["coma"] = irregular.Coma,
+                ["angle"] = irregular.AngleDegrees
+            }, new()),
+            GridSagGeometry grid => new ComponentSnapshot("grid_sag", GridSagNumbers(grid), new()),
+            ConcentricZoneGeometry zones => new ComponentSnapshot(zones.Kind, new()
+                { ["boundaryRadius"] = zones.BoundaryRadius, ["breakSag"] = zones.BreakSag ? 1 : 0 }, new(),
+                new() { ["inner"] = FromGeometry(zones.Inner), ["outer"] = FromGeometry(zones.Outer) }),
+            FringeSagGeometry fringe => new ComponentSnapshot("fringe_sag", Coefficients(fringe.FringeCoefficients,
+                Coefficients(fringe.Base.Coefficients, new()
+                {
+                    ["radius"] = fringe.Base.Base.Radius, ["conic"] = fringe.Base.Base.Conic,
+                    ["normalizationRadius"] = fringe.NormalizationRadius,
+                    ["decenterX"] = fringe.DecenterX, ["decenterY"] = fringe.DecenterY,
+                    ["extrapolate"] = fringe.Extrapolate ? 1 : 0,
+                    ["asphereCount"] = fringe.Base.Coefficients.Count, ["fringeCount"] = fringe.FringeCoefficients.Count
+                }, "a"), "z"), new()),
+            ChebyshevSagGeometry cheb => new ComponentSnapshot("chebyshev_sag", Coefficients(cheb.NormalizedCoefficients, new()
+            {
+                ["radius"] = cheb.Base.Radius, ["maximumXOrder"] = cheb.MaximumXOrder, ["maximumYOrder"] = cheb.MaximumYOrder,
+                ["normalizationX"] = cheb.NormalizationX, ["normalizationY"] = cheb.NormalizationY
+            }), new()),
+            TernaryMirrorArrayGeometry array => new ComponentSnapshot("ternary_mirror_array_v1", new Dictionary<string, double>
+            {
+                ["pixelsX"] = array.PixelsX, ["pixelsY"] = array.PixelsY,
+                ["widthX"] = array.WidthX, ["widthY"] = array.WidthY,
+                ["tilt0"] = array.TiltRadians[0], ["tilt1"] = array.TiltRadians[1], ["tilt2"] = array.TiltRadians[2],
+                ["azimuth"] = array.AzimuthRadians, ["addressingMode"] = array.AddressingMode, ["stateCount"] = array.PackedStates.Count
+            }.Concat(array.PackedStates.Select((v, i) => new KeyValuePair<string, double>($"state{i}", v))).ToDictionary(p => p.Key, p => p.Value), new()),
             PlaneGratingGeometry grating => new ComponentSnapshot("plane_grating", new Dictionary<string, double>
             {
                 ["order"] = grating.GratingOrder,
@@ -176,6 +211,24 @@ public static partial class ComponentSnapshotFactory
         };
     }
 
+    private static Dictionary<string, double> GridSagNumbers(GridSagGeometry grid)
+    {
+        var numbers = new Dictionary<string, double>
+        {
+            ["radius"] = grid.Base.Base.Radius, ["conic"] = grid.Base.Base.Conic, ["columns"] = grid.Columns, ["rows"] = grid.Rows,
+            ["spacingX"] = grid.SpacingX, ["spacingY"] = grid.SpacingY, ["decenterX"] = grid.DecenterX, ["decenterY"] = grid.DecenterY,
+            ["linear"] = grid.Linear ? 1 : 0
+        };
+        for (var i = 0; i < 8; i++) numbers[$"a{i}"] = i < grid.Base.Coefficients.Count ? grid.Base.Coefficients[i] : 0;
+        for (var i = 0; i < grid.Points.Count; i++)
+        {
+            var p = grid.Points[i]; numbers[$"z{i}"] = p.Sag; numbers[$"dx{i}"] = p.Dx; numbers[$"dy{i}"] = p.Dy;
+            numbers[$"dxy{i}"] = p.Dxy; numbers[$"noData{i}"] = p.NoData ? 1 : 0;
+        }
+        return numbers;
+    }
+
+
     public static IGeometry ToGeometry(ComponentSnapshot? snapshot, double fallbackRadius, double fallbackConic)
     {
         if (snapshot is null)
@@ -191,6 +244,24 @@ public static partial class ComponentSnapshotFactory
                     ?? throw new InvalidDataException("Missing polygon-group faces."),
                 ToMaterial(snapshot.Children!["volume"], "Air", new MaterialRegistry())),
             "plane" => new PlaneGeometry(),
+            "concentric_zones" => ReadConcentricZones(snapshot),
+            "tilted_plane" => new TiltedPlaneGeometry(n["tangentX"], n["tangentY"]),
+            "irregular_sag" => new IrregularGeometry(n["radius"], n["conic"], n["normalizationRadius"], n["decenterX"], n["decenterY"],
+                n["tiltX"], n["tiltY"], n["spherical"], n["astigmatism"], n["coma"], n["angle"]),
+            "grid_sag" => new GridSagGeometry(n["radius"], n["conic"], Enumerable.Range(0, 8).Select(i => n[$"a{i}"]).ToArray(),
+                (int)n["columns"], (int)n["rows"], n["spacingX"], n["spacingY"], n["decenterX"], n["decenterY"], n["linear"] == 1,
+                Enumerable.Range(0, (int)(n["columns"] * n["rows"])).Select(i => new GridSagPoint(n[$"z{i}"], n[$"dx{i}"],
+                    n[$"dy{i}"], n[$"dxy{i}"], n[$"noData{i}"] == 1)).ToArray()),
+            "fringe_sag" => new FringeSagGeometry(n["radius"], n["conic"],
+                Enumerable.Range(0, (int)n["asphereCount"]).Select(i => n[$"a{i}"]).ToArray(), n["normalizationRadius"],
+                Enumerable.Range(0, (int)n["fringeCount"]).Select(i => n[$"z{i}"]).ToArray(),
+                n["decenterX"], n["decenterY"], n["extrapolate"] == 1),
+            "chebyshev_sag" => new ChebyshevSagGeometry(n["radius"], (int)n["maximumXOrder"], (int)n["maximumYOrder"],
+                n["normalizationX"], n["normalizationY"], Enumerable.Range(0,
+                    ((int)n["maximumXOrder"] + 1) * ((int)n["maximumYOrder"] + 1) - 1).Select(i => n[$"c{i}"]).ToArray()),
+            "ternary_mirror_array_v1" => new TernaryMirrorArrayGeometry((int)n["pixelsX"], (int)n["pixelsY"], n["widthX"], n["widthY"],
+                [n["tilt0"], n["tilt1"], n["tilt2"]], n["azimuth"], (int)n["addressingMode"],
+                Enumerable.Range(0, (int)n["stateCount"]).Select(i => (int)n[$"state{i}"]).ToArray()),
             "plane_grating" => new PlaneGratingGeometry(
                 (int)Get(n, "order", 1),
                 Get(n, "periodMicrometers", 1),
@@ -219,6 +290,10 @@ public static partial class ComponentSnapshotFactory
     {
         return material switch
         {
+            UniaxialMaterial crystal => new ComponentSnapshot("uniaxial", new()
+                { ["axisX"] = crystal.Axis.X, ["axisY"] = crystal.Axis.Y, ["axisZ"] = crystal.Axis.Z,
+                    ["extraordinary"] = crystal.TraceExtraordinary ? 1 : 0, ["paraxialIgnore"] = crystal.ParaxialIgnore ? 1 : 0 },
+                new() { ["name"] = crystal.Name }, new() { ["ordinary"] = FromMaterial(crystal.Ordinary), ["extraordinary"] = FromMaterial(crystal.Extraordinary) }),
             GradientIndexMaterial gradient => FromGradientIndex(gradient),
             LocatedGradientIndexMaterial => throw new NotSupportedException("GRIN 的运行时体坐标绑定不能保存为处方材料，请使用原始空间分布材料。"),
             AirMaterial => ComponentSnapshot.Empty("air"),
@@ -273,6 +348,10 @@ public static partial class ComponentSnapshotFactory
         return snapshot.Kind switch
         {
             "air" => new AirMaterial(),
+            "uniaxial" => new UniaxialMaterial(ToMaterial(snapshot.Children!["ordinary"], "", registry),
+                ToMaterial(snapshot.Children!["extraordinary"], "", registry),
+                new(snapshot.Numbers["axisX"], snapshot.Numbers["axisY"], snapshot.Numbers["axisZ"]),
+                snapshot.Numbers["extraordinary"] == 1, snapshot.Numbers["paraxialIgnore"] == 1),
             "gradient_index" => ToGradientIndex(snapshot),
             "catalog_glass" => ToCatalogGlass(snapshot, name),
             "tabulated_index" => new TabulatedMaterial(name, ReadCoefficients(snapshot.Numbers, "w"),
@@ -406,11 +485,25 @@ public static partial class ComponentSnapshotFactory
         return interaction switch
         {
             RefractiveReflectiveInteractionModel model => new ComponentSnapshot(model.IsReflective ? "reflective" : "refractive", new Dictionary<string, double>(), new Dictionary<string, string>()),
+            BirefringentInteractionModel crystal => new ComponentSnapshot(crystal.Kind, new()
+                { ["isExit"] = crystal.IsExit ? 1 : 0, ["axisDisplayLength"] = crystal.AxisDisplayLength }, new()),
             ThinLensInteractionModel thinLens => new ComponentSnapshot("thin_lens", new Dictionary<string, double>
             {
                 ["focalLength"] = thinLens.FocalLength,
                 ["isReflective"] = thinLens.IsReflective ? 1 : 0
             }, new Dictionary<string, string>()),
+            ParaxialLensInteractionModel lens => new ComponentSnapshot("paraxial_lens", new Dictionary<string, double>
+            {
+                ["powerX"] = lens.PowerX, ["powerY"] = lens.PowerY, ["opdMode"] = lens.OpdMode
+            }, new Dictionary<string, string>()),
+            RuledGratingInteractionModel grating => new ComponentSnapshot("ruled_grating", new Dictionary<string, double>
+            {
+                ["linesPerMicrometer"] = grating.LinesPerMicrometer, ["order"] = grating.Order,
+                ["isReflective"] = grating.IsReflective ? 1 : 0
+            }, new Dictionary<string, string>()),
+            DiffractivePhaseInteractionModel phase => new ComponentSnapshot("diffractive_phase",
+                new() { ["isReflective"] = phase.IsReflective ? 1 : 0 }, new(),
+                new() { ["profile"] = FromPhaseProfile(phase.Profile) }),
             DiffractiveInteractionModel diffractive => new ComponentSnapshot(
                 "diffractive",
                 DiffractiveNumbers(diffractive),
@@ -433,8 +526,15 @@ public static partial class ComponentSnapshotFactory
         {
             "reflective" => new RefractiveReflectiveInteractionModel(true),
             "refractive" => new RefractiveReflectiveInteractionModel(false),
+            "birefringent_interface" => new BirefringentInteractionModel(snapshot.Numbers["isExit"] == 1, snapshot.Numbers["axisDisplayLength"]),
             "thin_lens" => new ThinLensInteractionModel(
                 Get(snapshot.Numbers, "focalLength", 50),
+                Get(snapshot.Numbers, "isReflective", 0) != 0),
+            "paraxial_lens" => new ParaxialLensInteractionModel(Get(snapshot.Numbers, "powerX", 0),
+                Get(snapshot.Numbers, "powerY", 0), (int)Get(snapshot.Numbers, "opdMode", 1)),
+            "ruled_grating" => new RuledGratingInteractionModel(Get(snapshot.Numbers, "linesPerMicrometer", 0),
+                (int)Get(snapshot.Numbers, "order", 0), Get(snapshot.Numbers, "isReflective", 0) != 0),
+            "diffractive_phase" => new DiffractivePhaseInteractionModel(ToPhaseProfile(snapshot.Children!["profile"]),
                 Get(snapshot.Numbers, "isReflective", 0) != 0),
             "diffractive" when snapshot.Numbers.ContainsKey("grooveFrequency") =>
                 new DiffractiveInteractionModel(
@@ -488,6 +588,16 @@ public static partial class ComponentSnapshotFactory
                 "radial",
                 Coefficients(radial.Coefficients, new Dictionary<string, double>()),
                 new Dictionary<string, string>()),
+            NormalizedRadialPhaseProfile radial => new ComponentSnapshot("normalized_radial", Coefficients(radial.Coefficients,
+                new() { ["normalizationRadius"] = radial.NormalizationRadius, ["order"] = radial.Order }), new()),
+            DualZoneRadialPhaseProfile zones => new ComponentSnapshot(zones.Kind, new(), new(),
+                new() { ["inner"] = FromPhaseProfile(zones.Inner), ["outer"] = FromPhaseProfile(zones.Outer) }),
+            TwoPointHologramPhaseProfile hologram => new ComponentSnapshot("two_point_hologram", new()
+            {
+                ["x1"] = hologram.First.X, ["y1"] = hologram.First.Y, ["z1"] = hologram.First.Z,
+                ["x2"] = hologram.Second.X, ["y2"] = hologram.Second.Y, ["z2"] = hologram.Second.Z,
+                ["constructionWavelength"] = hologram.ConstructionWavelengthNanometers, ["order"] = hologram.Order
+            }, new()),
             GridPhaseProfile grid => new ComponentSnapshot(
                 "grid",
                 GridPhaseNumbers(grid),
@@ -511,6 +621,13 @@ public static partial class ComponentSnapshotFactory
                 (int)Get(snapshot.Numbers, "order", 1),
                 Get(snapshot.Numbers, "efficiency", 1)),
             "radial" => new RadialPhaseProfile(ReadCoefficients(snapshot.Numbers)),
+            "normalized_radial" => new NormalizedRadialPhaseProfile(Get(snapshot.Numbers, "normalizationRadius", 1),
+                ReadCoefficients(snapshot.Numbers), (int)Get(snapshot.Numbers, "order", 1)),
+            "dual_zone_radial" => ReadDualZonePhase(snapshot),
+            "two_point_hologram" => new TwoPointHologramPhaseProfile(
+                new(Get(snapshot.Numbers, "x1", 0), Get(snapshot.Numbers, "y1", 0), Get(snapshot.Numbers, "z1", 0)),
+                new(Get(snapshot.Numbers, "x2", 0), Get(snapshot.Numbers, "y2", 0), Get(snapshot.Numbers, "z2", 0)),
+                Get(snapshot.Numbers, "constructionWavelength", 0), (int)Get(snapshot.Numbers, "order", 1)),
             "grid" => ReadGridPhaseProfile(snapshot.Numbers),
             "polynomial_phase" => new PolynomialPhaseProfile(ReadPairCoefficients(snapshot.Numbers)),
             _ => new ConstantPhaseProfile()

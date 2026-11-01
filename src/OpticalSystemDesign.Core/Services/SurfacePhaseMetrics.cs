@@ -54,8 +54,14 @@ public static class SurfacePhaseMetrics
         if (!double.IsFinite(wavelength) || wavelength <= 0) throw new ArgumentOutOfRangeException(nameof(wavelength));
         if (remove is not (0 or 1)) throw new NotSupportedException("相位当前支持 Remove=0/1；Zernike 倾斜/光焦度项移除尚未接通。");
         if (orientation is < 0 or > 4) throw new ArgumentOutOfRangeException(nameof(orientation), "Orientation 为 0..4。");
-        return surface.InteractionModel is PhaseInteractionModel interaction ? interaction.Profile
-            : throw new NotSupportedException("此面不是相位面，不能计算相位操作数。");
+        return surface.InteractionModel switch
+        {
+            PhaseInteractionModel interaction => interaction.Profile,
+            DiffractivePhaseInteractionModel interaction => interaction.Profile,
+            RuledGratingInteractionModel grating => new PolynomialPhaseProfile(new Dictionary<(int, int), double>
+                { [(0, 1)] = 2 * Math.PI * 1000 * grating.Order * grating.LinesPerMicrometer }),
+            _ => throw new NotSupportedException("此面不是相位面，不能计算相位操作数。")
+        };
     }
 
     private static void EnsureWork(IPhaseProfile profile, SurfacePhaseQuantity quantity, long samples)

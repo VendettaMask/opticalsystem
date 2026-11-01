@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b7219c17-9ab0-4de0-94f8-4496e374883c" name="allen@DESKTOP-SET3SNR 2026-11-01 18:44:42" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T18:44:42.4903698+08:00" queuing="2026-11-01T18:44:42.4903701+08:00" start="2026-11-01T18:44:40.5707095+08:00" finish="2026-11-01T18:45:10.6204970+08:00" />
+  <TestSettings name="default" id="603f472a-dc9a-4b1f-929b-b902783b1da6">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_18_44_42" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3dafb428-3996-4614-999d-ddc2501c24c0" testId="771bb8f3-9648-24e4-7f40-412e71325e4b" testName="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.PreparationStopsAcrossParentHessianBothBranchesAndPhysicalUpdatesThenResumesExactly" computerName="DESKTOP-SET3SNR" duration="00:00:12.8592057" startTime="2026-11-01T18:44:42.0479162+08:00" endTime="2026-11-01T18:44:54.9089556+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3dafb428-3996-4614-999d-ddc2501c24c0" />
+    <UnitTestResult executionId="456d0c8d-50d5-4b05-be9b-728eac408617" testId="36f0e42d-df1d-8540-0ef6-d29a0264115a" testName="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.AutomaticSpcNeverRelaxesOriginalRestrictions(conflict: &quot;limit&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0099240" startTime="2026-11-01T18:44:42.0363451+08:00" endTime="2026-11-01T18:44:42.0460106+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="456d0c8d-50d5-4b05-be9b-728eac408617" />
+    <UnitTestResult executionId="7a31454c-f4a7-4831-b6e1-bd8362011601" testId="305a2bc3-3cb9-8f01-ba99-fd4c99ef7a98" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 45)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0004037" startTime="2026-11-01T18:44:44.4263574+08:00" endTime="2026-11-01T18:44:44.4264226+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7a31454c-f4a7-4831-b6e1-bd8362011601">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="839eef8c-de85-4f48-85f0-c739f1b1c888" testId="15eb41a3-d16b-db15-d511-8bf16682130b" testName="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.LostInFlightWorkIsChargedOnceAndCannotBePromotedByRestarting" computerName="DESKTOP-SET3SNR" duration="00:00:00.0017841" startTime="2026-11-01T18:44:54.9104599+08:00" endTime="2026-11-01T18:44:54.9116179+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="839eef8c-de85-4f48-85f0-c739f1b1c888" />
+    <UnitTestResult executionId="746b1fca-9b39-431c-b5e0-47ccea4d99f5" testId="74c67144-ca8f-c13e-6e02-71affef494d3" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.AutomaticSpcStopsReopensHandsOffExactlyOnceAndReportsOnlyPhysicalEvidence" computerName="DESKTOP-SET3SNR" duration="00:00:06.5667853" startTime="2026-11-01T18:44:54.9310209+08:00" endTime="2026-11-01T18:45:01.4982354+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="746b1fca-9b39-431c-b5e0-47ccea4d99f5" />
+    <UnitTestResult executionId="7befe75d-bdb3-4da0-b338-c5393f887428" testId="3269264e-d19f-01c4-c50b-09838067a715" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 46)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001354" startTime="2026-11-01T18:44:44.4277268+08:00" endTime="2026-11-01T18:44:44.4277693+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7befe75d-bdb3-4da0-b338-c5393f887428">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4144512b-081e-4124-90c3-2416f4d2f830" testId="62aa4b2f-1f68-9b10-673e-39dde0471342" testName="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.AutomaticSpcNeverRelaxesOriginalRestrictions(conflict: &quot;insertion&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0016232" startTime="2026-11-01T18:44:42.0462037+08:00" endTime="2026-11-01T18:44:42.0476975+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4144512b-081e-4124-90c3-2416f4d2f830" />
+    <UnitTestResult executionId="4dca8b1a-ee27-4d46-8b48-2071bce869e7" testId="abf86e21-ad0b-813a-2ace-7cdfa048cbfd" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Retrieval&quot;, stage: &quot;Retrieval:Validate&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.6941256" startTime="2026-11-01T18:44:43.2877399+08:00" endTime="2026-11-01T18:44:43.9816903+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4dca8b1a-ee27-4d46-8b48-2071bce869e7" />
+    <UnitTestResult executionId="51c33732-e59d-4c43-b261-c4b5cd1e4ebc" testId="59f6aed4-a6b5-c478-2f22-f446e04b0aab" testName="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.BfgsAndHessianContinuationNeverReplayAnOpticalCallback" computerName="DESKTOP-SET3SNR" duration="00:00:00.0869497" startTime="2026-11-01T18:44:41.3029572+08:00" endTime="2026-11-01T18:44:41.3954311+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51c33732-e59d-4c43-b261-c4b5cd1e4ebc" />
+    <UnitTestResult executionId="7c79f158-f28f-42d5-a9c3-c66834d2bdfe" testId="777f1996-fae9-2906-9d3b-2ceb425362a1" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons" computerName="DESKTOP-SET3SNR" duration="00:00:00.0008751" startTime="2026-11-01T18:44:44.4297234+08:00" endTime="2026-11-01T18:44:44.4297805+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c79f158-f28f-42d5-a9c3-c66834d2bdfe">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 103&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6a84d9b7-2f6d-4441-933f-36f7ad472c3c" testId="2ec681ab-9b57-e607-8dbe-1a1f107a3bdd" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.SpcApertureConflictStopsBeforeAutomaticMainSearch" computerName="DESKTOP-SET3SNR" duration="00:00:00.0205751" startTime="2026-11-01T18:45:10.5256396+08:00" endTime="2026-11-01T18:45:10.5462747+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a84d9b7-2f6d-4441-933f-36f7ad472c3c" />
+    <UnitTestResult executionId="97f623e9-a97d-4545-98c4-ecbbf06282be" testId="e4fb32de-271e-07dc-3450-b62115753383" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Competition&quot;, stage: &quot;Competition:Rounds&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3583117" startTime="2026-11-01T18:44:43.9819406+08:00" endTime="2026-11-01T18:44:44.3400669+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97f623e9-a97d-4545-98c4-ecbbf06282be" />
+    <UnitTestResult executionId="dd6d2c21-37cb-47cd-b0ee-0d0dc7a6b7aa" testId="68c0f95e-6327-7563-af50-240e0625e413" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 44)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0022247" startTime="2026-11-01T18:44:44.4245284+08:00" endTime="2026-11-01T18:44:44.4258644+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dd6d2c21-37cb-47cd-b0ee-0d0dc7a6b7aa">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="271c38ce-584f-415c-9e9e-3a1eaa1cc552" testId="4d2b51c2-9808-051c-8e11-c1dabd2b4e6d" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected" computerName="DESKTOP-SET3SNR" duration="00:00:00.0019837" startTime="2026-11-01T18:44:44.4213074+08:00" endTime="2026-11-01T18:44:44.4234110+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="271c38ce-584f-415c-9e9e-3a1eaa1cc552">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 136&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="33b5ee76-0448-4b90-9140-e4f49ba5ff5b" testId="09c58d65-988a-2485-a9a6-4ba1ffa743b4" testName="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.AutomaticSpcNeverRelaxesOriginalRestrictions(conflict: &quot;f4&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.6407176" startTime="2026-11-01T18:44:41.3967932+08:00" endTime="2026-11-01T18:44:42.0359781+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33b5ee76-0448-4b90-9140-e4f49ba5ff5b" />
+    <UnitTestResult executionId="b4cd1d6c-46bc-4a9c-8d00-35fbf9475281" testId="9d10d7e4-cf76-2cec-c3a7-3ae6f901d25e" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem" computerName="DESKTOP-SET3SNR" duration="00:00:00.0007173" startTime="2026-11-01T18:44:44.4303151+08:00" endTime="2026-11-01T18:44:44.4312975+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4cd1d6c-46bc-4a9c-8d00-35fbf9475281">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 118&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e15d583f-ae62-4c11-a2a1-7ee8c75b68be" testId="18648042-60cd-05de-18de-e9502111735f" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 43)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001365" startTime="2026-11-01T18:44:44.4272867+08:00" endTime="2026-11-01T18:44:44.4273294+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e15d583f-ae62-4c11-a2a1-7ee8c75b68be">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="78b7469d-f897-45a5-92cb-32a3cd36b33c" testId="279b310e-eac3-18c0-3884-e280d894a959" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.SpcControlsRoundTripInThreeLanguagesWithoutChangingTheOriginalGates" computerName="DESKTOP-SET3SNR" duration="00:00:09.0265112" startTime="2026-11-01T18:45:01.4987724+08:00" endTime="2026-11-01T18:45:10.5252447+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="78b7469d-f897-45a5-92cb-32a3cd36b33c" />
+    <UnitTestResult executionId="adc8921b-fcba-48d9-bd6e-71366ea74dd3" testId="2080c8af-9911-6c56-a7f6-f42aa6621bbe" testName="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.InvalidStrategiesAndForeignKernelsAreRejectedWithoutTracing" computerName="DESKTOP-SET3SNR" duration="00:00:00.0175909" startTime="2026-11-01T18:44:54.9118710+08:00" endTime="2026-11-01T18:44:54.9293059+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="adc8921b-fcba-48d9-bd6e-71366ea74dd3" />
+    <UnitTestResult executionId="a207bea0-ab0b-4cf9-b680-df3f13f1ad7a" testId="e3f8b6de-4dc7-9ffb-b09d-5aba62a5b473" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 42)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001750" startTime="2026-11-01T18:44:44.4268313+08:00" endTime="2026-11-01T18:44:44.4268765+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a207bea0-ab0b-4cf9-b680-df3f13f1ad7a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1e5a77ff-eb79-4317-99a3-ff0717351c16" testId="0269acf0-8f14-2517-8455-a33ff87ed6e7" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Paraxial&quot;, stage: &quot;Starts&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0808698" startTime="2026-11-01T18:44:44.3402184+08:00" endTime="2026-11-01T18:44:44.4210518+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e5a77ff-eb79-4317-99a3-ff0717351c16" />
+    <UnitTestResult executionId="9d7adfc6-9159-42a1-9c53-2925885c9978" testId="d87a1a05-9e13-b73d-0e31-671812074146" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;EvolutionDirect&quot;, stage: &quot;Evolution:Trials&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.9606797" startTime="2026-11-01T18:44:41.3409378+08:00" endTime="2026-11-01T18:44:43.2873784+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d7adfc6-9159-42a1-9c53-2925885c9978" />
+    <UnitTestResult executionId="a27fa8a4-f331-49db-8b30-c42e4863c6b3" testId="1df58d49-58de-d27d-b84f-1732f4c38acc" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates" computerName="DESKTOP-SET3SNR" duration="00:00:00.0067363" startTime="2026-11-01T18:44:41.3045199+08:00" endTime="2026-11-01T18:44:41.3266412+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a27fa8a4-f331-49db-8b30-c42e4863c6b3">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 74&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.InvalidStrategiesAndForeignKernelsAreRejectedWithoutTracing" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="2080c8af-9911-6c56-a7f6-f42aa6621bbe">
+      <Execution id="adc8921b-fcba-48d9-bd6e-71366ea74dd3" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests" name="InvalidStrategiesAndForeignKernelsAreRejectedWithoutTracing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 46)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="3269264e-d19f-01c4-c50b-09838067a715">
+      <Execution id="7befe75d-bdb3-4da0-b338-c5393f887428" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="9d10d7e4-cf76-2cec-c3a7-3ae6f901d25e">
+      <Execution id="b4cd1d6c-46bc-4a9c-8d00-35fbf9475281" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.AutomaticSpcNeverRelaxesOriginalRestrictions(conflict: &quot;f4&quot;)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="09c58d65-988a-2485-a9a6-4ba1ffa743b4">
+      <Execution id="33b5ee76-0448-4b90-9140-e4f49ba5ff5b" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests" name="AutomaticSpcNeverRelaxesOriginalRestrictions" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.LostInFlightWorkIsChargedOnceAndCannotBePromotedByRestarting" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="15eb41a3-d16b-db15-d511-8bf16682130b">
+      <Execution id="839eef8c-de85-4f48-85f0-c739f1b1c888" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests" name="LostInFlightWorkIsChargedOnceAndCannotBePromotedByRestarting" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Paraxial&quot;, stage: &quot;Starts&quot;)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="0269acf0-8f14-2517-8455-a33ff87ed6e7">
+      <Execution id="1e5a77ff-eb79-4317-99a3-ff0717351c16" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;EvolutionDirect&quot;, stage: &quot;Evolution:Trials&quot;)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="d87a1a05-9e13-b73d-0e31-671812074146">
+      <Execution id="9d7adfc6-9159-42a1-9c53-2925885c9978" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="1df58d49-58de-d27d-b84f-1732f4c38acc">
+      <Execution id="a27fa8a4-f331-49db-8b30-c42e4863c6b3" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.BfgsAndHessianContinuationNeverReplayAnOpticalCallback" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="59f6aed4-a6b5-c478-2f22-f446e04b0aab">
+      <Execution id="51c33732-e59d-4c43-b261-c4b5cd1e4ebc" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests" name="BfgsAndHessianContinuationNeverReplayAnOpticalCallback" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="777f1996-fae9-2906-9d3b-2ceb425362a1">
+      <Execution id="7c79f158-f28f-42d5-a9c3-c66834d2bdfe" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.AutomaticSpcNeverRelaxesOriginalRestrictions(conflict: &quot;limit&quot;)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="36f0e42d-df1d-8540-0ef6-d29a0264115a">
+      <Execution id="456d0c8d-50d5-4b05-be9b-728eac408617" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests" name="AutomaticSpcNeverRelaxesOriginalRestrictions" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="4d2b51c2-9808-051c-8e11-c1dabd2b4e6d">
+      <Execution id="271c38ce-584f-415c-9e9e-3a1eaa1cc552" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 44)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="68c0f95e-6327-7563-af50-240e0625e413">
+      <Execution id="dd6d2c21-37cb-47cd-b0ee-0d0dc7a6b7aa" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.SpcControlsRoundTripInThreeLanguagesWithoutChangingTheOriginalGates" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="279b310e-eac3-18c0-3884-e280d894a959">
+      <Execution id="78b7469d-f897-45a5-92cb-32a3cd36b33c" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="SpcControlsRoundTripInThreeLanguagesWithoutChangingTheOriginalGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 42)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="e3f8b6de-4dc7-9ffb-b09d-5aba62a5b473">
+      <Execution id="a207bea0-ab0b-4cf9-b680-df3f13f1ad7a" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 43)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="18648042-60cd-05de-18de-e9502111735f">
+      <Execution id="e15d583f-ae62-4c11-a2a1-7ee8c75b68be" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.PreparationStopsAcrossParentHessianBothBranchesAndPhysicalUpdatesThenResumesExactly" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="771bb8f3-9648-24e4-7f40-412e71325e4b">
+      <Execution id="3dafb428-3996-4614-999d-ddc2501c24c0" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests" name="PreparationStopsAcrossParentHessianBothBranchesAndPhysicalUpdatesThenResumesExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.SpcApertureConflictStopsBeforeAutomaticMainSearch" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="2ec681ab-9b57-e607-8dbe-1a1f107a3bdd">
+      <Execution id="6a84d9b7-2f6d-4441-933f-36f7ad472c3c" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="SpcApertureConflictStopsBeforeAutomaticMainSearch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Retrieval&quot;, stage: &quot;Retrieval:Validate&quot;)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="abf86e21-ad0b-813a-2ace-7cdfa048cbfd">
+      <Execution id="4dca8b1a-ee27-4d46-8b48-2071bce869e7" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Competition&quot;, stage: &quot;Competition:Rounds&quot;)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="e4fb32de-271e-07dc-3450-b62115753383">
+      <Execution id="97f623e9-a97d-4545-98c4-ecbbf06282be" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 45)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="305a2bc3-3cb9-8f01-ba99-fd4c99ef7a98">
+      <Execution id="7a31454c-f4a7-4831-b6e1-bd8362011601" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests.AutomaticSpcNeverRelaxesOriginalRestrictions(conflict: &quot;insertion&quot;)" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="62aa4b2f-1f68-9b10-673e-39dde0471342">
+      <Execution id="4144512b-081e-4124-90c3-2416f4d2f830" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SpcPreparationTests" name="AutomaticSpcNeverRelaxesOriginalRestrictions" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.AutomaticSpcStopsReopensHandsOffExactlyOnceAndReportsOnlyPhysicalEvidence" storage="d:\projects\.codex-build\spc-auto-artifacts\bin\opticalsystemdesign.initialstructure.tests\release\opticalsystemdesign.initialstructure.tests.dll" id="74c67144-ca8f-c13e-6e02-71affef494d3">
+      <Execution id="746b1fca-9b39-431c-b5e0-47ccea4d99f5" />
+      <TestMethod codeBase="D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="AutomaticSpcStopsReopensHandsOffExactlyOnceAndReportsOnlyPhysicalEvidence" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="771bb8f3-9648-24e4-7f40-412e71325e4b" executionId="3dafb428-3996-4614-999d-ddc2501c24c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="36f0e42d-df1d-8540-0ef6-d29a0264115a" executionId="456d0c8d-50d5-4b05-be9b-728eac408617" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="305a2bc3-3cb9-8f01-ba99-fd4c99ef7a98" executionId="7a31454c-f4a7-4831-b6e1-bd8362011601" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15eb41a3-d16b-db15-d511-8bf16682130b" executionId="839eef8c-de85-4f48-85f0-c739f1b1c888" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74c67144-ca8f-c13e-6e02-71affef494d3" executionId="746b1fca-9b39-431c-b5e0-47ccea4d99f5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3269264e-d19f-01c4-c50b-09838067a715" executionId="7befe75d-bdb3-4da0-b338-c5393f887428" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="62aa4b2f-1f68-9b10-673e-39dde0471342" executionId="4144512b-081e-4124-90c3-2416f4d2f830" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="abf86e21-ad0b-813a-2ace-7cdfa048cbfd" executionId="4dca8b1a-ee27-4d46-8b48-2071bce869e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="59f6aed4-a6b5-c478-2f22-f446e04b0aab" executionId="51c33732-e59d-4c43-b261-c4b5cd1e4ebc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="777f1996-fae9-2906-9d3b-2ceb425362a1" executionId="7c79f158-f28f-42d5-a9c3-c66834d2bdfe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ec681ab-9b57-e607-8dbe-1a1f107a3bdd" executionId="6a84d9b7-2f6d-4441-933f-36f7ad472c3c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4fb32de-271e-07dc-3450-b62115753383" executionId="97f623e9-a97d-4545-98c4-ecbbf06282be" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68c0f95e-6327-7563-af50-240e0625e413" executionId="dd6d2c21-37cb-47cd-b0ee-0d0dc7a6b7aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d2b51c2-9808-051c-8e11-c1dabd2b4e6d" executionId="271c38ce-584f-415c-9e9e-3a1eaa1cc552" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09c58d65-988a-2485-a9a6-4ba1ffa743b4" executionId="33b5ee76-0448-4b90-9140-e4f49ba5ff5b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d10d7e4-cf76-2cec-c3a7-3ae6f901d25e" executionId="b4cd1d6c-46bc-4a9c-8d00-35fbf9475281" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="18648042-60cd-05de-18de-e9502111735f" executionId="e15d583f-ae62-4c11-a2a1-7ee8c75b68be" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="279b310e-eac3-18c0-3884-e280d894a959" executionId="78b7469d-f897-45a5-92cb-32a3cd36b33c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2080c8af-9911-6c56-a7f6-f42aa6621bbe" executionId="adc8921b-fcba-48d9-bd6e-71366ea74dd3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3f8b6de-4dc7-9ffb-b09d-5aba62a5b473" executionId="a207bea0-ab0b-4cf9-b680-df3f13f1ad7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0269acf0-8f14-2517-8455-a33ff87ed6e7" executionId="1e5a77ff-eb79-4317-99a3-ff0717351c16" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d87a1a05-9e13-b73d-0e31-671812074146" executionId="9d7adfc6-9159-42a1-9c53-2925885c9978" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1df58d49-58de-d27d-b84f-1732f4c38acc" executionId="a27fa8a4-f331-49db-8b30-c42e4863c6b3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="23" executed="23" passed="14" failed="9" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.11]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.27]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.29]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.35]       System.NullReferenceException : Object reference not set to an instance of an object.&#xD;
+[xUnit.net 00:00:00.35]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.35]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs(209,0): at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root()&#xD;
+[xUnit.net 00:00:00.35]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(15,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root()&#xD;
+[xUnit.net 00:00:00.35]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(74,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates()&#xD;
+[xUnit.net 00:00:00.35]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.44]       System.NullReferenceException : Object reference not set to an instance of an object.&#xD;
+[xUnit.net 00:00:03.44]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs(209,0): at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(15,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(16,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(136,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected()&#xD;
+[xUnit.net 00:00:03.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.44]       System.NullReferenceException : Object reference not set to an instance of an object.&#xD;
+[xUnit.net 00:00:03.44]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs(209,0): at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(15,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(16,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(23,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.44]       System.NullReferenceException : Object reference not set to an instance of an object.&#xD;
+[xUnit.net 00:00:03.44]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs(209,0): at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(15,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(16,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(23,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.44]       System.NullReferenceException : Object reference not set to an instance of an object.&#xD;
+[xUnit.net 00:00:03.44]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs(209,0): at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(15,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(16,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(23,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.44]       System.NullReferenceException : Object reference not set to an instance of an object.&#xD;
+[xUnit.net 00:00:03.44]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs(209,0): at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(15,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(16,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(23,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.44]       System.NullReferenceException : Object reference not set to an instance of an object.&#xD;
+[xUnit.net 00:00:03.44]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs(209,0): at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(15,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root()&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(16,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(23,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:03.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.45]       System.NullReferenceException : Object reference not set to an instance of an object.&#xD;
+[xUnit.net 00:00:03.45]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.45]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs(209,0): at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root()&#xD;
+[xUnit.net 00:00:03.45]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(15,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root()&#xD;
+[xUnit.net 00:00:03.45]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(103,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons()&#xD;
+[xUnit.net 00:00:03.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.45]       System.NullReferenceException : Object reference not set to an instance of an object.&#xD;
+[xUnit.net 00:00:03.45]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.45]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs(209,0): at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root()&#xD;
+[xUnit.net 00:00:03.45]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(15,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root()&#xD;
+[xUnit.net 00:00:03.45]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(118,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem()&#xD;
+[xUnit.net 00:00:03.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:29.56]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:44:41.3296031+08:00">
+        <Text>[xUnit.net 00:00:00.34]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:44:44.4239060+08:00">
+        <Text>[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:44:44.4260985+08:00">
+        <Text>[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 44) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:44:44.4266173+08:00">
+        <Text>[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 45) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:44:44.4270012+08:00">
+        <Text>[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 42) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:44:44.4274344+08:00">
+        <Text>[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 43) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:44:44.4278948+08:00">
+        <Text>[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 46) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:44:44.4338593+08:00">
+        <Text>[xUnit.net 00:00:03.45]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:44:44.4339114+08:00">
+        <Text>[xUnit.net 00:00:03.45]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

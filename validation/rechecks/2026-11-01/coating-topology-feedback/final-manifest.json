@@ -1,0 +1,2112 @@
+{
+  "scope": "2026-11-01 topology feedback and formal extrema sampling; runtime identities in verification.json; bin/obj excluded",
+  "files": 421,
+  "bytes": 439992769,
+  "entries": [
+    {
+      "path": ".gitignore",
+      "bytes": 179,
+      "sha256": "864ba3c3b34b5c9a2f791d46398e295370e82c5210cbd688fdfc95455ff4dd37"
+    },
+    {
+      "path": "all-stage-prescriptions.json",
+      "bytes": 876179,
+      "sha256": "39c198a7854b28108b9c8d1cd480d5b4d4e67bd400364cca95b48b02abede054"
+    },
+    {
+      "path": "audit-project/packages.lock.json",
+      "bytes": 66,
+      "sha256": "a4364d81a6de2707d66fbced18fbbc926c882ab96e1d1aebbb17e871285b9d75"
+    },
+    {
+      "path": "audit-project/TopologyAudit.csproj",
+      "bytes": 812,
+      "sha256": "b97463aa96c8fc2644356243057af975aea27fdf986297e06d71a5b0cb7ee415"
+    },
+    {
+      "path": "baseline-source/DesignService.Balanced.cs",
+      "bytes": 6072,
+      "sha256": "9d154bc46f017ea82f13d2f399f907c893b7d5f11ce544494ba4d8a9ba63a2cd"
+    },
+    {
+      "path": "baseline-source/DesignService.cs",
+      "bytes": 30089,
+      "sha256": "6b202a5d3979e114fe77e784b1149d3340160c88e662a0a74684e18bd99be275"
+    },
+    {
+      "path": "baseline-source/DesignService.FeasibleReflectance.cs",
+      "bytes": 13298,
+      "sha256": "b9749ae7e70984e043080990a3fa43d1c552fc78e8c57ac911502d07fc81440e"
+    },
+    {
+      "path": "baseline-source/DesignService.FeasibleTargets.cs",
+      "bytes": 24930,
+      "sha256": "49bc97932d27f2f4978b3c177b93885b7d078a609536851081a5cd6914dca411"
+    },
+    {
+      "path": "baseline-source/DesignService.GeneralMatching.cs",
+      "bytes": 6405,
+      "sha256": "60061f33aab5d6c2101eacf42c51ce2d2858c7f22d67c30988845b6b5df74d17"
+    },
+    {
+      "path": "baseline-source/DesignService.GeneralObjective.cs",
+      "bytes": 35064,
+      "sha256": "bb4b193c0bc6acb9a1ddbf4581385eec23080a3810c23b1ea6cc5888eaf748fa"
+    },
+    {
+      "path": "baseline-source/DesignService.GeneralSearch.cs",
+      "bytes": 14133,
+      "sha256": "fc259a1c388a49f29049a35eaec720f052be69e68c16533457450059a661abcf"
+    },
+    {
+      "path": "baseline-source/DesignService.NarrowBand.cs",
+      "bytes": 22600,
+      "sha256": "bb94dd3345179aef1a813d0ba3d6c274317ae9c2504020542514dcfb3d25d9d4"
+    },
+    {
+      "path": "baseline-source/DesignService.NonlinearCorrection.cs",
+      "bytes": 1042,
+      "sha256": "8a5aa350155eb3aec51aca25c28ccaecde38ab6f2e0a82df79ff0daf69e82b2e"
+    },
+    {
+      "path": "baseline-source/DesignService.PassbandQuality.cs",
+      "bytes": 19971,
+      "sha256": "695d2addc4c60c06945975cbe1677edbca1777c8f259a75653eeb2f72a6f4cae"
+    },
+    {
+      "path": "baseline-source/DesignService.ReflectanceQuality.cs",
+      "bytes": 10781,
+      "sha256": "9849a5fde0063d3e4eeee895b6a6c6a71ab78da7245b3f05d5f0bdc5560b82d7"
+    },
+    {
+      "path": "baseline-source/DesignService.Search.cs",
+      "bytes": 7490,
+      "sha256": "9b942bba5b3f1bf1c4b7b7a367bc52324671380f7244e12f91c747949316f7fe"
+    },
+    {
+      "path": "baseline-source/DesignService.SearchSampling.cs",
+      "bytes": 3048,
+      "sha256": "56065380bba2e71c897e3469f56681957469b6304dcf5e4037cfe4de6f01762c"
+    },
+    {
+      "path": "baseline-source/DesignService.SeedRanking.cs",
+      "bytes": 4621,
+      "sha256": "59c0ed45e861a37946a0931641be456d60d225a96a7a277487c896753228b801"
+    },
+    {
+      "path": "baseline-source/DesignService.TargetProtection.cs",
+      "bytes": 15066,
+      "sha256": "6ca22e288c3af85681801cbd3d3be8dc5fe200c505af2fe7aa325f4146489993"
+    },
+    {
+      "path": "baseline-source/Examples.cs",
+      "bytes": 1467,
+      "sha256": "9a9dc871c726b286ebc4655b28cc4ed6246ebbd0586d580f440a333eb7fa583f"
+    },
+    {
+      "path": "baseline-source/Experiment.cs",
+      "bytes": 20515,
+      "sha256": "184cda7541d0ec605b4c03f140092975cb3c94da14fc2fc9815af0d4d88658fb"
+    },
+    {
+      "path": "baseline-source/ExperimentSession.cs",
+      "bytes": 2114,
+      "sha256": "a4e5260c9eb042a6a78cba888bbfcd3420c34ba2e3ed2f497701effeed86d0a5"
+    },
+    {
+      "path": "baseline-source/ExperimentStore.cs",
+      "bytes": 5371,
+      "sha256": "a1bc7a7563043edad95f805825972d2f849f74d8964440886159bd7caad1ab8c"
+    },
+    {
+      "path": "baseline-source/MaterialLibrary.cs",
+      "bytes": 2045,
+      "sha256": "96d2700ae56c23dfcf93f47f12042c8b3c20ef445a66670ff5ba162d05f1860b"
+    },
+    {
+      "path": "baseline-source/MaterialSuitability.cs",
+      "bytes": 4461,
+      "sha256": "76d0ef7bca6164e722900d6937d7890c60906612dbb71cd1f479f199cc34056c"
+    },
+    {
+      "path": "baseline-source/MaterialTable.cs",
+      "bytes": 4090,
+      "sha256": "b03e578863fc66daa1347fee2660deeefc086acf54c5d1b1e77c911d9f10d165"
+    },
+    {
+      "path": "control-all/correction-real-hr-red.coating.json",
+      "bytes": 425158,
+      "sha256": "399d20ecd064397174ac113535b9f50355bcc82d7369d7582e653c14c9c9c903"
+    },
+    {
+      "path": "control-all/correction-real-nbf-red.coating.json",
+      "bytes": 879388,
+      "sha256": "13bb2f90691ccf9fcd5c7db7aafd0642c575eba2df0b7a4ed699f515667e17f7"
+    },
+    {
+      "path": "control-all/holdout-real-hr-nearir.coating.json",
+      "bytes": 420007,
+      "sha256": "f301aaa0084977d3e1668d0cfa1e350a8731a08ec96776bf04f5cbc02955f86e"
+    },
+    {
+      "path": "control-all/new-ir-double.coating.json",
+      "bytes": 1512554,
+      "sha256": "5fd6db561d6887b0c340f050af0ecd2ac16eaa59ad9364787b48fa21a48cfc55"
+    },
+    {
+      "path": "control-all/new-real-nbf-green.coating.json",
+      "bytes": 830975,
+      "sha256": "2c2be1e080ee161cda8d016388e77300abd5b13a0a3c2e1c7bda5834773dd779"
+    },
+    {
+      "path": "control-all/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 916538,
+      "sha256": "75d5a1a23f2a16fed822e7431205fd8072fc6242fc2592d5d35482a4c0e33eea"
+    },
+    {
+      "path": "control-all/new-real-nbf-red.coating.json",
+      "bytes": 836271,
+      "sha256": "aed93c8bf234f6b6c930c97d1a3bd7192a4e15ec51833d17973f0e662d5dc3be"
+    },
+    {
+      "path": "control-all/real-hr-96.coating.json",
+      "bytes": 416794,
+      "sha256": "8c5c70113a3a4e33832b991eacdef0ff5dbb9d20a2595824767dc438f7869025"
+    },
+    {
+      "path": "control-all/real-nbf2-96.coating.json",
+      "bytes": 517067,
+      "sha256": "cee19582fda4029644821eb47fd3d855530321aeec44f5027eeafdb3b88364fc"
+    },
+    {
+      "path": "control-cold/correction-real-hr-red.coating.json",
+      "bytes": 425158,
+      "sha256": "399d20ecd064397174ac113535b9f50355bcc82d7369d7582e653c14c9c9c903"
+    },
+    {
+      "path": "control-cold/correction-real-nbf-red.coating.json",
+      "bytes": 879388,
+      "sha256": "13bb2f90691ccf9fcd5c7db7aafd0642c575eba2df0b7a4ed699f515667e17f7"
+    },
+    {
+      "path": "control-cold/holdout-real-hr-nearir.coating.json",
+      "bytes": 420007,
+      "sha256": "f301aaa0084977d3e1668d0cfa1e350a8731a08ec96776bf04f5cbc02955f86e"
+    },
+    {
+      "path": "control-cold/new-ir-double.coating.json",
+      "bytes": 1512554,
+      "sha256": "5fd6db561d6887b0c340f050af0ecd2ac16eaa59ad9364787b48fa21a48cfc55"
+    },
+    {
+      "path": "control-cold/new-real-nbf-green.coating.json",
+      "bytes": 830975,
+      "sha256": "2c2be1e080ee161cda8d016388e77300abd5b13a0a3c2e1c7bda5834773dd779"
+    },
+    {
+      "path": "control-cold/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 916538,
+      "sha256": "75d5a1a23f2a16fed822e7431205fd8072fc6242fc2592d5d35482a4c0e33eea"
+    },
+    {
+      "path": "control-cold/new-real-nbf-red.coating.json",
+      "bytes": 836271,
+      "sha256": "aed93c8bf234f6b6c930c97d1a3bd7192a4e15ec51833d17973f0e662d5dc3be"
+    },
+    {
+      "path": "control-cold/real-hr-96.coating.json",
+      "bytes": 416794,
+      "sha256": "8c5c70113a3a4e33832b991eacdef0ff5dbb9d20a2595824767dc438f7869025"
+    },
+    {
+      "path": "control-cold/real-nbf2-96.coating.json",
+      "bytes": 517067,
+      "sha256": "cee19582fda4029644821eb47fd3d855530321aeec44f5027eeafdb3b88364fc"
+    },
+    {
+      "path": "control-cold/summary.json",
+      "bytes": 611457,
+      "sha256": "6b4e60fde00d343fe3048358dde4ea36e4376d631b088cdab89583f058651e37"
+    },
+    {
+      "path": "cross-control-final/correction-real-nbf-red.coating.json",
+      "bytes": 879388,
+      "sha256": "13bb2f90691ccf9fcd5c7db7aafd0642c575eba2df0b7a4ed699f515667e17f7"
+    },
+    {
+      "path": "cross-control-final/new-ir-double.coating.json",
+      "bytes": 1512554,
+      "sha256": "5fd6db561d6887b0c340f050af0ecd2ac16eaa59ad9364787b48fa21a48cfc55"
+    },
+    {
+      "path": "cross-control-final/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 916538,
+      "sha256": "75d5a1a23f2a16fed822e7431205fd8072fc6242fc2592d5d35482a4c0e33eea"
+    },
+    {
+      "path": "cross-control-final/new-real-nbf-red.coating.json",
+      "bytes": 836271,
+      "sha256": "aed93c8bf234f6b6c930c97d1a3bd7192a4e15ec51833d17973f0e662d5dc3be"
+    },
+    {
+      "path": "cross-control-final/summary.json",
+      "bytes": 3255094,
+      "sha256": "fa7007650043b248e9a0980ed164806b5cddedbea4a507b063a1d637714d45a7"
+    },
+    {
+      "path": "cross-feedback-final/correction-real-nbf-red.coating.json",
+      "bytes": 517011,
+      "sha256": "de02faacdfa5790b756b054bcd7c61dc7ac1888b5e80ce364807b8326a514900"
+    },
+    {
+      "path": "cross-feedback-final/new-ir-double.coating.json",
+      "bytes": 1512554,
+      "sha256": "5fd6db561d6887b0c340f050af0ecd2ac16eaa59ad9364787b48fa21a48cfc55"
+    },
+    {
+      "path": "cross-feedback-final/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 916538,
+      "sha256": "75d5a1a23f2a16fed822e7431205fd8072fc6242fc2592d5d35482a4c0e33eea"
+    },
+    {
+      "path": "cross-feedback-final/new-real-nbf-red.coating.json",
+      "bytes": 950907,
+      "sha256": "37503f5752bb9cf0bd82312eb294d4bf94402d1463646e870637f261c50baab3"
+    },
+    {
+      "path": "cross-feedback-final/summary.json",
+      "bytes": 4715057,
+      "sha256": "8e89929fb52cfc8fc092e7bdd155a77772ed769d49737a2d62b3d7d3948cfa1f"
+    },
+    {
+      "path": "cross-inputs/correction-real-nbf-red.coating.json",
+      "bytes": 2714320,
+      "sha256": "cd87462e991bb772f9c1ba46559af1b906262d7a702376f47bcad1263446bbb0"
+    },
+    {
+      "path": "cross-inputs/new-ir-double.coating.json",
+      "bytes": 2749415,
+      "sha256": "eabdd5bfc91b4d8ade838e482fb06b05e6a554b2fbeee89d252d05780070e683"
+    },
+    {
+      "path": "cross-inputs/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 1252529,
+      "sha256": "fd9fbb4db40924c2b9308a79b527ebf2fbc15eaeeccc5b4828c88b3933282538"
+    },
+    {
+      "path": "cross-inputs/new-real-nbf-red.coating.json",
+      "bytes": 2163254,
+      "sha256": "b01e0df5c82ee012a25eeef8a8fc311ffbee2cee19eb9818ebd6441065f73cfe"
+    },
+    {
+      "path": "cross-prototype-final/correction-real-nbf-red.coating.json",
+      "bytes": 517011,
+      "sha256": "de02faacdfa5790b756b054bcd7c61dc7ac1888b5e80ce364807b8326a514900"
+    },
+    {
+      "path": "cross-prototype-final/new-ir-double.coating.json",
+      "bytes": 1512554,
+      "sha256": "5fd6db561d6887b0c340f050af0ecd2ac16eaa59ad9364787b48fa21a48cfc55"
+    },
+    {
+      "path": "cross-prototype-final/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 916538,
+      "sha256": "75d5a1a23f2a16fed822e7431205fd8072fc6242fc2592d5d35482a4c0e33eea"
+    },
+    {
+      "path": "cross-prototype-final/new-real-nbf-red.coating.json",
+      "bytes": 517026,
+      "sha256": "84eaf7883808f5e9774e37312dbe2bfe35ab8fd39fadfdc911e1bbacdee8ba10"
+    },
+    {
+      "path": "cross-prototype-final/summary.json",
+      "bytes": 4915122,
+      "sha256": "bcafc2903a5ff5f65fd5f0d4455fe5bf4505227c9b5bd5cb0671b955def2a084"
+    },
+    {
+      "path": "current-control/correction-real-hr-red.coating.json",
+      "bytes": 425158,
+      "sha256": "399d20ecd064397174ac113535b9f50355bcc82d7369d7582e653c14c9c9c903"
+    },
+    {
+      "path": "current-control/correction-real-nbf-red.coating.json",
+      "bytes": 879812,
+      "sha256": "f20a39552ec5b9138e7f40cda34c6cb2ebbb66cca8388a234481cb174f490f71"
+    },
+    {
+      "path": "current-control/holdout-real-hr-nearir.coating.json",
+      "bytes": 420007,
+      "sha256": "f301aaa0084977d3e1668d0cfa1e350a8731a08ec96776bf04f5cbc02955f86e"
+    },
+    {
+      "path": "current-control/new-ir-double.coating.json",
+      "bytes": 411615,
+      "sha256": "eecafb4c94831e4cf8d88625af37be662256c81a26c58e49bcd6bdce8417316a"
+    },
+    {
+      "path": "current-control/new-real-nbf-green.coating.json",
+      "bytes": 831738,
+      "sha256": "51ee37a78f281383b81fc2e589c21a06519ebe57e49bf8af03afdeab994ae890"
+    },
+    {
+      "path": "current-control/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 917296,
+      "sha256": "1bb89bee9ebfe75915b8acaa720360c348270e67a88d1b9b8677991dc69907cd"
+    },
+    {
+      "path": "current-control/new-real-nbf-red.coating.json",
+      "bytes": 836691,
+      "sha256": "f8de7ef9e5fa5402cafb0097ed543dfee1b22848021ebfc584636f6a6e51f2c6"
+    },
+    {
+      "path": "current-control/real-hr-96.coating.json",
+      "bytes": 416794,
+      "sha256": "8c5c70113a3a4e33832b991eacdef0ff5dbb9d20a2595824767dc438f7869025"
+    },
+    {
+      "path": "current-control/real-nbf2-96.coating.json",
+      "bytes": 517827,
+      "sha256": "f6731ec734d83475485d070c808f61c763e004e12e090224b11b9c567761b903"
+    },
+    {
+      "path": "current-control/summary.json",
+      "bytes": 611475,
+      "sha256": "332389f4537080d69eb033ee953ea905dbb2488f71df1393cc0972e0387c3da1"
+    },
+    {
+      "path": "current-feedback/correction-real-hr-red.coating.json",
+      "bytes": 425153,
+      "sha256": "0aa04f694165dea49f74c02d6ed8ad4d29baef7fc418ed21811f2d5cdaf11d5a"
+    },
+    {
+      "path": "current-feedback/correction-real-nbf-red.coating.json",
+      "bytes": 517433,
+      "sha256": "362e7d4e70c7a63dbeaff5ff4228ad60c1ceb0acda16dd9659fa956fe83325ee"
+    },
+    {
+      "path": "current-feedback/holdout-real-hr-nearir.coating.json",
+      "bytes": 420006,
+      "sha256": "0257526b69dfd66a6580dc0ed99e8d2b61ec406a2a876d23299da573a99ab328"
+    },
+    {
+      "path": "current-feedback/new-ir-double.coating.json",
+      "bytes": 411615,
+      "sha256": "eecafb4c94831e4cf8d88625af37be662256c81a26c58e49bcd6bdce8417316a"
+    },
+    {
+      "path": "current-feedback/new-real-nbf-green.coating.json",
+      "bytes": 517716,
+      "sha256": "7bf232a23b3b1fc11c65cdc406816baa6bd2ee6c97e87e5723640393f1b8f78e"
+    },
+    {
+      "path": "current-feedback/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 917296,
+      "sha256": "1bb89bee9ebfe75915b8acaa720360c348270e67a88d1b9b8677991dc69907cd"
+    },
+    {
+      "path": "current-feedback/new-real-nbf-red.coating.json",
+      "bytes": 951333,
+      "sha256": "5428a778c2bed4ee60b9b1b596c6a4a7354b70ba6ab0635e3775963b8e426a6f"
+    },
+    {
+      "path": "current-feedback/real-hr-96.coating.json",
+      "bytes": 416815,
+      "sha256": "adff05e089e20d1daf1b21a492048d79cff49d0f44e0e453c008cafc445faee8"
+    },
+    {
+      "path": "current-feedback/real-nbf2-96.coating.json",
+      "bytes": 517827,
+      "sha256": "f6731ec734d83475485d070c808f61c763e004e12e090224b11b9c567761b903"
+    },
+    {
+      "path": "current-feedback/summary.json",
+      "bytes": 341370,
+      "sha256": "97fb716eab868c1b50e62896b1cb23c2be06921d14dab6b7f9eb0a8629c53ecf"
+    },
+    {
+      "path": "current-input/correction-real-hr-red.coating.json",
+      "bytes": 452161,
+      "sha256": "c25cf1e2e05d354a7432356f843c7a0d34be5332e6f2d05af6663340f483919a"
+    },
+    {
+      "path": "current-input/correction-real-nbf-red.coating.json",
+      "bytes": 2714742,
+      "sha256": "4348626980f0e856115e1e9c567fbeb978b20e3e5bf5db4e0962e2a0a9f33131"
+    },
+    {
+      "path": "current-input/holdout-real-hr-nearir.coating.json",
+      "bytes": 527794,
+      "sha256": "2b90f9adf1a580efecf8b90a5de17e322815eb112fe3bc4e584703180bda6a8c"
+    },
+    {
+      "path": "current-input/new-ir-double.coating.json",
+      "bytes": 1648476,
+      "sha256": "f9b2e469ed6ce80015c17ce5a1eccab4a69f785dc07f118cd32f74b6c685bff2"
+    },
+    {
+      "path": "current-input/new-real-nbf-green.coating.json",
+      "bytes": 2308937,
+      "sha256": "d7b61349d25cbc0a4664c6c9ddfda34287b2d579c6b99c350fae6b3d73c4489e"
+    },
+    {
+      "path": "current-input/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 1253287,
+      "sha256": "d8838dcb4ead013bf12db4cf4b985ba9178ad7350eca08a405de6a807f7ea4bd"
+    },
+    {
+      "path": "current-input/new-real-nbf-red.coating.json",
+      "bytes": 2163678,
+      "sha256": "818df9ff72b12d45aed8403ef22a71cdb296da7dc995817a0209817780d91099"
+    },
+    {
+      "path": "current-input/real-hr-96.coating.json",
+      "bytes": 443745,
+      "sha256": "a78a5a3714d8154e51b353962081f54656d5e338eb475a8657817385d64bc2f7"
+    },
+    {
+      "path": "current-input/real-nbf2-96.coating.json",
+      "bytes": 2425763,
+      "sha256": "595c3ad8b3f2cef4fab12ecc3809aefd73b53a5f1654ed9eed0c184393619daf"
+    },
+    {
+      "path": "current-input/summary.json",
+      "bytes": 8947952,
+      "sha256": "a78ad5715bd635af7e00b1f6ce16d59844c75f83d7c4852c4f52c3ca82c95097"
+    },
+    {
+      "path": "current-larger-old/new-real-nbf-green.coating.json",
+      "bytes": 920292,
+      "sha256": "065fec09d7f80ea2da2b1fa8f88e805cf2cc1a596f22bd17c570cdf307dbb452"
+    },
+    {
+      "path": "current-larger-old/real-nbf2-96.coating.json",
+      "bytes": 1174653,
+      "sha256": "9909e34f95df66d0b73496b4263d9165969950e694ee4eb244b9592787c62f73"
+    },
+    {
+      "path": "current-larger-old/summary.json",
+      "bytes": 521630,
+      "sha256": "0b0f4bf4504a768cdc1e1d2eb7402f46779e174593bb63a395e56ba0929fe808"
+    },
+    {
+      "path": "current-paired.json",
+      "bytes": 38459205,
+      "sha256": "4c3e6bf100ee309fa9b27ebd0396ed0ad47eadbc8b47b9b95b17291975b412fb"
+    },
+    {
+      "path": "current-prototype/correction-real-nbf-red.coating.json",
+      "bytes": 517433,
+      "sha256": "362e7d4e70c7a63dbeaff5ff4228ad60c1ceb0acda16dd9659fa956fe83325ee"
+    },
+    {
+      "path": "current-prototype/new-ir-double.coating.json",
+      "bytes": 411615,
+      "sha256": "eecafb4c94831e4cf8d88625af37be662256c81a26c58e49bcd6bdce8417316a"
+    },
+    {
+      "path": "current-prototype/new-real-nbf-green.coating.json",
+      "bytes": 517716,
+      "sha256": "7bf232a23b3b1fc11c65cdc406816baa6bd2ee6c97e87e5723640393f1b8f78e"
+    },
+    {
+      "path": "current-prototype/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 917296,
+      "sha256": "1bb89bee9ebfe75915b8acaa720360c348270e67a88d1b9b8677991dc69907cd"
+    },
+    {
+      "path": "current-prototype/new-real-nbf-red.coating.json",
+      "bytes": 517450,
+      "sha256": "e57d9e2d592b22ec8de02e99af2996a619fa73e4daec778c40c5429bb75db5e7"
+    },
+    {
+      "path": "current-prototype/real-nbf2-96.coating.json",
+      "bytes": 1300224,
+      "sha256": "aa3d26c2b0a669bfb657db93a71f09297dcf0e1b6327e116976d87522f8e58a8"
+    },
+    {
+      "path": "current-prototype/summary.json",
+      "bytes": 406472,
+      "sha256": "bc15ed71f8f728770ff48dd30f3c2191128bfc6a70aef882fdb3b0591a990f40"
+    },
+    {
+      "path": "current-reference/correction-real-hr-red-structural-DLS.coating.json",
+      "bytes": 354353,
+      "sha256": "d3955a7909dab0f605dcf3ce26c0224ddf91b5361dad0d0952daea7897398aea"
+    },
+    {
+      "path": "current-reference/correction-real-nbf-red-structural-DLS.coating.json",
+      "bytes": 517714,
+      "sha256": "cddf945d1a54da084c2ae2ac1921f5011c08a99f6eecebd84e1f39cce97fc3e6"
+    },
+    {
+      "path": "current-reference/holdout-real-hr-nearir-structural-DLS.coating.json",
+      "bytes": 349228,
+      "sha256": "8463f0dbd08f3966c65fd68df7d321175757d93699909dca21f1c81197d9fadc"
+    },
+    {
+      "path": "current-reference/new-ir-double-structural-DLS.coating.json",
+      "bytes": 411092,
+      "sha256": "0a1225c390ad172c9c64626dd7bfcd5f374a0ea4c80652b843bad7a9dfff2bed"
+    },
+    {
+      "path": "current-reference/new-real-nbf-green-structural-DLS.coating.json",
+      "bytes": 517855,
+      "sha256": "ea61fb24edb4bae94447b91df574c563ae04e217552762cc69d8515bddf1ccb5"
+    },
+    {
+      "path": "current-reference/new-real-nbf-red-structural-DLS.coating.json",
+      "bytes": 517160,
+      "sha256": "475394f841499f9e7f6cc4653a4669c791178e8e572b48378eda2d0155b2b09a"
+    },
+    {
+      "path": "current-reference/real-hr-96-structural-DLS.coating.json",
+      "bytes": 345949,
+      "sha256": "6034ef2017bf7d27d6a3ad3306bcb7035052909b6ce5dbb6de9920b89dbe2d4c"
+    },
+    {
+      "path": "current-reference/real-nbf2-96-structural-DLS.coating.json",
+      "bytes": 916208,
+      "sha256": "92ae3cd64bc0dc31aea7790375e2ba3322745b8105126f49ada0f09a8eeeb3fb"
+    },
+    {
+      "path": "current-reference/summary.json",
+      "bytes": 441372,
+      "sha256": "f36f1bf877b567fe66a07239a5705f27ae7db98a2c4a1e09befddba67a6afcd6"
+    },
+    {
+      "path": "current-stages/correction-real-hr-red-control-4.coating.json",
+      "bytes": 354358,
+      "sha256": "fc7781f387d2811bc75a4ea2dd0347f35759839e6d3ec7e7d853697b9d321d75"
+    },
+    {
+      "path": "current-stages/correction-real-hr-red-control-9.coating.json",
+      "bytes": 354399,
+      "sha256": "af2f09ea7df3a15bbbc45b0cf3012b3bf0be0f1380de499192c63be28104f462"
+    },
+    {
+      "path": "current-stages/correction-real-hr-red-feedback-4.coating.json",
+      "bytes": 354348,
+      "sha256": "2e474a091a98368f7bdd35a9d869eb1adfbfb9423e975efcdd5ec221c65452b5"
+    },
+    {
+      "path": "current-stages/correction-real-hr-red-feedback-9.coating.json",
+      "bytes": 354396,
+      "sha256": "a922e86a4ccc29c76240204b0c30076eae9cc548655e125aab57153aca5a873c"
+    },
+    {
+      "path": "current-stages/correction-real-nbf-red-control-4.coating.json",
+      "bytes": 517075,
+      "sha256": "ef5976eb989214d6bb26614b6deddd0bd944d699f31afce333523d33de0f8a3a"
+    },
+    {
+      "path": "current-stages/correction-real-nbf-red-control-9.coating.json",
+      "bytes": 517370,
+      "sha256": "1be84ab417b3a027f0d497759361bbbec219f9c291c45dc49a2bce1fc0b86ec3"
+    },
+    {
+      "path": "current-stages/correction-real-nbf-red-feedback-4.coating.json",
+      "bytes": 518001,
+      "sha256": "8e75e7807f7d32a6eebffdfbfe1aba9921b1661fdc8753d511074a5b0c7a19ec"
+    },
+    {
+      "path": "current-stages/correction-real-nbf-red-feedback-9.coating.json",
+      "bytes": 518043,
+      "sha256": "2902d964b5c9ae2daaa47c3b8f4430efd254f67fa9eb65c564c873df3632d7df"
+    },
+    {
+      "path": "current-stages/correction-real-nbf-red-prototype-4.coating.json",
+      "bytes": 517981,
+      "sha256": "ca687f1823b76f973c68d2373ca218aca668bc3421e4e94619f7af5b887a642c"
+    },
+    {
+      "path": "current-stages/correction-real-nbf-red-prototype-9.coating.json",
+      "bytes": 517932,
+      "sha256": "d9ffaac0c50e50efb34f8377f1954201df11d207c9091d732e557ca1c0d69b6d"
+    },
+    {
+      "path": "current-stages/holdout-real-hr-nearir-control-4.coating.json",
+      "bytes": 349212,
+      "sha256": "89c83e6da007d1f6729fe9a281d85f728be706e9fd015fe4311bb05a64458e78"
+    },
+    {
+      "path": "current-stages/holdout-real-hr-nearir-control-9.coating.json",
+      "bytes": 349197,
+      "sha256": "a45d232613c8a8074d4f5953272466daffe6bb3f8b21905b9d2720f36e6ed05a"
+    },
+    {
+      "path": "current-stages/holdout-real-hr-nearir-feedback-4.coating.json",
+      "bytes": 349202,
+      "sha256": "796a4a4de072e107ef9f4c2a6a1906d5bec3f468442ecc6a247baee0c077a03f"
+    },
+    {
+      "path": "current-stages/holdout-real-hr-nearir-feedback-9.coating.json",
+      "bytes": 349216,
+      "sha256": "a83497bc5a00f7aa13962d904d21b4bfcbd7eefd7d1df60890a782124f8ee739"
+    },
+    {
+      "path": "current-stages/new-ir-double-control-4.coating.json",
+      "bytes": 411557,
+      "sha256": "c5d3ee0ccbb60b1be583c0ebb6c640e26f1bf3d2463d70ee61383c74bd48c56d"
+    },
+    {
+      "path": "current-stages/new-ir-double-control-9.coating.json",
+      "bytes": 411690,
+      "sha256": "9b6bd1bb3031d81081698a17cf37e43c86e10f2a11a0a25d8d34290ed9c9bf8f"
+    },
+    {
+      "path": "current-stages/new-ir-double-feedback-4.coating.json",
+      "bytes": 410979,
+      "sha256": "23325c56c9cae173b8e4651eb6bc3663f2165a42a50fb75ba6024f6b78dd3c7a"
+    },
+    {
+      "path": "current-stages/new-ir-double-feedback-9.coating.json",
+      "bytes": 411048,
+      "sha256": "ba30f1b5d81aa0bea832590e001876ec1080a5f8f754918162c2baa202989f8b"
+    },
+    {
+      "path": "current-stages/new-ir-double-prototype-4.coating.json",
+      "bytes": 410884,
+      "sha256": "8bf81487e3268d5c600f725be6b79e0e508dd329939e208d9a4d67cfad3daf34"
+    },
+    {
+      "path": "current-stages/new-ir-double-prototype-9.coating.json",
+      "bytes": 410904,
+      "sha256": "9546465c32cc8e52bd6959e1f77d068f665782c849eaf4ca5ad5bc89bc486aaf"
+    },
+    {
+      "path": "current-stages/new-real-nbf-green-control-4.coating.json",
+      "bytes": 517735,
+      "sha256": "735c6e6dd7ccd1d42a09ce424608559bdbedb9672ef40d4b6702525dd74b7fe7"
+    },
+    {
+      "path": "current-stages/new-real-nbf-green-control-9.coating.json",
+      "bytes": 517659,
+      "sha256": "aa73641faa0cab66852a2e76ae2893b1a5c5317146045fde5237e945fd85c106"
+    },
+    {
+      "path": "current-stages/new-real-nbf-green-feedback-4.coating.json",
+      "bytes": 517038,
+      "sha256": "28d650c2529190319e8aa923fd2e8b4555ab692716f272564f48a7efd1510bed"
+    },
+    {
+      "path": "current-stages/new-real-nbf-green-feedback-9.coating.json",
+      "bytes": 517514,
+      "sha256": "1fbb3c734a6b70b6d7e792e67eb128f669f4f26bd35a74aaa862be9d0cd41f0e"
+    },
+    {
+      "path": "current-stages/new-real-nbf-green-prototype-4.coating.json",
+      "bytes": 517692,
+      "sha256": "6032958e0c68a974495374c9697fe8d678b1f1ff6e15250dc9f3aa8be346a753"
+    },
+    {
+      "path": "current-stages/new-real-nbf-green-prototype-9.coating.json",
+      "bytes": 917592,
+      "sha256": "a88818228a37ed42004874e3e240a7077fe3804314cd2d232098f37ce3e9f212"
+    },
+    {
+      "path": "current-stages/new-real-nbf-nearir-fixed-control-4.coating.json",
+      "bytes": 518051,
+      "sha256": "56cb8ebd3267d9e88b847282056c833efe0ffadcba9e1c0149027ccfc49bad43"
+    },
+    {
+      "path": "current-stages/new-real-nbf-nearir-fixed-control-9.coating.json",
+      "bytes": 518068,
+      "sha256": "7e9a1a85822f9fe5e204d21fc6500772e70b7ad0849466f62bc41ed2062cb5cc"
+    },
+    {
+      "path": "current-stages/new-real-nbf-nearir-fixed-feedback-4.coating.json",
+      "bytes": 518051,
+      "sha256": "56cb8ebd3267d9e88b847282056c833efe0ffadcba9e1c0149027ccfc49bad43"
+    },
+    {
+      "path": "current-stages/new-real-nbf-nearir-fixed-feedback-9.coating.json",
+      "bytes": 518051,
+      "sha256": "56cb8ebd3267d9e88b847282056c833efe0ffadcba9e1c0149027ccfc49bad43"
+    },
+    {
+      "path": "current-stages/new-real-nbf-nearir-fixed-prototype-4.coating.json",
+      "bytes": 518051,
+      "sha256": "56cb8ebd3267d9e88b847282056c833efe0ffadcba9e1c0149027ccfc49bad43"
+    },
+    {
+      "path": "current-stages/new-real-nbf-nearir-fixed-prototype-9.coating.json",
+      "bytes": 518051,
+      "sha256": "56cb8ebd3267d9e88b847282056c833efe0ffadcba9e1c0149027ccfc49bad43"
+    },
+    {
+      "path": "current-stages/new-real-nbf-red-control-4.coating.json",
+      "bytes": 517379,
+      "sha256": "e7529813b3a818e01fde899b3f984012abd4d3e42b0e94b9d2d5db3c6589bcd6"
+    },
+    {
+      "path": "current-stages/new-real-nbf-red-control-9.coating.json",
+      "bytes": 517471,
+      "sha256": "0fa3780e039f71b2a5a116494446d857afc67a0a2168fdf04e1fccf2c4dc7a61"
+    },
+    {
+      "path": "current-stages/new-real-nbf-red-feedback-4.coating.json",
+      "bytes": 517645,
+      "sha256": "50bd88f2f8d45cdbe7c04d292404d5ac312f6ba0df14f73f9233a176f5ad69fa"
+    },
+    {
+      "path": "current-stages/new-real-nbf-red-feedback-9.coating.json",
+      "bytes": 517897,
+      "sha256": "a75ed38852d706ec3af3347daef15950ed518b2e71a88ca93645d023b94a2967"
+    },
+    {
+      "path": "current-stages/new-real-nbf-red-prototype-4.coating.json",
+      "bytes": 517388,
+      "sha256": "64ff87f8cc1955ccc13ea4aa57cabcc164c8ae71afc520b822c73910249ed963"
+    },
+    {
+      "path": "current-stages/new-real-nbf-red-prototype-9.coating.json",
+      "bytes": 517239,
+      "sha256": "c97d53cefbbcb1f6fb890d77041dd4ab3ecff403dfbba4dff0cd5dc5d788c034"
+    },
+    {
+      "path": "current-stages/real-hr-96-control-4.coating.json",
+      "bytes": 345991,
+      "sha256": "58b7d75d7ebe2f09b7977bbea1a9de58b9d141dd9b21f707cb0da787008f9638"
+    },
+    {
+      "path": "current-stages/real-hr-96-control-9.coating.json",
+      "bytes": 346000,
+      "sha256": "e18c2a6f2af58d405044452bef016ad48ad6e640ff69982a4eb4b6ad5460b0b6"
+    },
+    {
+      "path": "current-stages/real-hr-96-feedback-4.coating.json",
+      "bytes": 346027,
+      "sha256": "35e2033f45a8a1c0df359b35ca5960788282173be8a63ccaaabd0b43b018caa1"
+    },
+    {
+      "path": "current-stages/real-hr-96-feedback-9.coating.json",
+      "bytes": 345941,
+      "sha256": "c968a624519b4daa3e5d00662884bbb399fb7e5677556465892a2a8428fd986d"
+    },
+    {
+      "path": "current-stages/real-nbf2-96-control-4.coating.json",
+      "bytes": 517362,
+      "sha256": "6221a10096cad5a92e6f82ae335ac4f1a7b5ff80c3972d398ab0369275d8128a"
+    },
+    {
+      "path": "current-stages/real-nbf2-96-control-9.coating.json",
+      "bytes": 1712493,
+      "sha256": "46bcb9dde7c07d8a76d8314b63be3cfeac6792d74c82e0f1151910fd5ba66f8b"
+    },
+    {
+      "path": "current-stages/real-nbf2-96-feedback-4.coating.json",
+      "bytes": 517684,
+      "sha256": "56b202d631c49b8df0cc7195fa234605184671f00a644d90b7164ff62a2e1930"
+    },
+    {
+      "path": "current-stages/real-nbf2-96-feedback-9.coating.json",
+      "bytes": 1712674,
+      "sha256": "396c9ccf96275bf73ed547221c90812d1a86872b40fe90563aac1d8d05ae65dd"
+    },
+    {
+      "path": "current-stages/real-nbf2-96-prototype-4.coating.json",
+      "bytes": 517843,
+      "sha256": "db36b1a1f658e153f322e5749c4ad1dd14b0a1b114539631c95e826e6103863f"
+    },
+    {
+      "path": "current-stages/real-nbf2-96-prototype-9.coating.json",
+      "bytes": 518154,
+      "sha256": "dc4f7c7eb012ff0d291df10a373c2f42d0df96c6b321a967f356c81aa148e63b"
+    },
+    {
+      "path": "current-stages/summary.json",
+      "bytes": 418282,
+      "sha256": "81bedfee29e3803d9633a1da6ff7fec0b60369454f8d13c404e094a7f3e49829"
+    },
+    {
+      "path": "engine-project/Engine.csproj",
+      "bytes": 983,
+      "sha256": "215de3716d327d8ed976188d4501e3b307fe0e1ed0101df0a89c66dfe69877c4"
+    },
+    {
+      "path": "engine-project/packages.lock.json",
+      "bytes": 66,
+      "sha256": "a4364d81a6de2707d66fbced18fbbc926c882ab96e1d1aebbb17e871285b9d75"
+    },
+    {
+      "path": "execution-ledger.json",
+      "bytes": 1094,
+      "sha256": "7473e5c604f507cc7bd02d783a49d1229520aeebacac37fe772a67580d9707b6"
+    },
+    {
+      "path": "feedback-all/correction-real-hr-red.coating.json",
+      "bytes": 425153,
+      "sha256": "0aa04f694165dea49f74c02d6ed8ad4d29baef7fc418ed21811f2d5cdaf11d5a"
+    },
+    {
+      "path": "feedback-all/correction-real-nbf-red.coating.json",
+      "bytes": 517011,
+      "sha256": "de02faacdfa5790b756b054bcd7c61dc7ac1888b5e80ce364807b8326a514900"
+    },
+    {
+      "path": "feedback-all/holdout-real-hr-nearir.coating.json",
+      "bytes": 420006,
+      "sha256": "0257526b69dfd66a6580dc0ed99e8d2b61ec406a2a876d23299da573a99ab328"
+    },
+    {
+      "path": "feedback-all/new-ir-double.coating.json",
+      "bytes": 1512554,
+      "sha256": "5fd6db561d6887b0c340f050af0ecd2ac16eaa59ad9364787b48fa21a48cfc55"
+    },
+    {
+      "path": "feedback-all/new-real-nbf-green.coating.json",
+      "bytes": 516957,
+      "sha256": "36e2d7af980a251a3e6babeef5f614175429b72413036a6bdf99985e67a8d297"
+    },
+    {
+      "path": "feedback-all/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 916538,
+      "sha256": "75d5a1a23f2a16fed822e7431205fd8072fc6242fc2592d5d35482a4c0e33eea"
+    },
+    {
+      "path": "feedback-all/new-real-nbf-red.coating.json",
+      "bytes": 950907,
+      "sha256": "37503f5752bb9cf0bd82312eb294d4bf94402d1463646e870637f261c50baab3"
+    },
+    {
+      "path": "feedback-all/real-hr-96.coating.json",
+      "bytes": 416815,
+      "sha256": "adff05e089e20d1daf1b21a492048d79cff49d0f44e0e453c008cafc445faee8"
+    },
+    {
+      "path": "feedback-all/real-nbf2-96.coating.json",
+      "bytes": 517067,
+      "sha256": "cee19582fda4029644821eb47fd3d855530321aeec44f5027eeafdb3b88364fc"
+    },
+    {
+      "path": "feedback-cold/correction-real-hr-red.coating.json",
+      "bytes": 425153,
+      "sha256": "0aa04f694165dea49f74c02d6ed8ad4d29baef7fc418ed21811f2d5cdaf11d5a"
+    },
+    {
+      "path": "feedback-cold/correction-real-nbf-red.coating.json",
+      "bytes": 517011,
+      "sha256": "de02faacdfa5790b756b054bcd7c61dc7ac1888b5e80ce364807b8326a514900"
+    },
+    {
+      "path": "feedback-cold/holdout-real-hr-nearir.coating.json",
+      "bytes": 420006,
+      "sha256": "0257526b69dfd66a6580dc0ed99e8d2b61ec406a2a876d23299da573a99ab328"
+    },
+    {
+      "path": "feedback-cold/new-ir-double.coating.json",
+      "bytes": 1512554,
+      "sha256": "5fd6db561d6887b0c340f050af0ecd2ac16eaa59ad9364787b48fa21a48cfc55"
+    },
+    {
+      "path": "feedback-cold/new-real-nbf-green.coating.json",
+      "bytes": 516957,
+      "sha256": "36e2d7af980a251a3e6babeef5f614175429b72413036a6bdf99985e67a8d297"
+    },
+    {
+      "path": "feedback-cold/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 916538,
+      "sha256": "75d5a1a23f2a16fed822e7431205fd8072fc6242fc2592d5d35482a4c0e33eea"
+    },
+    {
+      "path": "feedback-cold/new-real-nbf-red.coating.json",
+      "bytes": 950907,
+      "sha256": "37503f5752bb9cf0bd82312eb294d4bf94402d1463646e870637f261c50baab3"
+    },
+    {
+      "path": "feedback-cold/real-hr-96.coating.json",
+      "bytes": 416815,
+      "sha256": "adff05e089e20d1daf1b21a492048d79cff49d0f44e0e453c008cafc445faee8"
+    },
+    {
+      "path": "feedback-cold/real-nbf2-96.coating.json",
+      "bytes": 517067,
+      "sha256": "cee19582fda4029644821eb47fd3d855530321aeec44f5027eeafdb3b88364fc"
+    },
+    {
+      "path": "feedback-cold/summary.json",
+      "bytes": 341354,
+      "sha256": "7bc2c80139228fb5222a36bbdd37ce42dc7aa3e58cb59ce8a5e31b6108777b17"
+    },
+    {
+      "path": "final-docs/coating-reference-README.md",
+      "bytes": 3432,
+      "sha256": "5ce9cd279ade6f8b441961ae46e8c7ce8cc8797f59d181ca18c98a6e60adf16d"
+    },
+    {
+      "path": "final-docs/COATING_DESIGN_LAB.md",
+      "bytes": 22429,
+      "sha256": "49451ac02c7b93e8cddc7fa572c5d61349c3a5ee53b5e3f782a3b348d5c7a3ec"
+    },
+    {
+      "path": "final-docs/COATING_TOPOLOGY_FEEDBACK_2026-11-01.md",
+      "bytes": 8417,
+      "sha256": "0bc48ec2486069b76e7f488e796e0e7d61eda52a43a2f59e74c19bb272a438b2"
+    },
+    {
+      "path": "final-docs/CoatingDesign-README.md",
+      "bytes": 14666,
+      "sha256": "80eef754fbb49689d3570a8fc63941ffaff02b745f50304c35045277ec09f0a5"
+    },
+    {
+      "path": "final-docs/CURRENT_STATUS.md",
+      "bytes": 516403,
+      "sha256": "10a247789a737c179c4d4f0dd1a0005502a92364d097e6a8e03fe71277b05e19"
+    },
+    {
+      "path": "final-docs/FILE_FORMATS_AND_PLUGINS.md",
+      "bytes": 35157,
+      "sha256": "9cfff45163cde67006bed06f9fe06e6530d3a12aaf2f08ce0750c1e87114617b"
+    },
+    {
+      "path": "final-source/DesignService.Balanced.cs",
+      "bytes": 6072,
+      "sha256": "9d154bc46f017ea82f13d2f399f907c893b7d5f11ce544494ba4d8a9ba63a2cd"
+    },
+    {
+      "path": "final-source/DesignService.cs",
+      "bytes": 31121,
+      "sha256": "ecbfe3a74500307aca28539fde013fa1508b2ca19af8a7d005e9bcb187ae696a"
+    },
+    {
+      "path": "final-source/DesignService.DenseExtrema.cs",
+      "bytes": 1952,
+      "sha256": "87afb611a5dc47e68d925c840182e5b2566910170fd9b636a855b3df48adf2ab"
+    },
+    {
+      "path": "final-source/DesignService.FeasibleReflectance.cs",
+      "bytes": 13298,
+      "sha256": "b9749ae7e70984e043080990a3fa43d1c552fc78e8c57ac911502d07fc81440e"
+    },
+    {
+      "path": "final-source/DesignService.FeasibleTargets.cs",
+      "bytes": 24930,
+      "sha256": "49bc97932d27f2f4978b3c177b93885b7d078a609536851081a5cd6914dca411"
+    },
+    {
+      "path": "final-source/DesignService.GeneralMatching.cs",
+      "bytes": 6405,
+      "sha256": "60061f33aab5d6c2101eacf42c51ce2d2858c7f22d67c30988845b6b5df74d17"
+    },
+    {
+      "path": "final-source/DesignService.GeneralObjective.cs",
+      "bytes": 35064,
+      "sha256": "bb4b193c0bc6acb9a1ddbf4581385eec23080a3810c23b1ea6cc5888eaf748fa"
+    },
+    {
+      "path": "final-source/DesignService.GeneralSearch.cs",
+      "bytes": 14133,
+      "sha256": "fc259a1c388a49f29049a35eaec720f052be69e68c16533457450059a661abcf"
+    },
+    {
+      "path": "final-source/DesignService.NarrowBand.cs",
+      "bytes": 22600,
+      "sha256": "bb94dd3345179aef1a813d0ba3d6c274317ae9c2504020542514dcfb3d25d9d4"
+    },
+    {
+      "path": "final-source/DesignService.NonlinearCorrection.cs",
+      "bytes": 1042,
+      "sha256": "8a5aa350155eb3aec51aca25c28ccaecde38ab6f2e0a82df79ff0daf69e82b2e"
+    },
+    {
+      "path": "final-source/DesignService.PassbandQuality.cs",
+      "bytes": 19971,
+      "sha256": "695d2addc4c60c06945975cbe1677edbca1777c8f259a75653eeb2f72a6f4cae"
+    },
+    {
+      "path": "final-source/DesignService.ReflectanceQuality.cs",
+      "bytes": 10781,
+      "sha256": "9849a5fde0063d3e4eeee895b6a6c6a71ab78da7245b3f05d5f0bdc5560b82d7"
+    },
+    {
+      "path": "final-source/DesignService.Search.cs",
+      "bytes": 7490,
+      "sha256": "9b942bba5b3f1bf1c4b7b7a367bc52324671380f7244e12f91c747949316f7fe"
+    },
+    {
+      "path": "final-source/DesignService.SearchSampling.cs",
+      "bytes": 3048,
+      "sha256": "56065380bba2e71c897e3469f56681957469b6304dcf5e4037cfe4de6f01762c"
+    },
+    {
+      "path": "final-source/DesignService.SeedRanking.cs",
+      "bytes": 4621,
+      "sha256": "59c0ed45e861a37946a0931641be456d60d225a96a7a277487c896753228b801"
+    },
+    {
+      "path": "final-source/DesignService.TargetProtection.cs",
+      "bytes": 15066,
+      "sha256": "6ca22e288c3af85681801cbd3d3be8dc5fe200c505af2fe7aa325f4146489993"
+    },
+    {
+      "path": "final-source/Examples.cs",
+      "bytes": 1467,
+      "sha256": "9a9dc871c726b286ebc4655b28cc4ed6246ebbd0586d580f440a333eb7fa583f"
+    },
+    {
+      "path": "final-source/Experiment.cs",
+      "bytes": 20765,
+      "sha256": "29593106ecfb0bd9733a46f0a9e0cd728fd43f11cd4701afd12fcffa85af8eae"
+    },
+    {
+      "path": "final-source/ExperimentSession.cs",
+      "bytes": 2114,
+      "sha256": "a4e5260c9eb042a6a78cba888bbfcd3420c34ba2e3ed2f497701effeed86d0a5"
+    },
+    {
+      "path": "final-source/ExperimentStore.cs",
+      "bytes": 5371,
+      "sha256": "a1bc7a7563043edad95f805825972d2f849f74d8964440886159bd7caad1ab8c"
+    },
+    {
+      "path": "final-source/MaterialLibrary.cs",
+      "bytes": 2045,
+      "sha256": "96d2700ae56c23dfcf93f47f12042c8b3c20ef445a66670ff5ba162d05f1860b"
+    },
+    {
+      "path": "final-source/MaterialSuitability.cs",
+      "bytes": 4461,
+      "sha256": "76d0ef7bca6164e722900d6937d7890c60906612dbb71cd1f479f199cc34056c"
+    },
+    {
+      "path": "final-source/MaterialTable.cs",
+      "bytes": 4090,
+      "sha256": "b03e578863fc66daa1347fee2660deeefc086acf54c5d1b1e77c911d9f10d165"
+    },
+    {
+      "path": "final-tests/DenseExtremaTests.cs",
+      "bytes": 4275,
+      "sha256": "4ca6435e06328d584d0d70accb407d89bcfd4a05417b8ddd63d8df79f52fcde0"
+    },
+    {
+      "path": "final-tests/Fixtures/dense-extrema-20261101.json",
+      "bytes": 172113,
+      "sha256": "a4c7bd7663c52ff9bb0babeadc72146382cb9523c3250904b75eaadb56e3fe56"
+    },
+    {
+      "path": "final-tests/OpticalSystemDesign.CoatingDesign.Tests.csproj",
+      "bytes": 2325,
+      "sha256": "478f69ed5ff7efd6277a940d0050d1ce4357a51593c11caf71a4ab833e94395d"
+    },
+    {
+      "path": "final-tools/collect.py",
+      "bytes": 2288,
+      "sha256": "21fe85a0dee1f6c97e711385859389a896bafef97acf50b16fb863f80ae257d8"
+    },
+    {
+      "path": "final-tools/current.py",
+      "bytes": 2361,
+      "sha256": "e30811db1fbfe93238a4f30d4192b8344e972394d006f5c0083f1ed6ddb17f64"
+    },
+    {
+      "path": "final-tools/draft-before-sampling-fix.py",
+      "bytes": 20429,
+      "sha256": "1218b539b7b85dfe9fd41fc818fdd97f36a47f3309f1265eb27c12fb61028130"
+    },
+    {
+      "path": "final-tools/finalize.py",
+      "bytes": 19824,
+      "sha256": "3de39eb48a4be2406abffdcae2d1470c28dac4759ab91a8f66428ac28dbda149"
+    },
+    {
+      "path": "final-tools/FineAudit.cs",
+      "bytes": 2973,
+      "sha256": "646ecf94a112ccf78f8ff34c081b1f03aa0e0e2fb5e28017363bd7a1b0d2de39"
+    },
+    {
+      "path": "final-tools/reference-structural.mjs",
+      "bytes": 4701,
+      "sha256": "dee49fc1ddb1216b66d7c3e8a69084e7179cb41ed7d54f8a9c1981a55084d6dc"
+    },
+    {
+      "path": "final-tools/seal.py",
+      "bytes": 1221,
+      "sha256": "af97166fd3bf21b06672f50fa3b3350326db99452ddfe8992cb772565673725c"
+    },
+    {
+      "path": "final-tools/StageRecheck.cs",
+      "bytes": 1938,
+      "sha256": "344e66c3fb09a605b1a34dd68e66feb9838e6bf433b1d707cb8264b574e763ba"
+    },
+    {
+      "path": "final-tools/TopologyAudit.cs",
+      "bytes": 15986,
+      "sha256": "c2c260bcff70be28bf87203160c35153e275cb8ca5109a83c7d4071ed013dbea"
+    },
+    {
+      "path": "final-topology-source.cs",
+      "bytes": 12806,
+      "sha256": "eaeff11308e52fb1645f964efefd19623d7b8b9e37ad428a5f7a80b0fa2ad5ff"
+    },
+    {
+      "path": "fine-inputs/old272.coating.json",
+      "bytes": 1174229,
+      "sha256": "7aa91c41b712b3dd70363ce29a41a62e0f61160391481b834fa601180ee7b94e"
+    },
+    {
+      "path": "fine-inputs/role550.coating.json",
+      "bytes": 1299797,
+      "sha256": "769d717563fd36ab903a12e0822cd9e2cc06be56e478082496c1306815c6247b"
+    },
+    {
+      "path": "fine-inputs/warm550.coating.json",
+      "bytes": 2425003,
+      "sha256": "76e5ba80e99e5645a728ed62ccf112755bb88b040f5d812a5ebee9fcc2a2684b"
+    },
+    {
+      "path": "fine-project/FineAudit.csproj",
+      "bytes": 808,
+      "sha256": "249d22eea49f08cc80ed842ed39a6855beeac19a36ecc59d01c70a0f8d5d3847"
+    },
+    {
+      "path": "fine-project/packages.lock.json",
+      "bytes": 66,
+      "sha256": "a4364d81a6de2707d66fbced18fbbc926c882ab96e1d1aebbb17e871285b9d75"
+    },
+    {
+      "path": "fine-sampling-after.json",
+      "bytes": 21605,
+      "sha256": "6b58abb8faab4cd378c981ac2b4fc5510fad957dcf3e1efa0a7e8460bfd2d64a"
+    },
+    {
+      "path": "fine-sampling-before.json",
+      "bytes": 21597,
+      "sha256": "5bf126c93c2af6aaaa5be55c634ae82e1ab4f3af0d1c4e294a157bf29b1bf8fe"
+    },
+    {
+      "path": "fine-sampling-final.json",
+      "bytes": 11553,
+      "sha256": "521ccb681bf4188d481fa7a9b500ca4b718cf5e4e9a886711eec4ee7ce707259"
+    },
+    {
+      "path": "fine-sampling.json",
+      "bytes": 11546,
+      "sha256": "54d13af1f12b90b1b2ab978be708d178aba0b9d1301f00d6904e858a8f902fc9"
+    },
+    {
+      "path": "hr-control-final/correction-real-hr-red.coating.json",
+      "bytes": 425158,
+      "sha256": "399d20ecd064397174ac113535b9f50355bcc82d7369d7582e653c14c9c9c903"
+    },
+    {
+      "path": "hr-control-final/holdout-real-hr-nearir.coating.json",
+      "bytes": 420007,
+      "sha256": "f301aaa0084977d3e1668d0cfa1e350a8731a08ec96776bf04f5cbc02955f86e"
+    },
+    {
+      "path": "hr-control-final/real-hr-96.coating.json",
+      "bytes": 416794,
+      "sha256": "8c5c70113a3a4e33832b991eacdef0ff5dbb9d20a2595824767dc438f7869025"
+    },
+    {
+      "path": "hr-control-final/summary.json",
+      "bytes": 1486780,
+      "sha256": "ec22ca80338977595b12c4287bce640e42b7958855497e19b6e2d5afd0fd10bb"
+    },
+    {
+      "path": "hr-feedback-final/correction-real-hr-red.coating.json",
+      "bytes": 425153,
+      "sha256": "0aa04f694165dea49f74c02d6ed8ad4d29baef7fc418ed21811f2d5cdaf11d5a"
+    },
+    {
+      "path": "hr-feedback-final/holdout-real-hr-nearir.coating.json",
+      "bytes": 420006,
+      "sha256": "0257526b69dfd66a6580dc0ed99e8d2b61ec406a2a876d23299da573a99ab328"
+    },
+    {
+      "path": "hr-feedback-final/real-hr-96.coating.json",
+      "bytes": 416815,
+      "sha256": "adff05e089e20d1daf1b21a492048d79cff49d0f44e0e453c008cafc445faee8"
+    },
+    {
+      "path": "hr-feedback-final/summary.json",
+      "bytes": 13891452,
+      "sha256": "6453f5cce455e2570140568a3b73652693d189d1e073d68eea0f10864cbd8fa1"
+    },
+    {
+      "path": "hr-inputs/correction-real-hr-red.coating.json",
+      "bytes": 452161,
+      "sha256": "c25cf1e2e05d354a7432356f843c7a0d34be5332e6f2d05af6663340f483919a"
+    },
+    {
+      "path": "hr-inputs/holdout-real-hr-nearir.coating.json",
+      "bytes": 527794,
+      "sha256": "2b90f9adf1a580efecf8b90a5de17e322815eb112fe3bc4e584703180bda6a8c"
+    },
+    {
+      "path": "hr-inputs/real-hr-96.coating.json",
+      "bytes": 443745,
+      "sha256": "a78a5a3714d8154e51b353962081f54656d5e338eb475a8657817385d64bc2f7"
+    },
+    {
+      "path": "hr-topology/correction-real-hr-red.coating.json",
+      "bytes": 425153,
+      "sha256": "0aa04f694165dea49f74c02d6ed8ad4d29baef7fc418ed21811f2d5cdaf11d5a"
+    },
+    {
+      "path": "hr-topology/summary.json",
+      "bytes": 4933754,
+      "sha256": "3ef4755164f02e5a7a97727ccc8e957679d5b8c106883d7999e6c35041cebc14"
+    },
+    {
+      "path": "initial-probe-source.cs",
+      "bytes": 12625,
+      "sha256": "05193762456ec60e27a44d5660f9d57db27b4745b511adab8d46789ce6be26e0"
+    },
+    {
+      "path": "inputs/correction-real-hr-red.coating.json",
+      "bytes": 452161,
+      "sha256": "c25cf1e2e05d354a7432356f843c7a0d34be5332e6f2d05af6663340f483919a"
+    },
+    {
+      "path": "inputs/correction-real-nbf-red.coating.json",
+      "bytes": 2714320,
+      "sha256": "cd87462e991bb772f9c1ba46559af1b906262d7a702376f47bcad1263446bbb0"
+    },
+    {
+      "path": "inputs/holdout-real-hr-nearir.coating.json",
+      "bytes": 527794,
+      "sha256": "2b90f9adf1a580efecf8b90a5de17e322815eb112fe3bc4e584703180bda6a8c"
+    },
+    {
+      "path": "inputs/new-ir-double.coating.json",
+      "bytes": 2749415,
+      "sha256": "eabdd5bfc91b4d8ade838e482fb06b05e6a554b2fbeee89d252d05780070e683"
+    },
+    {
+      "path": "inputs/new-real-nbf-green.coating.json",
+      "bytes": 2308178,
+      "sha256": "9b69e992e9a18e7a65fed73df72e227dc8d1448643173d482e58ed5b320374e0"
+    },
+    {
+      "path": "inputs/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 1252529,
+      "sha256": "fd9fbb4db40924c2b9308a79b527ebf2fbc15eaeeccc5b4828c88b3933282538"
+    },
+    {
+      "path": "inputs/new-real-nbf-red.coating.json",
+      "bytes": 2163254,
+      "sha256": "b01e0df5c82ee012a25eeef8a8fc311ffbee2cee19eb9818ebd6441065f73cfe"
+    },
+    {
+      "path": "inputs/real-hr-96.coating.json",
+      "bytes": 443745,
+      "sha256": "a78a5a3714d8154e51b353962081f54656d5e338eb475a8657817385d64bc2f7"
+    },
+    {
+      "path": "inputs/real-nbf2-96.coating.json",
+      "bytes": 2425003,
+      "sha256": "76e5ba80e99e5645a728ed62ccf112755bb88b040f5d812a5ebee9fcc2a2684b"
+    },
+    {
+      "path": "larger-old-allowance.json",
+      "bytes": 471,
+      "sha256": "6f4201aa98c460f586c164dd3e5b40ec96d84d7f997b6596c634925f1051c12a"
+    },
+    {
+      "path": "larger-old-primary/core-cases.json",
+      "bytes": 239460,
+      "sha256": "1c7606514a99b4caf047793c9c840894d2ee6aba0d47ba30a733b675b16b19f9"
+    },
+    {
+      "path": "larger-old-primary/new-real-nbf-green.coating.json",
+      "bytes": 919528,
+      "sha256": "46792fd937e283f757c1b0d28973963e2f6d86f27a698710dcdceed3f1233c68"
+    },
+    {
+      "path": "larger-old-primary/real-nbf2-96.coating.json",
+      "bytes": 1174229,
+      "sha256": "7aa91c41b712b3dd70363ce29a41a62e0f61160391481b834fa601180ee7b94e"
+    },
+    {
+      "path": "larger-old-primary/summary.json",
+      "bytes": 520484,
+      "sha256": "95aaff5da1c2bb68261d275229b5629855d8e9b62d4b7088dd5fc8cd8289808a"
+    },
+    {
+      "path": "larger-old-primary-inputs/new-real-nbf-green.coating.json",
+      "bytes": 80818,
+      "sha256": "5060ebf4a67d81d0909c5e64bf3853a31562abfa18f6d316f86a398f44d043f6"
+    },
+    {
+      "path": "larger-old-primary-inputs/real-nbf2-96.coating.json",
+      "bytes": 80663,
+      "sha256": "48f6b405635c85f78d2a3854724c5737781bf2c9572ef59263528be9be9efb13"
+    },
+    {
+      "path": "logs/audit-build.log",
+      "bytes": 409,
+      "sha256": "ff402e919b5c33429e66c0bcd06e888515826ebbd909b5d9cc1335922ca5cc55"
+    },
+    {
+      "path": "logs/control-build.log",
+      "bytes": 221,
+      "sha256": "76c9de506fc74b3f0f848d85d13e52d07c292faebd61b0c8d1d35795f78a8759"
+    },
+    {
+      "path": "logs/dense-extrema-focused.trx",
+      "bytes": 21149,
+      "sha256": "3bbca648a4a980a45c3c2aecbe0c3468594b2bc882adab10e2920dde5b34d418"
+    },
+    {
+      "path": "logs/feedback-build.log",
+      "bytes": 222,
+      "sha256": "44333c6584fb20c4d1677cc4cef190673c25a66b094f01ea8e2bacf8a5ab823d"
+    },
+    {
+      "path": "logs/final-engine-build.log",
+      "bytes": 577,
+      "sha256": "8927e3ff1925767dc2ee9ccf556469d8fed7eab400f8589f3afacc09bbbf82ef"
+    },
+    {
+      "path": "logs/final-pinned-engine-build.log",
+      "bytes": 423,
+      "sha256": "d7c890bacc235647a862291cece9e0f6642368655f5638ca338802e6a680d082"
+    },
+    {
+      "path": "logs/fine-build-initial.log",
+      "bytes": 7249,
+      "sha256": "95e6918c9b7336c831484085945058c10d6710c8b414fb48957b9959af856dfc"
+    },
+    {
+      "path": "logs/fine-build-warning.log",
+      "bytes": 1243,
+      "sha256": "4b3651a824c20d3b57eae752e1301263c333606f740e4f3478a40fff7dfa2e31"
+    },
+    {
+      "path": "logs/fine-build.log",
+      "bytes": 210,
+      "sha256": "f0538020569180ae2c1999fa3b40869913c2af3fa661c5a6bac4929731ccfea6"
+    },
+    {
+      "path": "logs/prototype-build.log",
+      "bytes": 223,
+      "sha256": "f81d9e9154bc1adb7371cf9693da974ababfc4e3968c5ae7196136c85ae37986"
+    },
+    {
+      "path": "logs/stage-build.log",
+      "bytes": 406,
+      "sha256": "b9c917f662c2b77ae4b0fccb4809dc140dcb7836173bd4a94b625d9aea4178f9"
+    },
+    {
+      "path": "logs/test-build.log",
+      "bytes": 270,
+      "sha256": "f7de52a7aa28ab4ed745ae87deb79cb42066ae6b7a95e286ba567cbaeb47e1de"
+    },
+    {
+      "path": "native-stage-prescriptions.json",
+      "bytes": 176265,
+      "sha256": "e9e7b546c23cde7c71c016c72b0ec7273eeafcf0cf07927c1d5ead243e197809"
+    },
+    {
+      "path": "native-stages/correction-real-hr-red-control-4.coating.json",
+      "bytes": 354358,
+      "sha256": "fc7781f387d2811bc75a4ea2dd0347f35759839e6d3ec7e7d853697b9d321d75"
+    },
+    {
+      "path": "native-stages/correction-real-hr-red-control-9.coating.json",
+      "bytes": 354399,
+      "sha256": "af2f09ea7df3a15bbbc45b0cf3012b3bf0be0f1380de499192c63be28104f462"
+    },
+    {
+      "path": "native-stages/correction-real-hr-red-feedback-4.coating.json",
+      "bytes": 354348,
+      "sha256": "2e474a091a98368f7bdd35a9d869eb1adfbfb9423e975efcdd5ec221c65452b5"
+    },
+    {
+      "path": "native-stages/correction-real-hr-red-feedback-9.coating.json",
+      "bytes": 354396,
+      "sha256": "a922e86a4ccc29c76240204b0c30076eae9cc548655e125aab57153aca5a873c"
+    },
+    {
+      "path": "native-stages/correction-real-nbf-red-control-4.coating.json",
+      "bytes": 516655,
+      "sha256": "2f99193bc987fe2613ee1587b83b71454914bb621ea7469122716472e76f00bc"
+    },
+    {
+      "path": "native-stages/correction-real-nbf-red-control-9.coating.json",
+      "bytes": 516946,
+      "sha256": "897b31f68c5ee3ddc18f7a32ed30fe62d239a030efcc4a786d655145dc8c22cc"
+    },
+    {
+      "path": "native-stages/correction-real-nbf-red-feedback-4.coating.json",
+      "bytes": 517577,
+      "sha256": "95b43284e532cff412be34e011b0be7b97c53ec1d67f09930188c7112f7eecb8"
+    },
+    {
+      "path": "native-stages/correction-real-nbf-red-feedback-9.coating.json",
+      "bytes": 517624,
+      "sha256": "04d3e561b6089d0c15700a67949fd40411d19e4f7ba67a5f08baa8e11c69ffc8"
+    },
+    {
+      "path": "native-stages/holdout-real-hr-nearir-control-4.coating.json",
+      "bytes": 349212,
+      "sha256": "89c83e6da007d1f6729fe9a281d85f728be706e9fd015fe4311bb05a64458e78"
+    },
+    {
+      "path": "native-stages/holdout-real-hr-nearir-control-9.coating.json",
+      "bytes": 349197,
+      "sha256": "a45d232613c8a8074d4f5953272466daffe6bb3f8b21905b9d2720f36e6ed05a"
+    },
+    {
+      "path": "native-stages/holdout-real-hr-nearir-feedback-4.coating.json",
+      "bytes": 349202,
+      "sha256": "796a4a4de072e107ef9f4c2a6a1906d5bec3f468442ecc6a247baee0c077a03f"
+    },
+    {
+      "path": "native-stages/holdout-real-hr-nearir-feedback-9.coating.json",
+      "bytes": 349216,
+      "sha256": "a83497bc5a00f7aa13962d904d21b4bfcbd7eefd7d1df60890a782124f8ee739"
+    },
+    {
+      "path": "native-stages/new-ir-double-control-4.coating.json",
+      "bytes": 1512431,
+      "sha256": "4a052b5db92d5b5581c420ef356430837efda10285a4a6fbe9800f46c284d1b6"
+    },
+    {
+      "path": "native-stages/new-ir-double-control-9.coating.json",
+      "bytes": 778097,
+      "sha256": "96508bddbb9341eb095e3036b3f9539adca40556b94e5000772cefa39560adcd"
+    },
+    {
+      "path": "native-stages/new-ir-double-feedback-4.coating.json",
+      "bytes": 777095,
+      "sha256": "2ce87925fae05cba41620116557985182c4cf51c5b303202611446e2987256ed"
+    },
+    {
+      "path": "native-stages/new-ir-double-feedback-9.coating.json",
+      "bytes": 1511133,
+      "sha256": "d8b810f7a8ad78facfa6f56dd92290fcdda39fb0b7122a9e414c2f4b52101342"
+    },
+    {
+      "path": "native-stages/new-real-nbf-green-control-4.coating.json",
+      "bytes": 516972,
+      "sha256": "e56ea1447e9193e25b2a451d56527fe39771079f397d9194218c79bc7d50ea60"
+    },
+    {
+      "path": "native-stages/new-real-nbf-green-control-9.coating.json",
+      "bytes": 516900,
+      "sha256": "2fcf2220ea1e0960bda78e940b9a439ed8182d7be8263664da232d4727e4e466"
+    },
+    {
+      "path": "native-stages/new-real-nbf-green-feedback-4.coating.json",
+      "bytes": 516282,
+      "sha256": "2b6c047e83428deb16c44bd2b19ef5967a65a0505b04c41d2b98c0d2a49d7966"
+    },
+    {
+      "path": "native-stages/new-real-nbf-green-feedback-9.coating.json",
+      "bytes": 516760,
+      "sha256": "6bd1fa6c1b34f4745e02b0cbbd555234c95c1c6e17e76f3e873ead2fc174a08b"
+    },
+    {
+      "path": "native-stages/new-real-nbf-nearir-fixed-control-4.coating.json",
+      "bytes": 517629,
+      "sha256": "f3a7b87a4c243a8321c17c9251ee705cafefd6e14c6d3a7dcf04e67e6ddae4c4"
+    },
+    {
+      "path": "native-stages/new-real-nbf-nearir-fixed-control-9.coating.json",
+      "bytes": 517647,
+      "sha256": "443110ee114baff9c32bb5c0c9d82b70fb2b7555736253db6c22c80de1373a35"
+    },
+    {
+      "path": "native-stages/new-real-nbf-nearir-fixed-feedback-4.coating.json",
+      "bytes": 517629,
+      "sha256": "f3a7b87a4c243a8321c17c9251ee705cafefd6e14c6d3a7dcf04e67e6ddae4c4"
+    },
+    {
+      "path": "native-stages/new-real-nbf-nearir-fixed-feedback-9.coating.json",
+      "bytes": 517629,
+      "sha256": "f3a7b87a4c243a8321c17c9251ee705cafefd6e14c6d3a7dcf04e67e6ddae4c4"
+    },
+    {
+      "path": "native-stages/new-real-nbf-red-control-4.coating.json",
+      "bytes": 516956,
+      "sha256": "a2f92c27c7657ce7b01b2b87cbae07ac03033aa1146ebedba282560be6b26fd3"
+    },
+    {
+      "path": "native-stages/new-real-nbf-red-control-9.coating.json",
+      "bytes": 517051,
+      "sha256": "7329b3bb334c17960d1f92bf67374c94e4739425b6ea63624b259b0520c8ac4a"
+    },
+    {
+      "path": "native-stages/new-real-nbf-red-feedback-4.coating.json",
+      "bytes": 517219,
+      "sha256": "1ee9e0c8643977015d48bc259042d662c6887212ac57794b4251de62843ed659"
+    },
+    {
+      "path": "native-stages/new-real-nbf-red-feedback-9.coating.json",
+      "bytes": 517473,
+      "sha256": "d922da55ad24c0ea8dd8b21b33071fdb844ff6c2c33bb0b0163fba4b2d1a0781"
+    },
+    {
+      "path": "native-stages/real-hr-96-control-4.coating.json",
+      "bytes": 345991,
+      "sha256": "58b7d75d7ebe2f09b7977bbea1a9de58b9d141dd9b21f707cb0da787008f9638"
+    },
+    {
+      "path": "native-stages/real-hr-96-control-9.coating.json",
+      "bytes": 346000,
+      "sha256": "e18c2a6f2af58d405044452bef016ad48ad6e640ff69982a4eb4b6ad5460b0b6"
+    },
+    {
+      "path": "native-stages/real-hr-96-feedback-4.coating.json",
+      "bytes": 346027,
+      "sha256": "35e2033f45a8a1c0df359b35ca5960788282173be8a63ccaaabd0b43b018caa1"
+    },
+    {
+      "path": "native-stages/real-hr-96-feedback-9.coating.json",
+      "bytes": 345941,
+      "sha256": "c968a624519b4daa3e5d00662884bbb399fb7e5677556465892a2a8428fd986d"
+    },
+    {
+      "path": "native-stages/real-nbf2-96-control-4.coating.json",
+      "bytes": 516937,
+      "sha256": "1537aa72b05db6aecc94568614cc5b13c4e551856ffe230e52ee61b036031633"
+    },
+    {
+      "path": "native-stages/real-nbf2-96-control-9.coating.json",
+      "bytes": 1712069,
+      "sha256": "1cf07f6e8b363d3211c3c3d6ad3124a317905e7d528e6558edd0a630dddf0bcf"
+    },
+    {
+      "path": "native-stages/real-nbf2-96-feedback-4.coating.json",
+      "bytes": 517259,
+      "sha256": "a0e1887b24017bb5a90dfda1a03cbf95039a1b52a4c651d6d4f4c8e72e4e3927"
+    },
+    {
+      "path": "native-stages/real-nbf2-96-feedback-9.coating.json",
+      "bytes": 1712255,
+      "sha256": "67b6bcd121f1dd3ecd6fbcb76b69c40f016e8ed04115cda7163fe9da0028d1c5"
+    },
+    {
+      "path": "native-stages/summary.json",
+      "bytes": 205612,
+      "sha256": "b3e6c961e7f46f137162720ce572312d7936705ea34ef92b256164d5d8a2aa62"
+    },
+    {
+      "path": "paired-final.json",
+      "bytes": 38459205,
+      "sha256": "4c3e6bf100ee309fa9b27ebd0396ed0ad47eadbc8b47b9b95b17291975b412fb"
+    },
+    {
+      "path": "paired-raw.json",
+      "bytes": 38431536,
+      "sha256": "dc2d12ae041c60f3b991526a870c77e8c639139baef6b159f63a9e3d8629d218"
+    },
+    {
+      "path": "physics-comparison-current.json",
+      "bytes": 2821786,
+      "sha256": "522b58c04a481248afdf24ac6f092a96fa9682e310aa4ba0dc68687c31c23d99"
+    },
+    {
+      "path": "physics-control.json",
+      "bytes": 1262764,
+      "sha256": "eb02c5cacedea07d7a3ec479832a2eedaffb363716b55da305d93c88636b4d09"
+    },
+    {
+      "path": "physics-current-control.json",
+      "bytes": 1262633,
+      "sha256": "578293ccc8d38a332dd6590bfdfd3e8952f8990b34be537903109418f9c32ef0"
+    },
+    {
+      "path": "physics-current-feedback.json",
+      "bytes": 1270039,
+      "sha256": "cf1cbfe4f0bc732389e9ad81397f076a6929ee16dd2d16202ce8815bd4d7048c"
+    },
+    {
+      "path": "physics-current-input.json",
+      "bytes": 1262959,
+      "sha256": "3cce161bf5721cf171b684668d251015ae7e5f12fe618d0662e4b042634e764e"
+    },
+    {
+      "path": "physics-current-larger-old.json",
+      "bytes": 269416,
+      "sha256": "f162d4dbb6089d3623a8a62cdfc0644c0c69a7ae45a643d4dece34da4e96a881"
+    },
+    {
+      "path": "physics-current-prototype.json",
+      "bytes": 786461,
+      "sha256": "11a5258058738e7a1d1b82b462008ce98fee8530e2d855185ab700ed183fdcd7"
+    },
+    {
+      "path": "physics-current-reference.json",
+      "bytes": 1144090,
+      "sha256": "e627ea55edfce49236fcd424b115061cce7fc44752b5d56dd3662b1dbd391b5b"
+    },
+    {
+      "path": "physics-current-stages.json",
+      "bytes": 6697788,
+      "sha256": "24e892447a83ba2dde0a8675dcaea99a5e2ccdacb23c7a22afdeff961b202cac"
+    },
+    {
+      "path": "physics-feedback.json",
+      "bytes": 1270136,
+      "sha256": "f55a4de4c90ad285bd93f45ec25ddd6f142c304f23b18da1d0a1387dcb46317b"
+    },
+    {
+      "path": "physics-input.json",
+      "bytes": 1263090,
+      "sha256": "1c5b578c82696fe312ff213959c8d61c63369c6d3cf0eee0ff7feab9eb85f091"
+    },
+    {
+      "path": "physics-native-stages.json",
+      "bytes": 5107164,
+      "sha256": "7a4c27821c82a2ae840eae8e99cc36bca5d5cbb38944964a7b0df9ac95d42b5d"
+    },
+    {
+      "path": "physics-points-current.json",
+      "bytes": 7442703,
+      "sha256": "c5aeeea57c2d33421ca5b16af9891d4a27a55b07c29d24378e8f42775037cb3f"
+    },
+    {
+      "path": "physics-reference.json",
+      "bytes": 1144203,
+      "sha256": "afbe17ecf337d81665dbc87f6f944040d40ed7091c162a7520c3eca4dc34eb54"
+    },
+    {
+      "path": "pre-challenger-fix-source.cs",
+      "bytes": 12787,
+      "sha256": "b27b97644f56c88da0d4fedbb88853b8a9913bdc2ba4f293a22e32b68eed5ed5"
+    },
+    {
+      "path": "primary-control-final/new-real-nbf-green.coating.json",
+      "bytes": 830975,
+      "sha256": "2c2be1e080ee161cda8d016388e77300abd5b13a0a3c2e1c7bda5834773dd779"
+    },
+    {
+      "path": "primary-control-final/real-nbf2-96.coating.json",
+      "bytes": 517067,
+      "sha256": "cee19582fda4029644821eb47fd3d855530321aeec44f5027eeafdb3b88364fc"
+    },
+    {
+      "path": "primary-control-final/summary.json",
+      "bytes": 1695429,
+      "sha256": "c56841f7b44f27bae5db3b330c492b47a558c90b212400d503042cee5385b414"
+    },
+    {
+      "path": "primary-feedback-final/new-real-nbf-green.coating.json",
+      "bytes": 516957,
+      "sha256": "36e2d7af980a251a3e6babeef5f614175429b72413036a6bdf99985e67a8d297"
+    },
+    {
+      "path": "primary-feedback-final/real-nbf2-96.coating.json",
+      "bytes": 517067,
+      "sha256": "cee19582fda4029644821eb47fd3d855530321aeec44f5027eeafdb3b88364fc"
+    },
+    {
+      "path": "primary-feedback-final/summary.json",
+      "bytes": 3863677,
+      "sha256": "bdeedeee6b110a4bae7f4e89b19c7e2067f6c23393d27d12520fb4ce53de00a8"
+    },
+    {
+      "path": "primary-inputs/new-real-nbf-green.coating.json",
+      "bytes": 2308178,
+      "sha256": "9b69e992e9a18e7a65fed73df72e227dc8d1448643173d482e58ed5b320374e0"
+    },
+    {
+      "path": "primary-inputs/real-nbf2-96.coating.json",
+      "bytes": 2425003,
+      "sha256": "76e5ba80e99e5645a728ed62ccf112755bb88b040f5d812a5ebee9fcc2a2684b"
+    },
+    {
+      "path": "primary-prototype-final/new-real-nbf-green.coating.json",
+      "bytes": 516957,
+      "sha256": "36e2d7af980a251a3e6babeef5f614175429b72413036a6bdf99985e67a8d297"
+    },
+    {
+      "path": "primary-prototype-final/real-nbf2-96.coating.json",
+      "bytes": 1299797,
+      "sha256": "769d717563fd36ab903a12e0822cd9e2cc06be56e478082496c1306815c6247b"
+    },
+    {
+      "path": "primary-prototype-final/summary.json",
+      "bytes": 3899497,
+      "sha256": "829f7704caa963dbf05ad7e3b8ff76b1ba4df599c29af0b7abbfd3550ade1258"
+    },
+    {
+      "path": "prototype-all/correction-real-nbf-red.coating.json",
+      "bytes": 517011,
+      "sha256": "de02faacdfa5790b756b054bcd7c61dc7ac1888b5e80ce364807b8326a514900"
+    },
+    {
+      "path": "prototype-all/new-ir-double.coating.json",
+      "bytes": 1512554,
+      "sha256": "5fd6db561d6887b0c340f050af0ecd2ac16eaa59ad9364787b48fa21a48cfc55"
+    },
+    {
+      "path": "prototype-all/new-real-nbf-green.coating.json",
+      "bytes": 516957,
+      "sha256": "36e2d7af980a251a3e6babeef5f614175429b72413036a6bdf99985e67a8d297"
+    },
+    {
+      "path": "prototype-all/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 916538,
+      "sha256": "75d5a1a23f2a16fed822e7431205fd8072fc6242fc2592d5d35482a4c0e33eea"
+    },
+    {
+      "path": "prototype-all/new-real-nbf-red.coating.json",
+      "bytes": 517026,
+      "sha256": "84eaf7883808f5e9774e37312dbe2bfe35ab8fd39fadfdc911e1bbacdee8ba10"
+    },
+    {
+      "path": "prototype-all/real-nbf2-96.coating.json",
+      "bytes": 1299797,
+      "sha256": "769d717563fd36ab903a12e0822cd9e2cc06be56e478082496c1306815c6247b"
+    },
+    {
+      "path": "prototype-cold/correction-real-nbf-red.coating.json",
+      "bytes": 517011,
+      "sha256": "de02faacdfa5790b756b054bcd7c61dc7ac1888b5e80ce364807b8326a514900"
+    },
+    {
+      "path": "prototype-cold/new-ir-double.coating.json",
+      "bytes": 1512554,
+      "sha256": "5fd6db561d6887b0c340f050af0ecd2ac16eaa59ad9364787b48fa21a48cfc55"
+    },
+    {
+      "path": "prototype-cold/new-real-nbf-green.coating.json",
+      "bytes": 516957,
+      "sha256": "36e2d7af980a251a3e6babeef5f614175429b72413036a6bdf99985e67a8d297"
+    },
+    {
+      "path": "prototype-cold/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 916538,
+      "sha256": "75d5a1a23f2a16fed822e7431205fd8072fc6242fc2592d5d35482a4c0e33eea"
+    },
+    {
+      "path": "prototype-cold/new-real-nbf-red.coating.json",
+      "bytes": 517026,
+      "sha256": "84eaf7883808f5e9774e37312dbe2bfe35ab8fd39fadfdc911e1bbacdee8ba10"
+    },
+    {
+      "path": "prototype-cold/real-nbf2-96.coating.json",
+      "bytes": 1299797,
+      "sha256": "769d717563fd36ab903a12e0822cd9e2cc06be56e478082496c1306815c6247b"
+    },
+    {
+      "path": "prototype-cold/summary.json",
+      "bytes": 406453,
+      "sha256": "dbbd0dfefffa68af0eeaa93d21d1d107d91e194c1c1f120a383ed571870db365"
+    },
+    {
+      "path": "prototype-inputs/correction-real-nbf-red.coating.json",
+      "bytes": 2714320,
+      "sha256": "cd87462e991bb772f9c1ba46559af1b906262d7a702376f47bcad1263446bbb0"
+    },
+    {
+      "path": "prototype-inputs/new-ir-double.coating.json",
+      "bytes": 2749415,
+      "sha256": "eabdd5bfc91b4d8ade838e482fb06b05e6a554b2fbeee89d252d05780070e683"
+    },
+    {
+      "path": "prototype-inputs/new-real-nbf-green.coating.json",
+      "bytes": 2308178,
+      "sha256": "9b69e992e9a18e7a65fed73df72e227dc8d1448643173d482e58ed5b320374e0"
+    },
+    {
+      "path": "prototype-inputs/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 1252529,
+      "sha256": "fd9fbb4db40924c2b9308a79b527ebf2fbc15eaeeccc5b4828c88b3933282538"
+    },
+    {
+      "path": "prototype-inputs/new-real-nbf-red.coating.json",
+      "bytes": 2163254,
+      "sha256": "b01e0df5c82ee012a25eeef8a8fc311ffbee2cee19eb9818ebd6441065f73cfe"
+    },
+    {
+      "path": "prototype-inputs/real-nbf2-96.coating.json",
+      "bytes": 2425003,
+      "sha256": "76e5ba80e99e5645a728ed62ccf112755bb88b040f5d812a5ebee9fcc2a2684b"
+    },
+    {
+      "path": "prototype-stage-prescriptions.json",
+      "bytes": 35905,
+      "sha256": "7aa94de7849a0da001b36bad29aa8c27c4ceefb26c8dd73ab2ea2f576d0c8c11"
+    },
+    {
+      "path": "prototype-stages/correction-real-nbf-red-prototype-4.coating.json",
+      "bytes": 517559,
+      "sha256": "62e0d74d5497b40f7e449d54403609eaea31bcb461bea19e05d8212ca6817732"
+    },
+    {
+      "path": "prototype-stages/correction-real-nbf-red-prototype-9.coating.json",
+      "bytes": 517510,
+      "sha256": "635f3ccade4adf91310fd8a0bdff7da1879c38979d5074cefbf21ff3cf9add68"
+    },
+    {
+      "path": "prototype-stages/new-ir-double-prototype-4.coating.json",
+      "bytes": 1511061,
+      "sha256": "b3c3dc6365716cadb4ede5f5a9e3b3b2fead71f029ecfc19ad6862e7d965deee"
+    },
+    {
+      "path": "prototype-stages/new-ir-double-prototype-9.coating.json",
+      "bytes": 1511002,
+      "sha256": "b184e188df4cca643f12d315872003f7af191c79d1786acb0737eb525b8712d0"
+    },
+    {
+      "path": "prototype-stages/new-real-nbf-green-prototype-4.coating.json",
+      "bytes": 517263,
+      "sha256": "d21d6c8e5c3d1fa96985ea179c3fa37fcda97a5d0d439be555921ec3a54083d2"
+    },
+    {
+      "path": "prototype-stages/new-real-nbf-green-prototype-9.coating.json",
+      "bytes": 517277,
+      "sha256": "98b0a034c089c2fa364a788634b5577f7bcc23eb3e172557ac6f252f4b07bee4"
+    },
+    {
+      "path": "prototype-stages/new-real-nbf-nearir-fixed-prototype-4.coating.json",
+      "bytes": 517629,
+      "sha256": "f3a7b87a4c243a8321c17c9251ee705cafefd6e14c6d3a7dcf04e67e6ddae4c4"
+    },
+    {
+      "path": "prototype-stages/new-real-nbf-nearir-fixed-prototype-9.coating.json",
+      "bytes": 517629,
+      "sha256": "f3a7b87a4c243a8321c17c9251ee705cafefd6e14c6d3a7dcf04e67e6ddae4c4"
+    },
+    {
+      "path": "prototype-stages/new-real-nbf-red-prototype-4.coating.json",
+      "bytes": 516963,
+      "sha256": "9102f098557c663a77c6a560a05694e8a5bc6a7a20f107400adbf0dfd17c0ef4"
+    },
+    {
+      "path": "prototype-stages/new-real-nbf-red-prototype-9.coating.json",
+      "bytes": 516819,
+      "sha256": "a136787821b17e26ec374b5bad7b4d518ab6e8778c8a779f5abd454309471153"
+    },
+    {
+      "path": "prototype-stages/real-nbf2-96-prototype-4.coating.json",
+      "bytes": 517416,
+      "sha256": "466cea32185b1aaff90e5a2ee6aa141e432f2a855791e23e31bc338a159aa4c6"
+    },
+    {
+      "path": "prototype-stages/real-nbf2-96-prototype-9.coating.json",
+      "bytes": 517730,
+      "sha256": "7ed70024371d5c6eadc60edef7e6538bdd4995cb2caa8cbb79abdd7482ee5b18"
+    },
+    {
+      "path": "prototype-stages/summary.json",
+      "bytes": 58948,
+      "sha256": "a655f3b220a12181c479c5d7493c7e5d3ccdba0cde012f1031674e6c18edd33e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1670,
+      "sha256": "e03448c665f79ba7236a0da7b534c5068e620541e40e0ad9fcbd5b1df751e41e"
+    },
+    {
+      "path": "reference-inputs.json",
+      "bytes": 15728005,
+      "sha256": "7e948003a3e160df9f871704fe536567e5ff4797fa55075007021b4a2d9e4d2d"
+    },
+    {
+      "path": "reference-native/correction-real-hr-red-structural-DLS.coating.json",
+      "bytes": 354353,
+      "sha256": "d3955a7909dab0f605dcf3ce26c0224ddf91b5361dad0d0952daea7897398aea"
+    },
+    {
+      "path": "reference-native/correction-real-nbf-red-structural-DLS.coating.json",
+      "bytes": 517293,
+      "sha256": "88c91d377cdb7ba55e76e4130c8957eeca7cf6dba820bf2855c496fef1e8c03c"
+    },
+    {
+      "path": "reference-native/holdout-real-hr-nearir-structural-DLS.coating.json",
+      "bytes": 349228,
+      "sha256": "8463f0dbd08f3966c65fd68df7d321175757d93699909dca21f1c81197d9fadc"
+    },
+    {
+      "path": "reference-native/new-ir-double-structural-DLS.coating.json",
+      "bytes": 410671,
+      "sha256": "b3fbe880ccfdd7a4d7b2960fa977f3e78603c54aa70f772a1d28a7b9d585e62c"
+    },
+    {
+      "path": "reference-native/new-real-nbf-green-structural-DLS.coating.json",
+      "bytes": 517098,
+      "sha256": "26cc56a0f628902f85c6fd5e1439dd6f67fe407f4f2ee7b5a033f1dcac2f0bd9"
+    },
+    {
+      "path": "reference-native/new-real-nbf-red-structural-DLS.coating.json",
+      "bytes": 516736,
+      "sha256": "3dd2e5772de8574ed7d11545ef8fcd269e2b05f6a6995353fba736cee1d62a3b"
+    },
+    {
+      "path": "reference-native/real-hr-96-structural-DLS.coating.json",
+      "bytes": 345949,
+      "sha256": "6034ef2017bf7d27d6a3ad3306bcb7035052909b6ce5dbb6de9920b89dbe2d4c"
+    },
+    {
+      "path": "reference-native/real-nbf2-96-structural-DLS.coating.json",
+      "bytes": 915450,
+      "sha256": "245f459384b3f1145457475bec98a425967be5921b2780ac641d79eda09abcf3"
+    },
+    {
+      "path": "reference-native/summary.json",
+      "bytes": 441369,
+      "sha256": "d4852e2dc2f035cdcf8751482e525162bf1559dc7d06fdbed924333ade3782c4"
+    },
+    {
+      "path": "reference-structural.json",
+      "bytes": 377571,
+      "sha256": "97be52678f6294b73b98158c5639f9403492349fa801c4d63610e03c4d4d2ef8"
+    },
+    {
+      "path": "replay-control/correction-real-hr-red.coating.json",
+      "bytes": 425158,
+      "sha256": "399d20ecd064397174ac113535b9f50355bcc82d7369d7582e653c14c9c9c903"
+    },
+    {
+      "path": "replay-control/correction-real-nbf-red.coating.json",
+      "bytes": 879812,
+      "sha256": "f20a39552ec5b9138e7f40cda34c6cb2ebbb66cca8388a234481cb174f490f71"
+    },
+    {
+      "path": "replay-control/holdout-real-hr-nearir.coating.json",
+      "bytes": 420007,
+      "sha256": "f301aaa0084977d3e1668d0cfa1e350a8731a08ec96776bf04f5cbc02955f86e"
+    },
+    {
+      "path": "replay-control/new-ir-double.coating.json",
+      "bytes": 411615,
+      "sha256": "eecafb4c94831e4cf8d88625af37be662256c81a26c58e49bcd6bdce8417316a"
+    },
+    {
+      "path": "replay-control/new-real-nbf-green.coating.json",
+      "bytes": 831738,
+      "sha256": "51ee37a78f281383b81fc2e589c21a06519ebe57e49bf8af03afdeab994ae890"
+    },
+    {
+      "path": "replay-control/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 917296,
+      "sha256": "1bb89bee9ebfe75915b8acaa720360c348270e67a88d1b9b8677991dc69907cd"
+    },
+    {
+      "path": "replay-control/new-real-nbf-red.coating.json",
+      "bytes": 836691,
+      "sha256": "f8de7ef9e5fa5402cafb0097ed543dfee1b22848021ebfc584636f6a6e51f2c6"
+    },
+    {
+      "path": "replay-control/real-hr-96.coating.json",
+      "bytes": 416794,
+      "sha256": "8c5c70113a3a4e33832b991eacdef0ff5dbb9d20a2595824767dc438f7869025"
+    },
+    {
+      "path": "replay-control/real-nbf2-96.coating.json",
+      "bytes": 517827,
+      "sha256": "f6731ec734d83475485d070c808f61c763e004e12e090224b11b9c567761b903"
+    },
+    {
+      "path": "replay-control/summary.json",
+      "bytes": 611477,
+      "sha256": "822125ce2fa0d4c9d658c71c8f13ef979915d96f130bec6e70876d8daca8d7fe"
+    },
+    {
+      "path": "replay-feedback/correction-real-hr-red.coating.json",
+      "bytes": 425153,
+      "sha256": "0aa04f694165dea49f74c02d6ed8ad4d29baef7fc418ed21811f2d5cdaf11d5a"
+    },
+    {
+      "path": "replay-feedback/correction-real-nbf-red.coating.json",
+      "bytes": 517433,
+      "sha256": "362e7d4e70c7a63dbeaff5ff4228ad60c1ceb0acda16dd9659fa956fe83325ee"
+    },
+    {
+      "path": "replay-feedback/holdout-real-hr-nearir.coating.json",
+      "bytes": 420006,
+      "sha256": "0257526b69dfd66a6580dc0ed99e8d2b61ec406a2a876d23299da573a99ab328"
+    },
+    {
+      "path": "replay-feedback/new-ir-double.coating.json",
+      "bytes": 411615,
+      "sha256": "eecafb4c94831e4cf8d88625af37be662256c81a26c58e49bcd6bdce8417316a"
+    },
+    {
+      "path": "replay-feedback/new-real-nbf-green.coating.json",
+      "bytes": 517716,
+      "sha256": "7bf232a23b3b1fc11c65cdc406816baa6bd2ee6c97e87e5723640393f1b8f78e"
+    },
+    {
+      "path": "replay-feedback/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 917296,
+      "sha256": "1bb89bee9ebfe75915b8acaa720360c348270e67a88d1b9b8677991dc69907cd"
+    },
+    {
+      "path": "replay-feedback/new-real-nbf-red.coating.json",
+      "bytes": 951333,
+      "sha256": "5428a778c2bed4ee60b9b1b596c6a4a7354b70ba6ab0635e3775963b8e426a6f"
+    },
+    {
+      "path": "replay-feedback/real-hr-96.coating.json",
+      "bytes": 416815,
+      "sha256": "adff05e089e20d1daf1b21a492048d79cff49d0f44e0e453c008cafc445faee8"
+    },
+    {
+      "path": "replay-feedback/real-nbf2-96.coating.json",
+      "bytes": 517827,
+      "sha256": "f6731ec734d83475485d070c808f61c763e004e12e090224b11b9c567761b903"
+    },
+    {
+      "path": "replay-feedback/summary.json",
+      "bytes": 341369,
+      "sha256": "a4f77d9ec3e68c39a4a82871e4c8e81756686b7650e325025da296f012777fb2"
+    },
+    {
+      "path": "replay-prototype/correction-real-nbf-red.coating.json",
+      "bytes": 517433,
+      "sha256": "362e7d4e70c7a63dbeaff5ff4228ad60c1ceb0acda16dd9659fa956fe83325ee"
+    },
+    {
+      "path": "replay-prototype/new-ir-double.coating.json",
+      "bytes": 411615,
+      "sha256": "eecafb4c94831e4cf8d88625af37be662256c81a26c58e49bcd6bdce8417316a"
+    },
+    {
+      "path": "replay-prototype/new-real-nbf-green.coating.json",
+      "bytes": 517716,
+      "sha256": "7bf232a23b3b1fc11c65cdc406816baa6bd2ee6c97e87e5723640393f1b8f78e"
+    },
+    {
+      "path": "replay-prototype/new-real-nbf-nearir-fixed.coating.json",
+      "bytes": 917296,
+      "sha256": "1bb89bee9ebfe75915b8acaa720360c348270e67a88d1b9b8677991dc69907cd"
+    },
+    {
+      "path": "replay-prototype/new-real-nbf-red.coating.json",
+      "bytes": 517450,
+      "sha256": "e57d9e2d592b22ec8de02e99af2996a619fa73e4daec778c40c5429bb75db5e7"
+    },
+    {
+      "path": "replay-prototype/real-nbf2-96.coating.json",
+      "bytes": 1300224,
+      "sha256": "aa3d26c2b0a669bfb657db93a71f09297dcf0e1b6327e116976d87522f8e58a8"
+    },
+    {
+      "path": "replay-prototype/summary.json",
+      "bytes": 406471,
+      "sha256": "2ba6596b76eca42a3722af9a7d79d9938eb6a3326de0e8b863e5690366089a3f"
+    },
+    {
+      "path": "stage-project/packages.lock.json",
+      "bytes": 66,
+      "sha256": "a4364d81a6de2707d66fbced18fbbc926c882ab96e1d1aebbb17e871285b9d75"
+    },
+    {
+      "path": "stage-project/StageRecheck.csproj",
+      "bytes": 808,
+      "sha256": "f7cc58f20f62b3f94dc82a4e938622c08d7bc016313a9b766f512bccb76b305a"
+    },
+    {
+      "path": "superseded-control-processes.json",
+      "bytes": 679,
+      "sha256": "3ae77f3157520734b4a1afeebe3367a5964d67e3119da0639cc88d95e8b6e342"
+    },
+    {
+      "path": "superseded-topology-processes.json",
+      "bytes": 1024,
+      "sha256": "7c12ba05eadc8f0e9a62c19af69a9edbf2117e3731a4660ec9d0201b63fc09cf"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 7020,
+      "sha256": "0619063b50a30dbfcf9d87578610ae79765f36fecea4f58969d6f60306303a38"
+    }
+  ]
+}

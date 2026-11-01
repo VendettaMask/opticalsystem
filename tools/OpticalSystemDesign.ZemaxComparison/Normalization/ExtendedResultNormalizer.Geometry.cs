@@ -73,6 +73,10 @@ public static partial class ExtendedResultNormalizer
                     NativeReflectionConvention.ConvertRayReport(rayRows, signs);
                     if (signs.Any(sign => sign < 0)) result.Transformations.Add(
                         "Convert native signed-index direction, incident normal and segment length to physical propagation using explicit MIRROR rows; raw report retained.");
+                    var originalCount = rayRows.Length;
+                    rayRows = NativeRaySurfaceMap.ToImportedSurfaces(rayRows, model.RootElement, r.SurfaceCount);
+                    if (rayRows.Length != originalCount) result.Transformations.Add(
+                        "Fold native CoordinateBreak rows into imported physical-surface numbering using the captured model; retain the next physical hit's local coordinates, direction and normal, and sum physical segment lengths. Raw report retained.");
                 }
                 AddRayTable(result, rayRows, r.SurfaceCount); break;
             case "Cardinal Points Data":

@@ -1,0 +1,650 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css" media="screen">
+body 	{ margin :0; font-family: Verdana, Helvetica, sans serif; font-weight: normal; color: black; }
+H1 		{ color: #001423;}
+H2 		{ color: #001423;}
+H3 		{ color: #001423;}
+ul 		{ }
+li 		{ list-style-type: none;}
+a 		{ color: #2162A3; font-size: 12px; text-decoration: none; }
+a:hover 	{ text-decoration: underline; }
+div.spacer 	{ clear: both;}
+div.bulle 	{ border-radius: 10px; background-color: #F9F9F9; padding: 10px;}					/* Classic bulle */
+div.modint 	{ border-radius: 10px; border-style: solid; border-color: #A04000; padding: 10px;}	/* Module Interne bulle */
+
+/* HEADER */
+#header	{ width: 98%; margin: 1em;}
+/* HEADER banner & title */
+#header #block #banner	{ width: 20%; } 
+#header #block #title	{ margin-left: 40%; }
+#header #block #title H1	{ font-size: 14pt; padding: 0px; margin: 0px; color:#001423; font-weight: normal;}
+#header #block #title H2	{ font-size: 12pt; padding: 0px; margin: 0px; color:#001423; font-weight: normal;}
+#header #block #title H3	{ font-size: 10pt; padding: 0px; margin: 0px; color:#001423; font-weight: normal; }
+/* HEADER menu */
+#header #menu	{ float:right; width:25%; margin-right: 1em; }
+#header #menu a	{ display:block; }
+
+/* WRAPPER */
+#wrapper		{ width: 98%; margin-left: 1em; margin-right: 1em; font-size: 12px;}
+#wrapper H1		{ font-size: 14pt; font-weight: bold; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000; padding: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 1em; margin-left: 0px; }
+#wrapper H2		{ font-size: 12pt; font-weight: normal; margin-left: 1%; padding: 0px; margin-top: 15px; margin-bottom: 0.5em; }
+#wrapper H3		{ font-size: 10pt; font-weight: normal; margin-left: 1%; padding: 0px; margin-top: 15px; margin-bottom: 0.5em; }
+#wrapper table	{ width: 100%; }
+#wrapper tr.line1 	{ background-color:#EAEAEA; }
+#wrapper tr.line2 	{ background-color:#F2F2F2; }
+#wrapper tr.modint	{ color: #A04000; }
+#wrapper tr:hover	{ background-color: #F60; }
+#wrapper th			{ font-weight: normal; }
+#wrapper td.norme	{ color: #50BA01; }
+#wrapper td.normeko	{ color: #A81000; }
+#wrapper td.normeLtd	{ color: #FF8C00; }
+#wrapper .bodyId		{ color: #A04000; }
+#wrapper .tresholdOn	{ color: #808010; }
+#wrapper .toplink		{ float: right; font-size: 9px; font-style: normal; font-weight: normal; color: #CCC; }
+#wrapper .toplink a		{ font-size: 9px;}
+#wrapper .disabled		{ color: #808080; }
+#wrapper  img		{ image-rendering:-moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering:-webkit-optimize-contrast; -ms-interpolation-mode:nearest-neighbor; }
+/* WRAPPER information */
+#wrapper #information		{ font-size: 12px; margin-bottom: 2em;}
+#wrapper #information ul 	{ margin: 0; }
+#wrapper #information li.warning	{ color: #F00; }
+/* WRAPPER bean */
+#wrapper ul 		{margin-left: 2%;}
+#wrapper .bean		{ margin-bottom: 2em; }
+#wrapper .bean tr 	{ }
+#wrapper .bean th	{ text-align: left; width: 20%; }
+#wrapper .bean td	{ width: 80%; }
+#wrapper .bean .impact 		{margin-left: 5%;}
+#wrapper .bean .impact table	{margin-bottom: 20px;}
+#wrapper .bean .impact th		{ text-align: left; width: 16%;}
+#wrapper .bean .impact td		{ text-align: left; width: 84%;}
+/* WRAPPER bean3Col */
+#wrapper .bean3Col		{ margin-bottom: 2em; }
+#wrapper .bean3Col tr 	{ }
+#wrapper .bean3Col th	{ text-align: left; width: 20%; }
+#wrapper .bean3Col td	{ width: 40%; }
+/* WRAPPER beanBody */
+#wrapper .beanBody		{ margin-bottom: 2em; }
+#wrapper .beanBody tr 	{ }
+#wrapper .beanBody th		{ font-weight: bold; text-align: left; width: 20%; }
+#wrapper .beanBody th.col1	{ text-align: left; width: 20%; }
+#wrapper .beanBody th.col2	{ text-align: center; width: 10%; }
+#wrapper .beanBody th.col3	{ text-align: left; }
+#wrapper .beanBody th.modint	{ color: #A04000; }
+#wrapper .beanBody td.col1	{ text-align: left; width: 20%; }
+#wrapper .beanBody td.col2	{ text-align: center; width: 10%; }
+#wrapper .beanBody td.col3	{ text-align: left;}
+#wrapper .beanBody td.modint	{ color: #A04000; }
+/* WRAPPER result */
+#wrapper #result		{ margin-bottom: 2em; }
+#wrapper #result table 	{ width: 98%; }
+#wrapper #result tr 	{ }
+#wrapper #result th		{ width: 20%; text-align: left; font-weight: normal;}
+#wrapper #result td		{ width: 80%; }
+/* WRAPPER file */
+#wrapper #result .file		{ margin-bottom: 2em; }
+#wrapper #result .file th		{ text-align: center; font-weight: bold; background-color:#EAEAEA; }
+#wrapper #result .file ul		{ width: 98%; margin-left: 1%; margin-bottom: 0.5em; }
+#wrapper #result .file li		{ }
+#wrapper #result .file img		{ image-rendering:-moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering:-webkit-optimize-contrast; -ms-interpolation-mode:nearest-neighbor; }
+#wrapper #result .file .row_header			{ width: 2%; }
+#wrapper #result .file .area				{ width: 4%; }
+#wrapper #result .file .shape				{ width: 4%; }
+#wrapper #result .file .center				{ width: 4%; }
+#wrapper #result .file .direction			{ width: 4%; }
+#wrapper #result .file .parameters			{ width: 10%; }
+#wrapper #result .file .magnitude			{ width: 4%; }
+#wrapper #result .file .function			{ width: 4%; }
+#wrapper #result .file .measure				{ width: 7%; }
+#wrapper #result .file .threshold			{ width: 4%; }
+#wrapper #result .file .value				{ width: 7%; }
+#wrapper #result .file .StdDeviation		{ width: 4%; }
+#wrapper #result .file .rule				{ width: 4%; }
+#wrapper #result .file .formula				{ width: 4%; }
+#wrapper #result .file .minimum				{ width: 3%; }
+#wrapper #result .file .percentMin			{ width: 2%; }
+#wrapper #result .file .maximum				{ width: 3%; }
+#wrapper #result .file .percentMax			{ width: 2%; }
+#wrapper #result .file .ConfidenceLvl		{ width: 4%; }
+#wrapper #result .file .minimum_Spec		{ width: 4%; }
+#wrapper #result .file .percentMin_Spec		{ width: 3%; }
+#wrapper #result .file .maximum_Spec		{ width: 4%; }
+#wrapper #result .file .percentMax_Spec		{ width: 3%; }
+#wrapper #result .file .ConfidenceLvl_Spec	{ width: 4%; }
+#wrapper #result .file td.operator	{ text-align: center; }
+#wrapper #result .file td.disable	{ color: #808080; }
+/* Style the button that is used to open and close the collapsible content */
+.collapsible { background-color: #EAEAEA; border: none; cursor: pointer; }
+.active, .collapsible:hover { background-color: #DADADA; border: none; cursor: pointer; }
+.collapsible:before { content: '\002B'; font-weight: bold; font-size: 125%; float: left; margin-right: 10px; }
+.active:before { content: "\2212"; }
+.content { background-color: #F1F1F1; display: none; padding: 0 18px; }
+/* WRAPPER beanVariables - Used in optimization/tolerancing report */
+#wrapper .beanVariables 		{ margin-bottom: 2em; }
+#wrapper .beanVariables th		{ font-weight: bold; text-align: center; }
+#wrapper .beanVariables th.col1	{ width: 20%; text-align: left; }
+#wrapper .beanVariables td		{ text-align: center; }
+#wrapper .beanVariables td.col1	{ width: 20%; text-align: left; }
+/* WRAPPER beanTargets - Used in optimization/tolerancing report */
+#wrapper .beanTargets 			{ margin-bottom: 2em; }
+#wrapper .beanTargets th		{ font-weight: bold; text-align: center; }
+#wrapper .beanTargets th.col1	{ width: 20%; text-align: left; }
+#wrapper .beanTargets td		{ text-align: center; }
+#wrapper .beanTargets td.col1	{ width: 20%; text-align: left; }
+/* WRAPPER beanIterations - Used in optimization/tolerancing report */
+#wrapper .beanIterations 		{ margin-bottom: 2em; }
+#wrapper .beanIterations th		{ font-weight: bold; text-align: center; }
+#wrapper .beanIterations th.col1{ width: 5%; text-align: left; }
+#wrapper .beanIterations td		{ text-align: center; }
+#wrapper .beanIterations td.col1{ width: 5%; text-align: left; }
+#wrapper .beanIterations .error	{ color: #A81000; }
+#wrapper .beanIterations .valid	{ color: #50BA01; }</style>
+<style type="text/css" media="print">
+body 	{ margin :0; font-family: Verdana, Helvetica, sans serif; font-weight: normal; color: black; }
+H1 		{ color: #001423;}
+H2 		{ color: #001423;}
+H3 		{ color: #001423;}
+ul 		{ }
+li 		{ list-style-type: none;}
+a 		{ color: #2162A3; font-size: 12px; text-decoration: none; }
+a:hover 	{ text-decoration: underline; }
+div.spacer 	{ clear: both;}
+div.bulle 	{ border-radius: 10px; background-color: #F9F9F9; padding: 10px;}					/* Classic bulle */
+div.modint 	{ border-radius: 10px; border-style: solid; border-color: #A04000; padding: 10px;}	/* Module Interne bulle */
+
+/* HEADER */
+#header	{ width: 98%; margin: 1em;}
+/* HEADER banner & title */
+#header #block #banner	{ width: 20%; } 
+#header #block #title	{ margin-left: 40%; }
+#header #block #title H1	{ font-size: 14pt; padding: 0px; margin: 0px; color:#001423; font-weight: normal;}
+#header #block #title H2	{ font-size: 12pt; padding: 0px; margin: 0px; color:#001423; font-weight: normal;}
+#header #block #title H3	{ font-size: 10pt; padding: 0px; margin: 0px; color:#001423; font-weight: normal; }
+/* HEADER menu */
+#header #menu	{ display:none; }
+#header #menu a	{ display:block; }
+
+/* WRAPPER */
+#wrapper		{ width: 98%; margin-left: 1em; margin-right: 1em; font-size: 12px;}
+#wrapper H1		{ font-size: 14pt; font-weight: bold; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000; padding: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 1em; margin-left: 0px; }
+#wrapper H2		{ font-size: 12pt; font-weight: normal; margin-left: 1%; padding: 0px; margin-top: 15px; margin-bottom: 0.5em; }
+#wrapper H3		{ font-size: 10pt; font-weight: normal; margin-left: 1%; padding: 0px; margin-top: 15px; margin-bottom: 0.5em; }
+#wrapper table	{ width: 100%; }
+#wrapper tr.line1 	{ background-color:#EAEAEA; }
+#wrapper tr.line2 	{ background-color:#F2F2F2; }
+#wrapper tr.modint	{ color: #A04000; }
+#wrapper tr:hover	{ background-color: #F60; }
+#wrapper th			{ font-weight: normal; }
+#wrapper th,#wrapper td	{ border: 1px solid #CCC; }
+#wrapper td.norme	{ color: #50BA01; }
+#wrapper td.normeko	{ color: #A81000; }
+#wrapper td.normeLtd	{ color: #FF8C00; }
+#wrapper .bodyId		{ color: #A04000; }
+#wrapper .tresholdOn	{ color: #808010; }
+#wrapper .toplink		{ display: none; }
+#wrapper .toplink a		{ font-size: 9px;}
+#wrapper .disabled		{ color: #808080; }
+#wrapper  img		{ image-rendering:-moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering:-webkit-optimize-contrast; -ms-interpolation-mode:nearest-neighbor; }
+/* WRAPPER information */
+#wrapper #information		{ font-size: 12px; margin-bottom: 2em;}
+#wrapper #information ul 	{ margin: 0; }
+#wrapper #information li.warning	{ color: #F00; }
+/* WRAPPER bean */
+#wrapper ul 		{margin-left: 2%;}
+#wrapper .bean		{ margin-bottom: 2em; }
+#wrapper .bean tr 	{ }
+#wrapper .bean th	{ text-align: left; width: 20%; }
+#wrapper .bean td	{ width: 80%; }
+#wrapper .bean .impact 		{margin-left: 5%;}
+#wrapper .bean .impact table	{margin-bottom: 20px;}
+#wrapper .bean .impact th		{ text-align: left; width: 16%;}
+#wrapper .bean .impact td		{ text-align: left; width: 84%;}
+/* WRAPPER bean3Col */
+#wrapper .bean3Col		{ margin-bottom: 2em; }
+#wrapper .bean3Col tr 	{ }
+#wrapper .bean3Col th	{ text-align: left; width: 20%; }
+#wrapper .bean3Col td	{ width: 40%; }
+/* WRAPPER beanBody */
+#wrapper .beanBody		{ margin-bottom: 2em; }
+#wrapper .beanBody tr 	{ }
+#wrapper .beanBody th		{ font-weight: bold; text-align: left; width: 20%; }
+#wrapper .beanBody th.col1	{ text-align: left; width: 20%; }
+#wrapper .beanBody th.col2	{ text-align: center; width: 10%; }
+#wrapper .beanBody th.col3	{ text-align: left; }
+#wrapper .beanBody th.modint	{ color: #A04000; }
+#wrapper .beanBody td.col1	{ text-align: left; width: 20%; }
+#wrapper .beanBody td.col2	{ text-align: center; width: 10%; }
+#wrapper .beanBody td.col3	{ text-align: left;}
+#wrapper .beanBody td.modint	{ color: #A04000; }
+/* WRAPPER result */
+#wrapper #result		{ margin-bottom: 2em; }
+#wrapper #result table 	{ width: 98%; }
+#wrapper #result tr 	{ }
+#wrapper #result th		{ width: 20%; text-align: left; font-weight: normal;}
+#wrapper #result td		{ width: 80%; }
+/* WRAPPER file */
+#wrapper #result .file		{ margin-bottom: 2em; }
+#wrapper #result .file th		{ text-align: center; font-weight: bold; background-color:#EAEAEA; }
+#wrapper #result .file ul		{ width: 98%; margin-left: 1%; margin-bottom: 0.5em; }
+#wrapper #result .file li		{ }
+#wrapper #result .file img		{ image-rendering:-moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering:-webkit-optimize-contrast; -ms-interpolation-mode:nearest-neighbor; }
+#wrapper #result .file .row_header			{ width: 2%; }
+#wrapper #result .file .area				{ width: 4%; }
+#wrapper #result .file .shape				{ width: 4%; }
+#wrapper #result .file .center				{ width: 4%; }
+#wrapper #result .file .direction			{ width: 4%; }
+#wrapper #result .file .parameters			{ width: 10%; }
+#wrapper #result .file .magnitude			{ width: 4%; }
+#wrapper #result .file .function			{ width: 4%; }
+#wrapper #result .file .measure				{ width: 7%; }
+#wrapper #result .file .threshold			{ width: 4%; }
+#wrapper #result .file .value				{ width: 7%; }
+#wrapper #result .file .StdDeviation		{ width: 4%; }
+#wrapper #result .file .rule				{ width: 4%; }
+#wrapper #result .file .formula				{ width: 4%; }
+#wrapper #result .file .minimum				{ width: 3%; }
+#wrapper #result .file .percentMin			{ width: 2%; }
+#wrapper #result .file .maximum				{ width: 3%; }
+#wrapper #result .file .percentMax			{ width: 2%; }
+#wrapper #result .file .ConfidenceLvl		{ width: 4%; }
+#wrapper #result .file .minimum_Spec		{ width: 4%; }
+#wrapper #result .file .percentMin_Spec		{ width: 3%; }
+#wrapper #result .file .maximum_Spec		{ width: 4%; }
+#wrapper #result .file .percentMax_Spec		{ width: 3%; }
+#wrapper #result .file .ConfidenceLvl_Spec	{ width: 4%; }
+#wrapper #result .file td.operator	{ text-align: center; }
+#wrapper #result .file td.disable	{ color: #808080; }
+/* Style the button that is used to open and close the collapsible content */
+.collapsible { background-color: #EAEAEA; border: none; cursor: pointer; }
+.active, .collapsible:hover { }
+.content { background-color: #F1F1F1; display: none; }
+/* WRAPPER beanVariables - Used in optimization/tolerancing report */
+#wrapper .beanVariables 		{ margin-bottom: 2em; }
+#wrapper .beanVariables th		{ font-weight: bold; text-align: center; }
+#wrapper .beanVariables th.col1	{ width: 20%; text-align: left; }
+#wrapper .beanVariables td		{ text-align: center; }
+#wrapper .beanVariables td.col1	{ width: 20%; text-align: left; }
+/* WRAPPER beanTargets - Used in optimization/tolerancing report */
+#wrapper .beanTargets 			{ margin-bottom: 2em; }
+#wrapper .beanTargets th		{ font-weight: bold; text-align: center; }
+#wrapper .beanTargets th.col1	{ width: 20%; text-align: left; }
+#wrapper .beanTargets td		{ text-align: center; }
+#wrapper .beanTargets td.col1	{ width: 20%; text-align: left; }
+/* WRAPPER beanIterations - Used in optimization/tolerancing report */
+#wrapper .beanIterations 		{ margin-bottom: 2em; }
+#wrapper .beanIterations th		{ font-weight: bold; text-align: center; }
+#wrapper .beanIterations th.col1{ width: 5%; text-align: left; }
+#wrapper .beanIterations td		{ text-align: center; }
+#wrapper .beanIterations td.col1{ width: 5%; text-align: left; }
+#wrapper .beanIterations .error	{ color: #A81000; }
+#wrapper .beanIterations .valid	{ color: #50BA01; }</style>
+<title>simulation</title>
+</head>
+
+<body>
+<a name="top" id="top"></a>
+<!-- HEADER -->
+<div id="header">
+<div id="menu" class="bulle"><ul><li><a href="#Performances_Analysis">Performances Analysis</a></li><li><a href="#Power_Report">Power Report</a></li><li><a href="#Error_Report">Error Report</a></li><li><a href="#Results">Results</a></li><li><a href="#Source_Report">Source Report</a></li><li><a href="#Geometry_Report">Geometry Report</a></li><li><a href="#Simulation_Parameters">Simulation Parameters</a></li></ul></div>
+<!-- BANNER -->
+<div id="block">
+<div id="banner"><img alt="" src="data:image/png;base64,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" /></div>
+<div id="title">
+<h1>Direct Simulation Report</h1>
+</div>
+</div><!-- BANNER -->
+<div class="spacer"></div></div><!-- HEADER -->
+
+<!-- WRAPPER -->
+<div id="wrapper">
+
+<!-- INFORMATION -->
+<div id="information" class="bulle">
+<ul>
+<li><b>simulation</b></li>
+<li><!-- Main Seed: 0x65f23eebeeec3LL--></li>
+<li>File version: 2026.1.0.37094</li>
+<li>Kernel version: 2026.1.0.37094</li>
+</ul>
+</div><!-- INFORMATION -->
+
+<!-- PERFORMANCES ANALYSIS -->
+<div class="bean bulle">
+<h1><a name="Performances_Analysis" id="Performances_Analysis"></a>Performances Analysis<div class="toplink"><a href="#top">top</a></div></h1>
+<h2>System Generation</h2><table>
+<tr class="line1">
+<th>Start date</th>
+<td>2026/10/31 22:43:14</td>
+</tr>
+<tr class="line2">
+<th>&nbsp;&nbsp;&nbsp;System initialization</th>
+<td>0 sec</td>
+</tr>
+<tr class="line1">
+<th>End date</th>
+<td>2026/10/31 22:43:14</td>
+</tr>
+</table>
+<h2>Simulation</h2><table>
+<tr class="line1">
+<th>Start date</th>
+<td>2026/10/31 22:43:14</td>
+</tr>
+<tr class="line2">
+<th>&nbsp;&nbsp;&nbsp;Simulation initialization</th>
+<td>0 sec</td>
+</tr>
+<tr class="line2">
+<th>&nbsp;&nbsp;&nbsp;Simulation</th>
+<td>3 sec</td>
+</tr>
+<tr class="line2">
+<th>&nbsp;&nbsp;&nbsp;Result generation</th>
+<td>0 sec</td>
+</tr>
+<tr class="line1">
+<th>End date</th>
+<td>2026/10/31 22:43:17</td>
+</tr>
+</table>
+<table>
+<tr class="line1">
+<th>Total duration</th>
+<td>3 sec</td>
+</tr>
+</table>
+<h2>Computer details</h2><table>
+<tr class="line1">
+<th>Total number of available logical cores</th>
+<td>20</td>
+</tr>
+<tr class="line1">
+<th>Total number of available physical cores</th>
+<td>12</td>
+</tr>
+<tr class="line1">
+<th>Total number of simulation threads</th>
+<td>20</td>
+</tr>
+<tr class="line1">
+<th>Total number of logical core.h</th>
+<td>1</td>
+</tr>
+<tr class="line1">
+<th>Total number of physical core.h</th>
+<td>1</td>
+</tr>
+<tr class="line1">
+<th>Total CPU time</th>
+<td>2 sec</td>
+</tr>
+</table>
+</div><!-- PERFORMANCES ANALYSIS -->
+
+<!-- POWER REPORT -->
+<div class="bean bulle">
+<h1><a name="Power_Report" id="Power_Report"></a>Power Report<div class="toplink"><a href="#top">top</a></div></h1>
+<table>
+<tr class="line1">
+<th>Number of emitted rays</th>
+<td>1048595</td>
+</tr>
+<tr class="line2">
+<th>Stopped by max impacts</th>
+<td>5</td>
+</tr>
+</table>
+<h2>Radiometry</h2>
+<table>
+<tr class="line1">
+<th>Absorbed power</th>
+<td>0.748683 Watt</td>
+</tr>
+<tr class="line2">
+<th>Error power</th>
+<td>0 Watt</td>
+</tr>
+<tr class="line1">
+<th>Generated power</th>
+<td>1 Watt</td>
+</tr>
+<tr class="line2">
+<th>Power emitted by the sources</th>
+<td>1 Watt</td>
+</tr>
+<tr class="line1">
+<th>Power of stopped rays</th>
+<td>0 Watt</td>
+</tr>
+<tr class="line2">
+<th>Radiated power</th>
+<td>0.251317 Watt</td>
+</tr>
+</table><h2>Photometry</h2>
+<table>
+<tr class="line1">
+<th>Absorbed power</th>
+<td>0.202495 Lumen</td>
+</tr>
+<tr class="line2">
+<th>Error power</th>
+<td>0 Lumen</td>
+</tr>
+<tr class="line1">
+<th>Generated power</th>
+<td>0.270468 Lumen</td>
+</tr>
+<tr class="line2">
+<th>Power emitted by the sources</th>
+<td>0.270468 Lumen</td>
+</tr>
+<tr class="line1">
+<th>Power of stopped rays</th>
+<td>0 Lumen</td>
+</tr>
+<tr class="line2">
+<th>Radiated power</th>
+<td>0.0679732 Lumen</td>
+</tr>
+</table></div><!-- POWER REPORT -->
+
+<!-- ERROR REPORT -->
+<div class="bean bulle">
+<h1><a name="Error_Report" id="Error_Report"></a>Error Report<div class="toplink"><a href="#top">top</a></div></h1>
+<table>
+<tr class="line1">
+<th>Total number of errors</th>
+<td>0 (0%)</td>
+</tr>
+</table>
+</div><!-- ERROR REPORT -->
+
+<!-- RESULTS -->
+<div id="result" class="bean bulle">
+<h1><a name="Results" id="Results"></a>Results<div class="toplink"><a href="#top">top</a></div></h1>
+<div class="file">
+<h2>sensor</h2>
+<ul>
+<li>File: <a type="application/octet-stream" href="native-direct-result.xmp">native-direct-result.xmp</a></li>
+<li>Resolution: 64 x 64</li>
+<li>Size: 90 &deg; (conoscopic)</li>
+<li>Flux: 0.251266 W</li>
+<li></li>
+<li>Preview:</li><li><a type="application/octet-stream" href="native-direct-result.xmp"><img alt="" width=500 height=500 src="data:image/png;base64,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" /></a></li>
+</ul>
+</div>
+</div><!-- RESULTS -->
+
+<!-- SOURCE REPORT -->
+<div class="bean bulle">
+<h1><a name="Source_Report" id="Source_Report"></a>Source Report<div class="toplink"><a href="#top">top</a></div></h1>
+<table>
+<tr class="line1">
+<th>Number of sources</th>
+<td>1</td>
+</tr>
+</table>
+<div class="beanBody bulle">
+<h2>Source List</h2>
+<table>
+<tr class="line1">
+<th class="col1">Surface source</th>
+<th class="col3">source</th>
+</tr>
+<tr class="line2">
+<td class="col1">&nbsp;&nbsp;&nbsp;Flux value</td><td class="col3">1 W; 0.270468 lm</td></tr>
+<tr class="line2">
+<td class="col1">&nbsp;&nbsp;&nbsp;Exitance</td><td class="col3">Constant</td></tr>
+<tr class="line2">
+<td class="col1">&nbsp;&nbsp;&nbsp;Intensity type</td><td class="col3">Symmetric Gaussian</td></tr>
+<tr class="line2">
+<td class="col1">&nbsp;&nbsp;&nbsp;Total angle</td><td class="col3">1e-05 °</td></tr>
+<tr class="line2">
+<td class="col1">&nbsp;&nbsp;&nbsp;FWHM angle</td><td class="col3">1e-05 °</td></tr>
+<tr class="line2">
+<td class="col1">&nbsp;&nbsp;&nbsp;Spectrum type</td><td class="col3">Monochromatic</td></tr>
+<tr class="line2">
+<td class="col1">&nbsp;&nbsp;&nbsp;Wavelength</td><td class="col3">400 nm</td></tr>
+</table></div>
+</div><!-- SOURCE REPORT -->
+
+<!-- GEOMETRY REPORT -->
+<div class="bean bulle">
+<h1><a name="Geometry_Report" id="Geometry_Report"></a>Geometry Report<div class="toplink"><a href="#top">top</a></div></h1>
+<table>
+<tr class="line1">
+<th>Number of bodies</th>
+<td>2</td>
+</tr>
+<tr class="line2">
+<th>Number of faces</th>
+<td>2</td>
+</tr>
+<tr class="line1">
+<th>Ray caster engine</th>
+<td>SmartEngine</td>
+</tr>
+<tr class="line1">
+<th>Ambient material</th>
+<td>Optic (Index 1, Absorption 0)</td>
+</tr>
+<tr class="line1">
+<th>Number of triangles</th>
+<td>4</td>
+</tr>
+</table>
+<div class="beanBody bulle">
+<h2>Body List</h2>
+<table>
+<tr class="line1">
+<th class="col1">targetBody</th>
+<th class="col3">Context: targetBody (Surface body)</th>
+</tr>
+<tr class="line2">
+<td class="col1">target</td>
+<td>FOP: coarse65_0ec2-576c-bd59-df90..anisotropicbsdf</td>
+</tr>
+<tr class="line1">
+<th class="col1">sourceBody</th>
+<th class="col3">Context: sourceBody (Surface body)</th>
+</tr>
+<tr class="line2">
+<td class="col1">emitter</td>
+<td>FOP: Mirror Reflectance 0 %</td>
+</tr>
+<tr class="line2">
+<td class="col1">emitter</td>
+<td>Source: source</td>
+</tr>
+</table></div>
+</div><!-- GEOMETRY REPORT -->
+
+<!-- SIMULATION PARAMETERS -->
+<div class="bean bulle">
+<h1><a name="Simulation_Parameters" id="Simulation_Parameters"></a>Simulation Parameters<div class="toplink"><a href="#top">top</a></div></h1>
+<h2>Direct simulation</h2><table><tr class="line1">
+<th>Automatic save frequency</th>
+<td>0 s</td>
+</tr>
+<tr class="line2">
+<th>Fast transmission gathering</th>
+<td>✖</td>
+</tr>
+<tr class="line1">
+<th>Dispersion</th>
+<td>✖</td>
+</tr>
+<tr class="line2">
+<th>Propagation error analysis</th>
+<td>✖</td>
+</tr>
+</table><h2>Geometry</h2><table><tr class="line1">
+<th>Meshing sag mode</th>
+<td>Fixed</td>
+</tr>
+<tr class="line2">
+<th>Meshing sag value</th>
+<td>5e-06 m</td>
+</tr>
+<tr class="line1">
+<th>Meshing step mode</th>
+<td>Proportional to Body size</td>
+</tr>
+<tr class="line2">
+<th>Meshing step value</th>
+<td>10</td>
+</tr>
+<tr class="line1">
+<th>Meshing angle</th>
+<td>15 °</td>
+</tr>
+<tr class="line2">
+<th>Specific parameters for facet edges</th>
+<td>✖</td>
+</tr>
+<tr class="line1">
+<th>VOP on surface</th>
+<td>✖</td>
+</tr>
+<tr class="line2">
+<th>Texture</th>
+<td>✖</td>
+</tr>
+</table><h2>Simulation</h2><table><tr class="line1">
+<th>Smart Engine</th>
+<td>15</td>
+</tr>
+<tr class="line2">
+<th>Ray tracer precision</th>
+<td>Double</td>
+</tr>
+<tr class="line1">
+<th>Geometrical distance tolerance</th>
+<td>1e-09 m</td>
+</tr>
+<tr class="line2">
+<th>Maximum number of surface interactions</th>
+<td>3</td>
+</tr>
+<tr class="line1">
+<th>Weight</th>
+<td>✔</td>
+</tr>
+<tr class="line2">
+<th>Minimum energy percentage</th>
+<td>1e-07 %</td>
+</tr>
+<tr class="line1">
+<th>Colorimetric standard</th>
+<td>CIE 1931</td>
+</tr>
+</table></div><!-- SIMULATION PARAMETERS -->
+</div><!-- WRAPPER -->
+</body>
+
+<script>var coll = document.getElementsByClassName("collapsible");var i;for (i = 0; i < coll.length; i++) {  coll[i].addEventListener("click", function() {    this.classList.toggle("active");    var content = this.nextElementSibling;    if (content.style.display === "block") {      content.style.display = "none";    } else {      content.style.display = "block";    }  });}</script>
+</html>

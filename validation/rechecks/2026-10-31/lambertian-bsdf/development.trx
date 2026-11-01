@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="02950325-5ba7-44c2-a3b1-2e4c926ad2a5" name="allen@DESKTOP-SET3SNR 2026-10-31 13:53:39" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T13:53:39.6939168+08:00" queuing="2026-10-31T13:53:39.6939174+08:00" start="2026-10-31T13:53:36.9857993+08:00" finish="2026-10-31T13:53:48.8338974+08:00" />
+  <TestSettings name="default" id="8204ba21-ed97-4f80-8dc7-75466917365c">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_13_53_39" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c02a9771-1183-4bae-a750-22f8889d1130" testId="b9928289-02b5-81da-0dc9-e46f3e359763" testName="OpticalSystemDesign.Tests.BsdfTests.HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals(rho: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0075773" startTime="2026-10-31T13:53:39.4884860+08:00" endTime="2026-10-31T13:53:39.4892921+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c02a9771-1183-4bae-a750-22f8889d1130" />
+    <UnitTestResult executionId="ebabda10-f7fb-4c36-b219-09fe63dc6dcb" testId="0e647808-ad37-a6ec-cc31-96746d04c45f" testName="OpticalSystemDesign.Tests.BsdfTests.InvalidAlbedoIsRejectedWithoutClamping(rho: NaN)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000082" startTime="2026-10-31T13:53:39.6741025+08:00" endTime="2026-10-31T13:53:39.6741398+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ebabda10-f7fb-4c36-b219-09fe63dc6dcb" />
+    <UnitTestResult executionId="17ec9f8b-d90b-423b-b940-3fc3b1ddbd1e" testId="75c287b1-dea4-a66c-249c-97fcbda5ff95" testName="OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.9424639" startTime="2026-10-31T13:53:39.4873824+08:00" endTime="2026-10-31T13:53:40.4277623+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="17ec9f8b-d90b-423b-b940-3fc3b1ddbd1e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 5.6066894531252745E-11&#xD;
+Actual:   5.6066894531250083E-11</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(Double rho) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialBsdfTests.cs:line 38&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="99d5f62c-544c-4bda-9026-f7e57c57af4f" testId="a0e3fa59-0ae5-847e-5dc0-1a93a100b659" testName="OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 0.25)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2492996" startTime="2026-10-31T13:53:40.6204598+08:00" endTime="2026-10-31T13:53:40.8707213+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="99d5f62c-544c-4bda-9026-f7e57c57af4f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 1.4016723632813186E-11&#xD;
+Actual:   1.4016723632812521E-11</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(Double rho) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialBsdfTests.cs:line 38&#xD;
+   at InvokeStub_NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ba57aed6-2245-4050-8fd2-9382d1cdd4ff" testId="8744d66e-2a3b-5f1a-4b84-28c488c3900c" testName="OpticalSystemDesign.Tests.NonSequentialBsdfTests.FullFresnelNoneAndStochasticDoNotAddAnotherReflectionOrAbsorptionToOpaqueBsdf" computerName="DESKTOP-SET3SNR" duration="00:00:00.3658071" startTime="2026-10-31T13:53:40.8727835+08:00" endTime="2026-10-31T13:53:41.2368726+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba57aed6-2245-4050-8fd2-9382d1cdd4ff" />
+    <UnitTestResult executionId="e24be7f2-62d3-40f2-8a2c-6fe6cf2aa52a" testId="0fb640c8-7af5-a80e-7cef-ae5013b3a7bd" testName="OpticalSystemDesign.Tests.BsdfTests.InvalidAlbedoIsRejectedWithoutClamping(rho: -0.10000000000000001)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001933" startTime="2026-10-31T13:53:39.6736875+08:00" endTime="2026-10-31T13:53:39.6737690+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e24be7f2-62d3-40f2-8a2c-6fe6cf2aa52a" />
+    <UnitTestResult executionId="93455dda-14a7-43d6-93a0-c82e4670d4d5" testId="3d4b942a-c4ac-0105-153f-cd71cd20dd7b" testName="OpticalSystemDesign.Tests.CameraBsdfChainTests.ScatteredWattsFeedOnePhotonConversionRawIspAndIndependentFrozenRecompute" computerName="DESKTOP-SET3SNR" duration="00:00:04.0347134" startTime="2026-10-31T13:53:39.4885718+08:00" endTime="2026-10-31T13:53:43.5258854+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93455dda-14a7-43d6-93a0-c82e4670d4d5" />
+    <UnitTestResult executionId="d2f93ae0-1311-41fe-a47c-bacef7f48985" testId="9d104cf4-d960-2953-a738-e8f170187fa2" testName="OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1930379" startTime="2026-10-31T13:53:40.4415963+08:00" endTime="2026-10-31T13:53:40.6201907+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d2f93ae0-1311-41fe-a47c-bacef7f48985" />
+    <UnitTestResult executionId="9c9a72c7-2d62-4490-9902-ac32f74cdd6e" testId="350d068f-7e92-4e11-cc16-aac37ee413bc" testName="OpticalSystemDesign.Tests.NonSequentialBsdfTests.MultipleDiffuseBouncesKeepAbsorbedAndTruncatedPowerInTheLedger" computerName="DESKTOP-SET3SNR" duration="00:00:00.0103801" startTime="2026-10-31T13:53:41.7975143+08:00" endTime="2026-10-31T13:53:41.8076742+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c9a72c7-2d62-4490-9902-ac32f74cdd6e" />
+    <UnitTestResult executionId="7acc949e-f019-4a83-b496-4425630849bf" testId="526114fa-1b92-21fb-a2b5-7184354a82f1" testName="OpticalSystemDesign.Tests.NonSequentialBsdfTests.DatabaseFiltersProjectRoundtripAndSceneIdentityPreserveTheActualScatteringModel" computerName="DESKTOP-SET3SNR" duration="00:00:00.4800558" startTime="2026-10-31T13:53:41.2372026+08:00" endTime="2026-10-31T13:53:41.7466429+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7acc949e-f019-4a83-b496-4425630849bf" />
+    <UnitTestResult executionId="ada41ce2-fe03-4876-8643-61bbfb57dce8" testId="fe54689b-a3f1-5725-0790-a7b2915f0701" testName="OpticalSystemDesign.Tests.BsdfTests.HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals(rho: 0.25)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001820" startTime="2026-10-31T13:53:39.5102835+08:00" endTime="2026-10-31T13:53:39.5103178+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ada41ce2-fe03-4876-8643-61bbfb57dce8" />
+    <UnitTestResult executionId="335a0eb6-fbc4-4a9f-b4c8-74323734f21e" testId="daa5ee18-78b8-8324-ccef-fed3d0e2bc17" testName="OpticalSystemDesign.Tests.BsdfTests.InvalidAlbedoIsRejectedWithoutClamping(rho: ∞)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001834" startTime="2026-10-31T13:53:39.6677163+08:00" endTime="2026-10-31T13:53:39.6678570+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="335a0eb6-fbc4-4a9f-b4c8-74323734f21e" />
+    <UnitTestResult executionId="4ec752f2-1b94-433f-a2dd-8b8008d8fe17" testId="1f3c81a1-57d9-ef54-5d1b-4f77fac68513" testName="OpticalSystemDesign.Tests.BsdfTests.HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals(rho: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0003504" startTime="2026-10-31T13:53:39.5097883+08:00" endTime="2026-10-31T13:53:39.5098413+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4ec752f2-1b94-433f-a2dd-8b8008d8fe17" />
+    <UnitTestResult executionId="61df0456-8030-481b-b38e-30574a707a6f" testId="39ee44a6-8912-9b4f-98bd-de895ce2c7c4" testName="OpticalSystemDesign.Tests.CameraBsdfChainTests.PreBsdfV9ExperimentRetainsFingerprintAndExactRawIspRecompute" computerName="DESKTOP-SET3SNR" duration="00:00:00.0432721" startTime="2026-10-31T13:53:43.5262673+08:00" endTime="2026-10-31T13:53:43.5738167+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="61df0456-8030-481b-b38e-30574a707a6f" />
+    <UnitTestResult executionId="bff7edb3-f703-4f4f-802d-e170b65cf758" testId="a70151c6-3c6f-0c35-fa8e-8e28b61650f2" testName="OpticalSystemDesign.Tests.BsdfTests.CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight(nx: 0, ny: 0, nz: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0866080" startTime="2026-10-31T13:53:39.5109487+08:00" endTime="2026-10-31T13:53:39.5669348+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bff7edb3-f703-4f4f-802d-e170b65cf758" />
+    <UnitTestResult executionId="94ca25b6-2828-4072-a57e-9b1ce57799ee" testId="3351f4e5-3bff-d43b-4f91-cdf394cb7c33" testName="OpticalSystemDesign.Tests.BsdfTests.CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight(nx: 0.29999999999999999, ny: -0.40000000000000002, nz: 0.8660254037844386)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0618841" startTime="2026-10-31T13:53:39.6048256+08:00" endTime="2026-10-31T13:53:39.6667194+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94ca25b6-2828-4072-a57e-9b1ce57799ee" />
+    <UnitTestResult executionId="c5b772c6-905c-44fb-a1e3-d30816e81581" testId="f80ac2ed-dd55-f0a5-29be-e424625e4475" testName="OpticalSystemDesign.Tests.BsdfTests.EndpointSamplesAreFiniteAndInvalidDomainsAreExplicit" computerName="DESKTOP-SET3SNR" duration="00:00:00.0008864" startTime="2026-10-31T13:53:39.6669801+08:00" endTime="2026-10-31T13:53:39.6676160+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c5b772c6-905c-44fb-a1e3-d30816e81581" />
+    <UnitTestResult executionId="5b4e8114-4017-4977-b8a5-d8923c6fb551" testId="6fa93b48-aa3b-39ca-bd2f-5c719805c98e" testName="OpticalSystemDesign.Tests.NonSequentialBsdfTests.LegacyNullBsdfAndUnsupportedTransparentSurfacesAreExplicit" computerName="DESKTOP-SET3SNR" duration="00:00:00.0452414" startTime="2026-10-31T13:53:41.7516978+08:00" endTime="2026-10-31T13:53:41.7971830+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b4e8114-4017-4977-b8a5-d8923c6fb551" />
+    <UnitTestResult executionId="c301cace-e45d-4ac0-aa4f-d5bb4a026288" testId="36460c5a-495b-9341-3100-1f46358f1bdc" testName="OpticalSystemDesign.Tests.CameraBsdfWindowTests.ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen" computerName="DESKTOP-SET3SNR" duration="00:00:05.0300144" startTime="2026-10-31T13:53:43.5763564+08:00" endTime="2026-10-31T13:53:48.6323476+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c301cace-e45d-4ac0-aa4f-d5bb4a026288">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Cannot set Name : styled element already styled.</Message>
+          <StackTrace>   at Avalonia.StyledElement.set_Name(String value)&#xD;
+   at OpticalSystemDesign.App.Panels.NonSequentialObjectEditorPanel.LoadSelection() in D:\Projects\opticalsystem\src\OpticalSystemDesign.App\Panels\NonSequentialObjectEditorPanel.cs:line 228&#xD;
+   at OpticalSystemDesign.App.Panels.NonSequentialObjectEditorPanel.&lt;.ctor&gt;b__14_0(Object _, SelectionChangedEventArgs _) in D:\Projects\opticalsystem\src\OpticalSystemDesign.App\Panels\NonSequentialObjectEditorPanel.cs:line 59&#xD;
+   at Avalonia.Interactivity.Interactive.&lt;AddHandler&gt;g__InvokeAdapter|8_0[TEventArgs](Delegate baseHandler, Object sender, RoutedEventArgs args)&#xD;
+   at Avalonia.Interactivity.Interactive.&lt;&gt;c__8`1.&lt;AddHandler&gt;b__8_1(Delegate baseHandler, Object sender, RoutedEventArgs args)&#xD;
+   at Avalonia.Interactivity.EventRoute.RaiseEventImpl(RoutedEventArgs e)&#xD;
+   at Avalonia.Interactivity.EventRoute.RaiseEvent(Interactive source, RoutedEventArgs e)&#xD;
+   at Avalonia.Interactivity.Interactive.RaiseEvent(RoutedEventArgs e)&#xD;
+   at Avalonia.Controls.DataGrid.OnSelectionChanged(SelectionChangedEventArgs e)&#xD;
+   at Avalonia.Controls.DataGrid.FlushSelectionChanged()&#xD;
+   at Avalonia.Controls.DataGrid.set_NoSelectionChangeCount(Int32 value)&#xD;
+   at Avalonia.Controls.DataGrid.OnSelectedItemChanged(AvaloniaPropertyChangedEventArgs e)&#xD;
+   at Avalonia.Controls.DataGrid.OnSelectedItemChanged(AvaloniaPropertyChangedEventArgs e)&#xD;
+   at Avalonia.Controls.DataGrid.&lt;&gt;c.&lt;.cctor&gt;b__231_15(DataGrid x, AvaloniaPropertyChangedEventArgs e)&#xD;
+   at Avalonia.AvaloniaObjectExtensions.ClassHandlerObserver`1.OnNext(AvaloniaPropertyChangedEventArgs value)&#xD;
+   at Avalonia.Reactive.LightweightObservableBase`1.PublishNext(T value)&#xD;
+   at Avalonia.Reactive.LightweightSubject`1.OnNext(T value)&#xD;
+   at Avalonia.AvaloniaProperty`1.NotifyChanged(AvaloniaPropertyChangedEventArgs`1 e)&#xD;
+   at Avalonia.AvaloniaObject.RaisePropertyChanged[T](AvaloniaProperty`1 property, Optional`1 oldValue, BindingValue`1 newValue, BindingPriority priority, Boolean isEffectiveValue)&#xD;
+   at Avalonia.AvaloniaObject.SetAndRaise[T](DirectPropertyBase`1 property, T&amp; field, T value)&#xD;
+   at Avalonia.Controls.DataGrid.set_SelectedItem(Object value)&#xD;
+   at OpticalSystemDesign.Tests.CameraBsdfWindowTests.&lt;&gt;c.&lt;&lt;ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen&gt;b__0_0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraBsdfWindowTests.cs:line 33&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CameraBsdfWindowTests.ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraBsdfWindowTests.cs:line 22&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f45c1001-7104-4ba0-9d33-9f35256a99b4" testId="e375ccf1-35ef-4763-c2d5-e057b9c706c0" testName="OpticalSystemDesign.Tests.BsdfTests.InvalidAlbedoIsRejectedWithoutClamping(rho: 1.1000000000000001)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000046" startTime="2026-10-31T13:53:39.6742145+08:00" endTime="2026-10-31T13:53:39.6742418+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f45c1001-7104-4ba0-9d33-9f35256a99b4" />
+    <UnitTestResult executionId="2180fc83-e99b-4c30-8156-84034c591733" testId="4af4701c-4717-eb56-2bf5-578e77ac1f9f" testName="OpticalSystemDesign.Tests.BsdfTests.CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight(nx: 0, ny: 0, nz: -1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0376705" startTime="2026-10-31T13:53:39.5671250+08:00" endTime="2026-10-31T13:53:39.6046946+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2180fc83-e99b-4c30-8156-84034c591733" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraBsdfWindowTests.ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="36460c5a-495b-9341-3100-1f46358f1bdc">
+      <Execution id="c301cace-e45d-4ac0-aa4f-d5bb4a026288" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraBsdfWindowTests" name="ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals(rho: 1)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1f3c81a1-57d9-ef54-5d1b-4f77fac68513">
+      <Execution id="4ec752f2-1b94-433f-a2dd-8b8008d8fe17" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 0.25)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a0e3fa59-0ae5-847e-5dc0-1a93a100b659">
+      <Execution id="99d5f62c-544c-4bda-9026-f7e57c57af4f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialBsdfTests" name="OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraBsdfChainTests.PreBsdfV9ExperimentRetainsFingerprintAndExactRawIspRecompute" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="39ee44a6-8912-9b4f-98bd-de895ce2c7c4">
+      <Execution id="61df0456-8030-481b-b38e-30574a707a6f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraBsdfChainTests" name="PreBsdfV9ExperimentRetainsFingerprintAndExactRawIspRecompute" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.InvalidAlbedoIsRejectedWithoutClamping(rho: ∞)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="daa5ee18-78b8-8324-ccef-fed3d0e2bc17">
+      <Execution id="335a0eb6-fbc4-4a9f-b4c8-74323734f21e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="InvalidAlbedoIsRejectedWithoutClamping" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialBsdfTests.DatabaseFiltersProjectRoundtripAndSceneIdentityPreserveTheActualScatteringModel" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="526114fa-1b92-21fb-a2b5-7184354a82f1">
+      <Execution id="7acc949e-f019-4a83-b496-4425630849bf" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialBsdfTests" name="DatabaseFiltersProjectRoundtripAndSceneIdentityPreserveTheActualScatteringModel" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight(nx: 0.29999999999999999, ny: -0.40000000000000002, nz: 0.8660254037844386)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3351f4e5-3bff-d43b-4f91-cdf394cb7c33">
+      <Execution id="94ca25b6-2828-4072-a57e-9b1ce57799ee" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 1)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="75c287b1-dea4-a66c-249c-97fcbda5ff95">
+      <Execution id="17ec9f8b-d90b-423b-b940-3fc3b1ddbd1e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialBsdfTests" name="OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.InvalidAlbedoIsRejectedWithoutClamping(rho: -0.10000000000000001)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0fb640c8-7af5-a80e-7cef-ae5013b3a7bd">
+      <Execution id="e24be7f2-62d3-40f2-8a2c-6fe6cf2aa52a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="InvalidAlbedoIsRejectedWithoutClamping" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.InvalidAlbedoIsRejectedWithoutClamping(rho: NaN)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0e647808-ad37-a6ec-cc31-96746d04c45f">
+      <Execution id="ebabda10-f7fb-4c36-b219-09fe63dc6dcb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="InvalidAlbedoIsRejectedWithoutClamping" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals(rho: 0)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b9928289-02b5-81da-0dc9-e46f3e359763">
+      <Execution id="c02a9771-1183-4bae-a750-22f8889d1130" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialBsdfTests.MultipleDiffuseBouncesKeepAbsorbedAndTruncatedPowerInTheLedger" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="350d068f-7e92-4e11-cc16-aac37ee413bc">
+      <Execution id="9c9a72c7-2d62-4490-9902-ac32f74cdd6e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialBsdfTests" name="MultipleDiffuseBouncesKeepAbsorbedAndTruncatedPowerInTheLedger" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight(nx: 0, ny: 0, nz: -1)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4af4701c-4717-eb56-2bf5-578e77ac1f9f">
+      <Execution id="2180fc83-e99b-4c30-8156-84034c591733" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight(nx: 0, ny: 0, nz: 1)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a70151c6-3c6f-0c35-fa8e-8e28b61650f2">
+      <Execution id="bff7edb3-f703-4f4f-802d-e170b65cf758" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="CosineSamplesHaveTheAnalyticalCdfMomentsAzimuthAndPowerWeight" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraBsdfChainTests.ScatteredWattsFeedOnePhotonConversionRawIspAndIndependentFrozenRecompute" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3d4b942a-c4ac-0105-153f-cd71cd20dd7b">
+      <Execution id="93455dda-14a7-43d6-93a0-c82e4670d4d5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraBsdfChainTests" name="ScatteredWattsFeedOnePhotonConversionRawIspAndIndependentFrozenRecompute" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.EndpointSamplesAreFiniteAndInvalidDomainsAreExplicit" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f80ac2ed-dd55-f0a5-29be-e424625e4475">
+      <Execution id="c5b772c6-905c-44fb-a1e3-d30816e81581" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="EndpointSamplesAreFiniteAndInvalidDomainsAreExplicit" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals(rho: 0.25)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fe54689b-a3f1-5725-0790-a7b2915f0701">
+      <Execution id="ada41ce2-fe03-4876-8643-61bbfb57dce8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="HemisphericalReflectancePdfNormalizationAndReciprocityMatchIndependentIntegrals" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BsdfTests.InvalidAlbedoIsRejectedWithoutClamping(rho: 1.1000000000000001)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e375ccf1-35ef-4763-c2d5-e057b9c706c0">
+      <Execution id="f45c1001-7104-4ba0-9d33-9f35256a99b4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BsdfTests" name="InvalidAlbedoIsRejectedWithoutClamping" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialBsdfTests.LegacyNullBsdfAndUnsupportedTransparentSurfacesAreExplicit" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6fa93b48-aa3b-39ca-bd2f-5c719805c98e">
+      <Execution id="5b4e8114-4017-4977-b8a5-d8923c6fb551" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialBsdfTests" name="LegacyNullBsdfAndUnsupportedTransparentSurfacesAreExplicit" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialBsdfTests.FullFresnelNoneAndStochasticDoNotAddAnotherReflectionOrAbsorptionToOpaqueBsdf" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8744d66e-2a3b-5f1a-4b84-28c488c3900c">
+      <Execution id="ba57aed6-2245-4050-8fd2-9382d1cdd4ff" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialBsdfTests" name="FullFresnelNoneAndStochasticDoNotAddAnotherReflectionOrAbsorptionToOpaqueBsdf" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 0)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9d104cf4-d960-2953-a738-e8f170187fa2">
+      <Execution id="d2f93ae0-1311-41fe-a47c-bacef7f48985" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialBsdfTests" name="OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b9928289-02b5-81da-0dc9-e46f3e359763" executionId="c02a9771-1183-4bae-a750-22f8889d1130" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e647808-ad37-a6ec-cc31-96746d04c45f" executionId="ebabda10-f7fb-4c36-b219-09fe63dc6dcb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="75c287b1-dea4-a66c-249c-97fcbda5ff95" executionId="17ec9f8b-d90b-423b-b940-3fc3b1ddbd1e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a0e3fa59-0ae5-847e-5dc0-1a93a100b659" executionId="99d5f62c-544c-4bda-9026-f7e57c57af4f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8744d66e-2a3b-5f1a-4b84-28c488c3900c" executionId="ba57aed6-2245-4050-8fd2-9382d1cdd4ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0fb640c8-7af5-a80e-7cef-ae5013b3a7bd" executionId="e24be7f2-62d3-40f2-8a2c-6fe6cf2aa52a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d4b942a-c4ac-0105-153f-cd71cd20dd7b" executionId="93455dda-14a7-43d6-93a0-c82e4670d4d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d104cf4-d960-2953-a738-e8f170187fa2" executionId="d2f93ae0-1311-41fe-a47c-bacef7f48985" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="350d068f-7e92-4e11-cc16-aac37ee413bc" executionId="9c9a72c7-2d62-4490-9902-ac32f74cdd6e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="526114fa-1b92-21fb-a2b5-7184354a82f1" executionId="7acc949e-f019-4a83-b496-4425630849bf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe54689b-a3f1-5725-0790-a7b2915f0701" executionId="ada41ce2-fe03-4876-8643-61bbfb57dce8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="daa5ee18-78b8-8324-ccef-fed3d0e2bc17" executionId="335a0eb6-fbc4-4a9f-b4c8-74323734f21e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f3c81a1-57d9-ef54-5d1b-4f77fac68513" executionId="4ec752f2-1b94-433f-a2dd-8b8008d8fe17" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39ee44a6-8912-9b4f-98bd-de895ce2c7c4" executionId="61df0456-8030-481b-b38e-30574a707a6f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a70151c6-3c6f-0c35-fa8e-8e28b61650f2" executionId="bff7edb3-f703-4f4f-802d-e170b65cf758" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3351f4e5-3bff-d43b-4f91-cdf394cb7c33" executionId="94ca25b6-2828-4072-a57e-9b1ce57799ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f80ac2ed-dd55-f0a5-29be-e424625e4475" executionId="c5b772c6-905c-44fb-a1e3-d30816e81581" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6fa93b48-aa3b-39ca-bd2f-5c719805c98e" executionId="5b4e8114-4017-4977-b8a5-d8923c6fb551" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="36460c5a-495b-9341-3100-1f46358f1bdc" executionId="c301cace-e45d-4ac0-aa4f-d5bb4a026288" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e375ccf1-35ef-4763-c2d5-e057b9c706c0" executionId="f45c1001-7104-4ba0-9d33-9f35256a99b4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4af4701c-4717-eb56-2bf5-578e77ac1f9f" executionId="2180fc83-e99b-4c30-8156-84034c591733" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="21" executed="21" passed="18" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.86]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.08]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.12]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.11]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:03.11]       Expected: 5.6066894531252745E-11&#xD;
+[xUnit.net 00:00:03.11]       Actual:   5.6066894531250083E-11&#xD;
+[xUnit.net 00:00:03.11]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.11]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialBsdfTests.cs(38,0): at OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(Double rho)&#xD;
+[xUnit.net 00:00:03.11]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.11]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:03.55]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:03.55]       Expected: 1.4016723632813186E-11&#xD;
+[xUnit.net 00:00:03.55]       Actual:   1.4016723632812521E-11&#xD;
+[xUnit.net 00:00:03.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.55]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialBsdfTests.cs(38,0): at OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(Double rho)&#xD;
+[xUnit.net 00:00:03.55]            at InvokeStub_NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.55]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:11.31]       System.InvalidOperationException : Cannot set Name : styled element already styled.&#xD;
+[xUnit.net 00:00:11.31]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.StyledElement.set_Name(String value)&#xD;
+[xUnit.net 00:00:11.31]         D:\Projects\opticalsystem\src\OpticalSystemDesign.App\Panels\NonSequentialObjectEditorPanel.cs(228,0): at OpticalSystemDesign.App.Panels.NonSequentialObjectEditorPanel.LoadSelection()&#xD;
+[xUnit.net 00:00:11.31]         D:\Projects\opticalsystem\src\OpticalSystemDesign.App\Panels\NonSequentialObjectEditorPanel.cs(59,0): at OpticalSystemDesign.App.Panels.NonSequentialObjectEditorPanel.&lt;.ctor&gt;b__14_0(Object _, SelectionChangedEventArgs _)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Interactivity.Interactive.&lt;AddHandler&gt;g__InvokeAdapter|8_0[TEventArgs](Delegate baseHandler, Object sender, RoutedEventArgs args)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Interactivity.Interactive.&lt;&gt;c__8`1.&lt;AddHandler&gt;b__8_1(Delegate baseHandler, Object sender, RoutedEventArgs args)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Interactivity.EventRoute.RaiseEventImpl(RoutedEventArgs e)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Interactivity.EventRoute.RaiseEvent(Interactive source, RoutedEventArgs e)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Interactivity.Interactive.RaiseEvent(RoutedEventArgs e)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Controls.DataGrid.OnSelectionChanged(SelectionChangedEventArgs e)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Controls.DataGrid.FlushSelectionChanged()&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Controls.DataGrid.set_NoSelectionChangeCount(Int32 value)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Controls.DataGrid.OnSelectedItemChanged(AvaloniaPropertyChangedEventArgs e)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Controls.DataGrid.OnSelectedItemChanged(AvaloniaPropertyChangedEventArgs e)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Controls.DataGrid.&lt;&gt;c.&lt;.cctor&gt;b__231_15(DataGrid x, AvaloniaPropertyChangedEventArgs e)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.AvaloniaObjectExtensions.ClassHandlerObserver`1.OnNext(AvaloniaPropertyChangedEventArgs value)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Reactive.LightweightObservableBase`1.PublishNext(T value)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Reactive.LightweightSubject`1.OnNext(T value)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.AvaloniaProperty`1.NotifyChanged(AvaloniaPropertyChangedEventArgs`1 e)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.AvaloniaObject.RaisePropertyChanged[T](AvaloniaProperty`1 property, Optional`1 oldValue, BindingValue`1 newValue, BindingPriority priority, Boolean isEffectiveValue)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.AvaloniaObject.SetAndRaise[T](DirectPropertyBase`1 property, T&amp; field, T value)&#xD;
+[xUnit.net 00:00:11.31]            at Avalonia.Controls.DataGrid.set_SelectedItem(Object value)&#xD;
+[xUnit.net 00:00:11.31]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraBsdfWindowTests.cs(33,0): at OpticalSystemDesign.Tests.CameraBsdfWindowTests.&lt;&gt;c.&lt;&lt;ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen&gt;b__0_0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:11.31]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.32]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:11.32]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.32]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraBsdfWindowTests.cs(22,0): at OpticalSystemDesign.Tests.CameraBsdfWindowTests.ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen()&#xD;
+[xUnit.net 00:00:11.32]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.33]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T13:53:40.4324460+08:00">
+        <Text>[xUnit.net 00:00:03.11]     OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T13:53:40.8715132+08:00">
+        <Text>[xUnit.net 00:00:03.55]     OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 0.25) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T13:53:48.6328592+08:00">
+        <Text>[xUnit.net 00:00:11.31]     OpticalSystemDesign.Tests.CameraBsdfWindowTests.ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

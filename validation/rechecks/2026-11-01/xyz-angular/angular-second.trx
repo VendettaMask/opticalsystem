@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="292ddd74-adfe-4a74-bd45-19e987f9ffc4" name="allen@DESKTOP-SET3SNR 2026-11-01 13:30:00" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T13:30:00.0473144+08:00" queuing="2026-11-01T13:30:00.0473149+08:00" start="2026-11-01T13:29:57.1179847+08:00" finish="2026-11-01T13:30:01.6052166+08:00" />
+  <TestSettings name="default" id="2f8e912b-432b-4d76-a963-167da47b34b8">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_13_30_00" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d40839b0-2047-464f-8b2f-a1adf62bd814" testId="c8b4eaa8-d161-8829-4d29-b64c5e907fba" testName="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.SupportMustBeExplicitBoundedPassiveAndDigestBound" computerName="DESKTOP-SET3SNR" duration="00:00:00.0558251" startTime="2026-11-01T13:30:00.0343525+08:00" endTime="2026-11-01T13:30:00.0724297+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d40839b0-2047-464f-8b2f-a1adf62bd814" />
+    <UnitTestResult executionId="6c680f90-7c57-4501-ab5b-3ef2fdd9c0d4" testId="fcea8f03-c5be-6b24-07e4-632b0dfa7307" testName="OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: True)" computerName="DESKTOP-SET3SNR" duration="00:00:01.1531195" startTime="2026-11-01T13:29:59.6209000+08:00" endTime="2026-11-01T13:30:00.7766499+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6c680f90-7c57-4501-ab5b-3ef2fdd9c0d4">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Detector dimensions do not match the square physical camera pixels.</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Analysis.Imaging.SpectralDetectorSensor.IntegratePhotoElectrons(SpectralDetectorPower detector, SensorSpectralResponse response, CameraSensorSettings sensor, QuantumEfficiencyAreaReference qeArea) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Analysis\Imaging\SpectralDetectorPower.cs:line 91&#xD;
+   at OpticalSystemDesign.Application.Services.CameraImagingService.ValidateNscRequest(CameraImagingRequest r, String version) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 111&#xD;
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateNonSequentialAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken token) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 118&#xD;
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateCoreAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.cs:line 77&#xD;
+   at OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredAngularChainTests.cs:line 30&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="efd966f5-b669-458d-8ff2-c01861dda542" testId="afd4f360-6eae-1a1a-99de-d5391155e169" testName="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.Normal4DSingleRotationRetainsAnisotropyAndRejectsUnmeasuredIncidence" computerName="DESKTOP-SET3SNR" duration="00:00:00.0505334" startTime="2026-11-01T13:29:59.9321292+08:00" endTime="2026-11-01T13:29:59.9822904+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="efd966f5-b669-458d-8ff2-c01861dda542" />
+    <UnitTestResult executionId="e3b07595-a3e6-4a12-899c-d6a3b7512ef8" testId="a60c5737-8315-d93a-6610-b241b84df346" testName="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRejectsUnverifiedProfilesAndMalformedTables(oldValue: &quot;MEAS_NAME BRDF&quot;, newValue: &quot;MEAS_NAME BTDF&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0036666" startTime="2026-11-01T13:29:59.6362852+08:00" endTime="2026-11-01T13:29:59.6363667+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e3b07595-a3e6-4a12-899c-d6a3b7512ef8" />
+    <UnitTestResult executionId="4a3dd534-24aa-4f1f-a0ce-27de8732c1ae" testId="8eea5a02-3b96-9c8e-d3a7-01a3147d4b9b" testName="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRejectsUnverifiedProfilesAndMalformedTables(oldValue: &quot;theta_i,phi_i&quot;, newValue: &quot;theta_i,phi_s&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0105008" startTime="2026-11-01T13:29:59.6477025+08:00" endTime="2026-11-01T13:29:59.6581571+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a3dd534-24aa-4f1f-a0ce-27de8732c1ae" />
+    <UnitTestResult executionId="dee198c7-7e62-4a17-9e6c-ae237f55204e" testId="d223d5d4-cd36-89ef-4d1e-7f452f45c14d" testName="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRejectsUnverifiedProfilesAndMalformedTables(oldValue: &quot;NUM_POINTS 12&quot;, newValue: &quot;NUM_POINTS 13&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0163680" startTime="2026-11-01T13:29:59.6370241+08:00" endTime="2026-11-01T13:29:59.6475439+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dee198c7-7e62-4a17-9e6c-ae237f55204e" />
+    <UnitTestResult executionId="a42db32a-f726-4982-9428-7cc898fc1cca" testId="0b2280ab-f40a-3cbb-a4fe-f1a919cdff7e" testName="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.PartialPolarSupportHasExactEnergyPdfAndSamplingMoments(transmission: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1027920" startTime="2026-11-01T13:29:59.8311947+08:00" endTime="2026-11-01T13:29:59.9317255+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a42db32a-f726-4982-9428-7cc898fc1cca" />
+    <UnitTestResult executionId="2d9496c6-36d6-4fe5-8465-29f1a8c308ad" testId="91c96fce-7c07-1329-ae14-c399837cea8f" testName="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRingUnionRetainsEveryMeasuredKnotAndSelectedBand" computerName="DESKTOP-SET3SNR" duration="00:00:00.0339882" startTime="2026-11-01T13:29:59.9824243+08:00" endTime="2026-11-01T13:30:00.0164591+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d9496c6-36d6-4fe5-8465-29f1a8c308ad" />
+    <UnitTestResult executionId="89e925fe-dc65-4d09-b74e-abd8402df657" testId="f13c19d4-b9f8-8757-4984-76691d7b92b8" testName="OpticalSystemDesign.Tests.MeasuredAngularChainTests.DisabledPolarSupportRequiresV17AndFrozenGridEightRemainsExact" computerName="DESKTOP-SET3SNR" duration="00:00:00.4574118" startTime="2026-11-01T13:30:01.0776973+08:00" endTime="2026-11-01T13:30:01.5347239+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="89e925fe-dc65-4d09-b74e-abd8402df657" />
+    <UnitTestResult executionId="fc3c71a8-daec-4b29-b054-db5116db86ed" testId="81b67f99-560d-891d-527a-1cd7716b409c" testName="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.PartialPolarSupportHasExactEnergyPdfAndSamplingMoments(transmission: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1700209" startTime="2026-11-01T13:29:59.6595049+08:00" endTime="2026-11-01T13:29:59.8287986+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc3c71a8-daec-4b29-b054-db5116db86ed" />
+    <UnitTestResult executionId="24101cb5-e9eb-4098-93b5-33c9e97bb2e5" testId="baa6b6de-bc5e-9f40-fd00-db835e2ded4f" testName="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRejectsUnverifiedProfilesAndMalformedTables(oldValue: &quot;550nm&quot;, newValue: &quot;TristimulusY&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0228533" startTime="2026-11-01T13:29:59.6223970+08:00" endTime="2026-11-01T13:29:59.6275308+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24101cb5-e9eb-4098-93b5-33c9e97bb2e5" />
+    <UnitTestResult executionId="e26dafe8-ab23-4fc3-b131-5b858bb29cfe" testId="4a887601-7e1f-3724-09ea-7962ae74c629" testName="OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2981584" startTime="2026-11-01T13:30:00.7810769+08:00" endTime="2026-11-01T13:30:01.0759279+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e26dafe8-ab23-4fc3-b131-5b858bb29cfe">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Detector dimensions do not match the square physical camera pixels.</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Analysis.Imaging.SpectralDetectorSensor.IntegratePhotoElectrons(SpectralDetectorPower detector, SensorSpectralResponse response, CameraSensorSettings sensor, QuantumEfficiencyAreaReference qeArea) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Analysis\Imaging\SpectralDetectorPower.cs:line 91&#xD;
+   at OpticalSystemDesign.Application.Services.CameraImagingService.ValidateNscRequest(CameraImagingRequest r, String version) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 111&#xD;
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateNonSequentialAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken token) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 118&#xD;
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateCoreAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.cs:line 77&#xD;
+   at OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredAngularChainTests.cs:line 30&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4a887601-7e1f-3724-09ea-7962ae74c629">
+      <Execution id="e26dafe8-ab23-4fc3-b131-5b858bb29cfe" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularChainTests" name="ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRingUnionRetainsEveryMeasuredKnotAndSelectedBand" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="91c96fce-7c07-1329-ae14-c399837cea8f">
+      <Execution id="2d9496c6-36d6-4fe5-8465-29f1a8c308ad" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests" name="CornellRingUnionRetainsEveryMeasuredKnotAndSelectedBand" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRejectsUnverifiedProfilesAndMalformedTables(oldValue: &quot;MEAS_NAME BRDF&quot;, newValue: &quot;MEAS_NAME BTDF&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a60c5737-8315-d93a-6610-b241b84df346">
+      <Execution id="e3b07595-a3e6-4a12-899c-d6a3b7512ef8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests" name="CornellRejectsUnverifiedProfilesAndMalformedTables" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRejectsUnverifiedProfilesAndMalformedTables(oldValue: &quot;NUM_POINTS 12&quot;, newValue: &quot;NUM_POINTS 13&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d223d5d4-cd36-89ef-4d1e-7f452f45c14d">
+      <Execution id="dee198c7-7e62-4a17-9e6c-ae237f55204e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests" name="CornellRejectsUnverifiedProfilesAndMalformedTables" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.PartialPolarSupportHasExactEnergyPdfAndSamplingMoments(transmission: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0b2280ab-f40a-3cbb-a4fe-f1a919cdff7e">
+      <Execution id="a42db32a-f726-4982-9428-7cc898fc1cca" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests" name="PartialPolarSupportHasExactEnergyPdfAndSamplingMoments" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRejectsUnverifiedProfilesAndMalformedTables(oldValue: &quot;550nm&quot;, newValue: &quot;TristimulusY&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="baa6b6de-bc5e-9f40-fd00-db835e2ded4f">
+      <Execution id="24101cb5-e9eb-4098-93b5-33c9e97bb2e5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests" name="CornellRejectsUnverifiedProfilesAndMalformedTables" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularChainTests.DisabledPolarSupportRequiresV17AndFrozenGridEightRemainsExact" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f13c19d4-b9f8-8757-4984-76691d7b92b8">
+      <Execution id="89e925fe-dc65-4d09-b74e-abd8402df657" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularChainTests" name="DisabledPolarSupportRequiresV17AndFrozenGridEightRemainsExact" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.PartialPolarSupportHasExactEnergyPdfAndSamplingMoments(transmission: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="81b67f99-560d-891d-527a-1cd7716b409c">
+      <Execution id="fc3c71a8-daec-4b29-b054-db5116db86ed" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests" name="PartialPolarSupportHasExactEnergyPdfAndSamplingMoments" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.CornellRejectsUnverifiedProfilesAndMalformedTables(oldValue: &quot;theta_i,phi_i&quot;, newValue: &quot;theta_i,phi_s&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8eea5a02-3b96-9c8e-d3a7-01a3147d4b9b">
+      <Execution id="4a3dd534-24aa-4f1f-a0ce-27de8732c1ae" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests" name="CornellRejectsUnverifiedProfilesAndMalformedTables" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fcea8f03-c5be-6b24-07e4-632b0dfa7307">
+      <Execution id="6c680f90-7c57-4501-ab5b-3ef2fdd9c0d4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularChainTests" name="ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.Normal4DSingleRotationRetainsAnisotropyAndRejectsUnmeasuredIncidence" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="afd4f360-6eae-1a1a-99de-d5391155e169">
+      <Execution id="efd966f5-b669-458d-8ff2-c01861dda542" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests" name="Normal4DSingleRotationRetainsAnisotropyAndRejectsUnmeasuredIncidence" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests.SupportMustBeExplicitBoundedPassiveAndDigestBound" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c8b4eaa8-d161-8829-4d29-b64c5e907fba">
+      <Execution id="d40839b0-2047-464f-8b2f-a1adf62bd814" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MeasuredAngularCoverageTests" name="SupportMustBeExplicitBoundedPassiveAndDigestBound" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c8b4eaa8-d161-8829-4d29-b64c5e907fba" executionId="d40839b0-2047-464f-8b2f-a1adf62bd814" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fcea8f03-c5be-6b24-07e4-632b0dfa7307" executionId="6c680f90-7c57-4501-ab5b-3ef2fdd9c0d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="afd4f360-6eae-1a1a-99de-d5391155e169" executionId="efd966f5-b669-458d-8ff2-c01861dda542" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a60c5737-8315-d93a-6610-b241b84df346" executionId="e3b07595-a3e6-4a12-899c-d6a3b7512ef8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8eea5a02-3b96-9c8e-d3a7-01a3147d4b9b" executionId="4a3dd534-24aa-4f1f-a0ce-27de8732c1ae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d223d5d4-cd36-89ef-4d1e-7f452f45c14d" executionId="dee198c7-7e62-4a17-9e6c-ae237f55204e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0b2280ab-f40a-3cbb-a4fe-f1a919cdff7e" executionId="a42db32a-f726-4982-9428-7cc898fc1cca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="91c96fce-7c07-1329-ae14-c399837cea8f" executionId="2d9496c6-36d6-4fe5-8465-29f1a8c308ad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f13c19d4-b9f8-8757-4984-76691d7b92b8" executionId="89e925fe-dc65-4d09-b74e-abd8402df657" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="81b67f99-560d-891d-527a-1cd7716b409c" executionId="fc3c71a8-daec-4b29-b054-db5116db86ed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="baa6b6de-bc5e-9f40-fd00-db835e2ded4f" executionId="24101cb5-e9eb-4098-93b5-33c9e97bb2e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4a887601-7e1f-3724-09ea-7962ae74c629" executionId="e26dafe8-ab23-4fc3-b131-5b858bb29cfe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="12" executed="12" passed="10" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.73]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.94]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.98]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.18]       System.ArgumentException : Detector dimensions do not match the square physical camera pixels.&#xD;
+[xUnit.net 00:00:03.18]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.19]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Analysis\Imaging\SpectralDetectorPower.cs(91,0): at OpticalSystemDesign.Core.Analysis.Imaging.SpectralDetectorSensor.IntegratePhotoElectrons(SpectralDetectorPower detector, SensorSpectralResponse response, CameraSensorSettings sensor, QuantumEfficiencyAreaReference qeArea)&#xD;
+[xUnit.net 00:00:03.19]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs(111,0): at OpticalSystemDesign.Application.Services.CameraImagingService.ValidateNscRequest(CameraImagingRequest r, String version)&#xD;
+[xUnit.net 00:00:03.19]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs(118,0): at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateNonSequentialAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken token)&#xD;
+[xUnit.net 00:00:03.19]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.cs(77,0): at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateCoreAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.19]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredAngularChainTests.cs(30,0): at OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(Boolean transmission)&#xD;
+[xUnit.net 00:00:03.19]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.48]       System.ArgumentException : Detector dimensions do not match the square physical camera pixels.&#xD;
+[xUnit.net 00:00:03.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.48]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Analysis\Imaging\SpectralDetectorPower.cs(91,0): at OpticalSystemDesign.Core.Analysis.Imaging.SpectralDetectorSensor.IntegratePhotoElectrons(SpectralDetectorPower detector, SensorSpectralResponse response, CameraSensorSettings sensor, QuantumEfficiencyAreaReference qeArea)&#xD;
+[xUnit.net 00:00:03.48]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs(111,0): at OpticalSystemDesign.Application.Services.CameraImagingService.ValidateNscRequest(CameraImagingRequest r, String version)&#xD;
+[xUnit.net 00:00:03.48]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs(118,0): at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateNonSequentialAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken token)&#xD;
+[xUnit.net 00:00:03.48]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.cs(77,0): at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateCoreAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.48]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredAngularChainTests.cs(30,0): at OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(Boolean transmission)&#xD;
+[xUnit.net 00:00:03.48]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.94]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:30:00.7789852+08:00">
+        <Text>[xUnit.net 00:00:03.18]     OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:30:01.0764793+08:00">
+        <Text>[xUnit.net 00:00:03.48]     OpticalSystemDesign.Tests.MeasuredAngularChainTests.ExplicitSupportSurvivesNscCameraProjectAndFrozenReplay(transmission: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

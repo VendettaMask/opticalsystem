@@ -1,0 +1,89 @@
+{
+  "CoreSha256": "02e283f2282f822c50909d8a65f61c43f7ec9091155588b1d2ed05b74518b025",
+  "Cases": [
+    {
+      "Material": "garnet_red",
+      "Success": true,
+      "Count": 1140,
+      "ComputationProtocol": "MeasuredBsdfGrid/9",
+      "SourceSha256": "54f7c8b42720e384a5fbf899c8778a5f3a3394e48ba95650f53753d7356f0020",
+      "DataSha256": "c7d4551fa7ea1e5a03fd832b79793820ef7419e22049c7b5007d77220933ec0a",
+      "Incidences": [
+        20.000008571513593
+      ],
+      "ImportNotes": "Cornell/Kodak measured radiometric spectral BRDF; original 1439 directions, 31 bands; selected 179 directions at 0.34906599999999999 incident radians, 550 nm. Radians converted explicitly. Each ring\u0027s periodic linear azimuth interpolation retained on its union (a single-sample ring is constant); linear in cosine between measured polar rings. This interpolation is not independent measurement of gaps. No added ideal specular peak. Unmeasured polar caps are zero by explicit support convention, not certified zero physical scattering. No XYZ calibration approval implied."
+    },
+    {
+      "Material": "krylon_blue",
+      "Success": true,
+      "Count": 1140,
+      "ComputationProtocol": "MeasuredBsdfGrid/9",
+      "SourceSha256": "53c7e4ff1b235dc859697db8d480fa690785b99b55eb8087d37afcdbafde96b0",
+      "DataSha256": "7e654b76effe3afd2697f67760f0f97417d79dae57ba3c362f6b3b109962edb4",
+      "Incidences": [
+        20.000008571513593
+      ],
+      "ImportNotes": "Cornell/Kodak measured radiometric spectral BRDF; original 1439 directions, 31 bands; selected 179 directions at 0.34906599999999999 incident radians, 550 nm. Radians converted explicitly. Each ring\u0027s periodic linear azimuth interpolation retained on its union (a single-sample ring is constant); linear in cosine between measured polar rings. This interpolation is not independent measurement of gaps. No added ideal specular peak. Unmeasured polar caps are zero by explicit support convention, not certified zero physical scattering. No XYZ calibration approval implied."
+    },
+    {
+      "Material": "acryl_blue",
+      "Success": true,
+      "Count": 1140,
+      "ComputationProtocol": "MeasuredBsdfGrid/9",
+      "SourceSha256": "0ae678883e58af7840def4aef72847c55c391d2efe324179f209a33fe12ffc9a",
+      "DataSha256": "2bf70ad83bbcbe1f3e229b92bdd75b51330706e7e410081ef9cdac9f25ed7d55",
+      "Incidences": [
+        20.000008571513593
+      ],
+      "ImportNotes": "Cornell/Kodak measured radiometric spectral BRDF; original 1439 directions, 31 bands; selected 179 directions at 0.34906599999999999 incident radians, 550 nm. Radians converted explicitly. Each ring\u0027s periodic linear azimuth interpolation retained on its union (a single-sample ring is constant); linear in cosine between measured polar rings. This interpolation is not independent measurement of gaps. No added ideal specular peak. Unmeasured polar caps are zero by explicit support convention, not certified zero physical scattering. No XYZ calibration approval implied."
+    },
+    {
+      "Material": "mystique",
+      "Success": true,
+      "Count": 1140,
+      "ComputationProtocol": "MeasuredBsdfGrid/9",
+      "SourceSha256": "3641f9aa0951964b8f52ac1a0616c0411bd26b055e5ea9c58c22b5f02e58f1a6",
+      "DataSha256": "ad48c29f2fb7ec5df6b32b44c6a8a5c7ec88270811e457afcc6d5e9df4806e18",
+      "Incidences": [
+        20.000008571513593
+      ],
+      "ImportNotes": "Cornell/Kodak measured radiometric spectral BRDF; original 1439 directions, 31 bands; selected 179 directions at 0.34906599999999999 incident radians, 550 nm. Radians converted explicitly. Each ring\u0027s periodic linear azimuth interpolation retained on its union (a single-sample ring is constant); linear in cosine between measured polar rings. This interpolation is not independent measurement of gaps. No added ideal specular peak. Unmeasured polar caps are zero by explicit support convention, not certified zero physical scattering. No XYZ calibration approval implied."
+    },
+    {
+      "Material": "cayman",
+      "Success": true,
+      "Count": 1140,
+      "ComputationProtocol": "MeasuredBsdfGrid/9",
+      "SourceSha256": "eddef58cac794c41fffa8be876dc49792fcc37101610c27c87aa8bbb11bd2d6b",
+      "DataSha256": "541f8b4080c150f4e824063182cfd170304c46813aecafce12d061974d97c04a",
+      "Incidences": [
+        20.000008571513593
+      ],
+      "ImportNotes": "Cornell/Kodak measured radiometric spectral BRDF; original 1439 directions, 31 bands; selected 179 directions at 0.34906599999999999 incident radians, 550 nm. Radians converted explicitly. Each ring\u0027s periodic linear azimuth interpolation retained on its union (a single-sample ring is constant); linear in cosine between measured polar rings. This interpolation is not independent measurement of gaps. No added ideal specular peak. Unmeasured polar caps are zero by explicit support convention, not certified zero physical scattering. No XYZ calibration approval implied."
+    },
+    {
+      "Material": "EDC50",
+      "Success": true,
+      "Count": 31046,
+      "ComputationProtocol": "MeasuredBsdfGrid/3",
+      "SourceSha256": "a5f1dc963944b5f8ea7d4209c8bd4a8c5e8520110898506d227a1801049c7d32",
+      "DataSha256": "c66eb564de85753188b099db529b5e627e2cabdfd6db281b3c8d7d0d72b0de04"
+    },
+    {
+      "Material": "EDS40",
+      "Success": true,
+      "Count": 31046,
+      "ComputationProtocol": "MeasuredBsdfGrid/3",
+      "SourceSha256": "5805cc97d9226852eca5ac90697f141f94b8eefbc3f78f63bc76a9b7afcdb611",
+      "DataSha256": "65f2a93420c7fb57ee4fde5e92e27ea1841ddc3f77ddf4cf66bb4696058c6c9b"
+    },
+    {
+      "Material": "HILAM",
+      "Success": true,
+      "Count": 31046,
+      "ComputationProtocol": "MeasuredBsdfGrid/3",
+      "SourceSha256": "7249223a5b28f0d1909399d32a9ea21b9241e28653744e51c3eba024167440ec",
+      "DataSha256": "ec0b3f9494d13114e55e534b700ef2d036784ce35f45a47efeb573d77c1b8224"
+    }
+  ]
+}

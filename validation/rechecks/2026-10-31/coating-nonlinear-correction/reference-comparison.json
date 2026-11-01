@@ -1,0 +1,2909 @@
+{
+  "runs": 96,
+  "passed": 6,
+  "targetRegressions": 74,
+  "scope": "Unmodified pinned TFStudio DLS/Newton/SQP; point-squared objective differs from native measured-band and minimax targets. 78 historical runs reused, 18 new runs; all 96 rechecked with final optical Core.",
+  "results": [
+    {
+      "name": "continued-double-96-DLS",
+      "source": "continued-double-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.5903010033445,
+        "PeakTransmittance": 0.6501578873925224,
+        "LeftHalfMaximumNanometers": 541.6108609884042,
+        "RightHalfMaximumNanometers": 558.9188357311359,
+        "FwhmNanometers": 17.307974742731744,
+        "MinimumReflectance": 0.0116750064545647,
+        "MaximumReflectance": 0.8858361341615595
+      },
+      "od": [
+        1.174470240874247,
+        1.1566591567875584
+      ],
+      "inputViolations": [
+        0.11307788257749014,
+        0.07572781826822089,
+        0,
+        0.06207736594399227,
+        0
+      ],
+      "violations": [
+        0.13312281680997007,
+        0.08719831618211629,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 96
+    },
+    {
+      "name": "continued-double-96-Newton",
+      "source": "continued-double-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.6634615384615,
+        "PeakTransmittance": 0.6493824448782377,
+        "LeftHalfMaximumNanometers": 541.5778669134016,
+        "RightHalfMaximumNanometers": 558.9168860056873,
+        "FwhmNanometers": 17.33901909228564,
+        "MinimumReflectance": 0.007932302235550547,
+        "MaximumReflectance": 0.8909683403321547
+      },
+      "od": [
+        1.166799822489415,
+        1.1569647075025242
+      ],
+      "inputViolations": [
+        0.11307788257749014,
+        0.07572781826822089,
+        0,
+        0.06207736594399227,
+        0
+      ],
+      "violations": [
+        0.1341567401623497,
+        0.08926793948570927,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 30
+    },
+    {
+      "name": "continued-double-96-SQP",
+      "source": "continued-double-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.6634615384615,
+        "PeakTransmittance": 0.6493824448782377,
+        "LeftHalfMaximumNanometers": 541.5778669134016,
+        "RightHalfMaximumNanometers": 558.9168860056873,
+        "FwhmNanometers": 17.33901909228564,
+        "MinimumReflectance": 0.007932302235550547,
+        "MaximumReflectance": 0.8909683403321547
+      },
+      "od": [
+        1.166799822489415,
+        1.1569647075025242
+      ],
+      "inputViolations": [
+        0.11307788257749014,
+        0.07572781826822089,
+        0,
+        0.06207736594399227,
+        0
+      ],
+      "violations": [
+        0.1341567401623497,
+        0.08926793948570927,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 30
+    },
+    {
+      "name": "continued-hr-96-DLS",
+      "source": "continued-hr-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0004776632459708329,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 523.1720572638573,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9582537464104918,
+        "MaximumReflectance": 0.9699233163140468
+      },
+      "od": [],
+      "inputViolations": [
+        0.9845747495234471
+      ],
+      "violations": [
+        1.0873126794754098
+      ],
+      "targetsPreserved": false,
+      "iterations": 96
+    },
+    {
+      "name": "continued-hr-96-Newton",
+      "source": "continued-hr-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0005727981500198217,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 523.057444862466,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9581921776950982,
+        "MaximumReflectance": 0.9701281803116037
+      },
+      "od": [],
+      "inputViolations": [
+        0.9845747495234471
+      ],
+      "violations": [
+        1.0903911152450865
+      ],
+      "targetsPreserved": false,
+      "iterations": 36
+    },
+    {
+      "name": "continued-hr-96-SQP",
+      "source": "continued-hr-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0005727981500198217,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 523.057444862466,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9581921776950982,
+        "MaximumReflectance": 0.9701281803116037
+      },
+      "od": [],
+      "inputViolations": [
+        0.9845747495234471
+      ],
+      "violations": [
+        1.0903911152450865
+      ],
+      "targetsPreserved": false,
+      "iterations": 36
+    },
+    {
+      "name": "continued-single-24-DLS",
+      "source": "continued-single-24",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7805183946489,
+        "PeakTransmittance": 0.6741688394072378,
+        "LeftHalfMaximumNanometers": 541.7719990902347,
+        "RightHalfMaximumNanometers": 558.2068759504592,
+        "FwhmNanometers": 16.434876860224563,
+        "MinimumReflectance": 0.09802505537806416,
+        "MaximumReflectance": 0.8911244359803657
+      },
+      "od": [
+        1.1941902765607937,
+        1.2202089660012154
+      ],
+      "inputViolations": [
+        0.06581289450455034,
+        0.06226679084667618,
+        0,
+        0.005868522718156743,
+        0
+      ],
+      "violations": [
+        0.10110821412368291,
+        0.028991790681637517,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 24
+    },
+    {
+      "name": "continued-single-24-Newton",
+      "source": "continued-single-24",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7951505016723,
+        "PeakTransmittance": 0.6721905243758444,
+        "LeftHalfMaximumNanometers": 541.8133508769363,
+        "RightHalfMaximumNanometers": 558.2304302245961,
+        "FwhmNanometers": 16.417079347659865,
+        "MinimumReflectance": 0.09931495648855662,
+        "MaximumReflectance": 0.8909121282120913
+      },
+      "od": [
+        1.205607297960974,
+        1.2176266578613277
+      ],
+      "inputViolations": [
+        0.06581289450455034,
+        0.06226679084667618,
+        0,
+        0.005868522718156743,
+        0
+      ],
+      "violations": [
+        0.10374596749887417,
+        0.027805289843990978,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 20
+    },
+    {
+      "name": "continued-single-24-SQP",
+      "source": "continued-single-24",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7951505016723,
+        "PeakTransmittance": 0.6721905243742892,
+        "LeftHalfMaximumNanometers": 541.813350876935,
+        "RightHalfMaximumNanometers": 558.2304302245867,
+        "FwhmNanometers": 16.41707934765168,
+        "MinimumReflectance": 0.09931495648976682,
+        "MaximumReflectance": 0.8909121282123545
+      },
+      "od": [
+        1.2056072979586114,
+        1.2176266578648869
+      ],
+      "inputViolations": [
+        0.06581289450455034,
+        0.06226679084667618,
+        0,
+        0.005868522718156743,
+        0
+      ],
+      "violations": [
+        0.10374596750094778,
+        0.02780528984344528,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 24
+    },
+    {
+      "name": "correction-real-hr-nearir-fixed-DLS",
+      "source": "correction-real-hr-nearir-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1007,
+        "PeakTransmittance": 0.00187014610007524,
+        "LeftHalfMaximumNanometers": 994.7091507201092,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.978611701146059,
+        "MaximumReflectance": 0.9861551345575447
+      },
+      "od": [],
+      "inputViolations": [
+        47.30634232914088
+      ],
+      "violations": [
+        0.06941494269704912
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "correction-real-hr-nearir-fixed-Newton",
+      "source": "correction-real-hr-nearir-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 892.9999999999999,
+        "PeakTransmittance": 0.0007209118942716933,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 904.1209255359265,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9796375615064592,
+        "MaximumReflectance": 0.9863314937770505
+      },
+      "od": [],
+      "inputViolations": [
+        47.30634232914088
+      ],
+      "violations": [
+        0.018121924677039197
+      ],
+      "targetsPreserved": true,
+      "iterations": 42
+    },
+    {
+      "name": "correction-real-hr-nearir-fixed-SQP",
+      "source": "correction-real-hr-nearir-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 892.9999999999999,
+        "PeakTransmittance": 0.0007209118942716933,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 904.1209255359265,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9796375615064592,
+        "MaximumReflectance": 0.9863314937770505
+      },
+      "od": [],
+      "inputViolations": [
+        47.30634232914088
+      ],
+      "violations": [
+        0.018121924677039197
+      ],
+      "targetsPreserved": true,
+      "iterations": 42
+    },
+    {
+      "name": "correction-real-hr-orange-DLS",
+      "source": "correction-real-hr-orange",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 567.2727272727273,
+        "PeakTransmittance": 0.0001536797836310169,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 574.1121455726388,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9649478208837486,
+        "MaximumReflectance": 0.9739407295882433
+      },
+      "od": [],
+      "inputViolations": [
+        0.613571339958518
+      ],
+      "violations": [
+        0.7526089558125664
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "correction-real-hr-orange-Newton",
+      "source": "correction-real-hr-orange",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 567.2727272727273,
+        "PeakTransmittance": 0.00019978398397003843,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 574.0307969658843,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.96667798589519,
+        "MaximumReflectance": 0.9755083364093785
+      },
+      "od": [],
+      "inputViolations": [
+        0.613571339958518
+      ],
+      "violations": [
+        0.666100705240496
+      ],
+      "targetsPreserved": false,
+      "iterations": 21
+    },
+    {
+      "name": "correction-real-hr-orange-SQP",
+      "source": "correction-real-hr-orange",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 567.2727272727273,
+        "PeakTransmittance": 0.00019978398397003843,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 574.0307969658843,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.96667798589519,
+        "MaximumReflectance": 0.9755083364093785
+      },
+      "od": [],
+      "inputViolations": [
+        0.613571339958518
+      ],
+      "violations": [
+        0.666100705240496
+      ],
+      "targetsPreserved": false,
+      "iterations": 21
+    },
+    {
+      "name": "correction-real-hr-red-DLS",
+      "source": "correction-real-hr-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 671.2727272727274,
+        "PeakTransmittance": 0.00013340293388982959,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 681.7276790903841,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9748228126028301,
+        "MaximumReflectance": 0.9815500245241495
+      },
+      "od": [],
+      "inputViolations": [
+        0.19384850695362538
+      ],
+      "violations": [
+        0.2588593698584938
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "correction-real-hr-red-Newton",
+      "source": "correction-real-hr-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 671.2727272727274,
+        "PeakTransmittance": 0.0001939333583986315,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 680.2220261837542,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9755166706781324,
+        "MaximumReflectance": 0.9820885585795356
+      },
+      "od": [],
+      "inputViolations": [
+        0.19384850695362538
+      ],
+      "violations": [
+        0.22416646609337823
+      ],
+      "targetsPreserved": false,
+      "iterations": 22
+    },
+    {
+      "name": "correction-real-hr-red-SQP",
+      "source": "correction-real-hr-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 671.2727272727274,
+        "PeakTransmittance": 0.0001939333583986315,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 680.2220261837542,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9755166706781324,
+        "MaximumReflectance": 0.9820885585795356
+      },
+      "od": [],
+      "inputViolations": [
+        0.19384850695362538
+      ],
+      "violations": [
+        0.22416646609337823
+      ],
+      "targetsPreserved": false,
+      "iterations": 22
+    },
+    {
+      "name": "correction-real-nbf-ir-DLS",
+      "source": "correction-real-nbf-ir",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1052.6257981149286,
+        "PeakTransmittance": 0.7774012632555344,
+        "LeftHalfMaximumNanometers": 1036.1033953446984,
+        "RightHalfMaximumNanometers": 1063.8913870099777,
+        "FwhmNanometers": 27.787991665279378,
+        "MinimumReflectance": 0.07565071524297817,
+        "MaximumReflectance": 0.9294249065964711
+      },
+      "od": [
+        1.13163564367251,
+        1.1747834197213052
+      ],
+      "inputViolations": [
+        0,
+        0.07476557900439194,
+        0.08469899665551998,
+        0.11072770659138931,
+        0
+      ],
+      "violations": [
+        0,
+        0,
+        0.05836120401337818,
+        0,
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "correction-real-nbf-ir-Newton",
+      "source": "correction-real-nbf-ir",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1046.5920492550927,
+        "PeakTransmittance": 0.766364005991041,
+        "LeftHalfMaximumNanometers": 1036.0335880898356,
+        "RightHalfMaximumNanometers": 1064.948920796901,
+        "FwhmNanometers": 28.915332707065318,
+        "MinimumReflectance": 0.08315277275142371,
+        "MaximumReflectance": 0.9232062876516742
+      },
+      "od": [
+        1.4072381327797205,
+        1.365257092876702
+      ],
+      "inputViolations": [
+        0,
+        0.07476557900439194,
+        0.08469899665551998,
+        0.11072770659138931,
+        0
+      ],
+      "violations": [
+        0,
+        0,
+        0.08567447045708168,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "correction-real-nbf-ir-SQP",
+      "source": "correction-real-nbf-ir",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1046.5920492550927,
+        "PeakTransmittance": 0.766364005991041,
+        "LeftHalfMaximumNanometers": 1036.0335880898356,
+        "RightHalfMaximumNanometers": 1064.948920796901,
+        "FwhmNanometers": 28.915332707065318,
+        "MinimumReflectance": 0.08315277275142371,
+        "MaximumReflectance": 0.9232062876516742
+      },
+      "od": [
+        1.4072381327797205,
+        1.365257092876702
+      ],
+      "inputViolations": [
+        0,
+        0.07476557900439194,
+        0.08469899665551998,
+        0.11072770659138931,
+        0
+      ],
+      "violations": [
+        0,
+        0,
+        0.08567447045708168,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "correction-real-nbf-red-DLS",
+      "source": "correction-real-nbf-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 728.6017026451809,
+        "PeakTransmittance": 0.670761043438651,
+        "LeftHalfMaximumNanometers": 719.6565526449963,
+        "RightHalfMaximumNanometers": 744.1217325533078,
+        "FwhmNanometers": 24.465179908311484,
+        "MinimumReflectance": 0.13359176704353548,
+        "MaximumReflectance": 0.8345490713671534
+      },
+      "od": [
+        1.2551612576320574,
+        1.2037311026994388
+      ],
+      "inputViolations": [
+        0,
+        0.26006845271383744,
+        0.04324136008918596,
+        0.21304237710008878,
+        0
+      ],
+      "violations": [
+        0.10565194208179873,
+        0.1621779862622206,
+        0.03690078037904047,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "correction-real-nbf-red-Newton",
+      "source": "correction-real-nbf-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 730.6214654910308,
+        "PeakTransmittance": 0.713577873421161,
+        "LeftHalfMaximumNanometers": 717.9531620398321,
+        "RightHalfMaximumNanometers": 740.7394298660421,
+        "FwhmNanometers": 22.78626782620995,
+        "MinimumReflectance": 0.09357385462079341,
+        "MaximumReflectance": 0.8669475475527018
+      },
+      "od": [
+        0.9897070770024229,
+        1.02644950267595
+      ],
+      "inputViolations": [
+        0,
+        0.26006845271383744,
+        0.04324136008918596,
+        0.21304237710008878,
+        0
+      ],
+      "violations": [
+        0.048562835438452044,
+        0.07784906889639016,
+        0,
+        0.010292922997577114,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 36
+    },
+    {
+      "name": "correction-real-nbf-red-SQP",
+      "source": "correction-real-nbf-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 730.6214654910308,
+        "PeakTransmittance": 0.7135778733493762,
+        "LeftHalfMaximumNanometers": 717.9531620388316,
+        "RightHalfMaximumNanometers": 740.739429863917,
+        "FwhmNanometers": 22.786267825085474,
+        "MinimumReflectance": 0.09357385469647393,
+        "MaximumReflectance": 0.8669475475538732
+      },
+      "od": [
+        0.9897070768248571,
+        1.0264495028290226
+      ],
+      "inputViolations": [
+        0,
+        0.26006845271383744,
+        0.04324136008918596,
+        0.21304237710008878,
+        0
+      ],
+      "violations": [
+        0.04856283553416511,
+        0.07784906883990961,
+        0,
+        0.010292923175142854,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 41
+    },
+    {
+      "name": "correction-real-nbf-yellow-DLS",
+      "source": "correction-real-nbf-yellow",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 579.7531164487685,
+        "PeakTransmittance": 0.6972813621904184,
+        "LeftHalfMaximumNanometers": 571.2795121369038,
+        "RightHalfMaximumNanometers": 588.6973845634235,
+        "FwhmNanometers": 17.417872426519693,
+        "MinimumReflectance": 0.09299069835380397,
+        "MaximumReflectance": 0.892546896677999
+      },
+      "od": [
+        1.1829772245265275,
+        1.203253573729467
+      ],
+      "inputViolations": [
+        0.022076649621736166,
+        0.08857871847055801,
+        0,
+        0.06708040548059169,
+        0
+      ],
+      "violations": [
+        0.07029151707944219,
+        0.03446319937768188,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "correction-real-nbf-yellow-Newton",
+      "source": "correction-real-nbf-yellow",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 579.7685466707205,
+        "PeakTransmittance": 0.696627403850437,
+        "LeftHalfMaximumNanometers": 571.2909905366387,
+        "RightHalfMaximumNanometers": 588.7109733511271,
+        "FwhmNanometers": 17.419982814488435,
+        "MinimumReflectance": 0.09330097474344183,
+        "MaximumReflectance": 0.8926626366867202
+      },
+      "od": [
+        1.1877157742196833,
+        1.2009697225399059
+      ],
+      "inputViolations": [
+        0.022076649621736166,
+        0.08857871847055801,
+        0,
+        0.06708040548059169,
+        0
+      ],
+      "violations": [
+        0.0711634615327507,
+        0.0345966147090391,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 25
+    },
+    {
+      "name": "correction-real-nbf-yellow-SQP",
+      "source": "correction-real-nbf-yellow",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 579.7685466707205,
+        "PeakTransmittance": 0.6966274038507463,
+        "LeftHalfMaximumNanometers": 571.2909905366407,
+        "RightHalfMaximumNanometers": 588.7109733511298,
+        "FwhmNanometers": 17.419982814489117,
+        "MinimumReflectance": 0.09330097474327251,
+        "MaximumReflectance": 0.8926626366867579
+      },
+      "od": [
+        1.1877157742208249,
+        1.200969722538978
+      ],
+      "inputViolations": [
+        0.022076649621736166,
+        0.08857871847055801,
+        0,
+        0.06708040548059169,
+        0
+      ],
+      "violations": [
+        0.07116346153233828,
+        0.03459661470908223,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 20
+    },
+    {
+      "name": "fresh-blue-fixed-DLS",
+      "source": "fresh-blue-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 447.68097560975605,
+        "PeakTransmittance": 0.8550787455508677,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 462.4461777390662,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0012113443581314627,
+        "MaximumReflectance": 0.7900932842092958
+      },
+      "od": [
+        0.7895205192372017,
+        0.8926529138301409
+      ],
+      "inputViolations": [
+        0,
+        1.3915246912589507,
+        0,
+        0.09235227930591272,
+        0.20097298652577356
+      ],
+      "violations": [
+        0,
+        1,
+        1.0312195121951262,
+        0.21047948076279832,
+        0.10734708616985911
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "fresh-blue-fixed-Newton",
+      "source": "fresh-blue-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 447.4551829268292,
+        "PeakTransmittance": 0.8553218127992872,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 462.06002118825756,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0013586649177137365,
+        "MaximumReflectance": 0.7961013487712646
+      },
+      "od": [
+        0.7779736213418931,
+        0.910398921186456
+      ],
+      "inputViolations": [
+        0,
+        1.3915246912589507,
+        0,
+        0.09235227930591272,
+        0.20097298652577356
+      ],
+      "violations": [
+        0,
+        1,
+        1.0508536585365917,
+        0.22202637865810693,
+        0.08960107881354396
+      ],
+      "targetsPreserved": false,
+      "iterations": 26
+    },
+    {
+      "name": "fresh-blue-fixed-SQP",
+      "source": "fresh-blue-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 447.4551829268292,
+        "PeakTransmittance": 0.8553218127992872,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 462.06002118825756,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.0013586649177137365,
+        "MaximumReflectance": 0.7961013487712646
+      },
+      "od": [
+        0.7779736213418931,
+        0.910398921186456
+      ],
+      "inputViolations": [
+        0,
+        1.3915246912589507,
+        0,
+        0.09235227930591272,
+        0.20097298652577356
+      ],
+      "violations": [
+        0,
+        1,
+        1.0508536585365917,
+        0.22202637865810693,
+        0.08960107881354396
+      ],
+      "targetsPreserved": false,
+      "iterations": 26
+    },
+    {
+      "name": "fresh-ir-double-DLS",
+      "source": "fresh-ir-double",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1810.1615853658536,
+        "PeakTransmittance": 0.7058355104098668,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.12793883068086606,
+        "MaximumReflectance": 0.43063456359429747
+      },
+      "od": [
+        0.6665766794729543,
+        0.6346756887563582
+      ],
+      "inputViolations": [
+        0.042772931190597774,
+        1,
+        1.8391463414634095,
+        0.15545754507580423,
+        0.5440241816469218
+      ],
+      "violations": [
+        0.05888598612017759,
+        1,
+        1.3351219512195114,
+        0.3334233205270457,
+        0.36532431124364184
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "fresh-ir-double-Newton",
+      "source": "fresh-ir-double",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1799.0800304878048,
+        "PeakTransmittance": 0.751776515699928,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.013060676254781316,
+        "MaximumReflectance": 0.5164055899203246
+      },
+      "od": [
+        0.7950431566219611,
+        0.6894664554270463
+      ],
+      "inputViolations": [
+        0.042772931190597774,
+        1,
+        1.8391463414634095,
+        0.15545754507580423,
+        0.5440241816469218
+      ],
+      "violations": [
+        0,
+        1,
+        1.081829268292682,
+        0.20495684337803888,
+        0.3105335445729537
+      ],
+      "targetsPreserved": false,
+      "iterations": 29
+    },
+    {
+      "name": "fresh-ir-double-SQP",
+      "source": "fresh-ir-double",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1799.0800304878048,
+        "PeakTransmittance": 0.751776515699928,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.013060676254781316,
+        "MaximumReflectance": 0.5164055899203246
+      },
+      "od": [
+        0.7950431566219611,
+        0.6894664554270463
+      ],
+      "inputViolations": [
+        0.042772931190597774,
+        1,
+        1.8391463414634095,
+        0.15545754507580423,
+        0.5440241816469218
+      ],
+      "violations": [
+        0,
+        1,
+        1.081829268292682,
+        0.20495684337803888,
+        0.3105335445729537
+      ],
+      "targetsPreserved": false,
+      "iterations": 29
+    },
+    {
+      "name": "fresh-nearir-double-DLS",
+      "source": "fresh-nearir-double",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 817,
+        "PeakTransmittance": 0.6692208401315848,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.19157976556519446,
+        "MaximumReflectance": 0.555375345795188
+      },
+      "od": [
+        0.9111822946595196,
+        0.9115469744967082
+      ],
+      "inputViolations": [
+        0.08796681166426756,
+        1,
+        1.6513414634146266,
+        0,
+        0.3010830497425758
+      ],
+      "violations": [
+        0.10770554649122029,
+        1,
+        1.96,
+        0.08881770534048039,
+        0.08845302550329182
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "fresh-nearir-double-Newton",
+      "source": "fresh-nearir-double",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 820.2512195121951,
+        "PeakTransmittance": 0.6982184646394656,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 897.88619594406,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.16787381771864132,
+        "MaximumReflectance": 0.6593805989172301
+      },
+      "od": [
+        0.8851581951836321,
+        0.9077203343846273
+      ],
+      "inputViolations": [
+        0.08796681166426756,
+        1,
+        1.6513414634146266,
+        0,
+        0.3010830497425758
+      ],
+      "violations": [
+        0.06904204714737923,
+        1,
+        1.808780487804878,
+        0.11484180481636785,
+        0.09227966561537271
+      ],
+      "targetsPreserved": false,
+      "iterations": 27
+    },
+    {
+      "name": "fresh-nearir-double-SQP",
+      "source": "fresh-nearir-double",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 820.2512195121951,
+        "PeakTransmittance": 0.6982184646394656,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 897.88619594406,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.16787381771864132,
+        "MaximumReflectance": 0.6593805989172301
+      },
+      "od": [
+        0.8851581951836321,
+        0.9077203343846273
+      ],
+      "inputViolations": [
+        0.08796681166426756,
+        1,
+        1.6513414634146266,
+        0,
+        0.3010830497425758
+      ],
+      "violations": [
+        0.06904204714737923,
+        1,
+        1.808780487804878,
+        0.11484180481636785,
+        0.09227966561537271
+      ],
+      "targetsPreserved": false,
+      "iterations": 27
+    },
+    {
+      "name": "fresh-real-hr-nearir-DLS",
+      "source": "fresh-real-hr-nearir",
+      "passed": true,
+      "metrics": {
+        "PeakWavelengthNanometers": 799,
+        "PeakTransmittance": 0.00021005066485086678,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 809.5861712276005,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9816044057862465,
+        "MaximumReflectance": 0.9867595501899934
+      },
+      "od": [],
+      "inputViolations": [
+        0.14137442240060846
+      ],
+      "violations": [
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "fresh-real-hr-nearir-Newton",
+      "source": "fresh-real-hr-nearir",
+      "passed": true,
+      "metrics": {
+        "PeakWavelengthNanometers": 799,
+        "PeakTransmittance": 0.00023582151457907867,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 809.2426278471107,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.981776870992705,
+        "MaximumReflectance": 0.9869264186283927
+      },
+      "od": [],
+      "inputViolations": [
+        0.14137442240060846
+      ],
+      "violations": [
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 21
+    },
+    {
+      "name": "fresh-real-hr-nearir-SQP",
+      "source": "fresh-real-hr-nearir",
+      "passed": true,
+      "metrics": {
+        "PeakWavelengthNanometers": 799,
+        "PeakTransmittance": 0.00023582151457907867,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 809.2426278471107,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.981776870992705,
+        "MaximumReflectance": 0.9869264186283927
+      },
+      "od": [],
+      "inputViolations": [
+        0.14137442240060846
+      ],
+      "violations": [
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 21
+    },
+    {
+      "name": "fresh-real-hr-red-DLS",
+      "source": "fresh-real-hr-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 676.8,
+        "PeakTransmittance": 0.00011581549039311686,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 686.6913805918813,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9784988007015968,
+        "MaximumReflectance": 0.9844543223023223
+      },
+      "od": [],
+      "inputViolations": [
+        1.493739553201777
+      ],
+      "violations": [
+        0.07505996492015991
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "fresh-real-hr-red-Newton",
+      "source": "fresh-real-hr-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 676.8,
+        "PeakTransmittance": 0.00006455776024876035,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 685.6561933346541,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9786949448419202,
+        "MaximumReflectance": 0.9846292638488403
+      },
+      "od": [],
+      "inputViolations": [
+        1.493739553201777
+      ],
+      "violations": [
+        0.06525275790398849
+      ],
+      "targetsPreserved": true,
+      "iterations": 25
+    },
+    {
+      "name": "fresh-real-hr-red-SQP",
+      "source": "fresh-real-hr-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 676.8,
+        "PeakTransmittance": 0.00006455776024876035,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 685.6561933346541,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9786949448419202,
+        "MaximumReflectance": 0.9846292638488403
+      },
+      "od": [],
+      "inputViolations": [
+        1.493739553201777
+      ],
+      "violations": [
+        0.06525275790398849
+      ],
+      "targetsPreserved": true,
+      "iterations": 25
+    },
+    {
+      "name": "fresh-telecom-single-DLS",
+      "source": "fresh-telecom-single",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1168.4524390243903,
+        "PeakTransmittance": 0.8959494117291174,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 1199.2492538978865,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.05277107093582769,
+        "MaximumReflectance": 0.8472284010529423
+      },
+      "od": [
+        0.8458545836408138,
+        0.8064602240193786
+      ],
+      "inputViolations": [
+        0,
+        2.1623534112647094,
+        0,
+        0.2725332181986251,
+        0.39630736570219915
+      ],
+      "violations": [
+        0,
+        1,
+        1.011585365853657,
+        0.15414541635918622,
+        0.19353977598062144
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "fresh-telecom-single-Newton",
+      "source": "fresh-telecom-single",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1168.2475609756098,
+        "PeakTransmittance": 0.8964303922269419,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 1198.9903515353185,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.05258927223124947,
+        "MaximumReflectance": 0.8482516727482277
+      },
+      "od": [
+        0.8428207653250879,
+        0.8119715509954665
+      ],
+      "inputViolations": [
+        0,
+        2.1623534112647094,
+        0,
+        0.2725332181986251,
+        0.39630736570219915
+      ],
+      "violations": [
+        0,
+        1,
+        1.0184146341463414,
+        0.15717923467491213,
+        0.18802844900453353
+      ],
+      "targetsPreserved": false,
+      "iterations": 35
+    },
+    {
+      "name": "fresh-telecom-single-SQP",
+      "source": "fresh-telecom-single",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1168.2475609756098,
+        "PeakTransmittance": 0.8964303922269419,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 1198.9903515353185,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.05258927223124947,
+        "MaximumReflectance": 0.8482516727482277
+      },
+      "od": [
+        0.8428207653250879,
+        0.8119715509954665
+      ],
+      "inputViolations": [
+        0,
+        2.1623534112647094,
+        0,
+        0.2725332181986251,
+        0.39630736570219915
+      ],
+      "violations": [
+        0,
+        1,
+        1.0184146341463414,
+        0.15717923467491213,
+        0.18802844900453353
+      ],
+      "targetsPreserved": false,
+      "iterations": 35
+    },
+    {
+      "name": "holdout-real-hr-nearir-DLS",
+      "source": "holdout-real-hr-nearir",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 733.1999999999999,
+        "PeakTransmittance": 0.0014217527032250948,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 741.3087361001095,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9635720267173074,
+        "MaximumReflectance": 0.976390967302718
+      },
+      "od": [],
+      "inputViolations": [
+        46.48440928050648
+      ],
+      "violations": [
+        0.8213986641346308
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "holdout-real-hr-nearir-Newton",
+      "source": "holdout-real-hr-nearir",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 733.1999999999999,
+        "PeakTransmittance": 0.001485314307702244,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 741.2182305223317,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9637951182331431,
+        "MaximumReflectance": 0.9765707148810417
+      },
+      "od": [],
+      "inputViolations": [
+        46.48440928050648
+      ],
+      "violations": [
+        0.8102440883428423
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "holdout-real-hr-nearir-SQP",
+      "source": "holdout-real-hr-nearir",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 733.1999999999999,
+        "PeakTransmittance": 0.001486363429517102,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 741.249130681626,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9638061187145817,
+        "MaximumReflectance": 0.9765708671279424
+      },
+      "od": [],
+      "inputViolations": [
+        46.48440928050648
+      ],
+      "violations": [
+        0.8096940642709154
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "holdout-real-hr-red-DLS",
+      "source": "holdout-real-hr-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 595.02,
+        "PeakTransmittance": 0.0003158275363641865,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 606.9592079505801,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9662901468083926,
+        "MaximumReflectance": 0.9757299807513724
+      },
+      "od": [],
+      "inputViolations": [
+        1.5580452234162476
+      ],
+      "violations": [
+        0.6854926595803662
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "holdout-real-hr-red-Newton",
+      "source": "holdout-real-hr-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 595.02,
+        "PeakTransmittance": 0.000295202108788748,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 601.5576576982304,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9665285509876913,
+        "MaximumReflectance": 0.9762532101614498
+      },
+      "od": [],
+      "inputViolations": [
+        1.5580452234162476
+      ],
+      "violations": [
+        0.6735724506154334
+      ],
+      "targetsPreserved": true,
+      "iterations": 24
+    },
+    {
+      "name": "holdout-real-hr-red-SQP",
+      "source": "holdout-real-hr-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 595.02,
+        "PeakTransmittance": 0.000295202108788748,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 601.5576576982304,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9665285509876913,
+        "MaximumReflectance": 0.9762532101614498
+      },
+      "od": [],
+      "inputViolations": [
+        1.5580452234162476
+      ],
+      "violations": [
+        0.6735724506154334
+      ],
+      "targetsPreserved": true,
+      "iterations": 24
+    },
+    {
+      "name": "holdout-red-fixed-DLS",
+      "source": "holdout-red-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 642.6664062499999,
+        "PeakTransmittance": 0.7079730078730827,
+        "LeftHalfMaximumNanometers": 628.2595730234532,
+        "RightHalfMaximumNanometers": 703.2781355928965,
+        "FwhmNanometers": 75.01856256944336,
+        "MinimumReflectance": 0.05448105512741283,
+        "MaximumReflectance": 0.8902914602608668
+      },
+      "od": [
+        0.7982419547444307,
+        1.2027440626069767
+      ],
+      "inputViolations": [
+        0,
+        1.5039940987461144,
+        0.6805664062499959,
+        0,
+        0.014016787414381726
+      ],
+      "violations": [
+        0.056035989502556394,
+        1.6580353885824766,
+        1.3475585937500034,
+        0.20175804525556928,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "holdout-red-fixed-Newton",
+      "source": "holdout-red-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 685.3390625,
+        "PeakTransmittance": 0.6721134647159736,
+        "LeftHalfMaximumNanometers": 627.5188301575222,
+        "RightHalfMaximumNanometers": 704.2136549557971,
+        "FwhmNanometers": 76.69482479827491,
+        "MinimumReflectance": 0.11621170495733314,
+        "MaximumReflectance": 0.8737600146987613
+      },
+      "od": [
+        0.7547746361611184,
+        1.1942339917134623
+      ],
+      "inputViolations": [
+        0,
+        1.5039940987461144,
+        0.6805664062499959,
+        0,
+        0.014016787414381726
+      ],
+      "violations": [
+        0.10384871371203526,
+        1.7196626764071656,
+        0.17128906249999834,
+        0.2452253638388816,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "holdout-red-fixed-SQP",
+      "source": "holdout-red-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 685.3390625,
+        "PeakTransmittance": 0.6721134647159736,
+        "LeftHalfMaximumNanometers": 627.5188301575222,
+        "RightHalfMaximumNanometers": 704.2136549557971,
+        "FwhmNanometers": 76.69482479827491,
+        "MinimumReflectance": 0.11621170495733314,
+        "MaximumReflectance": 0.8737600146987613
+      },
+      "od": [
+        0.7547746361611184,
+        1.1942339917134623
+      ],
+      "inputViolations": [
+        0,
+        1.5039940987461144,
+        0.6805664062499959,
+        0,
+        0.014016787414381726
+      ],
+      "violations": [
+        0.10384871371203526,
+        1.7196626764071656,
+        0.17128906249999834,
+        0.2452253638388816,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "holdout-violet-DLS",
+      "source": "holdout-violet",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 404.6994140625,
+        "PeakTransmittance": 0.659063363077941,
+        "LeftHalfMaximumNanometers": 395.20111773507097,
+        "RightHalfMaximumNanometers": 414.86709430892097,
+        "FwhmNanometers": 19.665976573850003,
+        "MinimumReflectance": 0.32068445380452665,
+        "MaximumReflectance": 0.9251611908515789
+      },
+      "od": [
+        1.1732027465441766,
+        1.08782594974813
+      ],
+      "inputViolations": [
+        0.12361483704817215,
+        0.11360068053088165,
+        0,
+        0,
+        0
+      ],
+      "violations": [
+        0.121248849229412,
+        0.11394917122530886,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "holdout-violet-Newton",
+      "source": "holdout-violet",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 404.6994140625,
+        "PeakTransmittance": 0.6619534064693101,
+        "LeftHalfMaximumNanometers": 395.23372748783993,
+        "RightHalfMaximumNanometers": 414.87077246196606,
+        "FwhmNanometers": 19.637044974126127,
+        "MinimumReflectance": 0.31737955959633346,
+        "MaximumReflectance": 0.9254669971478362
+      },
+      "od": [
+        1.1795131082926658,
+        1.0845322961755557
+      ],
+      "inputViolations": [
+        0.12361483704817215,
+        0.11360068053088165,
+        0,
+        0,
+        0
+      ],
+      "violations": [
+        0.11739545804091985,
+        0.11216327000778564,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 22
+    },
+    {
+      "name": "holdout-violet-SQP",
+      "source": "holdout-violet",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 404.6994140625,
+        "PeakTransmittance": 0.6619534064693101,
+        "LeftHalfMaximumNanometers": 395.23372748783993,
+        "RightHalfMaximumNanometers": 414.87077246196606,
+        "FwhmNanometers": 19.637044974126127,
+        "MinimumReflectance": 0.31737955959633346,
+        "MaximumReflectance": 0.9254669971478362
+      },
+      "od": [
+        1.1795131082926658,
+        1.0845322961755557
+      ],
+      "inputViolations": [
+        0.12361483704817215,
+        0.11360068053088165,
+        0,
+        0,
+        0
+      ],
+      "violations": [
+        0.11739545804091985,
+        0.11216327000778564,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 22
+    },
+    {
+      "name": "new-real-hr-green-DLS",
+      "source": "new-real-hr-green",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 491.6363636363636,
+        "PeakTransmittance": 0.0006562646298346719,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 499.98469872670387,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9502065948828715,
+        "MaximumReflectance": 0.963292172418461
+      },
+      "od": [],
+      "inputViolations": [
+        1.349421106737002
+      ],
+      "violations": [
+        1.489670255856422
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "new-real-hr-green-Newton",
+      "source": "new-real-hr-green",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 491.6363636363636,
+        "PeakTransmittance": 0.00020630525311325342,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 496.8494173842423,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9528246604929692,
+        "MaximumReflectance": 0.9660768687266811
+      },
+      "od": [],
+      "inputViolations": [
+        1.349421106737002
+      ],
+      "violations": [
+        1.3587669753515375
+      ],
+      "targetsPreserved": false,
+      "iterations": 22
+    },
+    {
+      "name": "new-real-hr-green-SQP",
+      "source": "new-real-hr-green",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 491.6363636363636,
+        "PeakTransmittance": 0.00020630525311325342,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 496.8494173842423,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9528246604929692,
+        "MaximumReflectance": 0.9660768687266811
+      },
+      "od": [],
+      "inputViolations": [
+        1.349421106737002
+      ],
+      "violations": [
+        1.3587669753515375
+      ],
+      "targetsPreserved": false,
+      "iterations": 22
+    },
+    {
+      "name": "new-real-hr-ir-fixed-DLS",
+      "source": "new-real-hr-ir-fixed",
+      "passed": true,
+      "metrics": {
+        "PeakWavelengthNanometers": 1166,
+        "PeakTransmittance": 0.0006271436296395599,
+        "LeftHalfMaximumNanometers": 1149.963051689717,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9860608808805595,
+        "MaximumReflectance": 0.9905953597016176
+      },
+      "od": [],
+      "inputViolations": [
+        0.21677115458135757
+      ],
+      "violations": [
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "new-real-hr-ir-fixed-Newton",
+      "source": "new-real-hr-ir-fixed",
+      "passed": true,
+      "metrics": {
+        "PeakWavelengthNanometers": 1166,
+        "PeakTransmittance": 0.0006039507974164875,
+        "LeftHalfMaximumNanometers": 1149.702298170574,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9860419038984375,
+        "MaximumReflectance": 0.990594532376741
+      },
+      "od": [],
+      "inputViolations": [
+        0.21677115458135757
+      ],
+      "violations": [
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 25
+    },
+    {
+      "name": "new-real-hr-ir-fixed-SQP",
+      "source": "new-real-hr-ir-fixed",
+      "passed": true,
+      "metrics": {
+        "PeakWavelengthNanometers": 1166,
+        "PeakTransmittance": 0.0006039507974164875,
+        "LeftHalfMaximumNanometers": 1149.702298170574,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9860419038984375,
+        "MaximumReflectance": 0.990594532376741
+      },
+      "od": [],
+      "inputViolations": [
+        0.21677115458135757
+      ],
+      "violations": [
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 25
+    },
+    {
+      "name": "new-real-nbf-green-DLS",
+      "source": "new-real-nbf-green",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 500.65844481605353,
+        "PeakTransmittance": 0.5912455715470778,
+        "LeftHalfMaximumNanometers": 492.10960454320195,
+        "RightHalfMaximumNanometers": 508.02234073554763,
+        "FwhmNanometers": 15.912736192345676,
+        "MinimumReflectance": 0.001226178114884976,
+        "MaximumReflectance": 0.905846505376793
+      },
+      "od": [
+        1.1612445861142944,
+        1.174254287294112
+      ],
+      "inputViolations": [
+        0.21339085960764237,
+        0.0823927072126586,
+        0.04080267558528324,
+        0,
+        0
+      ],
+      "violations": [
+        0.21167257127056294,
+        0.10026732077201621,
+        0.014952619843925657,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "new-real-nbf-green-Newton",
+      "source": "new-real-nbf-green",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 500.39905746427485,
+        "PeakTransmittance": 0.5947568018645932,
+        "LeftHalfMaximumNanometers": 492.1389074584994,
+        "RightHalfMaximumNanometers": 508.0460690521516,
+        "FwhmNanometers": 15.907161593652233,
+        "MinimumReflectance": 0.000764191922683267,
+        "MaximumReflectance": 0.8981911729283444
+      },
+      "od": [
+        1.2098847121580092,
+        1.1775626084212598
+      ],
+      "inputViolations": [
+        0.21339085960764237,
+        0.0823927072126586,
+        0.04080267558528324,
+        0,
+        0
+      ],
+      "violations": [
+        0.20699093084720901,
+        0.09985851686783043,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 26
+    },
+    {
+      "name": "new-real-nbf-green-SQP",
+      "source": "new-real-nbf-green",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 500.39905746427485,
+        "PeakTransmittance": 0.5947568018645932,
+        "LeftHalfMaximumNanometers": 492.1389074584994,
+        "RightHalfMaximumNanometers": 508.0460690521516,
+        "FwhmNanometers": 15.907161593652233,
+        "MinimumReflectance": 0.000764191922683267,
+        "MaximumReflectance": 0.8981911729283444
+      },
+      "od": [
+        1.2098847121580092,
+        1.1775626084212598
+      ],
+      "inputViolations": [
+        0.21339085960764237,
+        0.0823927072126586,
+        0.04080267558528324,
+        0,
+        0
+      ],
+      "violations": [
+        0.20699093084720901,
+        0.09985851686783043,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 26
+    },
+    {
+      "name": "new-real-nbf-ir-DLS",
+      "source": "new-real-nbf-ir",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1298.9624505928853,
+        "PeakTransmittance": 0.8486726158999219,
+        "LeftHalfMaximumNanometers": 1282.9036243907867,
+        "RightHalfMaximumNanometers": 1315.6653951855326,
+        "FwhmNanometers": 32.76177079474587,
+        "MinimumReflectance": 0.07865520263945015,
+        "MaximumReflectance": 0.937527230951374
+      },
+      "od": [
+        1.2650054948711107,
+        1.2956059261871549
+      ],
+      "inputViolations": [
+        0,
+        0,
+        0,
+        0.006369735622715034,
+        0
+      ],
+      "violations": [
+        0,
+        0.00928338784050103,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "new-real-nbf-ir-Newton",
+      "source": "new-real-nbf-ir",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1298.9970355731225,
+        "PeakTransmittance": 0.8484048723536872,
+        "LeftHalfMaximumNanometers": 1282.9351606368532,
+        "RightHalfMaximumNanometers": 1315.7018631518645,
+        "FwhmNanometers": 32.766702515011275,
+        "MinimumReflectance": 0.07905444451109862,
+        "MaximumReflectance": 0.9378816832867655
+      },
+      "od": [
+        1.2730611564832786,
+        1.2924915855094796
+      ],
+      "inputViolations": [
+        0,
+        0,
+        0,
+        0.006369735622715034,
+        0
+      ],
+      "violations": [
+        0,
+        0.009144288038143487,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 22
+    },
+    {
+      "name": "new-real-nbf-ir-SQP",
+      "source": "new-real-nbf-ir",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1298.9970355731225,
+        "PeakTransmittance": 0.8484048723536955,
+        "LeftHalfMaximumNanometers": 1282.9351606368532,
+        "RightHalfMaximumNanometers": 1315.7018631518638,
+        "FwhmNanometers": 32.76670251501059,
+        "MinimumReflectance": 0.07905444451108742,
+        "MaximumReflectance": 0.9378816832867631
+      },
+      "od": [
+        1.2730611564832215,
+        1.2924915855095165
+      ],
+      "inputViolations": [
+        0,
+        0,
+        0,
+        0.006369735622715034,
+        0
+      ],
+      "violations": [
+        0,
+        0.009144288038162727,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 24
+    },
+    {
+      "name": "new-real-nbf-nearir-fixed-DLS",
+      "source": "new-real-nbf-nearir-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 902.9570158102767,
+        "PeakTransmittance": 0.6890366862728146,
+        "LeftHalfMaximumNanometers": 877.7355807670571,
+        "RightHalfMaximumNanometers": 912.2518606530311,
+        "FwhmNanometers": 34.516279885974086,
+        "MinimumReflectance": 0.1700121369067391,
+        "MaximumReflectance": 0.9397559460775231
+      },
+      "od": [
+        0.8884395552985485,
+        0.8572842401359975
+      ],
+      "inputViolations": [
+        0,
+        0.227630317757946,
+        0.06177536231884408,
+        0.22301054330695047,
+        0
+      ],
+      "violations": [
+        0.08128441830291393,
+        0.33955214350264784,
+        0.08713768115942287,
+        0.11156044470145154,
+        0.14271575986400253
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "new-real-nbf-nearir-fixed-Newton",
+      "source": "new-real-nbf-nearir-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 902.9450440863485,
+        "PeakTransmittance": 0.6889868130490469,
+        "LeftHalfMaximumNanometers": 877.7315394966257,
+        "RightHalfMaximumNanometers": 912.2496873571262,
+        "FwhmNanometers": 34.51814786050045,
+        "MinimumReflectance": 0.1700738967018485,
+        "MaximumReflectance": 0.9397586198904264
+      },
+      "od": [
+        0.8883830544885283,
+        0.8573354489595514
+      ],
+      "inputViolations": [
+        0,
+        0.227630317757946,
+        0.06177536231884408,
+        0.22301054330695047,
+        0
+      ],
+      "violations": [
+        0.0813509159346042,
+        0.3396282461685367,
+        0.0866499442586427,
+        0.11161694551147172,
+        0.14266455104044862
+      ],
+      "targetsPreserved": false,
+      "iterations": 33
+    },
+    {
+      "name": "new-real-nbf-nearir-fixed-SQP",
+      "source": "new-real-nbf-nearir-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 902.9450440863485,
+        "PeakTransmittance": 0.6889868130490469,
+        "LeftHalfMaximumNanometers": 877.7315394966257,
+        "RightHalfMaximumNanometers": 912.2496873571262,
+        "FwhmNanometers": 34.51814786050045,
+        "MinimumReflectance": 0.1700738967018485,
+        "MaximumReflectance": 0.9397586198904264
+      },
+      "od": [
+        0.8883830544885283,
+        0.8573354489595514
+      ],
+      "inputViolations": [
+        0,
+        0.227630317757946,
+        0.06177536231884408,
+        0.22301054330695047,
+        0
+      ],
+      "violations": [
+        0.0813509159346042,
+        0.3396282461685367,
+        0.0866499442586427,
+        0.11161694551147172,
+        0.14266455104044862
+      ],
+      "targetsPreserved": false,
+      "iterations": 33
+    },
+    {
+      "name": "new-real-nbf-red-DLS",
+      "source": "new-real-nbf-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 649.671442687747,
+        "PeakTransmittance": 0.7501599107737617,
+        "LeftHalfMaximumNanometers": 639.7709117643774,
+        "RightHalfMaximumNanometers": 660.1123572027325,
+        "FwhmNanometers": 20.341445438355095,
+        "MinimumReflectance": 0.0773698868162547,
+        "MaximumReflectance": 0.8921301306558532
+      },
+      "od": [
+        1.1215484887036398,
+        1.1484717429974958
+      ],
+      "inputViolations": [
+        0,
+        0.1403129965249503,
+        0,
+        0.1273978355757387,
+        0
+      ],
+      "violations": [
+        0,
+        0.08079948626618487,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": true,
+      "iterations": 48
+    },
+    {
+      "name": "new-real-nbf-red-Newton",
+      "source": "new-real-nbf-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 649.6887351778656,
+        "PeakTransmittance": 0.749656602357408,
+        "LeftHalfMaximumNanometers": 639.7811634863544,
+        "RightHalfMaximumNanometers": 660.1293923955959,
+        "FwhmNanometers": 20.34822890924147,
+        "MinimumReflectance": 0.07758191908375553,
+        "MaximumReflectance": 0.8922714209823399
+      },
+      "od": [
+        1.1251018360275264,
+        1.146216824056986
+      ],
+      "inputViolations": [
+        0,
+        0.1403129965249503,
+        0,
+        0.1273978355757387,
+        0
+      ],
+      "violations": [
+        0.00045786352345592957,
+        0.08118214359823682,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 21
+    },
+    {
+      "name": "new-real-nbf-red-SQP",
+      "source": "new-real-nbf-red",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 649.6887351778656,
+        "PeakTransmittance": 0.7496566023574075,
+        "LeftHalfMaximumNanometers": 639.7811634863543,
+        "RightHalfMaximumNanometers": 660.1293923955959,
+        "FwhmNanometers": 20.348228909241584,
+        "MinimumReflectance": 0.07758191908375556,
+        "MaximumReflectance": 0.8922714209823401
+      },
+      "od": [
+        1.125101836027529,
+        1.1462168240569846
+      ],
+      "inputViolations": [
+        0,
+        0.1403129965249503,
+        0,
+        0.1273978355757387,
+        0
+      ],
+      "violations": [
+        0.0004578635234566697,
+        0.08118214359824323,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 21
+    },
+    {
+      "name": "new-synthetic-green-DLS",
+      "source": "new-synthetic-green",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 527.7895121951219,
+        "PeakTransmittance": 0.844820766338576,
+        "LeftHalfMaximumNanometers": 512.9712759061807,
+        "RightHalfMaximumNanometers": 543.6476424507022,
+        "FwhmNanometers": 30.676366544521443,
+        "MinimumReflectance": 0.0023893078193014047,
+        "MaximumReflectance": 0.7302156692368236
+      },
+      "od": [
+        0.9868035727282047,
+        0.8775383053714477
+      ],
+      "inputViolations": [
+        0,
+        1.2026799608585181,
+        0,
+        0.015490732214877512,
+        0.14057720119121175
+      ],
+      "violations": [
+        0,
+        1.1951974750582222,
+        0.12682926829268565,
+        0.013196427271795264,
+        0.12246169462855228
+      ],
+      "targetsPreserved": false,
+      "iterations": 48
+    },
+    {
+      "name": "new-synthetic-green-Newton",
+      "source": "new-synthetic-green",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 527.7248780487805,
+        "PeakTransmittance": 0.8447250476634209,
+        "LeftHalfMaximumNanometers": 512.905603442636,
+        "RightHalfMaximumNanometers": 543.5830777654098,
+        "FwhmNanometers": 30.677474322773833,
+        "MinimumReflectance": 0.0023677176184074907,
+        "MaximumReflectance": 0.7308118344125377
+      },
+      "od": [
+        0.9867125356904773,
+        0.8778284405981741
+      ],
+      "inputViolations": [
+        0,
+        1.2026799608585181,
+        0,
+        0.015490732214877512,
+        0.14057720119121175
+      ],
+      "violations": [
+        0,
+        1.1952810809640628,
+        0.13170731707316902,
+        0.013287464309522656,
+        0.12217155940182589
+      ],
+      "targetsPreserved": false,
+      "iterations": 21
+    },
+    {
+      "name": "new-synthetic-green-SQP",
+      "source": "new-synthetic-green",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 527.7248780487805,
+        "PeakTransmittance": 0.8447250476634209,
+        "LeftHalfMaximumNanometers": 512.905603442636,
+        "RightHalfMaximumNanometers": 543.5830777654098,
+        "FwhmNanometers": 30.677474322773833,
+        "MinimumReflectance": 0.0023677176184074907,
+        "MaximumReflectance": 0.7308118344125377
+      },
+      "od": [
+        0.9867125356904773,
+        0.8778284405981741
+      ],
+      "inputViolations": [
+        0,
+        1.2026799608585181,
+        0,
+        0.015490732214877512,
+        0.14057720119121175
+      ],
+      "violations": [
+        0,
+        1.1952810809640628,
+        0.13170731707316902,
+        0.013287464309522656,
+        0.12217155940182589
+      ],
+      "targetsPreserved": false,
+      "iterations": 21
+    },
+    {
+      "name": "new-synthetic-ir-fixed-DLS",
+      "source": "new-synthetic-ir-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1406,
+        "PeakTransmittance": 0.7358634679864416,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.12825517369355569,
+        "MaximumReflectance": 0.4827981144764453
+      },
+      "od": [
+        0.7797947055242385,
+        0.7233040429960653
+      ],
+      "inputViolations": [
+        0,
+        1,
+        1.7759756097560897,
+        0.04440898270328553,
+        0.46044321535251764
+      ],
+      "violations": [
+        0.01884870935141114,
+        1,
+        1.96,
+        0.22020529447576154,
+        0.2766959570039347
+      ],
+      "targetsPreserved": false,
+      "iterations": 45
+    },
+    {
+      "name": "new-synthetic-ir-fixed-Newton",
+      "source": "new-synthetic-ir-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1406,
+        "PeakTransmittance": 0.7358570642470955,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.12826985016357784,
+        "MaximumReflectance": 0.4827972685290392
+      },
+      "od": [
+        0.7797821268440178,
+        0.7233123606728875
+      ],
+      "inputViolations": [
+        0,
+        1,
+        1.7759756097560897,
+        0.04440898270328553,
+        0.46044321535251764
+      ],
+      "violations": [
+        0.018857247670539312,
+        1,
+        1.96,
+        0.22021787315598218,
+        0.2766876393271125
+      ],
+      "targetsPreserved": false,
+      "iterations": 19
+    },
+    {
+      "name": "new-synthetic-ir-fixed-SQP",
+      "source": "new-synthetic-ir-fixed",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 1406,
+        "PeakTransmittance": 0.7358570642470955,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.12826985016357784,
+        "MaximumReflectance": 0.4827972685290392
+      },
+      "od": [
+        0.7797821268440178,
+        0.7233123606728875
+      ],
+      "inputViolations": [
+        0,
+        1,
+        1.7759756097560897,
+        0.04440898270328553,
+        0.46044321535251764
+      ],
+      "violations": [
+        0.018857247670539312,
+        1,
+        1.96,
+        0.22021787315598218,
+        0.2766876393271125
+      ],
+      "targetsPreserved": false,
+      "iterations": 19
+    },
+    {
+      "name": "prior-double-96-DLS",
+      "source": "prior-double-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.6341973244147,
+        "PeakTransmittance": 0.6484982607387827,
+        "LeftHalfMaximumNanometers": 541.5700756694179,
+        "RightHalfMaximumNanometers": 558.9026498818553,
+        "FwhmNanometers": 17.332574212437407,
+        "MinimumReflectance": 0.008184006733192398,
+        "MaximumReflectance": 0.8910435866173115
+      },
+      "od": [
+        1.1636683865037187,
+        1.1607799334440116
+      ],
+      "inputViolations": [
+        0.1139025275251792,
+        0.09794019629975992,
+        0,
+        0.02190273843256174,
+        0
+      ],
+      "violations": [
+        0.13533565234828973,
+        0.0888382808291605,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 96
+    },
+    {
+      "name": "prior-double-96-Newton",
+      "source": "prior-double-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.6634615384615,
+        "PeakTransmittance": 0.6493824448758154,
+        "LeftHalfMaximumNanometers": 541.5778669133819,
+        "RightHalfMaximumNanometers": 558.9168860056233,
+        "FwhmNanometers": 17.339019092241415,
+        "MinimumReflectance": 0.007932302234385298,
+        "MaximumReflectance": 0.8909683403339254
+      },
+      "od": [
+        1.1667998224763292,
+        1.1569647075132634
+      ],
+      "inputViolations": [
+        0.1139025275251792,
+        0.09794019629975992,
+        0,
+        0.02190273843256174,
+        0
+      ],
+      "violations": [
+        0.13415674016557944,
+        0.08926793948276099,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 25
+    },
+    {
+      "name": "prior-double-96-SQP",
+      "source": "prior-double-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.6634615384615,
+        "PeakTransmittance": 0.6493824448758154,
+        "LeftHalfMaximumNanometers": 541.5778669133819,
+        "RightHalfMaximumNanometers": 558.9168860056233,
+        "FwhmNanometers": 17.339019092241415,
+        "MinimumReflectance": 0.007932302234385298,
+        "MaximumReflectance": 0.8909683403339254
+      },
+      "od": [
+        1.1667998224763292,
+        1.1569647075132634
+      ],
+      "inputViolations": [
+        0.1139025275251792,
+        0.09794019629975992,
+        0,
+        0.02190273843256174,
+        0
+      ],
+      "violations": [
+        0.13415674016557944,
+        0.08926793948276099,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 25
+    },
+    {
+      "name": "prior-single-24-DLS",
+      "source": "prior-single-24",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7805183946489,
+        "PeakTransmittance": 0.6756247914683083,
+        "LeftHalfMaximumNanometers": 541.7663870909811,
+        "RightHalfMaximumNanometers": 558.214682368252,
+        "FwhmNanometers": 16.448295277270972,
+        "MinimumReflectance": 0.0967531347881719,
+        "MaximumReflectance": 0.8909872037471138
+      },
+      "od": [
+        1.19100001825768,
+        1.219271968672067
+      ],
+      "inputViolations": [
+        0.05259333539701405,
+        0.0780018266027355,
+        0,
+        0.045500475330801815,
+        0
+      ],
+      "violations": [
+        0.09916694470892222,
+        0.02988635181806482,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 24
+    },
+    {
+      "name": "prior-single-24-Newton",
+      "source": "prior-single-24",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7951505016723,
+        "PeakTransmittance": 0.6721905243743388,
+        "LeftHalfMaximumNanometers": 541.813350876935,
+        "RightHalfMaximumNanometers": 558.2304302245869,
+        "FwhmNanometers": 16.417079347651907,
+        "MinimumReflectance": 0.09931495648972988,
+        "MaximumReflectance": 0.8909121282123462
+      },
+      "od": [
+        1.205607297958686,
+        1.2176266578647756
+      ],
+      "inputViolations": [
+        0.05259333539701405,
+        0.0780018266027355,
+        0,
+        0.045500475330801815,
+        0
+      ],
+      "violations": [
+        0.10374596750088161,
+        0.027805289843460437,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 23
+    },
+    {
+      "name": "prior-single-24-SQP",
+      "source": "prior-single-24",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7951505016723,
+        "PeakTransmittance": 0.6721905243742887,
+        "LeftHalfMaximumNanometers": 541.813350876935,
+        "RightHalfMaximumNanometers": 558.2304302245866,
+        "FwhmNanometers": 16.417079347651566,
+        "MinimumReflectance": 0.09931495648976794,
+        "MaximumReflectance": 0.8909121282123548
+      },
+      "od": [
+        1.2056072979586097,
+        1.2176266578648898
+      ],
+      "inputViolations": [
+        0.05259333539701405,
+        0.0780018266027355,
+        0,
+        0.045500475330801815,
+        0
+      ],
+      "violations": [
+        0.10374596750094837,
+        0.027805289843437702,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 23
+    },
+    {
+      "name": "real-hr-96-DLS",
+      "source": "real-hr-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0001288146690464452,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 526.3927572478609,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9561059690266769,
+        "MaximumReflectance": 0.9679625208964523
+      },
+      "od": [],
+      "inputViolations": [
+        1.021857588558477
+      ],
+      "violations": [
+        1.1947015486661539
+      ],
+      "targetsPreserved": false,
+      "iterations": 96
+    },
+    {
+      "name": "real-hr-96-Newton",
+      "source": "real-hr-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.00021782186062012292,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 525.7900258135263,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9588240712851428,
+        "MaximumReflectance": 0.970178845599418
+      },
+      "od": [],
+      "inputViolations": [
+        1.021857588558477
+      ],
+      "violations": [
+        1.0587964357428583
+      ],
+      "targetsPreserved": false,
+      "iterations": 19
+    },
+    {
+      "name": "real-hr-96-SQP",
+      "source": "real-hr-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.00021782186062012292,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 525.7900258135263,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9588240712851428,
+        "MaximumReflectance": 0.970178845599418
+      },
+      "od": [],
+      "inputViolations": [
+        1.021857588558477
+      ],
+      "violations": [
+        1.0587964357428583
+      ],
+      "targetsPreserved": false,
+      "iterations": 19
+    },
+    {
+      "name": "real-nbf1-96-DLS",
+      "source": "real-nbf1-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7951505016723,
+        "PeakTransmittance": 0.6719583752589344,
+        "LeftHalfMaximumNanometers": 541.8122052484827,
+        "RightHalfMaximumNanometers": 558.2270230201708,
+        "FwhmNanometers": 16.41481777168815,
+        "MinimumReflectance": 0.09945210706673943,
+        "MaximumReflectance": 0.8910227724941169
+      },
+      "od": [
+        1.203814307236284,
+        1.219037621469111
+      ],
+      "inputViolations": [
+        0.05382654122805578,
+        0.07965696614343566,
+        0,
+        0.04568295350241791,
+        0
+      ],
+      "violations": [
+        0.1040554996547541,
+        0.027654518112543276,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 96
+    },
+    {
+      "name": "real-nbf1-96-Newton",
+      "source": "real-nbf1-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7951505016723,
+        "PeakTransmittance": 0.6721905243743376,
+        "LeftHalfMaximumNanometers": 541.813350876935,
+        "RightHalfMaximumNanometers": 558.2304302245869,
+        "FwhmNanometers": 16.417079347651907,
+        "MinimumReflectance": 0.0993149564897302,
+        "MaximumReflectance": 0.8909121282123464
+      },
+      "od": [
+        1.2056072979586854,
+        1.217626657864777
+      ],
+      "inputViolations": [
+        0.05382654122805578,
+        0.07965696614343566,
+        0,
+        0.04568295350241791,
+        0
+      ],
+      "violations": [
+        0.10374596750088323,
+        0.027805289843460437,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 21
+    },
+    {
+      "name": "real-nbf1-96-SQP",
+      "source": "real-nbf1-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7951505016723,
+        "PeakTransmittance": 0.6721905243742868,
+        "LeftHalfMaximumNanometers": 541.813350876935,
+        "RightHalfMaximumNanometers": 558.2304302245866,
+        "FwhmNanometers": 16.417079347651566,
+        "MinimumReflectance": 0.09931495648976928,
+        "MaximumReflectance": 0.8909121282123557
+      },
+      "od": [
+        1.2056072979586059,
+        1.2176266578648942
+      ],
+      "inputViolations": [
+        0.05382654122805578,
+        0.07965696614343566,
+        0,
+        0.04568295350241791,
+        0
+      ],
+      "violations": [
+        0.10374596750095089,
+        0.027805289843437702,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 22
+    },
+    {
+      "name": "real-nbf2-96-DLS",
+      "source": "real-nbf2-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7805183946489,
+        "PeakTransmittance": 0.6434866968837224,
+        "LeftHalfMaximumNanometers": 541.543471065817,
+        "RightHalfMaximumNanometers": 558.8730160116942,
+        "FwhmNanometers": 17.32954494587716,
+        "MinimumReflectance": 0.004859835926249096,
+        "MaximumReflectance": 0.8939445188766854
+      },
+      "od": [
+        1.2447762244985578,
+        1.1830169392058816
+      ],
+      "inputViolations": [
+        0.11871895006710413,
+        0.12084414809084289,
+        0.03885172798216748,
+        0.030395155695936427,
+        0
+      ],
+      "violations": [
+        0.14201773748837013,
+        0.088636329725144,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 96
+    },
+    {
+      "name": "real-nbf2-96-Newton",
+      "source": "real-nbf2-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7366220735786,
+        "PeakTransmittance": 0.6444348583606629,
+        "LeftHalfMaximumNanometers": 541.5473034642489,
+        "RightHalfMaximumNanometers": 558.8921630966144,
+        "FwhmNanometers": 17.344859632365456,
+        "MinimumReflectance": 0.005580175936284857,
+        "MaximumReflectance": 0.8932743966158982
+      },
+      "od": [
+        1.2538598400932766,
+        1.1813169302162227
+      ],
+      "inputViolations": [
+        0.11871895006710413,
+        0.12084414809084289,
+        0.03885172798216748,
+        0.030395155695936427,
+        0
+      ],
+      "violations": [
+        0.14075352218578274,
+        0.08965730882436371,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 27
+    },
+    {
+      "name": "real-nbf2-96-SQP",
+      "source": "real-nbf2-96",
+      "passed": false,
+      "metrics": {
+        "PeakWavelengthNanometers": 549.7366220735786,
+        "PeakTransmittance": 0.6444348583606629,
+        "LeftHalfMaximumNanometers": 541.5473034642489,
+        "RightHalfMaximumNanometers": 558.8921630966144,
+        "FwhmNanometers": 17.344859632365456,
+        "MinimumReflectance": 0.005580175936284857,
+        "MaximumReflectance": 0.8932743966158982
+      },
+      "od": [
+        1.2538598400932766,
+        1.1813169302162227
+      ],
+      "inputViolations": [
+        0.11871895006710413,
+        0.12084414809084289,
+        0.03885172798216748,
+        0.030395155695936427,
+        0
+      ],
+      "violations": [
+        0.14075352218578274,
+        0.08965730882436371,
+        0,
+        0,
+        0
+      ],
+      "targetsPreserved": false,
+      "iterations": 27
+    }
+  ]
+}

@@ -1,0 +1,2300 @@
+{
+  "status": "complete",
+  "date": "2026-11-01",
+  "scope": "Explicit one-level air-separated SPC library API, declared curvature subspace only; no automatic desktop/cemented scheduling or SPC resume.",
+  "tests": {
+    "spc-focused-v3.trx": {
+      "passed": 75,
+      "failed": 0,
+      "skipped": 0
+    },
+    "spc-isolated.trx": {
+      "passed": 48,
+      "failed": 0,
+      "skipped": 0
+    },
+    "core-isolated.trx": {
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "uniquePassedTestIdentities": 98,
+  "frozenSpcCoreAndFormalRuntimeBytesMatch": true,
+  "pdbDocumentChecksMatched": 577,
+  "executedSourceResourceFiles": 598,
+  "formalBatches": 2,
+  "casesPerBatch": 10,
+  "qualifiedBranchesPerArmPerBatch": 10,
+  "distinctQualifiedDesignsPerArm": 2,
+  "searchCostsByBatch": {
+    "formal": {
+      "functions": 965,
+      "gradients": 865,
+      "rays": 4799310,
+      "activitySeconds": 58.2549679
+    },
+    "isolated-formal": {
+      "functions": 965,
+      "gradients": 865,
+      "rays": 4799310,
+      "activitySeconds": 81.0970536
+    }
+  },
+  "spcWorstRmsMillimeters": [
+    0.01232427381798888,
+    0.01079857827014702
+  ],
+  "directWorstRmsMillimeters": [
+    0.015109040412313464,
+    0.014996115698632772
+  ],
+  "stationaryParentWorstRmsMillimeters": 0.01002499525476311,
+  "fewerLensOrParentParetoBenefit": false,
+  "newOriginalTaskSuccesses": 0,
+  "f4OriginalConflictZeroWork": true,
+  "originalGuardsPerBatch": 15,
+  "originalF8ExactRechecksPerBatch": 5,
+  "branchIndependentAndNativeChecksPerBatch": 40,
+  "newProcessStudies": 10,
+  "readOnlyStudyRays": 0,
+  "gatesAperturesAndBudgetsRelaxed": false,
+  "defaultAppBuild": {
+    "warnings": 0,
+    "errors": 0
+  },
+  "documentation": {
+    "documents": 1716,
+    "brokenLinks": 0,
+    "fences": 0,
+    "guideDuplicates": 0
+  },
+  "historicalEvidenceIntegrity": {
+    "2026-11-01/initial-performance": {
+      "sealSha256": "f74a01366fd611786bdfb15204d25a90cdd3040a6988c6f902c183b92ce66532",
+      "verifiedArtifacts": 305
+    },
+    "2026-10-31/preparation-checkpoint": {
+      "sealSha256": "a53db4f64e2b26fc4014bd4240a4dafedc455ce451982a92ed5652d80555ccf1",
+      "verifiedArtifacts": 9
+    },
+    "2026-11-01/initial-product-m36": {
+      "sealSha256": "413c9231c1e7f3d8cea0a637bce2818d2ab20792864cf41d28178c7a2ace6eac",
+      "verifiedArtifacts": 268
+    }
+  },
+  "fullRepositoryTests": false,
+  "nativeGui": false,
+  "gpuCertification": false,
+  "deepSeekUsed": false,
+  "commitPushPublish": false,
+  "limitations": [
+    "One declared-curvature subspace, one existing authored parent/site; not global stationarity or independent five-design success evidence.",
+    "Explicit air-separated one-level API only; automatic preparation/desktop routing, SPC optimizer checkpoints and autonomous cemented/recursive scheduling remain open.",
+    "The refined one-lens parent already qualifies and has better RMS than the two restored children; no complexity benefit.",
+    "Shared-build first batch and fixed-source final batch retained separately, including failed source-audit and failed development attempts.",
+    "23 Core and48 module tests execute the identical final Core bytes; the broader75-case working-checkout regression is a separate scope."
+  ],
+  "artifacts": [
+    {
+      "path": "comparison-final.json",
+      "bytes": 21507,
+      "sha256": "dfcb49529e68b77225563165603c12ab2f3bd1a92784c8d32f5ac159c6a6368e"
+    },
+    {
+      "path": "comparison-final.log",
+      "bytes": 685,
+      "sha256": "2227441439be15e40bac6cba570a380ce0a05ebd4cf4f5b76696c5e52bce5c5c"
+    },
+    {
+      "path": "comparison.json",
+      "bytes": 21507,
+      "sha256": "dfcb49529e68b77225563165603c12ab2f3bd1a92784c8d32f5ac159c6a6368e"
+    },
+    {
+      "path": "comparison.log",
+      "bytes": 685,
+      "sha256": "2227441439be15e40bac6cba570a380ce0a05ebd4cf4f5b76696c5e52bce5c5c"
+    },
+    {
+      "path": "core-isolated.log",
+      "bytes": 1000,
+      "sha256": "7aef86c6b701a7c4eb6854acd198a6a3ca430b11f910ef5bffdf0c04460ad4b9"
+    },
+    {
+      "path": "default-app-build.log",
+      "bytes": 1519,
+      "sha256": "6e5f6aaf6e1c6c1627f22737ab059e4360575083dd993144d75aec0142953d8e"
+    },
+    {
+      "path": "documentation-audit.json",
+      "bytes": 462880,
+      "sha256": "884194b4d819c5eeabee26bca443f22800755c676326b64c96ca11f80b757ca5"
+    },
+    {
+      "path": "documentation-audit.log",
+      "bytes": 246,
+      "sha256": "7088a1ff26b186e6b68cdccf6b5298eb430b5b5d043d08b0e45a3b925f647bad"
+    },
+    {
+      "path": "driver-build-v2.log",
+      "bytes": 1043,
+      "sha256": "0fff3930150d33d45b82775e3a265afa2c0095603d4cc3e71d9ddd868a257d02"
+    },
+    {
+      "path": "driver-build.log",
+      "bytes": 1370,
+      "sha256": "e7ad38e10a486c5f274359826cb81f03476e4aff287351e22bb605b6c07264c0"
+    },
+    {
+      "path": "executed-source-sha256.json",
+      "bytes": 110014,
+      "sha256": "dacbc1643ee38d8dab11d525c5479e31ecf9b2e018df5eae7c9b3a6405009a76"
+    },
+    {
+      "path": "executed-source.zip",
+      "bytes": 2956612,
+      "sha256": "451eac10e2c56057d08e2e26407344ce322bcb2449984bc7725ca650216f79a4"
+    },
+    {
+      "path": "final-source-sha256.json",
+      "bytes": 6589,
+      "sha256": "210af5b786c2c6019a5047558ed09beccc502253878bf6b878418257bb9782ef"
+    },
+    {
+      "path": "final-source.zip",
+      "bytes": 332472,
+      "sha256": "ae6dfbc2f47e25168f3d2b16d5f63fda5a0d5b1a07c935ab2e2f9428af722adf"
+    },
+    {
+      "path": "formal/direct-seed42/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "formal/direct-seed42/input.json",
+      "bytes": 7001,
+      "sha256": "22570629fd76f2216e2c9b7a042af5dcf495eebec69755b41baa11823d169edd"
+    },
+    {
+      "path": "formal/direct-seed42/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "formal/direct-seed42/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "formal/direct-seed42/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "69ba1665ec64ff3876f4e580cd7a707ae8edc5695d3c0f244321fbbf74c9aa27"
+    },
+    {
+      "path": "formal/direct-seed42/summary.json",
+      "bytes": 6140,
+      "sha256": "8ee1022bade824d7ef6fbac833f0bd82ec29c6507744b9f08112ccfc3a5c1971"
+    },
+    {
+      "path": "formal/direct-seed43/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "formal/direct-seed43/input.json",
+      "bytes": 7001,
+      "sha256": "71b12420cb8dac2db24fd0193d9d4d9e0d69a6e94f518cdf0304182cf98b16bc"
+    },
+    {
+      "path": "formal/direct-seed43/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "formal/direct-seed43/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "formal/direct-seed43/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "32c09fbad61f16de2bbc3c09a4e771c489d98346c3fc2463e43518c3c2d37fd6"
+    },
+    {
+      "path": "formal/direct-seed43/summary.json",
+      "bytes": 6140,
+      "sha256": "51fe1899cdf0df19f30dd73152a95927b3b09161f86bfd9cb69539f7ebed2acd"
+    },
+    {
+      "path": "formal/direct-seed44/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "formal/direct-seed44/input.json",
+      "bytes": 7001,
+      "sha256": "e73d0823b15884d7735ec376fa3f840275aef23d5e285d30ea332efd206f61d8"
+    },
+    {
+      "path": "formal/direct-seed44/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "formal/direct-seed44/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "formal/direct-seed44/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "b1b2495c812c6a198505447d5487cb270fd3f3fa162c6425b184b4ca7de37154"
+    },
+    {
+      "path": "formal/direct-seed44/summary.json",
+      "bytes": 6140,
+      "sha256": "2016d3ff71f812aa037eaddcd4fdf233a6c4f931542b089e501e26684cd85c93"
+    },
+    {
+      "path": "formal/direct-seed45/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "formal/direct-seed45/input.json",
+      "bytes": 7001,
+      "sha256": "1ecda0b0c6aef6e589b9d6356fd1373e53daa55050bf4fa74a88222c49c42bbf"
+    },
+    {
+      "path": "formal/direct-seed45/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "formal/direct-seed45/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "formal/direct-seed45/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "2e83a4f519c6098be8f7e6cff47c85a6960a1372812485489264e0e31712e011"
+    },
+    {
+      "path": "formal/direct-seed45/summary.json",
+      "bytes": 6140,
+      "sha256": "2efc163f9a4ce39d7fe93a758a749f54e8fae560c60c96f6b16ce9a59650ed0a"
+    },
+    {
+      "path": "formal/direct-seed46/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "formal/direct-seed46/input.json",
+      "bytes": 7001,
+      "sha256": "dfcaec5580c78e4221248f9060d67df968f501cd568b6affff7aa4be4e1d8773"
+    },
+    {
+      "path": "formal/direct-seed46/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "formal/direct-seed46/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "formal/direct-seed46/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "d800f53a35f617825239ee6889fc47dd913cf97119d6ff16971c05c7d53d44bc"
+    },
+    {
+      "path": "formal/direct-seed46/summary.json",
+      "bytes": 6140,
+      "sha256": "c72661fd9abd1318c6e67ff959c308fd42ac22088fab41b0516ace50475c82d7"
+    },
+    {
+      "path": "formal/spc-seed42/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "formal/spc-seed42/input.json",
+      "bytes": 7002,
+      "sha256": "935a3fdfb93328b5a028042b3bfba9eabfee7ecc42c7452a075dd101c7f0929d"
+    },
+    {
+      "path": "formal/spc-seed42/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "formal/spc-seed42/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "formal/spc-seed42/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "7cfe1ed43ccadf2b2935305c0841760b86783d5d4d519bfc428cac45993a2967"
+    },
+    {
+      "path": "formal/spc-seed42/summary.json",
+      "bytes": 20069,
+      "sha256": "09bff628d46fbd96589c0c30473a48322df4e412bd90e5994ca5f9501c30f80e"
+    },
+    {
+      "path": "formal/spc-seed43/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "formal/spc-seed43/input.json",
+      "bytes": 7002,
+      "sha256": "8a424c275d33bba437aefd6985d7b628fd7b2ab6de925c04e805cfbbe9708397"
+    },
+    {
+      "path": "formal/spc-seed43/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "formal/spc-seed43/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "formal/spc-seed43/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "e0ed759f3b3ff95f12be7b5ff52b9feb19e9d305fbc02ccd16713cd764da818f"
+    },
+    {
+      "path": "formal/spc-seed43/summary.json",
+      "bytes": 20069,
+      "sha256": "a2f5551c349f4cc558fe97adf7de4e50c9b0aca1f604847b0bce2bed14d05611"
+    },
+    {
+      "path": "formal/spc-seed44/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "formal/spc-seed44/input.json",
+      "bytes": 7002,
+      "sha256": "d29aafa2af8c8f8ca34e7cbb13a0bf2170e1482d56cb1cd5a7653878a26e4281"
+    },
+    {
+      "path": "formal/spc-seed44/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "formal/spc-seed44/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "formal/spc-seed44/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "23963e0d3cbb336a0102af1dabdee6c2a79d38d423f0db5d184e6f440d0bfc79"
+    },
+    {
+      "path": "formal/spc-seed44/summary.json",
+      "bytes": 20069,
+      "sha256": "59bedeebc12af4c3888aaef6de5bac61a42cc88abf0d652d6093a2f4c1a0860e"
+    },
+    {
+      "path": "formal/spc-seed45/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "formal/spc-seed45/input.json",
+      "bytes": 7002,
+      "sha256": "2c92b6acbabed243760bb26428aad179bfb676a6c129cbc45bad1a5ab2c77eca"
+    },
+    {
+      "path": "formal/spc-seed45/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "formal/spc-seed45/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "formal/spc-seed45/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "559951f029c7236eed1e43142c7c39990a7fee08f2d7f8d93939ef07b7f5d95e"
+    },
+    {
+      "path": "formal/spc-seed45/summary.json",
+      "bytes": 20069,
+      "sha256": "3934735b4332c31554e041f1f27379dbe844b548d338ccaa780f3e5fc18dea81"
+    },
+    {
+      "path": "formal/spc-seed46/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "formal/spc-seed46/input.json",
+      "bytes": 7002,
+      "sha256": "249d22fa3a97242ca88dff77a8662cb6a058d2626919d1a2780f7b66f0df7cc7"
+    },
+    {
+      "path": "formal/spc-seed46/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "formal/spc-seed46/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "formal/spc-seed46/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "fd28a4fdb81cccd76b65762432049e5bc3cb2ea84da6db8629b1e358fd02de83"
+    },
+    {
+      "path": "formal/spc-seed46/summary.json",
+      "bytes": 20069,
+      "sha256": "39cd9394df06c0febeae854aab645029fdf4c66c9d73a6ead6fed9cf92706117"
+    },
+    {
+      "path": "formal-inputs/direct-seed42.json",
+      "bytes": 7001,
+      "sha256": "22570629fd76f2216e2c9b7a042af5dcf495eebec69755b41baa11823d169edd"
+    },
+    {
+      "path": "formal-inputs/direct-seed43.json",
+      "bytes": 7001,
+      "sha256": "71b12420cb8dac2db24fd0193d9d4d9e0d69a6e94f518cdf0304182cf98b16bc"
+    },
+    {
+      "path": "formal-inputs/direct-seed44.json",
+      "bytes": 7001,
+      "sha256": "e73d0823b15884d7735ec376fa3f840275aef23d5e285d30ea332efd206f61d8"
+    },
+    {
+      "path": "formal-inputs/direct-seed45.json",
+      "bytes": 7001,
+      "sha256": "1ecda0b0c6aef6e589b9d6356fd1373e53daa55050bf4fa74a88222c49c42bbf"
+    },
+    {
+      "path": "formal-inputs/direct-seed46.json",
+      "bytes": 7001,
+      "sha256": "dfcaec5580c78e4221248f9060d67df968f501cd568b6affff7aa4be4e1d8773"
+    },
+    {
+      "path": "formal-inputs/protocol.json",
+      "bytes": 1318,
+      "sha256": "b84a3c38cd901c9a741551c62edb2861e82d4ebfc4ce5fb0838cf78a0bb06d7a"
+    },
+    {
+      "path": "formal-inputs/spc-seed42.json",
+      "bytes": 7002,
+      "sha256": "935a3fdfb93328b5a028042b3bfba9eabfee7ecc42c7452a075dd101c7f0929d"
+    },
+    {
+      "path": "formal-inputs/spc-seed43.json",
+      "bytes": 7002,
+      "sha256": "8a424c275d33bba437aefd6985d7b628fd7b2ab6de925c04e805cfbbe9708397"
+    },
+    {
+      "path": "formal-inputs/spc-seed44.json",
+      "bytes": 7002,
+      "sha256": "d29aafa2af8c8f8ca34e7cbb13a0bf2170e1482d56cb1cd5a7653878a26e4281"
+    },
+    {
+      "path": "formal-inputs/spc-seed45.json",
+      "bytes": 7002,
+      "sha256": "2c92b6acbabed243760bb26428aad179bfb676a6c129cbc45bad1a5ab2c77eca"
+    },
+    {
+      "path": "formal-inputs/spc-seed46.json",
+      "bytes": 7002,
+      "sha256": "249d22fa3a97242ca88dff77a8662cb6a058d2626919d1a2780f7b66f0df7cc7"
+    },
+    {
+      "path": "formal-runtime/ILGPU.Algorithms.dll",
+      "bytes": 1538048,
+      "sha256": "2e103e6eaebb335fdc9cbcaddfef348befa0b576fd4f96532c0e38a3a2aa0788"
+    },
+    {
+      "path": "formal-runtime/ILGPU.dll",
+      "bytes": 1992192,
+      "sha256": "86aabe2a5a00002d5841791b5fbe9c8edd64b0ea15845c27bc5c85b2b1daacf6"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.Core.dll",
+      "bytes": 7661568,
+      "sha256": "002cd4f020800a2096e3ccf8536a32db4106faa83f3242f8525048a88c13afa6"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.Core.pdb",
+      "bytes": 884968,
+      "sha256": "8a7c118b7ccf66b820e1d6dc27759f29190e53eefbebdc5a03c15a865eae8980"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.deps.json",
+      "bytes": 3945,
+      "sha256": "78670268b8c42d6f9299550345893334c1891959cf872cb4604e2671a56ce2c6"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.dll",
+      "bytes": 59392,
+      "sha256": "7ff0e21460422b37634df7ea49609e2daf26bb2208e0814282ae5c56fdf14cd1"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.exe",
+      "bytes": 162816,
+      "sha256": "8b09d467c5ed0e4da86a9468b2cbdcab284170f68a0f282a2dc2fdb47b51f26b"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.pdb",
+      "bytes": 16168,
+      "sha256": "ade97ea1633568366967022e94640d9311c1aec934eb87925108f76f7bc0f0de"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.runtimeconfig.json",
+      "bytes": 342,
+      "sha256": "c230a317a54dd960bcbeb5f347f52e18dc665a26f7efda2159fced9a5ac7e097"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "bytes": 564736,
+      "sha256": "624aed092f1bc6c15d0fea66e38d9351fddc05e1b9f9a35e56c8a6c2c2f90bbb"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Contracts.pdb",
+      "bytes": 98708,
+      "sha256": "484236d96551dd092d9afaa5c54aad8dc067383bc39c331d1bea7c7768a38f4a"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "bytes": 883712,
+      "sha256": "0b27b4dd0ae44a76632e4c61d55f90233e454b703d3c86de0787c15811bbe049"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Engine.pdb",
+      "bytes": 189444,
+      "sha256": "693b9c2b7cd9454bf2e9625f8cd8e58a8c64c3094ce16d188295b0492d0eadde"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Persistence.dll",
+      "bytes": 144384,
+      "sha256": "97f99f2f7c1183c8f5c67ecfa9ac2e548637783f33238baf43cf6e06e213ddc0"
+    },
+    {
+      "path": "formal-runtime/OpticalSystemDesign.InitialStructure.Persistence.pdb",
+      "bytes": 33460,
+      "sha256": "810a4e23fc14600a0382ceafaf66ea9ff39f7e0a4bd9fa00ea5cc79e8b3bebdf"
+    },
+    {
+      "path": "formal-runtime-sha256.json",
+      "bytes": 2314,
+      "sha256": "0e0241e88d9ef847775d0a7cbf4bb0c87f55144e14ad393276c57e8a75fb12f7"
+    },
+    {
+      "path": "isolated-driver-build.log",
+      "bytes": 2081,
+      "sha256": "a1a0ca6ec49f892f6b9be86e1e989fafcec9c6b0a9635c8a8a91b7f787520a90"
+    },
+    {
+      "path": "isolated-formal/direct-seed42/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "isolated-formal/direct-seed42/input.json",
+      "bytes": 7001,
+      "sha256": "22570629fd76f2216e2c9b7a042af5dcf495eebec69755b41baa11823d169edd"
+    },
+    {
+      "path": "isolated-formal/direct-seed42/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "isolated-formal/direct-seed42/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "isolated-formal/direct-seed42/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "84b9544effd29dcf4e41163d2038fe813d228cdb2fa518fc8a6d57dc762e1588"
+    },
+    {
+      "path": "isolated-formal/direct-seed42/summary.json",
+      "bytes": 6140,
+      "sha256": "f91c2227c51195fa2ca10aa3de60acc0fb3dd42e53d098fddd8801ec7a41599e"
+    },
+    {
+      "path": "isolated-formal/direct-seed43/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "isolated-formal/direct-seed43/input.json",
+      "bytes": 7001,
+      "sha256": "71b12420cb8dac2db24fd0193d9d4d9e0d69a6e94f518cdf0304182cf98b16bc"
+    },
+    {
+      "path": "isolated-formal/direct-seed43/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "isolated-formal/direct-seed43/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "isolated-formal/direct-seed43/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "a5d19d56432a12080208c43ed38cf292e5d52951ac65ec307efeb603fa8c78bb"
+    },
+    {
+      "path": "isolated-formal/direct-seed43/summary.json",
+      "bytes": 6140,
+      "sha256": "2ac65c6a09c8abcbbcf02ec76e4f0e572bc32f7b7e4f5e65d144603769132926"
+    },
+    {
+      "path": "isolated-formal/direct-seed44/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "isolated-formal/direct-seed44/input.json",
+      "bytes": 7001,
+      "sha256": "e73d0823b15884d7735ec376fa3f840275aef23d5e285d30ea332efd206f61d8"
+    },
+    {
+      "path": "isolated-formal/direct-seed44/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "isolated-formal/direct-seed44/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "isolated-formal/direct-seed44/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "0ac9d4c118dc06e73ff0834d7a337e718312205536334412dab47d52693094ec"
+    },
+    {
+      "path": "isolated-formal/direct-seed44/summary.json",
+      "bytes": 6140,
+      "sha256": "ce0a686581c59aa250ba509d2f61b15be743635d41383d834967059bb0f15572"
+    },
+    {
+      "path": "isolated-formal/direct-seed45/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "isolated-formal/direct-seed45/input.json",
+      "bytes": 7001,
+      "sha256": "1ecda0b0c6aef6e589b9d6356fd1373e53daa55050bf4fa74a88222c49c42bbf"
+    },
+    {
+      "path": "isolated-formal/direct-seed45/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "isolated-formal/direct-seed45/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "isolated-formal/direct-seed45/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "97a9cafa5881afa1ea4c45dd15c52135c494b526c18380a1ed5e5a6e4fab55f8"
+    },
+    {
+      "path": "isolated-formal/direct-seed45/summary.json",
+      "bytes": 6140,
+      "sha256": "1856c444c8554af4b166e39aeb0b0ef0152e175577a889648c69df24bc758b78"
+    },
+    {
+      "path": "isolated-formal/direct-seed46/audit.json",
+      "bytes": 52072,
+      "sha256": "aaa307013b8b7767d3a3d7abafea9f006e1272a0debbc69409baf3c7cef2e1e3"
+    },
+    {
+      "path": "isolated-formal/direct-seed46/input.json",
+      "bytes": 7001,
+      "sha256": "dfcaec5580c78e4221248f9060d67df968f501cd568b6affff7aa4be4e1d8773"
+    },
+    {
+      "path": "isolated-formal/direct-seed46/minus.staropt",
+      "bytes": 2176,
+      "sha256": "89ad7f72d315e799fe07bbc871982184ccfc9f575a1ac540960d456393c73ee9"
+    },
+    {
+      "path": "isolated-formal/direct-seed46/plus.staropt",
+      "bytes": 2170,
+      "sha256": "7b5d554a705f35cdb23f24b58f7e39bba222c5288cc18c14ba40665b794fcc78"
+    },
+    {
+      "path": "isolated-formal/direct-seed46/study.spc-study.json",
+      "bytes": 117253,
+      "sha256": "b2c580608791ced1246c86f1f84db8b655f3743426afc6fc23f8ae67ee00ec4a"
+    },
+    {
+      "path": "isolated-formal/direct-seed46/summary.json",
+      "bytes": 6140,
+      "sha256": "470a92fd1dc34d440c4f31c42e468edc91483c28e3edb05409218fcb26acaa38"
+    },
+    {
+      "path": "isolated-formal/spc-seed42/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "isolated-formal/spc-seed42/input.json",
+      "bytes": 7002,
+      "sha256": "935a3fdfb93328b5a028042b3bfba9eabfee7ecc42c7452a075dd101c7f0929d"
+    },
+    {
+      "path": "isolated-formal/spc-seed42/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "isolated-formal/spc-seed42/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "isolated-formal/spc-seed42/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "b05642c9a5f19f94b28a0355849c1802cb3477e645f0bc3e9de74b1f63395def"
+    },
+    {
+      "path": "isolated-formal/spc-seed42/summary.json",
+      "bytes": 20069,
+      "sha256": "baf8ca8c81612940f473d4bcb6ba2b78774b43c00bf457564dd60b7e294d1330"
+    },
+    {
+      "path": "isolated-formal/spc-seed43/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "isolated-formal/spc-seed43/input.json",
+      "bytes": 7002,
+      "sha256": "8a424c275d33bba437aefd6985d7b628fd7b2ab6de925c04e805cfbbe9708397"
+    },
+    {
+      "path": "isolated-formal/spc-seed43/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "isolated-formal/spc-seed43/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "isolated-formal/spc-seed43/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "4ffecd198ba12702a9a97c324b0b67d84179cea9bb81410a1122d313807cc06e"
+    },
+    {
+      "path": "isolated-formal/spc-seed43/summary.json",
+      "bytes": 20069,
+      "sha256": "a82de2c6a0a83e09bd192207dcc0eb2e9b5d2ff7714af0c746336dc95f51fa73"
+    },
+    {
+      "path": "isolated-formal/spc-seed44/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "isolated-formal/spc-seed44/input.json",
+      "bytes": 7002,
+      "sha256": "d29aafa2af8c8f8ca34e7cbb13a0bf2170e1482d56cb1cd5a7653878a26e4281"
+    },
+    {
+      "path": "isolated-formal/spc-seed44/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "isolated-formal/spc-seed44/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "isolated-formal/spc-seed44/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "6fef7b4618d7d1614ecd4a1496a222b9b59c1e7b1fa5163e9277f94c511ca0ba"
+    },
+    {
+      "path": "isolated-formal/spc-seed44/summary.json",
+      "bytes": 20069,
+      "sha256": "3542dcf7953404645d2e736cbf7045d9bf206889fd2356c796dc2fb070e2d69c"
+    },
+    {
+      "path": "isolated-formal/spc-seed45/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "isolated-formal/spc-seed45/input.json",
+      "bytes": 7002,
+      "sha256": "2c92b6acbabed243760bb26428aad179bfb676a6c129cbc45bad1a5ab2c77eca"
+    },
+    {
+      "path": "isolated-formal/spc-seed45/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "isolated-formal/spc-seed45/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "isolated-formal/spc-seed45/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "7d78a64ee99a053a7a9bdc53874b731bfeaf7e5efc588b2e56bf2db7bdb7cde6"
+    },
+    {
+      "path": "isolated-formal/spc-seed45/summary.json",
+      "bytes": 20069,
+      "sha256": "6f505af088de02b679b8be19004b61b270a157b9e646d09beefa55441fa060bc"
+    },
+    {
+      "path": "isolated-formal/spc-seed46/audit.json",
+      "bytes": 52064,
+      "sha256": "eed8ba1b540637965998633bce730ee9ac623b5bc43968d1258344190f62eae9"
+    },
+    {
+      "path": "isolated-formal/spc-seed46/input.json",
+      "bytes": 7002,
+      "sha256": "249d22fa3a97242ca88dff77a8662cb6a058d2626919d1a2780f7b66f0df7cc7"
+    },
+    {
+      "path": "isolated-formal/spc-seed46/minus.staropt",
+      "bytes": 2188,
+      "sha256": "6f5f92bbfe92896f283e64aec637c93ea08863871dc50078dcd50ccbc282bb44"
+    },
+    {
+      "path": "isolated-formal/spc-seed46/plus.staropt",
+      "bytes": 2184,
+      "sha256": "25624264cc37617c3ee9c77340900b7e4f8895c95e08e248b2091eb4c4ea5e36"
+    },
+    {
+      "path": "isolated-formal/spc-seed46/study.spc-study.json",
+      "bytes": 124522,
+      "sha256": "430a62b55b30498f9a219e8d8c4846468d38b2403c1edb91ea4176c2dda53e8b"
+    },
+    {
+      "path": "isolated-formal/spc-seed46/summary.json",
+      "bytes": 20069,
+      "sha256": "ab98f53a352f21614f318eef6e07c63170523a3ede985b49f5c5bc9595e4af20"
+    },
+    {
+      "path": "isolated-new-process-reopen.json",
+      "bytes": 66,
+      "sha256": "ba831066aef7ab38ad1a8ef1a5f48f204965197cf5ac49aaf55f72701fd1eace"
+    },
+    {
+      "path": "isolated-original-tasks/F4-seed42.json",
+      "bytes": 15764,
+      "sha256": "a47711a90edd17ceac3c8d199fc25f55a66522e392eccee71d501c96b0c553ec"
+    },
+    {
+      "path": "isolated-original-tasks/F4-seed43.json",
+      "bytes": 15764,
+      "sha256": "68b19370880545ca6b839d07df26142217935ee45607851f612c11f2ee6ccc1d"
+    },
+    {
+      "path": "isolated-original-tasks/F4-seed44.json",
+      "bytes": 15764,
+      "sha256": "4d04316cc343e7099ead59c01da22034c18dfbbb79805f02f6124107abb2fe1a"
+    },
+    {
+      "path": "isolated-original-tasks/F4-seed45.json",
+      "bytes": 15764,
+      "sha256": "672eadc01cb271bab2c3ccbbfa46f7793a23014b7b76392da74f47e16533a079"
+    },
+    {
+      "path": "isolated-original-tasks/F4-seed46.json",
+      "bytes": 15764,
+      "sha256": "1c1cc1628120266f73124890ff1f18714488159de532f3c9c17946b8096bd116"
+    },
+    {
+      "path": "isolated-original-tasks/F8-seed42.json",
+      "bytes": 27530,
+      "sha256": "ef4e8afa8a6d66641f729ca8990a32c09c3985b765b72c6c29418fd6d5a1a4cd"
+    },
+    {
+      "path": "isolated-original-tasks/F8-seed43.json",
+      "bytes": 27530,
+      "sha256": "f28705399bc644fd6a8e7e52f75992e23d371e336f55e5e05b250ef54bae64c3"
+    },
+    {
+      "path": "isolated-original-tasks/F8-seed44.json",
+      "bytes": 27530,
+      "sha256": "283d953a462df1890ffecbc37dea550e7d6fc6e798b661e88d965d2176e9f865"
+    },
+    {
+      "path": "isolated-original-tasks/F8-seed45.json",
+      "bytes": 27530,
+      "sha256": "4c272f3a8f18a84fabf63dcac31bb0a7f9108f8c80a305fbacc9a95e0aea985d"
+    },
+    {
+      "path": "isolated-original-tasks/F8-seed46.json",
+      "bytes": 27530,
+      "sha256": "534174021f1b5504213b4e299bcbcfe6ef12ee9e119ac16cad99867ac5c00657"
+    },
+    {
+      "path": "isolated-original-tasks/half21-seed42.json",
+      "bytes": 10744,
+      "sha256": "488c3007ad7aade5cd73f24e362e7123f02ea156badf8e21fdbc7424603bf8f9"
+    },
+    {
+      "path": "isolated-original-tasks/half21-seed43.json",
+      "bytes": 10744,
+      "sha256": "ce24086094c829ca9600675b0537263ee0f23d9a59ac7bdd58cede0233d51465"
+    },
+    {
+      "path": "isolated-original-tasks/half21-seed44.json",
+      "bytes": 10744,
+      "sha256": "6454484e297d974816a277e85fc5314988baeee8a0ad015d4da7a1d7654acb57"
+    },
+    {
+      "path": "isolated-original-tasks/half21-seed45.json",
+      "bytes": 10744,
+      "sha256": "e09c033458d6ef3e4f4cd2caee37910fe0c768d83eea81645867faebcd9ef048"
+    },
+    {
+      "path": "isolated-original-tasks/half21-seed46.json",
+      "bytes": 10744,
+      "sha256": "b01cd991df825918a124c01eb0346248c1c33be9efb1d0888b0008a3caa82114"
+    },
+    {
+      "path": "isolated-original-tasks/old-F8-qualified-seed42.json",
+      "bytes": 22536,
+      "sha256": "c61f96beb0dc827d1981a9b30fc3b37eabb333d70424ed17e8a8863412a1e095"
+    },
+    {
+      "path": "isolated-original-tasks/old-F8-qualified-seed43.json",
+      "bytes": 22538,
+      "sha256": "fe20d3d4e55911cbbb82a131f6e69e4d73ebeaf19506e213dd51b3afa0e88138"
+    },
+    {
+      "path": "isolated-original-tasks/old-F8-qualified-seed44.json",
+      "bytes": 22532,
+      "sha256": "a67b1279a051074b72257d8abf229d49b623df72146ea22439fd4100eb3dc1a4"
+    },
+    {
+      "path": "isolated-original-tasks/old-F8-qualified-seed45.json",
+      "bytes": 22506,
+      "sha256": "7adce3803e7f48ec793e1497d17b1d55c3958ac8cf80184668125f711e57e19d"
+    },
+    {
+      "path": "isolated-original-tasks/old-F8-qualified-seed46.json",
+      "bytes": 22536,
+      "sha256": "5104852c222a2d06e0401ae043aaa8a791df0acc559dd6488541d7779fa630ec"
+    },
+    {
+      "path": "isolated-original-tasks/summary.json",
+      "bytes": 7155,
+      "sha256": "b7dff931fdcf8b334b4ec37ce539ed292c94471483fd83389b8f8d632975a722"
+    },
+    {
+      "path": "isolated-runtime/ILGPU.Algorithms.dll",
+      "bytes": 1538048,
+      "sha256": "2e103e6eaebb335fdc9cbcaddfef348befa0b576fd4f96532c0e38a3a2aa0788"
+    },
+    {
+      "path": "isolated-runtime/ILGPU.dll",
+      "bytes": 1992192,
+      "sha256": "86aabe2a5a00002d5841791b5fbe9c8edd64b0ea15845c27bc5c85b2b1daacf6"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.Core.dll",
+      "bytes": 7663104,
+      "sha256": "caa97b05bed04762da4224b961268db1374695ad8d34f13995fd8d10276e7cd5"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.Core.pdb",
+      "bytes": 884712,
+      "sha256": "9ba3d1bdefe2dba39e2e23f5807bbf43db47429b008d1688992d6d5c36c598fc"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.deps.json",
+      "bytes": 3945,
+      "sha256": "78670268b8c42d6f9299550345893334c1891959cf872cb4604e2671a56ce2c6"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.dll",
+      "bytes": 59392,
+      "sha256": "a4816a3942ceb7ef5e6f1c57c6964dacb347a28779efa9191ed3b3ac36b3cf49"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.exe",
+      "bytes": 162816,
+      "sha256": "cf6ed755043ec84e6cab893c4f2c0b5ca5b4586bddac60e34c2b7a2508cba51e"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.pdb",
+      "bytes": 15336,
+      "sha256": "1779b86aece804a6d7d946f4a1ca62cadaa7a388b2f8b6dbd0bf6672e7c6ad82"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Benchmarks.runtimeconfig.json",
+      "bytes": 342,
+      "sha256": "c230a317a54dd960bcbeb5f347f52e18dc665a26f7efda2159fced9a5ac7e097"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "bytes": 564736,
+      "sha256": "1a7b1566bbad23e30022879c687c4616637cf2df69b3788b4cd6e6a7dee4b268"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Contracts.pdb",
+      "bytes": 97896,
+      "sha256": "dd9229cb4fdf57b58bb7ee66b881bc48721b897ad82a6af3b7051751ff1f7936"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "bytes": 883712,
+      "sha256": "d66c591e4617c0db574347863eb3f6c67dff6543d75dcf75221aa79b65a5690b"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Engine.pdb",
+      "bytes": 188644,
+      "sha256": "299f6f784981d844a6eeefe431a7e72afa2ce968a01bf3c7641b8bc18e3f21f9"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Persistence.dll",
+      "bytes": 144384,
+      "sha256": "38f301889fd257c6e275badd7d8031faf62566ea60d7edcf545548369763cf18"
+    },
+    {
+      "path": "isolated-runtime/OpticalSystemDesign.InitialStructure.Persistence.pdb",
+      "bytes": 32640,
+      "sha256": "addbefdd082ddb647efbf649287da9ab847dd7b8737c1a711e6ac5c027931522"
+    },
+    {
+      "path": "isolated-runtime-sha256.json",
+      "bytes": 2314,
+      "sha256": "ee6c28e0d2ba1bf24d5adda32b6eaf036e1f40b3a1d6d1fea1ecf282ce91f834"
+    },
+    {
+      "path": "new-process-reopen.json",
+      "bytes": 66,
+      "sha256": "ba831066aef7ab38ad1a8ef1a5f48f204965197cf5ac49aaf55f72701fd1eace"
+    },
+    {
+      "path": "null-continuation-probe.log",
+      "bytes": 377,
+      "sha256": "b9ad715dc01e1deb43b910b17b8a7f2c38b2f27133cace9c09f5efcc6013f388"
+    },
+    {
+      "path": "null-ray-probe.log",
+      "bytes": 3863,
+      "sha256": "7295762d2f17cc71843f4d0fc58b066b194c03abe806e5c6bcfdcd4ebfdd6493"
+    },
+    {
+      "path": "original-tasks/F4-seed42.json",
+      "bytes": 15764,
+      "sha256": "aaaa1e95e0aefc295100c803c5c5d638953f990c350d45181c05a74bb194b00f"
+    },
+    {
+      "path": "original-tasks/F4-seed43.json",
+      "bytes": 15764,
+      "sha256": "46179650808c0f3879575d914b3747da2707f51733166737f2fbec89557fab2f"
+    },
+    {
+      "path": "original-tasks/F4-seed44.json",
+      "bytes": 15764,
+      "sha256": "221b97811c1b7c8574a131d89f731e880f075cd0a1405adff2547d14fc7fd405"
+    },
+    {
+      "path": "original-tasks/F4-seed45.json",
+      "bytes": 15764,
+      "sha256": "2b0506882aa3075f853485f7b4729d0363177fd182b2098134d5cfd03c1a01e1"
+    },
+    {
+      "path": "original-tasks/F4-seed46.json",
+      "bytes": 15764,
+      "sha256": "0c5b9f4ed3320549e5ab4007f1d26c493aa7b91f37a3c1d5aad1209cdb57d2c4"
+    },
+    {
+      "path": "original-tasks/F8-seed42.json",
+      "bytes": 27530,
+      "sha256": "8f2074f0194c1701ea4f711bd26e7bc3a5739a770f95820ccb6f3996c18a2567"
+    },
+    {
+      "path": "original-tasks/F8-seed43.json",
+      "bytes": 27530,
+      "sha256": "0e7f73c02fa227e455bd8b233cb05a3b602dacea0e3965c56686b98796311fe3"
+    },
+    {
+      "path": "original-tasks/F8-seed44.json",
+      "bytes": 27530,
+      "sha256": "317a0466cc4225983bc6f5ed9b1b4319c43f4a4743f7ac6d6992b6a6ecc75c73"
+    },
+    {
+      "path": "original-tasks/F8-seed45.json",
+      "bytes": 27530,
+      "sha256": "72651cb798b0bd9ca549faaac93c60c44c4e99bb89acb08e484a1340737abf3d"
+    },
+    {
+      "path": "original-tasks/F8-seed46.json",
+      "bytes": 27530,
+      "sha256": "00ef6ce311a537d5f78b846b290644182eba418a68b40f563ae16f37d82246a4"
+    },
+    {
+      "path": "original-tasks/half21-seed42.json",
+      "bytes": 10744,
+      "sha256": "eb5ebfb3bfe98e2d893d787223cc64e05dbcca7b61002cc9acd39a93e4c31270"
+    },
+    {
+      "path": "original-tasks/half21-seed43.json",
+      "bytes": 10744,
+      "sha256": "150280cf23953eb145dec3042be76d1df4718fc43ccf1b162bbf74e4bb933327"
+    },
+    {
+      "path": "original-tasks/half21-seed44.json",
+      "bytes": 10744,
+      "sha256": "3f5e065cdc61e19cd85bf4103ed74ac4f69f3c22b09abcf1189cd31e1b0d10e7"
+    },
+    {
+      "path": "original-tasks/half21-seed45.json",
+      "bytes": 10744,
+      "sha256": "764a8e44cb944f013ea436314e0964ef69bf73f7f647c5c0b7d4c52b7167e852"
+    },
+    {
+      "path": "original-tasks/half21-seed46.json",
+      "bytes": 10744,
+      "sha256": "e0256eea4dc48f22365d972f8a17d4c20a80c7d2d1745a7ccadc8c87bee67fb3"
+    },
+    {
+      "path": "original-tasks/old-F8-qualified-seed42.json",
+      "bytes": 22536,
+      "sha256": "c61f96beb0dc827d1981a9b30fc3b37eabb333d70424ed17e8a8863412a1e095"
+    },
+    {
+      "path": "original-tasks/old-F8-qualified-seed43.json",
+      "bytes": 22538,
+      "sha256": "fe20d3d4e55911cbbb82a131f6e69e4d73ebeaf19506e213dd51b3afa0e88138"
+    },
+    {
+      "path": "original-tasks/old-F8-qualified-seed44.json",
+      "bytes": 22532,
+      "sha256": "a67b1279a051074b72257d8abf229d49b623df72146ea22439fd4100eb3dc1a4"
+    },
+    {
+      "path": "original-tasks/old-F8-qualified-seed45.json",
+      "bytes": 22506,
+      "sha256": "7adce3803e7f48ec793e1497d17b1d55c3958ac8cf80184668125f711e57e19d"
+    },
+    {
+      "path": "original-tasks/old-F8-qualified-seed46.json",
+      "bytes": 22536,
+      "sha256": "5104852c222a2d06e0401ae043aaa8a791df0acc559dd6488541d7779fa630ec"
+    },
+    {
+      "path": "original-tasks/summary.json",
+      "bytes": 7155,
+      "sha256": "94e7fca821f6a390a3731a621f36cdb4c3c183bfaac86de6acd23ae828ce4208"
+    },
+    {
+      "path": "pdb-source-audit-final.json",
+      "bytes": 203319,
+      "sha256": "e4359fe4549b91fddfdecd0f6066ee3d574e888584b71b298613f17850a8996a"
+    },
+    {
+      "path": "pdb-source-audit.json",
+      "bytes": 203324,
+      "sha256": "9db64e35d92ae12f7d03092d9a2a3b81768cbfcbf92aed87846befe0a06a586c"
+    },
+    {
+      "path": "pdb-source-errors.json",
+      "bytes": 467,
+      "sha256": "6e4ace8c685a2d15769141d38f2d17adc512d41797ee9bfef5ab170b835c02ca"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2483,
+      "sha256": "ee5bac6fa8742ded9dca737bbc55a04212901a4f60ea6fc617f9be882b635859"
+    },
+    {
+      "path": "recovered-source-paths-v2.json",
+      "bytes": 301,
+      "sha256": "0dbbc6a590710a617de28113d34c50603159370f0e9a9476a55e7194fd2da165"
+    },
+    {
+      "path": "recovered-source-paths.json",
+      "bytes": 301,
+      "sha256": "0dbbc6a590710a617de28113d34c50603159370f0e9a9476a55e7194fd2da165"
+    },
+    {
+      "path": "search-probe-v2.json",
+      "bytes": 21319,
+      "sha256": "34f29b22bfddaad1a06a4c21fd21219d624bb681eb1a0de4888c467f2c6f0dd8"
+    },
+    {
+      "path": "search-probe-v2.log",
+      "bytes": 580,
+      "sha256": "a869e66ac0f4409fc6098a097d4ccfeffbf141344eda8d0bcea036186aa6c5f8"
+    },
+    {
+      "path": "search-probe-v3.json",
+      "bytes": 222651,
+      "sha256": "8528d3c8377efeb42b8f453b38110bf1ed57105bf1b85d60756b7fecd84c59be"
+    },
+    {
+      "path": "search-probe-v3.log",
+      "bytes": 530,
+      "sha256": "54d43c17cb51b4986c6147ad5197ac7811f95b9eec497365d7b84f6738db8289"
+    },
+    {
+      "path": "search-probe-v4.json",
+      "bytes": 257134,
+      "sha256": "2ab837b494fc8d92d41bdf781a2b16a1dabe2fd8c51098d500127ba02c3d559a"
+    },
+    {
+      "path": "search-probe-v4.log",
+      "bytes": 516,
+      "sha256": "85882cf1c2a3c5913c7ecb2de037cdafe67b26aa405a588e6c5a74a85ea1cad2"
+    },
+    {
+      "path": "search-probe-v5.log",
+      "bytes": 336,
+      "sha256": "7f34aa889870915725a91a4c27db742b2f727f1b595667fe102dfc1faa710752"
+    },
+    {
+      "path": "search-probe-v6.json",
+      "bytes": 265900,
+      "sha256": "e49156e2c2d890b725bbb49019f611b08155a24f106681f06661d5044d7196eb"
+    },
+    {
+      "path": "search-probe-v6.log",
+      "bytes": 530,
+      "sha256": "e624d0d482ab01a2af18ab591a136cecaac0cb03d6cb2c3240eea7d70fbd8e87"
+    },
+    {
+      "path": "search-probe.log",
+      "bytes": 1432,
+      "sha256": "fa7643d3c0283e67502d1a77280e9b90bda0038226cb7edd5bfe3e48bbfce2f3"
+    },
+    {
+      "path": "source-freeze-final-v2.log",
+      "bytes": 54,
+      "sha256": "a9a2565e6c8b699bfcad2f3ef4603a9c26a97464642b69f26af4a5c89f0b5f24"
+    },
+    {
+      "path": "source-freeze-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "source-freeze.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "test-runtime-sha256.json",
+      "bytes": 9337,
+      "sha256": "ec4c019a67d9ec3db3895b09507cf4d7dab33723d2284f620237b0d5789aef69"
+    },
+    {
+      "path": "test-runtimes/core/.msCoverageSourceRootsMapping_OpticalSystemDesign.Tests",
+      "bytes": 834,
+      "sha256": "5cf54ec8cf899ce8b7bce70a9debdd2b584948fd8848c70b260fd9994fe46822"
+    },
+    {
+      "path": "test-runtimes/core/cs/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16440,
+      "sha256": "b983773dc5112854fe411fa22223e929c7fa230a1a843fcc58023237aca326f4"
+    },
+    {
+      "path": "test-runtimes/core/cs/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16944,
+      "sha256": "26be9bb3a8932ba04014e4ae9b8f20a0222a3e2c1a1b41cec11d49bff609ce72"
+    },
+    {
+      "path": "test-runtimes/core/cs/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21040,
+      "sha256": "2f776bf0e946ffcd3f8a38af2653137785eb55db3cdb0c5a392bbe07d2ccc082"
+    },
+    {
+      "path": "test-runtimes/core/cs/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 20520,
+      "sha256": "cd637384e1b3973be3c18409ed886f8234e2e3c3a65edf7d721d154e26aa64f3"
+    },
+    {
+      "path": "test-runtimes/core/cs/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 23624,
+      "sha256": "12b0829d24f6f53f0e22fcbe370d3f91b67bbcaca7f0d82323d08cd7752f4519"
+    },
+    {
+      "path": "test-runtimes/core/de/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "d11f2a5262947fc1b6d426a6e1828325cedf40fee28e29ed856804ec9ef3f15c"
+    },
+    {
+      "path": "test-runtimes/core/de/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "403e0eaf8528656c0b47c31cd5fe9a25b8fd733adccb8e6d47a09f28658b5283"
+    },
+    {
+      "path": "test-runtimes/core/de/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21048,
+      "sha256": "7ad3c45f58aa4d030fd5d65d9d4ac9cabbc06d79d071c29727b5376cd3459d77"
+    },
+    {
+      "path": "test-runtimes/core/de/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21064,
+      "sha256": "ca308a5d314fa7d7e9cae94083cc1f62375ac225094d289961d9bce49b564b65"
+    },
+    {
+      "path": "test-runtimes/core/de/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24136,
+      "sha256": "e91489bb7ec3e2e97d19cf32bc5e3f7fc57e994e0315f0870fd2024ccb2cf337"
+    },
+    {
+      "path": "test-runtimes/core/es/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "ddbdd3bf9afe6ddd3babd4f0358ab2f4697fc5d5ec72b60cb772085af9bf9859"
+    },
+    {
+      "path": "test-runtimes/core/es/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "7ec8e83494a8a50f1158c85d29b98e87c85d74ad5c4d94e2e9656e1cf60b0dff"
+    },
+    {
+      "path": "test-runtimes/core/es/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21032,
+      "sha256": "67063a36cfcae95b3ea4646b88c3cf3642f0914dfc06ecc5fc4d3f77e0e97e64"
+    },
+    {
+      "path": "test-runtimes/core/es/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21040,
+      "sha256": "b5340851bd9cb979d497f67123d09f91ba20ac9d2b3e0e17076fd2abd615c933"
+    },
+    {
+      "path": "test-runtimes/core/es/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24120,
+      "sha256": "f19c11474e9074d5407f9b5a78cfb0bc1b4aeb90ffec819a676f63509cec443a"
+    },
+    {
+      "path": "test-runtimes/core/fr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "044cf1373cc4527fff78adb5ad70489532303b58ba0de2c059c422926af46c4b"
+    },
+    {
+      "path": "test-runtimes/core/fr/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16944,
+      "sha256": "78d675cbab45a56cc8916466ba13f16fab18a44fd3ad4481c8f5f4e13b1f8b5d"
+    },
+    {
+      "path": "test-runtimes/core/fr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21040,
+      "sha256": "3fe869c312793444f9509af17ca0b14f444cbddef60a47251f441a5d7859a05f"
+    },
+    {
+      "path": "test-runtimes/core/fr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21048,
+      "sha256": "5a8f4f4ea8b5a332883a67202877bd19100b21d766bf0443ffec21610dfb2ecf"
+    },
+    {
+      "path": "test-runtimes/core/fr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24096,
+      "sha256": "ba030af725dea6bceb72c4eb49ccc3520222a97ea0fae812e16b7ba78450b98a"
+    },
+    {
+      "path": "test-runtimes/core/ILGPU.Algorithms.dll",
+      "bytes": 1538048,
+      "sha256": "2e103e6eaebb335fdc9cbcaddfef348befa0b576fd4f96532c0e38a3a2aa0788"
+    },
+    {
+      "path": "test-runtimes/core/ILGPU.dll",
+      "bytes": 1992192,
+      "sha256": "86aabe2a5a00002d5841791b5fbe9c8edd64b0ea15845c27bc5c85b2b1daacf6"
+    },
+    {
+      "path": "test-runtimes/core/it/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "b023b85f510d1e5c6d5183ba51614ea1b6dee5c25ab287773bebc8cdb36e3168"
+    },
+    {
+      "path": "test-runtimes/core/it/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "a1ac732615a7dc5c59e01a1570da23210ede65ef24d5bb101294cf68481fe984"
+    },
+    {
+      "path": "test-runtimes/core/it/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21048,
+      "sha256": "b6b4b25e77f51f4ef5252512d1ea2cd8025ff388852ea93897b136bcc33bb5e0"
+    },
+    {
+      "path": "test-runtimes/core/it/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21040,
+      "sha256": "b9f6be59cc1c05594f9b19db9e72add58d6b37661397f81a62d4fee37e7be621"
+    },
+    {
+      "path": "test-runtimes/core/it/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24096,
+      "sha256": "93911f7a3c20cecd88ddb85dfdaaa9bf768e72a0fa5f745f3f3ae40dc78da66b"
+    },
+    {
+      "path": "test-runtimes/core/ja/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "5db61a11e8c40176f0293658e48bc955ebed6a3dd46d3808aacc762f71732544"
+    },
+    {
+      "path": "test-runtimes/core/ja/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 17440,
+      "sha256": "1ded53cdfde469bbb90d12f371891d3789a835e976557541c43166f027f7f111"
+    },
+    {
+      "path": "test-runtimes/core/ja/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 22088,
+      "sha256": "f6d2748ee250f131374c306d7dc8a905464dbda3f75e857d333946c7ff89494c"
+    },
+    {
+      "path": "test-runtimes/core/ja/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21552,
+      "sha256": "c55083e71e3a5bb8dbe36e10eb12b301ccfd809e8fe1187350beb6774c7f794b"
+    },
+    {
+      "path": "test-runtimes/core/ja/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24632,
+      "sha256": "c2c077136e3ccfd8a249758979c0f754fe3c8a35b0c6478aa7a87ea38a817690"
+    },
+    {
+      "path": "test-runtimes/core/ko/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16944,
+      "sha256": "7026d9d93b3fb7b521fc4a35fcb8348020fe466c054309e8ec0d27e84a555cb9"
+    },
+    {
+      "path": "test-runtimes/core/ko/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16936,
+      "sha256": "fdc5422bb6f99cb357515ac6edd47c6f495da1da0eca43b7f85fdb7fd1c2492a"
+    },
+    {
+      "path": "test-runtimes/core/ko/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21560,
+      "sha256": "e5231e879c215210cfe0b6d8f5740f8ecb2b08afa98ee4055fff6ba10ddac96c"
+    },
+    {
+      "path": "test-runtimes/core/ko/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21048,
+      "sha256": "e90ac368f79ea0e99f44fe1133db10af08c3653749056362822b2c8f414ccd64"
+    },
+    {
+      "path": "test-runtimes/core/ko/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24120,
+      "sha256": "4f427ed5c7c78043c7a9a7c9dc659133d96f6100ca9ba8719857709832e4bb58"
+    },
+    {
+      "path": "test-runtimes/core/Microsoft.TestPlatform.CommunicationUtilities.dll",
+      "bytes": 137776,
+      "sha256": "e38a359aa502bb1867d6092dca9aba5c130dd6f9111decea8156aa746b2c69e6"
+    },
+    {
+      "path": "test-runtimes/core/Microsoft.TestPlatform.CoreUtilities.dll",
+      "bytes": 98336,
+      "sha256": "f6e2495c44640d8915b2aefc938f391c970300266da014350ff35512a448ee84"
+    },
+    {
+      "path": "test-runtimes/core/Microsoft.TestPlatform.CrossPlatEngine.dll",
+      "bytes": 316960,
+      "sha256": "d55399bc66dc5b451d60ad82662452ca4a5f735918135dfc91ca9b5e3e38a6ab"
+    },
+    {
+      "path": "test-runtimes/core/Microsoft.TestPlatform.PlatformAbstractions.dll",
+      "bytes": 51232,
+      "sha256": "7b919ce4429c3b7b8fa2c36fd641b70b2f459a30ecb7c65fd80f437673cec930"
+    },
+    {
+      "path": "test-runtimes/core/Microsoft.TestPlatform.Utilities.dll",
+      "bytes": 67104,
+      "sha256": "01ffd64d25a4bd905aef9594d2aa700e020273a90a77a8720af6bec8b4fd5444"
+    },
+    {
+      "path": "test-runtimes/core/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
+      "bytes": 17464,
+      "sha256": "a753bc15f23a957f4f91a059376e4472c6bacd1503622de4b9b2b079ad8ea289"
+    },
+    {
+      "path": "test-runtimes/core/Microsoft.VisualStudio.TestPlatform.Common.dll",
+      "bytes": 248352,
+      "sha256": "059aa2f335c3f7b14ac3fb7caa1625bc2767581b9548e9ff53a246c7f2f94d6a"
+    },
+    {
+      "path": "test-runtimes/core/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll",
+      "bytes": 334392,
+      "sha256": "f83e38ee9020baa42e284e2299e233070ffa86ce4b10213583f9b7c8a521bcd0"
+    },
+    {
+      "path": "test-runtimes/core/Newtonsoft.Json.dll",
+      "bytes": 712464,
+      "sha256": "22c649f75fce5be7c7ccda8880473b634ef69ecf33f5d1ab8ad892caf47d5a07"
+    },
+    {
+      "path": "test-runtimes/core/OpticalSystemDesign.Core.dll",
+      "bytes": 7663104,
+      "sha256": "caa97b05bed04762da4224b961268db1374695ad8d34f13995fd8d10276e7cd5"
+    },
+    {
+      "path": "test-runtimes/core/OpticalSystemDesign.Core.pdb",
+      "bytes": 884712,
+      "sha256": "9ba3d1bdefe2dba39e2e23f5807bbf43db47429b008d1688992d6d5c36c598fc"
+    },
+    {
+      "path": "test-runtimes/core/OpticalSystemDesign.Tests.deps.json",
+      "bytes": 18093,
+      "sha256": "265610d9daf4d79ebd56a7bbe532c43c478ef583c1832165b77d79bd58239008"
+    },
+    {
+      "path": "test-runtimes/core/OpticalSystemDesign.Tests.dll",
+      "bytes": 33792,
+      "sha256": "3ee0e997ae2ddbfdce59da50b87282f20789f3f0654404f83a1f21782a4640cb"
+    },
+    {
+      "path": "test-runtimes/core/OpticalSystemDesign.Tests.pdb",
+      "bytes": 17132,
+      "sha256": "3c0fc9b19fd3ffda7f27be549ff35b521a5375b554ce70c1ca1887b21882d0e8"
+    },
+    {
+      "path": "test-runtimes/core/OpticalSystemDesign.Tests.runtimeconfig.json",
+      "bytes": 390,
+      "sha256": "a217d17be0661abf2717a26937c6e379c33542cb6f292fd3fc5a2d5113a9d6dc"
+    },
+    {
+      "path": "test-runtimes/core/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "0d1c05f1c3dfa21fbaca7537910bea9a54a52a9a800caf1c7d46691fb3a41eaa"
+    },
+    {
+      "path": "test-runtimes/core/pl/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16936,
+      "sha256": "4b7843359aea21962c73c7474d374410fe8d039a30ac7902f5f09a19a52c778a"
+    },
+    {
+      "path": "test-runtimes/core/pl/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21536,
+      "sha256": "2f82d58fb67a8261ad060a2633b872c7867f48608368144db3a93bf4debe2444"
+    },
+    {
+      "path": "test-runtimes/core/pl/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21048,
+      "sha256": "911ef37ee7d78eb7132581aeaeb7753e81589600535c3c2244b1c447b61e1a5a"
+    },
+    {
+      "path": "test-runtimes/core/pl/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24136,
+      "sha256": "88993b0056f183385a9e9e67931932bce0e564d288164ad43b2cc1bf6cacfb1c"
+    },
+    {
+      "path": "test-runtimes/core/pt-BR/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16416,
+      "sha256": "f2292ef0dd72f1a95892714f17e5d49259452e27332d54dbff308236a50d7d40"
+    },
+    {
+      "path": "test-runtimes/core/pt-BR/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "119f896f964ce17da4558c72b728d832fa19abc2dcf12bbed7cc386b741edd6b"
+    },
+    {
+      "path": "test-runtimes/core/pt-BR/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21048,
+      "sha256": "ea5d8ecffcb9371d3e559e1d477ebdf5e7c3bd0663746fdccebd9330df2b9008"
+    },
+    {
+      "path": "test-runtimes/core/pt-BR/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21048,
+      "sha256": "b33e6b979805fa9047ebfb7722c4c3b07b1d3706acc108883b8c30d77d10db72"
+    },
+    {
+      "path": "test-runtimes/core/pt-BR/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24120,
+      "sha256": "976fae7c172b9170340633a3fe1a3f0ec6fc0731f4bf089ddaf611d60d446f40"
+    },
+    {
+      "path": "test-runtimes/core/ru/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 17440,
+      "sha256": "4b29d6fadb5b709c5c90f25a8934e6c3c58027cf35aa28c6ef7100ab30f9cd39"
+    },
+    {
+      "path": "test-runtimes/core/ru/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 17464,
+      "sha256": "67820043048cca339e29b563b1ed9da9f7d702b67c0cadd0b643f5781bc78789"
+    },
+    {
+      "path": "test-runtimes/core/ru/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 23072,
+      "sha256": "4970c26bed952eccea42fbd3c7064bdd690eb5a7e538a77ce78ffed487877d9b"
+    },
+    {
+      "path": "test-runtimes/core/ru/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 23096,
+      "sha256": "fcaedb770d94be752a6c9befe5d2b8219bb8d1bfce83f2dc9011fa4b7eebd00a"
+    },
+    {
+      "path": "test-runtimes/core/ru/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 26168,
+      "sha256": "f7084df5889cd4a8d141f73be63b267519ae4daa75c6394cf39c4a96fba35d68"
+    },
+    {
+      "path": "test-runtimes/core/testhost.dll",
+      "bytes": 49696,
+      "sha256": "92cbdf52db5249112f9f53f1fcdaf9f9aa3fce467141c688a31a7fe095e4d304"
+    },
+    {
+      "path": "test-runtimes/core/testhost.exe",
+      "bytes": 150576,
+      "sha256": "fb63eb314f25584a532683de7abf4ca8a0b43103f3699f5d5d87317338eeda76"
+    },
+    {
+      "path": "test-runtimes/core/tr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "ef6bf78a0fd4613b1ffe8dc560b0f2f5cf2c05724fc8aed314f9ced18a90cf03"
+    },
+    {
+      "path": "test-runtimes/core/tr/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "a4d0c1d36f10425e39cdaade487220a9808e6f6954998644c57011fbeb3a33a0"
+    },
+    {
+      "path": "test-runtimes/core/tr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21024,
+      "sha256": "6ad665b04f30253b05acdbcf02196af45332a95091e112e55d2f2379273d9cac"
+    },
+    {
+      "path": "test-runtimes/core/tr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 20536,
+      "sha256": "96efbcb535b02ad348598505210ae60b3d24ba7b8d364547ec89d353e891fae2"
+    },
+    {
+      "path": "test-runtimes/core/tr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 23608,
+      "sha256": "5a392fba8650b4b574e5e7c42615f5c6d2a879c3838cf5b5219856185b33c8f5"
+    },
+    {
+      "path": "test-runtimes/core/xunit.abstractions.dll",
+      "bytes": 21928,
+      "sha256": "3166dc70323fb30ccf1cedb0fe86f2ad122c46d254542342d90386efc4c9285c"
+    },
+    {
+      "path": "test-runtimes/core/xunit.assert.dll",
+      "bytes": 187088,
+      "sha256": "bcd9711b22d227ac8cd4c1568e72433a0f576d2ec8aae64ac508081892015b1d"
+    },
+    {
+      "path": "test-runtimes/core/xunit.core.dll",
+      "bytes": 70352,
+      "sha256": "2f7feeec8c6dec7df684c25fb80aadb292b963d09723460f03d53c5ad2088acc"
+    },
+    {
+      "path": "test-runtimes/core/xunit.execution.dotnet.dll",
+      "bytes": 279760,
+      "sha256": "e70febe547c15f8155db3e2d95c3ba4445a59cbc21a3e7541ab22ed49d3dcf7b"
+    },
+    {
+      "path": "test-runtimes/core/xunit.runner.visualstudio.testadapter.dll",
+      "bytes": 1251840,
+      "sha256": "98a7395cd6abd03d0ac8eeb82d720c24db00602f047ca49bd6e88e77fc6d1153"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hans/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16416,
+      "sha256": "61e5b362940ca90e3b89a452218fb1d3882aea679a1b73e6ad868d0ac1bb88fc"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hans/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "4a8c0ef1c60069942082fa7493dbe683033e14e15dff09c8ba8c230e2a4443c6"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hans/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 20008,
+      "sha256": "0b12a586cd3759757f641a6219f491aff7c5fbdf603a6339b98faa57ce6eb7c0"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hans/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 20040,
+      "sha256": "8fb34ecf4343a77647006f0ad1fb41e8c4dd48cf38fe97b93c345b743f538908"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 23072,
+      "sha256": "396cc3c959cfc9f24bbe7a2d38846dfb97b696a9610eb95234306cbcdebd4f06"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16416,
+      "sha256": "b411fe26d281ec982d0432f1b0bce2c1c86f200d17e837bbbe91086f8e38270f"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "a9012f419d3b66a730d635760f63fea1721a63b2105a4146c2d1309bb6f31b14"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 20552,
+      "sha256": "540bee11c69534fc48bb4a9626683a6203e9f1f4bae15ff72069eaf9f65f5e81"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 20024,
+      "sha256": "d69e7127de46141b6406fd968d4a66271dda99271701f912d56ce6813af48cf2"
+    },
+    {
+      "path": "test-runtimes/core/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 23096,
+      "sha256": "b90f264a4d72987fd0aa0d11fc51dd248f831740bcd72d281045e16936fda16b"
+    },
+    {
+      "path": "test-runtimes/spc/.msCoverageSourceRootsMapping_OpticalSystemDesign.InitialStructure.Tests",
+      "bytes": 4114,
+      "sha256": "f00710d510aa36346b367c899ede65977fc3c60e2606bd6d43a057d93d1e266a"
+    },
+    {
+      "path": "test-runtimes/spc/cs/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16440,
+      "sha256": "b983773dc5112854fe411fa22223e929c7fa230a1a843fcc58023237aca326f4"
+    },
+    {
+      "path": "test-runtimes/spc/cs/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16944,
+      "sha256": "26be9bb3a8932ba04014e4ae9b8f20a0222a3e2c1a1b41cec11d49bff609ce72"
+    },
+    {
+      "path": "test-runtimes/spc/cs/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21040,
+      "sha256": "2f776bf0e946ffcd3f8a38af2653137785eb55db3cdb0c5a392bbe07d2ccc082"
+    },
+    {
+      "path": "test-runtimes/spc/cs/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 20520,
+      "sha256": "cd637384e1b3973be3c18409ed886f8234e2e3c3a65edf7d721d154e26aa64f3"
+    },
+    {
+      "path": "test-runtimes/spc/cs/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 23624,
+      "sha256": "12b0829d24f6f53f0e22fcbe370d3f91b67bbcaca7f0d82323d08cd7752f4519"
+    },
+    {
+      "path": "test-runtimes/spc/de/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "d11f2a5262947fc1b6d426a6e1828325cedf40fee28e29ed856804ec9ef3f15c"
+    },
+    {
+      "path": "test-runtimes/spc/de/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "403e0eaf8528656c0b47c31cd5fe9a25b8fd733adccb8e6d47a09f28658b5283"
+    },
+    {
+      "path": "test-runtimes/spc/de/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21048,
+      "sha256": "7ad3c45f58aa4d030fd5d65d9d4ac9cabbc06d79d071c29727b5376cd3459d77"
+    },
+    {
+      "path": "test-runtimes/spc/de/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21064,
+      "sha256": "ca308a5d314fa7d7e9cae94083cc1f62375ac225094d289961d9bce49b564b65"
+    },
+    {
+      "path": "test-runtimes/spc/de/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24136,
+      "sha256": "e91489bb7ec3e2e97d19cf32bc5e3f7fc57e994e0315f0870fd2024ccb2cf337"
+    },
+    {
+      "path": "test-runtimes/spc/es/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "ddbdd3bf9afe6ddd3babd4f0358ab2f4697fc5d5ec72b60cb772085af9bf9859"
+    },
+    {
+      "path": "test-runtimes/spc/es/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "7ec8e83494a8a50f1158c85d29b98e87c85d74ad5c4d94e2e9656e1cf60b0dff"
+    },
+    {
+      "path": "test-runtimes/spc/es/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21032,
+      "sha256": "67063a36cfcae95b3ea4646b88c3cf3642f0914dfc06ecc5fc4d3f77e0e97e64"
+    },
+    {
+      "path": "test-runtimes/spc/es/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21040,
+      "sha256": "b5340851bd9cb979d497f67123d09f91ba20ac9d2b3e0e17076fd2abd615c933"
+    },
+    {
+      "path": "test-runtimes/spc/es/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24120,
+      "sha256": "f19c11474e9074d5407f9b5a78cfb0bc1b4aeb90ffec819a676f63509cec443a"
+    },
+    {
+      "path": "test-runtimes/spc/fr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "044cf1373cc4527fff78adb5ad70489532303b58ba0de2c059c422926af46c4b"
+    },
+    {
+      "path": "test-runtimes/spc/fr/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16944,
+      "sha256": "78d675cbab45a56cc8916466ba13f16fab18a44fd3ad4481c8f5f4e13b1f8b5d"
+    },
+    {
+      "path": "test-runtimes/spc/fr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21040,
+      "sha256": "3fe869c312793444f9509af17ca0b14f444cbddef60a47251f441a5d7859a05f"
+    },
+    {
+      "path": "test-runtimes/spc/fr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21048,
+      "sha256": "5a8f4f4ea8b5a332883a67202877bd19100b21d766bf0443ffec21610dfb2ecf"
+    },
+    {
+      "path": "test-runtimes/spc/fr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24096,
+      "sha256": "ba030af725dea6bceb72c4eb49ccc3520222a97ea0fae812e16b7ba78450b98a"
+    },
+    {
+      "path": "test-runtimes/spc/ILGPU.Algorithms.dll",
+      "bytes": 1538048,
+      "sha256": "2e103e6eaebb335fdc9cbcaddfef348befa0b576fd4f96532c0e38a3a2aa0788"
+    },
+    {
+      "path": "test-runtimes/spc/ILGPU.dll",
+      "bytes": 1992192,
+      "sha256": "86aabe2a5a00002d5841791b5fbe9c8edd64b0ea15845c27bc5c85b2b1daacf6"
+    },
+    {
+      "path": "test-runtimes/spc/it/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "b023b85f510d1e5c6d5183ba51614ea1b6dee5c25ab287773bebc8cdb36e3168"
+    },
+    {
+      "path": "test-runtimes/spc/it/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "a1ac732615a7dc5c59e01a1570da23210ede65ef24d5bb101294cf68481fe984"
+    },
+    {
+      "path": "test-runtimes/spc/it/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21048,
+      "sha256": "b6b4b25e77f51f4ef5252512d1ea2cd8025ff388852ea93897b136bcc33bb5e0"
+    },
+    {
+      "path": "test-runtimes/spc/it/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21040,
+      "sha256": "b9f6be59cc1c05594f9b19db9e72add58d6b37661397f81a62d4fee37e7be621"
+    },
+    {
+      "path": "test-runtimes/spc/it/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24096,
+      "sha256": "93911f7a3c20cecd88ddb85dfdaaa9bf768e72a0fa5f745f3f3ae40dc78da66b"
+    },
+    {
+      "path": "test-runtimes/spc/ja/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "5db61a11e8c40176f0293658e48bc955ebed6a3dd46d3808aacc762f71732544"
+    },
+    {
+      "path": "test-runtimes/spc/ja/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 17440,
+      "sha256": "1ded53cdfde469bbb90d12f371891d3789a835e976557541c43166f027f7f111"
+    },
+    {
+      "path": "test-runtimes/spc/ja/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 22088,
+      "sha256": "f6d2748ee250f131374c306d7dc8a905464dbda3f75e857d333946c7ff89494c"
+    },
+    {
+      "path": "test-runtimes/spc/ja/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21552,
+      "sha256": "c55083e71e3a5bb8dbe36e10eb12b301ccfd809e8fe1187350beb6774c7f794b"
+    },
+    {
+      "path": "test-runtimes/spc/ja/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24632,
+      "sha256": "c2c077136e3ccfd8a249758979c0f754fe3c8a35b0c6478aa7a87ea38a817690"
+    },
+    {
+      "path": "test-runtimes/spc/ko/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16944,
+      "sha256": "7026d9d93b3fb7b521fc4a35fcb8348020fe466c054309e8ec0d27e84a555cb9"
+    },
+    {
+      "path": "test-runtimes/spc/ko/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16936,
+      "sha256": "fdc5422bb6f99cb357515ac6edd47c6f495da1da0eca43b7f85fdb7fd1c2492a"
+    },
+    {
+      "path": "test-runtimes/spc/ko/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21560,
+      "sha256": "e5231e879c215210cfe0b6d8f5740f8ecb2b08afa98ee4055fff6ba10ddac96c"
+    },
+    {
+      "path": "test-runtimes/spc/ko/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21048,
+      "sha256": "e90ac368f79ea0e99f44fe1133db10af08c3653749056362822b2c8f414ccd64"
+    },
+    {
+      "path": "test-runtimes/spc/ko/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24120,
+      "sha256": "4f427ed5c7c78043c7a9a7c9dc659133d96f6100ca9ba8719857709832e4bb58"
+    },
+    {
+      "path": "test-runtimes/spc/Microsoft.TestPlatform.CommunicationUtilities.dll",
+      "bytes": 137776,
+      "sha256": "e38a359aa502bb1867d6092dca9aba5c130dd6f9111decea8156aa746b2c69e6"
+    },
+    {
+      "path": "test-runtimes/spc/Microsoft.TestPlatform.CoreUtilities.dll",
+      "bytes": 98336,
+      "sha256": "f6e2495c44640d8915b2aefc938f391c970300266da014350ff35512a448ee84"
+    },
+    {
+      "path": "test-runtimes/spc/Microsoft.TestPlatform.CrossPlatEngine.dll",
+      "bytes": 316960,
+      "sha256": "d55399bc66dc5b451d60ad82662452ca4a5f735918135dfc91ca9b5e3e38a6ab"
+    },
+    {
+      "path": "test-runtimes/spc/Microsoft.TestPlatform.PlatformAbstractions.dll",
+      "bytes": 51232,
+      "sha256": "7b919ce4429c3b7b8fa2c36fd641b70b2f459a30ecb7c65fd80f437673cec930"
+    },
+    {
+      "path": "test-runtimes/spc/Microsoft.TestPlatform.Utilities.dll",
+      "bytes": 67104,
+      "sha256": "01ffd64d25a4bd905aef9594d2aa700e020273a90a77a8720af6bec8b4fd5444"
+    },
+    {
+      "path": "test-runtimes/spc/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
+      "bytes": 17464,
+      "sha256": "a753bc15f23a957f4f91a059376e4472c6bacd1503622de4b9b2b079ad8ea289"
+    },
+    {
+      "path": "test-runtimes/spc/Microsoft.VisualStudio.TestPlatform.Common.dll",
+      "bytes": 248352,
+      "sha256": "059aa2f335c3f7b14ac3fb7caa1625bc2767581b9548e9ff53a246c7f2f94d6a"
+    },
+    {
+      "path": "test-runtimes/spc/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll",
+      "bytes": 334392,
+      "sha256": "f83e38ee9020baa42e284e2299e233070ffa86ce4b10213583f9b7c8a521bcd0"
+    },
+    {
+      "path": "test-runtimes/spc/Newtonsoft.Json.dll",
+      "bytes": 712464,
+      "sha256": "22c649f75fce5be7c7ccda8880473b634ef69ecf33f5d1ab8ad892caf47d5a07"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.Core.dll",
+      "bytes": 7663104,
+      "sha256": "caa97b05bed04762da4224b961268db1374695ad8d34f13995fd8d10276e7cd5"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.Core.pdb",
+      "bytes": 884712,
+      "sha256": "9ba3d1bdefe2dba39e2e23f5807bbf43db47429b008d1688992d6d5c36c598fc"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "bytes": 564736,
+      "sha256": "1a7b1566bbad23e30022879c687c4616637cf2df69b3788b4cd6e6a7dee4b268"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Contracts.pdb",
+      "bytes": 97896,
+      "sha256": "dd9229cb4fdf57b58bb7ee66b881bc48721b897ad82a6af3b7051751ff1f7936"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "bytes": 883712,
+      "sha256": "d66c591e4617c0db574347863eb3f6c67dff6543d75dcf75221aa79b65a5690b"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Engine.pdb",
+      "bytes": 188644,
+      "sha256": "299f6f784981d844a6eeefe431a7e72afa2ce968a01bf3c7641b8bc18e3f21f9"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Persistence.dll",
+      "bytes": 144384,
+      "sha256": "38f301889fd257c6e275badd7d8031faf62566ea60d7edcf545548369763cf18"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Persistence.pdb",
+      "bytes": 32640,
+      "sha256": "addbefdd082ddb647efbf649287da9ab847dd7b8737c1a711e6ac5c027931522"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Tests.deps.json",
+      "bytes": 19875,
+      "sha256": "6fbc42bd5dfcb8a197fdd7f317072532a984b5f5812ca2a502a3f4df9c5c8b19"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Tests.dll",
+      "bytes": 54272,
+      "sha256": "14e9f7278c6ff66fd36d72670e28b002ecc5a073db1c2c44ef2b63129f900143"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Tests.pdb",
+      "bytes": 19072,
+      "sha256": "1cf26345b188c4945319bf7144cc5e9fdbd6b2318f0ccaf7b711d8241a83d467"
+    },
+    {
+      "path": "test-runtimes/spc/OpticalSystemDesign.InitialStructure.Tests.runtimeconfig.json",
+      "bytes": 390,
+      "sha256": "a217d17be0661abf2717a26937c6e379c33542cb6f292fd3fc5a2d5113a9d6dc"
+    },
+    {
+      "path": "test-runtimes/spc/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "0d1c05f1c3dfa21fbaca7537910bea9a54a52a9a800caf1c7d46691fb3a41eaa"
+    },
+    {
+      "path": "test-runtimes/spc/pl/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16936,
+      "sha256": "4b7843359aea21962c73c7474d374410fe8d039a30ac7902f5f09a19a52c778a"
+    },
+    {
+      "path": "test-runtimes/spc/pl/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21536,
+      "sha256": "2f82d58fb67a8261ad060a2633b872c7867f48608368144db3a93bf4debe2444"
+    },
+    {
+      "path": "test-runtimes/spc/pl/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21048,
+      "sha256": "911ef37ee7d78eb7132581aeaeb7753e81589600535c3c2244b1c447b61e1a5a"
+    },
+    {
+      "path": "test-runtimes/spc/pl/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24136,
+      "sha256": "88993b0056f183385a9e9e67931932bce0e564d288164ad43b2cc1bf6cacfb1c"
+    },
+    {
+      "path": "test-runtimes/spc/pt-BR/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16416,
+      "sha256": "f2292ef0dd72f1a95892714f17e5d49259452e27332d54dbff308236a50d7d40"
+    },
+    {
+      "path": "test-runtimes/spc/pt-BR/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "119f896f964ce17da4558c72b728d832fa19abc2dcf12bbed7cc386b741edd6b"
+    },
+    {
+      "path": "test-runtimes/spc/pt-BR/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21048,
+      "sha256": "ea5d8ecffcb9371d3e559e1d477ebdf5e7c3bd0663746fdccebd9330df2b9008"
+    },
+    {
+      "path": "test-runtimes/spc/pt-BR/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 21048,
+      "sha256": "b33e6b979805fa9047ebfb7722c4c3b07b1d3706acc108883b8c30d77d10db72"
+    },
+    {
+      "path": "test-runtimes/spc/pt-BR/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 24120,
+      "sha256": "976fae7c172b9170340633a3fe1a3f0ec6fc0731f4bf089ddaf611d60d446f40"
+    },
+    {
+      "path": "test-runtimes/spc/ru/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 17440,
+      "sha256": "4b29d6fadb5b709c5c90f25a8934e6c3c58027cf35aa28c6ef7100ab30f9cd39"
+    },
+    {
+      "path": "test-runtimes/spc/ru/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 17464,
+      "sha256": "67820043048cca339e29b563b1ed9da9f7d702b67c0cadd0b643f5781bc78789"
+    },
+    {
+      "path": "test-runtimes/spc/ru/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 23072,
+      "sha256": "4970c26bed952eccea42fbd3c7064bdd690eb5a7e538a77ce78ffed487877d9b"
+    },
+    {
+      "path": "test-runtimes/spc/ru/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 23096,
+      "sha256": "fcaedb770d94be752a6c9befe5d2b8219bb8d1bfce83f2dc9011fa4b7eebd00a"
+    },
+    {
+      "path": "test-runtimes/spc/ru/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 26168,
+      "sha256": "f7084df5889cd4a8d141f73be63b267519ae4daa75c6394cf39c4a96fba35d68"
+    },
+    {
+      "path": "test-runtimes/spc/testhost.dll",
+      "bytes": 49696,
+      "sha256": "92cbdf52db5249112f9f53f1fcdaf9f9aa3fce467141c688a31a7fe095e4d304"
+    },
+    {
+      "path": "test-runtimes/spc/testhost.exe",
+      "bytes": 150576,
+      "sha256": "fb63eb314f25584a532683de7abf4ca8a0b43103f3699f5d5d87317338eeda76"
+    },
+    {
+      "path": "test-runtimes/spc/tr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "ef6bf78a0fd4613b1ffe8dc560b0f2f5cf2c05724fc8aed314f9ced18a90cf03"
+    },
+    {
+      "path": "test-runtimes/spc/tr/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "a4d0c1d36f10425e39cdaade487220a9808e6f6954998644c57011fbeb3a33a0"
+    },
+    {
+      "path": "test-runtimes/spc/tr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 21024,
+      "sha256": "6ad665b04f30253b05acdbcf02196af45332a95091e112e55d2f2379273d9cac"
+    },
+    {
+      "path": "test-runtimes/spc/tr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 20536,
+      "sha256": "96efbcb535b02ad348598505210ae60b3d24ba7b8d364547ec89d353e891fae2"
+    },
+    {
+      "path": "test-runtimes/spc/tr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 23608,
+      "sha256": "5a392fba8650b4b574e5e7c42615f5c6d2a879c3838cf5b5219856185b33c8f5"
+    },
+    {
+      "path": "test-runtimes/spc/xunit.abstractions.dll",
+      "bytes": 21928,
+      "sha256": "3166dc70323fb30ccf1cedb0fe86f2ad122c46d254542342d90386efc4c9285c"
+    },
+    {
+      "path": "test-runtimes/spc/xunit.assert.dll",
+      "bytes": 187088,
+      "sha256": "bcd9711b22d227ac8cd4c1568e72433a0f576d2ec8aae64ac508081892015b1d"
+    },
+    {
+      "path": "test-runtimes/spc/xunit.core.dll",
+      "bytes": 70352,
+      "sha256": "2f7feeec8c6dec7df684c25fb80aadb292b963d09723460f03d53c5ad2088acc"
+    },
+    {
+      "path": "test-runtimes/spc/xunit.execution.dotnet.dll",
+      "bytes": 279760,
+      "sha256": "e70febe547c15f8155db3e2d95c3ba4445a59cbc21a3e7541ab22ed49d3dcf7b"
+    },
+    {
+      "path": "test-runtimes/spc/xunit.runner.visualstudio.testadapter.dll",
+      "bytes": 1251840,
+      "sha256": "98a7395cd6abd03d0ac8eeb82d720c24db00602f047ca49bd6e88e77fc6d1153"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hans/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16416,
+      "sha256": "61e5b362940ca90e3b89a452218fb1d3882aea679a1b73e6ad868d0ac1bb88fc"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hans/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16928,
+      "sha256": "4a8c0ef1c60069942082fa7493dbe683033e14e15dff09c8ba8c230e2a4443c6"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hans/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 20008,
+      "sha256": "0b12a586cd3759757f641a6219f491aff7c5fbdf603a6339b98faa57ce6eb7c0"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hans/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 20040,
+      "sha256": "8fb34ecf4343a77647006f0ad1fb41e8c4dd48cf38fe97b93c345b743f538908"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 23072,
+      "sha256": "396cc3c959cfc9f24bbe7a2d38846dfb97b696a9610eb95234306cbcdebd4f06"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+      "bytes": 16416,
+      "sha256": "b411fe26d281ec982d0432f1b0bce2c1c86f200d17e837bbbe91086f8e38270f"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+      "bytes": 16952,
+      "sha256": "a9012f419d3b66a730d635760f63fea1721a63b2105a4146c2d1309bb6f31b14"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+      "bytes": 20552,
+      "sha256": "540bee11c69534fc48bb4a9626683a6203e9f1f4bae15ff72069eaf9f65f5e81"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+      "bytes": 20024,
+      "sha256": "d69e7127de46141b6406fd968d4a66271dda99271701f912d56ce6813af48cf2"
+    },
+    {
+      "path": "test-runtimes/spc/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+      "bytes": 23096,
+      "sha256": "b90f264a4d72987fd0aa0d11fc51dd248f831740bcd72d281045e16936fda16b"
+    },
+    {
+      "path": "tests/build-search-v1.log",
+      "bytes": 3151,
+      "sha256": "a52c47da2fe6192be0bbaf39d7e12a4dcd3d9ec643f3968ffc6231f284a4e292"
+    },
+    {
+      "path": "tests/core-isolated.trx",
+      "bytes": 37419,
+      "sha256": "7569086419369ed1663eb8c2ceb54fb66c832e775d58f78947ee9ad3e42cd0a8"
+    },
+    {
+      "path": "tests/restore.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/spc-focused-v2.trx",
+      "bytes": 85771,
+      "sha256": "04bdddd0a54ccd4d29bbba40be15a176fcb63598f595870891cdd2aef2872333"
+    },
+    {
+      "path": "tests/spc-focused-v3.trx",
+      "bytes": 124318,
+      "sha256": "0d202248b42dffe588069f58f5c7d72013485ae25d54c6650c1c4851860b7394"
+    },
+    {
+      "path": "tests/spc-isolated.trx",
+      "bytes": 81944,
+      "sha256": "f30225816e97f07a92c9e14f5e4864fb821dbd363e630c51c2d4395d9281b85a"
+    },
+    {
+      "path": "tests-focused-v2.log",
+      "bytes": 4927,
+      "sha256": "5fb468057db0dfc0ba2e22457b333bb61b28531443273cea544feb0c8e66599d"
+    },
+    {
+      "path": "tests-focused-v3.log",
+      "bytes": 2180,
+      "sha256": "b681ad067aad6b99664d3905b895a205060cbd70d629e901ad879d3ae5562dc1"
+    },
+    {
+      "path": "tests-focused.log",
+      "bytes": 2183,
+      "sha256": "18bc4f76c796dfc97e8afe24898e21427dd4a4dfdd962a957093f35413b1c6d3"
+    },
+    {
+      "path": "tests-isolated.log",
+      "bytes": 2597,
+      "sha256": "25695add550b47ef6f5fe2e5531350ebe0df25b340404b1433ea9bedb101ba6b"
+    }
+  ]
+}

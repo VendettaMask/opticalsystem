@@ -1,0 +1,21 @@
+CIE observer table: CIE 2019, Colour-matching functions of CIE 1931 standard colorimetric observer.
+International Commission on Illumination (CIE), Vienna, AT. DOI: 10.25039/CIE.DS.xvudnb9b.
+Source: https://cie.co.at/datatable/cie-1931-colour-matching-functions-2-degree-observer
+Current data: https://files.cie.co.at/Publications-datasets/CIE_xyz_1931_2deg.csv
+License declared in official metadata: Creative Commons Attribution-ShareAlike 4.0 International.
+https://creativecommons.org/licenses/by-sa/4.0/
+Original CSV retained unchanged, SHA256 fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1.
+
+Cornell Krylon Blue spectral BRDF: original data from Cornell Program of Computer Graphics,
+Cornell/Kodak gonioreflectometer, Eric P. F. Lafortune, medium-gloss Krylon 7205 True Blue with
+Plasti-kote 33 Glass Frosting overcoat. Measurement date UNKNOWN.
+Official directory: https://bowers.cornell.edu/computer-graphics/data
+Downloaded via the directory's archived original ASTM link. No redistribution grant was inferred.
+These measured originals are validation inputs, not a shipped material library or test fixture.
+
+krylon-blue-derived-xyz.csv is a modified/derived diagnostic dataset, not an independent XYZ measurement.
+Derivation: linearly interpolate original 10 nm BRDF to 1 nm, multiply the original CIE CMFs,
+trapezoid integrate a specified equal-energy test illuminant limited to 400-700 nm, normalize
+to unit Y of an ideal white reflector within that band; no D65 assumption or spectrum extrapolation.
+Attribution and applicable ShareAlike terms for CIE-derived data are preserved here.
+The prescribed 550 nm holdout calibration failed and no approved calibration/material was exported.

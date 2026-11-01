@@ -1,0 +1,126 @@
+using Avalonia.Controls;
+using OpticalSystemDesign.App.Laboratories.InitialStructure;
+using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.InitialStructure.Contracts;
+using OpticalSystemDesign.InitialStructure.Engine;
+using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Tests;
+
+namespace OpticalSystemDesign.InitialStructure.Tests;
+
+public sealed partial class AutonomousDesktopTests
+{
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    [InlineData(4)]
+    [InlineData(6)]
+    public async Task ColdEntryControlsRoundTripWithoutStartingOpticalWork(int version)
+    {
+        using var files = new OwnedFiles();
+        using var host = SafeHeadlessUnitTestSession.StartNew(typeof(FlatStartDesktopTests));
+        await host.Dispatch(async () =>
+        {
+            var plan = ColdDesktopPlan(version); var path = files.Path("cold.topology-plan.json");
+            var language = UiLocalization.CurrentLanguage;
+            using var rays = SequentialTraceMeasurement.Begin();
+            var window = new AutonomousTopologyWindow(new() { InitialPlan = plan, RunDirectory = files.Root,
+                SavePicker = (_, _) => Task.FromResult<string?>(path) });
+            try
+            {
+                window.Show(); window.UpdateLayout();
+                Assert.True(Find<CheckBox>(window, "AutonomousColdStart").IsChecked);
+                Assert.Equal(600, Find<NumericUpDown>(window, "AutonomousSeedPerStart").Value);
+                Assert.Equal(10000000, Find<NumericUpDown>(window, "AutonomousColdRays").Value);
+                Click(window, "AutonomousSavePlan"); await window.PendingOperation;
+                var saved = await AutonomousDesignFiles.LoadPlanAsync(path);
+                Assert.Equal(ContentFingerprint.Compute(plan.Options.SeedPreparation), ContentFingerprint.Compute(saved.Options.SeedPreparation));
+                Assert.Equal(plan.Targets, saved.Targets); Assert.Equal(plan.Constraints, saved.Constraints);
+                Assert.Null(window.CurrentCheckpoint); Assert.Equal(0, rays.RayCount);
+                foreach (var locale in new[] { UiLocalization.English, UiLocalization.Japanese })
+                {
+                    UiLocalization.Apply(locale); window.UpdateLayout();
+                    Assert.Equal(UiLocalization.Text("实验：冷启动构造与原规格补偿"), Find<CheckBox>(window, "AutonomousColdStart").Content);
+                }
+                Find<CheckBox>(window, "AutonomousCompetition").IsChecked = true;
+                Assert.False(Find<CheckBox>(window, "AutonomousColdStart").IsChecked);
+                Find<CheckBox>(window, "AutonomousColdStart").IsChecked = true;
+                Assert.False(Find<CheckBox>(window, "AutonomousCompetition").IsChecked);
+                Assert.False(Find<CheckBox>(window, "AutonomousEvolution").IsChecked);
+                Assert.False(Find<CheckBox>(window, "AutonomousRetrieval").IsChecked);
+            }
+            finally { window.RequestSafeClose(); await window.PendingOperation; UiLocalization.Apply(language); }
+            return true;
+        }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(1));
+    }
+
+    [Fact]
+    public async Task AutomaticColdConflictIsSavedAndCannotStartAnOldSeed()
+    {
+        using var files = new OwnedFiles();
+        using var host = SafeHeadlessUnitTestSession.StartNew(typeof(FlatStartDesktopTests));
+        await host.Dispatch(async () =>
+        {
+            var plan = ColdDesktopPlan(4); var source = plan.Seeds[0];
+            plan = plan with { Seeds = [source with { Stop = source.Stop with { ClearSemiDiameterMillimeters = 100 } }] };
+            using var rays = SequentialTraceMeasurement.Begin();
+            var window = new AutonomousTopologyWindow(new() { InitialPlan = plan, RunDirectory = files.Root });
+            try
+            {
+                window.Show(); window.UpdateLayout();
+                Click(window, "AutonomousRun"); await window.PendingOperation;
+                Assert.Null(window.CurrentCheckpoint); Assert.Equal(0, rays.RayCount);
+                Assert.Single(Directory.GetFiles(files.Root, "*.seed-search.json", SearchOption.AllDirectories));
+                Assert.Empty(Directory.GetFiles(files.Root, "*.autonomous.json", SearchOption.AllDirectories));
+                Assert.Contains(UiLocalization.Text("冷启动未得到预算内合格处方"), Find<TextBlock>(window, "AutonomousSeedSummary").Text);
+            }
+            finally { window.RequestSafeClose(); await window.PendingOperation; }
+            return true;
+        }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(1));
+    }
+
+    private static AutonomousSearchPlan ColdDesktopPlan(int version = 1)
+    {
+        var (plan, options) = StructureEvolutionTests.Specification();
+        options = options with { ColdStart = new() { Version = version }, Retrieval = null, Evolution = null, Competition = null, ImageScreening = null,
+            MaximumFunctionEvaluations = 600, MaximumEvaluationsPerStart = 600, MaximumTracedRays = 10000000, TimeLimit = TimeSpan.FromSeconds(600),
+            Generation = options.Generation! with { StopAfterElement = 0 } };
+        return plan with { Options = plan.Options with { SeedPreparation = options } };
+    }
+
+    [Fact]
+    public async Task NewColdDescriptorPreservesEachOriginalClearAndMechanicalAperture()
+    {
+        using var files = new OwnedFiles();
+        using var host = SafeHeadlessUnitTestSession.StartNew(typeof(FlatStartDesktopTests));
+        await host.Dispatch(async () =>
+        {
+            var plan = AutonomousDesignExamples.ThreeElement(); var path = files.Path("new-cold.topology-plan.json");
+            using var rays = SequentialTraceMeasurement.Begin();
+            var window = new AutonomousTopologyWindow(new() { InitialPlan = plan, RunDirectory = files.Root,
+                SavePicker = (_, _) => Task.FromResult<string?>(path) });
+            try
+            {
+                window.Show(); window.UpdateLayout();
+                Find<CheckBox>(window, "AutonomousColdStart").IsChecked = true;
+                Click(window, "AutonomousSavePlan"); await window.PendingOperation;
+                var saved = await AutonomousDesignFiles.LoadPlanAsync(path);
+                var descriptor = saved.Options.SeedPreparation!.Generation!;
+                Assert.Equal(6, saved.Options.SeedPreparation.ColdStart!.Version);
+                for (var i = 0; i < plan.Seeds[0].Elements.Length; i++)
+                {
+                    var original = plan.Seeds[0].Elements[i]; var element = descriptor.Elements[i];
+                    Assert.Equal(original.Front.ClearSemiDiameterMillimeters, element.FrontAperture!.ClearSemiDiameterMillimeters);
+                    Assert.Equal(original.Front.MechanicalSemiDiameterMillimeters, element.FrontAperture.MechanicalSemiDiameterMillimeters);
+                    Assert.Equal(original.Back.ClearSemiDiameterMillimeters, element.BackAperture!.ClearSemiDiameterMillimeters);
+                    Assert.Equal(original.Back.MechanicalSemiDiameterMillimeters, element.BackAperture.MechanicalSemiDiameterMillimeters);
+                }
+                Assert.Equal(0, rays.RayCount);
+            }
+            finally { window.RequestSafeClose(); await window.PendingOperation; }
+            return true;
+        }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(1));
+    }
+}

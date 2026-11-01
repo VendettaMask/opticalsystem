@@ -1,0 +1,37 @@
+{
+  "version": "f8-completion-final-v6",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "arms": [
+    "control",
+    "candidate"
+  ],
+  "armPolicies": {
+    "control": {
+      "version": 1,
+      "exploreBackFocus": true
+    },
+    "candidate": {
+      "version": 6,
+      "exploreBackFocus": true
+    }
+  },
+  "budget": {
+    "functions": 600,
+    "gradients": 600,
+    "rays": 10000000,
+    "seconds": 600
+  },
+  "cold": "Five NEW candidate processes/RNGs using one frozen v6 runtime; source shapes erased, fresh layouts; no endpoint/checkpoint/optimizer-state imports, including all v4 successes.",
+  "input": "One original F8 seed44 input specification; only the random seed changes.",
+  "comparison": "Historical five-seed controls are copied byte-for-byte from paired-v3 (Cold1/Gate2, same exploration/input/caps). They are NOT fresh v6 runs and do NOT have the same runtime. Full old provenance and source-change list retained. Candidate Cold6 uses Gate4 inward targets and early sparse A4, additionally caps each stage at the existing400-update solver limit. Concurrent unrelated Core changes are disclosed. Every original assessment must replay exactly under the final frozen runtime before this comparison is accepted.",
+  "execution": "Two bounded normal-priority candidate workers, deterministic seed order42-46, fresh process per seed, nested parallelism suppressed. Earlier controls retain their original runtime; no same-runtime or speedup claim.",
+  "gates": "Original lens count, materials, aperture/stop/image, fields/spectrum, shape permissions, axial/coefficient bounds and complete formal optical/manufacturing validation remain unchanged.",
+  "development": "All earlier failed batches and warm repairs are separate; no successful endpoints are spliced into this final candidate cohort.",
+  "excluded": "F4 remains its original specification conflict. No DeepSeek, native desktop interaction, commits or publishing."
+}

@@ -1,0 +1,27 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.46]     OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: True) [FAIL]
+[xUnit.net 00:00:02.47]     OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: True) [577 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=3.9982340389004132, current=Glass 0, expected=Glass 1
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 309
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Boolean immersed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 69
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: False) [1 ms]
+  错误消息:
+   System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=3.997542098783804, current=Glass 0, expected=Glass 1
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 309
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Boolean immersed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 69
+   at InvokeStub_OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:/Projects/opticalsystem/validation/rechecks/2026-11-01/cemented-immersion\curved-diagnostic.trx
+
+失败!  - 失败:     2，通过:     0，已跳过:     0，总计:     2，持续时间: 589 ms - OpticalSystemDesign.Tests.dll (net10.0)

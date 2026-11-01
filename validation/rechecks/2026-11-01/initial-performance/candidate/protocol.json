@@ -1,0 +1,31 @@
+{
+  "arm": "candidate",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "order": [
+    46,
+    42,
+    43,
+    44,
+    45
+  ],
+  "workers": 1,
+  "originalInput": "validation/rechecks/2026-10-31/initial-loss-compensation/control/seed44/competition-8-F8-full25.input.json",
+  "caps": {
+    "functions": 600,
+    "gradients": 600,
+    "cpuRays": 10000000,
+    "activeSeconds": 600
+  },
+  "originalPhaseCapsRetained": true,
+  "unchanged": "Original aperture/stop/image, field/spectrum, material/shape/axial permissions, image and manufacturing gates.",
+  "timing": "Opt-in inclusive stage timings; wall-clock and active elapsed measured, not bit-compared. Profiling/IO/offline not added as extra computation allowance.",
+  "imports": false,
+  "f4": "Original fixed-aperture conflict retained; never enlarge aperture or relax acceptance.",
+  "sourceScope": "Actual runtime archived with source snapshot. Later shared working-tree edits are not substituted into frozen runs."
+}

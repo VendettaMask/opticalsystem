@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="cf89c7be-5387-4790-a91a-2ce97582ee62" name="allen@DESKTOP-SET3SNR 2026-10-31 14:58:03" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T14:58:03.1378852+08:00" queuing="2026-10-31T14:58:03.1378855+08:00" start="2026-10-31T14:58:01.2903458+08:00" finish="2026-10-31T14:58:07.2107795+08:00" />
+  <TestSettings name="default" id="055cd14f-670f-43d6-9a68-7511e956dbe7">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_14_58_03" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1faa48db-286e-4ca6-b9e5-9d7896a1db6d" testId="b518e73c-4a8a-78d3-e27b-daaebffe1e9c" testName="OpticalSystemDesign.ZemaxComparison.Tests.BinocularFourierConvergedTests.HighFrequencyFieldCurvesMeetOriginalGateAgainstConvergedNativeReference(config: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:03.3215125" startTime="2026-10-31T14:58:03.0351320+08:00" endTime="2026-10-31T14:58:06.3492319+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1faa48db-286e-4ca6-b9e5-9d7896a1db6d" />
+    <UnitTestResult executionId="b8d4f794-848c-4086-8c5d-874a15aa3f0b" testId="3d2c4da8-4bba-302c-fe3a-51dc0d53531d" testName="OpticalSystemDesign.ZemaxComparison.Tests.BinocularFourierConvergedTests.ShiftedPupilRaysRetainNativeOpdAndAcceptance" computerName="DESKTOP-SET3SNR" duration="00:00:00.7750795" startTime="2026-10-31T14:58:02.2469930+08:00" endTime="2026-10-31T14:58:03.0274207+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b8d4f794-848c-4086-8c5d-874a15aa3f0b" />
+    <UnitTestResult executionId="10c5afbc-0e82-43b3-9010-924d039292c6" testId="5e68f402-345a-d235-6488-ba6515ce0e5f" testName="OpticalSystemDesign.ZemaxComparison.Tests.BinocularFourierConvergedTests.HighFrequencyFieldCurvesMeetOriginalGateAgainstConvergedNativeReference(config: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.8047647" startTime="2026-10-31T14:58:06.3510972+08:00" endTime="2026-10-31T14:58:07.1540601+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="10c5afbc-0e82-43b3-9010-924d039292c6" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.BinocularFourierConvergedTests.HighFrequencyFieldCurvesMeetOriginalGateAgainstConvergedNativeReference(config: 1)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.zemaxcomparison.tests\bin\release\net10.0\opticalsystemdesign.zemaxcomparison.tests.dll" id="5e68f402-345a-d235-6488-ba6515ce0e5f">
+      <Execution id="10c5afbc-0e82-43b3-9010-924d039292c6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.ZemaxComparison.Tests\bin\Release\net10.0\OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.BinocularFourierConvergedTests" name="HighFrequencyFieldCurvesMeetOriginalGateAgainstConvergedNativeReference" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.BinocularFourierConvergedTests.HighFrequencyFieldCurvesMeetOriginalGateAgainstConvergedNativeReference(config: 2)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.zemaxcomparison.tests\bin\release\net10.0\opticalsystemdesign.zemaxcomparison.tests.dll" id="b518e73c-4a8a-78d3-e27b-daaebffe1e9c">
+      <Execution id="1faa48db-286e-4ca6-b9e5-9d7896a1db6d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.ZemaxComparison.Tests\bin\Release\net10.0\OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.BinocularFourierConvergedTests" name="HighFrequencyFieldCurvesMeetOriginalGateAgainstConvergedNativeReference" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.BinocularFourierConvergedTests.ShiftedPupilRaysRetainNativeOpdAndAcceptance" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.zemaxcomparison.tests\bin\release\net10.0\opticalsystemdesign.zemaxcomparison.tests.dll" id="3d2c4da8-4bba-302c-fe3a-51dc0d53531d">
+      <Execution id="b8d4f794-848c-4086-8c5d-874a15aa3f0b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.ZemaxComparison.Tests\bin\Release\net10.0\OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.BinocularFourierConvergedTests" name="ShiftedPupilRaysRetainNativeOpdAndAcceptance" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b518e73c-4a8a-78d3-e27b-daaebffe1e9c" executionId="1faa48db-286e-4ca6-b9e5-9d7896a1db6d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d2c4da8-4bba-302c-fe3a-51dc0d53531d" executionId="b8d4f794-848c-4086-8c5d-874a15aa3f0b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5e68f402-345a-d235-6488-ba6515ce0e5f" executionId="10c5afbc-0e82-43b3-9010-924d039292c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.37]   Discovering: OpticalSystemDesign.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.57]   Discovered:  OpticalSystemDesign.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.58]   Starting:    OpticalSystemDesign.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:05.51]   Finished:    OpticalSystemDesign.ZemaxComparison.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -29,7 +29,14 @@ public sealed class AfocalReferenceFocusTests
         var row = fixture.GetProperty("cases").EnumerateArray().Single(r => r.GetProperty("lens").GetString() == lens && r.GetProperty("configuration").GetInt32() == configuration);
         var request = row.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
         var optic = (await WorkbenchExecutor.Import(Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-repair/sources", lens))).Configurations[configuration - 1];
-        var data = new WorkbenchRuntime(optic).BuildAnalysisData("Encircled Energy", request.WorkbenchSettings);
+        // This fixture is an independent angular mean/CDF, not the built-in
+        // plot. Keep its interval grid and declare its physical reference.
+        var physicalSettings = new Dictionary<string, string>(request.WorkbenchSettings)
+        {
+            ["UseNativeAfocalReferenceRay"] = "False"
+        };
+        var data = new WorkbenchRuntime(optic).BuildAnalysisData("Encircled Energy", physicalSettings);
+        Assert.Equal("PhysicalCoordinates", data.Values["ReferenceConvention"]);
         var policy = ComparisonConfiguration.Load(Path.Combine(AppContext.BaseDirectory, "comparison-settings.json"))
             .Analyses["Encircled Energy"].Quantities["EnergyFraction"];
         var field = 0;

@@ -1,0 +1,101 @@
+  OpticalSystemDesign.Core -> D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.Core\release\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Contracts\release\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.Application\release\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Engine\release\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.CoatingDesign.Engine\release\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Persistence\release\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.Modules -> D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.Modules\release\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.App\release\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.InitialStructure.Tests -> D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll
+D:\Projects\.codex-build\spc-auto-artifacts\bin\OpticalSystemDesign.InitialStructure.Tests\release\OpticalSystemDesign.InitialStructure.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.34]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates [6 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 74
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected [FAIL]
+[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 44) [FAIL]
+[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 45) [FAIL]
+[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 42) [FAIL]
+[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 43) [FAIL]
+[xUnit.net 00:00:03.44]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 46) [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 136
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 44) [2 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 45) [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 42) [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 43) [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 46) [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.Original(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 16
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 23
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:03.45]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons [FAIL]
+[xUnit.net 00:00:03.45]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 103
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.get_Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 15
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 118
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-01\spc-automatic-resume\tests\spc-desktop-v1.trx
+
+失败!  - 失败:     9，通过:    14，已跳过:     0，总计:    23，持续时间: 29 s - OpticalSystemDesign.InitialStructure.Tests.dll (net10.0)

@@ -9,6 +9,8 @@ using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
+using OpticalSystemDesign.Core.Propagation;
+using OpticalSystemDesign.Core.Phase;
 using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Core.FileIO;
@@ -82,7 +84,7 @@ internal static partial class ZemaxZmxReader
             surface.Geometry = item.Geometry;
             surface.MaterialBefore = item.MaterialBefore;
             surface.MaterialAfter = item.MaterialAfter;
-            surface.InteractionModel = new RefractiveReflectiveInteractionModel(item.IsReflective);
+            surface.InteractionModel = item.Interaction.Clone();
             surface.CoordinateSystem = item.CoordinateSystem;
         }
     }
@@ -294,8 +296,14 @@ internal static partial class ZemaxZmxReader
                         Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     break;
                 case "APMX" when tokens.Length <= 2 && current is not null:
-                    RequireSurface(current, command).SemiDiameter =
+                    RequireSurface(current, command).MaximumAperture =
                         Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
+                    break;
+                case "CLAP":
+                    var circular = RequireSurface(current, command);
+                    circular.CircularAperture = true;
+                    circular.MinimumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
+                    circular.MaximumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 2, command)));
                     break;
                 case "VDXN":
                     document.VignetteDecenterX = ReadValues(tokens, 1, document.FieldCount);
@@ -583,11 +591,13 @@ internal static partial class ZemaxZmxReader
                     document.GlassCatalogs.AddRange(tokens.Skip(1));
                     break;
                 case "SURF":
-                    current = new ZemaxSurface(RequiredInt(tokens, 1, command));
+                    current = new ZemaxSurface(RequiredInt(tokens, 1, command), document.LengthScaleToMillimeters, assetDirectory);
                     document.Surfaces.Add(current);
                     break;
                 case "TYPE":
-                    RequireSurface(current, command).Type = RequiredToken(tokens, 1, command).ToUpperInvariant();
+                    var typedSurface = RequireSurface(current, command);
+                    typedSurface.Type = RequiredToken(tokens, 1, command).ToUpperInvariant();
+                    typedSurface.TypeArguments = string.Join(" ", tokens.Skip(2));
                     break;
                 case "PARM":
                     var parameterNumber = RequiredInt(tokens, 1, command);
@@ -600,11 +610,40 @@ internal static partial class ZemaxZmxReader
                     // from the zero-based PARM 1..N geometry coefficients.
                     var parameterIndex = parameterNumber - 1;
                     var parameterSurface = RequireSurface(current, command);
+                    if (parameterNumber >= 13 && parameterSurface.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN")
+                    {
+                        parameterSurface.ExtraData[parameterNumber - 12] = ScaleSurfaceExtraData(document,
+                            parameterSurface.Type, parameterNumber - 12, RequiredDouble(tokens, 2, command));
+                        break;
+                    }
                     parameterSurface.Parameters[parameterIndex] = ScaleSurfaceParameter(
                         document,
                         parameterSurface.Type,
                         parameterIndex,
-                        RequiredDouble(tokens, 2, command));
+                        RequiredDouble(tokens, 2, command), parameterSurface.TypeArguments);
+                    break;
+                case "XDAT":
+                    var extraIndex = RequiredInt(tokens, 1, command);
+                    if (extraIndex < 1) throw new InvalidDataException("Zemax XDAT indices must be positive integers.");
+                    var extraSurface = RequireSurface(current, command);
+                    var extraValue = RequiredDouble(tokens, 2, command);
+                    extraSurface.ExtraData[extraIndex] = ScaleSurfaceExtraData(document, extraSurface.Type, extraIndex, extraValue);
+                    break;
+                case "GDAT":
+                    var gridSurface = RequireSurface(current, command);
+                    if (tokens.Length != 11) throw new InvalidDataException("Grid sag requires its complete GDAT header.");
+                    gridSurface.GridSagHeader = Enumerable.Range(1, 10).Select(i => RequiredDouble(tokens, i, command)).ToArray();
+                    var gridSize = gridSurface.GridSagHeader[0] * gridSurface.GridSagHeader[1];
+                    if (gridSize < 25 || gridSize > 100_000) throw new InvalidDataException("Grid sag data exceeds the bounded grid size.");
+                    break;
+                case "GARR":
+                    var gridDataSurface = RequireSurface(current, command); var gridIndex = RequiredInt(tokens, 1, command);
+                    if (gridIndex < 0 || gridIndex >= 100_000 || gridDataSurface.GridSagPoints.ContainsKey(gridIndex))
+                        throw new InvalidDataException("Invalid or duplicate grid sag point.");
+                    var noData = RequiredInt(tokens, 6, command);
+                    if (noData is not (0 or 1)) throw new InvalidDataException("Invalid grid sag nodata flag.");
+                    double GridValue(int column) { var value = RequiredDouble(tokens, column, command); return double.IsFinite(value) ? value : 0; }
+                    gridDataSurface.GridSagPoints[gridIndex] = new(GridValue(2), GridValue(3), GridValue(4), GridValue(5), noData == 1);
                     break;
                 case "CURV":
                     var curvature = RequiredDouble(tokens, 1, command);
@@ -701,9 +740,10 @@ internal static partial class ZemaxZmxReader
         {
             var material = document.ConfigurationText("GLSS", source.Number, configurationIndex)
                 ?? source.Material;
-            var configured = new ZemaxSurface(source.Number)
+            var configured = new ZemaxSurface(source.Number, source.LengthScaleToMillimeters, source.AssetDirectory)
             {
                 Type = source.Type,
+                TypeArguments = source.TypeArguments,
                 PolygonAssetDirectory = source.PolygonAssetDirectory,
                 PolygonObjectCount = source.PolygonObjectCount,
                 PolygonIsVolume = source.PolygonIsVolume,
@@ -733,13 +773,16 @@ internal static partial class ZemaxZmxReader
                 Material = string.IsNullOrWhiteSpace(material) ? "Air" : material,
                 RefractiveIndex = source.RefractiveIndex,
                 AbbeNumber = source.AbbeNumber,
-                SemiDiameter = ScaleConfiguredLength(
+                SemiDiameter = source.CircularAperture ? ScaleConfiguredLength(
                     document,
                     document.ConfigurationDouble(
                     "APMX",
                     source.Number,
                     configurationIndex),
-                    source.SemiDiameter),
+                    source.SemiDiameter) : source.SemiDiameter,
+                CircularAperture = source.CircularAperture,
+                MaximumAperture = ScaleConfiguredOptionalLength(document,
+                    document.ConfigurationDouble("APMX", source.Number, configurationIndex), source.MaximumAperture),
                 MinimumAperture = ScaleConfiguredOptionalLength(
                     document,
                     document.ConfigurationDouble(
@@ -765,6 +808,9 @@ internal static partial class ZemaxZmxReader
             {
                 configured.Parameters[parameter.Key] = parameter.Value;
             }
+            foreach (var extra in source.ExtraData) configured.ExtraData[extra.Key] = extra.Value;
+            configured.GridSagHeader = source.GridSagHeader?.ToArray();
+            foreach (var point in source.GridSagPoints) configured.GridSagPoints[point.Key] = point.Value;
 
             foreach (var operand in document.ConfigurationValues(
                          "PRAM",
@@ -773,11 +819,17 @@ internal static partial class ZemaxZmxReader
             {
                 if (operand.AuxiliaryIndex >= 0 && TryParseDouble(operand.Value, out var value))
                 {
+                    if (operand.AuxiliaryIndex >= 12 && configured.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN")
+                    {
+                        var index = operand.AuxiliaryIndex - 11;
+                        configured.ExtraData[index] = ScaleSurfaceExtraData(document, configured.Type, index, value);
+                        continue;
+                    }
                     configured.Parameters[operand.AuxiliaryIndex] = ScaleSurfaceParameter(
                         document,
                         configured.Type,
                         operand.AuxiliaryIndex,
-                        value);
+                        value, configured.TypeArguments);
                 }
             }
 
@@ -824,12 +876,30 @@ internal static partial class ZemaxZmxReader
             var index = result.Count;
             var surfaceOrigin = index == 0 ? ObjectSurfaceOrigin(source.Thickness) : origin;
             var coordinate = CoordinateFrom(surfaceOrigin, rotation);
+            source.CollimatedParaxialMode = source.Type == "PARAXIAL" && source.Parameter(1) == 0
+                && ParaxialPhaseRules.IsPlaneWavePrefix(result.Select(s => s.Surface).ToArray());
             // A referenced coordinate break is transparent at its transformed plane.
             var referencePlane = source.RetainReferencePlane;
             var geometry = source.Type == "NONSEQCO" && source.PolygonPayload is not null
                 ? CreatePolygonGroup(source, optic, glassCatalogs)
                 : referencePlane ? new PlaneGeometry() : CreateGeometry(source);
             var isReflective = !referencePlane && (source.IsMirror || source.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase));
+            IInteractionModel interaction = geometry is PlaneGeometry && IsComputableParaxial(source)
+                ? new ParaxialLensInteractionModel(source.Parameter(0) == 0 ? 0 : 1 / source.Parameter(0),
+                    source.Parameter(0) == 0 ? 0 : 1 / source.Parameter(0), (int)source.Parameter(1))
+                : geometry is PlaneGeometry && IsComputableParaxialXY(source)
+                    ? new ParaxialLensInteractionModel(source.Parameter(0), source.Parameter(1), 1)
+                : IsComputableBirefringent(source)
+                    ? new BirefringentInteractionModel(source.Type == "BIRE_OUT", source.Type == "BIRE__IN" ? source.Parameter(-1) : 0)
+                : IsComputableGrating(source)
+                    ? new RuledGratingInteractionModel(source.Parameter(0), (int)source.Parameter(1), isReflective)
+                    : source.Type == "BINARY_2" && geometry is EvenAsphereGeometry
+                        ? new DiffractivePhaseInteractionModel(CreateBinary2Phase(source), isReflective)
+                    : source.Type == "BINARY_3" && geometry is ConcentricZoneGeometry
+                        ? new DiffractivePhaseInteractionModel(CreateBinary3Phase(source), isReflective)
+                    : source.Type == "HOLOGRM2" && geometry is PlaneGeometry
+                        ? new DiffractivePhaseInteractionModel(CreateHologram2Phase(source), isReflective)
+                    : new RefractiveReflectiveInteractionModel(isReflective);
             IMaterial materialAfter;
             if (isReflective || referencePlane)
             {
@@ -837,10 +907,18 @@ internal static partial class ZemaxZmxReader
             }
             else
             {
-                materialAfter = ResolveGlass(optic, source, glassCatalogs);
+                materialAfter = source.Type switch
+                {
+                    "GRINSUR1" when source.Parameter(3) == 0 => CreateGradient1Material(source),
+                    "GRINSUR9" when source.Parameter(1) == 0 && source.Parameter(2) == 0 => CreateGradient9Material(source),
+                    "BIRE__IN" when IsComputableBirefringent(source) => CreateBirefringentMaterial(optic, source, glassCatalogs),
+                    "GRINSU11" when source.GridGradientProfile is not null => CreateGridGradientMaterial(source),
+                    _ => ResolveGlass(optic, source, glassCatalogs)
+                };
             }
 
-            var legacyRadius = referencePlane || double.IsInfinity(source.Radius) ? 0 : source.Radius;
+            var legacyRadius = referencePlane || double.IsInfinity(source.Radius)
+                || geometry is TiltedPlaneGeometry or TernaryMirrorArrayGeometry ? 0 : source.Radius;
             var thickness = source.Thickness;
             var semiDiameter = source.SemiDiameter is { } configuredSemiDiameter
                 && double.IsFinite(configuredSemiDiameter)
@@ -850,7 +928,8 @@ internal static partial class ZemaxZmxReader
             // surfaces can carry a fixed DIAM without defining a floating stop.
             var hasOpticalInteraction = isReflective || !string.Equals(previousMaterial.Name, materialAfter.Name,
                 StringComparison.OrdinalIgnoreCase);
-            var hasOpticalPower = !referencePlane && HasSurfacePower(source) && hasOpticalInteraction;
+            var hasOpticalPower = !referencePlane && HasSurfacePower(source)
+                && (hasOpticalInteraction || interaction is ParaxialLensInteractionModel);
             var physicalAperture = referencePlane ? null : CreatePhysicalAperture(source, semiDiameter,
                 hasOpticalPower || source.IsStop && hasOpticalInteraction);
             var surface = new OpticalSurface
@@ -864,19 +943,16 @@ internal static partial class ZemaxZmxReader
                 SemiDiameter = semiDiameter,
                 MechanicalSemiDiameterSolveCode = source.MechanicalSemiDiameterSolveCode,
                 SemiDiameterFixed = source.SemiDiameterFixed,
-                Conic = referencePlane ? 0 : source.Conic,
+                Conic = referencePlane || geometry is TiltedPlaneGeometry or TernaryMirrorArrayGeometry or ChebyshevSagGeometry ? 0 : source.Conic,
                 IsStop = source.IsStop,
                 IsReflective = isReflective,
                 Geometry = geometry,
                 MaterialBefore = previousMaterial.Clone(),
                 MaterialAfter = materialAfter.Clone(),
-                InteractionModel = new RefractiveReflectiveInteractionModel(isReflective),
+                InteractionModel = interaction,
                 PhysicalAperture = physicalAperture,
-                SemiDiameterDefinesPhysicalAperture = physicalAperture is CircularAperture
+                SemiDiameterDefinesPhysicalAperture = physicalAperture is CircularAperture && !source.CircularAperture
                     && !source.IsStop
-                    && (source.MinimumAperture is null
-                        || !double.IsFinite(source.MinimumAperture.Value)
-                        || Math.Abs(source.MinimumAperture.Value) <= 1e-12)
                     && source.SemiDiameterFixed
                     && HasSurfacePower(source),
                 CoordinateSystem = coordinate
@@ -890,7 +966,7 @@ internal static partial class ZemaxZmxReader
                 previousMaterial.Clone(),
                 materialAfter.Clone(),
                 isReflective,
-                coordinate));
+                coordinate, interaction));
 
             previousMaterial = materialAfter.Clone();
             if (index == 0)
@@ -910,11 +986,16 @@ internal static partial class ZemaxZmxReader
     private static IPhysicalAperture? CreatePhysicalAperture(
         ZemaxSurface source, double semiDiameter, bool hasImplicitFloatingAperture)
     {
-        if (source.MinimumAperture is { } minimumAperture
-            && double.IsFinite(minimumAperture)
-            && Math.Abs(minimumAperture) > 1e-12)
+        // APMN/APMX values alone do not activate a surface aperture. Native
+        // CurrentType=None retains a full pupil even when these dormant values
+        // are present. CLAP is the explicit circular/annular aperture declaration.
+        if (source.CircularAperture)
         {
-            return new AnnularAperture(semiDiameter, Math.Abs(minimumAperture));
+            var inner = source.MinimumAperture ?? 0;
+            var outer = source.MaximumAperture ?? semiDiameter;
+            if (!double.IsFinite(inner) || !double.IsFinite(outer) || inner < 0 || outer <= 0 || inner > outer)
+                throw new NotSupportedException("Invalid explicit Zemax circular aperture bounds.");
+            return inner > 0 ? new AnnularAperture(outer, inner) : new CircularAperture(outer);
         }
 
         // Automatic DIAM is a ray-footprint estimate, including at the stop;
@@ -932,7 +1013,8 @@ internal static partial class ZemaxZmxReader
     }
 
     private static bool HasSurfacePower(ZemaxSurface surface) =>
-        (double.IsFinite(surface.Radius) && Math.Abs(surface.Radius) > 1e-12)
+        (surface.Type == "PARAXIAL" && surface.Parameter(0) != 0)
+        || (double.IsFinite(surface.Radius) && Math.Abs(surface.Radius) > 1e-12)
         || (surface.Type.Equals("TOROIDAL", StringComparison.OrdinalIgnoreCase)
             && double.IsFinite(surface.Parameter(1))
             && Math.Abs(surface.Parameter(1)) > 1e-12);
@@ -974,6 +1056,20 @@ internal static partial class ZemaxZmxReader
             "STANDARD" => Math.Abs(radius) < 1e-15
                 ? new PlaneGeometry()
                 : new StandardGeometry(radius, surface.Conic),
+            "PARAXIAL" when IsComputableParaxial(surface) => new PlaneGeometry(),
+            "PARAX_XY" when IsComputableParaxialXY(surface) => new PlaneGeometry(),
+            "BIRE__IN" or "BIRE_OUT" when IsComputableBirefringent(surface) => radius == 0 ? new PlaneGeometry() : new StandardGeometry(radius, surface.Conic),
+            "DGRATING" when IsComputableGrating(surface) => radius == 0 ? new PlaneGeometry() : new StandardGeometry(radius, surface.Conic),
+            "BINARY_2" => CreateBinary2Geometry(surface, radius),
+            "BINARY_3" => CreateBinary3Geometry(surface, radius),
+            "GRID_SAG" => CreateGridSagGeometry(surface, radius),
+            "GRINSU11" => CreateGridGradientGeometry(surface),
+            "HOLOGRM2" when radius == 0 && IsComputableHologram2(surface) => new PlaneGeometry(),
+            "IRREGULA" when surface.SemiDiameter is > 0
+                && !surface.Parameters.Any(p => p.Key is < 0 or > 7 && p.Value != 0)
+                && !surface.ExtraData.Any(p => p.Value != 0) => new IrregularGeometry(radius, surface.Conic, surface.SemiDiameter.Value,
+                    surface.Parameter(0), surface.Parameter(1), surface.Parameter(2), surface.Parameter(3),
+                    surface.Parameter(4), surface.Parameter(5), surface.Parameter(6), surface.Parameter(7)),
             "EVENASPH" => new EvenAsphereGeometry(
                 radius,
                 surface.Conic,
@@ -983,8 +1079,170 @@ internal static partial class ZemaxZmxReader
                 surface.Conic,
                 Enumerable.Range(0, 8).Select(surface.Parameter).ToArray()),
             "TOROIDAL" => CreateToroidalGeometry(surface),
+            "TILTSURF" => CreateTiltedGeometry(surface),
+            "FZERNSAG" => CreateFringeSagGeometry(surface),
+            "CHEBYSHV" => CreateChebyshevSagGeometry(surface),
+            "GRINSUR1" when surface.Parameter(3) == 0 => CreateGradient1Geometry(surface, radius),
+            "GRINSUR9" when surface.Parameter(1) == 0 && surface.Parameter(2) == 0 => CreateGradient9Geometry(surface, radius),
+            "USERSURF" when surface.TypeArguments.Equals("US_MEMS.DLL", StringComparison.OrdinalIgnoreCase) => CreateMirrorArrayGeometry(surface),
             _ => CreateOpaqueZemaxGeometry(surface)
         };
+    }
+
+    private static bool IsComputableParaxial(ZemaxSurface surface) => surface.Type == "PARAXIAL"
+        && !surface.IsMirror && !surface.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase)
+        && (surface.Parameter(1) is 1 or 2 || surface.Parameter(1) == 0 && surface.CollimatedParaxialMode)
+        && !surface.Parameters.Any(p => p.Key is not (0 or 1) && p.Value != 0)
+        && !surface.ExtraData.Any(p => p.Value != 0);
+
+    private static bool IsComputableGrating(ZemaxSurface surface) => surface.Type == "DGRATING"
+        && surface.Parameter(1) == Math.Truncate(surface.Parameter(1)) && Math.Abs(surface.Parameter(1)) <= 1_000_000
+        && !surface.Parameters.Any(p => p.Key is not (0 or 1) && p.Value != 0)
+        && !surface.ExtraData.Any(p => p.Value != 0);
+
+    private static bool IsComputableParaxialXY(ZemaxSurface surface) => surface.Type == "PARAX_XY"
+        && !surface.IsMirror && !surface.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase)
+        && !surface.Parameters.Any(p => p.Key is not (0 or 1) && p.Value != 0)
+        && !surface.ExtraData.Any(p => p.Value != 0);
+
+    private static IGeometry CreateBinary2Geometry(ZemaxSurface surface, double radius)
+    {
+        if (surface.Parameters.Any(p => p.Key is < -1 or > 7 && p.Value != 0)) return CreateOpaqueZemaxGeometry(surface);
+        _ = CreateBinary2Phase(surface);
+        return new EvenAsphereGeometry(radius, surface.Conic, Enumerable.Range(0, 8).Select(surface.Parameter).ToArray());
+    }
+
+    private static IGeometry CreateGridSagGeometry(ZemaxSurface surface, double radius)
+    {
+        var header = surface.GridSagHeader;
+        // The embedded GDAT unit/transform extension has only been verified in
+        // millimeter sources with its ordinary 0/0/0/1 flags. Preserve other cases.
+        if (surface.LengthScaleToMillimeters != 1 || header is not { Length: 10 }
+            || header[6] is not (0 or 1) || header[7] != 0 || header[8] != 0 || header[9] != 1
+            || surface.Parameter(-1) is not (0 or 1) || surface.ExtraData.GetValueOrDefault(1) != 0
+            || surface.Parameters.Any(p => p.Key is < -1 or > 9 && p.Value != 0)) return CreateOpaqueZemaxGeometry(surface);
+        var nx = header[0]; var ny = header[1];
+        if (nx != Math.Truncate(nx) || ny != Math.Truncate(ny) || nx is < 5 or > 4096 || ny is < 5 or > 4096
+            || nx * ny > 100_000 || surface.GridSagPoints.Count != nx * ny)
+            throw new InvalidDataException("Grid sag has incomplete or invalid embedded data.");
+        return new GridSagGeometry(radius, surface.Conic, Enumerable.Range(0, 8).Select(surface.Parameter).ToArray(),
+            (int)nx, (int)ny, Math.Abs(header[2]), Math.Abs(header[3]), header[4], header[5], header[6] == 1,
+            Enumerable.Range(0, (int)(nx * ny)).Select(i => surface.GridSagPoints[i]).ToArray());
+    }
+
+    private static NormalizedRadialPhaseProfile CreateBinary2Phase(ZemaxSurface surface)
+    {
+        var count = surface.ExtraData.GetValueOrDefault(1);
+        var order = surface.Parameters.GetValueOrDefault(-1, 1);
+        if (count != Math.Truncate(count) || count is < 0 or > 240 || order != Math.Truncate(order) || Math.Abs(order) > 1_000_000)
+            throw new InvalidDataException("Invalid Binary 2 phase term count or diffraction order.");
+        return new NormalizedRadialPhaseProfile(surface.ExtraData.GetValueOrDefault(2, 1),
+            Enumerable.Range(3, (int)count).Select(i => surface.ExtraData.GetValueOrDefault(i)).ToArray(), (int)order);
+    }
+
+    private static bool IsComputableHologram2(ZemaxSurface surface) =>
+        surface.Parameter(7) == Math.Truncate(surface.Parameter(7)) && Math.Abs(surface.Parameter(7)) <= 1_000_000
+        && !surface.Parameters.Any(p => p.Key is < 0 or > 7 && p.Value != 0)
+        && !surface.ExtraData.Any(p => p.Value != 0);
+
+    private static TwoPointHologramPhaseProfile CreateHologram2Phase(ZemaxSurface surface) => new(
+        new(surface.Parameter(0), surface.Parameter(1), surface.Parameter(2)),
+        new(surface.Parameter(3), surface.Parameter(4), surface.Parameter(5)), surface.Parameter(6) * 1000, (int)surface.Parameter(7));
+
+    private static IGeometry CreateTiltedGeometry(ZemaxSurface surface)
+    {
+        if (surface.Parameters.Any(p => p.Key is not (0 or 1) && p.Value != 0))
+            throw new NotSupportedException("Nonzero unsupported parameter on a Zemax tilted surface.");
+        return new TiltedPlaneGeometry(surface.Parameter(0), surface.Parameter(1));
+    }
+
+    private static IGeometry CreateFringeSagGeometry(ZemaxSurface surface)
+    {
+        var count = surface.ExtraData.GetValueOrDefault(1);
+        if (count != Math.Truncate(count) || count is < 0 or > 37
+            || surface.Parameter(-1) is not (0 or 1)
+            || surface.Parameters.Any(p => p.Key is < -1 or > 9 && p.Value != 0))
+            throw new NotSupportedException("Unsupported Fringe sag parameter definition.");
+        return new FringeSagGeometry(double.IsInfinity(surface.Radius) ? 0 : surface.Radius, surface.Conic,
+            Enumerable.Range(0, 8).Select(surface.Parameter).ToArray(), surface.ExtraData.GetValueOrDefault(2, 1),
+            Enumerable.Range(3, (int)count).Select(i => surface.ExtraData.GetValueOrDefault(i)).ToArray(),
+            surface.Parameter(8), surface.Parameter(9), surface.Parameter(-1) == 1);
+    }
+
+    private static IGeometry CreateChebyshevSagGeometry(ZemaxSurface surface)
+    {
+        var xOrder = surface.Parameter(0); var yOrder = surface.Parameter(1);
+        if (xOrder is < 0 or > 14 || yOrder is < 0 or > 14
+            || xOrder != Math.Truncate(xOrder) || yOrder != Math.Truncate(yOrder)
+            || surface.Parameters.Any(p => p.Key is < 0 or > 3 && p.Value != 0))
+            throw new NotSupportedException("Unsupported Chebyshev sag parameter definition.");
+        var count = ((int)xOrder + 1) * ((int)yOrder + 1) - 1;
+        return new ChebyshevSagGeometry(double.IsInfinity(surface.Radius) ? 0 : surface.Radius, (int)xOrder, (int)yOrder,
+            surface.Parameter(2), surface.Parameter(3), Enumerable.Range(1, count)
+                .Select(i => surface.ExtraData.GetValueOrDefault(i)).ToArray());
+    }
+
+    private static IGeometry CreateGradient1Geometry(ZemaxSurface surface, double radius)
+    {
+        if (surface.Parameters.Any(p => p.Key is < 0 or > 3 && p.Value != 0))
+            throw new NotSupportedException("Unsupported Gradient 1 surface parameter definition.");
+        return radius == 0 ? new PlaneGeometry() : new StandardGeometry(radius, surface.Conic);
+    }
+
+    private static GradientIndexMaterial CreateGradient1Material(ZemaxSurface surface)
+    {
+        var step = surface.Parameter(0);
+        if (!double.IsFinite(step) || step <= 0)
+            throw new InvalidDataException("Gradient 1 requires an explicit positive maximum integration step.");
+        var options = new GradientIndexIntegrationOptions(MaximumStep: step);
+        // The path budget cannot be reached sooner than the existing attempt budget:
+        // each accepted arc-length step is at most MaximumStep.
+        var maximumPath = step * options.MaximumAttempts;
+        return new GradientIndexMaterial("Gradient 1", new Gradient1IndexProfile(surface.Parameter(1), surface.Parameter(2)),
+            maximumPath, options);
+    }
+
+    private static IGeometry CreateGradient9Geometry(ZemaxSurface surface, double radius)
+    {
+        if (surface.Parameters.Any(p => p.Key is < 0 or > 2 && p.Value != 0))
+            throw new NotSupportedException("Unsupported Gradient 9 surface parameter definition.");
+        return radius == 0 ? new PlaneGeometry() : new StandardGeometry(radius, surface.Conic);
+    }
+
+    private static IMaterial CreateGradient9Material(ZemaxSurface surface)
+    {
+        var profile = Gradient9Catalog.Resolve(surface.Material, surface.AssetDirectory, surface.LengthScaleToMillimeters);
+        if (profile is null) return new UnresolvedMaterial("Gradient 9 " + surface.Material);
+        var step = surface.Parameter(0);
+        if (!double.IsFinite(step) || step <= 0)
+            throw new InvalidDataException("Gradient 9 requires an explicit positive maximum integration step.");
+        var options = new GradientIndexIntegrationOptions(MaximumStep: step);
+        return new GradientIndexMaterial(surface.Material, profile, step * options.MaximumAttempts, options);
+    }
+
+    private static IGeometry CreateMirrorArrayGeometry(ZemaxSurface surface)
+    {
+        if (surface.Parameters.Any(p => p.Key is < 0 or > 7 && p.Value != 0)
+            || surface.ExtraData.Any(p => p.Key > 200 && p.Value != 0))
+            throw new NotSupportedException("Unsupported US_MEMS sample-contract parameter.");
+        int RoundedPixelCount(int index)
+        {
+            var value = Math.Floor(.5 + surface.Parameter(index));
+            if (value < 0 || value > int.MaxValue) throw new InvalidDataException("Invalid mirror-array pixel count.");
+            return (int)value;
+        }
+        int State(int index)
+        {
+            var value = surface.ExtraData.GetValueOrDefault(index);
+            if (value != Math.Truncate(value) || value < 0 || value > int.MaxValue)
+                throw new InvalidDataException("Mirror-array state words must be nonnegative integers.");
+            return (int)value;
+        }
+        const double radians = Math.PI / 180;
+        var count = Math.Max(0, surface.ExtraData.Keys.DefaultIfEmpty(1).Max() - 1);
+        return new TernaryMirrorArrayGeometry(RoundedPixelCount(0), RoundedPixelCount(1), surface.Parameter(2), surface.Parameter(3),
+            Enumerable.Range(4, 3).Select(i => surface.Parameter(i) * radians).ToArray(), surface.Parameter(7) * radians, State(1),
+            Enumerable.Range(2, Math.Min(count, 199)).Select(State).ToArray());
     }
 
     private static IGeometry CreateOpaqueZemaxGeometry(ZemaxSurface surface)
@@ -998,10 +1256,20 @@ internal static partial class ZemaxZmxReader
         {
             numbers[$"parm{parameter.Key + 1}"] = parameter.Value;
         }
+        foreach (var extra in surface.ExtraData) numbers[$"xdat{extra.Key}"] = extra.Value;
+        if (surface.GridSagHeader is { } grid)
+            for (var i = 0; i < grid.Length; i++) numbers[$"gdat{i}"] = grid[i];
+        foreach (var point in surface.GridSagPoints)
+        {
+            numbers[$"gridSag{point.Key}"] = point.Value.Sag; numbers[$"gridDx{point.Key}"] = point.Value.Dx;
+            numbers[$"gridDy{point.Key}"] = point.Value.Dy; numbers[$"gridDxy{point.Key}"] = point.Value.Dxy;
+            numbers[$"gridNoData{point.Key}"] = point.Value.NoData ? 1 : 0;
+        }
 
         var text = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["zemax.type"] = surface.Type,
+            ["zemax.type.arguments"] = surface.TypeArguments,
             ["opticalsystemdesign.blockingReason"] =
                 $"Zemax 面型 TYPE {surface.Type} 尚未映射到可计算几何；原始曲率、圆锥常数和 PARM 参数已保留为只读数据。"
         };
@@ -1754,7 +2022,8 @@ internal static partial class ZemaxZmxReader
         ZemaxDocument document,
         string type,
         int zeroBasedIndex,
-        double value)
+        double value,
+        string typeArguments = "")
     {
         var scale = document.LengthScaleToMillimeters;
         if (Math.Abs(scale - 1.0) <= 1e-15)
@@ -1764,13 +2033,36 @@ internal static partial class ZemaxZmxReader
 
         return type switch
         {
-            "EVENASPH" => ScalePowerCoefficient(value, scale, 2 * (zeroBasedIndex + 1)),
+            "PARAXIAL" when zeroBasedIndex == 0 => value * scale,
+            "PARAX_XY" when zeroBasedIndex is 0 or 1 => value / scale,
+            "BIRE__IN" when zeroBasedIndex == -1 => value * scale,
+            "BINARY_3" when zeroBasedIndex is 0 or 2 or 3 => value * scale,
+            "HOLOGRM2" when zeroBasedIndex is >= 0 and < 6 => value * scale,
+            "IRREGULA" when zeroBasedIndex is 0 or 1 or 4 or 5 or 6 => value * scale,
+            "EVENASPH" or "FZERNSAG" or "BINARY_2" when zeroBasedIndex is >= 0 and < 8 => ScalePowerCoefficient(value, scale, 2 * (zeroBasedIndex + 1)),
+            "FZERNSAG" when zeroBasedIndex is 8 or 9 => value * scale,
+            "CHEBYSHV" when zeroBasedIndex is 2 or 3 => value * scale,
+            "GRINSUR1" when zeroBasedIndex == 0 => value * scale,
+            "GRINSUR1" when zeroBasedIndex == 2 => value / (scale * scale),
+            "GRINSUR1" when zeroBasedIndex == 3 => value / scale,
+            "GRINSUR9" when zeroBasedIndex == 0 => value * scale,
+            "GRINSU11" when zeroBasedIndex == 0 => value * scale,
+            "USERSURF" when zeroBasedIndex is 2 or 3 && typeArguments.Equals("US_MEMS.DLL", StringComparison.OrdinalIgnoreCase) => value * scale,
             "ODDASPHE" => ScalePowerCoefficient(value, scale, zeroBasedIndex + 1),
             "TOROIDAL" when zeroBasedIndex == 1 => value * scale,
             "COORDBRK" when zeroBasedIndex is 0 or 1 => value * scale,
             _ => value
         };
     }
+
+    private static double ScaleSurfaceExtraData(ZemaxDocument document, string type, int index, double value) => type switch
+    {
+        "BINARY_2" when index == 2 => value * document.LengthScaleToMillimeters,
+        "BINARY_3" when index >= 2 && (index - 2) % 2 == 0 => ScalePowerCoefficient(value, document.LengthScaleToMillimeters, 2 * ((index - 2) / 4 + 1)),
+        "FZERNSAG" when index >= 2 => value * document.LengthScaleToMillimeters,
+        "CHEBYSHV" => value / document.LengthScaleToMillimeters,
+        _ => value
+    };
 
     private static double ScalePowerCoefficient(double coefficient, double lengthScale, int power) =>
         coefficient * Math.Pow(lengthScale, 1 - power);
@@ -1963,8 +2255,12 @@ internal static partial class ZemaxZmxReader
         }
     }
 
-    private sealed class ZemaxSurface(int number)
+    private sealed class ZemaxSurface(int number, double lengthScaleToMillimeters = 1, string? assetDirectory = null)
     {
+        public GridGradientIndexProfile? GridGradientProfile { get; set; }
+        public double LengthScaleToMillimeters { get; } = lengthScaleToMillimeters;
+        public string? AssetDirectory { get; } = assetDirectory;
+        public string TypeArguments { get; set; } = "";
         public int Number { get; } = number;
         public string Type { get; set; } = "STANDARD";
         public string Comment { get; set; } = string.Empty;
@@ -1978,6 +2274,8 @@ internal static partial class ZemaxZmxReader
         public double? MechanicalSemiDiameter { get; set; }
         public int MechanicalSemiDiameterSolveCode { get; set; }
         public double? MinimumAperture { get; set; }
+        public double? MaximumAperture { get; set; }
+        public bool CircularAperture { get; set; }
         public bool SemiDiameterFixed { get; set; }
         public bool FloatingAperture { get; set; }
         public int SemiDiameterSolveCode { get; set; }
@@ -1998,6 +2296,10 @@ internal static partial class ZemaxZmxReader
         public ZemaxMarginalRayHeightSolve? MarginalRayHeightSolve { get; set; }
         public ZemaxCurvatureSolve? CurvatureSolve { get; set; }
         public Dictionary<int, double> Parameters { get; } = new();
+        public Dictionary<int, double> ExtraData { get; } = new();
+        public double[]? GridSagHeader { get; set; }
+        public Dictionary<int, GridSagPoint> GridSagPoints { get; } = new();
+        public bool CollimatedParaxialMode { get; set; }
 
         public double Parameter(int index) => Parameters.GetValueOrDefault(index);
     }
@@ -2028,5 +2330,6 @@ internal static partial class ZemaxZmxReader
         IMaterial MaterialBefore,
         IMaterial MaterialAfter,
         bool IsReflective,
-        CoordinateSystem CoordinateSystem);
+        CoordinateSystem CoordinateSystem,
+        IInteractionModel Interaction);
 }

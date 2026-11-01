@@ -1,0 +1,17 @@
+{
+  "Status": "Native physical trace probe failed",
+  "Error": "System.IO.InvalidDataException: ansys.api.speos.scene.v2.ScenesManager/Create: OK grpc=13 grpc-status: 13\r\n\r\n   at RpcCapture.\u003C\u003Ec__DisplayClass2_0.\u003C\u003CRun\u003Eg__Call|0\u003Ed.MoveNext() in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SpeosIsolatedCapture20261031\\RpcCapture.cs:line 40\r\n--- End of stack trace from previous location ---\r\n   at RpcTrace.\u003C\u003Ec__DisplayClass4_0.\u003C\u003CRun\u003Eg__Rpc|0\u003Ed.MoveNext() in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SpeosIsolatedCapture20261031\\RpcTrace.cs:line 21\r\n--- End of stack trace from previous location ---\r\n   at RpcTrace.\u003C\u003Ec__DisplayClass4_0.\u003C\u003CRun\u003Eg__Create|1\u003Ed.MoveNext() in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SpeosIsolatedCapture20261031\\RpcTrace.cs:line 22\r\n--- End of stack trace from previous location ---\r\n   at RpcTrace.Run(String root, String source, Func\u00603 call) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SpeosIsolatedCapture20261031\\RpcTrace.cs:line 51",
+  "Stages": [
+    "ansys.api.speos.face.v1.FacesManager/Create",
+    "ansys.api.speos.face.v1.FacesManager/Create",
+    "ansys.api.speos.body.v1.BodiesManager/Create",
+    "ansys.api.speos.body.v1.BodiesManager/Create",
+    "ansys.api.speos.part.v1.PartsManager/Create",
+    "ansys.api.speos.sop.v1.SOPTemplatesManager/Create",
+    "ansys.api.speos.sop.v1.SOPTemplatesManager/Create",
+    "ansys.api.speos.spectrum.v1.SpectrumsManager/Create",
+    "ansys.api.speos.intensity.v1.IntensityTemplatesManager/Create",
+    "ansys.api.speos.source.v1.SourceTemplatesManager/Create",
+    "ansys.api.speos.simulation.v1.templates.SimulationTemplatesManager/Create"
+  ]
+}

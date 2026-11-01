@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="44b900e5-804e-41a9-b0e7-134d6d672dc8" name="allen@DESKTOP-SET3SNR 2026-11-01 13:38:02" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T13:38:02.5967615+08:00" queuing="2026-11-01T13:38:02.5967617+08:00" start="2026-11-01T13:37:58.1512646+08:00" finish="2026-11-01T13:38:21.2788266+08:00" />
+  <TestSettings name="default" id="68000aec-b32a-4343-a35a-7ee6a670ddcc">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_13_38_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="14487756-d4b0-4e69-83d1-6b713ec1cf18" testId="07dc2d23-beab-4264-e507-285c87cece08" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged" computerName="DESKTOP-SET3SNR" duration="00:00:09.2834159" startTime="2026-11-01T13:38:11.8922731+08:00" endTime="2026-11-01T13:38:21.1770854+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="14487756-d4b0-4e69-83d1-6b713ec1cf18">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotEqual() Failure: Strings are equal&#xD;
+Expected: Not "面型"&#xD;
+Actual:       "面型"</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.&lt;&gt;c__DisplayClass39_0.&lt;&lt;M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Review.cs:line 50&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.&lt;&gt;c__DisplayClass39_0.&lt;&lt;M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Review.cs:line 79&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Review.cs:line 17&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7128d38e-49e2-488a-a086-1e2755c6a897" testId="3269264e-d19f-01c4-c50b-09838067a715" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 46)" computerName="DESKTOP-SET3SNR" duration="00:00:00.6755183" startTime="2026-11-01T13:38:10.2098036+08:00" endTime="2026-11-01T13:38:10.8852152+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7128d38e-49e2-488a-a086-1e2755c6a897">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: "195aa52db685c130f0f5d2c261df35a26127dadcf"···&#xD;
+Actual:   "47c310d6d22737df83f90cabc0ac17c8a210f7bb1"···&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 51&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="aa616e86-c162-4bf1-9cd4-ffc05b27be36" testId="1df58d49-58de-d27d-b84f-1732f4c38acc" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates" computerName="DESKTOP-SET3SNR" duration="00:00:00.4571754" startTime="2026-11-01T13:38:00.9687401+08:00" endTime="2026-11-01T13:38:01.4322009+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa616e86-c162-4bf1-9cd4-ffc05b27be36" />
+    <UnitTestResult executionId="def8b81c-7bd4-4b02-bec9-4680c1a0b897" testId="18648042-60cd-05de-18de-e9502111735f" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 43)" computerName="DESKTOP-SET3SNR" duration="00:00:00.6371431" startTime="2026-11-01T13:38:09.5719443+08:00" endTime="2026-11-01T13:38:10.2089981+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="def8b81c-7bd4-4b02-bec9-4680c1a0b897">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: "8899a0cbd8bfe264b7982e6c809286b2cae63d1bd"···&#xD;
+Actual:   "79f5b5cb330d44fa3e3fd2890c246e1ebbc8fb77e"···&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 51&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ebaa4d74-c789-4760-b404-5f444421f976" testId="777f1996-fae9-2906-9d3b-2ceb425362a1" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons" computerName="DESKTOP-SET3SNR" duration="00:00:01.0028321" startTime="2026-11-01T13:38:10.8862095+08:00" endTime="2026-11-01T13:38:11.8885292+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ebaa4d74-c789-4760-b404-5f444421f976" />
+    <UnitTestResult executionId="5b87e6e8-d73e-49e6-b66f-c47ccb6ae408" testId="e3f8b6de-4dc7-9ffb-b09d-5aba62a5b473" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 42)" computerName="DESKTOP-SET3SNR" duration="00:00:00.9126773" startTime="2026-11-01T13:38:08.6595110+08:00" endTime="2026-11-01T13:38:09.5712794+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b87e6e8-d73e-49e6-b66f-c47ccb6ae408">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: "67beb9f00c066a400c9adbd127c415f6daccf3545"···&#xD;
+Actual:   "8be6dd0bca3c3717c668759f504bbfc8e17aedf0e"···&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 51&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4bef1b13-317a-4709-8415-ebdfcbf7bddc" testId="e4fb32de-271e-07dc-3450-b62115753383" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Competition&quot;, stage: &quot;Competition:Rounds&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4634887" startTime="2026-11-01T13:38:04.2413964+08:00" endTime="2026-11-01T13:38:04.7047534+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4bef1b13-317a-4709-8415-ebdfcbf7bddc" />
+    <UnitTestResult executionId="51730f50-ed1f-4db1-8867-858590c03d86" testId="68c0f95e-6327-7563-af50-240e0625e413" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 44)" computerName="DESKTOP-SET3SNR" duration="00:00:01.8623889" startTime="2026-11-01T13:38:05.0316542+08:00" endTime="2026-11-01T13:38:06.9024405+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51730f50-ed1f-4db1-8867-858590c03d86">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: "3aebf78206fbbe152d584747d815ac9b0cf2cf339"···&#xD;
+Actual:   "1d3880fcbe277aa741259e85e5cb80b9d507cd8d7"···&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 51&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dce9b7b5-83db-4d5d-8379-7a062d68fbdf" testId="0269acf0-8f14-2517-8455-a33ff87ed6e7" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Paraxial&quot;, stage: &quot;Starts&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0827167" startTime="2026-11-01T13:38:04.7050385+08:00" endTime="2026-11-01T13:38:04.7875633+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dce9b7b5-83db-4d5d-8379-7a062d68fbdf" />
+    <UnitTestResult executionId="6e3993d8-d04e-4ae9-bf7c-473cbd0e6cd1" testId="305a2bc3-3cb9-8f01-ba99-fd4c99ef7a98" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 45)" computerName="DESKTOP-SET3SNR" duration="00:00:01.7554931" startTime="2026-11-01T13:38:06.9076063+08:00" endTime="2026-11-01T13:38:08.6581467+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6e3993d8-d04e-4ae9-bf7c-473cbd0e6cd1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: "a5390b3ef436c8afcb1ae04bf394a2f879b10c00b"···&#xD;
+Actual:   "b299457e812bdd625214de65bb636f285eb9fe0c2"···&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs:line 51&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b2dbe77d-cd23-4078-b206-16b061a0c96c" testId="abf86e21-ad0b-813a-2ace-7cdfa048cbfd" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Retrieval&quot;, stage: &quot;Retrieval:Validate&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.7472316" startTime="2026-11-01T13:38:03.4955270+08:00" endTime="2026-11-01T13:38:04.2411548+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b2dbe77d-cd23-4078-b206-16b061a0c96c" />
+    <UnitTestResult executionId="da076dc5-7d67-4399-875f-31ce5ee468af" testId="d87a1a05-9e13-b73d-0e31-671812074146" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;EvolutionDirect&quot;, stage: &quot;Evolution:Trials&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.0616010" startTime="2026-11-01T13:38:01.4427509+08:00" endTime="2026-11-01T13:38:03.4938773+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="da076dc5-7d67-4399-875f-31ce5ee468af" />
+    <UnitTestResult executionId="ca7636c7-3f40-4580-90b4-8e3c38c208a0" testId="4d2b51c2-9808-051c-8e11-c1dabd2b4e6d" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected" computerName="DESKTOP-SET3SNR" duration="00:00:00.2406599" startTime="2026-11-01T13:38:04.7877653+08:00" endTime="2026-11-01T13:38:05.0307825+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ca7636c7-3f40-4580-90b4-8e3c38c208a0" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Paraxial&quot;, stage: &quot;Starts&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="0269acf0-8f14-2517-8455-a33ff87ed6e7">
+      <Execution id="dce9b7b5-83db-4d5d-8379-7a062d68fbdf" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="1df58d49-58de-d27d-b84f-1732f4c38acc">
+      <Execution id="aa616e86-c162-4bf1-9cd4-ffc05b27be36" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF4ConflictIsVisibleWithoutTracingOrInventingQualifiedCandidates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Competition&quot;, stage: &quot;Competition:Rounds&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="e4fb32de-271e-07dc-3450-b62115753383">
+      <Execution id="4bef1b13-317a-4709-8415-ebdfcbf7bddc" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 42)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="e3f8b6de-4dc7-9ffb-b09d-5aba62a5b473">
+      <Execution id="5b87e6e8-d73e-49e6-b66f-c47ccb6ae408" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 44)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="68c0f95e-6327-7563-af50-240e0625e413">
+      <Execution id="51730f50-ed1f-4db1-8867-858590c03d86" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;Retrieval&quot;, stage: &quot;Retrieval:Validate&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="abf86e21-ad0b-813a-2ace-7cdfa048cbfd">
+      <Execution id="b2dbe77d-cd23-4078-b206-16b061a0c96c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="07dc2d23-beab-4264-e507-285c87cece08">
+      <Execution id="14487756-d4b0-4e69-83d1-6b713ec1cf18" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests" name="M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem(mode: &quot;EvolutionDirect&quot;, stage: &quot;Evolution:Trials&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="d87a1a05-9e13-b73d-0e31-671812074146">
+      <Execution id="da076dc5-7d67-4399-875f-31ce5ee468af" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="SuspendedPreparationShowsOnlySavedOperationsWithoutFinishingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="4d2b51c2-9808-051c-8e11-c1dabd2b4e6d">
+      <Execution id="ca7636c7-3f40-4580-90b4-8e3c38c208a0" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="InvalidAndDuplicateEvidenceCannotReplaceAnExistingPortfolioAndForeignAssessmentIsRejected" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 46)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="3269264e-d19f-01c4-c50b-09838067a715">
+      <Execution id="7128d38e-49e2-488a-a086-1e2755c6a897" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 43)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="18648042-60cd-05de-18de-e9502111735f">
+      <Execution id="def8b81c-7bd4-4b02-bec9-4680c1a0b897" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="777f1996-fae9-2906-9d3b-2ceb425362a1">
+      <Execution id="ebaa4d74-c789-4760-b404-5f444421f976" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="LegacyMainEvidenceRemainsReadOnlyWithItsOriginalProtocolAndRawUnknownReasons" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 45)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="305a2bc3-3cb9-8f01-ba99-fd4c99ef7a98">
+      <Execution id="6e3993d8-d04e-4ae9-bf7c-473cbd0e6cd1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests" name="OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="07dc2d23-beab-4264-e507-285c87cece08" executionId="14487756-d4b0-4e69-83d1-6b713ec1cf18" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3269264e-d19f-01c4-c50b-09838067a715" executionId="7128d38e-49e2-488a-a086-1e2755c6a897" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1df58d49-58de-d27d-b84f-1732f4c38acc" executionId="aa616e86-c162-4bf1-9cd4-ffc05b27be36" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="18648042-60cd-05de-18de-e9502111735f" executionId="def8b81c-7bd4-4b02-bec9-4680c1a0b897" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="777f1996-fae9-2906-9d3b-2ceb425362a1" executionId="ebaa4d74-c789-4760-b404-5f444421f976" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3f8b6de-4dc7-9ffb-b09d-5aba62a5b473" executionId="5b87e6e8-d73e-49e6-b66f-c47ccb6ae408" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4fb32de-271e-07dc-3450-b62115753383" executionId="4bef1b13-317a-4709-8415-ebdfcbf7bddc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68c0f95e-6327-7563-af50-240e0625e413" executionId="51730f50-ed1f-4db1-8867-858590c03d86" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0269acf0-8f14-2517-8455-a33ff87ed6e7" executionId="dce9b7b5-83db-4d5d-8379-7a062d68fbdf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="305a2bc3-3cb9-8f01-ba99-fd4c99ef7a98" executionId="6e3993d8-d04e-4ae9-bf7c-473cbd0e6cd1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="abf86e21-ad0b-813a-2ace-7cdfa048cbfd" executionId="b2dbe77d-cd23-4078-b206-16b061a0c96c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d87a1a05-9e13-b73d-0e31-671812074146" executionId="da076dc5-7d67-4399-875f-31ce5ee468af" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d2b51c2-9808-051c-8e11-c1dabd2b4e6d" executionId="ca7636c7-3f40-4580-90b4-8e3c38c208a0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="7" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.22]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.35]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.37]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:07.32]       Assert.Equal() Failure: Strings differ&#xD;
+[xUnit.net 00:00:07.32]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:07.32]       Expected: "3aebf78206fbbe152d584747d815ac9b0cf2cf339"···&#xD;
+[xUnit.net 00:00:07.32]       Actual:   "1d3880fcbe277aa741259e85e5cb80b9d507cd8d7"···&#xD;
+[xUnit.net 00:00:07.32]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:07.32]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.32]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(51,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:07.32]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.08]       Assert.Equal() Failure: Strings differ&#xD;
+[xUnit.net 00:00:09.08]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:09.08]       Expected: "a5390b3ef436c8afcb1ae04bf394a2f879b10c00b"···&#xD;
+[xUnit.net 00:00:09.08]       Actual:   "b299457e812bdd625214de65bb636f285eb9fe0c2"···&#xD;
+[xUnit.net 00:00:09.08]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:09.08]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.08]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(51,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:09.08]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.99]       Assert.Equal() Failure: Strings differ&#xD;
+[xUnit.net 00:00:09.99]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:09.99]       Expected: "67beb9f00c066a400c9adbd127c415f6daccf3545"···&#xD;
+[xUnit.net 00:00:09.99]       Actual:   "8be6dd0bca3c3717c668759f504bbfc8e17aedf0e"···&#xD;
+[xUnit.net 00:00:09.99]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:09.99]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.99]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(51,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:09.99]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.63]       Assert.Equal() Failure: Strings differ&#xD;
+[xUnit.net 00:00:10.63]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:10.63]       Expected: "8899a0cbd8bfe264b7982e6c809286b2cae63d1bd"···&#xD;
+[xUnit.net 00:00:10.63]       Actual:   "79f5b5cb330d44fa3e3fd2890c246e1ebbc8fb77e"···&#xD;
+[xUnit.net 00:00:10.63]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:10.63]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.63]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(51,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:10.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.30]       Assert.Equal() Failure: Strings differ&#xD;
+[xUnit.net 00:00:11.30]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:11.30]       Expected: "195aa52db685c130f0f5d2c261df35a26127dadcf"···&#xD;
+[xUnit.net 00:00:11.30]       Actual:   "47c310d6d22737df83f90cabc0ac17c8a210f7bb1"···&#xD;
+[xUnit.net 00:00:11.30]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:11.30]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.30]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesignReviewTests.cs(51,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(Int32 seed)&#xD;
+[xUnit.net 00:00:11.30]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.60]       Assert.NotEqual() Failure: Strings are equal&#xD;
+[xUnit.net 00:00:21.60]       Expected: Not "面型"&#xD;
+[xUnit.net 00:00:21.60]       Actual:       "面型"&#xD;
+[xUnit.net 00:00:21.60]       Stack Trace:&#xD;
+[xUnit.net 00:00:21.60]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Review.cs(50,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.&lt;&gt;c__DisplayClass39_0.&lt;&lt;M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:21.60]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.60]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Review.cs(79,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.&lt;&gt;c__DisplayClass39_0.&lt;&lt;M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:21.60]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.60]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:21.60]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.60]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Review.cs(17,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged()&#xD;
+[xUnit.net 00:00:21.60]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.60]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:38:06.9048045+08:00">
+        <Text>[xUnit.net 00:00:07.32]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 44) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:38:08.6586263+08:00">
+        <Text>[xUnit.net 00:00:09.08]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 45) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:38:09.5716875+08:00">
+        <Text>[xUnit.net 00:00:09.99]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 42) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:38:10.2094021+08:00">
+        <Text>[xUnit.net 00:00:10.63]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 43) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:38:10.8856109+08:00">
+        <Text>[xUnit.net 00:00:11.30]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesignReviewTests.OriginalF8EvidenceReportPortfolioAndNativeReadbackRetainAllGates(seed: 46) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:38:21.1774841+08:00">
+        <Text>[xUnit.net 00:00:21.60]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.M36ThreeLanguageReviewPortfolioReportAndSelectedStructureKeepTheOriginalRecordUnchanged [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

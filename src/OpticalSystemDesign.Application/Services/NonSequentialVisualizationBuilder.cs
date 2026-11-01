@@ -133,6 +133,7 @@ internal static class NonSequentialVisualizationBuilder
             CylinderParameters value => Cylinder(value.RadiusMillimeters, value.LengthMillimeters),
             BoxParameters value => Box(value.WidthMillimeters, value.HeightMillimeters, value.LengthMillimeters),
             StandardLensParameters value => Lens(value),
+            OpticalSystemDesign.Core.NonSequential.OpticalAssemblyParameters value => OpticalAssembly(value),
             MeshObjectParameters value => Mesh(document.FindMeshAsset(value.MeshAssetId)),
             SourceRayParameters or SourcePointParameters or SourceRadialParameters => Plane(0.5, 0.5),
             SourceRectangleParameters value => Plane(value.WidthMillimeters, value.HeightMillimeters),
@@ -311,6 +312,26 @@ internal static class NonSequentialVisualizationBuilder
         }
     }
 
+    private static Vector3D[][] OpticalAssembly(OpticalSystemDesign.Core.NonSequential.OpticalAssemblyParameters assembly)
+    {
+        const int angular=24,radial=4;var result=new List<Vector3D[]>();var rims=new List<Vector3D[]>();
+        foreach(var f in assembly.Interfaces)
+        {
+            var geometry=new StandardGeometry(f.RadiusMillimeters,f.Conic);
+            var rings=Enumerable.Range(0,radial+1).Select(i=>Enumerable.Range(0,angular).Select(j=>
+            {
+                var r=f.MechanicalSemiDiameterMillimeters*i/radial;var a=2*Math.PI*j/angular;var x=r*Math.Cos(a);var y=r*Math.Sin(a);
+                return new Vector3D(x,y,f.VertexZMillimeters+geometry.Sag(x,y));
+            }).ToArray()).ToArray();
+            for(int i=0;i<radial;i++)for(int j=0;j<angular;j++)result.Add([rings[i][j],rings[i][(j+1)%angular],rings[i+1][(j+1)%angular],rings[i+1][j]]);
+            rims.Add(rings[^1]);
+        }
+        for(int i=0;i<rims.Count-1;i++)
+            if(!assembly.IsAmbientRegion(i))
+                for(int j=0;j<angular;j++)result.Add([rims[i][j],rims[i][(j+1)%angular],rims[i+1][(j+1)%angular],rims[i+1][j]]);
+        return result.ToArray();
+    }
+
     private static Vector3D[][] Mesh(NonSequentialMeshAsset asset)
     {
         const int maximumDisplayTriangles = 50_000;
@@ -336,6 +357,7 @@ internal static class NonSequentialVisualizationBuilder
         CylinderParameters value => value.Material,
         BoxParameters value => value.Material,
         StandardLensParameters value => value.Material,
+        OpticalSystemDesign.Core.NonSequential.OpticalAssemblyParameters => "OPTICAL ASSEMBLY",
         MeshObjectParameters value => value.Material,
         DetectorRectangleParameters => "DETECTOR",
         PlaneRectangleParameters value => value.MaterialAfter,
@@ -357,6 +379,8 @@ internal static class NonSequentialVisualizationBuilder
     private static SceneRaySegmentType SegmentType(RayInteractionKind? kind) => kind switch
     {
         RayInteractionKind.Reflected => SceneRaySegmentType.Reflected,
+        RayInteractionKind.DiffuseReflection => SceneRaySegmentType.Scattered,
+        RayInteractionKind.DiffuseTransmission => SceneRaySegmentType.ScatteredTransmission,
         RayInteractionKind.TotalInternalReflection => SceneRaySegmentType.TotalInternalReflection,
         RayInteractionKind.Transmitted => SceneRaySegmentType.Transmitted,
         _ => SceneRaySegmentType.Incident
@@ -366,6 +390,8 @@ internal static class NonSequentialVisualizationBuilder
     {
         RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection => SceneRayInteractionType.Reflective,
         RayInteractionKind.Transmitted => SceneRayInteractionType.Refractive,
+        RayInteractionKind.DiffuseReflection => SceneRayInteractionType.Scattered,
+        RayInteractionKind.DiffuseTransmission => SceneRayInteractionType.ScatteredTransmission,
         _ => SceneRayInteractionType.None
     };
 

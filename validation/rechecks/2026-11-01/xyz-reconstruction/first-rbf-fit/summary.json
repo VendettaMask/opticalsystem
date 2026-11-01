@@ -1,0 +1,126 @@
+{
+  "CoreSha256": "002cd4f020800a2096e3ccf8536a32db4106faa83f3242f8525048a88c13afa6",
+  "DriverSha256": "d5865a2f589efa348e9d4501f9f3f7956e63a40693a382fd1ac67a4cedf5f9b9",
+  "Cases": [
+    {
+      "Material": "acryl_blue",
+      "Configuration": "colour_strength",
+      "Exported": false,
+      "Stats": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 228.54195512998038,
+          "TrainingNormalizedRms": 0.0006859750484517511,
+          "ValidationNormalizedRms": 0.02737359112461394,
+          "ValidationMaximumAbsoluteError": 0.0008323460837081492,
+          "ValidationMaximumRelativeError": 8.911360675555487,
+          "Passed": false
+        }
+      ],
+      "CalibrationSha256": null
+    },
+    {
+      "Material": "mystique",
+      "Configuration": "colour_strength",
+      "Exported": true,
+      "Stats": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 12378.974992913758,
+          "TrainingNormalizedRms": 7.976868642362442E-05,
+          "ValidationNormalizedRms": 0.009740334917349621,
+          "ValidationMaximumAbsoluteError": 0.001587510880991131,
+          "ValidationMaximumRelativeError": 10.958658167314493,
+          "Passed": true
+        }
+      ],
+      "CalibrationSha256": "1151b7e2575a8f56fa3e4885a5c30186620188c717f62dd7d281c6f226fdc49e"
+    },
+    {
+      "Material": "cayman",
+      "Configuration": "colour_strength",
+      "Exported": false,
+      "Stats": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 7825.951274526894,
+          "TrainingNormalizedRms": 4.7203254355118485E-05,
+          "ValidationNormalizedRms": 0.013653007969550338,
+          "ValidationMaximumAbsoluteError": 0.00238758953712484,
+          "ValidationMaximumRelativeError": 12.205907043141528,
+          "Passed": false
+        }
+      ],
+      "CalibrationSha256": null
+    },
+    {
+      "Material": "acryl_blue",
+      "Configuration": "log_xyz",
+      "Exported": false,
+      "Stats": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 228.54195512998038,
+          "TrainingNormalizedRms": 0.00374091571796085,
+          "ValidationNormalizedRms": 0.867501117463314,
+          "ValidationMaximumAbsoluteError": 0.023974968690525747,
+          "ValidationMaximumRelativeError": 61.52923086173907,
+          "Passed": false
+        }
+      ],
+      "CalibrationSha256": null
+    },
+    {
+      "Material": "mystique",
+      "Configuration": "log_xyz",
+      "Exported": false,
+      "Stats": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 12378.974992913758,
+          "TrainingNormalizedRms": 1.9072768955006906E-06,
+          "ValidationNormalizedRms": 0.13917866624424943,
+          "ValidationMaximumAbsoluteError": 0.04379847623765876,
+          "ValidationMaximumRelativeError": 18.134682889119162,
+          "Passed": false
+        }
+      ],
+      "CalibrationSha256": null
+    },
+    {
+      "Material": "cayman",
+      "Configuration": "log_xyz",
+      "Exported": true,
+      "Stats": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 7825.951274526894,
+          "TrainingNormalizedRms": 1.2346270489424733E-05,
+          "ValidationNormalizedRms": 0.009661154710760322,
+          "ValidationMaximumAbsoluteError": 0.0006819473943357225,
+          "ValidationMaximumRelativeError": 8.587848460552674,
+          "Passed": true
+        }
+      ],
+      "CalibrationSha256": "b9693b922e13249f1981746ef44d7f50ac05c17bba02cf032cc81a2681cd9488"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1991628e-e217-419f-93a5-7aff3d8da1e4" name="allen@DESKTOP-SET3SNR 2026-11-01 19:30:02" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T19:30:02.9209341+08:00" queuing="2026-11-01T19:30:02.9209345+08:00" start="2026-11-01T19:30:00.3137745+08:00" finish="2026-11-01T19:30:02.9261714+08:00" />
+  <TestSettings name="default" id="70b5eac0-0e5d-4354-899c-8c7f10f63f24">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_19_30_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7f04c546-19c4-46db-aea6-2e08484ee32e" testId="674ddf02-0ca7-9bbf-a227-344191c72610" testName="OpticalSystemDesign.Tests.NonSequentialDocumentTests.SequentialConversionPreservesCementedGlassGroupAsSharedInterfaces" computerName="DESKTOP-SET3SNR" duration="00:00:00.0831461" startTime="2026-11-01T19:30:02.7565632+08:00" endTime="2026-11-01T19:30:02.8283255+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f04c546-19c4-46db-aea6-2e08484ee32e" />
+    <UnitTestResult executionId="6cc4a8e9-f1a7-489c-9386-87affa7b85fb" testId="e7de97e5-c302-1687-d926-6412682e917d" testName="OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource" computerName="DESKTOP-SET3SNR" duration="00:00:00.5572300" startTime="2026-11-01T19:30:02.1955387+08:00" endTime="2026-11-01T19:30:02.7449449+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6cc4a8e9-f1a7-489c-9386-87affa7b85fb">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组 S1→S2 界面顺序、机械边缘或相邻介质不连续。中心间隔=3.2589600000000001 mm，边缘间隔=0.82097124163512802 mm，介质=SK16→Air。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.OpticalAssemblyParameters..ctor(IReadOnlyList`1 interfaces)&#xD;
+   at OpticalSystemDesign.Core.NonSequential.SequentialOpticalAssemblyConverter.Convert(Optic optic, NonSequentialTraceSettings settings)&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.&lt;ConvertFromSequential&gt;b__13_0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs:line 208&#xD;
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.&lt;&gt;c__DisplayClass39_0`1.&lt;MutateTransactional&gt;b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 323&#xD;
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.&lt;&gt;c__DisplayClass38_0.&lt;MutateTransactional&gt;b__0() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 269&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ExecuteTransactionalEdit(Action action) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs:line 201&#xD;
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 266&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 308&#xD;
+   at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action, CancellationToken automaticSemiDiameterCancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs:line 319&#xD;
+   at OpticalSystemDesign.Application.Services.WorkbenchServiceBase.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchServiceBase.cs:line 42&#xD;
+   at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.ConvertFromSequential() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs:line 203&#xD;
+   at OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialDocumentTests.cs:line 322&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDocumentTests.SequentialConversionPreservesCementedGlassGroupAsSharedInterfaces" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="674ddf02-0ca7-9bbf-a227-344191c72610">
+      <Execution id="7f04c546-19c4-46db-aea6-2e08484ee32e" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDocumentTests" name="SequentialConversionPreservesCementedGlassGroupAsSharedInterfaces" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="e7de97e5-c302-1687-d926-6412682e917d">
+      <Execution id="6cc4a8e9-f1a7-489c-9386-87affa7b85fb" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDocumentTests" name="ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="674ddf02-0ca7-9bbf-a227-344191c72610" executionId="7f04c546-19c4-46db-aea6-2e08484ee32e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7de97e5-c302-1687-d926-6412682e917d" executionId="6cc4a8e9-f1a7-489c-9386-87affa7b85fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.35]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.45]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.48]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.07]       System.IO.InvalidDataException : 复合镜组 S1→S2 界面顺序、机械边缘或相邻介质不连续。中心间隔=3.2589600000000001 mm，边缘间隔=0.82097124163512802 mm，介质=SK16→Air。&#xD;
+[xUnit.net 00:00:02.07]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.07]            at OpticalSystemDesign.Core.NonSequential.OpticalAssemblyParameters..ctor(IReadOnlyList`1 interfaces)&#xD;
+[xUnit.net 00:00:02.07]            at OpticalSystemDesign.Core.NonSequential.SequentialOpticalAssemblyConverter.Convert(Optic optic, NonSequentialTraceSettings settings)&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs(208,0): at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.&lt;ConvertFromSequential&gt;b__13_0()&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs(323,0): at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.&lt;&gt;c__DisplayClass39_0`1.&lt;MutateTransactional&gt;b__0()&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs(269,0): at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.&lt;&gt;c__DisplayClass38_0.&lt;MutateTransactional&gt;b__0()&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs(201,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ExecuteTransactionalEdit(Action action)&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs(266,0): at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters)&#xD;
+[xUnit.net 00:00:02.07]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs(308,0): at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional(WorkspaceChangeCategory category, Action action, CancellationToken automaticSemiDiameterCancellationToken, Action rollbackState, Boolean refreshAutomaticSemiDiameters)&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkspaceCoordinator.cs(319,0): at OpticalSystemDesign.Application.Services.WorkspaceCoordinator.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action, CancellationToken automaticSemiDiameterCancellationToken)&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchServiceBase.cs(42,0): at OpticalSystemDesign.Application.Services.WorkbenchServiceBase.MutateTransactional[T](WorkspaceChangeCategory category, Func`1 action)&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialDocumentService.cs(203,0): at OpticalSystemDesign.Application.Services.NonSequentialDocumentService.ConvertFromSequential()&#xD;
+[xUnit.net 00:00:02.07]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialDocumentTests.cs(322,0): at OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource()&#xD;
+[xUnit.net 00:00:02.07]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.07]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.16]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T19:30:02.7470086+08:00">
+        <Text>[xUnit.net 00:00:02.07]     OpticalSystemDesign.Tests.NonSequentialDocumentTests.ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a4de6d50-02e0-429e-9981-b9701c6256e6" name="allen@DESKTOP-SET3SNR 2026-11-01 13:51:44" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T13:51:44.2379155+08:00" queuing="2026-11-01T13:51:44.2379158+08:00" start="2026-11-01T13:50:01.5025212+08:00" finish="2026-11-01T13:51:44.2424869+08:00" />
+  <TestSettings name="default" id="9d127c99-b2a3-41db-8429-9f8dd0c8a6fb">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_13_51_44" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="fa98a91b-e6cd-4e13-9309-9b5b0103871b" testId="4a587c99-1abb-9d8e-16a7-7d1719533183" testName="ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork" computerName="DESKTOP-SET3SNR" duration="00:01:40.6723755" startTime="2026-11-01T13:50:03.4430474+08:00" endTime="2026-11-01T13:51:44.1286241+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fa98a91b-e6cd-4e13-9309-9b5b0103871b">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains more than one element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowMoreThanOneElementException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)&#xD;
+   at ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork() in D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs:line 15&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork" storage="d:\projects\opticalsystem\tools\diagnostics\initialproductm3620261101\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="4a587c99-1abb-9d8e-16a7-7d1719533183">
+      <Execution id="fa98a91b-e6cd-4e13-9309-9b5b0103871b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ProductReportTests" name="OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4a587c99-1abb-9d8e-16a7-7d1719533183" executionId="fa98a91b-e6cd-4e13-9309-9b5b0103871b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.29]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.33]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.35]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:01:41.06]       System.InvalidOperationException : Sequence contains more than one element&#xD;
+[xUnit.net 00:01:41.06]       Stack Trace:&#xD;
+[xUnit.net 00:01:41.06]            at System.Linq.ThrowHelper.ThrowMoreThanOneElementException()&#xD;
+[xUnit.net 00:01:41.06]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)&#xD;
+[xUnit.net 00:01:41.06]         D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs(15,0): at ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork()&#xD;
+[xUnit.net 00:01:41.06]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:41.07]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:51:44.1311673+08:00">
+        <Text>[xUnit.net 00:01:41.06]     ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

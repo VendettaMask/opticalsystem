@@ -1,0 +1,183 @@
+{
+  "SchemaVersion": 1,
+  "Id": "37c901a8-28af-4294-927c-ceb0346c8598",
+  "Name": "new-blue-single",
+  "Target": {
+    "Kind": "NarrowBand",
+    "CenterNm": 450,
+    "MinimumNm": 382.5,
+    "MaximumNm": 517.5,
+    "Reflectance": 0.02,
+    "MaximumLayers": 39,
+    "AngleDegrees": 0,
+    "Polarization": "S",
+    "FwhmNm": 15.750000000000002,
+    "PeakTransmittance": 0.75,
+    "BlockingOd": 1,
+    "StopBands": [
+      {
+        "MinimumNm": 396,
+        "MaximumNm": 414
+      },
+      {
+        "MinimumNm": 486.00000000000006,
+        "MaximumNm": 504.00000000000006
+      }
+    ],
+    "CenterToleranceNm": 0.45,
+    "FwhmToleranceNm": 1.35,
+    "Structure": {
+      "Cavities": 1
+    }
+  },
+  "Settings": {
+    "PreviewIntervals": 400,
+    "OptimizationIntervals": 120,
+    "MaximumIterations": 48,
+    "Optimizer": "Damped Least Squares",
+    "MinimumThicknessNm": 0.9,
+    "MaximumThicknessNm": 900,
+    "TolerancePercent": 1,
+    "ToleranceTrials": 20,
+    "RandomSeed": 1234,
+    "DesignProtocolVersion": 4
+  },
+  "IncidentId": "incident",
+  "SubstrateId": "substrate",
+  "LowId": "low",
+  "HighId": "high",
+  "Materials": [
+    {
+      "Id": "incident",
+      "Name": "incident",
+      "Source": "Frozen synthetic cross-specification control, not measured material data",
+      "MinimumNm": 225,
+      "MaximumNm": 900,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "incident"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "substrate",
+      "Name": "substrate",
+      "Source": "Frozen synthetic cross-specification control, not measured material data",
+      "MinimumNm": 225,
+      "MaximumNm": 900,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.52,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "substrate"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "low",
+      "Name": "low",
+      "Source": "Frozen synthetic cross-specification control, not measured material data",
+      "MinimumNm": 225,
+      "MaximumNm": 900,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.38,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "low"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "high",
+      "Name": "high",
+      "Source": "Frozen synthetic cross-specification control, not measured material data",
+      "MinimumNm": 225,
+      "MaximumNm": 900,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 2.3,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "high"
+        },
+        "Children": null
+      }
+    }
+  ],
+  "Layers": [
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 48.913043478260875,
+      "Variable": true
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 81.5217391304348,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 48.913043478260875,
+      "Variable": true
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 81.5217391304348,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 48.913043478260875,
+      "Variable": true
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 163.0434782608696,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 48.913043478260875,
+      "Variable": true
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 81.5217391304348,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 48.913043478260875,
+      "Variable": true
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 81.5217391304348,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 48.913043478260875,
+      "Variable": true
+    }
+  ],
+  "Result": null,
+  "Candidates": null,
+  "Tolerance": null
+}

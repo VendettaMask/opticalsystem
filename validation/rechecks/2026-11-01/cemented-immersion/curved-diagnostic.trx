@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a7742e95-29fb-4e8d-9b4a-a854e655416d" name="allen@DESKTOP-SET3SNR 2026-11-01 19:11:13" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T19:11:13.7545158+08:00" queuing="2026-11-01T19:11:13.7545165+08:00" start="2026-11-01T19:11:10.6477671+08:00" finish="2026-11-01T19:11:13.7860166+08:00" />
+  <TestSettings name="default" id="2c6aa125-fe69-491b-b92d-eb89e605400c">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_19_11_13" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0c02383a-a79e-474a-a144-ca919a809663" testId="701582a0-0eb5-360b-2e44-cf857c3e5015" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5778130" startTime="2026-11-01T19:11:12.9168946+08:00" endTime="2026-11-01T19:11:13.4895948+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0c02383a-a79e-474a-a144-ca919a809663">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=3.9982340389004132, current=Glass 0, expected=Glass 1</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 309&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Boolean immersed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 69&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="361040a7-70ca-4f3e-9fdf-dcd77d34c40b" testId="7be7a9ac-4b34-4e92-c1e6-681dbaba8847" testName="OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0011656" startTime="2026-11-01T19:11:13.5008237+08:00" endTime="2026-11-01T19:11:13.5008995+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="361040a7-70ca-4f3e-9fdf-dcd77d34c40b">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=3.997542098783804, current=Glass 0, expected=Glass 1</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs:line 309&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 39&#xD;
+   at OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Boolean immersed) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs:line 69&#xD;
+   at InvokeStub_OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: True)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="701582a0-0eb5-360b-2e44-cf857c3e5015">
+      <Execution id="0c02383a-a79e-474a-a144-ca919a809663" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: False)" storage="c:\users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\opticalsystemdesign.tests.dll" id="7be7a9ac-4b34-4e92-c1e6-681dbaba8847">
+      <Execution id="361040a7-70ca-4f3e-9fdf-dcd77d34c40b" />
+      <TestMethod codeBase="C:\Users\19851\.codex\visualizations\2026\10\31\01a19047-3b40-7d12-9041-a6ae0a92356a\cemented-immersion\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.OpticalAssemblyTests" name="CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="701582a0-0eb5-360b-2e44-cf857c3e5015" executionId="0c02383a-a79e-474a-a144-ca919a809663" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7be7a9ac-4b34-4e92-c1e6-681dbaba8847" executionId="361040a7-70ca-4f3e-9fdf-dcd77d34c40b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.57]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.80]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.84]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.46]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=3.9982340389004132, current=Glass 0, expected=Glass 1&#xD;
+[xUnit.net 00:00:02.46]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.46]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(309,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:02.46]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:02.46]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(69,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Boolean immersed)&#xD;
+[xUnit.net 00:00:02.46]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.46]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.47]       System.IO.InvalidDataException : 复合镜组入射介质与当前光线介质不一致；不能跳过介质边界。face=2, distance=3.997542098783804, current=Glass 0, expected=Glass 1&#xD;
+[xUnit.net 00:00:02.47]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.47]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialTracingEngine.cs(309,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocumentTracer.Trace(NonSequentialDocument document, MaterialRegistry materials, NonSequentialDocumentTraceRequest request, INonSequentialTraceSink sink)&#xD;
+[xUnit.net 00:00:02.47]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(39,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.Trace(Optic optic, NonSequentialDocument scene, RealRay ray, NonSequentialSplittingMode mode, Int32 segments)&#xD;
+[xUnit.net 00:00:02.47]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalAssemblyTests.cs(69,0): at OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Boolean immersed)&#xD;
+[xUnit.net 00:00:02.47]            at InvokeStub_OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.47]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.47]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T19:11:13.4921707+08:00">
+        <Text>[xUnit.net 00:00:02.46]     OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T19:11:13.5015754+08:00">
+        <Text>[xUnit.net 00:00:02.47]     OpticalSystemDesign.Tests.OpticalAssemblyTests.CurvedMainPathMatchesSharedSequentialIntersectionsDirectionsAndOpticalPath(immersed: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

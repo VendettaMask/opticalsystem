@@ -1,0 +1,11 @@
+param([switch] $BeforeSeal)
+$ErrorActionPreference='Stop'
+$bsdfRepo=(Resolve-Path (Join-Path $PSScriptRoot '..\..\..\..')).Path
+$bsdfDocs=@('docs/XYZ_LOG_RECONSTRUCTION_2026-11-01.md','docs/CURRENT_STATUS.md','docs/STAROPT_FILE_FORMAT.md','docs/FILE_FORMATS_AND_PLUGINS.md','docs/CAMERA_IMAGING_LAB.md','docs/NON_SEQUENTIAL_TRACING.md','docs/NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md','docs/NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md','docs/NUMERICAL_PARITY.md','docs/README.md','docs/XYZ_MEASURED_ANGULAR_2026-11-01.md','docs/XYZ_KNOWN_CONDITIONS_2026-11-01.md','validation/rechecks/2026-11-01/xyz-reconstruction/README.md')
+$bsdfBroken=@();$bsdfPending=0
+foreach($bsdfRelative in $bsdfDocs){$bsdfPath=Join-Path $bsdfRepo $bsdfRelative;$bsdfText=Get-Content -LiteralPath $bsdfPath -Raw;$bsdfText=[regex]::Replace($bsdfText,'(?s)```.*?```|`[^`\r\n]*`','');foreach($bsdfMatch in [regex]::Matches($bsdfText,'\]\(([^)]+)\)')){$bsdfLink=$bsdfMatch.Groups[1].Value;if($bsdfLink -match '^(https?://|#|mailto:)' -or $bsdfLink -match ' '){continue};$bsdfTarget=($bsdfLink -split '#')[0];if($bsdfTarget -and -not(Test-Path -LiteralPath (Join-Path ([IO.Path]::GetDirectoryName($bsdfPath)) $bsdfTarget))){if($BeforeSeal -and $bsdfRelative -eq 'validation/rechecks/2026-11-01/xyz-reconstruction/README.md' -and $bsdfTarget -eq 'evidence-manifest.json'){$bsdfPending++;continue};$bsdfBroken+="$bsdfRelative -> $bsdfLink"}}}
+if($bsdfBroken.Count){throw ($bsdfBroken -join "`n")}
+$bsdfFormat=Get-Content -LiteralPath (Join-Path $bsdfRepo 'docs/STAROPT_FILE_FORMAT.md') -Raw
+if($bsdfFormat -notmatch '最大 19' -or $bsdfFormat -notmatch 'v1–19' -or $bsdfFormat -match '当前工程负载最大版本为 17'){throw 'Stale format version.'}
+if(-not(Test-Path (Join-Path $PSScriptRoot 'evidence-manifest.json'))){[ordered]@{DocumentsChecked=$bsdfDocs.Count;BrokenLinks=$bsdfBroken;ExpectedSealManifestLinksPending=$bsdfPending;CurrentContainerVersion=2;MaximumProjectVersion=19;SequentialSnapshotVersion=6} | ConvertTo-Json | Set-Content (Join-Path $PSScriptRoot 'documentation-check.json') -Encoding utf8}
+Write-Output "Checked $($bsdfDocs.Count) maintained documents; broken links: $($bsdfBroken.Count); expected seal links pending: $bsdfPending."

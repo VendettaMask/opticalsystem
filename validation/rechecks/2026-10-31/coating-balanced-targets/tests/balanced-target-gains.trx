@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2fe5db30-c6ac-4a31-9bef-cc458a462889" name="allen@DESKTOP-SET3SNR 2026-10-31 12:35:54" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T12:35:54.4621339+08:00" queuing="2026-10-31T12:35:54.4621343+08:00" start="2026-10-31T12:35:50.3180013+08:00" finish="2026-10-31T12:36:01.4263671+08:00" />
+  <TestSettings name="default" id="8f09d934-904e-400c-a1ab-4a80f0430abd">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_12_35_54" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3b0f1cea-9f3f-45a9-a7fd-1f175f846c62" testId="02e1cf3c-d808-a9db-e8b4-d5a915db9da1" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: &quot;continued-single-24&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:03.5860714" startTime="2026-10-31T12:35:50.8445140+08:00" endTime="2026-10-31T12:35:54.4374497+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b0f1cea-9f3f-45a9-a7fd-1f175f846c62" />
+    <UnitTestResult executionId="090c3378-5d65-499d-9fcf-74eafcbabb31" testId="9ccf1aa0-fb23-870f-538e-4c2badbf810a" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: &quot;real-nbf2-96&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:06.9304116" startTime="2026-10-31T12:35:54.4503133+08:00" endTime="2026-10-31T12:36:01.3687594+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="090c3378-5d65-499d-9fcf-74eafcbabb31" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: &quot;real-nbf2-96&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="9ccf1aa0-fb23-870f-538e-4c2badbf810a">
+      <Execution id="090c3378-5d65-499d-9fcf-74eafcbabb31" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests" name="FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests.FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(name: &quot;continued-single-24&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="02e1cf3c-d808-a9db-e8b4-d5a915db9da1">
+      <Execution id="3b0f1cea-9f3f-45a9-a7fd-1f175f846c62" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetBalancingTests" name="FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="02e1cf3c-d808-a9db-e8b4-d5a915db9da1" executionId="3b0f1cea-9f3f-45a9-a7fd-1f175f846c62" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ccf1aa0-fb23-870f-538e-4c2badbf810a" executionId="090c3378-5d65-499d-9fcf-74eafcbabb31" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.07]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.13]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.15]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:10.70]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

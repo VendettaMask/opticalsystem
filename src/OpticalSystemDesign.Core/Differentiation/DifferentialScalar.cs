@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace OpticalSystemDesign.Core.Differentiation;
 
 /// <summary>Forward automatic differentiation, with immutable values and tangent vectors.</summary>
@@ -38,7 +40,19 @@ public readonly partial struct DifferentialScalar
         var dimension = Math.Max(a.Dimension, b.Dimension);
         if (dimension == 0) return value;
         var gradient = new double[dimension];
-        for (var index = 0; index < dimension; index++) gradient[index] = da * a.Derivative(index) + db * b.Derivative(index);
+        var index = 0;
+        if (Vector.IsHardwareAccelerated && dimension >= Vector<double>.Count)
+        {
+            var leftScale = new Vector<double>(da); var rightScale = new Vector<double>(db);
+            for (; index <= dimension - Vector<double>.Count; index += Vector<double>.Count)
+            {
+                var left = a._gradient is null ? Vector<double>.Zero : new Vector<double>(a._gradient, index);
+                var right = b._gradient is null ? Vector<double>.Zero : new Vector<double>(b._gradient, index);
+                // Separate multiply/add, matching the scalar chain-rule order; no FMA or reduced precision.
+                Vector.Add(Vector.Multiply(leftScale, left), Vector.Multiply(rightScale, right)).CopyTo(gradient, index);
+            }
+        }
+        for (; index < dimension; index++) gradient[index] = da * a.Derivative(index) + db * b.Derivative(index);
         return new(value, gradient);
     }
 

@@ -1,0 +1,16 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.71]     OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds [FAIL]
+  失败 OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds [142 ms]
+  错误消息:
+   System.IO.InvalidDataException : 商业 BSDF 展开后节点超过 131072；不自动降采样。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.ConvertBlocks(List`1 blocks, Boolean fixedAxes, BsdfImportSides sides) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 247
+   at OpticalSystemDesign.Core.Scattering.SpeosBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token, Boolean allowProjected, Boolean compactSpectra) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 167
+   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\BsdfFileImporter.cs:line 41
+   at OpticalSystemDesign.Tests.SpeosV11XyzTests.PublicGaussianV11TextIsDecodedOrRejectedOnlyForDeclaredBounds() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11XyzTests.cs:line 119
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\speos-v11-xyz\development-unit2.trx
+
+失败!  - 失败:     1，通过:    10，已跳过:     0，总计:    11，持续时间: 5 s - OpticalSystemDesign.Tests.dll (net10.0)

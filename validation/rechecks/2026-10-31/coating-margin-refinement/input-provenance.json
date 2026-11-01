@@ -1,0 +1,390 @@
+{
+  "existingCases": 47,
+  "newCases": 8,
+  "records": [
+    {
+      "name": "new-real-nbf-green",
+      "source": "real-nbf2-96",
+      "inputSha256": "14cbf824d141157ea82ce696687d50a77d8e48199d25165f8bc7e765ef86c763",
+      "sourceSha256": "b506aaa8f690d4aa00f141cc2fc2d0efdb9be3f627f14ef3937a94372b6982a0",
+      "materialSnapshotsUnchanged": true,
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 500,
+        "MinimumNm": 436.3636363636364,
+        "MaximumNm": 563.6363636363636,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 5,
+        "Polarization": "S",
+        "FwhmNm": 13.636363636363637,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 445.45454545454544,
+            "MaximumNm": 463.6363636363636
+          },
+          {
+            "MinimumNm": 536.3636363636364,
+            "MaximumNm": 554.5454545454545
+          }
+        ],
+        "CenterToleranceNm": 0.45454545454545453,
+        "FwhmToleranceNm": 0.9090909090909091,
+        "Structure": {
+          "Cavities": 2
+        }
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 1.8033555524063996,
+        "MaximumThicknessNm": 1818.691098178533,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "generation": "Same n/k snapshots; Shared Core characteristic phase units map initial thicknesses. New wavelength, angle, polarization and declared fixed films; matching bounds frozen before optimizer outputs."
+    },
+    {
+      "name": "new-real-nbf-red",
+      "source": "real-nbf1-96",
+      "inputSha256": "82fd23e9fbfd1a659f72e8a5811fd0a9a019e71b2e924df5552aca263884538c",
+      "sourceSha256": "707f60ccdbfb2b13f6c74c231713b4732d9f19ad2060ab662db6de4f0b701e30",
+      "materialSnapshotsUnchanged": true,
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 650,
+        "MinimumNm": 567.2727272727273,
+        "MaximumNm": 732.7272727272727,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 12,
+        "Polarization": "P",
+        "FwhmNm": 17.727272727272727,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 579.0909090909091,
+            "MaximumNm": 602.7272727272727
+          },
+          {
+            "MinimumNm": 697.2727272727273,
+            "MaximumNm": 720.909090909091
+          }
+        ],
+        "CenterToleranceNm": 0.5909090909090909,
+        "FwhmToleranceNm": 1.1818181818181819
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 2.3925963717988408,
+        "MaximumThicknessNm": 2403.2065601463296,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "generation": "Same n/k snapshots; Shared Core characteristic phase units map initial thicknesses. New wavelength, angle, polarization and declared fixed films; matching bounds frozen before optimizer outputs."
+    },
+    {
+      "name": "new-real-nbf-nearir-fixed",
+      "source": "real-nbf2-96",
+      "inputSha256": "a7a4df9f8871af57f5e4ec66b3d852de0f3ab7cbcab99ad9585a311d69b0dd87",
+      "sourceSha256": "b506aaa8f690d4aa00f141cc2fc2d0efdb9be3f627f14ef3937a94372b6982a0",
+      "materialSnapshotsUnchanged": true,
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 900,
+        "MinimumNm": 785.4545454545455,
+        "MaximumNm": 1014.5454545454546,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 23,
+        "Polarization": "Unpolarized",
+        "FwhmNm": 24.545454545454547,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 801.8181818181819,
+            "MaximumNm": 834.5454545454546
+          },
+          {
+            "MinimumNm": 965.4545454545455,
+            "MaximumNm": 998.1818181818182
+          }
+        ],
+        "CenterToleranceNm": 0.8181818181818182,
+        "FwhmToleranceNm": 1.6363636363636365,
+        "Structure": {
+          "Cavities": 2
+        }
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 3.411377992252909,
+        "MaximumThicknessNm": 3415.9136402335644,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "generation": "Same n/k snapshots; Shared Core characteristic phase units map initial thicknesses. New wavelength, angle, polarization and declared fixed films; matching bounds frozen before optimizer outputs."
+    },
+    {
+      "name": "new-real-nbf-ir",
+      "source": "real-nbf1-96",
+      "inputSha256": "20bf6208f17f26bee8eb170153033f285af72f50954f06b7ebee064a2a89ea0a",
+      "sourceSha256": "707f60ccdbfb2b13f6c74c231713b4732d9f19ad2060ab662db6de4f0b701e30",
+      "materialSnapshotsUnchanged": true,
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 1300,
+        "MinimumNm": 1134.5454545454545,
+        "MaximumNm": 1465.4545454545455,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 31,
+        "Polarization": "S",
+        "FwhmNm": 35.45454545454545,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 1158.1818181818182,
+            "MaximumNm": 1205.4545454545455
+          },
+          {
+            "MinimumNm": 1394.5454545454545,
+            "MaximumNm": 1441.818181818182
+          }
+        ],
+        "CenterToleranceNm": 1.1818181818181819,
+        "FwhmToleranceNm": 2.3636363636363638
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 5.041512076701222,
+        "MaximumThicknessNm": 5081.650416474006,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "generation": "Same n/k snapshots; Shared Core characteristic phase units map initial thicknesses. New wavelength, angle, polarization and declared fixed films; matching bounds frozen before optimizer outputs."
+    },
+    {
+      "name": "new-real-hr-green",
+      "source": "real-hr-96",
+      "inputSha256": "706beac4f23db2f30c32e8253412b7c5a4594864847df6e89c3dafb997cceea6",
+      "sourceSha256": "b8cc4568c43c43af6d11963fc98a55fe4b3815a0b5680e589545d31429f260f7",
+      "materialSnapshotsUnchanged": true,
+      "target": {
+        "Kind": "HighReflector",
+        "CenterNm": 520,
+        "MinimumNm": 491.6363636363636,
+        "MaximumNm": 548.3636363636364,
+        "Reflectance": 0.98,
+        "MaximumLayers": 32,
+        "AngleDegrees": 10,
+        "Polarization": "S",
+        "FwhmNm": 14.181818181818182,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": null,
+        "CenterToleranceNm": 0.4727272727272727,
+        "FwhmToleranceNm": 0.9454545454545454
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 1.8876018184511125,
+        "MaximumThicknessNm": 1902.6965156798592,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "generation": "Same n/k snapshots; Shared Core characteristic phase units map initial thicknesses. New wavelength, angle, polarization and declared fixed films; matching bounds frozen before optimizer outputs."
+    },
+    {
+      "name": "new-real-hr-ir-fixed",
+      "source": "holdout-real-hr-red",
+      "inputSha256": "fb2c0f48d71a5fe7adf9d4c5253df9825e2f18a30ccc442afdf9dc95ba43fcdf",
+      "sourceSha256": "1635acc6474810f6df87cb8bff42f1da8837892c898b33e7203cc886cec05ba9",
+      "materialSnapshotsUnchanged": true,
+      "target": {
+        "Kind": "HighReflector",
+        "CenterNm": 1100,
+        "MinimumNm": 1034,
+        "MaximumNm": 1166,
+        "Reflectance": 0.98,
+        "MaximumLayers": 32,
+        "AngleDegrees": 27,
+        "Polarization": "P",
+        "FwhmNm": 26.066350710900473,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": null,
+        "CenterToleranceNm": 0.8688783570300158,
+        "FwhmToleranceNm": 1.7377567140600316
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 3.536622069651862,
+        "MaximumThicknessNm": 3568.1521806684973,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "generation": "Same n/k snapshots; Shared Core characteristic phase units map initial thicknesses. New wavelength, angle, polarization and declared fixed films; matching bounds frozen before optimizer outputs."
+    },
+    {
+      "name": "new-synthetic-green",
+      "source": "fresh-blue-fixed",
+      "inputSha256": "39d09d3df235588d066cd932155bad028853dc21f31771ecc3d4cd76c35e5ce6",
+      "sourceSha256": "3f89174ed1c1deb56938b707f4b7494518a4fc63f09ff0f5fe01a1a457eb1c58",
+      "materialSnapshotsUnchanged": true,
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 530,
+        "MinimumNm": 445.2,
+        "MaximumNm": 614.8,
+        "Reflectance": 0.02,
+        "MaximumLayers": 64,
+        "AngleDegrees": 19,
+        "Polarization": "Unpolarized",
+        "FwhmNm": 13.25,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 455.79999999999995,
+            "MaximumNm": 482.3
+          },
+          {
+            "MinimumNm": 572.4,
+            "MaximumNm": 604.1999999999999
+          }
+        ],
+        "CenterToleranceNm": 0.53,
+        "FwhmToleranceNm": 1.59,
+        "Structure": {
+          "Cavities": 1
+        }
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 1.0499873625447311,
+        "MaximumThicknessNm": 1056.0762573096226,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "DesignProtocolVersion": 4
+      },
+      "generation": "Same n/k snapshots; Shared Core characteristic phase units map initial thicknesses. New wavelength, angle, polarization and declared fixed films; matching bounds frozen before optimizer outputs."
+    },
+    {
+      "name": "new-synthetic-ir-fixed",
+      "source": "fresh-nearir-double",
+      "inputSha256": "c95c4cd1d0a9f6aa7fc992f1e02bb5b542a3d5de1427263ab3e2441c3f3bd6ae",
+      "sourceSha256": "101ec041d099ee23adec8e4f66b6d30e4cb9f936255d6ea9caa5e4b516aa0b61",
+      "materialSnapshotsUnchanged": true,
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 1480,
+        "MinimumNm": 1243.1999999999998,
+        "MaximumNm": 1716.7999999999997,
+        "Reflectance": 0.02,
+        "MaximumLayers": 64,
+        "AngleDegrees": 33,
+        "Polarization": "P",
+        "FwhmNm": 37,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 1272.8,
+            "MaximumNm": 1346.8
+          },
+          {
+            "MinimumNm": 1598.4,
+            "MaximumNm": 1687.1999999999998
+          }
+        ],
+        "CenterToleranceNm": 1.48,
+        "FwhmToleranceNm": 4.44,
+        "Structure": {
+          "Cavities": 2
+        }
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 2.9472187905684444,
+        "MaximumThicknessNm": 2954.9595457185987,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "DesignProtocolVersion": 4
+      },
+      "generation": "Same n/k snapshots; Shared Core characteristic phase units map initial thicknesses. New wavelength, angle, polarization and declared fixed films; matching bounds frozen before optimizer outputs."
+    }
+  ]
+}

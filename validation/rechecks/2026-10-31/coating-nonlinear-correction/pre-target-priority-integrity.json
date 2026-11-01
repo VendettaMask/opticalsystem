@@ -1,0 +1,487 @@
+{
+  "beforeSource": [
+    {
+      "file": "DesignService.Balanced.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.FeasibleReflectance.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.FeasibleTargets.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.GeneralMatching.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.GeneralObjective.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.GeneralSearch.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.NarrowBand.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.PassbandQuality.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.ReflectanceQuality.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.Search.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.SearchSampling.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.TargetProtection.cs",
+      "unchanged": true
+    },
+    {
+      "file": "Examples.cs",
+      "unchanged": true
+    },
+    {
+      "file": "Experiment.cs",
+      "unchanged": true
+    },
+    {
+      "file": "ExperimentSession.cs",
+      "unchanged": true
+    },
+    {
+      "file": "ExperimentStore.cs",
+      "unchanged": true
+    },
+    {
+      "file": "MaterialLibrary.cs",
+      "unchanged": true
+    },
+    {
+      "file": "MaterialSuitability.cs",
+      "unchanged": true
+    },
+    {
+      "file": "MaterialTable.cs",
+      "unchanged": true
+    }
+  ],
+  "controlSource": [
+    {
+      "file": "DesignService.Balanced.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.FeasibleReflectance.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.FeasibleTargets.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.GeneralMatching.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.GeneralObjective.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.GeneralSearch.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.NarrowBand.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.PassbandQuality.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.ReflectanceQuality.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.Search.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.SearchSampling.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.TargetProtection.cs",
+      "unchanged": true
+    },
+    {
+      "file": "Examples.cs",
+      "unchanged": true
+    },
+    {
+      "file": "Experiment.cs",
+      "unchanged": true
+    },
+    {
+      "file": "ExperimentSession.cs",
+      "unchanged": true
+    },
+    {
+      "file": "ExperimentStore.cs",
+      "unchanged": true
+    },
+    {
+      "file": "MaterialLibrary.cs",
+      "unchanged": true
+    },
+    {
+      "file": "MaterialSuitability.cs",
+      "unchanged": true
+    },
+    {
+      "file": "MaterialTable.cs",
+      "unchanged": true
+    }
+  ],
+  "gates": [
+    {
+      "name": "private static bool Converged",
+      "unchanged": true
+    },
+    {
+      "name": "private static RequirementCheck[] Checks",
+      "unchanged": true
+    }
+  ],
+  "physics": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/AdaptiveThinFilmSpectrum.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoatingLayerParameters.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoatingModels.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentMultilayerCoating.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/FresnelPower.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmBandSensitivity.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmPeakRefinement.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmThicknessSensitivity.cs",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Data/films.json",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialLibrary.cs",
+      "unchanged": true
+    }
+  ],
+  "originalInputs": [
+    {
+      "file": "ar-blue.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "ar-ir.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "ar-nearir.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "continued-double-96.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "continued-hr-96.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "continued-single-24.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "fixed-films.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "fresh-blue-fixed.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "fresh-ir-double.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "fresh-nearir-double.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "fresh-real-hr-nearir.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "fresh-real-hr-red.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "fresh-telecom-single.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-ar-oblique.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-ar-red.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-ar-wide.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-hr-oblique.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-hr-red.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-hr-wide.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-ir.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-real-hr-nearir.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-real-hr-red.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-red-fixed.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-telecom.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-violet.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "hr-green.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "hr-ir.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "hr-nearir.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "ir-absorbing-s.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "near-ir-oblique-p.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-blue-single.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-fixed-double.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-ir-double.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-nearir-single.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-oblique-single.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-real-hr-green.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-real-hr-ir-fixed.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-real-nbf-green.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-real-nbf-ir.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-real-nbf-nearir-fixed.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-real-nbf-red.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-red-double.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-synthetic-green.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "new-synthetic-ir-fixed.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "prior-double-96.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "prior-single-24.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "real-ar-polished.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "real-ar-threshold.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "real-hr-96.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "real-hr-original-target.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "real-narrowband-control.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "real-nbf1-96.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "real-nbf2-96.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "red-low-contrast.coating.json",
+      "unchanged": true
+    },
+    {
+      "file": "visible-low-loss.coating.json",
+      "unchanged": true
+    }
+  ],
+  "binaries": [
+    {
+      "name": "OpticalSystemDesign.Core",
+      "baseline": "01138d71eeb016a5ebd17c9f97f7607f329f0794b9d45d237542e34fcd4a58e7",
+      "control": "01138d71eeb016a5ebd17c9f97f7607f329f0794b9d45d237542e34fcd4a58e7",
+      "after": "01138d71eeb016a5ebd17c9f97f7607f329f0794b9d45d237542e34fcd4a58e7",
+      "test": "01138d71eeb016a5ebd17c9f97f7607f329f0794b9d45d237542e34fcd4a58e7"
+    },
+    {
+      "name": "OpticalSystemDesign.Application",
+      "baseline": "aeb1c6d219ee3adbd9ed8b9bd9be43e5432c432ae808df2b52ffdc1e57a7d3f4",
+      "control": "aeb1c6d219ee3adbd9ed8b9bd9be43e5432c432ae808df2b52ffdc1e57a7d3f4",
+      "after": "aeb1c6d219ee3adbd9ed8b9bd9be43e5432c432ae808df2b52ffdc1e57a7d3f4",
+      "test": "aeb1c6d219ee3adbd9ed8b9bd9be43e5432c432ae808df2b52ffdc1e57a7d3f4"
+    },
+    {
+      "name": "OpticalSystemDesign.CoatingDesign.Engine",
+      "baseline": "f64a63a25f965d3f3511a2ddc6d4186417316b4bb23ebc009b23022c867e975e",
+      "control": "f567bbd715066ca4c8d6450dc944a7d4b93634debffaa5391270932ae7c4d13c",
+      "after": "8d386cca4d8189fc470ff230c646fc1859a3c48740e814b92a176419571d74ed",
+      "test": "8d386cca4d8189fc470ff230c646fc1859a3c48740e814b92a176419571d74ed"
+    }
+  ],
+  "referenceSources": [
+    {
+      "path": "src/utils/physics/optimizer/lsqEngine.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/physics/optimizer/boundedStep.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/optimizers/newton.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/optimizers/sqp.js",
+      "unchanged": true
+    }
+  ],
+  "referenceIntegrity": true,
+  "passed": true
+}

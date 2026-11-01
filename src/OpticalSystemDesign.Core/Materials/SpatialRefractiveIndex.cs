@@ -9,7 +9,7 @@ public readonly record struct SpatialIndexSample(double Index, Vector3D Gradient
 public sealed class SpatialIndexDomainException(string message) : InvalidOperationException(message);
 
 /// <summary>
-/// A continuously differentiable index field, not a homogeneous IMaterial.
+/// A (possibly piecewise) differentiable index field, not a homogeneous IMaterial.
 /// Implementations must be immutable and return a positive finite index.
 /// </summary>
 public interface ISpatialRefractiveIndex

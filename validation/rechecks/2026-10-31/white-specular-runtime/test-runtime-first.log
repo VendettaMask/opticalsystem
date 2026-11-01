@@ -1,0 +1,35 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:01.62]     OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(wavelength: 400) [FAIL]
+[xUnit.net 00:00:01.76]     OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(wavelength: 550) [FAIL]
+[xUnit.net 00:00:01.90]     OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(wavelength: 700) [FAIL]
+  失败 OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(wavelength: 400) [292 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 2.0000000000000001E-09)
+Actual: 4.5235638568286163E-09
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(Double wavelength) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CommercialBsdfRuntimeGapTests.cs:line 54
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(wavelength: 550) [142 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 2.0000000000000001E-09)
+Actual: 4.5243147006601703E-09
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(Double wavelength) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CommercialBsdfRuntimeGapTests.cs:line 54
+   at InvokeStub_CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(wavelength: 700) [133 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 2.0000000000000001E-09)
+Actual: 4.5258576331086431E-09
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(Double wavelength) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CommercialBsdfRuntimeGapTests.cs:line 54
+   at InvokeStub_CommercialBsdfRuntimeGapTests.FrozenWhiteSamplingHasConsistentPowerAndProbability(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\white-specular-runtime\runtime-first.trx
+
+失败!  - 失败:     3，通过:     2，已跳过:     0，总计:     5，持续时间: 596 ms - OpticalSystemDesign.Tests.dll (net10.0)

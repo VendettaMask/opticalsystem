@@ -38,8 +38,13 @@ public sealed record SequentialSurfaceRecord(
 
 public sealed record SequentialLensDocument(string Name, IReadOnlyList<SequentialSurfaceRecord> Surfaces)
 {
-    public static SequentialLensDocument FromOptic(Optic optic)
+    public static SequentialLensDocument FromOptic(Optic optic, bool retainExtendedGeometry = false)
     {
+        if (!retainExtendedGeometry && optic.SurfaceGroup.Items.Any(surface =>
+                surface.Geometry is Geometries.TiltedPlaneGeometry or Geometries.FringeSagGeometry or Geometries.ChebyshevSagGeometry or Geometries.TernaryMirrorArrayGeometry or Geometries.IrregularGeometry or Geometries.GridSagGeometry or Geometries.ConcentricZoneGeometry
+                    || surface.InteractionModel is Interactions.ParaxialLensInteractionModel or Interactions.RuledGratingInteractionModel or Interactions.DiffractivePhaseInteractionModel or Interactions.BirefringentInteractionModel
+                    || surface.MaterialAfter is Materials.UniaxialMaterial || surface.MaterialBefore is Materials.UniaxialMaterial))
+            throw new NotSupportedException("此文本格式尚未映射该面的完整几何；请保存 STAROPT 或 ZMX，避免丢失斜率和多项式系数。");
         if (optic.SurfaceGroup.Items.Any(surface => surface.MaterialAfter is Materials.GradientIndexMaterial
             || surface.MaterialBefore is Materials.GradientIndexMaterial))
             throw new NotSupportedException("GRIN 分布的外部处方映射尚未核实；请保存 STAROPT，避免丢失空间折射率。");
@@ -286,7 +291,8 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
         var glassCatalogs = optic.GlassCatalogs
             .Concat(optic.SurfaceGroup.Items
-                .Select(surface => surface.MaterialAfter)
+                .SelectMany(surface => surface.MaterialAfter is Materials.UniaxialMaterial crystal
+                    ? new[] { crystal.Ordinary, crystal.Extraordinary } : new[] { surface.MaterialAfter })
                 .OfType<Materials.CatalogGlassMaterial>()
                 .Select(material => material.Manufacturer))
             .Distinct(StringComparer.OrdinalIgnoreCase)
@@ -305,11 +311,18 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         var primaryIndex = optic.Wavelengths.ToList().FindIndex(wavelength => wavelength.IsPrimary);
         lines.Add($"PWAV {Math.Max(0, primaryIndex) + 1}");
 
-        foreach (var surface in SequentialLensDocument.FromOptic(optic).Surfaces)
+        foreach (var surface in SequentialLensDocument.FromOptic(optic, retainExtendedGeometry: true).Surfaces)
         {
             var opticSurface = optic.SurfaceGroup.Items[surface.Number];
             lines.Add($"SURF {surface.Number}");
-            lines.Add($"  TYPE {SurfaceType(opticSurface.Geometry)}");
+            lines.Add($"  TYPE {(opticSurface.InteractionModel is Interactions.ParaxialLensInteractionModel { } ideal ? ideal.PowerX == ideal.PowerY ? "PARAXIAL" : "PARAX_XY"
+                : opticSurface.InteractionModel is Interactions.BirefringentInteractionModel crystalInterface ? crystalInterface.IsExit ? "BIRE_OUT" : "BIRE__IN"
+                : opticSurface.InteractionModel is Interactions.RuledGratingInteractionModel ? "DGRATING"
+                : opticSurface.InteractionModel is Interactions.DiffractivePhaseInteractionModel { Profile: Phase.NormalizedRadialPhaseProfile } ? "BINARY_2"
+                : opticSurface.InteractionModel is Interactions.DiffractivePhaseInteractionModel { Profile: Phase.DualZoneRadialPhaseProfile } ? "BINARY_3"
+                : opticSurface.InteractionModel is Interactions.DiffractivePhaseInteractionModel { Profile: Phase.TwoPointHologramPhaseProfile } ? "HOLOGRM2"
+                : opticSurface.InteractionModel is Interactions.DiffractivePhaseInteractionModel ? throw new NotSupportedException("此相位模型的 ZMX 参数尚未映射。")
+                : SurfaceType(opticSurface.Geometry))}");
             lines.Add($"  COMM {surface.Label}");
             lines.Add($"  CURV {FormatDouble(RadiusToCurvature(surface.Radius))}");
             lines.Add($"  DISZ {FormatDistance(surface.Thickness)}");
@@ -326,7 +339,75 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
                 $"{opticSurface.MechanicalSemiDiameterSolveCode} 0 0 1 \"\"");
             lines.Add($"  CONI {FormatDouble(surface.Conic)}");
             WriteSurfaceAperture(lines, opticSurface);
-            WriteSurfaceParameters(lines, opticSurface.Geometry);
+            WriteSurfaceParameters(lines, opticSurface.Geometry, opticSurface.SemiDiameter);
+            if (opticSurface.MaterialAfter is Materials.UniaxialMaterial && opticSurface.InteractionModel is not Interactions.BirefringentInteractionModel { IsExit: false })
+                throw new NotSupportedException("Crystal material requires a declared entry surface for ZMX export.");
+            if (opticSurface.InteractionModel is Interactions.BirefringentInteractionModel birefringent)
+            {
+                if (opticSurface.Geometry is not (Geometries.PlaneGeometry or Geometries.StandardGeometry))
+                    throw new NotSupportedException("Only standard crystal substrate shapes have been verified.");
+                lines.Add("  PARM 6 0");
+                if (!birefringent.IsExit)
+                {
+                    if (opticSurface.MaterialAfter is not Materials.UniaxialMaterial crystal) throw new NotSupportedException("Missing crystal material.");
+                    lines.Add($"  PARM 0 {FormatDouble(birefringent.AxisDisplayLength)}");
+                    lines.Add($"  PARM 1 {(crystal.TraceExtraordinary ? 1 : 0)}");
+                    lines.Add($"  PARM 2 {FormatDouble(crystal.Axis.X)}"); lines.Add($"  PARM 3 {FormatDouble(crystal.Axis.Y)}");
+                    lines.Add($"  PARM 4 {FormatDouble(crystal.Axis.Z)}"); lines.Add($"  PARM 5 {(crystal.ParaxialIgnore ? 1 : 0)}");
+                    lines.Add("  XDAT 1 0");
+                }
+            }
+            if (opticSurface.InteractionModel is Interactions.ParaxialLensInteractionModel lens)
+            {
+                if (opticSurface.Geometry is not Geometries.PlaneGeometry)
+                    throw new NotSupportedException("近轴作用只能导出为平面。");
+                if (lens.PowerX == lens.PowerY)
+                {
+                    lines.Add($"  PARM 1 {FormatDouble(lens.PowerX == 0 ? 0 : 1 / lens.PowerX)}");
+                    lines.Add($"  PARM 2 {lens.OpdMode}");
+                }
+                else
+                {
+                    lines.Add($"  PARM 1 {FormatDouble(lens.PowerX)}");
+                    lines.Add($"  PARM 2 {FormatDouble(lens.PowerY)}");
+                }
+            }
+            if (opticSurface.InteractionModel is Interactions.RuledGratingInteractionModel grating)
+            {
+                if (opticSurface.Geometry is not (Geometries.PlaneGeometry or Geometries.StandardGeometry))
+                    throw new NotSupportedException("刻槽光栅只能无损导出平面或圆锥基底。");
+                lines.Add($"  PARM 1 {FormatDouble(grating.LinesPerMicrometer)}");
+                lines.Add($"  PARM 2 {grating.Order}");
+            }
+            if (opticSurface.InteractionModel is Interactions.DiffractivePhaseInteractionModel { Profile: Phase.NormalizedRadialPhaseProfile binary })
+            {
+                if (opticSurface.Geometry is not Geometries.EvenAsphereGeometry)
+                    throw new NotSupportedException("Binary 2 只能导出偶次非球面基底。");
+                lines.Add($"  PARM 0 {binary.Order}");
+                lines.Add($"  XDAT 1 {binary.Coefficients.Count}");
+                lines.Add($"  XDAT 2 {FormatDouble(binary.NormalizationRadius)}");
+                for (var i = 0; i < binary.Coefficients.Count; i++) lines.Add($"  XDAT {i + 3} {FormatDouble(binary.Coefficients[i])}");
+            }
+            if (opticSurface.InteractionModel is Interactions.DiffractivePhaseInteractionModel { Profile: Phase.TwoPointHologramPhaseProfile hologram })
+            {
+                if (opticSurface.Geometry is not Geometries.PlaneGeometry) throw new NotSupportedException("全息 2 的曲面构建规则尚未验证。");
+                var values = new[] { hologram.First.X, hologram.First.Y, hologram.First.Z, hologram.Second.X, hologram.Second.Y,
+                    hologram.Second.Z, hologram.ConstructionWavelengthNanometers / 1000, hologram.Order };
+                for (var i = 0; i < values.Length; i++) lines.Add($"  PARM {i + 1} {FormatDouble(values[i])}");
+            }
+            if (opticSurface.InteractionModel is Interactions.DiffractivePhaseInteractionModel { Profile: Phase.DualZoneRadialPhaseProfile dual })
+            {
+                if (opticSurface.Geometry is not Geometries.ConcentricZoneGeometry zones || zones.BoundaryRadius != dual.Inner.NormalizationRadius)
+                    throw new NotSupportedException("Binary 3 requires matching geometry and phase boundaries.");
+                var values = new[] { zones.Outer.Base.Radius, zones.Outer.Base.Conic, zones.BoundaryRadius, dual.Outer.NormalizationRadius,
+                    dual.Inner.Order, dual.Outer.Order, Math.Sin(dual.PhaseOffset), zones.BreakSag ? 1d : 0 };
+                for (var i = 0; i < values.Length; i++) lines.Add($"  PARM {i + 1} {FormatDouble(values[i])}");
+                var count = new[] { zones.Inner.Coefficients.Count, zones.Outer.Coefficients.Count, dual.Inner.Coefficients.Count, dual.Outer.Coefficients.Count }.Max();
+                lines.Add($"  XDAT 1 {count}");
+                var coefficients = new[] { zones.Inner.Coefficients, dual.Inner.Coefficients, zones.Outer.Coefficients, dual.Outer.Coefficients };
+                for (var i = 0; i < count; i++) for (var j = 0; j < 4; j++)
+                    lines.Add($"  XDAT {2 + 4 * i + j} {FormatDouble(i < coefficients[j].Count ? coefficients[j][i] : 0)}");
+            }
             if (surface.IsStop)
             {
                 lines.Add("  STOP");
@@ -370,6 +451,13 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
     private static string SurfaceType(Geometries.IGeometry geometry) => geometry switch
     {
         Geometries.PlaneGeometry => "STANDARD",
+        Geometries.TiltedPlaneGeometry => "TILTSURF",
+        Geometries.IrregularGeometry => "IRREGULA",
+        Geometries.GridSagGeometry => "GRID_SAG",
+        Geometries.ConcentricZoneGeometry => throw new NotSupportedException("Two-zone export requires a matching Binary 3 phase interaction."),
+        Geometries.FringeSagGeometry => "FZERNSAG",
+        Geometries.ChebyshevSagGeometry => "CHEBYSHV",
+        Geometries.TernaryMirrorArrayGeometry => "USERSURF US_MEMS.DLL",
         Geometries.StandardGeometry => "STANDARD",
         Geometries.EvenAsphereGeometry => "EVENASPH",
         Geometries.OddAsphereGeometry => "ODDASPHE",
@@ -393,17 +481,62 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         {
             lines.Add($"  FLAP 0 {FormatDouble(ZemaxSemiDiameter(surface))} 0");
         }
-        if (surface.PhysicalAperture is AnnularAperture annular
-            && annular.InnerRadius > 1e-12)
+        if (surface.PhysicalAperture is AnnularAperture annular)
         {
+            lines.Add($"  CLAP {FormatDouble(annular.InnerRadius)} {FormatDouble(annular.OuterRadius)} 0");
             lines.Add($"  APMN {FormatDouble(annular.InnerRadius)}");
         }
     }
 
-    private static void WriteSurfaceParameters(List<string> lines, Geometries.IGeometry geometry)
+    private static void WriteSurfaceParameters(List<string> lines, Geometries.IGeometry geometry, double semiDiameter)
     {
         switch (geometry)
         {
+            case Geometries.TernaryMirrorArrayGeometry array:
+                WriteCoefficients(lines, [array.PixelsX, array.PixelsY, array.WidthX, array.WidthY,
+                    array.TiltRadians[0] * 180 / Math.PI, array.TiltRadians[1] * 180 / Math.PI,
+                    array.TiltRadians[2] * 180 / Math.PI, array.AzimuthRadians * 180 / Math.PI], 1);
+                lines.Add($"  XDAT 1 {array.AddressingMode}");
+                for (var i = 0; i < array.PackedStates.Count; i++) lines.Add($"  XDAT {i + 2} {array.PackedStates[i]}");
+                break;
+            case Geometries.ChebyshevSagGeometry cheb:
+                lines.Add($"  PARM 1 {cheb.MaximumXOrder}"); lines.Add($"  PARM 2 {cheb.MaximumYOrder}");
+                lines.Add($"  PARM 3 {FormatDouble(cheb.NormalizationX)}"); lines.Add($"  PARM 4 {FormatDouble(cheb.NormalizationY)}");
+                for (var i = 0; i < cheb.NormalizedCoefficients.Count; i++)
+                    lines.Add($"  XDAT {i + 1} {FormatDouble(cheb.NormalizedCoefficients[i])}");
+                break;
+            case Geometries.FringeSagGeometry fringe:
+                lines.Add($"  PARM 0 {(fringe.Extrapolate ? 1 : 0)}");
+                WriteCoefficients(lines, fringe.Base.Coefficients, 1);
+                lines.Add($"  PARM 9 {FormatDouble(fringe.DecenterX)}");
+                lines.Add($"  PARM 10 {FormatDouble(fringe.DecenterY)}");
+                lines.Add($"  XDAT 1 {fringe.FringeCoefficients.Count}");
+                lines.Add($"  XDAT 2 {FormatDouble(fringe.NormalizationRadius)}");
+                for (var i = 0; i < fringe.FringeCoefficients.Count; i++)
+                    lines.Add($"  XDAT {i + 3} {FormatDouble(fringe.FringeCoefficients[i])}");
+                break;
+            case Geometries.TiltedPlaneGeometry tilted:
+                lines.Add($"  PARM 1 {FormatDouble(tilted.TangentX)}");
+                lines.Add($"  PARM 2 {FormatDouble(tilted.TangentY)}");
+                break;
+            case Geometries.IrregularGeometry irregular:
+                var scale = semiDiameter / irregular.NormalizationRadius;
+                WriteCoefficients(lines, [irregular.Coordinates.Origin.X, irregular.Coordinates.Origin.Y,
+                    irregular.TiltXDegrees, irregular.TiltYDegrees,
+                    irregular.Spherical * Math.Pow(scale, 4), irregular.Astigmatism * scale * scale,
+                    irregular.Coma * scale * scale * scale, irregular.AngleDegrees], 1);
+                break;
+            case Geometries.GridSagGeometry grid:
+                lines.Add($"  PARM 0 {(grid.Linear ? 1 : 0)}"); WriteCoefficients(lines, grid.Base.Coefficients, 1);
+                lines.Add("  XDAT 1 0"); lines.Add("  XDAT 2 100");
+                lines.Add($"  GDAT {grid.Columns} {grid.Rows} {FormatDouble(grid.SpacingX)} {FormatDouble(grid.SpacingY)} "
+                    + $"{FormatDouble(grid.DecenterX)} {FormatDouble(grid.DecenterY)} {(grid.Linear ? 1 : 0)} 0 0 1");
+                for (var i = 0; i < grid.Points.Count; i++)
+                {
+                    var p = grid.Points[i]; lines.Add($"  GARR {i} {FormatDouble(p.Sag)} {FormatDouble(p.Dx)} {FormatDouble(p.Dy)} "
+                        + $"{FormatDouble(p.Dxy)} {(p.NoData ? 1 : 0)}");
+                }
+                break;
             case Geometries.EvenAsphereGeometry evenAsphere:
                 WriteCoefficients(lines, evenAsphere.Coefficients, startIndex: 1);
                 break;
@@ -435,6 +568,12 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
         return surface.MaterialAfter switch
         {
+            Materials.UniaxialMaterial crystal when crystal.Ordinary is Materials.CatalogGlassMaterial ordinary
+                && crystal.Extraordinary is Materials.CatalogGlassMaterial extraordinary
+                && ordinary.Manufacturer.Equals(extraordinary.Manufacturer, StringComparison.OrdinalIgnoreCase)
+                && extraordinary.CatalogName.Equals(ordinary.CatalogName + "-E", StringComparison.OrdinalIgnoreCase)
+                => $"  GLAS {ordinary.CatalogName}",
+            Materials.UniaxialMaterial => throw new NotSupportedException("Crystal ZMX export requires the exact paired ordinary/extraordinary catalog records; save STAROPT for custom curves."),
             Materials.AirMaterial => "  GLAS AIR",
             Materials.CatalogGlassMaterial catalog => $"  GLAS {catalog.CatalogName}",
             Materials.AbbeMaterial abbe =>

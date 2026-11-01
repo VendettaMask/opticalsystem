@@ -1,0 +1,241 @@
+{
+  "plan": {
+    "seeds": [
+      {
+        "schemaVersion": 1,
+        "algorithm": "AutonomousTopologyV1",
+        "name": "SPC existing authored singlet",
+        "conjugate": "infinite",
+        "reference": {
+          "id": "reference",
+          "zMillimeters": 0
+        },
+        "stop": {
+          "id": "stop",
+          "zMillimeters": 1,
+          "clearSemiDiameterMillimeters": 2,
+          "mechanicalSemiDiameterMillimeters": null
+        },
+        "image": {
+          "id": "image",
+          "zMillimeters": 55,
+          "protected": true
+        },
+        "elements": [
+          {
+            "id": "crown",
+            "frontSurfaceId": "front",
+            "backSurfaceId": "back",
+            "frontZMillimeters": 3,
+            "thicknessMillimeters": 3,
+            "material": "N-BK7",
+            "front": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": 0.025,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 5,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "back": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": -0.03333333333333333,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 5,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "protected": false,
+            "transition": false
+          }
+        ],
+        "fields": [
+          {
+            "label": "Axis",
+            "xAngleDegrees": 0,
+            "yAngleDegrees": 0,
+            "weight": 1
+          },
+          {
+            "label": "Edge",
+            "xAngleDegrees": 0,
+            "yAngleDegrees": 3,
+            "weight": 1
+          }
+        ],
+        "wavelengths": [
+          {
+            "label": "F",
+            "nanometers": 486.1,
+            "weight": 1,
+            "isPrimary": false
+          },
+          {
+            "label": "d",
+            "nanometers": 587.6,
+            "weight": 1,
+            "isPrimary": true
+          },
+          {
+            "label": "C",
+            "nanometers": 656.3,
+            "weight": 1,
+            "isPrimary": false
+          }
+        ],
+        "glassCatalogs": [],
+        "rayAimingEnabled": true,
+        "matchRefractiveIndexData": true,
+        "temperatureCelsius": 20,
+        "pressureAtmospheres": 1
+      }
+    ],
+    "targets": {
+      "effectiveFocalLengthMillimeters": 50,
+      "fNumber": 12.5,
+      "focalLengthRelativeTolerance": 0.02,
+      "fNumberRelativeTolerance": 0.02,
+      "maximumRmsRadiusMillimeters": 0.05,
+      "maximumSpotRadiusMillimeters": 0.15,
+      "maximumDistortionFraction": 0.03,
+      "minimumValidRayFraction": 0.98,
+      "minimumEdgeThicknessMillimeters": 0.1,
+      "minimumEdgeAirGapMillimeters": 0.01,
+      "maximumOpticalTrackMillimeters": 10000,
+      "maximumAbsoluteSurfaceSlope": 10
+    },
+    "constraints": {
+      "minimumElementCount": 1,
+      "maximumElementCount": 8,
+      "minimumCenterThicknessMillimeters": 0.1,
+      "minimumAirGapMillimeters": 0.05,
+      "minimumBackFocusMillimeters": 0.1,
+      "maximumMechanicalTrackMillimeters": 10000,
+      "allowTransitionElements": false,
+      "allowedGlassNames": []
+    },
+    "options": {
+      "expansion": {
+        "enableInsertion": true,
+        "enableDeletion": true,
+        "enableGradualDeletion": true,
+        "enableSplit": true,
+        "enableMerge": true,
+        "enableMaterial": true,
+        "enableProfile": true,
+        "materialAlternatives": [
+          "N-BK7",
+          "N-F2"
+        ],
+        "deletionScales": [
+          0.7,
+          0.4,
+          0.2,
+          0.1,
+          0.02
+        ],
+        "directDeletionRecoveryMaximumFunctionEvaluations": null,
+        "splitAirGapMillimeters": 0.05,
+        "splitFirstFraction": 0.55,
+        "maximumEvenPower": 8,
+        "maximumAbsoluteConic": 2,
+        "coefficientCoordinateSagMillimeters": 0.02
+      },
+      "maximumTrials": 32,
+      "candidatesPerElementCount": 4,
+      "branchesPerParent": 6,
+      "maximumFunctionEvaluations": 10000,
+      "maximumGradientEvaluations": 2000,
+      "maximumTracedRays": 10000000,
+      "maximumStageTracedRays": 2000000,
+      "finalValidationRayReserve": 200000,
+      "timeLimit": "00:30:00",
+      "seed": 44,
+      "curvatureBoundPerMillimeter": 0.08,
+      "insertionMaterials": [
+        "N-BK7",
+        "N-F2"
+      ],
+      "recovery": {
+        "maximumAcceptedSteps": 30,
+        "maximumFunctionEvaluations": 400,
+        "timeLimit": "00:01:00",
+        "aScale": 0.01,
+        "focalCScale": 0.01,
+        "aTolerance": 0.0001,
+        "focalCTolerance": 0.0001,
+        "minimumChangeWeight": 1E-06,
+        "relativeDifferenceStep": 6.055454452393343E-06,
+        "relativeRankTolerance": 1E-08,
+        "profileRadialSamples": 64
+      },
+      "local": {
+        "gateCompensationVersion": 4,
+        "maximumUpdates": 80,
+        "maximumFunctionEvaluations": 82,
+        "maximumGradientEvaluations": 81,
+        "timeLimit": "00:05:00",
+        "learningRate": 0.01,
+        "computeMode": "cpu",
+        "sampling": {
+          "includeBoundaryClearance": true,
+          "includeBoundaryMaximum": true,
+          "fieldsPerDirection": 3,
+          "pupilRings": 2,
+          "pupilArms": 8,
+          "profileRadialSamples": 64
+        },
+        "performFinalAssessment": false
+      },
+      "full": {
+        "maximumUpdates": 160,
+        "maximumFunctionEvaluations": 161,
+        "maximumGradientEvaluations": 161,
+        "timeLimit": "00:05:00",
+        "learningRate": 0.01,
+        "computeMode": "cpu",
+        "sampling": {
+          "fieldsPerDirection": 3,
+          "pupilRings": 3,
+          "pupilArms": 12,
+          "profileRadialSamples": 64
+        },
+        "performFinalAssessment": false
+      }
+    }
+  },
+  "budget": {
+    "version": 1,
+    "maximumStarts": 12,
+    "retainedSeeds": 4,
+    "maximumFunctionEvaluations": 600,
+    "maximumEvaluationsPerStart": 40,
+    "timeLimit": "00:02:00",
+    "maximumTracedRays": 2000000,
+    "focusATolerance": 0.001
+  },
+  "policy": {
+    "version": 1,
+    "maximumParents": 1,
+    "maximumGradientEvaluations": 600,
+    "parentIterations": 80,
+    "branchIterations": 40,
+    "physicalUpdatesPerStage": 12,
+    "maximumMaterialAlternatives": 2,
+    "gradientTolerance": 1E-07,
+    "curvatureDifferenceStep": 0.001,
+    "branchCoordinateStep": 0.05,
+    "thicknessMultipliers": [
+      1,
+      2,
+      4
+    ]
+  },
+  "control": true
+}

@@ -1,0 +1,686 @@
+{
+  "CapturedUtc": "2026-10-31T15:29:13.1828329+00:00",
+  "BaseCommit": "3b43bb7f87270e034218bf466b23f885330814fc",
+  "Binaries": [
+    {
+      "Path": "tools/diagnostics/SpeosIsolatedCapture20261031/bin/Release/net10.0/SpeosIsolatedCapture20261031.dll",
+      "Sha256": "f2655297870313cc00a5f83c5f6f0eaa899fdbb765518d6587ec3823903efdce",
+      "Bytes": 98816,
+      "LastWriteUtc": "2026-10-31T15:22:58.7921492Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/bin/Release/net10.0/CommercialBsdf20261031.dll",
+      "Sha256": "a105388c4d3d4b441b84e6b6558a51c9fb5c1d34aaa6dd606431bf495d68fcf7",
+      "Bytes": 100352,
+      "LastWriteUtc": "2026-10-31T15:25:06.3211224Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "a5f8218b102967aff1f7f850ccc1d34a909275dacf6b1715ff00762ff55d6317",
+      "Bytes": 6517248,
+      "LastWriteUtc": "2026-10-31T15:21:19.6488834Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+      "Sha256": "e7b326e8c4d3e77e58b033aa934904ca11816e38c08b3f3a90ffdc4118cf6397",
+      "Bytes": 1566208,
+      "LastWriteUtc": "2026-10-31T15:21:23.0849813Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+      "Sha256": "e7b326e8c4d3e77e58b033aa934904ca11816e38c08b3f3a90ffdc4118cf6397",
+      "Bytes": 1566208,
+      "LastWriteUtc": "2026-10-31T15:21:23.0849813Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+      "Sha256": "e7b326e8c4d3e77e58b033aa934904ca11816e38c08b3f3a90ffdc4118cf6397",
+      "Bytes": 1566208,
+      "LastWriteUtc": "2026-10-31T15:21:23.0849813Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "a5f8218b102967aff1f7f850ccc1d34a909275dacf6b1715ff00762ff55d6317",
+      "Bytes": 6517248,
+      "LastWriteUtc": "2026-10-31T15:21:19.6488834Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "a5f8218b102967aff1f7f850ccc1d34a909275dacf6b1715ff00762ff55d6317",
+      "Bytes": 6517248,
+      "LastWriteUtc": "2026-10-31T15:21:19.6488834Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "a5f8218b102967aff1f7f850ccc1d34a909275dacf6b1715ff00762ff55d6317",
+      "Bytes": 6517248,
+      "LastWriteUtc": "2026-10-31T15:21:19.6488834Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "d8182045648a56f9edad640f92119c974c22ff7244ad5ad219b7b1c60a6cdaf6",
+      "Bytes": 71474176,
+      "LastWriteUtc": "2026-10-31T15:21:33.6415270Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "d8182045648a56f9edad640f92119c974c22ff7244ad5ad219b7b1c60a6cdaf6",
+      "Bytes": 71474176,
+      "LastWriteUtc": "2026-10-31T15:21:33.6415270Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll",
+      "Sha256": "dbc1d8ecc5447aa26e95b2d6147906f6dafdf2759b45104875e3d988a98238af",
+      "Bytes": 4720128,
+      "LastWriteUtc": "2026-10-31T15:26:02.6766234Z"
+    }
+  ],
+  "ScopedSources": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.NonSequential.cs",
+      "Sha256": "4a4f44d7ab8aa7da3f7f7de167052c5c07e450a8487430ee18ef31e26da07ae4",
+      "Bytes": 9596,
+      "LastWriteUtc": "2026-10-31T15:07:27.2257509Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "Sha256": "4ef683114a7927d30924802dce1f61c2186fd97c47d49edd26919e8cc5414f1d",
+      "Bytes": 44131,
+      "LastWriteUtc": "2026-10-31T09:39:09.7448300Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "Sha256": "88d732609aae507a6c5a1c894ad9de61c4f670a3f8ef6912b39b41dc44071110",
+      "Bytes": 45849,
+      "LastWriteUtc": "2026-10-31T06:27:54.1515558Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.CameraNonSequential.cs",
+      "Sha256": "90b25069c170b963e9759625b16fa1f981482b89ef6f2e4451dac79c4e52f3d2",
+      "Bytes": 12457,
+      "LastWriteUtc": "2026-10-31T09:39:09.9480240Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/CameraNonSequentialContracts.cs",
+      "Sha256": "b60818e62af991497a41fb3933c6f47f989e28da21b24c90b5ea7bb7ba59ac1c",
+      "Bytes": 2112,
+      "LastWriteUtc": "2026-10-31T07:04:27.2339902Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "Sha256": "7dffc201475afa0dc569d90729450ee25a24e96a109c0d556a61449dea2e9471",
+      "Bytes": 11953,
+      "LastWriteUtc": "2026-10-31T07:04:26.7143565Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "Sha256": "2e01f5bcee2318898e9c7c08f6bce8be38f678864abe657c08e3ec4e4b071930",
+      "Bytes": 54554,
+      "LastWriteUtc": "2026-10-31T09:30:33.5134795Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/CameraImagingService.NonSequential.cs",
+      "Sha256": "8114bbfc4f04bc24a413b7834409dfecffa5f260465bc39bf7dd1d62608db88a",
+      "Bytes": 13349,
+      "LastWriteUtc": "2026-10-31T15:07:27.2247516Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.Camera.cs",
+      "Sha256": "f00f4ec8b52b0d74c8efc0f7cf06ffabc0de4a69a60825fe3fdafbd3064453a0",
+      "Bytes": 8515,
+      "LastWriteUtc": "2026-10-31T07:04:27.3967696Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialBsdfMapper.cs",
+      "Sha256": "a1c8c9dd823d2a73a2b5b5e6f27a396671c2dde0b1f423cbc6ec3a5de926708a",
+      "Bytes": 2983,
+      "LastWriteUtc": "2026-10-31T09:30:42.5479208Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.cs",
+      "Sha256": "842573d2911f12afbd11db3cfbee5faa9d47f8d4a6f0347261c97af12307dd70",
+      "Bytes": 38360,
+      "LastWriteUtc": "2026-10-31T09:26:01.5487512Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialVisualizationBuilder.cs",
+      "Sha256": "5bc66cc641afb0d68fc26a762175a611a754a7cf0bf8ff98e851116c5969ed08",
+      "Bytes": 19132,
+      "LastWriteUtc": "2026-10-31T06:27:53.9186077Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Interactions/IInteractionModel.cs",
+      "Sha256": "3d383aa16b2a7510cdac807ee11c15aa6ebebd53a764276f50f8c0533d003342",
+      "Bytes": 1337,
+      "LastWriteUtc": "2026-10-31T14:42:17.4022503Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDocument.cs",
+      "Sha256": "ee6af2d02a7d6b32bf144e56908c62de9b76a516033ba6eed82fcebae4ab3f16",
+      "Bytes": 48985,
+      "LastWriteUtc": "2026-10-31T09:26:02.6492324Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialPathFilter.cs",
+      "Sha256": "ccc4c06dcf4c6850a0644a5bc48938711d505c0d2a9aa2f2b2b24e1fc8eadfe8",
+      "Bytes": 19309,
+      "LastWriteUtc": "2026-10-31T06:27:53.4222111Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "Sha256": "a1ea8d7f565329fa672499d9a821b5c41ec8b3f0bac705ff4094f1a2a07ac887",
+      "Bytes": 31977,
+      "LastWriteUtc": "2026-10-31T15:07:27.2207490Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialSurfaceBsdf.cs",
+      "Sha256": "7a20af1db29f0b9f354eac9ffa67316347976b9b2af9dbcb3555528089aa66ab",
+      "Bytes": 4193,
+      "LastWriteUtc": "2026-10-31T15:07:23.5276674Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "Sha256": "1c62dd8b24877fb329d3a70c73c2c14d0615a25426d27707d35bb1b54ec719e0",
+      "Bytes": 71455,
+      "LastWriteUtc": "2026-10-31T09:26:06.1192096Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/Bsdf.cs",
+      "Sha256": "f8bc528d4ff0a5c35e3890241851fe002c89d162509f68894ef4e28f5d87dbd4",
+      "Bytes": 5064,
+      "LastWriteUtc": "2026-10-31T07:47:08.2740729Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/BsdfFileImporter.cs",
+      "Sha256": "b3d0902b56b2c91c979197039a977f8fe10dfaa6db73715a24b4e75b2960c22e",
+      "Bytes": 27199,
+      "LastWriteUtc": "2026-10-31T15:20:50.0880185Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/BsdfReferenceComparer.cs",
+      "Sha256": "77f9178df41bda74b0c7a7e266c04584a46f237c906e62dfde45963d50b52bb6",
+      "Bytes": 6135,
+      "LastWriteUtc": "2026-10-31T10:05:39.1013201Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/MeasuredBsdf.cs",
+      "Sha256": "c510e76008b4c7457ad3b60507f19762ee695caa78e841546ad09adb5c0f0a4d",
+      "Bytes": 15163,
+      "LastWriteUtc": "2026-10-31T09:30:26.2011056Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/MeasuredBsdfData.cs",
+      "Sha256": "cc2cfb0a65c2d0ada2d05415d65bb41a840045fc92eb9bf36d1faa360db20965",
+      "Bytes": 11635,
+      "LastWriteUtc": "2026-10-31T15:03:46.2410058Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/SpeosBinaryBsdfReader.cs",
+      "Sha256": "e0747dc01b0576ac617c71bbbce720bd02c0baa7a00e47eaeb7827c8e4b83cf5",
+      "Bytes": 15814,
+      "LastWriteUtc": "2026-10-31T15:20:49.7789758Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/SpeosPeakBsdf.cs",
+      "Sha256": "94fbd1cc2a255fa36afc955c503273ffcd9e79185b291a6fe336418924942641",
+      "Bytes": 12071,
+      "LastWriteUtc": "2026-10-31T09:37:35.3422724Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/SpeosPeakBuilder.cs",
+      "Sha256": "24580b10eb1b68f857d8d75ebe706344f5bb98385e967e7832dc86b47437148e",
+      "Bytes": 7645,
+      "LastWriteUtc": "2026-10-31T15:19:05.5066862Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/SpeosRuntimeWhiteDistribution.cs",
+      "Sha256": "a6e25b8795bf2665955e2f58f6621301a514c0826ea527151d356ecb60eef228",
+      "Bytes": 2654,
+      "LastWriteUtc": "2026-10-31T15:03:46.4879551Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/SpeosSpectralBsdf.cs",
+      "Sha256": "9704b342375a966cb43dbc773370f3fbae3cdff61764efaddfcc2aa680bb02bb",
+      "Bytes": 8481,
+      "LastWriteUtc": "2026-10-31T15:03:45.9907491Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/SpeosThetaDistribution.cs",
+      "Sha256": "845612c23a3edf983a06d3470d567051a2273eba9f35d54367996eb9f4b174ba",
+      "Bytes": 17395,
+      "LastWriteUtc": "2026-10-31T15:04:13.5248484Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/SpeosThetaSlice.cs",
+      "Sha256": "62b0f8ebe00b4d3bfc4a4df07c46ce776fdcdafdd295b447130cda799adb77c5",
+      "Bytes": 5688,
+      "LastWriteUtc": "2026-10-31T15:20:50.8300985Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/XyzRadiometricCalibrator.cs",
+      "Sha256": "be2089d084360977205978390e12cf395e27b32d66bbee7423b273f3aa3be4ce",
+      "Bytes": 11292,
+      "LastWriteUtc": "2026-10-31T10:04:16.9930248Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/ZemaxBsdf.cs",
+      "Sha256": "1bf39c61b37ddde268824cdd92942a9a7c855790c261e19d026938c6d25a0a08",
+      "Bytes": 20871,
+      "LastWriteUtc": "2026-10-31T08:20:30.7928324Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/ZemaxBsdfReader.cs",
+      "Sha256": "f796a292118e08c8877f96e96e3fc18ca88346a8ff488d78fe77f6f6c66ecbf3",
+      "Bytes": 8928,
+      "LastWriteUtc": "2026-10-31T10:02:31.3613461Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Scattering/ZemaxXyzBsdf.cs",
+      "Sha256": "59e2818bebc45daa67d1ca3d8e17d903e76dbec39011976a078b28b8e91ee98c",
+      "Bytes": 8269,
+      "LastWriteUtc": "2026-10-31T09:57:49.1106386Z"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "Sha256": "135a09365f0df16bfbedf1f62b27a8b9ed9847efa03f218bc7a200f710db1a2a",
+      "Bytes": 25610,
+      "LastWriteUtc": "2026-10-31T15:04:28.1679329Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/BinaryZemaxBsdfChainTests.cs",
+      "Sha256": "1638753101f6a7dc5f88636b081077f11c11273c48226eb4f5cb1fa9fb5ec852",
+      "Bytes": 4752,
+      "LastWriteUtc": "2026-10-31T07:58:18.1846442Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/BinaryZemaxBsdfNscTests.cs",
+      "Sha256": "691a450143303cff80ca5b792e7e4ec92627fffb55f8b90d453314e9737d6a67",
+      "Bytes": 3542,
+      "LastWriteUtc": "2026-10-31T08:01:42.5796408Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/BinaryZemaxBsdfTests.cs",
+      "Sha256": "959b2e61faa5441772ba393cee2120630d45171c90c264ea7d0fad85fb73306e",
+      "Bytes": 17648,
+      "LastWriteUtc": "2026-10-31T08:20:30.9701334Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/BinaryZemaxBsdfWindowTests.cs",
+      "Sha256": "3ad692b646b1e852e71ca5cc92d9ff963a67929bdde9da9340b99ee935696e95",
+      "Bytes": 5057,
+      "LastWriteUtc": "2026-10-31T08:13:19.1007678Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfCalibrationChainTests.cs",
+      "Sha256": "30c0bcf0ed9cd686112c4b52e88fd59204fcd3dc13091791f9a96c2e430c312a",
+      "Bytes": 5490,
+      "LastWriteUtc": "2026-10-31T10:01:32.3825467Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfCalibrationTests.cs",
+      "Sha256": "a096e429ebbbc09d0ef7987544f3f3c79aa7a010caf8e3ec8193ebc301ea5257",
+      "Bytes": 8275,
+      "LastWriteUtc": "2026-10-31T10:05:39.3154634Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfChainTests.cs",
+      "Sha256": "ceee2362964bfd7fcdc21d7d15e0c6e0dc3aea1320b3257dfeee9746f8745408",
+      "Bytes": 5299,
+      "LastWriteUtc": "2026-10-31T07:13:06.2204054Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfNativeTests.cs",
+      "Sha256": "1622b07d20becc9e1afabffe4fe2488e77f33c2b9ce63b2886142204c6bb497c",
+      "Bytes": 9472,
+      "LastWriteUtc": "2026-10-31T15:08:33.8443796Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfNscTests.cs",
+      "Sha256": "237a4420feaeba3309d0001ce466c6fbd4cd98647fe220d6994d492150b0700f",
+      "Bytes": 5271,
+      "LastWriteUtc": "2026-10-31T07:14:09.2699793Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfRuntimeGapTests.cs",
+      "Sha256": "ff0859457556c064336be5f3bb53a53119c1d93a63f47928c6915f0acabd7f1c",
+      "Bytes": 6578,
+      "LastWriteUtc": "2026-10-31T15:24:57.3485257Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfRuntimeWhiteTests.cs",
+      "Sha256": "0fd2d5bd776667b68e2fa379d7132d71606da23093595155a85e998a294cf2ed",
+      "Bytes": 2506,
+      "LastWriteUtc": "2026-10-31T15:21:39.6065052Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfTests.cs",
+      "Sha256": "fb6bd68e4b212ba72e68b8f0b430b055ec802b2077af51ee1282b7e5b198e654",
+      "Bytes": 12982,
+      "LastWriteUtc": "2026-10-31T07:17:13.8950513Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfWindowTests.cs",
+      "Sha256": "5ffe5d75132b26cec417e3f4181f83f9aeda37092f0ca162e34b4faaa40b695f",
+      "Bytes": 5248,
+      "LastWriteUtc": "2026-10-31T07:13:34.2225070Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/camera-lambertian-v9-frozen.zip",
+      "Sha256": "bfc3fd8fe628d1b099ff6c3c8bbb3ca532425e744aa968295252ebba1660c85f",
+      "Bytes": 38097,
+      "LastWriteUtc": "2026-10-31T06:09:57.1027246Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/camera-measured-v9-frozen.zip",
+      "Sha256": "154519aa1f31e732f347e90876d70d4f817a50597755f76eef717834b36a44fa",
+      "Bytes": 39644,
+      "LastWriteUtc": "2026-10-31T06:45:22.6961607Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/camera-projected-grid3-frozen.zip",
+      "Sha256": "d079eee4b49a36b89d52f85b92a2dfefb93df6f815b41fff68ea96f5840a1076",
+      "Bytes": 39854,
+      "LastWriteUtc": "2026-10-31T08:23:03.5384658Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/camera-speos-grid4-frozen.zip",
+      "Sha256": "3d6b38de87c5f812d4fce3e3dd95f5efce742c737b72c370e92a589fd910c837",
+      "Bytes": 68463,
+      "LastWriteUtc": "2026-10-31T09:40:03.6664271Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/camera-speos-grid5-frozen.zip",
+      "Sha256": "b11cb693c1b153c7175f94eb5c6ed97bb10ad844515d3139684772d5b49f8616",
+      "Bytes": 193518,
+      "LastWriteUtc": "2026-10-31T14:55:58.5018979Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/camera-speos-text-grid2-frozen.zip",
+      "Sha256": "a1433305af68cd4ccd8a82af53bb52971e56d4c2612ebb8637bd259312efe657",
+      "Bytes": 60801,
+      "LastWriteUtc": "2026-10-31T07:19:10.6595990Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/camera-xyz-grid4-frozen.zip",
+      "Sha256": "9830bbb731686470ce52518a08da27750fe46bfa853cb9495f6ce48e44ad9486",
+      "Bytes": 74270,
+      "LastWriteUtc": "2026-10-31T09:39:59.4119868Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-gaussian-v11.anisotropicbsdf",
+      "Sha256": "7594faa642b26407735ebe8be3c566cff1831544f79fb14ef969250ebff46ce6",
+      "Bytes": 938281,
+      "LastWriteUtc": "2026-10-31T07:51:17.3273236Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-gaussian-v11.NOTICE.txt",
+      "Sha256": "50aaa7da435d619975931520e28b7fa5e66398d2cb2ed85c5837dd0c8cd03fa0",
+      "Bytes": 1659,
+      "LastWriteUtc": "2026-10-31T09:39:10.6593392Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-energy.json",
+      "Sha256": "c139c8e7d88ff7c58e0cd8932ea221502e85f8e39fb531fdd52996bd6e841c33",
+      "Bytes": 3787,
+      "LastWriteUtc": "2026-10-31T10:10:05.6366296Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-no-white-reference.json",
+      "Sha256": "db1109ce021098b37801d950babe3e6065ec4fea5e611c84cd0c6eb1624d2a58",
+      "Bytes": 246180,
+      "LastWriteUtc": "2026-10-31T10:32:47.6687607Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-no-white.anisotropicbsdf",
+      "Sha256": "873791a0a2243367e886c7a883529749eaf09b96205de1632a42bc81eafe4506",
+      "Bytes": 677,
+      "LastWriteUtc": "2026-10-31T10:30:29.7832130Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-white-runtime-reference.json",
+      "Sha256": "cf57a8c4d986cee3a998bd30512ab7c2b2e109b968169f2848f80a1ab8ada81b",
+      "Bytes": 1042,
+      "LastWriteUtc": "2026-10-31T14:54:12.9731097Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-white-runtime.anisotropicbsdf",
+      "Sha256": "59e3cd7a4742a6b8f0da701efd787b5a3d1cca7857cfa5e9c420644ae9e18d33",
+      "Bytes": 788,
+      "LastWriteUtc": "2026-10-31T10:49:36.2187136Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11.NOTICE.txt",
+      "Sha256": "8f5f5f7e607c7f355146f51ece85b41f96a45272c0e54613705761e0eef30b17",
+      "Bytes": 992,
+      "LastWriteUtc": "2026-10-31T10:33:37.9692571Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-r-test-v9.anisotropicbsdf",
+      "Sha256": "224e8a56520ac72f58c2124fbd9a030259e09b00b1951eb52ba3c7e6c8e0b72d",
+      "Bytes": 89768,
+      "LastWriteUtc": "2026-10-31T07:51:15.6780940Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-r-test-v9.NOTICE.txt",
+      "Sha256": "28ab4761208bb6fb160658d8b7aa45902351ec4ccb8ebda71b3046ffe933baa2",
+      "Bytes": 1833,
+      "LastWriteUtc": "2026-10-31T08:07:08.9540834Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-white-half-degree.anisotropicbsdf",
+      "Sha256": "ca30223a414bb0c0002dc9f5584040dfd529a2eaa02a630f774996705dc68367",
+      "Bytes": 8441,
+      "LastWriteUtc": "2026-10-31T14:56:17.4668011Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Fixtures/speos-white-quarter-degree.anisotropicbsdf",
+      "Sha256": "e944bea581f2b2bc60d4182592ea7d0f58dac4f04cccaa9d3a62740745c3403a",
+      "Bytes": 15089,
+      "LastWriteUtc": "2026-10-31T14:56:23.8005591Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MeasuredBsdfChainTests.cs",
+      "Sha256": "33d26aa417e36e5b4b4d4fe398f78bc929530cc4fa80451c19b8dd420b89a920",
+      "Bytes": 7546,
+      "LastWriteUtc": "2026-10-31T06:30:21.1165803Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MeasuredBsdfNscTests.cs",
+      "Sha256": "46e26b1f0bc494064d030ea4d8cae50de847f12530a11e70f698630864269686",
+      "Bytes": 8831,
+      "LastWriteUtc": "2026-10-31T06:34:12.4436521Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MeasuredBsdfTests.cs",
+      "Sha256": "f89edbf2c800ea79376f00839c43f0d7a42e36a46e681c1225cb98b40ecbf46d",
+      "Bytes": 12913,
+      "LastWriteUtc": "2026-10-31T06:43:42.4247146Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MeasuredBsdfWindowTests.cs",
+      "Sha256": "57471d81cff252a1bd950650cf09e4705105b1c37e581130069871201dcb8455",
+      "Bytes": 5301,
+      "LastWriteUtc": "2026-10-31T06:40:13.6853621Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj",
+      "Sha256": "4be747a380aa78ce81cc7d4d3e5518bc6b6ab21638a4a9a5c8a6c1753e08d59e",
+      "Bytes": 17203,
+      "LastWriteUtc": "2026-10-31T15:25:28.5425650Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SpeosV11BinaryTests.cs",
+      "Sha256": "07c12363416c6c1d436db17189abb56b609cf8dfd36a43a236a4786844678ccd",
+      "Bytes": 4906,
+      "LastWriteUtc": "2026-10-31T10:22:50.5448296Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SpeosV11ChainTests.cs",
+      "Sha256": "d077cc6dde5fd17912d9327ed379de23522a0159f2baf53375b66f37fc42df3c",
+      "Bytes": 6151,
+      "LastWriteUtc": "2026-10-31T15:08:35.1700395Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SpeosV11NscTests.cs",
+      "Sha256": "48303e56f4103790db68331a088449c7766bbcbfdcab3e8a0ea664a942ac4c0d",
+      "Bytes": 5107,
+      "LastWriteUtc": "2026-10-31T15:20:50.8320986Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SpeosV11StatisticsTests.cs",
+      "Sha256": "427afd4e15e9458e85e99ef3fb5ce707cbfc982e409eec8216722cb52dd8ea8b",
+      "Bytes": 9196,
+      "LastWriteUtc": "2026-10-31T15:08:34.3322376Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SpeosV11WindowTests.cs",
+      "Sha256": "76fa75022894421d4a1f2683cf04fd59f21cf687ebd0ff112c30df9acd92c23b",
+      "Bytes": 6525,
+      "LastWriteUtc": "2026-10-31T15:08:35.1720398Z"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SpeosV11XyzTests.cs",
+      "Sha256": "1896f8ddafec90c38a64ad0ea4795a33befa12219ddbdf8f8f52ba43ada3564f",
+      "Bytes": 12806,
+      "LastWriteUtc": "2026-10-31T15:08:33.3917988Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/CalibrationExploration.cs",
+      "Sha256": "1557de7bddb7a6a904c2b9af4dab83ff70a95636523d5c579dc4398cea90ce02",
+      "Bytes": 2344,
+      "LastWriteUtc": "2026-10-31T14:49:56.6284137Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/CommercialBsdf20261031.csproj",
+      "Sha256": "f2c14745ea29c792f0e464180498a5c2d3e764d569af5aca6779793e65b2f14a",
+      "Bytes": 342,
+      "LastWriteUtc": "2026-10-31T09:56:36.6879052Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/DerivedGreenCalibration.cs",
+      "Sha256": "75595c216ef4487885f224a66805e362735ac80f57e93dd623e31ade08321978",
+      "Bytes": 4549,
+      "LastWriteUtc": "2026-10-31T10:59:57.1456208Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/DirectReview.cs",
+      "Sha256": "eafc31b8b8637861a15669d617dbc47aa0c9db08a3ef10767ab9d4cfd27cfb44",
+      "Bytes": 1635,
+      "LastWriteUtc": "2026-10-31T11:00:56.6703896Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/MeasuredPairCalibration.cs",
+      "Sha256": "5d0ec0a0eec5b13ae0aaeeb91d48e105bc3d29829a0a4357462851e5a5c59911",
+      "Bytes": 2127,
+      "LastWriteUtc": "2026-10-31T14:49:24.7954120Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/NativeComparison.cs",
+      "Sha256": "1e7fb881e1eeed5d44608890fea160914e8877e5aaafabcaf326db3f27101846",
+      "Bytes": 8128,
+      "LastWriteUtc": "2026-10-31T10:32:22.6055287Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/NativeXmpControl.cs",
+      "Sha256": "0379ab7a86a3269324ea473f468573c808ff0c4469c8dd4eb8a61decd1b40f12",
+      "Bytes": 2664,
+      "LastWriteUtc": "2026-10-31T10:55:43.6137642Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/Program.cs",
+      "Sha256": "683af4da21f932e9f9bcaac5b568f352dc001ec85cebc25b6f361ecede2ec95b",
+      "Bytes": 5820,
+      "LastWriteUtc": "2026-10-31T15:10:32.9004697Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/RuntimePowerAudit.cs",
+      "Sha256": "516dd61464ae8efa8b9003c851f803e6fcb8f0fc0105d9092311521f08923391",
+      "Bytes": 5784,
+      "LastWriteUtc": "2026-10-31T15:24:56.8064177Z"
+    },
+    {
+      "Path": "tools/diagnostics/CommercialBsdf20261031/RuntimeReview.cs",
+      "Sha256": "aea82e36b8805d558ad31f6d238bd469986d265b114a00fad66e9860b7c39bf0",
+      "Bytes": 4182,
+      "LastWriteUtc": "2026-10-31T15:17:12.8992201Z"
+    },
+    {
+      "Path": "tools/diagnostics/SpeosIsolatedCapture20261031/NativePowerStateProbe.cs",
+      "Sha256": "014c432b00117587263c9eea801c130f0a46bdfbfb0fca03dd165ddf212aa210",
+      "Bytes": 4441,
+      "LastWriteUtc": "2026-10-31T15:16:16.1713763Z"
+    },
+    {
+      "Path": "tools/diagnostics/SpeosIsolatedCapture20261031/Program.cs",
+      "Sha256": "e10b7330bc4d8025490d02ac3e9c3caed70512a0d8cd60a1c286e75922090907",
+      "Bytes": 6628,
+      "LastWriteUtc": "2026-10-31T15:16:16.6234771Z"
+    },
+    {
+      "Path": "tools/diagnostics/SpeosIsolatedCapture20261031/RpcCapture.cs",
+      "Sha256": "357d77af63e908bb1483e16f5f825280312f784f1afa6bef2902624652fcaf33",
+      "Bytes": 9927,
+      "LastWriteUtc": "2026-10-31T15:22:49.1378300Z"
+    },
+    {
+      "Path": "tools/diagnostics/SpeosIsolatedCapture20261031/RpcTrace.cs",
+      "Sha256": "569594119ac032b5b3e91b8a7bc6d0f3f0d8cd745ed3ec305af11f426bc2c084",
+      "Bytes": 12826,
+      "LastWriteUtc": "2026-10-31T15:22:48.1897099Z"
+    },
+    {
+      "Path": "tools/diagnostics/SpeosIsolatedCapture20261031/SpeosIsolatedCapture20261031.csproj",
+      "Sha256": "5500354786e3863d0990ac6092d8373c56e1220912384c8e2b77cc2a456d9b41",
+      "Bytes": 212,
+      "LastWriteUtc": "2026-10-31T10:08:54.4765693Z"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/commercial-bsdf-calibration/mystique_XYZ.astm",
+      "Sha256": "d7575886287713633f99e34edec5edadfb7d2cbf2485bc772f0d5245db62deaa",
+      "Bytes": 93949,
+      "LastWriteUtc": "2026-10-31T09:53:32.3502601Z"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/commercial-bsdf-calibration/mystique_XYZ.astm.gz",
+      "Sha256": "0b3df657995a8e4d8a83db0c9f226b857b1c8e6e02fcd5c3dd7aca7ad8e22290",
+      "Bytes": 15737,
+      "LastWriteUtc": "2026-10-31T09:53:24.7067465Z"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/commercial-bsdf-calibration/mystique.astm",
+      "Sha256": "3641f9aa0951964b8f52ac1a0616c0411bd26b055e5ea9c58c22b5f02e58f1a6",
+      "Bytes": 456850,
+      "LastWriteUtc": "2026-10-31T09:53:32.3041327Z"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/commercial-bsdf-calibration/mystique.astm.gz",
+      "Sha256": "7080f7b08727b7a75f2464609f2184edfb4fdf6473796a6829d8468f31aceaba",
+      "Bytes": 95894,
+      "LastWriteUtc": "2026-10-31T09:53:20.7701617Z"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/commercial-bsdf-calibration/probe-native-com.ps1",
+      "Sha256": "37f03d8252416d7060a62a75e2861f63373a4dfadaa09edd04e1f44487ed4f29",
+      "Bytes": 1978,
+      "LastWriteUtc": "2026-10-31T10:00:57.4142885Z"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/commercial-bsdf-calibration/SpeosTypeLibrary.cs",
+      "Sha256": "1eca79a0740b512121f6ec409c9a5859bf7a557065808ecfe3c4a471b9c909f7",
+      "Bytes": 1193,
+      "LastWriteUtc": "2026-10-31T09:49:43.3435861Z"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/white-specular-runtime/xyz-measured/cayman_XYZ.astm",
+      "Sha256": "0992c3e0750fd86aa70cc324953a8445f565c3625cccdfc2ca24e7d895b7444a",
+      "Bytes": 93941,
+      "LastWriteUtc": "2026-10-31T14:49:09.3948496Z"
+    },
+    {
+      "Path": "validation/rechecks/2026-10-31/white-specular-runtime/xyz-measured/cayman.astm",
+      "Sha256": "eddef58cac794c41fffa8be876dc49792fcc37101610c27c87aa8bbb11bd2d6b",
+      "Bytes": 456811,
+      "LastWriteUtc": "2026-10-31T14:49:09.3918497Z"
+    }
+  ]
+}

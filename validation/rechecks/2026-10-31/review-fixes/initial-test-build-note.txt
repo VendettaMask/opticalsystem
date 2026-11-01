@@ -1,0 +1,1 @@
+First new-test build: no tests executed. CameraReviewRegressionTests line 116 failed with CS0029/CS1662/CS8030 because a synchronous callback returned bool to an asynchronous dispatcher. The callback was corrected to return Task<bool>. This note records the tool output; it is not a passing test log.

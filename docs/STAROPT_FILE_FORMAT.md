@@ -1,6 +1,6 @@
 # STAROPT 工程格式
 
-更新：2026-10-14。本页是容器、工程负载和快照版本的唯一文档来源：当前分别为 **2 / 7 / 6**，与 `StarOptProjectStore`、`OpticSnapshotValidator` 一致。下列带日期的变更描述限定于该阶段，不取代当前版本；文件入口与交换限制见 [文件格式指南](FILE_FORMATS_AND_PLUGINS.md)。
+更新：2026-11-01。本页是容器、工程负载和快照版本的唯一文档来源：当前分别为 **2 / 最大 20 / 6**，与 `StarOptProjectStore`、`OpticSnapshotValidator` 一致。复合光学组件或像面口径端口（包括禁用对象）写v20；原有无BSDF场景仍写v7。绝对正值XYZ径向基模型（MeasuredBsdfGrid/11，含禁用对象）写v19；显式对数角插值（Grid/10）写v18；显式实测极角支持域（Grid/9）写v17；正值XYZ颜色模型（Grid/8）写v16；有域XYZ校准（Grid/7）写v15；Speos White运行时（Grid/6）写v14；θ线性v11（Grid/5）写v13；原镜面增强/可分光谱/XYZ（Grid/4）写v12；投影数量或Zemax镜面中心表格写v11；商业文本/固定轴写v10，各向同性CSV实测写v9；仅Lambertian写v8，无BSDF仍v7。读取支持v1–20，低版本夹带新模型拒绝；旧Grid/1–11及冻结摘要不升级。当前范围见[全入射角重建与绝对XYZ校准](XYZ_LOG_RECONSTRUCTION_2026-11-01.md)，此前[有限角表](XYZ_MEASURED_ANGULAR_2026-11-01.md)、[已知条件XYZ](XYZ_KNOWN_CONDITIONS_2026-11-01.md)、[White实际功率](WHITE_SPECULAR_RUNTIME_2026-10-31.md)保留原阶段范围。文件入口与交换限制见[文件格式指南](FILE_FORMATS_AND_PLUGINS.md)。
 
 1.0.2 恢复副本使用正式 STAROPT 完整工程序列化，不是镜头表局部导出；原子写入副本后才发布独立 SHA-256 元数据。恢复打开不使用副本位置作为用户保存路径，而是保持未保存并要求另存。新增容器 1 / 载荷版本 1–7 与旧 JSON 版本 1–6 的读取、当前格式另存及原字节保留回归；不承诺未知或任意损坏格式迁移，见[恢复与迁移验收](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 
@@ -46,13 +46,13 @@
 
 ## 工程负载
 
-当前工程负载版本为 7（兼容读取 v1–6）。v7 新增 `OperandPickups`：目标 `ConfigurationIndex`/`Operand`、源 `SourceConfigurationIndex`/`SourceOperand` 以及 `Scale`/`Offset`。配置索引从 0 开始，源目标绑定均引用已有行；源行及配置号不晚于目标，禁止自身、循环、非有限系数和多重控制。加载时在临时配置图中解析与检查，完整成功后才替换文档。v1–6 缺失拾取表按空表读取；低版本夹带非空拾取表明确拒绝。v6 新增 `OperandVariables`，按配置与参数绑定记录显式变量；v5 新增 `OperandRows`；沿用 v4 的以下字段：
+当前工程负载最大版本为 20（读取 v1–20）。v20保存`OpticalAssemblyParameters`的逐面几何、完整介质/镀膜/口径、原面号/标签及绕轴旋转，或探测器可选`IncidentSurface`口径端口；任一载荷包括禁用对象都要求v20，低版本夹带即拒绝。组件采用只读冻结数据，场景哈希绑定实际参数。转换支持域见[胶合与浸没镜组](CEMENTED_IMMERSION_NSC_2026-11-01.md)。v19保存`ZemaxXyz.Calibration.AbsoluteRbfModel`及`FitEvidence.AbsoluteRbfModelSha256`，进入MeasuredBsdfGrid/11摘要；训练绝对XYZ/辐射度、特征方式/尺度、近邻/平滑/响应偏置、强度域和原条件证据绑定，不能任意按光强缩放。v18保存`LogInterpolation`的尺度和方法，进入MeasuredBsdfGrid/10摘要，仅用于普通辐射度网格；和原极角支持域一起保留，不兼容投影/Zemax/Speos特殊分布。低版本夹带新模型拒绝，包括禁用对象。v17保存普通辐射度网格的`AngularSupport=MeasuredPolarRangeZeroOutside`，进入MeasuredBsdfGrid/9摘要；保留实测极角域、选中原入射/波长节点及零域外支持，不声明缺测区域的真实物理散射为零。v16保存`ZemaxXyz.Calibration.PositiveModel`及`FitEvidence.Conditions/PositiveModelSha256`，进入MeasuredBsdfGrid/8摘要，绑定训练颜色/非负光谱比值、近邻数、实际CMF/SPD表摘要和声明观察条件；新TIS由校准后角表积分计算，低版本夹带该模型明确拒绝。v15保存`ZemaxXyz.Calibration.FitEvidence.Gamut`，进入MeasuredBsdfGrid/7摘要，保留来源绑定的凸颜色域和有符号系数；仅在域内非负、独立验证通过且条件核实后可计算。v14 的 `SpeosSpectral.RuntimeWhite=true` 进入 MeasuredBsdfGrid/6 摘要，声明共享入射单元上端参考的 White 运行时功率和条件角密度，并要求 θ 线性及 White 基准。v13 的 `SpeosSpectral.ThetaLinear=true`、RuntimeWhite 缺省/false 继续为协议5，保留原 θ 线性、归档标量和节点 White 分配；旧载荷不隐式升级。v12 保留协议4的原生峰/锥/光谱和校准 XYZ；校准可附带不可变拟合来源、验证策略、每波段留出统计及系数摘要，空证据不改旧序列化/指纹。v11 保存投影数量类型、Zemax 原始镜面中心角表/TIS、测量波长及介质声明。v10 保存商业格式转换后的 BSDF、固定材料坐标/局部轴、来源格式与转换说明；低版本夹带新模型会拒绝。v9 内嵌原各向同性 CSV v1 实测 BSDF 表格、文件名与原文件/规范数据摘要。v8 为非序列对象增加可选 `SurfaceBsdf`，包括模型类型和反射率；普通工程按 v7 保存。v7 新增 `OperandPickups`：目标 `ConfigurationIndex`/`Operand`、源 `SourceConfigurationIndex`/`SourceOperand` 以及 `Scale`/`Offset`。配置索引从 0 开始，源目标绑定均引用已有行；源行及配置号不晚于目标，禁止自身、循环、非有限系数和多重控制。加载时在临时配置图中解析与检查，完整成功后才替换文档。v1–6 缺失拾取表按空表读取；低版本夹带非空拾取表明确拒绝。v6 新增 `OperandVariables`，按配置与参数绑定记录显式变量；v5 新增 `OperandRows`；沿用 v4 的以下字段：
 
 - 应用标识、活动顺序配置索引和全部 `OpticSnapshot`，包括系统孔径、视场定义、像方无焦标志、波长和顺序表面；表面同时保存独立的净半直径与可选机械半直径，快照缺少机械值时使用净半直径加延伸区（旧快照延伸区缺省为 0）；
 - 可选的多配置继承断开表；
 - 独立 `NonSequentialDocumentSnapshot`，包括非序列波长、追迹设置、类型化对象和网格资产清单。
 
-加载器接受容器v1/v2和工程负载v1–7。负载v1会迁移为空非序列场景，并从当时活动顺序配置复制一次波长；负载v2恢复第一阶段类型化非序列对象；负载v3增加网格资产清单；负载v4增加椭圆面、双角度、径向分布及三类体光源。容器v1不能携带网格资产。保存始终写容器v2和负载v7。
+加载器接受容器v1/v2和工程负载v1–17。负载v1会迁移为空非序列场景，并从当时活动顺序配置复制一次波长；负载v2恢复第一阶段类型化非序列对象；负载v3增加网格资产清单；负载v4增加椭圆面、双角度、径向分布及三类体光源。容器v1不能携带网格资产。保存始终写容器v2，负载按实测极角支持域/正值颜色XYZ/有域约束XYZ/运行时 White/原 θ 线性 Speos/旧增强或原非负校准 XYZ/投影或 Zemax/原商业文本或固定轴/原实测 v1/Lambertian/无 BSDF 选择 v17/v16/v15/v14/v13/v12/v11/v10/v9/v8/v7。
 
 ## 光学快照验证
 

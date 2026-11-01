@@ -20,3 +20,7 @@ SiO2/Ta2O5 YAML 原始数据来自 https://github.com/polyanskiy/refractiveindex
 2026-10-30 复核另外阅读了 `seedGenerator/rank.js`、`filterDesign/filterTarget.js`、`meritFunction.js`、`prototypeLayers.js` 和 `coupledPrototype.js`。C# 新协议借鉴先短程优化后排序与目标缩放，有限结构提议用实际固定生成器核对；没有移植上游优化器或解析匹配综合。原归档/许可证不变，新增离线证据见[本轮记录](../../validation/rechecks/2026-10-30/coating-reference-review/README.md)。
 
 完整源归档保持上游原样；MIT 许可证与 CC0 来源声明不作改写。实验室输出复制 `*LICENSE.txt` / `*NOTICE.txt`；生产程序不加载归档、上游桌面环境或 Node。实际代码复用边界见[本地审计](../../docs/COATING_DESIGN_LAB.md)，数值对照和独立物理检查见[验收记录](../../validation/coating/README.md)，启动与示例见[实验室说明](../../labs/CoatingDesign/README.md)。
+
+2026-11-01 离线结构反馈对照调用固定TFStudio的`proposeMutation`、`tidyLayers`、随机源、Metropolis接受与DLS，8个相同起点均以真实n/k和原验收门槛复验。参考目标是点平方误差，与本地FWHM/最差OD/最差R不同；连续调用主额度相近不代表总查询成本相同。所用源码逐项核对原归档未改，4389个实际输出R/T/A点另对固定tmmcore通过既有2e-11标准。产品新增通用极值采样，未引入Node或移植参考结构优化器；见[本轮结果与边界](../../docs/COATING_TOPOLOGY_FEEDBACK_2026-11-01.md)。
+
+后续重采样反馈验证补入同一数据库提交的`TiO2-Siefke.yml`、`Nb2O5-Lemarchand.yml`及`HfO2-Siefke.yml`原始薄膜n/k表，CC0及样品/文献说明见`MATERIAL-NOTICE.txt`。保留报告的吸收及零值，只转换波长单位，不外推；HfO2表到619.921 nm，验证仅用覆盖的500/550 nm规格。测试组合为SiO2/TiO2、SiO2/Nb2O5、HfO2/TiO2，加原SiO2/Ta2O5；不代表不同制程的普适常数或实物产品认证。参考结构优化仍调用未修改归档，生产代码不依赖Node；见[修正采样下的对照](../../docs/COATING_RESAMPLED_FEEDBACK_2026-11-01.md)。

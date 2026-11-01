@@ -1,0 +1,2902 @@
+[
+  {
+    "Name": "new-real-nbf-green-structural-DLS",
+    "c": {
+      "Name": "new-real-nbf-green-structural-DLS",
+      "Source": "new-real-nbf-green",
+      "ReferenceCommit": "8b942b3f956728a23cea2b35023c8b5d8de17428",
+      "Guide": "Reference structural mutations/annealing with native point-squared DLS; not equal objective or total optical-query cost",
+      "Calls": 11,
+      "Iterations": 152,
+      "Seconds": 0.25788820000000034,
+      "Trace": [
+        {
+          "round": 0,
+          "step": 0,
+          "mutation": {
+            "kind": "add",
+            "pos": 11,
+            "materialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "insertMat": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 56.87985328746119
+          },
+          "accepted": false,
+          "merit": 0.08005864186626588,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 23.084722047043016,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 54.02526609085682,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 81.06492155441552,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.035039072952934,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 860.4598969359392,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 55.626222041567964,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 83.27607298971162,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.33084014421087,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 88.55866658454674,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 60.652114792153114,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 90.83981350483165,
+              "locked": false
+            },
+            {
+              "id": "m2wqzcp5yd",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 116.21498243805779,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 595.8541393199496,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 7.859067569216015,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 174.2677867029892,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            }
+          ],
+          "iterations": 7
+        },
+        {
+          "round": 0,
+          "step": 1,
+          "mutation": {
+            "kind": "perturb",
+            "jitterPct": 0.12
+          },
+          "accepted": false,
+          "merit": 0.21324078121987444,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 48.06055236764747,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 92.65817815729476,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 51.56445686445404,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 953.9057691273812,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 55.39245246448666,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 86.18760991562002,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.25631355205842,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 93.17827533844645,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 55.13532560031265,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 100.1632012500632,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 57.250170046362626,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 674.2036206833774,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 53.55150520967247,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 146.88201215644824,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 35.64029942866029,
+              "locked": false
+            }
+          ],
+          "iterations": 7
+        },
+        {
+          "round": 0,
+          "step": 2,
+          "mutation": {
+            "kind": "add",
+            "pos": 9,
+            "materialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "insertMat": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 52.13512002119106
+          },
+          "accepted": true,
+          "merit": 0.05008494352495248,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 6.402493621948398,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 54.737832596245546,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 93.17448935118557,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 54.614727203963824,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 853.5091006180519,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 55.317491019596496,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 92.2490433022761,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.27561668032266,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 92.06372979977165,
+              "locked": false
+            },
+            {
+              "id": "m1xjmdzggeb",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 109.33516440178202,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 89.72519941456108,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.10496151210522,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 678.6645446688033,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 52.71549332271938,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 126.34418922895304,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 22.402023178364633,
+              "locked": false
+            }
+          ],
+          "iterations": 7
+        },
+        {
+          "round": 0,
+          "step": 3,
+          "mutation": {
+            "kind": "split",
+            "pos": 5,
+            "materialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "insertMat": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 13.289238551514588
+          },
+          "accepted": true,
+          "merit": 0.051395045325032765,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 9.23619467694166,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 53.41793853606603,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 94.36015897535626,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 54.06010778078828,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 852.8210274831166,
+              "locked": false
+            },
+            {
+              "id": "muht0inz4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 31.310594758968243,
+              "locked": false
+            },
+            {
+              "id": "m19izk6t1alz",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "m1xg8gdtzqi",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 22.502177605460197,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 90.67066163025481,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.404285470116605,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 94.36348383603661,
+              "locked": false
+            },
+            {
+              "id": "m1xjmdzggeb",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 108.99559134021659,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 86.61290640967894,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.95615728126566,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 679.0854674058894,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 49.39423438482265,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 139.21776473001708,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 24.78456186463925,
+              "locked": false
+            }
+          ],
+          "iterations": 7
+        },
+        {
+          "round": 0,
+          "full": true,
+          "merit": 0.04795176586221129,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 17.06510990380992,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 48.76738297504919,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 95.09661989262385,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 52.945605798672446,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 854.5919162925281,
+              "locked": false
+            },
+            {
+              "id": "muht0inz4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 31.688864061033293,
+              "locked": false
+            },
+            {
+              "id": "m19izk6t1alz",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "m1xg8gdtzqi",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 22.079561630074817,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 90.37195071267087,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.249536920950646,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 109.13233141247674,
+              "locked": false
+            },
+            {
+              "id": "m1xjmdzggeb",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 103.20812302015483,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 83.54640497038191,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 57.677175432098586,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 694.6818363013917,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 39.47349688665998,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 107.69623512475033,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 33.33991742093181,
+              "locked": false
+            }
+          ],
+          "iterations": 48
+        },
+        {
+          "round": 1,
+          "step": 0,
+          "mutation": {
+            "kind": "add",
+            "pos": 5,
+            "materialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "insertMat": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 5.216176692504932
+          },
+          "accepted": false,
+          "merit": 0.05088628006826754,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 18.303628040325574,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 46.7829427468422,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 94.44567659316061,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 52.55941381571138,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 854.4351743488247,
+              "locked": false
+            },
+            {
+              "id": "m1g5drp787d",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 36.491395190786434,
+              "locked": false
+            },
+            {
+              "id": "m19izk6t1alz",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "m1xg8gdtzqi",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 21.608937614159725,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 89.8487154024361,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.0767101024386,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 110.4426767354399,
+              "locked": false
+            },
+            {
+              "id": "m1xjmdzggeb",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 103.06859848003711,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 83.82714766005255,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.120935997074085,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 695.4566725567215,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 38.63555630019005,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 104.84753904827589,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 30.7297917892099,
+              "locked": false
+            }
+          ],
+          "iterations": 7
+        },
+        {
+          "round": 1,
+          "step": 1,
+          "mutation": {
+            "kind": "split",
+            "pos": 10,
+            "materialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "insertMat": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 18.128496276350972
+          },
+          "accepted": false,
+          "merit": 0.060940356729140326,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 78.88118323341847,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 89.26154947633285,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 50.75304968032782,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 853.2652991547608,
+              "locked": false
+            },
+            {
+              "id": "muht0inz4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 32.006884460749475,
+              "locked": false
+            },
+            {
+              "id": "m19izk6t1alz",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "m1xg8gdtzqi",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 21.903654409679877,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 85.09593727780164,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 55.79826646607908,
+              "locked": false
+            },
+            {
+              "id": "mx6teoi16yr",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 43.31451113358082,
+              "locked": false
+            },
+            {
+              "id": "mwi4s0x70g",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 14.74327675611347,
+              "locked": false
+            },
+            {
+              "id": "ml9r2g2ydd",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.963882555654436,
+              "locked": false
+            },
+            {
+              "id": "m1xjmdzggeb",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 101.02861447386312,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 77.69280197630918,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 52.92335170865894,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 691.5246515646328,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 41.714401717539474,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 117.34252943920816,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 26.620919976481744,
+              "locked": false
+            }
+          ],
+          "iterations": 7
+        },
+        {
+          "round": 1,
+          "step": 2,
+          "mutation": {
+            "kind": "perturb",
+            "jitterPct": 0.12
+          },
+          "accepted": false,
+          "merit": 0.05969281670229513,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 47.7019119876188,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 89.56535951069749,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 53.00999173511443,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 859.8207085198184,
+              "locked": false
+            },
+            {
+              "id": "muht0inz4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 32.67583821789083,
+              "locked": false
+            },
+            {
+              "id": "m19izk6t1alz",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "m1xg8gdtzqi",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 21.299778211039243,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 86.15382436308273,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 48.24498463627999,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 103.17429316465902,
+              "locked": false
+            },
+            {
+              "id": "m1xjmdzggeb",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 105.65429397459924,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 84.16828383218179,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 62.85488743034921,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 671.2125066555684,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 46.05786813586549,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 139.8181891259522,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 35.745076886053134,
+              "locked": false
+            }
+          ],
+          "iterations": 7
+        },
+        {
+          "round": 1,
+          "step": 3,
+          "mutation": {
+            "kind": "remove",
+            "pos": 17,
+            "materialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 33.33991742093181
+          },
+          "accepted": false,
+          "merit": 0.06497617429402706,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 4.793130051553136,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 54.35925282773488,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 91.77071331503682,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 52.893533789926906,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 853.9115314048142,
+              "locked": false
+            },
+            {
+              "id": "muht0inz4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 31.71363331529631,
+              "locked": false
+            },
+            {
+              "id": "m19izk6t1alz",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "m1xg8gdtzqi",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 21.850906294643785,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 86.27481657311138,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 55.30088665962362,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 105.23270937709542,
+              "locked": false
+            },
+            {
+              "id": "m1xjmdzggeb",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 104.46916922192928,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 85.8156908702688,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.34647376757368,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 692.3941850415415,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.44346178999317,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            }
+          ],
+          "iterations": 7
+        },
+        {
+          "round": 1,
+          "full": true,
+          "merit": 0.04647302791670543,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 21.912305493511337,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 45.78651732179285,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 95.9752317052519,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 51.59261002732371,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 854.8272821810899,
+              "locked": false
+            },
+            {
+              "id": "muht0inz4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 31.892688018468867,
+              "locked": false
+            },
+            {
+              "id": "m19izk6t1alz",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 1.8033555524063996,
+              "locked": false
+            },
+            {
+              "id": "m1xg8gdtzqi",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 21.529423041239085,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 89.35740740692478,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.456744198342385,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 122.76383457498802,
+              "locked": false
+            },
+            {
+              "id": "m1xjmdzggeb",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 95.31102560777288,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 82.2284162829587,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.86328121312509,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 698.188669157346,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 36.09616851750232,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 103.91860062711444,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 44.9589695174033,
+              "locked": false
+            }
+          ],
+          "iterations": 48
+        }
+      ],
+      "Layers": [
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 21.912305493511337,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 45.78651732179285,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 95.9752317052519,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 51.59261002732371,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 854.8272821810899,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 31.892688018468867,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 1.8033555524063996,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 21.529423041239085,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 89.35740740692478,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 58.456744198342385,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 122.76383457498802,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 95.31102560777288,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 82.2284162829587,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 56.86328121312509,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 698.188669157346,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 36.09616851750232,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 103.91860062711444,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 44.9589695174033,
+          "Variable": true
+        }
+      ]
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.37908512574023,
+      "PeakTransmittance": 0.621482276241507,
+      "LeftHalfMaximumNanometers": 492.3166380295766,
+      "RightHalfMaximumNanometers": 525.6900796157316,
+      "FwhmNanometers": 33.373441586155025,
+      "MinimumReflectance": 0.033480140635095544,
+      "MaximumReflectance": 0.6863296928689098
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 18,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.37908512574023,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 33.373441586155025,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 62.1482276241507,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.184046582156719,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.2192932725962808,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false
+  },
+  {
+    "Name": "real-nbf2-96-structural-DLS",
+    "c": {
+      "Name": "real-nbf2-96-structural-DLS",
+      "Source": "real-nbf2-96",
+      "ReferenceCommit": "8b942b3f956728a23cea2b35023c8b5d8de17428",
+      "Guide": "Reference structural mutations/annealing with native point-squared DLS; not equal objective or total optical-query cost",
+      "Calls": 11,
+      "Iterations": 272,
+      "Seconds": 0.8902763999999997,
+      "Trace": [
+        {
+          "round": 0,
+          "step": 0,
+          "mutation": {
+            "kind": "add",
+            "pos": 15,
+            "materialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "insertMat": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 63.13395430582745
+          },
+          "accepted": false,
+          "merit": 0.11456562516686383,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2.228488012180901,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 10.488946304795046,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 53.02769173581861,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 85.6552555174162,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 48.85439785541321,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 102.23650552843108,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 51.956525317116935,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 174.58943678054413,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 31.57703685037928,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 187.18806957597798,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 52.585752282181915,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 105.81116398074313,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 54.98151810522588,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 100.87407395452374,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 120.89811497965157,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 113.81393589631513,
+              "locked": false
+            },
+            {
+              "id": "l16",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 35.30422944239563,
+              "locked": false
+            },
+            {
+              "id": "l17",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 350.9300747779396,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 30.705049130347632,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 11.173423374030985,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 15.29411498322839,
+              "locked": false
+            }
+          ],
+          "iterations": 10
+        },
+        {
+          "round": 0,
+          "step": 1,
+          "mutation": {
+            "kind": "perturb",
+            "jitterPct": 0.12
+          },
+          "accepted": true,
+          "merit": 0.04589192702732404,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 60.18291912447631,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 100.4718742014031,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.58737190323837,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 117.36335231846087,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 49.96587953498798,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 173.15674779008506,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 34.40485982817674,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 172.92099454413017,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 55.26473733948771,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 127.64649080444882,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 49.0369706039452,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 101.55757743500212,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 53.38425995116604,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 95.93247051516776,
+              "locked": false
+            },
+            {
+              "id": "l16",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 72.70616687104896,
+              "locked": false
+            },
+            {
+              "id": "l17",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 343.7530996268389,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 9.510304189629972,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 21.29748629539896,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 63.39660300706737,
+              "locked": false
+            }
+          ],
+          "iterations": 10
+        },
+        {
+          "round": 0,
+          "step": 2,
+          "mutation": {
+            "kind": "perturb",
+            "jitterPct": 0.12
+          },
+          "accepted": false,
+          "merit": 0.06075572855331072,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.13179866767503,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 87.44989141565206,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 53.715516385071865,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 115.98399595402152,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 47.689503859729044,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 171.0834831618471,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 28.34815457125193,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 184.74536088653542,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 60.10129540465721,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 122.39457186084876,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 49.46122727070643,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 93.40010390867234,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 55.02579212150799,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 89.13821568353491,
+              "locked": false
+            },
+            {
+              "id": "l16",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 235.38449549791477,
+              "locked": false
+            },
+            {
+              "id": "l17",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 306.94240108654634,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 4.497493833995804,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 9.42837876718367,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 112.28662249952832,
+              "locked": false
+            }
+          ],
+          "iterations": 10
+        },
+        {
+          "round": 0,
+          "step": 3,
+          "mutation": {
+            "kind": "split",
+            "pos": 7,
+            "materialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "insertMat": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 31.431767930582296
+          },
+          "accepted": false,
+          "merit": 0.07399374233708904,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 18.72358630576172,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 57.92186431556175,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 93.94291399928629,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 50.67959708943597,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 92.49570309481794,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 37.04698105026542,
+              "locked": false
+            },
+            {
+              "id": "m1ocp8f1n50",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 89.92535955329912,
+              "locked": false
+            },
+            {
+              "id": "m9ummt0f55",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 28.975348172409475,
+              "locked": false
+            },
+            {
+              "id": "m1ca4rs17su",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 75.5628162396879,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 43.93283030041647,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 149.54962092523868,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 51.42112289338955,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 110.35312243188307,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.37182592380355,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 104.73329910010713,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 63.44478476176479,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 290.08260658730603,
+              "locked": false
+            },
+            {
+              "id": "l16",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 126.1174159286716,
+              "locked": false
+            },
+            {
+              "id": "l17",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 247.7440561975097,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 12.35904307281805,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 40.962102903012834,
+              "locked": false
+            }
+          ],
+          "iterations": 10
+        },
+        {
+          "round": 0,
+          "full": true,
+          "merit": 0.03203828829211076,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.0598672923206,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 93.8066419406026,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.92427981062228,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 103.61745979403295,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.642695201663656,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 182.5253768286024,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 30.419050193056155,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 176.2385162688267,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.2554612620756,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 99.62706187302298,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.51846727866004,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 94.31518098751819,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 62.17406828398321,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 93.56572023809296,
+              "locked": false
+            },
+            {
+              "id": "l16",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 62.43095014396397,
+              "locked": false
+            },
+            {
+              "id": "l17",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 342.4889358012245,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 23.989865137406692,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.63053108392954,
+              "locked": false
+            }
+          ],
+          "iterations": 96
+        },
+        {
+          "round": 1,
+          "step": 0,
+          "mutation": {
+            "kind": "merge",
+            "pos": 13,
+            "materialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 156.4892492715014
+          },
+          "accepted": false,
+          "merit": 0.06333584843701234,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2.9943699339733905,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.62658953394129,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 91.10446143542384,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.93499917090921,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 101.05688824642371,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.91754927631856,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 182.76226104741772,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 29.692427156215583,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 176.00395282861953,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.37534468042223,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 97.92188944840915,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 61.73318299147317,
+              "locked": false
+            },
+            {
+              "id": "mwnrhzk1daj",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 270.60927289648373,
+              "locked": false
+            },
+            {
+              "id": "l16",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 64.24296002824191,
+              "locked": false
+            },
+            {
+              "id": "l17",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 336.29911027754616,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 16.815912621656903,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 62.47473809469136,
+              "locked": false
+            }
+          ],
+          "iterations": 10
+        },
+        {
+          "round": 1,
+          "step": 1,
+          "mutation": {
+            "kind": "perturb",
+            "jitterPct": 0.12
+          },
+          "accepted": false,
+          "merit": 0.032568325256046325,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.686761326161644,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 94.2092365830548,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 63.053887905142716,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 106.04106493661152,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 52.58099318370031,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 192.26585484736376,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 29.746821681089916,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 169.0648293756843,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 52.941364877562414,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 102.7418797874651,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 63.00940202288595,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 87.85988547451986,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.55795658859769,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 90.62095300115888,
+              "locked": false
+            },
+            {
+              "id": "l16",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 64.38844186668662,
+              "locked": false
+            },
+            {
+              "id": "l17",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 329.48923310176775,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 4.337788503890704,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 35.53434721738435,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 62.93571884076179,
+              "locked": false
+            }
+          ],
+          "iterations": 10
+        },
+        {
+          "round": 1,
+          "step": 2,
+          "mutation": {
+            "kind": "merge",
+            "pos": 15,
+            "materialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+            "thickness": 155.99667038205695
+          },
+          "accepted": false,
+          "merit": 0.052413691254768566,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.72479999456512,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 91.01413281851177,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 58.59475020250494,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 101.40181528404433,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 57.0063870245655,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 183.03558388474718,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 29.85154004284546,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 176.05667116999734,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.3063594310025,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 97.56997561334214,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.368774773540075,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 91.25737582881558,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 63.285371348774106,
+              "locked": false
+            },
+            {
+              "id": "mgd0iu918fe",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 502.4916977971157,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 27.274536756932342,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 66.87619704611868,
+              "locked": false
+            }
+          ],
+          "iterations": 10
+        },
+        {
+          "round": 1,
+          "step": 3,
+          "mutation": {
+            "kind": "perturb",
+            "jitterPct": 0.12
+          },
+          "accepted": false,
+          "merit": 0.033807961997157514,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 60.059267606774995,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 101.3028799118709,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 53.47978577153202,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 114.87605920608536,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.732969705265354,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 182.4257213635864,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 34.21332003976132,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 159.30523416759416,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 62.61979691359245,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 95.27279692680166,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 59.4488897330376,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 91.7276687061146,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 65.58964209003038,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 99.32219659311134,
+              "locked": false
+            },
+            {
+              "id": "l16",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 62.635518666591764,
+              "locked": false
+            },
+            {
+              "id": "l17",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 362.9606008041545,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 4.371094007248667,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 22.38398998335986,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 49.24179217443457,
+              "locked": false
+            }
+          ],
+          "iterations": 10
+        },
+        {
+          "round": 1,
+          "full": true,
+          "merit": 0.03071498368059108,
+          "layers": [
+            {
+              "id": "l0",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l1",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l2",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 60.06957247776057,
+              "locked": false
+            },
+            {
+              "id": "l3",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 95.27832626613842,
+              "locked": false
+            },
+            {
+              "id": "l4",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 60.2900597287274,
+              "locked": false
+            },
+            {
+              "id": "l5",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 101.29820048565246,
+              "locked": false
+            },
+            {
+              "id": "l6",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 60.42780028654599,
+              "locked": false
+            },
+            {
+              "id": "l7",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 191.0575991957798,
+              "locked": false
+            },
+            {
+              "id": "l8",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 21.662909672559582,
+              "locked": false
+            },
+            {
+              "id": "l9",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 172.14763389165628,
+              "locked": false
+            },
+            {
+              "id": "l10",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 56.699966882414635,
+              "locked": false
+            },
+            {
+              "id": "l11",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 97.590860479103,
+              "locked": false
+            },
+            {
+              "id": "l12",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 61.2840066216502,
+              "locked": false
+            },
+            {
+              "id": "l13",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 94.63719301501764,
+              "locked": false
+            },
+            {
+              "id": "l14",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 61.566681564946016,
+              "locked": false
+            },
+            {
+              "id": "l15",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 92.2435429393324,
+              "locked": false
+            },
+            {
+              "id": "l16",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 62.389570430248924,
+              "locked": false
+            },
+            {
+              "id": "l17",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 354.4326499895576,
+              "locked": false
+            },
+            {
+              "id": "l18",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 2,
+              "locked": false
+            },
+            {
+              "id": "l19",
+              "material": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 12.85250461657322,
+              "locked": false
+            },
+            {
+              "id": "l20",
+              "material": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+              "thickness": 60.654530759622034,
+              "locked": false
+            }
+          ],
+          "iterations": 96
+        }
+      ],
+      "Layers": [
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 2,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 2,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 60.06957247776057,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 95.27832626613842,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 60.2900597287274,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 101.29820048565246,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 60.42780028654599,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 191.0575991957798,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 21.662909672559582,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 172.14763389165628,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 56.699966882414635,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 97.590860479103,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 61.2840066216502,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 94.63719301501764,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 61.566681564946016,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 92.2435429393324,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 62.389570430248924,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 354.4326499895576,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 2,
+          "Variable": true
+        },
+        {
+          "MaterialId": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 12.85250461657322,
+          "Variable": true
+        },
+        {
+          "MaterialId": "Ta2O5 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+          "ThicknessNm": 60.654530759622034,
+          "Variable": true
+        }
+      ]
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.3323320720084,
+      "PeakTransmittance": 0.6657224213916855,
+      "LeftHalfMaximumNanometers": 540.4514721602739,
+      "RightHalfMaximumNanometers": 558.770035961485,
+      "FwhmNanometers": 18.3185638012111,
+      "MinimumReflectance": 0.02652280002838361,
+      "MaximumReflectance": 0.9164639854037053
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 21,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.3323320720084,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 18.3185638012111,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.57224213916855,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.4787186972384212,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.5499844582082916,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false
+  }
+]

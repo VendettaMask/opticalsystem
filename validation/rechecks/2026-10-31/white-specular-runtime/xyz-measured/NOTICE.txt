@@ -1,0 +1,14 @@
+Cornell Program of Computer Graphics, Cornell/Kodak gonioreflectometer; Cayman lacquer.
+Original spectral BRDF and published XYZ, 1439 paired geometries. Measurement date UNKNOWN.
+Official directory: https://bowers.cornell.edu/computer-graphics/data
+The directory's Data File Formats / Gonioreflectometer Data section declares D65 for the
+published XYZ conversion. Observer angle is not explicitly specified there. These XYZ
+values are computed from measured spectra, not independent tristimulus measurements.
+Original archived XYZ link:
+https://web.archive.org/web/20230623193734id_/http://www.graphics.cornell.edu/online/measurements/reflectance/carpaints/cayman_XYZ.astm.gz
+Spectral source was already downloaded in the preceding investigation and is copied unchanged.
+No redistribution grant is inferred. Originals are local validation inputs, not shipped
+commercial material-library data or test fixtures. No approved radiometric calibration was exported.
+550 nm and the original 0.01 NRMSE / 0.01 sr^-1 / 1e-6 floor policy were prescribed before fitting.
+Published XYZ and spectral observations remain unmodified. Training uses 959 geometries;
+the 480 held-out geometries are every third sorted original four-angle G17 identity.

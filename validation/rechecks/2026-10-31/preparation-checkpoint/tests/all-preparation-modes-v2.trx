@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="42b22097-5213-495a-9128-79a1ba4a051f" name="allen@DESKTOP-SET3SNR 2026-10-31 22:57:24" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T22:57:24.2142661+08:00" queuing="2026-10-31T22:57:24.2142670+08:00" start="2026-10-31T22:57:15.1049896+08:00" finish="2026-10-31T22:57:39.7827889+08:00" />
+  <TestSettings name="default" id="e19a9fe9-dafd-41f1-9e89-ab7a7c22f89c">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_22_57_24" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6289b1e5-d259-4024-b5ee-80cf10fd243d" testId="c970201f-9c14-cde3-914f-fc8cb73f2d19" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionCompetition&quot;, stopStage: &quot;Evolution:Trials&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:07.7129893" startTime="2026-10-31T22:57:16.4658307+08:00" endTime="2026-10-31T22:57:24.1700844+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6289b1e5-d259-4024-b5ee-80cf10fd243d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ&#xD;
+                                  ↓ (pos 106726)&#xD;
+Expected: ···"otocolFingerprint":"c48d011a80210f4189540"···&#xD;
+Actual:   ···"otocolFingerprint":"eaedd00c2a59a151e7571"···&#xD;
+                                  ↑ (pos 106726)</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.Same(ParaxialSeedSearchResult a, ParaxialSeedSearchResult b) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 52&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 26&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="90d19452-7d43-4a6a-9eef-3954b4ba854a" testId="850c118f-2f8d-c9fc-87ce-04dace16d5f3" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace(stopAfter: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:03.2911513" startTime="2026-10-31T22:57:25.4809430+08:00" endTime="2026-10-31T22:57:28.7689334+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90d19452-7d43-4a6a-9eef-3954b4ba854a" />
+    <UnitTestResult executionId="da8322b6-2e9f-42a1-bef2-d9daaf69d436" testId="6d06992e-596c-8c1e-af78-03c9d87c173a" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionDirect&quot;, stopStage: &quot;Evolution:Trials&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.9314387" startTime="2026-10-31T22:57:25.9821265+08:00" endTime="2026-10-31T22:57:28.9090743+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="da8322b6-2e9f-42a1-bef2-d9daaf69d436" />
+    <UnitTestResult executionId="0b0e7c7b-8d0d-4e38-a397-caf36898fdb3" testId="212fb68c-e730-7590-6aca-6223b318b2e0" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.StoreRejectsStaleWritersBudgetRollbackTaskChangesAndCorruption" computerName="DESKTOP-SET3SNR" duration="00:00:00.0354689" startTime="2026-10-31T22:57:28.7813037+08:00" endTime="2026-10-31T22:57:28.8139169+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b0e7c7b-8d0d-4e38-a397-caf36898fdb3" />
+    <UnitTestResult executionId="9162927a-bd2a-45a3-8fa0-a8f6e05c326a" testId="893bc4da-1c04-9c9d-2d99-5a786e32bd5c" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Competition&quot;, stopStage: &quot;Competition:Construction&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.6595745" startTime="2026-10-31T22:57:33.9131243+08:00" endTime="2026-10-31T22:57:36.5711295+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9162927a-bd2a-45a3-8fa0-a8f6e05c326a" />
+    <UnitTestResult executionId="6b3ecc43-2b02-4432-9894-c4bf839fd193" testId="1293a5c4-a598-3a14-85c0-43ded4dafbd5" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.OriginalF4ConflictStillPerformsNoConstructionOrTracing" computerName="DESKTOP-SET3SNR" duration="00:00:00.0021252" startTime="2026-10-31T22:57:28.8168617+08:00" endTime="2026-10-31T22:57:28.8169626+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b3ecc43-2b02-4432-9894-c4bf839fd193" />
+    <UnitTestResult executionId="32d6d35a-d5d8-47e8-bd79-602b48697b13" testId="b58a2229-0121-1e85-3b29-9b7bd54b5020" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace(stopAfter: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:09.0291024" startTime="2026-10-31T22:57:16.4668009+08:00" endTime="2026-10-31T22:57:25.4772024+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="32d6d35a-d5d8-47e8-bd79-602b48697b13" />
+    <UnitTestResult executionId="aa9b7614-df18-4f62-956f-264746012b96" testId="c11eace3-b9ac-d6cb-fd4d-0671b3dd3361" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Retrieval&quot;, stopStage: &quot;Retrieval:Transform&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.7472032" startTime="2026-10-31T22:57:33.1673473+08:00" endTime="2026-10-31T22:57:33.9112776+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa9b7614-df18-4f62-956f-264746012b96" />
+    <UnitTestResult executionId="99aba1b1-de2b-445c-aea5-aa6d911c3807" testId="27453da4-8bff-ee60-90c4-1bcbe36be718" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Paraxial&quot;, stopStage: &quot;Starts&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.8065123" startTime="2026-10-31T22:57:24.2032041+08:00" endTime="2026-10-31T22:57:25.9772181+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="99aba1b1-de2b-445c-aea5-aa6d911c3807" />
+    <UnitTestResult executionId="47209bc3-1f3e-4f3f-9c3d-1b72f778308c" testId="eb3f2ecc-a58b-6320-1f5b-a72b90890c60" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Competition&quot;, stopStage: &quot;Competition:Rounds&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.5092488" startTime="2026-10-31T22:57:37.1894494+08:00" endTime="2026-10-31T22:57:39.6973625+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="47209bc3-1f3e-4f3f-9c3d-1b72f778308c" />
+    <UnitTestResult executionId="5062a35a-d7ed-47d9-bc8d-0ef97982455c" testId="b87c4d9a-3fe7-af99-84aa-f17026613a99" testName="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.UnsettledReservationIsChargedOnceAndNeverReplayedAsFreeWork" computerName="DESKTOP-SET3SNR" duration="00:00:00.0074476" startTime="2026-10-31T22:57:28.7750893+08:00" endTime="2026-10-31T22:57:28.7778014+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5062a35a-d7ed-47d9-bc8d-0ef97982455c" />
+    <UnitTestResult executionId="e6dc4c41-5af9-49d7-a00d-9bdba2263bc9" testId="dbfc33b7-6155-9c03-2777-4d55fc79ab8c" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Screening&quot;, stopStage: &quot;Screening&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.6160922" startTime="2026-10-31T22:57:36.5726063+08:00" endTime="2026-10-31T22:57:37.1875625+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e6dc4c41-5af9-49d7-a00d-9bdba2263bc9">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: Suspended&#xD;
+Actual:   Completed</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 32&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="df7dd175-7b0c-4274-a9af-98a2d33896ba" testId="7b581353-ae4e-98fc-26bb-245ad303c1f2" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionCompetition&quot;, stopStage: &quot;Evolution:Competition&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.8755682" startTime="2026-10-31T22:57:31.2900696+08:00" endTime="2026-10-31T22:57:33.1641680+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df7dd175-7b0c-4274-a9af-98a2d33896ba">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ&#xD;
+                                  ↓ (pos 106726)&#xD;
+Expected: ···"otocolFingerprint":"6526a0626b54cf4db20d7"···&#xD;
+Actual:   ···"otocolFingerprint":"0e75e1a4983ef4adc9e7a"···&#xD;
+                                  ↑ (pos 106726)</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.Same(ParaxialSeedSearchResult a, ParaxialSeedSearchResult b) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 52&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs:line 26&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d9c82bd0-f697-40cd-a9bc-a557d4082bfe" testId="a4a8aad3-fc51-c880-8838-6eb2ce324fa8" testName="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionRecovery&quot;, stopStage: &quot;Evolution:Trials&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.3780171" startTime="2026-10-31T22:57:28.9113700+08:00" endTime="2026-10-31T22:57:31.2876437+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d9c82bd0-f697-40cd-a9bc-a557d4082bfe" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.OriginalF4ConflictStillPerformsNoConstructionOrTracing" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="1293a5c4-a598-3a14-85c0-43ded4dafbd5">
+      <Execution id="6b3ecc43-2b02-4432-9894-c4bf839fd193" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="OriginalF4ConflictStillPerformsNoConstructionOrTracing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionDirect&quot;, stopStage: &quot;Evolution:Trials&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="6d06992e-596c-8c1e-af78-03c9d87c173a">
+      <Execution id="da8322b6-2e9f-42a1-bef2-d9daaf69d436" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace(stopAfter: 1)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b58a2229-0121-1e85-3b29-9b7bd54b5020">
+      <Execution id="32d6d35a-d5d8-47e8-bd79-602b48697b13" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Retrieval&quot;, stopStage: &quot;Retrieval:Transform&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="c11eace3-b9ac-d6cb-fd4d-0671b3dd3361">
+      <Execution id="aa9b7614-df18-4f62-956f-264746012b96" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Competition&quot;, stopStage: &quot;Competition:Rounds&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="eb3f2ecc-a58b-6320-1f5b-a72b90890c60">
+      <Execution id="47209bc3-1f3e-4f3f-9c3d-1b72f778308c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace(stopAfter: 2)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="850c118f-2f8d-c9fc-87ce-04dace16d5f3">
+      <Execution id="90d19452-7d43-4a6a-9eef-3954b4ba854a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="ConstructionStopRestoresRandomPoolAndBudgetWithoutAnyReplayedTrace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Screening&quot;, stopStage: &quot;Screening&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="dbfc33b7-6155-9c03-2777-4d55fc79ab8c">
+      <Execution id="e6dc4c41-5af9-49d7-a00d-9bdba2263bc9" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.UnsettledReservationIsChargedOnceAndNeverReplayedAsFreeWork" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b87c4d9a-3fe7-af99-84aa-f17026613a99">
+      <Execution id="5062a35a-d7ed-47d9-bc8d-0ef97982455c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="UnsettledReservationIsChargedOnceAndNeverReplayedAsFreeWork" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Paraxial&quot;, stopStage: &quot;Starts&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="27453da4-8bff-ee60-90c4-1bcbe36be718">
+      <Execution id="99aba1b1-de2b-445c-aea5-aa6d911c3807" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionRecovery&quot;, stopStage: &quot;Evolution:Trials&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a4a8aad3-fc51-c880-8838-6eb2ce324fa8">
+      <Execution id="d9c82bd0-f697-40cd-a9bc-a557d4082bfe" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests.StoreRejectsStaleWritersBudgetRollbackTaskChangesAndCorruption" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="212fb68c-e730-7590-6aca-6223b318b2e0">
+      <Execution id="0b0e7c7b-8d0d-4e38-a397-caf36898fdb3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SeedPreparationCheckpointTests" name="StoreRejectsStaleWritersBudgetRollbackTaskChangesAndCorruption" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionCompetition&quot;, stopStage: &quot;Evolution:Trials&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="c970201f-9c14-cde3-914f-fc8cb73f2d19">
+      <Execution id="6289b1e5-d259-4024-b5ee-80cf10fd243d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;EvolutionCompetition&quot;, stopStage: &quot;Evolution:Competition&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="7b581353-ae4e-98fc-26bb-245ad303c1f2">
+      <Execution id="df7dd175-7b0c-4274-a9af-98a2d33896ba" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: &quot;Competition&quot;, stopStage: &quot;Competition:Construction&quot;)" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="893bc4da-1c04-9c9d-2d99-5a786e32bd5c">
+      <Execution id="9162927a-bd2a-45a3-8fa0-a8f6e05c326a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests" name="EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c970201f-9c14-cde3-914f-fc8cb73f2d19" executionId="6289b1e5-d259-4024-b5ee-80cf10fd243d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="850c118f-2f8d-c9fc-87ce-04dace16d5f3" executionId="90d19452-7d43-4a6a-9eef-3954b4ba854a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d06992e-596c-8c1e-af78-03c9d87c173a" executionId="da8322b6-2e9f-42a1-bef2-d9daaf69d436" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="212fb68c-e730-7590-6aca-6223b318b2e0" executionId="0b0e7c7b-8d0d-4e38-a397-caf36898fdb3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="893bc4da-1c04-9c9d-2d99-5a786e32bd5c" executionId="9162927a-bd2a-45a3-8fa0-a8f6e05c326a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1293a5c4-a598-3a14-85c0-43ded4dafbd5" executionId="6b3ecc43-2b02-4432-9894-c4bf839fd193" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b58a2229-0121-1e85-3b29-9b7bd54b5020" executionId="32d6d35a-d5d8-47e8-bd79-602b48697b13" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c11eace3-b9ac-d6cb-fd4d-0671b3dd3361" executionId="aa9b7614-df18-4f62-956f-264746012b96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="27453da4-8bff-ee60-90c4-1bcbe36be718" executionId="99aba1b1-de2b-445c-aea5-aa6d911c3807" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eb3f2ecc-a58b-6320-1f5b-a72b90890c60" executionId="47209bc3-1f3e-4f3f-9c3d-1b72f778308c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b87c4d9a-3fe7-af99-84aa-f17026613a99" executionId="5062a35a-d7ed-47d9-bc8d-0ef97982455c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dbfc33b7-6155-9c03-2777-4d55fc79ab8c" executionId="e6dc4c41-5af9-49d7-a00d-9bdba2263bc9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b581353-ae4e-98fc-26bb-245ad303c1f2" executionId="df7dd175-7b0c-4274-a9af-98a2d33896ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a4a8aad3-fc51-c880-8838-6eb2ce324fa8" executionId="d9c82bd0-f697-40cd-a9bc-a557d4082bfe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="14" executed="14" passed="11" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.56]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.66]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.68]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:08.43]       Assert.Equal() Failure: Strings differ&#xD;
+[xUnit.net 00:00:08.43]                                         ↓ (pos 106726)&#xD;
+[xUnit.net 00:00:08.43]       Expected: ···"otocolFingerprint":"c48d011a80210f4189540"···&#xD;
+[xUnit.net 00:00:08.43]       Actual:   ···"otocolFingerprint":"eaedd00c2a59a151e7571"···&#xD;
+[xUnit.net 00:00:08.43]                                         ↑ (pos 106726)&#xD;
+[xUnit.net 00:00:08.43]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.43]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(52,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.Same(ParaxialSeedSearchResult a, ParaxialSeedSearchResult b)&#xD;
+[xUnit.net 00:00:08.43]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(26,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:08.43]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:17.42]       Assert.Equal() Failure: Strings differ&#xD;
+[xUnit.net 00:00:17.43]                                         ↓ (pos 106726)&#xD;
+[xUnit.net 00:00:17.43]       Expected: ···"otocolFingerprint":"6526a0626b54cf4db20d7"···&#xD;
+[xUnit.net 00:00:17.43]       Actual:   ···"otocolFingerprint":"0e75e1a4983ef4adc9e7a"···&#xD;
+[xUnit.net 00:00:17.43]                                         ↑ (pos 106726)&#xD;
+[xUnit.net 00:00:17.43]       Stack Trace:&#xD;
+[xUnit.net 00:00:17.43]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(52,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.Same(ParaxialSeedSearchResult a, ParaxialSeedSearchResult b)&#xD;
+[xUnit.net 00:00:17.43]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(26,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:17.43]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.45]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:21.45]       Expected: Suspended&#xD;
+[xUnit.net 00:00:21.45]       Actual:   Completed&#xD;
+[xUnit.net 00:00:21.45]       Stack Trace:&#xD;
+[xUnit.net 00:00:21.45]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\PreparationModeResumeTests.cs(32,0): at OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(String mode, String stopStage)&#xD;
+[xUnit.net 00:00:21.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:23.96]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:57:24.1728254+08:00">
+        <Text>[xUnit.net 00:00:08.43]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "EvolutionCompetition", stopStage: "Evolution:Trials") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:57:33.1647731+08:00">
+        <Text>[xUnit.net 00:00:17.42]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "EvolutionCompetition", stopStage: "Evolution:Competition") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T22:57:37.1878539+08:00">
+        <Text>[xUnit.net 00:00:21.45]     OpticalSystemDesign.InitialStructure.Tests.PreparationModeResumeTests.EveryPreparationRouteResumesItsPoolStageRandomAndDiscreteWorkExactly(mode: "Screening", stopStage: "Screening") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Warning" timestamp="2026-10-31T22:57:39.7517467+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

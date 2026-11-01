@@ -1,0 +1,20 @@
+D:\Projects\opticalsystem\.tmp\cloud-package-20261031\preflight\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:01:45.58]     OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: "Light", language: "ja-JP", width: 400, fontSize: 18) [FAIL]
+数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。
+  失败 OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: "Light", language: "ja-JP", width: 400, fontSize: 18) [3 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: Front
+Actual:   Isometric
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.Viewer3DGeometryTests.<>c__DisplayClass13_1.<ViewButtonsShowLabelsAndTrackTheActualCamera>g__AssertSelected|9(OpticSceneViewPreset expected, <>c__DisplayClass13_2&) in /_/.tmp/cloud-package-20261031/preflight/tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs:line 701
+   at OpticalSystemDesign.Tests.Viewer3DGeometryTests.<>c__DisplayClass13_0.<<ViewButtonsShowLabelsAndTrackTheActualCamera>b__0>d.MoveNext() in /_/.tmp/cloud-package-20261031/preflight/tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs:line 633
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(ViewerPresentationMode mode, String theme, String language, Int32 width, Double fontSize) in /_/.tmp/cloud-package-20261031/preflight/tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs:line 592
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\.tmp\cloud-package-20261031\preflight-results\viewer-gate-after.trx
+
+失败!  - 失败:     1，通过:     6，已跳过:     0，总计:     7，持续时间: 1 m 42 s - OpticalSystemDesign.Tests.dll (net10.0)

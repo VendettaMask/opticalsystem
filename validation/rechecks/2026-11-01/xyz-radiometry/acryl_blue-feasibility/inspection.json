@@ -1,0 +1,229 @@
+{
+  "Execution": {
+    "CoreSha256": "fcbc82202f1cd5945117cc8eb43442be9bcbef5904713042a3d7e1e656bb7c46",
+    "DiagnosticSha256": "3a095f3d2e023459ca4790f8375a1bac6693546b0c7cda34980cd3c975ef4c2b"
+  },
+  "Sources": {
+    "Spectral": "0ae678883e58af7840def4aef72847c55c391d2efe324179f209a33fe12ffc9a",
+    "Xyz": "9fe766ec058a6797fd81fcc490a3685f3f93c1a81439db94dcdd830d7ba4676e",
+    "Cmf": "fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1",
+    "D65": "e76f210bffff3d552ef7113025da5f325d5dfec200dd4b878b1a2f3a507032cb"
+  },
+  "fit": {
+    "Bands": [
+      {
+        "WavelengthNanometers": 550,
+        "X": 0,
+        "Y": 2.7439171753975544,
+        "Z": 0
+      }
+    ],
+    "Evidence": {
+      "Provenance": {
+        "Kind": 1,
+        "Source": "Published Cornell paired spectra/XYZ. Illuminant D65; observer not verified.",
+        "XyzSha256": "9fe766ec058a6797fd81fcc490a3685f3f93c1a81439db94dcdd830d7ba4676e",
+        "RadiometricSha256": "0ae678883e58af7840def4aef72847c55c391d2efe324179f209a33fe12ffc9a",
+        "ObserverAndIlluminantVerified": false
+      },
+      "Policy": {
+        "MaximumValidationNormalizedRms": 0.01,
+        "MaximumValidationAbsoluteError": 0.01,
+        "RelativeSignalFloor": 1E-06
+      },
+      "Bands": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 227.28588181929206,
+          "TrainingNormalizedRms": 0.036590515807327376,
+          "ValidationNormalizedRms": 0.6120040309022673,
+          "ValidationMaximumAbsoluteError": 0.0021651118257848324,
+          "ValidationMaximumRelativeError": 2019.5230410926,
+          "Passed": false
+        }
+      ],
+      "CalibrationBandsSha256": "51638fcc648d4e53ac2f6bc5818c608c99c6b7d26a02f28a71f74a53fe6a7c3a"
+    },
+    "ModelValidationPassed": false
+  },
+  "Profiles": [
+    {
+      "Validation": false,
+      "Count": 959,
+      "TargetSquaredSum": 774.6152980311991,
+      "MaximumTarget": 24.104004,
+      "LargestTargetSquaredShare": 0.750053620563294,
+      "LargestResiduals": [
+        {
+          "SampleId": "1.22173/0/1.202528/3.1415929999999999",
+          "Validation": false,
+          "Target": 7.778622,
+          "Prediction": 8.651414450749492
+        },
+        {
+          "SampleId": "0.69813199999999997/0/0.72273399999999999/3.1415929999999999",
+          "Validation": false,
+          "Target": 3.224344,
+          "Prediction": 3.5965921815695197
+        },
+        {
+          "SampleId": "1.396263/0/1.379634/3.1415929999999999",
+          "Validation": false,
+          "Target": 24.104004,
+          "Prediction": 23.850627481481467
+        },
+        {
+          "SampleId": "1.0471980000000001/0/1.035612/3.1415929999999999",
+          "Validation": false,
+          "Target": 7.899315,
+          "Prediction": 7.684383952375658
+        },
+        {
+          "SampleId": "0.87266500000000002/0/0.87629800000000002/3.1415929999999999",
+          "Validation": false,
+          "Target": 7.765697,
+          "Prediction": 7.608388422285846
+        },
+        {
+          "SampleId": "1.0471980000000001/0/0.72273399999999999/3.1415929999999999",
+          "Validation": false,
+          "Target": 0.007401,
+          "Prediction": 0.010808289753890966
+        },
+        {
+          "SampleId": "1.0471980000000001/0/0.72273399999999999/-2.9845130000000002",
+          "Validation": false,
+          "Target": 0.003474,
+          "Prediction": 0.006269850745783412
+        },
+        {
+          "SampleId": "0.87266500000000002/0/1.202528/3.1415929999999999",
+          "Validation": false,
+          "Target": 0.003638,
+          "Prediction": 0.006143630555715125
+        }
+      ]
+    },
+    {
+      "Validation": true,
+      "Count": 480,
+      "TargetSquaredSum": 0.0021330464579999995,
+      "MaximumTarget": 0.036514,
+      "LargestTargetSquaredShare": 0.6250553948319114,
+      "LargestResiduals": [
+        {
+          "SampleId": "0.87266500000000002/0/1.202528/-2.8470680000000002",
+          "Validation": true,
+          "Target": 0.000491,
+          "Prediction": 0.0026561118257848325
+        },
+        {
+          "SampleId": "1.0471980000000001/0/1.202528/-2.7488939999999999",
+          "Validation": true,
+          "Target": 0.000499,
+          "Prediction": 0.002612209150978472
+        },
+        {
+          "SampleId": "0.87266500000000002/0/1.035612/-3.0293929999999998",
+          "Validation": true,
+          "Target": 0.001251,
+          "Prediction": 0.0033366032852834263
+        },
+        {
+          "SampleId": "0.87266500000000002/0/1.035612/-2.6927940000000001",
+          "Validation": true,
+          "Target": 7.9E-05,
+          "Prediction": 0.00215397498268708
+        },
+        {
+          "SampleId": "0.69813199999999997/0/1.035612/3.1415929999999999",
+          "Validation": true,
+          "Target": 0.000783,
+          "Prediction": 0.0028262346906594814
+        },
+        {
+          "SampleId": "1.0471980000000001/0/1.035612/-3.0293929999999998",
+          "Validation": true,
+          "Target": 0.00675,
+          "Prediction": 0.008791510629973763
+        },
+        {
+          "SampleId": "1.0471980000000001/0/1.035612/-2.6927940000000001",
+          "Validation": true,
+          "Target": 0,
+          "Prediction": 0.0020195230410926
+        },
+        {
+          "SampleId": "0.69813199999999997/0/1.202528/3.1415929999999999",
+          "Validation": true,
+          "Target": 0.000559,
+          "Prediction": 0.002562818641821316
+        }
+      ]
+    }
+  ],
+  "Feasibility": {
+    "ValidationInSampleNnlsMinimumNrmse": 0.4916883003097556,
+    "ValidationCoefficientsAreNotExported": true,
+    "RelativeObjectiveOriginalValidationNrmse": 0.9999832741922933,
+    "RelativeObjectiveOriginalMaximumAbsolute": 0.03651342151839645
+  },
+  "Forward": [
+    {
+      "Illuminant": "D65",
+      "Observer": "CIE 1931 2-degree hypothesis only",
+      "Band": "400-700 nm zero outside",
+      "StepNm": 1,
+      "Errors": [
+        {
+          "Channel": "X",
+          "Scale": 0.358442305829298,
+          "UnscaledNrmse": 1.7898492517054234,
+          "ScaledNrmse": 7.683356980150662E-05
+        },
+        {
+          "Channel": "Y",
+          "Scale": 0.35819262973857097,
+          "UnscaledNrmse": 1.7917938706182972,
+          "ScaledNrmse": 0.00023104988348361948
+        },
+        {
+          "Channel": "Z",
+          "Scale": 0.35888858372576904,
+          "UnscaledNrmse": 1.7863800532551302,
+          "ScaledNrmse": 0.00020182443447362607
+        }
+      ]
+    },
+    {
+      "Illuminant": "E",
+      "Observer": "CIE 1931 2-degree hypothesis only",
+      "Band": "400-700 nm zero outside",
+      "StepNm": 1,
+      "Errors": [
+        {
+          "Channel": "X",
+          "Scale": 0.3429310326574886,
+          "UnscaledNrmse": 1.916034621294938,
+          "ScaledNrmse": 0.0022739392675152218
+        },
+        {
+          "Channel": "Y",
+          "Scale": 0.35938292683482986,
+          "UnscaledNrmse": 1.7825463338006855,
+          "ScaledNrmse": 0.0012708417169047825
+        },
+        {
+          "Channel": "Z",
+          "Scale": 0.3917167701209292,
+          "UnscaledNrmse": 1.5528632144993366,
+          "ScaledNrmse": 0.0019357678822831074
+        }
+      ]
+    }
+  ],
+  "ApprovedExport": false
+}

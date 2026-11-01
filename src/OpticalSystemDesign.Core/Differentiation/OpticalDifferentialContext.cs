@@ -15,6 +15,10 @@ internal sealed class OpticalDifferentialContext
     private readonly Dictionary<(int Surface, OpticalDesignParameterKind Kind, int Coefficient), (int Slot, double Scale)>? _bindings;
     private readonly (double Curvature, double Conic, double[] Coefficients)[]? _profiles;
     private readonly bool[]? _materialParameters;
+    // Forward scalar values/tangents are immutable. These bounded maps belong to
+    // this one optical/parameter evaluation; reverse-tape nodes are never retained.
+    private Dictionary<(int Slot, long Value), DifferentialScalar>? _forwardSeeds;
+    private Dictionary<(int Surface, long Wavelength), DifferentialScalar>? _forwardIndices;
 
     public OpticalDifferentialContext(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters, int extraDimensions = 0, bool analyticNormals = false)
     {
@@ -49,8 +53,16 @@ internal sealed class OpticalDifferentialContext
     public DifferentialScalar Parameter(int surface, OpticalDesignParameterKind kind, double value, int coefficient = 0)
     {
         if (_bindings is not null)
-            return _bindings.TryGetValue((surface, kind, coefficient), out var binding)
-                ? DifferentialScalar.Variable(value, Dimension, binding.Slot, binding.Scale) : value;
+        {
+            if (!_bindings.TryGetValue((surface, kind, coefficient), out var binding)) return value;
+            if (DifferentialTape.Current is not null) return DifferentialScalar.Variable(value, Dimension, binding.Slot, binding.Scale);
+            _forwardSeeds ??= [];
+            var key = (binding.Slot, BitConverter.DoubleToInt64Bits(value));
+            if (_forwardSeeds.TryGetValue(key, out var seeded)) return seeded;
+            seeded = DifferentialScalar.Variable(value, Dimension, binding.Slot, binding.Scale);
+            if (_forwardSeeds.Count >= 4096) _forwardSeeds.Clear();
+            _forwardSeeds.Add(key, seeded); return seeded;
+        }
         for (var index = 0; index < _parameters.Count; index++)
             if (_parameters[index] is var parameter && (parameter.SurfaceIndex == surface || parameter.LinkedSurfaceIndex == surface) && parameter.Kind == kind
                 && (kind != OpticalDesignParameterKind.EvenAsphereCoefficient || parameter.CoefficientIndex == coefficient))
@@ -75,6 +87,17 @@ internal sealed class OpticalDifferentialContext
     public DifferentialScalar Index(int surface, double wavelength)
     {
         if (surface < 0) return 1;
+        if (_bindings is null || DifferentialTape.Current is not null) return ComputeIndex(surface, wavelength);
+        _forwardIndices ??= [];
+        var key = (surface, BitConverter.DoubleToInt64Bits(wavelength));
+        if (_forwardIndices.TryGetValue(key, out var value)) return value;
+        value = ComputeIndex(surface, wavelength);
+        if (_forwardIndices.Count >= 4096) _forwardIndices.Clear();
+        _forwardIndices.Add(key, value); return value;
+    }
+
+    private DifferentialScalar ComputeIndex(int surface, double wavelength)
+    {
         var material = _optic.SurfaceGroup.Items[surface].MaterialAfter;
         if (!(_materialParameters is not null ? _materialParameters[surface] : _parameters.Any(parameter =>
                 (parameter.SurfaceIndex == surface || parameter.LinkedSurfaceIndex == surface)

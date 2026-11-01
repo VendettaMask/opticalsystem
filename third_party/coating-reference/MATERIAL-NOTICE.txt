@@ -10,3 +10,21 @@ Reactive electron-beam evaporation, 300 degrees C.
 
 Both n and k are retained. Wavelengths alone are converted from micrometers to nanometers.
 These datasets describe the cited samples, not universal deposition-process constants.
+
+Additional measured-film validation tables (2026-11-01)
+Same fixed database commit and CC0 dedication as above. Original tabulated n and k
+are preserved without removing absorption or extrapolating the wavelength range.
+
+TiO2-Siefke.yml: 350 nm ALD film; ellipsometry/spectrophotometry and universal
+dispersion fit. T. Siefke et al., Adv. Opt. Mater. 4, 1780-1786 (2016),
+https://doi.org/10.1002/adom.201600250
+
+Nb2O5-Lemarchand.yml: F. Lemarchand private communication (2013), 500 nm
+magnetron-sputtered monolayer on BK7; measurement method:
+https://doi.org/10.1364/OE.20.015734
+
+HfO2-Siefke.yml: 220 nm PEALD film on SiO2, T. Siefke et al. (2026),
+https://doi.org/10.1051/jeos/2026036
+Its table ends at 619.921 nm; only covered specifications are used.
+These tables describe the measured samples and their reported fits, not the
+optical constants of every manufacturing process or production certification.

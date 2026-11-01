@@ -1,0 +1,1375 @@
+{
+  "scope": "General coating tradeoff repair, cutoff extrema, constrained reflectance steps",
+  "date": "2026-10-31",
+  "baseCommit": "3b43bb7f87270e034218bf466b23f885330814fc",
+  "result": {
+    "pairs": 41,
+    "completedRuns": 123,
+    "passed": {
+      "legacy-v1": 22,
+      "previous-v2": 22,
+      "after": 22
+    },
+    "inputTargetRegressions": 0,
+    "improvedFromInput": 35,
+    "betterThanLegacy": 14,
+    "worseThanLegacy": 0,
+    "sameAsLegacy": 27,
+    "betterThanPrevious": 13,
+    "worseThanPrevious": 0,
+    "sameAsPrevious": 28,
+    "fiveRepaired": true,
+    "regressionNames": [
+      "continued-double-96",
+      "holdout-violet",
+      "new-ir-double",
+      "prior-double-96",
+      "real-narrowband-control"
+    ],
+    "extraCorrectionCases": 13,
+    "guardFailures": [],
+    "integrityPassed": true
+  },
+  "tests": {
+    "path": "validation/rechecks/2026-10-31/coating-tradeoff-repair/final-tests/coating-tradeoffs-final.trx",
+    "sha256": "e092817f2a2e3d2e1b54ccff699de87837f7e3196e8bf033f0af2d15c106199b",
+    "counters": {
+      "total": 168,
+      "executed": 168,
+      "passed": 168,
+      "failed": 0,
+      "error": 0,
+      "timeout": 0,
+      "aborted": 0,
+      "inconclusive": 0,
+      "passedButRunAborted": 0,
+      "notRunnable": 0,
+      "notExecuted": 0,
+      "disconnected": 0,
+      "warning": 0,
+      "completed": 0,
+      "inProgress": 0,
+      "pending": 0
+    },
+    "testAssemblySha256": "52868db6a1b5de4876034fe026a9446cf205ef99f995c62758a762a23f9f15d1"
+  },
+  "comparison": {
+    "cases": 3321,
+    "maximumErrors": {
+      "R": 5.329070518200751e-15,
+      "T": 7.549516567451064e-15,
+      "A": 6.106226635438361e-15
+    }
+  },
+  "reference": {
+    "runs": 24,
+    "passed": 0,
+    "targetRegressions": 19,
+    "scope": "Pinned unmodified DLS/Newton, their point squared guide, original native acceptance reapplied; different objective, not a same-work optimizer ranking"
+  },
+  "budgets": "Main optimizer remains bounded by MaximumIterations; NB additionally compares one direction with at most MaximumIterations iterations, then at most ceil(sqrt(MaximumIterations)) repair iterations. Extra solves, trials, dense calls and times are disclosed; no equal-total-work claim.",
+  "binaries": [
+    {
+      "name": "OpticalSystemDesign.Core",
+      "legacy-v1": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22",
+      "previous-v2": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22",
+      "after": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22",
+      "test": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "name": "OpticalSystemDesign.Application",
+      "legacy-v1": "1798f1622fc4f217183d912ed94af92370a27038de692fcb9a74e1e0536949e9",
+      "previous-v2": "1798f1622fc4f217183d912ed94af92370a27038de692fcb9a74e1e0536949e9",
+      "after": "1798f1622fc4f217183d912ed94af92370a27038de692fcb9a74e1e0536949e9",
+      "test": "1798f1622fc4f217183d912ed94af92370a27038de692fcb9a74e1e0536949e9"
+    },
+    {
+      "name": "OpticalSystemDesign.CoatingDesign.Engine",
+      "legacy-v1": "3bcdcd4d47cc03851f364aef85781bb2ae93b78a3a8139fa92e45c504a0c9f69",
+      "previous-v2": "c109e56db9bc7ed62a510ab4c743e5da42863fcd2a4934aa49d364b542adc4a0",
+      "after": "6e4bd24bc26815de55b63ebf7d095751c941520b0146599f25ea7b22705f0595",
+      "test": "6e4bd24bc26815de55b63ebf7d095751c941520b0146599f25ea7b22705f0595"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "ar-blue.coating.json",
+      "sha256": "e6761bc35e3f95c23e4a974356a83e037c09c0b5c82395b2415f522daec78469",
+      "unchanged": true
+    },
+    {
+      "file": "ar-ir.coating.json",
+      "sha256": "36f8abb7aeaafc15575e121d4b869ff702b0cf6a25a8ab4613bce8809cf61391",
+      "unchanged": true
+    },
+    {
+      "file": "ar-nearir.coating.json",
+      "sha256": "c5392d4465770689c5da4b510224f23eb01035c3e6689c75830f9517bdf017aa",
+      "unchanged": true
+    },
+    {
+      "file": "continued-double-96.coating.json",
+      "sha256": "f46ec3c91cdd9993aae6c1c3e2496244380b505b5f5f1061f1f74de02b888105",
+      "unchanged": true
+    },
+    {
+      "file": "continued-hr-96.coating.json",
+      "sha256": "15e32b21e55dd6d4325eb92871ab01ceb34c58884b57f73282c55d0e526cfb6d",
+      "unchanged": true
+    },
+    {
+      "file": "continued-single-24.coating.json",
+      "sha256": "e66ecf5c18cc4d0c8bf468a1e709adc6c496222abda7355bb6619a7083392fd9",
+      "unchanged": true
+    },
+    {
+      "file": "fixed-films.coating.json",
+      "sha256": "974c6b7f6459f45b5ebd44f48ac066a52debd5e35e26f647a810e65385a57650",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-ar-oblique.coating.json",
+      "sha256": "bf8d1bafdebdffe373b40b5b00c8580bdbdce409e20d675c99674529af9d995a",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-ar-red.coating.json",
+      "sha256": "d1d81b618f72b1c1a5f5cf6660536b761bde48644de87e3838f605ad86ef5c5a",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-ar-wide.coating.json",
+      "sha256": "93a51678b157c736dd0e0e79e3a115e55c70114bed802a2feb5d778a6740f186",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-hr-oblique.coating.json",
+      "sha256": "6aedb0b3f0e6340ac125e83bd887117479a33e70d81afe79cb90017140744ec7",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-hr-red.coating.json",
+      "sha256": "44dd88c5aca3df1d171cc7966f732dded522270a61c6604074a4e4a6db168215",
+      "unchanged": true
+    },
+    {
+      "file": "heldout-hr-wide.coating.json",
+      "sha256": "6fcf1932525d4f32b582a41161adc77cac751313f0dbb208b0b38bdc8938a08a",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-ir.coating.json",
+      "sha256": "29687bb0f2640e9e18b5e4f9fc953bd9257efa8ab1a4505ab404d8b5e47e6980",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-real-hr-nearir.coating.json",
+      "sha256": "b16407664ccea0e25a7c47520996ccec61374c114abc3cb42817536677f6f2c7",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-real-hr-red.coating.json",
+      "sha256": "1635acc6474810f6df87cb8bff42f1da8837892c898b33e7203cc886cec05ba9",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-red-fixed.coating.json",
+      "sha256": "0e2ea69fef4b6ba69b9d64a0d3ba590549740e1f30601b2579550698ebeb8206",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-telecom.coating.json",
+      "sha256": "3e889363c043c2f52a33a7ef15d5fe9df03a9fa24995d09ab72db1dab30988b0",
+      "unchanged": true
+    },
+    {
+      "file": "holdout-violet.coating.json",
+      "sha256": "8416aab8af5a7762613d2705d9861e2f6cde30bcf2898db416a9e2c289eff267",
+      "unchanged": true
+    },
+    {
+      "file": "hr-green.coating.json",
+      "sha256": "572258d43672d54e9c831eceecdd163ca6a986cfbfeaa54ef7c065dd618ca03e",
+      "unchanged": true
+    },
+    {
+      "file": "hr-ir.coating.json",
+      "sha256": "a22c585397f79ab81be64a0c2b808df0e78798c87c7cf8f5440a23ee40ab6ebc",
+      "unchanged": true
+    },
+    {
+      "file": "hr-nearir.coating.json",
+      "sha256": "de07a5b71a1c47584ab5e63ded0012cd91f840b016fd2791a939a12c14a82394",
+      "unchanged": true
+    },
+    {
+      "file": "ir-absorbing-s.coating.json",
+      "sha256": "7405385587286d1baa5d78d3c58752f0cff0d41995d61375c3196b80f590ce25",
+      "unchanged": true
+    },
+    {
+      "file": "near-ir-oblique-p.coating.json",
+      "sha256": "d2343fff1d5e375068f74c45591d591e0f48a1505afecc758d0b86da096bf919",
+      "unchanged": true
+    },
+    {
+      "file": "new-blue-single.coating.json",
+      "sha256": "a381ae3217d5b4bcfbcd45e494a946bc0417592796b31723e3ab2197ff1533ad",
+      "unchanged": true
+    },
+    {
+      "file": "new-fixed-double.coating.json",
+      "sha256": "cc16686eeabef9f1cdaecf02ef2a0476588e3b5a03e219562c89aee542f6a0ad",
+      "unchanged": true
+    },
+    {
+      "file": "new-ir-double.coating.json",
+      "sha256": "995287772bd3c4a024908388a4619cc1baff2a77f8037be2ceacd863215f81ab",
+      "unchanged": true
+    },
+    {
+      "file": "new-nearir-single.coating.json",
+      "sha256": "0fbfe2f9ac9590c07adc9ddcd87925f41e8426dd9681dd96f9ce22a7e20d8a84",
+      "unchanged": true
+    },
+    {
+      "file": "new-oblique-single.coating.json",
+      "sha256": "8128fd139b922612f7a0ed6e9ee6e731b38f58a1cab52a8ae98d8289740fddd1",
+      "unchanged": true
+    },
+    {
+      "file": "new-red-double.coating.json",
+      "sha256": "e0519ea0936aed08d742e82494195611fdb691b14beec2c05a3d7a844f6a32d3",
+      "unchanged": true
+    },
+    {
+      "file": "prior-double-96.coating.json",
+      "sha256": "a46152e190f1a578f7acb78e5f80f6b9322af6b702470def64cfbb7f69d3ae3a",
+      "unchanged": true
+    },
+    {
+      "file": "prior-single-24.coating.json",
+      "sha256": "6b20c33ad0b188b6ba8c256499611ede3b784c4ab004fd4f90717e02a10c7342",
+      "unchanged": true
+    },
+    {
+      "file": "real-ar-polished.coating.json",
+      "sha256": "93992a8a0fa56ade8d75e349fc14a75a69f78e06f90a35febaf116c16502e44c",
+      "unchanged": true
+    },
+    {
+      "file": "real-ar-threshold.coating.json",
+      "sha256": "0ff91e2590c0aca02014f406e16384f9c18e2396fcd315435f0a27fe170a1dcc",
+      "unchanged": true
+    },
+    {
+      "file": "real-hr-96.coating.json",
+      "sha256": "b8cc4568c43c43af6d11963fc98a55fe4b3815a0b5680e589545d31429f260f7",
+      "unchanged": true
+    },
+    {
+      "file": "real-hr-original-target.coating.json",
+      "sha256": "cf6dbdbcda64d3560c5a0ad4b57b62bff369db2d28b2f9cd9359075254c1f3db",
+      "unchanged": true
+    },
+    {
+      "file": "real-narrowband-control.coating.json",
+      "sha256": "21c4ddecf4d7239d2c8a1177870deba1ee8ee3423ecaab3aa15f46df160fb8ca",
+      "unchanged": true
+    },
+    {
+      "file": "real-nbf1-96.coating.json",
+      "sha256": "707f60ccdbfb2b13f6c74c231713b4732d9f19ad2060ab662db6de4f0b701e30",
+      "unchanged": true
+    },
+    {
+      "file": "real-nbf2-96.coating.json",
+      "sha256": "b506aaa8f690d4aa00f141cc2fc2d0efdb9be3f627f14ef3937a94372b6982a0",
+      "unchanged": true
+    },
+    {
+      "file": "red-low-contrast.coating.json",
+      "sha256": "3bfd24c6143577b81d52c40753ec77b2bbbfe5dbb22f1b83367d140ec154536f",
+      "unchanged": true
+    },
+    {
+      "file": "visible-low-loss.coating.json",
+      "sha256": "c1c09aa3b6f29c41ceebb0dc54410462f478ae2bc85355f2ebc2dae655dbfeed",
+      "unchanged": true
+    }
+  ],
+  "sources": [
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Balanced.cs",
+      "sha256": "9d154bc46f017ea82f13d2f399f907c893b7d5f11ce544494ba4d8a9ba63a2cd"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.cs",
+      "sha256": "c0e7c3286a599a65d3b9e4031baebf26e891348a60cc3aa288283137f358babc"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.FeasibleReflectance.cs",
+      "sha256": "42521033c9781eee1f7adef93a0ef930e3d270efac73f99283b1611459112479"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.FeasibleTargets.cs",
+      "sha256": "c91e8035346f8a9bad86c981f6a0aa7984e34e4392a26cb68a52c1a7adfbb4e5"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralMatching.cs",
+      "sha256": "60061f33aab5d6c2101eacf42c51ce2d2858c7f22d67c30988845b6b5df74d17"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralObjective.cs",
+      "sha256": "62ac67214dc9c0a8368962b6a420e7d09cde102cdca9be2a13d42544e164231e"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralSearch.cs",
+      "sha256": "45a0e0cc50af2a3193124e2228dd239ccb03f65709c13e6b6eed87971292b762"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.NarrowBand.cs",
+      "sha256": "bb94dd3345179aef1a813d0ba3d6c274317ae9c2504020542514dcfb3d25d9d4"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.ReflectanceQuality.cs",
+      "sha256": "60f6d927334c7b0008a008e99a154a07be4a5868d806477acf4fcea5acdd0cfe"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Search.cs",
+      "sha256": "9b942bba5b3f1bf1c4b7b7a367bc52324671380f7244e12f91c747949316f7fe"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.TargetProtection.cs",
+      "sha256": "4851ede1a7ba6f8e2660039c326000fe98d5b90e838350e2bbab8609530eafba"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Examples.cs",
+      "sha256": "9a9dc871c726b286ebc4655b28cc4ed6246ebbd0586d580f440a333eb7fa583f"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Experiment.cs",
+      "sha256": "e7c402be53c3cc14c5c032e83b870075b847b616520799e1d769b7d713730d5b"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/ExperimentSession.cs",
+      "sha256": "a4e5260c9eb042a6a78cba888bbfcd3420c34ba2e3ed2f497701effeed86d0a5"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/ExperimentStore.cs",
+      "sha256": "a1bc7a7563043edad95f805825972d2f849f74d8964440886159bd7caad1ab8c"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialLibrary.cs",
+      "sha256": "96d2700ae56c23dfcf93f47f12042c8b3c20ef445a66670ff5ba162d05f1860b"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialSuitability.cs",
+      "sha256": "76d0ef7bca6164e722900d6937d7890c60906612dbb71cd1f479f199cc34056c"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialTable.cs",
+      "sha256": "b03e578863fc66daa1347fee2660deeefc086acf54c5d1b1e77c911d9f10d165"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Optimization/InequalityLeastSquaresStep.cs",
+      "sha256": "2ccecf4ccfccb5b980ffbc5269fabe3fdff8c371e0e008dfd7729708c7745628"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/AdaptiveThinFilmSpectrum.cs",
+      "sha256": "c42822f3f6562cf8eeb7c153df74dd5d242f7a2049847d3c2d252260d581f931"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoatingLayerParameters.cs",
+      "sha256": "684a02218a940d146456dcd9292e0c896d259a24c8c9ab588d1548e57fc96882"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoatingModels.cs",
+      "sha256": "692ccd58c7aab511811be3dd77bdb3e01fc0184247552e3443e0b8d3c20d11ea"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentMultilayerCoating.cs",
+      "sha256": "d421bdc097954197a001fdca5daa6d75d470474d5821760385b7c9b3bda90807"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs",
+      "sha256": "c44891cceb871d9e956327cc41ca4bda4f5f720928e7ad259160feab83a1c45c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/FresnelPower.cs",
+      "sha256": "4b586838643bb3783f48dd38abc08d3dd7e0b8072a2ef7371e768a0f075ffd1e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmBandSensitivity.cs",
+      "sha256": "1a6c49f19420dede96fa473cc68af85342019a221c186926f577e9514877a0b1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmPeakRefinement.cs",
+      "sha256": "6b891ba7e0d63bd94aea393e4a3b0d232759b0edcf3f520b728f4ed17ec45850"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs",
+      "sha256": "91242413813373277c503cc1da56f31b6c9e258a62ed3089cad502eb7a800bbf"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmThicknessSensitivity.cs",
+      "sha256": "058062da304a693657db64f96af03b454b7bbcf3df35bc86626391d5e9fea88b"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/InequalityStepTests.cs",
+      "sha256": "b6cd4f243ef1ca9c2564096229e0831ccd88c7a03b6009127aff7a91b5edb660"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/TargetTradeoffTests.cs",
+      "sha256": "db3b4854a53f1c6c8a3932c1508a9aefde6239e661b718881093d146a8723216"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/TargetBalancingTests.cs",
+      "sha256": "f0225f4339c11615ee209d5f1ff69bc1f7ec81f48f9c013efa27e504bddde099"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/TargetPreservationTests.cs",
+      "sha256": "bf9e69ab036cb4d4be352c1a0d568440585eea987f93c28a64c9bfa257b7351b"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/OpticalSystemDesign.CoatingDesign.Tests.csproj",
+      "sha256": "18f997014f14a98ee7db34965b4529f645feb9b550738607a654789dc2b27baa"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Fixtures/target-tradeoffs-20261031.json",
+      "sha256": "b2938bddcbb95c18f002e18be12b706207567a516c5caad0f14280b7dc96a56f"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Fixtures/target-balancing-20261031.json",
+      "sha256": "bcccb84d467982800f3f6aa669a0234a2b086b9f7efed7fe84d9e5892ca07a2e"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/Program.cs",
+      "sha256": "d299cd625a15549ba2232be85e5da06848da8dacdb10d341cb43f6cf907ef0c8"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/ReflectanceQualityAudit.cs",
+      "sha256": "e915e99ef88d7305590f0c1964cac54bf093824c49f8100886288cbe86de849b"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/RepairGuideAudit.cs",
+      "sha256": "fedc1f724ce5e92b181bf7298a70075402e35f119946869a4bb508fd5da8cd55"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/freeze-tradeoff-regressions.mjs",
+      "sha256": "fe766b53b47d7f5905d987888ba2b27bb6ee44c4ef3ca39819f38dc2860a1d18"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/summarize-tradeoff-repair.mjs",
+      "sha256": "de57bae286713892ce5425b6ac17aa4216b06251a63c8509865bbe98066489b1"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/seal-tradeoff-repair.mjs",
+      "sha256": "943f13888705da642a7457a3f12bdba3652e0ff2926213ca43bcd06feefa2ecf"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/write-tradeoff-report.mjs",
+      "sha256": "424820c6eefb7bcb84ea928590b74ccabd994854a89d6223eea3b80721d45453"
+    },
+    {
+      "path": "tools/diagnostics/CoatingAudit20261030/reference-infeasible.mjs",
+      "sha256": "6ff81d66af756fcc6e585743aea21d4c43d41cc5a039081f2c2c8b487a9f5661"
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/COATING_TRADEOFF_REPAIR_2026-10-31.md",
+      "sha256": "da05d16eb5c614e2427a753a4e409b0be43cf925a312a9855b809d062837bcc9"
+    },
+    {
+      "path": "docs/COATING_DESIGN_LAB.md",
+      "sha256": "de5536a476bb43bd7b4468e586ac02b3d784582a28a5a0948990eef183355c50"
+    },
+    {
+      "path": "docs/FILE_FORMATS_AND_PLUGINS.md",
+      "sha256": "7171c8e7685d6f92606378d259b596b42550e7cc19463ae0a083e690c2da2b4d"
+    },
+    {
+      "path": "docs/COATING_TARGET_BALANCING_2026-10-31.md",
+      "sha256": "161169919ddcb41aa9543cb69541c173fd635f30cf5559941111a891973cdfda"
+    },
+    {
+      "path": "docs/COATING_TARGET_PRESERVATION_2026-10-30.md",
+      "sha256": "cf895ac18f709968e72627a800e9d3f61c4d2e3a35c5c0d233ee7cb9eafc1d4c"
+    },
+    {
+      "path": "docs/COATING_INFEASIBLE_REPAIR_2026-10-30.md",
+      "sha256": "cbacca5914d0b69580449ac29645a408d3cc7c25f5228228aeb538e2d98d9ead"
+    },
+    {
+      "path": "docs/COATING_REFLECTANCE_QUALITY_2026-10-30.md",
+      "sha256": "668cfcbff3277c1cba3cfbf9deb09f841b230ac66fe11102063874ec799d6d7c"
+    },
+    {
+      "path": "validation/rechecks/2026-10-31/coating-tradeoff-repair/README.md",
+      "sha256": "1363c20e8e418d2f85057072062d9b34f275e603db5ff380d0d3c323001f6a84"
+    }
+  ],
+  "documentationLinks": {
+    "passed": true,
+    "broken": []
+  },
+  "files": [
+    {
+      "path": "inputs/ar-blue.coating.json",
+      "sha256": "e6761bc35e3f95c23e4a974356a83e037c09c0b5c82395b2415f522daec78469"
+    },
+    {
+      "path": "inputs/ar-ir.coating.json",
+      "sha256": "36f8abb7aeaafc15575e121d4b869ff702b0cf6a25a8ab4613bce8809cf61391"
+    },
+    {
+      "path": "inputs/ar-nearir.coating.json",
+      "sha256": "c5392d4465770689c5da4b510224f23eb01035c3e6689c75830f9517bdf017aa"
+    },
+    {
+      "path": "inputs/continued-double-96.coating.json",
+      "sha256": "f46ec3c91cdd9993aae6c1c3e2496244380b505b5f5f1061f1f74de02b888105"
+    },
+    {
+      "path": "inputs/continued-hr-96.coating.json",
+      "sha256": "15e32b21e55dd6d4325eb92871ab01ceb34c58884b57f73282c55d0e526cfb6d"
+    },
+    {
+      "path": "inputs/continued-single-24.coating.json",
+      "sha256": "e66ecf5c18cc4d0c8bf468a1e709adc6c496222abda7355bb6619a7083392fd9"
+    },
+    {
+      "path": "inputs/fixed-films.coating.json",
+      "sha256": "974c6b7f6459f45b5ebd44f48ac066a52debd5e35e26f647a810e65385a57650"
+    },
+    {
+      "path": "inputs/heldout-ar-oblique.coating.json",
+      "sha256": "bf8d1bafdebdffe373b40b5b00c8580bdbdce409e20d675c99674529af9d995a"
+    },
+    {
+      "path": "inputs/heldout-ar-red.coating.json",
+      "sha256": "d1d81b618f72b1c1a5f5cf6660536b761bde48644de87e3838f605ad86ef5c5a"
+    },
+    {
+      "path": "inputs/heldout-ar-wide.coating.json",
+      "sha256": "93a51678b157c736dd0e0e79e3a115e55c70114bed802a2feb5d778a6740f186"
+    },
+    {
+      "path": "inputs/heldout-hr-oblique.coating.json",
+      "sha256": "6aedb0b3f0e6340ac125e83bd887117479a33e70d81afe79cb90017140744ec7"
+    },
+    {
+      "path": "inputs/heldout-hr-red.coating.json",
+      "sha256": "44dd88c5aca3df1d171cc7966f732dded522270a61c6604074a4e4a6db168215"
+    },
+    {
+      "path": "inputs/heldout-hr-wide.coating.json",
+      "sha256": "6fcf1932525d4f32b582a41161adc77cac751313f0dbb208b0b38bdc8938a08a"
+    },
+    {
+      "path": "inputs/holdout-ir.coating.json",
+      "sha256": "29687bb0f2640e9e18b5e4f9fc953bd9257efa8ab1a4505ab404d8b5e47e6980"
+    },
+    {
+      "path": "inputs/holdout-real-hr-nearir.coating.json",
+      "sha256": "b16407664ccea0e25a7c47520996ccec61374c114abc3cb42817536677f6f2c7"
+    },
+    {
+      "path": "inputs/holdout-real-hr-red.coating.json",
+      "sha256": "1635acc6474810f6df87cb8bff42f1da8837892c898b33e7203cc886cec05ba9"
+    },
+    {
+      "path": "inputs/holdout-red-fixed.coating.json",
+      "sha256": "0e2ea69fef4b6ba69b9d64a0d3ba590549740e1f30601b2579550698ebeb8206"
+    },
+    {
+      "path": "inputs/holdout-telecom.coating.json",
+      "sha256": "3e889363c043c2f52a33a7ef15d5fe9df03a9fa24995d09ab72db1dab30988b0"
+    },
+    {
+      "path": "inputs/holdout-violet.coating.json",
+      "sha256": "8416aab8af5a7762613d2705d9861e2f6cde30bcf2898db416a9e2c289eff267"
+    },
+    {
+      "path": "inputs/hr-green.coating.json",
+      "sha256": "572258d43672d54e9c831eceecdd163ca6a986cfbfeaa54ef7c065dd618ca03e"
+    },
+    {
+      "path": "inputs/hr-ir.coating.json",
+      "sha256": "a22c585397f79ab81be64a0c2b808df0e78798c87c7cf8f5440a23ee40ab6ebc"
+    },
+    {
+      "path": "inputs/hr-nearir.coating.json",
+      "sha256": "de07a5b71a1c47584ab5e63ded0012cd91f840b016fd2791a939a12c14a82394"
+    },
+    {
+      "path": "inputs/ir-absorbing-s.coating.json",
+      "sha256": "7405385587286d1baa5d78d3c58752f0cff0d41995d61375c3196b80f590ce25"
+    },
+    {
+      "path": "inputs/near-ir-oblique-p.coating.json",
+      "sha256": "d2343fff1d5e375068f74c45591d591e0f48a1505afecc758d0b86da096bf919"
+    },
+    {
+      "path": "inputs/new-blue-single.coating.json",
+      "sha256": "a381ae3217d5b4bcfbcd45e494a946bc0417592796b31723e3ab2197ff1533ad"
+    },
+    {
+      "path": "inputs/new-fixed-double.coating.json",
+      "sha256": "cc16686eeabef9f1cdaecf02ef2a0476588e3b5a03e219562c89aee542f6a0ad"
+    },
+    {
+      "path": "inputs/new-ir-double.coating.json",
+      "sha256": "995287772bd3c4a024908388a4619cc1baff2a77f8037be2ceacd863215f81ab"
+    },
+    {
+      "path": "inputs/new-nearir-single.coating.json",
+      "sha256": "0fbfe2f9ac9590c07adc9ddcd87925f41e8426dd9681dd96f9ce22a7e20d8a84"
+    },
+    {
+      "path": "inputs/new-oblique-single.coating.json",
+      "sha256": "8128fd139b922612f7a0ed6e9ee6e731b38f58a1cab52a8ae98d8289740fddd1"
+    },
+    {
+      "path": "inputs/new-red-double.coating.json",
+      "sha256": "e0519ea0936aed08d742e82494195611fdb691b14beec2c05a3d7a844f6a32d3"
+    },
+    {
+      "path": "inputs/prior-double-96.coating.json",
+      "sha256": "a46152e190f1a578f7acb78e5f80f6b9322af6b702470def64cfbb7f69d3ae3a"
+    },
+    {
+      "path": "inputs/prior-single-24.coating.json",
+      "sha256": "6b20c33ad0b188b6ba8c256499611ede3b784c4ab004fd4f90717e02a10c7342"
+    },
+    {
+      "path": "inputs/real-ar-polished.coating.json",
+      "sha256": "93992a8a0fa56ade8d75e349fc14a75a69f78e06f90a35febaf116c16502e44c"
+    },
+    {
+      "path": "inputs/real-ar-threshold.coating.json",
+      "sha256": "0ff91e2590c0aca02014f406e16384f9c18e2396fcd315435f0a27fe170a1dcc"
+    },
+    {
+      "path": "inputs/real-hr-96.coating.json",
+      "sha256": "b8cc4568c43c43af6d11963fc98a55fe4b3815a0b5680e589545d31429f260f7"
+    },
+    {
+      "path": "inputs/real-hr-original-target.coating.json",
+      "sha256": "cf6dbdbcda64d3560c5a0ad4b57b62bff369db2d28b2f9cd9359075254c1f3db"
+    },
+    {
+      "path": "inputs/real-narrowband-control.coating.json",
+      "sha256": "21c4ddecf4d7239d2c8a1177870deba1ee8ee3423ecaab3aa15f46df160fb8ca"
+    },
+    {
+      "path": "inputs/real-nbf1-96.coating.json",
+      "sha256": "707f60ccdbfb2b13f6c74c231713b4732d9f19ad2060ab662db6de4f0b701e30"
+    },
+    {
+      "path": "inputs/real-nbf2-96.coating.json",
+      "sha256": "b506aaa8f690d4aa00f141cc2fc2d0efdb9be3f627f14ef3937a94372b6982a0"
+    },
+    {
+      "path": "inputs/red-low-contrast.coating.json",
+      "sha256": "3bfd24c6143577b81d52c40753ec77b2bbbfe5dbb22f1b83367d140ec154536f"
+    },
+    {
+      "path": "inputs/visible-low-loss.coating.json",
+      "sha256": "c1c09aa3b6f29c41ceebb0dc54410462f478ae2bc85355f2ebc2dae655dbfeed"
+    },
+    {
+      "path": "final-matrix/legacy-v1/ar-blue.coating.json",
+      "sha256": "df7dd3090c6a98f207ffc1ef73ab18289941a4d53844351b10fe95f853a983e2"
+    },
+    {
+      "path": "final-matrix/legacy-v1/ar-ir.coating.json",
+      "sha256": "3d6136fcf5278195724713a834403dedbf7b844d36f41dad860531a8ede7276b"
+    },
+    {
+      "path": "final-matrix/legacy-v1/ar-nearir.coating.json",
+      "sha256": "f7673713736fedd4d37e5b2ebf45aa9896176a1ae30792740beace5d5fe3ba17"
+    },
+    {
+      "path": "final-matrix/legacy-v1/continued-double-96.coating.json",
+      "sha256": "384259650ed365280efeab23740a8f0c0ebb88783d6258912026cca53de7a83c"
+    },
+    {
+      "path": "final-matrix/legacy-v1/continued-hr-96.coating.json",
+      "sha256": "8e40c8ac83ee7fbe422bba3dff8bf339a2e0d842c8c6e3dfe2c1e38275071932"
+    },
+    {
+      "path": "final-matrix/legacy-v1/continued-single-24.coating.json",
+      "sha256": "b1e9f1953920cf0f9deceb236749ad3f741f03ea3a05f1b59e1abaf07afb3cca"
+    },
+    {
+      "path": "final-matrix/legacy-v1/core-cases.json",
+      "sha256": "e5b06a5b97cb6fece33705ccbdd224ff7896b0cdf8ebc0c70c795455b45615da"
+    },
+    {
+      "path": "final-matrix/legacy-v1/fixed-films.coating.json",
+      "sha256": "31609152d097e539d34a7cdbb9182ff8a8e665a79963035f84f1cdc4a6ece8af"
+    },
+    {
+      "path": "final-matrix/legacy-v1/heldout-ar-oblique.coating.json",
+      "sha256": "e06de0f89458822c81a4e803966bb92cf843fe261aa2aadb7ed7b5caf4b772c4"
+    },
+    {
+      "path": "final-matrix/legacy-v1/heldout-ar-red.coating.json",
+      "sha256": "7e704f958cd7c643152f7d61a6653e103191d8aa93cbc25a4523a99a2745878a"
+    },
+    {
+      "path": "final-matrix/legacy-v1/heldout-ar-wide.coating.json",
+      "sha256": "31175bb59b1e07328e91a7f897b5f5df12dba9a4b4cf4828cc30fd1a58d46540"
+    },
+    {
+      "path": "final-matrix/legacy-v1/heldout-hr-oblique.coating.json",
+      "sha256": "2d3e77b1ecf8c8aba2e84c912b50d0d8e350f24c7f65408b21b8e63141832fec"
+    },
+    {
+      "path": "final-matrix/legacy-v1/heldout-hr-red.coating.json",
+      "sha256": "2203cb4d0464c89f6ca643443c1c26ffb69cfaca4d9940091ce8ad591ad02b1c"
+    },
+    {
+      "path": "final-matrix/legacy-v1/heldout-hr-wide.coating.json",
+      "sha256": "cc1867c596774329a250f52c216021e62aa758ad70509fedd78d365867898055"
+    },
+    {
+      "path": "final-matrix/legacy-v1/holdout-ir.coating.json",
+      "sha256": "37739cb90e78cba1549b2e384d9b5f98e69a3af76502c00d7a547105fbef8a1f"
+    },
+    {
+      "path": "final-matrix/legacy-v1/holdout-real-hr-nearir.coating.json",
+      "sha256": "ab1b4f8890006a6356eb256263f063cbbbb3cce917cf660d2d240da5781c70f8"
+    },
+    {
+      "path": "final-matrix/legacy-v1/holdout-real-hr-red.coating.json",
+      "sha256": "fd6c2da3505a6f4a70f49b3983856ba8cf34d981b8d0860866f04e84c9d4fc0f"
+    },
+    {
+      "path": "final-matrix/legacy-v1/holdout-red-fixed.coating.json",
+      "sha256": "a3ed3204eb9247614912f057eb01c052e65466ea5b49574d0c7f9c026569c890"
+    },
+    {
+      "path": "final-matrix/legacy-v1/holdout-telecom.coating.json",
+      "sha256": "9fd51181928ad86cb10e7a7ee95d5a6c3d24bf102444a7833ac27ca731a1cc64"
+    },
+    {
+      "path": "final-matrix/legacy-v1/holdout-violet.coating.json",
+      "sha256": "59f838347c3285f7c6474e8d288c8f28b70276cafe5bea194778e9ee6eba95b3"
+    },
+    {
+      "path": "final-matrix/legacy-v1/hr-green.coating.json",
+      "sha256": "5896073dcd3072335fda4b307255a9b4b06af53ad4ba46fc955912f7e8a7cd7d"
+    },
+    {
+      "path": "final-matrix/legacy-v1/hr-ir.coating.json",
+      "sha256": "22b0ae00ab2bc7cd7facfc1bf099d52517d011b6caee9de4f9f189285200534b"
+    },
+    {
+      "path": "final-matrix/legacy-v1/hr-nearir.coating.json",
+      "sha256": "8dc10dc6db38bb65992bf354669913db349973ce4d8a9af6ca949ccb26a83bb4"
+    },
+    {
+      "path": "final-matrix/legacy-v1/ir-absorbing-s.coating.json",
+      "sha256": "234c66bf6af2afc6e358af6b814a35480328fad58b07f467e401fcc4c9d30fee"
+    },
+    {
+      "path": "final-matrix/legacy-v1/near-ir-oblique-p.coating.json",
+      "sha256": "e6b93781e07c9f7747fcbc62ef6476f9778401aae7d69b6952e4a2497e61c451"
+    },
+    {
+      "path": "final-matrix/legacy-v1/new-blue-single.coating.json",
+      "sha256": "23708f674ceed1a99edd8cc8f5fc0945897b2fdd1550b4d0c36a8f5a37c8ca76"
+    },
+    {
+      "path": "final-matrix/legacy-v1/new-fixed-double.coating.json",
+      "sha256": "79234ddd9c7634a45a1449ad4ba10fedd405383976ffe00e3b35bd43f80188f9"
+    },
+    {
+      "path": "final-matrix/legacy-v1/new-ir-double.coating.json",
+      "sha256": "bd12e90d1aec790f79bd7f4c6f80ff429bb039c8a060e4f91c9b63441a7b691d"
+    },
+    {
+      "path": "final-matrix/legacy-v1/new-nearir-single.coating.json",
+      "sha256": "b4cf1a2c1cf11a08575a058aab58acc39b7a8dcba0ab32103697f2067743f35b"
+    },
+    {
+      "path": "final-matrix/legacy-v1/new-oblique-single.coating.json",
+      "sha256": "cef6cadd08ccfb6baf18a7cb9b4cf960a1ddd0fe44ecec8e12eb3434a36d2a00"
+    },
+    {
+      "path": "final-matrix/legacy-v1/new-red-double.coating.json",
+      "sha256": "3c1dadc8cb7f6f95935822fd16349a43d825e347e8f53b77541fbd26feab4e11"
+    },
+    {
+      "path": "final-matrix/legacy-v1/prior-double-96.coating.json",
+      "sha256": "e917949f3641d88c4afd4eb03b855ed2708dadd8397b9aeaa16800d12169d697"
+    },
+    {
+      "path": "final-matrix/legacy-v1/prior-single-24.coating.json",
+      "sha256": "12910768bae067b33a7bfbda4f428c3d2c55c059f8c8044ae506cc598ea4a37d"
+    },
+    {
+      "path": "final-matrix/legacy-v1/real-ar-polished.coating.json",
+      "sha256": "bee7eb206a6077e1e67dc9a2b57d98216d0e5e1a48e6e66e1deb68dd6173a5a3"
+    },
+    {
+      "path": "final-matrix/legacy-v1/real-ar-threshold.coating.json",
+      "sha256": "d05665aa5abb8364057b2d821a5d8a6cbd7bc606de7aebd36153205441dc7b6b"
+    },
+    {
+      "path": "final-matrix/legacy-v1/real-hr-96.coating.json",
+      "sha256": "17e7a626c398e4ae4f698c8d2fe44408e43fd845599c46bcbdc825a481ea5e72"
+    },
+    {
+      "path": "final-matrix/legacy-v1/real-hr-original-target.coating.json",
+      "sha256": "9d06a82b3bd95236f4172884eae94480c1a86aff89f286240e3215c1c0dae344"
+    },
+    {
+      "path": "final-matrix/legacy-v1/real-narrowband-control.coating.json",
+      "sha256": "fd09a3f1aeeb886b55f6daabb2b4702ae6b2a4c7f91e6813cc75a2e90ed0318b"
+    },
+    {
+      "path": "final-matrix/legacy-v1/real-nbf1-96.coating.json",
+      "sha256": "e95b2fa2606bbb81522799fa1dc37fb756638edd2dfae2427f7bde19d6e2fa5f"
+    },
+    {
+      "path": "final-matrix/legacy-v1/real-nbf2-96.coating.json",
+      "sha256": "cc624e3615b1306639b14be0b3d1ef07c02be2c13e1f1c44eb293aeba1d8af30"
+    },
+    {
+      "path": "final-matrix/legacy-v1/red-low-contrast.coating.json",
+      "sha256": "86c2b6988648ab4a870e2ce0615310d3da8eb81a4b68ea60abaa8d1cc81c9c80"
+    },
+    {
+      "path": "final-matrix/legacy-v1/summary.json",
+      "sha256": "09228e7976b2187b103709e8152001cb9452027b4bd3fd3174de3d43eac066bf"
+    },
+    {
+      "path": "final-matrix/legacy-v1/visible-low-loss.coating.json",
+      "sha256": "0b831d6087ab1e8259fc7dc811ca961d53fff9520c1addc067d1528e071d36ed"
+    },
+    {
+      "path": "final-matrix/previous-v2/ar-blue.coating.json",
+      "sha256": "df7dd3090c6a98f207ffc1ef73ab18289941a4d53844351b10fe95f853a983e2"
+    },
+    {
+      "path": "final-matrix/previous-v2/ar-ir.coating.json",
+      "sha256": "3d6136fcf5278195724713a834403dedbf7b844d36f41dad860531a8ede7276b"
+    },
+    {
+      "path": "final-matrix/previous-v2/ar-nearir.coating.json",
+      "sha256": "f7673713736fedd4d37e5b2ebf45aa9896176a1ae30792740beace5d5fe3ba17"
+    },
+    {
+      "path": "final-matrix/previous-v2/continued-double-96.coating.json",
+      "sha256": "7eb7503e5c48cd517ddc2fa108b5314094e419f626168e782794021a11a7b64c"
+    },
+    {
+      "path": "final-matrix/previous-v2/continued-hr-96.coating.json",
+      "sha256": "8e40c8ac83ee7fbe422bba3dff8bf339a2e0d842c8c6e3dfe2c1e38275071932"
+    },
+    {
+      "path": "final-matrix/previous-v2/continued-single-24.coating.json",
+      "sha256": "66c0562220b146ca6703a3771939cede1f41ec9813818c03c3885a600bd136ac"
+    },
+    {
+      "path": "final-matrix/previous-v2/core-cases.json",
+      "sha256": "8155c42b5b031438bff901a026bbab1bd7a65794fcdae5945b90030ad0cd561f"
+    },
+    {
+      "path": "final-matrix/previous-v2/fixed-films.coating.json",
+      "sha256": "31609152d097e539d34a7cdbb9182ff8a8e665a79963035f84f1cdc4a6ece8af"
+    },
+    {
+      "path": "final-matrix/previous-v2/heldout-ar-oblique.coating.json",
+      "sha256": "e06de0f89458822c81a4e803966bb92cf843fe261aa2aadb7ed7b5caf4b772c4"
+    },
+    {
+      "path": "final-matrix/previous-v2/heldout-ar-red.coating.json",
+      "sha256": "7e704f958cd7c643152f7d61a6653e103191d8aa93cbc25a4523a99a2745878a"
+    },
+    {
+      "path": "final-matrix/previous-v2/heldout-ar-wide.coating.json",
+      "sha256": "31175bb59b1e07328e91a7f897b5f5df12dba9a4b4cf4828cc30fd1a58d46540"
+    },
+    {
+      "path": "final-matrix/previous-v2/heldout-hr-oblique.coating.json",
+      "sha256": "2d3e77b1ecf8c8aba2e84c912b50d0d8e350f24c7f65408b21b8e63141832fec"
+    },
+    {
+      "path": "final-matrix/previous-v2/heldout-hr-red.coating.json",
+      "sha256": "2203cb4d0464c89f6ca643443c1c26ffb69cfaca4d9940091ce8ad591ad02b1c"
+    },
+    {
+      "path": "final-matrix/previous-v2/heldout-hr-wide.coating.json",
+      "sha256": "cc1867c596774329a250f52c216021e62aa758ad70509fedd78d365867898055"
+    },
+    {
+      "path": "final-matrix/previous-v2/holdout-ir.coating.json",
+      "sha256": "1899649451ebf53a4809ad6c2f4616775add2d632b46e36a0634cd9a15757e9f"
+    },
+    {
+      "path": "final-matrix/previous-v2/holdout-real-hr-nearir.coating.json",
+      "sha256": "ab1b4f8890006a6356eb256263f063cbbbb3cce917cf660d2d240da5781c70f8"
+    },
+    {
+      "path": "final-matrix/previous-v2/holdout-real-hr-red.coating.json",
+      "sha256": "fd6c2da3505a6f4a70f49b3983856ba8cf34d981b8d0860866f04e84c9d4fc0f"
+    },
+    {
+      "path": "final-matrix/previous-v2/holdout-red-fixed.coating.json",
+      "sha256": "0f79148deb9bdfffc5006db0f05b2674cc8dc77b4f9483f545e1bba11c598200"
+    },
+    {
+      "path": "final-matrix/previous-v2/holdout-telecom.coating.json",
+      "sha256": "bb48b81debc67a47b8bfaa40574ccd3713e3978332d37fb9ddf16660f340f3ce"
+    },
+    {
+      "path": "final-matrix/previous-v2/holdout-violet.coating.json",
+      "sha256": "0bee7298e6aa9c478691b0087b267117d197b3d9a4143a0f6d8bea5f14536a61"
+    },
+    {
+      "path": "final-matrix/previous-v2/hr-green.coating.json",
+      "sha256": "5896073dcd3072335fda4b307255a9b4b06af53ad4ba46fc955912f7e8a7cd7d"
+    },
+    {
+      "path": "final-matrix/previous-v2/hr-ir.coating.json",
+      "sha256": "22b0ae00ab2bc7cd7facfc1bf099d52517d011b6caee9de4f9f189285200534b"
+    },
+    {
+      "path": "final-matrix/previous-v2/hr-nearir.coating.json",
+      "sha256": "8dc10dc6db38bb65992bf354669913db349973ce4d8a9af6ca949ccb26a83bb4"
+    },
+    {
+      "path": "final-matrix/previous-v2/ir-absorbing-s.coating.json",
+      "sha256": "ccab89d23573d7547dd7c1d1512d1ed46d62486d45152897ca088fd8f74edc1b"
+    },
+    {
+      "path": "final-matrix/previous-v2/near-ir-oblique-p.coating.json",
+      "sha256": "8f4d1ce9fa1f975826aba883b8e7e1d5737dbfa138ad8fe0b42174477eec5fb7"
+    },
+    {
+      "path": "final-matrix/previous-v2/new-blue-single.coating.json",
+      "sha256": "c8fcf3c4286843ec0ac7c2b1fd7329d59d2d4bb9ff2dca3890be57d500bc6939"
+    },
+    {
+      "path": "final-matrix/previous-v2/new-fixed-double.coating.json",
+      "sha256": "736191d00dafce60df8d264c47a385622fb1918738ef0f6ce7b0fa49465518ba"
+    },
+    {
+      "path": "final-matrix/previous-v2/new-ir-double.coating.json",
+      "sha256": "183eed6ddf4502932f31ea42d4a2f7b5b4374656f5f36d529984ce48d55230bc"
+    },
+    {
+      "path": "final-matrix/previous-v2/new-nearir-single.coating.json",
+      "sha256": "7d979baa2b3d04b131fb704b46a6f6a5d1d28f2c6943ae5b3c41c6e02c522923"
+    },
+    {
+      "path": "final-matrix/previous-v2/new-oblique-single.coating.json",
+      "sha256": "7014ffc45e947096ff4d276c6584c86782b1338a2441a7a2cd70072c025432f4"
+    },
+    {
+      "path": "final-matrix/previous-v2/new-red-double.coating.json",
+      "sha256": "c5b28f1273f981bc3e577f8584f5de2dfc6021c3ee790b5e7ac4054a8d48c713"
+    },
+    {
+      "path": "final-matrix/previous-v2/prior-double-96.coating.json",
+      "sha256": "217397a922048d22ca1cf73e421a44e0ac3291d33670fac721b3c13b3b110b7f"
+    },
+    {
+      "path": "final-matrix/previous-v2/prior-single-24.coating.json",
+      "sha256": "f2f6c558a4fc3c247d2a6814957e624b80216d7a3c3ea06c3783dd570afc78e2"
+    },
+    {
+      "path": "final-matrix/previous-v2/real-ar-polished.coating.json",
+      "sha256": "bee7eb206a6077e1e67dc9a2b57d98216d0e5e1a48e6e66e1deb68dd6173a5a3"
+    },
+    {
+      "path": "final-matrix/previous-v2/real-ar-threshold.coating.json",
+      "sha256": "d05665aa5abb8364057b2d821a5d8a6cbd7bc606de7aebd36153205441dc7b6b"
+    },
+    {
+      "path": "final-matrix/previous-v2/real-hr-96.coating.json",
+      "sha256": "17e7a626c398e4ae4f698c8d2fe44408e43fd845599c46bcbdc825a481ea5e72"
+    },
+    {
+      "path": "final-matrix/previous-v2/real-hr-original-target.coating.json",
+      "sha256": "9d06a82b3bd95236f4172884eae94480c1a86aff89f286240e3215c1c0dae344"
+    },
+    {
+      "path": "final-matrix/previous-v2/real-narrowband-control.coating.json",
+      "sha256": "13cc3666287e015106a6a043038bb28419d9c2bd8454eb0fb328e7c71d004e89"
+    },
+    {
+      "path": "final-matrix/previous-v2/real-nbf1-96.coating.json",
+      "sha256": "e38b87880ab6ebe147b82d59d3478439dbba7632ea51098e572170001c00ef33"
+    },
+    {
+      "path": "final-matrix/previous-v2/real-nbf2-96.coating.json",
+      "sha256": "fd63c573f8cc3850f796e70f42f3213e931b514c629d7f14033dfa75dedf05c9"
+    },
+    {
+      "path": "final-matrix/previous-v2/red-low-contrast.coating.json",
+      "sha256": "b92a080694be52680ca389563487a5da766a00a3106b3060736625b35032ce9c"
+    },
+    {
+      "path": "final-matrix/previous-v2/summary.json",
+      "sha256": "16bf80195712f06a5fb7429e3df124019f0034d8ceb3ee4da90e11c001fe2730"
+    },
+    {
+      "path": "final-matrix/previous-v2/visible-low-loss.coating.json",
+      "sha256": "3652dffe0a2852aaef99b0184f69f7e46c90eb922a9d4bf58cd6d87164a2c7bd"
+    },
+    {
+      "path": "final-matrix/after/ar-blue.coating.json",
+      "sha256": "c88939ef36fdc7525aa9be3f71b6a1a2681f8db8e2da12abf7c402359dd6c300"
+    },
+    {
+      "path": "final-matrix/after/ar-ir.coating.json",
+      "sha256": "f6de8b6c9cb1cd87fca952a9ff3faa9ac06968bfbec2eb063d1b90cb09211014"
+    },
+    {
+      "path": "final-matrix/after/ar-nearir.coating.json",
+      "sha256": "a58047a6a9ca5d80e9d745cf99651395cd573c6c68e7d05e9a582505c5513066"
+    },
+    {
+      "path": "final-matrix/after/continued-double-96.coating.json",
+      "sha256": "60eb02d33c7a3b238ca18185101615e24b31de2e59767b14f7c0d77b38b5b26a"
+    },
+    {
+      "path": "final-matrix/after/continued-hr-96.coating.json",
+      "sha256": "c910ac8cac3785101a0b39805384da6488a519a94a0a1d2d29e08f9594f42485"
+    },
+    {
+      "path": "final-matrix/after/continued-single-24.coating.json",
+      "sha256": "acd72f1c6ee8b54b2d97f178918f10eb440eb7bc09b1484c9ed685fdcf3f5eb2"
+    },
+    {
+      "path": "final-matrix/after/core-cases.json",
+      "sha256": "eba25950a1c835c9372e3444a88dc27dafcf13b09b53a115a27e13860debdab4"
+    },
+    {
+      "path": "final-matrix/after/fixed-films.coating.json",
+      "sha256": "e8c7d48e35d517238c86e19f5c95442b7f04fc15abbd8be4828979df523e059e"
+    },
+    {
+      "path": "final-matrix/after/heldout-ar-oblique.coating.json",
+      "sha256": "2b5cf75515290f61e08be03a7f7e7f1ca191943dde22ca6655087a4f4214eeda"
+    },
+    {
+      "path": "final-matrix/after/heldout-ar-red.coating.json",
+      "sha256": "cf0a28731a0840ae450a4c816090693be62c4292c25e97202a17ed81628f8c0f"
+    },
+    {
+      "path": "final-matrix/after/heldout-ar-wide.coating.json",
+      "sha256": "1df8308575c7057c2309b5d7a9387eae197a5cf3fd9e42f399412f3838a90cc1"
+    },
+    {
+      "path": "final-matrix/after/heldout-hr-oblique.coating.json",
+      "sha256": "341571feb4b2e36e98f12e9bbdc57f3efe05cd6f498c28495122a7cb1643a6c2"
+    },
+    {
+      "path": "final-matrix/after/heldout-hr-red.coating.json",
+      "sha256": "92f1a75e8b50e01dfe2727b8efcacdcda27fb7a61aef16a3495d274830363b95"
+    },
+    {
+      "path": "final-matrix/after/heldout-hr-wide.coating.json",
+      "sha256": "6b9978083d7e4fcf7bac013bd56747bc20e629cc5896eaccd81b42b87b097e16"
+    },
+    {
+      "path": "final-matrix/after/holdout-ir.coating.json",
+      "sha256": "9e2e335641e24351c6b498fc046d1a41d815a23dfb2a3b3e8e37c56f8b9d91be"
+    },
+    {
+      "path": "final-matrix/after/holdout-real-hr-nearir.coating.json",
+      "sha256": "1a83cc4672587b5e539c198df84b80aa12c7cd0eca05cdf9d733f8d0394530b2"
+    },
+    {
+      "path": "final-matrix/after/holdout-real-hr-red.coating.json",
+      "sha256": "7177a415bee87f64e6ab1315f01a6d8ed517136840da50446c6d171ce116e1c8"
+    },
+    {
+      "path": "final-matrix/after/holdout-red-fixed.coating.json",
+      "sha256": "adea08f4c857296eae463f4bbaf2f1cf7fa940c022f7d6d919217ab518df639b"
+    },
+    {
+      "path": "final-matrix/after/holdout-telecom.coating.json",
+      "sha256": "207d87ffbb32508337f81339252bfcd9ba78407b6174cab4c822b39a0fd4e18c"
+    },
+    {
+      "path": "final-matrix/after/holdout-violet.coating.json",
+      "sha256": "96b0ec6ba1bcd56a2c73ad17f85cad547522667a78f5fc1aaf58dc8260016297"
+    },
+    {
+      "path": "final-matrix/after/hr-green.coating.json",
+      "sha256": "d8c778979b918f70679875bd323930dcbda9e56ae5d94ee68f9734c2a0aa4fe0"
+    },
+    {
+      "path": "final-matrix/after/hr-ir.coating.json",
+      "sha256": "9d0c85cfd5937f2de49907b1ec4daad15c93457c6b10bf3cf6759a3afd749125"
+    },
+    {
+      "path": "final-matrix/after/hr-nearir.coating.json",
+      "sha256": "474451cc32614088073f935720cb08c6f6714711e720de8af2d814c48ba28c74"
+    },
+    {
+      "path": "final-matrix/after/ir-absorbing-s.coating.json",
+      "sha256": "9ba8c9447144b27c53871e46542085560005998a1b50a7d353642cf543d6a969"
+    },
+    {
+      "path": "final-matrix/after/near-ir-oblique-p.coating.json",
+      "sha256": "e168f5c4ce0fe98b00201cd3d382f9d52934177e9b48c189c30f9d13c28f92f6"
+    },
+    {
+      "path": "final-matrix/after/new-blue-single.coating.json",
+      "sha256": "11315d17222c8bdb98816bab2f52424b6da1a64551d6fb2de17417fe66081553"
+    },
+    {
+      "path": "final-matrix/after/new-fixed-double.coating.json",
+      "sha256": "549f93abbfc015835eb13d7aab649630e9605108198bb6979b777c6b4714e776"
+    },
+    {
+      "path": "final-matrix/after/new-ir-double.coating.json",
+      "sha256": "2722ece9760cd6c943674573051717d993cc22929d1c48f00d6556e18fd47eaf"
+    },
+    {
+      "path": "final-matrix/after/new-nearir-single.coating.json",
+      "sha256": "0ac7b65d144e7085e071ba7ebe367911f3d95ba2a69633b0de4aa99263815b2f"
+    },
+    {
+      "path": "final-matrix/after/new-oblique-single.coating.json",
+      "sha256": "5f23e10488a05f52d033c8fa9f5b06a816b103cf5be3f361aa69209cee21aa58"
+    },
+    {
+      "path": "final-matrix/after/new-red-double.coating.json",
+      "sha256": "cbd99d749d68f70cd62002a2beb2cd450fd1ef20f6535a6e1f41d532c0e5e62f"
+    },
+    {
+      "path": "final-matrix/after/prior-double-96.coating.json",
+      "sha256": "0b7251249f13eb36e1ade593d5c3c815d89115faf905a3f5176a7b7950210f35"
+    },
+    {
+      "path": "final-matrix/after/prior-single-24.coating.json",
+      "sha256": "021060c594d3beb0b67dd6427400a7be95b85e8b5429bb7821e6a93829f3f28a"
+    },
+    {
+      "path": "final-matrix/after/real-ar-polished.coating.json",
+      "sha256": "a5de20768fdc78c6920ab46719c5cf9528ad7a8ae268c85e59e53892c2ddbbb5"
+    },
+    {
+      "path": "final-matrix/after/real-ar-threshold.coating.json",
+      "sha256": "0331eb1a4265ee52504ba8ce2dc87b2a5aae9608a9b06bccefd2d8468566b447"
+    },
+    {
+      "path": "final-matrix/after/real-hr-96.coating.json",
+      "sha256": "ca135d73ba883d5ed6321f09ca51518acbff60154c348916f28acb2f16e68340"
+    },
+    {
+      "path": "final-matrix/after/real-hr-original-target.coating.json",
+      "sha256": "a7a39de7a99597ccc7a7f9310744a0cdbe0664c1ed81d9a59649e50ebd11ef3b"
+    },
+    {
+      "path": "final-matrix/after/real-narrowband-control.coating.json",
+      "sha256": "7f68e8a41dd7659404e6153e086de6d06c4d59d56f008b1cf4805b9df373f622"
+    },
+    {
+      "path": "final-matrix/after/real-nbf1-96.coating.json",
+      "sha256": "319a47750ff9eb86bb4444a4b81cc0e0a522a843603b2ccd9eaf07e49d1f3522"
+    },
+    {
+      "path": "final-matrix/after/real-nbf2-96.coating.json",
+      "sha256": "797b219da561e09cf923911f58d248ba92f538c733e549e7838fcfbf578b2c7e"
+    },
+    {
+      "path": "final-matrix/after/red-low-contrast.coating.json",
+      "sha256": "3dfa08d92ac581819159be45c453e63d9b9b97beea2bbf677cb9823954024731"
+    },
+    {
+      "path": "final-matrix/after/summary.json",
+      "sha256": "8b7cbe59d8b06b4138e6bc16e456279bcd7ab80b0dbf7353dab228ba402cb1d2"
+    },
+    {
+      "path": "final-matrix/after/visible-low-loss.coating.json",
+      "sha256": "2db21a280fdf6195ff548d4062256d80793e2c026bc4bbdcee8d0b7e4a06eb3b"
+    },
+    {
+      "path": "reference-inputs/continued-double-96.coating.json",
+      "sha256": "f46ec3c91cdd9993aae6c1c3e2496244380b505b5f5f1061f1f74de02b888105"
+    },
+    {
+      "path": "reference-inputs/continued-hr-96.coating.json",
+      "sha256": "15e32b21e55dd6d4325eb92871ab01ceb34c58884b57f73282c55d0e526cfb6d"
+    },
+    {
+      "path": "reference-inputs/continued-single-24.coating.json",
+      "sha256": "e66ecf5c18cc4d0c8bf468a1e709adc6c496222abda7355bb6619a7083392fd9"
+    },
+    {
+      "path": "reference-inputs/holdout-real-hr-nearir.coating.json",
+      "sha256": "b16407664ccea0e25a7c47520996ccec61374c114abc3cb42817536677f6f2c7"
+    },
+    {
+      "path": "reference-inputs/holdout-real-hr-red.coating.json",
+      "sha256": "1635acc6474810f6df87cb8bff42f1da8837892c898b33e7203cc886cec05ba9"
+    },
+    {
+      "path": "reference-inputs/holdout-red-fixed.coating.json",
+      "sha256": "0e2ea69fef4b6ba69b9d64a0d3ba590549740e1f30601b2579550698ebeb8206"
+    },
+    {
+      "path": "reference-inputs/holdout-violet.coating.json",
+      "sha256": "8416aab8af5a7762613d2705d9861e2f6cde30bcf2898db416a9e2c289eff267"
+    },
+    {
+      "path": "reference-inputs/prior-double-96.coating.json",
+      "sha256": "a46152e190f1a578f7acb78e5f80f6b9322af6b702470def64cfbb7f69d3ae3a"
+    },
+    {
+      "path": "reference-inputs/prior-single-24.coating.json",
+      "sha256": "6b20c33ad0b188b6ba8c256499611ede3b784c4ab004fd4f90717e02a10c7342"
+    },
+    {
+      "path": "reference-inputs/real-hr-96.coating.json",
+      "sha256": "b8cc4568c43c43af6d11963fc98a55fe4b3815a0b5680e589545d31429f260f7"
+    },
+    {
+      "path": "reference-inputs/real-nbf1-96.coating.json",
+      "sha256": "707f60ccdbfb2b13f6c74c231713b4732d9f19ad2060ab662db6de4f0b701e30"
+    },
+    {
+      "path": "reference-inputs/real-nbf2-96.coating.json",
+      "sha256": "b506aaa8f690d4aa00f141cc2fc2d0efdb9be3f627f14ef3937a94372b6982a0"
+    },
+    {
+      "path": "reference-final-native/continued-double-96-DLS.coating.json",
+      "sha256": "6c8b0e97d74da4810a0fc850dbf8a0f9d34daf0bb75cf1d80f4b4e58e820c507"
+    },
+    {
+      "path": "reference-final-native/continued-double-96-Newton.coating.json",
+      "sha256": "d75a5a7ff166ee1cb743fdf0156d3ead7fe6df72167a7f685c9cf686e4477c29"
+    },
+    {
+      "path": "reference-final-native/continued-hr-96-DLS.coating.json",
+      "sha256": "cdf03d18eda069b1b6bb063b2225e6a8cc666e9d5f9e5a0a0719746a0a53c533"
+    },
+    {
+      "path": "reference-final-native/continued-hr-96-Newton.coating.json",
+      "sha256": "572c59f566f144491a1b5d3666bc066a5cb60d3137405ae7203666d1ad4eeb91"
+    },
+    {
+      "path": "reference-final-native/continued-single-24-DLS.coating.json",
+      "sha256": "670750ffba01dbe22dcd520e2d256dfd9ba2098c4d1ed240f0486b0cb172197f"
+    },
+    {
+      "path": "reference-final-native/continued-single-24-Newton.coating.json",
+      "sha256": "47d4e1d36c82538fb793d83a2a74cceac9b4d49be59e2595c3025337c83d2e6d"
+    },
+    {
+      "path": "reference-final-native/holdout-real-hr-nearir-DLS.coating.json",
+      "sha256": "f0683a016811201319407b7674094404f9a98e41fd4d83a6f51e7d51f9a7a142"
+    },
+    {
+      "path": "reference-final-native/holdout-real-hr-nearir-Newton.coating.json",
+      "sha256": "6e0ddbd747eb72674e8b9f2330162a078ae0cdeb24637fba603fda3c2ea05ad9"
+    },
+    {
+      "path": "reference-final-native/holdout-real-hr-red-DLS.coating.json",
+      "sha256": "ed38f71fe2f4b576bacc031e2cf4a8c42cb9ee6edff734e26bd60ce03565c825"
+    },
+    {
+      "path": "reference-final-native/holdout-real-hr-red-Newton.coating.json",
+      "sha256": "61524068e65653c5a8d790b451177c7667f0cf912d7d6894d6a6a1f44dd5ac77"
+    },
+    {
+      "path": "reference-final-native/holdout-red-fixed-DLS.coating.json",
+      "sha256": "886a6114eae38e3781f3618407aba136e8c77f54bebcb819c8bbd83e1e908aee"
+    },
+    {
+      "path": "reference-final-native/holdout-red-fixed-Newton.coating.json",
+      "sha256": "439e62339d2abffef56d596d379eb7e377aeed48470e9de2ec267dda2d335ca8"
+    },
+    {
+      "path": "reference-final-native/holdout-violet-DLS.coating.json",
+      "sha256": "3044455e7980bf31ce3823b6846d48316e99bda170830caa20327a40636b8a9a"
+    },
+    {
+      "path": "reference-final-native/holdout-violet-Newton.coating.json",
+      "sha256": "848b6ff5b5759a067dad1273a63e3a728e305d435aa88bf3e828adc123f961fa"
+    },
+    {
+      "path": "reference-final-native/prior-double-96-DLS.coating.json",
+      "sha256": "623448c282a5d072ef5ddc943dc745342cf4de5bf96e4039d1191399febbe193"
+    },
+    {
+      "path": "reference-final-native/prior-double-96-Newton.coating.json",
+      "sha256": "584a48a7d86063480caf3d6273c6422f4a77da90a51c834412ea8bed2891d896"
+    },
+    {
+      "path": "reference-final-native/prior-single-24-DLS.coating.json",
+      "sha256": "80ef08c36311ddfb082c66dbdff48b90c2b85c9fef4bd13fc9d8ac5848b90eab"
+    },
+    {
+      "path": "reference-final-native/prior-single-24-Newton.coating.json",
+      "sha256": "e8e59f6a7a70cf070183fe00590e49cb6581b630bcbf13813c68e4fa92eb2092"
+    },
+    {
+      "path": "reference-final-native/real-hr-96-DLS.coating.json",
+      "sha256": "2ee0b1b3c6fed6abbb3236d9ee0534fa419db7cb45d66db8047e53cde6061943"
+    },
+    {
+      "path": "reference-final-native/real-hr-96-Newton.coating.json",
+      "sha256": "0ba166333e715462e33543824dd2decf3406d07673945a351390bd19c33c2b74"
+    },
+    {
+      "path": "reference-final-native/real-nbf1-96-DLS.coating.json",
+      "sha256": "4f043084ba28dc945e5b4020a04a1fd1e216cfa3112d9c7fe6437365671d48d3"
+    },
+    {
+      "path": "reference-final-native/real-nbf1-96-Newton.coating.json",
+      "sha256": "87c6eb49968349de7ad0c38a36d29f57c48ceeb1afea245c3f873430e246c31e"
+    },
+    {
+      "path": "reference-final-native/real-nbf2-96-DLS.coating.json",
+      "sha256": "3b8d6ff4e8f4e3a098e2872c18335cdf1e3ac2c60474abfbf6eda3feac754c79"
+    },
+    {
+      "path": "reference-final-native/real-nbf2-96-Newton.coating.json",
+      "sha256": "c42967f3f413bdf9a1901ea06187b7e5519e2244694d4dc0b730286e9fbccd77"
+    },
+    {
+      "path": "reference-final-native/summary.json",
+      "sha256": "7f1b29fb7a0f98e61fc5583e8094ed6c4acf91e587e9f796de441431231a6ac9"
+    },
+    {
+      "path": "paired-results.json",
+      "sha256": "6bcfead9d1b5b9c7c831269ee8424b9d3df95d4830986d74fcbd232d8f5b9aeb"
+    },
+    {
+      "path": "integrity.json",
+      "sha256": "ae5c567056344b2403173fe169307d2e40214d7e76b6d3309b28ef974567098c"
+    },
+    {
+      "path": "reference-materials.json",
+      "sha256": "c46c9741494361298bdcc160baefa079f16b2fc54c89c82bca658eb324238875"
+    },
+    {
+      "path": "reference-results.json",
+      "sha256": "911b64911cedd695258ccfa69aaa251b87c224eecad49eaa65d4e0e2bcb6c72c"
+    },
+    {
+      "path": "reference-comparison.json",
+      "sha256": "3aa2b7f42187240a10e9c268f70a28cb05c5a9ac198136d7176a7bda5bd67d1a"
+    },
+    {
+      "path": "final-matrix/tmmcore-comparison.json",
+      "sha256": "0afcf9bb4a9dba9fc7812335ca755870229303d8b437dc4b8788bd382156f830"
+    },
+    {
+      "path": "final-tests/coating-tradeoffs-final.trx",
+      "sha256": "e092817f2a2e3d2e1b54ccff699de87837f7e3196e8bf033f0af2d15c106199b"
+    }
+  ]
+}

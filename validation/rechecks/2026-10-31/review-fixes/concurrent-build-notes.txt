@@ -1,0 +1,5 @@
+Final verification attempts were temporarily interrupted by unrelated in-progress workspace edits:
+1. CameraBridgeRegressionTests.cs: CS0104 ambiguous NonSequentialObjectKind / PlaneRectangleParameters; corresponding Core aliases were present on the next read. No edit to that test was made by this task.
+2. CameraImagingService.cs: CS0535 missing ICameraImagingService.CaptureNonSequentialDetectorAsync(Guid, string?, CancellationToken) while the new interface was being added.
+These are build interruptions, not passing tests. Product stubs were not added to hide them.
+3. A later default-output test compile saw CS0006: App obj/Release/net10.0/ref/OpticalSystemDesign.App.dll was absent during concurrent intermediate-output updates. Final tests used isolated outputs; the default App build was then checked separately and passed.

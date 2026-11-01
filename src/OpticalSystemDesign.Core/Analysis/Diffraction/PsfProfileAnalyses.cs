@@ -40,6 +40,8 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        if ((_gridSize ?? 2 * _sampling) > AnalysisResourceLimits.MaximumFftGridSize)
+            return GenerateBoundedProfiles();
         var source = new PsfAnalysis(
             Optic,
             _sampling,
@@ -70,6 +72,57 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
             _row,
             _graphScaleMicrometers,
             interpolateFftProfile: true, idealPeak: idealPeak);
+    }
+
+    private AnalysisData GenerateBoundedProfiles()
+    {
+        if (_usePolarization || _normalize || (_row != "中心" && !_row.Equals("Center", StringComparison.OrdinalIgnoreCase)))
+            throw new AnalysisDataUnavailableException(Name,
+                "large Fourier cross sections currently require scalar, central, non-peak-normalized sampling");
+        if (Optic.Wavelengths.Count == 0) return AnalysisData.Unavailable(Name, "No wavelengths");
+        var waves = _wavelengthNumber == 0 ? Optic.Wavelengths.ToArray()
+            : new[] { Optic.Wavelengths[Math.Clamp(_wavelengthNumber - 1, 0, Optic.Wavelengths.Count - 1)] };
+        var fields = SpotAnalysisEngine.DefinedFields(Optic);
+        var field = fields.Count == 0 ? (0d, 0d) : fields[Math.Clamp(_fieldNumber - 1, 0, fields.Count - 1)];
+        var reference = waves.FirstOrDefault(w => w.IsPrimary) ?? waves[0];
+        var ordered = waves.OrderBy(w => w.Nanometers).ToArray();
+        var transform = _gridSize ?? 2 * _sampling;
+        if (2L * transform * waves.Length > AnalysisResourceLimits.MaximumAggregateGridCells)
+            throw new ArgumentOutOfRangeException(nameof(_sampling), "Spectral Fourier axes exceed the aggregate readout budget.");
+        var results = new List<(Domain.Wavelength Wave, FftAxisProfiles Profile)>();
+        var pitch = 0d;
+        foreach (var wave in ordered)
+        {
+            var profile = DiffractionEngine.ComputeFftAxisProfiles(Optic, field, wave, _sampling, transform, reference, pitch);
+            if (pitch == 0) pitch = profile.Spacing;
+            results.Add((wave, profile));
+        }
+        var weighted = waves.Any(w => w.Weight > 0);
+        var totalReference = results.Sum(r => (weighted ? r.Wave.Weight : 1) * r.Profile.UnaberratedPeakRatio);
+        var center = (transform - 1) / 2;
+        var horizontal = Points(false); var vertical = Points(true);
+        var unit = results[0].Profile.Unit;
+        var source = new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["Method"] = "FFT", ["PupilSampling"] = _sampling, ["GridSize"] = transform,
+            ["StoredPupilSize"] = results.Select(r => r.Profile.StoredPupilSize).ToArray(),
+            ["AxisFourierReadout"] = true, ["StrehlRatio"] = horizontal[center].Y,
+            ["PeakStrehlRatio"] = "Not evaluated outside the requested axes",
+            ["WavelengthNumber"] = _wavelengthNumber, ["FieldNumber"] = _fieldNumber,
+            ["UsePolarization"] = false, ["Normalized"] = false,
+            ["UseRayAiming"] = results.Select(r => r.Profile.UseRayAiming).ToArray(),
+            ["StopAimingFallbackUsed"] = results.Any(r => r.Profile.StopAimingFallbackUsed),
+            ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal,
+            ["ImageDeltaMicrometers"] = Optic.ImageSpaceAfocal ? 0 : pitch,
+            ["ImageDeltaMilliradians"] = Optic.ImageSpaceAfocal ? pitch : 0
+        });
+        return PsfProfilePresentation.CreateCrossSectionDataFromProfiles(Name, "PSF截面图", source,
+            horizontal, vertical, unit, _type, _row, _graphScaleMicrometers, true);
+
+        AnalysisPoint[] Points(bool y) => Enumerable.Range(0, transform).Select(i => new AnalysisPoint(
+            (i - center) * pitch,
+            results.Sum(r => (weighted ? r.Wave.Weight : 1) * r.Profile.UnaberratedPeakRatio
+                * (y ? r.Profile.Vertical[i] : r.Profile.Horizontal[i])) / totalReference)).ToArray();
     }
 }
 
@@ -170,6 +223,8 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
 
     public override string Name => "Huygens PSF Cross Section";
 
+    public AfocalHuygensIntegration AfocalIntegration { get; init; } = AfocalHuygensIntegration.NativeFiniteCell;
+
     public override AnalysisData GenerateData()
     {
         var source = new HuygensPsfAnalysis(
@@ -183,7 +238,7 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             displayAs: "截面",
             usePolarization: _usePolarization,
             normalize: false,
-            useCentroid: _useCentroid).GenerateData();
+            useCentroid: _useCentroid) { AfocalIntegration = AfocalIntegration }.GenerateData();
         var extentKey = Optic.ImageSpaceAfocal ? "ImageExtentMilliradians" : "ImageExtentMicrometers";
         var graphScaleMicrometers = source.Values.TryGetValue(extentKey, out var extent)
             ? Convert.ToDouble(extent) / 2
@@ -216,14 +271,23 @@ internal static class PsfProfilePresentation
 
         var horizontal = CenterProfile(heatmap.Points, horizontal: true);
         var vertical = CenterProfile(heatmap.Points, horizontal: false);
+        return CreateCrossSectionDataFromProfiles(name, title, source, horizontal, vertical,
+            heatmap.XUnit, profileType, row, graphScaleMicrometers, interpolateFftProfile, idealPeak);
+    }
+
+    internal static AnalysisData CreateCrossSectionDataFromProfiles(string name, string title, AnalysisData source,
+        IReadOnlyList<AnalysisPoint> horizontal, IReadOnlyList<AnalysisPoint> vertical, AnalysisAxisUnit unit,
+        string profileType = "Both", string row = "中心", double graphScaleMicrometers = 0,
+        bool interpolateFftProfile = false, double idealPeak = 1)
+    {
         if (!(idealPeak > 0) || !double.IsFinite(idealPeak))
             throw new AnalysisDataUnavailableException(name, "no finite same-pupil unaberrated peak");
         horizontal = horizontal.Select(point => point with { Y = point.Y / idealPeak }).ToArray();
         vertical = vertical.Select(point => point with { Y = point.Y / idealPeak }).ToArray();
         if (interpolateFftProfile)
         {
-            horizontal = InterpolateFftProfile(horizontal);
-            vertical = InterpolateFftProfile(vertical);
+            horizontal = InterpolateFftProfile(horizontal, graphScaleMicrometers);
+            vertical = InterpolateFftProfile(vertical, graphScaleMicrometers);
         }
         var logarithmic = profileType.Contains("对数", StringComparison.Ordinal)
             || profileType.Contains("log", StringComparison.OrdinalIgnoreCase);
@@ -272,9 +336,9 @@ internal static class PsfProfilePresentation
                 };
         series = series.Select(item => item with
         {
-            XQuantity = heatmap.XQuantity,
-            XUnit = heatmap.XUnit,
-            XAxisLabel = heatmap.XUnit == AnalysisAxisUnit.Milliradian
+            XQuantity = unit == AnalysisAxisUnit.Milliradian ? AnalysisAxisQuantity.IncidentAngle : AnalysisAxisQuantity.ImageHeight,
+            XUnit = unit,
+            XAxisLabel = unit == AnalysisAxisUnit.Milliradian
                 ? $"{(item.Name.StartsWith("Y", StringComparison.Ordinal) ? "Y" : "X")}-位置 mrad"
                 : item.XAxisLabel
         }).ToArray();
@@ -285,8 +349,8 @@ internal static class PsfProfilePresentation
         values["ProfileIdealPeak"] = idealPeak;
         if (values.TryGetValue("StrehlRatio", out var strehl))
             values["StrehlRatio"] = Convert.ToDouble(strehl) / idealPeak;
-        values["GraphScaleMicrometers"] = heatmap.XUnit == AnalysisAxisUnit.Milliradian ? 0 : graphScaleMicrometers;
-        values["GraphScaleMilliradians"] = heatmap.XUnit == AnalysisAxisUnit.Milliradian ? graphScaleMicrometers : 0;
+        values["GraphScaleMicrometers"] = unit == AnalysisAxisUnit.Milliradian ? 0 : graphScaleMicrometers;
+        values["GraphScaleMilliradians"] = unit == AnalysisAxisUnit.Milliradian ? graphScaleMicrometers : 0;
         values["ProfileType"] = profileType;
         double? xMinimum = graphScaleMicrometers > 0 ? -graphScaleMicrometers : null;
         double? xMaximum = graphScaleMicrometers > 0 ? graphScaleMicrometers : null;
@@ -410,7 +474,7 @@ internal static class PsfProfilePresentation
         return heatmap.Kind == AnalysisSeriesKind.Heatmap && heatmap.Points.Count > 0;
     }
 
-    private static IReadOnlyList<AnalysisPoint> InterpolateFftProfile(IReadOnlyList<AnalysisPoint> points)
+    private static IReadOnlyList<AnalysisPoint> InterpolateFftProfile(IReadOnlyList<AnalysisPoint> points, double graphScale = 0)
     {
         if (points.Count < 3) return points;
         // The heatmap stores (-N/2+1)..N/2. Native FFT profiles use the N
@@ -421,7 +485,11 @@ internal static class PsfProfilePresentation
         var x = new[] { points[0].X - spacing }.Concat(points.SkipLast(1).Select(p => p.X)).ToArray();
         var y = new[] { points[^1].Y }.Concat(points.SkipLast(1).Select(p => p.Y)).ToArray();
         var count = Math.Max(201, 2 * points.Count + 1);
-        var coordinates = Enumerable.Range(0, count).Select(i => x[0] + (points[^1].X - x[0]) * i / (count - 1.0)).ToArray();
+        var minimum = graphScale > 0 ? -graphScale : x[0];
+        var maximum = graphScale > 0 ? graphScale : points[^1].X;
+        if (minimum < x[0] - Math.Abs(spacing) * 1e-10 || maximum > points[^1].X + Math.Abs(spacing) * 1e-10)
+            throw new AnalysisDataUnavailableException("FFT PSF Cross Section", "the requested physical range exceeds the independent Fourier interval; increase pupil sampling");
+        var coordinates = Enumerable.Range(0, count).Select(i => minimum + (maximum - minimum) * i / (count - 1.0)).ToArray();
         var values = MtfThroughFocusAnalysis.CubicSplineInterpolate(x, y, coordinates.Select(v => Math.Min(v, x[^1])).ToArray());
         return coordinates.Select((v, i) => new AnalysisPoint(v, Math.Max(0, values[i]))).ToArray();
     }

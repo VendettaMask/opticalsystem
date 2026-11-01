@@ -1,0 +1,1 @@
+Preflight stopped before protocol declaration or any optical execution. The initial overly broad Core-source identity check found simultaneous unrelated GRIN/MEMS/import changes. No seeds ran here. The corrected, explicitly provenance-separated final protocol is in `../final-cold-v4-confirmed`.

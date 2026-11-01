@@ -1,0 +1,110 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: True) [FAIL]
+[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: False) [FAIL]
+[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: True) [FAIL]
+[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: False) [FAIL]
+[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: True, fixedAxes: False) [FAIL]
+[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.DisabledAbsoluteXyzModelRejectsProjectDowngradeAndOldGridEightReplaysExactly [FAIL]
+[xUnit.net 00:00:01.52]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConditionsModelBoundsAndTrainingTargetsAreDigestBound [FAIL]
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: False) [32 ms]
+  错误消息:
+   System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 68
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: True) [57 ms]
+  错误消息:
+   System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 40
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: True) [3 ms]
+  错误消息:
+   System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 68
+   at InvokeStub_XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: False) [3 ms]
+  错误消息:
+   System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 40
+   at InvokeStub_XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: True, fixedAxes: False) [1 ms]
+  错误消息:
+   System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 68
+   at InvokeStub_XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.DisabledAbsoluteXyzModelRejectsProjectDowngradeAndOldGridEightReplaysExactly [3 ms]
+  错误消息:
+   System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.DisabledAbsoluteXyzModelRejectsProjectDowngradeAndOldGridEightReplaysExactly() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 50
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConditionsModelBoundsAndTrainingTargetsAreDigestBound [7 ms]
+  错误消息:
+   System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConditionsModelBoundsAndTrainingTargetsAreDigestBound() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 51
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:01.53]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.AnalyticPowerLawIsRecoveredAtUnseenAbsoluteInputsWithoutHeldOutTargets [FAIL]
+[xUnit.net 00:00:02.31]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: True) [FAIL]
+[xUnit.net 00:00:02.48]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.AnalyticPowerLawIsRecoveredAtUnseenAbsoluteInputsWithoutHeldOutTargets [15 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.AnalyticPowerLawIsRecoveredAtUnseenAbsoluteInputsWithoutHeldOutTargets() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 33
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: True) [797 ms]
+  错误消息:
+   System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 18
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: False) [170 ms]
+  错误消息:
+   System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 18
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-01\xyz-reconstruction\rbf-second-tests\rbf-second.trx
+
+失败!  - 失败:    10，通过:     2，已跳过:     0，总计:    12，持续时间: 1 s - OpticalSystemDesign.Tests.dll (net10.0)

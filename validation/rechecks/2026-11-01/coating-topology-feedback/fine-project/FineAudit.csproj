@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../../../tools/diagnostics/CoatingTopologyFeedback20261101/FineAudit.cs" Link="Program.cs" />
+    <Reference Include="OpticalSystemDesign.Core"><HintPath>../baseline-runtime/OpticalSystemDesign.Core.dll</HintPath></Reference>
+    <Reference Include="OpticalSystemDesign.Application"><HintPath>../baseline-runtime/OpticalSystemDesign.Application.dll</HintPath></Reference>
+    <Reference Include="OpticalSystemDesign.CoatingDesign.Engine"><HintPath>../baseline-runtime/OpticalSystemDesign.CoatingDesign.Engine.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

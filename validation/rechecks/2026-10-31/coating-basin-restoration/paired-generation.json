@@ -1,0 +1,1506 @@
+{
+  "scope": "Same warm starts, real n/k and original complete gates. Generate only; Search path retained unchanged.",
+  "cases": 6,
+  "beforePassed": 0,
+  "afterPassed": 2,
+  "newlyPassed": [
+    "correction-real-nbf-red",
+    "new-real-nbf-red"
+  ],
+  "guardFailures": [],
+  "reference": {
+    "runs": 18,
+    "passed": 0,
+    "scope": "Pinned unmodified TFStudio DLS/Newton/SQP point operands; different objective, not equal-cost or equal-objective superiority"
+  },
+  "highReflector": {
+    "cases": 19,
+    "passed": 11,
+    "unchanged": true,
+    "newlyPassed": [],
+    "remaining": [
+      {
+        "name": "continued-hr-96",
+        "reflectance": 0.9632698687463795,
+        "target": 0.98
+      },
+      {
+        "name": "correction-real-hr-orange",
+        "reflectance": 0.9698161485738058,
+        "target": 0.98
+      },
+      {
+        "name": "correction-real-hr-red",
+        "reflectance": 0.9777892181554643,
+        "target": 0.98
+      },
+      {
+        "name": "holdout-real-hr-nearir",
+        "reflectance": 0.9666275203436835,
+        "target": 0.98
+      },
+      {
+        "name": "holdout-real-hr-red",
+        "reflectance": 0.9691895004726581,
+        "target": 0.98
+      },
+      {
+        "name": "new-real-hr-green",
+        "reflectance": 0.95844151151972,
+        "target": 0.98
+      },
+      {
+        "name": "real-hr-96",
+        "reflectance": 0.9633448115922756,
+        "target": 0.98
+      },
+      {
+        "name": "real-hr-original-target",
+        "reflectance": 0.9633360836598968,
+        "target": 0.98
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "correction-real-nbf-red",
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 730,
+        "MinimumNm": 637.0909090909091,
+        "MaximumNm": 822.909090909091,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 19,
+        "Polarization": "P",
+        "FwhmNm": 19.90909090909091,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 650.3636363636364,
+            "MaximumNm": 676.909090909091
+          },
+          {
+            "MinimumNm": 783.0909090909091,
+            "MaximumNm": 809.6363636363637
+          }
+        ],
+        "CenterToleranceNm": 0.6636363636363637,
+        "FwhmToleranceNm": 1.3272727272727274,
+        "Structure": {
+          "Cavities": 2
+        }
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 2.7311259446008136,
+        "MaximumThicknessNm": 2734.6537293943743,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "before": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 730.6603070842202,
+          "PeakTransmittance": 0.7608809402478857,
+          "LeftHalfMaximumNanometers": 719.1829346776227,
+          "RightHalfMaximumNanometers": 743.2855044456057,
+          "FwhmNanometers": 24.102569767983027,
+          "MinimumReflectance": 0.0221411411350739,
+          "MaximumReflectance": 0.8829212499836812
+        },
+        "od": [
+          1.0646449006654362,
+          1.0823452736553552
+        ],
+        "layers": 15,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 15,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "2.7311259–2734.6537",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 730.6603070842202,
+            "Requirement": "730 ± 0.66363636",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 24.102569767983027,
+            "Requirement": "19.909091 ± 1.3272727",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 76.08809402478856,
+            "Requirement": "≥ 75",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：650.36364–676.90909 nm",
+            "Actual": 1.0646449006654362,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：783.09091–809.63636 nm",
+            "Actual": 1.0823452736553552,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 4776,
+        "iterations": 2084,
+        "work": {
+          "SpectrumEvaluations": 534919,
+          "SensitivityEvaluations": 103683,
+          "AnalyticJacobians": 2172,
+          "ConstraintPasses": 24,
+          "AdaptiveRefinements": 12,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 5,
+          "BandMetricEvaluations": 1450,
+          "BandSensitivityBatches": 165,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 24,
+          "ProtectedTrialRejections": 121,
+          "DenseProtectionRejections": 4
+        }
+      },
+      "after": {
+        "passed": true,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 730.4660991182731,
+          "PeakTransmittance": 0.7524334879224406,
+          "LeftHalfMaximumNanometers": 720.6383435486082,
+          "RightHalfMaximumNanometers": 741.0669799750278,
+          "FwhmNanometers": 20.428636426419644,
+          "MinimumReflectance": 0.06145594593927315,
+          "MaximumReflectance": 0.8526466357893673
+        },
+        "od": [
+          1.0000000640011046,
+          1.0296074748983646
+        ],
+        "layers": 16,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 16,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "2.7311259–2734.6537",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 730.4660991182731,
+            "Requirement": "730 ± 0.66363636",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 20.428636426419644,
+            "Requirement": "19.909091 ± 1.3272727",
+            "Passed": true
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 75.24334879224406,
+            "Requirement": "≥ 75",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：650.36364–676.90909 nm",
+            "Actual": 1.0000000640011046,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：783.09091–809.63636 nm",
+            "Actual": 1.0296074748983646,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 5059,
+        "iterations": 2109,
+        "work": {
+          "SpectrumEvaluations": 738772,
+          "SensitivityEvaluations": 270491,
+          "AnalyticJacobians": 2239,
+          "ConstraintPasses": 46,
+          "AdaptiveRefinements": 26,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 46,
+          "BandMetricEvaluations": 1889,
+          "BandSensitivityBatches": 357,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 46,
+          "ProtectedTrialRejections": 241,
+          "DenseProtectionRejections": 4,
+          "TargetDirectionRestarts": 2,
+          "InequalitySubproblems": 15,
+          "InequalityActiveSetIterations": 60,
+          "TargetRepairIterations": 15,
+          "TargetRepairAcceptedCandidates": 13,
+          "InequalityStepProtocol": "active-set-inequality-step/1",
+          "TargetRepairProtocol": "pareto-target-correction/3",
+          "TargetComparisonRuns": 4,
+          "TargetComparisonIterations": 26,
+          "TargetRepairContinuationIterations": 8,
+          "SearchPeakReferenceBatches": 11,
+          "SearchSamplingProtocol": "search-peak-reference/2"
+        }
+      },
+      "guards": {
+        "unchangedInputs": true,
+        "unchangedGateRequirements": true,
+        "originalTargetEnvelope": true,
+        "preservedConvergence": true,
+        "preservedPassed": true,
+        "physicalVerdict": true,
+        "coldIdentical": true,
+        "bounds": true,
+        "fixedLayers": true,
+        "shortlistBudget": true,
+        "refinementBudget": true,
+        "evaluationsAccounted": true,
+        "iterationsAccounted": true,
+        "rankingIdentity": true
+      },
+      "rawJointImprovement": false,
+      "shortlist": 12,
+      "refinements": 4,
+      "inputSha256": "ae48faf538cb966c39f8eaaedf08a15b6ff7850ef76b2e739d2b0e4a8bee89e4"
+    },
+    {
+      "name": "correction-real-nbf-yellow",
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 580,
+        "MinimumNm": 506.18181818181813,
+        "MaximumNm": 653.8181818181818,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 12,
+        "Polarization": "Unpolarized",
+        "FwhmNm": 15.818181818181817,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 516.7272727272726,
+            "MaximumNm": 537.8181818181818
+          },
+          {
+            "MinimumNm": 622.1818181818181,
+            "MaximumNm": 643.2727272727273
+          }
+        ],
+        "CenterToleranceNm": 0.5272727272727272,
+        "FwhmToleranceNm": 1.0545454545454545
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 2.1284157882212735,
+        "MaximumThicknessNm": 2132.1589788873084,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "before": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 579.4753724536333,
+          "PeakTransmittance": 0.7354792348413888,
+          "LeftHalfMaximumNanometers": 570.5264492266093,
+          "RightHalfMaximumNanometers": 588.6491299340042,
+          "FwhmNanometers": 18.12268070739492,
+          "MinimumReflectance": 0.053169602859904894,
+          "MaximumReflectance": 0.8893180829124837
+        },
+        "od": [
+          1.0037024011170326,
+          1.2091702832802087
+        ],
+        "layers": 12,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 12,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "2.1284158–2132.159",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 579.4753724536333,
+            "Requirement": "580 ± 0.52727273",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 18.12268070739492,
+            "Requirement": "15.818182 ± 1.0545455",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 73.54792348413888,
+            "Requirement": "≥ 75",
+            "Passed": false
+          },
+          {
+            "Name": "截止 OD：516.72727–537.81818 nm",
+            "Actual": 1.0037024011170326,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：622.18182–643.27273 nm",
+            "Actual": 1.2091702832802087,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 5891,
+        "iterations": 2635,
+        "work": {
+          "SpectrumEvaluations": 329370,
+          "SensitivityEvaluations": 105106,
+          "AnalyticJacobians": 2693,
+          "ConstraintPasses": 24,
+          "AdaptiveRefinements": 12,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 5,
+          "BandMetricEvaluations": 942,
+          "BandSensitivityBatches": 164,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 24,
+          "ProtectedTrialRejections": 138,
+          "DenseProtectionRejections": 4
+        }
+      },
+      "after": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 579.4753724536333,
+          "PeakTransmittance": 0.7356204092852212,
+          "LeftHalfMaximumNanometers": 570.544931376131,
+          "RightHalfMaximumNanometers": 588.6571324397951,
+          "FwhmNanometers": 18.112201063664088,
+          "MinimumReflectance": 0.05278202250432331,
+          "MaximumReflectance": 0.8888756216242708
+        },
+        "od": [
+          1.0086923427286925,
+          1.2056868312758833
+        ],
+        "layers": 12,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 12,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "2.1284158–2132.159",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 579.4753724536333,
+            "Requirement": "580 ± 0.52727273",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 18.112201063664088,
+            "Requirement": "15.818182 ± 1.0545455",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 73.56204092852212,
+            "Requirement": "≥ 75",
+            "Passed": false
+          },
+          {
+            "Name": "截止 OD：516.72727–537.81818 nm",
+            "Actual": 1.0086923427286925,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：622.18182–643.27273 nm",
+            "Actual": 1.2056868312758833,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 6339,
+        "iterations": 2663,
+        "work": {
+          "SpectrumEvaluations": 738674,
+          "SensitivityEvaluations": 282051,
+          "AnalyticJacobians": 2773,
+          "ConstraintPasses": 48,
+          "AdaptiveRefinements": 28,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 50,
+          "BandMetricEvaluations": 1686,
+          "BandSensitivityBatches": 365,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 48,
+          "ProtectedTrialRejections": 282,
+          "DenseProtectionRejections": 13,
+          "TargetDirectionRestarts": 4,
+          "InequalitySubproblems": 37,
+          "InequalityActiveSetIterations": 189,
+          "TargetRepairIterations": 18,
+          "TargetRepairAcceptedCandidates": 4,
+          "TangentTrialEvaluations": 22,
+          "InequalityStepProtocol": "active-set-inequality-step/1",
+          "TargetRepairProtocol": "pareto-target-correction/3",
+          "TargetComparisonRuns": 4,
+          "TargetComparisonIterations": 28,
+          "TargetRepairContinuationIterations": 6,
+          "TargetParetoPolishIterations": 6,
+          "TargetParetoAcceptedCandidates": 4,
+          "SearchPeakReferenceBatches": 19,
+          "SearchSamplingProtocol": "search-peak-reference/2"
+        }
+      },
+      "guards": {
+        "unchangedInputs": true,
+        "unchangedGateRequirements": true,
+        "originalTargetEnvelope": true,
+        "preservedConvergence": true,
+        "preservedPassed": true,
+        "physicalVerdict": true,
+        "coldIdentical": true,
+        "bounds": true,
+        "fixedLayers": true,
+        "shortlistBudget": true,
+        "refinementBudget": true,
+        "evaluationsAccounted": true,
+        "iterationsAccounted": true,
+        "rankingIdentity": true
+      },
+      "rawJointImprovement": false,
+      "shortlist": 12,
+      "refinements": 4,
+      "inputSha256": "0b81afac721b5203c18cdd97ad04478c07085e358ba8ac8eaeb7f6da4a3fce7c"
+    },
+    {
+      "name": "new-ir-double",
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 1550,
+        "MinimumNm": 1317.5,
+        "MaximumNm": 1782.4999999999998,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 30,
+        "Polarization": "Unpolarized",
+        "FwhmNm": 54.25000000000001,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 1364,
+            "MaximumNm": 1426
+          },
+          {
+            "MinimumNm": 1674,
+            "MaximumNm": 1736.0000000000002
+          }
+        ],
+        "CenterToleranceNm": 1.55,
+        "FwhmToleranceNm": 4.65,
+        "Structure": {
+          "Cavities": 2
+        }
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 3.1,
+        "MaximumThicknessNm": 3100,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "DesignProtocolVersion": 4
+      },
+      "before": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 1548.4515881147538,
+          "PeakTransmittance": 0.7151035172586524,
+          "LeftHalfMaximumNanometers": 1505.2298152369415,
+          "RightHalfMaximumNanometers": 1590.679198074339,
+          "FwhmNanometers": 85.44938283739748,
+          "MinimumReflectance": 0.000867907420211911,
+          "MaximumReflectance": 0.9013621203128102
+        },
+        "od": [
+          1.5898355814788903,
+          1.4504464316748307
+        ],
+        "layers": 15,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 15,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "3.1–3100",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 1548.4515881147538,
+            "Requirement": "1550 ± 1.55",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 85.44938283739748,
+            "Requirement": "54.25 ± 4.65",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 71.51035172586523,
+            "Requirement": "≥ 75",
+            "Passed": false
+          },
+          {
+            "Name": "截止 OD：1364–1426 nm",
+            "Actual": 1.5898355814788903,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：1674–1736 nm",
+            "Actual": 1.4504464316748307,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 3091,
+        "iterations": 1410,
+        "work": {
+          "SpectrumEvaluations": 372250,
+          "SensitivityEvaluations": 103052,
+          "AnalyticJacobians": 1542,
+          "ConstraintPasses": 24,
+          "AdaptiveRefinements": 12,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 7,
+          "BandMetricEvaluations": 1110,
+          "BandSensitivityBatches": 176,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 24,
+          "ProtectedTrialRejections": 140,
+          "DenseProtectionRejections": 6
+        }
+      },
+      "after": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 1548.4515881147538,
+          "PeakTransmittance": 0.7151035172586524,
+          "LeftHalfMaximumNanometers": 1505.2298152369415,
+          "RightHalfMaximumNanometers": 1590.679198074339,
+          "FwhmNanometers": 85.44938283739748,
+          "MinimumReflectance": 0.000867907420211911,
+          "MaximumReflectance": 0.9013621203128102
+        },
+        "od": [
+          1.5898355814788903,
+          1.4504464316748307
+        ],
+        "layers": 15,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 15,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "3.1–3100",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 1548.4515881147538,
+            "Requirement": "1550 ± 1.55",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 85.44938283739748,
+            "Requirement": "54.25 ± 4.65",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 71.51035172586523,
+            "Requirement": "≥ 75",
+            "Passed": false
+          },
+          {
+            "Name": "截止 OD：1364–1426 nm",
+            "Actual": 1.5898355814788903,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：1674–1736 nm",
+            "Actual": 1.4504464316748307,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 3610,
+        "iterations": 1452,
+        "work": {
+          "SpectrumEvaluations": 840124,
+          "SensitivityEvaluations": 403185,
+          "AnalyticJacobians": 1668,
+          "ConstraintPasses": 60,
+          "AdaptiveRefinements": 36,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 79,
+          "BandMetricEvaluations": 1926,
+          "BandSensitivityBatches": 530,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 60,
+          "ProtectedTrialRejections": 361,
+          "DenseProtectionRejections": 34,
+          "TargetDirectionRestarts": 4,
+          "InequalitySubproblems": 42,
+          "InequalityActiveSetIterations": 248,
+          "TargetRepairIterations": 38,
+          "TargetRepairAcceptedCandidates": 9,
+          "InequalityStepProtocol": "active-set-inequality-step/1",
+          "TargetRepairProtocol": "pareto-target-correction/3",
+          "TargetComparisonRuns": 6,
+          "TargetComparisonIterations": 42,
+          "TargetRepairContinuationIterations": 20,
+          "TargetParetoPolishIterations": 4,
+          "TargetParetoAcceptedCandidates": 4,
+          "SearchPeakReferenceBatches": 25,
+          "SearchSamplingProtocol": "search-peak-reference/2"
+        }
+      },
+      "guards": {
+        "unchangedInputs": true,
+        "unchangedGateRequirements": true,
+        "originalTargetEnvelope": true,
+        "preservedConvergence": true,
+        "preservedPassed": true,
+        "physicalVerdict": true,
+        "coldIdentical": true,
+        "bounds": true,
+        "fixedLayers": true,
+        "shortlistBudget": true,
+        "refinementBudget": true,
+        "evaluationsAccounted": true,
+        "iterationsAccounted": true,
+        "rankingIdentity": true
+      },
+      "rawJointImprovement": true,
+      "shortlist": 12,
+      "refinements": 6,
+      "inputSha256": "b6a81bc8c49b98f9843ad6f038c99672ea139843f42cf93fcb9837671657fc9f"
+    },
+    {
+      "name": "new-real-nbf-green",
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 500,
+        "MinimumNm": 436.3636363636364,
+        "MaximumNm": 563.6363636363636,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 5,
+        "Polarization": "S",
+        "FwhmNm": 13.636363636363637,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 445.45454545454544,
+            "MaximumNm": 463.6363636363636
+          },
+          {
+            "MinimumNm": 536.3636363636364,
+            "MaximumNm": 554.5454545454545
+          }
+        ],
+        "CenterToleranceNm": 0.45454545454545453,
+        "FwhmToleranceNm": 0.9090909090909091,
+        "Structure": {
+          "Cavities": 2
+        }
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 1.8033555524063996,
+        "MaximumThicknessNm": 1818.691098178533,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "before": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 500.1995287321374,
+          "PeakTransmittance": 0.6040906216855718,
+          "LeftHalfMaximumNanometers": 492.20009906969864,
+          "RightHalfMaximumNanometers": 507.682242132178,
+          "FwhmNanometers": 15.482143062479338,
+          "MinimumReflectance": 0.011752616013506615,
+          "MaximumReflectance": 0.8848224176792883
+        },
+        "od": [
+          1.0003856782505225,
+          1.2664886087908396
+        ],
+        "layers": 15,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 15,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "1.8033556–1818.6911",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 500.1995287321374,
+            "Requirement": "500 ± 0.45454545",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 15.482143062479338,
+            "Requirement": "13.636364 ± 0.90909091",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 60.409062168557185,
+            "Requirement": "≥ 75",
+            "Passed": false
+          },
+          {
+            "Name": "截止 OD：445.45455–463.63636 nm",
+            "Actual": 1.0003856782505225,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：536.36364–554.54545 nm",
+            "Actual": 1.2664886087908396,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 5692,
+        "iterations": 2554,
+        "work": {
+          "SpectrumEvaluations": 485752,
+          "SensitivityEvaluations": 108191,
+          "AnalyticJacobians": 2624,
+          "ConstraintPasses": 24,
+          "AdaptiveRefinements": 12,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 5,
+          "BandMetricEvaluations": 1339,
+          "BandSensitivityBatches": 171,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 24,
+          "ProtectedTrialRejections": 141,
+          "DenseProtectionRejections": 3
+        }
+      },
+      "after": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 500.2261325630891,
+          "PeakTransmittance": 0.6041220771070397,
+          "LeftHalfMaximumNanometers": 492.21708893055467,
+          "RightHalfMaximumNanometers": 507.69917000711524,
+          "FwhmNanometers": 15.482081076560576,
+          "MinimumReflectance": 0.011813990292051282,
+          "MaximumReflectance": 0.8847930197011306
+        },
+        "od": [
+          1.0000355774444112,
+          1.2665230407786765
+        ],
+        "layers": 15,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 15,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "1.8033556–1818.6911",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 500.2261325630891,
+            "Requirement": "500 ± 0.45454545",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 15.482081076560576,
+            "Requirement": "13.636364 ± 0.90909091",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 60.41220771070397,
+            "Requirement": "≥ 75",
+            "Passed": false
+          },
+          {
+            "Name": "截止 OD：445.45455–463.63636 nm",
+            "Actual": 1.0000355774444112,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：536.36364–554.54545 nm",
+            "Actual": 1.2665230407786765,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 6213,
+        "iterations": 2582,
+        "work": {
+          "SpectrumEvaluations": 973187,
+          "SensitivityEvaluations": 310345,
+          "AnalyticJacobians": 2705,
+          "ConstraintPasses": 48,
+          "AdaptiveRefinements": 28,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 56,
+          "BandMetricEvaluations": 2161,
+          "BandSensitivityBatches": 393,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 48,
+          "ProtectedTrialRejections": 307,
+          "DenseProtectionRejections": 18,
+          "TargetDirectionRestarts": 3,
+          "InequalitySubproblems": 39,
+          "InequalityActiveSetIterations": 245,
+          "TargetRepairIterations": 20,
+          "TargetRepairAcceptedCandidates": 5,
+          "TangentTrialEvaluations": 46,
+          "InequalityStepProtocol": "active-set-inequality-step/1",
+          "TargetRepairProtocol": "pareto-target-correction/3",
+          "TargetComparisonRuns": 4,
+          "TargetComparisonIterations": 28,
+          "TargetRepairContinuationIterations": 8,
+          "TargetParetoPolishIterations": 5,
+          "TargetParetoAcceptedCandidates": 4,
+          "SearchPeakReferenceBatches": 19,
+          "SearchSamplingProtocol": "search-peak-reference/2"
+        }
+      },
+      "guards": {
+        "unchangedInputs": true,
+        "unchangedGateRequirements": true,
+        "originalTargetEnvelope": true,
+        "preservedConvergence": true,
+        "preservedPassed": true,
+        "physicalVerdict": true,
+        "coldIdentical": true,
+        "bounds": true,
+        "fixedLayers": true,
+        "shortlistBudget": true,
+        "refinementBudget": true,
+        "evaluationsAccounted": true,
+        "iterationsAccounted": true,
+        "rankingIdentity": true
+      },
+      "rawJointImprovement": false,
+      "shortlist": 12,
+      "refinements": 4,
+      "inputSha256": "f96d9cb2f6f62ebfdf42fd0afc94c99e0d56b363ed77d9b000598306d8323984"
+    },
+    {
+      "name": "new-real-nbf-red",
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 650,
+        "MinimumNm": 567.2727272727273,
+        "MaximumNm": 732.7272727272727,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 12,
+        "Polarization": "P",
+        "FwhmNm": 17.727272727272727,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 579.0909090909091,
+            "MaximumNm": 602.7272727272727
+          },
+          {
+            "MinimumNm": 697.2727272727273,
+            "MaximumNm": 720.909090909091
+          }
+        ],
+        "CenterToleranceNm": 0.5909090909090909,
+        "FwhmToleranceNm": 1.1818181818181819
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 48,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 2.3925963717988408,
+        "MaximumThicknessNm": 2403.2065601463296,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "before": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 649.7233201581028,
+          "PeakTransmittance": 0.7503290552912373,
+          "LeftHalfMaximumNanometers": 640.1803662480922,
+          "RightHalfMaximumNanometers": 659.6751433759255,
+          "FwhmNanometers": 19.49477712783323,
+          "MinimumReflectance": 0.06420648153351238,
+          "MaximumReflectance": 0.8945753790529889
+        },
+        "od": [
+          1.1012455900297493,
+          1.1929455238112312
+        ],
+        "layers": 12,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 12,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "2.3925964–2403.2066",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 649.7233201581028,
+            "Requirement": "650 ± 0.59090909",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 19.49477712783323,
+            "Requirement": "17.727273 ± 1.1818182",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 75.03290552912372,
+            "Requirement": "≥ 75",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：579.09091–602.72727 nm",
+            "Actual": 1.1012455900297493,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：697.27273–720.90909 nm",
+            "Actual": 1.1929455238112312,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 4658,
+        "iterations": 2113,
+        "work": {
+          "SpectrumEvaluations": 354669,
+          "SensitivityEvaluations": 115847,
+          "AnalyticJacobians": 2205,
+          "ConstraintPasses": 24,
+          "AdaptiveRefinements": 12,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 5,
+          "BandMetricEvaluations": 1024,
+          "BandSensitivityBatches": 184,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 24,
+          "ProtectedTrialRejections": 145,
+          "DenseProtectionRejections": 3
+        }
+      },
+      "after": {
+        "passed": true,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 650.5360671936759,
+          "PeakTransmittance": 0.7500539091940489,
+          "LeftHalfMaximumNanometers": 641.1900120059291,
+          "RightHalfMaximumNanometers": 659.9685226390824,
+          "FwhmNanometers": 18.778510633153246,
+          "MinimumReflectance": 0.00024310994078207885,
+          "MaximumReflectance": 0.9034874819244209
+        },
+        "od": [
+          1.0119361559159643,
+          1.2981993491840476
+        ],
+        "layers": 15,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 15,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "2.3925964–2403.2066",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 650.5360671936759,
+            "Requirement": "650 ± 0.59090909",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 18.778510633153246,
+            "Requirement": "17.727273 ± 1.1818182",
+            "Passed": true
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 75.00539091940489,
+            "Requirement": "≥ 75",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：579.09091–602.72727 nm",
+            "Actual": 1.0119361559159643,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：697.27273–720.90909 nm",
+            "Actual": 1.2981993491840476,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 4862,
+        "iterations": 2141,
+        "work": {
+          "SpectrumEvaluations": 456049,
+          "SensitivityEvaluations": 280268,
+          "AnalyticJacobians": 2267,
+          "ConstraintPasses": 45,
+          "AdaptiveRefinements": 26,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 40,
+          "BandMetricEvaluations": 1367,
+          "BandSensitivityBatches": 370,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 45,
+          "ProtectedTrialRejections": 290,
+          "DenseProtectionRejections": 10,
+          "TargetDirectionRestarts": 3,
+          "InequalitySubproblems": 13,
+          "InequalityActiveSetIterations": 56,
+          "TargetRepairIterations": 13,
+          "TargetRepairAcceptedCandidates": 4,
+          "InequalityStepProtocol": "active-set-inequality-step/1",
+          "TargetRepairProtocol": "pareto-target-correction/3",
+          "TargetComparisonRuns": 3,
+          "TargetComparisonIterations": 21,
+          "TargetRepairContinuationIterations": 5,
+          "SearchPeakReferenceBatches": 10,
+          "SearchSamplingProtocol": "search-peak-reference/2"
+        }
+      },
+      "guards": {
+        "unchangedInputs": true,
+        "unchangedGateRequirements": true,
+        "originalTargetEnvelope": true,
+        "preservedConvergence": true,
+        "preservedPassed": true,
+        "physicalVerdict": true,
+        "coldIdentical": true,
+        "bounds": true,
+        "fixedLayers": true,
+        "shortlistBudget": true,
+        "refinementBudget": true,
+        "evaluationsAccounted": true,
+        "iterationsAccounted": true,
+        "rankingIdentity": true
+      },
+      "rawJointImprovement": false,
+      "shortlist": 12,
+      "refinements": 4,
+      "inputSha256": "c1044506552329672e446c953c5f1142b10caf3e82d2ad509524b2d5e22d13cd"
+    },
+    {
+      "name": "real-nbf2-96",
+      "target": {
+        "Kind": "NarrowBand",
+        "CenterNm": 550,
+        "MinimumNm": 480,
+        "MaximumNm": 620,
+        "Reflectance": 0.02,
+        "MaximumLayers": 39,
+        "AngleDegrees": 0,
+        "Polarization": "Unpolarized",
+        "FwhmNm": 15,
+        "PeakTransmittance": 0.75,
+        "BlockingOd": 1,
+        "StopBands": [
+          {
+            "MinimumNm": 490,
+            "MaximumNm": 510
+          },
+          {
+            "MinimumNm": 590,
+            "MaximumNm": 610
+          }
+        ],
+        "CenterToleranceNm": 0.5,
+        "FwhmToleranceNm": 1,
+        "Structure": {
+          "Cavities": 2
+        }
+      },
+      "settings": {
+        "PreviewIntervals": 400,
+        "OptimizationIntervals": 120,
+        "MaximumIterations": 96,
+        "Optimizer": "Damped Least Squares",
+        "MinimumThicknessNm": 2,
+        "MaximumThicknessNm": 2000,
+        "TolerancePercent": 1,
+        "ToleranceTrials": 20,
+        "RandomSeed": 1234,
+        "Search": {
+          "Starts": 4,
+          "JitterPercent": 12,
+          "VaryStructure": true
+        },
+        "DesignProtocolVersion": 4
+      },
+      "before": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 550.497491638796,
+          "PeakTransmittance": 0.663998519257116,
+          "LeftHalfMaximumNanometers": 542.0395525944131,
+          "RightHalfMaximumNanometers": 559.2808004557444,
+          "FwhmNanometers": 17.241247861331317,
+          "MinimumReflectance": 0.010692280138399185,
+          "MaximumReflectance": 0.8867787315904675
+        },
+        "od": [
+          1.0185945193046888,
+          1.2526021966166883
+        ],
+        "layers": 15,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 15,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "2–2000",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 550.497491638796,
+            "Requirement": "550 ± 0.5",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 17.241247861331317,
+            "Requirement": "15 ± 1",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 66.3998519257116,
+            "Requirement": "≥ 75",
+            "Passed": false
+          },
+          {
+            "Name": "截止 OD：490–510 nm",
+            "Actual": 1.0185945193046888,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：590–610 nm",
+            "Actual": 1.2526021966166883,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 5080,
+        "iterations": 2217,
+        "work": {
+          "SpectrumEvaluations": 477843,
+          "SensitivityEvaluations": 106755,
+          "AnalyticJacobians": 2301,
+          "ConstraintPasses": 24,
+          "AdaptiveRefinements": 12,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 5,
+          "BandMetricEvaluations": 1327,
+          "BandSensitivityBatches": 171,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 24,
+          "ProtectedTrialRejections": 149,
+          "DenseProtectionRejections": 3
+        }
+      },
+      "after": {
+        "passed": false,
+        "converged": true,
+        "metrics": {
+          "PeakWavelengthNanometers": 550.497491638796,
+          "PeakTransmittance": 0.6644792128366656,
+          "LeftHalfMaximumNanometers": 541.9054579343594,
+          "RightHalfMaximumNanometers": 559.1228511941857,
+          "FwhmNanometers": 17.21739325982628,
+          "MinimumReflectance": 0.011820757463852374,
+          "MaximumReflectance": 0.8860198319651779
+        },
+        "od": [
+          1.0159789345515642,
+          1.2359241176146223
+        ],
+        "layers": 15,
+        "checks": [
+          {
+            "Name": "层数",
+            "Actual": 15,
+            "Requirement": "≤ 39",
+            "Passed": true
+          },
+          {
+            "Name": "物理厚度约束 (nm)",
+            "Actual": null,
+            "Requirement": "2–2000",
+            "Passed": true
+          },
+          {
+            "Name": "峰值位置 (nm)",
+            "Actual": 550.497491638796,
+            "Requirement": "550 ± 0.5",
+            "Passed": true
+          },
+          {
+            "Name": "FWHM (nm)",
+            "Actual": 17.21739325982628,
+            "Requirement": "15 ± 1",
+            "Passed": false
+          },
+          {
+            "Name": "峰值 T (%)",
+            "Actual": 66.44792128366656,
+            "Requirement": "≥ 75",
+            "Passed": false
+          },
+          {
+            "Name": "截止 OD：490–510 nm",
+            "Actual": 1.0159789345515642,
+            "Requirement": "≥ 1",
+            "Passed": true
+          },
+          {
+            "Name": "截止 OD：590–610 nm",
+            "Actual": 1.2359241176146223,
+            "Requirement": "≥ 1",
+            "Passed": true
+          }
+        ],
+        "evaluations": 5723,
+        "iterations": 2257,
+        "work": {
+          "SpectrumEvaluations": 1050201,
+          "SensitivityEvaluations": 358518,
+          "AnalyticJacobians": 2419,
+          "ConstraintPasses": 48,
+          "AdaptiveRefinements": 28,
+          "AdaptiveLimitReached": true,
+          "DenseValidations": 67,
+          "BandMetricEvaluations": 2256,
+          "BandSensitivityBatches": 444,
+          "PassbandProtocol": "measured-passband-constraints/1",
+          "TargetProtectionProtocol": "target-violation-envelope/3",
+          "TargetProtectionPasses": 48,
+          "ProtectedTrialRejections": 336,
+          "DenseProtectionRejections": 22,
+          "TargetDirectionRestarts": 3,
+          "InequalitySubproblems": 45,
+          "InequalityActiveSetIterations": 248,
+          "TargetRepairIterations": 32,
+          "TargetRepairAcceptedCandidates": 10,
+          "TangentTrialEvaluations": 76,
+          "InequalityStepProtocol": "active-set-inequality-step/1",
+          "TargetRepairProtocol": "pareto-target-correction/3",
+          "TargetComparisonRuns": 4,
+          "TargetComparisonIterations": 40,
+          "TargetRepairContinuationIterations": 16,
+          "TargetParetoPolishIterations": 6,
+          "TargetParetoAcceptedCandidates": 6,
+          "SearchPeakReferenceBatches": 20,
+          "SearchSamplingProtocol": "search-peak-reference/2"
+        }
+      },
+      "guards": {
+        "unchangedInputs": true,
+        "unchangedGateRequirements": true,
+        "originalTargetEnvelope": true,
+        "preservedConvergence": true,
+        "preservedPassed": true,
+        "physicalVerdict": true,
+        "coldIdentical": true,
+        "bounds": true,
+        "fixedLayers": true,
+        "shortlistBudget": true,
+        "refinementBudget": true,
+        "evaluationsAccounted": true,
+        "iterationsAccounted": true,
+        "rankingIdentity": true
+      },
+      "rawJointImprovement": false,
+      "shortlist": 12,
+      "refinements": 4,
+      "inputSha256": "a8a68ecf2d97b4baed301f79ea82041181226c89621d0e46ecc133c552d8de0a"
+    }
+  ]
+}

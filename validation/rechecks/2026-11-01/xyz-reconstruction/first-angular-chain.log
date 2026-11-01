@@ -1,0 +1,8 @@
+Unhandled exception. System.IO.InvalidDataException: BSDF 波长或角度超出测量范围；不外推。
+   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfGrid.Bracket(Double[] a, Double x) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\MeasuredBsdf.cs:line 106
+   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfGrid.Inputs(BsdfContext c) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\MeasuredBsdf.cs:line 89
+   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfGrid.Integrate(BsdfContext c) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\MeasuredBsdf.cs:line 110
+   at OpticalSystemDesign.Core.Scattering.MeasuredBsdf.Integrate(BsdfContext c) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\MeasuredBsdf.cs:line 10
+   at MeasuredLogChain.Run(String root, String repo) in D:\Projects\opticalsystem\tools\diagnostics\XyzReconstruction20261101\MeasuredLogChain.cs:line 73
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\tools\diagnostics\XyzReconstruction20261101\Program.cs:line 6
+   at Program.<Main>(String[] args)

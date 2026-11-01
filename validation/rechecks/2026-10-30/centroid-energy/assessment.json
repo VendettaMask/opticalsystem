@@ -1,0 +1,1959 @@
+{
+  "date": "2026-10-30",
+  "status": "three_original_native_centroid_energy_plot_differences_closed",
+  "requestedIssueClosed": true,
+  "allAfocalIssuesClosed": false,
+  "originalViolationsBefore": 2129,
+  "originalViolationsAfter": 0,
+  "targetComparedValues": 7971,
+  "allFiveComparedValues": 9169,
+  "originalInputsReferencesSamplingAndGatesChanged": false,
+  "dependencies": [
+    {
+      "path": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+      "sha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/fft-seam-repair/evidence.zip",
+      "sha256": "8a9a21f077515b016dd90c7cff890abccc7c038058cf0094ace38970523a2bd1"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/afocal-auto-grid/evidence.zip",
+      "sha256": "b7340ea55499260feef6080a9e265c68318c37f500cec66df5a2e83b8a39586f"
+    },
+    {
+      "path": "validation/rechecks/2026-10-30/riflescope-pupil/evidence.zip",
+      "sha256": "f4e6fef82110d8b6bde01a6d85ea72dbf7613e480991751e79b1f5a423bace4a"
+    }
+  ],
+  "sourceBaseCommit": "ea5152436935d7c07d34dca47a5b92349c803d6b",
+  "coreCopies": [
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "ba011ef5ca7a991d0e5dbdb685cfe07b334f1b564d52d4781f87583c2aad8b23"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "ba011ef5ca7a991d0e5dbdb685cfe07b334f1b564d52d4781f87583c2aad8b23"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "ba011ef5ca7a991d0e5dbdb685cfe07b334f1b564d52d4781f87583c2aad8b23"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "ba011ef5ca7a991d0e5dbdb685cfe07b334f1b564d52d4781f87583c2aad8b23"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "ba011ef5ca7a991d0e5dbdb685cfe07b334f1b564d52d4781f87583c2aad8b23"
+    },
+    {
+      "path": "tools/diagnostics/FftProfileNative20261029/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "ba011ef5ca7a991d0e5dbdb685cfe07b334f1b564d52d4781f87583c2aad8b23"
+    }
+  ],
+  "workingTreeSources": [
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "sha256": "0766f5bc880ae293dad6f6754b2c7e45edff2299c1330f37c620dc6c6d517bc9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "sha256": "c27b00f79f2a7ca7337ca0a8936bef8e12211fdc8baadc5a83a3abb66c918e84"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs",
+      "sha256": "95394fbbe800237b2159444efb21487e91bd8787d2509c4f25a9399467472f8f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "sha256": "1dbe9adf5a8dd87d2351304974191f599eab1f11c822beec5476b5c24a8520d4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmBandSensitivity.cs",
+      "sha256": "1a6c49f19420dede96fa473cc68af85342019a221c186926f577e9514877a0b1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs",
+      "sha256": "91242413813373277c503cc1da56f31b6c9e258a62ed3089cad502eb7a800bbf"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Geometries/PolygonGroupGeometry.cs",
+      "sha256": "f15ac02c8df2ea7ff2f32c700e69dfb857aec7e447e52fd0d61be771858f4d2e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Interactions/InteractionModels.cs",
+      "sha256": "5148915d3d9e8676e852f97053425aa309505ffac0e6ec86a71c98ddef69c1f7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.AfocalScale.cs",
+      "sha256": "0f46a0a326f2952da2add5e8251d4f97f14ef3ec3912178004c4e4672f20cfe5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/AfocalParabasalPupilScale.cs",
+      "sha256": "a828e7e5be4ecf8b757ef0709421a37b5708ea6ac2bd96b141646be08cd5a7a1"
+    }
+  ],
+  "before": [
+    {
+      "id": "0013-001-afocal-riflescope-c1-primary-f1-w2-encircled-energy",
+      "fingerprint": "b02c5dbabf7bd154922777bad3b7bd25edbca26a4ea840dfd163292ecf7a5dfe",
+      "originalConclusion": "Difference",
+      "currentConclusion": "Difference",
+      "snapshotSha256": "83905a19963065b1727927d3b2e28897c43deca293e66d89ca8a167331da54a7",
+      "nativeDataSha256": "fb8c07403a68fdb14cd3c7d6b893ef99a0f7ac35305bdb51f5162596146d4c78",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 557,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 557,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 1.7817509885212413E-17,
+            "rmse": 4.5824195009622415E-17,
+            "nrmse": 4.5824195009622415E-17,
+            "maxRelative": 3.5026008795306217E-16,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.4958321738620254,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 557,
+          "violations": 556,
+          "metric": {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 557,
+            "maxAbsolute": 0.19122730033614166,
+            "meanAbsolute": 0.059657425475844045,
+            "rmse": 0.06764921726122468,
+            "nrmse": 0.07718741165778327,
+            "maxRelative": 1,
+            "p50": 0.05352548961218795,
+            "p90": 0.09179035900191372,
+            "p95": 0.1228604965852155,
+            "pearson": 0.9907399567113904,
+            "worstX": 0.6060171013869199,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:2",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 557,
+          "violations": 525,
+          "metric": {
+            "id": "curve:2",
+            "unit": "Dimensionless",
+            "count": 557,
+            "maxAbsolute": 0.06800774618859773,
+            "meanAbsolute": 0.02771546998455919,
+            "rmse": 0.0352255767196623,
+            "nrmse": 0.03671831079428241,
+            "maxRelative": 0.6736285581192479,
+            "p50": 0.025514734380019277,
+            "p90": 0.05731769157673375,
+            "p95": 0.06248238742410458,
+            "pearson": 0.9958952686211686,
+            "worstX": 0.5619431303769621,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "0043-002-beam-expander-c1-primary-f1-w1-encircled-energy",
+      "fingerprint": "be5f527e350dc319e12cd0183ca144d3b0c4affd01b3303272f7e83af5a564ed",
+      "originalConclusion": "Pass",
+      "currentConclusion": "Pass",
+      "snapshotSha256": "483d5b6057a54bbf858ec51dbd551d372ed765460c71cca6e8cfc8beb888e638",
+      "nativeDataSha256": "54dc24c1f413a85bc4bdde5095736da895d3fe3e65588f2e1c9252b5ec5401d6",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 568,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 568,
+            "maxAbsolute": 1.9984014443252818E-15,
+            "meanAbsolute": 9.636266745426095E-17,
+            "rmse": 3.8171467657629697E-16,
+            "nrmse": 3.8171467657629697E-16,
+            "maxRelative": 2.9727949334953573E-15,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 5.551115123125783E-16,
+            "pearson": 0.9999999999999999,
+            "worstX": 0.0006121384862494141,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "0065-003-binocular_system-c1-primary-f1-w2-encircled-energy",
+      "fingerprint": "5554c1ded8900634de1de5224cb6a2ebba6cd3accce5bd385c191d43ef5af409",
+      "originalConclusion": "Difference",
+      "currentConclusion": "Difference",
+      "snapshotSha256": "c870650c51b74f9e09ccb010b6248f0f5c284cc2e287e1f0b4b8185e9500f970",
+      "nativeDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 5.2427198385076835E-18,
+            "rmse": 2.509479072433258E-17,
+            "nrmse": 2.509479072433258E-17,
+            "maxRelative": 3.894134773497824E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 1.526556658859464E-17,
+            "pearson": 1,
+            "worstX": 0.4671717171717172,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 119,
+          "metric": {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 0.1606022584692597,
+            "meanAbsolute": 0.004190769546333455,
+            "rmse": 0.016234000353824177,
+            "nrmse": 0.016234000353824177,
+            "maxRelative": 1,
+            "p50": 0,
+            "p90": 0.013355905513810596,
+            "p95": 0.020848619356570338,
+            "pearson": 0.9976779085446483,
+            "worstX": 0.05050505050505051,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:2",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 143,
+          "metric": {
+            "id": "curve:2",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 0.008782936010037545,
+            "meanAbsolute": 0.0007955184661375709,
+            "rmse": 0.0018000308639368387,
+            "nrmse": 0.0018000308639368387,
+            "maxRelative": 0.2837234820594852,
+            "p50": 0,
+            "p90": 0.002870470057971769,
+            "p95": 0.004897900543087058,
+            "pearson": 0.9999811300819579,
+            "worstX": 0.7070707070707071,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:3",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 119,
+          "metric": {
+            "id": "curve:3",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 0.1606022584692597,
+            "meanAbsolute": 0.004190769546333455,
+            "rmse": 0.016234000353824177,
+            "nrmse": 0.016234000353824177,
+            "maxRelative": 1,
+            "p50": 0,
+            "p90": 0.013355905513810596,
+            "p95": 0.020848619356570338,
+            "pearson": 0.9976779085446483,
+            "worstX": 0.05050505050505051,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:4",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 143,
+          "metric": {
+            "id": "curve:4",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 0.008782936010037545,
+            "meanAbsolute": 0.0007955184661375709,
+            "rmse": 0.0018000308639368387,
+            "nrmse": 0.0018000308639368387,
+            "maxRelative": 0.2837234820594852,
+            "p50": 0,
+            "p90": 0.002870470057971769,
+            "p95": 0.004897900543087058,
+            "pearson": 0.9999811300819579,
+            "worstX": 0.7070707070707071,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "0095-003-binocular_system-c2-primary-f1-w2-encircled-energy",
+      "fingerprint": "b69d1e4f807d5451b210c5dcd97c4a438a258578dc80887cf6aa433d4def5271",
+      "originalConclusion": "Difference",
+      "currentConclusion": "Difference",
+      "snapshotSha256": "f9db7be807e3dcb36cd9809e5ab9de0e63f43f7cc3ae05fbb1dd2c2587e4f416",
+      "nativeDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 5.2427198385076835E-18,
+            "rmse": 2.509479072433258E-17,
+            "nrmse": 2.509479072433258E-17,
+            "maxRelative": 3.894134773497824E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 1.526556658859464E-17,
+            "pearson": 1,
+            "worstX": 0.4671717171717172,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 119,
+          "metric": {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 0.1606022584692597,
+            "meanAbsolute": 0.004190769546333455,
+            "rmse": 0.016234000353824177,
+            "nrmse": 0.016234000353824177,
+            "maxRelative": 1,
+            "p50": 0,
+            "p90": 0.013355905513810596,
+            "p95": 0.020848619356570338,
+            "pearson": 0.9976779085446483,
+            "worstX": 0.05050505050505051,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:2",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 143,
+          "metric": {
+            "id": "curve:2",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 0.008782936010037545,
+            "meanAbsolute": 0.0007955184661375709,
+            "rmse": 0.0018000308639368387,
+            "nrmse": 0.0018000308639368387,
+            "maxRelative": 0.2837234820594852,
+            "p50": 0,
+            "p90": 0.002870470057971769,
+            "p95": 0.004897900543087058,
+            "pearson": 0.9999811300819579,
+            "worstX": 0.7070707070707071,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:3",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 119,
+          "metric": {
+            "id": "curve:3",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 0.1606022584692597,
+            "meanAbsolute": 0.004190769546333455,
+            "rmse": 0.016234000353824177,
+            "nrmse": 0.016234000353824177,
+            "maxRelative": 1,
+            "p50": 0,
+            "p90": 0.013355905513810596,
+            "p95": 0.020848619356570338,
+            "pearson": 0.9976779085446483,
+            "worstX": 0.05050505050505051,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:4",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 143,
+          "metric": {
+            "id": "curve:4",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 0.008782936010037545,
+            "meanAbsolute": 0.0007955184661375709,
+            "rmse": 0.0018000308639368387,
+            "nrmse": 0.0018000308639368387,
+            "maxRelative": 0.2837234820594852,
+            "p50": 0,
+            "p90": 0.002870470057971769,
+            "p95": 0.004897900543087058,
+            "pearson": 0.9999811300819579,
+            "worstX": 0.7070707070707071,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "0125-004-apochromat_prism-c1-primary-f1-w3-encircled-energy",
+      "fingerprint": "8090dc57f1b16008085605ff5a88b8752afcd26feec59d71589b72f0258d59ec",
+      "originalConclusion": "Pass",
+      "currentConclusion": "Pass",
+      "snapshotSha256": "2634b29b2ef9b357dc2528df14973145d4c25dd202e93d9faaf46f001a942cc1",
+      "nativeDataSha256": "159ecb09fed7f4862685e2d63e4c818e3333e49994b8e78c02b9803b2813a788",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 1.1102230246251565E-16,
+            "meanAbsolute": 7.049035076985121E-19,
+            "rmse": 8.275113844157577E-18,
+            "nrmse": 8.275113844157577E-18,
+            "maxRelative": 1.8488896773043573E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 0.9999999999999998,
+            "worstX": 0.025252525252525252,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "id": "0013-001-afocal-riflescope-c1-primary-f1-w2-encircled-energy",
+      "fingerprint": "b02c5dbabf7bd154922777bad3b7bd25edbca26a4ea840dfd163292ecf7a5dfe",
+      "originalConclusion": "Difference",
+      "currentConclusion": "Pass",
+      "snapshotSha256": "83905a19963065b1727927d3b2e28897c43deca293e66d89ca8a167331da54a7",
+      "nativeDataSha256": "fb8c07403a68fdb14cd3c7d6b893ef99a0f7ac35305bdb51f5162596146d4c78",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 557,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 557,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 1.7817509885212413E-17,
+            "rmse": 4.5824195009622415E-17,
+            "nrmse": 4.5824195009622415E-17,
+            "maxRelative": 3.5026008795306217E-16,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.4958321738620254,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 557,
+          "violations": 0,
+          "metric": {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 557,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 3.537847067467332E-17,
+            "rmse": 6.560757038112421E-17,
+            "nrmse": 7.485790298681641E-17,
+            "maxRelative": 5.351901717497478E-16,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 0.9999999999999999,
+            "worstX": 0.5252148212019973,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:2",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 557,
+          "violations": 0,
+          "metric": {
+            "id": "curve:2",
+            "unit": "Dimensionless",
+            "count": 557,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 3.6085051264641427E-17,
+            "rmse": 6.4954196841921E-17,
+            "nrmse": 6.770672361209015E-17,
+            "maxRelative": 1.2673600594907224E-15,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 0.9999999999999999,
+            "worstX": 0.5362333139544868,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "0043-002-beam-expander-c1-primary-f1-w1-encircled-energy",
+      "fingerprint": "be5f527e350dc319e12cd0183ca144d3b0c4affd01b3303272f7e83af5a564ed",
+      "originalConclusion": "Pass",
+      "currentConclusion": "Pass",
+      "snapshotSha256": "483d5b6057a54bbf858ec51dbd551d372ed765460c71cca6e8cfc8beb888e638",
+      "nativeDataSha256": "54dc24c1f413a85bc4bdde5095736da895d3fe3e65588f2e1c9252b5ec5401d6",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 568,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 568,
+            "maxAbsolute": 1.9984014443252818E-15,
+            "meanAbsolute": 9.636266745426095E-17,
+            "rmse": 3.8171467657629697E-16,
+            "nrmse": 3.8171467657629697E-16,
+            "maxRelative": 2.9727949334953573E-15,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 5.551115123125783E-16,
+            "pearson": 0.9999999999999999,
+            "worstX": 0.0006121384862494141,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "0065-003-binocular_system-c1-primary-f1-w2-encircled-energy",
+      "fingerprint": "5554c1ded8900634de1de5224cb6a2ebba6cd3accce5bd385c191d43ef5af409",
+      "originalConclusion": "Difference",
+      "currentConclusion": "Pass",
+      "snapshotSha256": "c870650c51b74f9e09ccb010b6248f0f5c284cc2e287e1f0b4b8185e9500f970",
+      "nativeDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 5.2427198385076835E-18,
+            "rmse": 2.509479072433258E-17,
+            "nrmse": 2.509479072433258E-17,
+            "maxRelative": 3.894134773497824E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 1.526556658859464E-17,
+            "pearson": 1,
+            "worstX": 0.4671717171717172,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 9.361999711620864E-18,
+            "rmse": 3.346098989351168E-17,
+            "nrmse": 3.346098989351168E-17,
+            "maxRelative": 2.601861000749025E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.6439393939393939,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:2",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:2",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 1.8791805082917806E-17,
+            "rmse": 4.5423634523178214E-17,
+            "nrmse": 4.5423634523178214E-17,
+            "maxRelative": 3.7046992535351593E-16,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.9343434343434345,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:3",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:3",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 9.361999711620864E-18,
+            "rmse": 3.346098989351168E-17,
+            "nrmse": 3.346098989351168E-17,
+            "maxRelative": 2.601861000749025E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.6439393939393939,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:4",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:4",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 1.8791805082917806E-17,
+            "rmse": 4.5423634523178214E-17,
+            "nrmse": 4.5423634523178214E-17,
+            "maxRelative": 3.7046992535351593E-16,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.9343434343434345,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "0095-003-binocular_system-c2-primary-f1-w2-encircled-energy",
+      "fingerprint": "b69d1e4f807d5451b210c5dcd97c4a438a258578dc80887cf6aa433d4def5271",
+      "originalConclusion": "Difference",
+      "currentConclusion": "Pass",
+      "snapshotSha256": "f9db7be807e3dcb36cd9809e5ab9de0e63f43f7cc3ae05fbb1dd2c2587e4f416",
+      "nativeDataSha256": "50e5f35479fd4ee414071102e8da043c4937963e7de2f2741295a941add0446e",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 5.2427198385076835E-18,
+            "rmse": 2.509479072433258E-17,
+            "nrmse": 2.509479072433258E-17,
+            "maxRelative": 3.894134773497824E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 1.526556658859464E-17,
+            "pearson": 1,
+            "worstX": 0.4671717171717172,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 9.361999711620864E-18,
+            "rmse": 3.346098989351168E-17,
+            "nrmse": 3.346098989351168E-17,
+            "maxRelative": 2.601861000749025E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.6439393939393939,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:2",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:2",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 1.8791805082917806E-17,
+            "rmse": 4.5423634523178214E-17,
+            "nrmse": 4.5423634523178214E-17,
+            "maxRelative": 3.7046992535351593E-16,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.9343434343434345,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:3",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:3",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 9.361999711620864E-18,
+            "rmse": 3.346098989351168E-17,
+            "nrmse": 3.346098989351168E-17,
+            "maxRelative": 2.601861000749025E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.6439393939393939,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "id": "curve:4",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:4",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 2.220446049250313E-16,
+            "meanAbsolute": 1.8791805082917806E-17,
+            "rmse": 4.5423634523178214E-17,
+            "nrmse": 4.5423634523178214E-17,
+            "maxRelative": 3.7046992535351593E-16,
+            "p50": 0,
+            "p90": 1.1102230246251565E-16,
+            "p95": 1.1102230246251565E-16,
+            "pearson": 1,
+            "worstX": 0.9343434343434345,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "0125-004-apochromat_prism-c1-primary-f1-w3-encircled-energy",
+      "fingerprint": "8090dc57f1b16008085605ff5a88b8752afcd26feec59d71589b72f0258d59ec",
+      "originalConclusion": "Pass",
+      "currentConclusion": "Pass",
+      "snapshotSha256": "2634b29b2ef9b357dc2528df14973145d4c25dd202e93d9faaf46f001a942cc1",
+      "nativeDataSha256": "159ecb09fed7f4862685e2d63e4c818e3333e49994b8e78c02b9803b2813a788",
+      "curves": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "gate": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          },
+          "count": 630,
+          "violations": 0,
+          "metric": {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 1.1102230246251565E-16,
+            "meanAbsolute": 7.049035076985121E-19,
+            "rmse": 8.275113844157577E-18,
+            "nrmse": 8.275113844157577E-18,
+            "maxRelative": 1.8488896773043573E-16,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 0.9999999999999998,
+            "worstX": 0.025252525252525252,
+            "worstY": null,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    }
+  ],
+  "nativeControlComparison": [
+    {
+      "cohort": "centroid-energy-20261030-native-01",
+      "id": "afocal-Centroid",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "Centroid",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 3.537847067467332E-17,
+        "rmse": 6.560757038112421E-17,
+        "nrmse": 7.485790298681641E-17,
+        "maxRelative": 5.351901717497478E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 0.9999999999999999,
+        "worstX": 0.5252148212019973,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-01",
+      "id": "afocal-ChiefRay",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "ChiefRay",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 3.537847067467332E-17,
+        "rmse": 6.560757038112421E-17,
+        "nrmse": 7.485790298681641E-17,
+        "maxRelative": 5.351901717497478E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 0.9999999999999999,
+        "worstX": 0.5252148212019973,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-01",
+      "id": "afocal-Vertex",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "Vertex",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 3.537847067467332E-17,
+        "rmse": 6.560757038112421E-17,
+        "nrmse": 7.485790298681641E-17,
+        "maxRelative": 5.351901717497478E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 0.9999999999999999,
+        "worstX": 0.5252148212019973,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-02",
+      "id": "afocal64-Centroid",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "Centroid",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 3.014276689809969E-17,
+        "rmse": 5.728809825072351E-17,
+        "nrmse": 6.582690077494715E-17,
+        "maxRelative": 5.717356697633324E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.5545974685419692,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-02",
+      "id": "afocal64-ChiefRay",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "ChiefRay",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 3.014276689809969E-17,
+        "rmse": 5.728809825072351E-17,
+        "nrmse": 6.582690077494715E-17,
+        "maxRelative": 5.717356697633324E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.5545974685419692,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-02",
+      "id": "afocal64-Vertex",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "Vertex",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 3.014276689809969E-17,
+        "rmse": 5.728809825072351E-17,
+        "nrmse": 6.582690077494715E-17,
+        "maxRelative": 5.717356697633324E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.5545974685419692,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-02",
+      "id": "focal-Centroid",
+      "afocal": false,
+      "selectedField": 2,
+      "reference": "Centroid",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 653,
+        "maxAbsolute": 3.3306690738754696E-16,
+        "meanAbsolute": 1.5002361335115615E-17,
+        "rmse": 4.907102158075951E-17,
+        "nrmse": 4.907102158075951E-17,
+        "maxRelative": "Infinity",
+        "p50": 0,
+        "p90": 4.163336342344337E-17,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 0.9999999999999999,
+        "worstX": 1641.4141414141413,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-02",
+      "id": "focal-ChiefRay",
+      "afocal": false,
+      "selectedField": 2,
+      "reference": "ChiefRay",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 653,
+        "maxAbsolute": 3.3306690738754696E-16,
+        "meanAbsolute": 1.6123793695906546E-17,
+        "rmse": 5.221145021497357E-17,
+        "nrmse": 5.221145021497357E-17,
+        "maxRelative": "Infinity",
+        "p50": 0,
+        "p90": 5.551115123125783E-17,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 1792.9292929292928,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-02",
+      "id": "focal-Vertex",
+      "afocal": false,
+      "selectedField": 2,
+      "reference": "Vertex",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 653,
+        "maxAbsolute": 3.3306690738754696E-16,
+        "meanAbsolute": 1.774571641581175E-17,
+        "rmse": 5.530308019753893E-17,
+        "nrmse": 5.530308019753893E-17,
+        "maxRelative": 6.240565620202344E-16,
+        "p50": 0,
+        "p90": 5.551115123125783E-17,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 0.9999999999999999,
+        "worstX": 1691.919191919192,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-03",
+      "id": "binocular-c1-field3-Centroid",
+      "afocal": true,
+      "selectedField": 3,
+      "reference": "Centroid",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 630,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 1.8791805082917806E-17,
+        "rmse": 4.5423634523178214E-17,
+        "nrmse": 4.5423634523178214E-17,
+        "maxRelative": 3.7046992535351593E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.9343434343434345,
+        "worstY": null,
+        "coverage": 0.9999999999999998,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-03",
+      "id": "binocular-c1-field3-ChiefRay",
+      "afocal": true,
+      "selectedField": 3,
+      "reference": "ChiefRay",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 630,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 1.8791805082917806E-17,
+        "rmse": 4.5423634523178214E-17,
+        "nrmse": 4.5423634523178214E-17,
+        "maxRelative": 3.7046992535351593E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.9343434343434345,
+        "worstY": null,
+        "coverage": 0.9999999999999998,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-03",
+      "id": "binocular-c1-field3-Vertex",
+      "afocal": true,
+      "selectedField": 3,
+      "reference": "Vertex",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 630,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 1.8791805082917806E-17,
+        "rmse": 4.5423634523178214E-17,
+        "nrmse": 4.5423634523178214E-17,
+        "maxRelative": 3.7046992535351593E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.9343434343434345,
+        "worstY": null,
+        "coverage": 0.9999999999999998,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-03",
+      "id": "binocular-c2-field3-Centroid",
+      "afocal": true,
+      "selectedField": 3,
+      "reference": "Centroid",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 630,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 1.8791805082917806E-17,
+        "rmse": 4.5423634523178214E-17,
+        "nrmse": 4.5423634523178214E-17,
+        "maxRelative": 3.7046992535351593E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.9343434343434345,
+        "worstY": null,
+        "coverage": 0.9999999999999998,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-03",
+      "id": "binocular-c2-field3-ChiefRay",
+      "afocal": true,
+      "selectedField": 3,
+      "reference": "ChiefRay",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 630,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 1.8791805082917806E-17,
+        "rmse": 4.5423634523178214E-17,
+        "nrmse": 4.5423634523178214E-17,
+        "maxRelative": 3.7046992535351593E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.9343434343434345,
+        "worstY": null,
+        "coverage": 0.9999999999999998,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-03",
+      "id": "binocular-c2-field3-Vertex",
+      "afocal": true,
+      "selectedField": 3,
+      "reference": "Vertex",
+      "wave": 2,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 630,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 1.8791805082917806E-17,
+        "rmse": 4.5423634523178214E-17,
+        "nrmse": 4.5423634523178214E-17,
+        "maxRelative": 3.7046992535351593E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.9343434343434345,
+        "worstY": null,
+        "coverage": 0.9999999999999998,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-04",
+      "id": "afocal-wave0-Centroid",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "Centroid",
+      "wave": 0,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 3.208012133665413E-17,
+        "rmse": 5.915333228925174E-17,
+        "nrmse": 6.808040190816381E-17,
+        "maxRelative": 5.104890868997597E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.5509246376244727,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-04",
+      "id": "afocal-wave0-ChiefRay",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "ChiefRay",
+      "wave": 0,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 3.208012133665413E-17,
+        "rmse": 5.915333228925174E-17,
+        "nrmse": 6.808040190816381E-17,
+        "maxRelative": 5.104890868997597E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1,
+        "worstX": 0.5509246376244727,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-04",
+      "id": "afocal-wave1-Centroid",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "Centroid",
+      "wave": 1,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 4.440892098500626E-16,
+        "meanAbsolute": 3.785948340187264E-17,
+        "rmse": 7.112915286587485E-17,
+        "nrmse": 8.093968186551003E-17,
+        "maxRelative": 6.587818482966954E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1.0000000000000002,
+        "worstX": 0.5362333139544868,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    },
+    {
+      "cohort": "centroid-energy-20261030-native-04",
+      "id": "afocal-wave1-ChiefRay",
+      "afocal": true,
+      "selectedField": 2,
+      "reference": "ChiefRay",
+      "wave": 1,
+      "violations": 0,
+      "metric": {
+        "id": "curve",
+        "unit": "Dimensionless",
+        "count": 557,
+        "maxAbsolute": 4.440892098500626E-16,
+        "meanAbsolute": 3.785948340187264E-17,
+        "rmse": 7.112915286587485E-17,
+        "nrmse": 8.093968186551003E-17,
+        "maxRelative": 6.587818482966954E-16,
+        "p50": 0,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": 1.0000000000000002,
+        "worstX": 0.5362333139544868,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    }
+  ],
+  "nativeExecutions": [
+    {
+      "cohort": "01",
+      "id": "afocal-Centroid",
+      "reference": "Centroid",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "01",
+      "id": "afocal-ChiefRay",
+      "reference": "ChiefRay",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "01",
+      "id": "afocal-Vertex",
+      "reference": "Vertex",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "02",
+      "id": "focal-Centroid",
+      "reference": "Centroid",
+      "afocal": false,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "02",
+      "id": "focal-ChiefRay",
+      "reference": "ChiefRay",
+      "afocal": false,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "02",
+      "id": "focal-Vertex",
+      "reference": "Vertex",
+      "afocal": false,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "02",
+      "id": "afocal64-Centroid",
+      "reference": "Centroid",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "02",
+      "id": "afocal64-ChiefRay",
+      "reference": "ChiefRay",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "02",
+      "id": "afocal64-Vertex",
+      "reference": "Vertex",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "03",
+      "id": "binocular-c1-field3-Centroid",
+      "reference": "Centroid",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "03",
+      "id": "binocular-c1-field3-ChiefRay",
+      "reference": "ChiefRay",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "03",
+      "id": "binocular-c1-field3-Vertex",
+      "reference": "Vertex",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "03",
+      "id": "binocular-c2-field3-Centroid",
+      "reference": "Centroid",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "03",
+      "id": "binocular-c2-field3-ChiefRay",
+      "reference": "ChiefRay",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "03",
+      "id": "binocular-c2-field3-Vertex",
+      "reference": "Vertex",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "04",
+      "id": "afocal-wave1-Centroid",
+      "reference": "Centroid",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "04",
+      "id": "afocal-wave1-ChiefRay",
+      "reference": "ChiefRay",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "04",
+      "id": "afocal-wave0-Centroid",
+      "reference": "Centroid",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    },
+    {
+      "cohort": "04",
+      "id": "afocal-wave0-ChiefRay",
+      "reference": "ChiefRay",
+      "afocal": true,
+      "sourceUnchanged": true,
+      "formalOpticalPass": false
+    }
+  ],
+  "nativeCharacterization": [
+    {
+      "cohort": "03",
+      "chiefId": "binocular-c2-field3-ChiefRay",
+      "afocal": true,
+      "references": [
+        "Centroid",
+        "ChiefRay",
+        "Vertex"
+      ],
+      "maximumFractionDifferenceToChief": 0.0
+    },
+    {
+      "cohort": "02",
+      "chiefId": "focal-ChiefRay",
+      "afocal": false,
+      "references": [
+        "Centroid",
+        "ChiefRay",
+        "Vertex"
+      ],
+      "maximumFractionDifferenceToChief": 0.0426599749058971
+    },
+    {
+      "cohort": "04",
+      "chiefId": "afocal-wave0-ChiefRay",
+      "afocal": true,
+      "references": [
+        "Centroid",
+        "ChiefRay"
+      ],
+      "maximumFractionDifferenceToChief": 0.0
+    },
+    {
+      "cohort": "02",
+      "chiefId": "afocal64-ChiefRay",
+      "afocal": true,
+      "references": [
+        "Centroid",
+        "ChiefRay",
+        "Vertex"
+      ],
+      "maximumFractionDifferenceToChief": 0.0
+    },
+    {
+      "cohort": "03",
+      "chiefId": "binocular-c1-field3-ChiefRay",
+      "afocal": true,
+      "references": [
+        "Centroid",
+        "ChiefRay",
+        "Vertex"
+      ],
+      "maximumFractionDifferenceToChief": 0.0
+    },
+    {
+      "cohort": "04",
+      "chiefId": "afocal-wave1-ChiefRay",
+      "afocal": true,
+      "references": [
+        "Centroid",
+        "ChiefRay"
+      ],
+      "maximumFractionDifferenceToChief": 0.0
+    },
+    {
+      "cohort": "01",
+      "chiefId": "afocal-ChiefRay",
+      "afocal": true,
+      "references": [
+        "Centroid",
+        "ChiefRay",
+        "Vertex"
+      ],
+      "maximumFractionDifferenceToChief": 0.0
+    }
+  ],
+  "nativeValidDiagnosticControls": 19,
+  "nativeUnsupportedReferenceAttempts": 1,
+  "nativeControlsCountedAsOpticalPasses": 0,
+  "unexecutedPreparedFirstCohortRequests": 4,
+  "physicalAngularMeanAndClosedCdfUnchanged": true,
+  "physicalNativeRayCdfTests": 3,
+  "blockedReferenceCannotSubstituteCentroid": true,
+  "earlyOverallPassBut13PointViolationsRejected": true,
+  "originalPsfGridsPassed": 20,
+  "original335ProfileViolationsRemaining": 0,
+  "latestDistinctTestsPassed": 169,
+  "testRuns": [
+    {
+      "path": "artifacts/validation/centroid-energy-20261030-tests/centroid-final-02.trx",
+      "passed": 133,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "ec20ba53729b3572f10ead31538f163db7c68ff15268387d45996f506d27eafc"
+    },
+    {
+      "path": "artifacts/validation/centroid-energy-20261030-tests/centroid-core-02.trx",
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "c49a11e9d27fcb9d3da7e374009e2472bf0c3d9a57b77c4289abb326f01e1a32"
+    }
+  ],
+  "earlierRunsSupersededNotAdded": true,
+  "foregroundDesktopUsed": false,
+  "full170Or95CorpusRerun": false,
+  "otherOpenIssuesClosed": false,
+  "committedOrPushed": false
+}

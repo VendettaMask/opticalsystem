@@ -1,0 +1,1359 @@
+{
+  "date": "2026-10-30",
+  "status": "five_afocal_ri_requests_resolved_as_not_applicable",
+  "applicabilityResolutionComplete": true,
+  "numericalParityAchieved": false,
+  "numericalPassesAdded": 0,
+  "allAfocalIssuesClosed": false,
+  "originalInputsSettingsGatesAndReferencesChanged": false,
+  "historical170LedgerRewritten": false,
+  "dependencies": [
+    {
+      "sha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+      "path": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip"
+    },
+    {
+      "sha256": "8a9a21f077515b016dd90c7cff890abccc7c038058cf0094ace38970523a2bd1",
+      "path": "validation/rechecks/2026-10-30/fft-seam-repair/evidence.zip"
+    },
+    {
+      "sha256": "b7340ea55499260feef6080a9e265c68318c37f500cec66df5a2e83b8a39586f",
+      "path": "validation/rechecks/2026-10-30/afocal-auto-grid/evidence.zip"
+    },
+    {
+      "sha256": "f4e6fef82110d8b6bde01a6d85ea72dbf7613e480991751e79b1f5a423bace4a",
+      "path": "validation/rechecks/2026-10-30/riflescope-pupil/evidence.zip"
+    },
+    {
+      "sha256": "a7c6cded1d3d98546a1aad0aa2bc42290d3fcd5f0c3688a8382f107e6d82d997",
+      "path": "validation/rechecks/2026-10-30/centroid-energy/evidence.zip"
+    }
+  ],
+  "sourceBaseCommit": "ea5152436935d7c07d34dca47a5b92349c803d6b",
+  "coreCopies": [
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "21d9a68915ecc34556e9c4f5d88f04e9f9b425a1fdeac6edf71b172c7458ff89"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "21d9a68915ecc34556e9c4f5d88f04e9f9b425a1fdeac6edf71b172c7458ff89"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "21d9a68915ecc34556e9c4f5d88f04e9f9b425a1fdeac6edf71b172c7458ff89"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "21d9a68915ecc34556e9c4f5d88f04e9f9b425a1fdeac6edf71b172c7458ff89"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "21d9a68915ecc34556e9c4f5d88f04e9f9b425a1fdeac6edf71b172c7458ff89"
+    },
+    {
+      "path": "tools/diagnostics/FftProfileNative20261029/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "21d9a68915ecc34556e9c4f5d88f04e9f9b425a1fdeac6edf71b172c7458ff89"
+    }
+  ],
+  "workingTreeSources": [
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "sha256": "0766f5bc880ae293dad6f6754b2c7e45edff2299c1330f37c620dc6c6d517bc9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs",
+      "sha256": "58c1bdf5f88297da76dc4b00b8dac06bfebdd4f5f57097d93d2d096fb242fa2d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs",
+      "sha256": "f2da50d33e06fe24481edcac221e67a26b30cbbb75f4190550c32eeb7b12e170"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "sha256": "c27b00f79f2a7ca7337ca0a8936bef8e12211fdc8baadc5a83a3abb66c918e84"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs",
+      "sha256": "95394fbbe800237b2159444efb21487e91bd8787d2509c4f25a9399467472f8f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/RelativeIlluminationAnalysis.cs",
+      "sha256": "90b6a818177cd85692b4b1fce8d1fabe2c681e47165cc98fdfbb29058ea0b31a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "sha256": "1dbe9adf5a8dd87d2351304974191f599eab1f11c822beec5476b5c24a8520d4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmBandSensitivity.cs",
+      "sha256": "1a6c49f19420dede96fa473cc68af85342019a221c186926f577e9514877a0b1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmPeakRefinement.cs",
+      "sha256": "6b891ba7e0d63bd94aea393e4a3b0d232759b0edcf3f520b728f4ed17ec45850"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs",
+      "sha256": "91242413813373277c503cc1da56f31b6c9e258a62ed3089cad502eb7a800bbf"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Geometries/PolygonGroupGeometry.cs",
+      "sha256": "f15ac02c8df2ea7ff2f32c700e69dfb857aec7e447e52fd0d61be771858f4d2e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Interactions/InteractionModels.cs",
+      "sha256": "5148915d3d9e8676e852f97053425aa309505ffac0e6ec86a71c98ddef69c1f7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.AfocalScale.cs",
+      "sha256": "0f46a0a326f2952da2add5e8251d4f97f14ef3ec3912178004c4e4672f20cfe5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/AfocalParabasalPupilScale.cs",
+      "sha256": "a828e7e5be4ecf8b757ef0709421a37b5708ea6ac2bd96b141646be08cd5a7a1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs",
+      "sha256": "de856b3f001dc4ee0138839fd54944a71a312e91387fc8792e428858aef8b989"
+    }
+  ],
+  "before": [
+    {
+      "id": "0016-001-afocal-riflescope-c1-primary-f1-w2-relative-illumination",
+      "fingerprint": "5a421454122798041b17492dadac2d74ee8659519d7582f5395b0e450f713f85",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "snapshotSha256": "83905a19963065b1727927d3b2e28897c43deca293e66d89ca8a167331da54a7",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "2",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "True",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "Exception",
+        "type": "OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException",
+        "message": "Relative Illumination has no valid data: the finite pupil-coordinate map folds or is singular (normalized field X=0, Y=0; wavelength=0.58699999999999997 µm)."
+      },
+      "formalNumericalPass": false
+    },
+    {
+      "id": "0046-002-beam-expander-c1-primary-f1-w1-relative-illumination",
+      "fingerprint": "bcd097e0576fc4ec861759fe5df7e8674d5d043e49a12334f778ab1fbd464937",
+      "sourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "snapshotSha256": "483d5b6057a54bbf858ec51dbd551d372ed765460c71cca6e8cfc8beb888e638",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "1",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 1,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "Success",
+        "outcomeReason": null,
+        "curves": 1,
+        "numericRiPresent": true
+      },
+      "formalNumericalPass": false
+    },
+    {
+      "id": "0068-003-binocular_system-c1-primary-f1-w2-relative-illumination",
+      "fingerprint": "1e72c7633e0213d83a56c4b8dc06917223e8c16fbddbdec1d5d9269e2ce47bd6",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "snapshotSha256": "c870650c51b74f9e09ccb010b6248f0f5c284cc2e287e1f0b4b8185e9500f970",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "2",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "Success",
+        "outcomeReason": null,
+        "curves": 1,
+        "numericRiPresent": true
+      },
+      "formalNumericalPass": false
+    },
+    {
+      "id": "0098-003-binocular_system-c2-primary-f1-w2-relative-illumination",
+      "fingerprint": "5db319863505e3e59a2c8b4c6c4df3bd4fde2981405af9d70b050dbfc3d673e5",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "snapshotSha256": "f9db7be807e3dcb36cd9809e5ab9de0e63f43f7cc3ae05fbb1dd2c2587e4f416",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "2",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "Success",
+        "outcomeReason": null,
+        "curves": 1,
+        "numericRiPresent": true
+      },
+      "formalNumericalPass": false
+    },
+    {
+      "id": "0128-004-apochromat_prism-c1-primary-f1-w3-relative-illumination",
+      "fingerprint": "df6dc119677ae329ef1fe33e8025237c2229521cac67f099a28b45918425d80b",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "snapshotSha256": "2634b29b2ef9b357dc2528df14973145d4c25dd202e93d9faaf46f001a942cc1",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "3",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 3,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "Exception",
+        "type": "OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException",
+        "message": "Relative Illumination has no valid data: the geometric chief ray does not reach the image surface (normalized field X=0, Y=0; wavelength=0.54600000000000004 µm)."
+      },
+      "formalNumericalPass": false
+    }
+  ],
+  "after": [
+    {
+      "id": "0016-001-afocal-riflescope-c1-primary-f1-w2-relative-illumination",
+      "fingerprint": "5a421454122798041b17492dadac2d74ee8659519d7582f5395b0e450f713f85",
+      "sourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "snapshotSha256": "83905a19963065b1727927d3b2e28897c43deca293e66d89ca8a167331da54a7",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "2",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "True",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "NotApplicable",
+        "outcomeReason": "Relative illumination is not applicable in afocal image space; it requires a finite image conjugate.",
+        "curves": 0,
+        "numericRiPresent": false
+      },
+      "formalNumericalPass": false
+    },
+    {
+      "id": "0046-002-beam-expander-c1-primary-f1-w1-relative-illumination",
+      "fingerprint": "bcd097e0576fc4ec861759fe5df7e8674d5d043e49a12334f778ab1fbd464937",
+      "sourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "snapshotSha256": "483d5b6057a54bbf858ec51dbd551d372ed765460c71cca6e8cfc8beb888e638",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcSecond",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "1",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 1,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 7,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "NotApplicable",
+        "outcomeReason": "Relative illumination is not applicable in afocal image space; it requires a finite image conjugate.",
+        "curves": 0,
+        "numericRiPresent": false
+      },
+      "formalNumericalPass": false
+    },
+    {
+      "id": "0068-003-binocular_system-c1-primary-f1-w2-relative-illumination",
+      "fingerprint": "1e72c7633e0213d83a56c4b8dc06917223e8c16fbddbdec1d5d9269e2ce47bd6",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "snapshotSha256": "c870650c51b74f9e09ccb010b6248f0f5c284cc2e287e1f0b4b8185e9500f970",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "2",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "NotApplicable",
+        "outcomeReason": "Relative illumination is not applicable in afocal image space; it requires a finite image conjugate.",
+        "curves": 0,
+        "numericRiPresent": false
+      },
+      "formalNumericalPass": false
+    },
+    {
+      "id": "0098-003-binocular_system-c2-primary-f1-w2-relative-illumination",
+      "fingerprint": "5db319863505e3e59a2c8b4c6c4df3bd4fde2981405af9d70b050dbfc3d673e5",
+      "sourceSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "snapshotSha256": "f9db7be807e3dcb36cd9809e5ab9de0e63f43f7cc3ae05fbb1dd2c2587e4f416",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "2",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 2,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 1.5,
+        "surfaceCount": 15,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0.75
+          ],
+          [
+            0,
+            1.5
+          ],
+          [
+            0,
+            -0.75
+          ],
+          [
+            0,
+            -1.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "NotApplicable",
+        "outcomeReason": "Relative illumination is not applicable in afocal image space; it requires a finite image conjugate.",
+        "curves": 0,
+        "numericRiPresent": false
+      },
+      "formalNumericalPass": false
+    },
+    {
+      "id": "0128-004-apochromat_prism-c1-primary-f1-w3-relative-illumination",
+      "fingerprint": "df6dc119677ae329ef1fe33e8025237c2229521cac67f099a28b45918425d80b",
+      "sourceSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "snapshotSha256": "2634b29b2ef9b357dc2528df14973145d4c25dd202e93d9faaf46f001a942cc1",
+      "originalConclusion": "Incomparable",
+      "originalEffectiveTolerances": {},
+      "request": {
+        "canonicalAnalysisKey": "Relative Illumination",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "Milliradian",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "RayDensity": "20",
+          "FieldDensity": "21",
+          "WavelengthNumber": "3",
+          "ScanDirection": "+y",
+          "RemoveVignettingFactors": "True",
+          "UsePolarization": "False",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "Sampling": "32",
+          "PupilSampling": "32",
+          "ImageSampling": "64",
+          "ZernikeTerms": "37",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "NumPoints": "401",
+          "Reference": "centroid",
+          "MaximumDistanceMicrometers": "5",
+          "MaximumRadiusMicrometers": "5",
+          "MultiplyByDiffractionLimit": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 3,
+          "ScanType": "Plus_Y",
+          "RayDensity": 20,
+          "FieldDensity": 20,
+          "UsePolarization": false,
+          "LogScale": false,
+          "RemoveVignettingFactors": true
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 5,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 0,
+        "surfaceCount": 8,
+        "fieldCount": 1,
+        "definedFields": [
+          [
+            0,
+            0
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.546,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "result": {
+        "outcome": "NotApplicable",
+        "outcomeReason": "Relative illumination is not applicable in afocal image space; it requires a finite image conjugate.",
+        "curves": 0,
+        "numericRiPresent": false
+      },
+      "formalNumericalPass": false
+    }
+  ],
+  "nativeRequests": [
+    {
+      "id": "0016-001-afocal-riflescope-c1-primary-f1-w2-relative-illumination",
+      "inputSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "fingerprint": "5a421454122798041b17492dadac2d74ee8659519d7582f5395b0e450f713f85",
+      "afocal": true,
+      "configuration": 1,
+      "wavelength": 2,
+      "buffers": {
+        "seriesCount": 1,
+        "gridCount": 0,
+        "messages": [
+          {
+            "errorCode": "Success",
+            "text": "无法计算相对照度..."
+          }
+        ],
+        "buffers": [
+          {
+            "index": 0,
+            "seriesObject": true,
+            "xBuffer": false,
+            "yBuffer": false
+          }
+        ]
+      },
+      "numericReferenceAvailable": false,
+      "formalOpticalPass": false
+    },
+    {
+      "id": "0046-002-beam-expander-c1-primary-f1-w1-relative-illumination",
+      "inputSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "fingerprint": "bcd097e0576fc4ec861759fe5df7e8674d5d043e49a12334f778ab1fbd464937",
+      "afocal": true,
+      "configuration": 1,
+      "wavelength": 1,
+      "buffers": {
+        "seriesCount": 1,
+        "gridCount": 0,
+        "messages": [
+          {
+            "errorCode": "Success",
+            "text": "无法计算相对照度..."
+          }
+        ],
+        "buffers": [
+          {
+            "index": 0,
+            "seriesObject": true,
+            "xBuffer": false,
+            "yBuffer": false
+          }
+        ]
+      },
+      "numericReferenceAvailable": false,
+      "formalOpticalPass": false
+    },
+    {
+      "id": "0068-003-binocular_system-c1-primary-f1-w2-relative-illumination",
+      "inputSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "fingerprint": "1e72c7633e0213d83a56c4b8dc06917223e8c16fbddbdec1d5d9269e2ce47bd6",
+      "afocal": true,
+      "configuration": 1,
+      "wavelength": 2,
+      "buffers": {
+        "seriesCount": 1,
+        "gridCount": 0,
+        "messages": [
+          {
+            "errorCode": "Success",
+            "text": "无法计算相对照度..."
+          }
+        ],
+        "buffers": [
+          {
+            "index": 0,
+            "seriesObject": true,
+            "xBuffer": false,
+            "yBuffer": false
+          }
+        ]
+      },
+      "numericReferenceAvailable": false,
+      "formalOpticalPass": false
+    },
+    {
+      "id": "0098-003-binocular_system-c2-primary-f1-w2-relative-illumination",
+      "inputSha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "fingerprint": "5db319863505e3e59a2c8b4c6c4df3bd4fde2981405af9d70b050dbfc3d673e5",
+      "afocal": true,
+      "configuration": 2,
+      "wavelength": 2,
+      "buffers": {
+        "seriesCount": 1,
+        "gridCount": 0,
+        "messages": [
+          {
+            "errorCode": "Success",
+            "text": "无法计算相对照度..."
+          }
+        ],
+        "buffers": [
+          {
+            "index": 0,
+            "seriesObject": true,
+            "xBuffer": false,
+            "yBuffer": false
+          }
+        ]
+      },
+      "numericReferenceAvailable": false,
+      "formalOpticalPass": false
+    },
+    {
+      "id": "0128-004-apochromat_prism-c1-primary-f1-w3-relative-illumination",
+      "inputSha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "fingerprint": "df6dc119677ae329ef1fe33e8025237c2229521cac67f099a28b45918425d80b",
+      "afocal": true,
+      "configuration": 1,
+      "wavelength": 3,
+      "buffers": {
+        "seriesCount": 1,
+        "gridCount": 0,
+        "messages": [
+          {
+            "errorCode": "Success",
+            "text": "无法计算相对照度..."
+          }
+        ],
+        "buffers": [
+          {
+            "index": 0,
+            "seriesObject": true,
+            "xBuffer": false,
+            "yBuffer": false
+          }
+        ]
+      },
+      "numericReferenceAvailable": false,
+      "formalOpticalPass": false
+    }
+  ],
+  "nativeExecution": [
+    {
+      "id": "0016-001-afocal-riflescope-c1-primary-f1-w2-relative-illumination",
+      "result": {
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "StandardOutput": "",
+        "StandardError": ""
+      },
+      "sourceUnchanged": true
+    },
+    {
+      "id": "0046-002-beam-expander-c1-primary-f1-w1-relative-illumination",
+      "result": {
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "StandardOutput": "",
+        "StandardError": ""
+      },
+      "sourceUnchanged": true
+    },
+    {
+      "id": "0068-003-binocular_system-c1-primary-f1-w2-relative-illumination",
+      "result": {
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "StandardOutput": "",
+        "StandardError": ""
+      },
+      "sourceUnchanged": true
+    },
+    {
+      "id": "0098-003-binocular_system-c2-primary-f1-w2-relative-illumination",
+      "result": {
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "StandardOutput": "",
+        "StandardError": ""
+      },
+      "sourceUnchanged": true
+    },
+    {
+      "id": "0128-004-apochromat_prism-c1-primary-f1-w3-relative-illumination",
+      "result": {
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "StandardOutput": "",
+        "StandardError": ""
+      },
+      "sourceUnchanged": true
+    },
+    {
+      "id": "focal-positive",
+      "result": {
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "StandardOutput": "",
+        "StandardError": ""
+      },
+      "sourceUnchanged": true
+    }
+  ],
+  "focalPositive": {
+    "nativeNumericalBuffersAvailable": true,
+    "afocalImageSpace": false,
+    "applyResult": {},
+    "textSaved": true,
+    "savedInput": false,
+    "formalOpticalPass": false,
+    "sourcePurpose": "Actual native applicability and buffer diagnostics; no fabricated arrays"
+  },
+  "focalPositiveBuffers": {
+    "seriesCount": 1,
+    "gridCount": 0,
+    "messages": [],
+    "buffers": [
+      {
+        "index": 0,
+        "seriesObject": true,
+        "xBuffer": true,
+        "yBuffer": true
+      }
+    ]
+  },
+  "focalPositiveSourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+  "focalPositiveScope": "Native buffer availability only, not formal optical parity",
+  "testRuns": [
+    {
+      "path": "artifacts/validation/afocal-ri-20261030-tests-core-final/core.trx",
+      "sha256": "7e3f1aa54983032ab9979d6c85585878990b8c5f82878c4466451e2b7307c153",
+      "passed": 237,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "artifacts/validation/afocal-ri-20261030-tests-comparison-final/comparison.trx",
+      "sha256": "770825f23685002860956524034a8bf7304bbbb88c0a4e37f66f20e965fc1732",
+      "passed": 61,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "latestDistinctTestsPassed": 298,
+  "earlierRunsSupersededNotAdded": true,
+  "repeatedAfterConcurrentCoatingCoreUpdate": true,
+  "foregroundDesktopUsed": false,
+  "full170Or95CorpusRerun": false,
+  "committedOrPushed": false
+}

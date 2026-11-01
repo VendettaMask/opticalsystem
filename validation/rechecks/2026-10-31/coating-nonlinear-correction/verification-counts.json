@@ -1,0 +1,19 @@
+{
+  "scope": "Final focused regressions, not a full module or repository run",
+  "total": 25,
+  "passed": 25,
+  "failed": 0,
+  "notExecuted": 0,
+  "trx": "tests/portfolio-final-focused.trx",
+  "initialRun": {
+    "total": 50,
+    "passed": 48,
+    "failed": 2,
+    "reason": "New HR tests incorrectly called the NBF-only preservation helper (peak T and non-null stop bands); only the new tests were corrected. Original acceptance gates and original tests remain unchanged."
+  },
+  "intermediateRecheck": {
+    "total": 5,
+    "passed": 5,
+    "trx": "tests/nonlinear-regression-recheck.trx"
+  }
+}

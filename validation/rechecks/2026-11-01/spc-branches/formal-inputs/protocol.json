@@ -1,0 +1,42 @@
+{
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "budget": {
+    "version": 1,
+    "maximumStarts": 12,
+    "retainedSeeds": 4,
+    "maximumFunctionEvaluations": 600,
+    "maximumEvaluationsPerStart": 40,
+    "timeLimit": "00:02:00",
+    "maximumTracedRays": 2000000,
+    "focusATolerance": 0.001
+  },
+  "policy": {
+    "version": 1,
+    "maximumParents": 1,
+    "maximumGradientEvaluations": 600,
+    "parentIterations": 80,
+    "branchIterations": 40,
+    "physicalUpdatesPerStage": 12,
+    "maximumMaterialAlternatives": 2,
+    "gradientTolerance": 1E-07,
+    "curvatureDifferenceStep": 0.001,
+    "branchCoordinateStep": 0.05,
+    "thicknessMultipliers": [
+      1,
+      2,
+      4
+    ]
+  },
+  "control": "two direct positive-thickness common-bending starts; same parent optimization and physical stages/materials; no saddle or null branch optimization",
+  "scope": "existing authored M3.1 singlet; one site, deterministic optimizer, seeds may be duplicates; no original F8/F4 success-rate claim",
+  "research": "CPU signed null continuation; declared curvature subspace, true AD-gradient FD Hessian at h and h/2; original full TopologyValidator for positive structures",
+  "failuresRetained": true,
+  "noGateChanges": true,
+  "frozenBeforeFormalRuns": true
+}

@@ -1,0 +1,1160 @@
+{
+  "CapturedUtc": "2026-11-01T05:01:17.9012909+00:00",
+  "Scope": "Known-condition spectral-derived XYZ; positive empirical colour model; two approved 550 nm calibrations; four real-calibration synthetic angular NSC/RAW/ISP chains; retained failed materials and unknown original published observer.",
+  "ProductTestsPassed": 295,
+  "ApprovedKnownConditionDerivedXyzCalibrations": 2,
+  "RejectedKnownConditionMaterials": 3,
+  "RealCalibrationSyntheticAngularChainsPassed": 4,
+  "NativeWhiteCapturedPowerControlsPassed": 23,
+  "OriginalPublishedObserverVerified": false,
+  "FullCommercialXyzCertification": false,
+  "PreviousFrozenFilesVerified": 993,
+  "TestedCoreSha256": "3688066fd7fc93c14d3c58b433df778b7c4bd2a9eae6c8b3c08f829ab53dc61a",
+  "TestedApplicationSha256": "f4308266fbccb2631895a5641e701775dd57071fbde57d83933c2371c7a5a508",
+  "Excludes": [
+    "evidence-manifest.json"
+  ],
+  "DocumentationAtSeal": [
+    {
+      "Path": "docs/XYZ_KNOWN_CONDITIONS_2026-11-01.md",
+      "Sha256": "39e00b5e94555c59cad38374b8c5efa1815f640896f8cb3b1312463e64e97437"
+    },
+    {
+      "Path": "docs/CURRENT_STATUS.md",
+      "Sha256": "308a474d5e95c93316888b48be34331ed44bf4fcc3f15c137c683a88d01eded5"
+    },
+    {
+      "Path": "docs/STAROPT_FILE_FORMAT.md",
+      "Sha256": "46f22285727fd007bb8e8bcbe513e2306bfdb9bebece09629b93e375b9346530"
+    },
+    {
+      "Path": "docs/FILE_FORMATS_AND_PLUGINS.md",
+      "Sha256": "629ff5ad07e6a414df29f5a7756f0d9e7176c30075a8b5159c0517a1e218f416"
+    },
+    {
+      "Path": "docs/CAMERA_IMAGING_LAB.md",
+      "Sha256": "c4e9dd537983eaab03d749c00aad577716307466a3cc60c17a9232292586c23b"
+    },
+    {
+      "Path": "docs/NON_SEQUENTIAL_TRACING.md",
+      "Sha256": "ebc8adac95ceb6ad6a8d8eef3e38cc9e57b1d8abf3d1c384d1433bbfac2ead20"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md",
+      "Sha256": "bf413f2278ab69300cf63b0830dc173e0b36f34b4049a90fc6510fda8b21b7ff"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md",
+      "Sha256": "4829207e3f0143b1e449f222b4d88270a1e3db99e9d12fba694f706f1d3225dd"
+    },
+    {
+      "Path": "docs/NUMERICAL_PARITY.md",
+      "Sha256": "f79ea1b635e2b1756992632d1965529d0ee35e74887ce079e99c76873ba27ecd"
+    },
+    {
+      "Path": "docs/README.md",
+      "Sha256": "724a4cc093c532c5c6082689b1177d22cde6f27d59d3a650063c01a95e0f48f2"
+    },
+    {
+      "Path": "docs/XYZ_GAMUT_CALIBRATION_2026-11-01.md",
+      "Sha256": "c114a71a3461683b7b52c0ab1fe0fe6d05ac15e077ba487604a54c2c0bdded7b"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "after-positive-final-run.json",
+      "Bytes": 40068,
+      "Sha256": "e8d208f55597dc5dc3e2891a3d17266f6667dcffcbbaf36682bb867b501647c2"
+    },
+    {
+      "Path": "before-positive-final-run.json",
+      "Bytes": 40068,
+      "Sha256": "80f0bc962affc8a9cc0c8cc9b4c936150d8772ca872505db1e6749c6a4b3ca06"
+    },
+    {
+      "Path": "build-app-final.log",
+      "Bytes": 1519,
+      "Sha256": "166f012e36297542e837d1439d600f280a5e48488aeaa1c3a749f29ee4225090"
+    },
+    {
+      "Path": "build-app-first.log",
+      "Bytes": 1519,
+      "Sha256": "7e9c7d72a0466b315dce8f7bf3b0480e671b0b2d7d8430f71084b5a8974f9e33"
+    },
+    {
+      "Path": "build-chain-capture-debug.log",
+      "Bytes": 224,
+      "Sha256": "fdaac17914dbd83c56cb8a1b52de9527cc9c370b0503a198ca67496e5b133c47"
+    },
+    {
+      "Path": "build-chain-driver-first.log",
+      "Bytes": 42176,
+      "Sha256": "e580a0c3f74eb72fefa016e4fcd5318bb1a59876bfd63112f248a5a5adc1411a"
+    },
+    {
+      "Path": "build-chain-driver-managed.log",
+      "Bytes": 448,
+      "Sha256": "6e4f025e969ea2d047e55c50aa92a1d7869751004857d07ce0a9e5c46da64fb4"
+    },
+    {
+      "Path": "build-chain-face.log",
+      "Bytes": 224,
+      "Sha256": "28e415738fa5a07032fce5f578836ab1da0949d77d4e06fb7850b99be6fe25f8"
+    },
+    {
+      "Path": "build-chain-signal.log",
+      "Bytes": 224,
+      "Sha256": "b29709ebc053db23c792762404768290a250db11a1b6da87175279f61f5931a9"
+    },
+    {
+      "Path": "build-core-first.log",
+      "Bytes": 219,
+      "Sha256": "4390964e829c8382ab4f24fbce2af41d2797452fa59b6903e76446842838d8c8"
+    },
+    {
+      "Path": "build-driver-final.log",
+      "Bytes": 224,
+      "Sha256": "7bc1b8d0364435c6c8e35513516550c33b1227cff441d1c27cbe95c59c3a48c8"
+    },
+    {
+      "Path": "build-initial.log",
+      "Bytes": 446,
+      "Sha256": "97245ae00ace24ca84f8f1ce73d0b57e91451e411dd16570e63440197da21068"
+    },
+    {
+      "Path": "build-mat-inspection.log",
+      "Bytes": 224,
+      "Sha256": "68262621007d2bca48b169033fe16a5ae10357d8baf0c46fa59ade9a4d9ebe01"
+    },
+    {
+      "Path": "build-matfit.log",
+      "Bytes": 224,
+      "Sha256": "9906e5fd3106b1cbd67c4b32cacf77b8a8c873c54d70de8cdf91d5863f5328f9"
+    },
+    {
+      "Path": "build-positive-first.log",
+      "Bytes": 359,
+      "Sha256": "a2e49a698af65215306faca5f0e992fcced8daa76860e2af4bd2c5938deb5ec0"
+    },
+    {
+      "Path": "build-tests-final.log",
+      "Bytes": 224,
+      "Sha256": "7b4be4150d48d91d4361d0fbc8d6fd291579ba8dfaff861d944e901ee2f8db3b"
+    },
+    {
+      "Path": "build-tests-first.log",
+      "Bytes": 224,
+      "Sha256": "7409a673e682221abda6283e8baff63ebd63c93396b578be00df28f2bc088ff2"
+    },
+    {
+      "Path": "build-tests-second.log",
+      "Bytes": 224,
+      "Sha256": "861001353e749ca34b9a001af993fe507e7edab9afa5965f6e38c0be29d09530"
+    },
+    {
+      "Path": "build-white-audit-final.log",
+      "Bytes": 227,
+      "Sha256": "1133057e70beeef4dd7504bf7b5d07eea94a67eeb409b01bbe4702edf0c526d7"
+    },
+    {
+      "Path": "cornell-mdl-color.html",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Path": "cornell-reflectance.html",
+      "Bytes": 9396,
+      "Sha256": "e4bec8096e1174169c814f344caa3a9b2bced14ae6959a35d8e5be9fe6141c72"
+    },
+    {
+      "Path": "documentation-check.json",
+      "Bytes": 89,
+      "Sha256": "bd1226c0dce28af19a3cf66c08994774f386fc26d5c691a1a36ac3815fd99808"
+    },
+    {
+      "Path": "final-mat.log",
+      "Bytes": 490,
+      "Sha256": "4efc0db0e4ee16c866f42114336b5b83c499a59621e289b6eb77d35c805c8d57"
+    },
+    {
+      "Path": "final-mat/mat-fit.json",
+      "Bytes": 273263,
+      "Sha256": "be95952ae0cf1993124aa49493a40dcdc1f4c72886dae80b790e70a6e3703cce"
+    },
+    {
+      "Path": "final-positive.log",
+      "Bytes": 2232,
+      "Sha256": "25b07f21083b7f23e5bcd9bd0c81962023d6a2054cf5fb3058e3e018472bec9f"
+    },
+    {
+      "Path": "final-positive/acryl_blue/fit.json",
+      "Bytes": 259034,
+      "Sha256": "49608c279895ab0927dca01d41baa2910a1b78ecf8077216d5fa9faff70ae8a4"
+    },
+    {
+      "Path": "final-positive/acryl_blue/known-conditions-pairs.csv",
+      "Bytes": 174126,
+      "Sha256": "2afee326b89fffe6d58c4864447cf16f0583b7eba2bb64c139531577a8e41cc9"
+    },
+    {
+      "Path": "final-positive/cayman/fit.json",
+      "Bytes": 262131,
+      "Sha256": "c797477aa57f6ffa19a5e023ed5267287ba0f8076b353afe65e8a103bf284c00"
+    },
+    {
+      "Path": "final-positive/cayman/known-conditions-pairs.csv",
+      "Bytes": 186964,
+      "Sha256": "61c3423feb96d5fa7e1166acd0dd4b16006b2886c56b1cd151dd68bebe114fc7"
+    },
+    {
+      "Path": "final-positive/garnet_red/approved-550-calibration.json",
+      "Bytes": 251393,
+      "Sha256": "1f8cf6b19096bceddc3b217e2006e8adb3c95423b7a6daa783a02470e4ce55b2"
+    },
+    {
+      "Path": "final-positive/garnet_red/fit.json",
+      "Bytes": 270274,
+      "Sha256": "f35a734bdef97f05aff5888f6d1e81ee9c252065025b8670839b2cfe3ce24d0d"
+    },
+    {
+      "Path": "final-positive/garnet_red/known-conditions-pairs.csv",
+      "Bytes": 192714,
+      "Sha256": "5da3749b291426c648551f3871a1c7d43f5ae6c2f379ea54d6956ed56beb1c0c"
+    },
+    {
+      "Path": "final-positive/krylon_blue/approved-550-calibration.json",
+      "Bytes": 252298,
+      "Sha256": "0c602d703ea87bebff74d2decf98b0bae321715ec6415f0a2f3735c41af1340f"
+    },
+    {
+      "Path": "final-positive/krylon_blue/fit.json",
+      "Bytes": 271252,
+      "Sha256": "ae04402538cd77d15cf581253ab5b367c39a14c4fa286775c326d0fe9f2fe114"
+    },
+    {
+      "Path": "final-positive/krylon_blue/known-conditions-pairs.csv",
+      "Bytes": 190527,
+      "Sha256": "61b482ff41566f5f5d3fa2866ee3176d8659efa617884bd6b30aa2de48a6cdab"
+    },
+    {
+      "Path": "final-positive/mystique/fit.json",
+      "Bytes": 267105,
+      "Sha256": "754d88aab208e4e7158a32c249f3c71d0ab087adf5b20439a41c13c9f74b45f9"
+    },
+    {
+      "Path": "final-positive/mystique/known-conditions-pairs.csv",
+      "Bytes": 189169,
+      "Sha256": "31c6e81acbe469aed29c97d48ce92a2a859100b6d38e24e45034a265b058ea00"
+    },
+    {
+      "Path": "final-positive/summary.json",
+      "Bytes": 4128,
+      "Sha256": "c42d0974d374a4cf0984c523bf90d1a8b223640b2459e2761ad1f501b361d66b"
+    },
+    {
+      "Path": "final-real-chain-retry.log",
+      "Bytes": 27,
+      "Sha256": "1a27ba3a0faa0ffa0a9e101cb9dfce982cfb54268a2fec2bc899d15244bc8463"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-brdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "92a22e4a058d7b3e04064abcc66ad2468705fb9507966594207a88d3f74ce0cd"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-brdf/capture-debug.json",
+      "Bytes": 792,
+      "Sha256": "0a12c9043edc482ca7e5eccbc670ada10f91b28af819b186502e5a7dc39e07ee"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-brdf/chain.json",
+      "Bytes": 1145,
+      "Sha256": "204ee26a1b7b774a830503b50939bebf52a9998e7fad1f0ebc9fd7091661dcab"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-brdf/real-calibration.camera-experiment.zip",
+      "Bytes": 181251,
+      "Sha256": "867bf50107eabb18704c7c35f7a34d3ecce54e8785c23a89def494edd390cb93"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-brdf/real-calibration.staropt",
+      "Bytes": 45173,
+      "Sha256": "f1f9c8a7916ad5656dd52ac2e473a7c1b4d31e2f6ad2b4d60593f00adfb95e6a"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-btdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "bedb76014de7b31919b7695c6b1ea6f3ba03007ed18f89fdf397632c4253132f"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-btdf/capture-debug.json",
+      "Bytes": 784,
+      "Sha256": "01bc7aa5d061d3111d0f0ac3208ebeac60d78dea2b16e978d6bd70804eb7a733"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-btdf/chain.json",
+      "Bytes": 1180,
+      "Sha256": "beac49cf6b39c19ad548aa4171e1113dfa24ecfa0743c4e31138d0637cc56df9"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-btdf/real-calibration.camera-experiment.zip",
+      "Bytes": 182040,
+      "Sha256": "c0f86a9215c32658f5e7f4ff953d7b90f38077e388cc45499b6a8af0ff9f52ab"
+    },
+    {
+      "Path": "final-real-chain-retry/garnet_red-btdf/real-calibration.staropt",
+      "Bytes": 45314,
+      "Sha256": "e8957a9d144c465d694ebba6cdfd400916d8c447315e52a13f03e711b27c3820"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-brdf/angular-control.BSDF",
+      "Bytes": 563,
+      "Sha256": "9b527d4fe53ee3a0635e31514784aed84e34bfea5246d830ceab6c5abd694338"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-brdf/capture-debug.json",
+      "Bytes": 794,
+      "Sha256": "cf536f430c2ba3793ca03ff67dd999b62aceecc5f4144f1158ccd598c9fa79f3"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-brdf/chain.json",
+      "Bytes": 1146,
+      "Sha256": "d79779e79a987c7c52f91f48c61e923162d81da25611a6a1d8ff96f13c7d4d7b"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-brdf/real-calibration.camera-experiment.zip",
+      "Bytes": 181317,
+      "Sha256": "08259735ca0b8d332d7db3fedf7c78eec8822a938bdb0129f8a7c8d9166b8f8f"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-brdf/real-calibration.staropt",
+      "Bytes": 45317,
+      "Sha256": "ca736063fe01fe12138d5b14e4e229785acf7c413a10cb6d6d934a1ccc01eaa0"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-btdf/angular-control.BSDF",
+      "Bytes": 563,
+      "Sha256": "47fc3c9ccb6620021e98d574d7aaef492062dca78016efa24f8ebf7c1921fb14"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-btdf/capture-debug.json",
+      "Bytes": 782,
+      "Sha256": "53f07451ab837931a5cfb299a94fc8ba8452fe8d9a533f54573bffd4394415f9"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-btdf/chain.json",
+      "Bytes": 1181,
+      "Sha256": "825fd811c92ae2a4708fc62ca5722e999f9d2f4f619e975bc19eddc65be31650"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-btdf/real-calibration.camera-experiment.zip",
+      "Bytes": 181897,
+      "Sha256": "fa5a1fc3340e5021e48203eaa1948d24545809e335622ba38495e959cc928ea9"
+    },
+    {
+      "Path": "final-real-chain-retry/krylon_blue-btdf/real-calibration.staropt",
+      "Bytes": 45269,
+      "Sha256": "bd9a5538c0b757e9d6692f7431a6ffd7f4f3d4f47abe530f1be7468de7e046f7"
+    },
+    {
+      "Path": "final-real-chain-retry/summary.json",
+      "Bytes": 5422,
+      "Sha256": "f2397f07622734f64e988e144abef7359200bf98d6167c8761f19c017bb84dd0"
+    },
+    {
+      "Path": "final-real-chain.log",
+      "Bytes": 3147,
+      "Sha256": "92a87fc6bcc7038ea4f9a9127d81634ded0b8d693a7f213bba97127bf9c5aab4"
+    },
+    {
+      "Path": "final-real-chain/garnet_red-brdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "92a22e4a058d7b3e04064abcc66ad2468705fb9507966594207a88d3f74ce0cd"
+    },
+    {
+      "Path": "final-run-integrity.json",
+      "Bytes": 534,
+      "Sha256": "5058367cbf4ad0842fab1ab0bfb9bfcf355cf69b6130f0390a59a44b4703903a"
+    },
+    {
+      "Path": "final-verification-summary.json",
+      "Bytes": 1575,
+      "Sha256": "fa5364be4d136ef1b9cb1ab3e31d8983628d5f1ac96ed43c853bf0d2600cd986"
+    },
+    {
+      "Path": "final-white-power.log",
+      "Bytes": 84,
+      "Sha256": "5e4bd5273e65bc0bc969e8534cf58dd1c198719bc0605c407a7fab0844f9cef2"
+    },
+    {
+      "Path": "final-white-power/runtime6-native-power-audit.json",
+      "Bytes": 21890,
+      "Sha256": "caefd240c0316b5cb583c9ed4ce23da18df428c4fedd3f332a02e34ff953a6ba"
+    },
+    {
+      "Path": "first-chain/positive-chain-False.camera-experiment.zip",
+      "Bytes": 49729,
+      "Sha256": "4e2028ca3a7a7f0bbf37dc6065a0aa66c5418dfe09dc24052e14fe5b54ad1e8f"
+    },
+    {
+      "Path": "first-chain/positive-chain-False.json",
+      "Bytes": 685,
+      "Sha256": "e3d1b76735f596a4ab6bd7027b618b2ada7e456b7cdc7a8e23eb04f25eefe369"
+    },
+    {
+      "Path": "first-chain/positive-chain-True.camera-experiment.zip",
+      "Bytes": 49636,
+      "Sha256": "14e6598de9046bf945a4a7785d6bf2f189388bed6a7919e086dade4d1733d581"
+    },
+    {
+      "Path": "first-chain/positive-chain-True.json",
+      "Bytes": 719,
+      "Sha256": "54ff05abe026c50ff12a7aa26b47f82599e363794b7bfdcc4c2f12b250e8aa76"
+    },
+    {
+      "Path": "first-positive.log",
+      "Bytes": 2232,
+      "Sha256": "25b07f21083b7f23e5bcd9bd0c81962023d6a2054cf5fb3058e3e018472bec9f"
+    },
+    {
+      "Path": "first-positive/acryl_blue/fit.json",
+      "Bytes": 259034,
+      "Sha256": "49608c279895ab0927dca01d41baa2910a1b78ecf8077216d5fa9faff70ae8a4"
+    },
+    {
+      "Path": "first-positive/acryl_blue/known-conditions-pairs.csv",
+      "Bytes": 174126,
+      "Sha256": "2afee326b89fffe6d58c4864447cf16f0583b7eba2bb64c139531577a8e41cc9"
+    },
+    {
+      "Path": "first-positive/cayman/fit.json",
+      "Bytes": 262131,
+      "Sha256": "c797477aa57f6ffa19a5e023ed5267287ba0f8076b353afe65e8a103bf284c00"
+    },
+    {
+      "Path": "first-positive/cayman/known-conditions-pairs.csv",
+      "Bytes": 186964,
+      "Sha256": "61c3423feb96d5fa7e1166acd0dd4b16006b2886c56b1cd151dd68bebe114fc7"
+    },
+    {
+      "Path": "first-positive/garnet_red/approved-550-calibration.json",
+      "Bytes": 251393,
+      "Sha256": "1f8cf6b19096bceddc3b217e2006e8adb3c95423b7a6daa783a02470e4ce55b2"
+    },
+    {
+      "Path": "first-positive/garnet_red/fit.json",
+      "Bytes": 270274,
+      "Sha256": "f35a734bdef97f05aff5888f6d1e81ee9c252065025b8670839b2cfe3ce24d0d"
+    },
+    {
+      "Path": "first-positive/garnet_red/known-conditions-pairs.csv",
+      "Bytes": 192714,
+      "Sha256": "5da3749b291426c648551f3871a1c7d43f5ae6c2f379ea54d6956ed56beb1c0c"
+    },
+    {
+      "Path": "first-positive/krylon_blue/approved-550-calibration.json",
+      "Bytes": 252298,
+      "Sha256": "0c602d703ea87bebff74d2decf98b0bae321715ec6415f0a2f3735c41af1340f"
+    },
+    {
+      "Path": "first-positive/krylon_blue/fit.json",
+      "Bytes": 271252,
+      "Sha256": "ae04402538cd77d15cf581253ab5b367c39a14c4fa286775c326d0fe9f2fe114"
+    },
+    {
+      "Path": "first-positive/krylon_blue/known-conditions-pairs.csv",
+      "Bytes": 190527,
+      "Sha256": "61b482ff41566f5f5d3fa2866ee3176d8659efa617884bd6b30aa2de48a6cdab"
+    },
+    {
+      "Path": "first-positive/mystique/fit.json",
+      "Bytes": 267105,
+      "Sha256": "754d88aab208e4e7158a32c249f3c71d0ab087adf5b20439a41c13c9f74b45f9"
+    },
+    {
+      "Path": "first-positive/mystique/known-conditions-pairs.csv",
+      "Bytes": 189169,
+      "Sha256": "31c6e81acbe469aed29c97d48ce92a2a859100b6d38e24e45034a265b058ea00"
+    },
+    {
+      "Path": "first-positive/summary.json",
+      "Bytes": 4128,
+      "Sha256": "e435394646b88c4e05084db36f55a265c9aef0009d12522362f86c95b92eaa57"
+    },
+    {
+      "Path": "first-real-chain.log",
+      "Bytes": 415,
+      "Sha256": "7596c12e0b220e640ac03e302283b2213b84d1d0885d25b726a2044e9c0db6a4"
+    },
+    {
+      "Path": "first-real-chain/garnet_red-brdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "92a22e4a058d7b3e04064abcc66ad2468705fb9507966594207a88d3f74ce0cd"
+    },
+    {
+      "Path": "first-real-chain/garnet_red-brdf/chain.json",
+      "Bytes": 1085,
+      "Sha256": "feed9f8b7b9d855cb63c091f39890e555d9d0f077c4e48c9206635ba7e7f675e"
+    },
+    {
+      "Path": "first-real-chain/garnet_red-brdf/real-calibration.camera-experiment.zip",
+      "Bytes": 174493,
+      "Sha256": "c5700a8247b165463b51a69c093c069dec5858ca584e6f8adc9de1ff55e364c9"
+    },
+    {
+      "Path": "first-real-chain/garnet_red-brdf/real-calibration.staropt",
+      "Bytes": 45177,
+      "Sha256": "0b8096d3c00f10ebe6c2d8d5e003e2d396e5dfe2705e0dd246a204bbc3f377fd"
+    },
+    {
+      "Path": "first-real-chain/garnet_red-btdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "bedb76014de7b31919b7695c6b1ea6f3ba03007ed18f89fdf397632c4253132f"
+    },
+    {
+      "Path": "fourth-real-chain.log",
+      "Bytes": 27,
+      "Sha256": "1a27ba3a0faa0ffa0a9e101cb9dfce982cfb54268a2fec2bc899d15244bc8463"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-brdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "92a22e4a058d7b3e04064abcc66ad2468705fb9507966594207a88d3f74ce0cd"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-brdf/capture-debug.json",
+      "Bytes": 792,
+      "Sha256": "e744c19f01608f5330dafcb2779bfeffc9f61251238b38438a7283f0a7e719e8"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-brdf/chain.json",
+      "Bytes": 1145,
+      "Sha256": "204ee26a1b7b774a830503b50939bebf52a9998e7fad1f0ebc9fd7091661dcab"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-brdf/real-calibration.camera-experiment.zip",
+      "Bytes": 181220,
+      "Sha256": "2df079c1a270c5320139308fee66c74edfb6c64d34b39c8be9872827641d9756"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-brdf/real-calibration.staropt",
+      "Bytes": 45168,
+      "Sha256": "685167d88585a4a3fd0bfb467b965bcccff3945135bdf12cedc634b630034db2"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-btdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "bedb76014de7b31919b7695c6b1ea6f3ba03007ed18f89fdf397632c4253132f"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-btdf/capture-debug.json",
+      "Bytes": 784,
+      "Sha256": "183c033e8a23b9443e098ed098ddde40e7dac8a1a813dd08d5bc6d9d7c63f9b8"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-btdf/chain.json",
+      "Bytes": 1180,
+      "Sha256": "beac49cf6b39c19ad548aa4171e1113dfa24ecfa0743c4e31138d0637cc56df9"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-btdf/real-calibration.camera-experiment.zip",
+      "Bytes": 182040,
+      "Sha256": "192ee53940cb8ae9ce23ebe24e89df1bc17918809c75237063b94bc73aac39a4"
+    },
+    {
+      "Path": "fourth-real-chain/garnet_red-btdf/real-calibration.staropt",
+      "Bytes": 45314,
+      "Sha256": "09157a412b988c0915e71c3dc0f0068ac78519517c80ae2d555cff11152a64c1"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-brdf/angular-control.BSDF",
+      "Bytes": 563,
+      "Sha256": "9b527d4fe53ee3a0635e31514784aed84e34bfea5246d830ceab6c5abd694338"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-brdf/capture-debug.json",
+      "Bytes": 794,
+      "Sha256": "d909b6e3e1bde7ab6b9c89b3cdda1d63a3e9a02bad50f336e28941717ba0f63a"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-brdf/chain.json",
+      "Bytes": 1146,
+      "Sha256": "d79779e79a987c7c52f91f48c61e923162d81da25611a6a1d8ff96f13c7d4d7b"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-brdf/real-calibration.camera-experiment.zip",
+      "Bytes": 181300,
+      "Sha256": "ce53d1e5ccb934894109408ee26c226138cabff1e03f3b8c62bcaf31e617a303"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-brdf/real-calibration.staropt",
+      "Bytes": 45320,
+      "Sha256": "4a21c37821316a3590e02892c828cfe598dbe0034c4d3d48e8b126b0df320bb8"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-btdf/angular-control.BSDF",
+      "Bytes": 563,
+      "Sha256": "47fc3c9ccb6620021e98d574d7aaef492062dca78016efa24f8ebf7c1921fb14"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-btdf/capture-debug.json",
+      "Bytes": 782,
+      "Sha256": "ef40cb62c7c3876e23c40e5c0634f53f036890372ca2a54b83c78a2b363f27ba"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-btdf/chain.json",
+      "Bytes": 1181,
+      "Sha256": "825fd811c92ae2a4708fc62ca5722e999f9d2f4f619e975bc19eddc65be31650"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-btdf/real-calibration.camera-experiment.zip",
+      "Bytes": 181876,
+      "Sha256": "ef182f2632798799c9b532033711e517d4ec9c4e877ea530044b8481864f9bd5"
+    },
+    {
+      "Path": "fourth-real-chain/krylon_blue-btdf/real-calibration.staropt",
+      "Bytes": 45269,
+      "Sha256": "9716fc7ac0b9ffb8176698b1cc276cc2b838325bf6425deea6f65b93f5d42110"
+    },
+    {
+      "Path": "fourth-real-chain/summary.json",
+      "Bytes": 5422,
+      "Sha256": "6f1fae7ac38360a48cba8dbccdcc339b083f0a7dab4dce7630b1cb277e249242"
+    },
+    {
+      "Path": "full-precision-mat/mat-fit.json",
+      "Bytes": 3846,
+      "Sha256": "4181feefef3d1c4f929a486d57245a1fcbd769e3ddff1310c170c641b57782c0"
+    },
+    {
+      "Path": "initial-audit.log",
+      "Bytes": 14267,
+      "Sha256": "01447b5267d78035183be5dc5581d804f3a3704d0a85060fbf7ac0a7261c7bfa"
+    },
+    {
+      "Path": "initial-audit/audit.json",
+      "Bytes": 23921,
+      "Sha256": "476a98002ffcbefacf0265c85c83a515c0144e1d85eefe19e7a75fff7f3e9722"
+    },
+    {
+      "Path": "krylon_blue.mat",
+      "Bytes": 426022,
+      "Sha256": "e6b6cd65c9e1c64a6dee4e6bb89f333ba7f6e4360076c017a9e542587c2ef6e0"
+    },
+    {
+      "Path": "mat-inspection.json",
+      "Bytes": 1495,
+      "Sha256": "5b4cb484b8be8879a4d3224491302de5f94d099efa276e6e985e226f4690659a"
+    },
+    {
+      "Path": "NOTICE.txt",
+      "Bytes": 1443,
+      "Sha256": "27eb69e4a3ff6a8d5e9298f30608d006256cac0109b7eed3134ce2e8049a5f81"
+    },
+    {
+      "Path": "positive-final-chain/camera-False-False.png",
+      "Bytes": 206271,
+      "Sha256": "9c9067ac1c17575801031764634ce0bc65f265ebcab681b581e5127ac90f7f50"
+    },
+    {
+      "Path": "positive-final-chain/camera-False-True.png",
+      "Bytes": 207279,
+      "Sha256": "3104e483d6c5c3eba435fead3a98347ed0ae74d51d35c3789efbcee51eba7a88"
+    },
+    {
+      "Path": "positive-final-chain/camera-True-False.png",
+      "Bytes": 204085,
+      "Sha256": "b3b5d272e55a9ba31022dec1e429ca713c5c68028381e963634b08e907350286"
+    },
+    {
+      "Path": "positive-final-chain/chain-speos-white.json",
+      "Bytes": 929,
+      "Sha256": "76af1e5ca63c954f1c356ef779e070c6265c38adacc91c3b30db4d252782b07a"
+    },
+    {
+      "Path": "positive-final-chain/chain-v11-binary.json",
+      "Bytes": 846,
+      "Sha256": "1cb6ea817872e72dac16875407dacfaee6a06dd9b39b8119172e77234325f77b"
+    },
+    {
+      "Path": "positive-final-chain/chain-xyz-r.json",
+      "Bytes": 838,
+      "Sha256": "2a76283b2d95df1e1b05ab6fff56c479b4eab96bb935ded908dbda47848e2b67"
+    },
+    {
+      "Path": "positive-final-chain/chain-xyz-t.json",
+      "Bytes": 873,
+      "Sha256": "01549ff2d2c22b939db0e445c40edca0918d051e6780d0b76a12016fc87aa761"
+    },
+    {
+      "Path": "positive-final-chain/editor-False-False.png",
+      "Bytes": 139038,
+      "Sha256": "1f6a02bb853798294325e8b79e301e7ff864e871064a8a5f6c888d96bb8139b1"
+    },
+    {
+      "Path": "positive-final-chain/editor-False-True.png",
+      "Bytes": 140054,
+      "Sha256": "f65d3c36548fcac8d1cd94f6517bcc28d01c4fe5b78173eb20c009c4a37c090e"
+    },
+    {
+      "Path": "positive-final-chain/editor-True-False.png",
+      "Bytes": 146679,
+      "Sha256": "2b73b20bf502310aa8846624daf14b9be26855b075c5ba59bd09e4cf18b53cf8"
+    },
+    {
+      "Path": "positive-final-chain/installed-v11-False.json",
+      "Bytes": 611,
+      "Sha256": "8972234d19259130505af6d7e614fa463141a5e104c49fb5996c1eb5d68dadf9"
+    },
+    {
+      "Path": "positive-final-chain/installed-v11-True.json",
+      "Bytes": 573,
+      "Sha256": "924d8086dcbb9bf23f1cf68cf63dfbf7289828c22e91de8b9f3e97ee70f70569"
+    },
+    {
+      "Path": "positive-final-chain/joint-white-400.json",
+      "Bytes": 185,
+      "Sha256": "d4a3a7d497c344f6b948f1c7a841d0adecc6be1441980ef79bbc01a4a84d78c5"
+    },
+    {
+      "Path": "positive-final-chain/joint-white-550.json",
+      "Bytes": 183,
+      "Sha256": "bf4fced28786b9d95544bc494e6f6281187f8a535aae9e29e541b61dab75f91f"
+    },
+    {
+      "Path": "positive-final-chain/joint-white-700.json",
+      "Bytes": 183,
+      "Sha256": "a0a831424800ab05639d383146f221e54821a2da0861867a93097b94610c47bb"
+    },
+    {
+      "Path": "positive-final-chain/nsc-medium-database-project-False.json",
+      "Bytes": 940,
+      "Sha256": "4cf06ed8597f0a83c3628ee45d7ae14c180c5b01651f76bb9e2be4b83812e532"
+    },
+    {
+      "Path": "positive-final-chain/nsc-medium-database-project-True.json",
+      "Bytes": 941,
+      "Sha256": "2c2b66191914711bb17248c4aded4e9343a3c3799e7335aef24db585b7660c89"
+    },
+    {
+      "Path": "positive-final-chain/official-v11-text.json",
+      "Bytes": 206,
+      "Sha256": "381c2400c040139c8486cf366612fa2b24f13c3a0f5b2bbccf52c2f835561df0"
+    },
+    {
+      "Path": "positive-final-chain/registered-False.json",
+      "Bytes": 272,
+      "Sha256": "bf024ae48586b49227c4e883a5183525873e85e50a5ecba43148b04a13c88478"
+    },
+    {
+      "Path": "positive-final-chain/registered-True.json",
+      "Bytes": 272,
+      "Sha256": "75abf4f4bd85c0f707854d2a4be5bfa8acb72961065a5498ea465bbf68c1c298"
+    },
+    {
+      "Path": "positive-final-chain/slope-statistics-False-15.json",
+      "Bytes": 281,
+      "Sha256": "4664dc5cfaa605052dc81e9d8d1138a7a8003b6005ea94c54a43a54a2baf59de"
+    },
+    {
+      "Path": "positive-final-chain/slope-statistics-False-45.json",
+      "Bytes": 283,
+      "Sha256": "abde617592364966b3d2df8eb6c377fa40351b99645182cf9e4f8f579d033bac"
+    },
+    {
+      "Path": "positive-final-chain/slope-statistics-False-85.json",
+      "Bytes": 281,
+      "Sha256": "10e23fd1ccd2dbba7784a1b28ddae5aff3f95cc3da549f40c39c953459067922"
+    },
+    {
+      "Path": "positive-final-chain/slope-statistics-True-45.json",
+      "Bytes": 283,
+      "Sha256": "abde617592364966b3d2df8eb6c377fa40351b99645182cf9e4f8f579d033bac"
+    },
+    {
+      "Path": "positive-final-chain/slope-statistics-True-85.json",
+      "Bytes": 281,
+      "Sha256": "10e23fd1ccd2dbba7784a1b28ddae5aff3f95cc3da549f40c39c953459067922"
+    },
+    {
+      "Path": "positive-final-chain/speos-white.BSDF",
+      "Bytes": 96640,
+      "Sha256": "fda53ecf406b2ea58e26b8be3ae4720c4a0e1298c35d46dd9ed54de84ff83a21"
+    },
+    {
+      "Path": "positive-final-chain/speos-white.camera-experiment.zip",
+      "Bytes": 197234,
+      "Sha256": "e2c617a1d23d54d3a63ee91b5ea9624fa533f56b0151c21a0492f0e3fff6903a"
+    },
+    {
+      "Path": "positive-final-chain/v11-binary-False-False.json",
+      "Bytes": 322,
+      "Sha256": "0c922364922718049803d9dc271f3ac357972172e4446b26d31f3b3575970356"
+    },
+    {
+      "Path": "positive-final-chain/v11-binary-True-False.json",
+      "Bytes": 321,
+      "Sha256": "ac2182a6a615cf2bf035267a321bbaf9df2f37d4094d2d30aff7d6e3c5aa51d8"
+    },
+    {
+      "Path": "positive-final-chain/v11-binary-True-True.json",
+      "Bytes": 323,
+      "Sha256": "c204c562b985e845799c4c9dc2ec2296f6b17778c80621a44d5fc6eab8360a7e"
+    },
+    {
+      "Path": "positive-final-chain/v11-binary.anisotropicbsdf",
+      "Bytes": 1041,
+      "Sha256": "b9926a81a7e0ad578cb2b67c1c68be73124299b821d510df0c5aa6c7bc28d5f3"
+    },
+    {
+      "Path": "positive-final-chain/v11-binary.camera-experiment.zip",
+      "Bytes": 68912,
+      "Sha256": "9a67c426d7e061e344ef2a6f12ab6d3ecb00e752a4bd34e9928f0f4bde9136f2"
+    },
+    {
+      "Path": "positive-final-chain/white-specular.json",
+      "Bytes": 468,
+      "Sha256": "bc8dc24bc6304e0ddca6d42647d809fd479b3dc7d2a980e4ea975e96bc699b12"
+    },
+    {
+      "Path": "positive-final-chain/xyz-False-False.json",
+      "Bytes": 343,
+      "Sha256": "44184ae954ad0174df5cd1e032fb5068064dcef27cca09f18d7212f99b33817a"
+    },
+    {
+      "Path": "positive-final-chain/xyz-False-True.json",
+      "Bytes": 344,
+      "Sha256": "09a63b0004e0be01035adcd8040d01c0fe22ca6ef9ab63a971a48e264cea616f"
+    },
+    {
+      "Path": "positive-final-chain/xyz-r.BSDF",
+      "Bytes": 908,
+      "Sha256": "889a8fc5672a9b7cc7af2cfddacdd9c38c390485e8fa5dd33a271ccfb1d9319e"
+    },
+    {
+      "Path": "positive-final-chain/xyz-r.camera-experiment.zip",
+      "Bytes": 73299,
+      "Sha256": "3f341879ce6e56993f597709e64ac22d1b6967ab2aa6738c924701f420dd4135"
+    },
+    {
+      "Path": "positive-final-chain/xyz-t.BSDF",
+      "Bytes": 908,
+      "Sha256": "5cfbd5613e5421a35802d05c5aca36e3b9fd5d30e5cd379f02666245bfe62582"
+    },
+    {
+      "Path": "positive-final-chain/xyz-t.camera-experiment.zip",
+      "Bytes": 74290,
+      "Sha256": "3d2a45e91bea9a1afadd4e7e3f0033c026b31cc23652fde9ec4a9b826abae02c"
+    },
+    {
+      "Path": "positive-final-chain/xyz-True-False.json",
+      "Bytes": 343,
+      "Sha256": "563c9405a808bd0b971defcf1f3b670d08a369ec6d95658f5e1721ddc237a817"
+    },
+    {
+      "Path": "positive-final-focused.trx",
+      "Bytes": 437062,
+      "Sha256": "6eedf8ab7eb3706a2731444bdf3499bf339d80ccffc2ff68ca041e8a4e90869d"
+    },
+    {
+      "Path": "positive-final-new-chain/positive-chain-False.camera-experiment.zip",
+      "Bytes": 49742,
+      "Sha256": "ed28b37b40a5531476023e2d709928e78307045bd134eee5b24694fd8f02ab4d"
+    },
+    {
+      "Path": "positive-final-new-chain/positive-chain-False.json",
+      "Bytes": 685,
+      "Sha256": "e3d1b76735f596a4ab6bd7027b618b2ada7e456b7cdc7a8e23eb04f25eefe369"
+    },
+    {
+      "Path": "positive-final-new-chain/positive-chain-True.camera-experiment.zip",
+      "Bytes": 49633,
+      "Sha256": "40df180609379761311186beb2bb42528232ad49e0ff469f4574d14d25db3329"
+    },
+    {
+      "Path": "positive-final-new-chain/positive-chain-True.json",
+      "Bytes": 719,
+      "Sha256": "54ff05abe026c50ff12a7aa26b47f82599e363794b7bfdcc4c2f12b250e8aa76"
+    },
+    {
+      "Path": "positive-final-results/fitted-chain-False.camera-experiment.zip",
+      "Bytes": 47295,
+      "Sha256": "2f679762cf7fc8af64e61a5f3b12908bbd4f8fa8ba6be8445ac59057d95486c2"
+    },
+    {
+      "Path": "positive-final-results/fitted-chain-False.json",
+      "Bytes": 2222,
+      "Sha256": "4da2a134f9b2a558c69f7120531b077fef2a6d0527e9945a3ec7aa8f55440fce"
+    },
+    {
+      "Path": "positive-final-results/fitted-chain-True.camera-experiment.zip",
+      "Bytes": 47837,
+      "Sha256": "235429a5236b40bc8dd56085b05f709dbbe43f2b8652c42d8152e79e37a5dfc7"
+    },
+    {
+      "Path": "positive-final-results/fitted-chain-True.json",
+      "Bytes": 2257,
+      "Sha256": "8d9d41a7bf87e9813c9ab6be4bf6687272ebb98f7b4be26399c03a295f2a71d4"
+    },
+    {
+      "Path": "positive-final-results/grid5-runtime-gap.json",
+      "Bytes": 296,
+      "Sha256": "01f8559d4e7561776934b1a4d8e47586cf6a447fbc48bdff7ce1f4976d76ae62"
+    },
+    {
+      "Path": "positive-final-results/grid5-runtime-sampling-400.json",
+      "Bytes": 261,
+      "Sha256": "6739dc95108c19343a9f539228eb2bf40cdb19f3883207f48a33e9e16ff42db6"
+    },
+    {
+      "Path": "positive-final-results/grid5-runtime-sampling-550.json",
+      "Bytes": 263,
+      "Sha256": "5f9f4dcc00c0d9d0a5761f4f4b359b6506ecb0257e0247449819b08f60cce036"
+    },
+    {
+      "Path": "positive-final-results/grid5-runtime-sampling-700.json",
+      "Bytes": 247,
+      "Sha256": "f7bb178c07606050e887111eaf1fcef54d5795e202d0783e624fcd4d9e2e94d8"
+    },
+    {
+      "Path": "positive-final-results/grid6-heldout-power-19.json",
+      "Bytes": 200,
+      "Sha256": "d4643b5234a47b7cd5b7db88b41f42e2c0f7ebb471dc5d255cfd5ef61a2f38fb"
+    },
+    {
+      "Path": "positive-final-results/grid6-heldout-power-45.json",
+      "Bytes": 163,
+      "Sha256": "ddf222c96bae7b3d61a94cd503dfb4232353fc1d9c4bcec0fe795608779d94d3"
+    },
+    {
+      "Path": "positive-final-results/grid6-heldout-power-6.json",
+      "Bytes": 198,
+      "Sha256": "21b81c78d681ce2b59ad80d2749b06338f443720df1a40b7de9fb3a6195bdadc"
+    },
+    {
+      "Path": "positive-final-results/grid6-native-power-400.json",
+      "Bytes": 320,
+      "Sha256": "9aa508a9359093c0d5dd73079c230a0e8da7c7c5fd23e15e0982c5651d7b771e"
+    },
+    {
+      "Path": "positive-final-results/grid6-native-power-550.json",
+      "Bytes": 302,
+      "Sha256": "a7b42f1ca4a6f710238ab685b4fd5c4fbe0d83bcf808099ea4aa26c3b79d35e0"
+    },
+    {
+      "Path": "positive-final-results/grid6-native-power-700.json",
+      "Bytes": 320,
+      "Sha256": "b4d41e1e7477de6fc36b93834c0d20ffa637fd35e7bde61456ea1ede0ef23658"
+    },
+    {
+      "Path": "positive-final-results/grid6-runtime-sampling-400.json",
+      "Bytes": 260,
+      "Sha256": "cae840a3cac5f6961a5317d196c57e9a292bb6b6c8cb8eb58d7f8689ee6e2241"
+    },
+    {
+      "Path": "positive-final-results/grid6-runtime-sampling-550.json",
+      "Bytes": 264,
+      "Sha256": "14c1f6f1a54eaad2a26424751c2c7d288d2a567a9f8a73ff3f4ce0d17fb95886"
+    },
+    {
+      "Path": "positive-final-results/grid6-runtime-sampling-700.json",
+      "Bytes": 261,
+      "Sha256": "158db776853a645c32b477eaaeee0b97a539210a096cf3d3d1e716a9834beb2e"
+    },
+    {
+      "Path": "positive-final-results/native-no-white-regression.json",
+      "Bytes": 188,
+      "Sha256": "be3d483c7dd6f8b2c547dae64ee148ebbb2aaec76fecbf0d431bb62256d39f16"
+    },
+    {
+      "Path": "positive-final-results/native-v11-coefficient-comparison.json",
+      "Bytes": 281,
+      "Sha256": "972da29ae0e603ed58042aa397309db2dc9f88e4c5d8a8693662f3a88da1c4de"
+    },
+    {
+      "Path": "positive-final-results/theta-sampling-False.json",
+      "Bytes": 279,
+      "Sha256": "131e4104365b1ada21e4d6526f2740140a2537174efd9b98055f432cc858023b"
+    },
+    {
+      "Path": "positive-final-results/theta-sampling-True.json",
+      "Bytes": 279,
+      "Sha256": "3c785c40ff2ecd689a5bb097f8f74e0ecfcad60d7aa3f3fda2be81914d9b67eb"
+    },
+    {
+      "Path": "positive-final-xyz-chain/gamut-chain-False.camera-experiment.zip",
+      "Bytes": 49051,
+      "Sha256": "9a79a07b34b4df11902ab0a9b46d80a0327873b8567d302344b2c8ff1b3fd6e1"
+    },
+    {
+      "Path": "positive-final-xyz-chain/gamut-chain-False.json",
+      "Bytes": 709,
+      "Sha256": "314bca0e10100084f65c5cc88461d5bbd05b7964c146b3dbb8e7635811e2a6ae"
+    },
+    {
+      "Path": "positive-final-xyz-chain/gamut-chain-True.camera-experiment.zip",
+      "Bytes": 48767,
+      "Sha256": "cb488f5835fb384a2b7e25522a9148218e3187f4cca82cc0a85d6b9914ca1c20"
+    },
+    {
+      "Path": "positive-final-xyz-chain/gamut-chain-True.json",
+      "Bytes": 744,
+      "Sha256": "0e219ee5db365773dbaaa3f68e0ab605b16abf41e56eb14a08cd32ab34541aef"
+    },
+    {
+      "Path": "positive-first.trx",
+      "Bytes": 31334,
+      "Sha256": "34b7a1b13c412597c67d630451ea1f2a7cee3112ccf558e059e73896d5f59810"
+    },
+    {
+      "Path": "positive-second.trx",
+      "Bytes": 23939,
+      "Sha256": "95ebc04186877a3f24371f4f5507311d6f31081c85e29d12b488e6c488e4ad6e"
+    },
+    {
+      "Path": "pre-final-copy-identity.json",
+      "Bytes": 2255,
+      "Sha256": "6b7dc24765a36abcd0b50b6ea2834429b867219f453167c1b81dd80ad4825824"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 4210,
+      "Sha256": "f4c7a01b73f42669d66977a2c60100f6072f83a0870a5f76600bb19b8c9a440b"
+    },
+    {
+      "Path": "run-focused.ps1",
+      "Bytes": 14546,
+      "Sha256": "d6cf2065e81c23719f66e7e4bf55905c992a56fac40a42f3685891b1e87d775b"
+    },
+    {
+      "Path": "scoped-diff-check.txt",
+      "Bytes": 3,
+      "Sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "Path": "seal-evidence.ps1",
+      "Bytes": 2807,
+      "Sha256": "331bbf8c3a4170d699ac0f344bd35258142d5d9ebf1cfe9a120b4d298e3d8b64"
+    },
+    {
+      "Path": "second-chain/positive-chain-False.camera-experiment.zip",
+      "Bytes": 49727,
+      "Sha256": "94687bcfa2984d4b7e4f9c6e2220efdb3bff14a99a42b17232ff58fe6c86efd3"
+    },
+    {
+      "Path": "second-chain/positive-chain-False.json",
+      "Bytes": 685,
+      "Sha256": "e3d1b76735f596a4ab6bd7027b618b2ada7e456b7cdc7a8e23eb04f25eefe369"
+    },
+    {
+      "Path": "second-chain/positive-chain-True.camera-experiment.zip",
+      "Bytes": 49641,
+      "Sha256": "2753ca9f3ea698218eeab6731c27f42f24d29807fa51eb1596204831a2a259ed"
+    },
+    {
+      "Path": "second-chain/positive-chain-True.json",
+      "Bytes": 719,
+      "Sha256": "54ff05abe026c50ff12a7aa26b47f82599e363794b7bfdcc4c2f12b250e8aa76"
+    },
+    {
+      "Path": "second-real-chain.log",
+      "Bytes": 464,
+      "Sha256": "ec0c84d14b8aefdff0325baefa9dd6b129cbe3ff28ec62c5b5bbd888421375de"
+    },
+    {
+      "Path": "second-real-chain/garnet_red-brdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "92a22e4a058d7b3e04064abcc66ad2468705fb9507966594207a88d3f74ce0cd"
+    },
+    {
+      "Path": "second-real-chain/garnet_red-brdf/chain.json",
+      "Bytes": 1115,
+      "Sha256": "e078e7490190e145ba0ccb3174932dbb5f44b396516e61aac2f58e17a00da4dd"
+    },
+    {
+      "Path": "second-real-chain/garnet_red-brdf/real-calibration.camera-experiment.zip",
+      "Bytes": 181208,
+      "Sha256": "2c8576ad870da7b585714765eebcc3bd4f9b336d11c391c39bc45eea43c84609"
+    },
+    {
+      "Path": "second-real-chain/garnet_red-brdf/real-calibration.staropt",
+      "Bytes": 45169,
+      "Sha256": "6c73ac2b678daa75e8da44adb0c2a6a40088d5f0b4cfb2a971e7e32e27dd831c"
+    },
+    {
+      "Path": "second-real-chain/garnet_red-btdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "bedb76014de7b31919b7695c6b1ea6f3ba03007ed18f89fdf397632c4253132f"
+    },
+    {
+      "Path": "source-conditions-audit.json",
+      "Bytes": 2214,
+      "Sha256": "f2b377f3ffaba92faf9076aad866a8e6c3d8b4b04486ca7da6f13fe04f47f154"
+    },
+    {
+      "Path": "source-downloads.json",
+      "Bytes": 837,
+      "Sha256": "85793e83fd4452dbd9bb94f3154d34facca75da300679120e2136ef15d6a5740"
+    },
+    {
+      "Path": "test-positive-final-focused.log",
+      "Bytes": 467,
+      "Sha256": "bb5e8cbdbaac4af7b980f5acc5edfe97bb49ed62281ff7aaad0805d9e364b7cd"
+    },
+    {
+      "Path": "test-positive-first.log",
+      "Bytes": 454,
+      "Sha256": "7e0d80b768cfdb22086ceae0ff193c283769ac2700a2104ee40cbcc4df4c10a6"
+    },
+    {
+      "Path": "test-positive-second.log",
+      "Bytes": 456,
+      "Sha256": "f32d152e7b688e0a644f4fe5ab9696c50fc447d3571585cadc0a547a605aabf7"
+    },
+    {
+      "Path": "third-real-chain.log",
+      "Bytes": 464,
+      "Sha256": "06b390631a2741c1ac298f4e8eb4f6acb0d91547c4a544418b51b74ec4fe6978"
+    },
+    {
+      "Path": "third-real-chain/garnet_red-brdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "92a22e4a058d7b3e04064abcc66ad2468705fb9507966594207a88d3f74ce0cd"
+    },
+    {
+      "Path": "third-real-chain/garnet_red-brdf/capture-debug.json",
+      "Bytes": 792,
+      "Sha256": "b4ac02658611366552a65d312061b3a5f7abec5404817ad33d28c965bba2ac2b"
+    },
+    {
+      "Path": "third-real-chain/garnet_red-brdf/chain.json",
+      "Bytes": 1115,
+      "Sha256": "e078e7490190e145ba0ccb3174932dbb5f44b396516e61aac2f58e17a00da4dd"
+    },
+    {
+      "Path": "third-real-chain/garnet_red-brdf/real-calibration.camera-experiment.zip",
+      "Bytes": 181222,
+      "Sha256": "e6100076f5b922a906bd354c91edcbde9a4535cfef4f679227e7047d0e0bd462"
+    },
+    {
+      "Path": "third-real-chain/garnet_red-brdf/real-calibration.staropt",
+      "Bytes": 45341,
+      "Sha256": "8e29af54ec8573105514f79768e630564790576912e385ff48652b0b6b7b3f38"
+    },
+    {
+      "Path": "third-real-chain/garnet_red-btdf/angular-control.BSDF",
+      "Bytes": 561,
+      "Sha256": "bedb76014de7b31919b7695c6b1ea6f3ba03007ed18f89fdf397632c4253132f"
+    },
+    {
+      "Path": "third-real-chain/garnet_red-btdf/capture-debug.json",
+      "Bytes": 722,
+      "Sha256": "d5d106aabe4884c49e846516526140707e12c2f14580cb20482089a489ed1e29"
+    },
+    {
+      "Path": "verify-final.ps1",
+      "Bytes": 5761,
+      "Sha256": "02585bbcc66131b32b039e9e0c62c784e1f7c66abd4a59eac9bb2d1bb9a243d9"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "CoreSha256": "dc895c5a8ace455c4fd7f9ed263c0e837b013a58e7972e0bf21b35c1d9b7f56f",
+  "Cases": [
+    {
+      "Material": "garnet_red",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: BSDF \u534A\u7403\u79EF\u5206 R\u002BT=1.9900865997946589 \u8D85\u8FC7 1\uFF1B\u4E0D\u81EA\u52A8\u5F52\u4E00\u5316\u6D4B\u91CF\u6570\u636E\u3002\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfGrid..ctor(IReadOnlyList\u00601 points, BsdfCoordinates coordinates, Boolean variableOutputGrids, Boolean projected, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdf.cs:line 62\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfData..ctor(String name, String sourceFileName, String sourceSha256, IReadOnlyList\u00601 points, String dataSha256, BsdfCoordinates coordinates, String sourceFormat, String importNotes, ZemaxBsdfDefinition zemaxDefinition, BsdfStoredQuantity storedQuantity, SpeosPeakDefinition speosPeak, ZemaxXyzDefinition zemaxXyz, SpeosSpectralDefinition speosSpectral, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdfData.cs:line 75\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 70\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "krylon_blue",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: BSDF \u534A\u7403\u79EF\u5206 R\u002BT=1.3030699226110023 \u8D85\u8FC7 1\uFF1B\u4E0D\u81EA\u52A8\u5F52\u4E00\u5316\u6D4B\u91CF\u6570\u636E\u3002\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfGrid..ctor(IReadOnlyList\u00601 points, BsdfCoordinates coordinates, Boolean variableOutputGrids, Boolean projected, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdf.cs:line 62\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfData..ctor(String name, String sourceFileName, String sourceSha256, IReadOnlyList\u00601 points, String dataSha256, BsdfCoordinates coordinates, String sourceFormat, String importNotes, ZemaxBsdfDefinition zemaxDefinition, BsdfStoredQuantity storedQuantity, SpeosPeakDefinition speosPeak, ZemaxXyzDefinition zemaxXyz, SpeosSpectralDefinition speosSpectral, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdfData.cs:line 75\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 70\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "acryl_blue",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: BSDF \u534A\u7403\u79EF\u5206 R\u002BT=1.0824144938142994 \u8D85\u8FC7 1\uFF1B\u4E0D\u81EA\u52A8\u5F52\u4E00\u5316\u6D4B\u91CF\u6570\u636E\u3002\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfGrid..ctor(IReadOnlyList\u00601 points, BsdfCoordinates coordinates, Boolean variableOutputGrids, Boolean projected, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdf.cs:line 62\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfData..ctor(String name, String sourceFileName, String sourceSha256, IReadOnlyList\u00601 points, String dataSha256, BsdfCoordinates coordinates, String sourceFormat, String importNotes, ZemaxBsdfDefinition zemaxDefinition, BsdfStoredQuantity storedQuantity, SpeosPeakDefinition speosPeak, ZemaxXyzDefinition zemaxXyz, SpeosSpectralDefinition speosSpectral, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdfData.cs:line 75\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 70\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "mystique",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: BSDF \u534A\u7403\u79EF\u5206 R\u002BT=1.1131319972935922 \u8D85\u8FC7 1\uFF1B\u4E0D\u81EA\u52A8\u5F52\u4E00\u5316\u6D4B\u91CF\u6570\u636E\u3002\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfGrid..ctor(IReadOnlyList\u00601 points, BsdfCoordinates coordinates, Boolean variableOutputGrids, Boolean projected, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdf.cs:line 62\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfData..ctor(String name, String sourceFileName, String sourceSha256, IReadOnlyList\u00601 points, String dataSha256, BsdfCoordinates coordinates, String sourceFormat, String importNotes, ZemaxBsdfDefinition zemaxDefinition, BsdfStoredQuantity storedQuantity, SpeosPeakDefinition speosPeak, ZemaxXyzDefinition zemaxXyz, SpeosSpectralDefinition speosSpectral, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdfData.cs:line 75\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 70\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "cayman",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: BSDF \u534A\u7403\u79EF\u5206 R\u002BT=1.1665642181927605 \u8D85\u8FC7 1\uFF1B\u4E0D\u81EA\u52A8\u5F52\u4E00\u5316\u6D4B\u91CF\u6570\u636E\u3002\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfGrid..ctor(IReadOnlyList\u00601 points, BsdfCoordinates coordinates, Boolean variableOutputGrids, Boolean projected, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdf.cs:line 62\r\n   at OpticalSystemDesign.Core.Scattering.MeasuredBsdfData..ctor(String name, String sourceFileName, String sourceSha256, IReadOnlyList\u00601 points, String dataSha256, BsdfCoordinates coordinates, String sourceFormat, String importNotes, ZemaxBsdfDefinition zemaxDefinition, BsdfStoredQuantity storedQuantity, SpeosPeakDefinition speosPeak, ZemaxXyzDefinition zemaxXyz, SpeosSpectralDefinition speosSpectral, BsdfAngularSupport angularSupport) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\MeasuredBsdfData.cs:line 75\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 70\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "EDC50",
+      "Success": true,
+      "Count": 31046,
+      "ComputationProtocol": "MeasuredBsdfGrid/3",
+      "SourceSha256": "a5f1dc963944b5f8ea7d4209c8bd4a8c5e8520110898506d227a1801049c7d32",
+      "DataSha256": "c66eb564de85753188b099db529b5e627e2cabdfd6db281b3c8d7d0d72b0de04"
+    },
+    {
+      "Material": "EDS40",
+      "Success": true,
+      "Count": 31046,
+      "ComputationProtocol": "MeasuredBsdfGrid/3",
+      "SourceSha256": "5805cc97d9226852eca5ac90697f141f94b8eefbc3f78f63bc76a9b7afcdb611",
+      "DataSha256": "65f2a93420c7fb57ee4fde5e92e27ea1841ddc3f77ddf4cf66bb4696058c6c9b"
+    },
+    {
+      "Material": "HILAM",
+      "Success": true,
+      "Count": 31046,
+      "ComputationProtocol": "MeasuredBsdfGrid/3",
+      "SourceSha256": "7249223a5b28f0d1909399d32a9ea21b9241e28653744e51c3eba024167440ec",
+      "DataSha256": "ec0b3f9494d13114e55e534b700ef2d036784ce35f45a47efeb573d77c1b8224"
+    }
+  ]
+}

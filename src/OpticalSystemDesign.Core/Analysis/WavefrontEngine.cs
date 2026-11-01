@@ -43,6 +43,10 @@ public sealed record WavefrontResult(
     public WavefrontReferenceSphere? ReferenceSphere { get; init; }
     /// <summary>Global origin of the chief-normal reference plane for afocal propagation.</summary>
     public Vector3D? AfocalReferencePlaneOrigin { get; init; }
+    /// <summary>Global reference-chief direction used to anchor the local afocal image grid.</summary>
+    public Vector3D? AfocalChiefImageDirection { get; init; }
+    /// <summary>Unclipped geometric chief used only as an OPD datum, never as transmitted energy.</summary>
+    public bool GeometricChiefReferenceUsed { get; init; }
     // Datum of the existing scalar Huygens weighting convention. This is not
     // a physical reference-sphere normal; keep that distinction explicit.
     public Vector3D HuygensCoordinateOrigin { get; init; }
@@ -62,11 +66,17 @@ public sealed record PupilGridSpecification(
     internal bool UseCachedFftStopMap { get; init; }
     internal double? CoordinateDivisor { get; init; }
     internal bool ClipInBaseGrid { get; init; }
+    // A window retains the original arithmetic and node identity. Only empty
+    // outer rows/columns may be omitted by a Fourier pupil consumer.
+    internal PupilGridSpecification? SourceGrid { get; init; }
+    internal int SourceOffset { get; init; }
 
-    public double Coordinate(int index) => Coordinate(index, Stretch, ExplicitCoordinateStep);
+    public double Coordinate(int index) => SourceGrid is { } source
+        ? source.Coordinate(index + SourceOffset) : Coordinate(index, Stretch, ExplicitCoordinateStep);
 
-    internal double YCoordinate(int index) => Coordinate(index, StretchY ?? Stretch,
-        ExplicitCoordinateStepY ?? ExplicitCoordinateStep);
+    internal double YCoordinate(int index) => SourceGrid is { } source
+        ? source.YCoordinate(index + SourceOffset) : Coordinate(index, StretchY ?? Stretch,
+            ExplicitCoordinateStepY ?? ExplicitCoordinateStep);
 
     private double Coordinate(int index, double stretch, double? explicitStep) => CoordinateDivisor is { } divisor
         ? BaseCoordinate(index) / divisor
@@ -82,6 +92,7 @@ public sealed record PupilGridSpecification(
 
     internal bool ContainsSample(int column, int row)
     {
+        if (SourceGrid is { } source) return source.ContainsSample(column + SourceOffset, row + SourceOffset);
         if (ClipInBaseGrid && CoordinateDivisor is { } divisor)
         {
             var baseX = BaseCoordinate(column);
@@ -92,9 +103,11 @@ public sealed record PupilGridSpecification(
         return x * x + y * y <= 1;
     }
 
-    internal int ColumnIndex(double coordinate) => Index(coordinate, Stretch, ExplicitCoordinateStep);
-    internal int RowIndex(double coordinate) => Index(coordinate, StretchY ?? Stretch,
-        ExplicitCoordinateStepY ?? ExplicitCoordinateStep);
+    internal int ColumnIndex(double coordinate) => SourceGrid is { } source
+        ? source.ColumnIndex(coordinate) - SourceOffset : Index(coordinate, Stretch, ExplicitCoordinateStep);
+    internal int RowIndex(double coordinate) => SourceGrid is { } source
+        ? source.RowIndex(coordinate) - SourceOffset : Index(coordinate, StretchY ?? Stretch,
+            ExplicitCoordinateStepY ?? ExplicitCoordinateStep);
 
     private int Index(double coordinate, double stretch, double? step) => (int)Math.Round(CoordinateDivisor is { } divisor
         ? coordinate * divisor * (SampleCount / 2d - 1) + SampleCount / 2d
@@ -115,7 +128,7 @@ public sealed record WavefrontReferenceSphere(
     public bool IsVirtual { get; init; }
 }
 
-public static class WavefrontEngine
+public static partial class WavefrontEngine
 {
     // Explicit image-side plane reference, without toggling the optic's physical
     // afocal flag, changing its source identity or detaching a shared snapshot.
@@ -241,7 +254,12 @@ public static class WavefrontEngine
         // decentered/folded systems still require an aberrated 3-D pupil model.
         var pupilPosition = imageFrame.Origin + new Vector3D(0, 0,
             optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers));
-        var radius = (imagePosition - pupilPosition).Length;
+        // A grid GRIN's pupil is the image of the actual central stop pencil.
+        // Its reference is an axial plane, not the world-axis point on that
+        // plane. Intersect the chosen chief with it before forming the sphere.
+        var radius = optic.Paraxial.HasGridGradientPupil
+            ? Math.Abs((pupilPosition.Z - imagePosition.Z) / chief.Direction.Z)
+            : (imagePosition - pupilPosition).Length;
         return new WavefrontReferenceSphere(
             imagePosition.X,
             imagePosition.Y,
@@ -260,7 +278,9 @@ public static class WavefrontEngine
         bool usePolarization = false,
         Wavelength? referenceWavelength = null,
         bool forceReferencePlane = false,
-        bool useCachedFftStopMap = false)
+        bool useCachedFftStopMap = false,
+        bool allowGeometricAfocalReference = false,
+        bool phaseInclusiveAfocalReference = true)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -270,7 +290,19 @@ public static class WavefrontEngine
             wavelength.Micrometers,
             aimAtStop,
             resolvedRealImageLaunch);
-        var chief = TraceFinalSamples(optic, chiefBundle, usePolarization).Single();
+        var geometricReferenceUsed = false;
+        RayTraceSample? GeometricReference(RealRayBundle bundle)
+        {
+            if (!allowGeometricAfocalReference || !optic.ImageSpaceAfocal || usePolarization) return null;
+            var sample = optic.SequentialRayTracer.TraceToSurface(bundle.Rays[0], optic.SurfaceGroup.Items.Count - 1);
+            if (sample is null || sample.Vignetted || sample.Intensity <= 0) return null;
+            geometricReferenceUsed = true;
+            return sample;
+        }
+        RayTraceSample? Reference(RealRayBundle bundle) => optic.SequentialRayTracer.TraceFinalSamples(bundle).Single()
+            ?? GeometricReference(bundle);
+        var physicalChief = TraceFinalSamples(optic, chiefBundle, usePolarization).Single();
+        var chief = physicalChief ?? GeometricReference(chiefBundle);
         if (chief is null)
         {
             throw new InvalidOperationException("Chief ray did not reach the image surface.");
@@ -282,8 +314,8 @@ public static class WavefrontEngine
             referenceWavelength ??= optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelength;
         var referenceChief = referenceWavelength is null || referenceWavelength.Nanometers == wavelength.Nanometers
             ? chief
-            : optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
-                field.Hx, field.Hy, 0, 0, referenceWavelength.Micrometers, aimAtStop, resolvedRealImageLaunch)).Single()
+            : Reference(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                field.Hx, field.Hy, 0, 0, referenceWavelength.Micrometers, aimAtStop, resolvedRealImageLaunch))
                 ?? throw new InvalidOperationException("Reference chief ray did not reach the image surface.");
         if (optic.ImageSpaceAfocal || forceReferencePlane)
         {
@@ -300,7 +332,9 @@ public static class WavefrontEngine
                 referenceChief,
                 referenceWavelength?.Nanometers ?? wavelength.Nanometers,
                 forceReferencePlane,
-                chiefBundle);
+                chiefBundle,
+                geometricReferenceUsed,
+                phaseInclusiveAfocalReference);
         }
 
         var sphere = referenceSphere ?? CreateChiefRayReferenceSphere(
@@ -327,7 +361,7 @@ public static class WavefrontEngine
             sphere.CenterZ,
             sphere.IsVirtual ? -radius : radius,
             imageIndex);
-        var referenceOpticalPath = chief.CumulativeOpticalPathLength - chiefImagePath;
+        var referenceOpticalPath = (chief.PhaseInclusiveOpticalPathLength ?? chief.CumulativeOpticalPathLength) - chiefImagePath;
 
         var generator = optic.SequentialRayTracer.RayGenerator;
         var bundle = useCachedFftStopMap && aimAtStop
@@ -378,7 +412,7 @@ public static class WavefrontEngine
                 tilt = Dot(bundle.Rays[index].Origin - chiefBundle.Rays[0].Origin,
                     chiefBundle.Rays[0].Direction);
             }
-            var opticalPath = ray.CumulativeOpticalPathLength - imagePath + tilt;
+            var opticalPath = (ray.PhaseInclusiveOpticalPathLength ?? ray.CumulativeOpticalPathLength) - imagePath + tilt;
             var opdWaves = (referenceOpticalPath - opticalPath) / (wavelength.Micrometers * 1e-3);
             var t = imageIndex <= 1e-30 ? 0 : imagePath / imageIndex;
             var pupilPosition = ray.Position - (ray.Direction * t);
@@ -408,7 +442,7 @@ public static class WavefrontEngine
             chief.Direction.Z,
             imageIndex)
         {
-            ChiefOpticalPathLength = chief.CumulativeOpticalPathLength,
+            ChiefOpticalPathLength = chief.PhaseInclusiveOpticalPathLength ?? chief.CumulativeOpticalPathLength,
             UseRayAiming = aimAtStop,
             SourceField = field,
             SourceWavelengthNanometers = wavelength.Nanometers,
@@ -432,7 +466,9 @@ public static class WavefrontEngine
         RayTraceSample referenceChief,
         double referenceWavelengthNanometers,
         bool forceImageReference,
-        RealRayBundle chiefBundle)
+        RealRayBundle chiefBundle,
+        bool geometricChiefReference = false,
+        bool phaseInclusiveReference = true)
     {
         var chiefDirection = Normalize(referenceChief.Direction);
         var referencePoint = referenceChief.Position;
@@ -464,7 +500,9 @@ public static class WavefrontEngine
             else if (optic.ReferenceOpd == ReferenceOpdMode.Infinity)
                 throw new NotSupportedException("The infinity OPD reference is not defined for an afocal image; select ExitPupil, Absolute or Absolute2.");
         }
-        var referenceOpticalPath = chief.CumulativeOpticalPathLength
+        double OpticalPath(RayTraceSample ray) => phaseInclusiveReference
+            ? ray.PhaseInclusiveOpticalPathLength ?? ray.CumulativeOpticalPathLength : ray.CumulativeOpticalPathLength;
+        var referenceOpticalPath = OpticalPath(chief)
             - ImageToReferencePlane(chief, referencePoint, chiefDirection, imageIndex);
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
             field.Hx,
@@ -501,7 +539,7 @@ public static class WavefrontEngine
             if (ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items.FirstOrDefault())
                 && (aimAtStop || chiefBundle.Rays[0].Direction.Z < 0))
                 tilt = Dot(bundle.Rays[index].Origin - chiefBundle.Rays[0].Origin, chiefBundle.Rays[0].Direction);
-            var opticalPath = ray.CumulativeOpticalPathLength - imagePath + tilt;
+            var opticalPath = OpticalPath(ray) - imagePath + tilt;
             var opdWaves = (referenceOpticalPath - opticalPath) / (wavelength.Micrometers * 1e-3);
             var t = imageIndex <= 1e-30 ? 0 : imagePath / imageIndex;
             var pupilPosition = ray.Position - (ray.Direction * t);
@@ -532,19 +570,38 @@ public static class WavefrontEngine
             imageIndex,
             ImageSpaceAfocal: true,
             AfocalPupilDiameterMillimeters:
-                ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic))
+                geometricChiefReference ? Math.Abs(optic.Paraxial.EstimateExitPupilDiameter())
+                    : ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic))
         {
             ChiefOpticalPathLength = chief.CumulativeOpticalPathLength,
             UseRayAiming = aimAtStop,
             SourceField = field,
             SourceWavelengthNanometers = wavelength.Nanometers,
             SourceReferenceWavelengthNanometers = referenceWavelengthNanometers,
-            AfocalReferencePlaneOrigin = referencePoint
+            AfocalReferencePlaneOrigin = referencePoint,
+            AfocalChiefImageDirection = Normalize(referenceChief.Direction),
+            GeometricChiefReferenceUsed = geometricChiefReference
         };
     }
 
-    private static IReadOnlyList<RayTraceSample?> TraceFinalSamples(Optic optic, RealRayBundle bundle, bool usePolarization)
+    internal static IReadOnlyList<RayTraceSample?> TraceFinalSamples(Optic optic, RealRayBundle bundle, bool usePolarization,
+        int maximumBatchSize = SequentialTraceLimits.MaximumRayCount)
     {
+        if (maximumBatchSize is < 1 or > SequentialTraceLimits.MaximumRayCount
+            || bundle.Rays.Count > AnalysisResourceLimits.MaximumAnalysisRayWork)
+            throw new ArgumentOutOfRangeException(nameof(maximumBatchSize), "Wavefront trace exceeds its batch or aggregate ray-work budget.");
+        if (bundle.Rays.Count > maximumBatchSize)
+        {
+            var samples = new RayTraceSample?[bundle.Rays.Count];
+            for (var start = 0; start < samples.Length; start += maximumBatchSize)
+            {
+                Services.ComputationCancellation.ThrowIfCancellationRequested();
+                var count = Math.Min(maximumBatchSize, samples.Length - start);
+                var batch = TraceFinalSamples(optic, bundle.Slice(start, count), usePolarization, maximumBatchSize);
+                for (var i = 0; i < count; i++) samples[start + i] = batch[i];
+            }
+            return samples;
+        }
         if (!usePolarization) return optic.SequentialRayTracer.TraceFinalSamples(bundle);
         if (bundle.Rays.Count > SequentialTraceLimits.MaximumRayCount)
             throw new ArgumentOutOfRangeException(nameof(bundle), "Polarized wavefront exceeds the sequential ray-count safety budget.");

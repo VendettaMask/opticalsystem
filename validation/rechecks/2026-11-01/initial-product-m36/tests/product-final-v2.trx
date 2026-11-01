@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3ace5b22-c787-4d67-bb29-3bbaca6a2113" name="allen@DESKTOP-SET3SNR 2026-11-01 13:54:02" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T13:54:02.6158393+08:00" queuing="2026-11-01T13:54:02.6158396+08:00" start="2026-11-01T13:52:30.5623313+08:00" finish="2026-11-01T13:54:02.6202929+08:00" />
+  <TestSettings name="default" id="38c85c48-f7f9-4e61-9fde-3b14bd48183c">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_13_54_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="df10dc83-5210-46be-bd76-a411609ef64d" testId="4a587c99-1abb-9d8e-16a7-7d1719533183" testName="ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork" computerName="DESKTOP-SET3SNR" duration="00:01:31.4166359" startTime="2026-11-01T13:52:31.0618018+08:00" endTime="2026-11-01T13:54:02.5071284+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df10dc83-5210-46be-bd76-a411609ef64d">
+      <Output>
+        <ErrorInfo>
+          <Message>OpticalSystemDesign.InitialStructure.Contracts.TopologyValidationException : Transition elements require an explicit exploration constraint.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Engine.TopologyValidation.Validate(DesignTopology topology, TopologyConstraints constraints) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyValidation.cs:line 11&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.TopologyCompiler.Compile(DesignTopology topology, TopologyConstraints constraints) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyCompiler.cs:line 66&#xD;
+   at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignReview.&lt;Build&gt;g__Add|15_1(DesignReviewCandidate candidate, &lt;&gt;c__DisplayClass15_0&amp;) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignStudy.cs:line 196&#xD;
+   at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignReview.Build(AutonomousDesignStudy study) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignStudy.cs:line 87&#xD;
+   at ProductReportTests.VerifyReport(String output) in D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs:line 31&#xD;
+   at ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork() in D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs:line 14&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork" storage="d:\projects\opticalsystem\tools\diagnostics\initialproductm3620261101\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="4a587c99-1abb-9d8e-16a7-7d1719533183">
+      <Execution id="df10dc83-5210-46be-bd76-a411609ef64d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ProductReportTests" name="OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4a587c99-1abb-9d8e-16a7-7d1719533183" executionId="df10dc83-5210-46be-bd76-a411609ef64d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.07]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.11]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.12]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:01:31.59]       OpticalSystemDesign.InitialStructure.Contracts.TopologyValidationException : Transition elements require an explicit exploration constraint.&#xD;
+[xUnit.net 00:01:31.59]       Stack Trace:&#xD;
+[xUnit.net 00:01:31.59]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyValidation.cs(11,0): at OpticalSystemDesign.InitialStructure.Engine.TopologyValidation.Validate(DesignTopology topology, TopologyConstraints constraints)&#xD;
+[xUnit.net 00:01:31.59]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyCompiler.cs(66,0): at OpticalSystemDesign.InitialStructure.Engine.TopologyCompiler.Compile(DesignTopology topology, TopologyConstraints constraints)&#xD;
+[xUnit.net 00:01:31.59]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignStudy.cs(196,0): at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignReview.&lt;Build&gt;g__Add|15_1(DesignReviewCandidate candidate, &lt;&gt;c__DisplayClass15_0&amp;)&#xD;
+[xUnit.net 00:01:31.59]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignStudy.cs(87,0): at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignReview.Build(AutonomousDesignStudy study)&#xD;
+[xUnit.net 00:01:31.59]         D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs(31,0): at ProductReportTests.VerifyReport(String output)&#xD;
+[xUnit.net 00:01:31.59]         D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs(14,0): at ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork()&#xD;
+[xUnit.net 00:01:31.59]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:31.60]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:54:02.5098090+08:00">
+        <Text>[xUnit.net 00:01:31.59]     ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,13 @@
+{
+  "sampling": "All optimization in this task uses extrema-anchored-band-domain/2; search-peak-reference/2 and optical n/k unchanged.",
+  "failedPreparations": [
+    "Initial Suite Guid/string compile failed; corrected and log retained.",
+    "Initial old basin-search CLI called with incorrect retained-directory argument; no successful spectra were produced; replaced with direct Suite.Search.",
+    "First 16-test filter omitted GenerationAndSearch; final eighteen-test filter includes both cases.",
+    "Nullable build warning was an error under normal CI policy; corrected, then default build and test references rebuilt.",
+    "A final-test invocation before its failed stale-reference build completed had no source DLL; not counted.",
+    "Continuation preparation could recover the exact retained origin for 550 nm, but not for the older 500 nm diagnostic output; no origin guessed. Continued-inputs intentionally contains only 550 nm. New diagnostic records BestOrigin and saves retained actual candidates."
+  ],
+  "superseded": "Replacing Search finalists caused 730 nm T/width regression; stopped. One-generation guarded results are an ablation, not final. Final implementation preserves complete old Search, uses two bounded feedback windows and carries exploration independently of retained quality.",
+  "comparisonCost": "Continuous requested schedules and primary allowances do not equal total work; matching, coarse sampling, restoration, quality and file-open evaluations are recorded separately."
+}

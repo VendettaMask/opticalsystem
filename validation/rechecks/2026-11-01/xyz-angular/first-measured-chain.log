@@ -1,0 +1,8 @@
+Unhandled exception. System.ArgumentException: Detector dimensions do not match the square physical camera pixels.
+   at OpticalSystemDesign.Core.Analysis.Imaging.SpectralDetectorSensor.IntegratePhotoElectrons(SpectralDetectorPower detector, SensorSpectralResponse response, CameraSensorSettings sensor, QuantumEfficiencyAreaReference qeArea) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Analysis\Imaging\SpectralDetectorPower.cs:line 91
+   at OpticalSystemDesign.Application.Services.CameraImagingService.ValidateNscRequest(CameraImagingRequest r, String version) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 111
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateNonSequentialAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken token) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.NonSequential.cs:line 118
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateCoreAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.cs:line 77
+   at MeasuredAngularChain.Run(String root, String repo) in D:\Projects\opticalsystem\tools\diagnostics\XyzAngular20261101\MeasuredAngularChain.cs:line 72
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\tools\diagnostics\XyzAngular20261101\Program.cs:line 7
+   at Program.<Main>(String[] args)

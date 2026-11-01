@@ -14,6 +14,7 @@ internal static class NativePointComparisonCapture
     {
         if (system.SystemData.Units.LensUnits.ToString() != "Millimeters")
             throw new InvalidOperationException("Point comparison requires proven millimeter lens units");
+        NativePupilLaunchControls.Apply(system);
         var inputs = ((IEnumerable)Host.Request["pointInputs"]).Cast<Dictionary<string, object>>().ToArray();
         if (inputs.Length == 0 || inputs.Length > 10000) throw new InvalidOperationException("Bounded explicit input list required");
         var initialThicknesses=Enumerable.Range(1,system.LDE.NumberOfSurfaces-2).Select(i=>system.LDE.GetSurfaceAt(i).Thickness).ToArray();
@@ -127,6 +128,8 @@ internal static class NativePointComparisonCapture
             "kind",Host.Request["pointKind"],"wavelength",Host.Int("wavelength"),"inputSha256",Host.Request["inputSha256"],
             "originalKeys",Host.Request["originalKeys"],"inputs",inputs,"surfaces",surfaces,"operands",operands,
             "savedInput",false,"builtInPlotReplaced",false,"imageGeometryOnly",imageGeometryOnly));
+        if (Host.Request.ContainsKey("diagnosticPupilOperands") && Convert.ToBoolean(Host.Request["diagnosticPupilOperands"]))
+            AfocalDiagnosticCapture.Run(system);
     }
     private static double N(Dictionary<string,object> p,string key) { return Convert.ToDouble(p[key]); }
 }

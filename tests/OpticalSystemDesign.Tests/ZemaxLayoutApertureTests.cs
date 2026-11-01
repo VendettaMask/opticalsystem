@@ -10,7 +10,8 @@ public sealed class ZemaxLayoutApertureTests
     [Theory]
     [InlineData("DIAM 0 1 0 0 1", false)]
     [InlineData("DIAM 4 1 0 0 1", false)]
-    [InlineData("DIAM 4 1 0 0 1\n  APMN .5\n  APMX 2", true)]
+    [InlineData("DIAM 4 1 0 0 1\n  APMN .5\n  APMX 2", false)]
+    [InlineData("DIAM 4 1 0 0 1\n  CLAP .5 2 0", true)]
     public void CurvedDummyDoesNotAcquireAnImplicitFloatingAperture(string apertureRecords, bool explicitAperture)
     {
         var source = """

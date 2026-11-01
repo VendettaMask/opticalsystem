@@ -6,12 +6,14 @@ public static class NonSequentialDetectorReconstruction
         NonSequentialDocument document,
         IEnumerable<NonSequentialRayBranch> branches,
         Guid? sourceObjectId = null,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        Guid? detectorId = null)
     {
         ArgumentNullException.ThrowIfNull(document);
         ArgumentNullException.ThrowIfNull(branches);
         var detectors = document.Objects
-            .Where(item => item.Enabled && item.Kind == NonSequentialObjectKind.DetectorRectangle)
+            .Where(item => item.Enabled && item.Kind == NonSequentialObjectKind.DetectorRectangle
+                && (detectorId is null || item.Id == detectorId))
             .ToDictionary(item => item.Id, item => new NonSequentialDetectorAccumulator(item));
         var wavelengths = new NonSequentialWavelengthIndex(document.Wavelengths);
         foreach (var branch in branches)
@@ -27,21 +29,21 @@ public static class NonSequentialDetectorReconstruction
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 if (segment.BranchId != branch.Id
-                    || segment.ObjectId is not Guid detectorId
-                    || !detectors.TryGetValue(detectorId, out var detector))
+                    || segment.ObjectId is not Guid hitDetectorId
+                    || !detectors.TryGetValue(hitDetectorId, out var detector))
                 {
                     continue;
                 }
 
-                var local = document.ToLocalPoint(detectorId, segment.End);
-                var localDirection = document.ToLocalDirection(detectorId, segment.OutgoingDirection);
+                var local = document.ToLocalPoint(hitDetectorId, segment.End);
+                var localDirection = document.ToLocalDirection(hitDetectorId, segment.OutgoingDirection);
                 if (!detector.Accepts(localDirection))
                 {
                     continue;
                 }
                 if (!(recordedHits ??= new HashSet<DetectorHitWithinBranch>()).Add(
                         new DetectorHitWithinBranch(
-                            detectorId,
+                            hitDetectorId,
                             segment.FaceNumber,
                             BitConverter.DoubleToInt64Bits(segment.CumulativePathLength))))
                 {

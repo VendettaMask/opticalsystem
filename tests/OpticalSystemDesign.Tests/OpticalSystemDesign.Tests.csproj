@@ -8,7 +8,45 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Fixtures/grid-gradient-phase-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/fft-profile-physical-range-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/grid-gradient-pupil-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/paraxial-phase-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/grating-phase-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/diffractive-phase-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/diffractive-firstorder-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/irregular-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/grid-sag-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/dual-zone-native-v2.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/paraxial-xy-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/birefringent-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/grid-gradient-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/paraxial-collimated-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/special-sag-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/gradient9-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/gradient9-return-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-gaussian-v11.anisotropicbsdf" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-gaussian-v11.NOTICE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\camera-projected-grid3-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\camera-xyz-grid4-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\camera-speos-grid4-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-native-v11-energy.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-native-v11-no-white-reference.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-native-v11-no-white.anisotropicbsdf" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-native-v11-white-runtime.anisotropicbsdf" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-native-v11-white-runtime-reference.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-white-half-degree.anisotropicbsdf" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\speos-white-quarter-degree.anisotropicbsdf" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\camera-speos-grid5-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\camera-speos-grid6-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\camera-xyz-grid7-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/camera-scene-v7-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-nsc-v9-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-lambertian-v9-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-measured-v9-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/speos-r-test-v9.anisotropicbsdf" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/speos-r-test-v9.NOTICE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-speos-text-grid2-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/camera-scene-v8-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/camera-sampling-v1-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures\camera-flir-bfs-u3-23s6-points.json" CopyToOutputDirectory="PreserveNewest" />
@@ -190,5 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="../Shared/SafeHeadlessUnitTestSession.cs" Link="Shared/SafeHeadlessUnitTestSession.cs" />
+    <None Update="Fixtures/camera-xyz-grid8-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/camera-polar-grid9-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

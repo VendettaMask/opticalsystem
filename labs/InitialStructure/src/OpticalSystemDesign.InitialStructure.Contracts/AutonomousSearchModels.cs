@@ -10,7 +10,8 @@ public sealed record AutonomousSearchOptions
     public BoundedCandidateSearchOptions? BoundedSearch { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public PopulationExplorationOptions? PopulationExploration { get; init; }
-    /// <summary>Explicit preparation configuration. Only the separate seed-preparation command executes it.</summary>
+    /// <summary>Explicit preparation configuration. The separate preparation command executes it;
+    /// an explicit ColdStart policy also prepares and qualifies fresh seeds before a new desktop autonomous run.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ParaxialSeedSearchOptions? SeedPreparation { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

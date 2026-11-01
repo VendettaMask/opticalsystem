@@ -26,6 +26,12 @@ public sealed partial class CameraImagingWindow
                 ReadPixelSampling(), IsScene3D ? ReadScene3D() : null, IsScene3D ? new((int)V("scene3d-rings"), (int)V("scene3d-arms"), _scene3DFresnel.IsChecked == true,
                     _aberration.SelectedIndex == (int)CameraAberration.Diffraction
                         ? new((int)V("scene3d-pupil-grid"), (int)V("scene3d-subdivide"), (int)V("scene3d-psf-radius"), (int)V("scene3d-guard")) : null) : null);
+            if (IsNsc)
+            {
+                var input = _nscInput ?? throw new InvalidOperationException("请先读取非序列探测器结果。");
+                request = request with { Width = input.Detector.PixelsX, Height = input.Detector.PixelsY,
+                    NscDetector = input, SceneMode = CameraSceneMode.Uniform, MaterialScene = null, PixelSampling = null };
+            }
             var result = UsingExperimentInputs
                 ? await _application.CameraImaging.RecomputeAsync(_experimentRun!, request, operation.Token)
                 : await _application.CameraImaging.SimulateAsync(request, operation.Token);
@@ -48,8 +54,8 @@ public sealed partial class CameraImagingWindow
         var sensor = result.Request.Sensor!; var width = result.Request.Width; var height = result.Request.Height;
         _result = result;
         ResetSampling(result);
-        _stageViews[0].Title = result.Scene3D is null ? "输入图 · sRGB 解码后预览" : "可见表面反射率 · 几何预览";
-        _stageViews[1].Title = result.Scene3D is null ? "光学像 · 固定 Gamma 2.2" : "像面辐照度 · 满白每波段 0.02 W/m²";
+        _stageViews[0].Title = result.Request.NscDetector is not null ? "NSC 总辐照度 · 固定标尺灰度预览" : result.Scene3D is null ? "输入图 · sRGB 解码后预览" : "可见表面反射率 · 几何预览";
+        _stageViews[1].Title = result.Request.NscDetector is not null ? "已计算光学功率 · 不再次传播" : result.Scene3D is null ? "光学像 · 固定 Gamma 2.2" : "像面辐照度 · 满白每波段 0.02 W/m²";
         foreach (var (view, frame) in _stageViews.Zip(new[] { result.Source, result.Optical, result.Electrons, result.Raw, result.Noiseless, result.Developed })) view.Set(frame);
         _metrics.Text = $"{width} × {height} · 平均光电子 {result.MeanPhotoElectrons:G5} e⁻/像元 · "
             + $"RAW 对无噪声 RMSE {result.RawNoiseRmseDn:G4} DN · 饱和 {result.SaturatedPixels}/{width * height}\n"
@@ -157,9 +163,10 @@ public sealed partial class CameraImagingWindow
         if (IsScene3D) _opticsInputInfo.Text = UsingExperimentInputs
             ? "三维场景使用实验镜头和实际像面；物体坐标相对第一镜面，不自动调焦。"
             : "三维场景使用当前未保存镜头和实际像面；物体坐标相对第一镜面，不自动调焦。";
+        if (IsNsc) _opticsInputInfo.Text = "光学传播已经包含在 NSC 功率中；只应用一次曝光、QE、噪声、ADC 和 ISP。";
     }
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args) => OnUi(() =>
-    { UpdateSource(); if (!UsingExperimentInputs) Invalidate("镜头已改变，旧结果已清除，请重新运行。", true); });
+    { UpdateSource(); if (!UsingExperimentInputs) { _nscInput = null; Invalidate("镜头已改变，旧结果已清除，请重新运行。", true); } });
     private void OnModeChanged(object? sender, WorkbenchModeChangedEventArgs args) => OnUi(() =>
     { if (!UsingExperimentInputs) Invalidate("模式已改变，旧结果已清除。", true); });
     private void OnUi(Action action)
@@ -169,12 +176,14 @@ public sealed partial class CameraImagingWindow
         var validLens = UsingExperimentInputs ? _experimentRun!.Inputs?.LensSnapshotJson is not null
             : _application.Modes.CurrentMode == OpticalWorkbenchMode.Sequential && _application.Documents.GetSnapshot().SurfaceCount >= 4;
         var sourceReady = _source.SelectedIndex != (int)CameraSource.ExternalImage || !string.IsNullOrWhiteSpace(_sourceFile);
-        var sizeReady = _optics.SelectedIndex == 1 || SelectedSize is { Width: <= 256, Height: <= 256 };
-        var pixelReady = IsScene3D || _optics.SelectedIndex == 1 || _pixelSampling.SelectedIndex != 2;
+        var sizeReady = IsNsc || _optics.SelectedIndex == 1 || SelectedSize is { Width: <= 256, Height: <= 256 };
+        var pixelReady = IsNsc || IsScene3D || _optics.SelectedIndex == 1 || _pixelSampling.SelectedIndex != 2;
         var fillReady = IsScene3D || _pixelSampling.SelectedIndex == 0 || _numbers["fill-factor"].Value == 1;
-        var spectrumReason = Scene3DReadiness() ?? SpectrumReadiness();
-        var canRun = !_busy && sourceReady && sizeReady && pixelReady && fillReady && spectrumReason is null && (_optics.SelectedIndex == 1 || validLens);
+        var validNumbers = _numbers.Where(pair => NumberUsedByRun(pair.Key)).All(pair => ValidNumber(pair.Value, IntegerNumber(pair.Key)));
+        var spectrumReason = validNumbers ? Scene3DReadiness() ?? SpectrumReadiness() : "请输入有效数值。";
+        var canRun = !_busy && validNumbers && sourceReady && sizeReady && pixelReady && fillReady && spectrumReason is null && (IsNsc || _optics.SelectedIndex == 1 || validLens);
         ControlAvailability.Set(_run, canRun, _busy ? "正在计算，可取消后修改。" : !sourceReady ? "请先导入图片。"
+            : !validNumbers ? "请输入有效数值。"
             : !sizeReady ? "当前镜头首批支持到 256 × 192；512 × 384 用于理想光学对照。"
             : !pixelReady ? "保留原物理 PSF 范围和计算预算时，当前镜头使用 2×2；4×4 用于理想光学对照。"
             : !fillReady ? "二维旧网格不能正确表示非满填充；请选择三维场景的感光区积分，或恢复填充因子 1。"
@@ -195,7 +204,9 @@ public sealed partial class CameraImagingWindow
         ControlAvailability.Set(_qeArea, _pixelSampling.SelectedIndex > 0 && _spectralResponse is null,
             _spectralResponse is not null ? "导入曲线定义为整像元总 QE，填充损失不会重复计算。" : "QE 面积口径用于面积采样；中心采样保持原模型。");
         UpdateScene3DControls();
+        UpdateNscControls();
         UpdateSamplingControls();
     }
-    private double V(string key) => (double)(_numbers[key].Value ?? throw new InvalidOperationException("请输入有效数值。"));
+    private double V(string key) => ValidNumber(_numbers[key], IntegerNumber(key))
+        ? (double)_numbers[key].Value!.Value : throw new InvalidOperationException("请输入有效数值。");
 }

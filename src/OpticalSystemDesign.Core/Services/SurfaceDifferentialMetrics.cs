@@ -28,6 +28,9 @@ public static class SurfaceDifferentialMetrics
             PlaneGeometry => new SurfaceSagDifferential(),
             StandardGeometry standard => Radial(standard, [], false, x, y),
             EvenAsphereGeometry even => Radial(even.Base, even.Coefficients, false, x, y),
+            ConcentricZoneGeometry zones => double.Hypot(x, y) <= zones.BoundaryRadius
+                ? Radial(zones.Inner.Base, zones.Inner.Coefficients, false, x, y)
+                : Radial(zones.Outer.Base, zones.Outer.Coefficients, false, x, y),
             OddAsphereGeometry odd => Radial(odd.Base, odd.Coefficients, true, x, y),
             PolynomialGeometry polynomial => Polynomial(polynomial, x, y),
             _ => throw new NotSupportedException("面形导数目前支持标准面、Even/Odd Asphere 和 XY 多项式面。")

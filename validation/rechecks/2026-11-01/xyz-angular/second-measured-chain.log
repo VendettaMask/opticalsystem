@@ -1,0 +1,7 @@
+Unhandled exception. System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values. (Parameter 'PixelPitchMicrometers')
+   at OpticalSystemDesign.Core.Analysis.Imaging.CameraSensorPipeline.Range(Double value, Double min, Double max, String name) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Analysis\Imaging\CameraSensorPipeline.cs:line 219
+   at OpticalSystemDesign.Core.Analysis.Imaging.CameraSensorPipeline.Validate(CameraSensorSettings s, CameraIspSettings isp) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Analysis\Imaging\CameraSensorPipeline.cs:line 37
+   at OpticalSystemDesign.Application.Services.CameraImagingService.SimulateCoreAsync(CameraImagingRequest request, CameraExperimentInputs inputs, String savedName, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\CameraImagingService.cs:line 75
+   at MeasuredAngularChain.Run(String root, String repo) in D:\Projects\opticalsystem\tools\diagnostics\XyzAngular20261101\MeasuredAngularChain.cs:line 84
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\tools\diagnostics\XyzAngular20261101\Program.cs:line 16
+   at Program.<Main>(String[] args)

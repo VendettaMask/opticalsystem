@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d84150ab-5f24-40c0-9f0b-a34d2b22bba8" name="allen@DESKTOP-SET3SNR 2026-11-01 18:24:41" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T18:24:41.9697935+08:00" queuing="2026-11-01T18:24:41.9697936+08:00" start="2026-11-01T18:24:40.1715483+08:00" finish="2026-11-01T18:24:43.0381423+08:00" />
+  <TestSettings name="default" id="39413e38-7d3f-493a-b3f4-89f856f1d391">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_18_24_41" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="83595425-3ba3-407d-abc5-bdafa08c71a7" testId="b594667c-0042-a85e-f18e-727bb8429f98" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.AnalyticPowerLawIsRecoveredAtUnseenAbsoluteInputsWithoutHeldOutTargets" computerName="DESKTOP-SET3SNR" duration="00:00:00.0150342" startTime="2026-11-01T18:24:41.9950122+08:00" endTime="2026-11-01T18:24:42.0087345+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="83595425-3ba3-407d-abc5-bdafa08c71a7">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.AnalyticPowerLawIsRecoveredAtUnseenAbsoluteInputsWithoutHeldOutTargets() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 33&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="670836ae-660d-4952-8485-41b31ef8b4b5" testId="7df5ea22-5d1f-0a97-5ed7-7ccffc9618f6" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0034058" startTime="2026-11-01T18:24:41.9849697+08:00" endTime="2026-11-01T18:24:41.9860029+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="670836ae-660d-4952-8485-41b31ef8b4b5">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 40&#xD;
+   at InvokeStub_XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="67dd7473-81d3-4e7a-8f0a-7163e3b74059" testId="641bc59c-ee72-b997-7bbc-51b5a5cf4473" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.LocalConstantColourCloudUsesItsActualAffineRankAndRejectsInvalidBudgets" computerName="DESKTOP-SET3SNR" duration="00:00:00.0162840" startTime="2026-11-01T18:24:41.9495757+08:00" endTime="2026-11-01T18:24:41.9496604+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67dd7473-81d3-4e7a-8f0a-7163e3b74059" />
+    <UnitTestResult executionId="bfa17622-a1d6-4927-8391-3208005d5994" testId="7290dca2-989f-e644-c4c0-0c641aca99c6" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0571638" startTime="2026-11-01T18:24:41.9100646+08:00" endTime="2026-11-01T18:24:41.9807908+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bfa17622-a1d6-4927-8391-3208005d5994">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 40&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3953e0b8-b547-4b35-8752-f80338139702" testId="4e379d0c-f4f5-25d3-a2e1-eb5944e8cdb6" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.DisabledAbsoluteXyzModelRejectsProjectDowngradeAndOldGridEightReplaysExactly" computerName="DESKTOP-SET3SNR" duration="00:00:00.0035703" startTime="2026-11-01T18:24:41.9869589+08:00" endTime="2026-11-01T18:24:41.9883459+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3953e0b8-b547-4b35-8752-f80338139702">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.DisabledAbsoluteXyzModelRejectsProjectDowngradeAndOldGridEightReplaysExactly() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 50&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b6e1a23a-4ef7-4110-825b-622ed3b77b61" testId="92fe0de1-b40d-f71d-f139-38df04625728" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0323347" startTime="2026-11-01T18:24:41.9502569+08:00" endTime="2026-11-01T18:24:41.9845177+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6e1a23a-4ef7-4110-825b-622ed3b77b61">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 68&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cea9d3e9-3395-4cb8-b4e0-0b6603e85fae" testId="33012615-29c9-a55b-c778-ad671363509d" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: True, fixedAxes: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0017886" startTime="2026-11-01T18:24:41.9869330+08:00" endTime="2026-11-01T18:24:41.9869804+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cea9d3e9-3395-4cb8-b4e0-0b6603e85fae">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 68&#xD;
+   at InvokeStub_XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7db6c455-b2fa-4df8-b774-648fb87e1363" testId="d4092b3c-a8e1-385f-fc3f-17dbc43d02f5" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1702203" startTime="2026-11-01T18:24:42.7882534+08:00" endTime="2026-11-01T18:24:42.9587716+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7db6c455-b2fa-4df8-b774-648fb87e1363">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 18&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="03c2c33a-4d8a-4042-8ce5-a7575776967b" testId="cb8f1c08-1aef-5c8c-e690-8ba8d168f937" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0034060" startTime="2026-11-01T18:24:41.9849810+08:00" endTime="2026-11-01T18:24:41.9856630+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03c2c33a-4d8a-4042-8ce5-a7575776967b">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Boolean transmission, Boolean fixedAxes) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 68&#xD;
+   at InvokeStub_XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cc8c9616-49fc-4581-9c14-02ba4bad6992" testId="73916d24-2374-0fc4-6c11-5e6a700431c3" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.SharedPivotedSolveHandlesRowExchangeAndRejectsSingularityOrNonfiniteData" computerName="DESKTOP-SET3SNR" duration="00:00:00.0068150" startTime="2026-11-01T18:24:41.9091149+08:00" endTime="2026-11-01T18:24:41.9210892+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc8c9616-49fc-4581-9c14-02ba4bad6992" />
+    <UnitTestResult executionId="8d00a062-be5b-4449-b438-ac9e876a59ab" testId="0e856884-037c-8c23-ca4c-7357ab1c5eb4" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.7971959" startTime="2026-11-01T18:24:41.9887322+08:00" endTime="2026-11-01T18:24:42.7875550+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d00a062-be5b-4449-b438-ac9e876a59ab">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(Boolean transmission) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs:line 18&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5d48cb53-09e8-439c-8313-3ee9ae3129d7" testId="3696582e-6b47-1f94-4c6d-578ad523fc5a" testName="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConditionsModelBoundsAndTrainingTargetsAreDigestBound" computerName="DESKTOP-SET3SNR" duration="00:00:00.0071654" startTime="2026-11-01T18:24:41.9873141+08:00" endTime="2026-11-01T18:24:41.9931721+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d48cb53-09e8-439c-8313-3ee9ae3129d7">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs:line 47&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 23&#xD;
+   at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConditionsModelBoundsAndTrainingTargetsAreDigestBound() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs:line 51&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7290dca2-989f-e644-c4c0-0c641aca99c6">
+      <Execution id="bfa17622-a1d6-4927-8391-3208005d5994" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests" name="AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.SharedPivotedSolveHandlesRowExchangeAndRejectsSingularityOrNonfiniteData" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="73916d24-2374-0fc4-6c11-5e6a700431c3">
+      <Execution id="cc8c9616-49fc-4581-9c14-02ba4bad6992" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests" name="SharedPivotedSolveHandlesRowExchangeAndRejectsSingularityOrNonfiniteData" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0e856884-037c-8c23-ca4c-7357ab1c5eb4">
+      <Execution id="8d00a062-be5b-4449-b438-ac9e876a59ab" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests" name="AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: True, fixedAxes: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="33012615-29c9-a55b-c778-ad671363509d">
+      <Execution id="cea9d3e9-3395-4cb8-b4e0-0b6603e85fae" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests" name="ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d4092b3c-a8e1-385f-fc3f-17dbc43d02f5">
+      <Execution id="7db6c455-b2fa-4df8-b774-648fb87e1363" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests" name="AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.AnalyticPowerLawIsRecoveredAtUnseenAbsoluteInputsWithoutHeldOutTargets" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b594667c-0042-a85e-f18e-727bb8429f98">
+      <Execution id="83595425-3ba3-407d-abc5-bdafa08c71a7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests" name="AnalyticPowerLawIsRecoveredAtUnseenAbsoluteInputsWithoutHeldOutTargets" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cb8f1c08-1aef-5c8c-e690-8ba8d168f937">
+      <Execution id="03c2c33a-4d8a-4042-8ce5-a7575776967b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests" name="ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.LocalConstantColourCloudUsesItsActualAffineRankAndRejectsInvalidBudgets" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="641bc59c-ee72-b997-7bbc-51b5a5cf4473">
+      <Execution id="67dd7473-81d3-4e7a-8f0a-7163e3b74059" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests" name="LocalConstantColourCloudUsesItsActualAffineRankAndRejectsInvalidBudgets" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConditionsModelBoundsAndTrainingTargetsAreDigestBound" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3696582e-6b47-1f94-4c6d-578ad523fc5a">
+      <Execution id="5d48cb53-09e8-439c-8313-3ee9ae3129d7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests" name="ConditionsModelBoundsAndTrainingTargetsAreDigestBound" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="92fe0de1-b40d-f71d-f139-38df04625728">
+      <Execution id="b6e1a23a-4ef7-4110-825b-622ed3b77b61" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfTests" name="ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7df5ea22-5d1f-0a97-5ed7-7ccffc9618f6">
+      <Execution id="670836ae-660d-4952-8485-41b31ef8b4b5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests" name="AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.DisabledAbsoluteXyzModelRejectsProjectDowngradeAndOldGridEightReplaysExactly" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4e379d0c-f4f5-25d3-a2e1-eb5944e8cdb6">
+      <Execution id="3953e0b8-b547-4b35-8752-f80338139702" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests" name="DisabledAbsoluteXyzModelRejectsProjectDowngradeAndOldGridEightReplaysExactly" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b594667c-0042-a85e-f18e-727bb8429f98" executionId="83595425-3ba3-407d-abc5-bdafa08c71a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7df5ea22-5d1f-0a97-5ed7-7ccffc9618f6" executionId="670836ae-660d-4952-8485-41b31ef8b4b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="641bc59c-ee72-b997-7bbc-51b5a5cf4473" executionId="67dd7473-81d3-4e7a-8f0a-7163e3b74059" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7290dca2-989f-e644-c4c0-0c641aca99c6" executionId="bfa17622-a1d6-4927-8391-3208005d5994" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e379d0c-f4f5-25d3-a2e1-eb5944e8cdb6" executionId="3953e0b8-b547-4b35-8752-f80338139702" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="92fe0de1-b40d-f71d-f139-38df04625728" executionId="b6e1a23a-4ef7-4110-825b-622ed3b77b61" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="33012615-29c9-a55b-c778-ad671363509d" executionId="cea9d3e9-3395-4cb8-b4e0-0b6603e85fae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4092b3c-a8e1-385f-fc3f-17dbc43d02f5" executionId="7db6c455-b2fa-4df8-b774-648fb87e1363" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb8f1c08-1aef-5c8c-e690-8ba8d168f937" executionId="03c2c33a-4d8a-4042-8ce5-a7575776967b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73916d24-2374-0fc4-6c11-5e6a700431c3" executionId="cc8c9616-49fc-4581-9c14-02ba4bad6992" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e856884-037c-8c23-ca4c-7357ab1c5eb4" executionId="8d00a062-be5b-4449-b438-ac9e876a59ab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3696582e-6b47-1f94-4c6d-578ad523fc5a" executionId="5d48cb53-09e8-439c-8313-3ee9ae3129d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="12" executed="12" passed="2" failed="10" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.42]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.38]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.42]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.51]       System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。&#xD;
+[xUnit.net 00:00:01.51]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs(47,0): at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(23,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson()&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(24,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs(40,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(Boolean transmission)&#xD;
+[xUnit.net 00:00:01.51]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.51]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.51]       System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。&#xD;
+[xUnit.net 00:00:01.51]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs(47,0): at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(23,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson()&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(24,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(68,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Boolean transmission, Boolean fixedAxes)&#xD;
+[xUnit.net 00:00:01.51]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.51]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.51]       System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。&#xD;
+[xUnit.net 00:00:01.51]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs(47,0): at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(23,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson()&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(24,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(68,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Boolean transmission, Boolean fixedAxes)&#xD;
+[xUnit.net 00:00:01.51]            at InvokeStub_XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.51]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.51]       System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。&#xD;
+[xUnit.net 00:00:01.51]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs(47,0): at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(23,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson()&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(24,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs(40,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(Boolean transmission)&#xD;
+[xUnit.net 00:00:01.51]            at InvokeStub_XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.51]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.51]       System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。&#xD;
+[xUnit.net 00:00:01.51]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs(47,0): at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(23,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson()&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(24,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(68,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Boolean transmission, Boolean fixedAxes)&#xD;
+[xUnit.net 00:00:01.51]            at InvokeStub_XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.51]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.51]       System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。&#xD;
+[xUnit.net 00:00:01.51]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs(47,0): at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(23,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson()&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(24,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.Read(Boolean transmission, Boolean fixedAxes)&#xD;
+[xUnit.net 00:00:01.51]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs(50,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.DisabledAbsoluteXyzModelRejectsProjectDowngradeAndOldGridEightReplaysExactly()&#xD;
+[xUnit.net 00:00:01.51]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.52]       System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。&#xD;
+[xUnit.net 00:00:01.52]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.52]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs(47,0): at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant)&#xD;
+[xUnit.net 00:00:01.52]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(23,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson()&#xD;
+[xUnit.net 00:00:01.52]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(51,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConditionsModelBoundsAndTrainingTargetsAreDigestBound()&#xD;
+[xUnit.net 00:00:01.52]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.52]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.53]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:01.53]       Expected: True&#xD;
+[xUnit.net 00:00:01.53]       Actual:   False&#xD;
+[xUnit.net 00:00:01.53]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.53]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(33,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.AnalyticPowerLawIsRecoveredAtUnseenAbsoluteInputsWithoutHeldOutTargets()&#xD;
+[xUnit.net 00:00:01.53]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.53]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.31]       System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。&#xD;
+[xUnit.net 00:00:02.31]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.31]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs(47,0): at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant)&#xD;
+[xUnit.net 00:00:02.31]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(23,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson()&#xD;
+[xUnit.net 00:00:02.31]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs(18,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(Boolean transmission)&#xD;
+[xUnit.net 00:00:02.31]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:02.48]       System.IO.InvalidDataException : XYZ 校准尚未通过独立留出验证或测量条件未核实，不能导出为可计算校准。&#xD;
+[xUnit.net 00:00:02.49]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.49]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Scattering\XyzRadiometricCalibrator.cs(47,0): at OpticalSystemDesign.Core.Scattering.XyzRadiometricFitResult.CreateCalibration(String name, String observer, String illuminant)&#xD;
+[xUnit.net 00:00:02.49]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfTests.cs(23,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.CalibrationJson()&#xD;
+[xUnit.net 00:00:02.49]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\XyzAbsoluteRbfChainTests.cs(18,0): at OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(Boolean transmission)&#xD;
+[xUnit.net 00:00:02.49]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:02.49]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:41.9826256+08:00">
+        <Text>[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:41.9846589+08:00">
+        <Text>[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:41.9858666+08:00">
+        <Text>[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: False, fixedAxes: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:41.9860993+08:00">
+        <Text>[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzProtocolSurvivesRayDatabaseAndConservesPower(transmission: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:41.9871544+08:00">
+        <Text>[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConvertedAbsoluteKnotsConserveActualPowerAndSampleTheSameDensity(transmission: True, fixedAxes: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:41.9885583+08:00">
+        <Text>[xUnit.net 00:00:01.51]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.DisabledAbsoluteXyzModelRejectsProjectDowngradeAndOldGridEightReplaysExactly [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:41.9933960+08:00">
+        <Text>[xUnit.net 00:00:01.52]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.ConditionsModelBoundsAndTrainingTargetsAreDigestBound [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:42.0090969+08:00">
+        <Text>[xUnit.net 00:00:01.53]     OpticalSystemDesign.Tests.XyzAbsoluteRbfTests.AnalyticPowerLawIsRecoveredAtUnseenAbsoluteInputsWithoutHeldOutTargets [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:42.7879615+08:00">
+        <Text>[xUnit.net 00:00:02.31]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T18:24:42.9591090+08:00">
+        <Text>[xUnit.net 00:00:02.48]     OpticalSystemDesign.Tests.XyzAbsoluteRbfChainTests.AbsoluteXyzModelFeedsOnePhotonConversionAndReplaysWithoutSources(transmission: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

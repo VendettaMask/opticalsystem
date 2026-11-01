@@ -69,6 +69,7 @@ public sealed class FixedTopologyObjective
     public TopologyObjectiveEvaluation Evaluate(IReadOnlyList<double> coordinates, DesignComputeMode computeMode = DesignComputeMode.Cpu,
         bool includeJacobian = false, CancellationToken cancellationToken = default, bool includeConstraintTangents = false)
     {
+        using var timing = SearchPerformanceMeasurement.Measure("objective.total");
         using var measurement = SequentialTraceMeasurement.Begin();
         long probes = 0;
         SequentialGpuSession? session = null;
@@ -79,13 +80,16 @@ public sealed class FixedTopologyObjective
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
-            compiled = TopologyParameterBinder.Apply(_source, _binding, coordinates);
+            using (SearchPerformanceMeasurement.Measure("objective.bind"))
+                compiled = TopologyParameterBinder.Apply(_source, _binding, coordinates);
             var optic = compiled.CreateOptic();
             session = new SequentialGpuSession(computeMode, cancellationToken);
-            optical = DifferentiableOpticalMetrics.EvaluateAtFields(optic, _binding.CoreParameters,
+            using (SearchPerformanceMeasurement.Measure("objective.integration"))
+                optical = DifferentiableOpticalMetrics.EvaluateAtFields(optic, _binding.CoreParameters,
                 Fields.Select(field => (field.X, field.Y)).ToArray(), _pupils, cancellationToken, computeMode, usePhysicalStop: true);
             if (_boundaryPupils.Length > 0)
-                boundary = DifferentiableOpticalMetrics.EvaluateAtFields(optic, _binding.CoreParameters,
+                using (SearchPerformanceMeasurement.Measure("objective.boundary"))
+                    boundary = DifferentiableOpticalMetrics.EvaluateAtFields(optic, _binding.CoreParameters,
                     Fields.Select(field => (field.X, field.Y)).ToArray(), _boundaryPupils, cancellationToken, computeMode, usePhysicalStop: true);
             var power = optical.OpticalPowerPerMillimeter;
             var residuals = new List<DifferentialScalar>
@@ -95,14 +99,16 @@ public sealed class FixedTopologyObjective
             };
             var constraints = new List<(int Row, DifferentialScalar Value)>();
             if (includeConstraintTangents) { constraints.Add((0, residuals[0])); constraints.Add((1, residuals[1])); }
-            foreach (var row in _geometry)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                probes++;
-                var value = TopologyEvaluationPlan.Measure(optic, _binding.CoreParameters, row);
-                if (includeConstraintTangents) constraints.Add((residuals.Count, (row.Upper ? value - row.Limit : row.Limit - value) / (row.Slope ? 1 : .01)));
-                residuals.Add(PositivePart(row.Upper ? value - row.Limit : row.Limit - value) / (row.Slope ? 1 : .01));
-            }
+            var geometry = new DifferentiableGeometryWorkspace(optic, _binding.CoreParameters, cancellationToken);
+            using (SearchPerformanceMeasurement.Measure("objective.geometry"))
+                foreach (var row in _geometry)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    probes++;
+                    var value = TopologyEvaluationPlan.Measure(geometry, row);
+                    if (includeConstraintTangents) constraints.Add((residuals.Count, (row.Upper ? value - row.Limit : row.Limit - value) / (row.Slope ? 1 : .01)));
+                    residuals.Add(PositivePart(row.Upper ? value - row.Limit : row.Limit - value) / (row.Slope ? 1 : .01));
+                }
             for (var fieldIndex = 0; fieldIndex < optical.Fields.Count; fieldIndex++)
             {
                 var field = optical.Fields[fieldIndex];

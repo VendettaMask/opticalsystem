@@ -1,0 +1,149 @@
+{
+  "scope": "Actual frozen source identities; concurrent non-sequential, scattering and serialization edits are preserved, not claimed to be part of the performance change.",
+  "changes": [
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FixedTopologyObjective.cs",
+      "baseline": "5314ee31ea664e7f1b06a0d48a15fb2f7f379adbe657bb34c03ca3a105c4408f",
+      "candidate": "32ec7995a4560902102561a75dac5221172c161dea3e7a1ddc8462539c5fd805",
+      "current": "32ec7995a4560902102561a75dac5221172c161dea3e7a1ddc8462539c5fd805"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/SearchPerformanceMeasurement.cs",
+      "baseline": "1673b4f56143fc19dd18452c21167bfb3af930bfd7e5daf4517e81d06abf5c2e",
+      "candidate": "e974a718a3fd056ee4ce5549105320cfd3ff7b15a019061e02f7c26cb2f24e66",
+      "current": "e974a718a3fd056ee4ce5549105320cfd3ff7b15a019061e02f7c26cb2f24e66"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyEvaluationPlan.cs",
+      "baseline": "84976ca3d339ce2f74412e37b3282c18951bcfc808a18198c7322f6321dd71d3",
+      "candidate": "34c965031886e0878db6f01ade02e1e90f4a6c67fe3545994cd4e99322e5d59a",
+      "current": "34c965031886e0878db6f01ade02e1e90f4a6c67fe3545994cd4e99322e5d59a"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyGateCompensation.Constrained.cs",
+      "baseline": "d5777b67f21d81317caf0a30a920d13a1a0bd010388739f77f15c0756ae49cda",
+      "candidate": "0d05d221c0b95a62305943c8456b603cf994ea7454983355ca2a0c631bd81b5a",
+      "current": "0d05d221c0b95a62305943c8456b603cf994ea7454983355ca2a0c631bd81b5a"
+    },
+    {
+      "path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyGateCompensation.cs",
+      "baseline": "519ea11336d0e43e8b824c840eeaa1fa92388322e64e014595f307a650773bfb",
+      "candidate": "3417808bddeb73832a71234e749eb2984a8388f2c0c8265d9926d051e3063f1a",
+      "current": "3417808bddeb73832a71234e749eb2984a8388f2c0c8265d9926d051e3063f1a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Differentiation/DifferentiableGeometryWorkspace.cs",
+      "baseline": null,
+      "candidate": "27281ad963d5395ae6633c521adcceb18c3adc746d66c0c54223ca38e68f962b",
+      "current": "27281ad963d5395ae6633c521adcceb18c3adc746d66c0c54223ca38e68f962b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Differentiation/DifferentiableOpticalMetrics.cs",
+      "baseline": "6fa6b5d55694d7233e714b710bcba5910c1411a346432ca7bdd4c694c12f873b",
+      "candidate": "5819af7f67ecb0abe7cd599f97f6659af5ec43d8cac4c84be579fbfd8cc90b84",
+      "current": "5819af7f67ecb0abe7cd599f97f6659af5ec43d8cac4c84be579fbfd8cc90b84"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Differentiation/DifferentialScalar.cs",
+      "baseline": "ea91435cd9c171e5d09b7987a8ed6d682b2c228b88a99c1a1f90ce1f9d392aba",
+      "candidate": "cef3d51ec13326c1d5c06cc374ab83346154b96b21865a4c158f3b4f948731e9",
+      "current": "cef3d51ec13326c1d5c06cc374ab83346154b96b21865a4c158f3b4f948731e9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Differentiation/OpticalDifferentialContext.cs",
+      "baseline": "56fc6b46a90332b88103f2b2d500fa6ad56da4441cb6dd33d243c8ae27a6736d",
+      "candidate": "15324342006e23d90a5e779e8f363e06c0919441de22ce963d1e61cc0ea6ac70",
+      "current": "15324342006e23d90a5e779e8f363e06c0919441de22ce963d1e61cc0ea6ac70"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "baseline": "0c6f4801fb26e78ecfa33f3e7695f260351dded5187b20547c3365001f75517c",
+      "candidate": "30059bc5e18d8da0c7ec8e91271915853b27856674168ba089e0c0b8aa834115",
+      "current": "30059bc5e18d8da0c7ec8e91271915853b27856674168ba089e0c0b8aa834115"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialSurfaceBsdf.cs",
+      "baseline": "22305bd918b8d98708cef15f97b67a2efc3e8b35eea0ddc6cb1dbd48fd443862",
+      "candidate": "d167efb6782c6cce6dd4878c1699c50b34997118d41d776d947050d889b43403",
+      "current": "d167efb6782c6cce6dd4878c1699c50b34997118d41d776d947050d889b43403"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Scattering/GamutXyzBsdfDistribution.cs",
+      "baseline": "9f469ff9eddd8076fddaa41ca5e645c6c2d29fd6af124b667e5c6cfd5fc7f3e5",
+      "candidate": "a1295e2f561f719e837241515190cfbe73ac97ae4045546f925a6c4b108a8fd0",
+      "current": "a1295e2f561f719e837241515190cfbe73ac97ae4045546f925a6c4b108a8fd0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Scattering/MeasuredBsdfData.cs",
+      "baseline": "23038070cff2853ac42d3e53b86af22913f01c673ccb78171e1d42b9c00a3e9c",
+      "candidate": "c796ac44766eb13e4bd5b19606b30a358d7db1d804f752b24e8134e5dc931f78",
+      "current": "c796ac44766eb13e4bd5b19606b30a358d7db1d804f752b24e8134e5dc931f78"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Scattering/XyzPositiveColorCalibrator.cs",
+      "baseline": null,
+      "candidate": "a165fa067986ce612da7236f782067cb9d170640a1f794e4931cf413362d8fc1",
+      "current": "a165fa067986ce612da7236f782067cb9d170640a1f794e4931cf413362d8fc1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Scattering/XyzPositiveColorModel.cs",
+      "baseline": null,
+      "candidate": "f551f7d67f4b2fbd68917ce0802ef99cc483a787e312532dd134a260835c8cce",
+      "current": "f551f7d67f4b2fbd68917ce0802ef99cc483a787e312532dd134a260835c8cce"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Scattering/XyzRadiometricCalibrator.cs",
+      "baseline": "1b35314d2d0ed52b0d8bb08875aa9573e8de9b0a7c4568eadc53344e42257588",
+      "candidate": "e312cb8ab788100a35afe4e6977a2ac52a815621b0eb228556fbf1c355dd20a7",
+      "current": "e312cb8ab788100a35afe4e6977a2ac52a815621b0eb228556fbf1c355dd20a7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Scattering/XyzSpectralProjection.cs",
+      "baseline": null,
+      "candidate": "0b8686fdae7e98fa914cad3145378a0466362334bbbd867322f72dbd73a49122",
+      "current": "0b8686fdae7e98fa914cad3145378a0466362334bbbd867322f72dbd73a49122"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Scattering/ZemaxBsdf.cs",
+      "baseline": "b96f5aeaaebd6ec4a0e391fa7d17ce73c8cfba32a7d75263e802be13000713a9",
+      "candidate": "46de8bcce9a50af9f288c5d189d3edc991e6c0fd31a7ddc796139273072c19b8",
+      "current": "46de8bcce9a50af9f288c5d189d3edc991e6c0fd31a7ddc796139273072c19b8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Scattering/ZemaxBsdfReader.cs",
+      "baseline": "fb424deebca23365e86f41d42dda8a329ce0b694146765408b521a1a1fc709d1",
+      "candidate": "2afb7f06b3960eff9261e48b2c4eef84dee96b850054c34cf3056c83eaa6582e",
+      "current": "2afb7f06b3960eff9261e48b2c4eef84dee96b850054c34cf3056c83eaa6582e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Scattering/ZemaxXyzBsdf.cs",
+      "baseline": "18d86aa91c54d300ed9db68d9e5b009bd0052ce6b153419dac9309e53abfe98a",
+      "candidate": "c88be1c2b6f78da52845390a3bae9df54e8531db07a707b6889731e67059c702",
+      "current": "c88be1c2b6f78da52845390a3bae9df54e8531db07a707b6889731e67059c702"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "baseline": "165f16150f2d15fb132a2ecb81e6c8fc4a7c90330107be08661a0b0a793459e5",
+      "candidate": "a93f41eb3d19d73fb526405d8e92e8a21235b40e171b4e0ac36a63e0925d5f9e",
+      "current": "a93f41eb3d19d73fb526405d8e92e8a21235b40e171b4e0ac36a63e0925d5f9e"
+    },
+    {
+      "path": "tools/diagnostics/InitialPerformance20261101/finish-baseline.ps1",
+      "baseline": null,
+      "candidate": "7f566d51ca76c5c775634c76bbbd0a97463596e964f71ec92f141cbf9fea0f66",
+      "current": "7f566d51ca76c5c775634c76bbbd0a97463596e964f71ec92f141cbf9fea0f66"
+    },
+    {
+      "path": "tools/diagnostics/InitialPerformance20261101/freeze.py",
+      "baseline": "d46bd9bf3478a7ada59800d1eab8b9cadc9ff4fa460a2b941b3b849d61f121d6",
+      "candidate": "d2762eefe4785a28bc48e710ce241ccd151ade9b1e01c7525b080b73792c6620",
+      "current": "d2762eefe4785a28bc48e710ce241ccd151ade9b1e01c7525b080b73792c6620"
+    },
+    {
+      "path": "tools/diagnostics/InitialPerformance20261101/run-arm.ps1",
+      "baseline": "5ba6e6cddf3594491a7c06e9ad527070319d322df1a01939a50e0348d5d8fd37",
+      "candidate": "dd436cecb2b5abddfc13753abd14a54e6ac0ed4ea18d051f872a41144325efd9",
+      "current": "dd436cecb2b5abddfc13753abd14a54e6ac0ed4ea18d051f872a41144325efd9"
+    }
+  ]
+}

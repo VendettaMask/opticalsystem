@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1fcfb7e4-8267-485e-b3ce-0199d5478600" name="allen@DESKTOP-SET3SNR 2026-10-31 18:49:15" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T18:49:15.7642921+08:00" queuing="2026-10-31T18:49:15.7642936+08:00" start="2026-10-31T18:49:13.8414262+08:00" finish="2026-10-31T18:49:19.9818707+08:00" />
+  <TestSettings name="default" id="2b785ec8-66ee-4b8f-991b-195d169b01ab">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_18_49_15" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b258d4f3-1545-4ea8-a0bb-89c3b54f77b8" testId="078d4fc4-919e-19ad-8f6c-e3f7e846d470" testName="ColdEntryTests.AutomaticCancellationIsSavedWithoutStartingTheMainSearch" computerName="DESKTOP-SET3SNR" duration="00:00:00.4483955" startTime="2026-10-31T18:49:14.4600255+08:00" endTime="2026-10-31T18:49:14.9166947+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b258d4f3-1545-4ea8-a0bb-89c3b54f77b8" />
+    <UnitTestResult executionId="4a13ed38-b68c-4b15-a93f-89b64c26e14d" testId="dcd84287-f3a9-f2ed-623e-5ddd53c8a945" testName="ColdEntryTests.AutomaticFailureSavesColdEvidenceAndDoesNotCreateAnAutonomousRun" computerName="DESKTOP-SET3SNR" duration="00:00:00.0059783" startTime="2026-10-31T18:49:19.9068417+08:00" endTime="2026-10-31T18:49:19.9129335+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a13ed38-b68c-4b15-a93f-89b64c26e14d" />
+    <UnitTestResult executionId="662c9f8b-9033-41eb-903a-ea7ed217fc5b" testId="ee22b41f-fd12-1130-33ef-b255e18c753c" testName="ColdEntryTests.FunctionBudgetIncludesFreshConstructionAndRetainsAttemptedWork" computerName="DESKTOP-SET3SNR" duration="00:00:00.6159668" startTime="2026-10-31T18:49:14.9261266+08:00" endTime="2026-10-31T18:49:15.5343073+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="662c9f8b-9033-41eb-903a-ea7ed217fc5b" />
+    <UnitTestResult executionId="d40f52cb-9f70-4740-83b5-5a22a544fcfe" testId="71ded33a-6ada-e7f9-7bb2-ea5e02d62783" testName="ColdEntryTests.PreparationStrategiesCannotBeCombined" computerName="DESKTOP-SET3SNR" duration="00:00:00.0010852" startTime="2026-10-31T18:49:19.8303449+08:00" endTime="2026-10-31T18:49:19.8304401+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d40f52cb-9f70-4740-83b5-5a22a544fcfe" />
+    <UnitTestResult executionId="108ec403-24da-4c6a-9730-ad748d557164" testId="d1e278d5-2552-81b6-dd05-d1be2ef7a524" testName="ColdEntryTests.ConflictingStopDispatchesColdModeAndNeverReturnsAnOldSeed" computerName="DESKTOP-SET3SNR" duration="00:00:00.0030089" startTime="2026-10-31T18:49:15.5350003+08:00" endTime="2026-10-31T18:49:15.5373375+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="108ec403-24da-4c6a-9730-ad748d557164" />
+    <UnitTestResult executionId="e211395a-5be3-4010-b739-318d23f52a3b" testId="63df4f57-6412-0a00-3814-1a584296d455" testName="ColdEntryTests.OldFrozenColdResultChecksumSurvivesNullableEntryFields" computerName="DESKTOP-SET3SNR" duration="00:00:00.0763628" startTime="2026-10-31T18:49:19.8306042+08:00" endTime="2026-10-31T18:49:19.9065205+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e211395a-5be3-4010-b739-318d23f52a3b" />
+    <UnitTestResult executionId="ed8732ae-d28b-4d15-92ee-9f9fec857c0e" testId="83f0f883-608c-2777-a57f-848d7f8052e4" testName="ColdEntryTests.QualifiedSyntheticControlHandsOffFreshSeedAndResumeDoesNotRepeatPreparation" computerName="DESKTOP-SET3SNR" duration="00:00:04.2908764" startTime="2026-10-31T18:49:15.5374795+08:00" endTime="2026-10-31T18:49:19.8286617+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ed8732ae-d28b-4d15-92ee-9f9fec857c0e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ColdEntryTests.OldFrozenColdResultChecksumSurvivesNullableEntryFields" storage="d:\projects\opticalsystem\tools\diagnostics\f8coldentrytests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="63df4f57-6412-0a00-3814-1a584296d455">
+      <Execution id="e211395a-5be3-4010-b739-318d23f52a3b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\F8ColdEntryTests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ColdEntryTests" name="OldFrozenColdResultChecksumSurvivesNullableEntryFields" />
+    </UnitTest>
+    <UnitTest name="ColdEntryTests.AutomaticFailureSavesColdEvidenceAndDoesNotCreateAnAutonomousRun" storage="d:\projects\opticalsystem\tools\diagnostics\f8coldentrytests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="dcd84287-f3a9-f2ed-623e-5ddd53c8a945">
+      <Execution id="4a13ed38-b68c-4b15-a93f-89b64c26e14d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\F8ColdEntryTests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ColdEntryTests" name="AutomaticFailureSavesColdEvidenceAndDoesNotCreateAnAutonomousRun" />
+    </UnitTest>
+    <UnitTest name="ColdEntryTests.ConflictingStopDispatchesColdModeAndNeverReturnsAnOldSeed" storage="d:\projects\opticalsystem\tools\diagnostics\f8coldentrytests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="d1e278d5-2552-81b6-dd05-d1be2ef7a524">
+      <Execution id="108ec403-24da-4c6a-9730-ad748d557164" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\F8ColdEntryTests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ColdEntryTests" name="ConflictingStopDispatchesColdModeAndNeverReturnsAnOldSeed" />
+    </UnitTest>
+    <UnitTest name="ColdEntryTests.PreparationStrategiesCannotBeCombined" storage="d:\projects\opticalsystem\tools\diagnostics\f8coldentrytests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="71ded33a-6ada-e7f9-7bb2-ea5e02d62783">
+      <Execution id="d40f52cb-9f70-4740-83b5-5a22a544fcfe" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\F8ColdEntryTests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ColdEntryTests" name="PreparationStrategiesCannotBeCombined" />
+    </UnitTest>
+    <UnitTest name="ColdEntryTests.QualifiedSyntheticControlHandsOffFreshSeedAndResumeDoesNotRepeatPreparation" storage="d:\projects\opticalsystem\tools\diagnostics\f8coldentrytests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="83f0f883-608c-2777-a57f-848d7f8052e4">
+      <Execution id="ed8732ae-d28b-4d15-92ee-9f9fec857c0e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\F8ColdEntryTests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ColdEntryTests" name="QualifiedSyntheticControlHandsOffFreshSeedAndResumeDoesNotRepeatPreparation" />
+    </UnitTest>
+    <UnitTest name="ColdEntryTests.AutomaticCancellationIsSavedWithoutStartingTheMainSearch" storage="d:\projects\opticalsystem\tools\diagnostics\f8coldentrytests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="078d4fc4-919e-19ad-8f6c-e3f7e846d470">
+      <Execution id="b258d4f3-1545-4ea8-a0bb-89c3b54f77b8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\F8ColdEntryTests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ColdEntryTests" name="AutomaticCancellationIsSavedWithoutStartingTheMainSearch" />
+    </UnitTest>
+    <UnitTest name="ColdEntryTests.FunctionBudgetIncludesFreshConstructionAndRetainsAttemptedWork" storage="d:\projects\opticalsystem\tools\diagnostics\f8coldentrytests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="ee22b41f-fd12-1130-33ef-b255e18c753c">
+      <Execution id="662c9f8b-9033-41eb-903a-ea7ed217fc5b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\F8ColdEntryTests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ColdEntryTests" name="FunctionBudgetIncludesFreshConstructionAndRetainsAttemptedWork" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="078d4fc4-919e-19ad-8f6c-e3f7e846d470" executionId="b258d4f3-1545-4ea8-a0bb-89c3b54f77b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dcd84287-f3a9-f2ed-623e-5ddd53c8a945" executionId="4a13ed38-b68c-4b15-a93f-89b64c26e14d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ee22b41f-fd12-1130-33ef-b255e18c753c" executionId="662c9f8b-9033-41eb-903a-ea7ed217fc5b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="71ded33a-6ada-e7f9-7bb2-ea5e02d62783" executionId="d40f52cb-9f70-4740-83b5-5a22a544fcfe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d1e278d5-2552-81b6-dd05-d1be2ef7a524" executionId="108ec403-24da-4c6a-9730-ad748d557164" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="63df4f57-6412-0a00-3814-1a584296d455" executionId="e211395a-5be3-4010-b739-318d23f52a3b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="83f0f883-608c-2777-a57f-848d7f8052e4" executionId="ed8732ae-d28b-4d15-92ee-9f9fec857c0e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="7" executed="7" passed="7" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.15]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.18]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.20]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:05.68]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

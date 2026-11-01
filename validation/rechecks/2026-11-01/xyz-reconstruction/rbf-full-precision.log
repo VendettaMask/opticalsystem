@@ -1,0 +1,5 @@
+acryl_blue [{'Configuration': 'colour_strength', 'Nrmse': 0.027332846432187027, 'Maximum': 0.0008307278177928437}, {'Configuration': 'log_xyz', 'Nrmse': 0.8630042088712432, 'Maximum': 0.023979039663450115}]
+mystique [{'Configuration': 'colour_strength', 'Nrmse': 0.00973897192819729, 'Maximum': 0.00158706014023512}, {'Configuration': 'log_xyz', 'Nrmse': 0.13923005936711078, 'Maximum': 0.043807390955469816}]
+D:\Projects\opticalsystem\validation\rechecks\2026-11-01\xyz-reconstruction\rbf_full_precision.py:18: RuntimeWarning: invalid value encountered in divide
+  for fn,xx,k,smooth in [('colour_strength',np.c_[x[:,0]/s,x[:,1]/s,np.log(s+1e-12)],96,.01),('log_xyz',np.log(x+1e-12),192,.0001)]:
+cayman [{'Configuration': 'colour_strength', 'Nrmse': 0.01365775818764432, 'Maximum': 0.002387977773805422}, {'Configuration': 'log_xyz', 'Nrmse': 0.009662975758390964, 'Maximum': 0.0006814302185585153}]

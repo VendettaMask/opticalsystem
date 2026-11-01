@@ -1,0 +1,8 @@
+Unhandled exception. System.IO.FileNotFoundException: Could not find file 'D:\Projects\opticalsystem\validation\rechecks\2026-11-01\initial-performance\protocol.json'.
+File name: 'D:\Projects\opticalsystem\validation\rechecks\2026-11-01\initial-performance\protocol.json'
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.File.OpenHandle(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.File.ReadAllBytesAsync(String path, CancellationToken cancellationToken)
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\tools\diagnostics\InitialPerformanceAudit20261101\Program.cs:line 29
+   at Program.<Main>(String[] args)

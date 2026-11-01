@@ -50,9 +50,16 @@ public sealed class SequentialExampleTests
             Assert.Equal("ribbon-menu-examples", AutomationProperties.GetAutomationId(button));
             var flyout = Assert.IsType<MenuFlyout>(button.Flyout);
             Assert.Equal(14, flyout.Items.Count);
+            Assert.Equal(new[]
+            {
+                "无焦系统", "双折射棱镜", "衍射元件", "梯度折射率系统", "图像模拟", "光学互连", "制造",
+                "其他系统", "物镜", "光学检测", "偏振", "望远镜", "倾斜系统与棱镜", "变焦与扫描"
+            }, flyout.Items.Cast<MenuItem>().Select(category => Assert.IsType<string>(category.Header)));
             foreach (var (category, group) in flyout.Items.Cast<MenuItem>().Zip(SequentialExampleCatalog.Groups))
             {
-                Assert.Equal(group.Name, category.Header);
+                Assert.Equal(group.DisplayName, category.Header);
+                Assert.Equal(group.DisplayName, AutomationProperties.GetName(category));
+                Assert.Equal(group.Name, UiLocalization.Text(group.DisplayName, UiLocalization.English));
                 Assert.Equal(group.Examples.Count, category.Items.Count);
                 foreach (var (item, example) in category.Items.Cast<MenuItem>().Zip(group.Examples))
                 {

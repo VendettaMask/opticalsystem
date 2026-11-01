@@ -36,6 +36,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
     private readonly string _name;
     private readonly bool _defaultSquareViewport;
     private readonly ExitPupilGeometryMode _exitPupilGeometry;
+    private readonly bool _sampleProjectedExitPupil;
 
     public WavefrontAnalysis(
         Optic optic,
@@ -57,7 +58,8 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         double pupilSr = 1,
         string name = "Wavefront",
         bool defaultSquareViewport = false,
-        ExitPupilGeometryMode exitPupilGeometry = ExitPupilGeometryMode.WorkingFNumber) : base(optic)
+        ExitPupilGeometryMode exitPupilGeometry = ExitPupilGeometryMode.WorkingFNumber,
+        bool sampleProjectedExitPupil = false) : base(optic)
     {
         if (numRings is < 2 or > Raytrace.ApertureSampler.MaximumHexapolarRings)
         {
@@ -88,6 +90,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         _defaultSquareViewport = defaultSquareViewport;
         if (!Enum.IsDefined(exitPupilGeometry)) throw new ArgumentOutOfRangeException(nameof(exitPupilGeometry));
         _exitPupilGeometry = exitPupilGeometry;
+        _sampleProjectedExitPupil = sampleProjectedExitPupil;
     }
 
     public override string Name => _name;
@@ -107,15 +110,19 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         var field = _fieldNumber > 0
             ? fields[Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, fields.Count - 1))]
             : fields.LastOrDefault();
+        var geometricShape = _useExitPupilShape && _exitPupilGeometry == ExitPupilGeometryMode.GeometricStopImage;
+        var displayAxes = _useExitPupilShape && !geometricShape && !Optic.ImageSpaceAfocal
+            ? DiffractionEngine.WorkingFNumbers(Optic, field, wavelength, Optic.RayAimingEnabled)
+            : (Tangential: 1d, Sagittal: 1d);
+        var displayScaleX = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Sagittal;
+        var displayScaleY = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Tangential;
+        var projectedGrid = _sampleProjectedExitPupil && _pupilSampling.HasValue
+            && _useExitPupilShape && !geometricShape && !Optic.ImageSpaceAfocal;
         var wavefront = _pupilSampling.HasValue
-            ? WavefrontEngine.GenerateChiefRayUniform(
-                Optic,
-                field,
-                wavelength,
-                _pupilSampling.Value,
-                // Pupil shape is a presentation option, not a ray-launch setting.
-                aimAtStop: Optic.RayAimingEnabled,
-                zemaxCentered: true)
+            ? WavefrontEngine.GenerateChiefRayGrid(Optic, field, wavelength,
+                new PupilGridSpecification(_pupilSampling.Value, false, true, projectedGrid ? 1 / displayScaleX : 1)
+                { StretchY = projectedGrid ? 1 / displayScaleY : 1 },
+                Optic.RayAimingEnabled, null, null)
             : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings,
                 aimAtStop: Optic.RayAimingEnabled);
         var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
@@ -127,20 +134,12 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         var mean = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Average();
         var minimum = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Min();
         var maximum = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Max();
-        // Display-only approximate image-side pupil aspect. OPD, masks, sample
-        // coordinates and aiming retain the original physical sampling contract.
-        var geometricShape = _useExitPupilShape && _exitPupilGeometry == ExitPupilGeometryMode.GeometricStopImage;
-        var displayAxes = _useExitPupilShape && !geometricShape && !wavefront.ImageSpaceAfocal
-            ? DiffractionEngine.WorkingFNumbers(Optic, field, wavelength, Optic.RayAimingEnabled)
-            : (Tangential: 1d, Sagittal: 1d);
-        var displayScaleX = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Sagittal;
-        var displayScaleY = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Tangential;
         var sampling = _pupilSampling ?? _mapSize;
         var displayOffset = _pupilSampling.HasValue ? minimum : 0;
         var mapPoints = (_pupilSampling.HasValue
                 ? valid.Select(sample => new AnalysisPoint(
-                    sample.NormalizedPupilX,
-                    sample.NormalizedPupilY,
+                    sample.NormalizedPupilX * (projectedGrid ? displayScaleX : 1),
+                    sample.NormalizedPupilY * (projectedGrid ? displayScaleY : 1),
                     Value: sample.OpdWaves))
                 : BuildWavefrontMap(valid, sampling))
             .Select(point => point with
@@ -202,9 +201,11 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ["ExitPupilGeometryMaximumFitResidualMillimeters"] = geometry?.MaximumFitResidualMillimeters ?? 0,
             ["ExitPupilDisplayScaleX"] = displayScaleX,
             ["ExitPupilDisplayScaleY"] = displayScaleY,
+            ["ProjectedExitPupilGrid"] = projectedGrid,
             ["ExitPupilDisplayModel"] = !_useExitPupilShape ? "Normalized entrance pupil"
                 : geometricShape ? "Traced 3-D geometric stop-image pencil; least-squares conjugates, OPD color only"
                 : wavefront.ImageSpaceAfocal ? "Normalized afocal pupil; focal F-number projection not applicable"
+                : projectedGrid ? "X/Y working-F-number projection; fixed output grid traced through the inverse pupil projection"
                 : "Approximate X/Y working-F-number projection; display only",
             ["ExitPupilWorkingFNumberX"] = _useExitPupilShape && !geometricShape && !wavefront.ImageSpaceAfocal ? displayAxes.Sagittal : "Not evaluated",
             ["ExitPupilWorkingFNumberY"] = _useExitPupilShape && !geometricShape && !wavefront.ImageSpaceAfocal ? displayAxes.Tangential : "Not evaluated",
@@ -233,8 +234,8 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             YMinimum: _pupilSy - _pupilSr,
             YMaximum: _pupilSy + _pupilSr,
             DefaultSquareViewport: _defaultSquareViewport,
-            SpatialDisplayScaleX: displayScaleX,
-            SpatialDisplayScaleY: displayScaleY,
+            SpatialDisplayScaleX: projectedGrid ? 1 : displayScaleX,
+            SpatialDisplayScaleY: projectedGrid ? 1 : displayScaleY,
             SpatialGeometry: spatial));
     }
 

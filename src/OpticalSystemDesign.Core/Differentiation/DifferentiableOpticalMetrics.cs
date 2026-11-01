@@ -32,7 +32,7 @@ public sealed record DifferentiableOpticalResult(DifferentialScalar OpticalPower
 /// Differentiates shared Core's centered, infinite-conjugate, refractive design path.
 /// This is a training diagnostic: unclipped coordinates never certify physical throughput.
 /// </summary>
-public static class DifferentiableOpticalMetrics
+public static partial class DifferentiableOpticalMetrics
 {
     /// <summary>Maximum over integration and independent check rays about the integration centroid.
     /// Check rays never change its area integral. Unclipped design rays do not certify physical throughput.</summary>
@@ -98,7 +98,8 @@ public static class DifferentiableOpticalMetrics
     }
 
     private static DifferentiableOpticalResult EvaluateCore(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters,
-        IReadOnlyList<(double X, double Y)> normalizedFields, IReadOnlyList<PupilSample> pupils, CancellationToken cancellationToken, bool gpu, bool usePhysicalStop)
+        IReadOnlyList<(double X, double Y)> normalizedFields, IReadOnlyList<PupilSample> pupils, CancellationToken cancellationToken, bool gpu, bool usePhysicalStop,
+        int continuationFirst = -1, int continuationLast = -1)
     {
         ArgumentNullException.ThrowIfNull(parameters);
         ArgumentNullException.ThrowIfNull(normalizedFields);
@@ -197,7 +198,8 @@ public static class DifferentiableOpticalMetrics
             SequentialGpuSample[]? nominal, int offset)
         {
             if (batch is null)
-                complete(optic.SequentialRayTracer.TraceDesignSensitivity(source, context, stopIndex, targetX, targetY, cancellationToken));
+                complete(optic.SequentialRayTracer.TraceDesignSensitivity(source, context, stopIndex, targetX, targetY, cancellationToken,
+                    virtualFirst: continuationFirst, virtualLast: continuationLast));
             else
             {
                 var tape = DifferentialTape.Rent(parameters.Count);
@@ -241,7 +243,7 @@ public static class DifferentiableOpticalMetrics
         return 2 * radius * new OpticalDifferentialContext(optic, parameters).Profile(surfaceIndex, radius, 0, relaxedDomain).RadialSlope;
     }
 
-    private static bool InsideProfile(Optic optic, int surfaceIndex, double radius)
+    internal static bool InsideProfile(Optic optic, int surfaceIndex, double radius)
     {
         var surface = optic.SurfaceGroup.Items[surfaceIndex];
         var profile = OpticalDesignParameters.Profile(surface.Geometry);

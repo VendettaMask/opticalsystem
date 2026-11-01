@@ -10,7 +10,6 @@ namespace OpticalSystemDesign.App.Laboratories.InitialStructure;
 
 public sealed partial class AutonomousTopologyWindow
 {
-    private CancellationTokenSource? _seedCancellation;
     private ParaxialSeedSearchResult? _seedResult;
     private string? _seedReportPath;
     private readonly TextBlock _seedSummary = Named(Text("一阶准备使用独立额度，不代表完整光学验收通过"), "AutonomousSeedSummary");
@@ -21,12 +20,39 @@ public sealed partial class AutonomousTopologyWindow
         ResetSeedSummary();
     }
 
-    private void ResetSeedSummary() { _seedResult = null; _seedReportPath = null; RefreshSeedSummary(); }
+    private void ResetSeedSummary() { _seedResult = null; _seedReportPath = null; _preparedEvidence = null; RefreshSeedSummary(); }
 
     private void RefreshSeedSummary()
     {
         _seedSummary.Text = UiLocalization.Text("一阶准备使用独立额度，不代表完整光学验收通过");
         if (_seedResult is not { } result) return;
+        if (result.Spc is { } spc)
+        {
+            _seedSummary.Text = UiLocalization.Text(result.Seeds.IsEmpty ? "SPC未得到预算内合格起点" : "SPC准备原规格验收通过")
+                + $" · {UiLocalization.Text("父方案 / 双分支 / 工作起点")} {spc.Parents.Length} / {spc.Branches.Length} / {result.Seeds.Length}\n"
+                + $"{UiLocalization.Text("评价")} {spc.Work.FunctionEvaluations}/{result.Options.MaximumFunctionEvaluations} · "
+                + $"{UiLocalization.Text("梯度")} {spc.Work.GradientEvaluations}/{result.Options.Spc!.MaximumGradientEvaluations} · "
+                + $"{UiLocalization.Text("追迹")} {spc.Work.TracedRays}/{result.Options.MaximumTracedRays} · {spc.Work.Elapsed.TotalSeconds:F1}/{result.Options.TimeLimit.TotalSeconds:F1}s\n"
+                + ReviewCode(spc.StopReason) + "\n" + _seedReportPath;
+            return;
+        }
+        if (result.ColdStart is { } cold)
+        {
+            var final = cold.Assessment;
+            _seedSummary.Text = UiLocalization.Text(result.Seeds.IsEmpty ? "冷启动未得到预算内合格处方" : "冷启动原规格验收通过")
+                + " · " + UiLocalization.Text("构造尝试 / 补偿阶段") + $" {cold.Construction.Length} / {cold.Phases.Length}\n"
+                + $"{UiLocalization.Text("评价")} {cold.Work.FunctionEvaluations}/{result.Options.MaximumFunctionEvaluations} · "
+                + $"{UiLocalization.Text("梯度")} {cold.Work.GradientEvaluations}/{cold.Policy.MaximumGradientEvaluations} · "
+                + $"{UiLocalization.Text("追迹")} {cold.Work.TracedRays}/{result.Options.MaximumTracedRays} · "
+                + $"{cold.Work.Elapsed.TotalSeconds:F1}/{result.Options.TimeLimit.TotalSeconds:F1} s\n";
+            if (final is { Fields.IsEmpty: false })
+                _seedSummary.Text += UiLocalization.Text("最差 RMS µm / 最大半径 µm / 边界丢失") + " "
+                    + Value(final.Fields.Max(f => f.RmsRadiusMillimeters) * 1000) + " / "
+                    + Value(final.Fields.Max(f => f.MaximumRadiusMillimeters) * 1000) + " / "
+                    + final.Fields.Sum(f => f.CheckAttemptedRays - f.CheckValidRays) + "\n";
+            _seedSummary.Text += _seedReportPath;
+            return;
+        }
         var options = result.Options;
         _seedSummary.Text += " · " + UiLocalization.Text(result.Termination switch
         {
@@ -82,40 +108,48 @@ public sealed partial class AutonomousTopologyWindow
         var plan = ReadPlan();
         var options = ReadSeedOptions(plan.Options.SeedPreparation ?? new());
         plan = plan with { Options = plan.Options with { SeedPreparation = options } };
-        using var cancellation = new CancellationTokenSource();
-        _seedCancellation = cancellation;
-        var generation = ++_generation;
-        Refresh();
-        ParaxialSeedSearchResult result;
+        var generation=++_generation;
         try
         {
-            result = await Task.Run(() => ParaxialSeedSearch.Run(plan, options, cancellation.Token,
-                (start, functions) => Dispatcher.UIThread.Post(() =>
-                {
-                    if (!_closed && generation == _generation)
-                        _status.Text = UiLocalization.Text(options.Retrieval is null ? "正在准备一阶起点" : "正在检索镜头库")
-                            + $" · {start}/{options.Retrieval?.Library.Entries.Length ?? options.MaximumStarts} · {functions}/{options.MaximumFunctionEvaluations}";
-                })));
+            await _session.RunAsync(plan, false, _ => { }, preparationProgress: (stage, functions) => Dispatcher.UIThread.Post(() =>
+            {
+                if (!_closed&&generation==_generation) _status.Text = UiLocalization.Text(options.Spc is not null ? "正在准备SPC分支" : options.ColdStart is not null ? "正在冷启动构造与补偿"
+                    : options.Retrieval is not null ? "正在检索镜头库" : "正在准备一阶起点") + $" · {stage} · {functions}";
+            }), prepareOnly: true);
         }
-        finally { _seedCancellation = null; _generation++; }
-        var directory = Path.Combine(_settings.RunDirectory, "preparations");
-        Directory.CreateDirectory(directory);
-        var name = "paraxial-seeds-" + Guid.NewGuid().ToString("N");
-        var reportPath = Path.Combine(directory, name + ".seed-search.json");
-        var prepared = result.Seeds.IsEmpty ? plan : plan with
+        finally{_generation++;}
+        _draft = plan;
+        if (_session.PreparationCheckpoint is { Stage: "Finished", ContinueIntoMain: false })
+            await PresentPreparedDraftAsync();
+        else
         {
-            Seeds = plan.Options.BoundedSearch is null ? result.Seeds
-            : plan.Seeds.Concat(result.Seeds).DistinctBy(TopologySeedIdentity).Take(8).ToImmutableArray()
+            _seedResult = _session.PreparationResult; _seedReportPath = _session.PreparationCheckpointPath;
+            RefreshSeedSummary();
+            _status.Text = UiLocalization.Text(_session.PreparationCheckpoint?.Status == SeedPreparationStatus.Suspended
+                ? "一阶准备已停止并保存" : options.Spc is not null ? _seedResult?.Seeds.IsEmpty == false ? "SPC准备原规格验收通过" : "SPC未得到预算内合格起点"
+                    : _seedResult?.Seeds.IsEmpty == false ? "冷启动原规格验收通过" : "冷启动未得到预算内合格处方");
+        }
+    }
+
+    private async Task PresentPreparedDraftAsync()
+    {
+        var evidence = _session.PreparationCheckpoint!;
+        var source = _session.PreparationCheckpoint!.Plan;
+        var result = _session.PreparationResult!;
+        var report = _session.PreparationReportPath ?? _session.PreparationCheckpointPath;
+        var prepared = result.Seeds.IsEmpty ? source : source with
+        {
+            Seeds = source.Options.BoundedSearch is null || result.Options.ColdStart is not null || result.Options.Spc is not null ? result.Seeds
+                : source.Seeds.Concat(result.Seeds).DistinctBy(TopologySeedIdentity).Take(8).ToImmutableArray()
         };
-        await ParaxialSeedSearchFiles.SaveAsync(result, reportPath);
-        await AutonomousDesignFiles.SavePlanAsync(prepared, Path.Combine(directory, name + ".topology-plan.json"));
+        if (_session.PreparationPlanPath is { } path) await AutonomousDesignFiles.SavePlanAsync(prepared, path);
         _session.Reset(); _displayRevision = -1; _displayRun = null; _draft = prepared; ApplyPlan(prepared);
         _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear();
-        _seedResult = result; _seedReportPath = reportPath; RefreshSeedSummary();
-        _status.Text = UiLocalization.Text(result.Termination == ParaxialSeedTermination.Cancelled ? "一阶准备已停止并保存"
-            : result.Retrieval is not null ? "检索已保存，已有镜头复用不计为新设计"
+        _seedResult = result; _seedReportPath = report; RefreshSeedSummary();
+        _preparedEvidence = evidence;
+        _status.Text = UiLocalization.Text(result.Retrieval is not null ? "检索已保存，已有镜头复用不计为新设计"
             : result.Competition is not null ? "竞争准备已保存，合格状态见原规格终验"
-            : result.Seeds.IsEmpty ? result.ImageScreens is not null ? "像差筛选未得到完整有效结果，原起点保留" : "未找到满足一阶条件的起点，原起点保留" : "一阶起点已保存，尚未运行完整光学搜索");
+            : result.Seeds.IsEmpty ? "未找到满足一阶条件的起点，原起点保留" : "一阶起点已保存，尚未运行完整光学搜索");
     }
 
     private ParaxialSeedSearchOptions ReadSeedOptions(ParaxialSeedSearchOptions original)
@@ -123,8 +157,17 @@ public sealed partial class AutonomousTopologyWindow
         var number = _numbers["AutonomousSeedSeconds"];
         if (number.Value is not { } seconds || !decimal.TryParse(number.Text, out var text) || text != seconds)
             throw new ArgumentException(UiLocalization.Text("请填写有效数字"));
+        if (_choices["AutonomousSpc"].IsChecked == true)
+            return original with { Spc = (original.Spc ?? new()) with { MaximumGradientEvaluations = Whole("AutonomousSpcGradients") },
+                ColdStart = null, Retrieval = null, Evolution = null, Competition = null, Generation = null, ImageScreening = null, FixedStopRecoveryVersion = null,
+                MaximumTracedRays = Whole("AutonomousSpcRays"), MaximumStarts = Whole("AutonomousSeedStarts"), RetainedSeeds = Whole("AutonomousSeedRetained"),
+                MaximumFunctionEvaluations = Whole("AutonomousSeedFunctions"), MaximumEvaluationsPerStart = Whole("AutonomousSeedPerStart"),
+                TimeLimit = seconds == (decimal)original.TimeLimit.TotalSeconds ? original.TimeLimit : TimeSpan.FromSeconds((double)seconds) };
         return original with
         {
+            Spc = null,
+            ColdStart = _choices["AutonomousColdStart"].IsChecked == true
+                ? (original.ColdStart ?? new() { Version = 6 }) with { MaximumGradientEvaluations = Whole("AutonomousColdGradients") } : null,
             Retrieval = _choices["AutonomousRetrieval"].IsChecked == true ? (original.Retrieval ?? new() { Library = _lensLibrary }) with
             {
                 Library = _lensLibrary,
@@ -153,7 +196,8 @@ public sealed partial class AutonomousTopologyWindow
                             QuickEvaluation = _choices["AutonomousQuickAberration"].IsChecked == true ? original.Competition?.SearchStrategy?.QuickEvaluation ?? new() : null
                         } : null
                 } : null,
-            MaximumTracedRays = _choices["AutonomousRetrieval"].IsChecked == true ? Whole("AutonomousRetrievalRays") : _choices["AutonomousCompetition"].IsChecked == true
+            MaximumTracedRays = _choices["AutonomousColdStart"].IsChecked == true ? Whole("AutonomousColdRays")
+                : _choices["AutonomousRetrieval"].IsChecked == true ? Whole("AutonomousRetrievalRays") : _choices["AutonomousCompetition"].IsChecked == true
                 ? Whole("AutonomousCompetitionRays") : original.MaximumTracedRays,
             MaximumStarts = Whole("AutonomousSeedStarts"),
             RetainedSeeds = Whole("AutonomousSeedRetained"),
@@ -182,7 +226,11 @@ public sealed partial class AutonomousTopologyWindow
             {
                 Profile = element.Front.Profile.Kind == TopologyProfileKind.EvenAsphere
                 || element.Back.Profile.Kind == TopologyProfileKind.EvenAsphere ? TopologyProfileKind.EvenAsphere : TopologyProfileKind.Standard,
-                Materials = [element.Material]
+                Materials = [element.Material],
+                FrontAperture = _choices["AutonomousColdStart"].IsChecked == true
+                    ? new(element.Front.ClearSemiDiameterMillimeters, element.Front.MechanicalSemiDiameterMillimeters) : null,
+                BackAperture = _choices["AutonomousColdStart"].IsChecked == true
+                    ? new(element.Back.ClearSemiDiameterMillimeters, element.Back.MechanicalSemiDiameterMillimeters) : null
             };
         }).ToImmutableArray();
         double Number(string id, double? preserved)

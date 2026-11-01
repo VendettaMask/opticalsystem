@@ -22,7 +22,8 @@ public enum NonSequentialObjectKind
     SourceRadial,
     SourceVolumeRectangle,
     SourceVolumeEllipse,
-    SourceVolumeCylinder
+    SourceVolumeCylinder,
+    OpticalAssembly
 }
 
 public enum NonSequentialSourceApertureShape
@@ -82,6 +83,7 @@ public sealed record NonSequentialTraceSettings(
 [JsonDerivedType(typeof(StandardLensParameters), "standard-lens")]
 [JsonDerivedType(typeof(MeshObjectParameters), "mesh")]
 [JsonDerivedType(typeof(DetectorRectangleParameters), "detector-rectangle")]
+[JsonDerivedType(typeof(OpticalAssemblyParameters), "optical-assembly")]
 public abstract record NonSequentialObjectParameters;
 
 public abstract record SourceParameters(
@@ -272,7 +274,8 @@ public sealed record DetectorRectangleParameters(
     int PixelsX = 100,
     int PixelsY = 100,
     bool FrontOnly = true,
-    bool Absorb = true) : NonSequentialObjectParameters;
+    bool Absorb = true,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] NonSequentialOpticalInterface? IncidentSurface = null) : NonSequentialObjectParameters;
 
 public sealed record NonSequentialObjectDefinition(
     Guid Id,
@@ -283,7 +286,8 @@ public sealed record NonSequentialObjectDefinition(
     CoordinateSystem LocalCoordinateSystem,
     Guid? ReferenceObjectId,
     Guid? ContainingObjectId,
-    NonSequentialObjectParameters Parameters)
+    NonSequentialObjectParameters Parameters,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] NonSequentialSurfaceBsdf? SurfaceBsdf = null)
 {
     public static NonSequentialObjectDefinition Create(NonSequentialObjectKind kind, string? name = null, Guid? id = null) => new(
         id ?? Guid.NewGuid(),
@@ -342,6 +346,7 @@ public sealed record NonSequentialObjectDefinition(
         NonSequentialObjectKind.Cylinder => "圆柱体",
         NonSequentialObjectKind.Box => "长方体",
         NonSequentialObjectKind.StandardLens => "标准镜片",
+        NonSequentialObjectKind.OpticalAssembly => "复合光学组件",
         NonSequentialObjectKind.Mesh => "STL 网格",
         NonSequentialObjectKind.DetectorRectangle => "矩形探测器",
         _ => kind.ToString()
@@ -571,6 +576,8 @@ public sealed class NonSequentialDocument
 
     public void Validate()
     {
+        if (_objects.Sum(o => (long)(o.SurfaceBsdf?.MeasuredData?.PayloadPointCount ?? 0)) > Scattering.MeasuredBsdfData.MaximumDocumentPoints)
+            throw new InvalidDataException("工程的实测 BSDF 节点总数超过 262144。");
         if (_wavelengths.Count == 0 || _wavelengths.Count > MaximumWavelengthCount)
         {
             throw new InvalidDataException("非序列波长表必须包含 1 到 1024 个波长。");
@@ -608,6 +615,14 @@ public sealed class NonSequentialDocument
         {
             ValidateObject(item, byId, meshAssetsById);
         }
+        var assemblies=_objects.Select(o=>o.Parameters).OfType<OpticalAssemblyParameters>().ToArray();
+        if(assemblies.Any(g=>!g.Ambient.Name.Equals(AmbientMaterial,StringComparison.OrdinalIgnoreCase))
+            || assemblies.Skip(1).Any(g=>NonSequentialOpticalInterface.Identity(g.Interfaces[0].MaterialBefore)!=NonSequentialOpticalInterface.Identity(assemblies[0].Interfaces[0].MaterialBefore)))
+            throw new InvalidDataException("复合光学组件的完整外部介质必须与场景一致。");
+        var ports=_objects.Select(o=>o.Parameters).OfType<DetectorRectangleParameters>().Where(d=>d.IncidentSurface is not null).Select(d=>d.IncidentSurface!).ToArray();
+        if(assemblies.Sum(g=>g.Interfaces.Sum(f=>(long)f.PayloadEntries))+ports.Sum(f=>(long)f.PayloadEntries)>524288
+            ||assemblies.Sum(g=>g.Interfaces.Sum(f=>f.PayloadCharacters))+ports.Sum(f=>f.PayloadCharacters)>32*1024*1024)
+            throw new InvalidDataException("非序列场景的光学组件载荷超出预算。");
         ValidateAcyclicLinks(byId, item => item.ReferenceObjectId, "参考");
         ValidateAcyclicLinks(byId, item => item.ContainingObjectId, "包含");
 
@@ -655,6 +670,9 @@ public sealed class NonSequentialDocument
         }
 
         ValidateParameters(item.Name, item.Parameters, meshAssetsById);
+        if(item.Parameters is OpticalAssemblyParameters && (item.SurfaceBsdf is not null || item.ContainingObjectId is not null))
+            throw new InvalidDataException("复合光学组件使用逐面光学属性，不接受对象级 BSDF 或包含介质覆盖。");
+        item.SurfaceBsdf?.Validate(item.Parameters);
     }
 
     private static void ValidateAcyclicLinks(
@@ -718,6 +736,7 @@ public sealed class NonSequentialDocument
             (NonSequentialObjectKind.Cylinder, CylinderParameters) => true,
             (NonSequentialObjectKind.Box, BoxParameters) => true,
             (NonSequentialObjectKind.StandardLens, StandardLensParameters) => true,
+            (NonSequentialObjectKind.OpticalAssembly, OpticalAssemblyParameters) => true,
             (NonSequentialObjectKind.Mesh, MeshObjectParameters) => true,
             (NonSequentialObjectKind.DetectorRectangle, DetectorRectangleParameters) => true,
             _ => false
@@ -831,6 +850,8 @@ public sealed class NonSequentialDocument
                 RequirePositive(lens.CenterThicknessMillimeters, lens.SemiDiameterMillimeters);
                 RequireMaterials(name, lens.Material);
                 break;
+            case OpticalAssemblyParameters:
+                break;
             case MeshObjectParameters mesh:
                 if (!meshAssetsById.TryGetValue(mesh.MeshAssetId, out var asset))
                 {
@@ -846,6 +867,9 @@ public sealed class NonSequentialDocument
                 break;
             case DetectorRectangleParameters detector:
                 RequirePositive(detector.WidthMillimeters, detector.HeightMillimeters);
+                if(detector.IncidentSurface is { } port && (port.RadiusMillimeters!=0 || port.Film is not Coatings.NoneCoatingModel
+                    || NonSequentialOpticalInterface.Identity(port.MaterialBefore)!=NonSequentialOpticalInterface.Identity(port.MaterialAfter)))
+                    throw new InvalidDataException("入射像面探测端口只接受无独立光学作用的平面；镀膜或介质界面须显式建模。");
                 if (detector.PixelsX <= 0 || detector.PixelsX > MaximumDetectorDimension
                     || detector.PixelsY <= 0 || detector.PixelsY > MaximumDetectorDimension
                     || (long)detector.PixelsX * detector.PixelsY > MaximumDetectorPixels)

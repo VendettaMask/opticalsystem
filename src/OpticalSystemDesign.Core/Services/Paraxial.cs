@@ -109,7 +109,7 @@ public sealed partial class Paraxial
 
     public double EstimateEntrancePupilDiameter()
     {
-        EnsureComputable();
+        EnsureComputable(validateGradient: false);
         var fallbackDiameter = _optic.SurfaceGroup.ApertureRadius() * 2.0;
         return _optic.Aperture.Kind switch
         {
@@ -127,6 +127,7 @@ public sealed partial class Paraxial
         {
             throw new InvalidOperationException("Float by stop size requires an aperture stop.");
         }
+        if (HasGradientIndex) ValidateGradientIndexSystem(stopIndex);
 
         // y(stop) = A*y(object) + B*u(object). At the entrance pupil B/A
         // from the object, the transverse magnification to the stop is A.
@@ -167,7 +168,7 @@ public sealed partial class Paraxial
 
     public double EstimateEntrancePupilLocation(double wavelengthMicrometers)
     {
-        EnsureComputable();
+        EnsureComputable(validateGradient: false);
         if (!double.IsFinite(wavelengthMicrometers) || wavelengthMicrometers <= 0)
         {
             throw new ArgumentOutOfRangeException(
@@ -180,6 +181,7 @@ public sealed partial class Paraxial
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         var endSurfaceExclusive = stopIndex < 0 ? _optic.SurfaceGroup.Items.Count : stopIndex;
+        if (HasGradientIndex) ValidateGradientIndexSystem(endSurfaceExclusive);
         var matrix = TraceMatrix(0, endSurfaceExclusive, wavelengthNanometers);
 
         if (Math.Abs(matrix.A) < 1e-12)
@@ -187,7 +189,12 @@ public sealed partial class Paraxial
             return 0;
         }
 
-        var relativeLocation = matrix.B / matrix.A;
+        // TraceMatrix(0, ...) includes the virtual Object row's unit-index
+        // incident convention. The pupil position is measured inside the actual
+        // object medium: undo its 1/n angular factor before converting B/A into
+        // a physical distance. Unit-index paths keep their exact old value.
+        var objectIndex = objectSurface?.MaterialAfter.RefractiveIndex(wavelengthNanometers) ?? 1;
+        var relativeLocation = objectIndex * (matrix.B / matrix.A);
         return ObjectConjugate.IsInfinite(objectSurface)
             ? relativeLocation
             : (objectSurface?.CoordinateSystem.Origin.Z ?? 0) + relativeLocation;
@@ -243,6 +250,8 @@ public sealed partial class Paraxial
     public double EstimateExitPupilLocation(double wavelengthMicrometers)
     {
         EnsureComputable();
+        if (HasGridGradientPupil)
+            return GridGradientPupil(wavelengthMicrometers).ImageAxialDistanceMillimeters;
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         if (stopIndex < 0 || stopIndex >= _optic.SurfaceGroup.Items.Count - 1)
         {
@@ -270,10 +279,23 @@ public sealed partial class Paraxial
     public double EstimateExitPupilDiameter(double wavelengthMicrometers)
     {
         EnsureComputable();
+        if (HasGridGradientPupil)
+            return GridGradientPupil(wavelengthMicrometers).DiameterMillimeters;
         var marginal = MarginalRay(wavelengthMicrometers);
         var imageHeight = marginal.Heights[^1][0];
         var imageSlope = marginal.Slopes[^1][0];
         return 2 * (imageHeight + (imageSlope * EstimateExitPupilLocation(wavelengthMicrometers)));
+    }
+
+    internal bool HasGridGradientPupil => _optic.SurfaceGroup.Items.Any(s =>
+        s.MaterialAfter is GradientIndexMaterial { Profile: GridGradientIndexProfile })
+        && _optic.SurfaceGroup.Items.Skip(1).Take(_optic.SurfaceGroup.Items.Count - 2).Any(s => s.IsStop);
+
+    private OpticalSystemDesign.Core.Analysis.ParabasalPupilResult GridGradientPupil(double wavelengthMicrometers)
+    {
+        ValidateGradientIndexSystem();
+        return OpticalSystemDesign.Core.Analysis.ParabasalPupilEngine.Compute(_optic,
+            new Wavelength { Nanometers = wavelengthMicrometers * 1000 });
     }
 
     public ParaxialTrace TraceNormalizedPupil(
@@ -516,6 +538,7 @@ public sealed partial class Paraxial
             {
                 u[rayIndex] = surface.InteractionModel switch
                 {
+                    ParaxialLensInteractionModel lens => (indexBefore * u[rayIndex] - y[rayIndex] * lens.PowerY) / indexAfter,
                     ThinLensInteractionModel thinLens when reflective =>
                         -u[rayIndex] + (y[rayIndex] / (indexBefore * thinLens.FocalLength)),
                     ThinLensInteractionModel thinLens =>
@@ -523,6 +546,9 @@ public sealed partial class Paraxial
                     _ when reflective => -u[rayIndex] - (2 * y[rayIndex] / radii[surfaceIndex]),
                     _ => ((indexBefore * u[rayIndex]) - (y[rayIndex] * power)) / indexAfter
                 };
+                if (surface.InteractionModel is DiffractivePhaseInteractionModel phase)
+                    u[rayIndex] += PhaseFirstOrderSlope(phase, wavelengthNanometers) * y[rayIndex]
+                        / (reflective ? -indexBefore : indexAfter);
             }
 
             heights.Add(y.ToArray());
@@ -548,8 +574,20 @@ public sealed partial class Paraxial
 
     private static double ParaxialRadius(OpticalSurface surface)
     {
+        if (surface.Geometry is GridSagGeometry grid)
+        {
+            var gridCurvature = grid.VertexMeridionalCurvature;
+            return gridCurvature == 0 ? double.PositiveInfinity : 1 / gridCurvature;
+        }
         var radius = surface.IsPlane ? double.PositiveInfinity : surface.Radius;
-        if (surface.Geometry is not EvenAsphereGeometry asphere
+        var asphere = surface.Geometry switch
+        {
+            EvenAsphereGeometry even => even,
+            ConcentricZoneGeometry zones => zones.Inner,
+            FringeSagGeometry fringe => fringe.Base,
+            _ => null
+        };
+        if (asphere is null
             || asphere.Coefficients.Count == 0 || asphere.Coefficients[0] == 0)
             return radius;
         // z = c*r²/2 + A2*r² + O(r⁴). A plane base can still have
@@ -597,6 +635,7 @@ public sealed partial class Paraxial
                 || surface.InteractionModel is PhaseInteractionModel { IsReflective: true };
             matrix = surface.InteractionModel switch
             {
+                ParaxialLensInteractionModel lens => PlanePower(matrix, lens.PowerY, currentIndex, nextIndex),
                 ThinLensInteractionModel thinLens => ThinLens(
                     matrix,
                     thinLens.FocalLength,
@@ -606,6 +645,11 @@ public sealed partial class Paraxial
                 _ when reflective => Reflect(matrix, radius),
                 _ => Refract(matrix, radius, currentIndex, nextIndex)
             };
+            if (surface.InteractionModel is DiffractivePhaseInteractionModel phase)
+            {
+                var slope = PhaseFirstOrderSlope(phase, wavelengthNanometers) / (reflective ? -currentIndex : nextIndex);
+                matrix = matrix with { C = matrix.C + slope * matrix.A, D = matrix.D + slope * matrix.B };
+            }
             if ((index != 0 || !ObjectConjugate.IsInfinite(surface))
                 && (includeTrailingTranslation || index + 1 < endSurfaceExclusive))
             {
@@ -633,13 +677,13 @@ public sealed partial class Paraxial
             ?? 587.6;
     }
 
-    private void EnsureComputable()
+    private void EnsureComputable(bool validateGradient = true)
     {
         OpticCapabilityPreflight.EnsureSupported(
             _optic,
             OpticCapabilityOperation.Analysis,
             "Paraxial / First Order");
-        if (HasGradientIndex) ValidateGradientIndexSystem();
+        if (validateGradient && HasGradientIndex) ValidateGradientIndexSystem();
     }
 
     private static RayMatrix Refract(RayMatrix matrix, double radius, double indexBefore, double indexAfter)
@@ -693,6 +737,13 @@ public sealed partial class Paraxial
             (c * matrix.A) + (d * matrix.C),
             (c * matrix.B) + (d * matrix.D));
     }
+
+    private static RayMatrix PlanePower(RayMatrix matrix, double power, double before, double after) => new(
+        matrix.A, matrix.B, (before * matrix.C - power * matrix.A) / after,
+        (before * matrix.D - power * matrix.B) / after);
+
+    private static double PhaseFirstOrderSlope(DiffractivePhaseInteractionModel phase, double wavelengthNanometers) =>
+        phase.Profile.ParaxialGradient(1, wavelengthNanometers) * wavelengthNanometers * 1e-6 / (2 * Math.PI);
 
     private static RayMatrix Translate(RayMatrix matrix, double distance)
     {

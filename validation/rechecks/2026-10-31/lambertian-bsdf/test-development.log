@@ -1,0 +1,57 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:03.11]     OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 1) [FAIL]
+[xUnit.net 00:00:03.55]     OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 0.25) [FAIL]
+  失败 OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 1) [942 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 5.6066894531252745E-11
+Actual:   5.6066894531250083E-11
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(Double rho) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialBsdfTests.cs:line 38
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(rho: 0.25) [249 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 1.4016723632813186E-11
+Actual:   1.4016723632812521E-11
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(Double rho) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialBsdfTests.cs:line 38
+   at InvokeStub_NonSequentialBsdfTests.OpaqueSurfaceConservesEnergyAndMatchesTheAnalyticalSquareViewFactor(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:11.31]     OpticalSystemDesign.Tests.CameraBsdfWindowTests.ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen [FAIL]
+  失败 OpticalSystemDesign.Tests.CameraBsdfWindowTests.ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen [5 s]
+  错误消息:
+   System.InvalidOperationException : Cannot set Name : styled element already styled.
+  堆栈跟踪:
+     at Avalonia.StyledElement.set_Name(String value)
+   at OpticalSystemDesign.App.Panels.NonSequentialObjectEditorPanel.LoadSelection() in D:\Projects\opticalsystem\src\OpticalSystemDesign.App\Panels\NonSequentialObjectEditorPanel.cs:line 228
+   at OpticalSystemDesign.App.Panels.NonSequentialObjectEditorPanel.<.ctor>b__14_0(Object _, SelectionChangedEventArgs _) in D:\Projects\opticalsystem\src\OpticalSystemDesign.App\Panels\NonSequentialObjectEditorPanel.cs:line 59
+   at Avalonia.Interactivity.Interactive.<AddHandler>g__InvokeAdapter|8_0[TEventArgs](Delegate baseHandler, Object sender, RoutedEventArgs args)
+   at Avalonia.Interactivity.Interactive.<>c__8`1.<AddHandler>b__8_1(Delegate baseHandler, Object sender, RoutedEventArgs args)
+   at Avalonia.Interactivity.EventRoute.RaiseEventImpl(RoutedEventArgs e)
+   at Avalonia.Interactivity.EventRoute.RaiseEvent(Interactive source, RoutedEventArgs e)
+   at Avalonia.Interactivity.Interactive.RaiseEvent(RoutedEventArgs e)
+   at Avalonia.Controls.DataGrid.OnSelectionChanged(SelectionChangedEventArgs e)
+   at Avalonia.Controls.DataGrid.FlushSelectionChanged()
+   at Avalonia.Controls.DataGrid.set_NoSelectionChangeCount(Int32 value)
+   at Avalonia.Controls.DataGrid.OnSelectedItemChanged(AvaloniaPropertyChangedEventArgs e)
+   at Avalonia.Controls.DataGrid.OnSelectedItemChanged(AvaloniaPropertyChangedEventArgs e)
+   at Avalonia.Controls.DataGrid.<>c.<.cctor>b__231_15(DataGrid x, AvaloniaPropertyChangedEventArgs e)
+   at Avalonia.AvaloniaObjectExtensions.ClassHandlerObserver`1.OnNext(AvaloniaPropertyChangedEventArgs value)
+   at Avalonia.Reactive.LightweightObservableBase`1.PublishNext(T value)
+   at Avalonia.Reactive.LightweightSubject`1.OnNext(T value)
+   at Avalonia.AvaloniaProperty`1.NotifyChanged(AvaloniaPropertyChangedEventArgs`1 e)
+   at Avalonia.AvaloniaObject.RaisePropertyChanged[T](AvaloniaProperty`1 property, Optional`1 oldValue, BindingValue`1 newValue, BindingPriority priority, Boolean isEffectiveValue)
+   at Avalonia.AvaloniaObject.SetAndRaise[T](DirectPropertyBase`1 property, T& field, T value)
+   at Avalonia.Controls.DataGrid.set_SelectedItem(Object value)
+   at OpticalSystemDesign.Tests.CameraBsdfWindowTests.<>c.<<ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen>b__0_0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraBsdfWindowTests.cs:line 33
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CameraBsdfWindowTests.ObjectEditorRejectsInvalidAlbedoAndPublishesScatteringToCameraOffscreen() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\CameraBsdfWindowTests.cs:line 22
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\lambertian-bsdf\development.trx
+
+失败!  - 失败:     3，通过:    18，已跳过:     0，总计:    21，持续时间: 9 s - OpticalSystemDesign.Tests.dll (net10.0)

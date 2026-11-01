@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><AssemblyName>OpticalSystemDesign.InitialStructure.Benchmarks</AssemblyName></PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpticalSystemDesign.Core"><HintPath>$(FrozenRuntime)/OpticalSystemDesign.Core.dll</HintPath></Reference>
+    <Reference Include="OpticalSystemDesign.InitialStructure.Contracts"><HintPath>$(FrozenRuntime)/OpticalSystemDesign.InitialStructure.Contracts.dll</HintPath></Reference>
+    <Reference Include="OpticalSystemDesign.InitialStructure.Engine"><HintPath>$(FrozenRuntime)/OpticalSystemDesign.InitialStructure.Engine.dll</HintPath></Reference>
+    <Reference Include="OpticalSystemDesign.InitialStructure.Persistence"><HintPath>$(FrozenRuntime)/OpticalSystemDesign.InitialStructure.Persistence.dll</HintPath></Reference>
+  </ItemGroup>
+  <Target Name="RequireFrozenRuntime" BeforeTargets="ResolveReferences" Condition="'$(FrozenRuntime)' == ''"><Error Text="Set FrozenRuntime to the immutable paired study runtime." /></Target>
+</Project>

@@ -1,0 +1,713 @@
+{
+  "plan": {
+    "seeds": [
+      {
+        "schemaVersion": 1,
+        "algorithm": "AutonomousTopologyV1",
+        "name": "SPC existing authored singlet",
+        "conjugate": "infinite",
+        "reference": {
+          "id": "reference",
+          "zMillimeters": 0
+        },
+        "stop": {
+          "id": "stop",
+          "zMillimeters": 1,
+          "clearSemiDiameterMillimeters": 2,
+          "mechanicalSemiDiameterMillimeters": null
+        },
+        "image": {
+          "id": "image",
+          "zMillimeters": 55,
+          "protected": true
+        },
+        "elements": [
+          {
+            "id": "crown",
+            "frontSurfaceId": "front",
+            "backSurfaceId": "back",
+            "frontZMillimeters": 3,
+            "thicknessMillimeters": 3,
+            "material": "N-BK7",
+            "front": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": 0.025,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 5,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "back": {
+              "profile": {
+                "kind": "standard",
+                "curvaturePerMillimeter": -0.03333333333333333,
+                "conic": 0,
+                "maximumEvenPower": 0,
+                "terms": []
+              },
+              "clearSemiDiameterMillimeters": 5,
+              "mechanicalSemiDiameterMillimeters": null
+            },
+            "protected": false,
+            "transition": false
+          }
+        ],
+        "fields": [
+          {
+            "label": "Axis",
+            "xAngleDegrees": 0,
+            "yAngleDegrees": 0,
+            "weight": 1
+          },
+          {
+            "label": "Edge",
+            "xAngleDegrees": 0,
+            "yAngleDegrees": 3,
+            "weight": 1
+          }
+        ],
+        "wavelengths": [
+          {
+            "label": "F",
+            "nanometers": 486.1,
+            "weight": 1,
+            "isPrimary": false
+          },
+          {
+            "label": "d",
+            "nanometers": 587.6,
+            "weight": 1,
+            "isPrimary": true
+          },
+          {
+            "label": "C",
+            "nanometers": 656.3,
+            "weight": 1,
+            "isPrimary": false
+          }
+        ],
+        "glassCatalogs": [],
+        "rayAimingEnabled": true,
+        "matchRefractiveIndexData": true,
+        "temperatureCelsius": 20,
+        "pressureAtmospheres": 1
+      }
+    ],
+    "targets": {
+      "effectiveFocalLengthMillimeters": 50,
+      "fNumber": 12.5,
+      "focalLengthRelativeTolerance": 0.02,
+      "fNumberRelativeTolerance": 0.02,
+      "maximumRmsRadiusMillimeters": 0.05,
+      "maximumSpotRadiusMillimeters": 0.15,
+      "maximumDistortionFraction": 0.03,
+      "minimumValidRayFraction": 0.98,
+      "minimumEdgeThicknessMillimeters": 0.1,
+      "minimumEdgeAirGapMillimeters": 0.01,
+      "maximumOpticalTrackMillimeters": 10000,
+      "maximumAbsoluteSurfaceSlope": 10
+    },
+    "constraints": {
+      "minimumElementCount": 1,
+      "maximumElementCount": 8,
+      "minimumCenterThicknessMillimeters": 0.1,
+      "minimumAirGapMillimeters": 0.05,
+      "minimumBackFocusMillimeters": 0.1,
+      "maximumMechanicalTrackMillimeters": 10000,
+      "allowTransitionElements": false,
+      "allowedGlassNames": []
+    },
+    "options": {
+      "expansion": {
+        "enableInsertion": true,
+        "enableDeletion": true,
+        "enableGradualDeletion": true,
+        "enableSplit": true,
+        "enableMerge": true,
+        "enableMaterial": true,
+        "enableProfile": true,
+        "materialAlternatives": [
+          "N-BK7",
+          "N-F2"
+        ],
+        "deletionScales": [
+          0.7,
+          0.4,
+          0.2,
+          0.1,
+          0.02
+        ],
+        "directDeletionRecoveryMaximumFunctionEvaluations": null,
+        "splitAirGapMillimeters": 0.05,
+        "splitFirstFraction": 0.55,
+        "maximumEvenPower": 8,
+        "maximumAbsoluteConic": 2,
+        "coefficientCoordinateSagMillimeters": 0.02
+      },
+      "maximumTrials": 32,
+      "candidatesPerElementCount": 4,
+      "branchesPerParent": 6,
+      "maximumFunctionEvaluations": 10000,
+      "maximumGradientEvaluations": 2000,
+      "maximumTracedRays": 10000000,
+      "maximumStageTracedRays": 2000000,
+      "finalValidationRayReserve": 200000,
+      "timeLimit": "00:30:00",
+      "seed": 42,
+      "curvatureBoundPerMillimeter": 0.08,
+      "insertionMaterials": [
+        "N-BK7",
+        "N-F2"
+      ],
+      "recovery": {
+        "maximumAcceptedSteps": 30,
+        "maximumFunctionEvaluations": 400,
+        "timeLimit": "00:01:00",
+        "aScale": 0.01,
+        "focalCScale": 0.01,
+        "aTolerance": 0.0001,
+        "focalCTolerance": 0.0001,
+        "minimumChangeWeight": 1E-06,
+        "relativeDifferenceStep": 6.055454452393343E-06,
+        "relativeRankTolerance": 1E-08,
+        "profileRadialSamples": 64
+      },
+      "local": {
+        "gateCompensationVersion": 4,
+        "maximumUpdates": 80,
+        "maximumFunctionEvaluations": 82,
+        "maximumGradientEvaluations": 81,
+        "timeLimit": "00:05:00",
+        "learningRate": 0.01,
+        "computeMode": "cpu",
+        "sampling": {
+          "includeBoundaryClearance": true,
+          "includeBoundaryMaximum": true,
+          "fieldsPerDirection": 3,
+          "pupilRings": 2,
+          "pupilArms": 8,
+          "profileRadialSamples": 64
+        },
+        "performFinalAssessment": false
+      },
+      "full": {
+        "maximumUpdates": 160,
+        "maximumFunctionEvaluations": 161,
+        "maximumGradientEvaluations": 161,
+        "timeLimit": "00:05:00",
+        "learningRate": 0.01,
+        "computeMode": "cpu",
+        "sampling": {
+          "fieldsPerDirection": 3,
+          "pupilRings": 3,
+          "pupilArms": 12,
+          "profileRadialSamples": 64
+        },
+        "performFinalAssessment": false
+      }
+    }
+  },
+  "budget": {
+    "version": 1,
+    "maximumStarts": 12,
+    "retainedSeeds": 4,
+    "maximumFunctionEvaluations": 600,
+    "maximumEvaluationsPerStart": 40,
+    "timeLimit": "00:02:00",
+    "maximumTracedRays": 2000000,
+    "focusATolerance": 0.001
+  },
+  "result": {
+    "algorithm": "initial-structure-spc-branches-v1",
+    "protocolFingerprint": "f910dafdca03dcc74b18e2b587334e3e814bd9166a80dc0866e2467389a45c69",
+    "stopReason": "Completed",
+    "work": {
+      "functionEvaluations": 66,
+      "gradientEvaluations": 66,
+      "validationEvaluations": 0,
+      "matrixEvaluations": 0,
+      "differenceEvaluations": 0,
+      "jacobianBuilds": 0,
+      "tracedRays": 19404,
+      "geometryProbes": 0,
+      "elapsed": "00:00:02.6823587"
+    },
+    "parents": [
+      {
+        "id": "parent-0",
+        "outcome": "IndexOneSaddleCertified",
+        "original": {
+          "schemaVersion": 1,
+          "algorithm": "AutonomousTopologyV1",
+          "name": "SPC existing authored singlet",
+          "conjugate": "infinite",
+          "reference": {
+            "id": "reference",
+            "zMillimeters": 0
+          },
+          "stop": {
+            "id": "stop",
+            "zMillimeters": 1,
+            "clearSemiDiameterMillimeters": 2,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "image": {
+            "id": "image",
+            "zMillimeters": 55,
+            "protected": true
+          },
+          "elements": [
+            {
+              "id": "crown",
+              "frontSurfaceId": "front",
+              "backSurfaceId": "back",
+              "frontZMillimeters": 3,
+              "thicknessMillimeters": 3,
+              "material": "N-BK7",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": 0.025,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.03333333333333333,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "protected": false,
+              "transition": false
+            }
+          ],
+          "fields": [
+            {
+              "label": "Axis",
+              "xAngleDegrees": 0,
+              "yAngleDegrees": 0,
+              "weight": 1
+            },
+            {
+              "label": "Edge",
+              "xAngleDegrees": 0,
+              "yAngleDegrees": 3,
+              "weight": 1
+            }
+          ],
+          "wavelengths": [
+            {
+              "label": "F",
+              "nanometers": 486.1,
+              "weight": 1,
+              "isPrimary": false
+            },
+            {
+              "label": "d",
+              "nanometers": 587.6,
+              "weight": 1,
+              "isPrimary": true
+            },
+            {
+              "label": "C",
+              "nanometers": 656.3,
+              "weight": 1,
+              "isPrimary": false
+            }
+          ],
+          "glassCatalogs": [],
+          "rayAimingEnabled": true,
+          "matchRefractiveIndexData": true,
+          "temperatureCelsius": 20,
+          "pressureAtmospheres": 1
+        },
+        "stationaryParent": {
+          "schemaVersion": 1,
+          "algorithm": "AutonomousTopologyV1",
+          "name": "SPC existing authored singlet",
+          "conjugate": "infinite",
+          "reference": {
+            "id": "reference",
+            "zMillimeters": 0
+          },
+          "stop": {
+            "id": "stop",
+            "zMillimeters": 1,
+            "clearSemiDiameterMillimeters": 2,
+            "mechanicalSemiDiameterMillimeters": null
+          },
+          "image": {
+            "id": "image",
+            "zMillimeters": 55,
+            "protected": true
+          },
+          "elements": [
+            {
+              "id": "crown",
+              "frontSurfaceId": "front",
+              "backSurfaceId": "back",
+              "frontZMillimeters": 3,
+              "thicknessMillimeters": 3,
+              "material": "N-BK7",
+              "front": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": 0.014326951111549652,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "back": {
+                "profile": {
+                  "kind": "standard",
+                  "curvaturePerMillimeter": -0.02473442100037799,
+                  "conic": 0,
+                  "maximumEvenPower": 0,
+                  "terms": []
+                },
+                "clearSemiDiameterMillimeters": 5,
+                "mechanicalSemiDiameterMillimeters": null
+              },
+              "protected": false,
+              "transition": false
+            }
+          ],
+          "fields": [
+            {
+              "label": "Axis",
+              "xAngleDegrees": 0,
+              "yAngleDegrees": 0,
+              "weight": 1
+            },
+            {
+              "label": "Edge",
+              "xAngleDegrees": 0,
+              "yAngleDegrees": 3,
+              "weight": 1
+            }
+          ],
+          "wavelengths": [
+            {
+              "label": "F",
+              "nanometers": 486.1,
+              "weight": 1,
+              "isPrimary": false
+            },
+            {
+              "label": "d",
+              "nanometers": 587.6,
+              "weight": 1,
+              "isPrimary": true
+            },
+            {
+              "label": "C",
+              "nanometers": 656.3,
+              "weight": 1,
+              "isPrimary": false
+            }
+          ],
+          "glassCatalogs": [],
+          "rayAimingEnabled": true,
+          "matchRefractiveIndexData": true,
+          "temperatureCelsius": 20,
+          "pressureAtmospheres": 1
+        },
+        "variables": [
+          {
+            "surfaceId": "front",
+            "kind": "curvature",
+            "lowerBound": -0.08,
+            "upperBound": 0.08,
+            "scale": 0.01,
+            "power": 0
+          },
+          {
+            "surfaceId": "back",
+            "kind": "curvature",
+            "lowerBound": -0.08,
+            "upperBound": 0.08,
+            "scale": 0.01,
+            "power": 0
+          }
+        ],
+        "parentStationarity": {
+          "scope": "parent-declared-curvature-subspace",
+          "objective": 0.03657754107401147,
+          "coordinates": [
+            1.4326951111549653,
+            -2.473442100037799
+          ],
+          "gradient": [
+            -3.2322396048453696E-06,
+            3.826667550833076E-06
+          ],
+          "interiorStationary": true,
+          "coarse": {
+            "hessian": [
+              [
+                741.466511845802,
+                -745.7168220829116
+              ],
+              [
+                -745.7168220829116,
+                750.1106702917264
+              ]
+            ],
+            "eigenvalues": [
+              0.0592439821376729,
+              1491.5179381553908
+            ],
+            "eigenvectors": [
+              [
+                0.7091529364740852,
+                0.7050546877300953
+              ],
+              [
+                -0.7050546877300953,
+                0.7091529364740852
+              ]
+            ],
+            "symmetryError": 1.9605295165092684E-08
+          },
+          "fine": {
+            "hessian": [
+              [
+                741.4665118064072,
+                -745.7168220549876
+              ],
+              [
+                -745.7168220549876,
+                750.1106702164454
+              ]
+            ],
+            "eigenvalues": [
+              0.05924395282727346,
+              1491.5179380700254
+            ],
+            "eigenvectors": [
+              [
+                0.7091529364656796,
+                0.7050546877385497
+              ],
+              [
+                -0.7050546877385497,
+                0.7091529364656796
+              ]
+            ],
+            "symmetryError": 4.729372449219227E-09
+          },
+          "curvatureUncertainty": 8.256392902694643E-07,
+          "stableNegativeDirections": 0,
+          "certified": true
+        },
+        "saddle": {
+          "scope": "expanded-declared-curvature-subspace",
+          "objective": 0.03657754107401132,
+          "coordinates": [
+            1.4326951111549653,
+            -2.473442100037799,
+            -2.473442100037799,
+            -2.473442100037799
+          ],
+          "gradient": [
+            -3.2322395276782405E-06,
+            3.826667475189046E-06,
+            -3.826667474995939E-06,
+            3.826667474994757E-06
+          ],
+          "interiorStationary": true,
+          "coarse": {
+            "hessian": [
+              [
+                741.4665118457909,
+                -745.7168220828869,
+                745.7168220647271,
+                -745.7168220827682
+              ],
+              [
+                -745.7168220828869,
+                750.1106702916883,
+                -750.1101063909431,
+                750.1101064149419
+              ],
+              [
+                745.7168220647271,
+                -750.1101063909431,
+                750.1095426018527,
+                -750.1101064140896
+              ],
+              [
+                -745.7168220827682,
+                750.1101064149419,
+                -750.1101064140896,
+                750.1106702914475
+              ]
+            ],
+            "eigenvalues": [
+              -0.00018869196737152758,
+              0.0005638766261439895,
+              0.08823648401796653,
+              2991.708783362102
+            ],
+            "eigenvectors": [
+              [
+                0.0025954241860125685,
+                -0.4073736166859155,
+                -0.8173531351057806,
+                -0.4073988865157622
+              ],
+              [
+                -5.127387826511924E-12,
+                0.7071140758761179,
+                1.4589610120113977E-05,
+                -0.7070994862712088
+              ],
+              [
+                0.8672802187784329,
+                0.2886331912367156,
+                -0.28496796363427085,
+                0.2886332668530777
+              ],
+              [
+                -0.49781350512910777,
+                0.5007267728438437,
+                -0.5007265840975808,
+                0.5007267728476579
+              ]
+            ],
+            "symmetryError": 2.4971768652903847E-08
+          },
+          "fine": {
+            "hessian": [
+              [
+                741.4665118069208,
+                -745.7168220552093,
+                745.7168220510346,
+                -745.7168220551064
+              ],
+              [
+                -745.7168220552093,
+                750.1106702163685,
+                -750.1101063764904,
+                750.1101063820481
+              ],
+              [
+                745.7168220510346,
+                -750.1101063764904,
+                750.1095425645261,
+                -750.1101063822024
+              ],
+              [
+                -745.7168220551064,
+                750.1101063820481,
+                -750.1101063822024,
+                750.1106702161588
+              ]
+            ],
+            "eigenvalues": [
+              -0.00018872201631115517,
+              0.0005638342157141229,
+              0.0882364605726685,
+              2991.7087832312027
+            ],
+            "eigenvectors": [
+              [
+                0.0025954112826339377,
+                -0.4073830900986418,
+                -0.8173531309826129,
+                -0.4073894218249605
+              ],
+              [
+                3.472366161764457E-11,
+                -0.7071086089880029,
+                -3.655651707678746E-06,
+                0.7071049533709182
+              ],
+              [
+                -0.8672802188148893,
+                -0.28863321353814375,
+                0.2849679758005959,
+                -0.28863323243028133
+              ],
+              [
+                -0.4978135051328675,
+                0.5007267728406162,
+                -0.5007265841032079,
+                0.50072677284152
+              ]
+            ],
+            "symmetryError": 5.607034836430103E-09
+          },
+          "curvatureUncertainty": 1.3418521120911464E-06,
+          "stableNegativeDirections": 1,
+          "certified": true
+        },
+        "interfaceElementId": "crown"
+      }
+    ],
+    "branches": [
+      {
+        "id": "parent-0:minus",
+        "parentId": "parent-0",
+        "sign": -1,
+        "outcome": "Domain:Elements must already be in nonintersecting axial order with the requested air gap.",
+        "initialCoordinates": [
+          1.432824881719097,
+          -2.493811254542731,
+          -2.5143097565869295,
+          -2.4938115711290467
+        ],
+        "optimizedCoordinates": [
+          1.4328276914011933,
+          -2.4938142774252645,
+          -2.5143183963845157,
+          -2.4938145815636004
+        ],
+        "initialObjective": 0.03657730394313246,
+        "optimizedObjective": 0.03657730382993429,
+        "stages": [],
+        "endpoint": null,
+        "assessment": null
+      },
+      {
+        "id": "parent-0:plus",
+        "parentId": "parent-0",
+        "sign": 1,
+        "outcome": "Domain:Elements must already be in nonintersecting axial order with the requested air gap.",
+        "initialCoordinates": [
+          1.4325653405908336,
+          -2.453072945532867,
+          -2.4325744434886682,
+          -2.453072628946551
+        ],
+        "optimizedCoordinates": [
+          1.4325680828837937,
+          -2.4530682781136743,
+          -2.432567638209808,
+          -2.4530679495258125
+        ],
+        "initialObjective": 0.03657730657145044,
+        "optimizedObjective": 0.03657730646175779,
+        "stages": [],
+        "endpoint": null,
+        "assessment": null
+      }
+    ],
+    "qualifiedBranchIds": []
+  }
+}

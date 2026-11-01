@@ -39,6 +39,25 @@ public sealed class RefractiveReflectiveInteractionModel : IInteractionModel
                 RayInteractionKind.Reflected);
         }
 
+        if (context.Geometry is PolygonFaceGeometry)
+        {
+            if (context.RefractiveIndexBefore == context.RefractiveIndexAfter)
+                return new RealRayInteractionResult(ray, RayInteractionKind.Transmitted);
+            var planar = Refract(incoming, normal, context.RefractiveIndexBefore, context.RefractiveIndexAfter);
+            if (planar.Kind == RayInteractionKind.Transmitted)
+            {
+                // Preserve the small components at a planar interface. Whole-
+                // vector normalization can move them after a preceding TIR.
+                var v = planar.Direction;
+                if (Math.Abs(v.Z) >= Math.Max(Math.Abs(v.X), Math.Abs(v.Y)))
+                    v = v with { Z = Math.CopySign(Math.Sqrt(1 - v.X * v.X - v.Y * v.Y), v.Z) };
+                else if (Math.Abs(v.X) >= Math.Abs(v.Y))
+                    v = v with { X = Math.CopySign(Math.Sqrt(1 - v.Y * v.Y - v.Z * v.Z), v.X) };
+                else v = v with { Y = Math.CopySign(Math.Sqrt(1 - v.X * v.X - v.Z * v.Z), v.Y) };
+                planar = (v, planar.Kind);
+            }
+            return new RealRayInteractionResult(ray with { Direction = planar.Direction }, planar.Kind);
+        }
         var refraction = RefractShared(incoming, normal, context.RefractiveIndexBefore,
             context.RefractiveIndexAfter, context.IncidenceCosineSquared);
         return new RealRayInteractionResult(ray with { Direction = refraction.Direction }, refraction.Kind);

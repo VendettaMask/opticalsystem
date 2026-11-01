@@ -1,0 +1,25 @@
+seed42 stage=1 fn=15
+seed42 stage=2 fn=30
+seed42 stage=3 fn=45
+seed42 stage=4 fn=45
+seed42 stage=5 fn=45
+seed42 stage=6 fn=58
+seed42 stage=7 fn=58
+seed42 stage=8 fn=58
+seed42 stage=9 fn=58
+seed42 stage=10 fn=160
+seed42 stage=11 fn=262
+Unhandled exception. System.IO.IOException: 磁盘空间不足。
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.OverlappedValueTaskSource.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.IO.Strategies.BufferedFileStreamStrategy.FlushAsyncInternal(CancellationToken cancellationToken)
+   at System.IO.Strategies.BufferedFileStreamStrategy.DisposeAsync()
+   at System.IO.Strategies.BufferedFileStreamStrategy.DisposeAsync()
+   at System.IO.FileStream.DisposeAsync()
+   at OpticalSystemDesign.Core.FileIO.BoundedFile.WriteAtomicAsync(String path, Int64 maximumBytes, String description, Func`3 writeAsync, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\BoundedFile.cs:line 165
+   at OpticalSystemDesign.InitialStructure.Persistence.SeedPreparationCheckpointStore.SaveAsync(SeedPreparationCheckpoint state, String path, Int64 expectedRevision, CancellationToken token) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\SeedPreparationCheckpointStore.cs:line 61
+   at OpticalSystemDesign.InitialStructure.Persistence.SeedPreparationCheckpointStore.SaveAsync(SeedPreparationCheckpoint state, String path, Int64 expectedRevision, CancellationToken token) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\SeedPreparationCheckpointStore.cs:line 75
+   at Program.<>c__DisplayClass0_0.<<Main>$>b__0(SeedPreparationCheckpoint next) in D:\Projects\opticalsystem\tools\diagnostics\InitialPerformance20261101\Program.cs:line 28
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.<>c__DisplayClass8_0.<Run>g__Save|7(SeedPreparationStatus status) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 398
+   at OpticalSystemDesign.InitialStructure.Engine.SeedPreparationSearch.Run(SeedPreparationCheckpoint input, Action`1 persist, CancellationToken pauseRequested, Action`2 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\SeedPreparationSearch.cs:line 335
+   at Program.<Main>$(String[] args) in D:\Projects\opticalsystem\tools\diagnostics\InitialPerformance20261101\Program.cs:line 26
+   at Program.<Main>(String[] args)

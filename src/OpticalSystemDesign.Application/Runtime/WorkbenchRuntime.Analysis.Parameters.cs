@@ -401,7 +401,9 @@ public partial class WorkbenchRuntime
             "Diffraction Encircled Energy" => new[]
             {
                 ChoiceParameter("PupilSampling", "\u77b3\u9762\u91c7\u6837", "64 x 64",
-                    new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
+                    new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256", "512 x 512", "1024 x 1024",
+                        "2048 x 2048", "4096 x 4096", "8192 x 8192", "16384 x 16384", "32768 x 32768",
+                        "65536 x 65536", "131072 x 131072", "262144 x 262144" }),
                 ChoiceParameter("ImageSampling", "\u50cf\u9762\u91c7\u6837", "128 x 128",
                     new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256", "512 x 512" }),
                 IntParameter("NumPoints", "\u66f2\u7ebf\u91c7\u6837\u70b9\u6570", "401", 2, 2048),
@@ -747,7 +749,7 @@ public partial class WorkbenchRuntime
                     "Sampling",
                     "采样",
                     "64 x 64",
-                    new[] { "16 x 16", "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
+                    new[] { "16 x 16", "32 x 32", "64 x 64", "128 x 128", "256 x 256", "512 x 512", "1024 x 1024", "2048 x 2048" }),
                 ChoiceParameter(
                     "Display",
                     "显示",
@@ -803,7 +805,8 @@ public partial class WorkbenchRuntime
                     "Sampling",
                     "采样",
                     "64 x 64",
-                    new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
+                    new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256", "512 x 512", "1024 x 1024",
+                        "2048 x 2048", "4096 x 4096", "8192 x 8192", "16384 x 16384" }),
                 ChoiceParameter("Row", "行", "中心", new[] { "中心" }),
                 DoubleParameter("GraphScaleMicrometers", "图形缩放", "0", 0, 1_000_000, 0.1),
                 BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
@@ -867,7 +870,7 @@ public partial class WorkbenchRuntime
             },
             "MTF" => new[]
             {
-                ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices),
+                ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices.Concat(new[] { "1024", "2048" }).Distinct().ToArray()),
                 DoubleParameter("MaximumFrequency", "最大频率 (cycles/mm，0 为默认)", "0", 0, 10000, 10),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场（0 为全部）", "0", 0, 256),
@@ -879,6 +882,8 @@ public partial class WorkbenchRuntime
             },
             "Huygens PSF" => new[]
             {
+                ChoiceParameter("AfocalIntegration", "无焦瞳孔积分（标量）", "原生有限单元",
+                    CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
                 ChoiceParameter(
                     "PupilSampling",
                     "光瞳采样",
@@ -926,6 +931,8 @@ public partial class WorkbenchRuntime
             },
             "Huygens PSF Cross Section" => new[]
             {
+                ChoiceParameter("AfocalIntegration", "无焦瞳孔积分（标量）", "原生有限单元",
+                    CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
                 ChoiceParameter("PupilSampling", "光瞳采样", "32", new[] { "16", "32", "64", "128" }),
                 ChoiceParameter("ImageSampling", "像面采样", "32", new[] { "16", "32", "64", "128" }),
                 DoubleParameter("ImageDeltaMicrometers", "像面采样间距 (µm，0 为自动)", "0", 0, 1000, 0.1),
@@ -937,6 +944,8 @@ public partial class WorkbenchRuntime
             },
             "Huygens MTF" => new[]
             {
+                ChoiceParameter("AfocalIntegration", "无焦瞳孔积分（标量）", "原生有限单元",
+                    CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
                 ChoiceParameter("PupilSampling", "瞳面采样", "32", new[] { "32", "64", "128", "256", "512" }),
                 ChoiceParameter("ImageSampling", "图像采样", "32", new[] { "32", "64", "128", "256", "512" }),
                 DoubleParameter("ImageDeltaMicrometers", "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),

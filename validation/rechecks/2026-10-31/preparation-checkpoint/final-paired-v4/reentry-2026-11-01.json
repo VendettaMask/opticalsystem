@@ -1,0 +1,73 @@
+{
+  "Reason": "Previous chat interruption terminated the driver; completed cases retained, incomplete attempt archived without recycling its budget",
+  "DeclaredAt": "2026-11-01T11:52:09.8510333+08:00",
+  "SameFrozenRuntime": true,
+  "SameOriginalCapsAndGates": true,
+  "Workers": 1,
+  "Cases": [
+    {
+      "Seed": 46,
+      "Arm": "continuous",
+      "Action": "Retain completed original result"
+    },
+    {
+      "Seed": 46,
+      "Arm": "paused",
+      "Action": "Retain completed original result"
+    },
+    {
+      "Seed": 42,
+      "Arm": "continuous",
+      "Action": "Retain completed original result"
+    },
+    {
+      "Seed": 42,
+      "Arm": "paused",
+      "Action": "Retain completed original result"
+    },
+    {
+      "Seed": 43,
+      "Arm": "continuous",
+      "Action": "Archive externally interrupted attempt; replace with a fresh separately budgeted attempt",
+      "SavedConsumed": {
+        "functionEvaluations": 186,
+        "gradientEvaluations": 101,
+        "validationEvaluations": 4,
+        "matrixEvaluations": 171,
+        "differenceEvaluations": 0,
+        "jacobianBuilds": 0,
+        "tracedRays": 268374,
+        "geometryProbes": 345222,
+        "elapsed": "00:00:28.6595315"
+      },
+      "UnsettledReservation": null,
+      "ActualAfterLastSave": "Unknown",
+      "Archive": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-31\\preparation-checkpoint\\final-paired-v4\\interrupted-on-chat-stop\\continuous-seed43"
+    },
+    {
+      "Seed": 43,
+      "Arm": "paused",
+      "Action": "Not previously started"
+    },
+    {
+      "Seed": 44,
+      "Arm": "continuous",
+      "Action": "Not previously started"
+    },
+    {
+      "Seed": 44,
+      "Arm": "paused",
+      "Action": "Not previously started"
+    },
+    {
+      "Seed": 45,
+      "Arm": "continuous",
+      "Action": "Not previously started"
+    },
+    {
+      "Seed": 45,
+      "Arm": "paused",
+      "Action": "Not previously started"
+    }
+  ]
+}

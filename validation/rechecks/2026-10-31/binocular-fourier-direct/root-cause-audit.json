@@ -1,0 +1,166 @@
+{
+  "confirmedLateCompletion": {
+    "elapsedSeconds": 57.6863845,
+    "directory": "artifacts/validation/binocular-fourier-remaining-20261031/live-buffer-control",
+    "dataSha256": "a5ff0b720c86dcc4998855e19a2bc927f45e0647cf42a121955fa781efca5f23",
+    "exitCode": 0
+  },
+  "previousNumericalConclusionConfirmed": true,
+  "directReferencesComplete": true,
+  "newNativeExecutions": 13,
+  "newFailures": 0,
+  "observedTiming": {
+    "contentionProvenAsCauseOf600SecondTimeout": false,
+    "contentionIsPlausibleAggravation": true,
+    "serialFrozenFull128Seconds": [
+      13.9339268,
+      13.9396907
+    ],
+    "overlappingFrozen128Seconds": 64.4744846,
+    "parallelNew128Seconds": 65.447591
+  },
+  "knownReportingFault": "A null in-progress result was read before completion; final live-buffer-control success was omitted from the previous narrative",
+  "excludedDeterministicExplanations": [
+    "Unsupported whole-plot API",
+    "256 sampling necessarily exceeds 120 seconds",
+    "Blocking wait always deadlocks",
+    "Async GetResults polling is required",
+    "Low frequency with zero unused slots always hangs"
+  ],
+  "mitigation": "New background runner holds an OS file lease; queue wait is separate from unchanged 120-second native worker budget",
+  "sourceAndPolicyPreserved": true,
+  "rootCauseClosed": false,
+  "nativeTimeoutTrigger": "Not reproduced; historical failing workers no longer exist and no native thread dumps were retained",
+  "nativeCaptures": [
+    {
+      "id": "c1-n128",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 14.4588282,
+      "hostSha256": "97d109d5532b3bff1a1ee3e9529210fe626991450574f9bca8dde4e5c76272d2",
+      "folder": "async-results"
+    },
+    {
+      "id": "c1-n128",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 14.2762736,
+      "hostSha256": "73cdd2c0a8c72835840ddbff559f46caebd19b33abd66d733bfc26fd94165cf0",
+      "folder": "async-status"
+    },
+    {
+      "id": "c1-n128",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 9.2711494,
+      "hostSha256": "572efd23f01727fcd72a9e04f3a93e18be49e4598af01cf1be0818a77837e725",
+      "folder": "blocking"
+    },
+    {
+      "id": "c1-n128",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 21.3073801,
+      "hostSha256": "1469f9293dc0a7df12ad69bb58bc44985c0242a56eb16c17ea31e86077952b2e",
+      "folder": "direct-default"
+    },
+    {
+      "id": "c1-n256",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 59.5004958,
+      "hostSha256": "1469f9293dc0a7df12ad69bb58bc44985c0242a56eb16c17ea31e86077952b2e",
+      "folder": "direct-default"
+    },
+    {
+      "id": "c2-n128",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 65.447591,
+      "hostSha256": "1469f9293dc0a7df12ad69bb58bc44985c0242a56eb16c17ea31e86077952b2e",
+      "folder": "direct-default"
+    },
+    {
+      "id": "c2-n256",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 29.397223,
+      "hostSha256": "1469f9293dc0a7df12ad69bb58bc44985c0242a56eb16c17ea31e86077952b2e",
+      "folder": "direct-default"
+    },
+    {
+      "id": "original",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 64.4744846,
+      "hostSha256": "461b64f55415e1d517ab4657f35f8fa7f3f85883c97c9086c459b963eba9cb4a",
+      "folder": "historical-host-blocking"
+    },
+    {
+      "id": "original",
+      "queueSeconds": 0.0027125,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 33.2695956,
+      "hostSha256": "190a1a15b16afc3762c44519c5cc0b5d73b108c14cd9f9cd76f1df4b3f3be6ac",
+      "folder": "lease-a"
+    },
+    {
+      "id": "original",
+      "queueSeconds": 25.6457208,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 22.3549604,
+      "hostSha256": "b4742ff1ee30dd76317e8602ebd3de99d308990e92eb195ff99e11e94803e323",
+      "folder": "lease-b"
+    },
+    {
+      "id": "original",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 12.0814688,
+      "hostSha256": "31706057d73d4698de945548d5ef92758e78d3ed2a6c7a28db47607cb267ec9c",
+      "folder": "low-frequency-frozen"
+    },
+    {
+      "id": "repeat1",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 13.9339268,
+      "hostSha256": "461b64f55415e1d517ab4657f35f8fa7f3f85883c97c9086c459b963eba9cb4a",
+      "folder": "serial-frozen-repeats"
+    },
+    {
+      "id": "repeat2",
+      "queueSeconds": null,
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "timedOut": false,
+      "elapsedSeconds": 13.9396907,
+      "hostSha256": "461b64f55415e1d517ab4657f35f8fa7f3f85883c97c9086c459b963eba9cb4a",
+      "folder": "serial-frozen-repeats"
+    }
+  ]
+}

@@ -1,0 +1,2710 @@
+{
+  "contract": "NativeSpecialSagControlFixtureV1",
+  "capturedUtc": "2026-10-31T11:25:46.5402786Z",
+  "cases": [
+    {
+      "id": "fringe-nonzero",
+      "source": "VERS 200426 262 0\nMODE SEQ\nUNIT MM X W X CM MR CPMM\nENPD 2\nFTYP 0 0 1 1 0 0 0\nXFLN 0\nYFLN 0\nWAVM 1 .55 1\nPWAV 1\nSURF 0\n TYPE STANDARD\n CURV 0\n DISZ INFINITY\nSURF 1\n STOP\n TYPE FZERNSAG\n CURV .01\n CONI -.5\n PARM 0 1\n PARM 1 .00002\n PARM 9 .1\n PARM 10 -.2\n XDAT 1 8\n XDAT 2 2\n XDAT 3 .01\n XDAT 4 .02\n XDAT 5 -.03\n XDAT 6 .04\n XDAT 7 -.05\n XDAT 8 .06\n XDAT 9 -.07\n XDAT 10 .08\n DISZ 10\n DIAM 3 1 0 0 1 \"\"\nSURF 2\n TYPE STANDARD\n CURV 0\n DIAM 50 1 0 0 1 \"\"",
+      "sourceSha256": "e00a10a167d78673dd9d8f690b8ce73c08e06596333f41aac8916c4ea5a7986d",
+      "nativeOutputSha256": "8594b082203b581cafc2db35f83e1964e9c876a8d5c40882bae4299500ab281a",
+      "reference": "Owned ZOS-API OpticStudio 2026 R1, native operands",
+      "directionConvention": "Physical directions = signed-index native directions times reflection parity",
+      "reflectionParity": 1,
+      "rows": [
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": -0.6,
+            "data2": -0.8,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.0043138125015625625
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.6
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.8
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.004313812501562563
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": -0.6,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.08949904189992712
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.6
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.08949904189992712
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": -0.6,
+            "data2": 0.25,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.10374935134324152
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.6
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.10374935134324154
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": -0.8,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.030099075600409614
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.8
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.030099075600409624
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.05579375
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.05579375000000001
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0.25,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.07170343725585901
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.07170343725585901
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0.5,
+            "data2": -0.8,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.05434784950735154
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.8
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.054347849507351546
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0.5,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.011744996093725589
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.011744996093725589
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0.5,
+            "data2": 0.25,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.024912493896436697
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.02491249389643669
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "fringe-mirror",
+      "source": "VERS 200426 262 0\nMODE SEQ\nUNIT MM X W X CM MR CPMM\nENPD 2\nFTYP 0 0 1 1 0 0 0\nXFLN 0\nYFLN 0\nWAVM 1 .55 1\nPWAV 1\nSURF 0\n TYPE STANDARD\n CURV 0\n DISZ INFINITY\nSURF 1\n STOP\n TYPE FZERNSAG\n CURV .01\n CONI -.5\n PARM 0 1\n PARM 1 .00002\n PARM 9 .1\n PARM 10 -.2\n XDAT 1 8\n XDAT 2 2\n XDAT 3 .01\n XDAT 4 .02\n XDAT 5 -.03\n XDAT 6 .04\n XDAT 7 -.05\n XDAT 8 .06\n XDAT 9 -.07\n XDAT 10 .08\n GLAS MIRROR\n DISZ -10\n DIAM 3 1 0 0 1 \"\"\nSURF 2\n TYPE STANDARD\n CURV 0\n DIAM 50 1 0 0 1 \"\"",
+      "sourceSha256": "aa6d55c6ad48c689a4b80a8095dca1494bd8a18573bd1b4c52190a76cb15012b",
+      "nativeOutputSha256": "8a03dc5cf19f26d331ff83fd095221b6976b4287b36f6767e503ee5f4b8e72be",
+      "reference": "Owned ZOS-API OpticStudio 2026 R1, native operands",
+      "directionConvention": "Physical directions = signed-index native directions times reflection parity",
+      "reflectionParity": -1,
+      "rows": [
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": -0.6,
+            "data2": -0.8,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.0043138125015625625
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.6
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.8
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.004313812501562563
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.044408444624010904
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.27067232769415034
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9616467028315057
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": -0.6,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.08949904189992712
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.6
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.08949904189992712
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.042602420389580384
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.1537097053231422
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9871972246042948
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": -0.6,
+            "data2": 0.25,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.10374935134324152
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.6
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.10374935134324154
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.02830570254782745
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.06945698912917786
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": -0.6,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9971832900045925
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": -0.8,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.030099075600409614
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.8
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.030099075600409624
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.10600378570618482
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.22727394290520975
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9680442925260584
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.05579375
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.05579375000000001
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.1608271479403028
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.15803852315631414
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9742476346822506
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0.25,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.07170343725585901
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.07170343725585901
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.1649130666664954
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.08989783825172586
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.982202656848534
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0.5,
+            "data2": -0.8,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.05434784950735154
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.8
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.054347849507351546
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.07257597511487547
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.15922643805958364
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9845708045940542
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0.5,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.011744996093725589
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.011744996093725589
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.1742312382590285
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.13002621542573153
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.976082301302911
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0.5,
+            "data2": 0.25,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.024912493896436697
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.02491249389643669
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.19270711220734724
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.07451725558087541
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9784227856736569
+        }
+      ]
+    },
+    {
+      "id": "cheb-nonzero",
+      "source": "VERS 200426 262 0\nMODE SEQ\nUNIT MM X W X CM MR CPMM\nENPD 2\nFTYP 0 0 1 1 0 0 0\nXFLN 0\nYFLN 0\nWAVM 1 .55 1\nPWAV 1\nSURF 0\n TYPE STANDARD\n CURV 0\n DISZ INFINITY\nSURF 1\n STOP\n TYPE CHEBYSHV\n CURV 0\n PARM 1 2\n PARM 2 2\n PARM 3 4\n PARM 4 5\n XDAT 1 .03\n XDAT 2 .01\n XDAT 3 .04\n XDAT 6 .02\n DIAM 3 1 0 0 1 \"\"\n GLAS MIRROR\n DISZ -10\nSURF 2\n TYPE STANDARD\n CURV 0\n DIAM 50 1 0 0 1 \"\"",
+      "sourceSha256": "99aedad75bb1909ebcc8d32cb5fc9c42a1fcd769ef5320c12ec9faa02c15a774",
+      "nativeOutputSha256": "bf10e1cad9dac5732aafe07703694855082346a82bbf544333609147e3643613",
+      "reference": "Owned ZOS-API OpticStudio 2026 R1, native operands",
+      "directionConvention": "Physical directions = signed-index native directions times reflection parity",
+      "reflectionParity": -1,
+      "rows": [
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -5.551115123125783E-17
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0.25,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.04199999999999998
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.04199999999999998
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0.5,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.08124999999999993
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.08124999999999993
+        },
+        {
+          "input": {
+            "code": "SSAG",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0.5,
+            "data2": 0.25,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.12324999999999997
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.12324999999999997
+        }
+      ]
+    },
+    {
+      "reflectionParity": -1,
+      "nativeOutputSha256": "efcd7cc8ed96cefdc7a1bb0f3947646d2908b8cbb59da25865a1676c8fee6c32",
+      "id": "mems-rows",
+      "directionConvention": "Physical directions = signed-index native directions times reflection parity",
+      "source": "VERS 200426 262 0\nMODE SEQ\nUNIT MM X W X CM MR CPMM\nENPD 10\nFTYP 0 0 1 1 0 0 0\nXFLN 0\nYFLN 0\nWAVM 1 .55 1\nPWAV 1\nSURF 0\n TYPE STANDARD\n CURV 0\n DISZ INFINITY\nSURF 1\n STOP\n TYPE USERSURF US_MEMS.DLL\n CURV 0\n PARM 1 4\n PARM 2 4\n PARM 3 10\n PARM 4 10\n PARM 5 0\n PARM 6 -10\n PARM 7 10\n PARM 8 45\n XDAT 1 0\n XDAT 2 5\n GLAS MIRROR\n DISZ -10\n DIAM 10 1 0 0 1 \"\"\nSURF 2\n TYPE STANDARD\n CURV 0\n DIAM 50 1 0 0 1 \"\"",
+      "sourceSha256": "a26dcf64fe34926733abfee28cfe750d4f78a63dfc95407558eaf3e8906e157b",
+      "rows": [
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -4
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.2418447626479753
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.2418447626479752
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9396926207859082
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -1.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.2418447626479753
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.2418447626479752
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9396926207859082
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 4
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 2.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -4
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.2418447626479753
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -0.2418447626479752
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9396926207859082
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 2.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": -1.25
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.2418447626479753
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.2418447626479752
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": -0.25,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0.9396926207859082
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 2.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        },
+        {
+          "input": {
+            "code": "REAX",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 2.5
+        },
+        {
+          "input": {
+            "code": "REAY",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 4
+        },
+        {
+          "input": {
+            "code": "REAZ",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAA",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAB",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 0
+        },
+        {
+          "input": {
+            "code": "REAC",
+            "int1": 1,
+            "int2": 1,
+            "data1": 0,
+            "data2": 0,
+            "data3": 0.5,
+            "data4": 0.8,
+            "data5": 0,
+            "data6": 0
+          },
+          "value": 1
+        }
+      ],
+      "reference": "Owned ZOS-API OpticStudio 2026 R1, native operands"
+    }
+  ]
+}

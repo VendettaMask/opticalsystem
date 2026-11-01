@@ -1,0 +1,111 @@
+{
+  "rows": [
+    {
+      "seed": 42,
+      "exact": true,
+      "baselineSeconds": 91.8515963,
+      "candidateSeconds": 81.6060988,
+      "speedup": 1.1255481839060784,
+      "relativeTimeSaved": 0.11154403312204597,
+      "work": {
+        "functionEvaluations": 273,
+        "gradientEvaluations": 212,
+        "validationEvaluations": 6,
+        "matrixEvaluations": 144,
+        "differenceEvaluations": 0,
+        "jacobianBuilds": 0,
+        "tracedRays": 511368,
+        "geometryProbes": 566846,
+        "elapsed": "00:01:21.6060988"
+      },
+      "lostChecks": 0
+    },
+    {
+      "seed": 43,
+      "exact": true,
+      "baselineSeconds": 44.8462226,
+      "candidateSeconds": 40.9737734,
+      "speedup": 1.0945104362782463,
+      "relativeTimeSaved": 0.086349506725233,
+      "work": {
+        "functionEvaluations": 234,
+        "gradientEvaluations": 148,
+        "validationEvaluations": 5,
+        "matrixEvaluations": 171,
+        "differenceEvaluations": 0,
+        "jacobianBuilds": 0,
+        "tracedRays": 354912,
+        "geometryProbes": 447510,
+        "elapsed": "00:00:40.9737734"
+      },
+      "lostChecks": 0
+    },
+    {
+      "seed": 44,
+      "exact": true,
+      "baselineSeconds": 53.9214642,
+      "candidateSeconds": 50.4693877,
+      "speedup": 1.0683994131357375,
+      "relativeTimeSaved": 0.06402045180368088,
+      "work": {
+        "functionEvaluations": 218,
+        "gradientEvaluations": 171,
+        "validationEvaluations": 5,
+        "matrixEvaluations": 117,
+        "differenceEvaluations": 0,
+        "jacobianBuilds": 0,
+        "tracedRays": 375474,
+        "geometryProbes": 458165,
+        "elapsed": "00:00:50.4693877"
+      },
+      "lostChecks": 0
+    },
+    {
+      "seed": 45,
+      "exact": true,
+      "baselineSeconds": 64.0199987,
+      "candidateSeconds": 55.8939597,
+      "speedup": 1.145383133412178,
+      "relativeTimeSaved": 0.12692969642312724,
+      "work": {
+        "functionEvaluations": 189,
+        "gradientEvaluations": 128,
+        "validationEvaluations": 6,
+        "matrixEvaluations": 132,
+        "differenceEvaluations": 0,
+        "jacobianBuilds": 0,
+        "tracedRays": 430800,
+        "geometryProbes": 379318,
+        "elapsed": "00:00:55.8939597"
+      },
+      "lostChecks": 0
+    },
+    {
+      "seed": 46,
+      "exact": true,
+      "baselineSeconds": 410.4038698,
+      "candidateSeconds": 366.2215425,
+      "speedup": 1.1206437147263122,
+      "relativeTimeSaved": 0.10765572781156074,
+      "work": {
+        "functionEvaluations": 376,
+        "gradientEvaluations": 315,
+        "validationEvaluations": 6,
+        "matrixEvaluations": 150,
+        "differenceEvaluations": 0,
+        "jacobianBuilds": 0,
+        "tracedRays": 1167066,
+        "geometryProbes": 790601,
+        "elapsed": "00:06:06.2215425"
+      },
+      "lostChecks": 0
+    }
+  ],
+  "errors": [],
+  "allOriginalQualified": true,
+  "medianSpeedup": 1.1206437147263122,
+  "totalActiveSpeedup": 1.1174101592531096,
+  "scope": "Five fixed original F8 seeds, one frozen run per arm/seed; timings are observations, not a general speed guarantee.",
+  "originalGatesAndCapsChanged": false,
+  "comparesMeasuredElapsedExactly": false
+}

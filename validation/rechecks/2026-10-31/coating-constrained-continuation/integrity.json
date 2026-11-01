@@ -1,0 +1,183 @@
+{
+  "gates": [
+    {
+      "name": "private static bool Converged",
+      "unchanged": true
+    },
+    {
+      "name": "private static RequirementCheck[] Checks",
+      "unchanged": true
+    }
+  ],
+  "physics": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/AdaptiveThinFilmSpectrum.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoatingLayerParameters.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoatingModels.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentMultilayerCoating.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/FresnelPower.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmBandSensitivity.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmPeakRefinement.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmThicknessSensitivity.cs",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Data/films.json",
+      "unchanged": true
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialLibrary.cs",
+      "unchanged": true
+    }
+  ],
+  "controlSource": [
+    {
+      "file": "DesignService.Balanced.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.FeasibleReflectance.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.FeasibleTargets.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.GeneralMatching.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.GeneralObjective.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.GeneralSearch.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.NarrowBand.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.ReflectanceQuality.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.Search.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "DesignService.TargetProtection.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "Examples.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "Experiment.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "ExperimentSession.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "ExperimentStore.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "MaterialLibrary.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "MaterialSuitability.cs",
+      "unchangedExceptAllowance": true
+    },
+    {
+      "file": "MaterialTable.cs",
+      "unchangedExceptAllowance": true
+    }
+  ],
+  "binaries": [
+    {
+      "name": "OpticalSystemDesign.Core",
+      "before": "802e201486a8a512078ac71fd27fc2a6b2d711b1510d3e7b548af5d4007a282f",
+      "budget-only": "802e201486a8a512078ac71fd27fc2a6b2d711b1510d3e7b548af5d4007a282f",
+      "after": "802e201486a8a512078ac71fd27fc2a6b2d711b1510d3e7b548af5d4007a282f",
+      "test": "802e201486a8a512078ac71fd27fc2a6b2d711b1510d3e7b548af5d4007a282f"
+    },
+    {
+      "name": "OpticalSystemDesign.Application",
+      "before": "bbbd5525e76a36a579183e7294e32826c0fd1b095e9cea5892f388aa8a0379de",
+      "budget-only": "bbbd5525e76a36a579183e7294e32826c0fd1b095e9cea5892f388aa8a0379de",
+      "after": "bbbd5525e76a36a579183e7294e32826c0fd1b095e9cea5892f388aa8a0379de",
+      "test": "bbbd5525e76a36a579183e7294e32826c0fd1b095e9cea5892f388aa8a0379de"
+    },
+    {
+      "name": "OpticalSystemDesign.CoatingDesign.Engine",
+      "before": "6e4bd24bc26815de55b63ebf7d095751c941520b0146599f25ea7b22705f0595",
+      "budget-only": "4df6e456d19ffa9c0a9534a037bdf481dff6b3ce971016b000ff0c46271d1f27",
+      "after": "95473e2792dcd1d2b5eab1c223a93265bfe531136f2f6c8d3536246c7b1c5c53",
+      "test": "95473e2792dcd1d2b5eab1c223a93265bfe531136f2f6c8d3536246c7b1c5c53"
+    }
+  ],
+  "binaryPassed": true,
+  "referenceSources": [
+    {
+      "path": "src/utils/physics/optimizer/lsqEngine.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/physics/optimizer/boundedStep.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/physics/optimizer/linalg.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/optimizers/newton.js",
+      "unchanged": true
+    },
+    {
+      "path": "src/utils/optimizers/sqp.js",
+      "unchanged": true
+    }
+  ],
+  "referencePassed": true
+}

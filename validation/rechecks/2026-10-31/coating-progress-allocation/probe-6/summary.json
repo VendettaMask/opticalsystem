@@ -1,0 +1,1352 @@
+[
+  {
+    "Name": "holdout-violet",
+    "InputFingerprint": "3BB35F5014AF25DF17A347132E25DB2AB4E08231862CE4FD4857D900389C372C",
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 405,
+      "MinimumNm": 344.25,
+      "MaximumNm": 465.74999999999994,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 27,
+      "Polarization": "S",
+      "FwhmNm": 16.2,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 352.35,
+          "MaximumNm": 368.55
+        },
+        {
+          "MinimumNm": 441.45000000000005,
+          "MaximumNm": 457.65
+        }
+      ],
+      "CenterToleranceNm": 0.405,
+      "FwhmToleranceNm": 1.62,
+      "Structure": {
+        "Cavities": 1
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 0.81,
+      "MaximumThicknessNm": 810,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "DesignProtocolVersion": 4
+    },
+    "BeforeLoss": 0.028185742555525587,
+    "AfterLoss": 0,
+    "BeforePassed": false,
+    "AfterPassed": true,
+    "BeforeMetrics": {
+      "PeakWavelengthNanometers": 405.0158203125,
+      "PeakTransmittance": 0.6572888722138709,
+      "LeftHalfMaximumNanometers": 395.4313130029705,
+      "RightHalfMaximumNanometers": 415.0916440275708,
+      "FwhmNanometers": 19.660331024600282,
+      "MinimumReflectance": 0.32270165949178936,
+      "MaximumReflectance": 0.9208940482638872
+    },
+    "AfterMetrics": {
+      "PeakWavelengthNanometers": 404.63613281249997,
+      "PeakTransmittance": 0.8430730748412731,
+      "LeftHalfMaximumNanometers": 395.8645169682078,
+      "RightHalfMaximumNanometers": 413.683258918841,
+      "FwhmNanometers": 17.818741950633182,
+      "MinimumReflectance": 0.1303168005188478,
+      "MaximumReflectance": 0.9088559481405732
+    },
+    "BeforeBlockingOd": [
+      1.1046256480094003,
+      1.1110517620962765
+    ],
+    "AfterBlockingOd": [
+      1.0073885543636119,
+      1.098274612407281
+    ],
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 11,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "0.81\u2013810",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 404.63613281249997,
+        "Requirement": "405 \u00B1 0.405",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 17.818741950633182,
+        "Requirement": "16.2 \u00B1 1.62",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 84.3073074841273,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A352.35\u2013368.55 nm",
+        "Actual": 1.0073885543636119,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A441.45\u2013457.65 nm",
+        "Actual": 1.098274612407281,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "ProtectedLayers": true,
+    "IdenticalMaterials": true,
+    "LayersChanged": true,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "general-constraint-coating/4",
+      "StopReason": "CertifiedTargetDirectionComparison",
+      "Evaluations": 226,
+      "Iterations": 48,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/2",
+      "TargetViolationCeilings": [
+        0.12361483704817215,
+        0.11360068053088165,
+        0,
+        0,
+        0
+      ],
+      "TargetEnvelopeSampling": "dense-start",
+      "TargetProtectionPhase": "pareto-target-correction",
+      "TargetRepairStartLayers": [
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 46.076150087909845,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 70.19936833973813,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 49.22864820404859,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 78.51840500687892,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 55.13572934723421,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 75.7037330785388,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 95.33136482187466,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 70.94180912724929,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 48.79137982683009,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 72.56795157186573,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 48.5248237820117,
+          "Variable": true
+        }
+      ],
+      "TargetRepairViolationCeilings": [
+        0.08859118225082059,
+        0.11356144410635446,
+        0,
+        0,
+        0
+      ],
+      "TargetRepairGoalIndex": 0,
+      "TargetRepairTrials": [
+        {
+          "Step": 1,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 43.15065770557183,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 65.4198048326702,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 47.02665867254371,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 79.68295715300219,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 59.0498488131011,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 79.9624346131343,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 91.7307541115471,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.15795886738839,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.31540868872768,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 73.5742251596054,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.77038908876445,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.66777343749993,
+            "PeakTransmittance": 0.7332764726005467,
+            "LeftHalfMaximumNanometers": 394.94491135550504,
+            "RightHalfMaximumNanometers": 414.78147042340515,
+            "FwhmNanometers": 19.83655906790011,
+            "MinimumReflectance": 0.24478161918454772,
+            "MaximumReflectance": 0.9053324050988583
+          },
+          "Violations": [
+            0.022298036532604353,
+            0.1244789548086489,
+            0,
+            0.025946294469356035,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false,
+          "GoalIndex": 0,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0.08859118225082059,
+            0.11356144410635446,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 0.025946294469356035
+        },
+        {
+          "Step": 2,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 43.751434093688935,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 65.5186785223359,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 46.3118212175829,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 78.82812437183091,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 60.578381504313015,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 83.99293272130217,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 91.19696924077243,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 70.39048018441109,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 47.525849541191455,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 69.96993325296427,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 47.950695056069456,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.71523437499997,
+            "PeakTransmittance": 0.7463240984456383,
+            "LeftHalfMaximumNanometers": 395.0255118311492,
+            "RightHalfMaximumNanometers": 414.9110648786586,
+            "FwhmNanometers": 19.885553047509404,
+            "MinimumReflectance": 0.23127336901208648,
+            "MaximumReflectance": 0.9071004813876803
+          },
+          "Violations": [
+            0.004901202072482273,
+            0.1275032745376176,
+            0,
+            0.007972979633965038,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false,
+          "GoalIndex": 0,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0.08859118225082059,
+            0.11356144410635446,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 0.013941830431263125
+        },
+        {
+          "Step": 3,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 44.00244913863273,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 65.41501517832995,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 45.67015863668986,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 77.3904907682817,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 60.38747200992735,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 85.0374184743558,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 90.23020745291255,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 70.64064524378752,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.49446791117344,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.9326810034041,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.82889308290226,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.63613281249997,
+            "PeakTransmittance": 0.7490281920316573,
+            "LeftHalfMaximumNanometers": 395.00482672398175,
+            "RightHalfMaximumNanometers": 414.7343833825718,
+            "FwhmNanometers": 19.72955665859007,
+            "MinimumReflectance": 0.22843212283932382,
+            "MaximumReflectance": 0.907072048407705
+          },
+          "Violations": [
+            0.0012957439577903074,
+            0.11787386781420191,
+            0,
+            0.0038297783732172963,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false,
+          "GoalIndex": 0,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0.08859118225082059,
+            0.11356144410635446,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 0.004312423707847443
+        },
+        {
+          "Step": 4,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 44.46471216753266,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 65.7574496362253,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 45.37260306674857,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 76.39439446918317,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 60.4188738589199,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 86.6088759714183,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 89.68091650093963,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 70.5582918600543,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.485977065398295,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.96076643137211,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.83106804437349,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.63613281249997,
+            "PeakTransmittance": 0.7502970884485383,
+            "LeftHalfMaximumNanometers": 395.0477934450345,
+            "RightHalfMaximumNanometers": 414.7078142976436,
+            "FwhmNanometers": 19.660020852609136,
+            "MinimumReflectance": 0.22712174474614355,
+            "MaximumReflectance": 0.9075542458832914
+          },
+          "Violations": [
+            0,
+            0.11358153411167513,
+            0,
+            0.00022452297749053773,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false,
+          "GoalIndex": 0,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0.08859118225082059,
+            0.11356144410635446,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 0.00022452297749053773
+        },
+        {
+          "Step": 5,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 44.47106684224538,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 65.76452295083199,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 45.371818289510834,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 76.38280902461301,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 60.411687134767895,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 86.61307681278588,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 89.68095547155644,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 70.55882577947717,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.48538795950195,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.95938600052436,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.83035120905804,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.63613281249997,
+            "PeakTransmittance": 0.7502016918204565,
+            "LeftHalfMaximumNanometers": 395.0430993253906,
+            "RightHalfMaximumNanometers": 414.702199320675,
+            "FwhmNanometers": 19.659099995284407,
+            "MinimumReflectance": 0.22722065500906452,
+            "MaximumReflectance": 0.9075622495197704
+          },
+          "Violations": [
+            0,
+            0.11352469106693876,
+            0,
+            9.276916979050753E-08,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false,
+          "GoalIndex": 0,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0.08859118225082059,
+            0.11356144410635446,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 9.276916979050753E-08
+        },
+        {
+          "Step": 6,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 44.4710662084412,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 65.76452157276819,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 45.37181703775187,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 76.38280670876331,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 60.411685889747865,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 86.61307715518541,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 89.68095687682678,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 70.55882626913285,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.485387627672004,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.95938513916873,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.83035076752671,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.63613281249997,
+            "PeakTransmittance": 0.7502016853536332,
+            "LeftHalfMaximumNanometers": 395.04309899091106,
+            "RightHalfMaximumNanometers": 414.70219928278317,
+            "FwhmNanometers": 19.659100291872107,
+            "MinimumReflectance": 0.22722066158817125,
+            "MaximumReflectance": 0.9075622570861278
+          },
+          "Violations": [
+            0,
+            0.11352470937482148,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true,
+          "GoalIndex": 0,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0.08859118225082059,
+            0.11356144410635446,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 0
+        },
+        {
+          "Step": 7,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.8785050577721,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.09158711710018,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 43.866969931317236,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 67.26456967190374,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 59.767586595591105,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 101.8694536352175,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 84.13261197270508,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 69.62393795086429,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.31578362136522,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.02319084456327,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.796386529124185,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 405.25312499999995,
+            "PeakTransmittance": 0.77822889060123,
+            "LeftHalfMaximumNanometers": 395.9599691282335,
+            "RightHalfMaximumNanometers": 414.87270577909305,
+            "FwhmNanometers": 18.91273665085953,
+            "MinimumReflectance": 0.19816106195383468,
+            "MaximumReflectance": 0.9083182758830886
+          },
+          "Violations": [
+            0,
+            0.067452879682687,
+            0,
+            0.018227048582788785,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false,
+          "GoalIndex": 1,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0,
+            0.11352470937482148,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 0.067452879682687
+        },
+        {
+          "Step": 8,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 47.899885040847494,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 70.59592355237362,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 45.73704553796028,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 67.76648698105843,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 58.46215038903513,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 110.97511548288874,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 79.68302399185156,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 68.26623145375757,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 47.95557711879698,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.63066397246202,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.7330116394305,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 405.42714843749997,
+            "PeakTransmittance": 0.816499847399955,
+            "LeftHalfMaximumNanometers": 396.41934775631796,
+            "RightHalfMaximumNanometers": 414.80903489537604,
+            "FwhmNanometers": 18.389687139058083,
+            "MinimumReflectance": 0.15824126156664578,
+            "MaximumReflectance": 0.9109631706484158
+          },
+          "Violations": [
+            0,
+            0.03516587278136317,
+            0.001367187499997893,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": false,
+          "GoalIndex": 1,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0,
+            0.11352470937482148,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 0.03516587278136317
+        },
+        {
+          "Step": 9,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.21344399872885,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.27655414785227,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 46.47145939948808,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 68.1754559118421,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 58.26613612849587,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 116.00555763871196,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 75.73250400429356,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 67.04378925955639,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 47.94253552226422,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.92792733472957,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.88632132644512,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.905078125,
+            "PeakTransmittance": 0.8425130395570473,
+            "LeftHalfMaximumNanometers": 396.12909730292955,
+            "RightHalfMaximumNanometers": 413.9842626254263,
+            "FwhmNanometers": 17.85516532249676,
+            "MinimumReflectance": 0.13090242477400263,
+            "MaximumReflectance": 0.9097628548305631
+          },
+          "Violations": [
+            0,
+            0.002170698919553091,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true,
+          "GoalIndex": 1,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0,
+            0.11352470937482148,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 0.002170698919553091
+        },
+        {
+          "Step": 10,
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.2511862886219,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.3419840898164,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 46.51300648949582,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 68.19971340522127,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 58.243847721742,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 115.96545558752995,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 75.53794714839005,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 66.97265195430334,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 47.94686699240379,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 71.95808172306434,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.90271062492377,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.63613281249997,
+            "PeakTransmittance": 0.8430730748412731,
+            "LeftHalfMaximumNanometers": 395.8645169682078,
+            "RightHalfMaximumNanometers": 413.683258918841,
+            "FwhmNanometers": 17.818741950633182,
+            "MinimumReflectance": 0.1303168005188478,
+            "MaximumReflectance": 0.9088559481405732
+          },
+          "Violations": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "SamplingConverged": true,
+          "Retained": true,
+          "GoalIndex": 1,
+          "Stage": "target-restoration",
+          "ViolationCeilings": [
+            0,
+            0.11352470937482148,
+            0,
+            0,
+            0
+          ],
+          "RestorationViolation": 0
+        }
+      ],
+      "TargetDirectionTrials": [
+        {
+          "Direction": "original-scale",
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 46.076150087909845,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 70.19936833973813,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.22864820404859,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 78.51840500687892,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 55.13572934723421,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 75.7037330785388,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 95.33136482187466,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 70.94180912724929,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.79137982683009,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.56795157186573,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 48.5248237820117,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 404.60449218749994,
+            "PeakTransmittance": 0.6835566133118846,
+            "LeftHalfMaximumNanometers": 394.9127654707656,
+            "RightHalfMaximumNanometers": 414.5724608652885,
+            "FwhmNanometers": 19.65969539452294,
+            "MinimumReflectance": 0.29599931887563363,
+            "MaximumReflectance": 0.9109851967781615
+          },
+          "Merit": 0.02074459916011878,
+          "Passed": false,
+          "Iterations": 48,
+          "Evaluations": 93,
+          "StopReason": "MaximumIterations",
+          "Selected": true
+        },
+        {
+          "Direction": "relative-deficit",
+          "Layers": [
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.38206204162157,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.9665985290751,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.38206204162157,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.9665985290751,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.38206204162157,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.9665985290751,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 98.76412408324315,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.9665985290751,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.38206204162157,
+              "Variable": true
+            },
+            {
+              "MaterialId": "low",
+              "ThicknessNm": 72.9665985290751,
+              "Variable": true
+            },
+            {
+              "MaterialId": "high",
+              "ThicknessNm": 49.38206204162157,
+              "Variable": true
+            }
+          ],
+          "Metrics": {
+            "PeakWavelengthNanometers": 405.0158203125,
+            "PeakTransmittance": 0.6572888722138709,
+            "LeftHalfMaximumNanometers": 395.4313130029705,
+            "RightHalfMaximumNanometers": 415.0916440275708,
+            "FwhmNanometers": 19.660331024600282,
+            "MinimumReflectance": 0.32270165949178936,
+            "MaximumReflectance": 0.9208940482638872
+          },
+          "Merit": 0.028185742555525587,
+          "Passed": false,
+          "Iterations": 48,
+          "Evaluations": 100,
+          "StopReason": "MaximumIterations",
+          "Selected": false
+        }
+      ],
+      "TargetRepairBaselineDirection": "original-scale",
+      "TargetRepairStopReason": "Passed",
+      "TargetRepairContinuationStartLayers": [
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 44.4710662084412,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 65.76452157276819,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 45.37181703775187,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 76.38280670876331,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 60.411685889747865,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 86.61307715518541,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 89.68095687682678,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 70.55882626913285,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 48.485387627672004,
+          "Variable": true
+        },
+        {
+          "MaterialId": "low",
+          "ThicknessNm": 71.95938513916873,
+          "Variable": true
+        },
+        {
+          "MaterialId": "high",
+          "ThicknessNm": 48.83035076752671,
+          "Variable": true
+        }
+      ],
+      "TargetRepairContinuationCeilings": [
+        0,
+        0.11352470937482148,
+        0,
+        0,
+        0
+      ],
+      "TargetParetoStopReason": "Passed",
+      "TargetRepairWindows": [
+        {
+          "PreviousLimit": 7,
+          "NewLimit": 14,
+          "GoalIndex": 1,
+          "BestMerit": 0.01288785963863768,
+          "ViolationCeilings": [
+            0,
+            0.11352470937482148,
+            0,
+            0,
+            0
+          ],
+          "Reason": "CertifiedProgress"
+        }
+      ],
+      "TargetRefinementIterationLimit": 48,
+      "DesignProtocol": "general-constraint-coating/4",
+      "GeneralWork": {
+        "SpectrumEvaluations": 55667,
+        "SensitivityEvaluations": 290502,
+        "AnalyticJacobians": 106,
+        "ConstraintPasses": 14,
+        "AdaptiveRefinements": 12,
+        "AdaptiveLimitReached": true,
+        "DenseValidations": 14,
+        "BandMetricEvaluations": 340,
+        "BandSensitivityBatches": 203,
+        "PassbandProtocol": "measured-passband-constraints/1",
+        "TargetProtectionProtocol": "target-violation-envelope/3",
+        "TargetProtectionPasses": 14,
+        "ProtectedTrialRejections": 186,
+        "DenseProtectionRejections": 7,
+        "TargetDirectionRestarts": 1,
+        "InequalitySubproblems": 10,
+        "InequalityActiveSetIterations": 43,
+        "TargetRepairIterations": 10,
+        "TargetRepairAcceptedCandidates": 3,
+        "InequalityStepProtocol": "active-set-inequality-step/1",
+        "TargetRepairProtocol": "pareto-target-correction/3",
+        "TargetComparisonRuns": 1,
+        "TargetComparisonIterations": 48,
+        "TargetRepairContinuationIterations": 3
+      }
+    },
+    "Seconds": 3.2467589
+  }
+]

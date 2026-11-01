@@ -3,6 +3,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
@@ -208,10 +209,9 @@ public sealed partial class DesktopTests
                 Assert.NotEqual(Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(plot.PlotBackgroundBrush).Color,
                     Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(plot.PlotTextBrush).Color);
                 Assert.Equal(fingerprint, window.CurrentExperiment.Fingerprint());
-                var sidebar = window.GetLogicalDescendants().OfType<Border>().Single(x => x.Name == "CoatingSidebar");
-                Assert.InRange(sidebar.Bounds.Width, 240, 280);
-                var scroll = Assert.IsType<ScrollViewer>(sidebar.Child);
-                Assert.Equal(Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled, scroll.HorizontalScrollBarVisibility);
+                var workspace = window.GetLogicalDescendants().OfType<Grid>().Single(x => x.Name == "CoatingWorkspace");
+                Assert.Equal(3, workspace.ColumnDefinitions.Count);
+                Assert.DoesNotContain(window.GetLogicalDescendants().OfType<Control>(), x => x.Name == "CoatingSidebar");
                 Assert.All(window.GetLogicalDescendants().OfType<Button>().Where(x => x.Content?.ToString() is "1 生成膜系" or "2 优化" or "结构搜索"), b => Assert.Contains("accent", b.Classes));
                 Assert.False(Find<Button>(window, "取消").IsEnabled);
                 Assert.NotEmpty(AutomationProperties.GetHelpText(Find<Button>(window, "取消"))!);
@@ -258,10 +258,24 @@ public sealed partial class DesktopTests
         Task.FromResult(global::OpticalSystemDesign.App.UnsavedChangesChoice.Discard);
 
     private static T Find<T>(Window window, string label) where T : Control => window.GetLogicalDescendants()
-        .OfType<T>().Single(c => AutomationProperties.GetName(c) == label);
+        .Concat(window is MainWindow coating ? coating.SettingsContent.GetLogicalDescendants() : [])
+        .OfType<T>().Distinct().Single(c => AutomationProperties.GetName(c) == label);
     private static void Tick(Window window) { window.UpdateLayout(); Dispatcher.UIThread.RunJobs(); AvaloniaHeadlessPlatform.ForceRenderTimerTick(); }
     private static void Click(Window window, string label)
     {
+        var menuName = label.StartsWith("示例：", StringComparison.Ordinal) ? "镀膜示例"
+            : label is "设计目标设置" or "介质与膜料设置" ? "设计选项"
+            : label is "优化设置" or "公差设置" ? "优化选项" : null;
+        if (menuName is not null)
+        {
+            Click(window, menuName); Tick(window);
+            var flyout = Assert.IsType<MenuFlyout>(Find<DropDownButton>(window, menuName).Flyout);
+            Assert.True(flyout.IsOpen);
+            var item = flyout.Items.OfType<MenuItem>().Single(c => AutomationProperties.GetName(c) == label);
+            item.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+            flyout.Hide();
+            return;
+        }
         var button = Find<Button>(window, label); button.BringIntoView(); Tick(window);
         Assert.True(button.IsEffectivelyEnabled, label);
         var point = button.TranslatePoint(new Point(button.Bounds.Width / 2, button.Bounds.Height / 2), window)!.Value;

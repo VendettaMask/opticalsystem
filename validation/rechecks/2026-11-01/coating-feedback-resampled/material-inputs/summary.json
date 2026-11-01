@@ -1,0 +1,536 @@
+[
+  {
+    "Name": "si-ti-real-nbf2-96",
+    "Source": "real-nbf2-96",
+    "Low": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+    "High": "TiO2-Siefke",
+    "BoundClamps": 0,
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 550,
+      "MinimumNm": 480,
+      "MaximumNm": 620,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 490,
+          "MaximumNm": 510
+        },
+        {
+          "MinimumNm": 590,
+          "MaximumNm": 610
+        }
+      ],
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 550.4298953010381,
+      "PeakTransmittance": 0.6668958216236093,
+      "LeftHalfMaximumNanometers": 546.4741790894027,
+      "RightHalfMaximumNanometers": 554.7777003073658,
+      "FwhmNanometers": 8.303521217963066,
+      "MinimumReflectance": 0.03431056368064503,
+      "MaximumReflectance": 0.9388261705848954
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 550.4298953010381,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 8.303521217963066,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 66.68958216236092,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.7442176497497115,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 2.045571833168123,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "Fingerprint": "906837B2D8674B01CF21AFAF8CD4522F29F128A0BD696585D49B5C03DFB6328D"
+  },
+  {
+    "Name": "si-ti-real-hr-96",
+    "Source": "real-hr-96",
+    "Low": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+    "High": "TiO2-Siefke",
+    "BoundClamps": 0,
+    "Target": {
+      "Kind": "HighReflector",
+      "CenterNm": 550,
+      "MinimumNm": 520,
+      "MaximumNm": 580,
+      "Reflectance": 0.98,
+      "MaximumLayers": 32,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": null,
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 580,
+      "PeakTransmittance": 9.755166130701405E-07,
+      "LeftHalfMaximumNanometers": 566.7805977975084,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9925595329391255,
+      "MaximumReflectance": 0.9961673889420943
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 99.25595329391254,
+        "Requirement": "\u2265 98",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "Fingerprint": "4656A5F1D38E1032EF7053CBD41012C841F2DC16B8D0F46A9A98BA8D91EE8499"
+  },
+  {
+    "Name": "si-nb-new-real-nbf-green",
+    "Source": "new-real-nbf-green",
+    "Low": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+    "High": "Nb2O5-Lemarchand",
+    "BoundClamps": 1,
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 500,
+      "MinimumNm": 436.3636363636364,
+      "MaximumNm": 563.6363636363636,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 5,
+      "Polarization": "S",
+      "FwhmNm": 13.636363636363637,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 445.45454545454544,
+          "MaximumNm": 463.6363636363636
+        },
+        {
+          "MinimumNm": 536.3636363636364,
+          "MaximumNm": 554.5454545454545
+        }
+      ],
+      "CenterToleranceNm": 0.45454545454545453,
+      "FwhmToleranceNm": 0.9090909090909091,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 1.8033555524063996,
+      "MaximumThicknessNm": 1818.691098178533,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 499.6909254347463,
+      "PeakTransmittance": 0.6700270504123417,
+      "LeftHalfMaximumNanometers": 495.5023348656815,
+      "RightHalfMaximumNanometers": 504.09907910033564,
+      "FwhmNanometers": 8.596744234654125,
+      "MinimumReflectance": 0.021503601427635976,
+      "MaximumReflectance": 0.9376991741007795
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 499.6909254347463,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 8.596744234654125,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 67.00270504123417,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 1.536302508337798,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 1.9084484074345816,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "Passed": false,
+    "Fingerprint": "A481180EAC50113FCBDCEF48CAC38EAD98113A57865C141921DBDC40BB3F0BDB"
+  },
+  {
+    "Name": "si-nb-correction-real-hr-red",
+    "Source": "correction-real-hr-red",
+    "Low": "SiO2 \u8584\u819C\uFF08Rodr\u00EDguez-de Marcos 2016\uFF09",
+    "High": "Nb2O5-Lemarchand",
+    "BoundClamps": 0,
+    "Target": {
+      "Kind": "HighReflector",
+      "CenterNm": 710,
+      "MinimumNm": 671.2727272727274,
+      "MaximumNm": 748.7272727272727,
+      "Reflectance": 0.98,
+      "MaximumLayers": 32,
+      "AngleDegrees": 15,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 19.363636363636367,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": null,
+      "CenterToleranceNm": 0.6454545454545455,
+      "FwhmToleranceNm": 1.290909090909091
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2.6305449885128414,
+      "MaximumThicknessNm": 2644.07942640585,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 748.7272727272727,
+      "PeakTransmittance": 5.596154330955187E-06,
+      "LeftHalfMaximumNanometers": 732.8030537846832,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9940288400832387,
+      "MaximumReflectance": 0.9969007839279069
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2.630545\u20132644.0794",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 99.40288400832387,
+        "Requirement": "\u2265 98",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "Fingerprint": "21CDF31054FE9AB3B87D55B45668D5369D0D5A50DB67113A0C6BE72F1CB8C8B8"
+  },
+  {
+    "Name": "hf-ti-new-real-nbf-green",
+    "Source": "new-real-nbf-green",
+    "Low": "HfO2-Siefke",
+    "High": "TiO2-Siefke",
+    "BoundClamps": 1,
+    "Target": {
+      "Kind": "NarrowBand",
+      "CenterNm": 500,
+      "MinimumNm": 436.3636363636364,
+      "MaximumNm": 563.6363636363636,
+      "Reflectance": 0.02,
+      "MaximumLayers": 39,
+      "AngleDegrees": 5,
+      "Polarization": "S",
+      "FwhmNm": 13.636363636363637,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": [
+        {
+          "MinimumNm": 445.45454545454544,
+          "MaximumNm": 463.6363636363636
+        },
+        {
+          "MinimumNm": 536.3636363636364,
+          "MaximumNm": 554.5454545454545
+        }
+      ],
+      "CenterToleranceNm": 0.45454545454545453,
+      "FwhmToleranceNm": 0.9090909090909091,
+      "Structure": {
+        "Cavities": 2
+      }
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 48,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 1.8033555524063996,
+      "MaximumThicknessNm": 1818.691098178533,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 503.5619467769885,
+      "PeakTransmittance": 0.9962365976691965,
+      "LeftHalfMaximumNanometers": 487.8059855211378,
+      "RightHalfMaximumNanometers": 510.10199786218664,
+      "FwhmNanometers": 22.296012341048822,
+      "MinimumReflectance": 0.0037572461306005583,
+      "MaximumReflectance": 0.942023241954148
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 15,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "1.8033556\u20131818.6911",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 503.5619467769885,
+        "Requirement": "500 \u00B1 0.45454545",
+        "Passed": false
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 22.296012341048822,
+        "Requirement": "13.636364 \u00B1 0.90909091",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 99.62365976691964,
+        "Requirement": "\u2265 75",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A445.45455\u2013463.63636 nm",
+        "Actual": 0.3263872190246072,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A536.36364\u2013554.54545 nm",
+        "Actual": 0.36557066173778974,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "Passed": false,
+    "Fingerprint": "7B732F069B4C3A528BFFC9EA7B6CF560CC84ECC470CD9E9B1D15C95876391B44"
+  },
+  {
+    "Name": "hf-ti-real-hr-96",
+    "Source": "real-hr-96",
+    "Low": "HfO2-Siefke",
+    "High": "TiO2-Siefke",
+    "BoundClamps": 0,
+    "Target": {
+      "Kind": "HighReflector",
+      "CenterNm": 550,
+      "MinimumNm": 520,
+      "MaximumNm": 580,
+      "Reflectance": 0.98,
+      "MaximumLayers": 32,
+      "AngleDegrees": 0,
+      "Polarization": "Unpolarized",
+      "FwhmNm": 15,
+      "PeakTransmittance": 0.75,
+      "BlockingOd": 1,
+      "StopBands": null,
+      "CenterToleranceNm": 0.5,
+      "FwhmToleranceNm": 1
+    },
+    "Settings": {
+      "PreviewIntervals": 400,
+      "OptimizationIntervals": 120,
+      "MaximumIterations": 96,
+      "Optimizer": "Damped Least Squares",
+      "MinimumThicknessNm": 2,
+      "MaximumThicknessNm": 2000,
+      "TolerancePercent": 1,
+      "ToleranceTrials": 20,
+      "RandomSeed": 1234,
+      "Search": {
+        "Starts": 4,
+        "JitterPercent": 12,
+        "VaryStructure": true
+      },
+      "DesignProtocolVersion": 4
+    },
+    "Metrics": {
+      "PeakWavelengthNanometers": 520,
+      "PeakTransmittance": 0.016241357904627923,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": 523.7549231414712,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9837580963922568,
+      "MaximumReflectance": 0.9985419749504548
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 98.37580963922568,
+        "Requirement": "\u2265 98",
+        "Passed": true
+      }
+    ],
+    "Passed": true,
+    "Fingerprint": "65B09EE78FE9BEB070362B73D81ADA46F9751AAC7F71395DE6C4506E33302D56"
+  }
+]

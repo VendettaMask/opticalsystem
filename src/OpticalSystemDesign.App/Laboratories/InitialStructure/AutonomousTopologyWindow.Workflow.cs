@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 using System.Globalization;
 using Avalonia.Controls;
+using Avalonia.Automation;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Services;
@@ -32,6 +33,7 @@ public sealed partial class AutonomousTopologyWindow
 
     private Task NewDraft()
     {
+        _viewingPortfolio = false; _reviewSource = null;
         _session.Reset(); _generation++; _displayRevision = -1; _displayRun = null;
         _draft = AutonomousDesignExamples.ThreeElement(); ApplyPlan(_draft);
         _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear();
@@ -51,6 +53,7 @@ public sealed partial class AutonomousTopologyWindow
     {
         var path = await PickOpen("plan"); if (path is null) return;
         var plan = await AutonomousDesignFiles.LoadPlanAsync(path);
+        _viewingPortfolio = false; _reviewSource = null;
         ApplyPlan(plan); _session.Reset(); _generation++; _draft = plan;
         _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear();
         _status.Text = UiLocalization.Text(AutonomousSearchService.IsHistoricalReadOnlyPlan(plan)
@@ -58,7 +61,7 @@ public sealed partial class AutonomousTopologyWindow
     }
     private async Task SavePlanAsync()
     {
-        var plan = _session.Checkpoint?.Plan ?? ReadPlan();
+        var plan = _session.Checkpoint?.Plan ?? _session.PreparationCheckpoint?.Plan ?? ReadPlan();
         var path = await PickSave("plan"); if (path is null) return;
         await AutonomousDesignFiles.SavePlanAsync(plan, path);
         _status.Text = UiLocalization.Text("设计计划已保存");
@@ -69,9 +72,20 @@ public sealed partial class AutonomousTopologyWindow
         if (path.EndsWith(".family.json", StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException(UiLocalization.Text("AutoLens 记录请从原入口打开"));
         await _session.LoadAsync(path, ApplyPlan);
+        _viewingPortfolio = false; _reviewSource = null;
         // An explicitly opened backup is authoritative even when this run was previously displayed at a later revision.
         _displayRevision = -1; _displayRun = null;
-        _generation++; _draft = _session.Checkpoint!.Plan; ApplyPlan(_draft); Publish(_session.Checkpoint);
+        _generation++; _draft = _session.Checkpoint?.Plan ?? _session.PreparationCheckpoint!.Plan; ApplyPlan(_draft);
+        if(_session.PreparationCheckpoint is {Stage:"Finished",ContinueIntoMain:false})
+        {await PresentPreparedDraftAsync();return;}
+        if (_session.Checkpoint is { } main) Publish(main);
+        else
+        {
+            _seedResult = _session.PreparationResult; _seedReportPath = _session.PreparationCheckpointPath; RefreshSeedSummary();
+            _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear(); Refresh();
+        }
+        if(_session.PreparationCheckpoint is { } preparation&&!SeedPreparationSearch.CanExecute(preparation))
+        {_status.Text=UiLocalization.Text("准备检查点来自其他计算版本，仅供查看，请使用原版本继续");return;}
         _status.Text = UiLocalization.Text(AutonomousSearchService.IsHistoricalReadOnlyPlan(_draft)
             ? "此通光原型仅供查看和导出，请新建版本化计划" : "记录已载入，尚未继续运行");
     }
@@ -85,7 +99,7 @@ public sealed partial class AutonomousTopologyWindow
     private async Task RunAsync(bool resume)
     {
         CancelStructureLoad();
-        var plan = resume ? _session.Checkpoint!.Plan : ReadPlan();
+        var plan = resume ? _session.Checkpoint?.Plan ?? _session.PreparationCheckpoint!.Plan : ReadPlan();
         _draft = plan;
         var generation = ++_generation;
         _status.Text = UiLocalization.Text("自主设计正在运行");
@@ -103,11 +117,33 @@ public sealed partial class AutonomousTopologyWindow
                     if (!_closed && generation == _generation)
                         _status.Text = UiLocalization.Text("本阶段正在恢复") + $" · {pending.TrialId} · "
                             + UiLocalization.Text("已接受步骤") + $" {step.AcceptedStep}";
+                }),
+                (stage, functions) => Dispatcher.UIThread.Post(() =>
+                {
+                    if (!_closed && generation == _generation)
+                        _status.Text = UiLocalization.Text(plan.Options.SeedPreparation?.Spc is not null ? "正在准备SPC分支" : "正在冷启动构造与补偿") + $" · {stage}";
                 }));
         }
         finally { _generation++; }
-        Publish(_session.Checkpoint!);
-        var checkpoint = _session.Checkpoint!;
+        if (_session.Checkpoint is not { } checkpoint)
+        {
+            if(_session.PreparationCheckpoint is {Stage:"Finished",ContinueIntoMain:false})
+            {await PresentPreparedDraftAsync();return;}
+            if (_session.PreparationResult is { } failed)
+            {
+                _seedResult = failed; _seedReportPath = _session.PreparationReportPath; RefreshSeedSummary();
+                _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear();
+                _status.Text = UiLocalization.Text(_session.PreparationCheckpoint?.Status == SeedPreparationStatus.Suspended
+                    ? "一阶准备已停止并保存" : failed.Spc is not null ? "SPC未得到预算内合格起点" : "冷启动未得到预算内合格处方");
+            }
+            return;
+        }
+        if (!resume && _session.PreparationResult is { } prepared)
+        {
+            _draft = checkpoint.Plan; ApplyPlan(checkpoint.Plan);
+            _seedResult = prepared; _seedReportPath = _session.PreparationReportPath; RefreshSeedSummary();
+        }
+        Publish(checkpoint);
         _status.Text = UiLocalization.Text(checkpoint.Status switch
         {
             AutonomousSearchStatus.Cancelled => "自主任务已停止并保存",
@@ -118,7 +154,6 @@ public sealed partial class AutonomousTopologyWindow
     }
     private void Cancel()
     {
-        _seedCancellation?.Cancel();
         _session.Cancel(); _status.Text = UiLocalization.Text("正在停止并保存，完成后可继续。");
     }
     internal void RequestSafeClose()
@@ -128,8 +163,8 @@ public sealed partial class AutonomousTopologyWindow
     }
     private async Task CopyRecordAsync()
     {
-        var source = _session.RecordPath ?? throw new InvalidOperationException("No saved autonomous record.");
-        var path = await PickSave("record"); if (path is null) return;
+        var source = _session.RecordPath ?? _session.PreparationCheckpointPath ?? throw new InvalidOperationException("No saved autonomous record.");
+        var path = await PickSave(_session.RecordPath is null ? "preparation-record" : "record"); if (path is null) return;
         if (Path.GetFullPath(path).Equals(Path.GetFullPath(source), StringComparison.OrdinalIgnoreCase)) return;
         if (File.Exists(path)) throw new IOException(UiLocalization.Text("请为运行记录选择新文件名"));
         var bytes = await BoundedFile.ReadAllBytesAsync(source, InitialStructureLimits.MaximumManifestBytes, "autonomous record");
@@ -167,6 +202,10 @@ public sealed partial class AutonomousTopologyWindow
         Put("AutonomousReserve", options.FinalValidationRayReserve); Put("AutonomousMinutes", options.TimeLimit.TotalMinutes); Put("AutonomousSeed", options.Seed);
         Put("AutonomousAxialWindow", options.AxialCompensation?.MaximumDisplacementMillimeters ?? .25);
         var seedOptions = options.SeedPreparation ?? new();
+        Put("AutonomousSpcGradients", seedOptions.Spc?.MaximumGradientEvaluations ?? 600);
+        Put("AutonomousSpcRays", seedOptions.Spc is null ? 2000000 : seedOptions.MaximumTracedRays);
+        Put("AutonomousColdGradients", seedOptions.ColdStart?.MaximumGradientEvaluations ?? 600);
+        Put("AutonomousColdRays", seedOptions.ColdStart is null ? 10000000 : seedOptions.MaximumTracedRays);
         _lensLibrary = seedOptions.Retrieval?.Library ?? new();
         RefreshLensLibrarySummary();
         Put("AutonomousRetrievalCandidates", seedOptions.Retrieval?.MaximumCandidates ?? 4);
@@ -197,6 +236,8 @@ public sealed partial class AutonomousTopologyWindow
         Put("AutonomousEvolutionUpdates", seedOptions.Evolution?.CompensationUpdatesPerBranch ?? 3);
         Put("AutonomousLocalUpdates", options.Local.MaximumUpdates); Put("AutonomousFullUpdates", options.Full.MaximumUpdates);
         _applyingPlan = true;
+        _choices["AutonomousColdStart"].IsChecked = seedOptions.ColdStart is not null;
+        _choices["AutonomousSpc"].IsChecked = seedOptions.Spc is not null;
         _choices["AutonomousImage"].IsChecked = !source.Image.Protected;
         _choices["AutonomousStructure"].IsChecked = options.FixedTopologyOnly != true;
         _choices["AutonomousReductionOnly"].IsChecked = options.QualifiedReductionOnly == true;
@@ -249,6 +290,7 @@ public sealed partial class AutonomousTopologyWindow
     private AutonomousSearchPlan ReadPlan()
     {
         if (_session.Checkpoint is { } checkpoint) return checkpoint.Plan;
+        if (_session.PreparationCheckpoint is { } preparation) return preparation.Plan;
         if (!_planEdited) return _draft;
         double Read(string id)
         {
@@ -431,8 +473,9 @@ public sealed partial class AutonomousTopologyWindow
 
     private void Refresh()
     {
+        RefreshReview();
         RefreshStructureText();
-        var state = _session.Checkpoint; var editable = !IsBusy && state is null;
+        var state = _session.Checkpoint; var preparation = _session.PreparationCheckpoint; var editable = !IsBusy && state is null && preparation is null;
         var readOnly = AutonomousSearchService.IsHistoricalReadOnlyPlan(state?.Plan ?? _draft);
         foreach (var number in _numbers.Values) { number.IsEnabled = editable; ToolTip.SetTip(number, editable ? null : UiLocalization.Text("请新建计划以修改输入，继续任务保持原计划")); }
         foreach (var choice in _choices.Values)
@@ -450,6 +493,22 @@ public sealed partial class AutonomousTopologyWindow
         Hint("AutonomousProtectLocalBudget", "可选阶段验收挤占补偿额度时延后检查，仍保留最终独立验收");
         Hint("AutonomousProtectFullBudget", "可选阶段验收挤占补偿额度时延后检查，仍保留最终独立验收");
         Hint("AutonomousReductionOnly", "失败处方保留但不再派发结构分支；达到预算或限定尝试即停止");
+        Hint("AutonomousColdStart", "开始新任务时先重新构造并完整验收；失败保存并停止，继续已有任务不重复冷启动");
+        Hint("AutonomousSpc", "SPC沿用原插片权限与验收门槛；停止后保存分支和优化器状态，继续不重置预算");
+        var preparationAction = _choices["AutonomousSpc"].IsChecked == true ? "SPC分支准备"
+            : _choices["AutonomousColdStart"].IsChecked == true ? "冷启动构造与补偿" : "生成一阶起点";
+        _commands["AutonomousPrepareSeeds"].Content = UiLocalization.Text(preparationAction);
+        AutomationProperties.SetName(_commands["AutonomousPrepareSeeds"], UiLocalization.Text(preparationAction));
+        if (editable)
+        {
+            var cold = _choices["AutonomousColdStart"].IsChecked == true;
+            foreach (var id in new[] { "AutonomousColdGradients", "AutonomousColdRays" }) _numbers[id].IsEnabled = cold;
+            foreach (var id in new[] { "AutonomousSpcGradients", "AutonomousSpcRays" })
+            {
+                _numbers[id].IsEnabled = _choices["AutonomousSpc"].IsChecked == true;
+                ToolTip.SetTip(_numbers[id], _numbers[id].IsEnabled ? null : UiLocalization.Text("启用SPC分支准备后可调整此预算"));
+            }
+        }
         if (editable && _choices["AutonomousReductionOnly"].IsChecked == true)
             foreach (var id in new[] { "AutonomousStructure", "AutonomousSplit", "AutonomousMerge", "AutonomousMaterial", "AutonomousProfile", "AutonomousPopulation" })
             {
@@ -472,19 +531,32 @@ public sealed partial class AutonomousTopologyWindow
         foreach (var pair in _commands)
         {
             var enabled = !IsBusy;
-            if (pair.Key == "AutonomousCancel") enabled = _session.IsBusy || _seedCancellation is not null;
-            else if (pair.Key is "AutonomousImport" or "AutonomousCheck") enabled &= state is null;
-            else if (pair.Key is "AutonomousLibraryOpen" or "AutonomousLibraryImport" or "AutonomousLibraryAdd") enabled &= state is null && !readOnly;
-            else if (pair.Key == "AutonomousPrepareSeeds") enabled &= state is null && !readOnly;
-            else if (pair.Key == "AutonomousRun") enabled &= state is null && !readOnly;
-            else if (pair.Key == "AutonomousResume") enabled &= !readOnly && state?.Status is AutonomousSearchStatus.Ready or AutonomousSearchStatus.Cancelled or AutonomousSearchStatus.Running;
-            else if (pair.Key == "AutonomousCopy") enabled &= _session.RecordPath is not null;
+            if (pair.Key == "AutonomousCancel") enabled = _session.IsBusy;
+            else if (pair.Key is "AutonomousImport" or "AutonomousCheck") enabled &= state is null && preparation is null;
+            else if (pair.Key is "AutonomousLibraryOpen" or "AutonomousLibraryImport" or "AutonomousLibraryAdd") enabled &= state is null && preparation is null && !readOnly;
+            else if (pair.Key == "AutonomousPrepareSeeds") enabled &= state is null && preparation is null && !readOnly;
+            else if (pair.Key == "AutonomousRun") enabled &= state is null && preparation is null && !readOnly;
+            else if (pair.Key == "AutonomousResume") enabled &= !readOnly && (_session.CanResumePreparation || state?.Status is AutonomousSearchStatus.Ready or AutonomousSearchStatus.Cancelled or AutonomousSearchStatus.Running);
+            else if (pair.Key == "AutonomousCopy") enabled &= _session.RecordPath is not null || _session.PreparationCheckpointPath is not null;
             else if (pair.Key == "AutonomousExport") enabled &= _candidates.SelectedItem is TopologyCandidateRow row && row.Candidate.Assessment.Completed && !row.Candidate.Topology.HasTransitionElements;
             pair.Value.IsEnabled = enabled;
             ToolTip.SetTip(pair.Value, enabled ? null : UiLocalization.Text(IsBusy ? "请先停止并保存当前任务"
                 : readOnly && pair.Key is "AutonomousRun" or "AutonomousResume" or "AutonomousPrepareSeeds" ? "此通光原型仅供查看和导出，请新建版本化计划" : "请先载入记录或选择可用候选"));
         }
-        if (state is null) { _budget.Text = UiLocalization.Text("尚未消耗预算"); _record.Text = ""; return; }
+        if (state is null)
+        {
+            _record.Text = _session.PreparationCheckpointPath ?? "";
+            if (preparation is null) _budget.Text = UiLocalization.Text("尚未消耗预算");
+            else
+            {
+                var work = preparation.Consumed; var limits = preparation.Options; var pending = preparation.Pending?.Reservation;
+                _budget.Text = UiLocalization.Text("起点准备（独立预算）") + $" · {PreparationStageText(preparation.Stage)} · {preparation.Cursor}\n"
+                    + UiLocalization.Text("已计费 / 上限") + $" · {UiLocalization.Text("评价")} {work.FunctionEvaluations}/{limits.MaximumFunctionEvaluations} · "
+                    + $"{UiLocalization.Text("梯度")} {work.GradientEvaluations}/{limits.Spc?.MaximumGradientEvaluations??limits.ColdStart?.MaximumGradientEvaluations??limits.Competition?.MaximumGradientEvaluations??0} · {UiLocalization.Text("追迹")} {work.TracedRays}/{limits.MaximumTracedRays} · {work.Elapsed.TotalSeconds:F1}/{limits.TimeLimit.TotalSeconds:F1}s\n"
+                    + UiLocalization.Text("在途预约") + $" · {UiLocalization.Text("评价")} {pending?.FunctionEvaluations ?? 0} · {UiLocalization.Text("追迹")} {pending?.TracedRays ?? 0}";
+            }
+            return;
+        }
         var used = state.Consumed; var cap = state.Plan.Options; var reserved = state.Reservation?.Maximum;
         var pupils = state.Events.Where(entry => entry.Recovery?.Work.PupilEvaluations is not null).Select(entry => entry.Recovery!.Work.PupilEvaluations!.Value).ToArray();
         var unknown = state.Events.Count(entry => entry.Outcome == "InterruptedUnknownCharged");
@@ -508,6 +580,28 @@ public sealed partial class AutonomousTopologyWindow
             if (editable) ToolTip.SetTip(_choices[id], UiLocalization.Text(text));
         }
     }
+
+    private static string PreparationStageText(string stage)=>UiLocalization.Text(stage switch
+    {
+        "Spc:SelectParent" or "Spc:StartBranch"=>"SPC分支调度",
+        "Spc:OriginalAssessment" or "Spc:ParentAssessment" or "Spc:PhysicalAssessment"=>"SPC原规格验收",
+        "Spc:ParentOptimization" or "Spc:ParentCurvature"=>"SPC父结构优化",
+        "Spc:NullMerit" or "Spc:SaddleCurvature"=>"SPC鞍点核查",
+        "Spc:BranchOptimization" or "Spc:BranchCurvature"=>"SPC正负分支优化",
+        "Spc:PhysicalSetup" or "Spc:PhysicalOptimization"=>"SPC实体补偿",
+        "Construction" or "Competition:Construction"=>"构造起点",
+        "Compensation"=>"补偿优化",
+        "Starts"=>"一阶起点",
+        "Screening"=>"像差筛选",
+        "Retrieval:Index"=>"镜头库索引",
+        "Retrieval:Transform"=>"镜头库迁移",
+        "Retrieval:Validate" or "Competition:Finals" or "Evolution:Finals"=>"原规格验收",
+        "Competition:Rounds" or "Evolution:Competition"=>"多候选竞争",
+        "Evolution:Parents"=>"父方案验收",
+        "Evolution:Trials"=>"结构分支",
+        "Finished"=>"准备完成",
+        _=>stage
+    });
 
     internal static string ReductionConclusionText(AutonomousSearchCheckpoint checkpoint)
     {
@@ -610,7 +704,7 @@ public sealed partial class AutonomousTopologyWindow
     private async Task<string?> PickOpen(string kind)
     {
         if (_settings.OpenPicker is { } picker) return await picker(this, kind);
-        var patterns = kind switch { "lens-library" => new[] { "*.lens-library.json" }, "plan" => ["*.topology-plan.json"], "record" => ["*.autonomous.json"], _ => ["*.staropt", "*.topology.json", "*.optic.json", "*.json"] };
+        var patterns = kind switch { "design-portfolio" => new[] { "*.design-portfolio.json" }, "design-study" => ["*.design-study.json"], "lens-library" => ["*.lens-library.json"], "plan" => ["*.topology-plan.json"], "record" => ["*.autonomous.json", "*.preparation.json"], _ => ["*.staropt", "*.topology.json", "*.optic.json", "*.json"] };
         var selected = await StorageProvider.OpenFilePickerAsync(new()
         {
             AllowMultiple = false,
@@ -622,7 +716,7 @@ public sealed partial class AutonomousTopologyWindow
     private async Task<string?> PickSave(string kind)
     {
         if (_settings.SavePicker is { } picker) return await picker(this, kind);
-        var extension = kind switch { "lens-library" => ".lens-library.json", "plan" => ".topology-plan.json", "record" => ".autonomous.json", _ => ".staropt" };
+        var extension = kind switch { "design-report" => ".md", "design-study" => ".design-study.json", "design-portfolio" => ".design-portfolio.json", "lens-library" => ".lens-library.json", "plan" => ".topology-plan.json", "record" => ".autonomous.json", "preparation-record" => ".preparation.json", _ => ".staropt" };
         var selected = await StorageProvider.SaveFilePickerAsync(new()
         {
             Title = UiLocalization.Text("保存设计文件"),

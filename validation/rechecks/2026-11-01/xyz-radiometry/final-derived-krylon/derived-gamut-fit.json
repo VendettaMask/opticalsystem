@@ -1,0 +1,154 @@
+{
+  "Sources": {
+    "Spectral": "53c7e4ff1b235dc859697db8d480fa690785b99b55eb8087d37afcdbafde96b0",
+    "Cmf": "fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1",
+    "D65": "e76f210bffff3d552ef7113025da5f325d5dfec200dd4b878b1a2f3a507032cb",
+    "DerivedXyz": "c5104c0b35a5627e68a1a856458a03c514e810974e2b996532b97709842fd9fb"
+  },
+  "Execution": {
+    "CoreSha256": "f63b6841ac0783aecc1a3bc067f87a1dc44728ccd5fd6bffd3034aa91ec26084",
+    "DiagnosticSha256": "6a431a3b7d0a71e645a37ee0ca578b3ead3a72398e592e64d0ca73bbe13d79c7"
+  },
+  "PrescribedWavelengthNm": 550,
+  "InputColorsDeclaredBeforeFit": true,
+  "ValidationRadiometricLabelsUsedInFit": false,
+  "DerivedXyzIsNotIndependentColorMeasurement": true,
+  "Legacy": [
+    {
+      "WavelengthNanometers": 550,
+      "TrainingCount": 959,
+      "ValidationCount": 480,
+      "Rank": 3,
+      "ConditionNumber": 455.3106124062742,
+      "TrainingNormalizedRms": 0.047796254052838875,
+      "ValidationNormalizedRms": 0.13268169525056314,
+      "ValidationMaximumAbsoluteError": 0.1939935420151193,
+      "ValidationMaximumRelativeError": 4301.307672265819,
+      "Passed": false
+    }
+  ],
+  "Result": {
+    "Bands": [
+      {
+        "WavelengthNanometers": 550,
+        "X": -0.634449747101361,
+        "Y": 1.6819129988479518,
+        "Z": -0.09591566604053517
+      }
+    ],
+    "Evidence": {
+      "Provenance": {
+        "Kind": 2,
+        "Source": "Cornell measured spectral BRDF; XYZ derived using official CIE 1931 2-degree and D65, both truncated to 400-700 nm, zero outside; linear spectral interpolation, 1 nm trapezoid, white-Y normalization. Not independent XYZ instrument measurements.",
+        "XyzSha256": "c5104c0b35a5627e68a1a856458a03c514e810974e2b996532b97709842fd9fb",
+        "RadiometricSha256": "53c7e4ff1b235dc859697db8d480fa690785b99b55eb8087d37afcdbafde96b0",
+        "ObserverAndIlluminantVerified": true
+      },
+      "Policy": {
+        "MaximumValidationNormalizedRms": 0.01,
+        "MaximumValidationAbsoluteError": 0.01,
+        "RelativeSignalFloor": 1E-06
+      },
+      "Bands": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 455.3106124062742,
+          "TrainingNormalizedRms": 0.01063303387296858,
+          "ValidationNormalizedRms": 0.03380155983312947,
+          "ValidationMaximumAbsoluteError": 0.0481735777866501,
+          "ValidationMaximumRelativeError": 759.9577802974243,
+          "Passed": false
+        }
+      ],
+      "CalibrationBandsSha256": "740168833135ce259fc2d67922456771cfa4dbae193a1cec8530ac599b24cb3a",
+      "Gamut": {
+        "Source": "All input XYZ features only; no radiometric holdout labels; 400-700 nm D65, CIE 1931 2-degree",
+        "SourceSha256": "c5104c0b35a5627e68a1a856458a03c514e810974e2b996532b97709842fd9fb",
+        "Vertices": [
+          {
+            "X": 0.12758607927979285,
+            "Y": 0.10576021810095497,
+            "Z": 0.7666537026192521
+          },
+          {
+            "X": 0.12771102812859628,
+            "Y": 0.10384510462665762,
+            "Z": 0.768443867244746
+          },
+          {
+            "X": 0.12802807954341855,
+            "Y": 0.09915815258147005,
+            "Z": 0.7728137678751115
+          },
+          {
+            "X": 0.12833970297625083,
+            "Y": 0.0956079372326451,
+            "Z": 0.776052359791104
+          },
+          {
+            "X": 0.1286922282731559,
+            "Y": 0.09323850767053816,
+            "Z": 0.7780692640563058
+          },
+          {
+            "X": 0.12943305025734173,
+            "Y": 0.09320613608616381,
+            "Z": 0.7773608136564946
+          },
+          {
+            "X": 0.13059729749311785,
+            "Y": 0.09351112675724611,
+            "Z": 0.775891575749636
+          },
+          {
+            "X": 0.7260952623989252,
+            "Y": 0.2738974348631829,
+            "Z": 7.302737891796197E-06
+          },
+          {
+            "X": 0.3040605611825528,
+            "Y": 0.4092838297933041,
+            "Z": 0.28665560902414317
+          },
+          {
+            "X": 0.15584381196312633,
+            "Y": 0.16340011357938292,
+            "Z": 0.6807560744574908
+          },
+          {
+            "X": 0.1452918454725,
+            "Y": 0.14585359978868828,
+            "Z": 0.7088545547388118
+          },
+          {
+            "X": 0.13545106309351276,
+            "Y": 0.12944746005393917,
+            "Z": 0.7351014768525481
+          },
+          {
+            "X": 0.13325154695128072,
+            "Y": 0.12456357307917448,
+            "Z": 0.7421848799695447
+          },
+          {
+            "X": 0.13111471284590007,
+            "Y": 0.11953673352105434,
+            "Z": 0.7493485536330456
+          },
+          {
+            "X": 0.12837952065516117,
+            "Y": 0.10996812782761338,
+            "Z": 0.7616523515172254
+          }
+        ]
+      }
+    },
+    "ModelValidationPassed": false
+  },
+  "ApprovedExported": false,
+  "Rejection": "XYZ \u6821\u51C6\u5C1A\u672A\u901A\u8FC7\u72EC\u7ACB\u7559\u51FA\u9A8C\u8BC1\u6216\u6D4B\u91CF\u6761\u4EF6\u672A\u6838\u5B9E\uFF0C\u4E0D\u80FD\u5BFC\u51FA\u4E3A\u53EF\u8BA1\u7B97\u6821\u51C6\u3002",
+  "FullCommercialMaterialCertification": false
+}

@@ -76,7 +76,7 @@ public sealed partial class SequentialRayTracer
                 || surface.MaterialAfter.PropagationModel is not HomogeneousPropagationModel)
                 throw new NotSupportedException("GRIN 连续偏振运输尚未实现，不能用直线 Jones 链替代。");
             var result = TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
-                bypassCoating: surface.CoatingModel is CoherentMultilayerCoating);
+                bypassCoating: surface.CoatingModel is CoherentMultilayerCoating, sourceRay: sourceRay);
             var sample = result.Sample;
             PolarizationInterfaceData? interfaceData = null;
             if (sample.Vignetted || result.StopTracing)
@@ -92,7 +92,9 @@ public sealed partial class SequentialRayTracer
                 if (includePropagationPhase)
                 {
                     var wavelength = sourceRay.WavelengthNanometers / 1e6;
-                    var phase = 2 * Math.PI * Math.IEEERemainder(sample.SegmentOpticalPathLength, wavelength) / wavelength;
+                    var phase = 2 * Math.PI * Math.IEEERemainder(
+                        (sample.PhaseInclusiveOpticalPathLength ?? ray.OpticalPathDifference + sample.SegmentOpticalPathLength)
+                            - ray.OpticalPathDifference, wavelength) / wavelength;
                     transport.ApplyCommonPhase(Complex.FromPolarCoordinates(1, conjugate ? -phase : phase));
                 }
             }

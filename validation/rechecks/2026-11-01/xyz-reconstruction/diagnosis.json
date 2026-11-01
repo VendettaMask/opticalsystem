@@ -1,0 +1,622 @@
+[
+  {
+    "Material": "garnet_red",
+    "Geometry": null,
+    "LogInterpolationScale": 1e-06,
+    "Powers": [
+      {
+        "IncidenceDegrees": 10.000004285756797,
+        "Power": 0.053160106166787846,
+        "Convergence": 2.0816681711721685e-17
+      },
+      {
+        "IncidenceDegrees": 20.000008571513593,
+        "Power": 0.060010313689065585,
+        "Convergence": 3.469446951953614e-17
+      },
+      {
+        "IncidenceDegrees": 30.000012857270395,
+        "Power": 0.06660073653456708,
+        "Convergence": 4.163336342344337e-17
+      },
+      {
+        "IncidenceDegrees": 40.000017143027186,
+        "Power": 0.08217182045337983,
+        "Convergence": 5.551115123125783e-17
+      },
+      {
+        "IncidenceDegrees": 50.00002142878399,
+        "Power": 0.11247329550616973,
+        "Convergence": 1.1102230246251565e-16
+      },
+      {
+        "IncidenceDegrees": 60.00002571454079,
+        "Power": 0.1728461651812667,
+        "Convergence": 1.942890293094024e-16
+      },
+      {
+        "IncidenceDegrees": 69.99997270451807,
+        "Power": 0.28909181004725787,
+        "Convergence": 3.885780586188048e-16
+      },
+      {
+        "IncidenceDegrees": 79.99997699027486,
+        "Power": 0.42309855144350983,
+        "Convergence": 9.992007221626409e-16
+      }
+    ],
+    "DirectionalRatioFits": [
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.009787169577062165,
+        "Maximum": 0.010617698455921476,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.0068145254952425086,
+        "Maximum": 0.009677408485879408,
+        "Negative": 4,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.00663890811480626,
+        "Maximum": 0.008167841127727213,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.011271559456605195,
+        "Maximum": 0.014211851331865671,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.1355369413807725,
+        "Maximum": 0.3659330050737499,
+        "Negative": 2,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.006702250219264003,
+        "Maximum": 0.008167841127727213,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.010407696277221705,
+        "Maximum": 0.012121193708046318,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.008262824792102767,
+        "Maximum": 0.015245889570436894,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.00666262051973909,
+        "Maximum": 0.008167841127727213,
+        "Negative": 0,
+        "Missing": 4
+      }
+    ]
+  },
+  {
+    "Material": "krylon_blue",
+    "Geometry": null,
+    "LogInterpolationScale": 1e-06,
+    "Powers": [
+      {
+        "IncidenceDegrees": 10.000004285756797,
+        "Power": 0.06754666388667666,
+        "Convergence": 2.7755575615628914e-17
+      },
+      {
+        "IncidenceDegrees": 20.000008571513593,
+        "Power": 0.07486612305530603,
+        "Convergence": 1.3877787807814457e-17
+      },
+      {
+        "IncidenceDegrees": 30.000012857270395,
+        "Power": 0.08600342959419993,
+        "Convergence": 5.551115123125783e-17
+      },
+      {
+        "IncidenceDegrees": 40.000017143027186,
+        "Power": 0.1061128299419958,
+        "Convergence": 6.938893903907228e-17
+      },
+      {
+        "IncidenceDegrees": 50.00002142878399,
+        "Power": 0.14358980740566818,
+        "Convergence": 1.6653345369377348e-16
+      },
+      {
+        "IncidenceDegrees": 60.00002571454079,
+        "Power": 0.2216125466230379,
+        "Convergence": 1.6653345369377348e-16
+      },
+      {
+        "IncidenceDegrees": 69.99997270451807,
+        "Power": 0.3797652029692634,
+        "Convergence": 6.661338147750939e-16
+      },
+      {
+        "IncidenceDegrees": 79.99997699027486,
+        "Power": 0.3572861573358457,
+        "Convergence": 1.27675647831893e-15
+      }
+    ],
+    "DirectionalRatioFits": [
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.030033385200798297,
+        "Maximum": 0.04371331447458188,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.0217964104551791,
+        "Maximum": 0.04371331447458188,
+        "Negative": 11,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.024631931726141622,
+        "Maximum": 0.04371331447458188,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.0328247023068028,
+        "Maximum": 0.04371331447458188,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.024840128905733467,
+        "Maximum": 0.04371331447458188,
+        "Negative": 3,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.02482565198464239,
+        "Maximum": 0.04371331447458188,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.03115918328730117,
+        "Maximum": 0.04371331447458188,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.0219883086892025,
+        "Maximum": 0.04371331447458188,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.024705746168319352,
+        "Maximum": 0.04371331447458188,
+        "Negative": 0,
+        "Missing": 4
+      }
+    ]
+  },
+  {
+    "Material": "acryl_blue",
+    "Geometry": {
+      "InCosineError": 4.4766579571087206e-07,
+      "OutCosineError": 4.0430254982792846e-07,
+      "InSineError": 0.8111595056088778,
+      "OutSineError": 1.0
+    },
+    "LogInterpolationScale": 1e-06,
+    "Powers": [
+      {
+        "IncidenceDegrees": 10.000004285756797,
+        "Power": 0.0009188618529859297,
+        "Convergence": 2.6020852139652106e-18
+      },
+      {
+        "IncidenceDegrees": 20.000008571513593,
+        "Power": 0.00010231948053286344,
+        "Convergence": 1.0842021724855044e-19
+      },
+      {
+        "IncidenceDegrees": 30.000012857270395,
+        "Power": 0.00041917606091900633,
+        "Convergence": 9.75781955236954e-19
+      },
+      {
+        "IncidenceDegrees": 40.000017143027186,
+        "Power": 0.016284839562412938,
+        "Convergence": 1.0026701691145945e-15
+      },
+      {
+        "IncidenceDegrees": 50.00002142878399,
+        "Power": 0.03478150154376149,
+        "Convergence": 9.423017921506016e-15
+      },
+      {
+        "IncidenceDegrees": 60.00002571454079,
+        "Power": 0.03759099070037288,
+        "Convergence": 7.965850201685498e-15
+      },
+      {
+        "IncidenceDegrees": 69.99997270451807,
+        "Power": 0.036733971493122394,
+        "Convergence": 1.041527974976475e-14
+      },
+      {
+        "IncidenceDegrees": 79.99997699027486,
+        "Power": 0.028994051395569518,
+        "Convergence": 3.5658975772179247e-14
+      }
+    ],
+    "DirectionalRatioFits": [
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.8150910624546561,
+        "Maximum": 0.036514,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.8094890119491785,
+        "Maximum": 0.036514,
+        "Negative": 110,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.8134598712531387,
+        "Maximum": 0.036514,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.8083763487570131,
+        "Maximum": 0.036514,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 5.603676853889931,
+        "Maximum": 0.21215862204206826,
+        "Negative": 92,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.8011229575021196,
+        "Maximum": 0.036514,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.806907311327718,
+        "Maximum": 0.036514,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.806238516912235,
+        "Maximum": 0.036514,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.8047058869037479,
+        "Maximum": 0.036514,
+        "Negative": 0,
+        "Missing": 4
+      }
+    ]
+  },
+  {
+    "Material": "mystique",
+    "Geometry": {
+      "InCosineError": 4.4766579571087206e-07,
+      "OutCosineError": 4.0430254982792846e-07,
+      "InSineError": 0.8111595056088778,
+      "OutSineError": 1.0
+    },
+    "LogInterpolationScale": 1e-06,
+    "Powers": [
+      {
+        "IncidenceDegrees": 10.000004285756797,
+        "Power": 0.027087765935824085,
+        "Convergence": 1.0408340855860843e-17
+      },
+      {
+        "IncidenceDegrees": 20.000008571513593,
+        "Power": 0.014867137714081833,
+        "Convergence": 8.673617379884035e-18
+      },
+      {
+        "IncidenceDegrees": 30.000012857270395,
+        "Power": 0.010657044585146215,
+        "Convergence": 6.938893903907228e-18
+      },
+      {
+        "IncidenceDegrees": 40.000017143027186,
+        "Power": 0.02943454589512644,
+        "Convergence": 1.0061396160665481e-16
+      },
+      {
+        "IncidenceDegrees": 50.00002142878399,
+        "Power": 0.06319304370833913,
+        "Convergence": 4.4825254619240695e-15
+      },
+      {
+        "IncidenceDegrees": 60.00002571454079,
+        "Power": 0.09983614605384342,
+        "Convergence": 3.824718319833664e-14
+      },
+      {
+        "IncidenceDegrees": 69.99997270451807,
+        "Power": 0.07962100008034988,
+        "Convergence": 3.409772464380012e-14
+      },
+      {
+        "IncidenceDegrees": 79.99997699027486,
+        "Power": 0.5140513159691316,
+        "Convergence": 1.7112533612362313e-11
+      }
+    ],
+    "DirectionalRatioFits": [
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.1803095287953177,
+        "Maximum": 0.05078244528800846,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.17019886193741116,
+        "Maximum": 0.05078244528800846,
+        "Negative": 84,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.1784647519930565,
+        "Maximum": 0.05078244528800846,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.18352993118899905,
+        "Maximum": 0.05078244528800846,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 3.0388876571161063,
+        "Maximum": 0.9833289048949155,
+        "Negative": 61,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.17377731253334258,
+        "Maximum": 0.05078244528800846,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.18130553790727852,
+        "Maximum": 0.05078244528800846,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.1705872950317004,
+        "Maximum": 0.05078244528800846,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.17798454739623762,
+        "Maximum": 0.05078244528800846,
+        "Negative": 0,
+        "Missing": 4
+      }
+    ]
+  },
+  {
+    "Material": "cayman",
+    "Geometry": {
+      "InCosineError": 4.4766579571087206e-07,
+      "OutCosineError": 4.0430254982792846e-07,
+      "InSineError": 0.8111595056088778,
+      "OutSineError": 1.0
+    },
+    "LogInterpolationScale": 1e-06,
+    "Powers": [
+      {
+        "IncidenceDegrees": 10.000004285756797,
+        "Power": 0.03112059754695562,
+        "Convergence": 6.938893903907228e-18
+      },
+      {
+        "IncidenceDegrees": 20.000008571513593,
+        "Power": 0.02491054416512185,
+        "Convergence": 2.0816681711721685e-17
+      },
+      {
+        "IncidenceDegrees": 30.000012857270395,
+        "Power": 0.023292756882442735,
+        "Convergence": 1.0408340855860843e-17
+      },
+      {
+        "IncidenceDegrees": 40.000017143027186,
+        "Power": 0.029071665707557728,
+        "Convergence": 3.469446951953614e-17
+      },
+      {
+        "IncidenceDegrees": 50.00002142878399,
+        "Power": 0.08560243514937073,
+        "Convergence": 4.718447854656915e-16
+      },
+      {
+        "IncidenceDegrees": 60.00002571454079,
+        "Power": 0.06332757094296786,
+        "Convergence": 1.1574075031717257e-14
+      },
+      {
+        "IncidenceDegrees": 69.99997270451807,
+        "Power": 0.082168241718403,
+        "Convergence": 5.576095141179849e-14
+      },
+      {
+        "IncidenceDegrees": 79.99997699027486,
+        "Power": 0.43649784642392536,
+        "Convergence": 1.4537426817895494e-11
+      }
+    ],
+    "DirectionalRatioFits": [
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.2116500885428333,
+        "Maximum": 0.047603792414858556,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.20549914504072242,
+        "Maximum": 0.047603792414858556,
+        "Negative": 63,
+        "Missing": 4
+      },
+      {
+        "Transform": "ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.21319232309607355,
+        "Maximum": 0.047603792414858556,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.21491821666465674,
+        "Maximum": 0.047603792414858556,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.2267309368940048,
+        "Maximum": 0.047603792414858556,
+        "Negative": 44,
+        "Missing": 4
+      },
+      {
+        "Transform": "logratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.21014144734058435,
+        "Maximum": 0.047603792414858556,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-linear",
+        "Nrmse": 0.21057692039809456,
+        "Maximum": 0.047603792414858556,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "periodic-cubic",
+        "Nrmse": 0.2044253348836847,
+        "Maximum": 0.047603792414858556,
+        "Negative": 0,
+        "Missing": 4
+      },
+      {
+        "Transform": "sqrt-ratio",
+        "Interpolation": "pchip",
+        "Nrmse": 0.21157257468685958,
+        "Maximum": 0.047603792414858556,
+        "Negative": 0,
+        "Missing": 4
+      }
+    ]
+  }
+]

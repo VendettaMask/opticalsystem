@@ -1,0 +1,55 @@
+{
+  "status": "InProgress",
+  "priorUnsupportedRequests": 409,
+  "newlyUnblockedRequests": 107,
+  "remainingModelBlocked": 302,
+  "original751NewlyUnblocked": 449,
+  "cumulativeOriginal1098Unblocked": 796,
+  "newlyUnblockedResultCounts": {
+    "Difference": 15,
+    "Error": 6,
+    "Incomparable": 27,
+    "Pass": 59
+  },
+  "replayedLenses": 4,
+  "replayedRequests": 110,
+  "replayedResultCounts": {
+    "Error": 6,
+    "Incomparable": 30,
+    "Difference": 15,
+    "Pass": 59
+  },
+  "remainingTypeCountsOverlap": [
+    {
+      "type": "Zemax TYPE BIRE__IN",
+      "requests": 208
+    },
+    {
+      "type": "Zemax TYPE BIRE_OUT",
+      "requests": 208
+    },
+    {
+      "type": "Zemax TYPE PARAXIAL",
+      "requests": 208
+    },
+    {
+      "type": "Zemax TYPE BINARY_3",
+      "requests": 44
+    },
+    {
+      "type": "Zemax TYPE GRINSU11",
+      "requests": 29
+    },
+    {
+      "type": "Zemax TYPE PARAX_XY",
+      "requests": 21
+    }
+  ],
+  "all751Implemented": false,
+  "all95Replayed": false,
+  "referenceConvergenceCertified": false,
+  "gridFirstOrderNativeDifference": "Open",
+  "coreSha256": "4bd425b9eb1d32709d941abf83c27398eb87e986a33b54b9586339d0ff0a66ea",
+  "focusedTestsPassed": 157,
+  "defaultAppBuild": "Passed_ZeroWarnings_ZeroErrors"
+}

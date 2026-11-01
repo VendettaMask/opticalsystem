@@ -43,6 +43,13 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        if (IlluminationMetrics.RelativeIlluminationNotApplicableReason(Optic) is { } reason)
+            return new AnalysisData(Name, new Dictionary<string, object>
+            {
+                ["Status"] = reason,
+                ["ImageSpaceAfocal"] = true
+            }, Outcome: AnalysisOutcome.NotApplicable, OutcomeReason: reason);
+
         if (Optic.SurfaceGroup.Items.Count == 0 || Optic.Wavelengths.Count == 0)
         {
             return Status("No optical data");

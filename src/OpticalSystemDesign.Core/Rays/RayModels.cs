@@ -71,4 +71,20 @@ public sealed class RealRayBundle
     }
 
     public IReadOnlyList<RealRay> Rays { get; }
+
+    // Slicing an existing bundle must retain the exact normalized launch rays.
+    // Running the public constructor again would normalize their directions twice.
+    internal RealRayBundle Slice(int start, int count)
+    {
+        if (start < 0 || count < 0 || start > Rays.Count - count)
+            throw new ArgumentOutOfRangeException(nameof(start));
+        return new RealRayBundle(Rays, start, count);
+    }
+
+    private RealRayBundle(IReadOnlyList<RealRay> normalizedRays, int start, int count)
+    {
+        var slice = new RealRay[count];
+        for (var i = 0; i < count; i++) slice[i] = normalizedRays[start + i];
+        Rays = slice;
+    }
 }

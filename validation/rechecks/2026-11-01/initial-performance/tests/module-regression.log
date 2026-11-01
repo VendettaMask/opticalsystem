@@ -1,0 +1,280 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.90]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 3) [FAIL]
+[xUnit.net 00:00:00.91]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 2) [FAIL]
+[xUnit.net 00:00:00.92]     OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(insert: False) [FAIL]
+[xUnit.net 00:00:00.92]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 4) [FAIL]
+[xUnit.net 00:00:00.92]     OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.InvalidPoliciesAndMissingBoundarySamplingAreRejectedBeforeAnyTracing [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 3) [119 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 24
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 2) [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 24
+   at InvokeStub_FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(insert: False) [119 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.Source() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 212
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(Boolean insert) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 23
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 4) [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 24
+   at InvokeStub_FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.InvalidPoliciesAndMissingBoundarySamplingAreRejectedBeforeAnyTracing [119 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.Fixture() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 187
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.InvalidPoliciesAndMissingBoundarySamplingAreRejectedBeforeAnyTracing() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 115
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.93]     OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(insert: True) [FAIL]
+[xUnit.net 00:00:00.93]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState [FAIL]
+[xUnit.net 00:00:00.93]     OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.BacktrackingShrinksActualCoordinatesEvenWhenTheModelStepFitsBothBoxes [FAIL]
+[xUnit.net 00:00:00.93]     OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ChildQ0HasItsOwnDimensionAndFirstLensDeletionKeepsTheMechanicalReference [FAIL]
+[xUnit.net 00:00:00.93]     OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.ExplicitCurrentVersionReproducesTheRetainedV3LocalOpticalEndpointExactly [FAIL]
+[xUnit.net 00:00:00.93]     OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.RecoveryRecordsRankNoFreedomGeometryBudgetCancellationAndTimeoutSeparately [FAIL]
+[xUnit.net 00:00:00.93]     OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.StructuralWorkflowReservesIndependentValidationAndPreCancellationUsesNoOpticalWork [FAIL]
+[xUnit.net 00:00:00.93]     OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.TransmissionStepsRetainTheGateFilterAndChargeEveryProposalWithinTheOriginalBounds [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(insert: True) [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.Source() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 212
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(Boolean insert) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 23
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 266
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.BacktrackingShrinksActualCoordinatesEvenWhenTheModelStepFitsBothBoxes [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.Fixture() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 187
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.BacktrackingShrinksActualCoordinatesEvenWhenTheModelStepFitsBothBoxes() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 131
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ChildQ0HasItsOwnDimensionAndFirstLensDeletionKeepsTheMechanicalReference [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.Source() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 212
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ChildQ0HasItsOwnDimensionAndFirstLensDeletionKeepsTheMechanicalReference() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 139
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.ExplicitCurrentVersionReproducesTheRetainedV3LocalOpticalEndpointExactly [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.Fixture() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 187
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.ExplicitCurrentVersionReproducesTheRetainedV3LocalOpticalEndpointExactly() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 159
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.RecoveryRecordsRankNoFreedomGeometryBudgetCancellationAndTimeoutSeparately [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.Source() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 212
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.RecoveryRecordsRankNoFreedomGeometryBudgetCancellationAndTimeoutSeparately() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 95
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.StructuralWorkflowReservesIndependentValidationAndPreCancellationUsesNoOpticalWork [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.Source() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 212
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.StructuralWorkflowReservesIndependentValidationAndPreCancellationUsesNoOpticalWork() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyRestorationTests.cs:line 163
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.TransmissionStepsRetainTheGateFilterAndChargeEveryProposalWithinTheOriginalBounds [2 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.Fixture() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 187
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.TransmissionStepsRetainTheGateFilterAndChargeEveryProposalWithinTheOriginalBounds() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 67
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.94]     OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.SelectionChangesOnlyItsRecordedParametersAndSavedStateResumesExactly [FAIL]
+[xUnit.net 00:00:00.94]     OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.UnversionedPrototypeCannotStartAnyOpticalWorkWhileItsHistoricalStateRemainsReadable [FAIL]
+[xUnit.net 00:00:00.94]     OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.SatisfiedConstraintsRetainTheirNonzeroTangentsAndEverySelectedParameterMatchesDifferences [FAIL]
+[xUnit.net 00:00:00.94]     OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.InterruptedJacobianDoesNotChooseOrPublishParametersAndItsActualWorkIsCharged [FAIL]
+[xUnit.net 00:00:01.32]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CudaStageMatchesTheCpuStageAndDisclosesItsActualWork [FAIL]
+[xUnit.net 00:00:01.32]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.FixedImageAndProtectedLensRemainUnchangedThroughARealOptimizationStage [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.SelectionChangesOnlyItsRecordedParametersAndSavedStateResumesExactly [2 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.Fixture() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 187
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.SelectionChangesOnlyItsRecordedParametersAndSavedStateResumesExactly() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 91
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.UnversionedPrototypeCannotStartAnyOpticalWorkWhileItsHistoricalStateRemainsReadable [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.Fixture() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 187
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.UnversionedPrototypeCannotStartAnyOpticalWorkWhileItsHistoricalStateRemainsReadable() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 147
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.SatisfiedConstraintsRetainTheirNonzeroTangentsAndEverySelectedParameterMatchesDifferences [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.Fixture() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 187
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.SatisfiedConstraintsRetainTheirNonzeroTangentsAndEverySelectedParameterMatchesDifferences() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 39
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.InterruptedJacobianDoesNotChooseOrPublishParametersAndItsActualWorkIsCharged [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.Fixture() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 187
+   at OpticalSystemDesign.InitialStructure.Tests.TopologyTransmissionTests.InterruptedJacobianDoesNotChooseOrPublishParametersAndItsActualWorkIsCharged() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\TopologyTransmissionTests.cs:line 175
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CudaStageMatchesTheCpuStageAndDisclosesItsActualWork [422 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CudaStageMatchesTheCpuStageAndDisclosesItsActualWork() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 389
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.FixedImageAndProtectedLensRemainUnchangedThroughARealOptimizationStage [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.FixedImageAndProtectedLensRemainUnchangedThroughARealOptimizationStage() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 340
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:01.63]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences [FAIL]
+[xUnit.net 00:00:01.64]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.RejectedAxialStepsKeepTheLastValidPrescriptionAndChargeEveryAttempt [FAIL]
+[xUnit.net 00:00:01.64]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ChangedTargetsSamplingAndBindingsCannotShareAnObjectiveIdentity [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences [3 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 75
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.RejectedAxialStepsKeepTheLastValidPrescriptionAndChargeEveryAttempt [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.RejectedAxialStepsKeepTheLastValidPrescriptionAndChargeEveryAttempt() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 364
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ChangedTargetsSamplingAndBindingsCannotShareAnObjectiveIdentity [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ChangedTargetsSamplingAndBindingsCannotShareAnObjectiveIdentity() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 287
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:01.64]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.IndependentValidationIsReservedWhenThereIsNoTrainingBudget [FAIL]
+[xUnit.net 00:00:01.64]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SingularProfileAndMissingCoordinatesKeepAFailedFixedLayoutAndChargeTheirAttempts [FAIL]
+[xUnit.net 00:00:01.64]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ACompletelyBoundedStepStopsWithoutChargingFictitiousUpdates [FAIL]
+[xUnit.net 00:00:01.64]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance [FAIL]
+[xUnit.net 00:00:01.64]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ExpiredTimeAndUnassessableFieldSetsAreStoppedBeforeDispatch [FAIL]
+[xUnit.net 00:00:01.64]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationInsideAnAutomaticGradientRetainsMeasuredPartialWork [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.IndependentValidationIsReservedWhenThereIsNoTrainingBudget [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.IndependentValidationIsReservedWhenThereIsNoTrainingBudget() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 254
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SingularProfileAndMissingCoordinatesKeepAFailedFixedLayoutAndChargeTheirAttempts [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SingularProfileAndMissingCoordinatesKeepAFailedFixedLayoutAndChargeTheirAttempts() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 168
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ACompletelyBoundedStepStopsWithoutChargingFictitiousUpdates [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ACompletelyBoundedStepStopsWithoutChargingFictitiousUpdates() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 320
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 123
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ExpiredTimeAndUnassessableFieldSetsAreStoppedBeforeDispatch [< 1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ExpiredTimeAndUnassessableFieldSetsAreStoppedBeforeDispatch() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 302
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationInsideAnAutomaticGradientRetainsMeasuredPartialWork [1 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.Source(Int32 count) in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 420
+   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationInsideAnAutomaticGradientRetainsMeasuredPartialWork() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 236
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:20.42]     OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.FrozenLegacyPreparationEnvelopeStillHasItsOriginalContentHash [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.FrozenLegacyPreparationEnvelopeStillHasItsOriginalContentHash [< 1 ms]
+  错误消息:
+   Assert.NotNull() Failure: Value is null
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.StructureEvolutionTests.FrozenLegacyPreparationEnvelopeStillHasItsOriginalContentHash() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\StructureEvolutionTests.cs:line 220
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:03:26.26]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.StructureTabShowsActualSelectedCandidatesAndSupportsNavigationWithoutChangingTheSearchRecord [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.StructureTabShowsActualSelectedCandidatesAndSupportsNavigationWithoutChangingTheSearchRecord [31 ms]
+  错误消息:
+   System.NullReferenceException : Object reference not set to an instance of an object.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.DelanoMaterializationTests.Root() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\DelanoMaterializationTests.cs:line 209
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.<>c__DisplayClass39_0.<<StructureTabShowsActualSelectedCandidatesAndSupportsNavigationWithoutChangingTheSearchRecord>b__0>d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Structure.cs:line 48
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.StructureTabShowsActualSelectedCandidatesAndSupportsNavigationWithoutChangingTheSearchRecord() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Structure.cs:line 45
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:52.79]     OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ReservationUnitsAndUnknownAuxiliaryCostsAreVisibleWithoutDispatch [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ReservationUnitsAndUnknownAuxiliaryCostsAreVisibleWithoutDispatch [1 ms]
+  错误消息:
+   System.IO.DirectoryNotFoundException : Could not find a part of the path 'C:\Users\19851\AppData\Local\Temp\codex-initial-performance-b02d71fa431640f0a86bbdfb4be68b27\validation\rechecks\2026-10-26\autonomous-search-m4\checkpoint-interrupted.json'.
+  堆栈跟踪:
+     at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at OpticalSystemDesign.Core.FileIO.BoundedFile.OpenRead(String path, Int64 maximumBytes, String description)
+   at OpticalSystemDesign.Core.FileIO.BoundedFile.ReadAllBytesAsync(String path, Int64 maximumBytes, String description, CancellationToken cancellationToken)
+   at OpticalSystemDesign.InitialStructure.Persistence.AutonomousSearchCheckpointStore.LoadAsync(String path, CancellationToken cancellationToken)
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousDesktopTests.ReservationUnitsAndUnknownAuxiliaryCostsAreVisibleWithoutDispatch() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousDesktopTests.Accounting.cs:line 205
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-01\initial-performance/tests\module-regression.trx
+
+失败!  - 失败:    31，通过:   153，已跳过:     0，总计:   184，持续时间: 4 m 7 s - OpticalSystemDesign.InitialStructure.Tests.dll (net10.0)

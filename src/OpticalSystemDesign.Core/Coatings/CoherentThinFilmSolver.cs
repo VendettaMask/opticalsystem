@@ -41,6 +41,15 @@ public sealed partial class CoherentThinFilmSolver
     private readonly IMaterial[] _media;
     private readonly double[] _thickness;
     private readonly CoatingLayerParameters[] _adjustments;
+    private readonly PreparedMedia _prepared;
+
+    private sealed class PreparedMedia(int mediaCount)
+    {
+        internal readonly object Gate = new();
+        internal readonly Dictionary<(double Wave, double Angle), (Complex[] N, Complex[] Q)> Values = new();
+        // Bound the shared workspace by complex-element count, including both arrays.
+        internal readonly int Limit = Math.Max(1, (1 << 20) / (2 * mediaCount));
+    }
 
     public CoherentThinFilmSolver(IMaterial incident, IMaterial substrate, IEnumerable<CoherentFilm> films)
     {
@@ -57,6 +66,24 @@ public sealed partial class CoherentThinFilmSolver
         _thickness = layers.Select(x => x.ThicknessNanometers * x.Adjustment.Multiplier).ToArray();
         if (_thickness.Any(x => !double.IsFinite(x))) throw new ArgumentException("调整后的膜层厚度溢出。");
         _adjustments = layers.Select(x => x.Adjustment).ToArray();
+        _prepared = new(_media.Length);
+    }
+
+    private CoherentThinFilmSolver(IMaterial[] media, CoatingLayerParameters[] adjustments, double[] thickness, PreparedMedia prepared)
+    { _media = media; _adjustments = adjustments; _thickness = thickness; _prepared = prepared; }
+
+    /// <summary>Reuse this immutable material snapshot and its bounded n/q workspace for a new physical-thickness vector.</summary>
+    public CoherentThinFilmSolver WithThicknesses(IReadOnlyList<double> thicknessNanometers)
+    {
+        ArgumentNullException.ThrowIfNull(thicknessNanometers);
+        if (thicknessNanometers.Count != _thickness.Length) throw new ArgumentException("膜厚向量长度不匹配。");
+        var thickness = new double[_thickness.Length];
+        for (var i = 0; i < thickness.Length; i++)
+        {
+            var value = thicknessNanometers[i]; thickness[i] = value * _adjustments[i].Multiplier;
+            if (!double.IsFinite(value) || value < 0 || !double.IsFinite(thickness[i])) throw new ArgumentException("膜层厚度必须是非负有限数值（nm）。");
+        }
+        return new(_media, _adjustments, thickness, _prepared);
     }
 
     public ThinFilmPower Evaluate(double wavelengthNanometers, double angleDegrees, ThinFilmPolarization polarization)
@@ -88,6 +115,7 @@ public sealed partial class CoherentThinFilmSolver
         if (!double.IsFinite(angleDegrees) || angleDegrees < 0 || angleDegrees >= 90)
             throw new ArgumentException("入射角必须在 0°（含）至 90°（不含）之间。");
         ComputationCancellation.ThrowIfCancellationRequested();
+        lock (_prepared.Gate) if (_prepared.Values.TryGetValue((wavelengthNanometers, angleDegrees), out var cached)) return cached;
         var n = _media.Select(m => Index(m, wavelengthNanometers)).ToArray();
         for (var layer = 0; layer < _adjustments.Length; layer++)
         {
@@ -102,6 +130,11 @@ public sealed partial class CoherentThinFilmSolver
         var q = n.Select(z => ForwardRoot(z * z - transverse * transverse)).ToArray();
         if (q.Any(z => z.Magnitude < 1e-14))
             throw new NotSupportedException("当前采样点恰在临界角奇点，请调整角度后重算。");
+        lock (_prepared.Gate)
+        {
+            if (_prepared.Values.Count >= _prepared.Limit) _prepared.Values.Clear();
+            _prepared.Values[(wavelengthNanometers, angleDegrees)] = (n, q);
+        }
         return (n, q);
     }
 

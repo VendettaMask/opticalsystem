@@ -10,6 +10,8 @@ public static class GradientIndexProfileData
         "gradient3" => ["n0", "nr2", "nr4", "nr6", "nz1", "nz2", "nz3"],
         "gradient4" => ["n0", "nx1", "nx2", "ny1", "ny2", "nz1", "nz2"],
         "gradient5" => ["n0", "nr2", "nr4", "nz1", "nz2", "nz3", "nz4"],
+        "gradient9" => ["b", "c", "k0", "k1", "k2"],
+        "grid_gradient" => [],
         _ => throw new ArgumentException("未知的 GRIN 分布类型。", nameof(kind))
     });
 
@@ -20,6 +22,8 @@ public static class GradientIndexProfileData
         Gradient3IndexProfile => "gradient3",
         Gradient4IndexProfile => "gradient4",
         Gradient5IndexProfile => "gradient5",
+        Gradient9IndexProfile => "gradient9",
+        GridGradientIndexProfile => "grid_gradient",
         _ => throw new NotSupportedException("此空间分布没有可编辑的系数映射。")
     };
 
@@ -32,6 +36,8 @@ public static class GradientIndexProfileData
             Gradient3IndexProfile p => [p.BaseIndex, p.Radial2, p.Radial4, p.Radial6, p.Axial1, p.Axial2, p.Axial3],
             Gradient4IndexProfile p => [p.BaseIndex, p.Linear.X, p.Quadratic.X, p.Linear.Y, p.Quadratic.Y, p.Linear.Z, p.Quadratic.Z],
             Gradient5IndexProfile p => [p.BaseIndex, p.Radial2, p.Radial4, p.Axial1, p.Axial2, p.Axial3, p.Axial4],
+            Gradient9IndexProfile p => [p.B, p.C, p.K0, p.K1, p.K2],
+            GridGradientIndexProfile => [],
             _ => throw new NotSupportedException("此空间分布没有可编辑的系数映射。")
         };
         return new System.Collections.ObjectModel.ReadOnlyDictionary<string, double>(
@@ -54,6 +60,7 @@ public static class GradientIndexProfileData
             "gradient3" => new Gradient3IndexProfile(n["n0"], n["nr2"], n["nr4"], n["nr6"], n["nz1"], n["nz2"], n["nz3"]),
             "gradient4" => new Gradient4IndexProfile(n["n0"], n["nx1"], n["nx2"], n["ny1"], n["ny2"], n["nz1"], n["nz2"]),
             "gradient5" => new Gradient5IndexProfile(n["n0"], n["nr2"], n["nr4"], n["nz1"], n["nz2"], n["nz3"], n["nz4"], dispersion),
+            "gradient9" => new Gradient9IndexProfile(n["b"], n["c"], n["k0"], n["k1"], n["k2"]),
             _ => throw new ArgumentException("未知的 GRIN 分布类型。", nameof(kind))
         };
     }

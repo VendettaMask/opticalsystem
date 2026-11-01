@@ -1,0 +1,328 @@
+{
+  "date": "2026-10-30",
+  "status": "original_fft_profile_pointwise_issue_closed",
+  "objectiveAchieved": true,
+  "remainingOriginalProfileViolations": 0,
+  "originalProfileViolationsBefore": 335,
+  "originalToleranceSamplingReferenceChanged": false,
+  "sourceArchive": "validation/rechecks/2026-10-27/afocal-fft-energy/evidence-current.zip",
+  "sourceArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "sourceBaseCommit": "ea5152436935d7c07d34dca47a5b92349c803d6b",
+  "productCoreWorkingTreeChangesAccepted": true,
+  "coreSources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Geometries/PolygonGroupGeometry.cs",
+      "sha256": "f15ac02c8df2ea7ff2f32c700e69dfb857aec7e447e52fd0d61be771858f4d2e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Interactions/InteractionModels.cs",
+      "sha256": "5148915d3d9e8676e852f97053425aa309505ffac0e6ec86a71c98ddef69c1f7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "sha256": "1a9824cfaa8dd57429acbb43eb7b288acc3d36a08cb52804b01c889196d9e759"
+    }
+  ],
+  "coreCopies": [
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "6b052758b71de50e7cd44d90dcd7625dea2f138ca6fcc7032c88079d38545da7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "6b052758b71de50e7cd44d90dcd7625dea2f138ca6fcc7032c88079d38545da7"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "6b052758b71de50e7cd44d90dcd7625dea2f138ca6fcc7032c88079d38545da7"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "6b052758b71de50e7cd44d90dcd7625dea2f138ca6fcc7032c88079d38545da7"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "6b052758b71de50e7cd44d90dcd7625dea2f138ca6fcc7032c88079d38545da7"
+    },
+    {
+      "path": "tools/diagnostics/FftProfileNative20261029/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "6b052758b71de50e7cd44d90dcd7625dea2f138ca6fcc7032c88079d38545da7"
+    }
+  ],
+  "profilesBefore": [
+    {
+      "id": "0011-001-afocal-riflescope-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "f67e6c1f08fa5a496b652cc23725a997db2e36a80bca426f85a1279a05babd2e",
+      "maximum": 1.0155965035285597E-05,
+      "violations": 0,
+      "coverage": 0.9999994222309813
+    },
+    {
+      "id": "0041-002-beam-expander-c1-primary-f1-w1-fft-psf-cross-section",
+      "fingerprint": "66b44e5320bf27805e80e04e9b6a5f3030bc18537313d6a1f88e1f53dc88398f",
+      "maximum": 1.3853439448929805E-06,
+      "violations": 0,
+      "coverage": 0.9999999281812085
+    },
+    {
+      "id": "0063-003-binocular_system-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "701c41210aa641e7ef80b76cc0687c6029492f2759785319405f674f98fc3c87",
+      "maximum": 2.4503986426338553E-05,
+      "violations": 0,
+      "coverage": 0.999997399685585
+    },
+    {
+      "id": "0093-003-binocular_system-c2-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "57aabf59989a9b1648b62c46842ae0eb8e1be77adeb37fb9490cf243a5b36fe7",
+      "maximum": 0.0011946610381988604,
+      "violations": 335,
+      "coverage": 0.999997399685585
+    },
+    {
+      "id": "0123-004-apochromat_prism-c1-primary-f1-w3-fft-psf-cross-section",
+      "fingerprint": "15c7c9f2c088df99ba697ab0936584444e84673c52e00d9a4b7dcf359610aa33",
+      "maximum": 0.00011202888833755642,
+      "violations": 0,
+      "coverage": 0.9999951901557569
+    }
+  ],
+  "profilesAfter": [
+    {
+      "id": "0011-001-afocal-riflescope-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "f67e6c1f08fa5a496b652cc23725a997db2e36a80bca426f85a1279a05babd2e",
+      "maximum": 1.0155965035285597E-05,
+      "violations": 0,
+      "coverage": 0.9999994222309813
+    },
+    {
+      "id": "0041-002-beam-expander-c1-primary-f1-w1-fft-psf-cross-section",
+      "fingerprint": "66b44e5320bf27805e80e04e9b6a5f3030bc18537313d6a1f88e1f53dc88398f",
+      "maximum": 1.3853439448929805E-06,
+      "violations": 0,
+      "coverage": 0.9999999281812085
+    },
+    {
+      "id": "0063-003-binocular_system-c1-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "701c41210aa641e7ef80b76cc0687c6029492f2759785319405f674f98fc3c87",
+      "maximum": 4.3661622223245544E-05,
+      "violations": 0,
+      "coverage": 0.9999973996871936
+    },
+    {
+      "id": "0093-003-binocular_system-c2-primary-f1-w2-fft-psf-cross-section",
+      "fingerprint": "57aabf59989a9b1648b62c46842ae0eb8e1be77adeb37fb9490cf243a5b36fe7",
+      "maximum": 2.408739797182813E-05,
+      "violations": 0,
+      "coverage": 0.9999973996663992
+    },
+    {
+      "id": "0123-004-apochromat_prism-c1-primary-f1-w3-fft-psf-cross-section",
+      "fingerprint": "15c7c9f2c088df99ba697ab0936584444e84673c52e00d9a4b7dcf359610aa33",
+      "maximum": 0.00011202888833755642,
+      "violations": 0,
+      "coverage": 0.9999951901557569
+    }
+  ],
+  "pupilSupport": [
+    {
+      "configuration": 1,
+      "coreNodes": 699,
+      "nativeNodes": 699,
+      "identicalDiscreteSupport": true,
+      "stretchX": 1.0000212247016365,
+      "stretchY": 1,
+      "nativeMaskSuppliesProductInputs": false,
+      "fullPhysicalLaunchMappingProven": false
+    },
+    {
+      "configuration": 2,
+      "coreNodes": 699,
+      "nativeNodes": 699,
+      "identicalDiscreteSupport": true,
+      "stretchX": 1,
+      "stretchY": 1.0000000000009823,
+      "nativeMaskSuppliesProductInputs": false,
+      "fullPhysicalLaunchMappingProven": false
+    }
+  ],
+  "seamProbeDiagnostics": [
+    {
+      "configuration": 1,
+      "comparableProbes": 29,
+      "outsideNormalizedApiDomain": 4,
+      "maximumPositionDifferenceMillimeters": 4.293939327722832E-08,
+      "maximumDirectionDifference": 1.568796099117578E-09,
+      "originalToleranceCase": "0054-003-binocular_system-c1-primary-f1-w2-single-ray-trace",
+      "coordinateAbsoluteGate": 1E-06,
+      "directionAbsoluteGate": 1E-08,
+      "allComparableProbesWithinOriginalAbsoluteGates": true,
+      "bitwiseNativeParityClaimed": false
+    },
+    {
+      "configuration": 2,
+      "comparableProbes": 29,
+      "outsideNormalizedApiDomain": 4,
+      "maximumPositionDifferenceMillimeters": 2.1580568020653297E-14,
+      "maximumDirectionDifference": 2.0380801368798936E-15,
+      "originalToleranceCase": "0084-003-binocular_system-c2-primary-f1-w2-single-ray-trace",
+      "coordinateAbsoluteGate": 1E-06,
+      "directionAbsoluteGate": 1E-08,
+      "allComparableProbesWithinOriginalAbsoluteGates": true,
+      "bitwiseNativeParityClaimed": false
+    }
+  ],
+  "latestDistinctTestsPassed": 82,
+  "testRuns": [
+    {
+      "path": "artifacts/validation/fft-seam-tags-20261030/tests/afocal-main.trx",
+      "passed": 47,
+      "failed": 0,
+      "sha256": "7382925477743a26cbfb69762d308581f0b123e2d584dd579fed91f3163c26dc"
+    },
+    {
+      "path": "artifacts/validation/fft-seam-tags-20261030/tests/core-plane-main.trx",
+      "passed": 25,
+      "failed": 0,
+      "sha256": "5d3f72574ebdccb017e6a04d38bb469225bce85d9d43b09289fdf9dd973e42ba"
+    },
+    {
+      "path": "artifacts/validation/fft-seam-tags-20261030/tests/huygens-main.trx",
+      "passed": 10,
+      "failed": 0,
+      "sha256": "dc0ef53a45019ad898cc185c6cd4d5a09f6f39cd7cccd2edf3ddc8b8c635f177"
+    }
+  ],
+  "isolatedCandidate47SupersededAndNotAdded": true,
+  "nativeControlsCompleted": 16,
+  "nativeControlsAreOpticalPasses": false,
+  "nativeExecutions": [
+    {
+      "cohort": "fft-seam-tags-20261030",
+      "id": "binocular-c1-batch",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-tags-20261030",
+      "id": "binocular-c1-tags",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-tags-20261030",
+      "id": "binocular-c2-batch",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-tags-20261030",
+      "id": "binocular-c2-tags",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c1-winding-batch",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c1-winding-tags",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c1-uniform-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c1-uniform-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c1-gaussian-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c1-gaussian-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c2-winding-batch",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c2-winding-tags",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c2-uniform-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c2-uniform-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c2-gaussian-Real",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    },
+    {
+      "cohort": "fft-seam-controls-20261030",
+      "id": "binocular-c2-gaussian-Imaginary",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "formalAcceptanceRequest": false
+    }
+  ],
+  "installedAssets": [
+    {
+      "name": "PORRO_PRISM-LH.POB",
+      "sha": "8ba3b4bfe0092319a97e6169de6987132c0f9e2cda99f0b6a19a70eecc3a74f4"
+    },
+    {
+      "name": "PORRO_PRISM-RH.POB",
+      "sha": "c247ee42b9ec39fed6d0411e5f8b7c780ad3a6ff938bd6a642450d1e40dcef68"
+    }
+  ],
+  "ownedTemporaryPolygonsRemaining": 0,
+  "foregroundDesktopUsed": false,
+  "nativeInternalTraversalFullyKnown": false,
+  "gaussianEnvelopeDoesNotProvePhysicalLaunchMap": true,
+  "full170Or95CorpusRerun": false,
+  "otherOpenIssuesClosed": false
+}

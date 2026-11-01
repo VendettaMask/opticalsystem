@@ -1,0 +1,35 @@
+{
+  "Reference": "SciPy TPS local RBF; original development holdout, not new blind data",
+  "Cases": [
+    {
+      "Material": "mystique",
+      "Configuration": "colour_strength",
+      "CalibrationSha256": "1151b7e2575a8f56fa3e4885a5c30186620188c717f62dd7d281c6f226fdc49e",
+      "CalibrationRelativePath": "colour_strength/mystique/approved-550-calibration.json",
+      "SampleId": "0.17453299999999999/0/0.141539/3.1415929999999999",
+      "Xyz": [
+        0.20157946595038906,
+        0.2368400468984207,
+        0.3075585073947363
+      ],
+      "MeasuredTargetPerSteradian": 0.236761,
+      "IndependentPredictionPerSteradian": 0.23574848198880827,
+      "IntensityRescaled": false
+    },
+    {
+      "Material": "cayman",
+      "Configuration": "log_xyz",
+      "CalibrationSha256": "b9693b922e13249f1981746ef44d7f50ac05c17bba02cf032cc81a2681cd9488",
+      "CalibrationRelativePath": "log_xyz/cayman/approved-550-calibration.json",
+      "SampleId": "0.17453299999999999/0/0.141539/3.1415929999999999",
+      "Xyz": [
+        0.1439583748506088,
+        0.17822339697155948,
+        0.2783939647363679
+      ],
+      "MeasuredTargetPerSteradian": 0.16621,
+      "IndependentPredictionPerSteradian": 0.1659345869687705,
+      "IntensityRescaled": false
+    }
+  ]
+}

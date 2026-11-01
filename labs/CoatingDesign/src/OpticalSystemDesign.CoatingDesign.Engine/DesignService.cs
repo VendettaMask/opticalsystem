@@ -13,6 +13,7 @@ public sealed record ToleranceResult(int Trials, int Passed, int Seed, double Pe
 
 public sealed partial class DesignService
 {
+    public const string DenseSamplingProtocol = "extrema-anchored-band-domain/2";
     public const string GeneratorVersion = "coating-templates/2";
     public const string TargetBalancedProtocol = "target-balanced-coating/2";
     public const string ExtendedGeneratorVersion = "coating-templates/3";
@@ -149,7 +150,8 @@ public sealed partial class DesignService
         }
         if (intervals > (ThinFilmSpectrum.MaximumSamples - 1) / 2)
             throw new ArgumentException("带宽相对计算范围过窄，无法在采样上限内复验，请缩小计算范围。");
-        var previous = Scan(intervals);
+        var extremaEvaluations = 0; var extremaComplete = true;
+        var previous = Scan(intervals); var previousExtremaComplete = extremaComplete;
         var converged = false;
         var samples = previous;
         for (var attempt = 0; attempt < 4 && intervals * 2 < ThinFilmSpectrum.MaximumSamples - 512; attempt++)
@@ -158,9 +160,12 @@ public sealed partial class DesignService
             intervals *= 2;
             progress?.Report(new("独立密集采样复验", intervals + 1));
             samples = Scan(intervals);
-            converged = Converged(d, previous, samples);
+            converged = Converged(d, previous, samples) && (t.Kind != DesignKind.NarrowBand
+                || previousExtremaComplete && extremaComplete
+                    && Checks(d, previous, Metrics(d, previous)).Select(c => c.Passed).SequenceEqual(Checks(d, samples, Metrics(d, samples)).Select(c => c.Passed)));
             if (converged) break;
             previous = samples;
+            previousExtremaComplete = extremaComplete;
         }
         var metrics = Metrics(d, samples);
         var checks = Checks(d, samples, metrics);
@@ -168,17 +173,26 @@ public sealed partial class DesignService
         var suitability = AssessMaterials(d, materials, token, samples);
         warnings.AddRange(suitability.Messages);
         if (!converged) warnings.Add("采样尚未收敛，不能确认设计达标。请增加采样或缩小范围。");
+        if (t.Kind == DesignKind.NarrowBand && !extremaComplete) warnings.Add("光谱极值细化超过有界候选额度或缺少有效括区，不能确认采样达标。");
         if (t.Kind == DesignKind.NarrowBand && metrics.FwhmNanometers is null) warnings.Add("未找到完整的半高通带边缘，FWHM 未定义。");
         var result = new DesignResult(d.Fingerprint(), samples, metrics, checks, converged, samples.Length,
             (run ?? new("光谱复验", CoherentThinFilmSolver.Version, "计算完成", samples.Length, 0, null)) with
             { DesignProtocol = Protocol(d) },
             d.Settings.DesignProtocolVersion == 4 ? AssessGeneral(d, samples).Merit : ObjectiveMerit(d, Objective(d, solver, ObjectiveGrid(d))), warnings.ToArray())
-        { MaterialSuitability = suitability, SpectrumMetricsVersion = ThinFilmSpectrum.MetricsVersion };
+        { MaterialSuitability = suitability, SpectrumMetricsVersion = ThinFilmSpectrum.MetricsVersion,
+            SamplingProtocol = t.Kind == DesignKind.NarrowBand ? DenseSamplingProtocol : null,
+            ExtremaRefinementEvaluations = t.Kind == DesignKind.NarrowBand ? extremaEvaluations : null,
+            ExtremaRefinementComplete = t.Kind == DesignKind.NarrowBand ? extremaComplete : null };
         return d with { Result = result, Tolerance = d.Tolerance?.Fingerprint == d.Fingerprint() ? d.Tolerance : null };
 
         ThinFilmSample[] Scan(int count)
         {
-            var baseSamples = ThinFilmSpectrum.Sample(solver, GridWithAnchors(d, count), t.AngleDegrees, t.Polarization);
+            var waves = GridWithAnchors(d, count).AsEnumerable();
+            var domain = PassbandMetricDomain(d);
+            // Extrema of the reported band include its exact physical endpoints.
+            // A moving grid edge must not masquerade as failed spectral convergence.
+            if (t.Kind == DesignKind.NarrowBand) waves = waves.Append(domain.Minimum).Append(domain.Maximum);
+            var baseSamples = ThinFilmSpectrum.Sample(solver, waves, t.AngleDegrees, t.Polarization);
             if (t.Kind != DesignKind.NarrowBand) return baseSamples;
             var m = Metrics(d, baseSamples);
             var step = (t.MaximumNm - t.MinimumNm) / count;
@@ -190,8 +204,11 @@ public sealed partial class DesignService
                     var upper = Math.Min(t.MaximumNm, center.Value + 2 * step);
                     points.AddRange(ThinFilmSpectrum.Grid(lower, upper, 32));
                 }
-            return baseSamples.Concat(ThinFilmSpectrum.Sample(solver, points, t.AngleDegrees, t.Polarization))
+            var localSamples = baseSamples.Concat(ThinFilmSpectrum.Sample(solver, points, t.AngleDegrees, t.Polarization))
                 .GroupBy(x => x.WavelengthNanometers).Select(g => g.First()).OrderBy(x => x.WavelengthNanometers).ToArray();
+            var refined = RefineDenseExtrema(d, solver, localSamples, token);
+            extremaEvaluations += refined.Evaluations; extremaComplete = refined.Complete;
+            return refined.Samples;
         }
     }
 
@@ -233,10 +250,12 @@ public sealed partial class DesignService
                 Result = optimized.Result with
                 {
                     Run = optimized.Result.Run with
-                    { GeneralWork = refined.Run.GeneralWork! with { DenseValidations = denseValidations, DenseProtectionRejections = protectionRejected ? 1 : 0 } }
+                    { GeneralWork = refined.Run.GeneralWork! with { DenseValidations = denseValidations, DenseProtectionRejections = refined.Run.GeneralWork!.DenseProtectionRejections + (protectionRejected ? 1 : 0) } }
                 }
             };
         }
+        if (d.Settings.DesignProtocolVersion == 4 && d.Target.Kind == DesignKind.NarrowBand && d.Settings.Optimizer == "Damped Least Squares")
+            optimized = RefinePassbandQuality(optimized, materials, progress, token);
         var origin = d.Candidates?.FirstOrDefault(c => c.Layers.SequenceEqual(d.Layers))?.OriginPrototype;
         var candidates = (d.Candidates ?? []).Append(new Candidate("优化结果", optimized.Layers, optimized.Result!.Merit, optimized.Result.Passed, optimized.Result.Run)
         { OriginPrototype = origin })
@@ -389,8 +408,14 @@ public sealed partial class DesignService
     }
 
     private static double Merit(double[] residuals) => residuals.Sum(x => x * x) / residuals.Length;
-    private static ThinFilmBandMetrics Metrics(Experiment d, ThinFilmSample[] samples) => ThinFilmSpectrum.Measure(
-        d.Target.Kind == DesignKind.NarrowBand ? samples.Where(x => Math.Abs(x.WavelengthNanometers - d.Target.CenterNm) <= 2 * d.Target.FwhmNm).ToArray() : samples);
+    private static (double Minimum, double Maximum) PassbandMetricDomain(Experiment d) =>
+        (Math.Max(d.Target.MinimumNm, d.Target.CenterNm - 2 * d.Target.FwhmNm), Math.Min(d.Target.MaximumNm, d.Target.CenterNm + 2 * d.Target.FwhmNm));
+    private static ThinFilmBandMetrics Metrics(Experiment d, ThinFilmSample[] samples)
+    {
+        var domain = PassbandMetricDomain(d);
+        return ThinFilmSpectrum.Measure(d.Target.Kind == DesignKind.NarrowBand
+            ? samples.Where(x => x.WavelengthNanometers >= domain.Minimum && x.WavelengthNanometers <= domain.Maximum).ToArray() : samples);
+    }
     private static double MinimumOd(ThinFilmSample[] samples, SpectralBand band) => samples
         .Where(x => x.WavelengthNanometers >= band.MinimumNm && x.WavelengthNanometers <= band.MaximumNm)
         .Min(x => x.Power.OpticalDensity);

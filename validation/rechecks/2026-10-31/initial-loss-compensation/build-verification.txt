@@ -1,0 +1,5 @@
+Default build: dotnet build src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release --no-restore -m:1 -p:NuGetAudit=false
+Result: 0 warnings, 0 errors; default output completed, no foreground app launched.
+Final focused tests: initial-loss-final.trx, 46 passed, 0 failed, 0 skipped.
+First sandbox testhost connection attempt aborted before tests; subsequent authorized local-process runs completed.
+Current workspace Core differs from the frozen experimental Core; see default-build-sha256.json and candidate-source-sha256.json.

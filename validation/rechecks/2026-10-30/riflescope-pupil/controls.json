@@ -1,0 +1,211 @@
+{
+  "role": "Finite-scale probe controls only; independent perturbations do not replace original PSF references",
+  "sourceArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+  "cases": [
+    {
+      "id": "original",
+      "apertureDiameter": 16.002,
+      "primaryWavelength": 2,
+      "rayAimingEnabled": true,
+      "nativeExitDiameter": 4.0266578161829365,
+      "nativeExitPosition": -8.23242459888831E-05,
+      "nativeProbeLaunches": [
+        {
+          "success": true,
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.014236808977962964,
+          "z": 0,
+          "l": 0,
+          "m": 0.00017453292431333684,
+          "n": 0.999999984769129
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.008001002703107423,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        }
+      ],
+      "nativeOperandPath": "artifacts/validation/riflescope-pupil-20261030-native-03/original/afocal-pupil-operands.json",
+      "nativeOperandSha256": "208167a3a37e0e76772362d3c8ccf0a1ebdf03edcf82cfad7c85a10dab5dac46",
+      "nativeLaunchPath": "artifacts/validation/riflescope-pupil-20261030-native-03/original/direct-launches.json",
+      "nativeLaunchSha256": "7a258fa8e723dbc9d05c07597f67aab67e071d7fc580e7a58e3f8ec94853fc97"
+    },
+    {
+      "id": "aiming-off",
+      "apertureDiameter": 16.002,
+      "primaryWavelength": 2,
+      "rayAimingEnabled": false,
+      "nativeExitDiameter": 4.026656470376778,
+      "nativeExitPosition": -0.00012340994332317172,
+      "nativeProbeLaunches": [
+        {
+          "success": true,
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.014236922225360854,
+          "z": 0,
+          "l": 0,
+          "m": 0.00017453292431333684,
+          "n": 0.999999984769129
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.008001,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        }
+      ],
+      "nativeOperandPath": "artifacts/validation/riflescope-pupil-20261030-native-03/aiming-off/afocal-pupil-operands.json",
+      "nativeOperandSha256": "fa951e05aec866c5536c264335e46ba955accf28bcac7c6c8854ab320969c5a3",
+      "nativeLaunchPath": "artifacts/validation/riflescope-pupil-20261030-native-03/aiming-off/direct-launches.json",
+      "nativeLaunchSha256": "e961b1493b722bf6728ed190160f03fab7864a2b0c010a90ef4146b836154222"
+    },
+    {
+      "id": "aperture15-green",
+      "apertureDiameter": 15,
+      "primaryWavelength": 2,
+      "rayAimingEnabled": true,
+      "nativeExitDiameter": 3.7745197292667894,
+      "nativeExitPosition": -8.23242459888831E-05,
+      "nativeProbeLaunches": [
+        {
+          "success": true,
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.014236808977962964,
+          "z": 0,
+          "l": 0,
+          "m": 0.00017453292431333684,
+          "n": 0.999999984769129
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.007500002216902908,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        }
+      ],
+      "nativeOperandPath": "artifacts/validation/riflescope-pupil-20261030-native-05/aperture15-green/afocal-pupil-operands.json",
+      "nativeOperandSha256": "07df163389f468b2bfca85400bdad2c229a0af56fc2f3a3bdf6d226ef37b21cd",
+      "nativeLaunchPath": "artifacts/validation/riflescope-pupil-20261030-native-05/aperture15-green/direct-launches.json",
+      "nativeLaunchSha256": "16af17176a76b4927f7e09d296ee143606cf1f506654ed08a38d94a2a9218abb"
+    },
+    {
+      "id": "aperture15p5-blue",
+      "apertureDiameter": 15.5,
+      "primaryWavelength": 1,
+      "rayAimingEnabled": true,
+      "nativeExitDiameter": 3.8885936511238794,
+      "nativeExitPosition": -0.3979949584083952,
+      "nativeProbeLaunches": [
+        {
+          "success": true,
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.012648902071591245,
+          "z": 0,
+          "l": 0,
+          "m": 0.00017453292431333684,
+          "n": 0.999999984769129
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.007750002487251288,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        }
+      ],
+      "nativeOperandPath": "artifacts/validation/riflescope-pupil-20261030-native-05/aperture15p5-blue/afocal-pupil-operands.json",
+      "nativeOperandSha256": "225e00884320bf5e1ca723974563150440c50af5dc2582fdf6e79f8ba4145f15",
+      "nativeLaunchPath": "artifacts/validation/riflescope-pupil-20261030-native-05/aperture15p5-blue/direct-launches.json",
+      "nativeLaunchSha256": "55889187442c3aec3054fec82a3c4a8d0465d747cc196f49b11a77ace8ec4e9f"
+    },
+    {
+      "id": "aperture15p5-red",
+      "apertureDiameter": 15.5,
+      "primaryWavelength": 3,
+      "rayAimingEnabled": true,
+      "nativeExitDiameter": 3.906595392854914,
+      "nativeExitPosition": 0.27574105317105213,
+      "nativeProbeLaunches": [
+        {
+          "success": true,
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.014958424955704852,
+          "z": 0,
+          "l": 0,
+          "m": 0.00017453292431333684,
+          "n": 0.999999984769129
+        },
+        {
+          "success": true,
+          "x": 0,
+          "y": 0.007750002437184066,
+          "z": 0,
+          "l": 0,
+          "m": 0,
+          "n": 1
+        }
+      ],
+      "nativeOperandPath": "artifacts/validation/riflescope-pupil-20261030-native-05/aperture15p5-red/afocal-pupil-operands.json",
+      "nativeOperandSha256": "5d59a1ee48f15cc9f7436f78501a065d7d37ddc2c5ebb398e1c4c30217e66fd9",
+      "nativeLaunchPath": "artifacts/validation/riflescope-pupil-20261030-native-05/aperture15p5-red/direct-launches.json",
+      "nativeLaunchSha256": "f5b6d058dd245b43c5784971890b51e79425f9a5477904abb159bb33dd985751"
+    }
+  ]
+}

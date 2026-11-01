@@ -586,6 +586,8 @@ public static partial class AutonomousSearchService
         if (options.PoolDiversity is { } diversity && (diversity.Version != 1 || diversity.RankWindow is < 8 or > 128))
             throw new ArgumentException("Unsupported or unbounded diversity policy.");
         if (options.SeedPreparation is { } preparation) ParaxialSeedSearch.ValidateOptions(preparation);
+        if (options.SeedPreparation is { ColdStart: { } cold } coldPreparation)
+            ColdStartDesignSearch.Validate(plan, coldPreparation, cold);
         if (options.PopulationExploration is { } population) ValidatePopulation(population, plan);
         if (options.QualifiedReductionOnly == true && (options.FixedTopologyOnly == true
             || options.Expansion is { } reduction && (!reduction.EnableDeletion || reduction.EnableInsertion || reduction.EnableSplit

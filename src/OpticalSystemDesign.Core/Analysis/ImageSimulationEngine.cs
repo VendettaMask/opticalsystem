@@ -159,6 +159,7 @@ public static partial class ImageSimulationEngine
         ComputationCancellation.ThrowIfCancellationRequested();
         config ??= new ImageSimulationConfig();
         AnalysisResourceLimits.ValidateImageSimulation(source, config);
+        if (config.UseRelativeIllumination) IlluminationMetrics.RequireRelativeIllumination(optic);
         var partialCoherence = NormalizeAberrationMode(config.AberrationMode) == "Partially Coherent";
         var dimensions = AnalysisResourceLimits.ResolveImageSimulationDimensions(source.Width, source.Height, config);
 
@@ -962,6 +963,7 @@ public static partial class ImageSimulationEngine
         double fieldCenterY,
         bool usePolarization = false)
     {
+        IlluminationMetrics.RequireRelativeIllumination(optic);
         const int gridSize = 9;
         var fieldIndices = new int[gridSize, gridSize];
         var fields = new Dictionary<(double X, double Y), int>();

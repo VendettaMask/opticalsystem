@@ -1,0 +1,67 @@
+[
+  {
+    "Name": "correction-real-nbf-red",
+    "Stage": "Isolated passband direction comparison and joint polish; not a fresh full optimization",
+    "InputFingerprint": "4CFD6BC82D4B41E1A216AC75C5E3F9351648E753E9EDECB65A91FF30EF972791",
+    "Baseline": "validation/rechecks/2026-10-31/coating-nonlinear-correction/before-raw/correction-real-nbf-red.coating.json",
+    "Seconds": 4.4028406,
+    "Iterations": 20,
+    "Corrections": 26,
+    "PeakBefore": 0.7586336444744151,
+    "PeakAfter": 0.7608809402478857,
+    "WidthBefore": 24.16612247923524,
+    "WidthAfter": 24.102569767983027
+  },
+  {
+    "Name": "holdout-violet",
+    "Stage": "Isolated passband direction comparison and joint polish; not a fresh full optimization",
+    "InputFingerprint": "3BB35F5014AF25DF17A347132E25DB2AB4E08231862CE4FD4857D900389C372C",
+    "Baseline": "validation/rechecks/2026-10-31/coating-nonlinear-correction/before-raw/holdout-violet.coating.json",
+    "Seconds": 1.8121486,
+    "Iterations": 16,
+    "Corrections": 40,
+    "PeakBefore": 0.836548474003201,
+    "PeakAfter": 0.9139527391556582,
+    "WidthBefore": 17.80735893065605,
+    "WidthAfter": 16.520006334594086
+  },
+  {
+    "Name": "new-real-nbf-green",
+    "Stage": "Isolated passband direction comparison and joint polish; not a fresh full optimization",
+    "InputFingerprint": "3F59D622DB7C1E059477BAD27E932D0F562752871C34C0BAC165C2AA87A28AF2",
+    "Baseline": "validation/rechecks/2026-10-31/coating-nonlinear-correction/before-raw/new-real-nbf-green.coating.json",
+    "Seconds": 6.0861244,
+    "Iterations": 17,
+    "Corrections": 46,
+    "PeakBefore": 0.600076476790159,
+    "PeakAfter": 0.6004861125263499,
+    "WidthBefore": 15.509728183570473,
+    "WidthAfter": 15.487075512272213
+  },
+  {
+    "Name": "new-real-nbf-red",
+    "Stage": "Isolated passband direction comparison and joint polish; not a fresh full optimization",
+    "InputFingerprint": "6FF565B6DE81E5FD401EE5AE37513DDE6A5BEBD9203FDDBA704A7ED0D9BC189C",
+    "Baseline": "validation/rechecks/2026-10-31/coating-nonlinear-correction/before-raw/new-real-nbf-red.coating.json",
+    "Seconds": 6.4095457,
+    "Iterations": 13,
+    "Corrections": 44,
+    "PeakBefore": 0.7521726939561427,
+    "PeakAfter": 0.752356864053051,
+    "WidthBefore": 20.305925287137484,
+    "WidthAfter": 20.3046861838817
+  },
+  {
+    "Name": "real-nbf2-96",
+    "Stage": "Isolated passband direction comparison and joint polish; not a fresh full optimization",
+    "InputFingerprint": "4F8C28DC87452D48C47BD3E8BD8A84FB666503FD430CF241B412023CE6EC9A57",
+    "Baseline": "validation/rechecks/2026-10-31/coating-nonlinear-correction/before-raw/real-nbf2-96.coating.json",
+    "Seconds": 4.5829302,
+    "Iterations": 5,
+    "Corrections": 24,
+    "PeakBefore": 0.6637965126737557,
+    "PeakAfter": 0.663998519257116,
+    "WidthBefore": 17.244582058665742,
+    "WidthAfter": 17.241247861331317
+  }
+]

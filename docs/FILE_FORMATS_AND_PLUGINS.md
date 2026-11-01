@@ -1,6 +1,6 @@
 # 文件格式与插件
 
-更新：2026-10-26。本页说明文件入口、导出边界和插件接口。STAROPT 的二进制布局、版本与迁移只在 [格式契约](STAROPT_FILE_FORMAT.md) 维护；操作数逐项参数和历史验证只在 [支持规范](ZEMAX_OPERAND_SUPPORT.md) 维护。
+更新：2026-10-31。本页说明文件入口、导出边界和插件接口。STAROPT 的二进制布局、版本与迁移只在 [格式契约](STAROPT_FILE_FORMAT.md) 维护；操作数逐项参数和历史验证只在 [支持规范](ZEMAX_OPERAND_SUPPORT.md) 维护。
 
 CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚度静默改成零。这项修复仅防止导入阶段改变处方，不代表支持两种格式的全部命令；此前已按零厚度保存的工程需要从原始文件重新导入。验证见[本轮修复记录](PRIORITY_RELIABILITY_REPAIR_2026-10-26.md)。
 
@@ -26,6 +26,10 @@ CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚
 
 `.starrdb` 保存可重新生成的非序列追迹结果，不嵌入工程。完整分析与有界 3D 布局各自使用结果会话；格式、生命周期和过期校验见 [数据库契约](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md#分支输出和-starrdb)。
 
+当前[全入射角对数重建与绝对XYZ校准](XYZ_LOG_RECONSTRUCTION_2026-11-01.md)：已知Cornell光谱配置可显式选`CornellAstmSpectralLog/1`、尺度和原波段/入射节点；全部八入射角在550 nm的40个切片通过能量与链路核对，协议10/v18。默认仍为原线性协议9/v17，不宣称通用ASTM兼容。绝对XYZ正值模型使用协议11/v19，需显式导入来源/条件/模型摘要绑定的校准文件；Mystic/Cayman新增通过原开发留出门槛，Blue Acrylic仍拒绝。旧1–9不升级，实测背面和全31波段未认证。
+
+非序列 BSDF/BTDF 支持自有 CSV v1/v2、Speos v8/v11 TEXT、已核验 archive-3 的 .brdf v8 与 .anisotropicbsdf v7/v9/v11 二进制，以及显式声明的 Zemax Monochrome 或校准 XYZ .BSDF。新v11 White使用共享单元参考功率的MeasuredBsdfGrid/6、STAROPT v14；无White的θ线性模型仍为协议5/v13，旧协议4及原非负XYZ继续写v12，其他旧模型保持原版本。商业文件需显式入射侧，固定轴使用对象局部坐标。XYZ另选辐射度校准JSON：原非负系数模型保持协议4/v12，有域约束的有符号映射仍为协议7/v15；显式条件的非负经验颜色模型使用协议8/v16，将绝对XYZ角节点映射后积分得到TIS，拒绝越域或非被动功率。正值JSON上限4 MiB、旧线性JSON仍为64 KiB；节点及条件进入STARRDB、相机、工程冻结摘要，旧1–7不升级。两份已知CIE1931/D65条件实测光谱派生XYZ的550 nm校准通过原留出门槛并可导出，其他三份仍拒绝，见[当前XYZ条件、校准和边界](XYZ_KNOWN_CONDITIONS_2026-11-01.md)。Core/API拟合保留实测来源，失败或条件未知不能导出带拟合证据的正式校准，桌面没有拟合向导。23组White实际追迹功率与正常入射方向矩通过；603点方向逐值仍只覆盖White关闭，White开启完整二维对标、固定轴/BTDF商业认证和历史发布XYZ观察者仍开放。见[原生比较范围](WHITE_SPECULAR_RUNTIME_2026-10-31.md)及[v11格式范围](SPEOS_V11_XYZ_2026-10-31.md)；未知二进制、活动v8/v9、Retroreflection、其他ASTM配置与Radiance XML产品导入仍未实现。
+
 按用户决定不提供旧名称兼容。原生 JSON 路由只接受大小写不敏感的 `.optic.json`；普通 `.json`、旧品牌后缀和退役外部格式均在工程读取/写入前拒绝，不通过内容嗅探绕过后缀边界。底层 `OpticJsonStore` 仍校验当前原生快照结构，它不是通用外部字典读取器。
 
 ## 初始结构共享界面和过渡实验文件
@@ -42,13 +46,35 @@ CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚
 
 ## 镀膜实验文件
 
-2026-10-30 反射率质量阶段：协议 4 的 `GeneralWork.QualityProtocol` 当前记录 `worst-reflectance/3`，`QualityRestarts`记录局部未可行路径的至多一次实际重启；顶层搜索累计各局部工作。历史组件版本保持原身份。`QualityPasses`、`QualityIterations`分别是约束阶段数与总迭代的子集。`Run.QualityStartLayers`保存质量起点，用于必要的独立密集复验。窄带可选`PassbandProtocol="measured-passband-constraints/1"`、`BandMetricEvaluations`、`BandSensitivityBatches`记录带指标批次及其中的膜厚导数批次，后者不能与前者相加。
+协议 4 的 `GeneralWork.QualityProtocol` 当前记录 `worst-reflectance/8`：DLS严重未可行起点的预处理在强收缩时延续，最多占主额度一半，其余进入共享不等式质量步；近可行、已可行及其他优化器保持原切换/质量方向。新增`ReflectancePreconditionerIterations`与`QualityIterations`均为主优化迭代的子集，局部反射率优化二者合计为实际主迭代，不额外增加N。`QualityRestarts`只记录实际重启；历史版本保持原身份。`QualityPasses`为原约束阶段的子集。`Run.QualityStartLayers`保存质量起点。窄带可选`PassbandProtocol="measured-passband-constraints/1"`、`BandMetricEvaluations`、`BandSensitivityBatches`记录带指标批次及其中的膜厚导数批次，后者不能与前者相加。
 
-逐项目标保护可记录`GeneralWork.TargetProtectionProtocol="target-violation-envelope/1"`、`TargetProtectionPasses`、`ProtectedTrialRejections`、`DenseProtectionRejections`；保护阶段是原约束阶段的子集，拒绝次数不等于额外光学评价次数。`Run.TargetViolationCeilings`保存峰值T、宽度、峰位、依序各截止OD的起点归一化超限界；`TargetEnvelopeSampling`区分`dense-start`和短筛选`guidance-start`，`TargetProtectionPhase`区分`joint-targets`、`shape-restoration`和`candidate-selection`。`DenseValidations`包括实际指导复验/反馈及最终候选保护调用。旧记录缺字段保持空/零，不补造历史；这些结果字段不进入输入指纹。详见[当前逐项目标保护](COATING_TARGET_PRESERVATION_2026-10-30.md)和[历史质量阶段](COATING_REFLECTANCE_QUALITY_2026-10-30.md)。
+`GeneralWork.SearchSamplingProtocol="search-peak-reference/2"`及`SearchPeakReferenceBatches`记录与正式采样解耦的搜索峰值种子批次（含恢复起点、目标交接及LS）；查询计入指导工作量，该批次不提供验收判定。
+
+显式`SearchMatchedFeedback`研究API可写可空`Run.StructureFeedbackWindows`及末轮`StructureFeedback`，身份为`matched-structure-feedback/1`。每轮保存真实父处方/原型、转移处方/原型、匹配根及其工作记录、短程起止处方、完整试探起止处方/原型、正式保留基线指标/各OD和接受标记；探索点可被下一轮使用，未接受不冒称正式改进。每轮最多256个指导候选、min(4,Starts)个ceil(sqrt(N))主额度短程、一个N主额度完整试探，最多两轮；这些工作在旧Search之外，匹配、内部恢复/质量与密集复验仍单列，异质计数不相加冒充完整查询。普通Search/Generate不启用额外反馈，旧记录保持空，不补造身份；schema 1及输入指纹不变。实测材料快照及原门槛随实验保存，见[验证与默认启用边界](COATING_RESAMPLED_FEEDBACK_2026-11-01.md)。
+
+新增可选`GeneralWork.ReflectanceMetricIterations`记录DLS未达标结果的额外光谱灵敏度度量续算，每窗口最多ceil(sqrt(Q))步、累计最多Q步，Q为主质量阶段额度；它在主调用≤N之外单列。跨窗口保留阻尼/网格，只有正式最差损失收益超过原R收敛分辨率1e-5才授予下一窗口。1e-5不作为放宽的验收门槛。`Run.ReflectanceMetricStartLayers` / `ReflectanceMetricResultLayers` / `ReflectanceMetricAccepted`保存正式起点、试探和密集判定；已通过结果跳过。`Run.TargetRepairWindows`保存每次续算的旧/新额度、目标、最好分数、冻结超限和`CertifiedProgress`/`ContractingRecovery`原因；`TargetRefinementIterationLimit`为恢复、LS和余量质量阶段共享额度。
+
+2026-11-01 窄带正式采样`Result.SamplingProtocol="extrema-anchored-band-domain/2"`在原`anchored-band-domain/1`窗口端点、闭区间及半高边缘采样上，用共享Core细化已观测的通带和截止局部透射极大值，并要求相邻两级Checks判定稳定。每级最多64个候选，超限或不足以括区时不确认收敛。可空`Result.ExtremaRefinementEvaluations`记录本次Evaluate各级极值额外查询，`ExtremaRefinementComplete`记录最终级完成状态，不代表全局光谱证明或完整优化成本。原Checks/Converged数值阈值、Core带指标版本、schema 1和输入指纹保持；指导采样`search-peak-reference/2`独立不变。历史缓存不补造字段或通过状态，对比旧膜系须在同一最终采样下冷复算并保留原记录，见[采样修正与反馈对照](COATING_TOPOLOGY_FEEDBACK_2026-11-01.md)。
+
+`Run.ReflectanceMetricWindows`保存每个窗口的迭代偏移、额度、起点/候选膜厚、正式最差损失、收敛/接受状态及起止阻尼；`ReflectanceMetricIterationLimit`为累计Q额度，`ReflectanceMetricStopReason`区分原采样分辨率下的小收益、无正式改善、达标或限次。`ReflectanceMetricAccepted`为是否至少保留一个窗口，接受后`ReflectanceMetricResultLayers`指最终保留结果；拒绝试探仍保存在窗口记录。
+
+`GeneralWork.PassbandQualityProtocol="passband-margin-quality/2"`、`PassbandQualityIterations`和`PassbandQualityAcceptedCandidates`记录实际通带余量工作。它与恢复及LS合计≤N；原质量、旧方向、修正方向及联合抛光窗口各≤ceil(sqrt(N))，合计≤4ceil(sqrt(N))，不另增共享N。`Run.PassbandQualityStartLayers`、`PassbandQualityIterationLimit`、`PassbandQualityStopReason`及`PassbandQualityTrials`保存正式起点、额度、停止原因和试探。每个试探含实际膜厚、正式指标、截止OD、收敛及接受状态；`Bounds.MinimumPeakTransmittance`、`MaximumWidthErrorNm`、`MinimumOpticalDensities`与`ViolationCeilings`分别为前一保留点的实际峰值下界、距目标宽度最大误差、依声明次序的各截止OD下界及原目标超限上界。该阶段允许达标后改善余量；每个保留点必须同时遵守这些实际边界和原门槛。旧记录不补造字段，schema仍为1，结果字段不改变输入指纹。
+
+逐项目标保护当前记录`GeneralWork.TargetProtectionProtocol="target-violation-envelope/3"`、`TargetProtectionPasses`、`ProtectedTrialRejections`、`DenseProtectionRejections`；保护阶段是原约束阶段的子集，拒绝次数不等于光学评价次数。版本3的 DLS 未完成幅度目标采用原尺度主方向及独立计数的密集逐项校正。`TargetDirectionRestarts`仍只记录实际发生的版本2方向恢复，局部0或1次，顶层可累计。`Run.TargetViolationCeilings`保存峰值T、宽度、峰位、依序各截止OD的起点归一化超限界；`TargetEnvelopeSampling`区分`dense-start`和短筛选`guidance-start`。`TargetProtectionPhase`增加`pareto-target-correction`，保留原阶段值。`DenseValidations`包括实际指导复验/反馈及最终候选保护调用，`DenseProtectionRejections`保留各层累计值，不被末次0/1覆盖。
+
+新增可选`GeneralWork.NonlinearConstraintCorrectionProtocol="trial-constraint-correction/1"`与`NonlinearConstraintCorrections`记录共享Core实际修正迭代，不与主/窗口迭代相加。`PassbandCorrectionIterations`为`PassbandQualityIterations`的子集，含修正方向与最终抛光、合计≤2ceil(sqrt(N))；`Run.PassbandCorrectionStartLayers`、`PassbandCorrectionIterationLimit`、`PassbandCorrectionStopReason`记录最后修正窗口。未选分支的试探保存在方向记录中。`PassbandCorrectionAttempts`含累计步骤、阻尼尝试、回溯比例、最大指导超界、指导目标及是否采用修正；非有限指导值写null，不能用于达标判断。正式保留试探仍在`PassbandQualityTrials`中，原实际Bounds逐点保持，schema与输入指纹定义不变。`Run.PassbandDirectionTrials`保存同起点两方向的膜厚、指标、各OD、收敛/通过、额度、实际迭代/评估、选择标记及各自Trials/CorrectionAttempts；`PassbandDirectionSelectionBounds`为旧方向结果的实际余量及原超限。修正方向只有逐项支配该基线才选用，最终抛光继续保护所选点。`PassbandQualityTrials`保留所选路径，工作计数包含两方向（包括未选用者），不能将分支试探拼成一条物理迭代链。新增高反修正工作仍在原额外Q窗口中计数；它不引入新的Q额度。
+
+新增可选 `InequalityStepProtocol="active-set-inequality-step/1"`、`InequalitySubproblems`、`InequalityActiveSetIterations`、`InequalitySubproblemLimits`记录共享数值步及未收敛限次，数值步成功不等于物理验收通过。设N=`MaximumIterations`，`TargetComparisonRuns` / `TargetComparisonIterations`单列额外方向比较：局部最多一次、最多N次。`TargetRepairProtocol="pareto-target-correction/3"`的恢复含续算、后续硬约束LS及余量质量阶段共享额外N次；`TargetRepairContinuationIterations`是`TargetRepairIterations`的子集，不能重复相加。`TargetRepairAcceptedCandidates`计恢复保留点，`TangentTrialEvaluations`计切空间试探。随后`TargetParetoPolishIterations`另计硬约束LS，最多`ceil(sqrt(N))`次且使用恢复剩余额度，`TargetParetoAcceptedCandidates`计其保留点。这些工作**在主调用≤N之外**，顶层搜索可累计多个局部。`Run.Evaluations`含各附加阶段的向量评价；光谱/灵敏度计指导查询，密集验收另计调用，不能混为所有单波长求解总数。
+
+`Run.TargetDirectionTrials`保存两种方向各自的膜厚、正式指标、分数、通过状态、真实迭代/评价和停止原因，`TargetRepairBaselineDirection`记录选择。`TargetRepairStartLayers`及`TargetRepairViolationCeilings`保存主基线，`TargetRepairGoalIndex`为最初校正项。新增`TargetRepairContinuationStartLayers` / `TargetRepairContinuationCeilings`保存授予续算窗口时的最好正式结果及其上界。`TargetRepairStopReason`与`TargetParetoStopReason`区分实际限次、无保留下降及完成状态；不代表全局驻点证明。
+
+`TargetRepairTrials`继续保存实际膜厚、正式指标、超限、采样收敛、是否保留及`GoalIndex`；新增`Stage`为`target-restoration`或`monotone-pareto`，`ViolationCeilings`为该步正式保留上界，`RestorationViolation`为当前目标缺口与上界超限的最大值。候选可用原快照交回同一Core复算，并非内部轨迹全量日志。历史字段与旧文件缺字段保持空/零，结果字段不进入输入指纹，schema仍为1。详见[当前余量优化与续算](COATING_MARGIN_REFINEMENT_2026-10-31.md)、[前次权衡修复](COATING_TRADEOFF_REPAIR_2026-10-31.md)与[目标方向阶段](COATING_TARGET_BALANCING_2026-10-31.md)。
 
 2026-10-30 光谱测量身份：新计算的 `Result.SpectrumMetricsVersion` 为 `log-scaled-half-maximum/2`，从原始 log(T) 量取相对半高宽，绝对 T 不归一化。旧结果缺此可空字段时不补造历史身份，输入指纹不变。全反射无通带时边缘/FWHM 为 null；有限 log(T) 的绝对数值下溢与全反射分开，见[边界修复](COATING_SPECTRUM_EDGE_REVIEW_2026-10-30.md)。
 
 2026-10-30 兼容扩展：schema 1 可保存 `Settings.DesignProtocolVersion`（空旧协议、2、窄带专用3、通用试验4）、旧试验 `Target.Structure.PrototypeFamilyVersion`，以及运行记录的 `DesignProtocol`、`Screening`、`TemplateEvaluations`、`NarrowBandCompetition`、`GeneralWork`。协议 4 的身份为 `general-constraint-coating/4`，工作量分别记录指导光谱点、灵敏度点、解析导数批次、约束/加密次数与完整复验次数，不将这些异质工作相加冒充等价计算量。匹配试验可选 `InitialMatchingLayers` 保存各相位起点，`Before` 仍指裸滤光片。短程记录/候选的 `OriginPrototype` 保存连续优化前的镜段/腔阶及材料顺序；不能当作优化后处方。结果的 `MaterialSuitability` 保存可复算的材料诊断和能量。新增可空字段省略，旧输入指纹不变；打开/编辑保留版本并按材料快照重算，不自动升级旧模式。新建窄带默认仍为协议3，协议4须显式选择，见[通用修正](COATING_GENERAL_FIXES_2026-10-30.md)。
+
+2026-10-31 生成认证记录：协议4窄带Generate可保存`Run.SeedRankingProtocol="dense-feasibility-allocation/1"`及`SearchSeedValidations`。每项含`Layers`、`Metrics`、各`OpticalDensities`、`SamplingConverged`、`Passed`、`Violations`，可空`Prototype`、`InitialLayers`、`RefinementRun`保存实际起源及子调用。分别保存原层和最终层；Passed仍由原正式采样与Checks决定。最多12项认证、最多min(Starts,12)项新增精化，每项主迭代≤min(N,ceil(sqrt(N)))；额外约束/恢复工作按既有子运行字段另计。父评价/主迭代汇总子运行，异质光谱工作分开。完整Search不写这两个新字段，旧字段为空不补造；schema及输入指纹保持。见[当前生成流程](COATING_GENERATION_CERTIFICATION_2026-10-31.md)。
 
 内置镀膜模块使用 `.coating.json` schema 1，实验编辑状态与镜头 `.staropt` 分开；文件隔离不是独立产品或进程。保存膜系、完整材料公式/n/k 表和来源/有效范围、目标、采样/约束、候选、运行算法与版本、停止原因、评价次数、求解器版本、输入 SHA-256、光谱和逐项指标；公差结果还记录种子与输入哈希。正式 `BoundedFile` 提供有界读取和原子替换；格式/输入非法或结果哈希不匹配明确拒绝。重开有结果的实验后以冻结快照重新计算。此格式不承诺兼容 TFStudio 文件，也不进入当前镜头。
 
@@ -172,3 +198,9 @@ schema 1 新增可选 Structure/Search/Tolerancing 设置，缺省时不参与�
 ## 延伸区的导出边界（2026-10-02）
 
 本地 `ChipZone` 已进入 JSON/STAROPT；CAD/STEP 曲面延伸到净半径加延伸区，然后生成机械平环。外部 ZMX/CODE V/OSLO/通用处方的非零延伸区列尚未验证，当前明确拒绝导出，避免静默丢失。TSAG 原始 MFE 行仍禁用保留，本地八槽可执行。见[完整范围](DIRECTIONAL_SAG_OPERAND_2026-10-02.md)。
+
+## NSC 相机实验（2026-10-31）
+
+相机实验容器仍为 `OpticalSystemDesign.CameraExperiment` schema 1、`.camera-experiment.zip`，NSC 功率输入使用 `CameraLabV9-NscDetector/1`。`Request.NscDetector` 是 `OpticalSystemDesign.CameraNscDetector` schema 1，内嵌分波长带积分 W/像元（固定负局部 Y 起始）、探测器尺寸/世界坐标轴、波长表、场景/会话/数据库身份、追迹设置、源 ID、路径筛选及警告。曝光、QE、噪声、ADC 和 ISP 参数仍各自保存。
+
+空的 `NscDetector` 不进入序列化，V5–V8 旧实验与旧采样报告身份保留。NSC 复算只开发内嵌功率，不依赖原 STARRDB，也不重跑场景或叠加顺序主像。对照 ZIP 另外包含 `nsc-detector.json` 和顶部起始的 `detector-power.csv`。相机容器及展开数据保持 256 MiB 上限，物理采样和像素上限保持；不更改 STAROPT、STARRDB 格式。操作和支持域见[相机说明](CAMERA_IMAGING_LAB.md#非序列分析到-raw--isp)。

@@ -685,6 +685,7 @@ public sealed class Layout2DBuilder
         {
             DiffractiveInteractionModel => LayoutRayInteractionType.Diffractive,
             ThinLensInteractionModel => LayoutRayInteractionType.ThinLens,
+            ParaxialLensInteractionModel => LayoutRayInteractionType.ThinLens,
             PhaseInteractionModel => LayoutRayInteractionType.Phase,
             RefractiveReflectiveInteractionModel model when model.IsReflective || surface.IsReflective =>
                 LayoutRayInteractionType.Reflective,

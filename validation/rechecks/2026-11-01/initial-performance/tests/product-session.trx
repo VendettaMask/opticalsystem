@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0c63a75a-6b7c-4f96-9227-23f2083c2397" name="allen@DESKTOP-SET3SNR 2026-11-01 13:22:16" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T13:22:16.0531114+08:00" queuing="2026-11-01T13:22:16.0531117+08:00" start="2026-11-01T13:20:40.9262821+08:00" finish="2026-11-01T13:22:16.0576855+08:00" />
+  <TestSettings name="default" id="1917c975-6265-4c27-ac44-4e19fa109a42">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_13_22_16" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="14620fb7-5ad5-4c0d-b3cf-c276cd13caa5" testId="25a28441-2687-d0d9-593d-b202a58a0118" testName="RealPipelineTests.OriginalF8StopsLoadsResumesAndHandsOffOnceBeforeQualifiedNativeReadback" computerName="DESKTOP-SET3SNR" duration="00:01:34.0803633" startTime="2026-11-01T13:20:41.8476322+08:00" endTime="2026-11-01T13:22:15.9350114+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="14620fb7-5ad5-4c0d-b3cf-c276cd13caa5" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RealPipelineTests.OriginalF8StopsLoadsResumesAndHandsOffOnceBeforeQualifiedNativeReadback" storage="c:\users\19851\appdata\local\temp\codex-initial-performance-b02d71fa431640f0a86bbdfb4be68b27\product\opticalsystemdesign.initialstructure.tests.dll" id="25a28441-2687-d0d9-593d-b202a58a0118">
+      <Execution id="14620fb7-5ad5-4c0d-b3cf-c276cd13caa5" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\codex-initial-performance-b02d71fa431640f0a86bbdfb4be68b27\product\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="RealPipelineTests" name="OriginalF8StopsLoadsResumesAndHandsOffOnceBeforeQualifiedNativeReadback" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="25a28441-2687-d0d9-593d-b202a58a0118" executionId="14620fb7-5ad5-4c0d-b3cf-c276cd13caa5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.26]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.29]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.30]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:01:34.42]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

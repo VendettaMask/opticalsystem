@@ -103,9 +103,11 @@ public sealed partial class OpticalSurface : NotifyObject
         {
             var normalized = NumericParameterGuard.ClampMinimumFinite(value, 0.1, nameof(SemiDiameter));
             if (!double.IsFinite(normalized + ChipZone)) throw new ArgumentOutOfRangeException(nameof(SemiDiameter));
-            if (SetProperty(ref _semiDiameter, normalized)
-                && SemiDiameterDefinesPhysicalAperture)
-                PhysicalAperture = new CircularAperture(normalized);
+            if (SetProperty(ref _semiDiameter, normalized))
+            {
+                if (SemiDiameterDefinesPhysicalAperture) PhysicalAperture = new CircularAperture(normalized);
+                if (Geometry is IrregularGeometry irregular) Geometry = irregular.WithNormalizationRadius(normalized);
+            }
         }
     }
 
@@ -413,6 +415,13 @@ public sealed partial class OpticalSurface : NotifyObject
                     grating.GratingPeriodMicrometers,
                     grating.GrooveOrientationAngleRadians),
                 EvenAsphereGeometry even => new EvenAsphereGeometry(Radius, Conic, even.Coefficients),
+                ConcentricZoneGeometry zones => new ConcentricZoneGeometry(Radius, Conic, zones.Inner.Coefficients,
+                    zones.Outer.Base.Radius, zones.Outer.Base.Conic, zones.Outer.Coefficients, zones.BoundaryRadius, zones.BreakSag),
+                IrregularGeometry irregular => new IrregularGeometry(Radius, Conic, irregular.NormalizationRadius,
+                    irregular.Coordinates.Origin.X, irregular.Coordinates.Origin.Y, irregular.TiltXDegrees,
+                    irregular.TiltYDegrees, irregular.Spherical, irregular.Astigmatism, irregular.Coma, irregular.AngleDegrees),
+                GridSagGeometry grid => new GridSagGeometry(Radius, Conic, grid.Base.Coefficients, grid.Columns, grid.Rows,
+                    grid.SpacingX, grid.SpacingY, grid.DecenterX, grid.DecenterY, grid.Linear, grid.Points),
                 OddAsphereGeometry odd => new OddAsphereGeometry(Radius, Conic, odd.Coefficients),
                 ForbesQGeometry forbes => new ForbesQGeometry(
                     Radius,
@@ -460,6 +469,9 @@ public sealed partial class OpticalSurface : NotifyObject
         StandardGeometry standard => standard,
         StandardGratingGeometry grating => grating.Base,
         EvenAsphereGeometry even => even.Base,
+        ConcentricZoneGeometry zones => zones.Inner.Base,
+        IrregularGeometry irregular => irregular.Base,
+        GridSagGeometry grid => grid.Base.Base,
         OddAsphereGeometry odd => odd.Base,
         ForbesQGeometry forbes => forbes.Base,
         _ => null
@@ -487,6 +499,9 @@ public sealed partial class OpticalSurface : NotifyObject
                 StandardGratingGeometry grating => (grating.Base.Radius, grating.Base.Conic),
                 PlaneGeometry or PlaneGratingGeometry => (0.0, 0.0),
                 EvenAsphereGeometry even => (even.Base.Radius, even.Base.Conic),
+                ConcentricZoneGeometry zones => (zones.Inner.Base.Radius, zones.Inner.Base.Conic),
+                IrregularGeometry irregular => (irregular.Base.Radius, irregular.Base.Conic),
+                GridSagGeometry grid => (grid.Base.Base.Radius, grid.Base.Base.Conic),
                 OddAsphereGeometry odd => (odd.Base.Radius, odd.Base.Conic),
                 ForbesQGeometry forbes => (forbes.Base.Radius, forbes.Base.Conic),
                 BiconicGeometry biconic => (biconic.RadiusX, biconic.ConicX),
@@ -509,6 +524,8 @@ public sealed partial class OpticalSurface : NotifyObject
         {
             RefractiveReflectiveInteractionModel model => model.IsReflective,
             ThinLensInteractionModel model => model.IsReflective,
+            RuledGratingInteractionModel model => model.IsReflective,
+            DiffractivePhaseInteractionModel model => model.IsReflective,
             DiffractiveInteractionModel model => model.IsReflective,
             PhaseInteractionModel model => model.IsReflective,
             _ => false
@@ -521,6 +538,8 @@ public sealed partial class OpticalSurface : NotifyObject
         {
             RefractiveReflectiveInteractionModel => new RefractiveReflectiveInteractionModel(isReflective),
             ThinLensInteractionModel model => new ThinLensInteractionModel(model.FocalLength, isReflective),
+            RuledGratingInteractionModel model => new RuledGratingInteractionModel(model.LinesPerMicrometer, model.Order, isReflective),
+            DiffractivePhaseInteractionModel model => new DiffractivePhaseInteractionModel(model.Profile.Clone(), isReflective),
             DiffractiveInteractionModel { GrooveFrequencyLinesPerMillimeter: double frequency } model =>
                 new DiffractiveInteractionModel(frequency, model.Order ?? 1, isReflective),
             DiffractiveInteractionModel => new DiffractiveInteractionModel(isReflective),

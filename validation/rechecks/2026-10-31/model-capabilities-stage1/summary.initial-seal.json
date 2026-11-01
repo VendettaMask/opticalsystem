@@ -1,0 +1,69 @@
+{
+  "status": "InProgress",
+  "originalUnsupportedRequests": 1098,
+  "modelGateRemoved": 347,
+  "remainingModelBlocked": 751,
+  "removedGateResultCounts": {
+    "": 347
+  },
+  "replayedLenses": 12,
+  "replayedRequests": 392,
+  "currentResults": {
+    "Pass": 148,
+    "Difference": 59,
+    "Close": 18,
+    "Incomparable": 72,
+    "Error": 95
+  },
+  "all95ResultsReplayed": false,
+  "all95Certified": false,
+  "all1098Implemented": false,
+  "coreSha256": "31a2956910768cc0f39751fa7412f5cedbccf69b40a531a85bc63d8147ba3b6d",
+  "preservedOriginalAudit": "validation/rechecks/2026-10-31/all-example-accuracy",
+  "remainingTypeCountsOverlap": [
+    {
+      "type": "Zemax TYPE PARAXIAL",
+      "requests": 469
+    },
+    {
+      "type": "Zemax TYPE BIRE__IN",
+      "requests": 208
+    },
+    {
+      "type": "Zemax TYPE BIRE_OUT",
+      "requests": 208
+    },
+    {
+      "type": "Zemax TYPE DGRATING",
+      "requests": 67
+    },
+    {
+      "type": "Zemax TYPE GRID_SAG",
+      "requests": 64
+    },
+    {
+      "type": "Zemax TYPE BINARY_3",
+      "requests": 44
+    },
+    {
+      "type": "Zemax TYPE HOLOGRM2",
+      "requests": 44
+    },
+    {
+      "type": "Zemax TYPE BINARY_2",
+      "requests": 30
+    },
+    {
+      "type": "Zemax TYPE GRINSU11",
+      "requests": 29
+    },
+    {
+      "type": "Zemax TYPE IRREGULA",
+      "requests": 21
+    },
+    {
+      "type": "Zemax TYPE PARAX_XY",
+      "requests": 21
+    }
+  ]
+}

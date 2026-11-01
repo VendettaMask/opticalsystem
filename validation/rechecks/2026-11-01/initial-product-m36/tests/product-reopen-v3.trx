@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="124e1a5f-1574-4845-b4f5-e866a233a2bb" name="allen@DESKTOP-SET3SNR 2026-11-01 13:55:28" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T13:55:28.3764998+08:00" queuing="2026-11-01T13:55:28.3765001+08:00" start="2026-11-01T13:55:23.1937247+08:00" finish="2026-11-01T13:55:28.3810983+08:00" />
+  <TestSettings name="default" id="ac58afd8-aed6-42dd-a52b-1cd35ac9685e">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-01_13_55_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="45d64276-5850-4335-b76c-3cd092c10b0f" testId="c25897e4-5d31-797e-0182-7683a93c42ac" testName="ProductReportTests.ReopenExistingOriginalProductEvidenceAndExportLatestReportsWithoutTracing" computerName="DESKTOP-SET3SNR" duration="00:00:04.3734179" startTime="2026-11-01T13:55:23.8798634+08:00" endTime="2026-11-01T13:55:28.2731223+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="45d64276-5850-4335-b76c-3cd092c10b0f">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : design evidence exceeds the 67,108,864-byte output limit.</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.FileIO.BoundedFile.MaximumLengthWriteStream.EnsureCapacity(Int32 count) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\BoundedFile.cs:line 363&#xD;
+   at OpticalSystemDesign.Core.FileIO.BoundedFile.MaximumLengthWriteStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\BoundedFile.cs:line 346&#xD;
+   at System.Text.Json.PooledByteBufferWriter.FlushAsync(CancellationToken cancellationToken)&#xD;
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)&#xD;
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)&#xD;
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)&#xD;
+   at OpticalSystemDesign.Core.FileIO.BoundedFile.WriteAtomicAsync(String path, Int64 maximumBytes, String description, Func`3 writeAsync, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\BoundedFile.cs:line 163&#xD;
+   at OpticalSystemDesign.Core.FileIO.BoundedFile.WriteAtomicAsync(String path, Int64 maximumBytes, String description, Func`3 writeAsync, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\BoundedFile.cs:line 165&#xD;
+   at ProductReportTests.VerifyReport(String output) in D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ProductReportTests.ReopenExistingOriginalProductEvidenceAndExportLatestReportsWithoutTracing" storage="d:\projects\opticalsystem\tools\diagnostics\initialproductm3620261101\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="c25897e4-5d31-797e-0182-7683a93c42ac">
+      <Execution id="45d64276-5850-4335-b76c-3cd092c10b0f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="ProductReportTests" name="ReopenExistingOriginalProductEvidenceAndExportLatestReportsWithoutTracing" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c25897e4-5d31-797e-0182-7683a93c42ac" executionId="45d64276-5850-4335-b76c-3cd092c10b0f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.23]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.26]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.28]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:04.69]       System.IO.InvalidDataException : design evidence exceeds the 67,108,864-byte output limit.&#xD;
+[xUnit.net 00:00:04.69]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.69]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\BoundedFile.cs(363,0): at OpticalSystemDesign.Core.FileIO.BoundedFile.MaximumLengthWriteStream.EnsureCapacity(Int32 count)&#xD;
+[xUnit.net 00:00:04.69]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\BoundedFile.cs(346,0): at OpticalSystemDesign.Core.FileIO.BoundedFile.MaximumLengthWriteStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:04.69]            at System.Text.Json.PooledByteBufferWriter.FlushAsync(CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:04.69]            at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)&#xD;
+[xUnit.net 00:00:04.69]            at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)&#xD;
+[xUnit.net 00:00:04.69]            at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)&#xD;
+[xUnit.net 00:00:04.69]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\BoundedFile.cs(163,0): at OpticalSystemDesign.Core.FileIO.BoundedFile.WriteAtomicAsync(String path, Int64 maximumBytes, String description, Func`3 writeAsync, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:04.69]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\BoundedFile.cs(165,0): at OpticalSystemDesign.Core.FileIO.BoundedFile.WriteAtomicAsync(String path, Int64 maximumBytes, String description, Func`3 writeAsync, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:04.69]         D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs(36,0): at ProductReportTests.VerifyReport(String output)&#xD;
+[xUnit.net 00:00:04.69]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:04.70]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-01T13:55:28.2754940+08:00">
+        <Text>[xUnit.net 00:00:04.69]     ProductReportTests.ReopenExistingOriginalProductEvidenceAndExportLatestReportsWithoutTracing [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

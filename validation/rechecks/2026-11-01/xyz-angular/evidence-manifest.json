@@ -1,0 +1,2479 @@
+{
+  "CapturedUtc": "2026-11-01T05:44:41.2440333+00:00",
+  "Scope": "Finite measured outgoing angular cuts and normal-incidence BTDF through NSC/RAW/ISP. Remaining three XYZ calibrations and all-incidence nonpassive Cornell interpolants are not qualified.",
+  "ProductTestsPassed": 307,
+  "NewRemainingMaterialCalibrationsApproved": 0,
+  "RemainingXyzMaterialsRejected": 3,
+  "MeasuredAngularChainsPassed": 13,
+  "AngularHistogramBinsPassed": 416,
+  "CapturedWhitePowerControlsPassed": 23,
+  "FullCommercialCertification": false,
+  "AllCornellIncidencesQualified": false,
+  "MeasuredBackSideCertified": false,
+  "DefaultReleaseAppBuildPassed": true,
+  "PriorFrozenFilesVerified": 1212,
+  "ExecutedCoreSha256": "e11a8302e5c19dbe809ad15a4de9835e92c96650d1f4104b58b36ff0dfd2f668",
+  "ExecutedApplicationSha256": "25f2e725cd8fcdb6c4ac5c1b9e490fed968864f565af1683abb23b1550ebbbc4",
+  "ExecutionCopies": "External to this manifest: task-owned bin/FrozenAngular20261101; critical assemblies bound by before/after-isolated-final-run.json.",
+  "Excludes": [
+    "evidence-manifest.json"
+  ],
+  "DocumentationAtSeal": [
+    {
+      "Path": "docs/XYZ_MEASURED_ANGULAR_2026-11-01.md",
+      "Sha256": "1a5bdc386f3e957b6899609f9e0fa90caf361bd1bb5a99d4f51e5feb841fc019"
+    },
+    {
+      "Path": "docs/CURRENT_STATUS.md",
+      "Sha256": "982c613604f146fca0161cac869757489b9e6ecc8a7c83de16903f2374759e50"
+    },
+    {
+      "Path": "docs/STAROPT_FILE_FORMAT.md",
+      "Sha256": "9b460abf3bbbaa1fcc092ed8091980975abf82bd8562bf6a258737bf76db2a86"
+    },
+    {
+      "Path": "docs/FILE_FORMATS_AND_PLUGINS.md",
+      "Sha256": "548632007ad89fccfcc72594378757e927db6e0e129772ba0f71cf9e61844596"
+    },
+    {
+      "Path": "docs/CAMERA_IMAGING_LAB.md",
+      "Sha256": "e0cd848c6e807b03eb4d45c9ee8448ec9c647e1ac0ab5f63482010ffae5c733d"
+    },
+    {
+      "Path": "docs/NON_SEQUENTIAL_TRACING.md",
+      "Sha256": "3d5e462a11eb9d7da31ef80958ebd565b927375037ee5c795f2664fc05f21688"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md",
+      "Sha256": "aadfb4fada0554e14e5a9fa5199d005c81e975e508e7eb73d50abc1a144ae8a4"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md",
+      "Sha256": "55d0ee08f6f5b09093ede20b5e102cce099d073825ce4620da778424b0515d8b"
+    },
+    {
+      "Path": "docs/NUMERICAL_PARITY.md",
+      "Sha256": "b2d146fec0c07a274e1034b02eb0878320985c02e3e5edb119ab08a5bd70d43e"
+    },
+    {
+      "Path": "docs/README.md",
+      "Sha256": "81f289f8b9657eaaa5431778a5b62b7e1daa7632ac6bc8d90ae1962ff211a78d"
+    },
+    {
+      "Path": "docs/XYZ_KNOWN_CONDITIONS_2026-11-01.md",
+      "Sha256": "83e45756a286fe4f87a0b9f7d24efcfbc514166ca24061c6d51e84c9ef3921ec"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "accepted-fit.log",
+      "Bytes": 2232,
+      "Sha256": "25b07f21083b7f23e5bcd9bd0c81962023d6a2054cf5fb3058e3e018472bec9f"
+    },
+    {
+      "Path": "accepted-fit/acryl_blue/fit.json",
+      "Bytes": 259036,
+      "Sha256": "b656acedb4b01a28062511661dd96e3838980988d7c6fd25aea1ee6bf2f06cea"
+    },
+    {
+      "Path": "accepted-fit/acryl_blue/known-conditions-pairs.csv",
+      "Bytes": 174126,
+      "Sha256": "2afee326b89fffe6d58c4864447cf16f0583b7eba2bb64c139531577a8e41cc9"
+    },
+    {
+      "Path": "accepted-fit/cayman/fit.json",
+      "Bytes": 262133,
+      "Sha256": "42382d4fe7db80c71de395d6f21cec69b049ca27df8965fbc529a708d6c1cca6"
+    },
+    {
+      "Path": "accepted-fit/cayman/known-conditions-pairs.csv",
+      "Bytes": 186964,
+      "Sha256": "61c3423feb96d5fa7e1166acd0dd4b16006b2886c56b1cd151dd68bebe114fc7"
+    },
+    {
+      "Path": "accepted-fit/garnet_red/approved-550-calibration.json",
+      "Bytes": 251393,
+      "Sha256": "1f8cf6b19096bceddc3b217e2006e8adb3c95423b7a6daa783a02470e4ce55b2"
+    },
+    {
+      "Path": "accepted-fit/garnet_red/fit.json",
+      "Bytes": 270276,
+      "Sha256": "5a6c2c441fbe91d7bf66d8268adda34ce8f9c32e22d738fe8493858f51c64b76"
+    },
+    {
+      "Path": "accepted-fit/garnet_red/known-conditions-pairs.csv",
+      "Bytes": 192714,
+      "Sha256": "5da3749b291426c648551f3871a1c7d43f5ae6c2f379ea54d6956ed56beb1c0c"
+    },
+    {
+      "Path": "accepted-fit/krylon_blue/approved-550-calibration.json",
+      "Bytes": 252298,
+      "Sha256": "0c602d703ea87bebff74d2decf98b0bae321715ec6415f0a2f3735c41af1340f"
+    },
+    {
+      "Path": "accepted-fit/krylon_blue/fit.json",
+      "Bytes": 271254,
+      "Sha256": "3714c65976970c403302f11527931625d24be68c4d73f7043c1df717eeb78b21"
+    },
+    {
+      "Path": "accepted-fit/krylon_blue/known-conditions-pairs.csv",
+      "Bytes": 190527,
+      "Sha256": "61b482ff41566f5f5d3fa2866ee3176d8659efa617884bd6b30aa2de48a6cdab"
+    },
+    {
+      "Path": "accepted-fit/mystique/fit.json",
+      "Bytes": 267107,
+      "Sha256": "ded22c913f9cb4c57b2168511042d309df1bf8345ffc726d90a6a072784ffe59"
+    },
+    {
+      "Path": "accepted-fit/mystique/known-conditions-pairs.csv",
+      "Bytes": 189169,
+      "Sha256": "31c6e81acbe469aed29c97d48ce92a2a859100b6d38e24e45034a265b058ea00"
+    },
+    {
+      "Path": "accepted-fit/summary.json",
+      "Bytes": 4128,
+      "Sha256": "9c49c1a59c8801cf929870643f3d5a2b353a9217fc261dbff6ff549981d74251"
+    },
+    {
+      "Path": "accepted-mat.log",
+      "Bytes": 1475,
+      "Sha256": "a3ab0e2b94630a1f838dceebd207a94afa685d2823af71066127b53752003529"
+    },
+    {
+      "Path": "accepted-mat/acryl_blue/mat-fit.json",
+      "Bytes": 262108,
+      "Sha256": "12d936006f2ffa7870d28cb56d01308e69c2b0cd192e423aa0a8af8679d06460"
+    },
+    {
+      "Path": "accepted-mat/cayman/mat-fit.json",
+      "Bytes": 263257,
+      "Sha256": "f212acc32ea74b12c2f3a391567eb0a73da939ddbb0907cb70883885924c66d7"
+    },
+    {
+      "Path": "accepted-mat/mystique/mat-fit.json",
+      "Bytes": 270103,
+      "Sha256": "5e8d2d8fd14681795f974e0d9a25e6447541cef1d86a0bb2f340beff0ad6e9a4"
+    },
+    {
+      "Path": "accepted-measured-chain.log",
+      "Bytes": 15,
+      "Sha256": "23294527a719d801ca8faeab2fe3ce7d52bb4b4f9974ea4007ebbc43019c9b5b"
+    },
+    {
+      "Path": "accepted-measured-chain/acryl_blue-10.00000/angular-histogram.json",
+      "Bytes": 2075,
+      "Sha256": "5c7cc5ca9e7f72b79af67d918299224ef5c3f805ac6dd7e6cdd0a395ec6fa842"
+    },
+    {
+      "Path": "accepted-measured-chain/acryl_blue-10.00000/chain.json",
+      "Bytes": 1559,
+      "Sha256": "120daa4697604b0f67c4433428c9b7c8f84881c6d258db16059d01b4c0692fd1"
+    },
+    {
+      "Path": "accepted-measured-chain/acryl_blue-10.00000/measured.camera-experiment.zip",
+      "Bytes": 54700,
+      "Sha256": "de7fb4c072545cbe2a01a53d6c65003b3770e3cdb712bbdccbbff49d0cc42da1"
+    },
+    {
+      "Path": "accepted-measured-chain/acryl_blue-10.00000/measured.staropt",
+      "Bytes": 11904,
+      "Sha256": "c6e54ae6f9e3764647cd54d8565ee08349934a48cc7eeb638f1eccbe0d13c3ec"
+    },
+    {
+      "Path": "accepted-measured-chain/acryl_blue-20.00001/angular-histogram.json",
+      "Bytes": 2817,
+      "Sha256": "d32ec05351543013ace75e8ed7275c2a0985cb94c541e467b885c344e7bcd0f7"
+    },
+    {
+      "Path": "accepted-measured-chain/acryl_blue-20.00001/chain.json",
+      "Bytes": 1561,
+      "Sha256": "ed5b6f959c16212a690923c2f8d1496924e68efbeb9ada6c806c031e14ed37f3"
+    },
+    {
+      "Path": "accepted-measured-chain/acryl_blue-20.00001/measured.camera-experiment.zip",
+      "Bytes": 65651,
+      "Sha256": "8d15115532f66d4018e7a32ef24f3de49aace6d21bdd23c8df946a8fbab06b80"
+    },
+    {
+      "Path": "accepted-measured-chain/acryl_blue-20.00001/measured.staropt",
+      "Bytes": 13974,
+      "Sha256": "c9a12b6abd2478a4e5572cec96008d5dcd3af48b25ce4068c40c6c1109373255"
+    },
+    {
+      "Path": "accepted-measured-chain/cayman-10.00000/angular-histogram.json",
+      "Bytes": 3086,
+      "Sha256": "ed6ad0c23c3cb4ced3a478aab5082d4ed5733fc4097264e1bc06cbd3860ef6b1"
+    },
+    {
+      "Path": "accepted-measured-chain/cayman-10.00000/chain.json",
+      "Bytes": 1554,
+      "Sha256": "b18f3c74a74f6775188b99635c87fb0fba913d1dfaa37d8e1dc4fc5077de42f3"
+    },
+    {
+      "Path": "accepted-measured-chain/cayman-10.00000/measured.camera-experiment.zip",
+      "Bytes": 92253,
+      "Sha256": "301f03e5ed21eb559516784c75298893bf9ec5575d2c8a89cc5fba2258d33cc7"
+    },
+    {
+      "Path": "accepted-measured-chain/cayman-10.00000/measured.staropt",
+      "Bytes": 15984,
+      "Sha256": "ef5c520d95d08027cfb2aed775899d2616c70625e922c0c0a97715b49d37318d"
+    },
+    {
+      "Path": "accepted-measured-chain/cayman-20.00001/angular-histogram.json",
+      "Bytes": 3089,
+      "Sha256": "88d6c8c55dbb09b5ac7b68d14277f248a6fc87afb9f703a5daf317aa147af4ea"
+    },
+    {
+      "Path": "accepted-measured-chain/cayman-20.00001/chain.json",
+      "Bytes": 1557,
+      "Sha256": "ee8bdef796854833e9fe21488c8dc79133fe6b125fc9926b84c8012cd9374f30"
+    },
+    {
+      "Path": "accepted-measured-chain/cayman-20.00001/measured.camera-experiment.zip",
+      "Bytes": 104404,
+      "Sha256": "b1b4ce872137865745e1e4a3105b5cae3183d9a290cbc117752c0cc0e7149b3f"
+    },
+    {
+      "Path": "accepted-measured-chain/cayman-20.00001/measured.staropt",
+      "Bytes": 17763,
+      "Sha256": "4508c229a1297a4a46d73a46eee24686a8bc1f10dad711747589a96ca5aa121b"
+    },
+    {
+      "Path": "accepted-measured-chain/EDC50-0.00000/angular-histogram.json",
+      "Bytes": 3091,
+      "Sha256": "321c2f78eb949a368d3925c5800aa7a26980f7cfb75b632d09759fc5e341f355"
+    },
+    {
+      "Path": "accepted-measured-chain/EDC50-0.00000/chain.json",
+      "Bytes": 1756,
+      "Sha256": "cb861f8f086c38a6c29b810079d55275cccb2ed3f4196ebbc19216da40b5b4b9"
+    },
+    {
+      "Path": "accepted-measured-chain/EDC50-0.00000/measured.camera-experiment.zip",
+      "Bytes": 1265932,
+      "Sha256": "bbd54b1530b59242dd8e316143bf1105c7ef2e92fe71dfd5a714e6976a418315"
+    },
+    {
+      "Path": "accepted-measured-chain/EDC50-0.00000/measured.staropt",
+      "Bytes": 442582,
+      "Sha256": "cb820e12f54bb405423a6c0d0cf52cdb819af389cc7eeb9524f54889a1edff8e"
+    },
+    {
+      "Path": "accepted-measured-chain/EDS40-0.00000/angular-histogram.json",
+      "Bytes": 3093,
+      "Sha256": "8626a3fd688d1d521740d2fba58822b26c0b72ad7b7a8fa2db4af25ee94dd820"
+    },
+    {
+      "Path": "accepted-measured-chain/EDS40-0.00000/chain.json",
+      "Bytes": 1754,
+      "Sha256": "3053239ec8545adc538f510bb0f9ca76e3b661cfdd16b2897d5cc96d2187c59d"
+    },
+    {
+      "Path": "accepted-measured-chain/EDS40-0.00000/measured.camera-experiment.zip",
+      "Bytes": 1264165,
+      "Sha256": "2893855cab765869cee45513ecf04597ca323bbb2193ebc52a4d991b89c39d6f"
+    },
+    {
+      "Path": "accepted-measured-chain/EDS40-0.00000/measured.staropt",
+      "Bytes": 436250,
+      "Sha256": "67357f1e9ea1dfddb855d52ed7b65943b602e97376fcc1a9ee64c121d942ea83"
+    },
+    {
+      "Path": "accepted-measured-chain/garnet_red-10.00000/angular-histogram.json",
+      "Bytes": 3076,
+      "Sha256": "614a62e859df446472b561f561c81d4db823a77f63d2e43fe4830db873acb90d"
+    },
+    {
+      "Path": "accepted-measured-chain/garnet_red-10.00000/chain.json",
+      "Bytes": 1555,
+      "Sha256": "20837144ff4ec329f0ad7736a4e506e0f4fde1e60e03f904cd8934a09aca2493"
+    },
+    {
+      "Path": "accepted-measured-chain/garnet_red-10.00000/measured.camera-experiment.zip",
+      "Bytes": 93204,
+      "Sha256": "71a0a287b7f6d00171588af4a890226d34b2fc8fb4ae53ff6872e78caefd7ecf"
+    },
+    {
+      "Path": "accepted-measured-chain/garnet_red-10.00000/measured.staropt",
+      "Bytes": 15632,
+      "Sha256": "0a707eaedb7043f0bf8b2dda39b25584a5dd0e37590165792fffe6eed5329ea1"
+    },
+    {
+      "Path": "accepted-measured-chain/garnet_red-20.00001/angular-histogram.json",
+      "Bytes": 3075,
+      "Sha256": "bea442017896fc03e146d36b7716934e23171e193d75f9336767d356a59e0959"
+    },
+    {
+      "Path": "accepted-measured-chain/garnet_red-20.00001/chain.json",
+      "Bytes": 1558,
+      "Sha256": "d3948e010b5cffb17b3ae18ef30f9b3715b16185421468446c579e9f2f18ebef"
+    },
+    {
+      "Path": "accepted-measured-chain/garnet_red-20.00001/measured.camera-experiment.zip",
+      "Bytes": 103722,
+      "Sha256": "3e2d2cb4999d06a3d25882b99a44d4269a39bda616948ecc8335a725f0a5e4dc"
+    },
+    {
+      "Path": "accepted-measured-chain/garnet_red-20.00001/measured.staropt",
+      "Bytes": 17747,
+      "Sha256": "beba2045f8cbb60d4460ca4a2364a2d651fcc739db9bc2e3a692946b935066b7"
+    },
+    {
+      "Path": "accepted-measured-chain/HILAM-0.00000/angular-histogram.json",
+      "Bytes": 3070,
+      "Sha256": "3773a3c80d1f397daf6b88e6d2d3bde529d50e059e913f032765589391220efb"
+    },
+    {
+      "Path": "accepted-measured-chain/HILAM-0.00000/chain.json",
+      "Bytes": 1754,
+      "Sha256": "c9641c2c71712fbd41535d921e7854305125f28bbbca02af8a6e0ff2fdd7510d"
+    },
+    {
+      "Path": "accepted-measured-chain/HILAM-0.00000/measured.camera-experiment.zip",
+      "Bytes": 1423999,
+      "Sha256": "756ec93bad5d89eee7d75ce1f8c51470545af3ab67050383b1eeffe91b8557ff"
+    },
+    {
+      "Path": "accepted-measured-chain/HILAM-0.00000/measured.staropt",
+      "Bytes": 488514,
+      "Sha256": "7066bcc22919554a86f73c76f9212474c516d58e6fb77e11824c7e4a5291f383"
+    },
+    {
+      "Path": "accepted-measured-chain/krylon_blue-10.00000/angular-histogram.json",
+      "Bytes": 3083,
+      "Sha256": "944d46bcf01b32f3be8dc041aafd7edccd0710897127734d25083a070b41f8ea"
+    },
+    {
+      "Path": "accepted-measured-chain/krylon_blue-10.00000/chain.json",
+      "Bytes": 1558,
+      "Sha256": "e593dd11494a654724368b17eae9e443815fc08af533c030580702593b965664"
+    },
+    {
+      "Path": "accepted-measured-chain/krylon_blue-10.00000/measured.camera-experiment.zip",
+      "Bytes": 93757,
+      "Sha256": "1001e5556a9d4fc45222be3df3fcdb62804655797ba132450d7441080a17f209"
+    },
+    {
+      "Path": "accepted-measured-chain/krylon_blue-10.00000/measured.staropt",
+      "Bytes": 15631,
+      "Sha256": "f3c1af95c40ea0700661cd20040b57899afc831c22ab1f03784c2083d6ea425e"
+    },
+    {
+      "Path": "accepted-measured-chain/krylon_blue-20.00001/angular-histogram.json",
+      "Bytes": 3078,
+      "Sha256": "85a4a26166c7a41f8438812ab4cd2d4fda757ba4afda5aaa170b084158af9dc8"
+    },
+    {
+      "Path": "accepted-measured-chain/krylon_blue-20.00001/chain.json",
+      "Bytes": 1560,
+      "Sha256": "7f7f185514bc1b3f6853af4bf6a23255d58663bc0803b5b5f1c9f2194d7dad49"
+    },
+    {
+      "Path": "accepted-measured-chain/krylon_blue-20.00001/measured.camera-experiment.zip",
+      "Bytes": 103971,
+      "Sha256": "7b49e280ba00d15af5690b59cf6d30f39123550321212fdb24a176e2999712fd"
+    },
+    {
+      "Path": "accepted-measured-chain/krylon_blue-20.00001/measured.staropt",
+      "Bytes": 17510,
+      "Sha256": "0d77d6bcd9837ca4190dc24ecac343ebdee26a4b89c9da321d07e90423ebd984"
+    },
+    {
+      "Path": "accepted-measured-chain/mystique-10.00000/angular-histogram.json",
+      "Bytes": 3097,
+      "Sha256": "061598bb992dff4b7a448ba2bfa98769d5521393b5c688f8421d23cca82aaf34"
+    },
+    {
+      "Path": "accepted-measured-chain/mystique-10.00000/chain.json",
+      "Bytes": 1565,
+      "Sha256": "3ddff33e70ced9b91f6dff6957237bbb9a77c5a4945f7153080ec13809c60721"
+    },
+    {
+      "Path": "accepted-measured-chain/mystique-10.00000/measured.camera-experiment.zip",
+      "Bytes": 92069,
+      "Sha256": "35776b63111331d2bc56a19c6e1057f70c8b66d349580b6f9f1b6495677841dc"
+    },
+    {
+      "Path": "accepted-measured-chain/mystique-10.00000/measured.staropt",
+      "Bytes": 15745,
+      "Sha256": "c1d33861caf5ec6fcbb09d92b03c62e14b6611352b21862a30822757d668e7e4"
+    },
+    {
+      "Path": "accepted-measured-chain/mystique-20.00001/angular-histogram.json",
+      "Bytes": 3085,
+      "Sha256": "2ed8955846c6c0c91d579182bff48aeead445a27b1b029cb1f442989aff50186"
+    },
+    {
+      "Path": "accepted-measured-chain/mystique-20.00001/chain.json",
+      "Bytes": 1560,
+      "Sha256": "120c65c0bcdec39df1597cbef7100d078e845406f14a5c1d13a5945e03ca2067"
+    },
+    {
+      "Path": "accepted-measured-chain/mystique-20.00001/measured.camera-experiment.zip",
+      "Bytes": 103903,
+      "Sha256": "a31f20109a4441b6b356d8e9ad5a957dd3c15a21949b9e4cd4208cea85c64e0b"
+    },
+    {
+      "Path": "accepted-measured-chain/mystique-20.00001/measured.staropt",
+      "Bytes": 17681,
+      "Sha256": "1c39ee6d95769aa89e77737d7eda1910e763d2e16f349ffac59071343af5b253"
+    },
+    {
+      "Path": "accepted-measured-chain/summary.json",
+      "Bytes": 23304,
+      "Sha256": "877608ce4f24cdb589bce2cb7268974c7d383ffe21b27fcacb1d681c23aecc92"
+    },
+    {
+      "Path": "accepted-white-power.log",
+      "Bytes": 84,
+      "Sha256": "5e4bd5273e65bc0bc969e8534cf58dd1c198719bc0605c407a7fab0844f9cef2"
+    },
+    {
+      "Path": "accepted-white-power/runtime6-native-power-audit.json",
+      "Bytes": 21890,
+      "Sha256": "aad9f95f7397b7aa6148035cc5a6235208e83281a7f06f7e129e48aac234c4e5"
+    },
+    {
+      "Path": "after-angular-final-run.json",
+      "Bytes": 42114,
+      "Sha256": "e8041a3f2840588eeff45fcaad1063e11a0052040d6f5f03b99093a91fb945f2"
+    },
+    {
+      "Path": "after-isolated-final-run.json",
+      "Bytes": 49045,
+      "Sha256": "a8533a44f9c7aa3a2d0551aa337dda87bc2d1456af8a60a27c0a95f5976b94ef"
+    },
+    {
+      "Path": "after-run-concurrent-build-changes.json",
+      "Bytes": 2588,
+      "Sha256": "575de10b8f173e329edd06da1447f0321a84581c0733529df5c6a73122da401c"
+    },
+    {
+      "Path": "angular_power_audit.py",
+      "Bytes": 1876,
+      "Sha256": "358e5710656fa5860b5a4d755e3828663bfd3f81efa5d402b4c14a3df7005cb3"
+    },
+    {
+      "Path": "angular-coverage-second.trx",
+      "Bytes": 17061,
+      "Sha256": "01e717b7541192604e373c89b14295f12b355c9aef146416e36eee954eaa2961"
+    },
+    {
+      "Path": "angular-final-chain/camera-False-False.png",
+      "Bytes": 205931,
+      "Sha256": "c50424262fa2c4d58318d42129c71faaa6facbace122a16f99a12be17093fa98"
+    },
+    {
+      "Path": "angular-final-chain/camera-False-True.png",
+      "Bytes": 206785,
+      "Sha256": "6e11fa0b99842f0151eb42323f1cc02a106a977c175d06aede0195ee199309b7"
+    },
+    {
+      "Path": "angular-final-chain/camera-True-False.png",
+      "Bytes": 204211,
+      "Sha256": "439f551e1041784704df001699f969ef1c68e5c6fe5d956a0057cca8a455e91a"
+    },
+    {
+      "Path": "angular-final-chain/chain-speos-white.json",
+      "Bytes": 929,
+      "Sha256": "76af1e5ca63c954f1c356ef779e070c6265c38adacc91c3b30db4d252782b07a"
+    },
+    {
+      "Path": "angular-final-chain/chain-v11-binary.json",
+      "Bytes": 846,
+      "Sha256": "1cb6ea817872e72dac16875407dacfaee6a06dd9b39b8119172e77234325f77b"
+    },
+    {
+      "Path": "angular-final-chain/chain-xyz-r.json",
+      "Bytes": 838,
+      "Sha256": "2a76283b2d95df1e1b05ab6fff56c479b4eab96bb935ded908dbda47848e2b67"
+    },
+    {
+      "Path": "angular-final-chain/chain-xyz-t.json",
+      "Bytes": 873,
+      "Sha256": "01549ff2d2c22b939db0e445c40edca0918d051e6780d0b76a12016fc87aa761"
+    },
+    {
+      "Path": "angular-final-chain/editor-False-False.png",
+      "Bytes": 140434,
+      "Sha256": "3b7b01c80bc1e9722d31aebdd3f2db9c245d49f298912f5f682199bd8a45b489"
+    },
+    {
+      "Path": "angular-final-chain/editor-False-True.png",
+      "Bytes": 141447,
+      "Sha256": "9ad40f8cc4ad58ca6e6dc3a468b9aebe75b32f242c0d4488fdac43005cb3df31"
+    },
+    {
+      "Path": "angular-final-chain/editor-True-False.png",
+      "Bytes": 148152,
+      "Sha256": "b7d8a3c31f613ef7c4ad560ef57d38a273c74b55041ecdab87ebf824088d8c2f"
+    },
+    {
+      "Path": "angular-final-chain/installed-v11-False.json",
+      "Bytes": 611,
+      "Sha256": "8972234d19259130505af6d7e614fa463141a5e104c49fb5996c1eb5d68dadf9"
+    },
+    {
+      "Path": "angular-final-chain/installed-v11-True.json",
+      "Bytes": 573,
+      "Sha256": "924d8086dcbb9bf23f1cf68cf63dfbf7289828c22e91de8b9f3e97ee70f70569"
+    },
+    {
+      "Path": "angular-final-chain/joint-white-400.json",
+      "Bytes": 185,
+      "Sha256": "d4a3a7d497c344f6b948f1c7a841d0adecc6be1441980ef79bbc01a4a84d78c5"
+    },
+    {
+      "Path": "angular-final-chain/joint-white-550.json",
+      "Bytes": 183,
+      "Sha256": "bf4fced28786b9d95544bc494e6f6281187f8a535aae9e29e541b61dab75f91f"
+    },
+    {
+      "Path": "angular-final-chain/joint-white-700.json",
+      "Bytes": 183,
+      "Sha256": "a0a831424800ab05639d383146f221e54821a2da0861867a93097b94610c47bb"
+    },
+    {
+      "Path": "angular-final-chain/nsc-medium-database-project-False.json",
+      "Bytes": 940,
+      "Sha256": "4cf06ed8597f0a83c3628ee45d7ae14c180c5b01651f76bb9e2be4b83812e532"
+    },
+    {
+      "Path": "angular-final-chain/nsc-medium-database-project-True.json",
+      "Bytes": 941,
+      "Sha256": "2c2b66191914711bb17248c4aded4e9343a3c3799e7335aef24db585b7660c89"
+    },
+    {
+      "Path": "angular-final-chain/official-v11-text.json",
+      "Bytes": 206,
+      "Sha256": "381c2400c040139c8486cf366612fa2b24f13c3a0f5b2bbccf52c2f835561df0"
+    },
+    {
+      "Path": "angular-final-chain/registered-False.json",
+      "Bytes": 272,
+      "Sha256": "bf024ae48586b49227c4e883a5183525873e85e50a5ecba43148b04a13c88478"
+    },
+    {
+      "Path": "angular-final-chain/registered-True.json",
+      "Bytes": 272,
+      "Sha256": "75abf4f4bd85c0f707854d2a4be5bfa8acb72961065a5498ea465bbf68c1c298"
+    },
+    {
+      "Path": "angular-final-chain/slope-statistics-False-15.json",
+      "Bytes": 281,
+      "Sha256": "4664dc5cfaa605052dc81e9d8d1138a7a8003b6005ea94c54a43a54a2baf59de"
+    },
+    {
+      "Path": "angular-final-chain/slope-statistics-False-45.json",
+      "Bytes": 283,
+      "Sha256": "abde617592364966b3d2df8eb6c377fa40351b99645182cf9e4f8f579d033bac"
+    },
+    {
+      "Path": "angular-final-chain/slope-statistics-False-85.json",
+      "Bytes": 281,
+      "Sha256": "10e23fd1ccd2dbba7784a1b28ddae5aff3f95cc3da549f40c39c953459067922"
+    },
+    {
+      "Path": "angular-final-chain/slope-statistics-True-45.json",
+      "Bytes": 283,
+      "Sha256": "abde617592364966b3d2df8eb6c377fa40351b99645182cf9e4f8f579d033bac"
+    },
+    {
+      "Path": "angular-final-chain/slope-statistics-True-85.json",
+      "Bytes": 281,
+      "Sha256": "10e23fd1ccd2dbba7784a1b28ddae5aff3f95cc3da549f40c39c953459067922"
+    },
+    {
+      "Path": "angular-final-chain/speos-white.BSDF",
+      "Bytes": 96640,
+      "Sha256": "fda53ecf406b2ea58e26b8be3ae4720c4a0e1298c35d46dd9ed54de84ff83a21"
+    },
+    {
+      "Path": "angular-final-chain/speos-white.camera-experiment.zip",
+      "Bytes": 197243,
+      "Sha256": "7a035aadd023956a450779344dfbe9eb07e1653feb6b4e52bacba747e6c444af"
+    },
+    {
+      "Path": "angular-final-chain/v11-binary-False-False.json",
+      "Bytes": 322,
+      "Sha256": "0c922364922718049803d9dc271f3ac357972172e4446b26d31f3b3575970356"
+    },
+    {
+      "Path": "angular-final-chain/v11-binary-True-False.json",
+      "Bytes": 321,
+      "Sha256": "ac2182a6a615cf2bf035267a321bbaf9df2f37d4094d2d30aff7d6e3c5aa51d8"
+    },
+    {
+      "Path": "angular-final-chain/v11-binary-True-True.json",
+      "Bytes": 323,
+      "Sha256": "c204c562b985e845799c4c9dc2ec2296f6b17778c80621a44d5fc6eab8360a7e"
+    },
+    {
+      "Path": "angular-final-chain/v11-binary.anisotropicbsdf",
+      "Bytes": 1041,
+      "Sha256": "b9926a81a7e0ad578cb2b67c1c68be73124299b821d510df0c5aa6c7bc28d5f3"
+    },
+    {
+      "Path": "angular-final-chain/v11-binary.camera-experiment.zip",
+      "Bytes": 68909,
+      "Sha256": "5da7927d574eb6ee1455a31965184df589a968b78a47df691571fb519aa96099"
+    },
+    {
+      "Path": "angular-final-chain/white-specular.json",
+      "Bytes": 468,
+      "Sha256": "bc8dc24bc6304e0ddca6d42647d809fd479b3dc7d2a980e4ea975e96bc699b12"
+    },
+    {
+      "Path": "angular-final-chain/xyz-False-False.json",
+      "Bytes": 343,
+      "Sha256": "44184ae954ad0174df5cd1e032fb5068064dcef27cca09f18d7212f99b33817a"
+    },
+    {
+      "Path": "angular-final-chain/xyz-False-True.json",
+      "Bytes": 344,
+      "Sha256": "09a63b0004e0be01035adcd8040d01c0fe22ca6ef9ab63a971a48e264cea616f"
+    },
+    {
+      "Path": "angular-final-chain/xyz-r.BSDF",
+      "Bytes": 908,
+      "Sha256": "889a8fc5672a9b7cc7af2cfddacdd9c38c390485e8fa5dd33a271ccfb1d9319e"
+    },
+    {
+      "Path": "angular-final-chain/xyz-r.camera-experiment.zip",
+      "Bytes": 73298,
+      "Sha256": "aa6f618f193155410180405e91ea27b1573182f4fd5a6cbc04a29307285ab5ae"
+    },
+    {
+      "Path": "angular-final-chain/xyz-t.BSDF",
+      "Bytes": 908,
+      "Sha256": "5cfbd5613e5421a35802d05c5aca36e3b9fd5d30e5cd379f02666245bfe62582"
+    },
+    {
+      "Path": "angular-final-chain/xyz-t.camera-experiment.zip",
+      "Bytes": 74282,
+      "Sha256": "1362214c6a75528502463043188ccc44491f080a6a6c83ee6665d03a7ef29067"
+    },
+    {
+      "Path": "angular-final-chain/xyz-True-False.json",
+      "Bytes": 343,
+      "Sha256": "563c9405a808bd0b971defcf1f3b670d08a369ec6d95658f5e1721ddc237a817"
+    },
+    {
+      "Path": "angular-final-focused.trx",
+      "Bytes": 455024,
+      "Sha256": "c8b447f43f93bd7e7ac7b2dbbc699474e738ac65d358d3ddc2ec5b4e0d434f4c"
+    },
+    {
+      "Path": "angular-final-new-chain/positive-chain-False.camera-experiment.zip",
+      "Bytes": 49746,
+      "Sha256": "fab5d4792b1e08f1593a426d6f93443fbf77f071e4cc465507b4c27ae9db739a"
+    },
+    {
+      "Path": "angular-final-new-chain/positive-chain-False.json",
+      "Bytes": 685,
+      "Sha256": "e3d1b76735f596a4ab6bd7027b618b2ada7e456b7cdc7a8e23eb04f25eefe369"
+    },
+    {
+      "Path": "angular-final-new-chain/positive-chain-True.camera-experiment.zip",
+      "Bytes": 49635,
+      "Sha256": "e26f8ebfe1dcc54e83a35635083d45e6879a71542b54c8a93d8c0741dc690b2c"
+    },
+    {
+      "Path": "angular-final-new-chain/positive-chain-True.json",
+      "Bytes": 719,
+      "Sha256": "54ff05abe026c50ff12a7aa26b47f82599e363794b7bfdcc4c2f12b250e8aa76"
+    },
+    {
+      "Path": "angular-final-results/fitted-chain-False.camera-experiment.zip",
+      "Bytes": 47287,
+      "Sha256": "8f051ebf67d89d066c7c7aeeebe924e9884bff4f3740ab08200b9408d4802a72"
+    },
+    {
+      "Path": "angular-final-results/fitted-chain-False.json",
+      "Bytes": 2222,
+      "Sha256": "4da2a134f9b2a558c69f7120531b077fef2a6d0527e9945a3ec7aa8f55440fce"
+    },
+    {
+      "Path": "angular-final-results/fitted-chain-True.camera-experiment.zip",
+      "Bytes": 47839,
+      "Sha256": "c528beafe442d74f09e753ba8a47154219bb256ab221cf317a93b8b0dfd3cdb6"
+    },
+    {
+      "Path": "angular-final-results/fitted-chain-True.json",
+      "Bytes": 2257,
+      "Sha256": "8d9d41a7bf87e9813c9ab6be4bf6687272ebb98f7b4be26399c03a295f2a71d4"
+    },
+    {
+      "Path": "angular-final-results/grid5-runtime-gap.json",
+      "Bytes": 296,
+      "Sha256": "01f8559d4e7561776934b1a4d8e47586cf6a447fbc48bdff7ce1f4976d76ae62"
+    },
+    {
+      "Path": "angular-final-results/grid5-runtime-sampling-400.json",
+      "Bytes": 261,
+      "Sha256": "6739dc95108c19343a9f539228eb2bf40cdb19f3883207f48a33e9e16ff42db6"
+    },
+    {
+      "Path": "angular-final-results/grid5-runtime-sampling-550.json",
+      "Bytes": 263,
+      "Sha256": "5f9f4dcc00c0d9d0a5761f4f4b359b6506ecb0257e0247449819b08f60cce036"
+    },
+    {
+      "Path": "angular-final-results/grid5-runtime-sampling-700.json",
+      "Bytes": 247,
+      "Sha256": "f7bb178c07606050e887111eaf1fcef54d5795e202d0783e624fcd4d9e2e94d8"
+    },
+    {
+      "Path": "angular-final-results/grid6-heldout-power-19.json",
+      "Bytes": 200,
+      "Sha256": "d4643b5234a47b7cd5b7db88b41f42e2c0f7ebb471dc5d255cfd5ef61a2f38fb"
+    },
+    {
+      "Path": "angular-final-results/grid6-heldout-power-45.json",
+      "Bytes": 163,
+      "Sha256": "ddf222c96bae7b3d61a94cd503dfb4232353fc1d9c4bcec0fe795608779d94d3"
+    },
+    {
+      "Path": "angular-final-results/grid6-heldout-power-6.json",
+      "Bytes": 198,
+      "Sha256": "21b81c78d681ce2b59ad80d2749b06338f443720df1a40b7de9fb3a6195bdadc"
+    },
+    {
+      "Path": "angular-final-results/grid6-native-power-400.json",
+      "Bytes": 320,
+      "Sha256": "9aa508a9359093c0d5dd73079c230a0e8da7c7c5fd23e15e0982c5651d7b771e"
+    },
+    {
+      "Path": "angular-final-results/grid6-native-power-550.json",
+      "Bytes": 302,
+      "Sha256": "a7b42f1ca4a6f710238ab685b4fd5c4fbe0d83bcf808099ea4aa26c3b79d35e0"
+    },
+    {
+      "Path": "angular-final-results/grid6-native-power-700.json",
+      "Bytes": 320,
+      "Sha256": "b4d41e1e7477de6fc36b93834c0d20ffa637fd35e7bde61456ea1ede0ef23658"
+    },
+    {
+      "Path": "angular-final-results/grid6-runtime-sampling-400.json",
+      "Bytes": 260,
+      "Sha256": "cae840a3cac5f6961a5317d196c57e9a292bb6b6c8cb8eb58d7f8689ee6e2241"
+    },
+    {
+      "Path": "angular-final-results/grid6-runtime-sampling-550.json",
+      "Bytes": 264,
+      "Sha256": "14c1f6f1a54eaad2a26424751c2c7d288d2a567a9f8a73ff3f4ce0d17fb95886"
+    },
+    {
+      "Path": "angular-final-results/grid6-runtime-sampling-700.json",
+      "Bytes": 261,
+      "Sha256": "158db776853a645c32b477eaaeee0b97a539210a096cf3d3d1e716a9834beb2e"
+    },
+    {
+      "Path": "angular-final-results/native-no-white-regression.json",
+      "Bytes": 188,
+      "Sha256": "be3d483c7dd6f8b2c547dae64ee148ebbb2aaec76fecbf0d431bb62256d39f16"
+    },
+    {
+      "Path": "angular-final-results/native-v11-coefficient-comparison.json",
+      "Bytes": 281,
+      "Sha256": "972da29ae0e603ed58042aa397309db2dc9f88e4c5d8a8693662f3a88da1c4de"
+    },
+    {
+      "Path": "angular-final-results/theta-sampling-False.json",
+      "Bytes": 279,
+      "Sha256": "131e4104365b1ada21e4d6526f2740140a2537174efd9b98055f432cc858023b"
+    },
+    {
+      "Path": "angular-final-results/theta-sampling-True.json",
+      "Bytes": 279,
+      "Sha256": "3c785c40ff2ecd689a5bb097f8f74e0ecfcad60d7aa3f3fda2be81914d9b67eb"
+    },
+    {
+      "Path": "angular-final-xyz-chain/gamut-chain-False.camera-experiment.zip",
+      "Bytes": 49091,
+      "Sha256": "4adbf5884c790b1229a608e1a6401fa5dd18a49348cfccf927cac7a1fe7aa1e9"
+    },
+    {
+      "Path": "angular-final-xyz-chain/gamut-chain-False.json",
+      "Bytes": 709,
+      "Sha256": "314bca0e10100084f65c5cc88461d5bbd05b7964c146b3dbb8e7635811e2a6ae"
+    },
+    {
+      "Path": "angular-final-xyz-chain/gamut-chain-True.camera-experiment.zip",
+      "Bytes": 48773,
+      "Sha256": "be9ac643bb99c9289bea4c9d80061295346d308b5a8653ee1315fa5e079e736b"
+    },
+    {
+      "Path": "angular-final-xyz-chain/gamut-chain-True.json",
+      "Bytes": 744,
+      "Sha256": "0e219ee5db365773dbaaa3f68e0ab605b16abf41e56eb14a08cd32ab34541aef"
+    },
+    {
+      "Path": "angular-power-audit.json",
+      "Bytes": 8252,
+      "Sha256": "4b5d4ba189bc1fbe61c83358b31252aaec56e155056eab2a220f1c2f1b8f5fff"
+    },
+    {
+      "Path": "angular-power-audit.log",
+      "Bytes": 778,
+      "Sha256": "0ac4d9813468d98aaf6411a04e04e8d876cca193d65277dd68b28036801a9d55"
+    },
+    {
+      "Path": "angular-second.trx",
+      "Bytes": 27559,
+      "Sha256": "6dcfeae188e4ba3e1603450d170c95314fc81a8fab6a838f946c1fde02425e81"
+    },
+    {
+      "Path": "before-angular-final-run.json",
+      "Bytes": 42114,
+      "Sha256": "b0866fead374dd7ae925ea218394389dba7544f0e9328ca6829966e6ecf1023b"
+    },
+    {
+      "Path": "before-isolated-final-run.json",
+      "Bytes": 49045,
+      "Sha256": "9b1fb43e881b852a8feb1177bfd5551817a74d414639212254748a633d165142"
+    },
+    {
+      "Path": "build-app-final-retry.log",
+      "Bytes": 2519,
+      "Sha256": "4fa15024bd705ca22df513b2b03ca174229bcc01f9b46998400cd9a8c9420978"
+    },
+    {
+      "Path": "build-app-final.log",
+      "Bytes": 2004,
+      "Sha256": "79f951d7f37a2eec7ef952fefbdffb3eb2f00b7fecb8b46758c84b001d7af619"
+    },
+    {
+      "Path": "build-app-first.log",
+      "Bytes": 81,
+      "Sha256": "2f476a6014ecd6b02a723151220fa97df9006f7a906dfa7babf6517a3f5647f1"
+    },
+    {
+      "Path": "build-app-fourth.log",
+      "Bytes": 1519,
+      "Sha256": "b77e6947476c74d7c01af58ee235ac321cdd3bb10fe71c0d4f49e99efd377eb1"
+    },
+    {
+      "Path": "build-app-frozen-baseline.log",
+      "Bytes": 1519,
+      "Sha256": "aaf2c24e92ccf85715d9664b4b6794163f1cec0773ccd8075426dcd9ee94987d"
+    },
+    {
+      "Path": "build-app-integrated-final.log",
+      "Bytes": 641,
+      "Sha256": "3f4427e971848eab42d2611b057a3d8c984f3aa62d74236d31077b9f22cf9ace"
+    },
+    {
+      "Path": "build-app-scoped-final.log",
+      "Bytes": 216,
+      "Sha256": "576dc16002a26fccd423ff1a000fc74fde3f6033c7a1bfcc102130e3ed40917b"
+    },
+    {
+      "Path": "build-app-second.log",
+      "Bytes": 1519,
+      "Sha256": "fe1c5b10dea354442d31c679edd8c5f210e34d8f44ead7369b2f298d8c9a31ac"
+    },
+    {
+      "Path": "build-app-third.log",
+      "Bytes": 1519,
+      "Sha256": "27f32f9b05dc93e46521b8be460402b599751e33dc71665d052f7427e35846da"
+    },
+    {
+      "Path": "build-core-first.log",
+      "Bytes": 219,
+      "Sha256": "38bba3bac5a03772a99fea63a6889ca50663e1c156fceab1b9f713d28ee72447"
+    },
+    {
+      "Path": "build-core-second.log",
+      "Bytes": 219,
+      "Sha256": "35d757fdf2ca04c5dcdf319bc99a348a7e7508b2ea2236dc6fff8daafead2c66"
+    },
+    {
+      "Path": "build-driver-accepted.log",
+      "Bytes": 215,
+      "Sha256": "4678d9ae2466c4f12dfa874c6d45bf313dc491e6831ae1cfa85ec4c488941725"
+    },
+    {
+      "Path": "build-driver-fifth.log",
+      "Bytes": 215,
+      "Sha256": "358ccafe1732909054a8def63273a310b3efbcfdc7f009b56523c29f6eb0e7f5"
+    },
+    {
+      "Path": "build-driver-final.log",
+      "Bytes": 215,
+      "Sha256": "c8c57b52464de303e469f171955608b355bdfa6f5525adeb051b6986ec35bd81"
+    },
+    {
+      "Path": "build-driver-first.log",
+      "Bytes": 2649,
+      "Sha256": "07cbdf7cbd83b257e6c402c0ca1fdfca21150b5f37f62731813bfb6ecfe6ea6f"
+    },
+    {
+      "Path": "build-driver-fourth.log",
+      "Bytes": 215,
+      "Sha256": "60e771e34e90f9a39799b652b0c08ffbf53ab46c4ed57543c9b7145aa25f718b"
+    },
+    {
+      "Path": "build-driver-frozen.log",
+      "Bytes": 215,
+      "Sha256": "8296ca58f922cf4a8a102c0832fe6beb47ffedf9bd5ef1d0c34adbfcd7b1a70d"
+    },
+    {
+      "Path": "build-driver-second.log",
+      "Bytes": 639,
+      "Sha256": "ca8dc968a9ac5d2ac961b538285d09bb3c11d5b86c11e6eae714a27ad52c4dbf"
+    },
+    {
+      "Path": "build-driver-third.log",
+      "Bytes": 639,
+      "Sha256": "23961c0ceeacf2812f92aaaf908b4aa022b1f2565bb64dbb16d2d21d38a538ab"
+    },
+    {
+      "Path": "build-tests-accepted.log",
+      "Bytes": 224,
+      "Sha256": "a37f8f4b331ee178cf5682f9e387ec64e603c813fb45367d3ef3e295bad09c0b"
+    },
+    {
+      "Path": "build-tests-final.log",
+      "Bytes": 224,
+      "Sha256": "9f44f6ff84655fcb99e02c0d33bbe66671c8f2428723795d8d5b172f2638a064"
+    },
+    {
+      "Path": "build-tests-first.log",
+      "Bytes": 224,
+      "Sha256": "e5c3a35957e1b2714dbb22c6c39b5f07b108014962f6b9e09288b1cae9d77576"
+    },
+    {
+      "Path": "build-tests-fourth.log",
+      "Bytes": 224,
+      "Sha256": "ad8033db9a2180c01dfee5519883c577a18bb97da206cec5a9abb8e39f353de6"
+    },
+    {
+      "Path": "build-tests-frozen.log",
+      "Bytes": 224,
+      "Sha256": "4e51d4616ecbbd6a3293ba2cc23658ac9cf768ab905aadb4b41565eed7365b49"
+    },
+    {
+      "Path": "build-tests-second.log",
+      "Bytes": 224,
+      "Sha256": "86f13c387e93dc4fa94a2cdb3dd5e6da6596c14417c8030b9a323b5e353801ed"
+    },
+    {
+      "Path": "build-tests-third.log",
+      "Bytes": 224,
+      "Sha256": "07b72391e0cd3bfea2799d134c458a472b7a985ef2e34ff2a88fa4856c51ba5b"
+    },
+    {
+      "Path": "build-white-final.log",
+      "Bytes": 227,
+      "Sha256": "a3de4b6d71b0e1afe506deefc1c88ebb99aeaf963198aa63f8cb5e2251afb07c"
+    },
+    {
+      "Path": "build-white-frozen.log",
+      "Bytes": 227,
+      "Sha256": "060633bc1e71f07b756205071287f807477f38a7d5126ced380942581b9e469d"
+    },
+    {
+      "Path": "check-docs.ps1",
+      "Bytes": 2142,
+      "Sha256": "4dfafe4572a17fcc9adf39622b2074e4762ddc6b23c2e2bb1bb6dafde033dcfe"
+    },
+    {
+      "Path": "documentation-check.json",
+      "Bytes": 139,
+      "Sha256": "19f6d4bc94dc8dd9cb07319e15a2b7dde4bd0dd511adb8ef6e0847a1105088b2"
+    },
+    {
+      "Path": "exploration-finite.json",
+      "Bytes": 97106,
+      "Sha256": "76906d902a4dc3746e1f3208c491534f73ec9040d209cccee9dc981c14f91d7b"
+    },
+    {
+      "Path": "exploration.json",
+      "Bytes": 97312,
+      "Sha256": "3dd9685d1077ed786f6cc6535c8cd1f92b32e1c6e8e75abbfbe0f65f5b4869b0"
+    },
+    {
+      "Path": "exploration.log",
+      "Bytes": 3421,
+      "Sha256": "9ccfe1e2160ea880d59620955c3c006adb289ec5fcbd3fe54cb264210cea79cb"
+    },
+    {
+      "Path": "explore.py",
+      "Bytes": 5580,
+      "Sha256": "cac062ae6c4e9cfdb927ede8798717a20ea2035d94b83ec51569f5162043c102"
+    },
+    {
+      "Path": "final-calibration.log",
+      "Bytes": 2232,
+      "Sha256": "25b07f21083b7f23e5bcd9bd0c81962023d6a2054cf5fb3058e3e018472bec9f"
+    },
+    {
+      "Path": "final-calibration/acryl_blue/fit.json",
+      "Bytes": 259036,
+      "Sha256": "b656acedb4b01a28062511661dd96e3838980988d7c6fd25aea1ee6bf2f06cea"
+    },
+    {
+      "Path": "final-calibration/acryl_blue/known-conditions-pairs.csv",
+      "Bytes": 174126,
+      "Sha256": "2afee326b89fffe6d58c4864447cf16f0583b7eba2bb64c139531577a8e41cc9"
+    },
+    {
+      "Path": "final-calibration/cayman/fit.json",
+      "Bytes": 262133,
+      "Sha256": "42382d4fe7db80c71de395d6f21cec69b049ca27df8965fbc529a708d6c1cca6"
+    },
+    {
+      "Path": "final-calibration/cayman/known-conditions-pairs.csv",
+      "Bytes": 186964,
+      "Sha256": "61c3423feb96d5fa7e1166acd0dd4b16006b2886c56b1cd151dd68bebe114fc7"
+    },
+    {
+      "Path": "final-calibration/garnet_red/approved-550-calibration.json",
+      "Bytes": 251393,
+      "Sha256": "1f8cf6b19096bceddc3b217e2006e8adb3c95423b7a6daa783a02470e4ce55b2"
+    },
+    {
+      "Path": "final-calibration/garnet_red/fit.json",
+      "Bytes": 270276,
+      "Sha256": "5a6c2c441fbe91d7bf66d8268adda34ce8f9c32e22d738fe8493858f51c64b76"
+    },
+    {
+      "Path": "final-calibration/garnet_red/known-conditions-pairs.csv",
+      "Bytes": 192714,
+      "Sha256": "5da3749b291426c648551f3871a1c7d43f5ae6c2f379ea54d6956ed56beb1c0c"
+    },
+    {
+      "Path": "final-calibration/krylon_blue/approved-550-calibration.json",
+      "Bytes": 252298,
+      "Sha256": "0c602d703ea87bebff74d2decf98b0bae321715ec6415f0a2f3735c41af1340f"
+    },
+    {
+      "Path": "final-calibration/krylon_blue/fit.json",
+      "Bytes": 271254,
+      "Sha256": "3714c65976970c403302f11527931625d24be68c4d73f7043c1df717eeb78b21"
+    },
+    {
+      "Path": "final-calibration/krylon_blue/known-conditions-pairs.csv",
+      "Bytes": 190527,
+      "Sha256": "61b482ff41566f5f5d3fa2866ee3176d8659efa617884bd6b30aa2de48a6cdab"
+    },
+    {
+      "Path": "final-calibration/mystique/fit.json",
+      "Bytes": 267107,
+      "Sha256": "ded22c913f9cb4c57b2168511042d309df1bf8345ffc726d90a6a072784ffe59"
+    },
+    {
+      "Path": "final-calibration/mystique/known-conditions-pairs.csv",
+      "Bytes": 189169,
+      "Sha256": "31c6e81acbe469aed29c97d48ce92a2a859100b6d38e24e45034a265b058ea00"
+    },
+    {
+      "Path": "final-calibration/summary.json",
+      "Bytes": 4128,
+      "Sha256": "f87e4ad91cc5b0cb4761b1eb012dfede1fafcfad9cd126064f8f73f565f720a6"
+    },
+    {
+      "Path": "final-fit.log",
+      "Bytes": 2232,
+      "Sha256": "25b07f21083b7f23e5bcd9bd0c81962023d6a2054cf5fb3058e3e018472bec9f"
+    },
+    {
+      "Path": "final-fit/acryl_blue/fit.json",
+      "Bytes": 259036,
+      "Sha256": "b656acedb4b01a28062511661dd96e3838980988d7c6fd25aea1ee6bf2f06cea"
+    },
+    {
+      "Path": "final-fit/acryl_blue/known-conditions-pairs.csv",
+      "Bytes": 174126,
+      "Sha256": "2afee326b89fffe6d58c4864447cf16f0583b7eba2bb64c139531577a8e41cc9"
+    },
+    {
+      "Path": "final-fit/cayman/fit.json",
+      "Bytes": 262133,
+      "Sha256": "42382d4fe7db80c71de395d6f21cec69b049ca27df8965fbc529a708d6c1cca6"
+    },
+    {
+      "Path": "final-fit/cayman/known-conditions-pairs.csv",
+      "Bytes": 186964,
+      "Sha256": "61c3423feb96d5fa7e1166acd0dd4b16006b2886c56b1cd151dd68bebe114fc7"
+    },
+    {
+      "Path": "final-fit/garnet_red/approved-550-calibration.json",
+      "Bytes": 251393,
+      "Sha256": "1f8cf6b19096bceddc3b217e2006e8adb3c95423b7a6daa783a02470e4ce55b2"
+    },
+    {
+      "Path": "final-fit/garnet_red/fit.json",
+      "Bytes": 270276,
+      "Sha256": "5a6c2c441fbe91d7bf66d8268adda34ce8f9c32e22d738fe8493858f51c64b76"
+    },
+    {
+      "Path": "final-fit/garnet_red/known-conditions-pairs.csv",
+      "Bytes": 192714,
+      "Sha256": "5da3749b291426c648551f3871a1c7d43f5ae6c2f379ea54d6956ed56beb1c0c"
+    },
+    {
+      "Path": "final-fit/krylon_blue/approved-550-calibration.json",
+      "Bytes": 252298,
+      "Sha256": "0c602d703ea87bebff74d2decf98b0bae321715ec6415f0a2f3735c41af1340f"
+    },
+    {
+      "Path": "final-fit/krylon_blue/fit.json",
+      "Bytes": 271254,
+      "Sha256": "3714c65976970c403302f11527931625d24be68c4d73f7043c1df717eeb78b21"
+    },
+    {
+      "Path": "final-fit/krylon_blue/known-conditions-pairs.csv",
+      "Bytes": 190527,
+      "Sha256": "61b482ff41566f5f5d3fa2866ee3176d8659efa617884bd6b30aa2de48a6cdab"
+    },
+    {
+      "Path": "final-fit/mystique/fit.json",
+      "Bytes": 267107,
+      "Sha256": "ded22c913f9cb4c57b2168511042d309df1bf8345ffc726d90a6a072784ffe59"
+    },
+    {
+      "Path": "final-fit/mystique/known-conditions-pairs.csv",
+      "Bytes": 189169,
+      "Sha256": "31c6e81acbe469aed29c97d48ce92a2a859100b6d38e24e45034a265b058ea00"
+    },
+    {
+      "Path": "final-fit/summary.json",
+      "Bytes": 4128,
+      "Sha256": "c4adbd73c99e2923e3212518954d029cee0027542523602aaf1eddcfa69241bf"
+    },
+    {
+      "Path": "final-mat.log",
+      "Bytes": 1475,
+      "Sha256": "a3ab0e2b94630a1f838dceebd207a94afa685d2823af71066127b53752003529"
+    },
+    {
+      "Path": "final-mat/acryl_blue/mat-fit.json",
+      "Bytes": 262108,
+      "Sha256": "12d936006f2ffa7870d28cb56d01308e69c2b0cd192e423aa0a8af8679d06460"
+    },
+    {
+      "Path": "final-mat/cayman/mat-fit.json",
+      "Bytes": 263257,
+      "Sha256": "f212acc32ea74b12c2f3a391567eb0a73da939ddbb0907cb70883885924c66d7"
+    },
+    {
+      "Path": "final-mat/mystique/mat-fit.json",
+      "Bytes": 270103,
+      "Sha256": "5e8d2d8fd14681795f974e0d9a25e6447541cef1d86a0bb2f340beff0ad6e9a4"
+    },
+    {
+      "Path": "final-measured-chain.log",
+      "Bytes": 15,
+      "Sha256": "23294527a719d801ca8faeab2fe3ce7d52bb4b4f9974ea4007ebbc43019c9b5b"
+    },
+    {
+      "Path": "final-measured-chain/acryl_blue-10.00000/angular-histogram.json",
+      "Bytes": 2075,
+      "Sha256": "5c7cc5ca9e7f72b79af67d918299224ef5c3f805ac6dd7e6cdd0a395ec6fa842"
+    },
+    {
+      "Path": "final-measured-chain/acryl_blue-10.00000/chain.json",
+      "Bytes": 1559,
+      "Sha256": "120daa4697604b0f67c4433428c9b7c8f84881c6d258db16059d01b4c0692fd1"
+    },
+    {
+      "Path": "final-measured-chain/acryl_blue-10.00000/measured.camera-experiment.zip",
+      "Bytes": 54715,
+      "Sha256": "379e221e57487ed95008d15303f66791bd8ee0ebb9016c5b0182c7a552cc7eb6"
+    },
+    {
+      "Path": "final-measured-chain/acryl_blue-10.00000/measured.staropt",
+      "Bytes": 11907,
+      "Sha256": "cc3ebca884b5c995ca2d951a1c9a003586e8a1e0b486b64d6ca39dfb7873f44e"
+    },
+    {
+      "Path": "final-measured-chain/acryl_blue-20.00001/angular-histogram.json",
+      "Bytes": 2817,
+      "Sha256": "d32ec05351543013ace75e8ed7275c2a0985cb94c541e467b885c344e7bcd0f7"
+    },
+    {
+      "Path": "final-measured-chain/acryl_blue-20.00001/chain.json",
+      "Bytes": 1561,
+      "Sha256": "ed5b6f959c16212a690923c2f8d1496924e68efbeb9ada6c806c031e14ed37f3"
+    },
+    {
+      "Path": "final-measured-chain/acryl_blue-20.00001/measured.camera-experiment.zip",
+      "Bytes": 65654,
+      "Sha256": "aa7a0a6943d2d2a255ba48951beed00fcd13e50f00dd5583a73d482b48f071a6"
+    },
+    {
+      "Path": "final-measured-chain/acryl_blue-20.00001/measured.staropt",
+      "Bytes": 13972,
+      "Sha256": "037774e4cba86fad4b32cc984f8827758caaac3fb448e7657fe53e84c320e9fb"
+    },
+    {
+      "Path": "final-measured-chain/cayman-10.00000/angular-histogram.json",
+      "Bytes": 3086,
+      "Sha256": "ed6ad0c23c3cb4ced3a478aab5082d4ed5733fc4097264e1bc06cbd3860ef6b1"
+    },
+    {
+      "Path": "final-measured-chain/cayman-10.00000/chain.json",
+      "Bytes": 1554,
+      "Sha256": "b18f3c74a74f6775188b99635c87fb0fba913d1dfaa37d8e1dc4fc5077de42f3"
+    },
+    {
+      "Path": "final-measured-chain/cayman-10.00000/measured.camera-experiment.zip",
+      "Bytes": 92239,
+      "Sha256": "ae8174a5d75a76df070112210dd0794d5c438c43a51e338b1a131efe5544c828"
+    },
+    {
+      "Path": "final-measured-chain/cayman-10.00000/measured.staropt",
+      "Bytes": 15985,
+      "Sha256": "c14c21b0067dee58cbdc55df20ea361cf9225eec63f5ba56f9eebe134f0d3987"
+    },
+    {
+      "Path": "final-measured-chain/cayman-20.00001/angular-histogram.json",
+      "Bytes": 3089,
+      "Sha256": "88d6c8c55dbb09b5ac7b68d14277f248a6fc87afb9f703a5daf317aa147af4ea"
+    },
+    {
+      "Path": "final-measured-chain/cayman-20.00001/chain.json",
+      "Bytes": 1557,
+      "Sha256": "ee8bdef796854833e9fe21488c8dc79133fe6b125fc9926b84c8012cd9374f30"
+    },
+    {
+      "Path": "final-measured-chain/cayman-20.00001/measured.camera-experiment.zip",
+      "Bytes": 104425,
+      "Sha256": "fc628bbe7bc4e002094bf5d9ff1eb6d3cd6b9c7b5e57fa85e7cad8fbd963e72d"
+    },
+    {
+      "Path": "final-measured-chain/cayman-20.00001/measured.staropt",
+      "Bytes": 17760,
+      "Sha256": "fc1fe05c4fbc1805d8268527b1ed186524b0ed5bd8f24db9bc11c8de2eba9838"
+    },
+    {
+      "Path": "final-measured-chain/EDC50-0.00000/angular-histogram.json",
+      "Bytes": 3091,
+      "Sha256": "321c2f78eb949a368d3925c5800aa7a26980f7cfb75b632d09759fc5e341f355"
+    },
+    {
+      "Path": "final-measured-chain/EDC50-0.00000/chain.json",
+      "Bytes": 1756,
+      "Sha256": "cb861f8f086c38a6c29b810079d55275cccb2ed3f4196ebbc19216da40b5b4b9"
+    },
+    {
+      "Path": "final-measured-chain/EDC50-0.00000/measured.camera-experiment.zip",
+      "Bytes": 1265923,
+      "Sha256": "2f5fa4243eb6b6cedd3b91934d2e100ac7961254558785eb0ef401c6a65a65e4"
+    },
+    {
+      "Path": "final-measured-chain/EDC50-0.00000/measured.staropt",
+      "Bytes": 442580,
+      "Sha256": "9152a63bd952f1301631e9187b0af413af471f2150a0a913f24eb621d32faf9f"
+    },
+    {
+      "Path": "final-measured-chain/EDS40-0.00000/angular-histogram.json",
+      "Bytes": 3093,
+      "Sha256": "8626a3fd688d1d521740d2fba58822b26c0b72ad7b7a8fa2db4af25ee94dd820"
+    },
+    {
+      "Path": "final-measured-chain/EDS40-0.00000/chain.json",
+      "Bytes": 1754,
+      "Sha256": "3053239ec8545adc538f510bb0f9ca76e3b661cfdd16b2897d5cc96d2187c59d"
+    },
+    {
+      "Path": "final-measured-chain/EDS40-0.00000/measured.camera-experiment.zip",
+      "Bytes": 1264152,
+      "Sha256": "49f63f1dbd8a847717148155aef60ad1edeb500e1a26b4afde36cc9d5c63051d"
+    },
+    {
+      "Path": "final-measured-chain/EDS40-0.00000/measured.staropt",
+      "Bytes": 436252,
+      "Sha256": "9f65b760110353088ee674f54f29c712d70aa028c46ba02706be76de6f36295b"
+    },
+    {
+      "Path": "final-measured-chain/garnet_red-10.00000/angular-histogram.json",
+      "Bytes": 3076,
+      "Sha256": "614a62e859df446472b561f561c81d4db823a77f63d2e43fe4830db873acb90d"
+    },
+    {
+      "Path": "final-measured-chain/garnet_red-10.00000/chain.json",
+      "Bytes": 1555,
+      "Sha256": "20837144ff4ec329f0ad7736a4e506e0f4fde1e60e03f904cd8934a09aca2493"
+    },
+    {
+      "Path": "final-measured-chain/garnet_red-10.00000/measured.camera-experiment.zip",
+      "Bytes": 93276,
+      "Sha256": "832f70f8154f34ff303b905637f305596b5c2469ef9ec20784fc54ac1f951382"
+    },
+    {
+      "Path": "final-measured-chain/garnet_red-10.00000/measured.staropt",
+      "Bytes": 15634,
+      "Sha256": "035858421c5a135e99060a2704845ed1100466ceb8f604486fc74008b1d4da55"
+    },
+    {
+      "Path": "final-measured-chain/garnet_red-20.00001/angular-histogram.json",
+      "Bytes": 3075,
+      "Sha256": "bea442017896fc03e146d36b7716934e23171e193d75f9336767d356a59e0959"
+    },
+    {
+      "Path": "final-measured-chain/garnet_red-20.00001/chain.json",
+      "Bytes": 1558,
+      "Sha256": "d3948e010b5cffb17b3ae18ef30f9b3715b16185421468446c579e9f2f18ebef"
+    },
+    {
+      "Path": "final-measured-chain/garnet_red-20.00001/measured.camera-experiment.zip",
+      "Bytes": 103891,
+      "Sha256": "75c007fd1aac3d92aa568c25738f8e735c1f0bbbbef10fd66c46faa477315326"
+    },
+    {
+      "Path": "final-measured-chain/garnet_red-20.00001/measured.staropt",
+      "Bytes": 17744,
+      "Sha256": "4975a1c24641b7e3be2013f9cd403205ff6bb9babfad993d40492d4fab21dac4"
+    },
+    {
+      "Path": "final-measured-chain/HILAM-0.00000/angular-histogram.json",
+      "Bytes": 3070,
+      "Sha256": "3773a3c80d1f397daf6b88e6d2d3bde529d50e059e913f032765589391220efb"
+    },
+    {
+      "Path": "final-measured-chain/HILAM-0.00000/chain.json",
+      "Bytes": 1754,
+      "Sha256": "c9641c2c71712fbd41535d921e7854305125f28bbbca02af8a6e0ff2fdd7510d"
+    },
+    {
+      "Path": "final-measured-chain/HILAM-0.00000/measured.camera-experiment.zip",
+      "Bytes": 1423990,
+      "Sha256": "8ced32e793ae87a53a16e5f3ffecf3c8cd2e232899889c1c4d38eeca4b69cc0f"
+    },
+    {
+      "Path": "final-measured-chain/HILAM-0.00000/measured.staropt",
+      "Bytes": 488520,
+      "Sha256": "7339a66138281fa88843157fed07e4325400829dba4b8f1eb479c2cb9ac83e3d"
+    },
+    {
+      "Path": "final-measured-chain/krylon_blue-10.00000/angular-histogram.json",
+      "Bytes": 3083,
+      "Sha256": "944d46bcf01b32f3be8dc041aafd7edccd0710897127734d25083a070b41f8ea"
+    },
+    {
+      "Path": "final-measured-chain/krylon_blue-10.00000/chain.json",
+      "Bytes": 1558,
+      "Sha256": "e593dd11494a654724368b17eae9e443815fc08af533c030580702593b965664"
+    },
+    {
+      "Path": "final-measured-chain/krylon_blue-10.00000/measured.camera-experiment.zip",
+      "Bytes": 93739,
+      "Sha256": "061e6b2b5ec4449e3a2553518f89f3c65aa0001b4942a875232ebe42b22e4660"
+    },
+    {
+      "Path": "final-measured-chain/krylon_blue-10.00000/measured.staropt",
+      "Bytes": 15632,
+      "Sha256": "b99d33d067a99c61c749ee0d12facf62232ac3f9dd7344593d470a3c15b744b0"
+    },
+    {
+      "Path": "final-measured-chain/krylon_blue-20.00001/angular-histogram.json",
+      "Bytes": 3078,
+      "Sha256": "85a4a26166c7a41f8438812ab4cd2d4fda757ba4afda5aaa170b084158af9dc8"
+    },
+    {
+      "Path": "final-measured-chain/krylon_blue-20.00001/chain.json",
+      "Bytes": 1560,
+      "Sha256": "7f7f185514bc1b3f6853af4bf6a23255d58663bc0803b5b5f1c9f2194d7dad49"
+    },
+    {
+      "Path": "final-measured-chain/krylon_blue-20.00001/measured.camera-experiment.zip",
+      "Bytes": 103947,
+      "Sha256": "0db3d66e39213476830e6310540e885556607272c75578c6237a08500f6e65b7"
+    },
+    {
+      "Path": "final-measured-chain/krylon_blue-20.00001/measured.staropt",
+      "Bytes": 17513,
+      "Sha256": "8c2553f0fcc186396ecc2b725ea695ad3581b5d9a9bbc32f825a53dcaab4feb4"
+    },
+    {
+      "Path": "final-measured-chain/mystique-10.00000/angular-histogram.json",
+      "Bytes": 3097,
+      "Sha256": "061598bb992dff4b7a448ba2bfa98769d5521393b5c688f8421d23cca82aaf34"
+    },
+    {
+      "Path": "final-measured-chain/mystique-10.00000/chain.json",
+      "Bytes": 1565,
+      "Sha256": "3ddff33e70ced9b91f6dff6957237bbb9a77c5a4945f7153080ec13809c60721"
+    },
+    {
+      "Path": "final-measured-chain/mystique-10.00000/measured.camera-experiment.zip",
+      "Bytes": 92135,
+      "Sha256": "8c62ff9484d4f85da0813687968c282f7adf212f26ce922a281b1cebe9ad843d"
+    },
+    {
+      "Path": "final-measured-chain/mystique-10.00000/measured.staropt",
+      "Bytes": 15743,
+      "Sha256": "b8e39cc19a2794c600bfd4eb377ea9c1a7c0436aa01b80d53051bc126b721999"
+    },
+    {
+      "Path": "final-measured-chain/mystique-20.00001/angular-histogram.json",
+      "Bytes": 3085,
+      "Sha256": "2ed8955846c6c0c91d579182bff48aeead445a27b1b029cb1f442989aff50186"
+    },
+    {
+      "Path": "final-measured-chain/mystique-20.00001/chain.json",
+      "Bytes": 1560,
+      "Sha256": "120c65c0bcdec39df1597cbef7100d078e845406f14a5c1d13a5945e03ca2067"
+    },
+    {
+      "Path": "final-measured-chain/mystique-20.00001/measured.camera-experiment.zip",
+      "Bytes": 103726,
+      "Sha256": "1f5efcaaf121859562724dc0e7bc767ade531a8d3de92509128579c0ca644b52"
+    },
+    {
+      "Path": "final-measured-chain/mystique-20.00001/measured.staropt",
+      "Bytes": 17678,
+      "Sha256": "c9da88461052889f18e227452b50dbe67e89deba01431683b7858614949beb27"
+    },
+    {
+      "Path": "final-measured-chain/summary.json",
+      "Bytes": 23304,
+      "Sha256": "576da69105aff390eaf6610915eceb17de419c2c7d5da566c8788dbdcaa8b05c"
+    },
+    {
+      "Path": "final-precision.log",
+      "Bytes": 1475,
+      "Sha256": "a3ab0e2b94630a1f838dceebd207a94afa685d2823af71066127b53752003529"
+    },
+    {
+      "Path": "final-precision/acryl_blue/mat-fit.json",
+      "Bytes": 262108,
+      "Sha256": "12d936006f2ffa7870d28cb56d01308e69c2b0cd192e423aa0a8af8679d06460"
+    },
+    {
+      "Path": "final-precision/cayman/mat-fit.json",
+      "Bytes": 263257,
+      "Sha256": "f212acc32ea74b12c2f3a391567eb0a73da939ddbb0907cb70883885924c66d7"
+    },
+    {
+      "Path": "final-precision/mystique/mat-fit.json",
+      "Bytes": 270103,
+      "Sha256": "5e8d2d8fd14681795f974e0d9a25e6447541cef1d86a0bb2f340beff0ad6e9a4"
+    },
+    {
+      "Path": "final-run-integrity.json",
+      "Bytes": 828,
+      "Sha256": "96a7677d238da17fdc82d70595d3c93cbd4ec8cae0d95e661d23e43912abd0b9"
+    },
+    {
+      "Path": "final-verification-summary.json",
+      "Bytes": 1696,
+      "Sha256": "a06aeff046d1e6d3974406b2eb2c23f5d652f08a8f4485b9f5e69e4d0618665d"
+    },
+    {
+      "Path": "final-white.log",
+      "Bytes": 84,
+      "Sha256": "5e4bd5273e65bc0bc969e8534cf58dd1c198719bc0605c407a7fab0844f9cef2"
+    },
+    {
+      "Path": "final-white/runtime6-native-power-audit.json",
+      "Bytes": 21890,
+      "Sha256": "5380a114468b25abc93f15b6d2acf25d70efc67cc0ba7f987188638f6491f015"
+    },
+    {
+      "Path": "first-final-run-drift.json",
+      "Bytes": 280,
+      "Sha256": "b005fc37906dd49e5c0dcd259bc00574fc41f8b7c31fd0a35f16a0b84517f552"
+    },
+    {
+      "Path": "first-import.log",
+      "Bytes": 9550,
+      "Sha256": "290382635de5335b26825862924d9fe8237067fcf0f5286a378354dc8ff1d00a"
+    },
+    {
+      "Path": "first-import/import-audit.json",
+      "Bytes": 9966,
+      "Sha256": "c2fa2044f955584d6e655533eddffd2c796e047f8a603e8f4d92308d256c7e9e"
+    },
+    {
+      "Path": "first-measured-chain.log",
+      "Bytes": 1647,
+      "Sha256": "ca8f87ca8cf55be224c5938dc217a0989b5849051bf9f325673138bf46f88df0"
+    },
+    {
+      "Path": "fourth-import.log",
+      "Bytes": 5198,
+      "Sha256": "2f24ddfc7c205f39b61bce94ccadd6839cac10b784efc2cf3639505177faceef"
+    },
+    {
+      "Path": "fourth-import/import-audit.json",
+      "Bytes": 6010,
+      "Sha256": "d39b2ec6bdf12ca235916fdd132e08f35aa4a106534b130eaef7cc9ab9787fac"
+    },
+    {
+      "Path": "full-precision/acryl_blue.mat",
+      "Bytes": 426166,
+      "Sha256": "29bd1259deda3f091d4bcf3e57cb18bf66fb8e2270bdfa517d10c35efe795638"
+    },
+    {
+      "Path": "full-precision/cayman.mat",
+      "Bytes": 426022,
+      "Sha256": "2456ec98de89627f249749f2ff6bfcce3e6a581987de5f6266867fe93d634b44"
+    },
+    {
+      "Path": "full-precision/mystique.mat",
+      "Bytes": 426022,
+      "Sha256": "fc9cffb1b982bf5378d0f5df533a7ace4c50587af259806c51b7472be3033163"
+    },
+    {
+      "Path": "full-precision/sources.json",
+      "Bytes": 811,
+      "Sha256": "86e25ccd4fd55576c8e3200d739c284a9c4db3fa804ecce1c75961547c033ebd"
+    },
+    {
+      "Path": "isolated-final-focused.trx",
+      "Bytes": 465462,
+      "Sha256": "a7c3d8584770194388a3cd503944070de5bad7a87b4f728db29385856be4bbb6"
+    },
+    {
+      "Path": "measured-btdf/EDC50-raw.zip",
+      "Bytes": 954778,
+      "Sha256": "3910f8d3c16e7bcaa703fd646db5f700c682e86d07e1992061f5b5b10d52ed3e"
+    },
+    {
+      "Path": "measured-btdf/EDC50-raw/EDC50 0-0.txt",
+      "Bytes": 946748,
+      "Sha256": "b03e9219575bce898b79b9fb7a4dad6dea066c612114082997d68039a2158747"
+    },
+    {
+      "Path": "measured-btdf/EDC50-raw/EDC50 10-0.txt",
+      "Bytes": 946751,
+      "Sha256": "bc4118f0011b1d3f34c5357e94c555ceb28dfcd95b25443d0b0fba84c4b1b2ba"
+    },
+    {
+      "Path": "measured-btdf/EDC50-raw/EDC50 15-0.txt",
+      "Bytes": 946750,
+      "Sha256": "2164a8baa0b2d4c64420ba991177d6cad6dd15258a99bc1358e18ea3cb23bda9"
+    },
+    {
+      "Path": "measured-btdf/EDC50-raw/EDC50 20-0.txt",
+      "Bytes": 946751,
+      "Sha256": "6a7f4e51df3d7f03207bccae558f956ae9ee5fef96fa7067a64b6b177f1bae62"
+    },
+    {
+      "Path": "measured-btdf/EDC50-raw/EDC50 5-0.txt",
+      "Bytes": 946749,
+      "Sha256": "2db7f380182b37c214a04c4d79e37ded04a2789ee076535d9ab9ccf4a723dba0"
+    },
+    {
+      "Path": "measured-btdf/EDC50-raw/format-extracted.txt",
+      "Bytes": 1320,
+      "Sha256": "b340aa3b08d247369ff29df215498089c678dd2e226b8dc58c0881beaa808523"
+    },
+    {
+      "Path": "measured-btdf/EDC50-raw/RPC Photonics BSDF Data format.pdf",
+      "Bytes": 81249,
+      "Sha256": "203d338f55f9b6f0a9c40a51d20588045e131619a87732677714e10c4392518d"
+    },
+    {
+      "Path": "measured-btdf/EDC50.zip",
+      "Bytes": 219932,
+      "Sha256": "6791f53389fa08c9872506dc4e0f670ac1a728cc11c9cbe3abb864ebff8f5ccd"
+    },
+    {
+      "Path": "measured-btdf/EDC50/EDC50 0-0z.bsdf",
+      "Bytes": 284848,
+      "Sha256": "a5f1dc963944b5f8ea7d4209c8bd4a8c5e8520110898506d227a1801049c7d32"
+    },
+    {
+      "Path": "measured-btdf/EDC50/format-extracted.txt",
+      "Bytes": 2624,
+      "Sha256": "bed2e8a53fccd2369da58d97568a31ea1eef41cc1e2c4abb29a166fd8bfee6ad"
+    },
+    {
+      "Path": "measured-btdf/EDC50/RPC Photonics BSDF Data format Zemax - Normal Incidence Zero Sample Rotation.pdf",
+      "Bytes": 157253,
+      "Sha256": "c3dc150d7a4c16ce706bf4d16672c3c4ccf5ba7beb7a2735b28b8d96fff7683e"
+    },
+    {
+      "Path": "measured-btdf/EDC50/Scatter BSDF RPC EDC50.zmx",
+      "Bytes": 48646,
+      "Sha256": "c482357409bd2dc28c0ae544f1eaedf73cb3f7c2d64fbfa4678d8caa6ab81744"
+    },
+    {
+      "Path": "measured-btdf/EDS40.zip",
+      "Bytes": 217196,
+      "Sha256": "41ffafa91345b7c8ed5afcdcb6a36fd9b80c4fcb1712a0d644295c0bc30ba038"
+    },
+    {
+      "Path": "measured-btdf/EDS40/EDS40 0-0z.bsdf",
+      "Bytes": 284850,
+      "Sha256": "5805cc97d9226852eca5ac90697f141f94b8eefbc3f78f63bc76a9b7afcdb611"
+    },
+    {
+      "Path": "measured-btdf/EDS40/RPC Photonics BSDF Data format Zemax - Normal Incidence Zero Sample Rotation.pdf",
+      "Bytes": 157253,
+      "Sha256": "c3dc150d7a4c16ce706bf4d16672c3c4ccf5ba7beb7a2735b28b8d96fff7683e"
+    },
+    {
+      "Path": "measured-btdf/EDS40/Scatter BSDF RPC EDS40.zmx",
+      "Bytes": 48646,
+      "Sha256": "80afb64059dc28f00ad34f1a66b74393540482eb8c54f0e2cd9e5f9d4a0e96e7"
+    },
+    {
+      "Path": "measured-btdf/HILAM.zip",
+      "Bytes": 255671,
+      "Sha256": "5d8811a2a01c2db76d05c8b6b506449dce38a11e617af3e00009096fedb350a4"
+    },
+    {
+      "Path": "measured-btdf/HILAM/HILAM 0-0z.bsdf",
+      "Bytes": 369194,
+      "Sha256": "7249223a5b28f0d1909399d32a9ea21b9241e28653744e51c3eba024167440ec"
+    },
+    {
+      "Path": "measured-btdf/HILAM/RPC Photonics BSDF Data format Zemax - Normal Incidence Zero Sample Rotation.pdf",
+      "Bytes": 157253,
+      "Sha256": "c3dc150d7a4c16ce706bf4d16672c3c4ccf5ba7beb7a2735b28b8d96fff7683e"
+    },
+    {
+      "Path": "measured-btdf/HILAM/Scatter BSDF RPC HILAM632.zmx",
+      "Bytes": 48666,
+      "Sha256": "2f2cf9ceb2dabba8be6fed4b46b375287e04a30d75ebd7048f67baf5f032a8c6"
+    },
+    {
+      "Path": "measured-btdf/source-downloads.json",
+      "Bytes": 850,
+      "Sha256": "06dc618c884f055b408ffe60f666a345ee73cb5417642177a60476f67f122116"
+    },
+    {
+      "Path": "NOTICE.txt",
+      "Bytes": 1636,
+      "Sha256": "16e252729ba1a4d73cd2bc73a810386592aa7d9115dfe236f92cd847b993635e"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 4129,
+      "Sha256": "e73a86da23208969849cbf85f3123856233d4165a5c3991790a10e3c49a4ab01"
+    },
+    {
+      "Path": "restore-driver-offline.log",
+      "Bytes": 285,
+      "Sha256": "fed6ee151cdf6947e3dc167c1d13717d59bf8a46d3c8035bce421573069d8070"
+    },
+    {
+      "Path": "run-focused.ps1",
+      "Bytes": 15644,
+      "Sha256": "8e34efdb1032f06b12dfcf375c1842169d393304a67ccd3b259e254fd9541168"
+    },
+    {
+      "Path": "run-isolated.ps1",
+      "Bytes": 17463,
+      "Sha256": "c865fb2c78dd837420f14b4a1f3441b83a4923ced8b033e263c8d799f9021167"
+    },
+    {
+      "Path": "runtime-temp/measured-angular-2968744077bf4989886ee3af63f1b238/garnet_red.astm",
+      "Bytes": 456808,
+      "Sha256": "54f7c8b42720e384a5fbf899c8778a5f3a3394e48ba95650f53753d7356f0020"
+    },
+    {
+      "Path": "runtime-temp/measured-angular-cc4ba7ecab894d86b70fea5081063e57/garnet_red.astm",
+      "Bytes": 456808,
+      "Sha256": "54f7c8b42720e384a5fbf899c8778a5f3a3394e48ba95650f53753d7356f0020"
+    },
+    {
+      "Path": "scoped-diff-check.log",
+      "Bytes": 504,
+      "Sha256": "21fce051b4c083ad08f05409852c4396ade8091c3701cf8a8b892b56635bd6b2"
+    },
+    {
+      "Path": "seal-evidence.ps1",
+      "Bytes": 2979,
+      "Sha256": "953358c9b7199f0f2d40731ae6fc0c8033930812ff5eb9ba439aa8c16904ec7b"
+    },
+    {
+      "Path": "second-import.log",
+      "Bytes": 5128,
+      "Sha256": "8a3c9ba7b8b5d74e606084d2556284e3d806b6b810d73994de41d46e90d998fd"
+    },
+    {
+      "Path": "second-import/import-audit.json",
+      "Bytes": 5625,
+      "Sha256": "da5e6c4f3a9a01f0f316476feaf3951a5eed29c1c0667cb392443bf0b9c144a6"
+    },
+    {
+      "Path": "second-measured-chain.log",
+      "Bytes": 1244,
+      "Sha256": "f56aee006c40ed281c9e34946c59dc2326a5d1f424a2d3672622155d3037638c"
+    },
+    {
+      "Path": "second-measured-chain/garnet_red-10.00000/angular-histogram.json",
+      "Bytes": 3076,
+      "Sha256": "614a62e859df446472b561f561c81d4db823a77f63d2e43fe4830db873acb90d"
+    },
+    {
+      "Path": "source-snapshot-map.json",
+      "Bytes": 48239,
+      "Sha256": "226ec6198896946de24035720dfc8541ae537d8df7b6936d427750df3d3fab6f"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.NonSequential.cs",
+      "Bytes": 9668,
+      "Sha256": "b1d1535ec50f49fbb6d6e87309579bec2909ce1125855ff81fc9edbaba8d9c3b"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "Bytes": 44716,
+      "Sha256": "879fb413cdd777f0bbe1788b6fa6ccb41c5a5ffa8eee4084fe176bcff4e7e733"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "Bytes": 45849,
+      "Sha256": "88d732609aae507a6c5a1c894ad9de61c4f670a3f8ef6912b39b41dc44071110"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.App/Services/UiLocalization.CameraNonSequential.cs",
+      "Bytes": 12457,
+      "Sha256": "90b25069c170b963e9759625b16fa1f981482b89ef6f2e4451dac79c4e52f3d2"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Application/Contracts/CameraNonSequentialContracts.cs",
+      "Bytes": 2112,
+      "Sha256": "b60818e62af991497a41fb3933c6f47f989e28da21b24c90b5ea7bb7ba59ac1c"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "Bytes": 11953,
+      "Sha256": "7dffc201475afa0dc569d90729450ee25a24e96a109c0d556a61449dea2e9471"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "Bytes": 54805,
+      "Sha256": "e992b13353deb05544e2147ab71b9272ad5bdb47137952bb9c2af342702a05df"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Application/Services/CameraImagingService.NonSequential.cs",
+      "Bytes": 13926,
+      "Sha256": "6c5a64a967ead2bd7f8ba2e5c4197a65ef8a35d70a3b315f0d900dd6ee6d48dd"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.Camera.cs",
+      "Bytes": 8515,
+      "Sha256": "f00f4ec8b52b0d74c8efc0f7cf06ffabc0de4a69a60825fe3fdafbd3064453a0"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Application/Services/NonSequentialBsdfMapper.cs",
+      "Bytes": 3044,
+      "Sha256": "1bec1f4469e0d6e8a311db09581c3baf4b63eb752437b2e0f06607995245f5b4"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.cs",
+      "Bytes": 38428,
+      "Sha256": "87a39e5b800fa1dcb6635769f89d9e1514d17f81fddcc0f6bf8f60027c4052d5"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Application/Services/NonSequentialVisualizationBuilder.cs",
+      "Bytes": 19132,
+      "Sha256": "5bc66cc641afb0d68fc26a762175a611a754a7cf0bf8ff98e851116c5969ed08"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Analysis/Shared/JacobiSvd.cs",
+      "Bytes": 5169,
+      "Sha256": "6916dadff48f0d9584b05d9efe4f9a23ec0f1a343027dc31bbb09677a4b9c84b"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Interactions/IInteractionModel.cs",
+      "Bytes": 1389,
+      "Sha256": "31d8a826f2e66d953f4bf80675bafaeaf2df36f85d2a4404bc804f347e610a02"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/NonSequential/NonSequentialDocument.cs",
+      "Bytes": 48985,
+      "Sha256": "ee6af2d02a7d6b32bf144e56908c62de9b76a516033ba6eed82fcebae4ab3f16"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/NonSequential/NonSequentialPathFilter.cs",
+      "Bytes": 19309,
+      "Sha256": "ccc4c06dcf4c6850a0644a5bc48938711d505c0d2a9aa2f2b2b24e1fc8eadfe8"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "Bytes": 32121,
+      "Sha256": "515b9f94c6f385e63f80379cf702c9a538bb406b98fb7f576c5e9565b4a0f5e1"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/NonSequential/NonSequentialSurfaceBsdf.cs",
+      "Bytes": 4723,
+      "Sha256": "db29aee89a5a2d92b1670019f3b8bf15fbf8d1d6c49e9b563c24ecb8ad6705dd"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "Bytes": 71455,
+      "Sha256": "1c62dd8b24877fb329d3a70c73c2c14d0615a25426d27707d35bb1b54ec719e0"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/Bsdf.cs",
+      "Bytes": 5064,
+      "Sha256": "f8bc528d4ff0a5c35e3890241851fe002c89d162509f68894ef4e28f5d87dbd4"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/BsdfFileImporter.cs",
+      "Bytes": 27458,
+      "Sha256": "63f272b67e08c97dfa57ec70eeb6b6659b69e6934f0539c117ef464e97dfe389"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/BsdfReferenceComparer.cs",
+      "Bytes": 6135,
+      "Sha256": "77f9178df41bda74b0c7a7e266c04584a46f237c906e62dfde45963d50b52bb6"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/CornellAstmBsdfReader.cs",
+      "Bytes": 7762,
+      "Sha256": "cb5c5ee1696fff8a449bcdbb1817c141efde399ab6bc277784fc388d64f54a31"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/GamutXyzBsdfDistribution.cs",
+      "Bytes": 7145,
+      "Sha256": "a1295e2f561f719e837241515190cfbe73ac97ae4045546f925a6c4b108a8fd0"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/MeasuredBsdf.cs",
+      "Bytes": 15572,
+      "Sha256": "c78f648c515c497cc4d3162032f9a55ae42870eba06d37dea181abcfa6fd2ad7"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/MeasuredBsdfData.cs",
+      "Bytes": 13201,
+      "Sha256": "b19ec3d0bfebd2306da4d80a8650ed49ceb9bc1d143bfcd92d0abd6e9bc336f7"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/SpeosBinaryBsdfReader.cs",
+      "Bytes": 15814,
+      "Sha256": "e0747dc01b0576ac617c71bbbce720bd02c0baa7a00e47eaeb7827c8e4b83cf5"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/SpeosPeakBsdf.cs",
+      "Bytes": 12071,
+      "Sha256": "94fbd1cc2a255fa36afc955c503273ffcd9e79185b291a6fe336418924942641"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/SpeosPeakBuilder.cs",
+      "Bytes": 7645,
+      "Sha256": "24580b10eb1b68f857d8d75ebe706344f5bb98385e967e7832dc86b47437148e"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/SpeosRuntimeWhiteDistribution.cs",
+      "Bytes": 2654,
+      "Sha256": "a6e25b8795bf2665955e2f58f6621301a514c0826ea527151d356ecb60eef228"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/SpeosSpectralBsdf.cs",
+      "Bytes": 8481,
+      "Sha256": "9704b342375a966cb43dbc773370f3fbae3cdff61764efaddfcc2aa680bb02bb"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/SpeosThetaDistribution.cs",
+      "Bytes": 17707,
+      "Sha256": "4c43938ead6c92d5b54db66ffe5a28e2366f0797b83ef4b0d5f4555a71c2f4a8"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/SpeosThetaSlice.cs",
+      "Bytes": 5688,
+      "Sha256": "62b0f8ebe00b4d3bfc4a4df07c46ce776fdcdafdd295b447130cda799adb77c5"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/XyzCalibrationGamut.cs",
+      "Bytes": 7139,
+      "Sha256": "fb6fb6ed8cf6cadf045512da591598059931e56a03216a6f43231fd34d2bb4ad"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/XyzPositiveColorCalibrator.cs",
+      "Bytes": 4950,
+      "Sha256": "a165fa067986ce612da7236f782067cb9d170640a1f794e4931cf413362d8fc1"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/XyzPositiveColorModel.cs",
+      "Bytes": 3846,
+      "Sha256": "f551f7d67f4b2fbd68917ce0802ef99cc483a787e312532dd134a260835c8cce"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/XyzRadiometricCalibrator.cs",
+      "Bytes": 14801,
+      "Sha256": "e312cb8ab788100a35afe4e6977a2ac52a815621b0eb228556fbf1c355dd20a7"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/XyzSpectralProjection.cs",
+      "Bytes": 7334,
+      "Sha256": "0b8686fdae7e98fa914cad3145378a0466362334bbbd867322f72dbd73a49122"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/ZemaxBsdf.cs",
+      "Bytes": 23282,
+      "Sha256": "36bfa0d52e99507d2e1e31be22180bd4b45e48ffc8c996dc602928b2360ac041"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/ZemaxBsdfReader.cs",
+      "Bytes": 10130,
+      "Sha256": "42ec88937f62ba5f7055b19615aa10a8dcd10c5137493010e12c40f104cd7aa3"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Scattering/ZemaxXyzBsdf.cs",
+      "Bytes": 9705,
+      "Sha256": "c88be1c2b6f78da52845390a3bae9df54e8531db07a707b6889731e67059c702"
+    },
+    {
+      "Path": "source-snapshot/src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "Bytes": 27029,
+      "Sha256": "0d263693290bd65001eee0f21a0692e2a100d8cd87bc59f43c12b60b9dac656b"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/BinaryZemaxBsdfChainTests.cs",
+      "Bytes": 4752,
+      "Sha256": "1638753101f6a7dc5f88636b081077f11c11273c48226eb4f5cb1fa9fb5ec852"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/BinaryZemaxBsdfNscTests.cs",
+      "Bytes": 3542,
+      "Sha256": "691a450143303cff80ca5b792e7e4ec92627fffb55f8b90d453314e9737d6a67"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/BinaryZemaxBsdfTests.cs",
+      "Bytes": 17648,
+      "Sha256": "959b2e61faa5441772ba393cee2120630d45171c90c264ea7d0fad85fb73306e"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/BinaryZemaxBsdfWindowTests.cs",
+      "Bytes": 5057,
+      "Sha256": "3ad692b646b1e852e71ca5cc92d9ff963a67929bdde9da9340b99ee935696e95"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/CommercialBsdfCalibrationChainTests.cs",
+      "Bytes": 5490,
+      "Sha256": "30c0bcf0ed9cd686112c4b52e88fd59204fcd3dc13091791f9a96c2e430c312a"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/CommercialBsdfCalibrationTests.cs",
+      "Bytes": 8275,
+      "Sha256": "a096e429ebbbc09d0ef7987544f3f3c79aa7a010caf8e3ec8193ebc301ea5257"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/CommercialBsdfChainTests.cs",
+      "Bytes": 5299,
+      "Sha256": "ceee2362964bfd7fcdc21d7d15e0c6e0dc3aea1320b3257dfeee9746f8745408"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/CommercialBsdfNativeTests.cs",
+      "Bytes": 9472,
+      "Sha256": "1622b07d20becc9e1afabffe4fe2488e77f33c2b9ce63b2886142204c6bb497c"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/CommercialBsdfNscTests.cs",
+      "Bytes": 5271,
+      "Sha256": "237a4420feaeba3309d0001ce466c6fbd4cd98647fe220d6994d492150b0700f"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/CommercialBsdfRuntimeGapTests.cs",
+      "Bytes": 6578,
+      "Sha256": "ff0859457556c064336be5f3bb53a53119c1d93a63f47928c6915f0acabd7f1c"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/CommercialBsdfRuntimeWhiteTests.cs",
+      "Bytes": 2641,
+      "Sha256": "607c6e0f960303bc8b0715eff6b743c5c545429407beb8eb81a3814b1fa904fc"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/CommercialBsdfTests.cs",
+      "Bytes": 12982,
+      "Sha256": "fb6bd68e4b212ba72e68b8f0b430b055ec802b2077af51ee1282b7e5b198e654"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/CommercialBsdfWindowTests.cs",
+      "Bytes": 5248,
+      "Sha256": "5ffe5d75132b26cec417e3f4181f83f9aeda37092f0ca162e34b4faaa40b695f"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-lambertian-v9-frozen.zip",
+      "Bytes": 38097,
+      "Sha256": "bfc3fd8fe628d1b099ff6c3c8bbb3ca532425e744aa968295252ebba1660c85f"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-measured-v9-frozen.zip",
+      "Bytes": 39644,
+      "Sha256": "154519aa1f31e732f347e90876d70d4f817a50597755f76eef717834b36a44fa"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-projected-grid3-frozen.zip",
+      "Bytes": 39854,
+      "Sha256": "d079eee4b49a36b89d52f85b92a2dfefb93df6f815b41fff68ea96f5840a1076"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-speos-grid4-frozen.zip",
+      "Bytes": 68463,
+      "Sha256": "3d6b38de87c5f812d4fce3e3dd95f5efce742c737b72c370e92a589fd910c837"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-speos-grid5-frozen.zip",
+      "Bytes": 193518,
+      "Sha256": "b11cb693c1b153c7175f94eb5c6ed97bb10ad844515d3139684772d5b49f8616"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-speos-grid6-frozen.NOTICE.txt",
+      "Bytes": 485,
+      "Sha256": "8d5852984dac2295725ec0610769f29de75a7c06a500e9ff0f11fe37f31dfb17"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-speos-grid6-frozen.zip",
+      "Bytes": 197244,
+      "Sha256": "8b90da0e24f636d836eb77f5dc7798494ab26fc8c5e16e35f1c44e978f78c26f"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-speos-text-grid2-frozen.zip",
+      "Bytes": 60801,
+      "Sha256": "a1433305af68cd4ccd8a82af53bb52971e56d4c2612ebb8637bd259312efe657"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-xyz-grid4-frozen.zip",
+      "Bytes": 74270,
+      "Sha256": "9830bbb731686470ce52518a08da27750fe46bfa853cb9495f6ce48e44ad9486"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-xyz-grid7-frozen.NOTICE.txt",
+      "Bytes": 390,
+      "Sha256": "d36cca5d82d8a1ca311e7146afdb51af6c8e28b5b5ce1e1adee4c488923c52c4"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-xyz-grid7-frozen.zip",
+      "Bytes": 49093,
+      "Sha256": "f7d1c41948fcbac9202f40115b5744224a0601a21623d55e2fb9d66505006dcc"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-xyz-grid8-frozen.NOTICE.txt",
+      "Bytes": 335,
+      "Sha256": "51ad3cba61cd2a1f61b27106c2bdbf1f6d9de2113a1d59a6728ad826cdde12fa"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/camera-xyz-grid8-frozen.zip",
+      "Bytes": 49742,
+      "Sha256": "ed28b37b40a5531476023e2d709928e78307045bd134eee5b24694fd8f02ab4d"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-gaussian-v11.anisotropicbsdf",
+      "Bytes": 938281,
+      "Sha256": "7594faa642b26407735ebe8be3c566cff1831544f79fb14ef969250ebff46ce6"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-gaussian-v11.NOTICE.txt",
+      "Bytes": 1659,
+      "Sha256": "50aaa7da435d619975931520e28b7fa5e66398d2cb2ed85c5837dd0c8cd03fa0"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-energy.json",
+      "Bytes": 3787,
+      "Sha256": "c139c8e7d88ff7c58e0cd8932ea221502e85f8e39fb531fdd52996bd6e841c33"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-no-white-reference.json",
+      "Bytes": 246180,
+      "Sha256": "db1109ce021098b37801d950babe3e6065ec4fea5e611c84cd0c6eb1624d2a58"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-no-white.anisotropicbsdf",
+      "Bytes": 677,
+      "Sha256": "873791a0a2243367e886c7a883529749eaf09b96205de1632a42bc81eafe4506"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-white-runtime-reference.json",
+      "Bytes": 1042,
+      "Sha256": "cf57a8c4d986cee3a998bd30512ab7c2b2e109b968169f2848f80a1ab8ada81b"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11-white-runtime.anisotropicbsdf",
+      "Bytes": 788,
+      "Sha256": "59e3cd7a4742a6b8f0da701efd787b5a3d1cca7857cfa5e9c420644ae9e18d33"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-native-v11.NOTICE.txt",
+      "Bytes": 992,
+      "Sha256": "8f5f5f7e607c7f355146f51ece85b41f96a45272c0e54613705761e0eef30b17"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-r-test-v9.anisotropicbsdf",
+      "Bytes": 89768,
+      "Sha256": "224e8a56520ac72f58c2124fbd9a030259e09b00b1951eb52ba3c7e6c8e0b72d"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-r-test-v9.NOTICE.txt",
+      "Bytes": 1833,
+      "Sha256": "28ab4761208bb6fb160658d8b7aa45902351ec4ccb8ebda71b3046ffe933baa2"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-white-half-degree.anisotropicbsdf",
+      "Bytes": 8441,
+      "Sha256": "ca30223a414bb0c0002dc9f5584040dfd529a2eaa02a630f774996705dc68367"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/Fixtures/speos-white-quarter-degree.anisotropicbsdf",
+      "Bytes": 15089,
+      "Sha256": "e944bea581f2b2bc60d4182592ea7d0f58dac4f04cccaa9d3a62740745c3403a"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/MeasuredAngularChainTests.cs",
+      "Bytes": 6238,
+      "Sha256": "b093dda396d31bdbc0c5c33ca0bbfaae073c22c8c2f4954ff581ac2e19ddef71"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/MeasuredAngularCoverageTests.cs",
+      "Bytes": 7371,
+      "Sha256": "d78ee5020958c3cad05158574730418cd6d2626fb74699e1fb1bf7eaf2773569"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/MeasuredBsdfChainTests.cs",
+      "Bytes": 7546,
+      "Sha256": "33d26aa417e36e5b4b4d4fe398f78bc929530cc4fa80451c19b8dd420b89a920"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/MeasuredBsdfNscTests.cs",
+      "Bytes": 8831,
+      "Sha256": "46e26b1f0bc494064d030ea4d8cae50de847f12530a11e70f698630864269686"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/MeasuredBsdfTests.cs",
+      "Bytes": 12913,
+      "Sha256": "f89edbf2c800ea79376f00839c43f0d7a42e36a46e681c1225cb98b40ecbf46d"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/MeasuredBsdfWindowTests.cs",
+      "Bytes": 5301,
+      "Sha256": "57471d81cff252a1bd950650cf09e4705105b1c37e581130069871201dcb8455"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj",
+      "Bytes": 18098,
+      "Sha256": "07ec0600634d7e0a80586e0f6c0339337faa74c2383cc9fb47ed09bb870bfd86"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/SpeosV11BinaryTests.cs",
+      "Bytes": 4906,
+      "Sha256": "07c12363416c6c1d436db17189abb56b609cf8dfd36a43a236a4786844678ccd"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/SpeosV11ChainTests.cs",
+      "Bytes": 6366,
+      "Sha256": "6ffec955594ba19f0a37489037c7141e233dad56b7f2da46cd9e0f0b4c9d0521"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/SpeosV11NscTests.cs",
+      "Bytes": 5107,
+      "Sha256": "427fabc7e01a78eb16086b4ff3bc9941ad485c8f56b98a94ca032f510044bb95"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/SpeosV11StatisticsTests.cs",
+      "Bytes": 9196,
+      "Sha256": "427afd4e15e9458e85e99ef3fb5ce707cbfc982e409eec8216722cb52dd8ea8b"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/SpeosV11WindowTests.cs",
+      "Bytes": 6525,
+      "Sha256": "76fa75022894421d4a1f2683cf04fd59f21cf687ebd0ff112c30df9acd92c23b"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/SpeosV11XyzTests.cs",
+      "Bytes": 12806,
+      "Sha256": "1896f8ddafec90c38a64ad0ea4795a33befa12219ddbdf8f8f52ba43ada3564f"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/XyzGamutCalibrationTests.cs",
+      "Bytes": 11559,
+      "Sha256": "f9d60d77f324119f79cd49fe5d9094d2bf101ee490fe9e8e34d36d02ea6c941f"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/XyzGamutChainTests.cs",
+      "Bytes": 9593,
+      "Sha256": "866598a8676301d1a422f9d3c233cb89770d9b916ea1d293aaac1be195e0c09e"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/XyzPositiveCalibrationTests.cs",
+      "Bytes": 11838,
+      "Sha256": "a75f2539e7f3c7b2e393120a2a8000f4ab901af7ee135f792248443323669620"
+    },
+    {
+      "Path": "source-snapshot/tests/OpticalSystemDesign.Tests/XyzPositiveChainTests.cs",
+      "Bytes": 8106,
+      "Sha256": "70ded3003a2c33147f36ace55bb70615120b28bc2c544d9bfaa33a7cb704c2c6"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/CalibrationExploration.cs",
+      "Bytes": 2344,
+      "Sha256": "1557de7bddb7a6a904c2b9af4dab83ff70a95636523d5c579dc4398cea90ce02"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/CommercialBsdf20261031.csproj",
+      "Bytes": 342,
+      "Sha256": "f2c14745ea29c792f0e464180498a5c2d3e764d569af5aca6779793e65b2f14a"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/DerivedGreenCalibration.cs",
+      "Bytes": 4549,
+      "Sha256": "75595c216ef4487885f224a66805e362735ac80f57e93dd623e31ade08321978"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/DirectReview.cs",
+      "Bytes": 1635,
+      "Sha256": "eafc31b8b8637861a15669d617dbc47aa0c9db08a3ef10767ab9d4cfd27cfb44"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/MeasuredPairCalibration.cs",
+      "Bytes": 2127,
+      "Sha256": "5d0ec0a0eec5b13ae0aaeeb91d48e105bc3d29829a0a4357462851e5a5c59911"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/NativeComparison.cs",
+      "Bytes": 8128,
+      "Sha256": "1e7fb881e1eeed5d44608890fea160914e8877e5aaafabcaf326db3f27101846"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/NativeXmpControl.cs",
+      "Bytes": 2664,
+      "Sha256": "0379ab7a86a3269324ea473f468573c808ff0c4469c8dd4eb8a61decd1b40f12"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/Program.cs",
+      "Bytes": 5872,
+      "Sha256": "102c73210aec926424c0012501e81068b1a21cca5785466e3cb9a77b99014103"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/RuntimePowerAudit.cs",
+      "Bytes": 5885,
+      "Sha256": "140d2a7a189db01b8bc6bf1ca8fc4b22a84f0529b2dae82fc21d2f7d8c9ba0ff"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/CommercialBsdf20261031/RuntimeReview.cs",
+      "Bytes": 4182,
+      "Sha256": "aea82e36b8805d558ad31f6d238bd469986d265b114a00fad66e9860b7c39bf0"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/SpeosIsolatedCapture20261031/NativePowerStateProbe.cs",
+      "Bytes": 4441,
+      "Sha256": "014c432b00117587263c9eea801c130f0a46bdfbfb0fca03dd165ddf212aa210"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/SpeosIsolatedCapture20261031/Program.cs",
+      "Bytes": 6628,
+      "Sha256": "e10b7330bc4d8025490d02ac3e9c3caed70512a0d8cd60a1c286e75922090907"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/SpeosIsolatedCapture20261031/RpcCapture.cs",
+      "Bytes": 9927,
+      "Sha256": "357d77af63e908bb1483e16f5f825280312f784f1afa6bef2902624652fcaf33"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/SpeosIsolatedCapture20261031/RpcTrace.cs",
+      "Bytes": 12826,
+      "Sha256": "569594119ac032b5b3e91b8a7bc6d0f3f0d8cd745ed3ec305af11f426bc2c084"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/SpeosIsolatedCapture20261031/SpeosIsolatedCapture20261031.csproj",
+      "Bytes": 212,
+      "Sha256": "5500354786e3863d0990ac6092d8373c56e1220912384c8e2b77cc2a456d9b41"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzAngular20261101/MeasuredAngularChain.cs",
+      "Bytes": 12913,
+      "Sha256": "41384cdd45c9a443904298df5a563aaff4695da1e25aad4737461729854a9619"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzAngular20261101/Program.cs",
+      "Bytes": 2712,
+      "Sha256": "0b6fb1f60319b771bcc6b0192b545daa255baed527aa2de8a1afd5229dc419c9"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzAngular20261101/XyzAngular20261101.csproj",
+      "Bytes": 921,
+      "Sha256": "c3db630badfc59169e50a4b6a74932d6401cfa141ea470d3154d1a9914b3b73d"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzConditions20261101/Mat4Review.cs",
+      "Bytes": 1716,
+      "Sha256": "b7b28e3e8d9392de66dbb4617aa1d40bd9b1b1e4c1435d0e9d326499387f92a4"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzConditions20261101/MatFitReview.cs",
+      "Bytes": 3583,
+      "Sha256": "90979bdba9d21fd3077586d9072b997639d787577485657ffce4d00af4ed6f11"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzConditions20261101/PositiveFits.cs",
+      "Bytes": 6115,
+      "Sha256": "0049f63e1114bc53fee5b69513ef64fb09bd214093cc4a8683c62f5ec0682d06"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzConditions20261101/Program.cs",
+      "Bytes": 7579,
+      "Sha256": "d4587ce9c64eb54a691bbd5c337a1bb9109bd906cbc2fb03f31ec9608e33f9b2"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzConditions20261101/RealCalibrationChain.cs",
+      "Bytes": 10341,
+      "Sha256": "a9463a0022f48752236bb2ed9ac86bc6af4f482582712960c594fe02be132499"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzConditions20261101/XyzConditions20261101.csproj",
+      "Bytes": 889,
+      "Sha256": "45958581dea1b71f215297f1e3e2c43906344e0a282b2a0f864c20145e70df24"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzRadiometry20261101/DerivedGamutRun.cs",
+      "Bytes": 5271,
+      "Sha256": "768c426702b80f77325111592f9f735e49d9fd4d0c660003d903383c6df2eb15"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzRadiometry20261101/GamutExploration.cs",
+      "Bytes": 3951,
+      "Sha256": "0e70f42c73571baff4a9b9961e5f5a3380e731a145afbf4ef0d7c14e6bd4f4d8"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzRadiometry20261101/Program.cs",
+      "Bytes": 8202,
+      "Sha256": "f99890b4462fa2cc6075b657928bc3316b39fa051807a37cea96fefdee03c0f6"
+    },
+    {
+      "Path": "source-snapshot/tools/diagnostics/XyzRadiometry20261101/XyzRadiometry20261101.csproj",
+      "Bytes": 341,
+      "Sha256": "c73e3c9ad18b8325f8580696c4f37821d82ce1c5e6e5161950a7b167e341d3d1"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-10-31/commercial-bsdf-calibration/mystique_XYZ.astm",
+      "Bytes": 93949,
+      "Sha256": "d7575886287713633f99e34edec5edadfb7d2cbf2485bc772f0d5245db62deaa"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-10-31/commercial-bsdf-calibration/mystique_XYZ.astm.gz",
+      "Bytes": 15737,
+      "Sha256": "0b3df657995a8e4d8a83db0c9f226b857b1c8e6e02fcd5c3dd7aca7ad8e22290"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-10-31/commercial-bsdf-calibration/mystique.astm",
+      "Bytes": 456850,
+      "Sha256": "3641f9aa0951964b8f52ac1a0616c0411bd26b055e5ea9c58c22b5f02e58f1a6"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-10-31/commercial-bsdf-calibration/mystique.astm.gz",
+      "Bytes": 95894,
+      "Sha256": "7080f7b08727b7a75f2464609f2184edfb4fdf6473796a6829d8468f31aceaba"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-10-31/commercial-bsdf-calibration/probe-native-com.ps1",
+      "Bytes": 1978,
+      "Sha256": "37f03d8252416d7060a62a75e2861f63373a4dfadaa09edd04e1f44487ed4f29"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-10-31/commercial-bsdf-calibration/SpeosTypeLibrary.cs",
+      "Bytes": 1193,
+      "Sha256": "1eca79a0740b512121f6ec409c9a5859bf7a557065808ecfe3c4a471b9c909f7"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-10-31/white-specular-runtime/xyz-measured/cayman_XYZ.astm",
+      "Bytes": 93941,
+      "Sha256": "0992c3e0750fd86aa70cc324953a8445f565c3625cccdfc2ca24e7d895b7444a"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-10-31/white-specular-runtime/xyz-measured/cayman.astm",
+      "Bytes": 456811,
+      "Sha256": "eddef58cac794c41fffa8be876dc49792fcc37101610c27c87aa8bbb11bd2d6b"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-conditions/final-positive/garnet_red/approved-550-calibration.json",
+      "Bytes": 251393,
+      "Sha256": "1f8cf6b19096bceddc3b217e2006e8adb3c95423b7a6daa783a02470e4ce55b2"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-conditions/final-positive/garnet_red/known-conditions-pairs.csv",
+      "Bytes": 192714,
+      "Sha256": "5da3749b291426c648551f3871a1c7d43f5ae6c2f379ea54d6956ed56beb1c0c"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-conditions/final-positive/krylon_blue/approved-550-calibration.json",
+      "Bytes": 252298,
+      "Sha256": "0c602d703ea87bebff74d2decf98b0bae321715ec6415f0a2f3735c41af1340f"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-conditions/final-positive/krylon_blue/known-conditions-pairs.csv",
+      "Bytes": 190527,
+      "Sha256": "61b482ff41566f5f5d3fa2866ee3176d8659efa617884bd6b30aa2de48a6cdab"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-radiometry/CIE_std_illum_D65.csv",
+      "Bytes": 6820,
+      "Sha256": "e76f210bffff3d552ef7113025da5f325d5dfec200dd4b878b1a2f3a507032cb"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-radiometry/measured/acryl_blue_XYZ.astm",
+      "Bytes": 93945,
+      "Sha256": "9fe766ec058a6797fd81fcc490a3685f3f93c1a81439db94dcdd830d7ba4676e"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-radiometry/measured/acryl_blue.astm",
+      "Bytes": 456768,
+      "Sha256": "0ae678883e58af7840def4aef72847c55c391d2efe324179f209a33fe12ffc9a"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-radiometry/measured/garnet_red_XYZ.astm",
+      "Bytes": 93997,
+      "Sha256": "e32ceea228b47ec1395f3e0719f7e0315fdb3353f46eb21b3bfdaede50876fe1"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-radiometry/measured/garnet_red.astm",
+      "Bytes": 456808,
+      "Sha256": "54f7c8b42720e384a5fbf899c8778a5f3a3394e48ba95650f53753d7356f0020"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-radiometry/measured/krylon_blue_XYZ.astm",
+      "Bytes": 94005,
+      "Sha256": "5ac0db53b4c70bfebefc88b78db9e1c7796616b0d3415f0d8b1be67beaa2a58c"
+    },
+    {
+      "Path": "source-snapshot/validation/rechecks/2026-11-01/xyz-radiometry/measured/krylon_blue.astm",
+      "Bytes": 456816,
+      "Sha256": "53c7e4ff1b235dc859697db8d480fa690785b99b55eb8087d37afcdbafde96b0"
+    },
+    {
+      "Path": "summarize-exploration.py",
+      "Bytes": 1323,
+      "Sha256": "b2ede22d7822fb1b403273c48dfc357ab00fde0fe42a4cde2180a90aa9aab1fa"
+    },
+    {
+      "Path": "test-angular-coverage-second.log",
+      "Bytes": 1330,
+      "Sha256": "465faaae6a081b1236be590e916afd86307000bb80ab217ea8a5aa02fb867d20"
+    },
+    {
+      "Path": "test-angular-final-focused.log",
+      "Bytes": 463,
+      "Sha256": "2cdf33aa67cc2b623250faa8397c1c8588d25d836afb32d39e6aa535e3a2d984"
+    },
+    {
+      "Path": "test-angular-first.log",
+      "Bytes": 205,
+      "Sha256": "1554a4441e40d08c02815a635e6a427b4e29c8ed3a0166ed3e11aff90cab0222"
+    },
+    {
+      "Path": "test-angular-second.log",
+      "Bytes": 4338,
+      "Sha256": "9feb9acbac2e951836e2bb18146052c03505952aaea68b9e01ec19f41e44acd1"
+    },
+    {
+      "Path": "test-isolated-final-focused.log",
+      "Bytes": 383,
+      "Sha256": "d965b7f962b1c19a0e87c2d922b1ec49d0c9a45077c713d5e83c240ebfb52497"
+    },
+    {
+      "Path": "third-import.log",
+      "Bytes": 9538,
+      "Sha256": "b1ef9a240a258c1681d547de06a279e144bdea50a75a7a6fdbaf624fdc8601e3"
+    },
+    {
+      "Path": "third-import/import-audit.json",
+      "Bytes": 10035,
+      "Sha256": "c12ab435d57f97b04b121e4f0b18ada75216c4b2b661481174dc39b66a679c5f"
+    },
+    {
+      "Path": "verify-final.ps1",
+      "Bytes": 7550,
+      "Sha256": "daf4a884826f8b44d0583ff1d6346ead54b603a8a785a330ba8e2206056476e3"
+    }
+  ]
+}

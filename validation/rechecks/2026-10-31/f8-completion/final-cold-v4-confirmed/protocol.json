@@ -1,0 +1,37 @@
+{
+  "version": "f8-completion-final-v4",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "arms": [
+    "control",
+    "candidate"
+  ],
+  "armPolicies": {
+    "control": {
+      "version": 1,
+      "exploreBackFocus": true
+    },
+    "candidate": {
+      "version": 4,
+      "exploreBackFocus": true
+    }
+  },
+  "budget": {
+    "functions": 600,
+    "gradients": 600,
+    "rays": 10000000,
+    "seconds": 600
+  },
+  "cold": "Five NEW candidate processes/RNGs using one frozen v4 runtime; source shapes erased, fresh layouts; no endpoint/checkpoint/optimizer-state imports, including the development seed46 pass.",
+  "input": "One original F8 seed44 input specification; only the random seed changes.",
+  "comparison": "Reuse the complete original five-seed control cohort from paired-v3 (Cold1/Gate2, back-focus exploration enabled), each originally cold and within the same caps. They are historical controls, NOT new v4-runtime runs. Preserve original protocol/runtime/source provenance and byte-for-byte control files. Gate solver source is identical; v4 changes the explicitly versioned candidate phase schedule and the old control branch is unchanged. Other simultaneous Core changes concern GRIN/MEMS/import/serialization and are enumerated in source-changes-from-v3.json; do not claim complete Core source or runtime identity. Independently replay every assessed original control/candidate optic under the final frozen runtime and require exact assessment identity before reporting comparison.",
+  "execution": "Two bounded normal-priority candidate workers, deterministic seed order42-46, fresh process per seed, nested computation parallelism suppressed. Historical controls used the earlier frozen v3 runtime; no same-runtime or speedup claim.",
+  "gates": "Original lens count, materials, aperture/stop/image, fields/spectrum, shape permissions, axial/coefficient bounds and complete formal optical/manufacturing validation remain unchanged.",
+  "development": "All earlier failed batches and warm repairs are separate; no successful endpoints are spliced into this final candidate cohort.",
+  "excluded": "F4 remains its original specification conflict. No DeepSeek, native desktop interaction, commits or publishing."
+}

@@ -28,6 +28,8 @@ public sealed partial class SequentialRayTracer
         var cumulativePaths = states.CumulativePath;
         var cumulativeOpticalPaths = states.CumulativeOpticalPath;
         var active = states.Active;
+        var phaseTrace = surfaces.Any(s => s.InteractionModel is OpticalSystemDesign.Core.Interactions.ParaxialLensInteractionModel)
+            ? new ParaxialPhaseTrace(this) : null;
         try
         {
             states.Initialize(bundle, initialDirections, ambientMaterial);
@@ -86,7 +88,8 @@ public sealed partial class SequentialRayTracer
                         cumulativePaths[rayIndex],
                         cumulativeOpticalPaths[rayIndex],
                         stopBeforeInteraction: request.StopAtIncidentSurfaceIndex == surfaceIndex,
-                        allowVirtualIntersection: allowReferenceBacktrack);
+                        allowVirtualIntersection: allowReferenceBacktrack,
+                        sourceRay: bundle.Rays[rayIndex], phaseTrace: phaseTrace);
                     var slot = surfaceSlots[surfaceIndex];
                     if (slot >= 0)
                     {
@@ -105,7 +108,7 @@ public sealed partial class SequentialRayTracer
                         && result.Sample.Intensity > 0
                         && !result.Sample.Vignetted)
                     {
-                        finalOpticalPaths![rayIndex] = result.Sample.CumulativeOpticalPathLength;
+                        finalOpticalPaths![rayIndex] = result.Sample.PhaseInclusiveOpticalPathLength ?? result.Sample.CumulativeOpticalPathLength;
                         hasFinalOpticalPath![rayIndex] = true;
                     }
 

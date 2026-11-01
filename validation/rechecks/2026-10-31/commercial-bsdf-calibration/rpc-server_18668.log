@@ -1,0 +1,46 @@
+2026/10/31 18:43:37: debug: Log started.
+2026/10/31 18:43:37: License initialization Speos Labs 2026 R1
+2026/10/31 18:43:37: Speos Software Environment initialization called by:
+2026/10/31 18:43:37: 	Module: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\SpeosRPC_Server.exe
+2026/10/31 18:43:37: 	Software: Speos Labs
+2026/10/31 18:43:37: 	Version: 2026.1.0.37094
+2026/10/31 18:43:37:       User Data Base Path: C:\Users\19851\AppData\Roaming\
+2026/10/31 18:43:37: Speos User Data Base Path: C:\Users\19851\AppData\Roaming\Ansys\v261\Optical Products\
+2026/10/31 18:43:37: Speos User Application Data Base Path: C:\Users\19851\AppData\Roaming\Ansys\v261\Optical Products\Speos Labs\
+2026/10/31 18:43:37:       Global Data Base Path: C:\ProgramData\
+2026/10/31 18:43:37: Speos Global Data Base Path: C:\ProgramData\Ansys\v261\Optical Products\
+2026/10/31 18:43:37: Resources Path: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\Resources\
+2026/10/31 18:43:37: Speos Base Path: D:\Program Files\ANSYS Inc\v261\Optical Products\
+2026/10/31 18:43:37: Viewers Path: D:\Program Files\ANSYS Inc\v261\Optical Products\Viewers\
+2026/10/31 18:43:37: Speos Software Base Path: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\
+2026/10/31 18:43:37: User name: allen
+2026/10/31 18:43:37: Computer name: DESKTOP-SET3SNR
+2026/10/31 18:43:37: Computer description: 
+2026/10/31 18:43:37: Scan NLS files in D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\Resources\NLS
+
+2026/10/31 18:43:37: Start the connection with the license server
+2026/10/31 18:43:38: No deserialization requested.
+2026/10/31 18:43:38: warning: C:\ANSYSDev\Agent\_work\1\s\SpeosOne\SpeosRPC\sources\SpeosAPI\kernel_new_API\sources_services\src\BackgroundGrpc.cpp(120): 
+Name: TransportRPCInsecure
+SpeosRPC transport configuration is insecure.
+
+Modifying transport configurations is not recommended.
+
+See the documentation for your installed product for additional information.
+2026/10/31 18:43:38: Start SpeosRPC_Server in insecure mode on 127.0.0.1:57631
+2026/10/31 18:43:38: No popup : 1
+2026/10/31 18:43:38: Port  on 57631
+2026/10/31 18:43:38: error: C:\ANSYSDev\Agent\_work\1\s\SpeosOne\SpeosRPC\sources\SpeosAPI\kernel_new_API\Part\v1\include\GeoPathManager.h(121): 
+Name: BadInstanceGeoPath
+Geo_Path provided is pointing to nowhere
+
+Geo_Path 'sourceBody/emitter' doesn't reference any existing geometry
+
+Please change it to make it point to an existing Part/Body/Face
+2026/10/31 18:43:38: error: C:\ANSYSDev\Agent\_work\1\s\SpeosOne\Speos\Optis.Libs\LibCAD2\Source\OptSource.cpp(3913): 
+Name: OPTNoFaceInSource
+No face in source definition
+
+The constant-exitance source 'source' has been defined without any face.
+
+Check source definition.

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="cc13703e-e845-4a0d-a323-a038c826e5c1" name="allen@DESKTOP-SET3SNR 2026-10-31 23:22:14" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T23:22:14.1073552+08:00" queuing="2026-10-31T23:22:14.1073557+08:00" start="2026-10-31T23:21:54.7397286+08:00" finish="2026-10-31T23:22:17.5160394+08:00" />
+  <TestSettings name="default" id="a137c7c4-af07-45c4-9f85-0ae13b49fbf1">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_23_22_14" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="01e1d898-c9e2-4645-9681-1af4fbe2f2c7" testId="3c317b96-4329-4b4e-7764-d409887833ac" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetPreservationTests.GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets(search: True)" computerName="DESKTOP-SET3SNR" duration="00:00:03.2198112" startTime="2026-10-31T23:22:14.0642328+08:00" endTime="2026-10-31T23:22:17.2640763+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01e1d898-c9e2-4645-9681-1af4fbe2f2c7">
+      <Output>
+        <ErrorInfo>
+          <Message>System.MissingMethodException : Method not found: 'OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.WithThicknesses(System.Collections.Generic.IReadOnlyList`1&lt;Double&gt;)'.</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;&gt;c__DisplayClass66_0.&lt;RefinePassbandQualityPhase&gt;g__ForLayers|3(FilmLayer[] layers)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;&gt;c__DisplayClass66_0.&lt;RefinePassbandQualityPhase&gt;g__ForLayers|3(FilmLayer[] layers)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;&gt;c__DisplayClass66_0.&lt;RefinePassbandQualityPhase&gt;g__Read|4(FilmLayer[] layers, Double[] grid, Boolean derivatives)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;&gt;c__DisplayClass66_0.&lt;RefinePassbandQualityPhase&gt;g__Grid|5(FilmLayer[] layers)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.RefinePassbandQualityPhase(Experiment input, IReadOnlyDictionary`2 materials, IProgress`1 progress, CancellationToken token, Boolean nonlinearCorrection)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.RefinePassbandQuality(Experiment input, IReadOnlyDictionary`2 materials, IProgress`1 progress, CancellationToken token, Boolean nonlinearCorrection)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Optimize(Experiment input, IProgress`1 progress, CancellationToken token)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.GenerateGeneralNarrowBand(Experiment d, IReadOnlyDictionary`2 materials, Boolean fullSearch, IProgress`1 progress, CancellationToken token)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Search(Experiment input, IProgress`1 progress, CancellationToken token)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.TargetPreservationTests.GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets(Boolean search) in D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\TargetPreservationTests.cs:line 47&#xD;
+   at InvokeStub_TargetPreservationTests.GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="442a014a-0bd7-444f-833b-405512d89eec" testId="df594c7a-7fd2-8e36-fa7d-e95307562e8e" testName="OpticalSystemDesign.CoatingDesign.Tests.TargetPreservationTests.GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets(search: False)" computerName="DESKTOP-SET3SNR" duration="00:00:12.9176619" startTime="2026-10-31T23:22:01.1893800+08:00" endTime="2026-10-31T23:22:13.9966487+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="442a014a-0bd7-444f-833b-405512d89eec" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetPreservationTests.GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets(search: False)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="df594c7a-7fd2-8e36-fa7d-e95307562e8e">
+      <Execution id="442a014a-0bd7-444f-833b-405512d89eec" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetPreservationTests" name="GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.TargetPreservationTests.GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets(search: True)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="3c317b96-4329-4b4e-7764-d409887833ac">
+      <Execution id="01e1d898-c9e2-4645-9681-1af4fbe2f2c7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.TargetPreservationTests" name="GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3c317b96-4329-4b4e-7764-d409887833ac" executionId="01e1d898-c9e2-4645-9681-1af4fbe2f2c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df594c7a-7fd2-8e36-fa7d-e95307562e8e" executionId="442a014a-0bd7-444f-833b-405512d89eec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:02.88]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:03.23]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:03.36]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:19.67]       System.MissingMethodException : Method not found: 'OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.WithThicknesses(System.Collections.Generic.IReadOnlyList`1&lt;Double&gt;)'.&#xD;
+[xUnit.net 00:00:19.67]       Stack Trace:&#xD;
+[xUnit.net 00:00:19.67]            at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;&gt;c__DisplayClass66_0.&lt;RefinePassbandQualityPhase&gt;g__ForLayers|3(FilmLayer[] layers)&#xD;
+[xUnit.net 00:00:19.67]            at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;&gt;c__DisplayClass66_0.&lt;RefinePassbandQualityPhase&gt;g__ForLayers|3(FilmLayer[] layers)&#xD;
+[xUnit.net 00:00:19.67]            at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;&gt;c__DisplayClass66_0.&lt;RefinePassbandQualityPhase&gt;g__Read|4(FilmLayer[] layers, Double[] grid, Boolean derivatives)&#xD;
+[xUnit.net 00:00:19.67]            at OpticalSystemDesign.CoatingDesign.Engine.DesignService.&lt;&gt;c__DisplayClass66_0.&lt;RefinePassbandQualityPhase&gt;g__Grid|5(FilmLayer[] layers)&#xD;
+[xUnit.net 00:00:19.67]            at OpticalSystemDesign.CoatingDesign.Engine.DesignService.RefinePassbandQualityPhase(Experiment input, IReadOnlyDictionary`2 materials, IProgress`1 progress, CancellationToken token, Boolean nonlinearCorrection)&#xD;
+[xUnit.net 00:00:19.67]            at OpticalSystemDesign.CoatingDesign.Engine.DesignService.RefinePassbandQuality(Experiment input, IReadOnlyDictionary`2 materials, IProgress`1 progress, CancellationToken token, Boolean nonlinearCorrection)&#xD;
+[xUnit.net 00:00:19.67]            at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Optimize(Experiment input, IProgress`1 progress, CancellationToken token)&#xD;
+[xUnit.net 00:00:19.67]            at OpticalSystemDesign.CoatingDesign.Engine.DesignService.GenerateGeneralNarrowBand(Experiment d, IReadOnlyDictionary`2 materials, Boolean fullSearch, IProgress`1 progress, CancellationToken token)&#xD;
+[xUnit.net 00:00:19.67]            at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Search(Experiment input, IProgress`1 progress, CancellationToken token)&#xD;
+[xUnit.net 00:00:19.67]         D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\TargetPreservationTests.cs(47,0): at OpticalSystemDesign.CoatingDesign.Tests.TargetPreservationTests.GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets(Boolean search)&#xD;
+[xUnit.net 00:00:19.67]            at InvokeStub_TargetPreservationTests.GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets(Object, Span`1)&#xD;
+[xUnit.net 00:00:19.67]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:19.69]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T23:22:17.2702176+08:00">
+        <Text>[xUnit.net 00:00:19.66]     OpticalSystemDesign.CoatingDesign.Tests.TargetPreservationTests.GenerationAndSearchAlsoPreserveTheExistingDesignsIndividualTargets(search: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

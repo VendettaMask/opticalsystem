@@ -1,0 +1,25 @@
+Local validation evidence, 2026-11-01.
+
+Cornell University, Program of Computer Graphics / Cornell-Kodak gonioreflectometer:
+https://bowers.cornell.edu/computer-graphics/data
+Original MAT downloads and prior spectral ASTM files are used for this local audit.
+No redistribution permission is inferred. New source snapshots retain original notices.
+The parser implements only the declared Cornell spectral profile; no general ASTM
+compliance certification is claimed. Source authors themselves did not verify ASTM
+format compliance. Original published XYZ observer remains unverified.
+
+VIAVI Solutions / RPC Photonics Engineered Diffuser representative measured samples:
+https://www.viavisolutions.com/en-us/osp/resources/bsdf-data
+Original EDC50, EDS40, HiLam ZIP / BSDF / PDF / demonstration ZMX are retained as
+local validation references. No independent measurement of wavelength linewidth,
+unmeasured incidence, spectral response or back-side scattering is claimed.
+Use of manufacturer demonstration wavelengths is explicitly recorded in chain results.
+Back side is declared identical for the runtime interface, not a second measurement.
+No real Cornell or VIAVI material is added to CI fixtures.
+
+CIE original observer and illuminant table notices remain in prior frozen evidence:
+CC BY-SA 4.0, original table hashes and conditions retained in fitting results.
+
+Synthetic CI controls and the frozen previous Grid/8 camera ZIP are repository-authored.
+Python/SciPy exploration is diagnostic-only, never a product dependency or a calibration
+approval. Failure, overflow, negative predictions and nonpassive interpolants are retained.

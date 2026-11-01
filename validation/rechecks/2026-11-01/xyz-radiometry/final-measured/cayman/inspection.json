@@ -1,0 +1,473 @@
+{
+  "Execution": {
+    "CoreSha256": "f63b6841ac0783aecc1a3bc067f87a1dc44728ccd5fd6bffd3034aa91ec26084",
+    "DiagnosticSha256": "6a431a3b7d0a71e645a37ee0ca578b3ead3a72398e592e64d0ca73bbe13d79c7"
+  },
+  "Sources": {
+    "Spectral": "eddef58cac794c41fffa8be876dc49792fcc37101610c27c87aa8bbb11bd2d6b",
+    "Xyz": "0992c3e0750fd86aa70cc324953a8445f565c3625cccdfc2ca24e7d895b7444a",
+    "Cmf": "fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1",
+    "D65": "e76f210bffff3d552ef7113025da5f325d5dfec200dd4b878b1a2f3a507032cb"
+  },
+  "fit": {
+    "Bands": [
+      {
+        "WavelengthNanometers": 550,
+        "X": 0.60863075839851,
+        "Y": 2.2344047624585905,
+        "Z": 0
+      }
+    ],
+    "Evidence": {
+      "Provenance": {
+        "Kind": 1,
+        "Source": "Published Cornell paired spectra/XYZ. Illuminant D65; observer not verified.",
+        "XyzSha256": "0992c3e0750fd86aa70cc324953a8445f565c3625cccdfc2ca24e7d895b7444a",
+        "RadiometricSha256": "eddef58cac794c41fffa8be876dc49792fcc37101610c27c87aa8bbb11bd2d6b",
+        "ObserverAndIlluminantVerified": false
+      },
+      "Policy": {
+        "MaximumValidationNormalizedRms": 0.01,
+        "MaximumValidationAbsoluteError": 0.01,
+        "RelativeSignalFloor": 1E-06
+      },
+      "Bands": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 7788.568377022078,
+          "TrainingNormalizedRms": 0.00033670088577849824,
+          "ValidationNormalizedRms": 0.32920326142442635,
+          "ValidationMaximumAbsoluteError": 0.011075942026630557,
+          "ValidationMaximumRelativeError": 2272.7499958290205,
+          "Passed": false
+        }
+      ],
+      "CalibrationBandsSha256": "f65e5261670e100ae92bd87dfa3b38c5cad629f8b860a5e3102fa315684ac11a"
+    },
+    "ModelValidationPassed": false
+  },
+  "Profiles": [
+    {
+      "Validation": false,
+      "Count": 959,
+      "TargetSquaredSum": 398992.50223602017,
+      "MaximumTarget": 631.320435,
+      "LargestTargetSquaredShare": 0.99892977791553,
+      "LargestResiduals": [
+        {
+          "SampleId": "1.22173/0/1.202528/3.1415929999999999",
+          "Validation": false,
+          "Target": 17.078199,
+          "Prediction": 17.245572137383444
+        },
+        {
+          "SampleId": "0.87266500000000002/0/0.87629800000000002/3.1415929999999999",
+          "Validation": false,
+          "Target": 8.216398,
+          "Prediction": 8.281655349680332
+        },
+        {
+          "SampleId": "1.0471980000000001/0/1.035612/3.1415929999999999",
+          "Validation": false,
+          "Target": 8.218428,
+          "Prediction": 8.233225551969769
+        },
+        {
+          "SampleId": "1.0471980000000001/0/0.72273399999999999/3.1415929999999999",
+          "Validation": false,
+          "Target": 0.031606,
+          "Prediction": 0.04370871841756332
+        },
+        {
+          "SampleId": "1.0471980000000001/0/0.87629800000000002/3.1415929999999999",
+          "Validation": false,
+          "Target": 0.03413,
+          "Prediction": 0.04568075745665322
+        },
+        {
+          "SampleId": "0.87266500000000002/0/1.035612/3.1415929999999999",
+          "Validation": false,
+          "Target": 0.034685,
+          "Prediction": 0.04557262279552075
+        },
+        {
+          "SampleId": "1.22173/0/1.035612/3.1415929999999999",
+          "Validation": false,
+          "Target": 0.033343,
+          "Prediction": 0.04387218962002848
+        },
+        {
+          "SampleId": "1.22173/0/0.87629800000000002/3.1415929999999999",
+          "Validation": false,
+          "Target": 0.025121,
+          "Prediction": 0.035604290946515335
+        }
+      ]
+    },
+    {
+      "Validation": true,
+      "Count": 480,
+      "TargetSquaredSum": 0.058248723327000096,
+      "MaximumTarget": 0.16621,
+      "LargestTargetSquaredShare": 0.4742724393273457,
+      "LargestResiduals": [
+        {
+          "SampleId": "0.87266500000000002/0/0.87629800000000002/-3.0106929999999998",
+          "Validation": true,
+          "Target": 0.034763,
+          "Prediction": 0.04583894202663056
+        },
+        {
+          "SampleId": "0.87266500000000002/0/0.72273399999999999/3.1415929999999999",
+          "Validation": true,
+          "Target": 0.036171,
+          "Prediction": 0.047100614843706416
+        },
+        {
+          "SampleId": "1.0471980000000001/0/1.035612/-3.0293929999999998",
+          "Validation": true,
+          "Target": 0.032977,
+          "Prediction": 0.04389534919703627
+        },
+        {
+          "SampleId": "0.87266500000000002/0/1.035612/-3.0293929999999998",
+          "Validation": true,
+          "Target": 0.030259,
+          "Prediction": 0.041132312126951766
+        },
+        {
+          "SampleId": "0.69813199999999997/0/0.87629800000000002/3.1415929999999999",
+          "Validation": true,
+          "Target": 0.031801,
+          "Prediction": 0.042454814916087505
+        },
+        {
+          "SampleId": "1.0471980000000001/0/1.202528/-3.043418",
+          "Validation": true,
+          "Target": 0.029186,
+          "Prediction": 0.03931778212191792
+        },
+        {
+          "SampleId": "0.87266500000000002/0/0.57351300000000005/3.1415929999999999",
+          "Validation": true,
+          "Target": 0.023002,
+          "Prediction": 0.03289529338797945
+        },
+        {
+          "SampleId": "1.0471980000000001/0/0.87629800000000002/-2.8797929999999998",
+          "Validation": true,
+          "Target": 0.018716,
+          "Prediction": 0.028551897196652028
+        }
+      ]
+    }
+  ],
+  "Feasibility": {
+    "ValidationInSampleNnlsMinimumNrmse": 0.10096044800807238,
+    "ValidationCoefficientsAreNotExported": true,
+    "RelativeObjectiveOriginalValidationNrmse": 0.9995516882010226,
+    "RelativeObjectiveOriginalMaximumAbsolute": 0.1661324091163751
+  },
+  "Gamut": [
+    {
+      "UnlabelledDomainIncludesValidationColors": false,
+      "Vertices": 6,
+      "Coefficients": [
+        0.6086307582763477,
+        2.234404762574095,
+        0
+      ],
+      "ValidationNrmse": 0.3292032614446037,
+      "MaximumAbsolute": 0.011075942027533175,
+      "MinimumPrediction": 0
+    },
+    {
+      "UnlabelledDomainIncludesValidationColors": true,
+      "Vertices": 6,
+      "Coefficients": [
+        0.6086307582763477,
+        2.234404762574095,
+        0
+      ],
+      "ValidationNrmse": 0.3292032614446037,
+      "MaximumAbsolute": 0.011075942027533175,
+      "MinimumPrediction": 0
+    }
+  ],
+  "CoreConstrainedFit": {
+    "Bands": [
+      {
+        "WavelengthNanometers": 550,
+        "X": 0.6086307583985504,
+        "Y": 2.234404762458631,
+        "Z": 4.040196473705891E-14
+      }
+    ],
+    "Evidence": {
+      "Provenance": {
+        "Kind": 1,
+        "Source": "Cornell published XYZ; D65 declared, observer unknown",
+        "XyzSha256": "0992c3e0750fd86aa70cc324953a8445f565c3625cccdfc2ca24e7d895b7444a",
+        "RadiometricSha256": "eddef58cac794c41fffa8be876dc49792fcc37101610c27c87aa8bbb11bd2d6b",
+        "ObserverAndIlluminantVerified": false
+      },
+      "Policy": {
+        "MaximumValidationNormalizedRms": 0.01,
+        "MaximumValidationAbsoluteError": 0.01,
+        "RelativeSignalFloor": 1E-06
+      },
+      "Bands": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 7788.568377022078,
+          "TrainingNormalizedRms": 0.00033670088577852323,
+          "ValidationNormalizedRms": 0.32920326142448597,
+          "ValidationMaximumAbsoluteError": 0.011075942026633104,
+          "ValidationMaximumRelativeError": 2272.7499958291637,
+          "Passed": false
+        }
+      ],
+      "CalibrationBandsSha256": "d548184a3719b74b5755df8a0e23221f0fde37857965c5d77eb25b1ca5db483a",
+      "Gamut": {
+        "Source": "Unlabelled published XYZ input colours; no validation radiometric labels",
+        "SourceSha256": "0992c3e0750fd86aa70cc324953a8445f565c3625cccdfc2ca24e7d895b7444a",
+        "Vertices": [
+          {
+            "X": 0,
+            "Y": 0,
+            "Z": 1
+          },
+          {
+            "X": 0.25,
+            "Y": 0,
+            "Z": 0.75
+          },
+          {
+            "X": 0.30937378691889283,
+            "Y": 0.3272077180319545,
+            "Z": 0.3634184950491527
+          },
+          {
+            "X": 0.1601486217921023,
+            "Y": 0.30396612805668366,
+            "Z": 0.535885250151214
+          },
+          {
+            "X": 0.10130995140502852,
+            "Y": 0.28818930910627505,
+            "Z": 0.6105007394886964
+          },
+          {
+            "X": 0,
+            "Y": 0.2,
+            "Z": 0.8
+          }
+        ]
+      }
+    },
+    "ModelValidationPassed": false
+  },
+  "Forward": [
+    {
+      "Illuminant": "D65",
+      "Observer": "CIE 1931 2-degree hypothesis only",
+      "Band": "400-700 nm zero outside",
+      "StepNm": 1,
+      "Trapezoid": true,
+      "CommonScale": 0.3584899982122847,
+      "CommonScaleMaximumError": 0.17433668458593843,
+      "Errors": [
+        {
+          "Channel": "X",
+          "Scale": 0.35840842608308193,
+          "UnscaledNrmse": 1.790112975096247,
+          "ScaledNrmse": 2.831266943010263E-06,
+          "ScaledMaximumAbsolute": 0.00027867410341553267
+        },
+        {
+          "Channel": "Y",
+          "Scale": 0.35825442810776625,
+          "UnscaledNrmse": 1.7913123231449959,
+          "ScaledNrmse": 2.6311995043212324E-06,
+          "ScaledMaximumAbsolute": 0.0003992746435201866
+        },
+        {
+          "Channel": "Z",
+          "Scale": 0.35874067570591606,
+          "UnscaledNrmse": 1.7875288968128513,
+          "ScaledNrmse": 5.870247468069884E-06,
+          "ScaledMaximumAbsolute": 0.0013733059436171757
+        }
+      ]
+    },
+    {
+      "Illuminant": "D65",
+      "Observer": "CIE 1931 2-degree hypothesis only",
+      "Band": "400-700 nm zero outside",
+      "StepNm": 10,
+      "Trapezoid": true,
+      "CommonScale": 0.35865301869154265,
+      "CommonScaleMaximumError": 0.28612983065042386,
+      "Errors": [
+        {
+          "Channel": "X",
+          "Scale": 0.35854394072851675,
+          "UnscaledNrmse": 1.7890584288433553,
+          "ScaledNrmse": 1.3767665418921622E-06,
+          "ScaledMaximumAbsolute": 0.0002572975324630633
+        },
+        {
+          "Channel": "Y",
+          "Scale": 0.35824472375015715,
+          "UnscaledNrmse": 1.7913879359669393,
+          "ScaledNrmse": 1.0515043422742177E-07,
+          "ScaledMaximumAbsolute": 1.5965629817760174E-05
+        },
+        {
+          "Channel": "Z",
+          "Scale": 0.3590647475110689,
+          "UnscaledNrmse": 1.785013028788732,
+          "ScaledNrmse": 3.6544222141774907E-06,
+          "ScaledMaximumAbsolute": 0.0003605445223540116
+        }
+      ]
+    },
+    {
+      "Illuminant": "D65",
+      "Observer": "CIE 1931 2-degree hypothesis only",
+      "Band": "400-700 nm zero outside",
+      "StepNm": 10,
+      "Trapezoid": false,
+      "CommonScale": 0.3582645583546593,
+      "CommonScaleMaximumError": 0.013555153853332058,
+      "Errors": [
+        {
+          "Channel": "X",
+          "Scale": 0.35825606648959096,
+          "UnscaledNrmse": 1.791299557879374,
+          "ScaledNrmse": 7.189522395935486E-08,
+          "ScaledMaximumAbsolute": 1.017309481543549E-05
+        },
+        {
+          "Channel": "Y",
+          "Scale": 0.3582481431494778,
+          "UnscaledNrmse": 1.791361292786248,
+          "ScaledNrmse": 6.753352765392702E-08,
+          "ScaledMaximumAbsolute": 5.026269944252704E-06
+        },
+        {
+          "Channel": "Z",
+          "Scale": 0.35828402060160264,
+          "UnscaledNrmse": 1.7910817745119558,
+          "ScaledNrmse": 5.017675499237529E-08,
+          "ScaledMaximumAbsolute": 5.26854025828527E-06
+        }
+      ]
+    },
+    {
+      "Illuminant": "E",
+      "Observer": "CIE 1931 2-degree hypothesis only",
+      "Band": "400-700 nm zero outside",
+      "StepNm": 1,
+      "Trapezoid": true,
+      "CommonScale": 0.36416922466365337,
+      "CommonScaleMaximumError": 17.283632310268615,
+      "Errors": [
+        {
+          "Channel": "X",
+          "Scale": 0.3413597074552637,
+          "UnscaledNrmse": 1.92946114242807,
+          "ScaledNrmse": 7.6760517470401E-05,
+          "ScaledMaximumAbsolute": 0.013558300750458052
+        },
+        {
+          "Channel": "Y",
+          "Scale": 0.3585885760448962,
+          "UnscaledNrmse": 1.7887112586832483,
+          "ScaledNrmse": 5.826316605305819E-05,
+          "ScaledMaximumAbsolute": 0.006742299319408396
+        },
+        {
+          "Channel": "Z",
+          "Scale": 0.3912689884248955,
+          "UnscaledNrmse": 1.555786503010018,
+          "ScaledNrmse": 4.345346025918639E-05,
+          "ScaledMaximumAbsolute": 0.0016921737208317467
+        }
+      ]
+    },
+    {
+      "Illuminant": "E",
+      "Observer": "CIE 1931 2-degree hypothesis only",
+      "Band": "400-700 nm zero outside",
+      "StepNm": 10,
+      "Trapezoid": true,
+      "CommonScale": 0.3643660580515013,
+      "CommonScaleMaximumError": 17.475556906212717,
+      "Errors": [
+        {
+          "Channel": "X",
+          "Scale": 0.34147392663335807,
+          "UnscaledNrmse": 1.9284812705441055,
+          "ScaledNrmse": 7.82781908607174E-05,
+          "ScaledMaximumAbsolute": 0.013610362840158707
+        },
+        {
+          "Channel": "Y",
+          "Scale": 0.3585790874724593,
+          "UnscaledNrmse": 1.7887850522340751,
+          "ScaledNrmse": 6.07265818551964E-05,
+          "ScaledMaximumAbsolute": 0.00714067785728556
+        },
+        {
+          "Channel": "Z",
+          "Scale": 0.39180420523277676,
+          "UnscaledNrmse": 1.552295218675732,
+          "ScaledNrmse": 4.2895850988220336E-05,
+          "ScaledMaximumAbsolute": 0.0013210975434070349
+        }
+      ]
+    },
+    {
+      "Illuminant": "E",
+      "Observer": "CIE 1931 2-degree hypothesis only",
+      "Band": "400-700 nm zero outside",
+      "StepNm": 10,
+      "Trapezoid": false,
+      "CommonScale": 0.3639211728760729,
+      "CommonScaleMaximumError": 17.102297490304238,
+      "Errors": [
+        {
+          "Channel": "X",
+          "Scale": 0.3411506908009933,
+          "UnscaledNrmse": 1.9312559684739936,
+          "ScaledNrmse": 7.729767304714666E-05,
+          "ScaledMaximumAbsolute": 0.013318353339530908
+        },
+        {
+          "Channel": "Y",
+          "Scale": 0.3585837211368238,
+          "UnscaledNrmse": 1.7887490151939698,
+          "ScaledNrmse": 6.080286007415487E-05,
+          "ScaledMaximumAbsolute": 0.007136703764943242
+        },
+        {
+          "Channel": "Z",
+          "Scale": 0.39069738948278626,
+          "UnscaledNrmse": 1.5595256751643396,
+          "ScaledNrmse": 4.716899566799774E-05,
+          "ScaledMaximumAbsolute": 0.0016085035872945852
+        }
+      ]
+    }
+  ],
+  "ApprovedExport": false,
+  "ApprovedExportRejected": true,
+  "ExportRejection": "XYZ \u6821\u51C6\u5C1A\u672A\u901A\u8FC7\u72EC\u7ACB\u7559\u51FA\u9A8C\u8BC1\u6216\u6D4B\u91CF\u6761\u4EF6\u672A\u6838\u5B9E\uFF0C\u4E0D\u80FD\u5BFC\u51FA\u4E3A\u53EF\u8BA1\u7B97\u6821\u51C6\u3002"
+}

@@ -32,6 +32,8 @@ public sealed class DirectCameraScene
         if (geometry.Objects.Any(o => o.Kind is not (NonSequentialObjectKind.PlaneRectangle or NonSequentialObjectKind.Box or NonSequentialObjectKind.Sphere)
             || o.ReferenceObjectId is not null || o.ContainingObjectId is not null))
             throw new NotSupportedException("直射场景首版支持独立矩形、球体和长方体，均按不透明表面处理。");
+        if (geometry.Objects.Any(o => o.SurfaceBsdf is not null))
+            throw new NotSupportedException("NSC 表面 BSDF 应通过非序列追迹和探测器功率输入，不可被直射场景的独立材质覆盖。");
         WavelengthsNanometers = Array.AsReadOnly(geometry.Wavelengths.Select(w => w.Nanometers).ToArray());
         if (WavelengthsNanometers.Any(w => !double.IsFinite(w) || w is < 200 or > 20000))
             throw new ArgumentException("Scene wavelength is outside the camera range.");

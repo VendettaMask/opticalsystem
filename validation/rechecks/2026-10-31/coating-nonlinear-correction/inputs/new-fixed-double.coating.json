@@ -1,0 +1,203 @@
+{
+  "SchemaVersion": 1,
+  "Id": "d7ddc214-9a6c-4398-b5e5-77b8b9c1bf4a",
+  "Name": "new-fixed-double",
+  "Target": {
+    "Kind": "NarrowBand",
+    "CenterNm": 780,
+    "MinimumNm": 663,
+    "MaximumNm": 896.9999999999999,
+    "Reflectance": 0.02,
+    "MaximumLayers": 39,
+    "AngleDegrees": 23,
+    "Polarization": "Unpolarized",
+    "FwhmNm": 27.300000000000004,
+    "PeakTransmittance": 0.75,
+    "BlockingOd": 1,
+    "StopBands": [
+      {
+        "MinimumNm": 686.4,
+        "MaximumNm": 717.6
+      },
+      {
+        "MinimumNm": 842.4000000000001,
+        "MaximumNm": 873.6000000000001
+      }
+    ],
+    "CenterToleranceNm": 0.78,
+    "FwhmToleranceNm": 2.34,
+    "Structure": {
+      "Cavities": 2
+    }
+  },
+  "Settings": {
+    "PreviewIntervals": 400,
+    "OptimizationIntervals": 120,
+    "MaximumIterations": 48,
+    "Optimizer": "Damped Least Squares",
+    "MinimumThicknessNm": 1.56,
+    "MaximumThicknessNm": 1560,
+    "TolerancePercent": 1,
+    "ToleranceTrials": 20,
+    "RandomSeed": 1234,
+    "DesignProtocolVersion": 4
+  },
+  "IncidentId": "incident",
+  "SubstrateId": "substrate",
+  "LowId": "low",
+  "HighId": "high",
+  "Materials": [
+    {
+      "Id": "incident",
+      "Name": "incident",
+      "Source": "Frozen synthetic cross-specification control, not measured material data",
+      "MinimumNm": 390,
+      "MaximumNm": 1560,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "incident"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "substrate",
+      "Name": "substrate",
+      "Source": "Frozen synthetic cross-specification control, not measured material data",
+      "MinimumNm": 390,
+      "MaximumNm": 1560,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.52,
+          "extinction": 0
+        },
+        "Text": {
+          "name": "substrate"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "low",
+      "Name": "low",
+      "Source": "Frozen synthetic cross-specification control, not measured material data",
+      "MinimumNm": 390,
+      "MaximumNm": 1560,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 1.43,
+          "extinction": 0.0008
+        },
+        "Text": {
+          "name": "low"
+        },
+        "Children": null
+      }
+    },
+    {
+      "Id": "high",
+      "Name": "high",
+      "Source": "Frozen synthetic cross-specification control, not measured material data",
+      "MinimumNm": 390,
+      "MaximumNm": 1560,
+      "Model": {
+        "Kind": "constant",
+        "Numbers": {
+          "index": 2.15,
+          "extinction": 0.004
+        },
+        "Text": {
+          "name": "high"
+        },
+        "Children": null
+      }
+    }
+  ],
+  "Layers": [
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 92.2335917860469,
+      "Variable": false
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 141.75805215932968,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 92.2335917860469,
+      "Variable": true
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 283.51610431865936,
+      "Variable": false
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 92.2335917860469,
+      "Variable": true
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 141.75805215932968,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 92.2335917860469,
+      "Variable": false
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 141.75805215932968,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 92.2335917860469,
+      "Variable": true
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 141.75805215932968,
+      "Variable": false
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 92.2335917860469,
+      "Variable": true
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 283.51610431865936,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 92.2335917860469,
+      "Variable": false
+    },
+    {
+      "MaterialId": "low",
+      "ThicknessNm": 141.75805215932968,
+      "Variable": true
+    },
+    {
+      "MaterialId": "high",
+      "ThicknessNm": 92.2335917860469,
+      "Variable": true
+    }
+  ],
+  "Result": null,
+  "Candidates": null,
+  "Tolerance": null
+}

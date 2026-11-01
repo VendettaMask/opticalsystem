@@ -1,5 +1,7 @@
 using System.Collections.Immutable;
 using System.Diagnostics;
+using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
@@ -16,6 +18,27 @@ public sealed record StructureLossReport(string OpticFingerprint, string Backend
 /// <summary>Bounded observation of an unchanged compiled snapshot; never contributes to qualification.</summary>
 public static class StructureSearchDiagnostics
 {
+    /// <summary>Necessary geometry condition for M2's fixed-aperture edits only.
+    /// An infinite axial bundle reaches a front stop and the first refractor before any
+    /// bending. M2 never enlarges a retained or newly created face beyond these caps.</summary>
+    internal static StructurePrecheck ExternalStopAperturePrecheck(DesignTopology topology)
+    {
+        var applicable = topology.Conjugate == ObjectConjugateMode.Infinite && !topology.HasTransitionElements
+            && topology.CementedInterfaces is null && !topology.Elements.IsDefaultOrEmpty
+            && topology.Stop.ZMillimeters <= topology.Reference.ZMillimeters
+            && topology.Elements.All(e => e.FrontZMillimeters >= topology.Reference.ZMillimeters)
+            && topology.Fields.Any(f => f.Weight > 0 && f.XAngleDegrees == 0 && f.YAngleDegrees == 0);
+        var maximum = topology.Elements.IsDefaultOrEmpty ? 0 : topology.Elements.Max(e =>
+            Math.Max(e.Front.ClearSemiDiameterMillimeters, e.Back.ClearSemiDiameterMillimeters));
+        var clipped = maximum > 0 && !new CircularAperture(maximum).Contains(new Vector3D(topology.Stop.ClearSemiDiameterMillimeters, 0, 0));
+        return new("ExternalStopExceedsEveryFixedFrontAperture", applicable && clipped,
+            topology.Stop.ClearSemiDiameterMillimeters, maximum,
+            (applicable ? "Applicable: " : "Not proven outside scope: ")
+            + "infinite axial field; stop at/before fixed reference; every refractor after reference; M2 edits keep fixed aperture caps, "
+            + "fixed stop/reference and no pre-stop optical element. At least one required rim ray is clipped before first refraction. "
+            + "This is not a general infeasibility claim for internal stops, finite conjugates or adjustable apertures.");
+    }
+
     public static ImmutableArray<StructurePrecheck> Precheck(AutonomousSearchPlan plan, StructureGenerationOptions descriptor)
     {
         var t = plan.Seeds[0]; var count = descriptor.Elements.Length;

@@ -1,0 +1,167 @@
+{
+  "integrityPassed": true,
+  "sourceComparison": [
+    {
+      "file": "DesignService.Balanced.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.FeasibleReflectance.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.FeasibleTargets.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.GeneralMatching.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.GeneralObjective.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.GeneralSearch.cs",
+      "unchanged": false
+    },
+    {
+      "file": "DesignService.NarrowBand.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.NonlinearCorrection.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.PassbandQuality.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.ReflectanceQuality.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.Search.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.SearchSampling.cs",
+      "unchanged": true
+    },
+    {
+      "file": "DesignService.TargetProtection.cs",
+      "unchanged": true
+    },
+    {
+      "file": "Examples.cs",
+      "unchanged": true
+    },
+    {
+      "file": "Experiment.cs",
+      "unchanged": false
+    },
+    {
+      "file": "ExperimentSession.cs",
+      "unchanged": true
+    },
+    {
+      "file": "ExperimentStore.cs",
+      "unchanged": true
+    },
+    {
+      "file": "MaterialLibrary.cs",
+      "unchanged": true
+    },
+    {
+      "file": "MaterialSuitability.cs",
+      "unchanged": true
+    },
+    {
+      "file": "MaterialTable.cs",
+      "unchanged": true
+    }
+  ],
+  "addedProductSources": [
+    "DesignService.SeedRanking.cs"
+  ],
+  "fullSearchUnchanged": true,
+  "archiveIntegrity": true,
+  "referenceSources": [
+    {
+      "path": ".tmp/coating-edge-audit-20261030/package/src/tmm.js",
+      "unchanged": true
+    },
+    {
+      "path": ".tmp/coating-infeasible-repair/TFStudio-8b942b3f956728a23cea2b35023c8b5d8de17428/src/utils/physics/optimizer/lsqEngine.js",
+      "unchanged": true
+    },
+    {
+      "path": ".tmp/coating-infeasible-repair/TFStudio-8b942b3f956728a23cea2b35023c8b5d8de17428/src/utils/optimizers/newton.js",
+      "unchanged": true
+    },
+    {
+      "path": ".tmp/coating-infeasible-repair/TFStudio-8b942b3f956728a23cea2b35023c8b5d8de17428/src/utils/optimizers/sqp.js",
+      "unchanged": true
+    },
+    {
+      "path": ".tmp/coating-infeasible-repair/TFStudio-8b942b3f956728a23cea2b35023c8b5d8de17428/src/utils/physics/optimizer/operandModel.js",
+      "unchanged": true
+    }
+  ],
+  "binaries": [
+    {
+      "file": "OpticalSystemDesign.Core.dll",
+      "final": "174e926b77cb30b97bdf486459fa336f55d9ae57f738ce45d4dd5c182f91b380",
+      "test": "174e926b77cb30b97bdf486459fa336f55d9ae57f738ce45d4dd5c182f91b380",
+      "same": true
+    },
+    {
+      "file": "OpticalSystemDesign.Application.dll",
+      "final": "a68322776c9d0fa7c5a33e4f608b6964ace969e3b0e15bf64d0ad9805d14ecf3",
+      "test": "a68322776c9d0fa7c5a33e4f608b6964ace969e3b0e15bf64d0ad9805d14ecf3",
+      "same": true
+    },
+    {
+      "file": "OpticalSystemDesign.CoatingDesign.Engine.dll",
+      "final": "85db244604159817b0ce05b5d9dc398159284c1de5f343c05c2c8de2b4873072",
+      "test": "85db244604159817b0ce05b5d9dc398159284c1de5f343c05c2c8de2b4873072",
+      "same": true
+    }
+  ],
+  "tests": {
+    "scope": "Isolated final test assembly with pinned optical Core; not a full module/repository or final default-output test run",
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "notExecuted": 0,
+    "trx": "tests/seed-ranking-complete-final.trx",
+    "earlierFullRun": "seed-ranking-final.trx: 6 passed; final full Search guard was added later",
+    "rejectedVerification": "unchanged-search-final.trx: shared test output dependency overwritten (MissingMethod); seed-ranking-isolated-final.trx: older test DLL discovered only 2; neither is the final 6-test result"
+  },
+  "physics": {
+    "cases": 2232,
+    "maximumErrors": {
+      "R": 8.770761894538737e-15,
+      "T": 6.217248937900877e-15,
+      "A": 4.773959005888173e-15
+    }
+  },
+  "curvature": {
+    "points": 28,
+    "maximumError": 1.3034810106282713e-9
+  },
+  "sourceIdentity": "Shared dirty checkout at HEAD 3b43bb7f87270e034218bf466b23f885330814fc; no claim that HEAD alone identifies final sources",
+  "buildScope": {
+    "defaultEngine": "tests/final-engine-build.log: normal Release dependency graph, zero warnings/errors",
+    "tests": "tests/final-isolated-test-build.log: BuildProjectReferences=false to isolated output, zero warnings/errors"
+  },
+  "incompletePrototypes": [
+    "superseded-prototypes.json",
+    "rejected-full-search.json"
+  ]
+}

@@ -50,6 +50,7 @@ public sealed partial class MainWindow
         _preparingHostClose = true;
         try
         {
+            _settingsWindow?.Close();
             _session.Cancel();
             while (_pendingOperations.Count > 0)
             {

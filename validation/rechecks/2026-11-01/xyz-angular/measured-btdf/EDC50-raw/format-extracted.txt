@@ -1,0 +1,28 @@
+ 
+RPC Photonics, Inc., 330 Clay Road, Rochester, NY 1 4623585-272-2840; FAX: 585-272-2845  
+ 
+RPC Photonics, Inc. 
+BSDF Data Format 
+ 
+The enclosed BSDF data files contain scatter data f or various angles of incidence. The files are 
+named with the diffuser type, incident polar angle and incident azimuth angle. For example, the 
+file EDC20 5-0.txt  contains data for the EDC20 diffuser with an incid ent angle of 5 degrees polar 
+angle and 0 degrees azimuth angle. These are text f iles with the first two lines containing general 
+information of the file name and the date the data was taken. The third line contains two 
+numbers: the polar angle,  θ incident , and the azimuth angle,  φincident , of the incident illumination. 
+The remaining lines contain three numbers: the pola r scatter angle, θscatter , the azimuth scatter 
+angle, φscatter , and the BSDF value. The figure below shows the or ientation of these angles. 
+ 
+ 
+Sample Data from an EDC20 data set: 
+!!EDC20 20-0     RPC Photonics     12/5/2013 
+!!BSDF Data 
+20.000 0.000 
+0.0000 0.0000 0.0326 
+0.0000 1.0000 0.0295 
+0.0000 2.0000 0.0234 
+0.0000 3.0000 0.0227 
+⁞ 
+ 
+The BSDF data provided are from measurements of rep resentative diffuser samples. Actual 
+scatter distributions may vary from diffuser to dif fuser. 

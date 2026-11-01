@@ -1,0 +1,54 @@
+{
+  "CoreSha256": "aff80932281ecd411df5787714e67659988d92fbc4facc93d5882662d6bdf3eb",
+  "Cases": [
+    {
+      "Material": "garnet_red",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: Cornell \u6BCF\u4E2A\u975E\u6781\u70B9\u73AF\u987B\u6709\u552F\u4E00\u3001\u8DB3\u591F\u7684\u65B9\u4F4D\u8282\u70B9\u3002\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 51\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "krylon_blue",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: Cornell \u6BCF\u4E2A\u975E\u6781\u70B9\u73AF\u987B\u6709\u552F\u4E00\u3001\u8DB3\u591F\u7684\u65B9\u4F4D\u8282\u70B9\u3002\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 51\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "acryl_blue",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: Cornell \u6BCF\u4E2A\u975E\u6781\u70B9\u73AF\u987B\u6709\u552F\u4E00\u3001\u8DB3\u591F\u7684\u65B9\u4F4D\u8282\u70B9\u3002\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 51\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "mystique",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: Cornell \u6BCF\u4E2A\u975E\u6781\u70B9\u73AF\u987B\u6709\u552F\u4E00\u3001\u8DB3\u591F\u7684\u65B9\u4F4D\u8282\u70B9\u3002\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 51\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "cayman",
+      "Success": false,
+      "Error": "System.IO.InvalidDataException: Cornell \u6BCF\u4E2A\u975E\u6781\u70B9\u73AF\u987B\u6709\u552F\u4E00\u3001\u8DB3\u591F\u7684\u65B9\u4F4D\u8282\u70B9\u3002\r\n   at OpticalSystemDesign.Core.Scattering.CornellAstmBsdfReader.Read(String text, String path, String sha, BsdfFileImportOptions options, CancellationToken token) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\CornellAstmBsdfReader.cs:line 51\r\n   at OpticalSystemDesign.Core.Scattering.BsdfFileImporter.Read(String path, BsdfFileImportOptions options, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\Scattering\\BsdfFileImporter.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\XyzAngular20261101\\Program.cs:line 14"
+    },
+    {
+      "Material": "EDC50",
+      "Success": true,
+      "Count": 31046,
+      "ComputationProtocol": "MeasuredBsdfGrid/3",
+      "SourceSha256": "a5f1dc963944b5f8ea7d4209c8bd4a8c5e8520110898506d227a1801049c7d32",
+      "DataSha256": "c66eb564de85753188b099db529b5e627e2cabdfd6db281b3c8d7d0d72b0de04"
+    },
+    {
+      "Material": "EDS40",
+      "Success": true,
+      "Count": 31046,
+      "ComputationProtocol": "MeasuredBsdfGrid/3",
+      "SourceSha256": "5805cc97d9226852eca5ac90697f141f94b8eefbc3f78f63bc76a9b7afcdb611",
+      "DataSha256": "65f2a93420c7fb57ee4fde5e92e27ea1841ddc3f77ddf4cf66bb4696058c6c9b"
+    },
+    {
+      "Material": "HILAM",
+      "Success": true,
+      "Count": 31046,
+      "ComputationProtocol": "MeasuredBsdfGrid/3",
+      "SourceSha256": "7249223a5b28f0d1909399d32a9ea21b9241e28653744e51c3eba024167440ec",
+      "DataSha256": "ec0b3f9494d13114e55e534b700ef2d036784ce35f45a47efeb573d77c1b8224"
+    }
+  ]
+}

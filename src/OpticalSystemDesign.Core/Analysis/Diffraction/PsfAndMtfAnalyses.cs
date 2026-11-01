@@ -88,20 +88,23 @@ public sealed class PsfAnalysis : BaseAnalysis
                 ? allFields[^1]
                 : allFields[Math.Clamp(_fieldNumber - 1, 0, allFields.Count - 1)];
         var pupilSampling = _requestedRays;
-        var gridSize = Math.Max(pupilSampling, _gridSize ?? (_requestedRays * 2));
-        var displaySize = Math.Min(gridSize, _displaySize ?? gridSize);
-        var displayOffset = (gridSize - displaySize) / 2;
+        var transformSize = Math.Max(pupilSampling, _gridSize ?? (_requestedRays * 2));
+        var displaySize = Math.Min(transformSize, _displaySize ?? transformSize);
+        var croppedReadout = transformSize > AnalysisResourceLimits.MaximumFftGridSize && _displaySize.HasValue;
+        if (croppedReadout && _normalize)
+            throw new AnalysisDataUnavailableException(Name, "full-image peak normalization is unavailable for a cropped large Fourier readout");
         // Native scalar FFT display excludes surface/material attenuation.
         // The shared engine retains launch apodization, clipping and polarized
         // transmission; general-purpose callers retain their normal defaults.
         var results = DiffractionEngine.ComputeFftPsfSpectrum(analysisOptic, field, wavelengths,
-            pupilSampling, gridSize, usePolarization: _usePolarization,
+            pupilSampling, transformSize, usePolarization: _usePolarization,
             cellCenteredPupil: _zemaxCompatible, zemaxFftSampling: _zemaxCompatible,
             ignoreOpd: _ignoreOpd, aimAtStop: analysisOptic.RayAimingEnabled,
             referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0],
             imageDelta: _zemaxCompatible ? _imageDeltaMicrometers : 0,
             ignoreScalarTransmission: _zemaxCompatible,
-            interpolateScalarPupilAmplitude: _zemaxCompatible && !_usePolarization);
+            interpolateScalarPupilAmplitude: _zemaxCompatible && !_usePolarization,
+            croppedOutputSize: croppedReadout ? displaySize : null);
         var primary = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
         if (primary.Wavelength is null)
         {
@@ -120,6 +123,8 @@ public sealed class PsfAnalysis : BaseAnalysis
         var imageAxisUnit = afocalImageSpace
             ? AnalysisAxisUnit.Milliradian
             : AnalysisAxisUnit.Micrometer;
+        var gridSize = croppedReadout ? displaySize : transformSize;
+        var displayOffset = (gridSize - displaySize) / 2;
         var values = new double[gridSize, gridSize];
         var useConfiguredWeights = results.Any(item => item.Wavelength.Weight > 0);
         var totalWeight = results.Sum(item =>
@@ -169,12 +174,14 @@ public sealed class PsfAnalysis : BaseAnalysis
         var xExtent = displaySize * sampleSpacing;
         var yExtent = displaySize * sampleSpacing;
         var points = new List<AnalysisPoint>(displaySize * displaySize);
+        var displayedWindowPeak = 0d;
         for (var row = displayOffset; row < displayOffset + displaySize; row++)
         {
             var y = Coordinate(row, gridSize, sampleSpacing);
             for (var column = displayOffset; column < displayOffset + displaySize; column++)
             {
                 var value = values[row, column];
+                displayedWindowPeak = Math.Max(displayedWindowPeak, value);
                 points.Add(new AnalysisPoint(
                     Coordinate(column, gridSize, sampleSpacing),
                     y,
@@ -205,11 +212,14 @@ public sealed class PsfAnalysis : BaseAnalysis
         {
             ["Method"] = "FFT",
             ["PupilSampling"] = pupilSampling,
-            ["GridSize"] = gridSize,
+            ["GridSize"] = transformSize,
+            ["CroppedFourierReadout"] = croppedReadout,
             ["DisplaySize"] = displaySize,
             ["RequestedDisplaySize"] = _displaySize ?? gridSize,
             ["RequestedImageDelta"] = _imageDeltaMicrometers,
             ["PupilGridStretch"] = results.Select(item => item.Result.PupilGridStretch).ToArray(),
+            ["PupilGridStretchX"] = results.Select(item => item.Result.PupilGridStretchX).ToArray(),
+            ["PupilGridStretchY"] = results.Select(item => item.Result.PupilGridStretchY).ToArray(),
             ["UseRayAiming"] = results.Select(item => item.Result.UseRayAiming).ToArray(),
             ["StopAimingFallbackUsed"] = results.Any(item => item.Result.StopAimingFallbackUsed),
             ["ImageDeltaMicrometers"] = afocalImageSpace ? 0 : sampleSpacing,
@@ -218,7 +228,9 @@ public sealed class PsfAnalysis : BaseAnalysis
             ["ImageCoordinateUnit"] = imageUnitLabel,
             ["WorkingFNumber"] = results.Average(item => item.Result.WorkingFNumber),
             ["StrehlRatio"] = centerValue,
-            ["PeakStrehlRatio"] = values.Cast<double>().DefaultIfEmpty(0).Max(),
+            ["PeakStrehlRatio"] = croppedReadout ? (object)"Not evaluated outside the display window"
+                : values.Cast<double>().DefaultIfEmpty(0).Max(),
+            ["DisplayedWindowPeakRatio"] = displayedWindowPeak,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["WavelengthRange"] = $"{wavelengths.Min(item => item.Micrometers):0.0000}–{wavelengths.Max(item => item.Micrometers):0.0000} µm",
             ["FieldNumber"] = _fieldNumber,
@@ -283,18 +295,20 @@ public sealed class PsfAnalysis : BaseAnalysis
 
     internal static double BilinearSample(PsfResult source, double x, double y)
     {
-        var column = (x / source.SampleSpacingMicrometers) + (source.GridSize / 2);
-        var row = (y / source.SampleSpacingMicrometers) + (source.GridSize / 2);
+        var center = source.CroppedImageCenterIndex ?? source.GridSize / 2;
+        var column = (x / source.SampleSpacingMicrometers) + center;
+        var row = (y / source.SampleSpacingMicrometers) + center;
+        var maximumIndex = source.CroppedImageCenterIndex.HasValue ? source.GridSize - 1 : source.GridSize;
         // A separately computed physical pitch can round the Nyquist endpoint
         // just outside the grid. Retain that endpoint without wrapping exterior data.
         var roundoff = 1e-12 * source.GridSize;
         if (column < -roundoff || row < -roundoff
-            || column > source.GridSize + roundoff || row > source.GridSize + roundoff)
+            || column > maximumIndex + roundoff || row > maximumIndex + roundoff)
         {
             return 0;
         }
-        column = Math.Clamp(column, 0, source.GridSize);
-        row = Math.Clamp(row, 0, source.GridSize);
+        column = Math.Clamp(column, 0, maximumIndex);
+        row = Math.Clamp(row, 0, maximumIndex);
 
         // The positive Nyquist boundary is the same Fourier sample as the
         // negative boundary. Preserve it when presenting Zemax's even grid.
@@ -304,8 +318,8 @@ public sealed class PsfAnalysis : BaseAnalysis
         var ty = row - floorRow;
         var left = floorColumn % source.GridSize;
         var top = floorRow % source.GridSize;
-        var right = (left + 1) % source.GridSize;
-        var bottom = (top + 1) % source.GridSize;
+        var right = source.CroppedImageCenterIndex.HasValue ? Math.Min(left + 1, source.GridSize - 1) : (left + 1) % source.GridSize;
+        var bottom = source.CroppedImageCenterIndex.HasValue ? Math.Min(top + 1, source.GridSize - 1) : (top + 1) % source.GridSize;
         var topValue = source.Values[top, left] * (1 - tx)
             + source.Values[top, right] * tx;
         var bottomValue = source.Values[bottom, left] * (1 - tx)
@@ -389,6 +403,11 @@ public sealed class MtfAnalysis : BaseAnalysis
             var field = fields[fieldIndex];
             var wavelengthResults = wavelengths.Select(wavelength =>
             {
+                if (gridSize > AnalysisResourceLimits.MaximumFftGridSize)
+                    return (wavelength, DiffractionEngine.ComputeFftMtfFromPupil(
+                        analysisOptic, field, wavelength, pupilSampling, gridSize, _usePolarization,
+                        cellCenteredPupil: _zemaxCompatible, zemaxFftSampling: _zemaxCompatible,
+                        referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]));
                 var psf = DiffractionEngine.ComputeFftPsf(
                     analysisOptic,
                     field,

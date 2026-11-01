@@ -15,7 +15,8 @@ using SkiaSharp;
 
 namespace OpticalSystemDesign.Application.Services;
 
-internal sealed partial class CameraImagingService(WorkspaceCoordinator workspace, IWorkbenchModeService modes)
+internal sealed partial class CameraImagingService(WorkspaceCoordinator workspace, IWorkbenchModeService modes,
+    NonSequentialAnalysisService nonSequentialAnalysis)
     : WorkbenchServiceBase(workspace), ICameraImagingService
 {
     internal const string Scope = "Generic laboratory model; 650/550/450 nm narrow bands; ideal non-overlapping Bayer filters; "
@@ -36,7 +37,8 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
         if (run.Inputs.EngineVersion == CameraExperiment.LegacyEngineVersion && run.Request.PixelSampling is not null)
             throw new InvalidDataException("旧模型记录不允许包含新增像元面积采样设置。");
         var inputs = FreezeInputs(run.Inputs);
-        if (request is not null) inputs = inputs with { EngineVersion = ExperimentEngineVersion };
+        if (request is not null) inputs = inputs with { EngineVersion = request.Source == CameraSource.NonSequentialDetector
+            ? CameraExperiment.NonSequentialEngineVersion : ExperimentEngineVersion };
         if (request is { Source: CameraSource.ExternalImage } && (inputs.ExternalImageBytes is null
             || request.SourceFile != run.Request.SourceFile))
         {
@@ -71,6 +73,10 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
             throw new ArgumentOutOfRangeException(nameof(request), "当前镜头阶段每边最多 256 像素；512 × 384 可用于理想光学传感器对照。");
         var sensor = ToCore(request.Sensor); var isp = ToCore(request.Isp);
         CameraSensorPipeline.Validate(sensor, isp);
+        if (request.Source == CameraSource.NonSequentialDetector)
+            return await SimulateNonSequentialAsync(request, inputs, savedName, cancellationToken).ConfigureAwait(false);
+        if (request.NscDetector is not null || request.Optics == CameraOptics.DetectorInput || request.SpectralModel == CameraSpectralModel.DetectorBands)
+            throw new ArgumentException("非序列探测器功率仅用于非序列探测器输入。");
         var pixelSampling = ToCore(request.PixelSampling); CameraPixelAperture.Validate(pixelSampling);
         ValidateQeArea(request);
         if (request.Source == CameraSource.Scene3D)
@@ -203,6 +209,18 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
 
         void AddRun(CameraImagingResult run, string folder)
         {
+            if (run.Request.NscDetector is { } nsc)
+            {
+                Write(folder + "/nsc-detector.json", JsonSerializer.SerializeToUtf8Bytes(nsc, ExperimentJsonOptions));
+                var powers = new StringBuilder("x,y,wavelength_number,wavelength_nm,pixel_power_W\n");
+                foreach (var band in nsc.Bands) for (var y = 0; y < run.Request.Height; y++)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    for (var x = 0; x < run.Request.Width; x++) powers.Append(CultureInfo.InvariantCulture,
+                        $"{x},{y},{band.WavelengthNumber},{band.WavelengthNanometers:G17},{band.PixelPowerWatts[(run.Request.Height - 1 - y) * run.Request.Width + x]:G17}\n");
+                }
+                Write(folder + "/detector-power.csv", Encoding.UTF8.GetBytes(powers.ToString()));
+            }
             if (run.Scene3D is { } scene3d)
             {
                 Write(folder + "/scene3d.json", JsonSerializer.SerializeToUtf8Bytes(run.Request.Scene3D, Scene3DJson));
@@ -227,14 +245,16 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                 run.MeanPhotoElectrons,
                 run.RawNoiseRmseDn,
                 run.SaturatedPixels,
-                BandsNanometers = run.Integration is null ? CameraSensorPipeline.BandWavelengthsNanometers
+                BandsNanometers = run.Request.NscDetector is { } detector ? detector.Bands.Select(b => b.WavelengthNanometers).ToArray()
+                    : run.Integration is null ? CameraSensorPipeline.BandWavelengthsNanometers
                     : run.Integration.Nodes.Select(n => n.WavelengthNanometers).ToArray(),
                 run.Integration,
-                DetectorModelVersion = run.Scene3D is null ? "CameraPixelArea/1" : "CameraActiveGauss/1",
+                DetectorModelVersion = run.Request.NscDetector is not null ? "NSCFullPixelPower/1" : run.Scene3D is null ? "CameraPixelArea/1" : "CameraActiveGauss/1",
                 EngineVersion = run.Inputs?.EngineVersion,
                 DetectorSampling = run.Request.PixelSampling,
-                ModelVersion = run.Scene3D?.Diffraction is not null ? "CameraLabV8-SceneDiffraction" : run.Scene3D is not null ? "CameraLabV7-DirectScene" : run.Integration?.Materials is not null ? "CameraLabV4-Materials" : run.Integration is not null ? "CameraLabV3-Continuous" : run.Request.SpectralResponse is null ? "CameraLabV1" : "CameraLabV2-QE",
-                OpticalSampling = run.Scene3D?.Diffraction is not null ? $"Absolute scalar Huygens surface cells; {run.Request.Render3D!.Diffraction}; active pixel Gauss {run.Request.PixelSampling?.SamplesPerAxis ?? 1}; no crop normalization, no geometric convolution"
+                ModelVersion = run.Request.NscDetector is not null ? "CameraLabV9-NscDetector" : run.Scene3D?.Diffraction is not null ? "CameraLabV8-SceneDiffraction" : run.Scene3D is not null ? "CameraLabV7-DirectScene" : run.Integration?.Materials is not null ? "CameraLabV4-Materials" : run.Integration is not null ? "CameraLabV3-Continuous" : run.Request.SpectralResponse is null ? "CameraLabV1" : "CameraLabV2-QE",
+                OpticalSampling = run.Request.NscDetector is not null ? "Frozen full-pixel NSC spectral power; saved paths only; no extra optical propagation; top-first CSV, negative-local-Y-first frozen input"
+                    : run.Scene3D?.Diffraction is not null ? $"Absolute scalar Huygens surface cells; {run.Request.Render3D!.Diffraction}; active pixel Gauss {run.Request.PixelSampling?.SamplesPerAxis ?? 1}; no crop normalization, no geometric convolution"
                     : run.Scene3D is not null ? $"Actual reverse lens; pixel Gauss {run.Request.PixelSampling?.SamplesPerAxis ?? 1}; pupil Gaussian {run.Request.Render3D?.PupilRings ?? 2} rings x {run.Request.Render3D?.PupilArms ?? 8} arms; absolute active W/pixel"
                     : run.Request.Optics == CameraOptics.CurrentLens
                     ? $"3x3 field; {16 * (run.Request.PixelSampling?.SamplesPerAxis ?? 1)}x{16 * (run.Request.PixelSampling?.SamplesPerAxis ?? 1)} PSF; 3 components; 12 pupil sampling parameter; {8 * (run.Request.PixelSampling?.SamplesPerAxis ?? 1)} optical-cell guard; 5x5 distortion grid; degree 3; optical cell pitch = pixel pitch / samples per axis"

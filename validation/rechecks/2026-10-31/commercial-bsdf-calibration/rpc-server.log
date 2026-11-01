@@ -1,0 +1,59 @@
+2026/10/31 18:16:04: debug: Log started.
+2026/10/31 18:16:04: License initialization Speos Labs 2026 R1
+2026/10/31 18:16:04: Speos Software Environment initialization called by:
+2026/10/31 18:16:04: 	Module: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\SpeosRPC_Server.exe
+2026/10/31 18:16:04: 	Software: Speos Labs
+2026/10/31 18:16:04: 	Version: 2026.1.0.37094
+2026/10/31 18:16:04:       User Data Base Path: C:\Users\19851\AppData\Roaming\
+2026/10/31 18:16:04: Speos User Data Base Path: C:\Users\19851\AppData\Roaming\Ansys\v261\Optical Products\
+2026/10/31 18:16:04: Speos User Application Data Base Path: C:\Users\19851\AppData\Roaming\Ansys\v261\Optical Products\Speos Labs\
+2026/10/31 18:16:04:       Global Data Base Path: C:\ProgramData\
+2026/10/31 18:16:04: Speos Global Data Base Path: C:\ProgramData\Ansys\v261\Optical Products\
+2026/10/31 18:16:04: Resources Path: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\Resources\
+2026/10/31 18:16:04: Speos Base Path: D:\Program Files\ANSYS Inc\v261\Optical Products\
+2026/10/31 18:16:04: Viewers Path: D:\Program Files\ANSYS Inc\v261\Optical Products\Viewers\
+2026/10/31 18:16:04: Speos Software Base Path: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\
+2026/10/31 18:16:04: User name: allen
+2026/10/31 18:16:04: Computer name: DESKTOP-SET3SNR
+2026/10/31 18:16:04: Computer description: 
+2026/10/31 18:16:04: Scan NLS files in D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\native-runtime\Optical Products\SPEOS_RPC\Resources\NLS
+
+2026/10/31 18:16:07: Start the connection with the license server
+2026/10/31 18:16:07: No deserialization requested.
+2026/10/31 18:16:07: warning: C:\ANSYSDev\Agent\_work\1\s\SpeosOne\SpeosRPC\sources\SpeosAPI\kernel_new_API\sources_services\src\BackgroundGrpc.cpp(120): 
+Name: TransportRPCInsecure
+SpeosRPC transport configuration is insecure.
+
+Modifying transport configurations is not recommended.
+
+See the documentation for your installed product for additional information.
+2026/10/31 18:16:07: Start SpeosRPC_Server in insecure mode on 127.0.0.1:50187
+2026/10/31 18:16:07: No popup : 1
+2026/10/31 18:16:07: Port  on -1
+2026/10/31 18:16:07: critical: C:\ANSYSDev\Agent\_work\1\s\SpeosOne\SpeosRPC\sources\SpeosAPI\kernel_new_API\sources_services\src\BackgroundGrpc.cpp(194): 
+Name: PortAlreadyUsed
+gRPC server launch failed
+
+Server port '50187' defined for the gRPC server is already used by another application.
+
+Please define a server port different from '50187', then restart the gRPC server.
+	Optis::AppInfo::CallStack
+	Optis::IO::Log::Write
+	Optis::IO::Log::Write
+	OPTCheckValue
+	OPTCheckValue
+	OPTCheckValue
+	OPTErrorKernelAddN
+	Speos::Simulation::v1::SimulationTemplatesManager::operator=
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	Speos::ServerInfo::GetVersion
+	SpeosRPC::Server::Server
+	ErrorUtil::ShowStatusError
+	SpeosRPC::Server::Create
+SymGetSymFromAddr64 failed: 487
+SymGetSymFromAddr64 failed: 487
+	BaseThreadInitThunk
+	RtlUserThreadStart
+2026/10/31 18:16:07: Stop the connection with the license server

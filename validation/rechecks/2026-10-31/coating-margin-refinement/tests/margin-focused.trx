@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0d66597e-c63e-4e60-af29-2fbaeeb7b44b" name="allen@DESKTOP-SET3SNR 2026-10-31 17:33:25" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T17:33:25.4905704+08:00" queuing="2026-10-31T17:33:25.4905707+08:00" start="2026-10-31T17:32:10.6752656+08:00" finish="2026-10-31T17:33:30.7501270+08:00" />
+  <TestSettings name="default" id="414321cf-8ae7-4f67-a3a1-0f68034ba9fa">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_17_33_25" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f9fbae19-b215-4fd0-b46b-342fc9aba7b7" testId="75e818e7-c5df-50fc-cad0-62caea287aa7" testName="OpticalSystemDesign.CoatingDesign.Tests.MarginRefinementTests.PhysicalPeakBlockingAndWidthImproveWithoutSpendingAnyFrozenMargin(name: &quot;real-nbf2-96&quot;)" computerName="DESKTOP-SET3SNR" duration="00:01:13.9923334" startTime="2026-10-31T17:32:11.4679444+08:00" endTime="2026-10-31T17:33:25.4670721+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f9fbae19-b215-4fd0-b46b-342fc9aba7b7" />
+    <UnitTestResult executionId="6bf6488d-121a-473e-ae88-22bcf23fa455" testId="583142ff-666f-c1e7-1348-7ed3e049b924" testName="OpticalSystemDesign.CoatingDesign.Tests.MarginRefinementTests.AlreadyPassedNarrowBandStillImprovesItsPhysicalMargins" computerName="DESKTOP-SET3SNR" duration="00:00:00.8788146" startTime="2026-10-31T17:33:29.8216911+08:00" endTime="2026-10-31T17:33:30.6998793+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6bf6488d-121a-473e-ae88-22bcf23fa455" />
+    <UnitTestResult executionId="cdb144cd-4dfc-41f9-881d-02645b9d52a5" testId="79af60b6-6f5f-f2e5-ec7f-e4ac73c0d6e1" testName="OpticalSystemDesign.CoatingDesign.Tests.MarginRefinementTests.PhysicalPeakBlockingAndWidthImproveWithoutSpendingAnyFrozenMargin(name: &quot;holdout-violet&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:04.3520909" startTime="2026-10-31T17:33:25.4790385+08:00" endTime="2026-10-31T17:33:29.8198561+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cdb144cd-4dfc-41f9-881d-02645b9d52a5" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.MarginRefinementTests.PhysicalPeakBlockingAndWidthImproveWithoutSpendingAnyFrozenMargin(name: &quot;real-nbf2-96&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="75e818e7-c5df-50fc-cad0-62caea287aa7">
+      <Execution id="f9fbae19-b215-4fd0-b46b-342fc9aba7b7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.MarginRefinementTests" name="PhysicalPeakBlockingAndWidthImproveWithoutSpendingAnyFrozenMargin" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.MarginRefinementTests.AlreadyPassedNarrowBandStillImprovesItsPhysicalMargins" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="583142ff-666f-c1e7-1348-7ed3e049b924">
+      <Execution id="6bf6488d-121a-473e-ae88-22bcf23fa455" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.MarginRefinementTests" name="AlreadyPassedNarrowBandStillImprovesItsPhysicalMargins" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.MarginRefinementTests.PhysicalPeakBlockingAndWidthImproveWithoutSpendingAnyFrozenMargin(name: &quot;holdout-violet&quot;)" storage="d:\projects\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\debug\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="79af60b6-6f5f-f2e5-ec7f-e4ac73c0d6e1">
+      <Execution id="cdb144cd-4dfc-41f9-881d-02645b9d52a5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.MarginRefinementTests" name="PhysicalPeakBlockingAndWidthImproveWithoutSpendingAnyFrozenMargin" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="75e818e7-c5df-50fc-cad0-62caea287aa7" executionId="f9fbae19-b215-4fd0-b46b-342fc9aba7b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="583142ff-666f-c1e7-1348-7ed3e049b924" executionId="6bf6488d-121a-473e-ae88-22bcf23fa455" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="79af60b6-6f5f-f2e5-ec7f-e4ac73c0d6e1" executionId="cdb144cd-4dfc-41f9-881d-02645b9d52a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.36]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.41]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.44]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:01:19.69]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

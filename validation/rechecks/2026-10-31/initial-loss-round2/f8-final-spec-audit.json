@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "reference": true,
+    "stop": true,
+    "image": true,
+    "fields": true,
+    "wavelengths": true,
+    "conjugate": true,
+    "originalElementCount": true,
+    "originalPhysicalApertures": true,
+    "originalMaterialChoices": true,
+    "originalCurvatureBound": true,
+    "originalProfilePermission": true,
+    "originalCoefficientLimits": true
+  },
+  "anchoredParameterBounds": "Checked by C# TopologyParameterBinder.Bind in cold validation",
+  "functionsIncludingAcquisition": 467,
+  "gradientsIncludingAcquisition": 351,
+  "raysIncludingAcquisition": 1997997,
+  "independentValidationAndExport": "Separate, not search-budget input",
+  "asphericSurfaces": 16,
+  "polynomialTerms": 32
+}

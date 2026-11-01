@@ -16,6 +16,13 @@ public enum HuygensPolarizationMode
     CoherentXyz
 }
 
+public enum AfocalHuygensIntegration
+{
+    NativeFiniteCell,
+    GaussianPupil,
+    CheckedGaussianPupil
+}
+
 public sealed record PsfResult(
     double[,] Values,
     int PupilSampling,
@@ -31,12 +38,23 @@ public sealed record PsfResult(
     public bool StopAimingFallbackUsed { get; init; }
     public HuygensPolarizationMode HuygensPolarization { get; init; }
     public bool FiniteCellHuygensUsed { get; init; }
+    public AfocalHuygensIntegration? AfocalIntegration { get; init; }
+    public int PupilQuadratureNodeCount { get; init; }
+    public bool GeometricChiefReferenceUsed { get; init; }
+    public double? HuygensReferenceAmplitude { get; init; }
+    public IReadOnlyList<HuygensSamplingDiagnostics>? HuygensSamplingChecks { get; init; }
     public double PupilGridStretch { get; init; } = 1;
+    public double PupilGridStretchX { get; init; } = 1;
+    public double PupilGridStretchY { get; init; } = 1;
     /// <summary>Zero-phase peak of this FFT pupil, relative to the engine's unit-amplitude reference.</summary>
     public double UnaberratedPeakRatio { get; init; } = 1;
-    public double StrehlRatio => Values[GridSize / 2, GridSize / 2] / 100;
+    /// <summary>Explicit zero-frequency index for a nonperiodic, cropped Fourier readout.</summary>
+    public int? CroppedImageCenterIndex { get; init; }
+    public double StrehlRatio => Values[CroppedImageCenterIndex ?? GridSize / 2, CroppedImageCenterIndex ?? GridSize / 2] / 100;
 
-    public double PeakStrehlRatio => Values.Cast<double>().DefaultIfEmpty(0).Max() / 100;
+    public double PeakStrehlRatio => CroppedImageCenterIndex.HasValue
+        ? throw new InvalidOperationException("A cropped Fourier readout does not evaluate the full-image peak.")
+        : Values.Cast<double>().DefaultIfEmpty(0).Max() / 100;
 }
 
 /// <summary>Global image-plane frame tangent to the image surface at the chief-ray intercept.</summary>
@@ -140,7 +158,7 @@ public static partial class DiffractionEngine
         bool cellCenteredPupil = false, bool zemaxFftSampling = false,
         bool ignoreOpd = false, bool? aimAtStop = null,
         Wavelength? referenceWavelength = null, double imageDelta = 0,
-        bool ignoreScalarTransmission = false, bool interpolateScalarPupilAmplitude = false)
+        bool ignoreScalarTransmission = false, bool interpolateScalarPupilAmplitude = false, int? croppedOutputSize = null)
     {
         ArgumentNullException.ThrowIfNull(wavelengths);
         if (wavelengths.Count == 0) throw new ArgumentException("No selected wavelengths.", nameof(wavelengths));
@@ -161,7 +179,7 @@ public static partial class DiffractionEngine
             ignoreOpd: ignoreOpd, aimAtStop: aimAtStop,
             referenceWavelength: reference, imageDelta: delta,
             ignoreScalarTransmission: ignoreScalarTransmission,
-            interpolateScalarPupilAmplitude: interpolateScalarPupilAmplitude);
+            interpolateScalarPupilAmplitude: interpolateScalarPupilAmplitude, croppedOutputSize: croppedOutputSize);
     }
 
     /// <summary>
@@ -186,12 +204,14 @@ public static partial class DiffractionEngine
         Wavelength? referenceWavelength = null,
         double imageDelta = 0,
         bool ignoreScalarTransmission = false,
-        bool interpolateScalarPupilAmplitude = false)
+        bool interpolateScalarPupilAmplitude = false,
+        int? croppedOutputSize = null)
     {
         return ComputeFftPsfCore(optic, field, wavelength, pupilSampling, gridSize, usePolarization,
             cellCenteredPupil, defocusMillimeters, preparedWavefront, preparedPolarization,
             zemaxFftSampling, ignoreOpd, aimAtStop, referenceWavelength, imageDelta,
-            ignoreScalarTransmission, out _, interpolateScalarPupilAmplitude: interpolateScalarPupilAmplitude);
+            ignoreScalarTransmission, out _, interpolateScalarPupilAmplitude: interpolateScalarPupilAmplitude,
+            croppedOutputSize: croppedOutputSize);
     }
 
     private static PsfResult ComputeFftPsfCore(
@@ -202,9 +222,11 @@ public static partial class DiffractionEngine
         double imageDelta, bool ignoreScalarTransmission, out Complex[,] complexPupil,
         WavefrontReferenceSphere? referenceSphere = null,
         PupilGridSpecification? explicitPupilGrid = null,
-        bool interpolateScalarPupilAmplitude = false)
+        bool interpolateScalarPupilAmplitude = false,
+        int? croppedOutputSize = null)
     {
-        AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
+        if (croppedOutputSize is { } crop) ValidateCroppedFft(pupilSampling, gridSize, crop);
+        else AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
         if (interpolateScalarPupilAmplitude && (!zemaxFftSampling || usePolarization))
             throw new ArgumentException("Scalar FFT amplitude interpolation requires scalar native FFT sampling.");
 
@@ -228,9 +250,6 @@ public static partial class DiffractionEngine
         }
 
         var fNumber = optic.ImageSpaceAfocal ? double.PositiveInfinity : CombineWorkingFNumbers(workingAxes);
-        var pupilGridStretch = zemaxFftSampling && imageDelta >= 0
-            ? Math.Sqrt(Math.Max(1, pupilSampling / 32.0))
-            : 1;
         if (!double.IsFinite(imageDelta) || (!zemaxFftSampling && imageDelta < 0))
         {
             throw new ArgumentOutOfRangeException(nameof(imageDelta));
@@ -241,20 +260,14 @@ public static partial class DiffractionEngine
             {
                 throw new ArgumentException("Explicit FFT image sampling requires regenerating the pupil grid.");
             }
-            // Fourier-conjugate grids: requesting image pitch changes the pupil
-            // spacing before tracing; resampling an existing PSF is not equivalent.
-            pupilGridStretch = optic.ImageSpaceAfocal
-                ? ImageSpaceAnalysisSupport.FftSampleSpacingMilliradians(
-                    optic, wavelength, pupilSampling, gridSize, true, 1) / imageDelta
-                : wavelength.Micrometers * fNumber * (pupilSampling - 2) / (gridSize * imageDelta);
-            var automaticStretch = Math.Sqrt(Math.Max(1, pupilSampling / 32.0));
-            // Preserve exactly the same boundary nodes when the requested pitch
-            // is the default pitch, including floating-point round trips.
-            if (Math.Abs(pupilGridStretch - automaticStretch) <= 1e-14 * automaticStretch)
-                pupilGridStretch = automaticStretch;
         }
-        if (explicitPupilGrid is not null) pupilGridStretch = explicitPupilGrid.Stretch;
+        var pupilGridStretch = explicitPupilGrid?.Stretch ?? FftPupilStretch(
+            optic, wavelength, pupilSampling, gridSize, zemaxFftSampling, fNumber, imageDelta);
         var grid = explicitPupilGrid ?? new PupilGridSpecification(pupilSampling, cellCenteredPupil, zemaxFftSampling, pupilGridStretch);
+        var spacingFNumber = fNumber;
+        if (!optic.ImageSpaceAfocal && zemaxFftSampling && imageDelta >= 0 && !usePolarization
+            && explicitPupilGrid is null && preparedWavefront is null && preparedPolarization is null)
+            (grid, spacingFNumber) = FiniteScalarFourierGrid(grid, workingAxes, fNumber, imageDelta);
         if (optic.ImageSpaceAfocal && zemaxFftSampling && imageDelta >= 0 && !usePolarization && explicitPupilGrid is null
             && preparedWavefront is null && preparedPolarization is null)
         {
@@ -320,8 +333,9 @@ public static partial class DiffractionEngine
                     : sample).ToArray()
             };
         }
-        if (zemaxFftSampling && pupilSampling >= 32
-            && (pupilSampling & (pupilSampling - 1)) == 0)
+        var interpolationSampling = grid.SourceGrid?.SampleCount ?? pupilSampling;
+        if (zemaxFftSampling && interpolationSampling >= 32
+            && (interpolationSampling & (interpolationSampling - 1)) == 0)
         {
             if (interpolateScalarPupilAmplitude)
                 wavefront = InterpolateFftPupilAmplitude(wavefront, grid);
@@ -373,22 +387,28 @@ public static partial class DiffractionEngine
         // callers displaying Strehl need this reference, not the measured PSF peak.
         var idealAmplitude = pupil.Cast<Complex>().Sum(value => value.Magnitude);
         var unaberratedPeakRatio = idealAmplitude * idealAmplitude / normalization;
-        var padded = new Complex[gridSize, gridSize];
-        var offset = (gridSize - pupilSampling) / 2;
-        for (var row = 0; row < pupilSampling; row++)
+        Complex[,] shifted;
+        if (croppedOutputSize is { } readout)
         {
-            for (var column = 0; column < pupilSampling; column++)
-            {
-                padded[row + offset, column + offset] = pupil[row, column];
-            }
+            shifted = FourierTransformCropped(pupil, gridSize, readout, zemaxFftSampling);
         }
-
-        Fft2D(padded);
-        var shifted = FftShift(padded);
-        var psf = new double[gridSize, gridSize];
-        for (var row = 0; row < gridSize; row++)
+        else
         {
-            for (var column = 0; column < gridSize; column++)
+            var padded = new Complex[gridSize, gridSize];
+            var offset = (gridSize - pupilSampling) / 2;
+            for (var row = 0; row < pupilSampling; row++)
+            {
+                for (var column = 0; column < pupilSampling; column++)
+                    padded[row + offset, column + offset] = pupil[row, column];
+            }
+            Fft2D(padded);
+            shifted = FftShift(padded);
+        }
+        var outputSize = croppedOutputSize ?? gridSize;
+        var psf = new double[outputSize, outputSize];
+        for (var row = 0; row < outputSize; row++)
+        {
+            for (var column = 0; column < outputSize; column++)
             {
                 psf[row, column] = shifted[row, column].Magnitude * shifted[row, column].Magnitude / normalization * 100;
             }
@@ -403,14 +423,14 @@ public static partial class DiffractionEngine
                 zemaxFftSampling,
                 pupilGridStretch)
             : zemaxFftSampling
-                ? wavelength.Micrometers * fNumber * (pupilSampling - 2)
+                ? wavelength.Micrometers * spacingFNumber * (pupilSampling - 2)
                     / (gridSize * pupilGridStretch)
                 : wavelength.Micrometers * fNumber * (pupilSampling - 1) / gridSize;
         sampleSpacing = Math.Max(1e-12, sampleSpacing);
         return new PsfResult(
             psf,
             pupilSampling,
-            gridSize,
+            outputSize,
             fNumber,
             sampleSpacing,
             cellCenteredPupil ? tangentialFNumber : 0,
@@ -421,7 +441,10 @@ public static partial class DiffractionEngine
             UseRayAiming = pupilAimAtStop,
             StopAimingFallbackUsed = fallbackUsed,
             PupilGridStretch = pupilGridStretch,
-            UnaberratedPeakRatio = unaberratedPeakRatio
+            PupilGridStretchX = grid.Stretch,
+            PupilGridStretchY = grid.StretchY ?? grid.Stretch,
+            UnaberratedPeakRatio = unaberratedPeakRatio,
+            CroppedImageCenterIndex = croppedOutputSize.HasValue ? zemaxFftSampling ? (outputSize - 1) / 2 : outputSize / 2 : null
         };
 
         void ValidatePreparedSource(PupilSourceIdentity? source, string component)
@@ -446,6 +469,35 @@ public static partial class DiffractionEngine
                     || Math.Abs(preparedGrid.YCoordinate(index) - grid.YCoordinate(index)) > 1e-12))
                 throw new InvalidOperationException($"FFT PSF prepared {component} field, wavelength or pupil grid does not match the computation request.");
         }
+    }
+
+    private static double FftPupilStretch(Optic optic, Wavelength wavelength, int pupilSampling,
+        int gridSize, bool zemaxFftSampling, double fNumber, double imageDelta)
+    {
+        var automatic = Math.Sqrt(Math.Max(1, pupilSampling / 32.0));
+        if (!zemaxFftSampling || imageDelta < 0) return 1;
+        if (imageDelta == 0) return automatic;
+        // Resolve the Fourier-conjugate interval before tracing. Preserve the
+        // automatic grid's exact closed-rim nodes through a pitch round trip.
+        var stretch = optic.ImageSpaceAfocal
+            ? ImageSpaceAnalysisSupport.FftSampleSpacingMilliradians(
+                optic, wavelength, pupilSampling, gridSize, true, 1) / imageDelta
+            : wavelength.Micrometers * fNumber * (pupilSampling - 2) / (gridSize * imageDelta);
+        return Math.Abs(stretch - automatic) <= 1e-14 * automatic ? automatic : stretch;
+    }
+
+    private static (PupilGridSpecification Grid, double SpacingFNumber) FiniteScalarFourierGrid(
+        PupilGridSpecification grid, (double Tangential, double Sagittal) axes, double rmsFNumber, double imageDelta)
+    {
+        if (Math.Abs(axes.Tangential - axes.Sagittal) <= 1e-14 * rmsFNumber)
+            return (grid, rmsFNumber);
+        // A square physical image grid is conjugate to two different pupil
+        // intervals when the actual marginal cones differ. The automatic pitch
+        // uses the faster axis; a requested pitch was resolved from the RMS cone.
+        // Apply these intervals before tracing, never by resizing intensity.
+        var scale = imageDelta > 0 ? rmsFNumber : Math.Min(axes.Tangential, axes.Sagittal);
+        return (grid with { Stretch = grid.Stretch * (axes.Sagittal / scale),
+            StretchY = grid.Stretch * (axes.Tangential / scale) }, scale);
     }
 
     internal static (Complex Tangential, Complex Sagittal) ComputeFastFftMtfAtFrequency(
@@ -608,8 +660,10 @@ public static partial class DiffractionEngine
             referenceWavelength,
             aimAtStop: normalizationWavefront.UseRayAiming ?? optic.RayAimingEnabled);
         var normalizationSamples = normalizationWavefront.Samples
-            .Where(sample => sample.Intensity > 0)
             .ToArray();
+        // Blocked pupil cells carry zero power. Excluding them from the
+        // average treats the whole nominal pupil as transmitting and reduces
+        // even the zero-frequency OTF below unity in a vignetted field.
         var meanNormalizationIntensity = normalizationSamples
             .Select(sample => sample.Intensity)
             .DefaultIfEmpty(0)
@@ -647,13 +701,8 @@ public static partial class DiffractionEngine
         var useRayAiming = aimAtStop ?? optic.RayAimingEnabled;
         if (optic.ImageSpaceAfocal)
         {
-            var wavefront = WavefrontEngine.GenerateChiefRaySamples(
-                optic,
-                field,
-                wavelength,
-                coordinates,
-                aimAtStop: useRayAiming,
-                referenceWavelength: referenceWavelength);
+            var wavefront = WavefrontEngine.GenerateScalarAfocalHuygensSamples(optic, field, wavelength,
+                coordinates.Select(p => new PupilSample(p.X, p.Y, 1)).ToArray(), useRayAiming, referenceWavelength);
             return ApplyAfocalDefocus(wavefront, wavelength, defocusMillimeters);
         }
 
@@ -1113,6 +1162,12 @@ public static partial class DiffractionEngine
         var sagittalOtf = Enumerable.Range(center, psf.GridSize - center)
             .Select(column => shifted[center, column] / normalization)
             .ToArray();
+        return CreateFftMtfResult(psf, optic, wavelength, tangentialOtf, sagittalOtf);
+    }
+
+    private static MtfResult CreateFftMtfResult(PsfResult psf, Optic optic, Wavelength wavelength,
+        Complex[] tangentialOtf, Complex[] sagittalOtf)
+    {
         var tangential = tangentialOtf.Select(value => value.Magnitude).ToArray();
         var sagittal = sagittalOtf.Select(value => value.Magnitude).ToArray();
         var sampleCount = psf.FrequencySampleCount > 0
@@ -1258,8 +1313,30 @@ public static partial class DiffractionEngine
         Wavelength? referenceWavelength = null,
         (double X, double Y)? imageCenterOffset = null,
         bool useParaxialPupilDefocus = false)
+        => ComputeHuygensPsf(optic, field, wavelength, numRays, imageSize, pixelPitchMillimeters,
+            AfocalHuygensIntegration.NativeFiniteCell, usePolarization, aimAtStop, defocus,
+            referenceWavelength, imageCenterOffset, useParaxialPupilDefocus);
+
+    /// <summary>Explicit afocal pupil integration. GaussianPupil integrates the
+    /// continuous normalized circular pupil using traced scalar wavelets; it is
+    /// not the native finite-cell sampling protocol or a vector/flux certificate.</summary>
+    public static PsfResult ComputeHuygensPsf(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        int numRays,
+        int imageSize,
+        double pixelPitchMillimeters,
+        AfocalHuygensIntegration afocalIntegration,
+        bool usePolarization = false,
+        bool aimAtStop = false,
+        double defocus = 0,
+        Wavelength? referenceWavelength = null,
+        (double X, double Y)? imageCenterOffset = null,
+        bool useParaxialPupilDefocus = false)
     {
         ComputationCancellation.ThrowIfCancellationRequested();
+        if (!Enum.IsDefined(afocalIntegration)) throw new ArgumentOutOfRangeException(nameof(afocalIntegration));
         if (numRays < 2)
         {
             throw new ArgumentOutOfRangeException(nameof(numRays), "Huygens PSF requires at least two pupil samples.");
@@ -1281,6 +1358,21 @@ public static partial class DiffractionEngine
             throw new ArgumentOutOfRangeException(nameof(imageCenterOffset), "Image-center offsets must be finite.");
         if (usePolarization && optic.ImageSpaceAfocal && !optic.Polarization.Unpolarized)
             throw new NotSupportedException("Afocal coherent Jones Huygens propagation is not implemented; it cannot be collapsed to unpolarized power.");
+
+        if (afocalIntegration is AfocalHuygensIntegration.GaussianPupil or AfocalHuygensIntegration.CheckedGaussianPupil)
+        {
+            if (!optic.ImageSpaceAfocal)
+                throw new NotSupportedException("Gaussian circular Huygens integration currently requires afocal image space.");
+            if (usePolarization)
+                throw new NotSupportedException("Gaussian afocal Huygens integration currently supports scalar, non-polarized wavelets only.");
+            if (afocalIntegration == AfocalHuygensIntegration.CheckedGaussianPupil)
+                return ComputeCheckedAfocalHuygensPsf(optic, field, wavelength, numRays, imageSize,
+                    pixelPitchMillimeters, aimAtStop: aimAtStop, defocus: defocus, referenceWavelength: referenceWavelength,
+                    imageCenterOffset: imageCenterOffset, useParaxialPupilDefocus: useParaxialPupilDefocus);
+            return ComputeGaussianAfocalHuygensPsf(optic, field, wavelength, numRays, imageSize,
+                pixelPitchMillimeters, aimAtStop, defocus, referenceWavelength, imageCenterOffset,
+                useParaxialPupilDefocus);
+        }
 
         // Use the traced image directions in the image-surface tangent frame
         // for axial and oblique scalar pupils. Native off-axis complex-field
@@ -1307,7 +1399,9 @@ public static partial class DiffractionEngine
 
         var afocalPupils = optic.ImageSpaceAfocal ? HuygensPupilSamples(numRays) : null;
         var wavefront = afocalPupils is not null
-            ? WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
+            ? !usePolarization ? WavefrontEngine.GenerateScalarAfocalHuygensSamples(optic, field, wavelength,
+                afocalPupils, aimAtStop, referenceWavelength)
+                : WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
                 afocalPupils.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
                 referenceWavelength: referenceWavelength)
             : WavefrontEngine.GenerateChiefRayUniform(
@@ -1341,6 +1435,8 @@ public static partial class DiffractionEngine
                 useParaxialPupilDefocus);
             var afocalNormalizationWavefront = field.Hx == 0 && field.Hy == 0
                 ? wavefront
+                : !usePolarization ? WavefrontEngine.GenerateScalarAfocalHuygensSamples(optic, (0, 0), wavelength,
+                    afocalPupils!, aimAtStop, referenceWavelength)
                 : WavefrontEngine.GenerateChiefRaySamples(optic, (0, 0), wavelength,
                     afocalPupils!.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
                     referenceWavelength: referenceWavelength);
@@ -1392,6 +1488,9 @@ public static partial class DiffractionEngine
             {
                 UseRayAiming = aimAtStop,
                 FiniteCellHuygensUsed = true,
+                AfocalIntegration = AfocalHuygensIntegration.NativeFiniteCell,
+                PupilQuadratureNodeCount = wavefront.Samples.Count,
+                GeometricChiefReferenceUsed = wavefront.GeometricChiefReferenceUsed || afocalNormalizationWavefront.GeometricChiefReferenceUsed,
                 HuygensPolarization = usePolarization ? HuygensPolarizationMode.LegacyScalarApproximation : HuygensPolarizationMode.None
             };
         }
@@ -1737,6 +1836,8 @@ public static partial class DiffractionEngine
     private static void ValidatePsfGrid(PsfResult psf)
     {
         ArgumentNullException.ThrowIfNull(psf);
+        if (psf.CroppedImageCenterIndex.HasValue)
+            throw new ArgumentException("A cropped Fourier readout cannot supply full-image MTF normalization.", nameof(psf));
         if (psf.GridSize < 1 || psf.GridSize > AnalysisResourceLimits.MaximumFftGridSize
             || psf.Values is null || psf.Values.GetLength(0) != psf.GridSize
             || psf.Values.GetLength(1) != psf.GridSize
@@ -2080,17 +2181,33 @@ public static partial class DiffractionEngine
         IReadOnlyList<Wavelength> wavelengths,
         Wavelength referenceWavelength,
         int pupilSampling,
-        bool aimAtStop)
+        bool aimAtStop,
+        AfocalHuygensIntegration afocalIntegration = AfocalHuygensIntegration.NativeFiniteCell)
     {
         var imageSurface = optic.SurfaceGroup.Items[^1];
-        var frame = CreateHuygensImageFrame(optic, field, referenceWavelength, aimAtStop);
+        // Afocal centering uses direction angles, not a focused tangent frame.
+        // A blocked chief may define the geometric datum, never centroid power.
+        var frame = optic.ImageSpaceAfocal ? default : CreateHuygensImageFrame(optic, field, referenceWavelength, aimAtStop);
+        Vector3D ChiefDirection()
+        {
+            var chief = optic.TraceGenericFinalSample(field.Hx, field.Hy, 0, 0, referenceWavelength.Micrometers, aimAtStop);
+            if (chief is null)
+            {
+                var source = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy, 0, 0,
+                    referenceWavelength.Micrometers, aimAtStop).Rays[0];
+                chief = optic.SequentialRayTracer.TraceToSurface(source, optic.SurfaceGroup.Items.Count - 1);
+            }
+            if (chief is null || chief.Vignetted || chief.Intensity <= 0)
+                throw new AnalysisDataUnavailableException("Huygens PSF", "no valid geometric chief reference for afocal centering");
+            return chief.Direction;
+        }
         var chiefAngle = optic.ImageSpaceAfocal
             ? ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(imageSurface,
-                (optic.TraceGenericFinalSample(field.Hx, field.Hy, 0, 0,
-                    referenceWavelength.Micrometers, aimAtStop)
-                    ?? throw new InvalidOperationException("Chief ray did not reach the image surface.")).Direction)
+                ChiefDirection())
             : (X: 0.0, Y: 0.0);
-        var pupilSamples = pupilSampling >= 8 && pupilSampling % 2 == 0
+        var pupilSamples = optic.ImageSpaceAfocal && afocalIntegration is AfocalHuygensIntegration.GaussianPupil or AfocalHuygensIntegration.CheckedGaussianPupil
+            ? ApertureSampler.GenerateHuygensGaussianQuadrature(pupilSampling)
+            : pupilSampling >= 8 && pupilSampling % 2 == 0
             ? HuygensPupilSamples(pupilSampling) : SpotAnalysisEngine.CreatePupilSamples(pupilSampling, "uniform");
         var useWeights = wavelengths.Any(wavelength => wavelength.Weight > 0);
         var projected = new List<SpotRayData>();
@@ -2142,8 +2259,7 @@ public static partial class DiffractionEngine
 
         var pupilOrigin = wavefront.AfocalReferencePlaneOrigin
             ?? throw new AnalysisDataUnavailableException("Huygens PSF", "afocal reference plane is missing");
-        var axisX = imageFrame.ToGlobalDirection(new Vector3D(1, 0, 0));
-        var axisY = imageFrame.ToGlobalDirection(new Vector3D(0, 1, 0));
+        var (axisX, axisY) = ImageSpaceAnalysisSupport.AfocalImageProjectionAxes(wavefront, imageFrame);
         var intervals = pupilSampling >= 8 && pupilSampling % 2 == 0 ? pupilSampling - 2 : pupilSampling - 1;
         // Use the same finite pupil-cell convention as focused Huygens, now
         // expressed in mrad rather than image-plane length. A point-emitter
@@ -2196,8 +2312,13 @@ public static partial class DiffractionEngine
                     field += emitter.Amplitude * Complex.FromPolarCoordinates(1, emitter.Phase + anglePhase);
                 }
 
-                var footprint = Sinc(Math.PI * thetaX * 1000 / halfExtent) * Sinc(Math.PI * thetaY * 1000 / halfExtent);
-                psf[row, column] = Math.Abs(thetaX * 1000) >= halfExtent || Math.Abs(thetaY * 1000) >= halfExtent
+                // The finite sampling cell is centered on this image window,
+                // as in the focused Huygens path. The geometric center offset
+                // belongs to propagation phase, not to the cell envelope.
+                var cellX = (column - centerIndex) * angularPixelPitchMilliradians;
+                var cellY = (row - centerIndex) * angularPixelPitchMilliradians;
+                var footprint = Sinc(Math.PI * cellX / halfExtent) * Sinc(Math.PI * cellY / halfExtent);
+                psf[row, column] = Math.Abs(cellX) >= halfExtent || Math.Abs(cellY) >= halfExtent
                     ? 0 : field.Magnitude * field.Magnitude * footprint * footprint;
             }
         }

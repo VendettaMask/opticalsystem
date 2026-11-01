@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f2f41cc5-74f2-4311-9e7e-1f713908cd4b" name="allen@DESKTOP-SET3SNR 2026-10-31 17:50:58" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T17:50:58.9211976+08:00" queuing="2026-10-31T17:50:58.9211982+08:00" start="2026-10-31T17:50:53.2644788+08:00" finish="2026-10-31T17:50:59.3673425+08:00" />
+  <TestSettings name="default" id="89f9bb2f-a263-44a8-96d7-106c2122cb40">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-31_17_50_58" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="21dd3937-2ba5-4bcb-b8bb-2d230dcc3c7a" testId="fd695d45-173d-ba89-4a5c-4eba0f1e6efb" testName="OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.ColdPolicyRejectsProtectedFixedReductionOnlyAndExpandedApertureInputs" computerName="DESKTOP-SET3SNR" duration="00:00:00.1476824" startTime="2026-10-31T17:50:58.8883013+08:00" endTime="2026-10-31T17:50:59.0477074+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="21dd3937-2ba5-4bcb-b8bb-2d230dcc3c7a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.OperationCanceledException : The operation was canceled.</Message>
+          <StackTrace>   at System.Threading.CancellationToken.ThrowOperationCanceledException()&#xD;
+   at System.Threading.CancellationToken.ThrowIfCancellationRequested()&#xD;
+   at OpticalSystemDesign.Core.Raytrace.SequentialGpuSession..ctor(DesignComputeMode mode, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Raytrace\SequentialGpuSession.cs:line 44&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.ColdStartDesignSearch.Run(AutonomousSearchPlan input, ParaxialSeedSearchOptions preparation, ColdStartDesignOptions policy, CancellationToken cancellationToken, Action`1 progress) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ColdStartDesignSearch.cs:line 28&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.ColdPolicyRejectsProtectedFixedReductionOnlyAndExpandedApertureInputs() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\ColdStartDesignTests.cs:line 46&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3c7ec9d2-983c-4df4-bef0-e03882b0a2f2" testId="8a3df6c5-365c-2738-f216-94b998c1477d" testName="OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.OriginalStopConflictReturnsWithoutConstructionOrOpticalWork" computerName="DESKTOP-SET3SNR" duration="00:00:02.3326411" startTime="2026-10-31T17:50:56.5823206+08:00" endTime="2026-10-31T17:50:58.8503329+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3c7ec9d2-983c-4df4-bef0-e03882b0a2f2" />
+    <UnitTestResult executionId="a23fda25-bcc6-45a1-95df-28b0329f9518" testId="dd1579c9-16aa-4e48-ed3c-a0eb2c76f3d1" testName="OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.ColdEnvelopeDiscardsEverySourceShapeButPreservesPhysicalTask" computerName="DESKTOP-SET3SNR" duration="00:00:00.1472680" startTime="2026-10-31T17:50:59.0602664+08:00" endTime="2026-10-31T17:50:59.1954501+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a23fda25-bcc6-45a1-95df-28b0329f9518" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.OriginalStopConflictReturnsWithoutConstructionOrOpticalWork" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="8a3df6c5-365c-2738-f216-94b998c1477d">
+      <Execution id="3c7ec9d2-983c-4df4-bef0-e03882b0a2f2" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests" name="OriginalStopConflictReturnsWithoutConstructionOrOpticalWork" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.ColdPolicyRejectsProtectedFixedReductionOnlyAndExpandedApertureInputs" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="fd695d45-173d-ba89-4a5c-4eba0f1e6efb">
+      <Execution id="21dd3937-2ba5-4bcb-b8bb-2d230dcc3c7a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests" name="ColdPolicyRejectsProtectedFixedReductionOnlyAndExpandedApertureInputs" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.ColdEnvelopeDiscardsEverySourceShapeButPreservesPhysicalTask" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="dd1579c9-16aa-4e48-ed3c-a0eb2c76f3d1">
+      <Execution id="a23fda25-bcc6-45a1-95df-28b0329f9518" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests" name="ColdEnvelopeDiscardsEverySourceShapeButPreservesPhysicalTask" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="fd695d45-173d-ba89-4a5c-4eba0f1e6efb" executionId="21dd3937-2ba5-4bcb-b8bb-2d230dcc3c7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a3df6c5-365c-2738-f216-94b998c1477d" executionId="3c7ec9d2-983c-4df4-bef0-e03882b0a2f2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd1579c9-16aa-4e48-ed3c-a0eb2c76f3d1" executionId="a23fda25-bcc6-45a1-95df-28b0329f9518" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.43]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.90]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.96]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:04.55]       System.OperationCanceledException : The operation was canceled.&#xD;
+[xUnit.net 00:00:04.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.56]            at System.Threading.CancellationToken.ThrowOperationCanceledException()&#xD;
+[xUnit.net 00:00:04.56]            at System.Threading.CancellationToken.ThrowIfCancellationRequested()&#xD;
+[xUnit.net 00:00:04.56]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Raytrace\SequentialGpuSession.cs(44,0): at OpticalSystemDesign.Core.Raytrace.SequentialGpuSession..ctor(DesignComputeMode mode, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:04.56]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\ColdStartDesignSearch.cs(28,0): at OpticalSystemDesign.InitialStructure.Engine.ColdStartDesignSearch.Run(AutonomousSearchPlan input, ParaxialSeedSearchOptions preparation, ColdStartDesignOptions policy, CancellationToken cancellationToken, Action`1 progress)&#xD;
+[xUnit.net 00:00:04.56]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\ColdStartDesignTests.cs(46,0): at OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.ColdPolicyRejectsProtectedFixedReductionOnlyAndExpandedApertureInputs()&#xD;
+[xUnit.net 00:00:04.56]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:04.56]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:04.71]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-31T17:50:59.0529002+08:00">
+        <Text>[xUnit.net 00:00:04.55]     OpticalSystemDesign.InitialStructure.Tests.ColdStartDesignTests.ColdPolicyRejectsProtectedFixedReductionOnlyAndExpandedApertureInputs [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

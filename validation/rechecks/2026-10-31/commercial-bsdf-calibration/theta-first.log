@@ -1,0 +1,56 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+  失败 OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(wave: 550) [208 ms]
+  错误消息:
+   Assert.Equal() Failure: Values are not within 12 decimal places
+Expected: 0.156358088043 (rounded from 0.15635808804288398)
+Actual:   0.14999999999999999 (rounded from 0.15000000000000174)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(Double wave) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11StatisticsTests.cs:line 27
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(wave: 700) [141 ms]
+  错误消息:
+   Assert.Equal() Failure: Values are not within 12 decimal places
+Expected: 0.177120851735 (rounded from 0.17712085173452358)
+Actual:   0.20000000000000001 (rounded from 0.20000000000000229)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(Double wave) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11StatisticsTests.cs:line 27
+   at InvokeStub_SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(wave: 400) [128 ms]
+  错误消息:
+   Assert.Equal() Failure: Values are not within 12 decimal places
+Expected: 0.135595324351 (rounded from 0.13559532435124436)
+Actual:   0.10000000000000001 (rounded from 0.10000000000000114)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(Double wave) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11StatisticsTests.cs:line 27
+   at InvokeStub_SpeosV11StatisticsTests.JointWhiteReflectionTransmissionMatchesIndependentGridIntegrals(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(zemax: False, manual: False) [17 s]
+  错误消息:
+   Assert.Contains() Failure: Sub-string not found
+String:    "DetectorRectangle · 32 × 32 · 1 波段\n1.4855"···
+Not found: "Measured BSDF"
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SpeosV11WindowTests.<>c__DisplayClass0_0.<<V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11WindowTests.cs:line 54
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(Boolean zemax, Boolean manual) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11WindowTests.cs:line 22
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(zemax: False, manual: True) [26 s]
+  错误消息:
+   Assert.Contains() Failure: Sub-string not found
+String:    "BTDF detector · 32 × 32 · 1 波段\n2.00781E-1"···
+Not found: "Measured BSDF"
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SpeosV11WindowTests.<>c__DisplayClass0_0.<<V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11WindowTests.cs:line 54
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SpeosV11WindowTests.V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(Boolean zemax, Boolean manual) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SpeosV11WindowTests.cs:line 22
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\commercial-bsdf-calibration\theta-first.trx
+
+失败!  - 失败:     5，通过:    37，已跳过:     0，总计:    42，持续时间: 1 m 25 s - OpticalSystemDesign.Tests.dll (net10.0)

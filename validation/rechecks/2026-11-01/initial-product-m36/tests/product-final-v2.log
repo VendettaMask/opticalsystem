@@ -1,0 +1,19 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:01:31.59]     ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork [FAIL]
+  失败 ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork [1 m 31 s]
+  错误消息:
+   OpticalSystemDesign.InitialStructure.Contracts.TopologyValidationException : Transition elements require an explicit exploration constraint.
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Engine.TopologyValidation.Validate(DesignTopology topology, TopologyConstraints constraints) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyValidation.cs:line 11
+   at OpticalSystemDesign.InitialStructure.Engine.TopologyCompiler.Compile(DesignTopology topology, TopologyConstraints constraints) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyCompiler.cs:line 66
+   at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignReview.<Build>g__Add|15_1(DesignReviewCandidate candidate, <>c__DisplayClass15_0&) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignStudy.cs:line 196
+   at OpticalSystemDesign.InitialStructure.Persistence.AutonomousDesignReview.Build(AutonomousDesignStudy study) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\AutonomousDesignStudy.cs:line 87
+   at ProductReportTests.VerifyReport(String output) in D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs:line 31
+   at ProductReportTests.OriginalF8AutomaticHandoffProducesPortableReadOnlyReportsWithoutAdditionalSearchWork() in D:\Projects\opticalsystem\tools\diagnostics\InitialProductM3620261101\ProductReportTests.cs:line 14
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-01\initial-product-m36/tests\product-final-v2.trx
+
+失败!  - 失败:     1，通过:     0，已跳过:     0，总计:     1，持续时间: 1 m 31 s - OpticalSystemDesign.InitialStructure.Tests.dll (net10.0)

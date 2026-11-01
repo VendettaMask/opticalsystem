@@ -1,0 +1,249 @@
+*** Begin Patch
+*** Update File: D:/Projects/opticalsystem/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologySeedSearchModels.cs
+@@
+ public sealed record ParaxialSeedSearchOptions
+ {
++    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
++    public ColdStartDesignOptions? ColdStart { get; init; }
+@@
+ public sealed record ParaxialSeedSearchResult
+ {
++    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
++    public ColdStartDesignResult? ColdStart { get; init; }
+*** Update File: D:/Projects/opticalsystem/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialSeedSearch.cs
+@@
+         ValidateOptions(options);
++        if (options.ColdStart is not null)
++            return ColdStartSeedPreparation.Run(plan, options, cancellationToken, progress);
+@@
+         ArgumentNullException.ThrowIfNull(options);
++        if (options.ColdStart is not null && (options.Retrieval is not null || options.Evolution is not null
++            || options.Competition is not null || options.ImageScreening is not null))
++            throw new ArgumentException("Cold construction cannot be combined with another preparation strategy.");
+@@
+-            || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromMinutes(options.Evolution is null && options.Retrieval is null ? 2 : 10)
+-            || options.MaximumTracedRays < 1 || options.MaximumTracedRays > (options.Evolution is null && options.Retrieval is null ? 1_000_000 : 10_000_000)
++            || options.TimeLimit <= TimeSpan.Zero || options.TimeLimit > TimeSpan.FromMinutes(options.Evolution is null && options.Retrieval is null && options.ColdStart is null ? 2 : 10)
++            || options.MaximumTracedRays < 1 || options.MaximumTracedRays > (options.Evolution is null && options.Retrieval is null && options.ColdStart is null ? 1_000_000 : 10_000_000)
+*** Update File: D:/Projects/opticalsystem/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutonomousSearchService.cs
+@@
+         if (options.SeedPreparation is { } preparation) ParaxialSeedSearch.ValidateOptions(preparation);
++        if (options.SeedPreparation is { ColdStart: { } cold } coldPreparation)
++            ColdStartDesignSearch.Validate(plan, coldPreparation, cold);
+*** Update File: D:/Projects/opticalsystem/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/AutonomousSearchModels.cs
+@@
+-    /// <summary>Explicit preparation configuration. Only the separate seed-preparation command executes it.</summary>
++    /// <summary>Explicit preparation configuration. The separate preparation command executes it;
++    /// an explicit ColdStart policy also prepares and qualifies fresh seeds before a new desktop autonomous run.</summary>
+*** Add File: D:/Projects/opticalsystem/labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ColdStartSeedPreparation.cs
++using System.Collections.Immutable;
++using OpticalSystemDesign.InitialStructure.Contracts;
++
++namespace OpticalSystemDesign.InitialStructure.Engine;
++
++/// <summary>Explicit preparation dispatch. Unqualified or over-budget structures cannot enter the automatic search.</summary>
++internal static class ColdStartSeedPreparation
++{
++    internal static ParaxialSeedSearchResult Run(AutonomousSearchPlan plan, ParaxialSeedSearchOptions options,
++        CancellationToken token, Action<int, int>? progress)
++    {
++        _ = AutonomousSearchService.Create("cold-preparation-check", plan);
++        if (AutonomousSearchService.IsHistoricalReadOnlyPlan(plan))
++            throw new NotSupportedException("Historical optimizer records cannot execute a new cold construction protocol.");
++        var events = 0;
++        var cold = ColdStartDesignSearch.Run(plan, options, options.ColdStart!, token,
++            _ => progress?.Invoke(++events, 0));
++        var withinBudget = cold.Work.FunctionEvaluations <= options.MaximumFunctionEvaluations
++            && cold.Work.GradientEvaluations <= options.ColdStart!.MaximumGradientEvaluations
++            && cold.Work.TracedRays <= options.MaximumTracedRays && cold.Work.Elapsed <= options.TimeLimit;
++        var eligible = cold.Qualified && withinBudget && cold.StopReason != "Cancelled" && !token.IsCancellationRequested;
++        progress?.Invoke(events, cold.Work.FunctionEvaluations);
++        return new()
++        {
++            Algorithm = "initial-structure-cold-design-v1", ProtocolFingerprint = cold.ProtocolFingerprint,
++            SourcePlan = plan, Options = options, ColdStart = cold, Work = cold.Work, MatrixRequests = cold.Work.MatrixEvaluations,
++            Termination = token.IsCancellationRequested || cold.StopReason == "Cancelled" ? ParaxialSeedTermination.Cancelled
++                : cold.StopReason == "TimeLimit" || cold.Work.Elapsed > options.TimeLimit ? ParaxialSeedTermination.TimeLimit
++                : cold.StopReason is "FunctionBudget" or "RayBudget" ? ParaxialSeedTermination.BudgetExhausted : ParaxialSeedTermination.Completed,
++            Seeds = eligible ? [cold.Endpoint!] : [],
++            Attempts = cold.Construction.Select(c => new ParaxialSeedAttempt(c.Index,
++                ContentFingerprint.Compute(cold.ColdPlan), c.Outcome, c.Work.FunctionEvaluations, null, c.Topology)).ToImmutableArray()
++        };
++    }
++}
+*** Update File: D:/Projects/opticalsystem/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousDesktopSession.cs
+@@
+     public string? RecordPath { get; private set; }
++    public ParaxialSeedSearchResult? PreparationResult { get; private set; }
++    public string? PreparationReportPath { get; private set; }
+@@
+-        _checkpoint = null; RecordPath = null;
++        _checkpoint = null; RecordPath = null; PreparationResult = null; PreparationReportPath = null;
+@@
+         _checkpoint = loaded;
++        PreparationResult = null; PreparationReportPath = null;
+@@
+-        Action<AutonomousSearchPending, ParaxialRecoveryStep>? recoveryProgress = null)
++        Action<AutonomousSearchPending, ParaxialRecoveryStep>? recoveryProgress = null,
++        Action<int, int>? preparationProgress = null)
+@@
+                     var id = "autonomous-" + Guid.NewGuid().ToString("N");
++                    PreparationResult = null; PreparationReportPath = null;
++                    if (plan.Options.SeedPreparation is { ColdStart: not null } preparation)
++                    {
++                        // Validate before any new run file. Cold failure never falls back to an old seed/checkpoint.
++                        _ = AutonomousSearchService.Create("automatic-cold-preflight", plan);
++                        _checkpoint = null; RecordPath = null; PreparationResult = null; PreparationReportPath = null;
++                        var result = await Task.Run(() => ParaxialSeedSearch.Run(plan, preparation, _cancellation.Token, preparationProgress));
++                        PreparationResult = result;
++                        var reports = Path.Combine(directory, "preparations");
++                        Directory.CreateDirectory(reports);
++                        PreparationReportPath = Path.Combine(reports, id + ".seed-search.json");
++                        // Cancellation stops computation; persistence retains the attempted fresh run and its actual costs.
++                        await ParaxialSeedSearchFiles.SaveAsync(result, PreparationReportPath);
++                        if (result.Seeds.IsEmpty || _cancellation.IsCancellationRequested) return;
++                        plan = plan with { Seeds = result.Seeds };
++                        await AutonomousDesignFiles.SavePlanAsync(plan, Path.Combine(reports, id + ".topology-plan.json"));
++                    }
+                     var created = AutonomousSearchService.Create(id, plan) with { Revision = 1 };
+*** Update File: D:/Projects/opticalsystem/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Workflow.cs
+@@
+ using Avalonia.Controls;
++using Avalonia.Automation;
+@@
+-                }));
++                }),
++                (stage, functions) => Dispatcher.UIThread.Post(() =>
++                {
++                    if (!_closed && generation == _generation)
++                        _status.Text = UiLocalization.Text("正在冷启动构造与补偿") + $" · {stage}";
++                }));
+         }
+         finally { _generation++; }
+-        Publish(_session.Checkpoint!);
+-        var checkpoint = _session.Checkpoint!;
++        if (_session.Checkpoint is not { } checkpoint)
++        {
++            if (_session.PreparationResult is { } failed)
++            {
++                _seedResult = failed; _seedReportPath = _session.PreparationReportPath; RefreshSeedSummary();
++                _candidateRows.Clear(); _eventRows.Clear(); _prescriptionRows.Clear(); _fieldRows.Clear();
++                _status.Text = UiLocalization.Text("冷启动未得到预算内合格处方");
++            }
++            return;
++        }
++        if (!resume && _session.PreparationResult is { } prepared)
++        {
++            _draft = checkpoint.Plan; ApplyPlan(checkpoint.Plan);
++            _seedResult = prepared; _seedReportPath = _session.PreparationReportPath; RefreshSeedSummary();
++        }
++        Publish(checkpoint);
+@@
+         var seedOptions = options.SeedPreparation ?? new();
++        Put("AutonomousColdGradients", seedOptions.ColdStart?.MaximumGradientEvaluations ?? 600);
++        Put("AutonomousColdRays", seedOptions.ColdStart is null ? 10000000 : seedOptions.MaximumTracedRays);
+@@
+         _applyingPlan = true;
++        _choices["AutonomousColdStart"].IsChecked = seedOptions.ColdStart is not null;
+@@
+         Hint("AutonomousReductionOnly", "失败处方保留但不再派发结构分支；达到预算或限定尝试即停止");
++        Hint("AutonomousColdStart", "开始新任务时先重新构造并完整验收；失败保存并停止，继续已有任务不重复冷启动");
++        _commands["AutonomousPrepareSeeds"].Content = UiLocalization.Text(_choices["AutonomousColdStart"].IsChecked == true
++            ? "冷启动构造与补偿" : "生成一阶起点");
++        AutomationProperties.SetName(_commands["AutonomousPrepareSeeds"], UiLocalization.Text(_choices["AutonomousColdStart"].IsChecked == true
++            ? "冷启动构造与补偿" : "生成一阶起点"));
++        if (editable)
++        {
++            var cold = _choices["AutonomousColdStart"].IsChecked == true;
++            foreach (var id in new[] { "AutonomousColdGradients", "AutonomousColdRays" }) _numbers[id].IsEnabled = cold;
++        }
+*** Update File: D:/Projects/opticalsystem/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.cs
+@@
+-        _inputs.Children.Add(Text("一阶起点准备（独立预算）"));
++        _inputs.Children.Add(Text("起点准备（独立预算）"));
+@@
+         Choice("AutonomousRetrieval", "从已有镜头库检索起点", false);
++        Choice("AutonomousColdStart", "实验：冷启动构造与原规格补偿", false);
++        Number("AutonomousColdGradients", "冷启动梯度上限", 600, 1, 10000);
++        Number("AutonomousColdRays", "冷启动总追迹上限", 10000000, 1, 10000000);
+@@
+-        Number("AutonomousSeedPerStart", "每起点评价上限", 40, 2, 200);
++        Number("AutonomousSeedPerStart", "每起点评价上限", 40, 2, 1000);
+@@
+             MarkPlanEdited();
++            if (id == "AutonomousColdStart" && control.IsChecked == true)
++            {
++                foreach (var other in new[] { "AutonomousRetrieval", "AutonomousEvolution", "AutonomousCompetition", "AutonomousImageScreening" })
++                    _choices[other].IsChecked = false;
++                _choices["AutonomousDescriptor"].IsChecked = true;
++                _choices["AutonomousDelano"].IsChecked = true;
++            }
++            if (id is "AutonomousRetrieval" or "AutonomousEvolution" or "AutonomousCompetition" or "AutonomousImageScreening" && control.IsChecked == true)
++                _choices["AutonomousColdStart"].IsChecked = false;
++            if (id is "AutonomousDescriptor" or "AutonomousDelano" && control.IsChecked != true)
++                _choices["AutonomousColdStart"].IsChecked = false;
+*** Update File: D:/Projects/opticalsystem/src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Seeds.cs
+@@
+         if (_seedResult is not { } result) return;
++        if (result.ColdStart is { } cold)
++        {
++            var final = cold.Assessment;
++            _seedSummary.Text = UiLocalization.Text(result.Seeds.IsEmpty ? "冷启动未得到预算内合格处方" : "冷启动原规格验收通过")
++                + " · " + UiLocalization.Text("构造尝试 / 补偿阶段") + $" {cold.Construction.Length} / {cold.Phases.Length}\n"
++                + $"{UiLocalization.Text("评价")} {cold.Work.FunctionEvaluations}/{result.Options.MaximumFunctionEvaluations} · "
++                + $"{UiLocalization.Text("梯度")} {cold.Work.GradientEvaluations}/{cold.Policy.MaximumGradientEvaluations} · "
++                + $"{UiLocalization.Text("追迹")} {cold.Work.TracedRays}/{result.Options.MaximumTracedRays} · "
++                + $"{cold.Work.Elapsed.TotalSeconds:F1}/{result.Options.TimeLimit.TotalSeconds:F1} s\n";
++            if (final is { Fields.IsEmpty: false })
++                _seedSummary.Text += UiLocalization.Text("最差 RMS µm / 最大半径 µm / 边界丢失") + " "
++                    + Value(final.Fields.Max(f => f.RmsRadiusMillimeters) * 1000) + " / "
++                    + Value(final.Fields.Max(f => f.MaximumRadiusMillimeters) * 1000) + " / "
++                    + final.Fields.Sum(f => f.CheckAttemptedRays - f.CheckValidRays) + "\n";
++            _seedSummary.Text += _seedReportPath;
++            return;
++        }
+@@
+-                        _status.Text = UiLocalization.Text(options.Retrieval is null ? "正在准备一阶起点" : "正在检索镜头库")
+-                            + $" · {start}/{options.Retrieval?.Library.Entries.Length ?? options.MaximumStarts} · {functions}/{options.MaximumFunctionEvaluations}";
++                        _status.Text = options.ColdStart is not null ? UiLocalization.Text("正在冷启动构造与补偿") + $" · {start}"
++                            : UiLocalization.Text(options.Retrieval is null ? "正在准备一阶起点" : "正在检索镜头库")
++                                + $" · {start}/{options.Retrieval?.Library.Entries.Length ?? options.MaximumStarts} · {functions}/{options.MaximumFunctionEvaluations}";
+@@
+-            Seeds = plan.Options.BoundedSearch is null ? result.Seeds
++            Seeds = plan.Options.BoundedSearch is null || options.ColdStart is not null ? result.Seeds
+@@
+         _status.Text = UiLocalization.Text(result.Termination == ParaxialSeedTermination.Cancelled ? "一阶准备已停止并保存"
++            : result.ColdStart is not null ? result.Seeds.IsEmpty ? "冷启动未得到预算内合格处方" : "冷启动原规格验收通过"
+@@
+         return original with
+         {
++            ColdStart = _choices["AutonomousColdStart"].IsChecked == true
++                ? (original.ColdStart ?? new()) with { MaximumGradientEvaluations = Whole("AutonomousColdGradients") } : null,
+@@
+-            MaximumTracedRays = _choices["AutonomousRetrieval"].IsChecked == true ? Whole("AutonomousRetrievalRays") : _choices["AutonomousCompetition"].IsChecked == true
++            MaximumTracedRays = _choices["AutonomousColdStart"].IsChecked == true ? Whole("AutonomousColdRays")
++                : _choices["AutonomousRetrieval"].IsChecked == true ? Whole("AutonomousRetrievalRays") : _choices["AutonomousCompetition"].IsChecked == true
+@@
+-                Materials = [element.Material]
++                Materials = [element.Material],
++                FrontAperture = _choices["AutonomousColdStart"].IsChecked == true
++                    ? new(element.Front.ClearSemiDiameterMillimeters, element.Front.MechanicalSemiDiameterMillimeters) : null,
++                BackAperture = _choices["AutonomousColdStart"].IsChecked == true
++                    ? new(element.Back.ClearSemiDiameterMillimeters, element.Back.MechanicalSemiDiameterMillimeters) : null
+*** Update File: D:/Projects/opticalsystem/src/OpticalSystemDesign.App/Services/UiLocalization.AutonomousTopology.cs
+@@
+     private static void AddAutonomousTopologyTexts(Action<string, string, string> add)
+     {
++        add("起点准备（独立预算）", "Seed preparation (separate budget)", "初期処方の準備（独立予算）");
++        add("冷启动构造与补偿", "Cold construction and compensation", "コールド構築と補償");
++        add("实验：冷启动构造与原规格补偿", "Experimental: cold construction and original-spec compensation", "実験：コールド構築と元の仕様への補償");
++        add("冷启动梯度上限", "Cold-start gradient limit", "コールド開始の勾配上限");
++        add("冷启动总追迹上限", "Cold-start total ray limit", "コールド開始の総追跡上限");
++        add("正在冷启动构造与补偿", "Cold construction and compensation in progress", "コールド構築と補償を実行中");
++        add("冷启动未得到预算内合格处方", "Cold start found no qualified design within budget", "予算内で適合するコールド処方が得られませんでした");
++        add("冷启动原规格验收通过", "Cold start passed original-spec validation", "コールド処方は元の仕様の検証に適合");
++        add("冷启动未通过原规格验收，已保存并停止", "Cold start failed original-spec validation; saved and stopped", "コールド処方は元の仕様に不適合。保存して停止しました");
++        add("构造尝试 / 补偿阶段", "Construction attempts / compensation phases", "構築試行 / 補償段階");
++        add("最差 RMS µm / 最大半径 µm / 边界丢失", "Worst RMS µm / maximum radius µm / lost boundary rays", "最悪 RMS µm / 最大半径 µm / 境界損失光線");
++        add("开始新任务时先重新构造并完整验收；失败保存并停止，继续已有任务不重复冷启动", "New tasks reconstruct and fully validate first; failure saves and stops. Resuming a task does not repeat cold construction.", "新規タスクは再構築と完全検証を先に実行します。不適合なら保存して停止し、既存タスクの再開では再構築しません。");
+*** End Patch

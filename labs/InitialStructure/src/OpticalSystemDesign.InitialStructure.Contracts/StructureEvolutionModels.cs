@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Text.Json.Serialization;
 
 namespace OpticalSystemDesign.InitialStructure.Contracts;
 
@@ -7,6 +8,15 @@ public enum StructureEvolutionMode { DirectCompensation, RecoveryAndCompensation
 /// <summary>Explicit bounded M2 policy. Existing expansion flags and structural/material permissions remain authoritative.</summary>
 public sealed record StructureEvolutionOptions
 {
+    /// <summary>Apply a fresh gate-aware compensation policy to edited structures and real-ray competition phases.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? GateCompensationVersion { get; init; }
+    /// <summary>Explicit release of permitted fourth-order terms during failed-transmission restoration.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? TransmissionProfileVersion { get; init; }
+    /// <summary>Experimental fixed-stop first-order envelope preconditioning; original physical validation remains authoritative.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? TransmissionEnvelopeVersion { get; init; }
     public int Version { get; init; } = 1;
     public StructureEvolutionMode Mode { get; init; } = StructureEvolutionMode.RecoveryAndCompetition;
     public int MaximumParents { get; init; } = 1;
@@ -67,5 +77,7 @@ public sealed record StructureEvolutionResult(string Algorithm, string ProtocolF
     ImmutableArray<QualifiedEvolutionDesign> QualifiedArchive, ImmutableArray<string> ParetoIds,
     ImmutableArray<StructurePhaseCost> Costs)
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ImmutableArray<StructurePrecheck>? Prechecks { get; init; }
     public TimeSpan? FirstNewQualifiedElapsed { get; init; }
 }

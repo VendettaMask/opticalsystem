@@ -1,0 +1,37 @@
+{
+  "version": "initial-loss-round2-paired-1",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "arms": [
+    "legacy-final",
+    "joint-final"
+  ],
+  "cases": [
+    "competition-8-F8-full25",
+    "original-half21"
+  ],
+  "excluded": {
+    "competition-8-F4-full25": "Preserve the original fixed-aperture specification-conflict record; do not relax or rerun."
+  },
+  "execution": "Serial, headless, common frozen Core and runtime. No DeepSeek. No GUI. No commit/push.",
+  "input": "Original frozen task plans and acquisition costs from initial-loss-compensation/control/seed42-46.",
+  "unifiedBudget": {
+    "functions": 600,
+    "gradients": 600,
+    "rays": 10000000,
+    "seconds": 300
+  },
+  "computeScope": "Explicit increased-resource experiment, not an original 2M-ray/110s budget claim.",
+  "policies": {
+    "shared": "One retained start; lifetime400functions; evolution40updates/1Mrays/60s; competition40updates/5Mrays/60s; screen50krays; one finalist.",
+    "F8": "Parent restoration with original profile permission available to both arms; candidate explicitly releases A4 on editable standard faces; same curvature/axial/coefficient bounds. Envelope preconditioning disabled after invalid-ray development probes.",
+    "half21": "Only three original deletion positions; qualified parent immutable; no profile operation.",
+    "qualification": "Original TopologyValidator; original 50/150um, distortion, physical apertures, field union, spectra, throughput, independent rim, geometry and manufacturing tolerances."
+  },
+  "interpretation": "Compare whole explicit strategy bundles, not an isolated linear solver. A new qualified design requires independent original-spec validation. Preserve all incomplete and failed runs."
+}

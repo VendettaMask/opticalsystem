@@ -26,7 +26,7 @@ public sealed partial class SequentialRayTracer
     internal DesignRaySensitivity TraceDesignSensitivity(RealRay source, OpticalDifferentialContext context,
         int stopIndex, DifferentialScalar targetX, DifferentialScalar targetY, CancellationToken cancellationToken,
         SequentialGpuSample[]? nominalSamples = null, int nominalOffset = 0, bool constrainStop = true,
-        double bendCosineGate = 1)
+        double bendCosineGate = 1, int virtualFirst = -1, int virtualLast = -1)
     {
         if (nominalSamples is null) SequentialTraceMeasurement.Record(1);
         var ray = RayState.FromRealRay(source.Normalize());
@@ -48,8 +48,8 @@ public sealed partial class SequentialRayTracer
             var surface = _optic.SurfaceGroup.Items[index];
             var result = nominalSamples is not null ? NominalResult(nominalSamples[nominalOffset + index], index, material) : TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
                 ignorePhysicalAperture: constrainStop, bypassCoating: true,
-                allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index),
-                ignoreMaterialAbsorption: true);
+                allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index) || virtualFirst >= 0 && index >= virtualFirst && index <= virtualLast,
+                ignoreMaterialAbsorption: true, geometryOnly: true);
             if (result.StopTracing || result.Sample.Vignetted || result.InteractionKind is RayInteractionKind.TotalInternalReflection)
                 throw new DesignRayUnavailableException($"Design derivative has no transmitted formal ray at surface {index}.");
             if (index > 0)

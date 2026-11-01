@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <AssemblyName>OpticalSystemDesign.CoatingDesign.Engine</AssemblyName><RootNamespace>OpticalSystemDesign.CoatingDesign.Engine</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpticalSystemDesign.Core"><HintPath>../../../../../tools/diagnostics/CoatingAudit20261030/bin/Release/net10.0/OpticalSystemDesign.Core.dll</HintPath></Reference>
+    <Reference Include="OpticalSystemDesign.Application"><HintPath>../../../../../tools/diagnostics/CoatingAudit20261030/bin/Release/net10.0/OpticalSystemDesign.Application.dll</HintPath></Reference>
+    <EmbeddedResource Include="Data/*.json" />
+  </ItemGroup>
+</Project>

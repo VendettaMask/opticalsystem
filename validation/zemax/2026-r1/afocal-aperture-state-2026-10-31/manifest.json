@@ -1,0 +1,198 @@
+{
+  "gateSource": "validation/rechecks/2026-10-29/final-core-170/afocal-comparison.json",
+  "date": "2026-10-31",
+  "rows": [
+    {
+      "gates": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "name": "Huygens PSF",
+      "n": 32,
+      "source": "artifacts/validation/afocal-annulus-result-20261031-native/annulus.ZMX",
+      "active": false,
+      "id": "inactive32",
+      "capture": "artifacts/validation/afocal-annulus-result-20261031-native/annulus-n32"
+    },
+    {
+      "gates": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "name": "Huygens PSF",
+      "n": 64,
+      "source": "artifacts/validation/afocal-annulus-result-20261031-native/annulus.ZMX",
+      "active": false,
+      "id": "inactive64",
+      "capture": "artifacts/validation/afocal-annulus-result-20261031-native/annulus-n64"
+    },
+    {
+      "gates": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "name": "Huygens PSF",
+      "n": 32,
+      "source": "artifacts/validation/afocal-aperture-state-20261031-native/active-annulus/controlled.ZMX",
+      "active": true,
+      "id": "active32",
+      "capture": "artifacts/validation/afocal-aperture-state-20261031-native/active-annulus"
+    },
+    {
+      "gates": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "name": "Huygens PSF",
+      "n": 64,
+      "source": "artifacts/validation/afocal-aperture-state-20261031-native/active-annulus/controlled.ZMX",
+      "active": true,
+      "id": "active64",
+      "capture": "artifacts/validation/afocal-active-aperture-20261031-native/active-n64"
+    },
+    {
+      "gates": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "name": "Huygens MTF",
+      "n": 32,
+      "source": "artifacts/validation/afocal-aperture-state-20261031-native/active-annulus/controlled.ZMX",
+      "active": true,
+      "id": "active-mtf",
+      "capture": "artifacts/validation/afocal-active-aperture-20261031-native/active-mtf"
+    }
+  ],
+  "gateSourceSha256": "4c8f88f7fbe2030d8e67970769049981c7b2ff5662b74ae2de0570844d960716",
+  "nativeApertureReceipts": [
+    "artifacts/validation/afocal-aperture-state-20261031-native/inactive-parameters/surface-aperture-control.json",
+    "artifacts/validation/afocal-aperture-state-20261031-native/active-annulus/surface-aperture-control.json"
+  ],
+  "files": [
+    {
+      "path": "inactive32/captured-settings.json",
+      "sha256": "72d11ba24a243ec8a873523c7f37fa27a33033c83378f8db9d9a06bbfbe9da2c"
+    },
+    {
+      "path": "inactive32/data.json",
+      "sha256": "cb00b4d290d7c83c50886eface9f0a0e94f1268905a3d9a3888dd5d297110ece"
+    },
+    {
+      "path": "inactive32/data.txt",
+      "sha256": "d01236501f560bf5a7fe43093819b65ad997cbc5b1923d2512cf7568d4253b9f"
+    },
+    {
+      "path": "inactive32/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+    },
+    {
+      "path": "inactive32/source.ZMX",
+      "sha256": "92f655745071126eea86dd9ba4377bbee455dd87cd3e1f183339290aded6fe7e"
+    },
+    {
+      "path": "inactive64/captured-settings.json",
+      "sha256": "bd32eaeb999e916af0fba2108f9e25757561a9f3f34ff4afff4c558b719b6d9d"
+    },
+    {
+      "path": "inactive64/data.json",
+      "sha256": "1c6f4797088161a7e09ebc4f73695f2bdcfb4f2901a14ad184a524dd57215969"
+    },
+    {
+      "path": "inactive64/data.txt",
+      "sha256": "c0c0be723aa5ef278d642403f99c317f0b09b429823340974cc18665238bf13b"
+    },
+    {
+      "path": "inactive64/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+    },
+    {
+      "path": "inactive64/source.ZMX",
+      "sha256": "92f655745071126eea86dd9ba4377bbee455dd87cd3e1f183339290aded6fe7e"
+    },
+    {
+      "path": "active32/captured-settings.json",
+      "sha256": "3bdd2ba9c7df979eece0ac63b4e6d876d955b5e9cdb3e917dcc0f419bc3091b6"
+    },
+    {
+      "path": "active32/data.json",
+      "sha256": "38423d9a77eb2f378837f3f48064edc77bfce7bbfeb0a01a667093362bdb37e1"
+    },
+    {
+      "path": "active32/data.txt",
+      "sha256": "5938e666ed01af1248fe8dacd30562cfa7af930150e48b010faa14233df34604"
+    },
+    {
+      "path": "active32/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+    },
+    {
+      "path": "active32/source.ZMX",
+      "sha256": "ef1008567e8e32e316e41b409f2e97cbba78c5ee5daf5267e2cb7d7b2c8dc3b4"
+    },
+    {
+      "path": "active64/captured-settings.json",
+      "sha256": "09717510a5b2f0d71f2b4d0977fe31ebd2a2e0ff79fa71b91d5aff077ad41239"
+    },
+    {
+      "path": "active64/data.json",
+      "sha256": "e703209e7c9fbe8382ebcd17c518d9511eca9937dd207c66f2e88d7035a587f6"
+    },
+    {
+      "path": "active64/data.txt",
+      "sha256": "1ab72047b54a1ba9edd284a5464037318131f26c38fced43a2335149a4f02678"
+    },
+    {
+      "path": "active64/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+    },
+    {
+      "path": "active64/source.ZMX",
+      "sha256": "ef1008567e8e32e316e41b409f2e97cbba78c5ee5daf5267e2cb7d7b2c8dc3b4"
+    },
+    {
+      "path": "active-mtf/captured-settings.json",
+      "sha256": "ff9db736c773be9b7644cb0ee90cfc568307def3cd9049008d8193b41a3368c8"
+    },
+    {
+      "path": "active-mtf/data.json",
+      "sha256": "67ccd9ef5237e2f75e806fdc0df744d82f95bab6190ba938f7bb34c9643f07aa"
+    },
+    {
+      "path": "active-mtf/data.txt",
+      "sha256": "9d9cf3ad6a42d0ba184324484367b03708f26c6e9cbb37b6eb0898a90179d70b"
+    },
+    {
+      "path": "active-mtf/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+    },
+    {
+      "path": "active-mtf/source.ZMX",
+      "sha256": "ef1008567e8e32e316e41b409f2e97cbba78c5ee5daf5267e2cb7d7b2c8dc3b4"
+    }
+  ]
+}

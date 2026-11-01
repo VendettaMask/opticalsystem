@@ -1,0 +1,35 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.02]     OpticalSystemDesign.Tests.MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(r: 0.20000000000000001, t: 0) [FAIL]
+[xUnit.net 00:00:02.03]     OpticalSystemDesign.Tests.MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(r: 0, t: 1) [FAIL]
+[xUnit.net 00:00:02.03]     OpticalSystemDesign.Tests.MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(r: 0.20000000000000001, t: 0.5) [FAIL]
+  失败 OpticalSystemDesign.Tests.MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(r: 0.20000000000000001, t: 0) [4 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 2.9999999999999998E-14)
+Actual: 1.8626455933201669E-10
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(Double r, Double t) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredBsdfTests.cs:line 103
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(r: 0, t: 1) [< 1 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 2.9999999999999998E-14)
+Actual: 9.3132235257087359E-10
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(Double r, Double t) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredBsdfTests.cs:line 103
+   at InvokeStub_MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(r: 0.20000000000000001, t: 0.5) [< 1 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 2.9999999999999998E-14)
+Actual: 3.4846897589702053E-10
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(Double r, Double t) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MeasuredBsdfTests.cs:line 103
+   at InvokeStub_MeasuredBsdfTests.PureAndMixedLobesEndpointsAndRotatedFramesHaveConsistentWeights(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-10-31\measured-bsdf-btdf\core-development.trx
+
+失败!  - 失败:     3，通过:    18，已跳过:     0，总计:    21，持续时间: 1 s - OpticalSystemDesign.Tests.dll (net10.0)

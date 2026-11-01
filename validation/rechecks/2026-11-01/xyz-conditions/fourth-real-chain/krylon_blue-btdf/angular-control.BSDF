@@ -1,0 +1,34 @@
+# Synthetic Lambertian angular control; colour from a held-out measured direction, not a full measured BRDF
+Source Measured
+Symmetry PlaneSymmetrical
+SpectralContent XYZ
+ScatterType BTDF
+SampleRotation 1
+0
+AngleOfIncidence 1
+0
+ScatterAzimuth 3
+0 90 180
+ScatterRadial 5
+0 60 90 120 180
+TristimulusX
+DataBegin
+TIS 0.089366472899686716
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+DataEnd
+TristimulusY
+DataBegin
+TIS 0.092823972801093751
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+DataEnd
+TristimulusZ
+DataBegin
+TIS 0.13196881965819887
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+DataEnd

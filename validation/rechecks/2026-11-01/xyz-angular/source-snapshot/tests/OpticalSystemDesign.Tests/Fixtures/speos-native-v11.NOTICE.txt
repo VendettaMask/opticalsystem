@@ -1,0 +1,10 @@
+The source distributions are Optical System Design synthetic format/physics controls, not measured material data.
+Numerical reference outputs were captured locally from unmodified ANSYS-signed Speos 2026 R1 2026.1.0.37094.
+No commercial executable, library, installer payload or license component is distributed with these fixtures.
+The energy JSON covers the original active v11 control and is not directional certification.
+The native-saved no-white file and its 603-point reference cover 400 nm, 0/30/60 degree measured inputs,
+specular enhancement enabled and White Specular disabled. Explicit tolerances are numeric regression controls
+for the float32 XMP export, not measurement uncertainty or universal Speos acceptance tolerances.
+Native engine/source/map hashes and coordinate conventions are embedded in the reference JSON.
+Capture tools, complete signed-engine identities and White Specular failure/convergence evidence:
+validation/rechecks/2026-10-31/commercial-bsdf-calibration/

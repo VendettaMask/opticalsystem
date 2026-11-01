@@ -1,0 +1,57 @@
+{
+  "Source": {
+    "Kind": 1,
+    "Source": "Cornell PCG Cayman lacquer paired spectral BRDF and published XYZ; D65 declared by official Data File Formats section; observer angle not explicitly specified",
+    "XyzSha256": "0992c3e0750fd86aa70cc324953a8445f565c3625cccdfc2ca24e7d895b7444a",
+    "RadiometricSha256": "eddef58cac794c41fffa8be876dc49792fcc37101610c27c87aa8bbb11bd2d6b",
+    "ObserverAndIlluminantVerified": false
+  },
+  "PrescribedWavelengthNm": 550,
+  "IlluminantVerified": "D65",
+  "ObserverVerified": false,
+  "PublishedXyzDerivedFromMeasuredSpectra": true,
+  "SampleCount": 1439,
+  "Training": 959,
+  "Validation": 480,
+  "Result": {
+    "Bands": [
+      {
+        "WavelengthNanometers": 550,
+        "X": 0.60863075839851,
+        "Y": 2.2344047624585905,
+        "Z": 0
+      }
+    ],
+    "Evidence": {
+      "Provenance": {
+        "Kind": 1,
+        "Source": "Cornell PCG Cayman lacquer paired spectral BRDF and published XYZ; D65 declared by official Data File Formats section; observer angle not explicitly specified",
+        "XyzSha256": "0992c3e0750fd86aa70cc324953a8445f565c3625cccdfc2ca24e7d895b7444a",
+        "RadiometricSha256": "eddef58cac794c41fffa8be876dc49792fcc37101610c27c87aa8bbb11bd2d6b",
+        "ObserverAndIlluminantVerified": false
+      },
+      "Policy": {
+        "MaximumValidationNormalizedRms": 0.01,
+        "MaximumValidationAbsoluteError": 0.01,
+        "RelativeSignalFloor": 1E-06
+      },
+      "Bands": [
+        {
+          "WavelengthNanometers": 550,
+          "TrainingCount": 959,
+          "ValidationCount": 480,
+          "Rank": 3,
+          "ConditionNumber": 7788.568377022078,
+          "TrainingNormalizedRms": 0.00033670088577849824,
+          "ValidationNormalizedRms": 0.32920326142442635,
+          "ValidationMaximumAbsoluteError": 0.011075942026630557,
+          "ValidationMaximumRelativeError": 2272.7499958290205,
+          "Passed": false
+        }
+      ],
+      "CalibrationBandsSha256": "f65e5261670e100ae92bd87dfa3b38c5cad629f8b860a5e3102fa315684ac11a"
+    },
+    "ModelValidationPassed": false
+  },
+  "Exported": false
+}

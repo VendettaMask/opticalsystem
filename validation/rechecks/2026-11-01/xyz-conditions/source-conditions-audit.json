@@ -1,0 +1,58 @@
+{
+  "PublishedIlluminant": {
+    "Status": "Source-declared D65",
+    "Source": "https://bowers.cornell.edu/computer-graphics/data",
+    "ArchivedPage": "cornell-reflectance.html",
+    "ArchivedSha256": "e4bec8096e1174169c814f344caa3a9b2bced14ae6959a35d8e5be9fe6141c72"
+  },
+  "PublishedObserver": {
+    "Status": "Not explicitly specified by measurement page or MAT variables",
+    "IndirectConvention": "Cornell PCG MDL colour documentation defines XYZ by the CIE 1931 standard observer; this is not direct metadata for these measurements",
+    "ConventionSource": "https://www.graphics.cornell.edu/online/formats/mdl/chunks/color.html",
+    "EmptyMdlDirectDownloadNotEvidence": true,
+    "PublishedObserverVerified": false
+  },
+  "NumericalCrossMaterialKernelAudit": [
+    {
+      "HeldMaterial": "garnet_red",
+      "Rank": 31,
+      "MaximumAbsolute": 1.608006721554034E-05,
+      "Rms": 4.796249487664656E-07
+    },
+    {
+      "HeldMaterial": "krylon_blue",
+      "Rank": 31,
+      "MaximumAbsolute": 1.971278915746666E-05,
+      "Rms": 4.318700093392352E-07
+    },
+    {
+      "HeldMaterial": "acryl_blue",
+      "Rank": 31,
+      "MaximumAbsolute": 7.571595406208331E-06,
+      "Rms": 3.443934030719464E-07
+    },
+    {
+      "HeldMaterial": "mystique",
+      "Rank": 31,
+      "MaximumAbsolute": 4.732071167268259E-05,
+      "Rms": 8.009017687716271E-07
+    },
+    {
+      "HeldMaterial": "cayman",
+      "Rank": 31,
+      "MaximumAbsolute": 1.921659531944897E-05,
+      "Rms": 4.6772239178353465E-07
+    }
+  ],
+  "ExactIntegrationOneVsHalfNmDifference": 1.4779288903810084E-12,
+  "UsedCalibrationConditions": {
+    "Observer": "CIE 1931 2-degree, explicit nominal response table",
+    "Illuminant": "CIE D65 restricted to 400-700 nm, zero outside",
+    "ObserverSha256": "fa663e3535a7e0763a745993a1f0a192eb0275ac46ad2d1befd7626841e713c1",
+    "IlluminantSha256": "e76f210bffff3d552ef7113025da5f325d5dfec200dd4b878b1a2f3a507032cb",
+    "Normalization": "White Y = 1 over the declared band",
+    "Method": "PiecewiseLinearProductGauss2WhiteY/1",
+    "PublishedXyzRelabelled": false,
+    "DerivedXyzIsIndependentInstrumentMeasurement": false
+  }
+}

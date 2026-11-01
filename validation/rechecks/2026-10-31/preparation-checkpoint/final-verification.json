@@ -1,0 +1,99 @@
+{
+  "status": "complete",
+  "completedDate": "2026-11-01",
+  "scope": "M3.5 preparation checkpoints; background/headless only",
+  "exactOriginalF8Pairs": 5,
+  "originalF8QualifiedRuns": 10,
+  "tests": {
+    "final-checkpoint-regression.trx": {
+      "total": "183",
+      "executed": "183",
+      "passed": "183",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "final-product-integration.trx": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "independentReplayCounts": {
+    "audit-frozen": 76,
+    "audit-current": 76,
+    "audit-product": 76
+  },
+  "documentation": {
+    "documents": 1628,
+    "brokenLinks": 0,
+    "fenceIssues": 0,
+    "currentGuideDuplicates": 0
+  },
+  "artifacts": [
+    {
+      "path": "summary.json",
+      "sha256": "902e9d520d456613396f84c77ae7ae118c8d1d95cf2985a4d99d1eed26930c4b"
+    },
+    {
+      "path": "final-source.zip",
+      "sha256": "c3ee4fd45da27c913bbf80cd4b005b8c7d207fa31e6ce6d2b95131f6a172418b"
+    },
+    {
+      "path": "final-source-sha256.json",
+      "sha256": "d8ca474884248b134f63d725e6c2060009b9133ed9419279d2c434d97a59e139"
+    },
+    {
+      "path": "final-identities.json",
+      "sha256": "ccd33550b2dd36d0e970ed96b3cad9b4366941d288b21de0c1b920bee67fd8f7"
+    },
+    {
+      "path": "documentation-audit.json",
+      "sha256": "64481118bce03ac8437bf48656761588747a04340f6f3e4c65bbe6551fab5139"
+    },
+    {
+      "path": "tests/final-checkpoint-regression.trx",
+      "sha256": "43eaea85aeaaa6374aea4b5e8c982c4adf64ffd2de536a84f87741a5339b79cc"
+    },
+    {
+      "path": "tests/final-product-integration.trx",
+      "sha256": "f2cea0d9c4cd26f52479b024c7545c7fbe82266550bb82b44cc9b417495ffba4"
+    },
+    {
+      "path": "tests/final-test-build.log",
+      "sha256": "d7da6c8eff18afa1202167c99749920776682f5520d48efde847ba66b97443b5"
+    },
+    {
+      "path": "tests/final-product-build-current.log",
+      "sha256": "61accf97535b8584bac04094619c46d5551cb419357e0ec0275f445f56c7b0dd"
+    }
+  ],
+  "unchangedOriginalPhysicalAndManufacturingGates": true,
+  "f4ConflictRetained": true,
+  "unexpectedInFlightLoss": "Conservative reservation charged once; interrupted, not exact continuation",
+  "noNativeGui": true,
+  "noCommitPushPublish": true
+}

@@ -3,6 +3,7 @@ using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Propagation;
+using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Core.Services;
 
@@ -10,20 +11,25 @@ public sealed partial class Paraxial
 {
     private bool HasGradientIndex => _optic.SurfaceGroup.Items.Any(s => s.MaterialAfter is GradientIndexMaterial);
 
-    private void ValidateGradientIndexSystem()
+    private void ValidateGradientIndexSystem(int endSurfaceExclusive = int.MaxValue)
     {
         var surfaces = _optic.SurfaceGroup.Items;
         if (surfaces.Count < 3) throw new InvalidOperationException("GRIN 一阶系统需要物面、材料入口及出口。");
-        for (var i = 0; i < surfaces.Count; i++)
+        var orientation = 1;
+        for (var i = 0; i < Math.Min(surfaces.Count, endSurfaceExclusive); i++)
         {
             var s = surfaces[i];
             var frame = s.CoordinateSystem;
             if (frame.Origin.X != 0 || frame.Origin.Y != 0 || frame.RotationXDegrees != 0 || frame.RotationYDegrees != 0
                 || s.Geometry is not (PlaneGeometry or StandardGeometry)
-                || s.InteractionModel is not (RefractiveReflectiveInteractionModel or ThinLensInteractionModel)
-                || s.IsReflective || s.InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
-                || s.InteractionModel is ThinLensInteractionModel { IsReflective: true })
-                throw new NotSupportedException("GRIN 标量一阶系统当前要求共轴标准面/平面及透射或理想薄透镜；偏心、倾斜、反射、非球面与相位面尚未接通。");
+                || s.InteractionModel is not (RefractiveReflectiveInteractionModel or ThinLensInteractionModel or ParaxialLensInteractionModel))
+                throw new NotSupportedException("GRIN 标量一阶系统当前要求共轴标准面/平面及折射、反射或理想薄透镜；偏心、倾斜、非球面与相位面尚未接通。");
+            if (IsGradientPathReflective(s))
+            {
+                if (!SameReflectedMedium(s.MaterialBefore, s.MaterialAfter))
+                    throw new NotSupportedException("GRIN 一阶反射面必须保留同一入射介质；不能将未透射的另一材料作为反射后的传播介质。");
+                orientation = -orientation;
+            }
             if (!double.IsFinite(frame.Origin.Z) || double.IsNaN(s.Radius)
                 || s.Geometry is StandardGeometry && s.Radius == 0)
                 throw new InvalidOperationException("GRIN 一阶系统的顶点和曲率半径无效。");
@@ -31,10 +37,12 @@ public sealed partial class Paraxial
                 throw new InvalidOperationException("GRIN 一阶系统仅允许物面正无穷厚度。");
             if (i < surfaces.Count - 1 && !(i == 0 && ObjectConjugate.IsInfinite(s)))
             {
-                if (!double.IsFinite(s.Thickness) || s.Thickness < 0
-                    || Math.Abs(surfaces[i + 1].CoordinateSystem.Origin.Z - frame.Origin.Z - s.Thickness)
-                        > 1e-10 * Math.Max(1, s.Thickness))
-                    throw new NotSupportedException("GRIN 一阶系统要求有限非负顺序间距，且顶点坐标与中心厚度一致。");
+                if (!double.IsFinite(s.Thickness)
+                    || Math.Abs(surfaces[i + 1].CoordinateSystem.Origin.Z - (frame.Origin.Z + s.Thickness))
+                        > 1e-10 * Math.Max(1, Math.Abs(s.Thickness)))
+                    throw new NotSupportedException("GRIN 一阶系统要求有限有符号间距，且顶点坐标与中心厚度一致。");
+                if (s.MaterialAfter is GradientIndexMaterial && s.Thickness != 0 && Math.Sign(s.Thickness) != orientation)
+                    throw new NotSupportedException("GRIN 体内间距必须与实际反射后的传播方向一致；不支持以虚拟回溯代替体内积分。");
             }
             if (s.MaterialAfter is GradientIndexMaterial gradient)
             {
@@ -47,6 +55,35 @@ public sealed partial class Paraxial
             else if (s.MaterialAfter.PropagationModel is not HomogeneousPropagationModel)
                 throw new NotSupportedException("GRIN 一阶系统不能混用入口方向近似或未知传播模型。");
         }
+    }
+
+    private static bool IsGradientPathReflective(OpticalSurface surface) => surface.IsReflective
+        || surface.InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
+        || surface.InteractionModel is ThinLensInteractionModel { IsReflective: true };
+
+    private static bool SameReflectedMedium(IMaterial before, IMaterial after)
+    {
+        if (ReferenceEquals(before, after)) return true;
+        if (before is GradientIndexMaterial a && after is GradientIndexMaterial b && ReferenceEquals(a.Profile, b.Profile)) return true;
+        return System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(before))
+            == System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(after));
+    }
+
+    private readonly record struct GradientMediumState(IMaterial Material, OpticalSurface Entrance);
+
+    private (GradientMediumState[] Before, GradientMediumState[] After) GradientMediumStates()
+    {
+        var surfaces = _optic.SurfaceGroup.Items;
+        var before = new GradientMediumState[surfaces.Count]; var after = new GradientMediumState[surfaces.Count];
+        var state = new GradientMediumState(surfaces[0].MaterialBefore, surfaces[0]);
+        for (var i = 0; i < surfaces.Count; i++)
+        {
+            before[i] = state;
+            // Reflection retains the original spatial-profile frame, including axial gradients.
+            if (!IsGradientPathReflective(surfaces[i])) state = new(surfaces[i].MaterialAfter, surfaces[i]);
+            after[i] = state;
+        }
+        return (before, after);
     }
 
     private static double AxialIndex(IMaterial material, OpticalSurface entrance, double globalZ, double wavelength)
@@ -77,27 +114,33 @@ public sealed partial class Paraxial
         bool includeTrailingTranslation, out double determinant)
     {
         var surfaces = _optic.SurfaceGroup.Items;
+        var media = GradientMediumStates();
         var matrix = RayMatrix.Identity;
+        var incoming = media.Before[first];
         var currentIndex = first <= 0 ? 1.0
-            : AxialIndex(surfaces[first - 1].MaterialAfter, surfaces[first - 1], surfaces[first].CoordinateSystem.Origin.Z, wavelength);
+            : AxialIndex(incoming.Material, incoming.Entrance, surfaces[first].CoordinateSystem.Origin.Z, wavelength);
         var initialIndex = currentIndex;
+        var orientation = 1;
         for (var i = first; i < end; i++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var s = surfaces[i];
             var z = s.CoordinateSystem.Origin.Z;
-            var nextIndex = AxialIndex(s.MaterialAfter, s, z, wavelength);
-            matrix = s.InteractionModel is ThinLensInteractionModel thin
-                ? ThinLens(matrix, thin.FocalLength, currentIndex, nextIndex, false)
-                : Refract(matrix, s.Radius, currentIndex, nextIndex);
+            var outgoing = media.After[i]; var reflective = IsGradientPathReflective(s);
+            var nextIndex = AxialIndex(outgoing.Material, outgoing.Entrance, z, wavelength);
+            matrix = s.InteractionModel is ParaxialLensInteractionModel lens ? PlanePower(matrix, lens.PowerY, currentIndex, nextIndex)
+                : s.InteractionModel is ThinLensInteractionModel thin
+                ? ThinLens(matrix, thin.FocalLength, currentIndex, nextIndex, reflective)
+                : reflective ? Reflect(matrix, s.Radius) : Refract(matrix, s.Radius, currentIndex, nextIndex);
             currentIndex = nextIndex;
+            if (reflective) orientation = -orientation;
             if ((i != 0 || !ObjectConjugate.IsInfinite(s)) && (includeTrailingTranslation || i + 1 < end))
             {
-                matrix = Compose(AxialPropagation(s.MaterialAfter, s, z, z + s.Thickness, wavelength), matrix);
-                currentIndex = AxialIndex(s.MaterialAfter, s, z + s.Thickness, wavelength);
+                matrix = Compose(AxialPropagation(outgoing.Material, outgoing.Entrance, z, z + s.Thickness, wavelength), matrix);
+                currentIndex = AxialIndex(outgoing.Material, outgoing.Entrance, z + s.Thickness, wavelength);
             }
         }
-        determinant = initialIndex / currentIndex;
+        determinant = orientation * initialIndex / currentIndex;
         return matrix;
     }
 
@@ -110,6 +153,7 @@ public sealed partial class Paraxial
             throw new ArgumentException("GRIN 近轴输入需要等长有限高度/斜率数组、有限起点及正波长。");
         var wavelength = wavelengthMicrometers * 1000;
         var surfaces = _optic.SurfaceGroup.Items;
+        var media = GradientMediumStates();
         var y = initialHeights.ToArray();
         var u = initialSlopes.ToArray();
         var z = reverse ? surfaces[^1].CoordinateSystem.Origin.Z - initialZ : initialZ;
@@ -122,17 +166,20 @@ public sealed partial class Paraxial
             var s = surfaces[i];
             if (i != 0 || reverse && !ObjectConjugate.IsInfinite(s))
             {
-                var incomingEntrance = reverse ? s : surfaces[i - 1];
-                var outgoingEntrance = reverse ? surfaces[Math.Max(0, i - 1)] : s;
+                var incoming = reverse ? media.After[i] : media.Before[i];
+                var outgoing = reverse ? media.Before[i] : media.After[i];
                 var targetZ = s.CoordinateSystem.Origin.Z;
-                var m = AxialPropagation(incomingEntrance.MaterialAfter, incomingEntrance, z, targetZ, wavelength, reverse);
+                var m = AxialPropagation(incoming.Material, incoming.Entrance, z, targetZ, wavelength, reverse);
                 if (i != 0)
                 {
-                    var n1 = AxialIndex(incomingEntrance.MaterialAfter, incomingEntrance, targetZ, wavelength);
-                    var n2 = AxialIndex(outgoingEntrance.MaterialAfter, outgoingEntrance, targetZ, wavelength);
-                    m = s.InteractionModel is ThinLensInteractionModel thin
-                        ? ThinLens(m, thin.FocalLength, n1, n2, false)
-                        : Refract(m, reverse ? -s.Radius : s.Radius, n1, n2);
+                    var n1 = AxialIndex(incoming.Material, incoming.Entrance, targetZ, wavelength);
+                    var n2 = AxialIndex(outgoing.Material, outgoing.Entrance, targetZ, wavelength);
+                    var reflective = IsGradientPathReflective(s);
+                    var radius = reverse ? -s.Radius : s.Radius;
+                    m = s.InteractionModel is ParaxialLensInteractionModel lens ? PlanePower(m, lens.PowerY, n1, n2)
+                        : s.InteractionModel is ThinLensInteractionModel thin
+                        ? ThinLens(m, thin.FocalLength, n1, n2, reflective)
+                        : reflective ? Reflect(m, radius) : Refract(m, radius, n1, n2);
                 }
                 // A finite object is a real plane reached on return, without a fictitious object interaction.
                 for (var ray = 0; ray < y.Length; ray++)

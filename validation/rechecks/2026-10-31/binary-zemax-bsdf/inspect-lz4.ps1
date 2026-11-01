@@ -1,0 +1,8 @@
+$ErrorActionPreference='Stop'
+$bytes=[IO.File]::ReadAllBytes((Resolve-Path 'validation/rechecks/2026-10-31/binary-zemax-bsdf/R_test.anisotropicbsdf')); $stream=[IO.MemoryStream]::new($bytes);$reader=[IO.BinaryReader]::new($stream);$stream.Position=[Array]::IndexOf($bytes,[byte]10)+2+9+8+24+2+16+2
+function Decode-Lz4([byte[]]$src,[int]$n) { $dst=[byte[]]::new($n);$ip=0;$op=0;while($ip-lt$src.Length){$token=$src[$ip++];$lit=$token-shr4;if($lit-eq15){do{$ext=$src[$ip++];$lit+=$ext}while($ext-eq255)};[Array]::Copy($src,$ip,$dst,$op,$lit);$ip+=$lit;$op+=$lit;if($ip-eq$src.Length){break};$offset=[int]$src[$ip]+256*[int]$src[$ip+1];$ip+=2;$len=($token-band15)+4;if(($token-band15)-eq15){do{$ext=$src[$ip++];$len+=$ext}while($ext-eq255)};for($j=0;$j-lt$len;$j++){$dst[$op]=$dst[$op-$offset];$op++}};if($op-ne$n){throw "size $op expected$n"};return ,$dst }
+function Packed { $n=$reader.ReadInt64();$result=[IO.MemoryStream]::new();while($result.Length-lt$n){$chunk=$reader.ReadInt32();$len=$reader.ReadInt32();$src=$reader.ReadBytes($len);$data=Decode-Lz4 $src $chunk;$result.Write($data)};return ,$result.ToArray() }
+function Values([int]$n) { $a=Packed;if($a.Length-ne$n*8){throw "values $($a.Length) vs$n"};return ,@(for($j=0;$j-lt$n;$j++){[BitConverter]::ToDouble($a,$j*8)}) }
+$nr=$reader.ReadInt32(); 'rotcount='+$nr; 'rot='+((Values $nr)-join','); $ni=$reader.ReadInt32();'ninc='+$ni;'inc='+((Values $ni)-join',');'pos='+$stream.Position
+'nextDouble='+$reader.ReadDouble()+','+$reader.ReadDouble();'nextInt='+$reader.ReadInt32(); 'pos='+$stream.Position
+[BitConverter]::ToString($bytes,[int]$stream.Position,100)

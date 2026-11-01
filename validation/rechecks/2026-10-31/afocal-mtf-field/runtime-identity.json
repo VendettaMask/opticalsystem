@@ -1,0 +1,42 @@
+{
+  "binaries": [
+    {
+      "path": "artifacts/validation/afocal-mtf-field-runner-20261031-final/OpticalSystemDesign.Core.dll",
+      "sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "path": "artifacts/validation/afocal-mtf-field-runner-20261031-final/OpticalSystemDesign.Application.dll",
+      "sha256": "1798f1622fc4f217183d912ed94af92370a27038de692fcb9a74e1e0536949e9"
+    },
+    {
+      "path": "artifacts/validation/afocal-mtf-field-runner-20261031-final/OpticalSystemDesign.ZemaxComparison.dll",
+      "sha256": "86bfcd2942705cd077f67447bcc3174d9ba16126e57a9385a9ab37433dbd83fc"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "fb6d2b94cb461da4eef88ba6ead5e57bc7da4dc27419e6bedc005de70e11af22"
+    }
+  ],
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "policyUnchanged": true,
+  "tests": [
+    {
+      "file": "afocal-mtf-field-final2.trx",
+      "counters": [],
+      "sha256": "0f71bd619b12d03c3b0405e148531f15025f19483942de3c822ba0219b796a78"
+    },
+    {
+      "file": "afocal-mtf-field-existing.trx",
+      "counters": [],
+      "sha256": "5ee195c849b43eebd688f34865e90c93b7824235a358201b0bf0ca9aed00c205"
+    }
+  ]
+}
