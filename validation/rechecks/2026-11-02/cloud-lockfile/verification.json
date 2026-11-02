@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-02",
+  "baseCommit": "232e878001acf23a1c17799573fcefa4c2929d83",
+  "cause": "Comparison tool has no RuntimeIdentifier, but committed lock file included net10.0/win-x64; locked restore rejects with NU1004 before compilation.",
+  "failedCloudRun": 41435413433,
+  "failedCiRun": 41424094991,
+  "scope": "Remove only undeclared RID-specific lock segment; all eight shared dependency records identical.",
+  "verification": {
+    "beforeLockedRestoreExitCode": 1,
+    "afterSolutionLockedRestoreExitCode": 0,
+    "comparisonReleaseBuildExitCode": 0,
+    "compilerWarnings": 0,
+    "compilerErrors": 0,
+    "newTests": 0,
+    "fullSuiteRun": false,
+    "cloudRebuildVerified": false,
+    "foregroundAppsLaunched": false,
+    "localInstallerBuild": false
+  },
+  "evidence": {
+    "path": "evidence.zip",
+    "bytes": 131354,
+    "sha256": "0db7fcc8ddef846c3c8b69c0ba574e4c0e112c1d70ebf505cd547237bceccd1d"
+  },
+  "lockFileSha256": "a4481e6cca4b7d22838471c99483f525d54169bca9d695bcbe1ff78be8ce44bf",
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1906,
+    "brokenLinks": 0,
+    "guideRepeatedParagraphs": 0
+  }
+}
