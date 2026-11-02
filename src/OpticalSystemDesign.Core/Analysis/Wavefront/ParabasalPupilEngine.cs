@@ -11,7 +11,8 @@ public sealed record ParabasalPupilResult(double ImageAxialDistanceMillimeters, 
 /// <summary>Images the actual central stop pencil in one image-space meridian using shared geometric tracing.</summary>
 public static class ParabasalPupilEngine
 {
-    public static ParabasalPupilResult Compute(Optic optic, Wavelength wavelength, bool useX = false, double probeStep = 1e-3)
+    public static ParabasalPupilResult Compute(Optic optic, Wavelength wavelength, bool useX = false, double probeStep = 1e-3,
+        bool allowGeometricReference = false)
     {
         if (!double.IsFinite(probeStep) || probeStep is < 1e-6 or > .01) throw new ArgumentOutOfRangeException(nameof(probeStep));
         var surfaces = optic.SurfaceGroup.Items;
@@ -21,10 +22,20 @@ public static class ParabasalPupilEngine
         var tracer = optic.SequentialRayTracer;
         var chiefBundle = tracer.RayGenerator.GenerateGeneric(0, 0, 0, 0, wavelength.Micrometers, optic.RayAimingEnabled);
         using var traced = tracer.Trace(chiefBundle, TraceRequest.Selected([stopIndex, surfaces.Count - 1]));
-        if (!traced.TryGetSample(0, stopIndex, out var stopHit) || !traced.TryGetSample(0, surfaces.Count - 1, out var chief)
-            || stopHit.Vignetted || chief.Vignetted)
+        RayTraceSample? stopHit = traced.TryGetSample(0, stopIndex, out var stopSample) ? stopSample.ToRayTraceSample() : null;
+        RayTraceSample? chief = traced.TryGetSample(0, surfaces.Count - 1, out var chiefSample) ? chiefSample.ToRayTraceSample() : null;
+        if (allowGeometricReference)
+        {
+            // A phase datum may use an unclipped auxiliary pencil. It never
+            // supplies the physical pupil mask, transmitted power or samples.
+            if (stopHit is null || stopHit.Vignetted)
+                stopHit = tracer.TraceToSurface(chiefBundle.Rays.Single(), stopIndex);
+            if (chief is null || chief.Vignetted)
+                chief = AnalysisTrace.GeometricImageReference(optic, chiefBundle.Rays.Single());
+        }
+        if (stopHit is null || chief is null || stopHit.Vignetted || chief.Vignetted)
             throw new AnalysisDataUnavailableException("Parabasal pupil", "the central ray is blocked");
-        var material = ExitPupilGeometryEngine.PencilMaterial(surfaces[stopIndex], stopHit);
+        var material = ExitPupilGeometryEngine.PencilMaterial(surfaces[stopIndex], RayTraceSampleValue.FromRayTraceSample(stopHit));
         var frame = surfaces[^1].CoordinateSystem;
         var perturbation = surfaces[stopIndex].CoordinateSystem.ToGlobalDirection(useX ? new(1, 0, 0) : new(0, 1, 0));
         var ends = new List<RayTraceSample>();
@@ -56,6 +67,7 @@ public static class ParabasalPupilEngine
             var bundle = tracer.RayGenerator.GenerateGeneric(0, 0, useX ? sign * step : 0,
                 useX ? 0 : sign * step, wavelength.Micrometers, optic.RayAimingEnabled);
             var end = tracer.TraceFinalSamples(bundle).Single()
+                ?? (allowGeometricReference ? AnalysisTrace.GeometricImageReference(optic, bundle.Rays.Single()) : null)
                 ?? throw new AnalysisDataUnavailableException("Parabasal pupil", "the central height pencil failed");
             pupilEnds.Add(Height(end.Position) + distance * Slope(end.Direction));
         }

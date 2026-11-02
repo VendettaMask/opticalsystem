@@ -38,7 +38,7 @@ public static partial class IlluminationMetrics
                     {
                         if (!ContainsImageCosine(triangle, l, m, out var candidate)) continue;
                         if (seed is { } other && Math.Abs(other.X - candidate.X) + Math.Abs(other.Y - candidate.Y) > 1e-7)
-                            throw Unavailable("multiple pupil regions overlap in image direction-cosine space");
+                            throw NonInjective("multiple pupil regions overlap in image direction-cosine space");
                         seed = candidate;
                     }
                     if (seed is not { } pupil) continue;

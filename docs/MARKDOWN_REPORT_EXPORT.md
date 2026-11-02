@@ -26,7 +26,7 @@ Fringe、Standard 和 Annular 正文表格均包含“序号、n、m、公式、
 
 Word 的公式列使用可编辑的原生 OMML，包含真正的上标和根式；HTML 使用上标，PDF/Markdown 使用可读数学符号。没有新增 Zernike 重建图或系数柱形图。定义核对参考 [Ansys Fringe](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Zernike_Fringe_Coefficients.html)、[Standard](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Zernike_Standard_Coefficients.html) 和 [Annular](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Zernike_Annular_Coefficients.html)；这不代表新取得全部商业软件数值认证。
 
-分析图和二维/三维布局统一采用 1200×900 DIP 的源图，绘图区高 740 DIP、图签高 160 DIP；默认以 2 倍像素密度生成 2404×1804 PNG（含四周 1 DIP 边框）。工作台显示与普通相机导出使用同一张源图，窄窗口滚动查看，不随窗口或屏幕缩放改变图面规格。报告按选定设置计算后使用同一绘图构造器；保存时不缩字、裁切或二次排版。子图或文字超过固定图框时明确提示该项失败，可减少同时显示的视场/子图或减小用户设置字号后重试。纯文字报告的分页截图及实体模型不采用该固定规格。
+分析图和二维/三维布局统一采用 1200×900 DIP 的源图，绘图区高 740 DIP、图签高 160 DIP；默认以 2 倍像素密度生成 2404×1804 PNG（含四周 1 DIP 边框）。工作台默认将同一源图完整等比适应窗口，也可选100%原生滚动；普通相机导出仍使用原始图纸，不随显示倍率、窗口或屏幕缩放改变图面规格。报告按选定设置计算后使用同一绘图构造器；保存时不缩字、裁切或二次排版。子图或文字超过固定图框时明确提示该项失败，可减少同时显示的视场/子图或减小用户设置字号后重试。纯文字报告的分页截图及实体模型不采用该固定规格。
 
 PDF 直接内嵌完整源 PNG，以固定纸面尺寸等比放置，不进行像素降采样或有损 JPEG 重编码。源图规格和共享文字样式一致，因此纸面上的图签、Logo 和同类文字大小也一致。高斯 28° 的七张图已核对实际物理尺寸与内嵌像素；见[PDF 尺寸验证及桌面样例](../validation/rechecks/2026-10-30/pdf-uniform-figures/README.md)和[源图验证](../validation/rechecks/2026-10-30/uniform-source-diagrams/README.md)。内部子图仍按各分析语义排布，不强行把单图、矩阵及成对扇形的坐标区变成相同尺寸。
 

@@ -31,6 +31,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
     private readonly ViewerPresentationMode _presentationMode;
     private readonly OpticSceneControl _scene;
     private readonly UniformDiagramPage? _diagramPage;
+    private Control? _diagramChrome;
+    private readonly DiagramViewportModeButton _diagramModeButton = new("ViewerDiagramViewMode");
     private readonly Dictionary<OpticSceneViewPreset, ToggleButton> _viewPresetButtons = new();
     private readonly WrapPanel _glassLegendItems = new() { Orientation = Orientation.Horizontal };
     private readonly Border _glassLegend = new() { Name = "Viewer3DGlassLegend", IsVisible = false };
@@ -176,13 +178,24 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         if (UsesLayoutCaption)
         {
             _diagramPage = new UniformDiagramPage(workspace, _summaryBar);
-            Content = new ScrollViewer
+            var host = new ResponsiveAnalysisPlotHost
             {
                 Name = "ViewerDiagramScroll",
-                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                Content = _diagramPage
+                Child = _diagramPage
             };
+            _diagramModeButton.BindHost(host);
+            _diagramModeButton.Height = 28;
+            _diagramModeButton.Margin = new Thickness(8, 4);
+            _diagramModeButton.HorizontalAlignment = HorizontalAlignment.Right;
+            // Keep the scale selector outside the drawing so actual-size mode
+            // remains reachable even when the sheet is scrolled or fitted small.
+            DockPanel.SetDock(_diagramModeButton, Avalonia.Controls.Dock.Top);
+            root.Children.Add(_diagramModeButton);
+            var viewport = new Grid { ClipToBounds = true, Children = { host } };
+            if (_diagramChrome is { } chrome)
+                viewport.Children.Add(new DiagramOverlayPresenter(_scene) { Child = chrome, ClipToBounds = true });
+            root.Children.Add(viewport);
+            Content = root;
         }
         else
         {
@@ -252,19 +265,14 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
 
         var reset = CompactButton("rotate-ccw", "恢复二维视图的缩放与平移");
         reset.Click += (_, _) => _scene.ResetView();
-        return ThemeChrome.WrapWithDecoration(
-            SceneWithOverlay(
-                _scene,
-                new ViewerToolbarLayout
-                {
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Children =
-                    {
-                        BuildSettingsOverlay(),
-                        Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right)
-                    }
-                }),
-            ThemeChromeRole.Viewport);
+        var tools = new ViewerToolbarLayout
+        {
+            VerticalAlignment = VerticalAlignment.Top,
+            Children = { BuildSettingsOverlay(), Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right) }
+        };
+        if (UsesLayoutCaption) _diagramChrome = tools;
+        return ThemeChrome.WrapWithDecoration(UsesLayoutCaption ? SceneWithOverlay(_scene)
+            : SceneWithOverlay(_scene, tools), ThemeChromeRole.Viewport);
     }
 
     private sealed class ViewerToolbarLayout : Panel
@@ -359,6 +367,9 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         var sceneContent = SceneWithOverlay(_scene, topOverlay, presetToolbar, _staleLayoutBanner);
         if (_presentationMode != ViewerPresentationMode.SolidModel)
         {
+            sceneContent.Children.Remove(topOverlay);
+            sceneContent.Children.Remove(presetToolbar);
+            _diagramChrome = new Grid { Children = { topOverlay, presetToolbar } };
             // A full caption leaves less vertical space in short panes. Keep the
             // wrapping navigation inside the viewport and preserve access by scrolling.
             var toolbar = (Border)presetToolbar;
@@ -372,8 +383,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             };
             toolbar.ClipToBounds = true;
             void ConstrainToolbar() => toolbar.MaxHeight = Math.Max(0,
-                sceneContent.Bounds.Height - topOverlay.DesiredSize.Height - toolbar.Margin.Bottom - 8);
-            sceneContent.SizeChanged += (_, _) => ConstrainToolbar();
+                _diagramChrome.Bounds.Height - topOverlay.DesiredSize.Height - toolbar.Margin.Bottom - 8);
+            _diagramChrome.SizeChanged += (_, _) => ConstrainToolbar();
             topOverlay.SizeChanged += (_, _) => ConstrainToolbar();
             return ThemeChrome.WrapWithDecoration(sceneContent, ThemeChromeRole.Viewport);
         }
@@ -1043,7 +1054,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         && _modes?.CurrentMode == OpticalWorkbenchMode.NonSequential
         && _nonSequentialAnalysis is not null;
 
-    private static Control SceneWithOverlay(Control scene, params Control[] overlays)
+    private static Grid SceneWithOverlay(Control scene, params Control[] overlays)
     {
         var grid = new Grid();
         grid.Children.Add(scene);

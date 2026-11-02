@@ -116,7 +116,9 @@ public sealed record SurfaceSnapshot(
     int MechanicalSemiDiameterSolveCode = 0,
     bool SemiDiameterDefinesPhysicalAperture = false,
     double? ThermalExpansionPpmPerC = null,
-    double ChipZone = 0);
+    double ChipZone = 0,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    bool SemiDiameterMaximum = false);
 
 public sealed record CoordinateSystemSnapshot(
     double OriginX,

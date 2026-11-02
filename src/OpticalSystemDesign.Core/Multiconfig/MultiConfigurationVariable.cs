@@ -46,7 +46,7 @@ public sealed record MultiConfigurationVariable(int ConfigurationIndex, MultiCon
             case MultiConfigurationOperandKind.Conic: surface.Conic = value; break;
             case MultiConfigurationOperandKind.SemiDiameter:
                 if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
-                surface.SemiDiameter = value; surface.SemiDiameterFixed = true; break;
+                surface.SemiDiameter = value; surface.SemiDiameterFixed = true; surface.SemiDiameterMaximum = false; break;
             default: throw new ArgumentOutOfRangeException(nameof(row));
         }
     }

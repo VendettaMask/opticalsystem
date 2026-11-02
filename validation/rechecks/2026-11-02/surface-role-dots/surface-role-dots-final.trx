@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f5eebec9-30ce-4274-aed5-1a2578ce6c8d" name="allen@DESKTOP-SET3SNR 2026-11-02 22:40:17" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T22:40:17.4337823+08:00" queuing="2026-11-02T22:40:17.4337829+08:00" start="2026-11-02T22:40:13.4157105+08:00" finish="2026-11-02T22:40:33.9031403+08:00" />
+  <TestSettings name="default" id="8dfff4e0-c99f-45b3-8910-657425759257">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-02_22_40_17" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a658b08c-6f06-44d1-b76b-fa025de7a244" testId="1d63e079-f77d-604c-e5f6-f81c642650f3" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Dark&quot;, language: &quot;en-US&quot;, fontSize: 13)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5712742" startTime="2026-11-02T22:40:29.2001754+08:00" endTime="2026-11-02T22:40:29.7715004+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a658b08c-6f06-44d1-b76b-fa025de7a244" />
+    <UnitTestResult executionId="4185e13c-751e-4ebc-8ea6-7a69347009e5" testId="23a1acf9-2652-a46b-b419-bb0d27925918" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Dark&quot;, language: &quot;en-US&quot;, fontSize: 18)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5282815" startTime="2026-11-02T22:40:32.2343301+08:00" endTime="2026-11-02T22:40:32.7627752+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4185e13c-751e-4ebc-8ea6-7a69347009e5" />
+    <UnitTestResult executionId="4df7bc4d-277d-4cf1-afc9-1675055645aa" testId="1f5b6200-667d-f76e-d9b6-b96f6da1bda3" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources" computerName="DESKTOP-SET3SNR" duration="00:00:00.0987675" startTime="2026-11-02T22:40:15.8994904+08:00" endTime="2026-11-02T22:40:15.9877201+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4df7bc4d-277d-4cf1-afc9-1675055645aa">
+      <Output>
+        <ErrorInfo>
+          <Message>Ordinary App UI colors must use ThemeResourceBindings or theme-derived brushes. Only engineering semantics such as drawings, wavelength colors, ray colors, analysis color maps and Zemax row palettes may use fixed colors:&#xD;
+Panels/UserGuideMath.cs:104: public static readonly StyledProperty&lt;IBrush&gt; ForegroundProperty = AvaloniaProperty.Register&lt;UserGuideMathView, IBrush&gt;(nameof(Foreground), Brushes.Black);&#xD;
+Services/ExportImageFrame.cs:27: &amp;&amp; resource is IBrush axis ? axis : new SolidColorBrush(Color.FromRgb(112, 128, 148));&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:94: var background = ThemeBrush(ThemeResourceBindings.PlotBackground, Colors.White);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:95: var text = ThemeBrush(ThemeResourceBindings.TextPrimary, Colors.Black);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:96: var muted = ThemeBrush(ThemeResourceBindings.TextSecondary, Colors.DimGray);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:97: var accent = ThemeBrush(ThemeResourceBindings.TextAccent, Colors.RoyalBlue);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:98: var line = ThemeBrush(ThemeResourceBindings.Border, Colors.Gray);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:115: context.DrawRectangle(new SolidColorBrush(Color.FromArgb(18, 50, 80, 105)), null, new Rect(300, bottom + 10, 390, 16), 8, 8);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:121: Polygon(context, Mix(Bands[0].Layer.Color, Colors.White, .62), [first.TopLeft, first.TopRight,&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:158: Polygon(context, Mix(color, Colors.Black, substrate ? .12 : .25), side, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .3)), .6));&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:162: GradientStops = new GradientStops { new(Mix(color, Colors.White, .62), 0), new(Mix(color, Colors.White, .18), .15), new(color, .7), new(Mix(color, Colors.Black, .15), 1) }&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:164: context.DrawRectangle(fill, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .2)), .6), front);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:165: context.DrawLine(new Pen(new SolidColorBrush(Color.FromArgb(125, 255, 255, 255)), .8), front.TopLeft, front.TopRight);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:169: Polygon(context, Color.FromArgb(52, 255, 255, 255), [new(front.Left + 28, front.Top), new(front.Left + 66, front.Top),&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:199: private static Color Mix(Color a, Color b, double amount) =&gt; Color.FromRgb((byte)(a.R * (1 - amount) + b.R * amount),&#xD;
+Laboratories/CoatingDesign/MainWindow.Geometry.cs:80: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;&#xD;
+Laboratories/CoatingDesign/MainWindow.Geometry.cs:86: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;&#xD;
+Laboratories/CoatingDesign/SpectrumPlot.cs:149: private IBrush PlotAreaBackgroundBrush =&gt; ThemeBrush(ThemeResourceBindings.SubtleSurface, Colors.WhiteSmoke);&#xD;
+Laboratories/CoatingDesign/SpectrumPlot.cs:154: var color = (PlotAreaBackgroundBrush as ISolidColorBrush)?.Color ?? Colors.WhiteSmoke;&#xD;
+Laboratories/CoatingDesign/SpectrumPlot.cs:156: return new ImmutableSolidColorBrush(Color.FromRgb((byte)Math.Round(color.R * factor),&#xD;
+Laboratories/CoatingDesign/SpectrumPlot.cs:238: var grid = new Pen(ThemeBrush(ThemeResourceBindings.PlotGrid, Colors.LightGray), .6);&#xD;
+Laboratories/InitialStructure/TopologyStructurePlot.cs:17: internal static readonly IBrush[] FieldBrushes = [Brushes.RoyalBlue, Brushes.ForestGreen, Brushes.Red, Brushes.DarkViolet, Brushes.DarkOrange, Brushes.Teal];&#xD;
+Laboratories/InitialStructure/TopologyStructurePlot.cs:104: var pen = new Pen(surface.IsStop ? Brushes.DarkGoldenrod : ink, surface.IsStop ? 2 : 1.4,</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 331&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8b1b8594-cd57-4524-b41a-2c5db68badb7" testId="d98545f0-b694-c8d9-236d-ee22ad3020d4" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Pixel&quot;, language: &quot;ja-JP&quot;, fontSize: 18)" computerName="DESKTOP-SET3SNR" duration="00:00:00.7545953" startTime="2026-11-02T22:40:28.4454950+08:00" endTime="2026-11-02T22:40:29.1999413+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8b1b8594-cd57-4524-b41a-2c5db68badb7" />
+    <UnitTestResult executionId="f9f4862b-b284-454f-8fdb-f9d3f8578563" testId="b20ac65f-6ee6-b7a5-77da-631b3ccf54cf" testName="OpticalSystemDesign.Tests.LensMaterialRowThemeTests.EveryMaterialRowKeepsBlueThroughSelectionEditsRecyclingAndFileSwitches" computerName="DESKTOP-SET3SNR" duration="00:00:11.8063889" startTime="2026-11-02T22:40:16.0015780+08:00" endTime="2026-11-02T22:40:27.7983348+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f9f4862b-b284-454f-8fdb-f9d3f8578563" />
+    <UnitTestResult executionId="9b3a9d27-f3c4-442c-8ed7-d958ec27bd31" testId="a96f4ce3-104b-7c31-4b64-bcc72658ad21" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Lumen&quot;, language: &quot;zh-CN&quot;, fontSize: 18)" computerName="DESKTOP-SET3SNR" duration="00:00:00.6447858" startTime="2026-11-02T22:40:27.8006300+08:00" endTime="2026-11-02T22:40:28.4451109+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b3a9d27-f3c4-442c-8ed7-d958ec27bd31" />
+    <UnitTestResult executionId="8c5c8b36-f669-4743-b9d6-ddb82c4b7b90" testId="d63b159b-f6d1-d856-7da0-4f20d61a732d" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Lumen&quot;, language: &quot;zh-CN&quot;, fontSize: 13)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5788371" startTime="2026-11-02T22:40:30.3215698+08:00" endTime="2026-11-02T22:40:30.9005608+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c5c8b36-f669-4743-b9d6-ddb82c4b7b90" />
+    <UnitTestResult executionId="895c3d1c-dd2a-4dd5-b9b7-02f2f5599b30" testId="00171550-51a1-4c4e-6ecf-f3bc14ed46e6" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, fontSize: 18)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5095458" startTime="2026-11-02T22:40:33.2851554+08:00" endTime="2026-11-02T22:40:33.7948321+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="895c3d1c-dd2a-4dd5-b9b7-02f2f5599b30" />
+    <UnitTestResult executionId="5e8fe31e-5aad-4a21-992b-7f74ceb46f92" testId="6c224f99-41a8-3e7d-a73e-d369a1f00076" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, fontSize: 18)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5219498" startTime="2026-11-02T22:40:32.7628722+08:00" endTime="2026-11-02T22:40:33.2850216+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e8fe31e-5aad-4a21-992b-7f74ceb46f92" />
+    <UnitTestResult executionId="74f227e5-c1e5-4114-81bf-b10b2f75b22c" testId="ab06fb6a-bb94-9f32-0e53-e2c751cfe905" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, fontSize: 13)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5520425" startTime="2026-11-02T22:40:30.9006977+08:00" endTime="2026-11-02T22:40:31.4528731+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="74f227e5-c1e5-4114-81bf-b10b2f75b22c" />
+    <UnitTestResult executionId="a6895bbf-3328-4d6c-bd82-5a4c623d623a" testId="bfd3a72b-7e3b-c996-9744-e6a99f6e5d1e" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, fontSize: 13)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5496970" startTime="2026-11-02T22:40:29.7716259+08:00" endTime="2026-11-02T22:40:30.3214519+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6895bbf-3328-4d6c-bd82-5a4c623d623a" />
+    <UnitTestResult executionId="f3068667-6427-4cc9-b179-abe719f9e5de" testId="aac4931d-4dff-1384-8c74-031e261f9e1b" testName="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Pixel&quot;, language: &quot;ja-JP&quot;, fontSize: 13)" computerName="DESKTOP-SET3SNR" duration="00:00:00.7811034" startTime="2026-11-02T22:40:31.4530329+08:00" endTime="2026-11-02T22:40:32.2342209+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f3068667-6427-4cc9-b179-abe719f9e5de" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Pixel&quot;, language: &quot;ja-JP&quot;, fontSize: 18)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d98545f0-b694-c8d9-236d-ee22ad3020d4">
+      <Execution id="8b1b8594-cd57-4524-b41a-2c5db68badb7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, fontSize: 13)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ab06fb6a-bb94-9f32-0e53-e2c751cfe905">
+      <Execution id="74f227e5-c1e5-4114-81bf-b10b2f75b22c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Lumen&quot;, language: &quot;zh-CN&quot;, fontSize: 13)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d63b159b-f6d1-d856-7da0-4f20d61a732d">
+      <Execution id="8c5c8b36-f669-4743-b9d6-ddb82c4b7b90" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Lumen&quot;, language: &quot;zh-CN&quot;, fontSize: 18)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a96f4ce3-104b-7c31-4b64-bcc72658ad21">
+      <Execution id="9b3a9d27-f3c4-442c-8ed7-d958ec27bd31" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1f5b6200-667d-f76e-d9b6-b96f6da1bda3">
+      <Execution id="4df7bc4d-277d-4cf1-afc9-1675055645aa" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="OrdinaryAppUiColorsUseThemeResources" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Dark&quot;, language: &quot;en-US&quot;, fontSize: 18)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="23a1acf9-2652-a46b-b419-bb0d27925918">
+      <Execution id="4185e13c-751e-4ebc-8ea6-7a69347009e5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensMaterialRowThemeTests.EveryMaterialRowKeepsBlueThroughSelectionEditsRecyclingAndFileSwitches" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b20ac65f-6ee6-b7a5-77da-631b3ccf54cf">
+      <Execution id="f9f4862b-b284-454f-8fdb-f9d3f8578563" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensMaterialRowThemeTests" name="EveryMaterialRowKeepsBlueThroughSelectionEditsRecyclingAndFileSwitches" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Dark&quot;, language: &quot;en-US&quot;, fontSize: 13)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1d63e079-f77d-604c-e5f6-f81c642650f3">
+      <Execution id="a658b08c-6f06-44d1-b76b-fa025de7a244" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, fontSize: 18)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6c224f99-41a8-3e7d-a73e-d369a1f00076">
+      <Execution id="5e8fe31e-5aad-4a21-992b-7f74ceb46f92" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, fontSize: 18)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="00171550-51a1-4c4e-6ecf-f3bc14ed46e6">
+      <Execution id="895c3d1c-dd2a-4dd5-b9b7-02f2f5599b30" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Pixel&quot;, language: &quot;ja-JP&quot;, fontSize: 13)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="aac4931d-4dff-1384-8c74-031e261f9e1b">
+      <Execution id="f3068667-6427-4cc9-b179-abe719f9e5de" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensHeaderTypographyTests.OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(theme: &quot;Isekai&quot;, language: &quot;en-US&quot;, fontSize: 13)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bfd3a72b-7e3b-c996-9744-e6a99f6e5d1e">
+      <Execution id="a6895bbf-3328-4d6c-bd82-5a4c623d623a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensHeaderTypographyTests" name="OnlyLensHeadersAreBoldCenteredAndRetainTheirSize" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1d63e079-f77d-604c-e5f6-f81c642650f3" executionId="a658b08c-6f06-44d1-b76b-fa025de7a244" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="23a1acf9-2652-a46b-b419-bb0d27925918" executionId="4185e13c-751e-4ebc-8ea6-7a69347009e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f5b6200-667d-f76e-d9b6-b96f6da1bda3" executionId="4df7bc4d-277d-4cf1-afc9-1675055645aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d98545f0-b694-c8d9-236d-ee22ad3020d4" executionId="8b1b8594-cd57-4524-b41a-2c5db68badb7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b20ac65f-6ee6-b7a5-77da-631b3ccf54cf" executionId="f9f4862b-b284-454f-8fdb-f9d3f8578563" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a96f4ce3-104b-7c31-4b64-bcc72658ad21" executionId="9b3a9d27-f3c4-442c-8ed7-d958ec27bd31" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d63b159b-f6d1-d856-7da0-4f20d61a732d" executionId="8c5c8b36-f669-4743-b9d6-ddb82c4b7b90" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00171550-51a1-4c4e-6ecf-f3bc14ed46e6" executionId="895c3d1c-dd2a-4dd5-b9b7-02f2f5599b30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6c224f99-41a8-3e7d-a73e-d369a1f00076" executionId="5e8fe31e-5aad-4a21-992b-7f74ceb46f92" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab06fb6a-bb94-9f32-0e53-e2c751cfe905" executionId="74f227e5-c1e5-4114-81bf-b10b2f75b22c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bfd3a72b-7e3b-c996-9744-e6a99f6e5d1e" executionId="a6895bbf-3328-4d6c-bd82-5a4c623d623a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aac4931d-4dff-1384-8c74-031e261f9e1b" executionId="f3068667-6427-4cc9-b179-abe719f9e5de" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="12" executed="12" passed="11" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.02]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.07]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.12]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.25]       Ordinary App UI colors must use ThemeResourceBindings or theme-derived brushes. Only engineering semantics such as drawings, wavelength colors, ray colors, analysis color maps and Zemax row palettes may use fixed colors:&#xD;
+[xUnit.net 00:00:02.25]       Panels/UserGuideMath.cs:104: public static readonly StyledProperty&lt;IBrush&gt; ForegroundProperty = AvaloniaProperty.Register&lt;UserGuideMathView, IBrush&gt;(nameof(Foreground), Brushes.Black);&#xD;
+[xUnit.net 00:00:02.25]       Services/ExportImageFrame.cs:27: &amp;&amp; resource is IBrush axis ? axis : new SolidColorBrush(Color.FromRgb(112, 128, 148));&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:94: var background = ThemeBrush(ThemeResourceBindings.PlotBackground, Colors.White);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:95: var text = ThemeBrush(ThemeResourceBindings.TextPrimary, Colors.Black);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:96: var muted = ThemeBrush(ThemeResourceBindings.TextSecondary, Colors.DimGray);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:97: var accent = ThemeBrush(ThemeResourceBindings.TextAccent, Colors.RoyalBlue);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:98: var line = ThemeBrush(ThemeResourceBindings.Border, Colors.Gray);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:115: context.DrawRectangle(new SolidColorBrush(Color.FromArgb(18, 50, 80, 105)), null, new Rect(300, bottom + 10, 390, 16), 8, 8);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:121: Polygon(context, Mix(Bands[0].Layer.Color, Colors.White, .62), [first.TopLeft, first.TopRight,&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:158: Polygon(context, Mix(color, Colors.Black, substrate ? .12 : .25), side, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .3)), .6));&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:162: GradientStops = new GradientStops { new(Mix(color, Colors.White, .62), 0), new(Mix(color, Colors.White, .18), .15), new(color, .7), new(Mix(color, Colors.Black, .15), 1) }&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:164: context.DrawRectangle(fill, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .2)), .6), front);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:165: context.DrawLine(new Pen(new SolidColorBrush(Color.FromArgb(125, 255, 255, 255)), .8), front.TopLeft, front.TopRight);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:169: Polygon(context, Color.FromArgb(52, 255, 255, 255), [new(front.Left + 28, front.Top), new(front.Left + 66, front.Top),&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:199: private static Color Mix(Color a, Color b, double amount) =&gt; Color.FromRgb((byte)(a.R * (1 - amount) + b.R * amount),&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/MainWindow.Geometry.cs:80: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/MainWindow.Geometry.cs:86: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/SpectrumPlot.cs:149: private IBrush PlotAreaBackgroundBrush =&gt; ThemeBrush(ThemeResourceBindings.SubtleSurface, Colors.WhiteSmoke);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/SpectrumPlot.cs:154: var color = (PlotAreaBackgroundBrush as ISolidColorBrush)?.Color ?? Colors.WhiteSmoke;&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/SpectrumPlot.cs:156: return new ImmutableSolidColorBrush(Color.FromRgb((byte)Math.Round(color.R * factor),&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/CoatingDesign/SpectrumPlot.cs:238: var grid = new Pen(ThemeBrush(ThemeResourceBindings.PlotGrid, Colors.LightGray), .6);&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/InitialStructure/TopologyStructurePlot.cs:17: internal static readonly IBrush[] FieldBrushes = [Brushes.RoyalBlue, Brushes.ForestGreen, Brushes.Red, Brushes.DarkViolet, Brushes.DarkOrange, Brushes.Teal];&#xD;
+[xUnit.net 00:00:02.25]       Laboratories/InitialStructure/TopologyStructurePlot.cs:104: var pen = new Pen(surface.IsStop ? Brushes.DarkGoldenrod : ink, surface.IsStop ? 2 : 1.4,&#xD;
+[xUnit.net 00:00:02.25]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.25]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(331,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources()&#xD;
+[xUnit.net 00:00:02.25]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.25]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:20.06]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-02T22:40:15.9899012+08:00">
+        <Text>[xUnit.net 00:00:02.25]     OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

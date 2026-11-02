@@ -126,7 +126,7 @@ public sealed class LensHeaderTypographyTests
             if (role.IsVisible)
             {
                 var roleOrigin = role.TranslatePoint(default, cell)!.Value;
-                Assert.Equal(8, roleOrigin.X, precision: 6);
+                Assert.Equal(22, roleOrigin.X, precision: 6);
                 Assert.True(roleOrigin.X + role.Bounds.Width <= typeOrigin.X);
             }
         }

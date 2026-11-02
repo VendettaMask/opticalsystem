@@ -24,6 +24,7 @@ public sealed partial class OpticalSurface : NotifyObject
     private double? _mechanicalSemiDiameter;
     private int _mechanicalSemiDiameterSolveCode;
     private bool _semiDiameterFixed;
+    private bool _semiDiameterMaximum;
     private bool _semiDiameterDefinesPhysicalAperture;
     private double? _thermalExpansionPpmPerC = 0;
     private double _conic;
@@ -114,7 +115,18 @@ public sealed partial class OpticalSurface : NotifyObject
     public bool SemiDiameterFixed
     {
         get => _semiDiameterFixed;
-        set => SetProperty(ref _semiDiameterFixed, value);
+        set
+        {
+            if (value != _semiDiameterFixed) SemiDiameterMaximum = false;
+            SetProperty(ref _semiDiameterFixed, value);
+        }
+    }
+
+    /// <summary>Derived clear radius shared by the complete configuration set.</summary>
+    public bool SemiDiameterMaximum
+    {
+        get => _semiDiameterMaximum;
+        set => SetProperty(ref _semiDiameterMaximum, value);
     }
 
     public bool SemiDiameterDefinesPhysicalAperture
@@ -564,6 +576,7 @@ public sealed partial class OpticalSurface : NotifyObject
             ChipZone = ChipZone,
             MechanicalSemiDiameterSolveCode = MechanicalSemiDiameterSolveCode,
             SemiDiameterFixed = SemiDiameterFixed,
+            SemiDiameterMaximum = SemiDiameterMaximum,
             SemiDiameterDefinesPhysicalAperture = SemiDiameterDefinesPhysicalAperture,
             Conic = Conic,
             ThermalExpansionPpmPerC = ThermalExpansionPpmPerC,

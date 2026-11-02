@@ -66,7 +66,21 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         var foldedCells = new int[_fieldDensity];
         var fields = Enumerable.Range(0, _fieldDensity)
             .Select(index => AnalysisTrace.ScanField(_scanDirection, index / (_fieldDensity - 1.0))).ToArray();
-        var results = IlluminationMetrics.EvaluateFields(workingOptic, fields, wavelength.Micrometers, _rayDensity, _usePolarization,
+        IReadOnlyList<IlluminationMetricResult> results;
+        if (maximumField == 0)
+        {
+            try
+            {
+                var one = IlluminationMetrics.Evaluate(workingOptic, (0, 0), wavelength.Micrometers, _rayDensity,
+                    usePolarization: _usePolarization, sampling: _sampling, includeScalarTransmission: _includeScalarTransmission);
+                results = Enumerable.Repeat(one, _fieldDensity).ToArray();
+            }
+            catch (AnalysisDataUnavailableException error) when (error.Data[IlluminationMetrics.NonInjectiveMappingKey] is true)
+            {
+                return IdenticalFieldDomain(workingOptic, wavelength, error);
+            }
+        }
+        else results = IlluminationMetrics.EvaluateFields(workingOptic, fields, wavelength.Micrometers, _rayDensity, _usePolarization,
             _sampling, includeScalarTransmission: _includeScalarTransmission);
 
         for (var index = 0; index < _fieldDensity; index++)
@@ -140,6 +154,36 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             ShowLegend: false,
             DottedGrid: true,
             GridOpacity: 0.35));
+    }
+
+    private AnalysisData IdenticalFieldDomain(Optic optic, Wavelength wavelength, AnalysisDataUnavailableException error)
+    {
+        var support = IlluminationMetrics.InspectIncidentPupilSupport(optic, wavelength.Micrometers, _rayDensity,
+            _usePolarization, _includeScalarTransmission, _sampling != IlluminationSamplingKind.FiniteImageCosine || optic.RayAimingEnabled);
+        if (!support.PositiveAngularArea) return Status("A positive transmitting angular pupil could not be established");
+        // All requested physical fields are exactly identical. Their common
+        // positive irradiance cancels in peak normalization. This does not
+        // evaluate the non-injective absolute pupil map or an effective F/#.
+        var points = Enumerable.Range(0, _fieldDensity).Select(_ => new AnalysisPoint(0, 1)).ToArray();
+        var series = new AnalysisSeries(ScanFieldAxisLabel(optic, _scanDirection), "Relative Illumination", points,
+            Name: $"{wavelength.Micrometers:0.0000} µm", XQuantity: AnalysisTrace.FieldAxisQuantity(optic),
+            XUnit: AnalysisTrace.FieldAxisUnit(optic), YQuantity: AnalysisAxisQuantity.Irradiance, YUnit: AnalysisAxisUnit.Dimensionless);
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            [AnalysisTrace.MaximumFieldValueKey(optic)] = 0d,
+            ["Normalization"] = "IdenticalPhysicalFieldDomain",
+            ["RawIntegralAvailable"] = false,
+            ["RawIntegralUnavailableReason"] = error.Reason,
+            ["IlluminationSampling"] = _sampling.ToString(),
+            ["RayDensity"] = _rayDensity, ["FieldDensity"] = _fieldDensity,
+            ["WavelengthNumber"] = WavelengthNumber(optic, wavelength), ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["RemoveVignettingFactors"] = _removeVignettingFactors, ["UsePolarization"] = _usePolarization,
+            ["IncludesScalarTransmission"] = _includeScalarTransmission,
+            ["RelativeIllumination"] = Enumerable.Repeat(1d, _fieldDensity).ToArray(),
+            ["ValidRayCounts"] = Enumerable.Repeat(support.ValidRays, _fieldDensity).ToArray(),
+            ["SampledPupilNodeCounts"] = Enumerable.Repeat(support.SampledNodes, _fieldDensity).ToArray()
+        }, series, [series], new AnalysisPlotOptions(Title: $"Relative Illumination, λ = {wavelength.Micrometers:0.0000} µm",
+            XMinimum: 0, XMaximum: 0, YMinimum: 0, YMaximum: 1.05, ShowLegend: false, DottedGrid: true, GridOpacity: .35));
     }
 
     private static string ScanFieldAxisLabel(Optic optic, string scanDirection)

@@ -416,6 +416,7 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         cancellationToken.ThrowIfCancellationRequested();
         _automaticSemiDiameterUpdater(runtime.CurrentOptic);
         runtime.SynchronizeConfigurationPickups();
+        runtime.ResolveMaximumSemiDiameters();
         cancellationToken.ThrowIfCancellationRequested();
     }
 

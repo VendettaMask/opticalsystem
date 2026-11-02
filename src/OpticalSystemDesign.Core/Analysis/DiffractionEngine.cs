@@ -43,6 +43,9 @@ public sealed record PsfResult(
     public bool GeometricChiefReferenceUsed { get; init; }
     public double? HuygensReferenceAmplitude { get; init; }
     public IReadOnlyList<HuygensSamplingDiagnostics>? HuygensSamplingChecks { get; init; }
+    public IReadOnlyList<HuygensFourierDiagnostics>? HuygensFourierChecks { get; init; }
+    public double? TangentialFourierFNumber { get; init; }
+    public double? SagittalFourierFNumber { get; init; }
     public double PupilGridStretch { get; init; } = 1;
     public double PupilGridStretchX { get; init; } = 1;
     public double PupilGridStretchY { get; init; } = 1;
@@ -430,6 +433,9 @@ public static partial class DiffractionEngine
                     / (gridSize * pupilGridStretch)
                 : wavelength.Micrometers * fNumber * (pupilSampling - 1) / gridSize;
         sampleSpacing = Math.Max(1e-12, sampleSpacing);
+        var fourierAxes = !optic.ImageSpaceAfocal && zemaxFftSampling && imageDelta < 0
+            ? ImagePlaneFourierFNumbers(optic, field, wavelength, pupilAimAtStop)
+            : ((double Tangential, double Sagittal)?)null;
         return new PsfResult(
             psf,
             pupilSampling,
@@ -443,6 +449,8 @@ public static partial class DiffractionEngine
         {
             UseRayAiming = pupilAimAtStop,
             StopAimingFallbackUsed = fallbackUsed,
+            TangentialFourierFNumber = fourierAxes?.Tangential,
+            SagittalFourierFNumber = fourierAxes?.Sagittal,
             PupilGridStretch = pupilGridStretch,
             PupilGridStretchX = grid.Stretch,
             PupilGridStretchY = grid.StretchY ?? grid.Stretch,
@@ -521,8 +529,10 @@ public static partial class DiffractionEngine
             wavelength,
             aimAtStop: preparedWavefront.UseRayAiming ?? optic.RayAimingEnabled,
             zemaxDirectionalAverage: true);
-        var frequencyTangentialFNumber = tangentialFNumber;
-        var frequencySagittalFNumber = sagittalFNumber;
+        var imageAxes = optic.ImageSpaceAfocal ? (Tangential: tangentialFNumber, Sagittal: sagittalFNumber)
+            : ImagePlaneFourierFNumbers(optic, field, wavelength, preparedWavefront.UseRayAiming ?? optic.RayAimingEnabled);
+        var frequencyTangentialFNumber = imageAxes.Tangential;
+        var frequencySagittalFNumber = imageAxes.Sagittal;
         var pupil = BuildComplexPupil(
             preparedWavefront,
             usePolarization ? preparedPolarization : null,
@@ -1180,12 +1190,12 @@ public static partial class DiffractionEngine
         // Retain the PSF's field and launch convention when scaling its OTF.
         // Re-tracing an on-axis probe here can change an off-axis PSF's scale.
         var legacyFNumber = psf.WorkingFNumber;
-        var tangentialFNumber = psf.TangentialWorkingFNumber > 0
+        var tangentialFNumber = psf.TangentialFourierFNumber ?? (psf.TangentialWorkingFNumber > 0
             ? psf.TangentialWorkingFNumber
-            : legacyFNumber;
-        var sagittalFNumber = psf.SagittalWorkingFNumber > 0
+            : legacyFNumber);
+        var sagittalFNumber = psf.SagittalFourierFNumber ?? (psf.SagittalWorkingFNumber > 0
             ? psf.SagittalWorkingFNumber
-            : legacyFNumber;
+            : legacyFNumber);
         var afocalCutoff = optic.ImageSpaceAfocal
             ? ImageSpaceAnalysisSupport.AfocalCutoffFrequencyCyclesPerMilliradian(optic, wavelength)
             : 0;
@@ -1352,7 +1362,9 @@ public static partial class DiffractionEngine
         }
 
 
-        AnalysisResourceLimits.ValidateDirectPsfWork(numRays, imageSize);
+        if (afocalIntegration == AfocalHuygensIntegration.NativeFiniteCell)
+            HuygensFourierSum.ValidateCandidateWork(numRays, imageSize);
+        else AnalysisResourceLimits.ValidateDirectPsfWork(numRays, imageSize);
 
         if (!double.IsFinite(pixelPitchMillimeters) || pixelPitchMillimeters <= 0)
         {
@@ -1399,6 +1411,7 @@ public static partial class DiffractionEngine
                     usePolarization: usePolarization);
             if (usePolarization && !optic.Polarization.Unpolarized)
                 throw new AnalysisDataUnavailableException("Huygens PSF", "coherent XYZ propagation requires a finite nonzero exit-pupil distance");
+            AnalysisResourceLimits.ValidateDirectPsfWork(numRays, imageSize);
         }
 
         var afocalPupils = optic.ImageSpaceAfocal ? HuygensPupilSamples(numRays) : null;
@@ -1434,6 +1447,7 @@ public static partial class DiffractionEngine
                 optic.SurfaceGroup.Items[^1].CoordinateSystem,
                 numRays,
                 idealOpd: false,
+                out var afocalFourierCheck,
                 polarization,
                 defocus,
                 imageCenterOffset,
@@ -1470,6 +1484,7 @@ public static partial class DiffractionEngine
                 optic.SurfaceGroup.Items[^1].CoordinateSystem,
                 numRays,
                 idealOpd: true,
+                out _,
                 afocalNormalizationPolarization,
                 defocus: 0)[0, 0];
             afocalNormalization = Math.Max(1e-300, afocalNormalization);
@@ -1495,6 +1510,7 @@ public static partial class DiffractionEngine
                 FiniteCellHuygensUsed = true,
                 AfocalIntegration = AfocalHuygensIntegration.NativeFiniteCell,
                 PupilQuadratureNodeCount = wavefront.Samples.Count,
+                HuygensFourierChecks = afocalFourierCheck is null ? null : [afocalFourierCheck],
                 GeometricChiefReferenceUsed = wavefront.GeometricChiefReferenceUsed || afocalNormalizationWavefront.GeometricChiefReferenceUsed,
                 HuygensPolarization = usePolarization ? HuygensPolarizationMode.LegacyScalarApproximation : HuygensPolarizationMode.None
             };
@@ -1588,6 +1604,7 @@ public static partial class DiffractionEngine
     {
         var useUnpolarizedPower = usePolarization && optic.Polarization.Unpolarized;
         var coherentVector = usePolarization && !optic.Polarization.Unpolarized;
+        if (spherical || coherentVector) AnalysisResourceLimits.ValidateDirectPsfWork(pupilSampling, imageSize);
         var pupils = HuygensPupilSamples(pupilSampling);
         WavefrontResult Wavefront((double Hx, double Hy) sourceField)
         {
@@ -1670,6 +1687,13 @@ public static partial class DiffractionEngine
                 VectorField: vectorFields is null ? default : vectorFields[index]);
         }).ToArray();
         var k = 2 * Math.PI / wavelengthMillimeters;
+        var accelerated = !spherical && vectorFields is null && HuygensFourierSum.ExceedsDirectBudget(pupilSampling, imageSize)
+            ? HuygensFourierSum.Evaluate(emitters.Where(e => e.Amplitude > 0 && e.Direction.Length > 0).Select(e =>
+                new HuygensFourierEmitter(Complex.FromPolarCoordinates(e.Amplitude, k * (e.OpticalPath
+                    + wavefront.ImageRefractiveIndex * (Dot(center - e.Pupil, e.Direction) - wavefront.Radius))),
+                    k * wavefront.ImageRefractiveIndex * pitch * Dot(frame.TangentX, e.Direction),
+                    k * wavefront.ImageRefractiveIndex * pitch * Dot(frame.TangentY, e.Direction))).ToArray(), imageSize)
+            : null;
         var values = new double[imageSize, imageSize];
         for (var row = 0; row < imageSize; row++)
         {
@@ -1680,9 +1704,9 @@ public static partial class DiffractionEngine
                 var x = (column - imageSize / 2) * pitch;
                 if (Math.Abs(x) >= halfExtent || Math.Abs(y) >= halfExtent) continue;
                 var point = center + frame.TangentX * x + frame.TangentY * y;
-                var sum = Complex.Zero;
+                var sum = accelerated?.Field[row, column] ?? Complex.Zero;
                 var vectorSum = default(ComplexElectricField);
-                foreach (var emitter in emitters)
+                foreach (var emitter in accelerated is null ? emitters : [])
                 {
                     var amplitude = emitter.Amplitude;
                     if (amplitude <= 0 || emitter.Direction.Length <= 0) continue;
@@ -1714,6 +1738,7 @@ public static partial class DiffractionEngine
             UseRayAiming = aimAtStop,
             FiniteCellHuygensUsed = true,
             GeometricChiefReferenceUsed = wavefront.GeometricChiefReferenceUsed || normalizer.GeometricChiefReferenceUsed,
+            HuygensFourierChecks = accelerated is null ? null : [accelerated.Diagnostics],
             HuygensPolarization = coherentVector ? HuygensPolarizationMode.CoherentXyz
                 : useUnpolarizedPower ? HuygensPolarizationMode.UnpolarizedMeanPower : HuygensPolarizationMode.None
         };
@@ -2253,11 +2278,13 @@ public static partial class DiffractionEngine
         CoordinateSystem imageFrame,
         int pupilSampling,
         bool idealOpd,
+        out HuygensFourierDiagnostics? fourierCheck,
         JonesPupilResult? polarization = null,
         double defocus = 0,
         (double X, double Y)? imageCenterOffset = null,
         bool useParaxialPupilDefocus = false)
     {
+        fourierCheck = null;
         var psf = new double[imageSize, imageSize];
         var pupilDiameter = wavefront.AfocalPupilDiameterMillimeters;
         if (pupilDiameter <= 1e-30)
@@ -2300,6 +2327,14 @@ public static partial class DiffractionEngine
                 Phase: -k * opdWaves * wavelengthMillimeters,
                 Amplitude: FieldAmplitudeFromPower(sample.Intensity) * polarizationAmplitude);
         }).ToArray();
+        var accelerated = HuygensFourierSum.ExceedsDirectBudget(pupilSampling, imageSize)
+            ? HuygensFourierSum.Evaluate(emitters.Select(e => new HuygensFourierEmitter(
+                Complex.FromPolarCoordinates(e.Amplitude, e.Phase - propagationK
+                    * (e.X * (imageCenterOffset?.X ?? 0) + e.Y * (imageCenterOffset?.Y ?? 0)) / 1000),
+                -propagationK * e.X * angularPixelPitchMilliradians / 1000,
+                -propagationK * e.Y * angularPixelPitchMilliradians / 1000)).ToArray(), imageSize)
+            : null;
+        fourierCheck = accelerated?.Diagnostics;
         for (var row = 0; row < imageSize; row++)
         {
             var thetaY = ((row - centerIndex) * angularPixelPitchMilliradians
@@ -2309,9 +2344,9 @@ public static partial class DiffractionEngine
                 ComputationCancellation.ThrowIfCancellationRequested();
                 var thetaX = ((column - centerIndex) * angularPixelPitchMilliradians
                     + (imageCenterOffset?.X ?? 0)) / 1_000.0;
-                var field = Complex.Zero;
+                var field = accelerated?.Field[row, column] ?? Complex.Zero;
                 var sampleIndex = 0;
-                foreach (var emitter in emitters)
+                foreach (var emitter in accelerated is null ? emitters : [])
                 {
                     if ((sampleIndex++ & 255) == 0) ComputationCancellation.ThrowIfCancellationRequested();
                     // OPD is already an optical path; only the geometric

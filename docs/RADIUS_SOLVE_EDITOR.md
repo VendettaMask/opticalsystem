@@ -1,6 +1,6 @@
 # 镜头数据求解入口
 
-更新日期：2026-09-28。
+更新日期：2026-11-02。
 
 ## 已实现的交互
 
@@ -8,11 +8,11 @@
 
 标记遵循 Zemax Lens Data Editor 规则：
 
-| 列 | 默认/固定 | 变量或用户固定 | 拾取 |
-|---|---|---|---|
-| 曲率半径 | 固定为空白 | 变量显示 `V` | `P` |
-| 厚度 | 固定为空白 | 变量显示 `V` | `P` |
-| 净口径 | 自动为空白 | 用户固定显示 `U` | `P` |
+| 列 | 默认/固定 | 变量或用户固定 | 拾取 | 最大 |
+|---|---|---|---|---|
+| 曲率半径 | 固定为空白 | 变量显示 `V` | `P` | — |
+| 厚度 | 固定为空白 | 变量显示 `V` | `P` | — |
+| 净口径 | 自动为空白 | 用户固定显示 `U` | `P` | `M` |
 
 - 曲率和厚度处于固定状态时，首次打开默认选择变量；净口径处于自动状态时，首次打开默认选择固定。所有变化只有点击“确定”才写入工程。
 - 曲率、厚度和净口径拾取均只允许前序面。曲率与净口径提供比例因子；厚度提供比例因子和偏移量。拾取目标数值只读，并随源面变化更新。
@@ -22,6 +22,8 @@
 - 曲率继续接受空值/“无限”/`∞`/`inf`/`infinity` 表示平面；物面厚度接受显式正无穷，其他厚度必须为有限数值，零厚度仍为有限共轭。固定净口径保留原有 `0.1` 下限，但低于下限现在明确报错，不再静默夹取。NaN、数值溢出均拒绝；有效输入保留原始精度。
 
 ## 计算与保存
+
+净口径“最大”按全部配置、定义视场和波长的共享物理足迹求公共尺寸，遵循实际瞄准和其他显式孔径，结果只读；修改配置后重新求解。状态经STAROPT、克隆与撤销保持，ZMX导出保留`DIAM 3`。普通整行编辑不改变求解类型；切换到固定、变量或拾取会替换相应Maximum状态。作为MCE数值拾取源的Maximum仍受派生输出限制，详见[实现与验证边界](MAXIMUM_APERTURE_REPAIR_2026-11-02.md)。
 
 曲率拾取遵循 Ansys [Curvature Solves](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Curvature_Solves.html) 的曲率比例：`C_target = factor × C_source`，因此非零比例时 `R_target = R_source / factor`。厚度拾取遵循 [Thickness Solves](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Thickness_Solves.html)：`T_target = offset + factor × T_source`。净口径的自动、用户固定、拾取及字符含义参考 [Clear Semi-Diameter Solves](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Clear_Semi_Diameter_or_Semi_Diameter_Solves.html) 与 [Summary of Solves](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Summary_of_Solves.html)。
 

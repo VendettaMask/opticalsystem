@@ -702,6 +702,10 @@ internal static partial class UiLocalization
         Add("重置光谱视图", "Reset Spectrum View", "スペクトル表示をリセット");
         Add("图表设置", "Plot Settings", "グラフ設定");
         Add("另存为默认", "Save as Default", "既定値として保存");
+        Add("适应窗口", "Fit to Window", "ウィンドウに合わせる");
+        Add("原始大小（100%）", "Actual Size (100%)", "実際のサイズ（100%）");
+        Add("图纸显示比例", "Drawing Display Scale", "図面の表示倍率");
+        Add("仅调整屏幕显示比例，原图、数据和导出尺寸保持不变", "Display scale only; original drawings, data and export dimensions stay unchanged", "画面上の倍率のみ変更し、元の図面・データ・出力サイズは保持します");
         Add("当前已是出厂评估设置", "Factory evaluation settings are already active", "工場出荷時の評価設定です");
         Add("恢复出厂评估设置", "Restore factory evaluation settings", "工場出荷時の評価設定に戻す");
         Add("恢复默认", "Restore Defaults", "既定値に戻す");
@@ -1267,6 +1271,7 @@ internal static partial class UiLocalization
         Add("启用", "Enabled", "有効");
         Add("禁用", "Disabled", "無効");
         Add("固定", "Fixed", "固定");
+        Add("最大", "Maximum", "最大");
         Add("变量", "Variable", "変数");
         Add("自动", "Automatic", "自動");
         Add("手动", "Manual", "手動");

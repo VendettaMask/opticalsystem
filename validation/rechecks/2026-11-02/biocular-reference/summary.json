@@ -1,0 +1,94 @@
+{
+  "testsFailed": 0,
+  "byLens": [
+    {
+      "counts": {
+        "Incomparable": 2,
+        "Pass": 58
+      },
+      "lens": "Miscellaneous/Bi-ocular lens.ZMX"
+    },
+    {
+      "counts": {
+        "Incomparable": 11,
+        "Pass": 55
+      },
+      "lens": "Zoom systems/Scanning mirror.zmx"
+    },
+    {
+      "counts": {
+        "Incomparable": 7,
+        "Pass": 83
+      },
+      "lens": "Zoom systems/Zoom lens.zmx"
+    }
+  ],
+  "categoriesAfter": {
+    "Close": 16,
+    "Difference": 16,
+    "Error": 3,
+    "Incomparable": 87,
+    "Pass": 304
+  },
+  "mtfConvergenceAllPassed": true,
+  "mtfSampling": [
+    64,
+    128,
+    256
+  ],
+  "mtfConvergenceChecks": 14,
+  "inputs": [
+    {
+      "lens": "Miscellaneous/Bi-ocular lens.ZMX",
+      "sha256": "c189f6e95deacc7eca0784ff971f83391b729cb856b9fb4413b3d850dbf16a63"
+    },
+    {
+      "lens": "Zoom systems/Scanning mirror.zmx",
+      "sha256": "ad2b7a0922cf0dbc29d560a8507ce38254b0862c3f0d94329d91d22b48d30af6"
+    },
+    {
+      "lens": "Zoom systems/Zoom lens.zmx",
+      "sha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9"
+    }
+  ],
+  "before": {
+    "Close": 5,
+    "Incomparable": 20,
+    "Pass": 191
+  },
+  "historicalFailedControlsRetained": true,
+  "freshImport": true,
+  "coreAfter": "ea7bed78eeaa95f9ac6e56e49fa112039ca6e814c52342b3b563dbb803366118",
+  "defaultAppBuild": {
+    "warnings": 0,
+    "errors": 0,
+    "builtInModules": 2,
+    "passed": true
+  },
+  "categoriesBefore": {
+    "Close": 16,
+    "Difference": 16,
+    "Error": 3,
+    "Incomparable": 87,
+    "Pass": 304
+  },
+  "notAll95": true,
+  "testsPassed": 417,
+  "unchangedRequestsAndTolerances": true,
+  "fixedIndexes": [
+    1013,
+    1043,
+    1056,
+    1060,
+    1064
+  ],
+  "coreBefore": "0c9778799aa5104d6af8c9be7f0bffc694900313db89660df21fadd7a634f520",
+  "after": {
+    "Incomparable": 20,
+    "Pass": 196
+  },
+  "newNativeCapture": true,
+  "completedUtc": "2026-11-02T14:41:38.1709159+00:00",
+  "categoryConclusionsUnchanged": true,
+  "priorPassLost": []
+}

@@ -71,6 +71,7 @@ public sealed partial class LensEditorPanel
             {
                 SemiDiameterSolveKind.Fixed => "U",
                 SemiDiameterSolveKind.Pickup => "P",
+                SemiDiameterSolveKind.Maximum => "M",
                 _ => string.Empty
             },
             row.GeometryComputable,
@@ -220,7 +221,7 @@ public sealed partial class LensEditorPanel
         _semiDiameterSolveRevision = _events.Revision;
         var revision = _semiDiameterSolveRevision;
         var current = row.SemiDiameterSolve;
-        var kinds = new[] { SemiDiameterSolveKind.Automatic, SemiDiameterSolveKind.Fixed, SemiDiameterSolveKind.Pickup };
+        var kinds = new[] { SemiDiameterSolveKind.Automatic, SemiDiameterSolveKind.Fixed, SemiDiameterSolveKind.Pickup, SemiDiameterSolveKind.Maximum };
         var kind = SolveKindPicker(
             "SemiDiameterSolveKind",
             kinds.Select(SemiDiameterSolveLabel).ToArray(),
@@ -371,6 +372,7 @@ public sealed partial class LensEditorPanel
     {
         SemiDiameterSolveKind.Fixed => "固定",
         SemiDiameterSolveKind.Pickup => "拾取",
+        SemiDiameterSolveKind.Maximum => "最大",
         _ => "自动"
     };
 }

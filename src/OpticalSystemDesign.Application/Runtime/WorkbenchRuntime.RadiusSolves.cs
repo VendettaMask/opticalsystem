@@ -116,7 +116,7 @@ public partial class WorkbenchRuntime
         var pickup = CurrentOptic.Pickups.SemiDiameterPickups
             .LastOrDefault(item => item.TargetSurface == surfaceNumber);
         return pickup is null
-            ? new SemiDiameterSolveDto(surface.SemiDiameterFixed
+            ? new SemiDiameterSolveDto(surface.SemiDiameterMaximum ? SemiDiameterSolveKind.Maximum : surface.SemiDiameterFixed
                 ? SemiDiameterSolveKind.Fixed
                 : SemiDiameterSolveKind.Automatic)
             : new SemiDiameterSolveDto(
@@ -151,6 +151,7 @@ public partial class WorkbenchRuntime
             CurrentOptic.Pickups.RemoveSemiDiameter(surfaceNumber);
         var surface = GetSurfaceByNumber(surfaceNumber);
         surface.SemiDiameterFixed = update.Kind != SemiDiameterSolveKind.Automatic;
+        surface.SemiDiameterMaximum = update.Kind == SemiDiameterSolveKind.Maximum;
         if (update.Kind == SemiDiameterSolveKind.Automatic && surface.SemiDiameterDefinesPhysicalAperture)
         {
             surface.SemiDiameterDefinesPhysicalAperture = false;

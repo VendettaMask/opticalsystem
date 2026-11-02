@@ -11,6 +11,7 @@ using OpticalSystemDesign.Core.Raytrace;
 namespace OpticalSystemDesign.Core.Services;
 
 public enum IlluminationSamplingKind { AdaptivePupil, UniformImageCosine, FiniteImageCosine }
+internal sealed record IlluminationPupilSupport(bool PositiveAngularArea, int ValidRays, int SampledNodes);
 
 /// <summary>Transmission-weighted image-space pupil integral.</summary>
 public sealed record IlluminationMetricResult(double ProjectedCosineArea, int ValidRays, int SampledPupilNodes)
@@ -42,6 +43,11 @@ public sealed record IlluminationMetricResult(double ProjectedCosineArea, int Va
 /// </summary>
 public static partial class IlluminationMetrics
 {
+    internal const string NonInjectiveMappingKey = "Illumination.NonInjectivePupilMapping";
+    internal static IlluminationPupilSupport InspectIncidentPupilSupport(Optic optic, double wavelength, int density,
+        bool usePolarization, bool includeScalarTransmission, bool aimAtStop) =>
+        new Integrator(optic, (0, 0), wavelength, ComputationCancellation.Current, usePolarization, includeScalarTransmission, aimAtStop)
+            .InspectSupport(density);
     /// <summary>RI describes irradiance at a localized image conjugate, not angular
     /// throughput in afocal image space. Raw projected-area integrals below are a
     /// separate quantity and do not imply that relative illumination is defined.</summary>
@@ -69,8 +75,16 @@ public static partial class IlluminationMetrics
         ArgumentNullException.ThrowIfNull(optic);
         RequireRelativeIllumination(optic);
         var working = AnalysisTrace.PrepareVignettingFactors(optic, true);
-        var results = EvaluateFields(working, [(0, 0), normalizedField], wavelengthMicrometers,
-            rayDensity, usePolarization, sampling, includeScalarTransmission);
+        IReadOnlyList<IlluminationMetricResult> results;
+        try { results = EvaluateFields(working, [(0, 0), normalizedField], wavelengthMicrometers,
+            rayDensity, usePolarization, sampling, includeScalarTransmission); }
+        catch (AnalysisDataUnavailableException error) when (error.Data[NonInjectiveMappingKey] is true
+            && (normalizedField == (0d, 0d) || FieldCoordinates.MaximumRadius(working.Fields) == 0))
+        {
+            var support = InspectIncidentPupilSupport(working, wavelengthMicrometers, rayDensity, usePolarization,
+                includeScalarTransmission, sampling != IlluminationSamplingKind.FiniteImageCosine || working.RayAimingEnabled);
+            return support.PositiveAngularArea ? 1 : throw Unavailable("axis-referenced illumination requires a transmitting angular pupil");
+        }
         if (results[0].ProjectedCosineArea <= 0)
             throw Unavailable("axis-referenced illumination requires a transmitting on-axis pupil");
         var ratio = results[1].ProjectedCosineArea / results[0].ProjectedCosineArea;
@@ -98,8 +112,10 @@ public static partial class IlluminationMetrics
             try { results[index] = Evaluate(optic, fields[index], wavelengthMicrometers, rayDensity, cancellation, usePolarization, sampling, includeScalarTransmission); }
             catch (AnalysisDataUnavailableException exception)
             {
-                errors[index] = new AnalysisDataUnavailableException(exception.AnalysisName,
+                var wrapped = new AnalysisDataUnavailableException(exception.AnalysisName,
                     FormattableString.Invariant($"{exception.Reason} (normalized field X={fields[index].Hx:G17}, Y={fields[index].Hy:G17}; wavelength={wavelengthMicrometers:G17} µm)"));
+                if (exception.Data[NonInjectiveMappingKey] is true) wrapped.Data[NonInjectiveMappingKey] = true;
+                errors[index] = wrapped;
                 state.Stop();
             }
             catch (Exception exception) when (exception is not OperationCanceledException)
@@ -187,15 +203,8 @@ public static partial class IlluminationMetrics
         internal IlluminationMetricResult Evaluate(int density, IlluminationSamplingKind sampling)
         {
             _boundaryChordAngle = 2 * Math.PI / (24 * density);
-            var source = _generate(0, 0);
-            var chief = _optic.SequentialRayTracer.DiagnoseApertures(source, _cancellation, stopAtIncidentImage: true,
-                ignoreScalarTransmission: !_includeScalarTransmission).UnclippedImage
-                ?? throw Unavailable("the geometric chief ray does not reach the image surface");
+            var chief = PrepareFrame();
             var localHit = _image.CoordinateSystem.ToLocalPoint(chief.Position);
-            var normal = Normalize(_image.Geometry.SurfaceNormal(localHit));
-            var reference = Math.Abs(normal.X) < 0.95 ? new Vector3D(1, 0, 0) : new Vector3D(0, 1, 0);
-            _tangentX = Normalize(reference - normal * Dot(reference, normal));
-            _tangentY = Normalize(Cross(normal, _tangentX));
             if (sampling == IlluminationSamplingKind.FiniteImageCosine)
             {
                 _finiteImageCenter = localHit;
@@ -427,7 +436,7 @@ public static partial class IlluminationMetrics
             {
                 var orientation = Math.Sign(area);
                 if (_orientation != 0 && orientation != _orientation)
-                    throw Unavailable("the pupil mapping folds in image direction-cosine space");
+                    throw NonInjective("the pupil mapping folds in image direction-cosine space");
                 _orientation = orientation;
             }
         }
@@ -435,6 +444,10 @@ public static partial class IlluminationMetrics
 
     private readonly record struct Node(double X, double Y, double L, double M, double Weight, bool Inside, bool Mapped = true);
     private static AnalysisDataUnavailableException Unavailable(string reason) => new("Relative Illumination", reason);
+    private static AnalysisDataUnavailableException NonInjective(string reason)
+    {
+        var error = Unavailable(reason); error.Data[NonInjectiveMappingKey] = true; return error;
+    }
     private static double Dot(Vector3D a, Vector3D b) => a.X * b.X + a.Y * b.Y + a.Z * b.Z;
     private static Vector3D Cross(Vector3D a, Vector3D b) => new(
         a.Y * b.Z - a.Z * b.Y, a.Z * b.X - a.X * b.Z, a.X * b.Y - a.Y * b.X);

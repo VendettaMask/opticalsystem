@@ -597,7 +597,8 @@ public sealed class Optic
                     surface.MechanicalSemiDiameterSolveCode,
                     surface.SemiDiameterDefinesPhysicalAperture,
                     surface.ThermalExpansionPpmPerC,
-                    surface.ChipZone))).ToList(),
+                    surface.ChipZone,
+                    surface.SemiDiameterMaximum))).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
@@ -768,6 +769,7 @@ public sealed class Optic
                 RadiusVariable = surface.RadiusVariable,
                 ThicknessVariable = surface.ThicknessVariable,
                 SemiDiameterFixed = surface.SemiDiameterFixed,
+                SemiDiameterMaximum = surface.SemiDiameterMaximum,
                 SemiDiameterDefinesPhysicalAperture = surface.SemiDiameterDefinesPhysicalAperture
             };
 

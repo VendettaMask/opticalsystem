@@ -331,7 +331,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
                 .LastOrDefault(pickup => pickup.TargetSurface == opticSurface.Number);
             lines.Add(semiDiameterPickup is null
                 ? $"  DIAM {FormatDouble(ZemaxSemiDiameter(opticSurface))} " +
-                  $"{(opticSurface.SemiDiameterFixed ? 1 : 0)} 0 0 1 \"\""
+                  $"{(opticSurface.SemiDiameterMaximum ? 3 : opticSurface.SemiDiameterFixed ? 1 : 0)} 0 0 1 \"\""
                 : $"  DIAM {FormatDouble(ZemaxSemiDiameter(opticSurface))} 2 " +
                   $"{semiDiameterPickup.SourceSurface} 0 {FormatDouble(semiDiameterPickup.Scale)} \"\"");
             lines.Add(

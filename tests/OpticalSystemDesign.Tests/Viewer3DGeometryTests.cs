@@ -688,7 +688,9 @@ public sealed class Viewer3DGeometryTests
                 Assert.DoesNotContain(buttons, item => item.IsChecked == true);
                 window.KeyPress(Key.Home, RawInputModifiers.None, PhysicalKey.None, null); Tick(window);
                 AssertSelected(OpticSceneViewPreset.Isometric);
-                Assert.Same(scene.Parent, toolbar.Parent);
+                // Drawing and native UI may have separate parents: fitting the
+                // sheet must not reduce button hit targets or configured fonts.
+                Assert.InRange(toolbar.TransformToVisual(viewer)!.Value.M11, .999, 1.001);
                 Assert.True(VisualBounds(scene).Top < VisualBounds(toolbar).Top);
                 Assert.InRange(VisualBounds(toolbar).Left, VisualBounds(scene).Left + 72, VisualBounds(scene).Right);
                 Assert.InRange(VisualBounds(toolbar).Right, VisualBounds(scene).Left, VisualBounds(scene).Right - 72);
@@ -722,8 +724,8 @@ public sealed class Viewer3DGeometryTests
                 }
                 async Task Click(Control control)
                 {
-                    // Fixed sheets scroll in short/narrow panes. Click the visible
-                    // control, retaining real hit testing rather than raising Click.
+                    // Click the visible native control, retaining real hit testing
+                    // in both fitted and actual-size views rather than raising Click.
                     BringIntoViewport(control);
                     Point point = default;
                     Visual? hit = null;

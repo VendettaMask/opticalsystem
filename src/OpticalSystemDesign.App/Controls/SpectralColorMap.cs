@@ -21,7 +21,28 @@ internal static class SpectralColorMap
         new(780, Color.FromRgb(145, 0, 76))
     };
 
-    internal static Color FromNanometers(double wavelengthNanometers)
+    // Approximate visible hues for the prescription editor. Analysis curves retain
+    // the established engineering palette above (including a green Fraunhofer d).
+    private static readonly SpectralStop[] VisibleStops =
+    {
+        new(380, Color.FromRgb(110, 0, 150)),
+        new(420, Color.FromRgb(106, 0, 255)),
+        new(440, Color.FromRgb(0, 0, 255)),
+        new(490, Color.FromRgb(0, 255, 255)),
+        new(510, Color.FromRgb(0, 255, 0)),
+        new(580, Color.FromRgb(255, 255, 0)),
+        new(645, Color.FromRgb(255, 0, 0)),
+        new(700, Color.FromRgb(225, 0, 0)),
+        new(780, Color.FromRgb(100, 0, 0))
+    };
+
+    internal static Color FromNanometers(double wavelengthNanometers) =>
+        FromNanometers(wavelengthNanometers, DisplayStops);
+
+    internal static Color FromVisibleNanometers(double wavelengthNanometers) =>
+        FromNanometers(wavelengthNanometers, VisibleStops);
+
+    private static Color FromNanometers(double wavelengthNanometers, SpectralStop[] stops)
     {
         if (!double.IsFinite(wavelengthNanometers)
             || wavelengthNanometers < VisibleMinimumNanometers
@@ -30,21 +51,21 @@ internal static class SpectralColorMap
             return Color.FromRgb(126, 132, 145);
         }
 
-        for (var index = 1; index < DisplayStops.Length; index++)
+        for (var index = 1; index < stops.Length; index++)
         {
-            var upper = DisplayStops[index];
+            var upper = stops[index];
             if (wavelengthNanometers > upper.Nanometers)
             {
                 continue;
             }
 
-            var lower = DisplayStops[index - 1];
+            var lower = stops[index - 1];
             var amount = (wavelengthNanometers - lower.Nanometers)
                 / (upper.Nanometers - lower.Nanometers);
             return Interpolate(lower.Color, upper.Color, amount);
         }
 
-        return DisplayStops[^1].Color;
+        return stops[^1].Color;
     }
 
     private static Color Interpolate(Color lower, Color upper, double amount)

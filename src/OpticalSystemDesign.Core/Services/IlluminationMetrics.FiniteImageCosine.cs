@@ -61,13 +61,13 @@ public static partial class IlluminationMetrics
                     {
                         if (!ContainsImageCosine(triangle, l, m, out var candidate)) continue;
                         if (region is { } other && Math.Abs(other.X - candidate.X) + Math.Abs(other.Y - candidate.Y) > 1e-7)
-                            throw Unavailable("multiple pupil regions overlap in image direction-cosine space");
+                            throw NonInjective("multiple pupil regions overlap in image direction-cosine space");
                         region = candidate;
                     }
                     var pupil = pupilMap.Evaluate(l, m);
                     if (pupil.X * pupil.X + pupil.Y * pupil.Y >= 1) continue;
                     if (!double.IsFinite(pupil.Determinant) || pupil.Determinant == 0 || Math.Sign(pupil.Determinant) != _orientation)
-                        throw Unavailable("the finite pupil-coordinate map folds or is singular");
+                        throw NonInjective("the finite pupil-coordinate map folds or is singular");
                     var node = Sample(pupil.X, pupil.Y);
                     if (!node.Inside || node.Weight <= 0) continue;
                     var distanceToEdge = density * (1 - double.Hypot(node.X, node.Y));

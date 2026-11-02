@@ -45,7 +45,11 @@ public sealed partial class MultiConfiguration
         var surface = FindSurface(Configurations[pickup.ConfigurationIndex], pickup.Operand.SurfaceNumber);
         if (pickup.Operand.Kind == MultiConfigurationOperandKind.Curvature) surface.RadiusVariable = false;
         if (pickup.Operand.Kind == MultiConfigurationOperandKind.Thickness) surface.ThicknessVariable = false;
-        if (pickup.Operand.Kind == MultiConfigurationOperandKind.SemiDiameter) surface.SemiDiameterFixed = true;
+        if (pickup.Operand.Kind == MultiConfigurationOperandKind.SemiDiameter)
+        {
+            surface.SemiDiameterFixed = true;
+            surface.SemiDiameterMaximum = false;
+        }
     }
 
     private void ExecutePickupMutation(Action action)

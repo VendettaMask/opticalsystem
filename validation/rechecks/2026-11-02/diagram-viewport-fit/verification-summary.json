@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-02",
+  "scope": "Analysis and 2D/3D display viewport only; off-screen Avalonia/Skia",
+  "completeDependencyBuild": {
+    "independentOutput": "D:\\Projects\\opticalsystem\\artifacts\\diagram-fit-20261102\\build\\bin\\OpticalSystemDesign.Tests\\release_win-x64",
+    "warnings": 0,
+    "errors": 0,
+    "log": "build.log"
+  },
+  "broadRun": {
+    "passed": 122,
+    "failed": 4,
+    "total": 126,
+    "log": "broad-122-of-126-tests.log"
+  },
+  "correctedTestAssumptions": [
+    "Three obsolete same-parent assertions for scene and native-size toolbar",
+    "One invalid wavelength enum string in new test; use actual defaults"
+  ],
+  "productCodeChangedAfterBroadRun": false,
+  "finalTestOnlyBuild": {
+    "warnings": 0,
+    "errors": 0,
+    "log": "final-test-build.log"
+  },
+  "finalFocusedRun": {
+    "passed": 10,
+    "failed": 0,
+    "total": 10,
+    "log": "final-focused-tests.log"
+  },
+  "uniqueCasesWithPassingResult": 126,
+  "duplicatePassingRecords": 6,
+  "productionAssembliesUnchanged": true,
+  "originalSheetDIP": [
+    1200,
+    900
+  ],
+  "captionDIP": 160,
+  "defaultPngPixels": [
+    2404,
+    1804
+  ],
+  "nativeDesktopAcceptance": false,
+  "defaultOutputBuild": false,
+  "installedOrRestartedUserApp": false,
+  "remoteSync": false,
+  "opticalAcceptanceChanged": false,
+  "note": "No single clean 126/126 final run claimed. All four initial failing identities passed in final focused rerun."
+}

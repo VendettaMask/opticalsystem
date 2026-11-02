@@ -40,6 +40,7 @@ public sealed partial class AnalysisPanel
 
     private void UpdateImageExportButton()
     {
+        _diagramModeButton.BindHost(ImageExportPage());
         _exportImageButton.IsVisible = ImageExportPage() is not null;
         _exportImageButton.IsEnabled = !_isRunning && !_disposed;
         var explanation = _isRunning ? "正在计算，完成后可导出图片" : "导出图片（PNG）";

@@ -19,7 +19,10 @@ public sealed partial class MultiConfiguration
             if (!_operandVariables.Contains(variable)) _operandVariables.Add(variable);
             DetachPropertyLink(configurationIndex, row.SurfaceNumber, row.Property);
             if (row.Kind == MultiConfigurationOperandKind.SemiDiameter)
+            {
                 FindSurface(Configurations[configurationIndex], row.SurfaceNumber).SemiDiameterFixed = true;
+                FindSurface(Configurations[configurationIndex], row.SurfaceNumber).SemiDiameterMaximum = false;
+            }
         }
         else
         {

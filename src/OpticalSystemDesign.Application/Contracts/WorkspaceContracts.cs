@@ -827,7 +827,7 @@ public sealed record ThicknessSolveUpdateDto(
     double ScaleFactor = 1,
     double Offset = 0);
 
-public enum SemiDiameterSolveKind { Automatic, Fixed, Pickup }
+public enum SemiDiameterSolveKind { Automatic, Fixed, Pickup, Maximum }
 
 public sealed record SemiDiameterSolveDto(
     SemiDiameterSolveKind Kind,

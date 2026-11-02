@@ -1,0 +1,84 @@
+{
+  "zosApiPath": "D:\\Program Files\\ANSYS Inc\\v261\\Zemax OpticStudio",
+  "input": "D:\\Projects\\opticalsystem\\src/OpticalSystemDesign.App/Assets/SequentialExamples/Miscellaneous/Bi-ocular lens.ZMX",
+  "zemaxVersion": "2026 R1",
+  "adapter": "ray-audit",
+  "configuration": 2,
+  "wavelength": 1,
+  "removeVignettingFactors": false,
+  "rayAuditInputs": [
+    {
+      "fieldIndex": 0,
+      "pupilIndex": 0,
+      "hx": -1,
+      "hy": 0,
+      "px": -1,
+      "py": 0,
+      "weight": 1
+    },
+    {
+      "fieldIndex": 0,
+      "pupilIndex": 1,
+      "hx": -1,
+      "hy": 0,
+      "px": -0.999999999999,
+      "py": 0,
+      "weight": 1
+    },
+    {
+      "fieldIndex": 0,
+      "pupilIndex": 2,
+      "hx": -1,
+      "hy": 0,
+      "px": -0.999999999,
+      "py": 0,
+      "weight": 1
+    },
+    {
+      "fieldIndex": 0,
+      "pupilIndex": 3,
+      "hx": -1,
+      "hy": 0,
+      "px": -0.95,
+      "py": 0,
+      "weight": 1
+    },
+    {
+      "fieldIndex": 0,
+      "pupilIndex": 4,
+      "hx": -1,
+      "hy": 0,
+      "px": 0,
+      "py": 0,
+      "weight": 1
+    },
+    {
+      "fieldIndex": 0,
+      "pupilIndex": 5,
+      "hx": -1,
+      "hy": 0,
+      "px": 0.95,
+      "py": 0,
+      "weight": 1
+    },
+    {
+      "fieldIndex": 0,
+      "pupilIndex": 6,
+      "hx": -1,
+      "hy": 0,
+      "px": 0.999999999,
+      "py": 0,
+      "weight": 1
+    },
+    {
+      "fieldIndex": 0,
+      "pupilIndex": 7,
+      "hx": -1,
+      "hy": 0,
+      "px": 1,
+      "py": 0,
+      "weight": 1
+    }
+  ],
+  "surfaceRecordLimit": 2000000
+}

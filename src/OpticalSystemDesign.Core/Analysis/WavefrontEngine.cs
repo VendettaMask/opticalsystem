@@ -254,18 +254,21 @@ public static partial class WavefrontEngine
 
         var imagePosition = chief.Position;
         var imageFrame = optic.SurfaceGroup.Items[^1].CoordinateSystem;
-        // The formal scalar paraxial tracer measures its image-relative pupil
-        // distance along global Z, not along a tilted detector's local normal.
-        // Anchor that axial reference at the image vertex in the same global
-        // frame as the chief intercept; world X/Y=0 is not the pupil center.
-        // This repairs rigid translations of the paraxial model. Arbitrary
-        // decentered/folded systems still require an aberrated 3-D pupil model.
-        var pupilDistance = optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers);
+        // The scalar coaxial branch uses the image-relative global-Z distance.
+        // A noncoaxial prescription instead images the actual stop pencil.
+        var geometricPupil = RequiresGeometricPupilReference(optic);
+        // A displaced stop's phase datum is the primary-wavelength geometric pupil
+        // plane, while each wavelength keeps its own physical image chief.
+        var pupilDistance = geometricPupil
+            ? ParabasalPupilEngine.Compute(optic, optic.Wavelengths.FirstOrDefault(w => w.IsPrimary)
+                ?? optic.Wavelengths.FirstOrDefault() ?? wavelength,
+                allowGeometricReference: allowGeometricReference && !usePolarization).ImageAxialDistanceMillimeters
+            : optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers);
         var pupilPosition = imageFrame.Origin + new Vector3D(0, 0, pupilDistance);
         // A grid GRIN's pupil is the image of the actual central stop pencil.
         // Its reference is an axial plane, not the world-axis point on that
         // plane. Intersect the chosen chief with it before forming the sphere.
-        var radius = optic.Paraxial.HasNonaxialPupil
+        var radius = geometricPupil
             ? Math.Abs(pupilDistance / imageFrame.ToLocalDirection(chief.Direction).Z)
             : optic.Paraxial.HasGridGradientPupil
             ? Math.Abs((pupilPosition.Z - imagePosition.Z) / chief.Direction.Z)
@@ -276,10 +279,21 @@ public static partial class WavefrontEngine
             imagePosition.Z,
             radius)
         {
-            IsVirtual = optic.Paraxial.HasNonaxialPupil
+            IsVirtual = geometricPupil
                 ? pupilDistance / imageFrame.ToLocalDirection(chief.Direction).Z > 0
                 : Dot(pupilPosition - imagePosition, chief.Direction) > 0
         };
+    }
+
+    private static bool RequiresGeometricPupilReference(Optic optic)
+    {
+        if (optic.Paraxial.HasNonaxialPupil) return true;
+        var frame = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+        return optic.SurfaceGroup.Items.Any(surface =>
+        {
+            var local = frame.ToLocalPoint(surface.CoordinateSystem.Origin);
+            return Math.Abs(local.X) > 1e-12 || Math.Abs(local.Y) > 1e-12;
+        });
     }
 
     private static WavefrontResult GenerateChiefRay(
@@ -669,6 +683,17 @@ public static partial class WavefrontEngine
                 target.X,
                 target.Y,
                 aimAtStop);
+        }
+        else if (optic.FieldDefinition == FieldDefinitionKind.ParaxialImageHeight)
+        {
+            // This field is converted to an incident slope at the primary
+            // paraxial focus. Use the shared generator's actual plane-wave
+            // direction, including immersion and the selected conjugate.
+            var primary = optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
+                ?? optic.Wavelengths.FirstOrDefault();
+            var direction = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                field.Hx, field.Hy, 0, 0, primary?.Micrometers ?? .55, aimAtStop).Rays[0].Direction;
+            return (direction.X, direction.Y);
         }
         else
         {

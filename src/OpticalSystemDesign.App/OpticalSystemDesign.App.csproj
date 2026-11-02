@@ -64,6 +64,9 @@
                       LogicalName="OpticalSystemDesign.App.Assets.Fonts.NotoSansCJKsc-Regular.otf" />
     <EmbeddedResource Include="Assets/Icons/lucide-icon-nodes.json"
                       LogicalName="OpticalSystemDesign.App.Assets.Icons.lucide-icon-nodes.json" />
+    <EmbeddedResource Include="Assets/Icons/Analysis/*.svg">
+      <LogicalName>OpticalSystemDesign.App.Assets.Icons.Analysis.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="Assets/Icons/game-icons-isekai.json"
                       LogicalName="OpticalSystemDesign.App.Assets.Icons.game-icons-isekai.json" />
     <EmbeddedResource Include="Assets/Icons/farm-fresh-icons.json"

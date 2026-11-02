@@ -285,7 +285,7 @@ public sealed class AnalysisResponsivePlotTests
     }
 
     [Fact]
-    public async Task SmallViewportScrollsAtReadableSizeAndCanReachTheFullFooter()
+    public async Task ActualSizeModeScrollsAtReadableSizeAndCanReachTheFullFooter()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
@@ -293,6 +293,7 @@ public sealed class AnalysisResponsivePlotTests
             using var application = WorkbenchApplication.Create();
             var tabs = Build(View(AnalysisPresentationKind.ColorFocusShift), application);
             var host = Assert.IsType<ResponsiveAnalysisPlotHost>(Assert.IsType<TabItem>(tabs.Items[0]).Content);
+            host.FitToViewport = false;
             var window = new Window { Width = 360, Height = 240, Content = tabs };
             try
             {
@@ -311,7 +312,7 @@ public sealed class AnalysisResponsivePlotTests
     }
 
     [Fact]
-    public async Task ScrollHostPreservesTheOriginalSheetAndKeepsItsOffscreenFooterReachable()
+    public async Task FitHostPreservesTheOriginalSheetAndShowsItsFullFooter()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
@@ -337,8 +338,8 @@ public sealed class AnalysisResponsivePlotTests
                 plotTab.Content = host; Render(window);
                 AssertFits(tabs, window);
                 Assert.Equal(new Size(1200, 900), page.Bounds.Size);
-                Assert.True(host.Extent.Width > host.Viewport.Width);
-                Assert.True(host.Extent.Height > host.Viewport.Height);
+                Assert.True(host.Extent.Width <= host.Viewport.Width + 1);
+                Assert.True(host.Extent.Height <= host.Viewport.Height + 1);
                 Capture(window, "fitted-no-overlap.png");
             }
             finally { window.Close(); }
@@ -397,7 +398,13 @@ public sealed class AnalysisResponsivePlotTests
         Assert.True(footerBounds.Bottom <= pageBounds.Bottom + 1, $"Footer {footerBounds} exceeds page {pageBounds}");
         Assert.True(plotBounds.Width <= pageBounds.Width + 1);
         Assert.True(plotBounds.Height > 10);
-        Assert.Equal(1, host.ContentScale);
+        var expectedScale = Math.Min(host.Viewport.Width / UniformDiagramPage.SheetWidth,
+            host.Viewport.Height / UniformDiagramPage.SheetHeight);
+        Assert.InRange(Math.Abs(host.ContentScale - expectedScale), 0, .005);
+        var sheetInViewport = VisualBounds(page, host);
+        Assert.True(sheetInViewport.Left >= -1 && sheetInViewport.Top >= -1, sheetInViewport.ToString());
+        Assert.True(sheetInViewport.Right <= host.Viewport.Width + 1 && sheetInViewport.Bottom <= host.Viewport.Height + 1,
+            $"{sheetInViewport} exceeds {host.Viewport}");
         Assert.True(VisualBounds(host, window).Bottom <= window.Height + 1);
         foreach (var plot in page.GetVisualDescendants().OfType<AnalysisPlotControl>())
             Assert.True(VisualBounds(plot, window).Bottom <= footerBounds.Top + 1);

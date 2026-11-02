@@ -60,10 +60,6 @@ public sealed partial class MainWindow
 
     private Control BuildSequentialRibbon()
     {
-        var analysisGroups = AnalysisRibbonMenus
-            .OrderBy(menu => AnalysisRibbonGroupOrder.IndexOf(menu.Group))
-            .Select(menu => RibbonGroup(string.Empty, false, RibbonAnalysisMenuButton(menu)))
-            .ToArray();
         var tabs = new TabControl
         {
             SelectedIndex = 0,
@@ -85,7 +81,7 @@ public sealed partial class MainWindow
                         RibbonButton("show-viewer-2d", "panel-top", "2D视图"),
                         RibbonButton("show-viewer-3d", "box", "3D视图"),
                         RibbonButton("show-solid-model", "cylinder", "实体模型")))),
-                RibbonTab("分析", BuildRibbonPage(analysisGroups)),
+                RibbonTab("分析", BuildSequentialAnalysisRibbonPage(_actions)),
                 RibbonTab("优化", BuildRibbonPage(
                     RibbonGroup("手动调整",
                         RibbonButton("quick-focus", "focus", "快速聚焦"),
@@ -399,7 +395,14 @@ public sealed partial class MainWindow
         return button;
     }
 
-    private DropDownButton RibbonAnalysisMenuButton(AnalysisRibbonMenu menu)
+    internal static Control BuildSequentialAnalysisRibbonPage(ActionManager actions) => BuildRibbonPage(
+        AnalysisRibbonMenus.OrderBy(menu => AnalysisRibbonGroupOrder.IndexOf(menu.Group))
+            .Select((menu, index) => RibbonGroup(string.Empty, index is 1 or 3 or 7,
+                BuildAnalysisMenuButton(menu, actions))).ToArray());
+
+    private DropDownButton RibbonAnalysisMenuButton(AnalysisRibbonMenu menu) => BuildAnalysisMenuButton(menu, _actions);
+
+    internal static DropDownButton BuildAnalysisMenuButton(AnalysisRibbonMenu menu, ActionManager actions)
     {
         var flyout = new MenuFlyout();
         foreach (var commandId in menu.CommandIds)
@@ -412,7 +415,7 @@ public sealed partial class MainWindow
 
             var command = WorkbenchAnalysisCatalog.AllRibbonCommands.First(candidate =>
                 string.Equals(candidate.Id, commandId, StringComparison.Ordinal));
-            var action = _actions.Find(command.Id);
+            var action = actions.Find(command.Id);
             var header = new LocalIconLabel(command.IconName, command.Label, 20);
             var item = new MenuItem
             {
@@ -424,11 +427,11 @@ public sealed partial class MainWindow
             AutomationProperties.SetAutomationId(item, $"ribbon-{command.Id}");
             item.Classes.Add("ribbon-menu-item");
             AttachRibbonMenuItemHover(item, header);
-            item.Click += async (_, _) => await _actions.ExecuteAsync(action);
+            item.Click += async (_, _) => await actions.ExecuteAsync(action);
             flyout.Items.Add(item);
         }
 
-        var content = RibbonDropDownCommandContent(menu.IconName, menu.Label);
+        var content = RibbonAnalysisCommandContent(menu.IconName, menu.Label);
         var button = new DropDownButton
         {
             HorizontalContentAlignment = HorizontalAlignment.Center,
@@ -625,6 +628,20 @@ public sealed partial class MainWindow
         return grid;
     }
 
+    private static Control RibbonAnalysisCommandContent(string iconName, string label)
+    {
+        var grid = (Grid)RibbonDropDownCommandContent(iconName, label);
+        if (!AnalysisCategoryIcon.Supports(iconName)) return grid;
+        var previous = grid.Children.OfType<LocalIcon>().Single();
+        grid.Children.Remove(previous);
+        grid.Children.Insert(0, new AnalysisCategoryIcon(iconName)
+        {
+            Width = DisplayTypography.Scale(22), Height = DisplayTypography.Scale(22),
+            VerticalAlignment = VerticalAlignment.Center
+        });
+        return grid;
+    }
+
     private static void BindRibbonCommandLayout(Button button)
     {
         button.Bind(Button.MinWidthProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandMinWidth));
@@ -661,14 +678,14 @@ public sealed partial class MainWindow
         var icon = grid.Children.OfType<LocalIcon>().FirstOrDefault();
         var text = grid.Children.OfType<TextBlock>().FirstOrDefault();
         var arrow = grid.Children.OfType<Polygon>().FirstOrDefault();
-        if (icon is null || text is null)
+        if (text is null)
         {
             return;
         }
 
         // Template state selectors own hover/pressed/open; never replace resource bindings in pointer events.
         text.Classes.Add("ribbon-command-label");
-        icon.Classes.Add("ribbon-command-icon");
+        icon?.Classes.Add("ribbon-command-icon");
     }
 
     private static void BindRibbonCommandChrome(Button button)

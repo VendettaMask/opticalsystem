@@ -35,6 +35,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
     private readonly Button _syncButton;
     private readonly Button _exportImageButton;
     private readonly DropDownButton _curveWidthButton;
+    private readonly DiagramViewportModeButton _diagramModeButton = new("AnalysisDiagramViewMode");
     private readonly Border _settingsHost;
     private readonly CheckBox _parameterAutoApply = new()
     {
@@ -90,6 +91,8 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         _exportImageButton.IsVisible = false;
         _exportImageButton.Click += async (_, _) => await ExportImageAsync();
         _curveWidthButton = CreateCurveWidthButton();
+        StyleToolbarButton(_diagramModeButton, iconOnly: false);
+        _diagramModeButton.IsVisible = false;
 
         var settingsButton = SettingsPanelChrome.CreateToggleButton();
         _settingsHost = new Border
@@ -123,6 +126,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 exportButton,
                 _exportImageButton,
                 _curveWidthButton,
+                _diagramModeButton,
                 _operationStatus
             }
         };

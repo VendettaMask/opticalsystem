@@ -1,0 +1,403 @@
+D:\Projects\opticalsystem\artifacts\analysis-toolbar-svg-20261102\build\bin\OpticalSystemDesign.Tests\release_win-x64\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:01.54]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.83]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.85]   Starting:    OpticalSystemDesign.Tests
+[xUnit.net 00:00:05.24]     OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Dark", fontSize: 18, language: "ja-JP") [FAIL]
+[xUnit.net 00:00:05.24]       Assert.Equal() Failure: Values are not within 3 decimal places
+[xUnit.net 00:00:05.24]       Expected: 30.462 (rounded from 30.46153846153846)
+[xUnit.net 00:00:05.24]       Actual:   31 (rounded from 31)
+[xUnit.net 00:00:05.24]       Stack Trace:
+[xUnit.net 00:00:05.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(65,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0()
+[xUnit.net 00:00:05.24]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:05.24]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:05.24]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:05.24]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.24]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(38,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language)
+[xUnit.net 00:00:05.24]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Dark", fontSize: 18, language: "ja-JP") [2 s]
+  错误消息:
+   Assert.Equal() Failure: Values are not within 3 decimal places
+Expected: 30.462 (rounded from 30.46153846153846)
+Actual:   31 (rounded from 31)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 65
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 38
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:05.54]       System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+[xUnit.net 00:00:05.54]     OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Isekai", fontSize: 13, language: "zh-CN") [FAIL]
+[xUnit.net 00:00:05.54]       Stack Trace:
+[xUnit.net 00:00:05.54]            at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+[xUnit.net 00:00:05.54]            at Avalonia.Threading.Dispatcher.VerifyAccess()
+[xUnit.net 00:00:05.54]            at Avalonia.AvaloniaObject.VerifyAccess()
+[xUnit.net 00:00:05.54]            at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+[xUnit.net 00:00:05.54]            at Avalonia.Media.DashStyle.get_Dashes()
+[xUnit.net 00:00:05.54]            at Avalonia.Media.DashStyle.ToImmutable()
+[xUnit.net 00:00:05.54]            at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+[xUnit.net 00:00:05.54]            at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+[xUnit.net 00:00:05.54]            at Avalonia.Rendering.Composition.Compositor.CommitCore()
+[xUnit.net 00:00:05.54]            at Avalonia.Rendering.Composition.Compositor.Commit()
+[xUnit.net 00:00:05.54]            at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+[xUnit.net 00:00:05.54]            at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+[xUnit.net 00:00:05.54]            at Avalonia.Media.MediaContext.RenderCore()
+[xUnit.net 00:00:05.54]            at Avalonia.Media.MediaContext.Render()
+[xUnit.net 00:00:05.54]            at Avalonia.Threading.DispatcherOperation.InvokeCore()
+[xUnit.net 00:00:05.54]            at Avalonia.Threading.DispatcherOperation.Execute()
+[xUnit.net 00:00:05.54]            at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+[xUnit.net 00:00:05.54]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+[xUnit.net 00:00:05.54]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+[xUnit.net 00:00:05.54]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(120,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window)
+[xUnit.net 00:00:05.54]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(52,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0()
+[xUnit.net 00:00:05.54]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:05.54]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:05.54]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:05.54]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.54]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(38,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language)
+[xUnit.net 00:00:05.54]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.57]       System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+[xUnit.net 00:00:05.57]     OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Light", fontSize: 18, language: "en-US") [FAIL]
+[xUnit.net 00:00:05.57]       Stack Trace:
+[xUnit.net 00:00:05.57]            at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+[xUnit.net 00:00:05.57]            at Avalonia.Threading.Dispatcher.VerifyAccess()
+[xUnit.net 00:00:05.57]            at Avalonia.AvaloniaObject.VerifyAccess()
+[xUnit.net 00:00:05.57]            at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+[xUnit.net 00:00:05.57]            at Avalonia.Media.DashStyle.get_Dashes()
+[xUnit.net 00:00:05.57]            at Avalonia.Media.DashStyle.ToImmutable()
+[xUnit.net 00:00:05.57]            at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+[xUnit.net 00:00:05.57]            at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+[xUnit.net 00:00:05.57]            at Avalonia.Rendering.Composition.Compositor.CommitCore()
+[xUnit.net 00:00:05.57]            at Avalonia.Rendering.Composition.Compositor.Commit()
+[xUnit.net 00:00:05.57]            at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+[xUnit.net 00:00:05.57]            at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+[xUnit.net 00:00:05.57]            at Avalonia.Media.MediaContext.RenderCore()
+[xUnit.net 00:00:05.57]            at Avalonia.Media.MediaContext.Render()
+[xUnit.net 00:00:05.57]            at Avalonia.Threading.DispatcherOperation.InvokeCore()
+[xUnit.net 00:00:05.57]            at Avalonia.Threading.DispatcherOperation.Execute()
+[xUnit.net 00:00:05.57]            at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+[xUnit.net 00:00:05.57]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+[xUnit.net 00:00:05.57]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+[xUnit.net 00:00:05.57]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(120,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window)
+[xUnit.net 00:00:05.57]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(52,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0()
+[xUnit.net 00:00:05.57]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:05.57]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:05.57]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:05.57]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.57]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(38,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language)
+[xUnit.net 00:00:05.57]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.93]       System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+[xUnit.net 00:00:05.93]     OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Lumen", fontSize: 13, language: "zh-CN") [FAIL]
+[xUnit.net 00:00:05.94]       Stack Trace:
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.Dispatcher.VerifyAccess()
+[xUnit.net 00:00:05.94]            at Avalonia.AvaloniaObject.VerifyAccess()
+[xUnit.net 00:00:05.94]            at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+[xUnit.net 00:00:05.94]            at Avalonia.Media.DashStyle.get_Dashes()
+[xUnit.net 00:00:05.94]            at Avalonia.Media.DashStyle.ToImmutable()
+[xUnit.net 00:00:05.94]            at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+[xUnit.net 00:00:05.94]            at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+[xUnit.net 00:00:05.94]            at Avalonia.Rendering.Composition.Compositor.CommitCore()
+[xUnit.net 00:00:05.94]            at Avalonia.Rendering.Composition.Compositor.Commit()
+[xUnit.net 00:00:05.94]            at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+[xUnit.net 00:00:05.94]            at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+[xUnit.net 00:00:05.94]            at Avalonia.Media.MediaContext.RenderCore()
+[xUnit.net 00:00:05.94]            at Avalonia.Media.MediaContext.Render()
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.DispatcherOperation.InvokeCore()
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.DispatcherOperation.Execute()
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+[xUnit.net 00:00:05.94]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(120,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window)
+[xUnit.net 00:00:05.94]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(52,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0()
+[xUnit.net 00:00:05.94]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:05.94]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:05.94]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:05.94]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.94]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(38,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language)
+[xUnit.net 00:00:05.94]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.97]     OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Pixel", fontSize: 13, language: "zh-CN") [FAIL]
+[xUnit.net 00:00:05.97]       System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+[xUnit.net 00:00:05.97]       Stack Trace:
+[xUnit.net 00:00:05.97]            at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+[xUnit.net 00:00:05.97]            at Avalonia.Threading.Dispatcher.VerifyAccess()
+[xUnit.net 00:00:05.97]            at Avalonia.AvaloniaObject.VerifyAccess()
+[xUnit.net 00:00:05.97]            at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+[xUnit.net 00:00:05.97]            at Avalonia.Media.DashStyle.get_Dashes()
+[xUnit.net 00:00:05.97]            at Avalonia.Media.DashStyle.ToImmutable()
+[xUnit.net 00:00:05.97]            at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+[xUnit.net 00:00:05.97]            at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+[xUnit.net 00:00:05.97]            at Avalonia.Rendering.Composition.Compositor.CommitCore()
+[xUnit.net 00:00:05.97]            at Avalonia.Rendering.Composition.Compositor.Commit()
+[xUnit.net 00:00:05.97]            at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+[xUnit.net 00:00:05.97]            at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+[xUnit.net 00:00:05.97]            at Avalonia.Media.MediaContext.RenderCore()
+[xUnit.net 00:00:05.97]            at Avalonia.Media.MediaContext.Render()
+[xUnit.net 00:00:05.97]            at Avalonia.Threading.DispatcherOperation.InvokeCore()
+[xUnit.net 00:00:05.97]            at Avalonia.Threading.DispatcherOperation.Execute()
+[xUnit.net 00:00:05.97]            at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+[xUnit.net 00:00:05.97]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+[xUnit.net 00:00:05.97]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+[xUnit.net 00:00:05.97]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(120,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window)
+[xUnit.net 00:00:05.97]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(52,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0()
+[xUnit.net 00:00:05.97]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:05.97]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:05.97]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:05.97]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.97]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(38,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language)
+[xUnit.net 00:00:05.97]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.32]       System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+[xUnit.net 00:00:06.32]     OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Light", fontSize: 13, language: "zh-CN") [FAIL]
+[xUnit.net 00:00:06.32]       Stack Trace:
+[xUnit.net 00:00:06.32]            at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+[xUnit.net 00:00:06.32]            at Avalonia.Threading.Dispatcher.VerifyAccess()
+[xUnit.net 00:00:06.32]            at Avalonia.AvaloniaObject.VerifyAccess()
+[xUnit.net 00:00:06.32]            at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+[xUnit.net 00:00:06.32]            at Avalonia.Media.DashStyle.get_Dashes()
+[xUnit.net 00:00:06.32]            at Avalonia.Media.DashStyle.ToImmutable()
+[xUnit.net 00:00:06.32]            at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+[xUnit.net 00:00:06.32]            at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+[xUnit.net 00:00:06.32]            at Avalonia.Rendering.Composition.Compositor.CommitCore()
+[xUnit.net 00:00:06.32]            at Avalonia.Rendering.Composition.Compositor.Commit()
+[xUnit.net 00:00:06.32]            at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+[xUnit.net 00:00:06.32]            at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+[xUnit.net 00:00:06.32]            at Avalonia.Media.MediaContext.RenderCore()
+[xUnit.net 00:00:06.32]            at Avalonia.Media.MediaContext.Render()
+[xUnit.net 00:00:06.32]            at Avalonia.Threading.DispatcherOperation.InvokeCore()
+[xUnit.net 00:00:06.32]            at Avalonia.Threading.DispatcherOperation.Execute()
+[xUnit.net 00:00:06.32]            at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+[xUnit.net 00:00:06.32]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+[xUnit.net 00:00:06.32]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+[xUnit.net 00:00:06.32]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(120,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window)
+[xUnit.net 00:00:06.32]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(52,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0()
+[xUnit.net 00:00:06.32]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:06.32]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:06.32]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:06.32]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.32]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(38,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language)
+[xUnit.net 00:00:06.32]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.70]       System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+[xUnit.net 00:00:06.70]     OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Dark", fontSize: 13, language: "zh-CN") [FAIL]
+[xUnit.net 00:00:06.70]       Stack Trace:
+[xUnit.net 00:00:06.70]            at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+[xUnit.net 00:00:06.70]            at Avalonia.Threading.Dispatcher.VerifyAccess()
+[xUnit.net 00:00:06.70]            at Avalonia.AvaloniaObject.VerifyAccess()
+[xUnit.net 00:00:06.70]            at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+[xUnit.net 00:00:06.70]            at Avalonia.Media.DashStyle.get_Dashes()
+[xUnit.net 00:00:06.70]            at Avalonia.Media.DashStyle.ToImmutable()
+[xUnit.net 00:00:06.70]            at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+[xUnit.net 00:00:06.70]            at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+[xUnit.net 00:00:06.70]            at Avalonia.Rendering.Composition.Compositor.CommitCore()
+[xUnit.net 00:00:06.70]            at Avalonia.Rendering.Composition.Compositor.Commit()
+[xUnit.net 00:00:06.70]            at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+[xUnit.net 00:00:06.70]            at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+[xUnit.net 00:00:06.70]            at Avalonia.Media.MediaContext.RenderCore()
+[xUnit.net 00:00:06.70]            at Avalonia.Media.MediaContext.Render()
+[xUnit.net 00:00:06.70]            at Avalonia.Threading.DispatcherOperation.InvokeCore()
+[xUnit.net 00:00:06.70]            at Avalonia.Threading.DispatcherOperation.Execute()
+[xUnit.net 00:00:06.70]            at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+[xUnit.net 00:00:06.70]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+[xUnit.net 00:00:06.70]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+[xUnit.net 00:00:06.70]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(120,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window)
+[xUnit.net 00:00:06.70]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(52,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0()
+[xUnit.net 00:00:06.70]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0()
+[xUnit.net 00:00:06.70]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+[xUnit.net 00:00:06.70]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:06.70]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.70]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(38,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language)
+[xUnit.net 00:00:06.70]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.71]   Finished:    OpticalSystemDesign.Tests
+  失败 OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Isekai", fontSize: 13, language: "zh-CN") [298 ms]
+  错误消息:
+   System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+  堆栈跟踪:
+     at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+   at Avalonia.Media.DashStyle.get_Dashes()
+   at Avalonia.Media.DashStyle.ToImmutable()
+   at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+   at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+   at Avalonia.Rendering.Composition.Compositor.CommitCore()
+   at Avalonia.Rendering.Composition.Compositor.Commit()
+   at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+   at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+   at Avalonia.Media.MediaContext.RenderCore()
+   at Avalonia.Media.MediaContext.Render()
+   at Avalonia.Threading.DispatcherOperation.InvokeCore()
+   at Avalonia.Threading.DispatcherOperation.Execute()
+   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 120
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 52
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 38
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Light", fontSize: 18, language: "en-US") [33 ms]
+  错误消息:
+   System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+  堆栈跟踪:
+     at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+   at Avalonia.Media.DashStyle.get_Dashes()
+   at Avalonia.Media.DashStyle.ToImmutable()
+   at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+   at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+   at Avalonia.Rendering.Composition.Compositor.CommitCore()
+   at Avalonia.Rendering.Composition.Compositor.Commit()
+   at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+   at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+   at Avalonia.Media.MediaContext.RenderCore()
+   at Avalonia.Media.MediaContext.Render()
+   at Avalonia.Threading.DispatcherOperation.InvokeCore()
+   at Avalonia.Threading.DispatcherOperation.Execute()
+   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 120
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 52
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 38
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Lumen", fontSize: 13, language: "zh-CN") [362 ms]
+  错误消息:
+   System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+  堆栈跟踪:
+     at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+   at Avalonia.Media.DashStyle.get_Dashes()
+   at Avalonia.Media.DashStyle.ToImmutable()
+   at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+   at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+   at Avalonia.Rendering.Composition.Compositor.CommitCore()
+   at Avalonia.Rendering.Composition.Compositor.Commit()
+   at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+   at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+   at Avalonia.Media.MediaContext.RenderCore()
+   at Avalonia.Media.MediaContext.Render()
+   at Avalonia.Threading.DispatcherOperation.InvokeCore()
+   at Avalonia.Threading.DispatcherOperation.Execute()
+   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 120
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 52
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 38
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Pixel", fontSize: 13, language: "zh-CN") [35 ms]
+  错误消息:
+   System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+  堆栈跟踪:
+     at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+   at Avalonia.Media.DashStyle.get_Dashes()
+   at Avalonia.Media.DashStyle.ToImmutable()
+   at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+   at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+   at Avalonia.Rendering.Composition.Compositor.CommitCore()
+   at Avalonia.Rendering.Composition.Compositor.Commit()
+   at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+   at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+   at Avalonia.Media.MediaContext.RenderCore()
+   at Avalonia.Media.MediaContext.Render()
+   at Avalonia.Threading.DispatcherOperation.InvokeCore()
+   at Avalonia.Threading.DispatcherOperation.Execute()
+   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 120
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 52
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 38
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Light", fontSize: 13, language: "zh-CN") [350 ms]
+  错误消息:
+   System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+  堆栈跟踪:
+     at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+   at Avalonia.Media.DashStyle.get_Dashes()
+   at Avalonia.Media.DashStyle.ToImmutable()
+   at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+   at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+   at Avalonia.Rendering.Composition.Compositor.CommitCore()
+   at Avalonia.Rendering.Composition.Compositor.Commit()
+   at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+   at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+   at Avalonia.Media.MediaContext.RenderCore()
+   at Avalonia.Media.MediaContext.Render()
+   at Avalonia.Threading.DispatcherOperation.InvokeCore()
+   at Avalonia.Threading.DispatcherOperation.Execute()
+   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 120
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 52
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 38
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: "Dark", fontSize: 13, language: "zh-CN") [381 ms]
+  错误消息:
+   System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+  堆栈跟踪:
+     at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Threading.Dispatcher.VerifyAccess()
+   at Avalonia.AvaloniaObject.VerifyAccess()
+   at Avalonia.AvaloniaObject.GetValue[T](StyledProperty`1 property)
+   at Avalonia.Media.DashStyle.get_Dashes()
+   at Avalonia.Media.DashStyle.ToImmutable()
+   at Avalonia.Media.BrushExtensions.ToImmutable(IDashStyle style)
+   at Avalonia.Media.Pen.Avalonia.Rendering.Composition.ICompositorSerializable.SerializeChanges(Compositor c, BatchStreamWriter writer)
+   at Avalonia.Rendering.Composition.Compositor.CommitCore()
+   at Avalonia.Rendering.Composition.Compositor.Commit()
+   at Avalonia.Media.MediaContext.CommitCompositor(Compositor compositor)
+   at Avalonia.Media.MediaContext.CommitCompositorsWithThrottling()
+   at Avalonia.Media.MediaContext.RenderCore()
+   at Avalonia.Media.MediaContext.Render()
+   at Avalonia.Threading.DispatcherOperation.InvokeCore()
+   at Avalonia.Threading.DispatcherOperation.Execute()
+   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.Tick(Window window) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 120
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.<>c__DisplayClass1_0.<ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 52
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(String theme, Double fontSize, String language) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 38
+--- End of stack trace from previous location ---
+
+测试运行失败。
+测试总数: 7
+     失败数: 7
+总时间: 8.1921 秒

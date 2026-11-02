@@ -66,6 +66,15 @@ public partial class WorkbenchRuntime
         }
     }
 
+    internal void ResolveMaximumSemiDiameters()
+    {
+        var configurations = _multiConfiguration.Configurations.Select((optic, index) =>
+            index == _activeConfigurationIndex ? CurrentOptic : optic).ToArray();
+        AutomaticSemiDiameterSolver.UpdateMaximum(configurations);
+        if (configurations.Any(o => o.SurfaceGroup.Items.Any(s => s.SemiDiameterMaximum)))
+            SyncActiveConfigurationFromCurrent();
+    }
+
     public void ClearMultiConfigurationVariables() => _multiConfiguration.ClearOperandVariables();
 
     public void ClearGradientIndexVariables()

@@ -88,7 +88,8 @@ public sealed partial class MultiConfiguration
             if (rules.TryGetValue(source, out var rule))
                 foreach (var dependency in rule.Sources) sourceQueue.Enqueue(dependency);
             else if (source.Kind == MultiConfigurationOperandKind.SemiDiameter
-                && surfaces.TryGetValue((source.Configuration, source.Surface), out var sourceSurface) && !sourceSurface.SemiDiameterFixed)
+                && surfaces.TryGetValue((source.Configuration, source.Surface), out var sourceSurface)
+                && (!sourceSurface.SemiDiameterFixed || sourceSurface.SemiDiameterMaximum))
                 throw new InvalidOperationException("拾取源依赖自动半口径；请先将源半口径设为固定值或变量，再设置拾取。");
         }
 
@@ -114,8 +115,12 @@ public sealed partial class MultiConfiguration
             var cell = rule.Target; var surface = surfaces[(cell.Configuration, cell.Surface)];
             WriteStored(surface, cell.Kind, values[cell]);
             if (cell.Kind == MultiConfigurationOperandKind.SemiDiameter)
+            {
                 surface.SemiDiameterFixed = rule.BaseLink
                     ? surfaces[(rule.Sources[0].Configuration, rule.Sources[0].Surface)].SemiDiameterFixed : true;
+                surface.SemiDiameterMaximum = rule.BaseLink
+                    && surfaces[(rule.Sources[0].Configuration, rule.Sources[0].Surface)].SemiDiameterMaximum;
+            }
         }
         foreach (var optic in Configurations) optic.SurfaceGroup.Renumber();
     }

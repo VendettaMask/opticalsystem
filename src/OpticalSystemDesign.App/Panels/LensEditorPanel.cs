@@ -474,9 +474,15 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             {
                 ColumnDefinitions = new ColumnDefinitions("Auto,*")
             };
+            var indicator = new SurfaceRoleIndicator
+            {
+                Margin = new Avalonia.Thickness(8, 0, 6, 0),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center
+            };
             var role = new TextBlock
             {
-                Margin = new Avalonia.Thickness(8, 0),
+                Margin = new Avalonia.Thickness(22, 0, 8, 0),
                 HorizontalAlignment = HorizontalAlignment.Left,
                 TextAlignment = TextAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center
@@ -494,6 +500,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             type.Bind(TextBlock.TextProperty, new Binding(nameof(SurfaceEditorRow.SurfaceType)));
             type.Bind(ToolTip.TipProperty, new Binding(nameof(SurfaceEditorRow.SurfaceType)));
             Grid.SetColumn(type, 1);
+            content.Children.Add(indicator);
             content.Children.Add(role);
             content.Children.Add(type);
             return content;

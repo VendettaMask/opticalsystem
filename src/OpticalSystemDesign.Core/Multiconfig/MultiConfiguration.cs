@@ -198,6 +198,7 @@ public sealed partial class MultiConfiguration
             case "semiDiameter":
                 surface.SemiDiameter = value;
                 surface.SemiDiameterFixed = true;
+                surface.SemiDiameterMaximum = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(property));
@@ -275,6 +276,7 @@ public sealed partial class MultiConfiguration
                 {
                     target.SemiDiameter = source.SemiDiameter;
                     target.SemiDiameterFixed = source.SemiDiameterFixed;
+                    target.SemiDiameterMaximum = source.SemiDiameterMaximum;
                 }
 
                 if (!_brokenLinks.Contains((config, surfaceNumber, "material")))
@@ -340,6 +342,7 @@ public sealed partial class MultiConfiguration
             case "semiDiameter":
                 target.SemiDiameter = source.SemiDiameter;
                 target.SemiDiameterFixed = source.SemiDiameterFixed;
+                target.SemiDiameterMaximum = source.SemiDiameterMaximum;
                 break;
             case "material":
                 CopyMaterial(source, target);
@@ -373,7 +376,8 @@ public sealed partial class MultiConfiguration
         "thickness" => source.Thickness.Equals(target.Thickness),
         "conic" => source.Conic.Equals(target.Conic),
         "semiDiameter" => source.SemiDiameter.Equals(target.SemiDiameter)
-            && source.SemiDiameterFixed == target.SemiDiameterFixed,
+            && source.SemiDiameterFixed == target.SemiDiameterFixed
+            && source.SemiDiameterMaximum == target.SemiDiameterMaximum,
         "material" => source.Material.Equals(target.Material, StringComparison.OrdinalIgnoreCase)
             && source.MaterialAfter.Name.Equals(target.MaterialAfter.Name, StringComparison.OrdinalIgnoreCase)
             && source.IsReflective == target.IsReflective

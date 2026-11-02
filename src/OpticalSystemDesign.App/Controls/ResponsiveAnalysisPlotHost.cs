@@ -2,12 +2,13 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
+using Avalonia.Media;
 
 namespace OpticalSystemDesign.App.Controls;
 
 /// <summary>
-/// Reflows a plot page at its readable size. Native scrolling handles content
-/// that cannot fit; labels are never reduced by a page-wide scale transform.
+/// Fits an original drawing into its current viewport without changing the sheet.
+/// Actual-size mode uses native scrolling; non-drawing reports keep their readable layout.
 /// </summary>
 internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
 {
@@ -26,18 +27,28 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
 
     public Control? Child
     {
-        get => _page.Child;
-        set { _page.Child = value; Offset = default; }
+        get => _page.Source;
+        set { _page.Source = value; Offset = default; }
     }
 
-    internal double ContentScale => 1;
+    public bool FitToViewport
+    {
+        get => _page.FitToViewport;
+        set
+        {
+            if (_page.FitToViewport == value) return;
+            _page.FitToViewport = value; Offset = default; InvalidateMeasure();
+        }
+    }
+    internal double ContentScale => Child is UniformDiagramPage && Child.TransformToVisual(this) is { } transform
+        ? Math.Sqrt(transform.M11 * transform.M11 + transform.M12 * transform.M12) : 1;
     internal static double MinimumReadableWidth(Control control) => PlotPagePresenter.MinimumReadableWidth(control);
 
     protected override Size MeasureOverride(Size availableSize)
     {
-        _page.SetViewport(new Size(
-            Viewport.Width > 0 ? Math.Min(availableSize.Width, Viewport.Width) : availableSize.Width,
-            Viewport.Height > 0 ? Math.Min(availableSize.Height, Viewport.Height) : availableSize.Height));
+        // Use this layout pass's constraint. The previous ScrollViewer viewport
+        // can be smaller after a resize and must not cap the new measurement.
+        _page.SetViewport(availableSize);
         return base.MeasureOverride(availableSize);
     }
 
@@ -51,6 +62,38 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
     private sealed class PlotPagePresenter : Decorator
     {
         private Size _viewport = new(600, 414);
+        private readonly Viewbox _fit = new()
+        {
+            Stretch = Stretch.Uniform,
+            StretchDirection = StretchDirection.Both,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        private Control? _source;
+        internal Control? Source
+        {
+            get => _source;
+            set
+            {
+                if (ReferenceEquals(_source, value)) return;
+                Child = null; _fit.Child = null; _source = value;
+                if (value is UniformDiagramPage) { _fit.Child = value; Child = _fit; }
+                else Child = value;
+                InvalidateMeasure();
+            }
+        }
+        private bool _fitToViewport = true;
+        internal bool FitToViewport
+        {
+            get => _fitToViewport;
+            set
+            {
+                if (_fitToViewport == value) return;
+                _fitToViewport = value;
+                _fit.Stretch = value ? Stretch.Uniform : Stretch.None;
+                InvalidateMeasure();
+            }
+        }
 
         internal void SetViewport(Size size)
         {
@@ -64,10 +107,10 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
         protected override Size MeasureOverride(Size availableSize)
         {
             if (Child is null) return default;
-            if (Child is UniformDiagramPage)
+            if (Source is UniformDiagramPage)
             {
-                Child.Measure(new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
-                return new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight);
+                _fit.Measure(FitToViewport ? _viewport : new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
+                return _fit.DesiredSize;
             }
             var width = Math.Max(Math.Max(320, _viewport.Width), MinimumReadableWidth(Child));
             Child.Measure(new Size(width, double.PositiveInfinity));

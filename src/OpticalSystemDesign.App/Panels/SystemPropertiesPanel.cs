@@ -755,6 +755,16 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
     private Control CreateWavelengthCard(WavelengthRowDto wavelength)
     {
         TextBlock? summaryDisplay = null;
+        var colorDot = new Border
+        {
+            Width = 8,
+            Height = 8,
+            CornerRadius = new CornerRadius(4),
+            VerticalAlignment = VerticalAlignment.Center,
+            IsHitTestVisible = false,
+            Background = new SolidColorBrush(SpectralColorMap.FromVisibleNanometers(wavelength.Nanometers))
+        };
+        colorDot.Classes.Add("wavelength-color-dot");
         var label = new TextBox { Text = wavelength.Label };
         var nanometers = NumberInput(wavelength.Nanometers, 0.001, 1_000_000, 1);
         var weight = NumberInput(wavelength.Weight, 0, 1_000_000, 0.1);
@@ -769,6 +779,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
 
             var nextNanometers = DecimalValue(nanometers, wavelength.Nanometers);
             var nextWeight = DecimalValue(weight, wavelength.Weight);
+            colorDot.Background = new SolidColorBrush(SpectralColorMap.FromVisibleNanometers(nextNanometers));
             if (summaryDisplay is not null)
             {
                 summaryDisplay.Text = $"{NumericDisplayFormatter.Format(nextNanometers / 1000)} μm · " +
@@ -803,7 +814,8 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
                 $"权重 {NumericDisplayFormatter.Format(wavelength.Weight)}"
                 + (wavelength.IsPrimary ? " · 主波长" : string.Empty),
             content,
-            _expandedWavelengths);
+            _expandedWavelengths,
+            indicator: colorDot);
         summaryDisplay = card.Summary;
         return card.Card;
     }
@@ -846,7 +858,8 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         string summary,
         Control content,
         HashSet<int> expandedItems,
-        bool isField = false)
+        bool isField = false,
+        Control? indicator = null)
     {
         var arrow = new LocalIcon { IconName = "chevron-right", Width = 16, Height = 16 };
         var titleText = new TextBlock
@@ -868,10 +881,15 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         Grid.SetColumn(summaryText, 2);
         var headerContent = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions("18,Auto,*"),
+            ColumnDefinitions = new ColumnDefinitions(indicator is null ? "18,Auto,*" : "18,Auto,*,Auto"),
             ColumnSpacing = 6,
             Children = { arrow, titleText, summaryText }
         };
+        if (indicator is not null)
+        {
+            Grid.SetColumn(indicator, 3);
+            headerContent.Children.Add(indicator);
+        }
         var contentHost = new Border
         {
             Padding = new Thickness(8, 8, 8, 12),

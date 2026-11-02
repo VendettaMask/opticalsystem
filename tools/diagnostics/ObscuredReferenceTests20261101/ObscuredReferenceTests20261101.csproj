@@ -10,10 +10,24 @@
   <ItemGroup>
     <ProjectReference Include="../../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/ObscuredReferenceTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/HuygensFourierSumTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/IdenticalFieldIlluminationTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ImageCosineIlluminationTests.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/OpticalTestingPropagationTests.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/ZemaxImportParameterAndSurfaceMappingTests.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/ReflectiveParaxialSignTests.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/ParaxialTransferMatrixTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ParaxialImageHeightLaunchTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ParaxialImageHeightWavefrontTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/MaximumSemiDiameterTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/GeometricPupilAndFrequencyTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/FftSamplingReferenceRepairTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/SurfaceSolveTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ZemaxLayoutApertureTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/MultiConfigurationPickupTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/MultiConfigurationVariableTests.cs" />
+    <None Include="../../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Miscellaneous/Bi-ocular lens.ZMX" Link="Fixtures/biocular/Bi-ocular lens.ZMX" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Telescopes/Unobscured Gregorian.zmx" Link="Fixtures/biocular/Unobscured Gregorian.zmx" CopyToOutputDirectory="PreserveNewest" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/OpticalPathDifferenceAnalysisTests.cs" />
     <Compile Include="../../OpticalSystemDesign.ZemaxComparison/NativeRaySurfaceMap.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.ZemaxComparison.Tests/NativeRaySurfaceMapTests.cs" />

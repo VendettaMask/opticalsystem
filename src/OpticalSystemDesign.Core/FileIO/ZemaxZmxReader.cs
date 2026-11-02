@@ -30,6 +30,8 @@ internal static partial class ZemaxZmxReader
         var configurations = Enumerable.Range(0, Math.Max(1, document.ConfigurationCount))
             .Select(configurationIndex => BuildOptic(document, configurationIndex))
             .ToArray();
+        if (!configurations.Any(optic => optic.SurfaceGroup.Items.Any(s => s.MaterialAfter is UnresolvedMaterial)))
+            Services.AutomaticSemiDiameterSolver.UpdateMaximum(configurations);
         var activeConfigurationIndex = DetectActiveConfiguration(document);
         return new ZemaxZmxImportResult(
             configurations[activeConfigurationIndex],
@@ -1142,6 +1144,7 @@ internal static partial class ZemaxZmxReader
                 SemiDiameter = semiDiameter,
                 MechanicalSemiDiameterSolveCode = source.MechanicalSemiDiameterSolveCode,
                 SemiDiameterFixed = source.SemiDiameterFixed,
+                SemiDiameterMaximum = source.SemiDiameterSolveCode == 3,
                 Conic = referencePlane || geometry is TiltedPlaneGeometry or TernaryMirrorArrayGeometry or ChebyshevSagGeometry ? 0 : source.Conic,
                 IsStop = source.IsStop,
                 IsReflective = isReflective,
@@ -1151,9 +1154,8 @@ internal static partial class ZemaxZmxReader
                 InteractionModel = interaction,
                 PhysicalAperture = physicalAperture,
                 SemiDiameterDefinesPhysicalAperture = physicalAperture is CircularAperture && !source.CircularAperture
-                    && !source.IsStop
-                    && source.SemiDiameterFixed
-                    && HasSurfacePower(source),
+                    && ((!source.IsStop && source.SemiDiameterFixed && HasSurfacePower(source))
+                        || source.SemiDiameterSolveCode == 3 && source.FloatingAperture),
                 CoordinateSystem = coordinate
             };
             if (source.MechanicalSemiDiameter is { } mechanicalSemiDiameter)
@@ -2099,7 +2101,8 @@ internal static partial class ZemaxZmxReader
             ? RequiredInt(tokens, 2, "DIAM")
             : 0;
 
-        // OpticStudio solve codes: 0 = automatic, 1 = user defined, 2 = pickup.
+        // OpticStudio solve codes: 0 = automatic, 1 = user defined,
+        // 2 = pickup, 3 = maximum across the complete configuration set.
         surface.SemiDiameterSolveCode = solveCode;
         surface.SemiDiameterFixed = solveCode != 0;
         if (solveCode == 2)

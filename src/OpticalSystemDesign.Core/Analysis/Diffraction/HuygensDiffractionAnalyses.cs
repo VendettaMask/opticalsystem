@@ -236,6 +236,7 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             ["GeometricChiefReferenceUsed"] = synthesis.Psf.GeometricChiefReferenceUsed,
             ["SamplingStatus"] = synthesis.Psf.HuygensSamplingChecks is { Count: > 0 } ? "SamplingStable" : "NotAssessed",
             ["SamplingChecks"] = synthesis.Psf.HuygensSamplingChecks ?? Array.Empty<HuygensSamplingDiagnostics>(),
+            ["SummationChecks"] = synthesis.Psf.HuygensFourierChecks ?? Array.Empty<HuygensFourierDiagnostics>(),
             ["ImagePlane"] = "Chief ray tangent plane",
             ["PupilSampling"] = _numRays,
             ["ImageSize"] = _imageSize,

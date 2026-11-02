@@ -32,7 +32,9 @@ internal static class HuygensPsfSynthesis
         ArgumentNullException.ThrowIfNull(wavelengths);
         if (wavelengths.Count == 0)
             throw new ArgumentException("Huygens synthesis requires a wavelength.", nameof(wavelengths));
-        AnalysisResourceLimits.ValidateDirectPsfWork(pupilSampling, imageSize);
+        if (afocalIntegration == AfocalHuygensIntegration.NativeFiniteCell)
+            HuygensFourierSum.ValidateCandidateWork(pupilSampling, imageSize);
+        else AnalysisResourceLimits.ValidateDirectPsfWork(pupilSampling, imageSize);
         referenceWavelength ??= wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
         var weightScale = wavelengths.Max(w => w.Weight);
         var contributors = weightScale > 0
@@ -47,6 +49,7 @@ internal static class HuygensPsfSynthesis
         var quadratureNodes = 0;
         var geometricChiefReferenceUsed = false;
         var samplingChecks = new List<HuygensSamplingDiagnostics>();
+        var fourierChecks = new List<HuygensFourierDiagnostics>();
         var remainingSamplingOperations = maximumSamplingOperations;
         foreach (var wavelength in contributors)
         {
@@ -81,6 +84,7 @@ internal static class HuygensPsfSynthesis
                 samplingChecks.AddRange(checks);
                 remainingSamplingOperations -= checks.Sum(check => check.CumulativeOperations);
             }
+            if (psf.HuygensFourierChecks is { } summations) fourierChecks.AddRange(summations);
             if (polarizationMode is { } previous && previous != psf.HuygensPolarization)
                 throw new AnalysisDataUnavailableException("Huygens PSF", "spectral components use different polarization models");
             polarizationMode = psf.HuygensPolarization;
@@ -109,7 +113,8 @@ internal static class HuygensPsfSynthesis
             AfocalIntegration = optic.ImageSpaceAfocal ? afocalIntegration : null,
             PupilQuadratureNodeCount = quadratureNodes,
             GeometricChiefReferenceUsed = geometricChiefReferenceUsed,
-            HuygensSamplingChecks = samplingChecks.Count > 0 ? samplingChecks.ToArray() : null
+            HuygensSamplingChecks = samplingChecks.Count > 0 ? samplingChecks.ToArray() : null,
+            HuygensFourierChecks = fourierChecks.Count > 0 ? fourierChecks.ToArray() : null
         }, idealPeakWeight);
     }
 }

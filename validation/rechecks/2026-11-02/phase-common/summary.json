@@ -1,0 +1,79 @@
+{
+  "defaultAppBuild": {
+    "warnings": 0,
+    "errors": 0,
+    "passed": true,
+    "builtInModules": 2
+  },
+  "byLens": [
+    {
+      "counts": {
+        "Close": 2,
+        "Incomparable": 8,
+        "Pass": 50
+      },
+      "lens": "Miscellaneous/Bi-ocular lens.ZMX"
+    },
+    {
+      "counts": {
+        "Incomparable": 11,
+        "Pass": 55
+      },
+      "lens": "Zoom systems/Scanning mirror.zmx"
+    },
+    {
+      "counts": {
+        "Incomparable": 7,
+        "Pass": 83
+      },
+      "lens": "Zoom systems/Zoom lens.zmx"
+    }
+  ],
+  "notAll95": true,
+  "priorPassLost": [],
+  "coreAfter": "ac2ffd188c3e9a2b9b2ced74c54454336da0e0099b420c0138f54e276e66a277",
+  "nativeConvergenceNotEstablishedByReplay": true,
+  "unchangedRequestsAndTolerances": true,
+  "testsFailed": 0,
+  "fixedIndexes": [
+    2956,
+    2960,
+    2964,
+    2986,
+    2990,
+    2994,
+    3016,
+    3020,
+    3024
+  ],
+  "freshImport": true,
+  "newNativeCapture": false,
+  "after": {
+    "Close": 2,
+    "Incomparable": 26,
+    "Pass": 188
+  },
+  "inputs": [
+    {
+      "lens": "Miscellaneous/Bi-ocular lens.ZMX",
+      "sha256": "c189f6e95deacc7eca0784ff971f83391b729cb856b9fb4413b3d850dbf16a63"
+    },
+    {
+      "lens": "Zoom systems/Scanning mirror.zmx",
+      "sha256": "ad2b7a0922cf0dbc29d560a8507ce38254b0862c3f0d94329d91d22b48d30af6"
+    },
+    {
+      "lens": "Zoom systems/Zoom lens.zmx",
+      "sha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9"
+    }
+  ],
+  "completedUtc": "2026-11-02T12:49:51.9139682+00:00",
+  "coreBefore": "f7808d4e25f2c9aa4a760add99b428fcf23d6698ac5aed42f8857fd0891de6bf",
+  "before": {
+    "Close": 2,
+    "Difference": 9,
+    "Incomparable": 26,
+    "Pass": 179
+  },
+  "testsPassed": 36
+}

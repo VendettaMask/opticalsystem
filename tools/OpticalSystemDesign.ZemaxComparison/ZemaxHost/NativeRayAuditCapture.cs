@@ -25,6 +25,14 @@ internal static class NativeRayAuditCapture
         {
             if (Convert.ToBoolean(Host.Request["removeVignettingFactors"])) fields.ClearVignetting();
             system.UpdateStatus();
+            Host.Write("surface-aperture-solves.json", Host.Object("inputSaved", false, "surfaces",
+                Enumerable.Range(0, system.LDE.NumberOfSurfaces).Select(i =>
+                {
+                    var surface = system.LDE.GetSurfaceAt(i);
+                    return Host.Object("surface", i, "semiDiameter", surface.SemiDiameter,
+                        "solveType", surface.SemiDiameterCell.GetSolveData().Type.ToString(),
+                        "aperture", Host.Properties(surface.ApertureData));
+                }).ToArray()));
             // Newly exported prescriptions may not carry saved pupil caches.
             // Ask native OpticStudio to calculate the system before querying
             // direct launch coordinates or opening normalized ray batches.
